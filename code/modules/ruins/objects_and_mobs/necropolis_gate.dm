@@ -23,7 +23,7 @@
 	var/obj/structure/opacity_blocker/sight_blocker
 	var/sight_blocker_distance = 1
 
-/obj/structure/necropolis_gate/Initialize()
+/obj/structure/necropolis_gate/Initialize(mapload)
 	. = ..()
 	var/turf/sight_blocker_turf = get_turf(src)
 	if(sight_blocker_distance)
@@ -48,6 +48,12 @@
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/necropolis_gate/Destroy()
 	qdel(sight_blocker, TRUE)
 	return ..()
@@ -55,15 +61,16 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return
 
-/obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
-	if(get_dir(loc, target) == dir)
+/obj/structure/necropolis_gate/CanPass(atom/movable/mover, border_dir)
+	if(border_dir == dir)
 		return !density
 	return TRUE
 
-/obj/structure/necropolis_gate/CheckExit(atom/movable/O, target)
-	if(get_dir(O.loc, target) == dir)
-		return !density
-	return TRUE
+/obj/structure/necropolis_gate/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(direction == dir && density)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -82,7 +89,7 @@
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	. = ..()
 	if(locked)
-		to_chat(user, "<span class='boldannounceic'>It's [open ? "stuck open" : "locked"].</span>")
+		to_chat(user, SPAN_BOLDANNOUNCEIC("It's [open ? "stuck open" : "locked"]."))
 		return
 
 	if(GLOB.necropolis_gate == src) //funny override for knock knock gate
@@ -100,7 +107,7 @@
 
 	if(open)
 		new /obj/effect/temp_visual/necropolis(T)
-		visible_message("<span class='boldwarning'>The door slams closed!</span>")
+		visible_message(SPAN_BOLDWARNING("The door slams closed!"))
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
 		density = TRUE
 		var/turf/sight_blocker_turf = get_turf(src)
@@ -117,7 +124,7 @@
 
 	cut_overlay(door_overlay)
 	new /obj/effect/temp_visual/necropolis/open(T)
-	visible_message("<span class='warning'>The door starts to grind open...</span>")
+	visible_message(SPAN_WARNING("The door starts to grind open..."))
 	playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
 	addtimer(CALLBACK(src, PROC_REF(toggle_closed_delayed_step)), 2.2 SECONDS, TIMER_UNIQUE)
 	return TRUE
@@ -142,7 +149,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	desc = "A tremendous, impossibly large gateway, set into a massive tower of stone."
 	sight_blocker_distance = 2
 
-/obj/structure/necropolis_gate/legion_gate/Initialize()
+/obj/structure/necropolis_gate/legion_gate/Initialize(mapload)
 	. = ..()
 	GLOB.necropolis_gate = src
 
@@ -157,7 +164,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		var/safety = tgui_alert(user, "You think this might be a bad idea...", "Knock on the door?", list("Proceed", "Abort"))
 		if(!safety || safety == "Abort" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
 			return
-		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounceic'>You tentatively knock on [src]...</span>")
+		user.visible_message(SPAN_WARNING("[user] knocks on [src]..."), SPAN_BOLDANNOUNCEIC("You tentatively knock on [src]..."))
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
 	return ..()
 
@@ -167,14 +174,14 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(..())
 		locked = TRUE
 		var/turf/T = get_turf(src)
-		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
+		visible_message(SPAN_USERDANGER("Something horrible emerges from the Necropolis!"))
 		message_admins("[user ? ADMIN_LOOKUPFLW(user) : "Unknown"] has released Legion!")
 		log_game("[user ? key_name(user) : "Unknown"] released Legion.")
 
 		var/sound/legion_sound = sound('sound/creatures/legion_spawn.ogg')
 		for(var/mob/M in GLOB.player_list)
 			if(M.z == z && M.client)
-				to_chat(M, "<span class='userdanger'>Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. Something horrible has been released.</span>")
+				to_chat(M, SPAN_USERDANGER("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. Something horrible has been released."))
 				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, S = legion_sound)
 				M.flash_screen_color("#FF0000", 5 SECONDS)
 		var/mutable_appearance/release_overlay = mutable_appearance('icons/effects/effects.dmi', "legiondoor")
@@ -207,7 +214,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/open = FALSE
 	var/static/mutable_appearance/top_overlay
 
-/obj/structure/necropolis_arch/Initialize()
+/obj/structure/necropolis_arch/Initialize(mapload)
 	. = ..()
 	icon_state = "arch_bottom"
 	top_overlay = mutable_appearance('icons/effects/160x160.dmi', "arch_top")

@@ -15,15 +15,15 @@
 		return
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only split while on flooring!</span>")
+			to_chat(user, SPAN_WARNING("You can only split while on flooring!"))
 		return FALSE
 
 /datum/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
+	to_chat(user, SPAN_SINISTER("You prepare to split in two, making you unable to vent crawl!"))
 	user.ventcrawler = VENTCRAWLER_NONE // Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))
-		to_chat(user, "<span class='warning'>Your body refuses to split at the moment. Try again later.</span>")
+		to_chat(user, SPAN_WARNING("Your body refuses to split at the moment. Try again later."))
 		revert_cast(user)
 		user.ventcrawler = initial(user.ventcrawler) // re enable the crawling
 		return

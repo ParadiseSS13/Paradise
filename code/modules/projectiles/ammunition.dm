@@ -1,23 +1,34 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
-	icon_state = "s-casing"
+	icon = 'icons/obj/bullet.dmi'
+	icon_state = "pistol_brass"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
-	var/fire_sound = null						//What sound should play when this ammo is fired
-	var/casing_drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
-	var/caliber = null							//Which kind of guns it can be loaded into
-	var/projectile_type = null					//The bullet type to create when New() is called
-	var/obj/item/projectile/BB = null 			//The loaded bullet
-	var/pellets = 1								//Pellets for spreadshot
-	var/variance = 0							//Variance for inaccuracy fundamental to the casing
-	var/delay = 0								//Delay for energy weapons
-	var/randomspread = 0						//Randomspread for automatics
-	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
-	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
+	/// What sound should play when this ammo is fired.
+	var/fire_sound = null
+	/// What sound should play when this ammo hits the ground.
+	var/casing_drop_sound = "casingdrop"
+	/// Which kind of guns it can be loaded into.
+	var/caliber = null
+	/// The bullet type to create when New() is called.
+	var/projectile_type = null
+	/// The loaded bullet.
+	var/obj/projectile/BB = null
+	/// Pellets for spreadshot.
+	var/pellets = 1
+	/// Variance for inaccuracy fundamental to the casing.
+	var/variance = 0
+	/// Delay for energy weapons.
+	var/delay = 0
+	/// Random spread for automatics.
+	var/randomspread = 0
+	/// Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
+	var/click_cooldown_override = 0
+	/// Pacifism check for boolet, set to FALSE if bullet is non-lethal.
+	var/harmful = TRUE
 
 	/// What type of muzzle flash effect will be shown. If null then no effect and flash of light will be shown
 	var/muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
@@ -28,12 +39,14 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
-/obj/item/ammo_casing/New()
-	..()
+	scatter_distance = 10
+	new_attack_chain = TRUE
+
+/obj/item/ammo_casing/Initialize(mapload)
+	. = ..()
 	if(projectile_type)
 		BB = new projectile_type(src)
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	scatter_atom()
 	dir = pick(GLOB.alldirs)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
@@ -44,42 +57,47 @@
 /obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
-/obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
+/obj/item/ammo_casing/proc/newshot(params) // For energy weapons, shotgun shells and wands (!).
 	if(!BB)
 		BB = new projectile_type(src, params)
 	return
 
-/obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/ammo_box))
-		var/obj/item/ammo_box/box = I
-		if(box.slow_loading)
-			return
-		if(isturf(loc))
-			var/boolets = 0
-			for(var/obj/item/ammo_casing/bullet in loc)
-				if(length(box.stored_ammo) >= box.max_ammo)
-					break
-				if(bullet.BB)
-					if(box.give_round(bullet, 0))
-						boolets++
-				else
-					continue
-			if(boolets > 0)
-				box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
-				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-			else
-				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
-	else
-		..()
+/obj/item/ammo_casing/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/ammo_box))
+		return ..()
+
+	var/obj/item/ammo_box/box = used
+	if(box.slow_loading)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!isturf(loc))
+		return ITEM_INTERACT_COMPLETE
+
+	var/boolets = 0
+	for(var/obj/item/ammo_casing/bullet in loc)
+		if(length(box.stored_ammo) >= box.max_ammo)
+			break
+
+		if(bullet.BB)
+			if(box.give_round(bullet, 0))
+				boolets++
+
+	if(boolets <= 0)
+		to_chat(user, SPAN_WARNING("You fail to collect anything!"))
+		return ITEM_INTERACT_COMPLETE
+
+	box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+	to_chat(user, SPAN_NOTICE("You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s."))
+	playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!BB)
-		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+		to_chat(user, SPAN_NOTICE("There is no bullet in the casing to inscribe anything into."))
 		return
 	if(!initial(BB.name) == "bullet")
-		to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+		to_chat(user, SPAN_NOTICE("You can only inscribe a metal bullet."))//because inscribing beanbags is silly
 		return
 
 	var/tmp_label = ""
@@ -88,18 +106,15 @@
 		return
 
 	if(length(label_text) > 20)
-		to_chat(user, "<span class='warning'>The inscription can be at most 20 characters long.</span>")
+		to_chat(user, SPAN_WARNING("The inscription can be at most 20 characters long."))
 		return
 
 	if(label_text == "")
-		to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+		to_chat(user, SPAN_NOTICE("You scratch the inscription off of [initial(BB)]."))
 		BB.name = initial(BB.name)
 	else
-		to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+		to_chat(user, SPAN_NOTICE("You inscribe \"[label_text]\" into \the [initial(BB.name)]."))
 		BB.name = "[initial(BB.name)] \"[label_text]\""
-
-
-
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && !BB)
@@ -111,15 +126,15 @@
 /obj/item/ammo_casing/emp_act(severity)
 	BB?.emp_act(severity)
 
-//Boxes of ammo
+// Boxes of ammo.
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "A box of ammo?"
 	icon = 'icons/obj/ammo.dmi'
-	icon_state = "10mmbox" // placeholder icon
+	icon_state = "10mmbox" // Placeholder icon.
+	inhand_icon_state = "syringe_kit"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
-	item_state = "syringe_kit"
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 30000)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
@@ -128,11 +143,13 @@
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
-	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
+	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // See update_icon_state for details.
 	var/caliber
 	var/multiload = 1
 	var/slow_loading = FALSE
-	var/list/initial_mats //For calculating refund values.
+	/// For calculating refund values.
+	var/list/initial_mats
+	new_attack_chain = TRUE
 
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
@@ -152,7 +169,7 @@
 		var/b = stored_ammo[length(stored_ammo)]
 		stored_ammo -= b
 		if(keep)
-			stored_ammo.Insert(1,b)
+			stored_ammo.Insert(1, b)
 		if(!initial_mats)
 			initial_mats = materials.Copy()
 		update_mat_value()
@@ -166,67 +183,86 @@
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 
 	if(length(stored_ammo) < max_ammo)
 		stored_ammo += R
-		R.loc = src
+		R.forceMove(src)
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 		update_mat_value()
-		return 1
-	//for accessibles magazines (e.g internal ones) when full, start replacing spent ammo
+		return TRUE
+	// For accessibles magazines (e.g internal ones) when full, start replacing spent ammo.
 	else if(replace_spent)
 		for(var/obj/item/ammo_casing/AC in stored_ammo)
-			if(!AC.BB)//found a spent ammo
+			if(!AC.BB)
+				// Found a spent ammo.
 				stored_ammo -= AC
-				AC.loc = get_turf(loc)
+				AC.forceMove(get_turf(loc))
 
 				stored_ammo += R
-				R.loc = src
+				R.forceMove(src)
 				playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 				update_mat_value()
-				return 1
+				return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/ammo_box/proc/can_load(mob/user)
-	return 1
+	return TRUE
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
-	var/num_loaded = 0
+/obj/item/ammo_box/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!can_load(user))
-		return
-	if(istype(A, /obj/item/ammo_box))
-		var/obj/item/ammo_box/AM = A
-		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
-			var/did_load = give_round(AC, replace_spent)
+		return ..()
+
+	if(!istype(used, /obj/item/ammo_box) && !istype(used, /obj/item/ammo_casing))
+		return ..()
+
+	load_box(used, user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/ammo_box/proc/load_box(obj/item/used, mob/living/user, silent = FALSE)
+	var/num_loaded = 0
+	if(istype(used, /obj/item/ammo_box))
+		var/obj/item/ammo_box/used_box = used
+		for(var/obj/item/ammo_casing/used_casing in used_box.stored_ammo)
+			var/did_load = give_round(used_casing)
 			if(did_load)
-				AM.stored_ammo -= AC
+				used_box.stored_ammo -= used_casing
 				num_loaded++
 			if(!multiload || !did_load)
 				break
-	if(istype(A, /obj/item/ammo_casing))
-		var/obj/item/ammo_casing/AC = A
-		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+
+	if(istype(used, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/used_casing = used
+		if(give_round(used_casing))
+			user.transfer_item_to(used_casing, src)
 			num_loaded++
+		else
+			to_chat(user, SPAN_NOTICE("You are unable to fit [used_casing] into \the [src]."))
+
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]!"))
 		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
-		A.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		used.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 	return num_loaded
 
-/obj/item/ammo_box/attack_self(mob/user as mob)
-	var/obj/item/ammo_casing/A = get_round()
-	if(A)
-		user.put_in_hands(A)
-		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
-		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+/obj/item/ammo_box/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/ammo_casing/casing = get_round()
+	if(!casing)
+		return ITEM_INTERACT_COMPLETE
+
+	user.put_in_hands(casing)
+	playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
+	to_chat(user, SPAN_NOTICE("You remove a round from \the [src]!"))
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+	return ITEM_INTERACT_COMPLETE
 
 // `multi_sprite_step` governs whether there are different sprites for different degrees of being loaded.
 // AMMO_BOX_MULTI_SPRITE_STEP_NONE - just a single `icon_state`, no shenanigans
@@ -274,3 +310,12 @@
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
 		stored_ammo -= ammo
+
+/obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber

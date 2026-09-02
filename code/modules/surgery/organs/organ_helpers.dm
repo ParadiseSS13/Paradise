@@ -16,6 +16,11 @@
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
+/mob/living/carbon/proc/get_int_organ_by_datum(tag_to_check)
+	RETURN_TYPE(/obj/item/organ/internal)
+	var/datum/organ/organ_datum = internal_organ_datums[tag_to_check]
+	return organ_datum?.linked_organ
+
 /mob/living/carbon/proc/get_int_organ_datum(tag_to_check)
 	RETURN_TYPE(/datum/organ)
 	return internal_organ_datums[tag_to_check]
@@ -74,24 +79,6 @@
 		return TRUE
 	return FALSE
 
-//Limb numbers
-/mob/proc/get_num_arms()
-	return 2
-
-/mob/living/carbon/human/get_num_arms()
-	. = 0
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/affecting = X
-		if(affecting.body_part == ARM_RIGHT)
-			.++
-		if(affecting.body_part == ARM_LEFT)
-			.++
-
-//sometimes we want to ignore that we don't have the required amount of arms.
-/mob/proc/get_arm_ignore()
-	return FALSE
-
-
 /mob/proc/get_num_legs()
 	return 2
 
@@ -103,9 +90,15 @@
 			.++
 		if(affecting.body_part == LEG_LEFT)
 			.++
-///Returns true if all the mob's vital organs are functional, otherwise returns false
-/mob/living/carbon/human/proc/check_vital_organs()
+
+/* Returns true if all the mob's vital organs are functional, otherwise returns false.
+*  This proc is only used for checking if IPCs can revive from death, so calling it on a non IPC will always return false (right now)
+*/
+/mob/living/carbon/human/proc/ipc_vital_organ_check()
+	var/has_battery = get_int_organ_datum(ORGAN_DATUM_BATTERY)
+	if(!has_battery)
+		return FALSE
 	for(var/obj/item/organ/internal/organ in internal_organs)
-		if(organ.vital && (organ.damage >= organ.max_damage))
+		if(organ.vital && ((organ.damage >= organ.max_damage) || organ.status & ORGAN_DEAD))
 			return FALSE
 	return TRUE

@@ -1,0 +1,4 @@
+help:
+  Create a subtype to use instead.
+=/obj/docking_port/mobile:
+  banned: true

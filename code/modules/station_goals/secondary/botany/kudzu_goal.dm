@@ -2,7 +2,7 @@
 	name = "Random Kudzu"
 	department = "Hydroponics"
 	progress_type = /datum/secondary_goal_progress/random_kudzu
-	abstract = FALSE
+	weight = 1
 	var/list/traits = list()
 	var/amount = 5
 
@@ -51,8 +51,8 @@
 
 
 /datum/secondary_goal_progress/random_kudzu/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	// Not properly labeled for this goal? Ignore.
+	if(!check_goal_label(AM))
 		return
 
 	if(!istype(AM, /obj/item/seeds/kudzu))

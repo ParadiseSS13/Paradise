@@ -21,16 +21,15 @@ Bonus
 	stealth = 1
 	resistance = -4
 	stage_speed = -4
-	transmittable = -2
+	transmissibility = -2
 	level = 4
+	activation_prob = SYMPTOM_ACTIVATION_PROB * 10
 
-/datum/symptom/damage_converter/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB * 10))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(4, 5)
-				Convert(M)
+/datum/symptom/damage_converter/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(4, 5)
+			Convert(M)
 	return
 
 /datum/symptom/damage_converter/proc/Convert(mob/living/M)

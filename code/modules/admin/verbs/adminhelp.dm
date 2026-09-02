@@ -7,8 +7,6 @@
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 		return
 
-	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
-
 	var/msg
 	var/list/type = list("Mentorhelp", "Adminhelp")
 	var/selected_type = input("Pick a category.", "Admin Help") as null|anything in type

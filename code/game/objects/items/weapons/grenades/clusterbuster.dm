@@ -4,14 +4,14 @@
 /obj/item/grenade/clusterbuster
 	name = "clusterbang"
 	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
-	item_state = "flashbang"
+	worn_icon_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
 /obj/item/grenade/clusterbuster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.</span>"
+	. += SPAN_NOTICE("Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.")
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()
@@ -39,7 +39,6 @@
 /obj/item/grenade/clusterbuster/segment
 	name = "clusterbang bomblet"
 	desc = "A bomblet released by a clusterbang. Better run!"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
 /obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)
@@ -47,7 +46,7 @@
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = TRUE
-	walk_away(src, loc, rand(1,4))
+	GLOB.move_manager.move_away(src, loc, rand(1, 4), timeout = 20)
 	spawn(rand(15,60))
 		prime()
 
@@ -69,7 +68,7 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
 			P.active = TRUE
-		walk_away(P,loc,rand(1,4))
+		GLOB.move_manager.move_away(P, loc, rand(1, 4), timeout = 20)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))
@@ -157,7 +156,7 @@
 
 /obj/item/grenade/clusterbuster/xmas
 	name = "\improper Christmas Miracle"
-	payload = /obj/item/a_gift
+	payload = /obj/item/small_delivery/gift/random
 
 /obj/item/grenade/clusterbuster/dirt
 	name = "\improper Megamaid's Job Security Grenade"
@@ -173,20 +172,15 @@
 	desc = "No matter what, do not EVER use this."
 	payload = /obj/singularity
 
-/obj/item/grenade/clusterbuster/tools
-	name = "\improper Engineering Deployment Platfom"
-	desc = "For the that time when gearing up was just too hard."
-	payload = /obj/random/tech_supply
-
-/obj/item/grenade/clusterbuster/tide
-	name = "\improper Quick Repair Grenade"
-	desc = "An assistant's every dream."
-	payload = /obj/random/tool
-
 /obj/item/grenade/clusterbuster/toys
 	name = "\improper Toy Delivery System"
 	desc = "Who needs skill at arcades anyway?"
 	payload = /obj/item/toy/random
+
+/obj/item/grenade/clusterbuster/random_toys
+	name = "\improper Toy Delivery System"
+	desc = "Who needs skill at arcades anyway?"
+	payload = /obj/effect/spawner/random/toy/clusterbuster
 
 /obj/item/grenade/clusterbuster/banquet
 	name = "\improper Bork Bork Bonanza"
@@ -219,7 +213,7 @@
 /obj/item/grenade/clusterbuster/crab
 	name = "\improper Crab Grenade"
 	desc = "Reserved for those pesky request."
-	payload = /mob/living/simple_animal/crab
+	payload = /mob/living/basic/crab
 
 /obj/item/grenade/clusterbuster/plasma
 	name = "\improper Plasma Cluster Grenade"
@@ -254,3 +248,14 @@
 	desc = "Proving once and for all that the maximum bomb explosion radius is just a suggestion."
 	payload = /obj/item/grenade/clusterbuster/syndieminibomb
 
+/obj/item/grenade/clusterbuster/admincleaner
+	desc = "For cleaning <b>really</b> big messes."
+	payload = /obj/item/grenade/chem_grenade/cleaner/everything
+
+/obj/item/grenade/clusterbuster/admincleaner/organic
+	desc = "For cleaning remnants of many, many crime scenes."
+	payload = /obj/item/grenade/chem_grenade/cleaner/organic
+
+/obj/item/grenade/clusterbuster/admincleaner/object
+	desc = "For cleaning up after a typical Nanotrasen office party."
+	payload = /obj/item/grenade/chem_grenade/cleaner/object

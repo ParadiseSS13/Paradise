@@ -1,4 +1,4 @@
-//Also contains /obj/structure/closet/body_bag because I doubt anyone would think to look for bodybags in /object/structures
+// Also contains /obj/structure/closet/body_bag because I doubt anyone would think to look for bodybags in /object/structures
 
 /obj/item/bodybag
 	name = "body bag"
@@ -6,19 +6,24 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 
-/obj/item/bodybag/attack_self(mob/user)
+/obj/item/bodybag/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
+	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/body_bag
 	name = "body bag"
 	desc = "A plastic bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
-	icon_state = "bodybag_closed"
-	icon_closed = "bodybag_closed"
-	icon_opened = "bodybag_open"
+	icon_state = "bodybag"
+	enable_door_overlay = FALSE
+	door_anim_time = 0
 	density = FALSE
 	integrity_failure = 0
 	open_sound = 'sound/items/zip.ogg'
@@ -27,25 +32,35 @@
 	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
 
+/obj/structure/closet/body_bag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!is_pen(used))
+		return ..()
+	var/new_name = rename_interactive(user, used)
+	if(isnull(new_name))
+		return ITEM_INTERACT_COMPLETE
+	cut_overlays()
+	if(new_name)
+		add_overlay("bodybag_label")
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		var/t = rename_interactive(user, I)
-		if(isnull(t))
-			return
-		cut_overlays()
-		if(t)
-			add_overlay("bodybag_label")
+/obj/structure/closet/body_bag/wirecutter_act(mob/user, obj/item/used)
+	if(!istype(used, /obj/item/wirecutters))
 		return
-	if(istype(I, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
-		name = initial(name)
-		cut_overlays()
+	if(name == initial(name))
 		return
-	return ..()
+	user.visible_message(
+		SPAN_NOTICE("[user] cuts the tag off the body bag."),
+		SPAN_NOTICE("You cut the tag off the body bag."),
+		SPAN_HEAR("You hear a little snip.")
+	)
+	name = initial(name)
+	cut_overlays()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
-	return // Can't weld a body bag shut
+	return // Can't weld a body bag shut.
 
 /obj/structure/closet/body_bag/close()
 	if(..())
@@ -54,7 +69,7 @@
 	return FALSE
 
 /obj/structure/closet/body_bag/update_overlays()
-	..()
+	. = ..()
 	if(name != initial(name))
 		. += "bodybag_label"
 
@@ -62,8 +77,10 @@
 	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
-		visible_message("<span class='notice'>[usr] folds up [src].</span>")
-		new item_path(get_turf(src))
+		visible_message(SPAN_NOTICE("[usr] folds up [src]."))
+		var/obj/item/bodybag/new_bag = new item_path(get_turf(src))
+		transfer_fingerprints_to(new_bag)
+		new_bag.add_fingerprint(usr)
 		qdel(src)
 		return
 	. = ..()
@@ -72,11 +89,11 @@
 	if(user.stat)
 		return
 
-	// Make it possible to escape from bodybags in morgues and crematoriums
+	// Make it possible to escape from bodybags in morgues and crematoriums.
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
-			to_chat(user, "<span class='notice'>It won't budge!</span>")
+			to_chat(user, SPAN_NOTICE("It won't budge!"))
 
 /obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
-	// no, you can't shove people into a body bag
+	// No, you can't shove people into a body bag.
 	return FALSE

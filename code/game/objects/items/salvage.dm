@@ -1,6 +1,6 @@
 /obj/item/salvage
 	name = "salvage"
-	desc = "A tonne of salvage looted from bad mapping practices. Who spawned the base type? Report this on the github."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/sellable.dmi'
 	force = 5
 	throwforce = 5
@@ -9,16 +9,16 @@
 	hitsound = 'sound/items/handling/salvagepickup.ogg'
 	pickup_sound = 'sound/items/handling/salvagepickup.ogg'
 	drop_sound = 'sound/items/handling/salvagedrop.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
+	/// How much is the salvage worth?
+	var/value = 100
+	new_attack_chain = TRUE
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can bring this back to Cargo to sell to Central Command onboard the 'NTV Arion' Supply shuttle.</span>"
+	. += SPAN_NOTICE("You can bring this back to Cargo to sell to Central Command onboard the 'NTV Arion' Supply shuttle.")
 
 /// Ruin Salvage, misc loot gained from looking around ruins.
-
 /obj/item/salvage/ruin
-	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
 
 /obj/item/salvage/ruin/pirate
 	name = "rum keg"
@@ -27,14 +27,14 @@
 	icon_state = "barrel"
 	color = "#7e5c00" // So that it's slightly different from normal kegs
 
-/obj/item/salvage/ruin/russian
+/obj/item/salvage/ruin/soviet
 	name = "armaments cache"
-	desc = "A crate of old disused Belastrav ballistic firearms clearly long past their usability. This crate would make good scrap metal for shuttle construction."
+	desc = "A crate of old disused Belastrav ballistic firearms that have been weathered into uselessness. They still may be of value to collectors, however."
 	icon_state = "weapon_crate"
 
 /obj/item/salvage/ruin/brick
 	name = "mysterious brick"
-	desc = "A peculier brick formed out of what appears to be plastic. This would make a fantastic collector's item."
+	desc = "A peculiar brick formed out of what appears to be plastic. This would make a fantastic collector's item."
 	icon_state = "lego_brick"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
@@ -46,7 +46,7 @@
 
 /obj/item/salvage/ruin/nanotrasen
 	name = "lost research notes"
-	desc = "A collection of research notes penned by old Nanotrasen scientists from decades past, technology lost in time- until you found them. It is a mystery what technology Central Command will push if they could just get their hands on these notes."
+	desc = "A collection of research notes penned by old Nanotrasen scientists from decades past, technology lost in time- until you found them. While quite dated, they may contain insights missed by today's researchers."
 	icon_state = "research_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
@@ -58,7 +58,7 @@
 
 /obj/item/salvage/ruin/carp
 	name = "carp scales"
-	desc = "A collection of scales shed from a corrupted space carp. Their culinary potential could mean untold riches for Nanotrasen."
+	desc = "A collection of scales shed from a corrupted space carp. Their unique molecular composition may prove useful to material scientists."
 	icon_state = "dragon_scales"
 	hitsound = sound('sound/effects/hit_on_shattered_glass.ogg', 20)
 	pickup_sound = sound('sound/hallucinations/im_here2.ogg', 10)
@@ -66,28 +66,31 @@
 
 /obj/item/salvage/ruin/tablet
 	name = "mysterious tablet"
-	desc = "A mysterious and old stone tablet. When you read the text on it, you start getting chills."
+	desc = "An old, weathered tablet made of dark stone. Merely looking at it sends chills down your spine."
 	icon_state = "stone_tablet"
 	hitsound = sound('sound/effects/break_stone.ogg', 20)
 	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 10)
 	drop_sound = sound('sound/hallucinations/look_up2.ogg', 10)
 
+/obj/item/salvage/ruin/broken_rifle
+	name = "broken rifle"
+	desc = "A battered, broken rifle. All but useless as a weapon, however it can be sold for scrap or dismantled for materials."
+	icon_state = "broken_rifle"
+	value = 50
+	materials = list(MAT_METAL = 2000, MAT_PLATINUM = 2000, MAT_IRIDIUM = 2000, MAT_PALLADIUM = 2000)
+
 /// Loot salvage, gained from fighting space simplemobs.
-
-/obj/item/salvage/loot
-	desc = "A tonne of salvage looted from a fallen foe. Who spawned the base type? Report this on the github."
-
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
-	desc = "A collection of stolen jewellery, fashioned from pilfered bluespace crystals and gems. Rumour has it, local pirates have been known to use these accessories to avoid capture."
+	desc = "A collection of stolen jewellery and gemstones. Gold, silver, sapphire, amethyst, and more, this bounty will surely fetch a good price on the market."
 	icon_state = "pirate_treasure"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
-/obj/item/salvage/loot/russian
-	name = "siosp manual"
-	desc = "A small manual, written in Neo-Russkyia, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Central Command may wish to share this with their allies in the Trans-Solar Federation."
+/obj/item/salvage/loot/soviet
+	name = "\improper Cygni manifesto"
+	desc = "A small book, written in Cygni Standard, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Banned in Federation space, it may fetch a decent price on the black market."
 	icon_state = "ussp_manual"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
@@ -95,8 +98,34 @@
 
 /obj/item/salvage/loot/syndicate
 	name = "syndicate intel"
-	desc = "A folder detailing Syndicate plans to infiltrate and sabotage operations in the Epsilon Eridani sector. Central Command may find use of this to aid them in counter-intelligence."
+	desc = "A folder detailing Syndicate plans to infiltrate and sabotage operations in the Epsilon Eridani system. This sort of intelligence treasure will be highly valued by Company counterintelligence."
 	icon_state = "syndie_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
+
+/obj/item/salvage/loot/vox
+	name = "biotech fragment"
+	desc = "A fragment of broken vox biotechnology. While no longer functional, the inner workings are sure to be of interest to collectors and scientists."
+	icon_state = "vox_fragment"
+	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
+	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
+	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value.
+
+/obj/item/salvage/loot/dogtags
+	name = "dog tags"
+	desc = "Dog tags belonging to an unnamed soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/salvage/loot/dogtags/officer
+	name = "officer's dog tags"
+	desc = "Dog tags belonging to an unnamed high-ranking soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag_officer"
+	value = 250
+
+/obj/item/salvage/loot/dogtags/captain
+	name = "captain's dog tags"
+	desc = "Dog tags belonging to an unnamed captain of a soldier or mercenary group. Someone is likely willing to pay good credits to see them returned."
+	value = 400

@@ -49,13 +49,17 @@
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/pet/cat,
 		/mob/living/simple_animal/pet/dog/fox,
-		/mob/living/simple_animal/mouse,
+		/mob/living/basic/mouse,
 		/mob/living/simple_animal/pet/dog/pug,
-		/mob/living/simple_animal/lizard,
-		/mob/living/simple_animal/diona,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/lizard,
+		/mob/living/basic/diona_nymph,
+		/mob/living/basic/butterfly,
 		/mob/living/carbon/human/monkey,
 	)
+
+	// Assign it a random tech level
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming")
+	origin_tech = "[pick(possible_techs)]=[rand(2, 5)]"
 
 
 /obj/item/relic/proc/reveal()
@@ -76,19 +80,14 @@
 		STRANGEOBJECT_FUNCTION_PET_SPAWN,
 	)
 
-	origin_tech = pick(
-		"engineering=[rand(2,5)]",
-		"magnets=[rand(2,5)]",
-		"plasmatech=[rand(2,5)]",
-		"programming=[rand(2,5)]",
-		"powerstorage=[rand(2,5)]",
-	)
+	// You discovered it - you gambled your possible fortune! AW DANGIT!
+	origin_tech = null
 
 
-/obj/item/relic/attack_self(mob/user)
+/obj/item/relic/attack_self__legacy__attackchain(mob/user)
 	if(revealed)
 		if((last_use_time + cooldown_duration) > world.time)
-			to_chat(user, "<span class='warning'>[src] does not react!</span>")
+			to_chat(user, SPAN_WARNING("[src] does not react!"))
 			return
 		else if(loc == user)
 			last_use_time = world.time
@@ -96,11 +95,11 @@
 			// Figure out our real function
 			switch(function_id)
 				if(STRANGEOBJECT_FUNCTION_TELEPORT)
-					to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
+					to_chat(user, SPAN_NOTICE("[src] begins to vibrate!"))
 					addtimer(CALLBACK(src, PROC_REF(teleport_callback), user), rand(10, 30))
 
 				if(STRANGEOBJECT_FUNCTION_EXPLODE)
-					to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
+					to_chat(user, SPAN_DANGER("[src] begins to heat up!"))
 					addtimer(CALLBACK(src, PROC_REF(explode_callback), user), rand(35, 100))
 
 				if(STRANGEOBJECT_FUNCTION_RAPID_DUPE)
@@ -111,6 +110,7 @@
 						R.desc = desc
 						R.function_id = function_id
 						R.revealed = TRUE
+						R.origin_tech = null
 						QDEL_IN(R, rand(10, 100))
 						INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 
@@ -118,25 +118,25 @@
 
 				if(STRANGEOBJECT_FUNCTION_MASS_SPAWN)
 					// This is the unlucky one
-					var/message = "<span class='danger'>[src] begins to shake, and in the distance the sound of rampaging animals arises!</span>"
+					var/message = SPAN_DANGER("[src] begins to shake, and in the distance the sound of rampaging animals arises!")
 					visible_message(message)
 					to_chat(user, message)
 					var/animal_spawncount = rand(1,25)
 
 					var/list/valid_animals = list(
 						/mob/living/simple_animal/parrot,
-						/mob/living/simple_animal/butterfly,
+						/mob/living/basic/butterfly,
 						/mob/living/simple_animal/pet/cat,
 						/mob/living/simple_animal/pet/dog/corgi,
-						/mob/living/simple_animal/crab,
+						/mob/living/basic/crab,
 						/mob/living/simple_animal/pet/dog/fox,
-						/mob/living/simple_animal/lizard,
-						/mob/living/simple_animal/mouse,
+						/mob/living/basic/lizard,
+						/mob/living/basic/mouse,
 						/mob/living/simple_animal/pet/dog/pug,
-						/mob/living/simple_animal/hostile/bear/black,
-						/mob/living/simple_animal/hostile/bear/brown,
-						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
+						/mob/living/basic/bear/black,
+						/mob/living/basic/bear/brown,
+						/mob/living/basic/bee,
+						/mob/living/basic/carp
 					)
 
 					for(var/counter in 1 to animal_spawncount)
@@ -145,7 +145,7 @@
 
 					warn_admins(user, "Mass Mob Spawn")
 					if(prob(60))
-						to_chat(user, "<span class='warning'>[src] falls apart!</span>")
+						to_chat(user, SPAN_WARNING("[src] falls apart!"))
 						qdel(src)
 
 				if(STRANGEOBJECT_FUNCTION_FLASH)
@@ -168,14 +168,14 @@
 					warn_admins(user, "Pet Spawn", 0)
 
 	else
-		to_chat(user, "<span class='notice'>You aren't quite sure what to do with this, yet.</span>")
+		to_chat(user, SPAN_NOTICE("You aren't quite sure what to do with this, yet."))
 
 
 // Callbacks for timers
 /obj/item/relic/proc/teleport_callback(mob/user)
 	var/turf/userturf = get_turf(user)
 	if(loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
-		visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
+		visible_message(SPAN_NOTICE("[src] twists and bends, relocating itself!"))
 		throw_smoke(userturf)
 		do_teleport(user, userturf, 8, sound_in = 'sound/effects/phasein.ogg')
 		throw_smoke(get_turf(user))
@@ -184,8 +184,8 @@
 
 /obj/item/relic/proc/explode_callback(mob/user)
 	if(loc == user)
-		visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
-		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
+		visible_message(SPAN_NOTICE("[src]'s top opens, releasing a powerful blast!"))
+		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2, cause = "Exploding relic")
 		warn_admins(user, "Explosion")
 		qdel(src)
 
@@ -199,7 +199,7 @@
 		message_admins("[RelicType] relic activated by [key_name_admin(user)] in ([T.x], [T.y], [T.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
 
 	log_game(log_msg)
-	investigate_log(log_msg, "experimentor")
+	investigate_log(log_msg, "strangeobjects")
 
 
 // Make some magic smoke

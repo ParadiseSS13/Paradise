@@ -11,21 +11,30 @@
 				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
-						list(	//Weapon subcategories
+						//Weapon subcategories
+						list(
 							CAT_WEAPON,
-							CAT_AMMO),
+							CAT_AMMO
+						),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
 						CAT_NONE, //Tribal subcategories
-						list(	//Food subcategories
+						// Food subcategories
+						list(
 							CAT_CAKE,
 							CAT_SUSHI,
-							CAT_SANDWICH),
-						list(	//Decoration subcategories
+							CAT_SANDWICH,
+							CAT_MEAT
+						),
+						// Decoration subcategories
+						list(
 							CAT_DECORATION,
 							CAT_HOLIDAY,
-							CAT_LARGE_DECORATIONS),
-						CAT_CLOTHING) //Clothing subcategories
+							CAT_LARGE_DECORATIONS
+						),
+						// Clothing subcategories
+						list(CAT_CLOTHING_GENERAL,
+							CAT_CLOTHING_RACIAL))
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 
@@ -83,7 +92,7 @@
 				if(AM.flags_2 & HOLOGRAM_2)
 					continue
 				. += AM
-	for(var/slot in list(SLOT_HUD_RIGHT_STORE, SLOT_HUD_LEFT_STORE))
+	for(var/slot in list(ITEM_SLOT_RIGHT_POCKET, ITEM_SLOT_LEFT_POCKET))
 		. += user.get_item_by_slot(slot)
 
 
@@ -160,7 +169,9 @@
 		return ", missing tool."
 	if(!check_pathtools(user, recipe, contents))
 		return ", missing tool."
-
+	var/craft_time = recipe.time
+	if(HAS_TRAIT(user.mind, TRAIT_CRAFTY))
+		craft_time /= 3
 	if(!do_after(user, recipe.time, target = user))
 		return "."
 	contents = get_surroundings(user)
@@ -354,11 +365,11 @@
 			SStgui.update_uis(src)
 			var/fail_msg = construct_item(usr, TR)
 			if(!fail_msg)
-				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				to_chat(usr, SPAN_NOTICE("[TR.name] constructed."))
 				if(TR.alert_admins_on_craft)
 					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 			else
-				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+				to_chat(usr, SPAN_WARNING("Construction failed[fail_msg]"))
 			busy = FALSE
 			SStgui.update_uis(src)
 

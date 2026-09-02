@@ -2,11 +2,9 @@
  * Base class for all random spawners.
  */
 /obj/effect/spawner/random
-	icon = 'icons/effects/spawner_icons.dmi'
+	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
-	layer = OBJ_LAYER
 	/// Stops persistent lootdrop spawns from being shoved into lockers
-	anchored = TRUE
 	/// A list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/list/loot
 	/// The subtypes AND type to combine with the loot list
@@ -17,10 +15,12 @@
 	var/spawn_loot_count = 1
 	/// If the same item can be spawned twice
 	var/spawn_loot_double = TRUE
-	/// Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
+	/// Whether the items should be staggered visually on their location.
 	var/spawn_loot_split = FALSE
-	/// The pixel x/y divider offsets for spawn_loot_split (spaced 1 pixel apart by default)
+	/// The pixel x/y divider offsets for spawn_loot_split (spaced 2 pixels apart by default)
 	var/spawn_loot_split_pixel_offsets = 2
+	/// The placer for loot when `spawn_loot_split` is enabled
+	var/datum/spawner_pixel_placer/pixel_placer
 	/// Whether the spawner should spawn all the loot in the list
 	var/spawn_all_loot = FALSE
 	/// The chance for the spawner to create loot (ignores spawn_loot_count)
@@ -33,6 +33,10 @@
 	var/spawn_random_offset_max_pixels = 16
 	/// Whether the spawned items should be rotated randomly.
 	var/spawn_random_angle = FALSE
+	/// Whether blackbox should record when the spawner spawns.
+	var/record_spawn = FALSE
+	/// Where do we want to spawn an item (closet, safe etc.)
+	var/spawn_inside
 
 // Brief explanation:
 // Rather then setting up and then deleting spawners, we block all atomlike setup
@@ -47,6 +51,22 @@
 	spawn_loot()
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/spawner/random/Destroy()
+	. = ..()
+	qdel(pixel_placer)
+
+/obj/effect/spawner/random/proc/generate_loot_list()
+	if(loot_type_path)
+		loot += typesof(loot_type_path)
+
+	if(loot_subtype_path)
+		loot += subtypesof(loot_subtype_path)
+
+	return loot
+
+/obj/effect/spawner/random/proc/check_safe(type_path_to_make)
+	return TRUE
+
 ///If the spawner has any loot defined, randomly picks some and spawns it. Does not cleanup the spawner.
 /obj/effect/spawner/random/proc/spawn_loot(lootcount_override)
 	if(!prob(spawn_loot_chance))
@@ -54,30 +74,50 @@
 
 	var/list/spawn_locations = get_spawn_locations(spawn_scatter_radius)
 	var/spawn_loot_count = isnull(lootcount_override) ? src.spawn_loot_count : lootcount_override
+	var/atom/container
+
+	if(spawn_inside)
+		container = new spawn_inside(loc)
 
 	if(spawn_all_loot)
 		spawn_loot_count = INFINITY
 		spawn_loot_double = FALSE
 
-	if(loot_type_path)
-		loot += typesof(loot_type_path)
+	var/list/loot_list = generate_loot_list()
+	var/safe_failure_count = 0
 
-	if(loot_subtype_path)
-		loot += subtypesof(loot_subtype_path)
+	if(spawn_loot_split)
+		pixel_placer = new(spawn_loot_split_pixel_offsets, spawn_random_offset_max_pixels)
 
-	if(length(loot))
+	if(length(loot_list))
 		var/loot_spawned = 0
-		var/pixel_divider = FLOOR(spawn_random_offset_max_pixels / spawn_loot_split_pixel_offsets, 1)
-		while((spawn_loot_count-loot_spawned) && length(loot))
-			var/lootspawn = pick_weight_recursive(loot)
+		while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
+			loot_spawned++
+			var/lootspawn = pick_weight_recursive(loot_list)
+
+			if(!check_safe(lootspawn))
+				safe_failure_count++
+				continue
+
 			if(!spawn_loot_double)
-				loot.Remove(lootspawn)
+				loot_list.Remove(lootspawn)
 			if(lootspawn)
 				var/turf/spawn_loc = loc
 				if(spawn_scatter_radius > 0 && length(spawn_locations))
 					spawn_loc = pick(spawn_locations)
 
+				if(ispath(lootspawn, /turf))
+					spawn_loc.ChangeTurf(lootspawn)
+					continue
+
 				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
+
+				// If we make something that then makes something else and gets itself
+				// qdel'd, we'll have a null result here. This doesn't necessarily mean
+				// that nothing's been spawned, so it's not necessarily a failure.
+				if(!spawned_loot)
+					continue
+
 				spawned_loot.setDir(dir)
 
 				if(!spawn_loot_split && !spawn_random_offset)
@@ -88,15 +128,15 @@
 				else if(spawn_random_offset)
 					spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
 					spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-				else if(spawn_loot_split)
-					if(loot_spawned)
-						var/column = FLOOR(loot_spawned / pixel_divider, 1)
-						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
-						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
-			loot_spawned++
+				else if(spawn_loot_split && loot_spawned)
+					pixel_placer.place(spawned_loot, loot_spawned)
+
+				if(container)
+					spawned_loot.forceMove(container)
 
 /**
- *  Makes the actual item related to our spawner.
+ *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,
+ *  this is when the items spawned are recorded to blackbox (except for `/obj/effect`s).
  *
  * spawn_loc - where are we spawning it?
  * type_path_to_make - what are we spawning?
@@ -104,7 +144,8 @@
 /obj/effect/spawner/random/proc/make_item(spawn_loc, type_path_to_make)
 	var/result = new type_path_to_make(spawn_loc)
 
-	record_item(type_path_to_make)
+	if(record_spawn)
+		record_item(type_path_to_make)
 
 	var/atom/item = result
 	if(spawn_random_angle && istype(item))
@@ -137,7 +178,7 @@
 
 /obj/effect/spawner/random/proc/has_unblocked_line(destination)
 	for(var/turf/potential_blockage as anything in get_line(get_turf(src), destination))
-		if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE))
+		if(!potential_blockage.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		return FALSE
 	return TRUE

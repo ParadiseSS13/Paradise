@@ -1,18 +1,26 @@
 /**
-	Shows a ticker reading out the given text on a client's screen.
-
-	targets = mob or list of mobs to show it to.
-	duration = how long it lingers after it finishes ticking.
-	message = the message to display. Due to using maptext it isn't very flexible format-wise. 11px font, up to 480 pixels per line. Use \n for line breaks. Single-character HTML tags (<b>, <i>, <u> etc.) are handled correctly but others display strangely. Note that maptext can display text macros in strange ways, ex. \improper showing as "ÿ". Lines containing only spaces, including ones only containing "\improper ", don't display.
-	scroll_down = by default each line pushes the previous line upwards - this tells it to start high and scroll down. Ticks on \n - does not autodetect line breaks in long strings.
-	screen_position = screen loc for the bottom-left corner of the blurb.
-	text_alignment = "right", "left", or "center"
-	text_color = colour of the text.
-	blurb_key = a key used for specific blurb types so they are not shown repeatedly.
-	ignore_key = used to skip key checks.
-	text_limit = limit in characters of the message.
+  * Shows a ticker reading out the given text on a client's screen.
+  *
+  * Arguments:
+  * * targets - mob or list of mobs to show it to.
+  * * duration - how long it lingers after it finishes ticking.
+  * * message - the message to display. Due to using maptext it isn't very
+  *   flexible format-wise. 11px font, up to 480 pixels per line. Use `\n` for
+  *   line breaks. Single-character HTML tags (`<b>`, `<i>`, `<u>` etc.) are handled
+  *   correctly but others display strangely. Note that maptext can display text
+  *   macros in strange ways, ex. \improper showing as "&yuml;". Lines containing
+  *   only spaces, including ones only containing "\improper ", don't display.
+  * * scroll_down - by default each line pushes the previous line upwards - this
+  *   tells it to start high and scroll down. Ticks on `\n` - does not autodetect
+  *   line breaks in long strings.
+  * * screen_position - screen loc for the bottom-left corner of the blurb.
+  * * text_alignment - "right", "left", or "center"
+  * * text_color - colour of the text.
+  * * blurb_key - a key used for specific blurb types so they are not shown
+  *   repeatedly.
+  * * ignore_key - used to skip key checks.
+  * * text_limit - limit in characters of the message.
 **/
-
 /proc/show_blurb(list/mob/targets, duration = 3 SECONDS, message, scroll_down, screen_position = "LEFT+0:16,BOTTOM+1:16", text_alignment = "left", text_color = "#FFFFFF", blurb_key, ignore_key = FALSE, speed = 1)
 	set waitfor = 0
 	if(!islist(targets))

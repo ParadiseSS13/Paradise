@@ -3,20 +3,19 @@
 	name = "the floor is lava"
 	desc = "The ground turns into surprisingly cool lava, lightly damaging anything on the floor."
 
-	telegraph_message = "<span class='warning'>You feel the ground beneath you getting hot. Waves of heat distort the air.</span>"
+	telegraph_message = SPAN_WARNING("You feel the ground beneath you getting hot. Waves of heat distort the air.")
 	telegraph_duration = 150
 
-	weather_message = "<span class='userdanger'>The floor is lava! Get on top of something!</span>"
+	weather_message = SPAN_USERDANGER("The floor is lava! Get on top of something!")
 	weather_duration_lower = 300
 	weather_duration_upper = 600
 	weather_overlay = "lava"
 
-	end_message = "<span class='danger'>The ground cools and returns to its usual form.</span>"
+	end_message = SPAN_DANGER("The ground cools and returns to its usual form.")
 	end_duration = 0
 
-	area_type = /area
+	area_types = list(/area)
 	protected_areas = list(/area/space)
-	target_trait = STATION_LEVEL
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	overlay_plane = FLOOR_PLANE
@@ -35,7 +34,7 @@
 		return
 	if(!L.client) //Only sentient people are going along with it!
 		return
-	if(L.flying)
+	if(HAS_TRAIT(L, TRAIT_FLYING))
 		return
 	L.adjustFireLoss(3)
 

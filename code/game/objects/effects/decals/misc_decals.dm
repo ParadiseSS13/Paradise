@@ -1,6 +1,5 @@
 // Used for spray that you spray at walls, tables, hydrovats etc
 /obj/effect/decal/spraystill
-	density = FALSE
 	layer = 50
 	plane = HUD_PLANE
 
@@ -12,9 +11,21 @@
 /obj/effect/decal/chempuff/blob_act(obj/structure/blob/B)
 	return
 
+/obj/effect/decal/chempuff/proc/loop_ended(datum/source)
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	if(QDELETED(src))
+		return
+	qdel(src)
+
+/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
+	SIGNAL_HANDLER // COMSIG_MOVELOOP_POSTPROCESS
+	var/turf/our_turf = get_turf(src)
+	reagents.reaction(our_turf)
+	for(var/atom/T in our_turf)
+		reagents.reaction(T)
+
 /obj/effect/decal/snow
 	name = "snow"
-	density = FALSE
 	layer = TURF_DECAL_LAYER
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
@@ -33,14 +44,12 @@
 
 /obj/effect/decal/leaves
 	name = "fall leaves"
-	density = FALSE
 	layer = HIGH_TURF_LAYER
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "fallleaves"
 
 /obj/effect/decal/straw
 	name = "scattered straw"
-	density = FALSE
 	layer = HIGH_TURF_LAYER
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawscattered"
@@ -66,3 +75,6 @@
 	var/scale = (rand(2, 10) / 10) + (rand(0, 5) / 100)
 	transform = matrix(transform, scale, scale, MATRIX_SCALE)
 	setDir(pick(NORTH, SOUTH, EAST, WEST))
+
+/obj/effect/decal/station_sign
+	icon = 'icons/turf/station_signs.dmi'

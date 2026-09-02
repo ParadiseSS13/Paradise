@@ -29,6 +29,8 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
+	plushie_type = /obj/item/toy/plushie/draskplushie
+
 	species_traits = list(LIPS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS | BALD | SHAVED
@@ -50,6 +52,7 @@
 	blood_color = "#a3d4eb"
 	butt_sprite = "drask"
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =      				/obj/item/organ/internal/heart/drask,
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
@@ -66,3 +69,5 @@
 		)
 	autohiss_exempt = list("Orluum")
 
+/datum/species/drask/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/soap(H.loc)

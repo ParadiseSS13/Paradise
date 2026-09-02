@@ -23,46 +23,12 @@
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
-"ai" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
-"aj" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 9;
-	height = 18;
-	id = "admin";
-	name = "hospital";
-	roundstart_move = "cc_bay_1";
-	timid = 1;
-	width = 19
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
 "ap" = (
 /obj/machinery/chem_master,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aq" = (
-/obj/machinery/chem_dispenser,
+/obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ar" = (
@@ -83,7 +49,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "au" = (
-/obj/structure/sign/chemistry{
+/obj/structure/sign/medical/chemistry{
 	pixel_y = 1
 	},
 /turf/simulated/wall/mineral/titanium,
@@ -93,15 +59,15 @@
 /area/shuttle/administration)
 "ay" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aB" = (
-/obj/machinery/clonescanner,
+/obj/machinery/clonescanner/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aC" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aF" = (
@@ -123,7 +89,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aJ" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "aK" = (
@@ -170,12 +136,12 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/syringes,
 /obj/item/storage/box/beakers,
-/obj/machinery/reagentgrinder,
 /obj/machinery/camera{
 	dir = 4;
 	name = "NHV Asclepius Chemistry";
 	network = list("NHV Asclepius")
 	},
+/obj/machinery/reagentgrinder/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aT" = (
@@ -220,15 +186,14 @@
 /area/shuttle/administration)
 "be" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/item/storage/box/gloves,
 /obj/item/storage/box/masks,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bg" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/adv,
 /turf/simulated/floor/mineral/titanium,
@@ -245,7 +210,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bi" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/upgraded{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -267,33 +232,21 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "bp" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "br" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_y = 25
 	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 35
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 32;
+	pixel_y = -3
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"bu" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bv" = (
@@ -342,11 +295,12 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bE" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/structure/closet/crate/freezer/iv_storage,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bG" = (
@@ -372,10 +326,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bJ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bL" = (
@@ -399,10 +350,11 @@
 /obj/structure/bed{
 	name = "Triage: High Priority"
 	},
+/obj/item/bedsheet/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bR" = (
-/obj/machinery/bodyscanner{
+/obj/machinery/bodyscanner/upgraded{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -422,13 +374,13 @@
 /area/shuttle/administration)
 "bV" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/machinery/iv_drip,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bY" = (
-/obj/structure/sign/examroom,
+/obj/structure/sign/medical/examroom,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "bZ" = (
@@ -453,7 +405,7 @@
 /obj/structure/bed{
 	name = "Triage: High Priority"
 	},
-/obj/machinery/iv_drip,
+/obj/item/bedsheet/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ce" = (
@@ -482,22 +434,12 @@
 /area/shuttle/administration)
 "ch" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
-/obj/machinery/cell_charger,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"ci" = (
-/obj/structure/bed{
-	name = "Triage: High Priority"
-	},
-/obj/machinery/iv_drip,
+/obj/machinery/cell_charger/upgraded,
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cj" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ck" = (
@@ -576,6 +518,30 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"fz" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"ge" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"hM" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "ia" = (
 /obj/machinery/camera{
 	dir = 8;
@@ -592,7 +558,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "kY" = (
-/obj/machinery/recharge_station,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "qa" = (
@@ -613,13 +579,15 @@
 	name = "NHV Asclepius Lobby";
 	network = list("NHV Asclepius")
 	},
-/obj/machinery/recharge_station,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "rn" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "rx" = (
@@ -660,8 +628,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/titanium,
@@ -682,8 +649,26 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"Dw" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+"EU" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/docking_port/mobile/admin{
+	dwidth = 9;
+	height = 18;
+	name = "hospital";
+	roundstart_move = "cc_bay_1";
+	width = 19
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Jz" = (
 /obj/machinery/light,
@@ -704,10 +689,15 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"MI" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "RB" = (
-/obj/machinery/sleeper{
-	dir = 1;
-	icon_state = "sleeper"
+/obj/machinery/sleeper/upgraded{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -716,9 +706,16 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "TT" = (
-/obj/machinery/bodyscanner{
+/obj/machinery/bodyscanner/upgraded{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"UU" = (
+/obj/machinery/iv_drip,
+/obj/structure/closet/crate/freezer/iv_storage,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 
@@ -810,7 +807,7 @@ aw
 aw
 aw
 aw
-Dw
+ab
 ab
 bD
 zD
@@ -850,8 +847,8 @@ aP
 aT
 aP
 bb
-Dw
-bu
+ab
+MI
 aw
 aw
 bP
@@ -883,14 +880,14 @@ cr
 ab
 "}
 (9,1,1) = {"
-ai
+hM
 aw
 aw
 aw
 aw
 aw
 aw
-aU
+fz
 aw
 aw
 aw
@@ -903,21 +900,21 @@ bR
 ab
 "}
 (10,1,1) = {"
-aj
+EU
 aw
 aw
 aw
 aw
 aw
 aw
-aU
+fz
 aw
 aw
 aw
-aw
-aw
-aw
-aw
+ge
+ge
+ge
+ge
 aw
 RB
 ab
@@ -936,7 +933,7 @@ bE
 aw
 bQ
 cb
-ci
+bQ
 bQ
 aw
 cs
@@ -1054,7 +1051,7 @@ ab
 bA
 aw
 bJ
-bV
+UU
 ab
 bA
 aw
@@ -1064,22 +1061,22 @@ ab
 "}
 (18,1,1) = {"
 ab
-Dw
+ab
 aL
 aL
-Dw
 ab
 ab
-Dw
-aL
-aL
-Dw
 ab
 ab
-Dw
 aL
 aL
-Dw
+ab
+ab
+ab
+ab
+aL
+aL
+ab
 ab
 "}
 (19,1,1) = {"

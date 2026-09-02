@@ -1,16 +1,17 @@
-import { Component, InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
+import { Box, Button, Icon, Input, LabeledList, Section, Slider, Stack, Tabs } from 'tgui-core/components';
+import { BooleanLike, classes } from 'tgui-core/react';
+import { computeBoxProps } from 'tgui-core/ui';
+
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Input, LabeledList, Section, Stack, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
-import { BooleanLike, classes } from 'common/react';
-import { BoxProps } from '../components/Box';
 
-const transferAmounts = [1, 5, 10];
+const transferAmounts = [1, 5, 10, 25, 75];
 
-const analyzeModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const analyzeModalBodyOverride = (modal) => {
+  const { act, data } = useBackend<ChemMasterData>();
   const result = modal.args.analysis;
   return (
     <Stack.Item>
@@ -66,7 +67,7 @@ interface StaticProductionData {
 
 interface NonStaticProductionData {
   set_name?: string;
-  set_items_amount: string;
+  set_items_amount: number;
   set_sprite?: number;
   placeholder_name?: string;
 }
@@ -109,7 +110,7 @@ interface ChemMasterData {
   production_data: Record<string, NonStaticProductionData>;
 }
 
-export const ChemMaster = (props, context) => {
+export const ChemMaster = (props) => {
   return (
     <Window width={575} height={650}>
       <ComplexModal />
@@ -125,8 +126,8 @@ export const ChemMaster = (props, context) => {
   );
 };
 
-const ChemMasterBeaker = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const ChemMasterBeaker = (props: {}) => {
+  const { act, data } = useBackend<ChemMasterData>();
   const { beaker, beaker_reagents, buffer_reagents } = data;
   const bufferNonEmpty = buffer_reagents.length > 0;
   return (
@@ -135,30 +136,19 @@ const ChemMasterBeaker = (props: {}, context) => {
         title="Beaker"
         fill
         scrollable
-        buttons={
-          bufferNonEmpty ? (
-            <Button.Confirm
-              icon="eject"
-              disabled={!beaker}
-              content="Eject and Clear Buffer"
-              onClick={() => act('eject')}
-            />
-          ) : (
-            <Button icon="eject" disabled={!beaker} content="Eject and Clear Buffer" onClick={() => act('eject')} />
-          )
-        }
+        buttons={<Button icon="eject" disabled={!beaker} content="Eject" onClick={() => act('eject')} />}
       >
         {beaker ? (
           <BeakerContents
             beakerLoaded
             beakerContents={beaker_reagents}
             buttons={(chemical, i) => (
-              <Box mb={i < beaker_reagents.length - 1 && '2px'}>
+              <Box key={i} mb={i < beaker_reagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
                   mb="0"
                   onClick={() =>
-                    modalOpen(context, 'analyze', {
+                    modalOpen('analyze', {
                       idx: i + 1,
                       beaker: 1,
                     })
@@ -191,7 +181,7 @@ const ChemMasterBeaker = (props: {}, context) => {
                   content="Custom.."
                   mb="0"
                   onClick={() =>
-                    modalOpen(context, 'addcustom', {
+                    act('addcustom', {
                       id: chemical.id,
                     })
                   }
@@ -207,8 +197,8 @@ const ChemMasterBeaker = (props: {}, context) => {
   );
 };
 
-const ChemMasterBuffer = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const ChemMasterBuffer = (props: {}) => {
+  const { act, data } = useBackend<ChemMasterData>();
   const { mode, buffer_reagents } = data;
   return (
     <Stack.Item grow>
@@ -233,12 +223,12 @@ const ChemMasterBuffer = (props: {}, context) => {
             beakerLoaded
             beakerContents={buffer_reagents}
             buttons={(chemical, i) => (
-              <Box mb={i < buffer_reagents.length - 1 && '2px'}>
+              <Box key={i} mb={i < buffer_reagents.length - 1 && '2px'}>
                 <Button
                   content="Analyze"
                   mb="0"
                   onClick={() =>
-                    modalOpen(context, 'analyze', {
+                    modalOpen('analyze', {
                       idx: i + 1,
                       beaker: 0,
                     })
@@ -271,7 +261,7 @@ const ChemMasterBuffer = (props: {}, context) => {
                   content="Custom.."
                   mb="0"
                   onClick={() =>
-                    modalOpen(context, 'removecustom', {
+                    act('removecustom', {
                       id: chemical.id,
                     })
                   }
@@ -287,8 +277,8 @@ const ChemMasterBuffer = (props: {}, context) => {
   );
 };
 
-const ChemMasterProduction = (props: {}, context) => {
-  const { data } = useBackend<ChemMasterData>(context);
+const ChemMasterProduction = (props: {}) => {
+  const { data } = useBackend<ChemMasterData>();
   const { buffer_reagents } = data;
   if (buffer_reagents.length === 0) {
     return (
@@ -296,7 +286,7 @@ const ChemMasterProduction = (props: {}, context) => {
         <Section title="Production">
           <Stack fill>
             <Stack.Item grow align="center" textAlign="center" color="label">
-              <Icon name="tint-slash" mb="0.5rem" size="5" />
+              <Icon name="tint-slash" mb="0.5rem" size={5} />
               <br />
               Buffer is empty.
             </Stack.Item>
@@ -315,8 +305,8 @@ const ChemMasterProduction = (props: {}, context) => {
   );
 };
 
-const ChemMasterProductionTabs = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const ChemMasterProductionTabs = (props: {}) => {
+  const { act, data } = useBackend<ChemMasterData>();
   const { production_mode, production_data, static_production_data } = data;
   const decideTab = (mode: ChemMasterData['production_mode']) => {
     let static_data = static_production_data[mode];
@@ -353,47 +343,38 @@ const ChemMasterProductionTabs = (props: {}, context) => {
   );
 };
 
-interface ChemMasterNameInputProps {
+type BoxProps = React.ComponentProps<typeof Box>;
+
+type ChemMasterNameInputProps = Partial<{
   placeholder: string;
-  onMouseUp?: (MouseEvent) => void;
-}
+  onMouseUp: (MouseEvent) => void;
+}> &
+  BoxProps;
 
-class ChemMasterNameInput extends Component<ChemMasterNameInputProps & BoxProps> {
-  constructor() {
-    super();
-  }
-
-  handleMouseUp = (e: MouseEvent) => {
-    const { placeholder, onMouseUp } = this.props;
+function ChemMasterNameInput(props) {
+  const { placeholder, onMouseUp, ...rest } = props;
+  function handleMouseUp(e) {
     const target = e.target as HTMLInputElement;
 
     // Middle-click button
     if (e.button === 1) {
-      target.value = placeholder;
+      target.value = placeholder || '';
       target.select();
     }
 
     if (onMouseUp) {
       onMouseUp(e);
     }
-  };
-
-  render() {
-    const { data } = useBackend<ChemMasterData>(this.context);
-    const { maxnamelength } = data;
-
-    return <Input maxLength={maxnamelength} onMouseUp={this.handleMouseUp} {...this.props} />;
   }
+
+  const { data } = useBackend<ChemMasterData>();
+  const { maxnamelength } = data;
+
+  return <Input maxLength={maxnamelength} onMouseUp={handleMouseUp} {...props} {...computeBoxProps(rest)} />;
 }
 
-const ChemMasterProductionCommon = (
-  props: {
-    children: InfernoNode | InfernoNode[];
-    productionData: ProductionData;
-  },
-  context
-) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const ChemMasterProductionCommon = (props: { children: ReactNode; productionData: ProductionData }) => {
+  const { act, data } = useBackend<ChemMasterData>();
   const { children, productionData } = props;
   const { buffer_reagents = [] } = data;
   const { id, max_items_amount, set_name, set_items_amount, placeholder_name } = productionData;
@@ -419,7 +400,7 @@ const ChemMasterProductionCommon = (
             fluid
             value={set_name}
             placeholder={placeholder_name}
-            onChange={(e, value) =>
+            onChange={(value) =>
               act(`set_items_name`, {
                 production_mode: id,
                 name: value,
@@ -441,17 +422,17 @@ const ChemMasterProductionCommon = (
   );
 };
 
-const SpriteStyleButton = (props: { icon: string } & BoxProps, context) => {
+const SpriteStyleButton = (props: { icon: string; selected: boolean } & BoxProps) => {
   const { icon, ...restProps } = props;
   return (
-    <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
+    <Button style={{ padding: 0, lineHeight: 0 }} {...restProps}>
       <Box className={classes(['chem_master32x32', icon])} />
     </Button>
   );
 };
 
-const ChemMasterProductionGeneric = (props: { productionData: ProductionData }, context) => {
-  const { act } = useBackend<ChemMasterData>(context);
+const ChemMasterProductionGeneric = (props: { productionData: ProductionData }) => {
+  const { act } = useBackend<ChemMasterData>();
   const { id: modeId, set_sprite, sprites } = props.productionData;
   let style_buttons;
   if (sprites && sprites.length > 0) {
@@ -459,9 +440,8 @@ const ChemMasterProductionGeneric = (props: { productionData: ProductionData }, 
       <SpriteStyleButton
         key={id}
         icon={sprite}
-        translucent
-        onClick={() => act('set_sprite_style', { production_mode: modeId, style: id })}
         selected={set_sprite === id}
+        onClick={() => act('set_sprite_style', { production_mode: modeId, style: id })}
       />
     ));
   }
@@ -472,8 +452,8 @@ const ChemMasterProductionGeneric = (props: { productionData: ProductionData }, 
   );
 };
 
-const ChemMasterCustomization = (props: {}, context) => {
-  const { act, data } = useBackend<ChemMasterData>(context);
+const ChemMasterCustomization = (props: {}) => {
+  const { act, data } = useBackend<ChemMasterData>();
   const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } = data;
 
   const style_button_size = { width: '20px', height: '20px' };
@@ -488,11 +468,7 @@ const ChemMasterCustomization = (props: {}, context) => {
           height: style_button_size.height,
         }}
         onClick={() => act('set_container_style', { style: color })}
-        icon={selected && 'check'}
-        iconStyle={{
-          position: 'relative',
-          'z-index': 1,
-        }}
+        icon={selected ? 'check' : ''}
         tooltip={name}
         tooltipPosition="top"
       >
@@ -509,7 +485,7 @@ const ChemMasterCustomization = (props: {}, context) => {
             padding: 0,
             width: style_button_size.width,
             height: style_button_size.height,
-            'background-color': color,
+            backgroundColor: color,
             opacity: 0.6,
             filter: 'alpha(opacity=60)',
           }}

@@ -7,10 +7,18 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud in GLOB.huds) hud.add_to_hud(src)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/human/chosen_hud = hud
+		if(!istype(chosen_hud))
+			continue
+		chosen_hud.add_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud in GLOB.huds) hud.remove_from_hud(src)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/chosen_hud = hud
+		if(!istype(chosen_hud))
+			continue
+		chosen_hud.remove_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -26,7 +34,7 @@
 	if(U.sensor_mode <= SENSOR_VITALS) return
 	return TRUE
 
-/datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
+/datum/atom_hud/data/human/medical/basic/add_hud_images(mob/M, mob/living/carbon/H)
 	if(check_sensors(H) || isobserver(M))
 		..()
 
@@ -42,6 +50,9 @@
 
 /datum/atom_hud/data/human/security/advanced
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
+
+/datum/atom_hud/data/human/malf_ai
+	hud_icons = list(MALF_AI_HUD)
 
 /datum/atom_hud/data/diagnostic
 
@@ -59,6 +70,23 @@
 
 /datum/atom_hud/data/janitor
 	hud_icons = list(JANI_HUD)
+
+/datum/atom_hud/data/pressure
+	hud_icons = list(PRESSURE_HUD)
+
+/datum/atom_hud/data/heretic
+	hud_icons = list(HERETIC_HUD)
+	ignore_invisibility_check = TRUE
+
+/// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
+/datum/atom_hud/data/pressure/add_hud_to(mob/user)
+	..()
+	SSair.add_pressure_hud(user)
+
+
+/datum/atom_hud/data/anomalous
+	hud_icons = list(ANOMALOUS_HUD)
+	ignore_invisibility_check = TRUE
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -96,7 +124,7 @@
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER)) && (D.severity != VIRUS_NONTHREAT))
 			return TRUE
 	return FALSE
 
@@ -194,19 +222,10 @@
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable_state = "dead"
-		if(!ghost_can_reenter()) // DNR or AntagHUD
-			revivable_state = "dead"
-		else if(ismachineperson(src) || (timeofdeath && is_revivable()))
-			revivable_state = "flatline"
-		else if(!mind)
-			revivable_state = "dead"
-		else
-			var/foundghost = FALSE
-			for(var/mob/dead/observer/G in GLOB.player_list)
-				if(G.mind.current == src)
-					foundghost = (G.can_reenter_corpse && G.client)
-					break
-			if(foundghost || key)
+		if(ghost_can_reenter()) // Not DNR or AntagHUD
+			if((ismachineperson(src) && (client || check_ghost_client())) || (!ismachineperson(src) && timeofdeath && is_revivable()))
+				revivable_state = "flatline"
+			else if(get_ghost() || key)
 				revivable_state = "hassoul"
 
 		holder.icon_state = "hud[revivable_state]"
@@ -228,14 +247,12 @@
 
 //HOOKS
 
-/mob/living/carbon/human/proc/sec_hud_set_ID()
+/mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
-	if(wear_id)
+	if(wear_id && ! HAS_TRAIT(src, TRAIT_UNKNOWN))
 		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
-
-
 
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
@@ -248,8 +265,9 @@
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
 			else if(istype(I,/obj/item/bio_chip/mindshield))
+				var/obj/item/bio_chip/mindshield/shield = I
 				holder = hud_list[IMPMINDSHIELD_HUD]
-				holder.icon_state = "hud_imp_loyal"
+				holder.icon_state = shield.hud_icon_state
 			else if(istype(I,/obj/item/bio_chip/chem))
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"
@@ -405,7 +423,7 @@
 			holder.icon_state = "hudpatrol"
 		if(BOT_PREP_ARREST, BOT_ARREST, BOT_HUNT, BOT_BLOCKED, BOT_NO_ROUTE) //STOP RIGHT THERE, CRIMINAL SCUM!
 			holder.icon_state = "hudalert"
-		if(BOT_MOVING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
+		if(BOT_MOVING, BOT_PATHING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
 			holder.icon_state = "hudmove"
 		else
 			holder.icon_state = ""
@@ -498,6 +516,13 @@
 		holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~
+	HERETIC HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/heretic_influence/proc/do_hud_stuff()
+	var/image/holder = hud_list[HERETIC_HUD]
+	holder.icon_state = "reality_smash"
+
+/*~~~~~~~~~~~~~~
 	JANI HUD
 ~~~~~~~~~~~~~~~*/
 /obj/effect/decal/cleanable/proc/jani_hud_set_sign()
@@ -506,6 +531,49 @@
 	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
 	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/*~~~~~~~~~~~~~~
+	ANOMALOUS HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/anomalous_particulate/proc/do_hud_stuff()
+	var/image/holder = hud_list[ANOMALOUS_HUD]
+	holder.icon_state = "hud_anom"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
+	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/*~~~~~~~~~~~~~~
+	Malf AI HUD
+~~~~~~~~~~~~~~~*/
+
+/mob/living/carbon/human/proc/malf_hud_set_status()
+	var/image/holder = hud_list[MALF_AI_HUD]
+	var/new_status
+	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
+	if(!SSticker)
+		return //wait till the game starts or the monkeys runtime
+	for(var/datum/data/record/E in GLOB.data_core.general)
+		if(E.fields["name"] == targetname)
+			for(var/datum/data/record/R in GLOB.data_core.security)
+				if(R.fields["id"] == E.fields["id"])
+					new_status = E.fields["ai_target"]
+	if(targetname)
+		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
+		if(R)
+			switch(new_status)
+				if(MALF_STATUS_NONE)
+					holder.icon_state = ""
+					return
+				if(MALF_STATUS_GREEN)
+					holder.icon_state = "malf_hud_green"
+					return
+				if(MALF_STATUS_RED)
+					holder.icon_state = "malf_hud_red"
+					return
+				if(MALF_STATUS_AVOID)
+					holder.icon_state = "malf_hud_avoid"
+					return
+	holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...
@@ -532,7 +600,7 @@
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
 		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
-	else if(isAI(commenter))
+	else if(is_ai(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
@@ -540,3 +608,27 @@
 	if(!R.fields["comments"])
 		R.fields["comments"] = list()
 	R.fields["comments"] += list(comment_text)
+
+/// Borg-AI shell tracking.
+/// Shows tracking beacons on the mech.
+/mob/living/silicon/robot/proc/diag_hud_set_aishell()
+	var/image/holder = hud_list[DIAG_TRACK_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	if(!shell) //Not an AI shell
+		holder.icon_state = null
+	else if(deployed) //AI shell in use by an AI
+		holder.icon_state = "hudtrackingai"
+	else	//Empty AI shell
+		holder.icon_state = "hudtracking"
+
+/// AI side tracking of AI shell control.
+/// Shows tracking beacons on the mech.
+/mob/living/silicon/ai/proc/diag_hud_set_deployed()
+	var/image/holder = hud_list[DIAG_TRACK_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	if(!deployed_shell)
+		holder.icon_state = null
+	else //AI is currently controlling a shell
+		holder.icon_state = "hudtrackingai"

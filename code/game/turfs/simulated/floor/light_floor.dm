@@ -1,16 +1,18 @@
 /turf/simulated/floor/light
 	name = "light floor"
-	light_range = 0
+	desc = "Highly advanced technology that combines the functions of walking surface and area lighting. What will science think of next?"
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	/// Are we on
 	var/on = FALSE
-	/// Are we broken
-	var/light_broken = FALSE
 	/// Can we modify a colour
 	var/can_modify_colour = TRUE
 	/// Are we draining power
 	var/using_power = FALSE
+
+/turf/simulated/floor/light/examine(mob/user, infix, suffix)
+	. = ..()
+	. += SPAN_NOTICE("Use a multitool to change the hue of [src].")
 
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
@@ -50,17 +52,11 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/light/bulb)) //only for light tiles
-		if(!light_broken)
-			qdel(C)
-			light_broken = FALSE
-			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	else
-		return ..()
+/turf/simulated/floor/light/attack_ai(mob/user)
+	return attack_hand(user)
+
+/turf/simulated/floor/light/attack_robot(mob/user)
+	return attack_hand(user)
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -68,29 +64,27 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!light_broken)
-		var/new_color = input(user, "Select a bulb color", "Select a bulb color", color) as color|null
-		if(!new_color)
-			return
 
-		// Cancel if they walked away
-		if(!Adjacent(user, src))
-			return
+	var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color)
+	if(isnull(new_color))
+		return
 
-		// Now lets make sure it cant go fully black. Yes I know this is more dense than my skull.
-		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
-		hsl[3] = max(hsl[3], 0.4)
-		var/list/rgb = hsl2rgb(arglist(hsl))
-		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+	// Cancel if they walked away
+	if(!Adjacent(user, src))
+		return
 
-		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
-		update_icon()
-	else
-		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
+	// Now lets make sure it cant go fully black. Yes I know this is more dense than my skull.
+	var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+	hsl[3] = max(hsl[3], 0.4)
+	var/list/rgb = hsl2rgb(arglist(hsl))
+	color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+
+	to_chat(user, SPAN_NOTICE("You change [src]'s light bulb color."))
+	update_icon()
 
 /turf/simulated/floor/light/proc/toggle_light(light)
 	if(!on && !power_check())
-		visible_message("<span class='danger'>[src] doesn't react, it seems to be out of power.</span>")
+		visible_message(SPAN_DANGER("[src] doesn't react, it seems to be out of power."))
 		return
 	var/area/A = get_area(src)
 	// 0 = OFF
@@ -106,7 +100,7 @@
 
 /turf/simulated/floor/light/extinguish_light(force = FALSE)
 	toggle_light(FALSE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	visible_message(SPAN_DANGER("[src] flickers and falls dark."))
 
 /turf/simulated/floor/light/clean(floor_only)
 	var/color_save = color
@@ -127,7 +121,7 @@
 	var/current_color
 
 // We pick a random color when we are spawned
-/turf/simulated/floor/light/disco/Initialize()
+/turf/simulated/floor/light/disco/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

@@ -40,17 +40,17 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
+	to_chat(user, SPAN_DANGER("You try to screwdriver open [src], but accidentally release some radiation!"))
 	if(prob(50))
 		empulse(src, 4, 10)
 	else
-		radiation_pulse(get_turf(src), 500, 2)
+		radiation_pulse(get_turf(src), 2000, BETA_RAD)
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>[src] is too well secured to the floor.</span>")
+	to_chat(user, SPAN_NOTICE("[src] is too well secured to the floor."))
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)
@@ -72,7 +72,6 @@
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32
-	anchored = TRUE
 	var/cycles = 0
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
@@ -87,7 +86,6 @@
 		if(!depotarea.used_self_destruct)
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.update_state()
-		depotarea.shields_down()
 	else
 		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
@@ -109,11 +107,12 @@
 		for(var/obj/O in L)
 			qdel(O)
 		L.open()
+	depotarea.shields_down()
 	for(var/mob/living/M in range(30, T))
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
 		E.take_damage(E.max_integrity)
-	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0)
+	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, cause = "Depot Explosion")
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

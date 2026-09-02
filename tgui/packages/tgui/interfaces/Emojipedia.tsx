@@ -1,6 +1,8 @@
-import { classes } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
-import { Button, Input, Section } from '../components';
+import { useState } from 'react';
+import { Button, Input, Section } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {
@@ -11,10 +13,10 @@ type Emoji = {
   name: string;
 };
 
-export const Emojipedia = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const Emojipedia = (props) => {
+  const { data } = useBackend<Data>();
   const { emoji_list } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useState('');
   const filteredEmoji = emoji_list.filter((emoji) => emoji.name.toLowerCase().includes(searchText.toLowerCase()));
 
   return (
@@ -27,7 +29,7 @@ export const Emojipedia = (props, context) => {
           title={'Emojipedia v1.0.1'}
           buttons={
             <>
-              <Input placeholder="Search by name" value={searchText} onInput={(e, value) => setSearchText(value)} />
+              <Input placeholder="Search by name" value={searchText} onChange={(value) => setSearchText(value)} />
               <Button tooltip={'Click on an emoji to copy its tag!'} tooltipPosition="bottom" icon="circle-question" />
             </>
           }

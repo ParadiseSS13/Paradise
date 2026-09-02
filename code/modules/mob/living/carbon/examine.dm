@@ -81,13 +81,16 @@
 /mob/living/carbon/proc/examine_show_ssd()
 	if(!HAS_TRAIT(src, SCRYING))
 		if(!key)
-			return "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+			return "[SPAN_DEADSAY("[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.")]\n"
 		else if(!client)
 			return "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
 	return ""
 
 /mob/living/carbon/examine(mob/user)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return list(SPAN_NOTICE("You're struggling to make out any details..."))
+
 	var/skipgloves = FALSE
 	var/skipsuitstorage = FALSE
 	var/skipjumpsuit = FALSE
@@ -96,6 +99,7 @@
 	var/skipears = FALSE
 	var/skipeyes = FALSE
 	var/skipface = FALSE
+	var/hallucinating = HAS_TRAIT(user, TRAIT_EXAMINE_HALLUCINATING)
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
@@ -116,7 +120,7 @@
 
 	var/msg = "<span class='notice'>This is "
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
-		msg = "<span class='notice'>This is the <span class='warning'>shambling corpse</span> of "
+		msg = "[SPAN_NOTICE("This is the <span class='warning'>shambling corpse")] of "
 
 	msg += "<em>[name]</em>"
 
@@ -139,8 +143,11 @@
 			accessories = parts[5]
 
 		if(item)
+			if(HAS_TRAIT(item, TRAIT_SKIP_EXAMINE))
+				continue
 			if(istype(item, /obj/item/grab))
 				grab_items |= item
+
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
 			else
@@ -153,7 +160,7 @@
 				if(limb_name)
 					submsg += " [preposition] [p_their()] [limb_name]"
 				if(item.blood_DNA)
-					submsg = "<span class='warning'>[submsg]!</span>\n"
+					submsg = "[SPAN_WARNING("[submsg]!")]\n"
 				else
 					submsg = "[submsg].\n"
 				msg += submsg
@@ -161,23 +168,49 @@
 			// add any extra info on the limbs themselves
 			msg += examine_handle_individual_limb(limb_name)
 
+	// hallucinating?
+	if(hallucinating && prob(50))
+		// List of hallucination messages
+		var/list/hallucination_texts = list(
+			"You blink, and for a moment, [p_their()] body shimmers like a mirage, [p_their()] gaze unsettlingly intense.",
+			"[p_they(TRUE)] appear[p_s()] to be surrounded by a swarm of tiny, glowing butterflies.",
+			"[p_they(TRUE)] [p_are()] wearing a crown made of spaghetti. Wait, no... it's gone now.",
+			"[p_they(TRUE)] look[p_s()] suspicious, as if plotting a jelly heist.",
+			"[p_they(TRUE)] begin[p_s()] to hum a tune, but the sound seems to echo from all directions at once.",
+			"[p_they(TRUE)] smile [p_s()], and for a second, [p_their()] face twists into a thousand tiny reflections.",
+			"[p_they(TRUE)] seem[p_s()] to float slightly above the ground, [p_their()] feet just brushing against the floor.",
+			"[p_their(TRUE)] hands flicker like holograms, shifting between different gestures before returning to normal.",
+			"[p_they(TRUE)] seems to be cloaked in a faint, swirling fog that disappears the moment you focus on it.",
+			"You glance at [p_them()], and for an instant, [p_their()] shadow stretches unnaturally long, as if reaching for something just out of view. Did that shadow have a face?",
+			"You glance at [p_them()], and for a moment, [p_their()] eyes seem to flash with a strange, metallic gleam. You could have sworn it was gold... or was it red?",
+			"[p_they(TRUE)] seem[p_s()] to be walking straight towards you, [p_their()] silhouette stretching longer than it should. Were [p_their()] footsteps too quiet? Or is it just you? There's something off about the way [p_they()] move[p_s()].",
+			"For a moment, [p_they()] snap[p_s()] to an odd position, [p_their()] head and legs stiff and unwavering. [p_their(TRUE)] arms are outstretched to [p_their()] sides, and you see black where [p_their()] eyes should be.",
+			"[p_they(TRUE)] [p_have()] no face. There's an impossibly dark layer of nothingness where it should be. [p_their(TRUE)] sclerae are the only indication [p_they()] still [p_have()] eyes.",
+			"You swear you just saw [p_them()] sobbing and begging!",
+			"[p_they(TRUE)] [p_are()] bleeding profusely! [p_their(TRUE)] blood is crawling its way back in!",
+			"[p_their(TRUE)] head violently jerks to meet your gaze."
+	)
+		// Pick a random hallucination description
+		var/random_text = pick(hallucination_texts)
+		msg += "[SPAN_WARNING("[random_text]")]\n"
+
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!")]\n"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/twimsts))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!")]\n"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!")]\n"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!")]\n"
 
 	//legcuffed?
 	if(legcuffed)
 		if(istype(legcuffed, /obj/item/restraints/legcuffs/beartrap))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!")]\n"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!")]\n"
 
 	for(var/obj/item/abstract_item in abstract_items)
 		var/text = abstract_item.customised_abstract_text(src)
@@ -188,27 +221,27 @@
 	for(var/obj/item/grab/grab in grab_items)
 		switch(grab.state)
 			if(GRAB_AGGRESSIVE)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>\n"
+				msg += "[SPAN_BOLDWARNING("[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!")]\n"
 			if(GRAB_NECK)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!</span>\n"
+				msg += "[SPAN_BOLDWARNING("[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!")]\n"
 			if(GRAB_KILL)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
+				msg += "[SPAN_BOLDWARNING("[p_they(TRUE)] [p_are()] strangling [grab.affecting]!")]\n"
 
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><b>[p_they(TRUE)] [p_are()] convulsing violently!</b></span>\n"
+			msg += "[SPAN_WARNING("<b>[p_they(TRUE)] [p_are()] convulsing violently!</b>")]\n"
 		if(400 SECONDS to 600 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] extremely jittery.")]\n"
 		if(200 SECONDS to 400 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] [p_are()] twitching ever so slightly.")]\n"
 
 
 	var/appears_dead = FALSE
 	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/obj/item/clothing/glasses/E = get_item_by_slot(SLOT_HUD_GLASSES)
+		var/obj/item/clothing/glasses/E = get_item_by_slot(ITEM_SLOT_EYES)
 		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair) //Are we in a chair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)
@@ -217,22 +250,18 @@
 			appears_dead = TRUE
 
 		if(suiciding)
-			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
+			msg += "[SPAN_WARNING("[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.")]\n"
 		if(!just_sleeping)
-			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
-				var/foundghost = FALSE
-				if(mind)
-					for(var/mob/dead/observer/G in GLOB.player_list)
-						if(G.mind == mind && G.can_reenter_corpse)
-							foundghost = TRUE
-							break
-				if(!foundghost)
+			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
+			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
+				if(!check_ghost_client()) // our ghost is offline or no ghost attached to body
+					msg += "; there are no signs of life"
+				if(!get_ghost() && !key) // no ghost attached to body
 					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
+		msg += "[SPAN_DEADSAY("It appears that [p_their()] brain is missing...")]\n"
 
 	msg += "<span class='warning'>"
 
@@ -279,6 +308,9 @@
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
 
+	if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE)) //to tell plague zombies easier through clothing
+		msg += "[p_they(TRUE)] smell[p_s()] like rot and death!\n"
+
 	// add in anything else we want at the end of this block
 	msg += examine_extra_damage_flavor()
 
@@ -315,30 +347,46 @@
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
 	if(ishuman(M))
-		var/have_hudtypes = list()
 		var/mob/living/carbon/human/H = M
-
+		var/obj/item/clothing/glasses/hud/hudglasses
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
-			if(hudglasses?.examine_extensions)
-				have_hudtypes += hudglasses.examine_extensions
+			hudglasses = H.glasses
+			if(hudglasses.hud_debug)
+				return TRUE
 
-		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
-		if(CIH?.examine_extensions)
-			have_hudtypes += CIH.examine_extensions
+		var/have_hudtypes = list()
+		var/datum/atom_hud/data/human/medbasic = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+		var/datum/atom_hud/data/human/medadv = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		var/datum/atom_hud/data/human/secbasic = GLOB.huds[DATA_HUD_SECURITY_BASIC]
+		var/datum/atom_hud/data/human/secadv = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		var/datum/atom_hud/data/anomalous = GLOB.huds[DATA_HUD_ANOMALOUS]
+		if((H in medbasic.hudusers) || (H in medadv.hudusers))
+			have_hudtypes += EXAMINE_HUD_MEDICAL_READ
+		if(H in secadv.hudusers)
+			have_hudtypes += EXAMINE_HUD_SECURITY_READ
+		if(H in secbasic.hudusers)
+			have_hudtypes += EXAMINE_HUD_SKILLS
+		if(H in anomalous.hudusers)
+			have_hudtypes += ANOMALOUS_HUD
 
 		var/user_accesses = M.get_access()
 		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access
 		var/medwrite = has_access(null, list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS), user_accesses) // same access as obj/machinery/computer/med_data/req_one_access
-		if(secwrite)
+		if(secwrite || hudglasses?.hud_access_override)
 			have_hudtypes += EXAMINE_HUD_SECURITY_WRITE
 		if(medwrite)
 			have_hudtypes += EXAMINE_HUD_MEDICAL_WRITE
 
 		return (hudtype in have_hudtypes)
 
-	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
+	else if(isrobot(M) || is_ai(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
+		var/mob/living/silicon/ai/sillycon = M
+		if(sillycon.laws.zeroth_law && is_ai(M))
+			return (hudtype in list(EXAMINE_HUD_MALF_READ, EXAMINE_HUD_MALF_WRITE, EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
+		else if(sillycon.laws.zeroth_law && isrobot(M))
+			return (hudtype in list(EXAMINE_HUD_MALF_READ, EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
+		else
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS))
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M

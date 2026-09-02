@@ -61,8 +61,8 @@
 		"\improper ARG" = list('icons/obj/guns/projectile.dmi', "arg-30"),
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
-		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
-		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
+		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw"),
+		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "shotgun_combat"),
 		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
 		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
 		"fireaxe" = list('icons/obj/weapons/melee.dmi', "fireaxe1"),
@@ -81,7 +81,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -97,15 +97,15 @@
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
-			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
+			to_chat(user, SPAN_WARNING("You try to use your hand, but it's missing!"))
 			return
 		if(!temp.is_usable())
-			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+			to_chat(user, SPAN_WARNING("You try to move your [temp.name], but cannot!"))
 			return
 
 	user.Weaken(4 SECONDS)
-	user.visible_message("<span class='warning'>[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!</span>",
-						"<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
+	user.visible_message(SPAN_WARNING("[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!"),
+						SPAN_USERDANGER("[src] vanishes as you try grabbing it, causing you to stumble!"))
 	qdel(src)
 
 /**
@@ -195,7 +195,7 @@
 	// Let's check if we can spawn somewhere first
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(isfloorturf(T) && !is_blocked_turf(T))
+		if(isfloorturf(T) && !T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -220,8 +220,8 @@
 	weaken = 8 SECONDS
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
-	target.visible_message("<span class='warning'>[target] trips over nothing and flails on [get_turf(target)] as if they were falling!</span>",
-						"<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!</span>")
+	target.visible_message(SPAN_WARNING("[target] trips over nothing and flails on [get_turf(target)] as if they were falling!"),
+						SPAN_USERDANGER("You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!"))
 
 /**
   * # Hallucination - Delamination Alarm
@@ -257,7 +257,8 @@
 
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
-		if(!is_blocked_turf(vent) && !vent.welded)
+		var/turf/vent_turf = get_turf(vent)
+		if(!vent_turf.is_blocked_turf() && !vent.welded)
 			vents += vent
 	if(!length(vents))
 		qdel(src)
@@ -320,7 +321,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(isfloorturf(T) && !is_blocked_turf(T))
+		if(isfloorturf(T) && !T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -430,7 +431,6 @@
   * Changes the target's appearance to something else temporarily.
   */
 /obj/effect/hallucination/self_delusion
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/self_delusion/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -439,7 +439,7 @@
 	I.override = TRUE
 	add_icon(I)
 
-	to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+	to_chat(target, SPAN_ITALICS("...wabbajack...wabbajack..."))
 	target.playsound_local(get_turf(target), 'sound/magic/staff_change.ogg', 50, TRUE, -1)
 
 /**
@@ -454,7 +454,6 @@
   * Changes the appearance of all humans around the target.
   */
 /obj/effect/hallucination/delusion
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/delusion/Initialize(mapload, mob/living/carbon/target, override_icon, override_icon_state)
 	. = ..()
@@ -476,3 +475,71 @@
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
 	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+
+/**
+  * # Hallucination - Vent Peek
+  *
+  * A suspicious individual peers out of a nearby vent at the target.
+  */
+/obj/effect/hallucination/ventpeek
+	duration = 4 SECONDS
+
+/obj/effect/hallucination/ventpeek/Initialize(mapload, mob/living/carbon/hallucination_target)
+	. = ..()
+
+	var/list/venttargets = list()
+	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
+		venttargets += vent
+	if(!length(venttargets))
+		return INITIALIZE_HINT_QDEL
+	var/image/I = image('icons/effects/effects.dmi', get_turf(pick(venttargets)))
+	add_icon(I)
+	flick("hallucination_clown", I)
+	addtimer(CALLBACK(src, PROC_REF(play_honk)), 2.3 SECONDS)
+
+/obj/effect/hallucination/ventpeek/proc/play_honk()
+	target.playsound_local(target, 'sound/items/bikehorn.ogg', 10, TRUE)
+
+// Doppelganger hallucination
+// Spawns a copy of the player that briefly follows them around
+/obj/effect/hallucination/doppelganger
+	duration = 10 SECONDS
+	var/obj/effect/hallucination/chaser/you/fake_you
+
+/obj/effect/hallucination/doppelganger/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	var/list/locs = list()
+	for(var/turf/T in oview(world.view / 2, target))
+		if(!T.is_blocked_turf())
+			locs += T
+	if(!length(locs))
+		return INITIALIZE_HINT_QDEL
+
+	var/turf/T = pick(locs)
+	fake_you = new(T, target)
+
+/obj/effect/hallucination/doppelganger/Destroy()
+	QDEL_NULL(fake_you)
+	return ..()
+
+/obj/effect/hallucination/chaser/you
+	duration = 10 SECONDS
+	min_distance = 2
+	var/image/I = new
+
+/obj/effect/hallucination/chaser/you/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	name = "???"
+	I.appearance = target.appearance
+	I.loc = src
+	I.override = TRUE
+	add_icon(I)
+
+/obj/effect/hallucination/chaser/you/chase()
+	..()
+	I.dir = get_dir(src, target)
+
+/obj/effect/hallucination/chaser/you/Destroy()
+	QDEL_NULL(I)
+	return ..()

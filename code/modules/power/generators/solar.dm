@@ -3,7 +3,7 @@
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar panel. Generates electricity when in contact with sunlight."
-	icon = 'icons/goonstation/objects/power.dmi'
+	icon = 'icons/obj/solars.dmi'
 	icon_state = "sp_base"
 	density = TRUE
 	max_integrity = 150
@@ -15,6 +15,7 @@
 	var/ndir = SOUTH // target dir
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
+	var/solar_type = "solar_panel"
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
@@ -45,9 +46,22 @@
 		S.glass_type = /obj/item/stack/sheet/glass
 		S.anchored = TRUE
 	S.loc = src
-	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
-		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
+	if(S.glass_type == /obj/item/stack/sheet/rglass) // if the panel is made of reinforced glass
+		max_integrity *= RGLASS_SOLAR_MULT
 		obj_integrity = max_integrity
+		solar_type = "solar_panel"
+	if(S.glass_type == /obj/item/stack/sheet/plasmaglass) // if the panel is made of plasma glass
+		max_integrity *= PLASMAGLASS_SOLAR_MULT
+		obj_integrity = max_integrity
+		solar_type = "solar_panel_p"
+	if(S.glass_type == /obj/item/stack/sheet/plasmarglass) // if the panel is made of reinforced plasma glass
+		max_integrity *= PLASMARGLASS_SOLAR_MULT
+		obj_integrity = max_integrity
+		solar_type = "solar_panel_p"
+	if(S.glass_type == /obj/item/stack/sheet/plastitaniumglass) // if the panel is made of plastitanium glass
+		max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
+		obj_integrity = max_integrity
+		solar_type = "solar_panel_t"
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -56,9 +70,9 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
+	user.visible_message("[user] begins to take the glass off the solar panel.", SPAN_NOTICE("You begin to take the glass off the solar panel..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
+		user.visible_message("[user] takes the glass off the solar panel.", SPAN_NOTICE("You take the glass off the solar panel."))
 		deconstruct(TRUE)
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -94,9 +108,9 @@
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
 	if(stat & BROKEN)
-		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
+		. += image('icons/obj/solars.dmi', icon_state = "[solar_type]-b", layer = FLY_LAYER)
 	else
-		var/image/panel = image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
+		var/image/panel = image('icons/obj/solars.dmi', icon_state = solar_type, layer = FLY_LAYER)
 		var/matrix/M = matrix()
 		M.Turn(adir)
 		panel.transform = M
@@ -128,7 +142,7 @@
 		if(powernet == control.powernet)//check if the panel is still connected to the computer
 			if(obscured) //get no light from the sun, so don't generate power
 				return
-			var/sgen = SSsun.solar_gen_rate * sunfrac
+			var/sgen = SSsun.solar_gen_rate * sunfrac * obj_integrity
 			produce_direct_power(sgen)
 			control.gen += sgen
 		else //if we're no longer on the same powernet, remove from control computer
@@ -139,9 +153,6 @@
 	stat |= BROKEN
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
-	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
 	. = PROCESS_KILL
@@ -179,14 +190,14 @@
 
 /obj/item/solar_assembly
 	name = "solar panel assembly"
-	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker"
-	icon = 'icons/goonstation/objects/power.dmi'
+	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker."
+	icon = 'icons/obj/solars.dmi'
 	icon_state = "sp_base"
-	item_state = "electropack"
+	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = FALSE
-	var/tracker = 0
+	var/tracker = FALSE
 	var/glass_type = null
+	new_attack_chain = TRUE
 
 /obj/item/solar_assembly/attack_hand(mob/user)
 	if(!anchored)
@@ -201,42 +212,59 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.</span>"
+	. += SPAN_NOTICE("[src] is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.")
 	if(tracker)
-		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
+		. += SPAN_NOTICE("It has a tracking circuit installed. It can be <b>pried out</b>.")
 	else
-		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+		. += SPAN_NOTICE("It has a slot for a <i>tracking circuit</i> board.")
 	if(anchored)
-		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
+		. += SPAN_NOTICE("It needs <i>glass</i> to be completed.")
 
-/obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/solar_assembly/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tracker_electronics))
+		if(tracker)
+			to_chat(user, SPAN_WARNING("There are already tracker electronics in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+		tracker = TRUE
+		qdel(used)
+		user.visible_message(
+			SPAN_NOTICE("[user] inserts [used] into [src]."),
+			SPAN_NOTICE("You insert [used] into [src]."),
+			SPAN_NOTICE("You hear electronics click into place.")
+		)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	if(anchored || !isturf(loc))
-		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
-			var/obj/item/stack/sheet/S = W
-			if(S.use(2))
-				glass_type = S.merge_type
-				playsound(loc, S.usesound, 50, 1)
-				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
-				if(tracker)
-					new /obj/machinery/power/tracker(get_turf(src), src)
-				else
-					new /obj/machinery/power/solar(get_turf(src), src)
-			else
-				to_chat(user, "<span class='warning'>You need two sheets of glass to put them into a solar panel.</span>")
-				return
-			return TRUE
+	if(istype(used, /obj/item/stack/sheet/glass) || \
+			istype(used, /obj/item/stack/sheet/rglass) || \
+			istype(used, /obj/item/stack/sheet/plasmaglass) || \
+			istype(used, /obj/item/stack/sheet/plasmarglass) || \
+			istype(used, /obj/item/stack/sheet/plastitaniumglass))
+		if(!anchored || !isturf(loc))
+			to_chat(user, SPAN_WARNING("You need to anchor [src] with a wrench before you can add glass!"))
+			return ITEM_INTERACT_COMPLETE
 
-	if(!tracker)
-		if(istype(W, /obj/item/tracker_electronics))
-			if(!user.drop_item())
-				return
-			tracker = TRUE
-			qdel(W)
-			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
-			return TRUE
-	else
-		return ..()
+		var/obj/item/stack/sheet/sheets = used
+		if(!sheets.use(2))
+			to_chat(user, SPAN_WARNING("You need two sheets of glass to finish [src]."))
+			return ITEM_INTERACT_COMPLETE
+		glass_type = sheets.merge_type
+		playsound(loc, sheets.usesound, 50, 1)
+		user.visible_message(
+			SPAN_NOTICE("[user] places [used] on [src]."),
+			SPAN_NOTICE("You place [used] on [src]."),
+			SPAN_HEAR("You hear glass panels click into place.")
+		)
+		if(tracker)
+			new /obj/machinery/power/tracker(get_turf(src), src)
+		else
+			new /obj/machinery/power/solar(get_turf(src), src)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
 	if(!tracker)
@@ -246,18 +274,18 @@
 		return
 	new /obj/item/tracker_electronics(loc)
 	tracker = FALSE
-	user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
+	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
 
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
 	if(!anchored && isturf(loc))
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = TRUE
-			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
+			WRENCH_ANCHOR_MESSAGE
 			return TRUE
 	else
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = FALSE
-			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
+			WRENCH_UNANCHOR_MESSAGE
 			return TRUE
 
 //
@@ -273,11 +301,9 @@
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
-	anchored = TRUE
 	density = TRUE
 	power_state = IDLE_POWER_USE
 	idle_power_consumption = 250
-	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
@@ -297,7 +323,7 @@
 	track = TRACKER_AUTO
 	autostart = TRUE // Automatically search for connected devices
 
-/obj/machinery/power/solar_control/Initialize()
+/obj/machinery/power/solar_control/Initialize(mapload)
 	SSsun.solars |= src
 	setup()
 	. = ..()
@@ -445,11 +471,11 @@
 	for(var/obj/C in src)
 		C.forceMove(loc)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		new /obj/item/shard(drop_location())
 	else
-		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		to_chat(user, SPAN_NOTICE("You disconnect the monitor."))
 		A.state = 5	// STATE_GLASS
 	A.dir = dir
 	A.circuit = M

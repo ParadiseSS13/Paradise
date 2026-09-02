@@ -13,18 +13,20 @@
 /obj/item/spellbook/oneuse/emp/used
 	used = TRUE	//spawns used
 
-/obj/effect/spawner/lootdrop/wizardcrash
+/obj/effect/spawner/random/wizardcrash
 	loot = list(
-				/obj/item/guardiancreator = 1,   // jackpot.
-				/obj/item/spellbook/oneuse/knock = 1,    // tresspassing charges incoming
-				/obj/item/gun/magic/wand/resurrection = 1,   // medbay's best friend
-				/obj/item/tarot_generator = 1,   // A little bit of everything, all of the time.
-				/obj/item/spellbook/oneuse/charge = 15,  // and now for less useful stuff to dilute the good loot chances
-				/obj/item/spellbook/oneuse/summonitem = 20,
-				/obj/item/spellbook/oneuse/forcewall = 10,
-				/obj/item/tarot_card_pack = 10,
-				/obj/item/tarot_card_pack/jumbo = 6,
-				/obj/item/tarot_card_pack/mega = 4,
-				/obj/item/book/granter/spell/summon_cheese = 10,      // hungry wizard stuff
-				/obj/item/reagent_containers/drinks/everfull = 10   // Cheese and wine
-				)
+		/obj/item/spellbook/oneuse/summonitem = 20,
+		/obj/item/spellbook/oneuse/charge = 15, // and now for less useful stuff to dilute the good loot chances
+		/obj/item/book/granter/spell/summon_cheese = 10, // hungry wizard stuff
+		/obj/item/reagent_containers/drinks/everfull = 10, // Cheese and wine
+		/obj/item/spellbook/oneuse/forcewall = 10,
+		/obj/item/tarot_card_pack = 10,
+
+		/obj/item/tarot_card_pack/jumbo = 6,
+		/obj/item/tarot_card_pack/mega = 4,
+
+		/obj/item/guardiancreator = 1, // jackpot.
+		/obj/item/spellbook/oneuse/knock = 1, // tresspassing charges incoming
+		/obj/item/gun/magic/wand/resurrection = 1, // medbay's best friend
+		/obj/item/tarot_generator = 1, // A little bit of everything, all of the time.
+	)

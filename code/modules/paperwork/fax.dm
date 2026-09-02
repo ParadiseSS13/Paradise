@@ -18,16 +18,12 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	var/list/reply_to = null
 
 /datum/fax/admin/New()
-	GLOB.adminfaxes += src
-
-// Fax panel - lets admins check all faxes sent during the round
-/client/proc/fax_panel()
-	set name = "Fax Panel"
-	set category = "Event"
-	if(holder)
-		holder.fax_panel(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
+
+USER_VERB(fax_panel, R_ADMIN, "Fax Panel", "Lets admins check all faxes sent during the round.", VERB_CATEGORY_EVENT)
+	if(client.holder)
+		client.holder.fax_panel(client.mob)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/fax_panel(mob/living/user)
 	var/html = "<A align='right' href='byond://?src=[UID()];refreshfaxpanel=1'>Refresh</A>"
@@ -36,7 +32,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
 	html += "<table>"
-	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></tr>"
 	for(var/datum/fax/admin/A in GLOB.adminfaxes)
 		html += "<tr>"
 		html += "<td>[A.name]</td>"
@@ -65,7 +61,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	html += "<div class='block'>"
 	html += "<h2>Departmental Faxes</h2>"
 	html += "<table>"
-	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='175px'>View</td></td></tr>"
+	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='175px'>View</td></tr>"
 	for(var/datum/fax/F in GLOB.faxes)
 		html += "<tr>"
 		html += "<td>[F.name]</td>"

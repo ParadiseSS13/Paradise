@@ -3,23 +3,16 @@
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
 	desc = "A sketchy improvised incendiary device."
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "grenade"
-	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
-	active = FALSE
-	det_time = 5 SECONDS
 	display_timer = FALSE
 	modifiable_timer = FALSE
+	custom_activation = TRUE
 	var/list/times
 
 /obj/item/grenade/iedcasing/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>You have no idea how long the fuze will last for until it explodes!</span>"
+	. += SPAN_WARNING("You have no idea how long the fuze will last for until it explodes!")
 
 /obj/item/grenade/iedcasing/Initialize(mapload)
 	. = ..()
@@ -41,27 +34,33 @@
 		can_underlay.plane = FLOAT_PLANE
 		underlays += can_underlay
 
+/obj/item/grenade/iedcasing/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/grenade/iedcasing/attack_self(mob/user) //
-	if(!active)
-		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You light [src]!</span>")
-			active = TRUE
-			overlays -= "improvised_grenade_filled"
-			icon_state = initial(icon_state) + "_active"
-			add_fingerprint(user)
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
+	if(active)
+		return ITEM_INTERACT_COMPLETE
+		
+	if(clown_check(user))
+		to_chat(user, SPAN_WARNING("You light [src]!"))
+		active = TRUE
+		overlays -= "improvised_grenade_filled"
+		icon_state = initial(icon_state) + "_active"
+		add_fingerprint(user)
+		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
 
-			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
-			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.throw_mode_on()
-			addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+		message_admins("[key_name_admin(user)] has primed a [name] for detonation at [A.name] [ADMIN_JMP(bombturf)]")
+		log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)]")
+		investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.throw_mode_on()
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()
-	explosion(loc, -1, -1, 2, flame_range = 4)	// small explosion, plus a very large fireball.
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = "IED grenade")	// small explosion, plus a very large fireball.
 	qdel(src)

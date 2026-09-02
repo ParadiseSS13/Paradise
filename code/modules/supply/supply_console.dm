@@ -33,7 +33,7 @@
 
 /obj/machinery/computer/supplycomp/attack_hand(mob/user)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return TRUE
 
 	ui_interact(user)
@@ -273,7 +273,7 @@
 				return
 
 			if(!P.can_order())
-				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
+				to_chat(user, SPAN_WARNING("That cannot be ordered right now. Please try again later."))
 				return
 			if(P.are_you_sure_you_want_to_be_banned)
 				var/we_warned_you = tgui_alert(user, "[P.are_you_sure_you_want_to_be_banned]", "ARE YOU SURE?", list("Yes", "No"))
@@ -301,6 +301,10 @@
 
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
+			if(!selected_account)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
+				to_chat(user, SPAN_WARNING("You must select an account to pay for the order."))
+				return
 			var/successes = 0
 			for(var/i in 1 to amount)
 				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, reason)
@@ -309,11 +313,11 @@
 					order_crate(user, order, selected_account)
 					if(successes == 1)
 						playsound(loc, 'sound/machines/ping.ogg', 15, FALSE)
-						to_chat(user, "<span class='notice'>Order Sent.</span>")
+						to_chat(user, SPAN_NOTICE("Order Sent."))
 						generate_requisition_paper(order, amount)
 			if(successes != amount)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
-				to_chat(user, "<span class='warning'>Some items were unable to be ordered. Please check requisition paper and try again at a different time.</span>")
+				to_chat(user, SPAN_WARNING("Some items were unable to be ordered. Please check requisition paper and try again at a different time."))
 
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])
@@ -344,7 +348,7 @@
 		for(var/datum/station_department/department in SSjobs.station_departments)
 			if(department.department_account == selected_account)
 				order.ordered_by_department = department //now that we know which department this is for, attach it to the order
-				order.orderedbyaccount = selected_account
+				order.set_account(selected_account)
 				order.requires_head_approval = TRUE
 
 				if(length(order.object.department_restrictions) && !(department.department_name in order.object.department_restrictions))
@@ -358,7 +362,7 @@
 	//===Handle Supply Order===
 	if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
 		//if the account is a personal account (and doesn't require CT approval), go ahead and pay for it now
-		order.orderedbyaccount = selected_account
+		order.set_account(selected_account)
 		if(attempt_account_authentification(selected_account, user))
 			var/paid_for = FALSE
 			if(!order.requires_cargo_approval && pay_with_account(selected_account, order.object.get_cost(), "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
@@ -368,7 +372,7 @@
 		SSeconomy.process_supply_order(order, FALSE)
 		if(order.ordered_by_department.crate_auto_approve && order.ordered_by_department.auto_approval_cap >= order.object.get_cost())
 			approve_crate(user, order.ordernum)
-		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
+		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", INVESTIGATE_CARGO)
 
 /obj/machinery/computer/supplycomp/proc/approve_crate(mob/user, order_num)
 	for(var/datum/supply_order/department_order in SSeconomy.request_list)
@@ -410,7 +414,7 @@
 					if(istype(order.object, /datum/supply_packs/abstract/shuttle))
 						update_static_data(user) // pack is going to be disabled, need to update pack data
 					SStgui.update_uis(src)
-					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
+					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", INVESTIGATE_CARGO)
 					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 				else
 					atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
@@ -437,17 +441,17 @@
 			SSeconomy.request_list -= order
 		else
 			return //how did we get here?
-		investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
+		investigate_log("| [key_name(user)] has denied an order for [order.object.name].", INVESTIGATE_CARGO)
 		break
 
 /obj/machinery/computer/supplycomp/proc/move_shuttle(mob/user)
 	if(is_public) // Public consoles cant move the shuttle. Dont allow exploiters.
 		return
 	if(!SSshuttle.supply.canMove())
-		to_chat(user, "<span class='warning'>For safety reasons, the automated supply shuttle cannot transport [SSshuttle.supply.blocking_item].</span>")
+		to_chat(user, SPAN_WARNING("For safety reasons, the automated supply shuttle cannot transport [SSshuttle.supply.blocking_item]."))
 	else if(SSshuttle.supply.getDockedId() == "supply_home")
 		SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-		investigate_log("| [key_name(user)] has sent the supply shuttle away. Shuttle contents: [SSeconomy.sold_atoms]", "cargo")
+		investigate_log("| [key_name(user)] has sent the supply shuttle away. Shuttle contents: [SSeconomy.sold_atoms]", INVESTIGATE_CARGO)
 	else
 		SSshuttle.supply.request(SSshuttle.getDock("supply_home"))
 
@@ -462,24 +466,24 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!Adjacent(user) || !attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, is_admin))
-		to_chat(user, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: incorrect credentials."))
 		return FALSE
 	return TRUE
 
 /obj/machinery/computer/supplycomp/proc/pay_with_account(datum/money_account/customer_account, amount, purpose, transactor, mob/user, datum/money_account/target)
 	if(!customer_account)
-		to_chat(user, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		to_chat(user, SPAN_WARNING("Error: Unable to access account. Please contact technical support if problem persists."))
 		return FALSE
 	if(customer_account.suspended)
-		to_chat(user, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: account suspended."))
 		return FALSE
 	if(!account_database.charge_account(customer_account, amount, purpose, transactor, allow_overdraft = FALSE, supress_log = FALSE))
-		to_chat(user, "<span class='warning'>Unable to complete transaction: account has insufficient credit balance to purchase this.</span>")
+		to_chat(user, SPAN_WARNING("Unable to complete transaction: account has insufficient credit balance to purchase this."))
 		return FALSE
 	account_database.credit_account(target, amount, purpose, transactor, FALSE)
 	return TRUE
@@ -510,7 +514,7 @@
 
 /obj/machinery/computer/supplycomp/emag_act(mob/user)
 	if(!hacked)
-		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
+		to_chat(user, SPAN_NOTICE("Special supplies unlocked."))
 		hacked = TRUE
 		update_static_data(user)
 		SStgui.update_uis(src)
@@ -518,7 +522,7 @@
 
 /obj/machinery/computer/supplycomp/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return FALSE
 	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -529,7 +533,6 @@
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
-	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
 	req_access = list()

@@ -2,7 +2,7 @@
 	name = "Random Bulk Food"
 	department = "Kitchen"
 	progress_type = /datum/secondary_goal_progress/random_bulk_food
-	abstract = FALSE
+	weight = 8
 	var/obj/item/food/food_type
 	var/amount
 	var/reward
@@ -18,7 +18,7 @@
 		valid_food += candidate
 
 	if(!valid_food)
-		food_type = /obj/item/food/cheesewedge
+		food_type = /obj/item/food/sliced/cheesewedge
 		amount = 50
 		return
 
@@ -65,8 +65,8 @@
 	sent_this_shipment = 0
 
 /datum/secondary_goal_progress/random_bulk_food/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	// Not properly labeled for this goal? Ignore.
+	if(!check_goal_label(AM))
 		return
 
 	if(!istype(AM, food_type))

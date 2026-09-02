@@ -3,7 +3,7 @@
 	category = "Special Offers"
 	can_discount = FALSE
 	surplus = 0
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/special/autosurgeon
 	name = "Syndicate Autosurgeon"

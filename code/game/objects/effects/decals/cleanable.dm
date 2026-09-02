@@ -1,15 +1,17 @@
 #define ALWAYS_IN_GRAVITY 2
 
 /obj/effect/decal/cleanable
-	///when Initialized() its icon_state will be chosen from this list
+	/// when Initialized() its icon_state will be chosen from this list
 	var/list/random_icon_states = list()
-	///0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
+	/// 0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/bloodiness = 0
-	///when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
+	/// How much yuck there is this decal, usually from 0-5.
+	/// Used to calculate drying times, blood writing uses, and similar things.
+	var/cleanable_amount = 0
+	/// when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
 	var/mergeable_decal = TRUE
-	///prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
-	plane = FLOOR_PLANE
-	///for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
+	/// prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
+	/// for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
 	var/gravity_check = TRUE
 	hud_possible = list(JANI_HUD)
 
@@ -25,19 +27,17 @@
 	else
 		..()
 
-//Add "bloodiness" of this blood's type, to the human's shoes
-//This is on /cleanable because fuck this ancient mess
-/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
-	..()
-
-	if(!ishuman(O))
+// Add "bloodiness" of this blood's type, to the human's shoes
+// This is on /cleanable because fuck this ancient mess
+/obj/effect/decal/cleanable/blood/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!ishuman(entered))
 		return
 
-	if(!gravity_check && ishuman(O))
-		bloodyify_human(O)
+	if(!gravity_check && ishuman(entered))
+		bloodyify_human(entered)
 
 	if(!off_floor)
-		var/mob/living/carbon/human/H = O
+		var/mob/living/carbon/human/H = entered
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
 		var/hasfeet = TRUE
@@ -55,9 +55,9 @@
 				add_blood = bloodiness
 			bloodiness -= add_blood
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
-			S.bloody_shoes[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha/255)
-			if(blood_DNA && length(blood_DNA))
-				S.add_blood(H.blood_DNA, basecolor)
+			S.bloody_shoes[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha / 255)
+			if(length(blood_DNA))
+				S.add_blood(blood_DNA, basecolor)
 			S.blood_state = blood_state
 			S.blood_color = basecolor
 			update_icon()
@@ -70,7 +70,7 @@
 				add_blood = bloodiness
 			bloodiness -= add_blood
 			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, H.bloody_feet[blood_state] + add_blood)
-			H.bloody_feet[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha/255)
+			H.bloody_feet[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha / 255)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.blood_state = blood_state
@@ -87,10 +87,10 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
+	prepare_huds()
 	if(should_merge_decal(loc))
 		return INITIALIZE_HINT_QDEL
 	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-	prepare_huds()
 	jani_hud.add_to_hud(src)
 	jani_hud_set_sign()
 	if(random_icon_states && length(src.random_icon_states) > 0)

@@ -93,5 +93,32 @@
 	PreInit();\
 	ss_id="timer_[#X]";\
 }\
-/datum/controller/subsystem/timer/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/timer/##X/fire() {CAN_BE_REDEFINED(TRUE); ..() } \
 /datum/controller/subsystem/timer/##X
+
+#define MOVEMENT_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/movement/##X);\
+/datum/controller/subsystem/movement/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id="movement_[#X]";\
+}\
+/datum/controller/subsystem/movement/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/movement/##X
+
+#define AI_CONTROLLER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/ai_controllers/##X);\
+/datum/controller/subsystem/ai_controllers/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id="ai_controller_[#X]";\
+}\
+/datum/controller/subsystem/ai_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/ai_controllers/##X
+
+#define UNPLANNED_CONTROLLER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/unplanned_controllers/##X);\
+/datum/controller/subsystem/unplanned_controllers/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id="unplanned_controller_[#X]";\
+}\
+/datum/controller/subsystem/unplanned_controllers/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/unplanned_controllers/##X

@@ -5,6 +5,8 @@
 	return
 
 /datum/proc/key_loop(client/C)
+	// Sleeps in input handling are bad, because they can stall the entire subsystem indefinitely, breaking most movement. The subsystem sets waitfor=FALSE, which works around this, but we'd rather avoid the sleeps in the first place.
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /client/key_loop()
@@ -91,7 +93,7 @@
 
 	// Check if the key is short enough to even be a real key
 	if(length(_key) > MAX_KEYPRESS_COMMANDLENGTH)
-		to_chat(src, "<span class='userdanger'>Invalid KeyDown detected! You have been disconnected from the server automatically.</span>")
+		to_chat(src, SPAN_USERDANGER("Invalid KeyDown detected! You have been disconnected from the server automatically."))
 		log_and_message_admins("just attempted to send an invalid keypress. Keymessage was over [MAX_KEYPRESS_COMMANDLENGTH] characters, autokicking due to likely abuse.")
 		qdel(src)
 		return

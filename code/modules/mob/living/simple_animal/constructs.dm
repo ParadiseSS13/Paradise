@@ -18,7 +18,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
-	flying = TRUE
 	pressure_resistance = 100
 	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
@@ -73,16 +72,16 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+				M.visible_message(SPAN_DANGER("[M] repairs some of \the <b>[src]'s</b> dents."), \
+						SPAN_CULT("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+				M.visible_message(SPAN_DANGER("[M] repairs some of its own dents."), \
+						SPAN_CULT("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
 		else
 			if(src != M)
-				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
+				to_chat(M, SPAN_CULT("You cannot repair <b>[src]'s</b> dents, as it has none!"))
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, SPAN_CULT("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 
@@ -95,8 +94,8 @@
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
 		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
-		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
-			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
+		visible_message(SPAN_DANGER("[src] slowly crumbles to dust in this holy place!"), \
+			SPAN_DANGER("Your shell burns as you crumble to dust in this holy place!"))
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 		adjustBruteLoss(maxHealth/8)
 	else
@@ -110,7 +109,7 @@
 /mob/living/simple_animal/hostile/construct/armoured
 	name = "Juggernaut"
 	real_name = "Juggernaut"
-	desc = "A possessed suit of armour driven by the will of the restless dead"
+	desc = "A possessed suit of armour driven by the will of the restless dead."
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	hud_type = /datum/hud/construct/armoured
@@ -139,10 +138,10 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		if(P.damage_type == BRUTE || P.damage_type == BURN)
-			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
+			adjustBruteLoss(P.damage * 0.8) // 16 hit with security laser gun
 			P.on_hit(src)
 			return FALSE
 	return ..()
@@ -154,7 +153,7 @@
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
-	desc = "A wicked bladed shell contraption piloted by a bound spirit"
+	desc = "A wicked bladed shell contraption piloted by a bound spirit."
 	icon_state = "floating"
 	icon_living = "floating"
 	hud_type = /datum/hud/construct/wraith
@@ -306,9 +305,9 @@
 	health = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	attacktext = "prods"
+	attacktext = "rends"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	attack_sound = 'sound/weapons/tap.ogg'
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/datum/spell/night_vision,
 							/datum/spell/aoe/conjure/build/wall,
@@ -319,7 +318,14 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
-/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/construct/harvester/Initialize(mapload)
+	. = ..()
+	// Don't give the cult overlay to a rusted harvester, and only give it to the narsi harvester
+	if(construct_type == "harvester" && icon_state == "harvester")
+		add_overlay("glow_harvester_cult")
+
+
+/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 
@@ -328,6 +334,89 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
+/mob/living/simple_animal/hostile/construct/harvester/heretic
+	name = "Rusted Harvester"
+	real_name = "Rusted Harvester"
+	maxHealth = 50
+	health = 50
+	desc = "A long, thin, decrepit construct originally built to herald Nar'Sie's rise, corrupted and rusted by the forces of the Mansus to spread its will instead."
+	playstyle_string = "You are a Rusted Harvester, built to serve the Sanguine Apostate, twisted to work the will of the Mansus. You are fragile and weak, but you rend cultists (only) apart on each attack. Follow your Master's orders!"
+	faction = list("heretic")
+	construct_type = "rusted_harvester"
+	construct_spells = list(
+		/datum/spell/aoe/rust_conversion,
+		/datum/spell/pointed/rust_construction,
+	)
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/leeching_walk)
+	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, UID())
+	add_overlay("glow_rusted_harvester_heretic")
+	add_filter("rusted_harvester", 3, list("type" = "outline", "color" = COLOR_GREEN, "size" = 2, "alpha" = 40))
+	AddComponent(/datum/component/damage_aura,\
+		range = 3,\
+		brute_damage = 0.3,\
+		burn_damage = 0.3,\
+		toxin_damage = 0.3,\
+		stamina_damage = 1.5,\
+		simple_damage = 1.2,\
+		immune_factions = list("heretic"),\
+		damage_message = "<span class='userdanger'>Your body wilts and withers as it comes near [src]'s aura.</span>",\
+		message_probability = 7,\
+		current_owner = src,\
+	)
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
+	if(user == src)
+		return
+	return ..()
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/AttackingTarget()
+	if(IS_CULTIST(target))
+		melee_damage_lower = min(melee_damage_lower + 5, 40)
+		melee_damage_upper = min(melee_damage_upper + 5, 40)
+	else
+		melee_damage_lower = initial(melee_damage_lower)
+		melee_damage_upper = initial(melee_damage_upper)
+
+	return ..()
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/Life(seconds, times_fired)
+	. = ..()
+	var/turf/adjacent = get_step(src, pick(GLOB.alldirs))
+	// 90% chance to be directional, otherwise what we're on top of
+	var/turf/simulated/land = (issimulatedturf(adjacent) && prob(90)) ? adjacent : get_turf(src)
+	do_rust_heretic_act(land)
+
+
+/mob/living/simple_animal/hostile/construct/proteon
+	name = "Proteon"
+	real_name = "Proteon"
+	desc = "A weaker construct meant to scour ruins for objects of Nar'Sie's affection. Those barbed claws are no joke."
+	icon_state = "proteon"
+	icon_living = "proteon"
+	maxHealth = 35
+	health = 35
+	melee_damage_lower = 8
+	melee_damage_upper = 10
+	obj_damage = 20 // Bit better at breaking stuff than cult ghosts, but only *barely*
+	retreat_distance = 4 // AI proteons will rapidly move in and out of combat to avoid conflict, but will still target and follow you.
+	attacktext = "pinches"
+	attack_sound = 'sound/weapons/punch2.ogg'
+	playstyle_string = "<b>You are a Proteon. Your abilities in combat are outmatched by most combat constructs, but you are still fast and nimble. Run metal and supplies, and cooperate with your fellow cultists.</b>"
+	construct_type = "proteon"
+
+/mob/living/simple_animal/hostile/construct/proteon/Initialize(mapload)
+	. = ..()
+	add_overlay("glow_proteon_cult")
+
+// This is the type you will run into, spawned by the proteon spawner
+/mob/living/simple_animal/hostile/construct/proteon/hostile
+	AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/construct/proc/make_holy()
 	if(holy) // Already holy-fied

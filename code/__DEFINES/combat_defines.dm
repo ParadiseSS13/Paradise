@@ -50,9 +50,11 @@
 #define CANPUSH			(1<<3)
 #define PASSEMOTES		(1<<4) //Mob has holders inside of it that need to see emotes.
 #define GODMODE			(1<<5)
+#define TERMINATOR_FORM (1<<6)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_SUCCUMB -30
 #define HEALTH_THRESHOLD_KNOCKOUT -50
 #define HEALTH_THRESHOLD_DEAD -100
 
@@ -147,7 +149,10 @@
 #define EXPLODE_LIGHT 3
 
 #define EMP_HEAVY 1
-#define EMP_LIGHT 2
+#define EMP_RESIST_ORGAN 2
+#define EMP_LIGHT 3
+#define EMP_RESIST_BODY 4
+#define EMP_WEAKENED 5
 
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.
@@ -163,3 +168,6 @@
 #define AUTOFIRE_STAT_ALERT	(1<<1)
 /// Gun is shooting.
 #define AUTOFIRE_STAT_FIRING (1<<2)
+
+/// Multiplier for wall damage for comparison with object integrity.
+#define OBJ_INTEGRITY_TO_WALL_DAMAGE 10

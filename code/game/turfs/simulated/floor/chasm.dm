@@ -1,6 +1,6 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "A hole in the ground that's so deep that you can't see the bottom. Watch your step."
 	baseturf = /turf/simulated/floor/chasm
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-255"
@@ -11,13 +11,14 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = 1.7
 	intact = 0
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
 		/obj/docking_port,
 		/obj/structure/lattice,
 		/obj/structure/stone_tile,
-		/obj/item/projectile,
+		/obj/projectile,
 		/obj/effect/portal,
 		/obj/effect/hotspot,
 		/obj/effect/landmark,
@@ -42,6 +43,18 @@
 	var/drop_y = 1
 	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
 
+/turf/simulated/floor/chasm/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_new_atom_at_loc))
+
+/turf/simulated/floor/chasm/proc/on_new_atom_at_loc(turf/location, atom/created, init_flags)
+	SIGNAL_HANDLER // COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
+	drop_stuff(created)
+
+/turf/simulated/floor/chasm/ChangeTurf(turf/simulated/floor/T, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	. = ..()
+
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
 	START_PROCESSING(SSprocessing, src)
@@ -55,16 +68,18 @@
 	if(!pass_info.is_living)
 		return TRUE
 
-	return pass_info.is_flying || pass_info.is_megafauna
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
-	..()
-	if(istype(C, /obj/item/stack/rods))
+/turf/simulated/floor/chasm/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/rods))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(!L)
 			var/obj/item/inactive = user.get_inactive_hand()
@@ -76,29 +91,33 @@
 						break
 
 			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
-				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
-				return
-			var/obj/item/stack/rods/R = C
+				to_chat(user, SPAN_WARNING("You need to hold a screwdriver in your other hand to secure this lattice."))
+				return ITEM_INTERACT_COMPLETE
+			var/obj/item/stack/rods/R = used
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				to_chat(user, SPAN_NOTICE("You construct a lattice."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 				ReplaceWithLattice()
 			else
-				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+				to_chat(user, SPAN_WARNING("You need one rod to build a lattice."))
+
+			return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
+			var/obj/item/stack/tile/plasteel/S = used
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				to_chat(user, SPAN_NOTICE("You build a floor."))
 				ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
 			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				to_chat(user, SPAN_WARNING("You need one floor tile to build a floor!"))
 		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			to_chat(user, SPAN_WARNING("The plating is going to need some support! Place metal rods first."))
+
+		return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())
@@ -128,9 +147,11 @@
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(HAS_TRAIT(AM, TRAIT_FLYING))
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.flying || M.floating)
+		if(M.floating)
 			return FALSE
 		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE
@@ -139,7 +160,7 @@
 		if(istype(H.belt, /obj/item/wormhole_jaunter))
 			var/obj/item/wormhole_jaunter/J = H.belt
 			//To freak out any bystanders
-			visible_message("<span class='boldwarning'>[H] falls into [src]!</span>")
+			visible_message(SPAN_BOLDWARNING("[H] falls into [src]!"))
 			J.chasm_react(H)
 			return FALSE
 	return TRUE
@@ -151,8 +172,8 @@
 	falling_atoms[AM] = TRUE
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
-		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.visible_message(SPAN_BOLDWARNING("[AM] falls into [src]!"), SPAN_USERDANGER("GAH! Ah... where are you?"))
+		T.visible_message(SPAN_BOLDWARNING("[AM] falls from above!"))
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -160,10 +181,13 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
+/turf/simulated/floor/chasm/can_cross_safely(atom/movable/crossing)
+	return (locate(/obj/structure/bridge_walkway) in src) || HAS_TRAIT(crossing, TRAIT_FLYING)
+
 /turf/simulated/floor/chasm/straight_down
 	var/obj/effect/abstract/chasm_storage/storage
 
-/turf/simulated/floor/chasm/straight_down/Initialize()
+/turf/simulated/floor/chasm/straight_down/Initialize(mapload)
 	. = ..()
 	var/found_storage = FALSE
 	for(var/obj/effect/abstract/chasm_storage/C in contents)
@@ -187,7 +211,7 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right. Ignore the fact the people you pull out are not burning.
 
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
 	. = ..()
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -196,7 +220,7 @@
 	if(!AM || QDELETED(AM))
 		return
 	falling_atoms[AM] = TRUE
-	AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
+	AM.visible_message(SPAN_BOLDWARNING("[AM] falls into [src]!"), "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
 	into the enveloping dark.</span>")
 	if(isliving(AM))
 		var/mob/living/L = AM
@@ -205,6 +229,7 @@
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
+	var/old_pixel_y = AM.pixel_y
 	animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
 	for(var/i in 1 to 5)
 		//Make sure the item is still there after our sleep
@@ -222,6 +247,7 @@
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
+		AM.pixel_y = old_pixel_y
 		var/mob/living/fallen_mob = AM
 		fallen_mob.notransform = FALSE
 		if(fallen_mob.stat != DEAD)
@@ -238,6 +264,14 @@
 
 	qdel(AM)
 
+	if(!QDELETED(AM))	//It's indestructible, mobs have already returned above!
+		visible_message(SPAN_BOLDWARNING("[src] spits out [AM]!"))
+		AM.alpha = oldalpha
+		AM.color = oldcolor
+		AM.transform = oldtransform
+		AM.pixel_y = old_pixel_y
+		AM.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
+
 /**
  * An abstract object which is basically just a bag that the chasm puts people inside
  */
@@ -245,7 +279,6 @@
 /obj/effect/abstract/chasm_storage
 	name = "chasm depths"
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)
@@ -253,7 +286,7 @@
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(isliving(gone))
 		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
@@ -268,15 +301,15 @@
 	SIGNAL_HANDLER
 	var/turf/ourturf = get_turf(src)
 	if(istype(ourturf, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
-		ourturf.visible_message("<span class='boldwarning'>After a long climb, [escapee] leaps out of [ourturf]!</span>")
+		ourturf.visible_message(SPAN_BOLDWARNING("After a long climb, [escapee] leaps out of [ourturf]!"))
 	else
 		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
-		ourturf.visible_message("<span class='boldwarning'>[escapee] busts through [ourturf], leaping out of the chasm below!</span>")
+		ourturf.visible_message(SPAN_BOLDWARNING("[escapee] busts through [ourturf], leaping out of the chasm below!"))
 		ourturf.ChangeTurf(ourturf.baseturf)
-	escapee.flying = TRUE
+	ADD_TRAIT(escapee, TRAIT_FLYING, "chasm_escape")
 	escapee.forceMove(ourturf)
 	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
-	escapee.flying = FALSE
+	REMOVE_TRAIT(escapee, TRAIT_FLYING, "chasm_escape")
 	escapee.Sleeping(20 SECONDS)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
@@ -286,15 +319,8 @@
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1
-
-/turf/simulated/floor/chasm/pride/Initialize(mapload)
-	. = ..()
-	drop_x = x
-	drop_y = y
-	var/list/target_z = levels_by_trait(SPAWN_RUINS)
-	drop_z = pick(target_z)
+/turf/simulated/floor/chasm/CanPass(atom/movable/mover, border_dir)
+	return TRUE
 
 /turf/simulated/floor/chasm/space_ruin
 	/// Used to keep count of how many times we checked if our target turf was valid.
@@ -329,8 +355,8 @@
 	falling_atoms[AM] = TRUE
 	pick_a_turf(AM)
 	if(T)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
-		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.visible_message(SPAN_BOLDWARNING("[AM] falls into [src]!"), SPAN_USERDANGER("GAH! Ah... where are you?"))
+		T.visible_message(SPAN_BOLDWARNING("[AM] falls from above!"))
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM

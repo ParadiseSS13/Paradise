@@ -6,6 +6,8 @@
 /area/station/hallway
 	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	area_light_color = LIGHT_COLOR_STATION_HALL
+	area_nightlight_color = LIGHT_COLOR_STATION_HALL
 
 /area/station/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
@@ -86,8 +88,16 @@
 /area/station/hallway/primary/central/se
 
 /area/station/hallway/spacebridge
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	icon_state = "hall_space"
+
+/area/station/hallway/spacebridge/security
+	name = "\improper Security Space Bridge"
+
+/area/station/hallway/spacebridge/security/west
+	name = "\improper Security West Space Bridge"
+
+/area/station/hallway/spacebridge/security/south
+	name = "\improper Security South Space Bridge"
 
 /area/station/hallway/spacebridge/dockmed
 	name = "Docking-Medical Bridge"
@@ -142,8 +152,31 @@
 /area/station/hallway/secondary/bridge
 	name = "\improper Command Hallway"
 	icon_state = "hallC"
+
+// Hallways for departments
+
+/area/station/hallway/supply
+	name = "\improper Cargo Hallway"
+	icon_state = "cargo_hallway"
+
+/area/station/hallway/supply/fore
+	name = "\improper Fore Cargo Hallway"
+
+/area/station/hallway/supply/starboard
+	name = "\improper Starboard Cargo Hallway"
+
+/area/station/hallway/supply/aft
+	name = "\improper Aft Cargo Hallway"
+
+/area/station/hallway/supply/port
+	name = "\improper Port Cargo Hallway"
+
+
 // Other public areas
 
+/area/station/public
+	area_light_color = LIGHT_COLOR_STATION_HALL
+	area_nightlight_color = LIGHT_COLOR_STATION_HALL_NIGHT
 
 /area/station/public/dorms
 	name = "\improper Dormitories"
@@ -158,7 +191,6 @@
 
 /area/station/public/sleep/secondary
 	name = "\improper Secondary Cryogenic Dormitories"
-	icon_state = "Sleep"
 
 /area/station/public/locker
 	name = "\improper Locker Room"
@@ -224,7 +256,6 @@
 
 /area/station/public/storage/emergency/port
 	name = "Port Emergency Storage"
-	icon_state = "emergencystorage"
 
 /area/station/public/storage/office
 	name = "Office Supplies"
@@ -238,6 +269,9 @@
 
 /area/station/public/quantum/security
 	name = "Security Quantum Pad"
+
+/area/station/public/quantum/engineering
+	name = "Engineering Quantum Pad"
 
 /area/station/public/quantum/docking
 	name = "Docking Quantum Pad"
@@ -253,3 +287,11 @@
 
 /area/station/public/quantum/medbay
 	name = "Medbay Quantum Pad"
+
+/area/station/public/park
+	name = "Public Nature Reserve"
+	icon_state = "park"
+
+/area/station/public/shops
+	name = "Dorms Public Storefront"
+	icon_state = "shop"

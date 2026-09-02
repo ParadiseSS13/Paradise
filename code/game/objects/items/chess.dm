@@ -4,7 +4,8 @@
 	name = "Chess Piece"
 	desc = "A generic chess piece used in a game of chess."
 	icon = 'icons/obj/chess.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_CARDBOARD = 2000)
+	new_attack_chain = TRUE
 
 //Black chess pieces.
 

@@ -21,6 +21,12 @@
 		"request": "launch",
 		"name": "DS Debug",
 		"dmb": "${workspaceFolder}/${command:CurrentDMB}"
+	},
+	{
+		"type": "cppvsdbg",
+		"request": "attach",
+		"name": "Rust Attach",
+		"processId": "${command:pickProcess}"
 	}
 	]
 }

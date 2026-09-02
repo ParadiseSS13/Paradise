@@ -40,24 +40,24 @@
 /obj/machinery/atmospherics/portable/scrubber/update_overlays()
 	. = ..()
 	if(holding_tank)
-		. += "scrubber-open"
+		. += "pscrubber-open"
 	if(connected_port)
-		. += "scrubber-connector"
+		. += "pscrubber-connector"
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
 	..()
-	var/datum/milla_safe/portable_scrubber_process/milla = new()
+	if(!on)
+		return
+	if(holding_tank)
+		scrub(holding_tank.air_contents)
+		return
+
+	var/datum/milla_safe/portable_scrubber_scrub/milla = new()
 	milla.invoke_async(src)
 
-/datum/milla_safe/portable_scrubber_process
+/datum/milla_safe/portable_scrubber_scrub
 
-/datum/milla_safe/portable_scrubber_process/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
-	if(!scrubber.on)
-		return
-	if(scrubber.holding_tank)
-		scrubber.scrub(scrubber.holding_tank.air_contents)
-		return
-
+/datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
 	var/turf/T = get_turf(scrubber)
 	scrubber.scrub(get_turf_air(T))
 	if(scrubber.widenet)
@@ -89,6 +89,12 @@
 
 		filtered_out.set_agent_b(removed.agent_b())
 		removed.set_agent_b(0)
+
+		filtered_out.set_hydrogen(removed.hydrogen())
+		removed.set_hydrogen(0)
+
+		filtered_out.set_water_vapor(removed.water_vapor())
+		removed.set_water_vapor(0)
 
 		//Remix the resulting gases
 		air_contents.merge(filtered_out)
@@ -145,7 +151,7 @@
 	switch(action)
 		if("power")
 			if(connected_port)
-				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				to_chat(ui.user, SPAN_WARNING("[src] fails to turn on, the port is covered!"))
 				return
 			on = !on
 			update_icon()
@@ -182,7 +188,7 @@
 	name = "[name] (ID [id])"
 
 /obj/machinery/atmospherics/portable/scrubber/huge/attack_hand(mob/user)
-	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
+	to_chat(usr, SPAN_WARNING("You can't directly interact with this machine. Use the area atmos computer."))
 
 /obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
@@ -190,10 +196,10 @@
 /obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(stationary)
-		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
+		to_chat(user, SPAN_WARNING("The bolts are too tight for you to unscrew!"))
 		return
 	if(on)
-		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		to_chat(user, SPAN_WARNING("Turn it off first!"))
 		return
 	default_unfasten_wrench(user, I, 4 SECONDS)
 
@@ -202,3 +208,9 @@
 	stationary = TRUE
 
 #undef MAX_RATE
+
+/obj/machinery/atmospherics/portable/scrubber/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)

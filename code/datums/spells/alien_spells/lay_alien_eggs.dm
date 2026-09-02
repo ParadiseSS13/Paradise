@@ -1,6 +1,6 @@
 /datum/spell/alien_spell/plant_weeds/eggs
 	name = "Plant alien eggs"
-	desc = "Allows you to plant alien eggs on your current turf, does not work while in space."
+	desc = "Allows you to plant alien eggs on your current turf. Does not work while in space."
 	plasma_cost = 75
 	weed_type = /obj/structure/alien/egg
 	weed_name = "alien egg"
@@ -30,10 +30,10 @@
 
 	target.color = "#c72623"
 	addtimer(CALLBACK(src, PROC_REF(blow_it_up), target, user), 3 SECONDS)
-	to_chat(user, "<span class='noticealien'>[target] will explode in 3 seconds!</span>")
+	to_chat(user, SPAN_NOTICEALIEN("[target] will explode in 3 seconds!"))
 	return TRUE
 
 /datum/spell/alien_spell/combust_facehuggers/proc/blow_it_up(obj/target, mob/user)
 	add_attack_logs(user, target, "Caused it to explode")
-	explosion(get_turf(target), 0, 2, 3, 3, cause = user)
-	to_chat(user, "<span class='noticealien'>[target] has detonated!</span>")
+	explosion(get_turf(target), 0, 2, 3, 3, cause = "[user.ckey]: [name]")
+	to_chat(user, SPAN_NOTICEALIEN("[target] has detonated!"))

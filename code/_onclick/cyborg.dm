@@ -37,6 +37,12 @@
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
+		if(isturf(A))
+			var/turf/clicked_turf = A
+			var/obj/machinery/door/AL = locate() in clicked_turf.contents
+			if(AL)
+				AL.try_to_activate_door(src)
+				return
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
@@ -47,6 +53,9 @@
 		return
 
 	if(incapacitated())
+		return
+
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(next_move >= world.time)
@@ -60,7 +69,7 @@
 			if(is_component_functioning("camera"))
 				aiCamera.captureimage(A, usr)
 			else
-				to_chat(src, "<span class='userdanger'>Your camera isn't functional.</span>")
+				to_chat(src, SPAN_USERDANGER("Your camera isn't functional."))
 			return
 
 	/*
@@ -78,12 +87,12 @@
 		A.attack_robot(src)
 		return
 
-	// buckled cannot prevent machine interlinking but stops arm movement
-	if(buckled)
-		return
-
 	if(W == A)
-		W.attack_self(src)
+		if(W.new_attack_chain)
+			W.activate_self(src)
+		else
+			W.attack_self__legacy__attackchain(src)
+
 		return
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
@@ -97,8 +106,11 @@
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc && isturf(A.loc.loc))
 	if(can_reach(A, W))
 		W.melee_attack_chain(src, A, params)
-		return
-	W.afterattack(A, src, 0, params)
+	else
+		if(W.new_attack_chain)
+			A.base_ranged_item_interaction(src, W, params)
+		else
+			W.afterattack__legacy__attackchain(A, src, 0, params)
 	return
 
 /mob/living/silicon/robot/MiddleShiftControlClickOn(atom/A)
@@ -154,8 +166,8 @@
 		user.examinate(src)
 	return
 
-/atom/proc/BorgAltShiftClick()
-	return
+/atom/proc/BorgAltShiftClick(mob/living/silicon/robot/user)
+	AltShiftClick(user)
 
 /atom/proc/BorgShiftMiddleClick()
 	return

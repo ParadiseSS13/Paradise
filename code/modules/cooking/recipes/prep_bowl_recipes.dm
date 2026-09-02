@@ -1,0 +1,225 @@
+/datum/cooking/recipe/aesirsalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/aesir
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/deus),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/deus),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/deus),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple/gold),
+	)
+
+/datum/cooking/recipe/antipasto_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/antipasto
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/olive),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+	)
+
+/datum/cooking/recipe/ash_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/ash_salad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
+		PCWJ_ADD_ITEM(/obj/item/food/goliath_steak),
+	)
+
+/datum/cooking/recipe/caesar_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/caesar
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
+		PCWJ_ADD_REAGENT("oliveoil", 5),
+	)
+
+/datum/cooking/recipe/citrusdelight
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/citrusdelight
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lime),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+	)
+
+/datum/cooking/recipe/fruitsalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/fruit
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/watermelon),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/grapes),
+	)
+
+/datum/cooking/recipe/greek_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/greek
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/olive),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_REAGENT("oliveoil", 5),
+	)
+
+/datum/cooking/recipe/herbsalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/herb
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+	)
+
+/datum/cooking/recipe/junglesalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/jungle
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/watermelon),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/watermelon),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/grapes),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+	)
+
+/datum/cooking/recipe/kale_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/kale
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/onion_slice/red),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
+		PCWJ_ADD_REAGENT("oliveoil", 5),
+	)
+
+/datum/cooking/recipe/melonfruitbowl
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/melonfruitbowl
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/watermelon),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/orange),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+	)
+
+/datum/cooking/recipe/potato_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/potato
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/boiledegg),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_REAGENT("mayonnaise", 5),
+	)
+
+/datum/cooking/recipe/salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/lettuce),
+	)
+
+/datum/cooking/recipe_step/add_item/diona/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/diona))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/tree_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/tree_salad
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/diona(),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe/validsalad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/valid
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/meatball),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris, exclude_reagents = list("toxin")),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris, exclude_reagents = list("toxin")),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/ambrosia/vulgaris, exclude_reagents = list("toxin")),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+	)
+
+// ----------- Bowl recipes imported from Hispania!
+
+// ENSALADASS CALENTITAS
+/datum/cooking/recipe/ensaladacactus
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/ensaladacactus
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+	)
+
+/datum/cooking/recipe/garlic_snack
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/garlic_snack
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_REAGENT("guacamole", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 2),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/baguette),
+	)
+
+/datum/cooking/recipe/guacamole
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/reagent_containers/condiment/guacamole
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+	)
+
+// ----------- END of recipe imports from Hispania!

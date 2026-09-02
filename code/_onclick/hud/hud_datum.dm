@@ -55,7 +55,7 @@
 	//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/infodisplay = list()
 	/// /atom/movable/screen/inventory objects, ordered by their slot ID.
-	var/list/inv_slots[SLOT_HUD_AMOUNT]
+	var/list/inv_slots[ITEM_SLOT_AMOUNT]
 
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
@@ -205,13 +205,13 @@
 				screenmob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
-			if(inv_slots[SLOT_HUD_LEFT_HAND])
-				screenmob.client.screen += inv_slots[SLOT_HUD_LEFT_HAND]	//we want the hands to be visible
-			if(inv_slots[SLOT_HUD_RIGHT_HAND])
-				screenmob.client.screen += inv_slots[SLOT_HUD_RIGHT_HAND]	//we want the hands to be visible
+			if(inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_LEFT_HAND)])
+				screenmob.client.screen += inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_LEFT_HAND)]	//we want the hands to be visible
+			if(inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_HAND)])
+				screenmob.client.screen += inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_HAND)]	//we want the hands to be visible
 			if(action_intent)
 				screenmob.client.screen += action_intent		//we want the intent switcher visible
-				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
+				action_intent.screen_loc = UI_ACTI_ALT	//move this to the alternative position, where zone_select usually is.
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
@@ -227,11 +227,11 @@
 		if(HUD_STYLE_ACTIONHUD)	//No HUD
 			hud_shown = TRUE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen -= static_inventory
+				screenmob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
-				mymob.client.screen -= toggleable_inventory
+				screenmob.client.screen -= toggleable_inventory
 			if(infodisplay.len)
-				mymob.client.screen -= infodisplay
+				screenmob.client.screen -= infodisplay
 
 	hud_version = display_hud_version
 	persistent_inventory_update(screenmob)
@@ -278,13 +278,13 @@
 
 /mob/proc/hide_hud()
 	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) && isliving(src))
-		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
+		to_chat(src, SPAN_WARNING("You can not change huds while asleep!"))
 		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(src, "<span class='notice'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
+		to_chat(src, SPAN_NOTICE("Switched HUD mode. Press the key you just pressed to toggle the HUD mode again."))
 	else
-		to_chat(src, "<span class='warning'>This mob type does not use a HUD.</span>")
+		to_chat(src, SPAN_WARNING("This mob type does not use a HUD."))
 
 /datum/hud/proc/update_locked_slots()
 	return

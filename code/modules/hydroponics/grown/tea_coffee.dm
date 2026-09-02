@@ -29,7 +29,7 @@
 /obj/item/seeds/tea/astra
 	name = "pack of tea astra seeds"
 	icon_state = "seed-teaastra"
-	desc = "These seeds grow into Tea Astra, a more potent variant of tea"
+	desc = "These seeds grow into Tea Astra, a more potent variant of tea."
 	species = "teaastra"
 	plantname = "Tea Astra Plant"
 	product = /obj/item/food/grown/tea/astra

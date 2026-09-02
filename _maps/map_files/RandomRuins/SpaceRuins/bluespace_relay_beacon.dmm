@@ -1,0 +1,244 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"d" = (
+/obj/effect/spawner/random/relay_beacon,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/space_relay)
+"f" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/machinery/tcomms/relay,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"l" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable,
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"n" = (
+/obj/structure/lattice,
+/obj/effect/spawner/random/maybe_carp,
+/turf/space,
+/area/space/nearstation)
+"o" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/space_relay)
+"q" = (
+/obj/structure/lattice,
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/space,
+/area/space/nearstation)
+"s" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"t" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/space_relay)
+"u" = (
+/obj/item/gps/ruin,
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/space_relay)
+"A" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"E" = (
+/obj/effect/spawner/random/maybe_carp,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"F" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"G" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"H" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"J" = (
+/obj/structure/lattice,
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/space,
+/area/space/nearstation)
+"L" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"R" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"U" = (
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/wall/mineral/titanium{
+	explosion_block = 0
+	},
+/area/ruin/space/space_relay)
+"X" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+"Y" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/solar_control/autostart,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/space_relay)
+
+(1,1,1) = {"
+a
+a
+a
+a
+q
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+A
+t
+n
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+A
+X
+J
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+J
+F
+R
+H
+A
+a
+a
+"}
+(5,1,1) = {"
+a
+q
+d
+f
+U
+Y
+l
+u
+a
+"}
+(6,1,1) = {"
+a
+a
+E
+L
+G
+s
+A
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+A
+X
+A
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+A
+o
+A
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+q
+a
+a
+a
+a
+"}

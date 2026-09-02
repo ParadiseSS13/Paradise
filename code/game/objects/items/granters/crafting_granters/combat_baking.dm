@@ -14,6 +14,6 @@
 	)
 
 /obj/item/book/granter/crafting_recipe/combat_baking/recoil(mob/living/user)
-	to_chat(user, "<span class='warning'>The book dissolves into burnt flour!</span>")
+	to_chat(user, SPAN_WARNING("The book dissolves into burnt flour!"))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)

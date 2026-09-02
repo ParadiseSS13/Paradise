@@ -2,7 +2,7 @@
 	name = "Assembly"
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "holder"
-	item_state = "assembly"
+	inhand_icon_state = "assembly"
 	flags = CONDUCT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -12,6 +12,7 @@
 	var/secured = FALSE
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
+	new_attack_chain = TRUE
 
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
@@ -34,24 +35,23 @@
 		return FALSE
 	if(!A1.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A1)
-		A1.forceMove(src)
+			user.transfer_item_to(A1, src)
+		else
+			A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A2)
-		A2.forceMove(src)
+			user.transfer_item_to(A2, src)
+		else
+			A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
 	a_left = A1
 	a_right = A2
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon(UPDATE_OVERLAYS)
+	A1.on_attach()
+	A2.on_attach()
 	return TRUE
-
-/obj/item/assembly_holder/proc/has_prox_sensors()
-	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
-		return TRUE
-	return FALSE
 
 /obj/item/assembly_holder/update_overlays()
 	. = ..()
@@ -71,9 +71,9 @@
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			. += "[src] is ready!"
+			. += "[src] is ready and secured!"
 		else
-			. += "[src] can be attached!"
+			. += "[src] is unsecured and can be attached!"
 
 
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)
@@ -83,11 +83,12 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
+// TODO: All these assemblies passing the crossed args around needs to be cleaned up with signals
+/obj/item/assembly_holder/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(a_left)
-		a_left.Crossed(AM, oldloc)
+		a_left.on_atom_entered(source, entered)
 	if(a_right)
-		a_right.Crossed(AM, oldloc)
+		a_right.on_atom_entered(source, entered)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
@@ -139,7 +140,7 @@
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
 	if(!a_left || !a_right)
-		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
+		to_chat(user, SPAN_WARNING("BUG:Assembly part missing, please report this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -148,42 +149,44 @@
 	a_right.toggle_secure()
 	secured = !secured
 	if(secured)
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, SPAN_NOTICE("You ready and secure the [src]!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
+		to_chat(user, SPAN_NOTICE("You unsecure [src] with [I] so it can be taken apart!"))
 	update_icon()
 
-/obj/item/assembly_holder/attack_self(mob/user)
+/obj/item/assembly_holder/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
-			return
+			to_chat(user, SPAN_WARNING("Assembly part missing!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(istype(a_left, a_right.type)) // If they are the same type it causes issues due to window code
 			switch(tgui_alert(user, "Which side would you like to use?", "Choose", list("Left", "Right")))
 				if("Left")
-					a_left.attack_self(user)
+					a_left.activate_self(user)
 				if("Right")
-					a_right.attack_self(user)
-			return
-		else
-			a_left.attack_self(user)
-			a_right.attack_self(user)
-	else
-		var/turf/T = get_turf(src)
-		if(!T)
-			return FALSE
-		user.unEquip(src, TRUE, TRUE)
-		if(a_left)
-			a_left.holder = null
-			a_left.forceMove(T)
-			user.put_in_active_hand(a_left)
-		if(a_right) // Right object is the secondary item, hence put in inactive hand
-			a_right.holder = null
-			a_right.forceMove(T)
-			user.put_in_inactive_hand(a_right)
-		qdel(src)
+					a_right.activate_self(user)
+			return ITEM_INTERACT_COMPLETE
 
+		a_left.activate_self(user)
+		a_right.activate_self(user)
+		return ITEM_INTERACT_COMPLETE
+
+	var/turf/T = get_turf(src)
+	if(!T)
+		return FALSE
+	user.unequip(src, force = TRUE)
+	if(a_left)
+		a_left.on_detach()
+		user.put_in_active_hand(a_left)
+	if(a_right) // Right object is the secondary item, hence put in inactive hand
+		a_right.on_detach()
+		user.put_in_inactive_hand(a_right)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly_holder/proc/process_activation(obj/D, normal = TRUE, special = TRUE)
 	if(!D)

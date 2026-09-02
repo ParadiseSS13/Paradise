@@ -16,6 +16,7 @@
 	overlay_state_inactive = "module_armorbooster_off"
 	overlay_state_active = "module_armorbooster_on"
 	use_mod_colors = TRUE
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 	/// Whether or not this module removes pressure protection.
 	var/remove_pressure_protection = TRUE
 	/// Speed added to the control unit.
@@ -53,7 +54,7 @@
 	if(!.)
 		return
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(mod.wearer, "<span class='notice'>Armor deployed, EVA disabled, speed increased.</span>")
+	to_chat(mod.wearer, SPAN_NOTICE("Armor deployed, EVA disabled, speed increased."))
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added / 5))
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
@@ -72,7 +73,7 @@
 		return
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(mod.wearer, "<span class='notice'>Armor retracted, EVA enabled, speed decreased.</span>")
+	to_chat(mod.wearer, SPAN_NOTICE("Armor retracted, EVA enabled, speed decreased."))
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.detachArmor(armor_mod_2.armor)
@@ -100,6 +101,7 @@
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
 	overlay_state_inactive = "module_insignia"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 
 /obj/item/mod/module/insignia/generate_worn_overlay(user, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
@@ -193,7 +195,7 @@
 		return
 	if(mod.wearer.buckled)
 		return
-	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts charging a kick!</span>")
+	mod.wearer.visible_message(SPAN_WARNING("[mod.wearer] starts charging a kick!"))
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
@@ -227,7 +229,7 @@
 		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
 		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.KnockDown(knockdown_time)
-		mod.wearer.visible_message("<span class='danger'>[mod.wearer] crashes into [target], knocking them over!</span>", "<span class='userdanger'>You violently crash into [target]!</span>")
+		mod.wearer.visible_message(SPAN_DANGER("[mod.wearer] crashes into [target], knocking them over!"), SPAN_USERDANGER("You violently crash into [target]!"))
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
@@ -245,6 +247,7 @@
 	/// The suit's size before the module is installed.
 	var/old_size
 	origin_tech = "materials=6;bluespace=5;syndicate=1" //Printable at illegals 2, so only one level.
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 
 /obj/item/mod/module/plate_compression/on_install()
 	old_size = mod.w_class
@@ -274,6 +277,7 @@
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 10 SECONDS
 	origin_tech = "combat=6;materials=6;powerstorage=5;bluespace=5;syndicate=2" //Printable at 3
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
@@ -287,8 +291,9 @@
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
-	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
-	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
+	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_ATTACK_BY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
+	mod.wearer.set_alpha_tracking(stealth_alpha, src, update_alpha = FALSE)
+	animate(mod.wearer, alpha = mod.wearer.get_alpha(), time = 1.5 SECONDS)
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
@@ -297,13 +302,14 @@
 		return
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
-	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATTACK_BY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
+	mod.wearer.set_alpha_tracking(ALPHA_VISIBLE, src, update_alpha = FALSE)
+	animate(mod.wearer, alpha = mod.wearer.get_alpha(), time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!</span>")
+	to_chat(mod.wearer, SPAN_WARNING("[src] gets discharged from contact!"))
 	do_sparks(2, TRUE, src)
 	drain_power(use_power_cost)
 	COOLDOWN_START(src, cooldown_timer, cooldown_time) //Put it on cooldown.
@@ -316,7 +322,7 @@
 		return
 	unstealth(source)
 
-/obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/item/projectile)
+/obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/projectile)
 	SIGNAL_HANDLER
 	unstealth(source)
 
@@ -350,6 +356,7 @@
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
 	origin_tech = "combat=6;biotech=6;syndicate=1"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/status_readout/add_ui_data()
 	. = ..()
@@ -401,7 +408,7 @@
 	camera = new /obj/machinery/camera/portable(src, FALSE)
 	camera.network = list("ERT")
 	camera.c_tag = wearer.name
-	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+	to_chat(wearer, SPAN_NOTICE("User scanned as [camera.c_tag]. Camera activated."))
 
 /obj/item/mod/module/ert_camera/Destroy()
 	QDEL_NULL(camera)
@@ -436,7 +443,7 @@
 
 /obj/item/mod/module/chameleon/on_use()
 	if(mod.active || mod.activating)
-		to_chat(mod.wearer, "<span class='warning'>Your suit is already active!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Your suit is already active!"))
 		return
 	. = ..()
 	if(!.)
@@ -455,7 +462,7 @@
 	mod.icon_state = "[mod.skin]-control"
 	var/list/mod_skin = mod.theme.skins[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-	mod.icon_override = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	mod.worn_icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
 	mod.wearer.update_inv_back()
@@ -504,7 +511,7 @@
 /obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
-	qdel(shield)
+	shield.RemoveComponent()
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
 /obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner,
@@ -524,6 +531,24 @@
 
 /obj/item/mod/module/energy_shield/gamma
 	shield_icon = "shield-old"
+
+///Magic Nullifier - Protects you from magic.
+/obj/item/mod/module/anti_magic
+	name = "MOD magic nullifier module"
+	desc = "A series of obsidian rods installed into critical points around the suit, \
+		vibrated at a certain low frequency to enable them to resonate. \
+		This creates a low-range, yet strong, magic nullification field around the user, \
+		aided by a full replacement of the suit's normal coolant with holy water. \
+		Spells will spall right off this field, though it'll do nothing to help others believe you about all this."
+	icon_state = "magic_nullifier"
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/anti_magic)
+
+/obj/item/mod/module/anti_magic/on_suit_activation()
+	ADD_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
+
+/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
+	REMOVE_TRAIT(mod.wearer, TRAIT_ANTIMAGIC, "[UID()]")
 
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp
@@ -579,7 +604,7 @@
 		return FALSE
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
-	qdel(shield)
+	shield.RemoveComponent()
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 	REMOVE_TRAIT(mod.wearer, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
@@ -616,3 +641,77 @@
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
+
+/obj/item/mod/module/shinobi_stealth
+	name = "MOD shinobi stealth module"
+	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced stealth technology in the classic ninja scarf."
+	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	removable = FALSE
+	/// Linked sneaking action
+	var/datum/action/cooldown/ninja/ninja_cloak/cloak_action
+
+/obj/item/mod/module/shinobi_stealth/Initialize(mapload)
+	. = ..()
+	cloak_action = new(src)
+
+/obj/item/mod/module/shinobi_stealth/on_suit_activation()
+	. = ..()
+	cloak_action.Grant(mod.wearer)
+
+/obj/item/mod/module/shinobi_stealth/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	cloak_action.stop_sneaking()
+	cloak_action.Remove(mod.wearer)
+
+/obj/item/mod/module/shinobi_freedom
+	name = "MOD shinobi escape module"
+	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced escaping technology in the classic ninja boots."
+	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	removable = FALSE
+	/// Linked freedom action
+	var/datum/action/cooldown/ninja/freedom_shoes/freedoms_action
+
+/obj/item/mod/module/shinobi_freedom/Initialize(mapload)
+	. = ..()
+	freedoms_action = new(src)
+
+/obj/item/mod/module/shinobi_freedom/on_suit_activation()
+	. = ..()
+	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	freedoms_action.Grant(mod.wearer)
+
+/obj/item/mod/module/shinobi_freedom/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	REMOVE_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	freedoms_action.Remove(mod.wearer)
+
+/obj/item/mod/module/shinobi_stims
+	name = "MOD shinobi stimulant module"
+	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced stimulants technology in the classic ninja kabuto."
+	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	removable = FALSE
+	/// Linked stims action
+	var/datum/action/cooldown/ninja/stim_suit/antistun_action
+
+/obj/item/mod/module/shinobi_stims/Initialize(mapload)
+	. = ..()
+	antistun_action = new(src)
+
+/obj/item/mod/module/shinobi_stims/on_suit_activation()
+	. = ..()
+	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	antistun_action.Grant(mod.wearer)
+
+/obj/item/mod/module/shinobi_stims/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	REMOVE_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	antistun_action.Remove(mod.wearer)

@@ -47,6 +47,10 @@
 			setStaminaLoss(0, FALSE)
 			update_stamina_hud()
 
+	// Keep SSD robots eepy.
+	if(player_logged)
+		Sleeping(4 SECONDS)
+
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
 	for(var/V in components)
@@ -140,6 +144,7 @@
 	if(status_flags & GODMODE)
 		return
 
+	var/old_health = health
 	brute = max((brute - damage_protection) * brute_mod, 0)
 	burn = max((burn - damage_protection) * burn_mod, 0)
 
@@ -149,6 +154,8 @@
 	if(A)
 		A.take_damage(brute, burn, sharp)
 		updatehealth()
+		if((old_health > health) && shell && deployed && mainframe) // Only disconnect if we lose health.
+			mainframe.disconnect_shell()
 		return
 
 	while(LAZYLEN(parts) && (brute > 0 || burn > 0))
@@ -164,6 +171,8 @@
 
 		parts -= picked
 	updatehealth()
+	if((old_health > health) && shell && deployed && mainframe) // Only disconnect if we lose health.
+		mainframe.disconnect_shell()
 
 /*
 Begins the stamcrit reboot process for borgs. Stuns them, and warns people if the borg has no power source.
@@ -173,13 +182,13 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 	playsound(src, 'sound/machines/shut_down.ogg', 100, FALSE, SOUND_RANGE_SET(10))
 	if(!has_power_source())
 		visible_message(
-			"<span class='warning'>[src]'s system sounds an alarm, \"ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN IMMINENT.\"</span>",
-			"<span class='warning'>EMERGENCY: FULL SYSTEM SHUTDOWN IMMINENT.</span>")
+			SPAN_WARNING("[src]'s system sounds an alarm, \"ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN IMMINENT.\""),
+			SPAN_WARNING("EMERGENCY: FULL SYSTEM SHUTDOWN IMMINENT."))
 		playsound(src, 'sound/machines/buzz-two.ogg' , 50, FALSE, SOUND_RANGE_SET(10))
 	else
 		visible_message(
-			"<span class='notice'>[src]'s lights suddenly go dark and [p_they()] seem to shut down.</span>",
-			"<span class='notice'>A critical neural connection error has occurred. Beginning emergency reboot...</span>"
+			SPAN_NOTICE("[src]'s lights suddenly go dark and [p_they()] seem to shut down."),
+			SPAN_NOTICE("A critical neural connection error has occurred. Beginning emergency reboot...")
 		)
 	var/stun_time = rand(13 SECONDS, 18 SECONDS) //Slightly longer than old flash timer
 	setStaminaLoss(0) //Have you tried turning it off and on again?
@@ -195,7 +204,7 @@ Finishes the stamcrit process. If the borg doesn't have a power source for the r
 		return
 	if(getStaminaLoss()) //If someone has been chain-flashing a borg then the ride never ends
 		var/restun_time = rand(7 SECONDS, 10 SECONDS)
-		to_chat(src, "<span class='warning'>Error: Continual sensor overstimulation resulted in faulty reboot. Retrying in [restun_time / 10] seconds.</span>")
+		to_chat(src, SPAN_WARNING("Error: Continual sensor overstimulation resulted in faulty reboot. Retrying in [restun_time / 10] seconds."))
 		setStaminaLoss(0) //Just keep trying to turn it off and on again, surely it'll work eventually
 		Weaken(restun_time)
 		addtimer(CALLBACK(src, PROC_REF(end_emergency_reboot)), restun_time)
@@ -205,4 +214,4 @@ Finishes the stamcrit process. If the borg doesn't have a power source for the r
 		return
 	playsound(src, 'sound/machines/reboot_chime.ogg' , 100, FALSE, SOUND_RANGE_SET(10))
 	update_stamina_hud()
-	to_chat(src, "<span class='notice'>Reboot complete, neural interface operational.</span>")
+	to_chat(src, SPAN_NOTICE("Reboot complete, neural interface operational."))

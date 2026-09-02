@@ -103,3 +103,16 @@
 	var/mob/living/silicon/robot/bot = user
 	if(!istype(bot) || !istype(bot.module, /obj/item/robot_module/security))
 		return FALSE
+
+/datum/emote/living/silicon/salute
+	key = "salute"
+	key_third_person = "salutes"
+	message = "salutes."
+	message_param = "salutes to %t."
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/effects/tong_pickup.ogg" // Either the tink of a foot stepping down or an arm hitting their head when they salute.
+
+/datum/emote/living/silicon/salute/can_run_emote(mob/user, status_check, intentional)
+	. = ..()
+	if(is_ai(user)) // AI has no moving parts to salute with, sadly.
+		return FALSE

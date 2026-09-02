@@ -6,7 +6,6 @@
 	armor = list(MELEE = 20, BULLET = 15, LASER = 10, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 60, ACID = 60)
 	key_type = /obj/item/key/security
 	integrity_failure = 50
-	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
 

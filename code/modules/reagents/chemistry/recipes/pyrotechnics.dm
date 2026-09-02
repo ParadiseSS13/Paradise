@@ -49,7 +49,7 @@
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
 		for(var/i in 1 to bee_amount)
-			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(location)
+			var/mob/living/basic/bee/new_bee = new(location)
 			if(LAZYLEN(beeagents))
 				new_bee.assign_reagent(pick(beeagents))
 
@@ -172,9 +172,9 @@
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
 	if(istype(holder.my_atom)) //ensures the explosion happens at the container, not where its primed at
-		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = "Blackpowder Explosion")
 	else
-		explosion(prime_location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+		explosion(prime_location, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = "Blackpowder Explosion")
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -213,8 +213,8 @@
 	name = "Phlogiston"
 	id = "phlogiston"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1, "stabilizing_agent" = 1)
-	result_amount = 4
+	required_reagents = list("phosacid" = 1, "plasma" = 1, "stabilizing_agent" = 1)
+	result_amount = 3
 	mix_message = "The substance becomes sticky and extremely warm."
 
 /datum/chemical_reaction/phlogiston_dust
@@ -230,7 +230,7 @@
 	name = "Phlogiston Fire"
 	id = "phlogiston_fire"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1)
+	required_reagents = list("phosacid" = 1, "plasma" = 1)
 	mix_message = "The substance erupts into wild flames."
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
@@ -284,7 +284,6 @@
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
-	result_amount = 1
 	mix_sound = null
 
 /datum/chemical_reaction/sonic_powder
@@ -342,7 +341,7 @@
 
 /datum/chemical_reaction/azide/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, 0, 1, 4)
+	explosion(location, 0, 1, 4, cause = "Azide reaction")
 
 /datum/chemical_reaction/firefighting_foam
 	name = "firefighting_foam"
@@ -364,7 +363,7 @@
 
 /datum/chemical_reaction/clf3_firefighting/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, -1, 0, 2)
+	explosion(location, -1, 0, 2, cause = "CLF3 reaction")
 
 /datum/chemical_reaction/shock_explosion
 	name = "shock_explosion"
@@ -372,7 +371,7 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_message = SPAN_DANGER("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)

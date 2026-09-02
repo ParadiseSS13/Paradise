@@ -4,7 +4,7 @@
 	name = "ambrosia branch"
 	desc = "This is a plant."
 	icon_state = "ambrosiavulgaris"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#008000"
 	bitesize_mod = 2
 	tastes = list("ambrosia" = 1)
@@ -31,7 +31,6 @@
 	reagents_add = list("space_drugs" = 0.15, "bicaridine" = 0.1, "kelotane" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.05, "toxin" = 0.1)
 
 /obj/item/food/grown/ambrosia/vulgaris
-	seed = /obj/item/seeds/ambrosia
 	name = "ambrosia vulgaris branch"
 	desc = "This is a plant containing various healing chemicals."
 	origin_tech = "biotech=2"
@@ -68,7 +67,7 @@
 	name = "pack of ambrosia gaia seeds"
 	desc = "These seeds grow into ambrosia gaia, filled with infinite potential."
 	icon_state = "seed-ambrosia_gaia"
-	species = "ambrosia_gaia"
+	species = "ambrosiagaia"
 	plantname = "Ambrosia Gaia"
 	product = /obj/item/food/grown/ambrosia/gaia
 	mutatelist = list()

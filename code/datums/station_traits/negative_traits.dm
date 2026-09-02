@@ -1,7 +1,7 @@
 /datum/station_trait/carp_infestation
 	name = "Carp infestation"
 	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 5
+	weight = 3
 	show_in_report = TRUE
 	report_message = "Dangerous fauna is present in the area of this station."
 
@@ -78,10 +78,10 @@
 	var/modified_event = FALSE
 	for(var/datum/event_meta/E in event_severity.available_events)
 		for(var/i in event_names)
-			if(E.name == i)
+			if(E.skeleton.name == i)
 				E.weight *= weight_multiplier
-				for(var/role_weight in E.role_weights)
-					E.role_weights[role_weight] *= weight_multiplier
+				for(var/role_weight in E.skeleton.role_weights)
+					E.skeleton.role_weights[role_weight] *= weight_multiplier
 				if(disable_is_one_shot)
 					E.one_shot = FALSE
 				modified_event = TRUE

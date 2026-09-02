@@ -1,12 +1,12 @@
-///if the icon_state for the TTV's tank is in assemblies.dmi
+/// If the icon_state for the TTV's tank is in `assemblies.dmi`.
 #define TTV_TANK_ICON_STATES list("anesthetic", "emergency", "emergency_double", "emergency_engi", "emergency_sleep", "jetpack", "jetpack_black", "jetpack_void", "oxygen", "oxygen_f", "oxygen_fr", "plasma")
 
 /obj/item/transfer_valve
-	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
+	desc = "Regulates the transfer of air between two tanks."
+	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "valve_1"
-	item_state = "ttv"
-	desc = "Regulates the transfer of air between two tanks"
+	inhand_icon_state = "ttv"
 	var/obj/item/tank/tank_one = null
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null
@@ -14,6 +14,7 @@
 	var/valve_open = FALSE
 	var/toggle = TRUE
 	origin_tech = "materials=1;engineering=1"
+	new_attack_chain = TRUE
 
 /obj/item/transfer_valve/Destroy()
 	QDEL_NULL(tank_one)
@@ -23,54 +24,58 @@
 	return ..()
 
 /obj/item/transfer_valve/IsAssemblyHolder()
-	return 1
+	return TRUE
 
-/obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank))
+/obj/item/transfer_valve/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tank))
 		if(tank_one && tank_two)
-			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
-			return
+			to_chat(user, SPAN_WARNING("There are already two tanks attached, remove one first."))
+			return ITEM_INTERACT_COMPLETE
 
 		if(!tank_one)
-			if(!user.unEquip(I))
-				return
-			tank_one = I
-			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
-			if(I.w_class > w_class)
-				w_class = I.w_class
+			if(!user.transfer_item_to(used, src))
+				return ITEM_INTERACT_COMPLETE
+			tank_one = used
+			to_chat(user, SPAN_NOTICE("You attach the tank to the transfer valve."))
+			if(used.w_class > w_class)
+				w_class = used.w_class
 		else if(!tank_two)
-			if(!user.unEquip(I))
-				return
-			tank_two = I
-			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
-			if(I.w_class > w_class)
-				w_class = I.w_class
+			if(!user.transfer_item_to(used, src))
+				return ITEM_INTERACT_COMPLETE
+			tank_two = used
+			to_chat(user, SPAN_NOTICE("You attach the tank to the transfer valve."))
+			if(used.w_class > w_class)
+				w_class = used.w_class
 
 		update_icon()
-		SStgui.update_uis(src) // update all UIs attached to src
-//TODO: Have this take an assemblyholder
-	else if(isassembly(I))
-		var/obj/item/assembly/A = I
-		if(A.secured)
-			to_chat(user, "<span class='notice'>The device is secured.</span>")
-			return
-		if(attached_device)
-			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
-			return
-		user.remove_from_mob(A)
-		attached_device = A
-		A.forceMove(src)
-		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
-		A.holder = src
-		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
+		SStgui.update_uis(src) // Update all UIs attached to src.
+		return ITEM_INTERACT_COMPLETE
 
-		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
-		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
-		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
-		attacher = user
-		SStgui.update_uis(src) // update all UIs attached to src
+//TODO: Have this take an assemblyholder
+	if(!isassembly(used))
+		return ..()
+
+	var/obj/item/assembly/assembly = used
+	if(assembly.secured)
+		to_chat(user, SPAN_WARNING("[assembly] is secured and cannot be attached! Loosen it with a screwdriver."))
+		return ITEM_INTERACT_COMPLETE
+	if(attached_device)
+		to_chat(user, SPAN_WARNING("There is already a [attached_device.name] attached to the valve, remove it first!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!user.transfer_item_to(assembly, src))
+		return ITEM_INTERACT_COMPLETE
+	attached_device = assembly
+	to_chat(user, SPAN_NOTICE("You attach [assembly] to the valve controls and secure it."))
+	assembly.holder = src
+	assembly.toggle_secure()	// This calls `update_icon()`, which calls `update_icon()` on the holder (i.e. the bomb).
+
+	investigate_log("[key_name(user)] attached a [assembly] to a transfer valve.", INVESTIGATE_BOMB)
+	add_attack_logs(user, src, "attached [assembly] to a transfer valve", ATKLOG_FEW)
+	log_game("[key_name_admin(user)] attached [assembly] to a transfer valve.")
+	attacher = user
+	SStgui.update_uis(src) // Update all UIs attached to src.
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 
 /obj/item/transfer_valve/HasProximity(atom/movable/AM)
@@ -88,8 +93,12 @@
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/transfer_valve/attack_self(mob/user)
+/obj/item/transfer_valve/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/transfer_valve/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -107,8 +116,6 @@
 	data["attached_device"] = attached_device ? attached_device.name : null
 	data["valve"] = valve_open
 	return data
-
-
 
 /obj/item/transfer_valve/ui_act(action, params)
 	if(..())
@@ -137,7 +144,7 @@
 			toggle_valve(usr)
 		if("device")
 			if(attached_device)
-				attached_device.attack_self(usr)
+				attached_device.activate_self(usr)
 		if("remove_device")
 			if(attached_device)
 				attached_device.forceMove(get_turf(src))
@@ -149,7 +156,6 @@
 	if(.)
 		update_icon()
 		add_fingerprint(usr)
-
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)

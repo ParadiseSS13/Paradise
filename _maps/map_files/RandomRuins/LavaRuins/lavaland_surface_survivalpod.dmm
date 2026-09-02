@@ -41,10 +41,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"j" = (
-/obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "k" = (
 /obj/machinery/sleeper/survival_pod,
 /turf/simulated/floor/pod/dark,
@@ -69,9 +65,7 @@
 /area/lavaland/surface/outdoors)
 "o" = (
 /obj/effect/decal/cleanable/blood,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast{
-	health = 0
-	},
+/obj/effect/mob_spawn/corpse/goliath,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "p" = (
@@ -100,12 +94,6 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"t" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered)
 "v" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,
@@ -129,6 +117,18 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"L" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"W" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered)
 
 (1,1,1) = {"
 a
@@ -190,7 +190,7 @@ d
 g
 l
 q
-t
+W
 v
 b
 b
@@ -218,8 +218,8 @@ d
 d
 d
 y
-j
-j
+L
+L
 "}
 (8,1,1) = {"
 a
@@ -229,8 +229,8 @@ b
 i
 b
 i
-j
-j
+L
+L
 b
 b
 "}
@@ -239,7 +239,7 @@ a
 a
 b
 b
-j
+L
 n
 s
 b
@@ -254,7 +254,7 @@ a
 a
 a
 o
-j
+L
 b
 a
 a

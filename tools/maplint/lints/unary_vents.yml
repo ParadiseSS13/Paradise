@@ -1,0 +1,5 @@
+/obj/machinery/atmospherics/unary:
+  banned_neighbors:
+  - /obj/machinery/atmospherics/pipe/manifold/hidden/supply
+  - /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
+

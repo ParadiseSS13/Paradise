@@ -25,6 +25,8 @@
 					to_chat(R, "LawSync protocol engaged.")
 					R.lawsync()
 					R.show_laws()
+				if(!R.deployed)
+					R.lawupdate = FALSE
 			else
 				if(!R.lawupdate && !R.emagged)
 					R.lawupdate = TRUE
@@ -32,11 +34,14 @@
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mend)
 				if(R.connected_ai)
+					R.notify_ai(DISCONNECT)
+					if(R.shell)
+						R.undeploy() //Forced disconnect of an AI should this body be a shell.
 					R.disconnect_from_ai()
 
 		if(WIRE_BORG_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
-				R.camera.status = mend
+				R.camera.status = !mend //If we are mending, we set the status to false, and toggle cam. Otherwise, we set it to true, and cut. It's silly, I know
 				R.camera.toggle_cam(usr, 0) // Will kick anyone who is watching the Cyborg's camera.
 
 		if(WIRE_BORG_LOCKED)

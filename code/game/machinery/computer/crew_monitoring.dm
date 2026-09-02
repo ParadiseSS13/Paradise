@@ -9,7 +9,7 @@
 	circuit = /obj/item/circuitboard/crew
 	var/datum/ui_module/crew_monitor/crew_monitor
 
-/obj/machinery/computer/crew/Initialize()
+/obj/machinery/computer/crew/Initialize(mapload)
 	. = ..()
 	crew_monitor = new(src)
 
@@ -39,6 +39,6 @@
 	name = "advanced crew monitoring computer"
 	desc = "Used to monitor active health sensors built into most of the crew's uniforms across multiple sectors."
 
-/obj/machinery/computer/crew/advanced/Initialize()
+/obj/machinery/computer/crew/advanced/Initialize(mapload)
 	. = ..()
 	crew_monitor.is_advanced = TRUE

@@ -1,10 +1,9 @@
 /datum/station_goal/secondary/variety_reagent/scichem
 	name = "Variety of Chemicals"
-	progress_type = /datum/secondary_goal_progress/variety_reagent
 	different_types = 5
 	department = "Science"
 	generic_name_plural = "chemicals"
-	abstract = FALSE
+	weight = 1
 
 /datum/station_goal/secondary/variety_reagent/scichem/randomize_params()
 	..()

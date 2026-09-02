@@ -29,7 +29,7 @@
 		formatted_servers["[server_data["server_name"]] - ([server_data["playercount"]] playing)"] = text2num(server_data["server_port"])
 
 	if(length(formatted_servers) == 1)
-		to_chat(usr, "<span class='warning'>You are already connected to the one online instance!</span>")
+		to_chat(usr, SPAN_WARNING("You are already connected to the one online instance!"))
 		return
 
 	var/selected_server = input(usr, "Select a server", "Server hop") as anything in formatted_servers
@@ -37,11 +37,11 @@
 		return // Should never happen
 
 	if(formatted_servers[selected_server] == world.port)
-		to_chat(usr, "<span class='warning'>You are already connected to this instance!</span>")
+		to_chat(usr, SPAN_WARNING("You are already connected to this instance!"))
 		return
 
 	// Now we reconnect them
-	to_chat(usr, "<span class='notice'>Now connecting you to: <b>[selected_server]</b></span>")
+	to_chat(usr, SPAN_NOTICE("Now connecting you to: <b>[selected_server]</b>"))
 
 	if(watchlisted) // I mean why not
 		message_admins("[key_name_admin(usr)] is on the watchlist and just jumped to [selected_server]")

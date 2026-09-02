@@ -1,10 +1,9 @@
 /obj/item/grenade/gas
 	name = "plasma fire grenade"
 	desc = "A compressed plasma grenade, used to start horrific plasma fires."
-	origin_tech = "materials=3;magnets=4;syndicate=3"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "grenade"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
 
@@ -12,13 +11,6 @@
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
-
-/obj/item/grenade/gas/proc/release_air(turf/simulated/target_turf)
-	// Any proc that wants MILLA to be synchronous should not sleep.
-	SHOULD_NOT_SLEEP(TRUE)
-
-	target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
-
 	qdel(src)
 
 /obj/item/grenade/gas/plasma
@@ -40,17 +32,15 @@
 /obj/item/grenade/gluon
 	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."
 	name = "gluon grenade"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "grenade"
 	var/freeze_range = 4
-	var/rad_damage = 350
+	var/rad_damage = 1400
 	var/stamina_damage = 30
 
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	radiation_pulse(src, rad_damage)
+	radiation_pulse(src, rad_damage, BETA_RAD)
 	for(var/turf/simulated/floor/T in view(freeze_range, loc))
 		T.MakeSlippery(TURF_WET_ICE)
 		for(var/mob/living/carbon/L in T)

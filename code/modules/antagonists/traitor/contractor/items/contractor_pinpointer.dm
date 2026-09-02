@@ -37,12 +37,15 @@
 	var/turf/there = get_turf(H)
 	return here && there && there.z == here.z
 
-/obj/item/pinpointer/crew/contractor/attack_self(mob/living/user)
-	if(owner)
-		if(owner != user.mind.current)
-			to_chat(user, "<span class='warning'>[src] refuses to do anything.</span>")
-			return
-	else
+/obj/item/pinpointer/crew/contractor/activate_self(mob/living/user)
+	if(!owner)
 		owner = user.mind.current
-		to_chat(user, "<span class='notice'>[src] now recognizes you as its sole user.</span>")
+		to_chat(user, SPAN_NOTICE("[src] now recognizes you as its sole user."))
+		add_fingerprint(user)
+		return ..()
+
+	if(owner != user.mind.current)
+		to_chat(user, SPAN_WARNING("[src] refuses to do anything!"))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()

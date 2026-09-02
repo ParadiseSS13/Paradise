@@ -22,11 +22,14 @@
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
 
+///from base of mob/can_cast_magic(): (mob/user, magic_flags, charge_cost)
+#define COMSIG_MOB_RESTRICT_MAGIC "mob_cast_magic"
+///from base of mob/can_block_magic(): (mob/user, casted_magic_flags, charge_cost)
+#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
+	#define COMPONENT_MAGIC_BLOCKED (1<<0)
+
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"
-///from base of mob/anti_magic_check(): (mob/user, magic, holy, tinfoil, chargecost, self, protection_sources)
-#define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
-	#define COMPONENT_BLOCK_MAGIC (1<<0)
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
 ///from base of atom/attack_hand(): (mob/user)
@@ -36,10 +39,8 @@
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
-///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
+///from base of obj/item/afterattack__legacy__attackchain(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
-///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
-#define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, params)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
@@ -100,6 +101,17 @@
 ///Called when movement intent is toggled.
 #define COMSIG_MOVE_INTENT_TOGGLED "move_intent_toggled"
 
+///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
+#define COMSIG_MOB_TRIED_ACCESS "tried_access"
+	#define ACCESS_ALLOWED (1<<0)
+	#define ACCESS_DISALLOWED (1<<1)
+	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
+
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
+/// A mob has just unequipped an item.
+#define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
+
 // /mob/living
 
 ///from base of mob/living/resist() (/mob/living)
@@ -133,6 +145,10 @@
 ///from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_LIVING_ATTACH_LIMB "living_attach_limb"
 	#define COMPONENT_NO_ATTACH (1<<0)
+///from base of mob/living/health_update()
+#define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
+/// Sent during exfiltration to handle guardians
+#define COMSIG_SUMMONER_EXTRACTED "summoner_extracted"
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob enters a borg charger
@@ -154,6 +170,12 @@
 //sent from a mob when they set themselves to DNR
 #define COMSIG_LIVING_SET_DNR "set_dnr"
 
+// /mob/living/carbon
+/// Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+/// Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
+
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
 ///from base of mob/living/Stun() (amount, ignore_canstun)
@@ -174,26 +196,46 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+/// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 ///from base of mob/living/Write_Memory()
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
 	#define COMPONENT_DONT_WRITE_MEMORY (1<<0)
 
+/// Sent to a mob being injected with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
+/// Sent to a mob being withdrawn from with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
+
 // /mob/living/simple_animal signals
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
-#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
-
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
+#define COMSIG_STRIPPABLE_REQUEST_ITEMS "strippable_request_items"
 
 // Sent when a mob spawner is attacked directly or via projectile.
 #define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// From /datum/element/basic_eating/try_eating()
+#define COMSIG_MOB_PRE_EAT "mob_pre_eat"
+	///cancel eating attempt
+	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/status_effect/incapacitating/sleeping/tick()
+#define COMSIG_MOB_SLEEP_TICK "mob_sleep_tick"
+
+/// From /datum/element/basic_eating/finish_eating()
+#define COMSIG_MOB_ATE "mob_ate"
+	///cancel post eating
+	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
+
+/// Sent from /proc/do_after if someone starts a do_after action bar.
+#define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
+/// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
+#define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
 
 // ghost signals
 
@@ -202,4 +244,108 @@
 /// from observer_base/do_observe(): (mob/no_longer_following)
 #define COMSIG_GHOST_STOP_OBSERVING "ghost_stop_observing"
 
+// other signals
+
+/// called when a living mob's stun status is cleared: ()
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+/// called when something needs to force a mindflayer to retract their weapon implants
+#define COMSIG_FLAYER_RETRACT_IMPLANTS "flayer_retract_implants"
+
+/// Sent from datum/spell/ethereal_jaunt/cast, before the mob enters jaunting as a pre-check: (mob/jaunter)
+#define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
+	#define COMPONENT_BLOCK_JAUNT (1<<0)
+
+/// from handle_ventcrawl(): (mob/living/crawler)
+#define COMSIG_LIVING_TRY_VENTCRAWL "living_try_ventcrawl"
+/// from add_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_ENTER_VENTCRAWL "living_enter_ventcrawl"
+/// from remove_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
+
+
+///From living/Life(). (seconds, times_fired)
+#define COMSIG_LIVING_LIFE "living_life"
+	/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
+	#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+
+/// Sent from /datum/action/cooldown/spell/before_cast() to the caster: (datum/action/cooldown/spell/spell, atom/cast_on)
+#define COMSIG_MOB_BEFORE_SPELL_CAST "mob_spell_pre_cast"
+/// Sent from /datum/action/cooldown/spell/before_cast() to the spell: (atom/cast_on)
+#define COMSIG_SPELL_BEFORE_CAST "spell_pre_cast"
+	/// Return to prevent the spell cast from continuing.
+	#define SPELL_CANCEL_CAST (1 << 0)
+	/// Return from before cast signals to prevent the spell from giving off sound or invocation.
+	#define SPELL_NO_FEEDBACK (1 << 1)
+	/// Return from before cast signals to prevent the spell from going on cooldown before aftercast.
+	#define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)
+
+#define COMSIG_TOUCH_HANDLESS_CAST "spell_touch_handless_cast"
+	/// Return this to prevent the hand spawning/unspawning
+	#define COMPONENT_CAST_HANDLESS (1<<0)
+
+///From /obj/effect/rune/convert/do_sacrifice() : (list/invokers)
+#define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
+	/// Return to stop the sac from occurring
+	#define STOP_SACRIFICE (1<<0)
+	/// Don't send a message for sacrificing this thing, we have our own
+	#define SILENCE_SACRIFICE_MESSAGE (1<<1)
+	/// Don't send a message for sacrificing this thing UNLESS it's the cult target
+	#define SILENCE_NONTARGET_SACRIFICE_MESSAGE (1<<2)
+	/// Dusts the target instead of gibbing them (no soulstone)
+	#define DUST_SACRIFICE (1<<3)
+
+/// From base of /client/Move(): (new_loc, direction)
+#define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
+	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	/// The argument of move_args which corresponds to the loc we're moving to
+	#define MOVE_ARG_NEW_LOC 1
+	/// The arugment of move_args which dictates our movement direction
+	#define MOVE_ARG_DIRECTION 2
+
+#define COMSIG_LIVING_RESTING "living_resting"
+
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"
+
+///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_PRE_ATTACK_RANGED "basicmob_pre_attack_ranged"
+	#define COMPONENT_CANCEL_RANGED_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //! Cancel to prevent the attack from happening
+
+///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"
+
+/// from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_POST_ATTACK_RANGED_BURST "basicmob_post_attack_ranged_burst"
+
+/// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/activated)
+#define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"
+	/// Return to block the ability from starting / activating
+	#define COMPONENT_BLOCK_ABILITY_START (1<<0)
+/// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/finished)
+#define COMSIG_MOB_ABILITY_FINISHED "mob_ability_base_finished"
+
+/// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
+#define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
+
+/// Fired by a mob which has been grabbed by a goliath
+#define COMSIG_GOLIATH_TENTACLED_GRABBED "goliath_tentacle_grabbed"
+/// Fired by a goliath tentacle which is returning to the earth
+#define COMSIG_GOLIATH_TENTACLE_RETRACTING 	"goliath_tentacle_retracting"
+
+/// Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
+#define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
+	/// Stops the rest of help act (hugging, etc) from occurring
+	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
+
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
+
+/// Called when someone attempts to cuff a carbon
+#define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"

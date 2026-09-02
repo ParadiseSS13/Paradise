@@ -53,9 +53,9 @@
 
 	if(left || right)
 		victim.visible_message(
-			"<span class='danger'>[victim]'s legs shatter with a sickening crunch!</span>",
-			"<span class='userdanger'>Your legs shatter with a sickening crunch!</span>",
-			"<span class='danger'>You hear a sickening crunch!</span>"
+			SPAN_DANGER("[victim]'s legs shatter with a sickening crunch!"),
+			SPAN_USERDANGER("Your legs shatter with a sickening crunch!"),
+			SPAN_DANGER("You hear a sickening crunch!")
 		)
 
 	// that's a LOT of damage, let's rebate most of it.
@@ -72,8 +72,8 @@
 	tilter.forceMove(get_turf(victim))
 	tilter.buckle_mob(victim, force=TRUE)
 	victim.visible_message(
-		"<span class='danger'>[victim] gets pinned underneath [tilter]!</span>",
-		"<span class='userdanger'>You are pinned down by [tilter]!</span>"
+		SPAN_DANGER("[victim] gets pinned underneath [tilter]!"),
+		SPAN_USERDANGER("You are pinned down by [tilter]!")
 	)
 
 	return 0
@@ -95,8 +95,8 @@
 
 /datum/tilt_crit/vendor/embed/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim, incoming_damage)
 	victim.visible_message(
-		"<span class='danger'>[machine]'s panel shatters against [victim]!</span>",
-		"<span class='userdanger'>[machine] lands on you, its panel shattering!</span>"
+		SPAN_DANGER("[machine]'s panel shatters against [victim]!"),
+		SPAN_USERDANGER("[machine] lands on you, its panel shattering!")
 	)
 
 	for(var/i in 1 to machine.num_shards)
@@ -128,7 +128,7 @@
 	var/obj/item/organ/external/head/H = victim.get_organ("head")
 	var/obj/item/organ/internal/brain/B = victim.get_int_organ_tag("brain")
 	if(H)
-		victim.visible_message("<span class='danger'>[H] gets crushed under [tilter], and explodes in a shower of gore!</span>", "<span class='userdanger'>Oh f-</span>")
+		victim.visible_message(SPAN_DANGER("[H] gets crushed under [tilter], and explodes in a shower of gore!"), SPAN_USERDANGER("Oh f-"))
 		var/gibspawner = /obj/effect/gibspawner/human
 		if(ismachineperson(victim))
 			gibspawner = /obj/effect/gibspawner/robot
@@ -141,7 +141,7 @@
 		H.disfigure()
 		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 	else
-		H.visible_message("<span class='danger'>[victim]'s head seems to be crushed under [tilter]...but wait, they had none in the first place!</span>")
+		H.visible_message(SPAN_DANGER("[victim]'s head seems to be crushed under [tilter]...but wait, they had none in the first place!"))
 	if(B in H)
 		victim.adjustBrainLoss(80)
 
@@ -153,8 +153,8 @@
 
 /datum/tilt_crit/lucky/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim, incoming_damage)
 	victim.visible_message(
-		"<span class='danger'>[machine] crashes around [victim], but doesn't seem to crush them!</span>",
-		"<span class='userdanger'>[machine] crashes around you, but only around you! You're fine!</span>"
+		SPAN_DANGER("[machine] crashes around [victim], but doesn't seem to crush them!"),
+		SPAN_USERDANGER("[machine] crashes around you, but only around you! You're fine!")
 	)
 
 	return 1000

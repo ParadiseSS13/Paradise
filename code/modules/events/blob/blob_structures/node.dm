@@ -1,6 +1,5 @@
 /obj/structure/blob/node
 	name = "blob node"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 65, ACID = 90)
@@ -34,3 +33,8 @@
 			Pulse(5, i, color)
 	obj_integrity = min(max_integrity, obj_integrity + 1)
 	color = null
+
+/obj/structure/blob/node/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 0.1, ASSIGNMENT_CREW = 1)

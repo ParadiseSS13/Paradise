@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(default_internal_channels, list(
 	num2text(PUB_FREQ) = list(),
 	num2text(AI_FREQ)  = list(ACCESS_CAPTAIN),
 	num2text(ERT_FREQ) = list(ACCESS_CENT_SPECOPS),
-	num2text(COMM_FREQ)= list(ACCESS_HEADS),
+	num2text(COM_FREQ)= list(ACCESS_HEADS),
 	num2text(ENG_FREQ) = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS),
 	num2text(MED_FREQ) = list(ACCESS_MEDICAL),
 	num2text(MED_I_FREQ)=list(ACCESS_MEDICAL),
@@ -23,12 +23,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio
-	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "walkietalkie"
+	inhand_icon_state = "radio"
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
-	icon_state = "walkietalkie"
-	item_state = "walkietalkie"
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	/// boolean for radio enabled or not
 	var/on = TRUE
 	var/last_transmission
@@ -60,12 +61,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
+	/// Is the radio a syndie one?
+	var/syndie = FALSE
 	/// Areas in which this radio cannot send messages
 	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome, /area/ruin/space/bubblegum_arena)
 
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
-	throw_speed = 2
+	slot_flags = ITEM_SLOT_BELT
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -82,18 +84,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
 
+	/// A timer that, when going off, will turn this radio on again
+	var/radio_enable_timer
+	new_attack_chain = TRUE
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
-
-/obj/item/radio/New()
-	..()
-	wires = new(src)
-
-	internal_channels = GLOB.default_internal_channels.Copy()
-	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
 	SStgui.close_uis(wires)
@@ -109,6 +107,10 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/Initialize(mapload)
 	. = ..()
+	wires = new(src)
+	internal_channels = GLOB.default_internal_channels.Copy()
+	GLOB.global_radios |= src
+
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
@@ -119,12 +121,16 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
 
-/obj/item/radio/attack_self(mob/user)
+/obj/item/radio/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
-		return 0
+		return FALSE
 	if(b_stat)
 		wires.Interact(user)
 		return
@@ -135,7 +141,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	ToggleBroadcast()
-	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic.</span>")
+	to_chat(user, SPAN_NOTICE("You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic."))
 	add_fingerprint(user)
 
 /obj/item/radio/CtrlShiftClick(mob/user)
@@ -143,7 +149,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	ToggleReception()
-	to_chat(user, "<span class='notice'>You <b>[listening ? "enable" : "disable"]</b> [src]'s speaker.</span>")
+	to_chat(user, SPAN_NOTICE("You <b>[listening ? "enable" : "disable"]</b> [src]'s speaker."))
 	add_fingerprint(user)
 
 /obj/item/radio/ui_state(mob/user)
@@ -273,7 +279,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override, is_emote = FALSE, sender_job = null, vname = null) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
@@ -298,7 +304,11 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			break
 	if(jammed)
 		message = Gibberish(message, 100)
-	var/list/message_pieces = message_to_multilingual(message)
+	var/list/message_pieces
+	if(is_emote)
+		message_pieces = list(new /datum/multilingual_say_piece(GLOB.all_languages["Noise"], message))
+	else
+		message_pieces = message_to_multilingual(message)
 
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
@@ -307,9 +317,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Automated Announcement"
-	tcm.vname = "synthesized voice"
-	tcm.data = SIGNALTYPE_AINOTRACK
+	tcm.sender_job = sender_job || "Automated Announcement"
+	tcm.vname = vname || "synthesized voice"
+	tcm.signal_type = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
@@ -409,7 +419,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		jobname = "No id"
 
 	// --- AI ---
-	else if(isAI(M))
+	else if(is_ai(M))
 		jobname = "AI"
 
 	// --- Cyborg ---
@@ -471,7 +481,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	// If we dont need tcomms and we have no connection
 	if(!requires_tcomms && !handled)
 		// If they dont need tcomms for their signal, set the type to intercoms
-		tcm.data = SIGNALTYPE_INTERCOM_SBR
+		tcm.signal_type = SIGNALTYPE_INTERCOM_SBR
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
@@ -545,14 +555,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/send_announcement()
 	if(is_listening())
-		return get_mobs_in_view(canhear_range, src)
+		return get_mobs_in_view(canhear_range, src, ai_eyes = AI_EYE_REQUIRE_HEAR)
 
 	return null
 
 /obj/item/radio/proc/show_examine_hotkeys()
 	. = list()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to toggle [src]'s hotmic.")
+	. += SPAN_NOTICE("<b>Ctrl-Shift-Click</b> to toggle [src]'s speaker.")
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
@@ -560,13 +570,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
-			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
+			. += SPAN_NOTICE("\the [src] can be attached and modified!")
 		else
-			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+			. += SPAN_NOTICE("\the [src] can not be modified or attached!")
 
 /obj/item/radio/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.</span>"
+	. += SPAN_NOTICE("You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -575,9 +585,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	b_stat = !b_stat
 	if(b_stat)
-		user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+		user.show_message(SPAN_NOTICE("The radio can now be attached and modified!"))
 	else
-		user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+		user.show_message(SPAN_NOTICE("The radio can no longer be modified or attached!"))
 
 	updateDialog()
 
@@ -599,7 +609,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
-		visible_message("<span class='warning'>[src] buzzes violently!</span>")
+		visible_message(SPAN_WARNING("[src] buzzes violently!"))
 
 	broadcasting = FALSE
 	listening = FALSE
@@ -629,7 +639,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
-	loudspeaker = FALSE
 	canhear_range = 0
 	dog_fashion = null
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
@@ -646,46 +655,44 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	myborg = null
 	return ..()
 
-/obj/item/radio/borg/syndicate/New()
-	..()
+/obj/item/radio/borg/syndicate/Initialize(mapload)
+	. = ..()
 	syndiekey = keyslot
 	set_frequency(SYND_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/deathsquad
 
-/obj/item/radio/borg/deathsquad/New()
-	..()
+/obj/item/radio/borg/deathsquad/Initialize(mapload)
+	. = ..()
 	set_frequency(DTH_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/ert
 	keyslot = new /obj/item/encryptionkey/ert
 
-/obj/item/radio/borg/ert/New()
-	..()
+/obj/item/radio/borg/ert/Initialize(mapload)
+	. = ..()
 	set_frequency(ERT_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-/obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/encryptionkey/))
+/obj/item/radio/borg/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/encryptionkey))
+		return NONE
 
-		if(keyslot)
-			to_chat(user, "The radio can't hold another key!")
-			return
+	if(keyslot)
+		to_chat(user, SPAN_WARNING("The radio can't hold another key!"))
+		return ITEM_INTERACT_COMPLETE
 
-		if(!keyslot)
-			user.drop_item()
-			W.loc = src
-			keyslot = W
+	user.drop_item()
+	used.forceMove(src)
+	keyslot = used
 
-		recalculateChannels()
-		return
-
-	return ..()
+	recalculateChannels()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -697,19 +704,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 			secure_radio_connections[ch_name] = null
 
-
-		if(keyslot)
-			var/turf/T = get_turf(user)
-			if(T)
-				keyslot.loc = T
-				keyslot = null
+		var/turf/T = get_turf(user)
+		if(T)
+			keyslot.forceMove(T)
+			keyslot = null
 
 		recalculateChannels()
-		to_chat(user, "You pop out the encryption key in the radio!")
+		to_chat(user, SPAN_NOTICE("You pop out the encryption key in the radio!"))
 		I.play_tool_sound(user, I.tool_volume)
 
 	else
-		to_chat(user, "This radio doesn't have any encryption keys!")
+		to_chat(user, SPAN_WARNING("This radio doesn't have any encryption keys!"))
 
 /obj/item/radio/borg/recalculateChannels()
 	channels = list()
@@ -734,8 +739,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 
 	for(var/ch_name in channels)
-		if(!SSradio)
-			sleep(30) // Waiting for SSradio to be created.
 		if(!SSradio)
 			name = "broken radio"
 			return
@@ -763,21 +766,18 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/off
 	listening = FALSE
-	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/radio/phone
-	broadcasting = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	listening = TRUE
 	name = "phone"
 	dog_fashion = null
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ
 
-/obj/item/radio/phone/medbay/New()
-	..()
+/obj/item/radio/phone/medbay/Initialize(mapload)
+	. = ..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
 
 /obj/item/radio/proc/attempt_send_deadsay_message(mob/subject, message)
@@ -786,13 +786,19 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/headset/deadsay
 	name = "spectral radio"
 	ks2type = /obj/item/encryptionkey/centcom
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
-/obj/item/radio/headset/deadsay/New()
-	..()
+/obj/item/radio/headset/deadsay/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/radio/headset
+	chameleon_action.chameleon_name = "Headset"
+	chameleon_action.initialize_disguises()
 	GLOB.deadsay_radio_systems.Add(src)
 	make_syndie()
 
 /obj/item/radio/headset/deadsay/Destroy()
+	QDEL_NULL(chameleon_action)
 	GLOB.deadsay_radio_systems.Remove(src)
 	return ..()
 
@@ -815,7 +821,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	else
 		speaker_name = "[subject.client.key] ([subject.mind.name])"
 
-	to_chat(hearer, "<span class='deadsay'><b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]</span>")
+	to_chat(hearer, SPAN_DEADSAY("<b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]"))
 
 /obj/item/radio/headset/deadsay/talk_into(mob/living/M, list/message_pieces, channel, verbage)
 	var/message = copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN)

@@ -1,16 +1,6 @@
 
-/mob/living/simple_animal/proc/adjustHealth(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
-		return FALSE
-	var/oldbruteloss = bruteloss
-	bruteloss = clamp(bruteloss + amount, 0, maxHealth)
-	if(oldbruteloss == bruteloss)
-		updating_health = FALSE
-		. = STATUS_UPDATE_NONE
-	else
-		. = STATUS_UPDATE_HEALTH
-	if(updating_health)
-		updatehealth()
+/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE)
+	. = ..()
 	if(!ckey && stat == CONSCIOUS)//Not unconscious
 		if(AIStatus == AI_IDLE)
 			toggle_ai(AI_ON)
@@ -35,6 +25,6 @@
 	if(damage_coeff[CLONE])
 		return adjustHealth(amount * damage_coeff[CLONE], updating_health)
 
-/mob/living/simple_animal/adjustStaminaLoss(amount, updating_health = TRUE)
+/mob/living/simple_animal/adjustStaminaLoss(amount, updating = TRUE)
 	if(damage_coeff[STAMINA])
-		return ..(amount*damage_coeff[STAMINA], updating_health)
+		return ..(amount*damage_coeff[STAMINA], updating)

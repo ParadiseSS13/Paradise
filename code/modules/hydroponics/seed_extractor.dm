@@ -20,7 +20,7 @@
 	if(!original_seed)
 		return FALSE
 
-	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
+	if(user && !user.drop_item_to_ground(source_item, silent = TRUE)) //couldn't drop the item
 		return FALSE
 
 	if(seed_count == -1)
@@ -64,6 +64,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
+/obj/machinery/seed_extractor/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/seed_extractor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+
 /obj/machinery/seed_extractor/Destroy()
 	QDEL_LIST_CONTENTS(piles)
 	return ..()
@@ -74,23 +82,23 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
 
-/obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
-		return
+/obj/machinery/seed_extractor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, O))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/bag/plants))
-		var/obj/item/storage/P = O
+	if(istype(used, /obj/item/storage/bag/plants))
+		var/obj/item/storage/P = used
 		var/loaded = 0
 		for(var/obj/item/seeds/G in P)
 			if(length(contents) >= max_seeds)
@@ -99,7 +107,7 @@
 			add_seed(G, user)
 
 		if(loaded)
-			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You transfer [loaded] seeds from [used] into [src]."))
 			SStgui.update_uis(src)
 		else
 			var/seedable = 0
@@ -108,33 +116,34 @@
 			for(var/obj/item/grown/ignored in P)
 				seedable++
 			if(!seedable)
-				to_chat(user, "<span class='notice'>There are no seeds or plants in [O].</span>")
-				return
+				to_chat(user, SPAN_NOTICE("There are no seeds or plants in [used]."))
+				return ITEM_INTERACT_COMPLETE
 
-			to_chat(user, "<span class='notice'>You dump the plants in [O] into [src].</span>")
-			if(!O.use_tool(src, user, min(5, seedable/2) SECONDS))
-				return
+			to_chat(user, SPAN_NOTICE("You dump the plants in [used] into [src]."))
+			if(!used.use_tool(src, user, min(5, seedable/2) SECONDS))
+				return ITEM_INTERACT_COMPLETE
 
 			for(var/thing in P)
 				seedify(thing,-1, src, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
-		return ..()
+	if(istype(used, /obj/item/unsorted_seeds))
+		to_chat(user, SPAN_WARNING("You need to sort [used] first!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/seeds))
-		add_seed(O, user)
-		to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
+	if(istype(used, /obj/item/seeds))
+		add_seed(used, user)
+		to_chat(user, SPAN_NOTICE("You add [used] to [name]."))
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(seedify(O,-1, src, user))
-		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
-		return
+	if(seedify(used,-1, src, user))
+		to_chat(user, SPAN_NOTICE("You extract some seeds."))
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
+		to_chat(user, SPAN_WARNING("You can't extract any seeds from \the [used.name]!"))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -224,13 +233,13 @@
 	if(!O || !ishuman(usr) || !Adjacent(usr))
 		return
 	if(length(contents) >= max_seeds)
-		to_chat(user, "<span class='notice'>[src] is full.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is full."))
 		return
 
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.drop_item())
-			to_chat(user,"<span class='warning'>[O] appears to be stuck to your hand!</span>")
+			to_chat(user,SPAN_WARNING("[O] appears to be stuck to your hand!"))
 			return
 	else if(isstorage(O.loc))
 		var/obj/item/storage/S = O.loc

@@ -9,56 +9,31 @@
 /obj/item/stack/ore
 	name = "rock"
 	icon = 'icons/obj/stacks/ores.dmi'
+	icon_state = "ore"
 	lefthand_file = 'icons/mob/inhands/ore_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/ore_righthand.dmi'
-	icon_state = "ore"
-	max_amount = 50
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
-	..()
-	pixel_x = rand(0, 16) - 8
-	pixel_y = rand(0, 8) - 8
+/obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	scatter_atom()
+
+/obj/item/stack/ore/scatter_atom(x_offset, y_offset)
+	pixel_x = rand(-8, 8) + x_offset
+	pixel_y = rand(-8, 0) + y_offset
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!refined_type)
-		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
+		to_chat(user, SPAN_NOTICE("You can't smelt [src] into anything useful!"))
 		return
 	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
 		return
 	new refined_type(drop_location(), amount)
-	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
+	to_chat(user, SPAN_NOTICE("You smelt [src] into its refined form!"))
 	qdel(src)
-
-/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
-	var/obj/item/storage/bag/ore/OB
-	var/turf/simulated/floor/F = get_turf(src)
-	if(loc != F)
-		return ..()
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	else if(isrobot(AM))
-		var/mob/living/silicon/robot/R = AM
-		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		F.attackby(OB, AM)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = AM
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
-	return ..()
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
@@ -76,8 +51,6 @@
 	name = "sand pile"
 	desc = "A coarse, dust mainly composed of quartz and silica-rich rock. Among its many uses, it can be refined into glass when fired at high tempratures."
 	icon_state = "sand"
-	item_state = "sand"
-	origin_tech = "materials=1"
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
@@ -86,10 +59,11 @@
 
 /obj/item/stack/ore/glass/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can throw this into people's eyes!</span>"
+	. += SPAN_NOTICE("You can throw this into people's eyes!")
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
-		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
+		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50),
+		new /datum/stack_recipe("grave", /obj/structure/grave, 5, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
@@ -101,18 +75,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 	var/mob/living/carbon/human/C = hit_atom
 	if(C.head && C.head.flags_cover & HEADCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s headgear blocks the sand!</span>")
+		visible_message(SPAN_DANGER("[C]'s headgear blocks the sand!"))
 		return
 	if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s mask blocks the sand!</span>")
+		visible_message(SPAN_DANGER("[C]'s mask blocks the sand!"))
 		return
 	if(C.glasses && C.glasses.flags_cover & GLASSESCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
+		visible_message(SPAN_DANGER("[C]'s glasses block the sand!"))
 		return
 	C.EyeBlurry(12 SECONDS)
 	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
-	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
+	to_chat(C, SPAN_USERDANGER("[src] gets into your eyes! The pain, it burns!"))
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity)
@@ -124,26 +98,21 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "volcanic ash"
 	desc = "A coarse, abrasive basaltic dust rich in silica and various elemental oxides. Commonly refined into glass or used as fertiliser."
 	icon_state = "volcanic_sand"
-	item_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 
 /obj/item/stack/ore/glass/basalt/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could add some to a girder to make a false rock wall.</span>"
+	. += SPAN_NOTICE("You could add some to a girder to make a false rock wall.")
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
 	desc = "Basultic sand mined from an exceptionally old and compacted formation."
-	icon_state = "volcanic_sand"
-	item_state = "volcanic_sand"
 	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
 	desc = "Exceptionally common ore that can be refined into iron and steel."
 	icon_state = "iron_ore"
-	item_state = "iron_ore"
-	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
@@ -153,7 +122,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "plasma ore"
 	desc = "The reason you're here."
 	icon_state = "plasma_ore"
-	item_state = "plasma_ore"
 	origin_tech = "plasmatech=2;materials=2"
 	singular_name = "plasma ore chunk"
 	points = 15
@@ -164,7 +132,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "silver ore"
 	desc = "Metal ore rich in precious silver."
 	icon_state = "silver_ore"
-	item_state = "silver_ore"
 	origin_tech = "materials=3"
 	singular_name = "silver ore chunk"
 	points = 16
@@ -175,7 +142,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "gold ore"
 	desc = "WE'RE RICH!"
 	icon_state = "gold_ore"
-	item_state = "gold_ore"
 	origin_tech = "materials=4"
 	singular_name = "gold ore chunk"
 	points = 18
@@ -186,7 +152,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "uranium ore"
 	desc = "Radioactive ore containing significant amounts of natural uranium."
 	icon_state = "uranium_ore"
-	item_state = "uranium_ore"
 	origin_tech = "materials=5"
 	singular_name = "uranium ore chunk"
 	points = 30
@@ -196,7 +161,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
 	icon_state = "titanium_ore"
-	item_state = "titanium_ore"
 	singular_name = "titanium ore chunk"
 	points = 50
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -206,18 +170,57 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "diamond ore"
 	desc = "Rock formation containing diamond."
 	icon_state = "diamond_ore"
-	item_state = "diamond_ore"
 	origin_tech = "materials=6"
 	singular_name = "diamond ore chunk"
 	points = 50
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/diamond/ten
+	amount = 10
+
+/obj/item/stack/ore/platinum
+	name = "platinum ore"
+	desc = "Rock formation containing platinum."
+	icon_state = "platinum_ore"
+	origin_tech = "materials=5"
+	singular_name = "platinum ore chunk"
+	points = 50
+	refined_type = /obj/item/stack/sheet/mineral/platinum
+	materials = list(MAT_PLATINUM = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/palladium
+	name = "palladium ore"
+	desc = "Rock formation containing palladium."
+	icon_state = "palladium_ore"
+	origin_tech = "materials=5"
+	singular_name = "palladium ore chunk"
+	points = 50
+	refined_type = /obj/item/stack/sheet/mineral/palladium
+	materials = list(MAT_PALLADIUM = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/iridium
+	name = "iridium ore"
+	desc = "Rock formation containing iridium."
+	icon_state = "iridium_ore"
+	origin_tech = "materials=5"
+	singular_name = "iridium ore chunk"
+	points = 50
+	refined_type = /obj/item/stack/sheet/mineral/iridium
+	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/brass
+	name = "brass ore"
+	desc = "Rock formation containing brass. This ore is not naturally occurring - if you see this, let development know."
+	singular_name = "brass ore chunk"
+	points = 1
+	refined_type = /obj/item/stack/tile/brass
+	materials = list(MAT_BRASS = MINERAL_MATERIAL_AMOUNT)
+
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
 	desc = "HONK!"
 	icon_state = "bananium_ore"
-	item_state = "bananium_ore"
 	origin_tech = "materials=4"
 	singular_name = "bananium ore chunk"
 	points = 60
@@ -228,7 +231,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "tranquillite ore"
 	desc = "..."
 	icon_state = "tranquillite_ore"
-	item_state = "tranquillite_ore"
 	origin_tech = "materials=4"
 	singular_name = "transquillite ore chunk"
 	points = 60
@@ -249,7 +251,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under Space Law."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Gibtonite ore"
-	item_state = "Gibtonite ore"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
 	anchored = TRUE //Forces people to carry it by hand, no pulling!
@@ -261,8 +262,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/gibtonite/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can use a mining scanner to stop an activated gibtonite crystal from detonating.</span>"
-	. += "<span class='notice'>In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!</span>"
+	. += SPAN_NOTICE("You can use a mining scanner to stop an activated gibtonite crystal from detonating.")
+	. += SPAN_NOTICE("In addition to simply hitting it, you can add a remote signaller to the gibtonite and trigger it to make the crystal begin to detonate!")
 
 /obj/item/gibtonite/Initialize(mapload)
 	. = ..()
@@ -274,9 +275,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/gibtonite/attackby(obj/item/I, mob/user, params)
+/obj/item/gibtonite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
-		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
+		user.visible_message("[user] attaches [I] to [src].", SPAN_NOTICE("You attach [I] to [src]."))
 		wires = new(src)
 		attacher = key_name(user)
 		qdel(I)
@@ -294,7 +295,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(primed)
 		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
 			primed = 0
-			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
+			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", SPAN_NOTICE("You stopped the chain reaction. ...The ore's quality looks diminished."))
 			icon_state = "Gibtonite ore"
 			quality = GIBTONITE_QUALITY_LOW
 			return
@@ -304,13 +305,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(wires)
 		wires.Interact(user)
 
-/obj/item/gibtonite/attack_self(mob/user)
+/obj/item/gibtonite/attack_self__legacy__attackchain(mob/user)
 	if(wires)
 		wires.Interact(user)
 	else
 		..()
 
-/obj/item/gibtonite/bullet_act(obj/item/projectile/P)
+/obj/item/gibtonite/bullet_act(obj/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 
@@ -339,16 +340,16 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		else if(triggered_by == 2)
 			log_game("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
-			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
+			user.visible_message(SPAN_WARNING("[user] strikes \the [src], causing a chain reaction!"), SPAN_DANGER("You strike \the [src], causing a chain reaction."))
 			log_game("[key_name(user)] has primed a [name] for detonation at [AREACOORD(bombturf)])")
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(loc, 2, 4, 9, adminlog = notify_admins)
+				explosion(loc, 2, 4, 9, adminlog = notify_admins, cause = "Movable Gibtonite")
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(loc, 1, 2, 5, adminlog = notify_admins)
+				explosion(loc, 1, 2, 5, adminlog = notify_admins, cause = "Movable Gibtonite")
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(loc, -1, 1, 3, adminlog = notify_admins)
+				explosion(loc, -1, 1, 3, adminlog = notify_admins, cause = "Movable Gibtonite")
 			qdel(src)
 
 
@@ -369,21 +370,22 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
 	var/name_by_cmineral = TRUE
 	var/cooldown = 0
 	var/credits = 10
-
-/obj/item/coin/New()
-	..()
-	icon_state = "coin_[cmineral]_[sideslist[1]]"
-	if(cmineral && name_by_cmineral)
-		name = "[cmineral] coin"
+	var/has_action = FALSE
+	var/heads_name = "heads"
 
 /obj/item/coin/Initialize(mapload)
 	. = ..()
+	icon_state = "coin_[cmineral]_[sideslist[1]]"
+	if(cmineral && name_by_cmineral)
+		name = "[cmineral] coin"
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/coin/gold
@@ -417,20 +419,20 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_PLASMA = 400)
 	credits = 80
 
-/obj/item/coin/plasma/bullet_act(obj/item/projectile/P)
+/obj/item/coin/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
 		log_and_set_aflame(P.firer, P)
 
-/obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
-	if(!I.get_heat())
-		return ..()
-	log_and_set_aflame(user, I)
+/obj/item/coin/plasma/attack_by(obj/item/attacking, mob/user, params)
+	if(..() || !attacking.get_heat())
+		return FINISH_ATTACK
+	log_and_set_aflame(user, attacking)
 
 /obj/item/coin/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
 	message_admins("Plasma coin ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma coin ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma coin ignited using [I]", src)
 	fire_act()
 
@@ -445,14 +447,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
 	credits = 160
-	COOLDOWN_DECLARE(radiation_cooldown)
 
-/obj/item/coin/uranium/attack_self(mob/user)
-	..()
-	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
-		return
-	radiation_pulse(src, 50)
-	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
+/obj/item/coin/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/item/coin/clown
 	cmineral = "bananium"
@@ -495,27 +494,40 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	sideslist = list("valid", "salad")
 	credits = 20
 	name_by_cmineral = FALSE
+	heads_name = "valid"
+
+/obj/item/coin/thunderdome
+	name = "thunderdome flipper"
+	icon_state = "coin_thunderdome_nanotrasen"
+	cmineral = "thunderdome"
+	desc = "A Thunderdome TCG flipper, for deciding who gets to go first. Also conveniently acts as a counter, for various purposes."
+	sideslist = list("nanotrasen", "syndicate")
+	credits = 20
+	name_by_cmineral = FALSE
+	heads_name = "nanotrasen"
 
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
 	credits = 160
 
-/obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+/obj/item/coin/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/CC = attacking
 		if(string_attached)
-			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
+			to_chat(user, SPAN_NOTICE("There already is a string attached to this coin."))
 			return
 
 		if(CC.use(1))
 			overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
 			string_attached = 1
-			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
+			to_chat(user, SPAN_NOTICE("You attach a string to the coin."))
 		else
-			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
+			to_chat(user, SPAN_WARNING("You need one length of cable to attach a string to the coin."))
 			return
 
-	else if(istype(W,/obj/item/wirecutters))
+	else if(istype(attacking, /obj/item/wirecutters))
 		if(!string_attached)
 			..()
 			return
@@ -525,7 +537,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
+		to_chat(user, SPAN_NOTICE("You detach the string from the coin."))
 	else ..()
 
 /obj/item/coin/wirecutter_act(mob/user, obj/item/I)
@@ -541,14 +553,19 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You carefully cut a hole into [src] turning it into a ring.</span>")
+		to_chat(user, SPAN_NOTICE("You carefully cut a hole into [src] turning it into a ring."))
 		var/obj/item/clothing/gloves/ring/ring = new typekey()
 		qdel(src)
 		user.put_in_hands(ring)
 
 
-/obj/item/coin/attack_self(mob/user as mob)
+/obj/item/coin/activate_self(mob/user)
+	if(..())
+		return
 	if(cooldown < world.time - 15)
+		if(string_attached) //does the coin have a wire attached
+			to_chat(user, "<span class='warning'>The coin won't flip very well with something attached!</span>" )
+			return FALSE//do not flip the coin
 		var/coinflip = pick(sideslist)
 		cooldown = world.time
 		flick("coin_[cmineral]_flip", src)
@@ -556,11 +573,81 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		var/blind_sound
 		if(cmineral != "tranquillite")
 			playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
-			blind_sound = "<span class='notice'>You hear the clattering of loose change.</span>"
-		if(do_after(user, 15, target = src))
-			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
-								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
+			blind_sound = SPAN_NOTICE("You hear the clattering of loose change.")
+		if(do_after(user, 15, target = src, allow_moving = TRUE))
+			user.visible_message(SPAN_NOTICE("[user] has flipped [src]. It lands on [coinflip]."), \
+								SPAN_NOTICE("You flip [src]. It lands on [coinflip]."), \
 								blind_sound)
+		if(has_action)
+			if(coinflip == heads_name)
+				heads_action(user)
+			else
+				tails_action(user)
+
+/obj/item/coin/proc/heads_action(mob/user)
+	return
+
+/obj/item/coin/proc/tails_action(mob/user)
+	return
+
+/obj/item/coin/eldritch
+	name = "eldritch coin"
+	desc = "A surprisingly heavy, ornate coin. Its sides seem to depict a different image each time you look."
+	icon_state = "coin_heretic_heretic"
+	cmineral = "heretic"
+	materials = list(MAT_DIAMOND = 1000, MAT_PLASMA = 1000)
+	sideslist = list("heretic", "blade")
+	heads_name = "heretic"
+	has_action = TRUE
+	/// The range at which airlocks are effected.
+	var/airlock_range = 5
+
+/obj/item/coin/eldritch/heads_action(mob/user)
+	var/mob/living/living_user = user
+	if(!IS_HERETIC(user))
+		living_user.adjustBruteLoss(5)
+		if(prob(90))
+			return
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.density)
+			INVOKE_ASYNC(src, PROC_REF(try_open_airlock), target_airlock)
+			continue
+		INVOKE_ASYNC(src, PROC_REF(try_close_airlock), target_airlock)
+
+/obj/item/coin/eldritch/proc/try_open_airlock(obj/machinery/door/airlock/ourlock)
+	ourlock.open()
+
+/obj/item/coin/eldritch/proc/try_close_airlock(obj/machinery/door/airlock/ourlock)
+	if(ourlock.safe)
+		ourlock.safe = FALSE
+	ourlock.close()
+	ourlock.safe = TRUE
+
+/obj/item/coin/eldritch/tails_action(mob/user)
+	var/mob/living/living_user = user
+	if(!IS_HERETIC(user))
+		living_user.adjustFireLoss(5)
+		if(prob(90))
+			return
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.locked)
+			target_airlock.unlock()
+			continue
+		target_airlock.lock()
+
+/obj/item/coin/eldritch/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery/door/airlock))
+		return NONE
+	if(!IS_HERETIC(user))
+		user.adjustBruteLoss(5)
+		user.adjustFireLoss(5)
+		return ITEM_INTERACT_COMPLETE
+	var/obj/machinery/door/airlock/target_airlock = target
+	to_chat(user, SPAN_WARNING("You insert [src] into the airlock."))
+	target_airlock.emag_act(user, src)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM

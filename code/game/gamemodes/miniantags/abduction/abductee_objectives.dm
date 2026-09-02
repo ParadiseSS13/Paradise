@@ -68,7 +68,7 @@
 /datum/objective/abductee/floors
 	explanation_text = "Replace all the floor tiles with wood, carpeting, grass or bling."
 
-/datum/objective/abductee/POWERUNLIMITED
+/datum/objective/abductee/powerunlimited
 	explanation_text = "Flood the station's powernet with as much electricity as you can."
 
 /datum/objective/abductee/pristine
@@ -120,7 +120,7 @@
 	explanation_text = "Expand the station."
 
 /datum/objective/abductee/engine
-	explanation_text = "Go have a good conversation with the singularity/tesla/supermatter crystal. Bonus points if it responds."
+	explanation_text = "Go have a good conversation with the singularity/tesla/supermatter crystal/nuclear reactor. Bonus points if it responds."
 
 /datum/objective/abductee/music
 	explanation_text = "You burn with passion for music. Share your vision. If anyone hates it, beat them on the head with your instrument!"

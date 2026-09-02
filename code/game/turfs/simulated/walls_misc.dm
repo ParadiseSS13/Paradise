@@ -1,12 +1,11 @@
 /turf/simulated/wall/cult
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
-	icon = 'icons/turf/walls/cult_wall.dmi'
+	icon = 'icons/turf/walls/32x40cult_wall.dmi'
 	icon_state = "cult_wall-0"
 	base_icon_state = "cult_wall"
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CULT_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -17,7 +16,7 @@
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = GET_CULT_DATA(cult_wall_icon_state, initial(icon_state))
 
-/turf/simulated/wall/cult/bullet_act(obj/item/projectile/Proj)
+/turf/simulated/wall/cult/bullet_act(obj/projectile/Proj)
 	. = ..()
 	new /obj/effect/temp_visual/cult/turf(src)
 
@@ -42,34 +41,24 @@
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon = 'icons/turf/walls/32x40clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
 	sheet_type = /obj/item/stack/tile/brass
-	sheet_amount = 2
 	girder_type = /obj/structure/clockwork/wall_gear
 	var/heated
-	var/obj/effect/clockwork/overlay/wall/realappearance
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BRASS_WALL)
 
-/turf/simulated/wall/clockwork/Initialize()
+/turf/simulated/wall/clockwork/Initialize(mapload)
 	. = ..()
-	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
-	realappearance = new /obj/effect/clockwork/overlay/wall(src)
-	realappearance.linked = src
 
-/turf/simulated/wall/clockwork/Destroy()
-	QDEL_NULL(realappearance)
-	return ..()
-
-/turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
+/turf/simulated/wall/clockwork/bullet_act(obj/projectile/Proj)
 	. = ..()
-	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
 	new /obj/effect/temp_visual/ratvar/beam(get_turf(src))
 
 /turf/simulated/wall/clockwork/narsie_act()
@@ -91,20 +80,20 @@
 /turf/simulated/wall/clockwork/attack_hulk(mob/living/user, does_attack_animation = 0)
 	..()
 	if(heated)
-		to_chat(user, "<span class='userdanger'>The wall is searing hot to the touch!</span>")
+		to_chat(user, SPAN_USERDANGER("The wall is searing hot to the touch!"))
 		user.adjustFireLoss(5)
 		playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 50, TRUE)
 
 /turf/simulated/wall/clockwork/mech_melee_attack(obj/mecha/M)
 	..()
 	if(heated)
-		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
+		to_chat(M.occupant, SPAN_USERDANGER("The wall's intense heat completely reflects your [M.name]'s attack!"))
 		M.take_damage(20, BURN)
 
 /turf/simulated/wall/boss
 	name = "ancient wall"
 	desc = "A thick metal wall, it look very old."
-	icon = 'icons/turf/walls/boss_wall.dmi'
+	icon = 'icons/turf/walls/32x40boss_wall.dmi'
 	icon_state = "boss_wall-0"
 	base_icon_state = "boss_wall"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
@@ -113,9 +102,15 @@
 	hardness = 10
 	heat_resistance = 20000
 	can_dismantle_with_welder = FALSE
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BOSS_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
+
+/turf/simulated/wall/gnesis
+	name = "gnesis wall"
+	desc = "A thick metal wall, it look very old."
+	icon = 'icons/goonstation/turf/flock.dmi'
+	color = "#1bdebd"
+	sheet_type = /obj/item/stack/sheet/gnesis

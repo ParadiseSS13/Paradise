@@ -18,11 +18,13 @@
 /atom/movable/proc/CanAtmosPass()
 	return TRUE
 
-/atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
-	return (!density || !height)
+/atom/proc/CanPass(atom/movable/mover, border_dir)
+	return !density
 
-/turf/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(!target) return 0
+/turf/CanPass(atom/movable/mover, border_dir)
+	var/turf/target = get_step(src, border_dir)
+	if(!target)
+		return FALSE
 
 	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
 		return !density
@@ -32,10 +34,10 @@
 			return 0
 
 		for(var/obj/obstacle in src)
-			if(!obstacle.CanPass(mover, target, height))
+			if(!obstacle.CanPass(mover, border_dir))
 				return 0
 		for(var/obj/obstacle in target)
-			if(!obstacle.CanPass(mover, src, height))
+			if(!obstacle.CanPass(mover, src))
 				return 0
 
 		return 1
@@ -141,5 +143,11 @@
 	if(flag & LINDA_SPAWN_AIR)
 		G.set_oxygen(G.oxygen() + MOLES_O2STANDARD * amount)
 		G.set_nitrogen(G.nitrogen() + MOLES_N2STANDARD * amount)
+
+	if(flag & LINDA_SPAWN_HYDROGEN)
+		G.set_hydrogen(G.hydrogen() + amount)
+
+	if(flag & LINDA_SPAWN_WATER_VAPOR)
+		G.set_water_vapor(G.water_vapor() + amount)
 
 	blind_release_air(G)

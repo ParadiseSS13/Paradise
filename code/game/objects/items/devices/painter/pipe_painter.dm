@@ -7,7 +7,7 @@
 /datum/painter/pipe/New()
 	..()
 	if(!length(modes))
-		for(var/C in GLOB.pipe_colors)
+		for(var/C in GLOB.pipe_icon_manager.pipe_colors)
 			modes += "[C]"
 	paint_setting = pick(modes)
 
@@ -25,14 +25,14 @@
 	if(is_type_in_list(P, blacklisted_pipes))
 		return
 
-	if(P.pipe_color == GLOB.pipe_colors[paint_setting])
-		to_chat(user, "<span class='notice'>This pipe is aready painted [paint_setting]!</span>")
+	if(P.pipe_color == GLOB.pipe_icon_manager.pipe_colors[paint_setting])
+		to_chat(user, SPAN_NOTICE("This pipe is aready painted [paint_setting]!"))
 		return
 
 	var/turf/T = get_turf(P)
 	if(P.level < 2 && T.level == 1 && T.intact && !T.transparent_floor)
-		to_chat(user, "<span class='warning'>You must remove the flooring first.</span>")
+		to_chat(user, SPAN_WARNING("You must remove the flooring first."))
 		return
 
-	P.change_color(GLOB.pipe_colors[paint_setting])
+	P.change_color(GLOB.pipe_icon_manager.pipe_colors[paint_setting])
 	return TRUE

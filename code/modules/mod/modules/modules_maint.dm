@@ -4,9 +4,11 @@
 /obj/item/mod/module/springlock
 	name = "MOD springlock module"
 	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
-		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
-		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
-		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you?"
+		This mechanical exoskeleton retracts to allow user entry and assists with booting up. \
+		It was removed from modern suits due to the springlock's tendency to \"snap\" back \
+		into place when exposed to specific chemical reactions, such as smoke from grenades. \
+		Despite the mention of humidity in older designs, this module only reacts to smoke. \
+		You know what it's like to have an entire exoskeleton snap into place around you?"
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
@@ -26,6 +28,7 @@
 	mod.activation_step_time *= activation_step_time_booster
 
 /obj/item/mod/module/springlock/on_suit_activation()
+	// only works with smoke
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed))
 	if(dont_let_you_come_back)
 		RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
@@ -39,10 +42,10 @@
 		return
 	. = TRUE
 	if(dont_let_you_come_back)
-		to_chat(user, "<span class='notice'>You disable the retraction blocking systems.</span>")
+		to_chat(user, SPAN_NOTICE("You disable the retraction blocking systems."))
 		dont_let_you_come_back = FALSE
 		return
-	to_chat(user, "<span class='notice'>You enable the retraction blocking systems, which will block people from retracting the modsuit for 10 seconds.</span>")
+	to_chat(user, SPAN_NOTICE("You enable the retraction blocking systems, which will block people from retracting the modsuit for 10 seconds."))
 	dont_let_you_come_back = TRUE
 
 
@@ -50,7 +53,7 @@
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
 	SIGNAL_HANDLER
 	remove_retraction_block() //No double signals
-	to_chat(mod.wearer, "<span class='danger'>[src] makes an ominous click sound...</span>")
+	to_chat(mod.wearer, SPAN_DANGER("[src] makes an ominous click sound..."))
 	incoming_jumpscare = TRUE
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
@@ -60,7 +63,7 @@
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, "<span class='userdanger'>The springlocks aren't responding...?</span>")
+	to_chat(mod.wearer, SPAN_USERDANGER("The springlocks aren't responding...?"))
 	return MOD_CANCEL_ACTIVATE
 
 ///Removes the retraction blocker from the springlock so long as they are not about to be killed
@@ -73,7 +76,7 @@
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	if(!mod.wearer) //while there is a guaranteed user when on_wearer_exposed() fires, that isn't the same case for this proc
 		return
-	mod.wearer.visible_message("<span class='danger'>[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!</span>", "<span class='biggerdanger'><b>*SNAP*</b></span>")
+	mod.wearer.visible_message(SPAN_DANGER("[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!"), SPAN_BIGGERDANGER("<b>*SNAP*</b>"))
 	mod.wearer.emote("scream")
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
@@ -122,7 +125,7 @@
 	desc = "A high-power stamp, able to switch between accept and deny mode when used."
 	flags = NODROP
 
-/obj/item/stamp/mod/attack_self(mob/user, modifiers)
+/obj/item/stamp/mod/activate_self(mob/user)
 	. = ..()
 	if(icon_state == "stamp-ok")
 		icon_state = "stamp-deny"

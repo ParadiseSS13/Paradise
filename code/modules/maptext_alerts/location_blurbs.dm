@@ -1,5 +1,5 @@
 /atom/movable/screen/text/blurb
-	maptext_height = 64
+	maptext_height = 128
 	maptext_width = 512
 	screen_loc = "LEFT+1,BOTTOM+2"
 	/// Font size in pixels

@@ -1,10 +1,9 @@
 /turf/simulated/floor/transparent/glass
 	name = "glass floor"
-	desc = "Don't jump on it... Or do, I'm not your mom."
+	desc = "Transparent flooring made out of regular glass. Don't jump on it... Or do, I'm not your mom."
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
-	baseturf = /turf/space
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_GLASS_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_FLOOR)
@@ -23,11 +22,29 @@
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()
-	var/image/I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
-	I.plane = PLANE_SPACE
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/floor/transparent/glass/LateInitialize()
+	. = ..()
+	var/image/I = null
+	if(is_mining_level(z))
+		if(SSmapping.lavaland_theme?.primary_turf_type_icon)
+			I = null
+			I = image(SSmapping.lavaland_theme.primary_turf_type_icon, src, "windowed")
+		else
+			I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
+			I.plane = PLANE_SPACE
+	else
+		I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
+		I.plane = PLANE_SPACE
+
+	I.layer = PLATING_LAYER
 	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
+	if(baseturf == /turf/space)
+		GLOB.starlight += src
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt)
@@ -35,7 +52,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
+		to_chat(user, SPAN_NOTICE("You fix some cracks in the glass."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -50,18 +67,15 @@
 		R = user.get_inactive_hand()
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/robouser = user
-		if(istype(robouser.module_state_1, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_1
-		else if(istype(robouser.module_state_2, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_2
-		else if(istype(robouser.module_state_3, /obj/item/stack/sheet/metal))
-			R = robouser.module_state_3
+		var/metal_slot = robouser.get_module_by_item(/obj/item/stack/sheet/metal)
+		if(metal_slot)
+			R = robouser.all_active_items[metal_slot]
 
 	if(!istype(R, /obj/item/stack/sheet/metal) || R.get_amount() < 2)
-		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
+		to_chat(user, SPAN_DANGER("You also need to hold two sheets of metal to dismantle \the [src]!"))
 		return
 
-	to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin replacing [src]..."))
 	playsound(src, I.usesound, 80, TRUE)
 
 	if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
@@ -85,6 +99,7 @@
 			new /obj/item/stack/sheet/plastitaniumglass(src, 2)
 	R.use(2)
 	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
+	GLOB.starlight -= src
 	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/transparent/glass/extinguish_light(force)
@@ -125,11 +140,11 @@
 	var/obj/item/thing = user.get_inactive_hand()
 	if(!thing || !(thing.tool_behaviour in get_prying_tools()))
 		return
-	to_chat(user, "<span class='danger'>You need to hold two sheets of metal to dismantle \the [src]!</span>")
+	to_chat(user, SPAN_DANGER("You need to hold two sheets of metal to dismantle \the [src]!"))
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"
-	desc = "Jump on it, it can cope. Promise..."
+	desc = "Transparent flooring made of glass reinforced with metal rods. Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
 	icon_state = "reinf_glass-0"
 	base_icon_state = "reinf_glass"
@@ -142,7 +157,7 @@
 
 /turf/simulated/floor/transparent/glass/plasma
 	name = "plasma glass floor"
-	desc = "Wait, was space always that color?"
+	desc = "Transparent flooring made of plasma glass. It gives everything a pretty purple tinge."
 	icon = 'icons/turf/floors/plasmaglass.dmi'
 	icon_state = "plasmaglass-0"
 	base_icon_state = "plasmaglass"
@@ -151,7 +166,7 @@
 
 /turf/simulated/floor/transparent/glass/reinforced/plasma
 	name = "reinforced plasma glass floor"
-	desc = "For when you REALLY don't want your floor choice to suffocate everyone."
+	desc = "Transparent flooring made of plasma glass reinforced with metal rods. It's actually stronger than regular flooring, so don't worry about it."
 	icon = 'icons/turf/floors/reinf_plasmaglass.dmi'
 	icon_state = "reinf_plasmaglass-0"
 	base_icon_state = "reinf_plasmaglass"
@@ -160,7 +175,7 @@
 
 /turf/simulated/floor/transparent/glass/titanium
 	name = "titanium glass floor"
-	desc = "Stylish AND strong!"
+	desc = "Transparent flooring made of lightweight titanium glass. It's ideal for seeing through the floor of your shuttle."
 	icon = 'icons/turf/floors/titaniumglass.dmi'
 	icon_state = "titaniumglass-0"
 	base_icon_state = "titaniumglass"
@@ -171,6 +186,7 @@
 
 /turf/simulated/floor/transparent/glass/titanium/plasma
 	name = "plastitanium glass floor"
+	desc = "Military-grade transparent flooring made from plastitanium glass. Perfect for when you want an evil window that doubles as a floor."
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'
 	icon_state = "plastitaniumglass-0"
 	base_icon_state = "plastitaniumglass"

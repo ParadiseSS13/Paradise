@@ -1,12 +1,11 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define BOT_REBATON_THRESHOLD 5 SECONDS
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
-	desc = "A little security robot.  He looks less than thrilled."
-	icon = 'icons/obj/aibots.dmi'
+	desc = "A little security robot. He looks less than thrilled."
 	icon_state = "secbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 60
 	maxHealth = 60
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -14,7 +13,6 @@
 
 	radio_channel = "Security" //Security channel
 	bot_type = SEC_BOT
-	bot_filter = RADIO_SECBOT
 	model = "Securitron"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
 	req_access = list(ACCESS_SECURITY)
@@ -49,6 +47,10 @@
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
@@ -57,8 +59,6 @@
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
-	idcheck = FALSE
-	weapons_check = FALSE
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
@@ -77,7 +77,6 @@
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
-	idcheck = FALSE
 	weapons_check = TRUE
 	auto_patrol = TRUE
 
@@ -115,7 +114,7 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	walk_to(src,0)
+	GLOB.move_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 
@@ -149,7 +148,7 @@
 	if(..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -184,15 +183,17 @@
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM || H.a_intent == INTENT_DISARM)
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/user, params)
-	..()
+/mob/living/simple_animal/bot/secbot/attacked_by(obj/item/W, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
 
@@ -200,20 +201,20 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
+			to_chat(user, SPAN_DANGER("You short out [src]'s target assessment circuits."))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+		audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
-/mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
+	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
 	..()
 
-/mob/living/simple_animal/bot/secbot/projectile_hit_check(obj/item/projectile/P)
+/mob/living/simple_animal/bot/secbot/projectile_hit_check(obj/projectile/P)
 	return FALSE
 
 
@@ -240,10 +241,10 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(SPAN_DANGER("[src] is trying to put zipties on [C]!"),\
+						SPAN_USERDANGER("[src] is trying to put zipties on you!"))
 	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
@@ -262,7 +263,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = harmbaton ? INTENT_HARM : INTENT_HELP
-	baton.attack(C, src)
+	baton.pre_attack(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
@@ -310,18 +311,18 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(find_new_target())	// see if any criminals are in range
 				return
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				playsound(loc, 'sound/machines/buzz-two.ogg', 25, FALSE)
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -330,9 +331,13 @@
 				back_to_idle()
 				return
 
+			if(target.stat == DEAD)
+				back_to_idle() // Stop beating up the dead guy
+				return
+
 			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 				stun_attack(target)
-				mode = BOT_PREP_ARREST
+				set_mode(BOT_PREP_ARREST)
 				anchored = TRUE
 				target_lastloc = target.loc
 				return
@@ -341,7 +346,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if(!Adjacent(target) || !isturf(target.loc) || target.stam_regen_start_time - world.time <= BOT_REBATON_THRESHOLD|| target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 			// target is stunned and nearby
@@ -362,16 +367,16 @@
 
 			back_to_idle()
 
-		if(BOT_ARREST)
+		if(BOT_ARREST) // Fun fact: This is not called
 			if(!target || target.handcuffed)
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.AmountWeakened() < 4 SECONDS)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.stam_regen_start_time - world.time <= BOT_REBATON_THRESHOLD || target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			//Try arresting again if the target escapes.
-			mode = BOT_PREP_ARREST
+			set_mode(BOT_PREP_ARREST)
 			anchored = FALSE
 
 		if(BOT_START_PATROL)
@@ -388,7 +393,7 @@
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -397,7 +402,7 @@
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 // look for a criminal in view of the bot
 
@@ -407,7 +412,7 @@
 		if((C.stat) || (C.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((C.name == oldtarget_name) && (world.time < last_found + 5 SECONDS))
 			continue
 
 		threatlevel = C.assess_threat(src)
@@ -420,7 +425,7 @@
 		speak("Level [threatlevel] infraction alert!")
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -432,8 +437,8 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	GLOB.move_manager.stop_looping(src)
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
@@ -451,11 +456,11 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && target)
-		var/mob/living/carbon/C = AM
+/mob/living/simple_animal/bot/secbot/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(ismob(entered) && target)
+		var/mob/living/carbon/C = entered
 		if(!istype(C) || !C || in_range(src, target))
 			return
 		C.visible_message("<span class='warning'>[pick( \
@@ -467,6 +472,6 @@
 						"[C] leaps out of [src]'s way!")]</span>")
 		C.KnockDown(4 SECONDS)
 		return
-	..()
 
 #undef BATON_COOLDOWN
+#undef BOT_REBATON_THRESHOLD

@@ -133,7 +133,7 @@
 // Simpler. Don't specify UI in order for the mob to use its own.
 /mob/proc/UpdateAppearance(list/UI = null)
 	if(ishuman(src)) // WHY?!
-		if(UI!=null)
+		if(UI != null)
 			dna.UI = UI
 			dna.UpdateUI()
 		dna.check_integrity()
@@ -152,7 +152,7 @@
 		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
 		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
 
-		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
+		H.s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220)
 
 		switch(dna.GetUIState(DNA_UI_BODY_TYPE))
 			if(DNA_GENDER_FEMALE)
@@ -212,11 +212,16 @@
 // This proc applies the DNA's information to the given head
 /datum/dna/proc/write_head_attributes(obj/item/organ/external/head/head_organ)
 
+	head_organ.dna.UI = UI
+	head_organ.dna.UpdateUI()
+	head_organ.dna.check_integrity()
+
 	//Hair
 	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,length(GLOB.hair_styles_full_list))
 	if((hair > 0) && (hair <= length(GLOB.hair_styles_full_list)))
 		head_organ.h_style = GLOB.hair_styles_full_list[hair]
 
+	// dna is taken from the head, not from the mob
 	head_organ.hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_B, 255))
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
 
@@ -253,6 +258,9 @@
 
 // This proc gives the DNA info for eye color to the given eyes
 /datum/dna/proc/write_eyes_attributes(obj/item/organ/internal/eyes/eyes_organ)
+	eyes_organ.dna.UI = UI
+	eyes_organ.dna.UpdateUI()
+	eyes_organ.dna.check_integrity()
 	eyes_organ.eye_color = rgb(eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_R, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_G, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_B, 255))
 
 /*

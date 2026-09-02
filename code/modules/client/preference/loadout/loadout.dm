@@ -1,13 +1,4 @@
-GLOBAL_LIST_EMPTY(loadout_categories)
 GLOBAL_LIST_EMPTY(gear_datums)
-
-/datum/loadout_category
-	var/category = ""
-	var/list/gear = list()
-
-/datum/loadout_category/New(cat)
-	category = cat
-	..()
 
 /datum/gear
 	/// Displayed name of the item listing.
@@ -26,6 +17,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/sort_category = "General"
 	/// List of datums which will alter the item after it has been spawned. (NYI)
 	var/list/gear_tweaks = list()
+	/// Can this item's name be customized?
+	var/tweakname = TRUE
+	/// Can this item's description be customized?
+	var/tweakdesc = TRUE
 	/// Set on empty category datums to skip them being added to the list. (/datum/gear/accessory, /datum/gear/suit/coat/job, etc.)
 	var/main_typepath = /datum/gear
 	/// Does selecting a second item with the same `main_typepath` cost loadout points.
@@ -38,6 +33,11 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(!description)
 		var/obj/O = path
 		description = initial(O.desc)
+	if(tweakname == TRUE) // makes either option not work if their respective var is set to `false`
+		gear_tweaks |= new /datum/gear_tweak/rename
+	if(tweakdesc == TRUE)
+		gear_tweaks |= new /datum/gear_tweak/redesc
+
 
 /datum/gear_data
 	var/path
@@ -48,10 +48,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	location = nlocation
 
 /datum/gear/proc/spawn_item(location, metadata)
-	var/datum/gear_data/gd = new(path, location)
-	for(var/datum/gear_tweak/gt in gear_tweaks)
-		gt.tweak_gear_data(metadata["[gt]"], gd)
-	var/item = new gd.path(gd.location)
-	for(var/datum/gear_tweak/gt in gear_tweaks)
-		gt.tweak_item(item, metadata["[gt]"])
+	var/datum/gear_data/gear_data = new(path, location)
+	for(var/datum/gear_tweak/tweak in gear_tweaks)
+		tweak.tweak_gear_data(metadata["[tweak]"], gear_data)
+	var/item = new gear_data.path(gear_data.location)
+	for(var/datum/gear_tweak/tweak in gear_tweaks)
+		tweak.tweak_item(item, metadata["[tweak]"])
 	return item

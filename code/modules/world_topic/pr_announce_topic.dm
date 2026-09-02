@@ -5,4 +5,4 @@
 /datum/world_topic_handler/announce/execute(list/input, key_valid)
 	var/prtext = input["announce"]
 	for(var/client/C in GLOB.clients)
-		to_chat(C, "<span class='pr_announce'>PR: [prtext]</span>")
+		to_chat(C, SPAN_PR_ANNOUNCE("PR: [prtext]"))

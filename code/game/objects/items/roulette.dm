@@ -15,11 +15,13 @@
 
 /obj/structure/roulette/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Interact to customise it and spin with <b>Alt-Click</b>.</span>"
+	. += SPAN_NOTICE("Interact to customise it and spin with <b>Alt-Click</b>.")
 	. += "The options are: \n[options.Join(".\n")]"
 
-/obj/structure/roulette/AltClick()
+/obj/structure/roulette/AltClick(mob/user)
 	if(spinning)
+		return
+	if(!Adjacent(user))
 		return
 	playsound(src, 'sound/items/roulette_spin.ogg', 50, TRUE)
 	icon_state = "roulette_on"

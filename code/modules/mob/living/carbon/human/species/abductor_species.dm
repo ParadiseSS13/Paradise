@@ -5,6 +5,7 @@
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
 		"liver" =    /obj/item/organ/internal/liver,
@@ -26,6 +27,7 @@
 	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
+	plushie_type = /obj/item/toy/plushie/abductor
 	var/team = 1
 	var/scientist = FALSE // vars to not pollute spieces list with castes
 
@@ -38,9 +40,9 @@
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.add_hud_to(H)
+	abductor_hud.add_hud_to(H, "abductor")
 
 /datum/species/abductor/on_species_loss(mob/living/carbon/human/H)
 	..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.remove_hud_from(H)
+	abductor_hud.remove_hud_from(H, "abductor")

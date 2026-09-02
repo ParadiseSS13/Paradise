@@ -1,0 +1,71 @@
+.theme-amberpos:root {
+  // Base
+  --color-base: hsl(24, 100%, 5%);
+  --color-primary: hsl(from var(--color-base) h s calc(l - 30));
+  --color-label: #d86c00;
+  --secondary-saturation: 10;
+  --secondary-lightness-adjustment: -56;
+  --base-gradient-spread: 0;
+  --border-radius-unit: 0;
+  --base-font-stack: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+  // Components
+  --button-color: var(--color-label);
+  --button-background-default: var(--color-base);
+  --button-background-selected: hsl(0, 90%, 35%);
+  --button-background-caution: hsl(30, 85%, 40%);
+  --button-background-danger: hsl(31, 100%, 30%);
+  --progress-bar-background: hsl(0, 0%, 0%, 0.5);
+  --input-background: transparent;
+
+  .Layout__content {
+    background-image: none;
+  }
+
+  .Button {
+    font-family: var(--base-font-stack);
+    border: var(--border-thickness-small) outset var(--color-base);
+    outline: var(--border-thickness-tiny) solid hsl(60, 6%, 8%);
+
+    &-disabled {
+      color: hsl(60, 6%, 77%);
+      font-family: var(--base-font-stack);
+
+      &:hover {
+        color: hsl(0, 0%, 100%);
+      }
+    }
+
+    &--selected {
+      color: var(--color-white);
+      border-style: inset;
+    }
+  }
+
+  .Section {
+    font-family: var(--base-font-stack);
+
+    &__titleText {
+      color: var(--color-label);
+    }
+  }
+
+  div,
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--base-font-stack);
+    color: var(--color-label);
+  }
+
+  h1 {
+    font-size: 250%;
+    padding: 32px;
+    padding-bottom: 0;
+  }
+
+  h2 {
+    font-size: 120%;
+  }
+}

@@ -13,7 +13,7 @@
 					"Don't you want some?",
 					"Ping!")
 
-	req_access_txt = "150"
+	req_access = list(ACCESS_SYNDICATE)
 	products = list(/obj/item/stack/medical/bruise_pack = 2,
 					/obj/item/stack/medical/ointment = 2,
 					/obj/item/reagent_containers/syringe/charcoal = 4,
@@ -44,13 +44,14 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10, /obj/item/lighter/random = 5)
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
+					/obj/item/lighter/random = 5)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32, 32)
 
 /obj/machinery/economy/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
-	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
+	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
 	slogan_list = list("Try our new nougat bar!",
 					"Twice the calories for half the price!")
 
@@ -107,7 +108,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 	desc = "An overwhelming amount of <b>ancient patriotism</b> washes over you just by looking at the machine."
 	icon_state = "liberationstation"
 	icon_lightmask = "liberationstation"
-	req_access_txt = "1"
+	req_access = list(ACCESS_SECURITY)
 	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!",
 					"Be a patriot today, pick up a gun!",
 					"Quality weapons for cheap prices!",
@@ -186,16 +187,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 
 /obj/machinery/economy/vending/toyliberationstation/secured/crowbar_act(mob/user, obj/item/I)
 	if(tilted)
-		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("The fastening bolts aren't on the ground, you'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	to_chat(user, "<span class='warning'>You are unable to remove the electronics from the vendor!</span>")
+	to_chat(user, SPAN_WARNING("You are unable to remove the electronics from the vendor!"))
 
 /obj/machinery/economy/vending/toyliberationstation/secured/wrench_act(mob/user, obj/item/I)
 	if(tilted)
-		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("The fastening bolts aren't on the ground, you'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	to_chat(user, "<span class='warning'>You are unable to loosen the bolts!</span>")
+	to_chat(user, SPAN_WARNING("You are unable to loosen the bolts!"))

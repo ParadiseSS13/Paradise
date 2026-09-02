@@ -20,7 +20,7 @@
 
 #define STATUS_EFFECT_SHADOW_MEND_DEVIL /datum/status_effect/shadow_mend/devil //Tarot version, hurts others over self
 
-#define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocraticOath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
+#define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocratic_oath //Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
@@ -74,6 +74,16 @@
 
 #define STATUS_EFFECT_REVERSED_SUN /datum/status_effect/reversed_sun // Weaker eternal darkness, nightvision, but nearsight
 
+#define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
+
+#define STATUS_EFFECT_QUICKSILVER_FORM /datum/status_effect/quicksilver_form
+
+#define STATUS_EFFECT_TERMINATOR_FORM /datum/status_effect/terminator_form
+
+#define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
+
+#define STATUS_EFFECT_DUELING /datum/status_effect/dueling
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -104,11 +114,15 @@
 
 #define STATUS_EFFECT_GROUNDPOUND /datum/status_effect/stacking/ground_pound //if hit twice, the third attack will fling the target
 
+#define STATUS_EFFECT_BLUESPACE_THREADS /datum/status_effect/stacking/unstable_bluespace_threads // if hit twice, the third attack will cause something random
+
 #define STATUS_EFFECT_TELEPORTSICK /datum/status_effect/teleport_sickness //increasing debuffs as you rapidly teleport.
 
 #define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
 
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
+
+#define STATUS_EFFECT_BLUESPACESLOWDOWN_LONG /datum/status_effect/bluespace_slowdown/long
 
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
@@ -128,7 +142,16 @@
 
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
 
+#define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced // Prevents you from automatically grabbing walls to stop moving in space.
+
 #define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
+
+#define STATUS_EFFECT_RUST_CORRUPTION /datum/status_effect/rust_corruption
+
+#define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
+
+#define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
+
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -153,6 +176,7 @@
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_FLOORED /datum/status_effect/incapacitating/floored
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
@@ -167,6 +191,7 @@
 #define STATUS_EFFECT_NO_OXY_HEAL /datum/status_effect/transient/no_oxy_heal
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
+#define STATUS_EFFECT_HERETIC_SLUR /datum/status_effect/transient/heretic_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
 #define STATUS_EFFECT_SLURRING /datum/status_effect/transient/slurring
 #define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath
@@ -182,6 +207,7 @@
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 #define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_OFFERING_EFTPOS /datum/status_effect/high_five/offering_eftpos
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 #define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
 
@@ -212,10 +238,16 @@
 /// Causes a random safe teleport every 2 seconds for a limited time
 #define STATUS_EFFECT_TELEPORT_ROULETTE /datum/status_effect/teleport_roulette
 
+/// Use by hivelords to determine if they can attack yet.
+#define STATUS_EFFECT_HIVELORD_TRACKING /datum/status_effect/hivelord_tracking
+
 /// Status effects for different actions
 #define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs
 #define STATUS_EFFECT_REMOVE_MUZZLE /datum/status_effect/action_status_effect/remove_muzzle
 #define STATUS_EFFECT_UNBUCKLE /datum/status_effect/action_status_effect/unbuckle
+#define STATUS_EFFECT_EXIT_CRYOCELL /datum/status_effect/action_status_effect/exit_cryocell
+
+#define STATUS_EFFECT_REVIVE_NOTICE /datum/status_effect/revive_notice_delay
 
 //////////////////////////
 // Mind batter variants //

@@ -1,7 +1,7 @@
 /*
 Research and Development (R&D) Console
 
-This is the main work horse of the R&D system. It contains the menus/controls for the Destructive Analyzer, Protolathe, and Circuit
+This is the main work horse of the R&D system. It contains the menus/controls for the Scientific Analyzer, Protolathe, and Circuit
 imprinter. It also contains the /datum/research holder with all the known/possible technology paths and device designs.
 
 Basic use: When it first is created, it will attempt to link up to related devices within 3 squares. It'll only link up if they
@@ -43,7 +43,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 #define MENU_MAIN 0
 #define MENU_DISK 2
-#define MENU_DESTROY 3
+#define MENU_ANALYZER 3
 #define MENU_LATHE 4
 #define MENU_IMPRINTER 5
 #define MENU_SETTINGS 6
@@ -69,8 +69,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/item/disk/tech_disk/t_disk = null
 	/// Holder for the inserted design disk
 	var/obj/item/disk/design_disk/d_disk = null
-	/// Linked destructive analyser
-	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null
+	/// Linked scientific analyser
+	var/obj/machinery/r_n_d/scientific_analyzer/linked_analyzer = null
 	/// Linked protolathe
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null
 	/// Linked circuit imprinter
@@ -128,9 +128,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!isnull(D.linked_console) || D.panel_open)
 			continue
 
-		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
-			if(linked_destroy == null)
-				linked_destroy = D
+		if(istype(D, /obj/machinery/r_n_d/scientific_analyzer))
+			if(linked_analyzer == null)
+				linked_analyzer = D
 				D.linked_console = src
 
 		else if(istype(D, /obj/machinery/r_n_d/protolathe))
@@ -159,9 +159,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
 	matching_designs.Cut()
-	if(linked_destroy)
-		linked_destroy.linked_console = null
-		linked_destroy = null
+	if(linked_analyzer)
+		linked_analyzer.linked_console = null
+		linked_analyzer = null
 	if(linked_lathe)
 		linked_lathe.linked_console = null
 		linked_lathe = null
@@ -179,34 +179,34 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		wait_message_timer = 0
 	return ..()
 
-/obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
-
+/obj/machinery/computer/rdconsole/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//Loading a disk into it.
-	if(istype(D, /obj/item/disk))
+	if(istype(used, /obj/item/disk))
+		. = ITEM_INTERACT_COMPLETE
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
 			return
 
-		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
-		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
+		if(istype(used, /obj/item/disk/tech_disk)) t_disk = used
+		else if(istype(used, /obj/item/disk/design_disk)) d_disk = used
 		else
-			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
+			to_chat(user, SPAN_DANGER("Machine cannot accept disks in that format."))
 			return
-		if(!user.drop_item())
+		if(!user.transfer_item_to(used, src))
 			return
-		D.loc = src
-		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
-	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
-		..()
+		playsound(src, used.drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE) // Highly important auditory feedback
+		to_chat(user, SPAN_NOTICE("You add the disk to the machine!"))
+	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
+		return ..()
+
 	SStgui.update_uis(src)
-	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(!emagged)
 		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
 		req_one_access = list()
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		to_chat(user, SPAN_NOTICE("You disable the security protocols"))
 		return TRUE
 
 /obj/machinery/computer/rdconsole/proc/prompt_eject_sheets(obj/machinery/r_n_d/machine, material_id, amount)
@@ -247,23 +247,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
-	if(!linked_destroy)
+/obj/machinery/computer/rdconsole/proc/start_analyzer_destroy(mob/user)
+	if(!linked_analyzer)
 		return
 
-	if(linked_destroy.busy)
-		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+	if(linked_analyzer.busy)
+		to_chat(user, SPAN_DANGER("[linked_analyzer] is busy at the moment."))
 		return
 
-	if(!linked_destroy.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+	if(!linked_analyzer.loaded_item)
+		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
 		return
 
 	var/datum/research/files = get_files()
 	if(!files)
 		return
 
-	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
+	var/list/temp_tech = linked_analyzer.ConvertReqString2List(linked_analyzer.loaded_item.origin_tech)
 	var/pointless = FALSE
 
 	for(var/T in temp_tech)
@@ -273,70 +273,104 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!pointless)
 		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
-		if(choice == "Cancel" || !linked_destroy)
+		if(choice == "Cancel" || !linked_analyzer)
+			return
+		// Prevent remote activation of the scanner, unless you're someone that's supposed to be able to do that.
+		if(!Adjacent(user) && !issilicon(user))
+			to_chat(user, SPAN_WARNING("You moved too far away from [src]!"))
 			return
 
-	linked_destroy.busy = TRUE
+	linked_analyzer.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), user, temp_tech), DECONSTRUCT_DELAY)
+	flick("s_analyzer_process", linked_analyzer)
+	addtimer(CALLBACK(src, PROC_REF(finish_analyzer), user, temp_tech), DECONSTRUCT_DELAY)
+
+
+/obj/machinery/computer/rdconsole/proc/start_analyzer_discover(mob/user)
+	if(!linked_analyzer)
+		return
+
+	if(linked_analyzer.busy)
+		to_chat(user, SPAN_DANGER("[linked_analyzer] is busy at the moment."))
+		return
+
+	if(!linked_analyzer.loaded_item)
+		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
+		return
+
+	if(!istype(linked_analyzer.loaded_item, /obj/item/relic))
+		message_admins("[key_name_admin(user)] attempted to discover something that isnt a strange object. Possible HREF exploit.")
+		return
+
+	var/obj/item/relic/R = linked_analyzer.loaded_item
+	visible_message("[linked_analyzer] scans [linked_analyzer.loaded_item], revealing its true nature!")
+	playsound(loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
+
+	// LETS GO GAMBLING
+	R.reveal()
+	R.forceMove(get_turf(linked_analyzer))
+	linked_analyzer.loaded_item = null
+	investigate_log("Scientific analyser has revealed a relic with effect ID [SPAN_DANGER("[R.function_id]")] effect.", "strangeobjects")
+	linked_analyzer.icon_state = "s_analyzer"
+	SStgui.update_uis(src)
+
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
-	if(!linked_lathe || !linked_destroy || !linked_destroy.loaded_item)
+	if(!linked_lathe || !linked_analyzer || !linked_analyzer.loaded_item)
 		return
 
-	for(var/material in linked_destroy.loaded_item.materials)
+	for(var/material in linked_analyzer.loaded_item.materials)
 		var/space = linked_lathe.materials.max_amount - linked_lathe.materials.total_amount
 		// as item rating increases, amount salvageable increases
-		var/salvageable = linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10)
+		var/salvageable = linked_analyzer.loaded_item.materials[material] * (linked_analyzer.decon_mod / 10)
 		// but you shouldn't salvage more than the raw materials amount
-		var/available = linked_destroy.loaded_item.materials[material]
+		var/available = linked_analyzer.loaded_item.materials[material]
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(mob/user, list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_analyzer(mob/user, list/temp_tech)
 	clear_wait_message()
-	if(!linked_destroy || !temp_tech)
+	if(!linked_analyzer || !temp_tech)
 		return
 
 	var/datum/research/files = get_files()
 	if(!files)
 		return
 
-	if(!linked_destroy.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+	if(!linked_analyzer.loaded_item)
+		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
 	else
 		for(var/T in temp_tech)
 			files.UpdateTech(T, temp_tech[T])
 		send_mats()
-		linked_destroy.loaded_item = null
+		linked_analyzer.loaded_item = null
 
-	for(var/obj/I in linked_destroy.contents)
+	for(var/obj/I in linked_analyzer.contents)
 		for(var/mob/M in I.contents)
 			M.death()
 		if(istype(I, /obj/item/stack))//Only deconstructs one item in a stack at a time instead of the entire stack
 			var/obj/item/stack/S = I
 			if(S.amount > 1)
 				S.amount--
-				linked_destroy.loaded_item = S
+				linked_analyzer.loaded_item = S
 			else
 				qdel(S)
-				linked_destroy.icon_state = "d_analyzer"
-		else if(!(I in linked_destroy.component_parts))
+				linked_analyzer.icon_state = "s_analyzer"
+		else if(!(I in linked_analyzer.component_parts))
 			qdel(I)
-			linked_destroy.icon_state = "d_analyzer"
+			linked_analyzer.icon_state = "s_analyzer"
 
-	linked_destroy.busy = FALSE
+	linked_analyzer.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
-	menu = MENU_DESTROY
+	menu = MENU_ANALYZER
 	SStgui.update_uis(src)
 
 
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
-		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
+		to_chat(usr, SPAN_DANGER("No linked device detected."))
 		return
 
 	var/datum/research/files = get_files()
@@ -347,16 +381,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, "<span class='danger'>Unexpected linked device type.</span>")
+		to_chat(usr, SPAN_DANGER("Unexpected linked device type."))
 		return
 
 	if(machine.busy)
-		to_chat(usr, "<span class='danger'>[machine] is busy at the moment.</span>")
+		to_chat(usr, SPAN_DANGER("[machine] is busy at the moment."))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
+		to_chat(usr, SPAN_DANGER("Unknown design specified."))
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
@@ -419,13 +453,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
 	if(machine)
 		if(enough_materials && being_built)
-			SSblackbox.record_feedback("nested tally", "RND Production List", amount, list("[being_built.category]", "[being_built.name]"))
+			if(is_station_level(z))
+				SSblackbox.record_feedback("tally", "station_protolathe_production", amount, "[being_built.type]")
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				new_item.pixel_x = rand(-5, 5)
-				new_item.pixel_y = rand(-5, 5)
+				new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key]","singulo")
+					new_item.investigate_log("built by [key]",INVESTIGATE_SINGULO)
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.materials = efficient_mats.Copy()
 				if(being_built.locked)
@@ -466,6 +500,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			return TRUE
 
+		if("maxresearch")
+			if(!check_rights(R_ADMIN))
+				return
+			if(!network_manager_uid)
+				return
+			var/choice = tgui_alert(ui.user, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))
+			if(choice == "Yes")
+				log_admin("[key_name(ui.user)] has maximized the research levels at network [network_manager_uid].")
+				message_admins("[key_name_admin(ui.user)] has maximized the research levels at network [network_manager_uid].")
+				maximize()
+
+			return TRUE
+
 		// You should only be able to link if its not linked, to prevent weirdness
 		if("linktonetworkcontroller")
 			if(network_manager_uid)
@@ -477,19 +524,20 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/user_pass = input(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
+					C.consoles += UID()
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 			return TRUE
 
 	// Now we do a files check
 	var/datum/research/files = get_files()
 	if(!files)
-		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
+		to_chat(usr, SPAN_DANGER("Error - No research network linked."))
 		return
 
 
@@ -564,7 +612,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("erase_disk")
 			if(t_disk && d_disk)
-				to_chat(ui.user, "<span class='warning'>Can not simultaneously wipe tech disk and design disk.</span>")
+				to_chat(ui.user, SPAN_WARNING("Can not simultaneously wipe tech disk and design disk."))
 				return FALSE
 			if(t_disk)
 				t_disk.wipe_tech()
@@ -587,18 +635,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
 
-		if("eject_item") //Eject the item inside the destructive analyzer.
-			if(linked_destroy)
-				if(linked_destroy.busy)
-					to_chat(ui.user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		if("eject_item") //Eject the item inside the scientific analyzer.
+			if(linked_analyzer)
+				if(linked_analyzer.busy)
+					to_chat(ui.user, SPAN_DANGER("[linked_analyzer] is busy at the moment."))
 
-				else if(linked_destroy.loaded_item)
-					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
-					linked_destroy.loaded_item = null
-					linked_destroy.icon_state = "d_analyzer"
+				else if(linked_analyzer.loaded_item)
+					linked_analyzer.loaded_item.forceMove(linked_analyzer.loc)
+					linked_analyzer.loaded_item = null
+					linked_analyzer.icon_state = "s_analyzer"
 
-		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			start_destroyer(ui.user)
+		if("deconstruct") //Deconstruct the item in the scientific analyzer and update the research holder.
+			start_analyzer_destroy(ui.user)
+
+		if("discover") // Analyse the object in the scientific analyser and discover it
+			start_analyzer_discover(ui.user)
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -634,10 +685,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disconnect") //The R&D console disconnects with a specific device.
 			switch(params["item"])
-				if("destroy")
-					if(linked_destroy)
-						linked_destroy.linked_console = null
-						linked_destroy = null
+				if("analyze")
+					if(linked_analyzer)
+						linked_analyzer.linked_console = null
+						linked_analyzer = null
 				if("lathe")
 					if(linked_lathe)
 						linked_lathe.linked_console = null
@@ -698,23 +749,33 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 	return TRUE // update uis
 
 /obj/machinery/computer/rdconsole/proc/unlink()
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	RNC.consoles -= UID()
 	network_manager_uid = null
+	SStgui.update_uis(src)
+
+/obj/machinery/computer/rdconsole/proc/maximize()
+	var/datum/research/files = get_files()
+	if(!files)
+		return
+	for(var/T in files.known_tech)
+		files.UpdateTech(T, 8)
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return TRUE
 	ui_interact(user)
 
@@ -838,13 +899,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked"] = TRUE
 	files.RefreshResearch()
 
+	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["menu"] = menu
 	data["submenu_protolathe"] = submenu_protolathe
 	data["submenu_imprinter"] = submenu_imprinter
 	data["wait_message"] = wait_message
 	data["src_ref"] = UID()
 
-	data["linked_destroy"] = linked_destroy ? 1 : 0
+	data["linked_analyzer"] = linked_analyzer ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
 	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
@@ -928,11 +990,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					material["name"] = CallMaterialName(M)
 					material["amount"] = d_disk.blueprint.materials[M]
 
-	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
+	else if(menu == MENU_ANALYZER && linked_analyzer && linked_analyzer.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
-		loaded_item_list["name"] = linked_destroy.loaded_item.name
-		var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
+		data["can_discover"] = istype(linked_analyzer.loaded_item, /obj/item/relic)
+		loaded_item_list["name"] = linked_analyzer.loaded_item.name
+		var/list/temp_tech = linked_analyzer.ConvertReqString2List(linked_analyzer.loaded_item.origin_tech)
 		var/list/tech_levels = list()
 		data["tech_levels"] = tech_levels
 		for(var/v in files.known_tech)
@@ -981,12 +1044,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	autolink_id = "station_rnd"
 
-/obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
-	autolink_id = "station_rnd"
-	range = 5
-	circuit = /obj/item/circuitboard/rdconsole/experiment
-
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	req_one_access = list()
@@ -1002,7 +1059,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef IMPRINTER_DELAY
 #undef MENU_MAIN
 #undef MENU_DISK
-#undef MENU_DESTROY
+#undef MENU_ANALYZER
 #undef MENU_LATHE
 #undef MENU_IMPRINTER
 #undef MENU_SETTINGS

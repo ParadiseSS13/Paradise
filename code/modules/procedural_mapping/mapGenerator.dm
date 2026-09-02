@@ -1,4 +1,4 @@
-/datum/mapGenerator
+/datum/map_generator
 
 	//Map information
 	var/list/map = list()
@@ -6,13 +6,13 @@
 	//mapGeneratorModule information
 	var/list/modules = list()
 
-/datum/mapGenerator/New()
+/datum/map_generator/New()
 	..()
 	initialiseModules()
 
 //Defines the region the map represents, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineRegion(turf/Start, turf/End, replace = 0)
+/datum/map_generator/proc/defineRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -25,7 +25,7 @@
 
 //Defines the region the map represents, as a CIRCLE!, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
+/datum/map_generator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -44,7 +44,7 @@
 
 	//Even sphere correction engage
 	var/offByOneOffset = 1
-	if(bigZ % 2 == 0)
+	if(ISEVEN(bigZ))
 		offByOneOffset = 0
 
 	for(var/i = lilZ, i <= bigZ+offByOneOffset, i++)
@@ -60,13 +60,13 @@
 
 
 //Empties the map list, he's dead jim.
-/datum/mapGenerator/proc/undefineRegion()
+/datum/map_generator/proc/undefineRegion()
 	map = list() //bai bai
 
 
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
-/datum/mapGenerator/proc/checkRegion(turf/Start, turf/End)
+/datum/map_generator/proc/checkRegion(turf/Start, turf/End)
 	. = 1
 
 	if(!Start || !End)
@@ -81,29 +81,29 @@
 
 
 //Requests the mapGeneratorModule(s) to (re)generate
-/datum/mapGenerator/proc/generate()
+/datum/map_generator/proc/generate()
 	syncModules()
 	if(!modules || !length(modules))
 		return
-	for(var/datum/mapGeneratorModule/mod in modules)
+	for(var/datum/map_generator_module/mod in modules)
 		spawn(0)
 			mod.generate()
 
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
-/datum/mapGenerator/proc/generateOneTurf(turf/T)
+/datum/map_generator/proc/generateOneTurf(turf/T)
 	if(!T)
 		return
 	syncModules()
 	if(!modules || !length(modules))
 		return
-	for(var/datum/mapGeneratorModule/mod in modules)
+	for(var/datum/map_generator_module/mod in modules)
 		spawn(0)
 			mod.place(T)
 
 
 //Replaces all paths in the module list with actual module datums
-/datum/mapGenerator/proc/initialiseModules()
+/datum/map_generator/proc/initialiseModules()
 	for(var/path in modules)
 		if(ispath(path))
 			modules.Remove(path)
@@ -112,8 +112,8 @@
 
 
 //Sync mapGeneratorModule(s) to mapGenerator
-/datum/mapGenerator/proc/syncModules()
-	for(var/datum/mapGeneratorModule/mod in modules)
+/datum/map_generator/proc/syncModules()
+	for(var/datum/map_generator_module/mod in modules)
 		mod.sync(src)
 
 
@@ -122,61 +122,55 @@
 // HERE BE DEBUG DRAGONS //
 ///////////////////////////
 
-/client/proc/debugNatureMapGenerator()
-	set name = "Test Nature Map Generator"
-	set category = "Debug"
-
-	if(!check_rights(R_MAINTAINER))
-		return
-
-	var/datum/mapGenerator/nature/N = new()
-	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")
-	var/endInput = clean_input("End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[mob ? mob.z : 1]")
+USER_VERB(test_nature_map_generator, R_MAINTAINER, "Test Nature Map Generator", "Test nature map generator", VERB_CATEGORY_DEBUG)
+	var/datum/map_generator/nature/N = new()
+	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1", user = client)
+	var/endInput = clean_input("End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[client.mob ? client.mob.z : 1]", user = client)
 	//maxx maxy and current z so that if you fuck up, you only fuck up one entire z level instead of the entire universe
 	if(!startInput || !endInput)
-		to_chat(src, "Missing Input")
+		to_chat(client, "Missing Input")
 		return
 
 	var/list/startCoords = splittext(startInput, ";")
 	var/list/endCoords = splittext(endInput, ";")
 	if(!startCoords || !endCoords)
-		to_chat(src, "Invalid Coords")
-		to_chat(src, "Start Input: [startInput]")
-		to_chat(src, "End Input: [endInput]")
+		to_chat(client, "Invalid Coords")
+		to_chat(client, "Start Input: [startInput]")
+		to_chat(client, "End Input: [endInput]")
 		return
 
 	var/turf/Start = locate(text2num(startCoords[1]),text2num(startCoords[2]),text2num(startCoords[3]))
 	var/turf/End = locate(text2num(endCoords[1]),text2num(endCoords[2]),text2num(endCoords[3]))
 	if(!Start || !End)
-		to_chat(src, "Invalid Turfs")
-		to_chat(src, "Start Coords: [startCoords[1]] - [startCoords[2]] - [startCoords[3]]")
-		to_chat(src, "End Coords: [endCoords[1]] - [endCoords[2]] - [endCoords[3]]")
+		to_chat(client, "Invalid Turfs")
+		to_chat(client, "Start Coords: [startCoords[1]] - [startCoords[2]] - [startCoords[3]]")
+		to_chat(client, "End Coords: [endCoords[1]] - [endCoords[2]] - [endCoords[3]]")
 		return
 
 	var/list/clusters = list("None"=MAP_GENERATOR_CLUSTER_CHECK_NONE,"All"=MAP_GENERATOR_CLUSTER_CHECK_ALL,"Sames"=MAP_GENERATOR_CLUSTER_CHECK_SAMES,"Differents"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS, \
 	"Same turfs"=MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS, "Same atoms"=MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS, "Different turfs"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS, \
 	"Different atoms"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS, "All turfs"=MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS,"All atoms"=MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS)
 
-	var/moduleClusters = input("Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
+	var/moduleClusters = input(client, "Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
 	//null for default
 
 	var/theCluster = 0
 	if(moduleClusters != "None")
 		if(!clusters[moduleClusters])
-			to_chat(src, "Invalid Cluster Flags")
+			to_chat(client, "Invalid Cluster Flags")
 			return
 		theCluster = clusters[moduleClusters]
 	else
 		theCluster =  MAP_GENERATOR_CLUSTER_CHECK_NONE
 
 	if(theCluster)
-		for(var/datum/mapGeneratorModule/M in N.modules)
+		for(var/datum/map_generator_module/M in N.modules)
 			M.clusterCheckFlags = theCluster
 
 
-	to_chat(src, "Defining Region")
+	to_chat(client, "Defining Region")
 	N.defineRegion(Start, End)
-	to_chat(src, "Region Defined")
-	to_chat(src, "Generating Region")
+	to_chat(client, "Region Defined")
+	to_chat(client, "Generating Region")
 	N.generate()
-	to_chat(src, "Generated Region")
+	to_chat(client, "Generated Region")

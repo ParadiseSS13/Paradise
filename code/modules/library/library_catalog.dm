@@ -84,6 +84,8 @@
 		/obj/item/book/manual/nuclear,
 		/obj/item/book/manual/wiki,
 		/obj/item/book/manual/hydroponics_pod_people,
+		/obj/item/book/manual/wiki/security_space_law/imaginary,
+		/obj/item/book/manual/wiki/sop_legal/imaginary
 	)
 
 	var/newid = 1
@@ -371,7 +373,7 @@
 	if(!SSdbcore.IsConnected())
 		return
 	var/num_books = clamp(amount, 1, 50) //you don't need more than 50 random books <3
-	var/list/sql_params = list("amount" = num_books )
+	var/list/sql_params = list("amount" = num_books)
 	var/sql = "SELECT id, author, title, content, summary, rating, primary_category, secondary_category, tertiary_category, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
 	if(!query.warn_execute())
@@ -452,7 +454,8 @@
 	var/list/flag_json = list()
 	//Flagged book json is stored as such: "[[reporter_ckey1, report_id1],[reporter_ckey2, report_id2]]""
 	for(var/datum/flagged_book/book in reportedbook.reports)
-		flag_json += list(list( //yes this is intentional
+		//yes this is intentional
+		flag_json += list(list(
 			book.reporter,
 			book.category_id,
 		))

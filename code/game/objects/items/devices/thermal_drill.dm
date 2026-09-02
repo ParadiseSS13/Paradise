@@ -1,7 +1,6 @@
 /obj/item/thermal_drill
 	name = "thermal safe drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "hardened_drill"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 15.0
@@ -11,9 +10,10 @@
 	var/datum/looping_sound/thermal_drill/soundloop
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/song/song
+	new_attack_chain = TRUE
 
-/obj/item/thermal_drill/New()
-	..()
+/obj/item/thermal_drill/Initialize(mapload)
+	. = ..()
 	soundloop = new(list(src), FALSE)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)
@@ -26,9 +26,12 @@
 	QDEL_NULL(song)
 	return ..()
 
-/obj/item/thermal_drill/attack_self(mob/user)
+/obj/item/thermal_drill/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	add_fingerprint(user)
 	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/thermal_drill/ui_data(mob/user)
 	return song.ui_data(user)

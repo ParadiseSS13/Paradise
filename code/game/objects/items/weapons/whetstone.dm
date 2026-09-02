@@ -5,67 +5,92 @@
 	desc = "A block of stone used to sharpen things."
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/screwdriver.ogg'
-	var/used = FALSE
+	var/used_up = FALSE
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
 	var/requires_sharpness = TRUE
 	var/claw_damage_increase = 2
+	new_attack_chain = TRUE
 
+/obj/item/whetstone/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used_up)
+		to_chat(user, SPAN_WARNING("The whetstone is too worn to use again!"))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/whetstone/attackby(obj/item/I, mob/user, params)
-	if(used)
-		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
-		return
-	if(requires_sharpness && !I.sharp)
-		to_chat(user, "<span class='warning'>You can only sharpen items that are already sharp, such as knives!</span>")
-		return
-	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max)
+	if(requires_sharpness && !used.sharp)
+		to_chat(user, SPAN_WARNING("You can only sharpen items have a sharpenable edge, such as knives!"))
+		return ITEM_INTERACT_COMPLETE
+	var/signal_out = SEND_SIGNAL(used, COMSIG_ITEM_SHARPEN_ACT, increment, max)
 
-	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || I.force >= max || I.throwforce >= max) //If the item's components enforce more limits on maximum power from sharpening,  we fail
-		to_chat(user, "<span class='warning'>[I] is much too powerful to sharpen further!</span>")
-		return
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || used.force >= max || used.throwforce >= max) // If the item's components enforce more limits on maximum power from sharpening,  we fail.
+		to_chat(user, SPAN_WARNING("[used] is much too powerful to sharpen further!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, "<span class='warning'>[I] is not able to be sharpened right now!</span>")
-		return
-	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (I.force > initial(I.force) && !(signal_out & COMPONENT_SHARPEN_APPLIED))) //No sharpening stuff twice
-		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
-		return
+		to_chat(user, SPAN_WARNING("[used] is not able to be sharpened right now!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
-		I.force = clamp(I.force + increment, 0, max)
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (used.force > initial(used.force) && !(signal_out & COMPONENT_SHARPEN_APPLIED))) // No sharpening stuff twice.
+		to_chat(user, SPAN_WARNING("[used] has already been refined before. It cannot be sharpened further!"))
+		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
+	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) // If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase.
+		used.force = clamp(used.force + increment, 0, max)
+
+	user.visible_message(
+		SPAN_NOTICE("[user] sharpens [used] with [src]!"),
+		SPAN_NOTICE("You sharpen [used], making it much more deadly than before."),
+		SPAN_HEAR("You hear metal gliding along stone, refining to a perfect edge.")
+	)
 	if(!requires_sharpness)
 		set_sharpness(TRUE)
-	I.throwforce = clamp(I.throwforce + increment, 0, max)
-	I.name = "[prefix] [I.name]"
+	used.throwforce = clamp(used.throwforce + increment, 0, max)
+	used.name = "[prefix] [used.name]"
 	playsound(get_turf(src), usesound, 50, TRUE)
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
-	used = TRUE
+	used_up = TRUE
 	update_icon()
+	add_fingerprint(user)
+	used.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/whetstone/attack_self(mob/user)
-	if(used)
-		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
-		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/datum/unarmed_attack/attack = H.get_unarmed_attack()
-		if(istype(attack, /datum/unarmed_attack/claws))
-			var/datum/unarmed_attack/claws/C = attack
-			if(!C.has_been_sharpened)
-				C.has_been_sharpened = TRUE
-				attack.damage += claw_damage_increase
-				H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
-				playsound(get_turf(H), usesound, 50, 1)
-				name = "worn out [name]"
-				desc = "[desc] At least, it used to."
-				used = TRUE
-				update_icon()
-			else
-				to_chat(user, "<span class='warning'>You can not sharpen your claws any further!</span>")
+/obj/item/whetstone/activate_self(mob/living/carbon/human/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(used_up)
+		to_chat(user, SPAN_WARNING("The whetstone is too worn to use again!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!ishuman(user))
+		return ITEM_INTERACT_COMPLETE
+
+	var/datum/unarmed_attack/attack = user.get_unarmed_attack()
+	if(!istype(attack, /datum/unarmed_attack/claws))
+		to_chat(user, SPAN_WARNING("You don't have claws to sharpen!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/datum/unarmed_attack/claws/claw_attack = attack
+	if(claw_attack.has_been_sharpened)
+		to_chat(user, SPAN_WARNING("You cannot sharpen your claws any further!"))
+		return ITEM_INTERACT_COMPLETE
+
+	claw_attack.has_been_sharpened = TRUE
+	attack.damage += claw_damage_increase
+	user.visible_message(
+		SPAN_NOTICE("[user] sharpens [user.p_their()] claws on [src]!"),
+		SPAN_NOTICE("You sharpen your claws on [src]."),
+		SPAN_HEAR("You hear keratin gliding along stone, refining to a perfect edge.")
+	)
+	playsound(get_turf(user), usesound, 50, 1)
+	name = "worn out [name]"
+	desc = "[desc] At least, it used to."
+	used_up = TRUE
+	update_icon()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/whetstone/super
 	name = "super whetstone block"

@@ -248,6 +248,44 @@
 	if(temp_gender != PLURAL)
 		. = "s"
 
+// Internal dialogue pronouns. This allow replacements of "their" with "your", if the user and target are the same. Src should always be considered the "target".
+/mob/proc/i_you(user, capitalized)
+	ASSERT(user)
+	if(src != user)
+		return p_they(capitalized)
+	. = "you"
+	if(capitalized)
+		. = capitalize(.)
+
+/mob/proc/i_your(user, capitalized)
+	ASSERT(user)
+	if(src != user)
+		return p_their(capitalized)
+	. = "your"
+	if(capitalized)
+		. = capitalize(.)
+
+/mob/proc/i_yourself(user, capitalized)
+	ASSERT(user)
+	if(src != user)
+		return src // don't say "himself", just refer to them by name
+	. = "yourself"
+	if(capitalized)
+		. = capitalize(.)
+
+/mob/proc/i_do(user)
+	ASSERT(user)
+	if(src != user)
+		return p_do()
+	. = "do"
+
+// External dialogue pronouns, similar to internal dialogue pronouns but for when the observer is a 3rd party. These should only really be used in visible_message()
+/mob/proc/e_themselves(user, capitalized)
+	ASSERT(user)
+	if(src != user)
+		return src // refer to them by name, since its user acting on src
+	return p_themselves(capitalized)
+
 //////////////////////////////
 // MARK: Human procs
 //////////////////////////////

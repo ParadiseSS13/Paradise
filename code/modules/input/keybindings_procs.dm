@@ -21,3 +21,9 @@
 			active_keybindings[linked_bind.binded_to] += list(linked_bind)
 
 	return active_keybindings
+
+/client/proc/calculate_move_dir()
+	. = NONE
+	for(var/held_key in input_data.keys_held)
+		if(held_key in movement_kb_dirs)
+			. |= movement_kb_dirs[held_key]

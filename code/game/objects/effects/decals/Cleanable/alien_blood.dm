@@ -1,25 +1,19 @@
 /obj/effect/decal/cleanable/blood/xeno
 	name = "xeno blood"
 	desc = "It's green and acidic. It looks like... <i>blood?</i>"
-	icon = 'icons/effects/blood.dmi'
-	basecolor = "#05EE05"
-	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	basecolor = COLOR_BLOOD_XENO
 	blood_state = BLOOD_STATE_XENO
 
 /obj/effect/decal/cleanable/blood/xeno/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-	amount = 2
+	cleanable_amount = 2
 
 /obj/effect/decal/cleanable/blood/gibs/xeno
 	name = "xeno gibs"
 	desc = "Gnarly..."
 	icon_state = "xgib1"
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6")
-	basecolor = "#05EE05"
-
-/obj/effect/decal/cleanable/blood/gibs/xeno/update_icon()
-	color = "#FFFFFF"
-	. = ..(NONE)
+	basecolor = COLOR_BLOOD_XENO
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/up
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6", "xgibup1", "xgibup1", "xgibup1")
@@ -37,7 +31,7 @@
 	random_icon_states = list("xgibmid1", "xgibmid2", "xgibmid3")
 
 /obj/effect/decal/cleanable/blood/xtracks
-	basecolor = "#05EE05"
+	basecolor = COLOR_BLOOD_XENO
 
 /// this is the alien blood file, slimes are aliens.
 /obj/effect/decal/cleanable/blood/slime
@@ -52,4 +46,31 @@
 
 /obj/effect/decal/cleanable/blood/slime/streak
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-	amount = 2
+	cleanable_amount = 2
+
+/obj/effect/decal/cleanable/blood/vox
+	name = "vox blood"
+	desc = "It's a blue streak of nitrogen-rich vox blood."
+	basecolor = "#2299FC"
+	bloodiness = MAX_SHOE_BLOODINESS
+
+/obj/effect/decal/cleanable/blood/innards/vox
+	basecolor = "#2299FC"
+
+/obj/effect/decal/cleanable/blood/gibs/vox
+	basecolor = "#2299FC"
+	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/core/vox
+	basecolor = "#2299FC"
+	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/down/vox
+	basecolor = "#2299FC"
+	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/flock
+	basecolor = COLOR_BLOOD_FLOCK
+
+/obj/effect/decal/cleanable/blood/gibs/core/flock
+	basecolor = COLOR_BLOOD_FLOCK

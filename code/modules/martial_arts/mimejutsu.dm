@@ -18,20 +18,19 @@
 	desc = "Its a beret with a note stapled to it..."
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret"
-	var/used = FALSE
+	new_attack_chain = TRUE
 
-/obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
+/obj/item/mimejutsu_scroll/activate_self(mob/living/carbon/human/user)
 	if(!ishuman(user))
-		return
-	if(!used)
-		var/mob/living/carbon/human/H = user
-		var/datum/martial_art/mimejutsu/F = new/datum/martial_art/mimejutsu(null)
-		F.teach(H)
-		to_chat(H, "<span class='boldannounceic'>You have learned the ancient martial art of mimes.</span>")
-		used = TRUE
-		desc = "It used to have something stapled to it..the staple is still there."
-		name = "beret with staple"
-		icon_state = "beret"
+		return ..()
+
+	var/datum/martial_art/mimejutsu/F = new/datum/martial_art/mimejutsu(null)
+	F.teach(user)
+	to_chat(user, SPAN_BOLDANNOUNCEIC("You have learned the ancient martial art of mimes."))
+	user.drop_item_to_ground(src, TRUE)
+	visible_message(SPAN_WARNING("[src] suddenly bursts into a silent inferno before turning into a pile of invisible ash!"))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /datum/martial_art/mimejutsu/explaination_header(user)
 	to_chat(user, "<b><i>You make a invisible box around yourself and recall the teachings of Mimejutsu...</i></b>")

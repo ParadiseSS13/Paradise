@@ -82,8 +82,7 @@
 	box = /obj/item/storage/box/centcomofficer
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/storage/box/zipties = 1,
-		/obj/item/melee/skateboard/hoverboard/admin = 1 //How do you do, fellow kids?
+		/obj/item/storage/box/zipties = 1
 	)
 	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
@@ -116,7 +115,7 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access(name), name, "tsf")
 	H.sec_hud_set_ID()
 
 /datum/outfit/job/ntspecops/solgovspecops/on_mind_initialize(mob/living/carbon/human/H)

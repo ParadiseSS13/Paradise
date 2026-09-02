@@ -13,8 +13,11 @@
 
 /datum/gear/suit
 	main_typepath = /datum/gear/suit
-	slot = SLOT_HUD_OUTER_SUIT
+	slot = ITEM_SLOT_OUTER_SUIT
 	sort_category = "External Wear"
+
+/datum/gear/suit/job
+	main_typepath = /datum/gear/suit/job
 
 //WINTER COATS
 /datum/gear/suit/coat
@@ -23,6 +26,10 @@
 /datum/gear/suit/coat/grey
 	display_name = "Winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
+
+/datum/gear/suit/coat/solgov
+	display_name = "Winter coat, Solgov"
+	path = /obj/item/clothing/suit/hooded/wintercoat/solgov
 
 /datum/gear/suit/coat/job
 	main_typepath = /datum/gear/suit/coat/job
@@ -34,19 +41,44 @@
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/coat/job/captain
-	display_name = "Winter coat, captain"
+	display_name = "Winter coat, captain, blue"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
 	allowed_roles = list("Captain")
+
+/datum/gear/suit/coat/job/captain/white
+	display_name = "Winter coat, captain, white"
+	path = /obj/item/clothing/suit/hooded/wintercoat/captain/white
+	allowed_roles = list("Captain")
+
+/datum/gear/suit/coat/job/hop
+	display_name = "Winter coat, head of personnel"
+	path = /obj/item/clothing/suit/hooded/wintercoat/hop
+	allowed_roles = list("Head of Personnel")
 
 /datum/gear/suit/coat/job/med
 	display_name = "Winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+
+/datum/gear/suit/coat/job/med/paramed
+	display_name = "Winter coat, paramedic"
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/paramedic
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
+/datum/gear/suit/coat/job/med/coroner
+	display_name = "Winter coat, coroner"
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/coroner
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/suit/coat/job/chemist
+	display_name = "Winter coat, chemist"
+	path = /obj/item/clothing/suit/hooded/wintercoat/chemistry
+	allowed_roles = list("Chief Medical Officer", "Chemist")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Research Director", "Geneticist")
+	allowed_roles = list("Scientist", "Research Director", "Geneticist", "Xenobiologist")
 
 /datum/gear/suit/coat/job/engi
 	display_name = "Winter coat, engineering"
@@ -63,6 +95,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
 	allowed_roles = list("Botanist")
 
+/datum/gear/suit/coat/job/chef
+	display_name = "Winter coat, chef"
+	path = /obj/item/clothing/suit/hooded/wintercoat/chef
+	allowed_roles = list("Chef")
+
 /datum/gear/suit/coat/job/cargo
 	display_name = "Winter coat, cargo"
 	path = /obj/item/clothing/suit/hooded/wintercoat/cargo
@@ -73,11 +110,96 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	allowed_roles = list("Quartermaster", "Shaft Miner")
 
+/datum/gear/suit/coat/job/explorer
+	display_name = "Winter coat, expedition"
+	path = /obj/item/clothing/suit/hooded/wintercoat/explorer
+	allowed_roles = list("Quartermaster", "Explorer")
+
 //LABCOATS
-/datum/gear/suit/labcoat_emt
+/datum/gear/suit/labcoat
+	main_typepath = /datum/gear/suit/labcoat
+
+/datum/gear/suit/labcoat/generic
+	display_name = "Labcoat"
+	path = /obj/item/clothing/suit/storage/labcoat
+
+/datum/gear/suit/labcoat/mad
+	display_name = "Labcoat, mad scientist"
+	path = /obj/item/clothing/suit/storage/labcoat/mad
+
+/datum/gear/suit/labcoat/job
+	main_typepath = /datum/gear/suit/labcoat/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/suit/labcoat/job/med
+	display_name = "Labcoat, medical"
+	path = /obj/item/clothing/suit/storage/labcoat/medical
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+
+/datum/gear/suit/labcoat/job/med/cmo
+	display_name = "Labcoat, cmo"
+	path = /obj/item/clothing/suit/storage/labcoat/cmo
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/suit/labcoat/job/med/chemist
+	display_name = "Labcoat, chemist"
+	path = /obj/item/clothing/suit/storage/labcoat/chemist
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/suit/labcoat/job/med/virologist
+	display_name = "Labcoat, virologist"
+	path = /obj/item/clothing/suit/storage/labcoat/virologist
+	allowed_roles = list("Chief Medical Officer", "Virologist")
+
+/datum/gear/suit/labcoat/job/med/mortician
+	display_name = "Labcoat, coroner"
+	path = /obj/item/clothing/suit/storage/labcoat/mortician
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/suit/labcoat/job/med/emt
 	display_name = "Labcoat, paramedic"
 	path = /obj/item/clothing/suit/storage/labcoat/emt
 	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
+/datum/gear/suit/labcoat/job/med/psych
+	display_name = "Labcoat, psychiatrist"
+	path = /obj/item/clothing/suit/storage/labcoat/psych
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/suit/labcoat/job/sci
+	display_name = "Labcoat, science"
+	path = /obj/item/clothing/suit/storage/labcoat/science
+	allowed_roles = list("Research Director", "Scientist", "Roboticist", "Geneticist", "Xenobiologist")
+
+/datum/gear/suit/labcoat/job/sci/genetics
+	display_name = "Labcoat, geneticist"
+	path = /obj/item/clothing/suit/storage/labcoat/genetics
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/suit/labcoat/job/sci/robowhite
+	display_name = "Labcoat, roboticist"
+	path = /obj/item/clothing/suit/storage/labcoat/robowhite
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/suit/labcoat/job/sci/roboblack
+	display_name = "Labcoat, biomechanical engineer"
+	path = /obj/item/clothing/suit/storage/labcoat/roboblack
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/suit/labcoat/job/sci/rd
+	display_name = "Labcoat, rd"
+	path = /obj/item/clothing/suit/storage/labcoat/rd
+	allowed_roles = list("Research Director")
+
+/datum/gear/suit/labcoat/job/hydro
+	display_name = "Labcoat, botanist"
+	path = /obj/item/clothing/suit/storage/labcoat/hydro
+	allowed_roles = list("Head of Personnel", "Botanist")
+
+/datum/gear/suit/labcoat/job/hydro/alt
+	display_name = "Labcoat, hydroponicist"
+	path = /obj/item/clothing/suit/storage/labcoat/hydro/alt
+	allowed_roles = list("Head of Personnel", "Botanist")
 
 //BOMBER JACKETS
 /datum/gear/suit/bomber
@@ -111,6 +233,11 @@
 	path = /obj/item/clothing/suit/jacket/bomber/expedition
 	allowed_roles = list("Quartermaster", "Explorer")
 
+/datum/gear/suit/bomber/job/smith
+	display_name = "Bomber jacket, smith"
+	path = /obj/item/clothing/suit/jacket/bomber/smith
+	allowed_roles = list("Quartermaster", "Smith")
+
 /datum/gear/suit/bomber/job/engi
 	display_name = "Bomber jacket, engineering"
 	path = /obj/item/clothing/suit/jacket/bomber/engi
@@ -129,7 +256,7 @@
 /datum/gear/suit/bomber/job/medical
 	display_name = "Bomber jacket, medical"
 	path = /obj/item/clothing/suit/jacket/bomber/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 
 /datum/gear/suit/bomber/job/chemist
 	display_name = "Bomber jacket, chemist"
@@ -144,7 +271,7 @@
 /datum/gear/suit/bomber/job/science
 	display_name = "Bomber jacket, science"
 	path = /obj/item/clothing/suit/jacket/bomber/sci
-	allowed_roles = list("Research Director", "Scientist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist", "Geneticist", "Xenobiologist")
 
 /datum/gear/suit/bomber/job/robotics
 	display_name = "Bomber jacket, robotics"
@@ -252,55 +379,95 @@
 	display_name = "Suit jacket, purple"
 	path = /obj/item/clothing/suit/storage/iaa/purplejacket
 
-//Mantles!
-/datum/gear/suit/mantle
-	display_name = "Mantle"
-	path = /obj/item/clothing/suit/mantle
-
-/datum/gear/suit/old_scarf
-	display_name = "Old scarf"
-	path = /obj/item/clothing/suit/mantle/old
-
-/datum/gear/suit/regal_shawl
-	display_name = "Regal shawl"
-	path = /obj/item/clothing/suit/mantle/regal
-
-/datum/gear/suit/mantle/job
-	main_typepath = /datum/gear/suit/mantle/job
-	subtype_selection_cost = FALSE
-
-/datum/gear/suit/mantle/job/captain
-	display_name = "Mantle, captain"
-	path = /obj/item/clothing/suit/mantle/armor/captain
-	allowed_roles = list("Captain")
-
-/datum/gear/suit/mantle/job/ce
-	display_name = "Mantle, chief engineer"
-	path = /obj/item/clothing/suit/mantle/chief_engineer
-	allowed_roles = list("Chief Engineer")
-
-/datum/gear/suit/mantle/job/cmo
-	display_name = "Mantle, chief medical officer"
-	path = /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
-	allowed_roles = list("Chief Medical Officer")
-
-/datum/gear/suit/mantle/job/hos
-	display_name = "Mantle, head of security"
-	path = /obj/item/clothing/suit/mantle/armor
-	allowed_roles = list("Head of Security")
-
-/datum/gear/suit/mantle/job/hop
-	display_name = "Mantle, head of personnel"
-	path = /obj/item/clothing/suit/mantle/armor/hop
-	allowed_roles = list("Head of Personnel")
-
-/datum/gear/suit/mantle/job/rd
-	display_name = "Mantle, research director"
-	path = /obj/item/clothing/suit/mantle/labcoat
-	allowed_roles = list("Research Director")
-
 //Robes!
 
 /datum/gear/suit/witch
 	display_name = "Witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
+
+/datum/gear/suit/wizard
+	display_name = "Wizard robes"
+	path = /obj/item/clothing/suit/wizrobe/fake
+
+//Tracksuits
+
+/datum/gear/suit/tracksuit
+	display_name = "Tracksuit"
+	path = /obj/item/clothing/suit/tracksuit
+
+/datum/gear/suit/tracksuitgreen
+		display_name = "Tracksuit, green"
+		path = /obj/item/clothing/suit/tracksuit/green
+
+/datum/gear/suit/tracksuitred
+	display_name = "Tracksuit, red"
+	path = /obj/item/clothing/suit/tracksuit/red
+
+/datum/gear/suit/tracksuitwhite
+	display_name = "Tracksuit, white"
+	path = /obj/item/clothing/suit/tracksuit/white
+
+// Chaplain
+/datum/gear/suit/job/chaplain
+	main_typepath = /datum/gear/suit/job/chaplain
+
+/datum/gear/suit/job/chaplain/dark_robes
+	display_name = "Dark robes"
+	path = /obj/item/clothing/suit/hooded/dark_robes
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/cassock
+	display_name = "Chaplain, cassock"
+	path = /obj/item/clothing/suit/hooded/chaplain_cassock
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/nun
+	display_name = "Chaplain, habit"
+	path = /obj/item/clothing/suit/hooded/nun
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/monk
+	display_name = "Chaplain, monk robes"
+	path = /obj/item/clothing/suit/hooded/monk
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/bana
+	display_name = "Chaplain, bana"
+	path = /obj/item/clothing/suit/bana
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/joue
+	display_name = "Chaplain, joue"
+	path = /obj/item/clothing/suit/joue
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/miko
+	display_name = "Chaplain, miko clothing"
+	path = /obj/item/clothing/suit/miko
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/hasidic_coat
+	display_name = "Chaplain, hasidic coat"
+	path = /obj/item/clothing/suit/hasidic_coat
+	allowed_roles = list("Chaplain")
+
+//Chef
+/datum/gear/suit/job/chef
+	main_typepath = /datum/gear/suit/job/chef
+	allowed_roles = list("Chef")
+
+/datum/gear/suit/job/chef/white
+	display_name = "Chef's coat"
+	path = /obj/item/clothing/suit/chef
+
+/datum/gear/suit/job/chef/bw
+	display_name = "Chef's black-piped coat"
+	path = /obj/item/clothing/suit/chef/bw
+
+/datum/gear/suit/job/chef/red
+	display_name = "Chef's red-piped coat"
+	path = /obj/item/clothing/suit/chef/red
+
+/datum/gear/suit/job/chef/darkgreen
+	display_name = "Chef's dark coat"
+	path = /obj/item/clothing/suit/chef/darkgreen

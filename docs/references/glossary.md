@@ -64,6 +64,10 @@ An SS13 variable that saves the data of what is underneath if that that is
 removed. For example, under station floors there would be a space turf and under
 Lavaland turfs there would be lava.
 
+## Bitflag
+A single variable made of individual TRUE/FALSE values. See
+[Bitflags](./bitflags.md) for an introduction on how to use bitflags.
+
 ## Buff
 A buff is a change to a gameplay mechanic that makes it more powerful or more
 useful. Generally the opposite of a [nerf](#nerf).
@@ -227,8 +231,7 @@ as it messes with variables.
 ## TGUI
 A JavaScript based format for displaying an interface. It is
 used for our user interfaces (except OOC stuff like admin panels), or
-are planned to be converted to TGUI. TGUI uses InfernoJS (based off of
-reactJS) which is an extension to JavaScript. More information can be
+are planned to be converted to TGUI. TGUI uses React. More information can be
 found at the [TGUI Tutorial][].
 
 [TGUI Tutorial]: https://github.com/ParadiseSS13/Paradise/blob/master/tgui/docs/tutorial-and-examples.md

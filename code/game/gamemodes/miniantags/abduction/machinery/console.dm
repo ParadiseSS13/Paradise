@@ -28,7 +28,7 @@
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
 
-/obj/machinery/abductor/console/Initialize()
+/obj/machinery/abductor/console/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
@@ -51,7 +51,7 @@
 	if(..())
 		return
 	if(!isabductor(user))
-		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
+		to_chat(user, SPAN_WARNING("You start mashing alien buttons at random!"))
 		if(do_after(user, 100, target = src))
 			TeleporterSend()
 		return
@@ -73,34 +73,34 @@
 		dat += "<a href='byond://?src=[UID()];dispense=mind_device'>Mental Interface Device (2)</a><br>"
 		dat += "<a href='byond://?src=[UID()];dispense=organ_extractor'>Organ Extractor (2)</a><br>"
 	else
-		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
+		dat += "[SPAN_BAD("NO EXPERIMENT MACHINE DETECTED")] <br>"
 
 	if(pad)
-		dat += "<span class='bad'>Emergency Teleporter System.</span>"
-		dat += "<span class='bad'>Consider using primary observation console first.</span>"
+		dat += SPAN_BAD("Emergency Teleporter System.")
+		dat += SPAN_BAD("Consider using primary observation console first.")
 		dat += "<a href='byond://?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
 		if(gizmo && gizmo.marked)
 			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
 		else
-			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
+			dat += "[SPAN_LINKOFF("Retrieve Mark")]<br>"
 	else
-		dat += "<span class='bad'>NO TELEPAD DETECTED</span></br>"
+		dat += "[SPAN_BAD("NO TELEPAD DETECTED")]</br>"
 
 	if(vest)
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
 		if(mode == ABDUCTOR_VEST_STEALTH)
 			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Combat</A>"
-			dat += "<span class='linkOff'>Stealth</span>"
+			dat += SPAN_LINKOFF("Stealth")
 		else
-			dat += "<span class='linkOff'>Combat</span>"
+			dat += SPAN_LINKOFF("Combat")
 			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Stealth</A>"
 
 		dat+="<br>"
 		dat += "<a href='byond://?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
 		dat += "<a href='byond://?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
 	else
-		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
+		dat += SPAN_BAD("NO AGENT VEST DETECTED")
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
 	popup.open()
@@ -113,7 +113,7 @@
 	if(href_list["teleporter_send"])
 		TeleporterSend()
 	else if(href_list["teleporter_retrieve"])
-		TeleporterRetrieve()
+		TeleporterRetrieve(usr)
 	else if(href_list["flip_vest"])
 		FlipVest()
 	else if(href_list["toggle_vest"])
@@ -140,9 +140,20 @@
 	updateUsrDialog()
 
 
-/obj/machinery/abductor/console/proc/TeleporterRetrieve()
-	if(pad && gizmo && gizmo.marked)
-		return pad.Retrieve(gizmo.marked)
+/obj/machinery/abductor/console/proc/TeleporterRetrieve(mob/user)
+	if(!pad)
+		to_chat(user, SPAN_WARNING("You don't have a working Telepad to retrieve to!"))
+		return FALSE
+
+	if(!gizmo)
+		to_chat(user, SPAN_WARNING("You don't have a working science tool to mark your target with!"))
+		return FALSE
+
+	if(!gizmo.marked)
+		to_chat(user, SPAN_WARNING("Mark the creature you want to teleport before retrieving it!"))
+		return FALSE
+
+	return pad.Retrieve(gizmo.marked, user)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad)
@@ -160,12 +171,12 @@
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/location,user)
 	if(!istype(location))
-		to_chat(user, "<span class='warning'>That place is not safe for the specimen.</span>")
+		to_chat(user, SPAN_WARNING("That place is not safe for the specimen."))
 		return
 
 	if(pad)
 		pad.teleport_target = location
-		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
+		to_chat(user, SPAN_NOTICE("Location marked as test subject release point."))
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 	for(var/obj/machinery/abductor/pad/p in GLOB.abductor_equipment)
@@ -210,7 +221,7 @@
 	if(vest == V)
 		return FALSE
 
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == V)
 			C.vest = null
 			break
@@ -218,13 +229,15 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
-		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
-	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
-		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
-	else
-		return ..()
+/obj/machinery/abductor/console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/abductor/gizmo) && AddGizmo(used))
+		to_chat(user, SPAN_NOTICE("You link the tool to the console."))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(used))
+		to_chat(user, SPAN_NOTICE("You link the vest to the console."))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)

@@ -187,15 +187,15 @@
 	var/actions_above = round((owner.listed_actions.size() - 1) / owner.listed_actions.column_max)
 	north_offset = initial(north_offset) + actions_above
 
-	palette.screen_loc = ui_action_palette_offset(actions_above)
+	palette.screen_loc = UI_ACTION_PALETTE_OFFSET(actions_above)
 	var/action_count = length(owner?.mymob?.actions)
 	var/our_row_count = round((length(actions) - 1) / column_max)
 	if(!action_count)
 		palette.screen_loc = null
 
 	if(palette.expanded && action_count && our_row_count >= max_rows)
-		scroll_down.screen_loc = ui_palette_scroll_offset(actions_above)
-		scroll_up.screen_loc = ui_palette_scroll_offset(actions_above)
+		scroll_down.screen_loc = UI_PALETTE_SCROLL_OFFSET(actions_above)
+		scroll_up.screen_loc = UI_PALETTE_SCROLL_OFFSET(actions_above)
 	else
 		scroll_down.screen_loc = null
 		scroll_up.screen_loc = null

@@ -7,8 +7,8 @@
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
-	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
+	light_color = "#E09D37"
 	var/wax = 200
 	/// Index for the icon state
 	var/wax_index = TALL_CANDLE
@@ -16,10 +16,10 @@
 	var/infinite = FALSE
 	var/start_lit = FALSE
 	var/flickering = FALSE
-	light_color = "#E09D37"
+	new_attack_chain = TRUE
 
-/obj/item/candle/New()
-	..()
+/obj/item/candle/Initialize(mapload)
+	. = ..()
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
@@ -36,21 +36,21 @@
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
 
-/obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(W.get_heat())
-		light("<span class='notice'>[user] lights [src] with [W].</span>")
-		return
-	return ..()
+/obj/item/candle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.get_heat())
+		return ..()
+	light(SPAN_NOTICE("[user] lights [src] with [used]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
+		light(SPAN_NOTICE("[user] casually lights [src] with [I], what a badass."))
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
@@ -100,11 +100,11 @@
 		new/obj/item/trash/candle(src.loc)
 		if(ismob(src.loc))
 			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+			M.drop_item_to_ground(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+		T.hotspot_expose(700, 1)
 
 /obj/item/candle/proc/unlight()
 	if(lit)
@@ -112,15 +112,23 @@
 		update_icon(UPDATE_ICON_STATE)
 		set_light(0)
 
+/obj/item/candle/activate_self(mob/user)
+	if(!lit)
+		return ..()
+	user.visible_message(SPAN_NOTICE("[user] snuffs out [src]."))
+	unlight()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/candle/attack_self(mob/user)
-	if(lit)
-		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
-		unlight()
+/obj/item/candle/lit
+	start_lit = TRUE
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = TRUE
+
+/obj/item/candle/eternal/lit
+	start_lit = TRUE
 
 /obj/item/candle/get_spooked()
 	if(lit)
@@ -134,8 +142,10 @@
 	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
 	start_lit = TRUE
 
-/obj/item/candle/eternal/wizard/attack_self(mob/user)
-	return
+/obj/item/candle/eternal/wizard/activate_self(mob/user)
+	if(!user)
+		return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/candle/eternal/wizard/process()
 	return
@@ -144,7 +154,6 @@
 	. = ..()
 	if(lit)
 		set_light(CANDLE_LUM * 2)
-
 
 /obj/item/candle/extinguish_light(force)
 	if(!force)

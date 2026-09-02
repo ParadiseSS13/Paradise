@@ -14,7 +14,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5) // Borgs need to be able to sleep for adminfreeze
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsSleeping() || IsWeakened() || getOxyLoss() > maxHealth * 0.5) // Borgs need to be able to sleep for adminfreeze
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
@@ -25,9 +25,12 @@
 	else
 		if(health > 0 && !suiciding && has_power_source())
 			update_revive()
+			if(camera)
+				if(!wires.is_cut(WIRE_BORG_CAMERA))
+					camera.turn_on(src, FALSE)
 			var/mob/dead/observer/ghost = get_ghost()
 			if(ghost)
-				to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired and repowered, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
+				to_chat(ghost, "[SPAN_GHOSTALERT("Your cyborg shell has been repaired and repowered, re-enter if you want to continue!")] (Verbs -> Ghost -> Re-enter corpse)")
 				SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 			create_attack_log("revived, trigger reason: [reason]")
 			create_log(MISC_LOG, "revived, trigger reason: [reason]")
@@ -35,6 +38,7 @@
 	diag_hud_set_status()
 	diag_hud_set_health()
 	update_health_hud()
+	diag_hud_set_aishell()
 
 /mob/living/silicon/robot/KnockOut(updating = TRUE)
 	. = ..()

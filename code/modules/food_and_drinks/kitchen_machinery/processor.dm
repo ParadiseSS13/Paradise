@@ -3,7 +3,6 @@
 	desc = "Used for turning ingredients into other ingredients."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -21,6 +20,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
+/obj/machinery/processor/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+
 /obj/machinery/processor/update_icon_state()
 	. = ..()
 	if(processing)
@@ -31,18 +38,18 @@
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
 	if(!anchored)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
+		. += SPAN_NOTICE("Alt-click to rotate it.")
 	else
-		. += "<span class='notice'>It is secured in place.</span>"
+		. += SPAN_NOTICE("It is secured in place.")
 
 /obj/machinery/processor/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		to_chat(user, SPAN_WARNING("[src] is secured in place!"))
 		return
 	setDir(turn(dir, 90))
 
@@ -68,7 +75,7 @@
 	if(!P)
 		return
 
-	visible_message("<span class='notice'>[picked_slime] is sucked into [src].</span>")
+	visible_message(SPAN_NOTICE("[picked_slime] is sucked into [src]."))
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -77,20 +84,19 @@
 	var/output
 	var/time = 40
 
-/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
-/datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
+/datum/food_processor_process/proc/process_food(loc, process_in, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
 			new output(loc)
-	if(what)
-		qdel(what)
+	if(process_in)
+		qdel(process_in)
 
 /////////////////////////
-/////OBJECT RECIPIES/////
+/////OBJECT RECIPES//////
 /////////////////////////
 /datum/food_processor_process/meat
 	input = /obj/item/food/meat
-	output = /obj/item/food/meatball
+	output = /obj/item/food/ground_meat
 
 /datum/food_processor_process/potato
 	input = /obj/item/food/grown/potato
@@ -105,7 +111,7 @@
 	output = /obj/item/food/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/food/doughslice
+	input = /obj/item/food/sliced/dough
 	output = /obj/item/food/spaghetti
 
 /datum/food_processor_process/macaroni
@@ -125,14 +131,14 @@
 	output = /obj/item/popsicle_stick
 
 /////////////////////////
-///END OBJECT RECIPIES///
+///END OBJECT RECIPES////
 /////////////////////////
 
 /datum/food_processor_process/mob/process_food(loc, what, processor)
 	..()
 
 //////////////////////
-/////MOB RECIPIES/////
+/////MOB RECIPES//////
 //////////////////////
 /datum/food_processor_process/mob/slime
 	input = /mob/living/simple_animal/slime
@@ -143,7 +149,7 @@
 	var/C = S.cores
 	if(S.stat != DEAD)
 		S.forceMove(processor.drop_location())
-		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
+		S.visible_message(SPAN_NOTICE("[S] crawls free of the processor!"))
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(processor.drop_location())
@@ -158,9 +164,9 @@
 	var/mob/living/carbon/human/monkey/O = what
 	if(O.client) //grief-proof
 		O.loc = loc
-		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
-				"<span class='notice'>You jump out of \the [src].</span>", \
-				"<span class='notice'>You hear a chimp.</span>")
+		O.visible_message(SPAN_NOTICE("Suddenly [O] jumps out from the processor!"), \
+				SPAN_NOTICE("You jump out of \the [src]."), \
+				SPAN_NOTICE("You hear a chimp."))
 		return
 	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
@@ -175,7 +181,7 @@
 	//bucket_of_blood.reagents.handle_reactions() //blood doesn't react
 	..()
 ////////////////////////
-////END MOB RECIPIES////
+////END MOB RECIPES/////
 ////////////////////////
 
 //END RECIPE DATUMS
@@ -188,58 +194,61 @@
 		return P
 	return 0
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return TRUE
+		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		return
+	if(default_deconstruction_screwdriver(user, "processor_open", "processor", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	default_deconstruction_crowbar(user, O)
+	default_deconstruction_crowbar(user, used)
 
-	var/obj/item/what = O
+	var/obj/item/what = used
 
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		what = G.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)
 
 	if(!P)
-		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-		return 1
+		to_chat(user, SPAN_WARNING("That probably won't blend."))
+		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
+	user.visible_message(SPAN_NOTICE("\the [user] puts \the [what] into \the [src]."), \
 		"<span class='notice'>You put \the [what] into \the [src].")
 
 	user.drop_item()
 
 	what.loc = src
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken
 		return
 
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
+		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
 		return 1
 
 	if(length(contents) == 0)
-		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
+		to_chat(user, SPAN_WARNING("\the [src] is empty."))
 		return 1
 	processing = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	user.visible_message("[user] turns on [src].", \
-		"<span class='notice'>You turn on [src].</span>", \
-		"<span class='italics'>You hear a food processor.</span>")
+		SPAN_NOTICE("You turn on [src]."), \
+		SPAN_ITALICS("You hear a food processor."))
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(500)
 	var/total_time = 0
@@ -260,6 +269,6 @@
 	processing = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>You hear a food processor stopping.</span>")
+	visible_message(SPAN_NOTICE("\the [src] has finished processing."), \
+		SPAN_NOTICE("\the [src] has finished processing."), \
+		SPAN_NOTICE("You hear a food processor stopping."))

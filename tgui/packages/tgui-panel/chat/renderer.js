@@ -4,30 +4,35 @@
  * @license MIT
  */
 
-import { EventEmitter } from 'common/events';
-import { classes } from 'common/react';
+import DOMPurify from 'dompurify';
 import { createLogger } from 'tgui/logging';
+import { EventEmitter } from 'tgui-core/events';
+
 import {
   COMBINE_MAX_MESSAGES,
   COMBINE_MAX_TIME_WINDOW,
-  MAX_PERSISTED_MESSAGES,
-  MAX_VISIBLE_MESSAGES,
   IMAGE_RETRY_DELAY,
   IMAGE_RETRY_LIMIT,
   IMAGE_RETRY_MESSAGE_AGE,
+  MAX_VISIBLE_MESSAGES,
   MESSAGE_PRUNE_INTERVAL,
-  MESSAGE_TYPES,
+  MESSAGE_TYPE_ADMINPM,
   MESSAGE_TYPE_INTERNAL,
+  MESSAGE_TYPE_MENTORPM,
   MESSAGE_TYPE_UNKNOWN,
+  MESSAGE_TYPES,
 } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
-import { highlightNode, linkifyNode } from './replaceInTextNode';
+import { highlightNode, linkifyNode, processBlacklistNode } from './replaceInTextNode';
 
 const logger = createLogger('chatRenderer');
 
 // We consider this as the smallest possible scroll offset
 // that is still trackable.
 const SCROLL_TRACKING_TOLERANCE = 24;
+
+// List of blacklisted tags
+const blacklisted_tags = ['iframe', 'video'];
 
 const findNearestScrollableParent = (startingNode) => {
   const body = document.body;
@@ -68,6 +73,9 @@ const handleImageError = (e) => {
   setTimeout(() => {
     /** @type {HTMLImageElement} */
     const node = e.target;
+    if (!node) {
+      return;
+    }
     const attempts = parseInt(node.getAttribute('data-reload-n'), 10) || 0;
     if (attempts >= IMAGE_RETRY_LIMIT) {
       logger.error(`failed to load an image after ${attempts} attempts`);
@@ -92,10 +100,7 @@ const updateMessageBadge = (message) => {
   const foundBadge = node.querySelector('.Chat__badge');
   const badge = foundBadge || document.createElement('div');
   badge.textContent = times;
-  badge.className = classes(['Chat__badge', 'Chat__badge--animate']);
-  requestAnimationFrame(() => {
-    badge.className = 'Chat__badge';
-  });
+  badge.className = 'Chat__badge';
   if (!foundBadge) {
     node.appendChild(badge);
   }
@@ -261,6 +266,89 @@ class ChatRenderer {
     });
   }
 
+  setBlacklist(blacklistSettings, blacklistSettingById) {
+    this.blacklistParsers = null;
+    if (!blacklistSettings) {
+      return;
+    }
+    blacklistSettings.map((id) => {
+      const setting = blacklistSettingById[id];
+      const text = setting.blacklistText;
+      const censor = setting.censor;
+      const matchWord = setting.matchWord;
+      const matchCase = setting.matchCase;
+      const allowedRegex = /^[a-zа-яё0-9_\-$/^[\s\]\\]+$/gi;
+      const regexEscapeCharacters = /[!#$%^&*)(+=.<>{}[\]:;'"|~`_\-\\/]/g;
+      const lines = String(text)
+        .split(/[,|]/)
+        .map((str) => str.trim())
+        .filter(
+          (str) =>
+            // Must be longer than one character
+            str &&
+            str.length > 1 &&
+            // Must be alphanumeric (with some punctuation)
+            allowedRegex.test(str) &&
+            // Reset last
+            ((allowedRegex.lastIndex = 0) || true)
+        );
+      let blacklistWords;
+      let blacklistRegex;
+      // Nothing to blacklist
+      if (lines.length === 0) {
+        return;
+      }
+      let regexExpressions = [];
+      // Organize each blacklist entry into regex expressions and words
+      for (let line of lines) {
+        // Regex expression syntax is /[exp]/
+        if (line.charAt(0) === '/' && line.charAt(line.length - 1) === '/') {
+          const expr = line.substring(1, line.length - 1);
+          // Check if this is more than one character
+          if (/^(\[.*\]|\\.|.)$/.test(expr)) {
+            continue;
+          }
+          regexExpressions.push(expr);
+        } else {
+          // Lazy init
+          if (!blacklistWords) {
+            blacklistWords = [];
+          }
+          // We're not going to let regex characters fuck up our RegEx operation.
+          line = line.replace(regexEscapeCharacters, '\\$&');
+
+          blacklistWords.push(line);
+        }
+      }
+      const regexStr = regexExpressions.join('|');
+      const flags = 'g' + (matchCase ? '' : 'i');
+      try {
+        // setting regex overrides blacklistWords
+        if (regexStr) {
+          blacklistRegex = new RegExp('(' + regexStr + ')', flags);
+        } else {
+          const pattern = `${matchWord ? '\\b' : ''}(${blacklistWords.join('|')})${matchWord ? '\\b' : ''}`;
+          blacklistRegex = new RegExp(pattern, flags);
+        }
+      } catch {
+        // We just reset it if it's invalid.
+        blacklistRegex = null;
+      }
+      // Lazy init
+      if (!this.blacklistParsers) {
+        this.blacklistParsers = [];
+      }
+      this.blacklistParsers.push({
+        blacklistWords,
+        blacklistRegex,
+        censor,
+      });
+    });
+
+    // Rebuild chat to apply new blacklist settings to existing messages
+    this.rebuildChat();
+  }
+
   scrollToBottom() {
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.
@@ -293,11 +381,7 @@ class ChatRenderer {
     }
   }
 
-  getCombinableMessage(predicate) {
-    const now = Date.now();
-    const len = this.visibleMessages.length;
-    const from = len - 1;
-    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
+  getCombinableMessage(predicate, now, from, to) {
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
       // prettier-ignore
@@ -332,10 +416,14 @@ class ChatRenderer {
     const fragment = document.createDocumentFragment();
     const countByType = {};
     let node;
+
+    const len = this.visibleMessages.length;
+    const from = len - 1;
+    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
     for (let payload of batch) {
       const message = createMessage(payload);
       // Combine messages
-      const combinable = this.getCombinableMessage(message);
+      const combinable = this.getCombinableMessage(message, now, from, to);
       if (combinable) {
         combinable.times = (combinable.times || 1) + 1;
         updateMessageBadge(combinable);
@@ -359,6 +447,11 @@ class ChatRenderer {
         // Payload is HTML
         else if (message.html) {
           node.innerHTML = message.html;
+          node.innerHTML = DOMPurify.sanitize(node.innerHTML, {
+            // No iframes in my chat kkthxbye
+            FORBID_TAGS: blacklisted_tags,
+            ALLOW_UNKNOWN_PROTOCOLS: true,
+          });
         } else {
           logger.error('Error: message is missing text payload', message);
         }
@@ -374,18 +467,38 @@ class ChatRenderer {
             }
           });
         }
-        // Linkify text
-        const linkifyNodes = node.querySelectorAll('.linkify');
-        for (let i = 0; i < linkifyNodes.length; ++i) {
-          linkifyNode(linkifyNodes[i]);
-        }
-        // Assign an image error handler
-        if (now < message.createdAt + IMAGE_RETRY_MESSAGE_AGE) {
-          const imgNodes = node.querySelectorAll('img');
-          for (let i = 0; i < imgNodes.length; i++) {
-            const imgNode = imgNodes[i];
-            imgNode.addEventListener('error', handleImageError);
+      }
+
+      // Process blacklist patterns
+      let isBlacklisted = false;
+      // No blacklisting for Admin PMs and Mentor PMs
+      if (
+        !message.avoidBlacklisting &&
+        message.type !== MESSAGE_TYPE_ADMINPM &&
+        message.type !== MESSAGE_TYPE_MENTORPM &&
+        this.blacklistParsers
+      ) {
+        this.blacklistParsers.forEach((parser) => {
+          const foundMatch = processBlacklistNode(node, parser.blacklistRegex, parser.blacklistWords, parser.censor);
+
+          if (!parser.censor && foundMatch) {
+            // Mark for removal
+            isBlacklisted = true;
           }
+        });
+      }
+
+      // Linkify text
+      const linkifyNodes = node.querySelectorAll('.linkify');
+      for (let i = 0; i < linkifyNodes.length; ++i) {
+        linkifyNode(linkifyNodes[i]);
+      }
+      // Assign an image error handler
+      if (now < message.createdAt + IMAGE_RETRY_MESSAGE_AGE) {
+        const imgNodes = node.querySelectorAll('img');
+        for (let i = 0; i < imgNodes.length; i++) {
+          const imgNode = imgNodes[i];
+          imgNode.addEventListener('error', handleImageError);
         }
       }
       // Store the node in the message
@@ -402,7 +515,7 @@ class ChatRenderer {
       countByType[message.type] += 1;
       // TODO: Detect duplicates
       this.messages.push(message);
-      if (canPageAcceptType(this.page, message.type)) {
+      if (canPageAcceptType(this.page, message.type) && !isBlacklisted) {
         fragment.appendChild(node);
         this.visibleMessages.push(message);
       }
@@ -542,9 +655,9 @@ class ChatRenderer {
       + '</body>\n'
       + '</html>\n';
     // Create and send a nice blob
-    const blob = new Blob([pageHtml]);
+    const blob = new Blob([pageHtml], { type: 'text/plain' });
     const timestamp = new Date().toISOString().substring(0, 19).replace(/[-:]/g, '').replace('T', '-');
-    window.navigator.msSaveBlob(blob, `ss13-chatlog-${timestamp}.html`);
+    Byond.saveBlob(blob, `ss13-paradise-chatlog-${timestamp}.html`, '.html');
   }
 }
 

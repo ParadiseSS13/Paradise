@@ -27,11 +27,16 @@
 		0, 0, 0, 1           \
 	)                        \
 
+// Defines that handle the current status of a light
+#define LIGHT_OK 0
+#define LIGHT_EMPTY 1
+#define LIGHT_BROKEN 2
+#define LIGHT_BURNED 3
 
 //Some defines to generalise colours used in lighting.
 //Important note on colors. Colors can end up significantly different from the basic html picture, especially when saturated
 #define LIGHT_COLOR_WHITE		"#FFFFFF"
-#define LIGHT_COLOR_RED        "#FA8282" //Warm but extremely diluted red. rgb(250, 130, 130)
+#define LIGHT_COLOR_RED        "#FF4B4B" //Warm, bright red. rgb(255, 75, 75)
 #define LIGHT_COLOR_GREEN      "#64C864" //Bright but quickly dissipating neon green. rgb(100, 200, 100)
 #define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
 
@@ -67,6 +72,14 @@
 #define LIGHT_COLOR_TUNGSTEN   "#FAE1AF" //Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
 #define LIGHT_COLOR_HALOGEN    "#F0FAFA" //Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
+// Station Area Lights
+#define LIGHT_COLOR_STATION_HALL		 "#fafaeb" // Slight warm, for station halls.
+#define LIGHT_COLOR_STATION_HALL_NIGHT	 "#fcf4dc" // ^Ditto^, but warmer.
+#define LIGHT_COLOR_STATION_WORK		 "#fae5c9" // Moderately warm, for standard work environments.
+#define LIGHT_COLOR_STATION_WORK_NIGHT	 "#fcd3b1" // ^Ditto^, but warmer.
+#define LIGHT_COLOR_STATION_OFFICE		 "#fac192" // Quite warm, for offices and private rooms.
+#define LIGHT_COLOR_STATION_OFFICE_NIGHT "#e29a5f" // ^Ditto^, but warmer.
+
 #define LIGHT_RANGE_FIRE		3 //How many tiles standard fires glow.
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
@@ -81,7 +94,6 @@
 #define DYNAMIC_LIGHTING_FORCED 2 //dynamic lighting enabled even if the area doesn't require power
 #define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //dynamic lighting enabled only if starlight is.
 #define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
-
 
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0

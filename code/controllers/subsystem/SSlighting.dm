@@ -60,8 +60,9 @@ SUBSYSTEM_DEF(lighting)
 	for(i in 1 to length(queue))
 		var/datum/lighting_corner/C = queue[i]
 
-		C.update_objects()
 		C.needs_update = FALSE
+		C.update_objects()
+
 		if(init_tick_checks)
 			CHECK_TICK
 		else if(MC_TICK_CHECK)
@@ -76,7 +77,7 @@ SUBSYSTEM_DEF(lighting)
 
 	queue = objects_queue
 	for(i in 1 to length(queue))
-		var/atom/movable/lighting_object/O = queue[i]
+		var/datum/lighting_object/O = queue[i]
 
 		if(QDELETED(O))
 			continue

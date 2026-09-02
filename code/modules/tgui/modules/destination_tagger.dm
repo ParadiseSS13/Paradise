@@ -41,9 +41,9 @@
 		playsound(host, 'sound/machines/terminal_select.ogg', 15, TRUE)
 		. = TRUE
 		// Handle setting tags (and flushing for drones)
-		if(istype(host, /obj/item/destTagger))
-			var/obj/item/destTagger/O = host
-			O.currTag = my_tag
+		if(istype(host, /obj/item/dest_tagger))
+			var/obj/item/dest_tagger/O = host
+			O.current_tag = my_tag
 		else if(isrobot(host))
 			var/mob/living/silicon/robot/R = host
 			R.mail_destination = my_tag
@@ -51,5 +51,5 @@
 			//Auto flush if we use this verb inside a disposal chute.
 			if(istype(R.loc, /obj/machinery/disposal))
 				var/obj/machinery/disposal/D = R.loc
-				to_chat(R, "<span class='notice'>[D] acknowledges your signal.</span>")
+				to_chat(R, SPAN_NOTICE("[D] acknowledges your signal."))
 				D.flush_count = D.flush_every_ticks

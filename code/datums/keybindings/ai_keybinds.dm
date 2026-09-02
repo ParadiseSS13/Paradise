@@ -2,7 +2,7 @@
 	category = KB_CATEGORY_AI
 
 /datum/keybinding/ai/can_use(client/C, mob/M)
-	return isAI(M) && ..()
+	return is_ai(M) && ..()
 
 /datum/keybinding/ai/to_core
 	name = "Jump to Core"
@@ -21,7 +21,7 @@
 	. = ..()
 	var/mob/living/silicon/ai/AI = C.mob
 	if(AI.store_location(location_number))
-		to_chat(AI, "<span class='notice'>Successfully set location [location_number].</span>")
+		to_chat(AI, SPAN_NOTICE("Successfully set location [location_number]."))
 
 /datum/keybinding/ai/store_location/one
 	name = "Store Location One"
@@ -50,11 +50,15 @@
 	. = ..()
 	var/mob/living/silicon/ai/AI = C.mob
 
-	if(AI.stored_locations[location_number] == "unset")
-		to_chat(AI, "<span class='warning'>You haven't set location [location_number] yet!</span>")
+	if(ismecha(AI.loc))
+		to_chat(AI, SPAN_WARNING("You can't change camera locations while in a mech!"))
 		return
 
-	AI.eyeobj.setLoc(AI.stored_locations[location_number])
+	if(AI.stored_locations[location_number] == "unset")
+		to_chat(AI, SPAN_WARNING("You haven't set location [location_number] yet!"))
+		return
+
+	AI.eyeobj.set_loc(AI.stored_locations[location_number])
 
 /datum/keybinding/ai/to_location/one
 	name = "Jump to Location One"

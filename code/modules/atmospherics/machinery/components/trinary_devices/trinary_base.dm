@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/trinary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
 	power_state = IDLE_POWER_USE
 
@@ -182,8 +181,11 @@
 	else if(A == node3)
 		return parent3
 
+/obj/machinery/atmospherics/trinary/get_machinery_pipelines()
+	return list(parent1, parent2, parent3)
+
 /obj/machinery/atmospherics/trinary/is_pipenet_split()
-	return FALSE
+	return TRUE
 
 /obj/machinery/atmospherics/trinary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)

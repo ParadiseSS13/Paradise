@@ -3,6 +3,7 @@
 	name = "MOD module"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	/// If it can be removed
 	var/removable = TRUE
 	/// If it's passive, togglable, usable or active
@@ -49,6 +50,8 @@
 	COOLDOWN_DECLARE(cooldown_timer) //sohtgdoiuduhnfipguhndshnfigdnghd
 	///The UID of the module. Don't ask.
 	var/module_UID = null
+	/// Replaces the sprite for monitor heads
+	var/icon_monitor = null
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
@@ -59,7 +62,7 @@
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
-	module_UID = UID(src)
+	module_UID = UID()
 	if(module_type != MODULE_ACTIVE)
 		return
 	if(ispath(device))
@@ -87,7 +90,7 @@
 /obj/item/mod/module/proc/on_select()
 	if(((!mod.active || mod.activating) && !(allow_flags & MODULE_ALLOW_INACTIVE)) || module_type == MODULE_PASSIVE)
 		if(mod.wearer)
-			to_chat(mod.wearer, "<span class='warning'>Module is not active!</span>")
+			to_chat(mod.wearer, SPAN_WARNING("Module is not active!"))
 		return
 	if(module_type != MODULE_USABLE)
 		if(active)
@@ -101,12 +104,12 @@
 /// Called when the module is activated
 /obj/item/mod/module/proc/on_activation()
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		to_chat(mod.wearer, "<span class='warning'>Module is on cooldown!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Module is on cooldown!"))
 		return FALSE
 	if(!mod.active || mod.activating || !mod.get_charge())
-		to_chat(mod.wearer, "<span class='warning'>Module is unpowered!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Module is unpowered!"))
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	if(module_type == MODULE_ACTIVE)
 		if(mod.selected_module && !mod.selected_module.on_deactivation(display_message = FALSE))
@@ -114,22 +117,23 @@
 		mod.selected_module = src
 		if(device)
 			if(mod.wearer.put_in_hands(device))
-				to_chat(mod.wearer, "<span class='notice'>[device] extended.</span>")
+				to_chat(mod.wearer, SPAN_NOTICE("[device] extended."))
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey))
 			else
-				to_chat(mod.wearer, "<span class='warning'>You can not extend the [device]!</span>")
-				mod.wearer.drop_item()
+				to_chat(mod.wearer, SPAN_WARNING("You cannot extend [device]!"))
+				if(device.loc != src)
+					device.forceMove(src)
 				return FALSE
 		else
 			var/used_button = "Middle Click"
 			if(!mod.wearer || !(mod.wearer.client.prefs.toggles2 & PREFTOGGLE_2_MOD_ACTIVATION_METHOD))
 				used_button = "Alt Click"
 			update_signal(used_button)
-			to_chat(mod.wearer, "<span class='notice'>[src] activated, [used_button] to use.</span>")
+			to_chat(mod.wearer, SPAN_NOTICE("[src] activated, [used_button] to use."))
 	else
 		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
-		to_chat(mod.wearer, "<span class='notice'>[src] activated.</span>")
+		to_chat(mod.wearer, SPAN_NOTICE("[src] activated."))
 	active = TRUE
 	mod.update_mod_overlays()
 	//mod.wearer.update_clothing(mod.slot_flags)
@@ -142,34 +146,33 @@
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
 		if(display_message && device)
-			to_chat(mod.wearer, "<span class='notice'>[device] retracted.</span>")
+			to_chat(mod.wearer, SPAN_NOTICE("[device] retracted."))
 		else if(display_message)
-			to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
+			to_chat(mod.wearer, SPAN_NOTICE("[src] deactivated."))
 
 		if(device)
-			mod.wearer.unEquip(device, 1)
-			device.forceMove(src)
+			mod.wearer.transfer_item_to(device, src, force = TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
 			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
 	else if(display_message)
-		to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
+		to_chat(mod.wearer, SPAN_NOTICE("[src] deactivated."))
 	//mod.wearer.update_clothing(mod.slot_flags)
-	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED)
+	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
 	mod.update_mod_overlays()
 	return TRUE
 
 /// Called when the module is used
 /obj/item/mod/module/proc/on_use()
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		to_chat(mod.wearer, "<span class='warning'>Module is on cooldown!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Module is on cooldown!"))
 		return FALSE
 	if(!check_power(use_power_cost))
-		to_chat(mod.wearer, "<span class='warning'>Module costs too much power to use!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Module costs too much power to use!"))
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
+	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
 	//addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
@@ -303,10 +306,14 @@
 	else
 		return
 	var/image/final_overlay
-	if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
-		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = EFFECTS_LAYER)
+	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
+	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+	if(robohead && robohead.is_monitor && icon_monitor)
+		final_overlay = image(icon = icon_monitor, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
+	else if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
+		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	else
-		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	if(mod_color_overide)
 		final_overlay.color = mod_color_overide
 	. += final_overlay
@@ -331,7 +338,7 @@
 				qdel(M)
 		pinned_to = list()
 		return
-	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
+	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, linked_module = src, user = user)
 	to_chat(user, "[new_action] is now pinned to the UI!")
 
 
@@ -349,6 +356,7 @@
 	name = "MOD anomaly locked module"
 	desc = "A form of a module, locked behind an anomalous core to function."
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 	/// The core item the module runs off.
 	var/obj/item/assembly/signaler/anomaly/core
 	/// Accepted types of anomaly cores.
@@ -362,7 +370,7 @@
 		return
 	var/core_path = pick(accepted_anomalies)
 	core = new core_path(src)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/Destroy()
 	QDEL_NULL(core)
@@ -383,7 +391,7 @@
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)
-		to_chat(mod.wearer, "<span class='warning'>ERROR. NO CORE INSTALLED!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("ERROR. NO CORE INSTALLED!"))
 		return
 	return ..()
 
@@ -397,17 +405,17 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby__legacy__attackchain(obj/item/item, mob/living/user, params)
 	if(item.type in accepted_anomalies)
 		if(core)
-			to_chat(user, "<span class='warning'>A core is already installed!</span>")
+			to_chat(user, SPAN_WARNING("A core is already installed!"))
 			return
 		if(!user.drop_item())
 			return
 		core = item
-		to_chat(user, "<span class='notice'>You install [item].</span>")
+		to_chat(user, SPAN_NOTICE("You install [item]."))
 		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		core.forceMove(src)
 	else
 		return ..()
@@ -415,16 +423,16 @@
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!core)
-		to_chat(user, "<span class='warning'>A core is not installed!</span>")
+		to_chat(user, SPAN_WARNING("A core is not installed!"))
 		return
 	if(!do_after(user, 3 SECONDS, target = src))
 		return
-	to_chat(user, "<span class='notice'>You remove [core].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [core]."))
 	core.forceMove(drop_location())
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)
 	core = null
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/module/anomaly_locked/update_icon_state()
 	icon_state = initial(icon_state) + (core ? "-core" : "")

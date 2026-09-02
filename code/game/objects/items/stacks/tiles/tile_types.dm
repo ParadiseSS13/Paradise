@@ -1,39 +1,37 @@
 /obj/item/stack/tile
 	name = "broken tile"
-	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
-	item_state = "tile"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "tile"
+	singular_name = "broken tile"
 	force = 1
 	throwforce = 1
 	throw_speed = 5
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
+	scatter_distance = 3
 
-/obj/item/stack/tile/New(loc, amount)
-	..()
-	pixel_x = rand(-3, 3)
-	pixel_y = rand(-3, 3) //randomize a little
+/obj/item/stack/tile/Initialize(mapload, new_amount, merge)
+	. = ..()
+	scatter_atom()
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)
-		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+		to_chat(user, SPAN_WARNING("You need at least four tiles to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>You can not reform this!</span>")
+		to_chat(user, SPAN_WARNING("You can not reform this!"))
 		return
 	if(mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					"<span class='italics'>You hear welding.</span>")
+					SPAN_NOTICE("You shaped [src] into metal with the welding tool."), \
+					SPAN_ITALICS("You hear welding."))
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)
@@ -118,7 +116,7 @@
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
-	desc = "A piece of carpet. It is the same size as a floor tile."
+	desc = "Textile flooring often used to try and add more class to a room."
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
@@ -129,6 +127,7 @@
 
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
+	desc = "Elegant black textile flooring with a gold trim around the edges."
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
 	table_type = /obj/structure/table/wood/fancy/black
@@ -138,6 +137,7 @@
 
 /obj/item/stack/tile/carpet/blue
 	name = "blue carpet"
+	desc = "Blue textile flooring with a repeating white diamond pattern, and a thick white border around the edges."
 	icon_state = "tile-carpet-blue"
 	turf_type = /turf/simulated/floor/carpet/blue
 	table_type = /obj/structure/table/wood/fancy/blue
@@ -147,6 +147,7 @@
 
 /obj/item/stack/tile/carpet/cyan
 	name = "cyan carpet"
+	desc = "Cyan textile flooring with a thick white border and inwards-facing tassels around the edges."
 	icon_state = "tile-carpet-cyan"
 	turf_type = /turf/simulated/floor/carpet/cyan
 	table_type = /obj/structure/table/wood/fancy/cyan
@@ -156,6 +157,7 @@
 
 /obj/item/stack/tile/carpet/green
 	name = "green carpet"
+	desc = "Dark green textile flooring with intricate repeating patterns and edges woven with gold colored thread."
 	icon_state = "tile-carpet-green"
 	turf_type = /turf/simulated/floor/carpet/green
 	table_type = /obj/structure/table/wood/fancy/green
@@ -165,6 +167,7 @@
 
 /obj/item/stack/tile/carpet/orange
 	name = "orange carpet"
+	desc = "Orange textile flooring with a repeating gold diamond pattern, and a thick gold border around the edges."
 	icon_state = "tile-carpet-orange"
 	turf_type = /turf/simulated/floor/carpet/orange
 	table_type = /obj/structure/table/wood/fancy/orange
@@ -174,6 +177,7 @@
 
 /obj/item/stack/tile/carpet/purple
 	name = "purple carpet"
+	desc = "Regal purple textile flooring with a repeating white diamond pattern, and a thick white border around the edges."
 	icon_state = "tile-carpet-purple"
 	turf_type = /turf/simulated/floor/carpet/purple
 	table_type = /obj/structure/table/wood/fancy/purple
@@ -183,6 +187,7 @@
 
 /obj/item/stack/tile/carpet/red
 	name = "red carpet"
+	desc = "Crimson textile flooring with a repeating white diamond pattern, and a thick white border around the edges."
 	icon_state = "tile-carpet-red"
 	turf_type = /turf/simulated/floor/carpet/red
 	table_type = /obj/structure/table/wood/fancy/red
@@ -192,6 +197,7 @@
 
 /obj/item/stack/tile/carpet/royalblack
 	name = "royal black carpet"
+	desc = "Jet-black textile flooring with a repeating gold diamond pattern, and a thick gold border around the edges."
 	icon_state = "tile-carpet-royalblack"
 	turf_type = /turf/simulated/floor/carpet/royalblack
 	table_type = /obj/structure/table/wood/fancy/royalblack
@@ -203,6 +209,7 @@
 
 /obj/item/stack/tile/carpet/royalblue
 	name = "royal blue carpet"
+	desc = "Royal blue textile flooring with a repeating gold diamond pattern, and a thick gold border around the edges."
 	icon_state = "tile-carpet-royalblue"
 	turf_type = /turf/simulated/floor/carpet/royalblue
 	table_type = /obj/structure/table/wood/fancy/royalblue
@@ -213,23 +220,38 @@
 /obj/item/stack/tile/carpet/royalblue/twenty
 	amount = 20
 
+/obj/item/stack/tile/carpet/grimey
+	name = "cheap carpet"
+	desc = "Cheap nasty textile flooring. Close inspection shows that this carpet is full of dirt, grease, and who knows what else. Not something you want to lie down on."
+	icon_state = "tile-carpet-grimey"
+	turf_type = /turf/simulated/floor/carpet/grimey
+/obj/item/stack/tile/carpet/grimey/ten
+	amount = 10
+
+/obj/item/stack/tile/carpet/grimey/twenty
+	amount = 20
+
 //Plasteel
 /obj/item/stack/tile/plasteel
-	name = "floor tiles"
+	name = "steel floor tiles"
 	gender = PLURAL
 	singular_name = "floor tile"
-	desc = "Those could work as a pretty decent throwing weapon."
-	icon_state = "tile"
+	desc = "Mass-produced steel flooring. Cheap, robust, easy to clean, and it can be found all across the Orion arm in one form or another."
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/plasteel
+
+/obj/item/stack/tile/plasteel/examine(mob/user)
+	. = ..()
+	if(!is_cyborg)
+		. += SPAN_NOTICE("These could work as a pretty decent throwing weapon.")
 
 /obj/item/stack/tile/plasteel/cyborg
 	energy_type = /datum/robot_storage/energy/metal_tile
@@ -240,7 +262,7 @@
 	name = "light tiles"
 	gender = PLURAL
 	singular_name = "light floor tile"
-	desc = "A floor tile made of glass, with an integrated light. Use a multitool on it to change its color."
+	desc = "Highly advanced technology that combines the functions of walking surface and area lighting. What will science think of next?"
 	icon_state = "tile_white"
 	force = 3
 	throwforce = 5
@@ -286,7 +308,6 @@
 	singular_name = "light pod floor tile"
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
-	turf_type = /turf/simulated/floor/pod
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
@@ -320,6 +341,7 @@
 
 /obj/item/stack/tile/catwalk
 	name = "catwalk tiles"
+	desc = "Flooring made of a metal grid with large holes for easier inspection of cable and pipe installations."
 	gender = PLURAL
 	singular_name = "catwalk tile"
 	desc = "A catwalk tile. Not rated for space usage."
@@ -329,11 +351,32 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
 	turf_type = /turf/simulated/floor/catwalk
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/catwalk
+
+/obj/item/stack/tile/catwalk/grey
+	name = "grey catwalk tiles"
+	singular_name = "grey catwalk tile"
+	icon_state = "tile_catwalk_grey"
+	turf_type = /turf/simulated/floor/catwalk/grey
+	merge_type = /obj/item/stack/tile/catwalk/grey
+
+/obj/item/stack/tile/catwalk/black
+	name = "black catwalk tiles"
+	singular_name = "black catwalk tile"
+	icon_state = "tile_catwalk_black"
+	turf_type = /turf/simulated/floor/catwalk/black
+	merge_type = /obj/item/stack/tile/catwalk/black
+
+/obj/item/stack/tile/catwalk/white
+	name = "white catwalk tiles"
+	singular_name = "white catwalk tile"
+	icon_state = "tile_catwalk_white"
+	turf_type = /turf/simulated/floor/catwalk/white
+	merge_type = /obj/item/stack/tile/catwalk/white
 
 /obj/item/stack/tile/catwalk/cyborg
 	energy_type = /datum/robot_storage/energy/catwalk

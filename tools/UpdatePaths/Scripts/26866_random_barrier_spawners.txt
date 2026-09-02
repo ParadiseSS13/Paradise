@@ -1,0 +1,5 @@
+/obj/effect/spawner/random_barrier/wall_probably : /obj/effect/spawner/random/barrier/wall_probably
+/obj/effect/spawner/random_barrier/obstruction : /obj/effect/spawner/random/barrier/obstruction
+/obj/effect/spawner/random_barrier/possibly_welded_airlock : /obj/effect/spawner/random/barrier/possibly_welded_airlock
+/obj/effect/spawner/random_spawners/grille_often : /obj/effect/spawner/random/barrier/grille_often
+/obj/effect/spawner/random_spawners/grille_maybe : /obj/effect/spawner/random/barrier/grille_maybe

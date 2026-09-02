@@ -6,41 +6,75 @@
 */
 
 /obj/structure/signpost
+	name = "signpost"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	density = TRUE
+	var/writing = ""
 
-/obj/structure/ninjatele
+/obj/structure/signpost/Initialize(mapload)
+	. = ..()
+	update()
 
-	name = "Long-Distance Teleportation Console"
-	desc = "A console used to send a Spider Clan operative long distances rapidly."
-	icon = 'icons/obj/ninjaobjects.dmi'
-	icon_state = "teleconsole"
-	anchored = TRUE
-	density = FALSE
+/obj/structure/signpost/deconstruct()
+	new /obj/item/stack/sheet/wood (get_turf(src), 2)
+	qdel(src)
+	..()
 
-/obj/structure/ninjatele/attack_hand(mob/user as mob)
-	if(user.mind.special_role=="Ninja")
-		switch(tgui_alert(user, "Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)", "Void Shift", list("Yes", "No")))
-			if("Yes")
-				if(user.z != src.z)
-					return
+/obj/structure/signpost/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct()
 
-				user.loc.loc.Exited(user)
-				user.loc = pick(GLOB.carplist) // In the future, possibly make specific NinjaTele landmarks, and give him an option to teleport to North/South/East/West of SS13 instead of just hijacking a carpspawn.
+/obj/structure/signpost/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/pen))
+		rename(user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
-				playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)
-				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
-				new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)
-				to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
+/obj/structure/signpost/proc/rename(mob/user)
+	var/n_name = rename_interactive(user)
+	if(n_name)
+		writing = n_name
+		update()
+		add_fingerprint(user)
 
-			if("No")
-				to_chat(user, "<span class='danger'>Process aborted!</span>")
-				return
+/obj/structure/signpost/proc/update()
+	if(writing)
+		overlays += "[initial(icon_state)]_writing"
+		desc = "It says: '[writing]'."
+	else
+		overlays.Cut()
+		desc = "It says... nothing."
 
-			else
-				to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
+/obj/structure/signpost/ruin
+	name = "Salvation"
+	writing = "This way home"
+
+/obj/structure/signpost/wood
+	name = "wooden sign"
+	desc = "A small wooden marker."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "signpost_wood"
+	var/scarf = FALSE
+	max_integrity = 100
+
+/obj/structure/signpost/wood/AltClick(mob/living/user)
+	if(!scarf)
+		scarf = TRUE
+		to_chat(user, SPAN_NOTICE("You tie a memorial wreath around the sign."))
+	else
+		scarf = FALSE
+		to_chat(user, SPAN_NOTICE("You untie the memorial wreath from the sign."))
+	update()
+
+/obj/structure/signpost/wood/update()
+	..()
+	if(scarf)
+		icon_state = "signpost_wood_scarf"
+	else
+		icon_state = "signpost_wood"
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
@@ -49,6 +83,7 @@
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// An outfit for ghosts to spawn with
 	var/datum/outfit/selected_outfit
 
@@ -84,6 +119,7 @@
 		if(selected_outfit)
 			new_human.equipOutfit(selected_outfit)
 
+// used by admins
 /obj/structure/ghost_beacon
 	name = "ethereal beacon"
 	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
@@ -97,8 +133,7 @@
 	var/alert_title = "Ethereal Beacon Active!"
 	var/atom/attack_atom
 
-
-/obj/structure/ghost_beacon/Initialize()
+/obj/structure/ghost_beacon/Initialize(mapload)
 	. = ..()
 	last_ghost_alert = world.time
 	attack_atom = src
@@ -120,7 +155,7 @@
 /obj/structure/ghost_beacon/attack_hand(mob/user)
 	if(!is_admin(user))
 		return
-	to_chat(user, "<span class='notice'>You [active ? "disable" : "enable"] \the [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [active ? "disable" : "enable"] \the [src]."))
 	if(active)
 		STOP_PROCESSING(SSobj, src)
 	else
@@ -131,12 +166,3 @@
 	if(last_ghost_alert + ghost_alert_delay < world.time)
 		notify_ghosts("[src] active in [get_area(src)].", 'sound/effects/ghost2.ogg', title = alert_title, source = attack_atom, action = (attack_atom == src ? NOTIFY_JUMP : NOTIFY_ATTACK))
 		last_ghost_alert = world.time
-
-/obj/structure/boulder
-	name = "boulder"
-	desc = "A large rock."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "boulder1"
-	density = TRUE
-	opacity = TRUE
-	anchored = TRUE

@@ -3,7 +3,6 @@
 	desc = "A chef's 9th most powerful weapon, right after the grill. Used for grinding items into reagents."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
-	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 100
@@ -30,6 +29,8 @@
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
+		/obj/item/stack/sheet/plastic = list("plastic_dust" = 5),
+		/obj/item/stack/ore/bluespace_crystal = list("bluespace_dust" = 20),
 
 		// Blender Stuff
 		/obj/item/food/grown/tomato = list("ketchup" = 0),
@@ -70,13 +71,25 @@
 		/obj/item/food/grown/citrus/orange = list("orangejuice" = 0),
 		/obj/item/food/grown/citrus/lime = list("limejuice" = 0),
 		/obj/item/food/grown/watermelon = list("watermelonjuice" = 0),
-		/obj/item/food/watermelonslice = list("watermelonjuice" = 0),
+		/obj/item/food/sliced/watermelon = list("watermelonjuice" = 0),
 		/obj/item/food/grown/berries/poison = list("poisonberryjuice" = 0),
 		/obj/item/food/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0), // Order is important here as blumpkin is a subtype of pumpkin, if switched blumpkins will produce pumpkin juice
 		/obj/item/food/grown/pumpkin = list("pumpkinjuice" = 0),
 		/obj/item/food/grown/apple = list("applejuice" = 0),
 		/obj/item/food/grown/grapes = list("grapejuice" = 0),
-		/obj/item/food/grown/pineapple = list("pineapplejuice" = 0)
+		/obj/item/food/grown/pineapple = list("pineapplejuice" = 0),
+		/obj/item/food/grown/bungofruit = list("bungojuice" = 0),
+		/obj/item/food/grown/plum = list("plumjuice" = 0),
+		/obj/item/food/grown/redbeet = list("beetjuice" = 0),
+		/obj/item/food/grown/lettuce = list("lettucejuice" = 0),
+		/obj/item/food/grown/agave = list("agave" = 0),
+		/obj/item/food/grown/annona = list("annonajuice" = 0),
+		/obj/item/food/grown/prickly_pear = list("cactusjuice" = 0),
+		/obj/item/food/grown/kiwi = list("kiwijuice" = 0),
+		/obj/item/food/grown/mango = list("mangojuice" = 0),
+		/obj/item/food/grown/nispero = list("nisperojuice" = 0),
+		/obj/item/food/grown/peach = list("peachjuice" = 0),
+		/obj/item/food/grown/ricinus = list("castor_oil" = 0),
 	)
 
 	var/list/dried_items = list(
@@ -95,12 +108,22 @@
 
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/reagentgrinder/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	RefreshParts()
+
+/obj/machinery/reagentgrinder/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	var/H
@@ -115,6 +138,9 @@
 /obj/machinery/reagentgrinder/Destroy()
 	QDEL_NULL(beaker)
 	return ..()
+
+/obj/machinery/reagentgrinder/AltClick(mob/user, modifiers)
+	detach(user)
 
 /obj/machinery/reagentgrinder/ex_act(severity)
 	if(beaker)
@@ -144,10 +170,11 @@
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!anchored || beaker)
+	if(!anchored)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
+	detach(user)
 	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
 
 /obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
@@ -156,44 +183,43 @@
 		return
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/part_replacer))
-		..()
+/obj/machinery/reagentgrinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
+	if(istype(used, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
+	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(beaker)
-			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+			to_chat(user, SPAN_WARNING("There's already a container inside."))
 		else if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-		else
-			if(!user.drop_item())
-				return FALSE
-
-			beaker =  I
-			beaker.loc = src
+			to_chat(user, SPAN_WARNING("Close the maintenance panel first."))
+		else if(user.transfer_item_to(used, src))
+			beaker = used
 			update_icon(UPDATE_ICON_STATE)
 			SStgui.update_uis(src)
-		return TRUE // No afterattack
+		return ITEM_INTERACT_COMPLETE
 
-	if(is_type_in_list(I, dried_items))
-		if(istype(I, /obj/item/food/grown))
-			var/obj/item/food/grown/G = I
+	if(is_type_in_list(used, dried_items))
+		if(istype(used, /obj/item/food/grown))
+			var/obj/item/food/grown/G = used
 			if(!G.dry)
-				to_chat(user, "<span class='warning'>You must dry that first!</span>")
-				return FALSE
+				to_chat(user, SPAN_WARNING("You must dry that first!"))
+				return ITEM_INTERACT_COMPLETE
 
 	if(length(holdingitems) >= limit)
 		to_chat(usr, "The machine cannot hold anymore items.")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	// Fill machine with a bag!
-	if(istype(I, /obj/item/storage/bag))
-		var/obj/item/storage/bag/B = I
+	if(istype(used, /obj/item/storage/bag))
+		var/obj/item/storage/bag/B = used
 		if(!length(B.contents))
-			to_chat(user, "<span class='warning'>[B] is empty.</span>")
-			return FALSE
+			to_chat(user, SPAN_WARNING("[B] is empty."))
+			return ITEM_INTERACT_COMPLETE
 
 		var/original_contents_len = length(B.contents)
 
@@ -202,33 +228,34 @@
 				B.remove_from_storage(G, src)
 				holdingitems += G
 				if(length(holdingitems) >= limit) // Sanity checking so the blender doesn't overfill
-					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
+					to_chat(user, SPAN_NOTICE("You fill the All-In-One grinder to the brim."))
 					break
 
 		if(length(B.contents) == original_contents_len)
-			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
-			return FALSE
+			to_chat(user, SPAN_WARNING("Nothing in [B] can be put into the All-In-One grinder."))
+			return ITEM_INTERACT_COMPLETE
 
 		else if(!length(B.contents))
-			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
+			to_chat(user, SPAN_NOTICE("You empty all of [B]'s contents into the All-In-One grinder."))
 		else
-			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
+			to_chat(user, SPAN_NOTICE("You empty some of [B]'s contents into the All-In-One grinder."))
 
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
+	if(!is_type_in_list(used, blend_items) && !is_type_in_list(used, juice_items))
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
-			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
-			return TRUE
+			to_chat(user, SPAN_WARNING("Cannot refine into a reagent!"))
+			return ITEM_INTERACT_COMPLETE
 
-	if(user.drop_item())
-		I.loc = src
-		holdingitems += I
+	if(user.transfer_item_to(used, src))
+		holdingitems += used
 		SStgui.update_uis(src)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 	return FALSE
@@ -330,11 +357,18 @@
 			juice()
 
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
 	if(!beaker)
 		return
-	beaker.forceMove(loc)
+	if(!Adjacent(user))
+		return
+	if(operating)
+		return
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	beaker.forceMove(get_turf(src))
+	SStgui.update_uis(src)
+	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
+		user.put_in_hands(beaker)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
@@ -406,7 +440,6 @@
 
 		for(var/r_id in special_juice)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-
 			beaker.reagents.add_reagent(r_id, min(get_juice_amount(O) * efficiency, space))
 
 			if(beaker.reagents.holder_full())

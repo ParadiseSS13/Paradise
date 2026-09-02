@@ -92,7 +92,6 @@
 /obj/item/food/grown/berries/glow
 	seed = /obj/item/seeds/berry/glow
 	name = "bunch of glow-berries"
-	desc = "Nutritious!"
 	icon_state = "glowberrypile"
 	filling_color = "#7CFC00"
 	origin_tech = "plasmatech=6"
@@ -136,7 +135,7 @@
 // Blue Cherries
 /obj/item/seeds/cherry/blue
 	name = "pack of blue cherry pits"
-	desc = "The blue kind of cherries"
+	desc = "The blue kind of cherries."
 	icon_state = "seed-bluecherry"
 	species = "bluecherry"
 	plantname = "Blue Cherry Tree"

@@ -3,10 +3,11 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
+	new_attack_chain = TRUE
 
-/obj/item/holder/New()
-	..()
+/obj/item/holder/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/holder/Destroy()
@@ -25,9 +26,16 @@
 
 		qdel(src)
 
-/obj/item/holder/attackby(obj/item/W as obj, mob/user as mob, params)
-	for(var/mob/M in src.contents)
-		M.attackby(W,user, params)
+/obj/item/holder/item_interaction(mob/user, obj/item/used, list/modifiers)
+	for(var/mob/held_mob in src.contents)
+		if(!held_mob.item_interaction(user, used, modifiers))
+			used.melee_attack_chain(user, held_mob, list2params(modifiers))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/holder/ranged_item_interaction(mob/user, obj/item/used, list/modifiers)
+	for(var/mob/held_mob in src.contents)
+		held_mob.ranged_item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
@@ -49,7 +57,7 @@
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
 	else if(isitem(loc))
@@ -78,7 +86,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
-	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+	to_chat(src, SPAN_NOTICE("\The [grabber] scoops you up."))
 	grabber.status_flags |= PASSEMOTES
 	return H
 
@@ -98,26 +106,33 @@
 	name = "nian caterpillar"
 	desc = "It's a tiny little itty bitty critter."
 	icon_state = "mothroach"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
+
+/obj/item/holder/isopod_small
+	name = "deverka"
+	desc = "A tiny isopod that wriggles and chitters!"
+	icon_state = "deverka"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = null
 
 /obj/item/holder/drone/emagged
-	name = "maintenance drone"
 	icon_state = "drone-emagged"
 
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
-	icon_state = "pai"
+	icon_state = null
 
 /obj/item/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/holder/bunny
 	name = "bunny"
-	desc = "Awww a cute bunny"
+	desc = "Awww a cute bunny."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "m_bunny"
 

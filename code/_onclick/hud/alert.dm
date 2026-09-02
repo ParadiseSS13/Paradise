@@ -100,8 +100,7 @@
 	icon = 'icons/mob/screen_alert.dmi'
 	icon_state = "default"
 	name = "Alert"
-	desc = "Something seems to have gone wrong with this alert, so report this bug please"
-	mouse_opacity = MOUSE_OPACITY_ICON
+	desc = "Something seems to have gone wrong with this alert, so report this bug please."
 	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
 	var/timeout = 0
 	/// Some alerts may have different icon states based on severity, this adjusts that.
@@ -137,11 +136,11 @@
 	if(!usr || !usr.client)
 		return FALSE
 	if(usr != owner)
-		to_chat(usr, "<span class='notice'>Only [owner] can use that!</span>")
+		to_chat(usr, SPAN_NOTICE("Only [owner] can use that!"))
 		return FALSE
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='notice'>[desc]</span>")
+		to_chat(usr, SPAN_BOLDNOTICE("[name]</span> - <span class='notice'>[desc]"))
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)
@@ -451,7 +450,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if(!..())
 		return
 	if(isnymph(usr))
-		var/mob/living/simple_animal/diona/D = usr
+		var/mob/living/basic/diona_nymph/D = usr
 		return D.resist()
 
 /atom/movable/screen/alert/gestalt
@@ -463,14 +462,14 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		return
 
 	var/list/nymphs = list()
-	for(var/mob/living/simple_animal/diona/D in usr.contents)
+	for(var/mob/living/basic/diona_nymph/D in usr.contents)
 		nymphs += D
 
 	if(length(nymphs) == 1)
-		var/mob/living/simple_animal/diona/D = nymphs[1]
+		var/mob/living/basic/diona_nymph/D = nymphs[1]
 		D.split(TRUE)
 	else
-		var/mob/living/simple_animal/diona/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
+		var/mob/living/basic/diona_nymph/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
 		if(D in usr.contents)
 			D.split(TRUE)
 
@@ -502,6 +501,12 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 600
 	var/atom/target = null
 
+/atom/movable/screen/alert/programs_reset
+	name = "Programs Reset"
+	desc = "Your programs have been reset by a Program Reset Disk!"
+	icon_state = "silicon_generic_alert"
+	timeout = 30 SECONDS
+
 /atom/movable/screen/alert/hackingapc/Destroy()
 	target = null
 	return ..()
@@ -514,7 +519,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/living/silicon/ai/AI = usr
 	var/turf/T = get_turf(target)
 	if(T)
-		AI.eyeobj.setLoc(T)
+		AI.eyeobj.set_loc(T)
 
 //MECHS
 /atom/movable/screen/alert/low_mech_integrity
@@ -539,9 +544,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
-		to_chat(usr, "<span class='notice'>[M] connects to the port.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] connects to the port."))
 	else
-		to_chat(usr, "<span class='notice'>[M] failed to connect to the port.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] failed to connect to the port."))
 
 /atom/movable/screen/alert/mech_port_disconnect
 	name = "Disconnect from Port"
@@ -555,9 +560,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
-		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] disconnects from the port."))
 	else
-		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
+		to_chat(usr, SPAN_NOTICE("[M] is not connected to a port at the moment."))
 
 /atom/movable/screen/alert/mech_nocell
 	name = "Missing Power Cell"
@@ -615,9 +620,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/ghost
 	name = "Ghost"
-	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	desc = "Would you like to ghost?"
 	icon_state = "template"
-	timeout = 5 MINUTES // longer than any infection should be
+	timeout = 5 MINUTES
 
 /atom/movable/screen/alert/ghost/Initialize(mapload)
 	. = ..()
@@ -626,7 +631,21 @@ so as to remain in compliance with the most up-to-date laws."
 	I.plane = FLOAT_PLANE
 	overlays += I
 
+/atom/movable/screen/alert/ghost/proc/handle_ghosting(mob/living/carbon/human/target)
+	target.ghost()
+
 /atom/movable/screen/alert/ghost/Click()
+	if(!..())
+		return
+	handle_ghosting(usr)
+
+/atom/movable/screen/alert/ghost/cryo
+	desc = "Would you like to ghost? Your body will automatically be moved into cryostorage."
+
+/atom/movable/screen/alert/ghost/xeno
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+
+/atom/movable/screen/alert/ghost/xeno/Click()
 	if(!..())
 		return
 	var/mob/living/carbon/human/infected_user = usr
@@ -637,7 +656,19 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(hugger_mask) || !(locate(/obj/item/organ/internal/body_egg/alien_embryo) in infected_user.internal_organs) || hugger_mask.sterile)
 		infected_user.clear_alert("ghost_nest")
 		return
-	infected_user.ghostize(TRUE)
+	infected_user.ghostize()
+
+/atom/movable/screen/alert/ghost/flock
+	desc = "Would you like to ghost? You will be notified when your body is removed from the cage."
+
+/atom/movable/screen/alert/ghost/flock/Click()
+	if(!..())
+		return
+	var/mob/living/carbon/human/caged_user = usr
+	if(!istype(caged_user) || caged_user.stat == DEAD)
+		caged_user.clear_alert("ghost_cage")
+		return
+	caged_user.ghostize()
 
 /atom/movable/screen/alert/notify_action
 	name = "Body created"
@@ -705,16 +736,16 @@ so as to remain in compliance with the most up-to-date laws."
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
 					if(!istype(G))
-						var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
+						var/mob/dead/observer/actual_ghost = G.ghostize()
 						actual_ghost.forceMove(T)
 						return
 					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				if(!istype(G))
-					var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
-					actual_ghost.ManualFollow(target)
+					var/mob/dead/observer/actual_ghost = G.ghostize()
+					actual_ghost.manual_follow(target)
 					return
-				G.ManualFollow(target)
+				G.manual_follow(target)
 
 /atom/movable/screen/alert/notify_action/Topic(href, href_list)
 	if(!href_list["signup"])
@@ -800,6 +831,11 @@ so as to remain in compliance with the most up-to-date laws."
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
+/atom/movable/screen/alert/restrained/cryocell
+	name = "Cryogenics"
+	desc = "You're inside a freezing cold medical cell. Click the alert to free yourself."
+	icon_state = "asleep"
+
 /atom/movable/screen/alert/restrained/Click()
 	if(!isliving(usr) || !..())
 		return
@@ -838,15 +874,15 @@ so as to remain in compliance with the most up-to-date laws."
 			alert.icon = icon_pref
 		switch(i)
 			if(1)
-				. = ui_alert1
+				. = UI_ALERT1
 			if(2)
-				. = ui_alert2
+				. = UI_ALERT2
 			if(3)
-				. = ui_alert3
+				. = UI_ALERT3
 			if(4)
-				. = ui_alert4
+				. = UI_ALERT4
 			if(5)
-				. = ui_alert5 // Right now there's 5 slots
+				. = UI_ALERT5 // Right now there's 5 slots
 			else
 				. = ""
 		alert.screen_loc = .
@@ -922,6 +958,6 @@ so as to remain in compliance with the most up-to-date laws."
 			var/mob/living/carbon/C = owner
 			var/datum/organ/heart/heart = C.get_int_organ_datum(ORGAN_DATUM_HEART)
 			heart_name = heart.linked_organ.name
-		to_chat(owner, "<span class='danger'>Electricity flows through our [heart_name]! We have been brought back to life and have stopped our regeneration.</span>")
+		to_chat(owner, SPAN_DANGER("Electricity flows through our [heart_name]! We have been brought back to life and have stopped our regeneration."))
 		. = COMPONENT_DEFIB_FAKEDEATH_ACCEPTED
 	owner.clear_alert("cling_defib")

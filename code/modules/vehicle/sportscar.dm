@@ -3,7 +3,6 @@
 	desc = "A very luxurious vehicle."
 	icon = 'icons/vehicles/sportscar.dmi'
 	icon_state = "sportscar"
-	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
 	var/mutable_appearance/carcover
@@ -42,7 +41,4 @@
 
 
 /obj/vehicle/car/handle_vehicle_layer()
-	if(dir == SOUTH)
-		layer = ABOVE_MOB_LAYER
-	else
-		layer = OBJ_LAYER
+	layer = OBJ_LAYER

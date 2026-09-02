@@ -106,7 +106,6 @@ GLOBAL_LIST_EMPTY(message_servers)
 	icon_state = "[initial(icon_state)][panel_open ? "_o" : null][active ? null : "_off"]"
 
 /obj/machinery/blackbox_recorder
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
 	name = "Blackbox Recorder"
 	density = TRUE

@@ -32,16 +32,19 @@
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_LIGHT)
 			our_prefs.light ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
@@ -114,10 +117,20 @@
 	preftoggle_bitflag = SOUND_MENTORHELP
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR | R_ADMIN
 	enable_message = "You will now hear a sound when mentorhelp is sent."
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
+
+/datum/preference_toggle/toggle_prayer_sound
+	name = "Prayer sound"
+	description = "Toggle hearing a notification when prayers are received"
+	preftoggle_bitflag = SOUND_PRAYERNOTIFY
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	enable_message = "You will now hear a sound when prayers are made."
+	disable_message = "You will no longer hear a sound when prayers are made."
+	blackbox_message = "Toggle Prayer Sound"
 
 /datum/preference_toggle/toggle_deadchat_visibility
 	name = "Toggle Deadchat visibility"
@@ -171,6 +184,16 @@
 	. = ..()
 	if(user.prefs.sound & ~SOUND_LOBBY)
 		usr.stop_sound_channel(CHANNEL_ADMIN)
+
+/datum/preference_toggle/toggle_end_of_round_sound
+	name = "Toggle Mute End of Round Sound"
+	description = "Toggles muting the end of round sound"
+	preftoggle_bitflag = SOUND_MUTE_END_OF_ROUND
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You have muted the end of round sound."
+	disable_message = "You have unmuted the end of round sound."
+	blackbox_message = "Toggle End of Round Sound"
 
 /datum/preference_toggle/toggle_ooc
 	name = "Toggle OOC chat"
@@ -287,6 +310,16 @@
 	if(user.prefs.sound & ~SOUND_DISCO)
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
 
+/datum/preference_toggle/toggle_post_credits
+	name = "Toggle Post-Round Credits"
+	description = "Toggle seeing the post-round credit popup."
+	preftoggle_bitflag = PREFTOGGLE_3_POSTCREDS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see post-round credits."
+	disable_message = "You will no longer see post-round credits."
+	blackbox_message = "Toggle Post-Round Credits"
+
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Toggle Ghost PDA messages"
 	description = "Toggle seeing PDA messages as an observer"
@@ -302,6 +335,7 @@
 	set category = "Special Verbs"
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
+	tgui_panel?.stop_music()
 	to_chat(src, "The current admin midi has been silenced")
 
 /datum/preference_toggle/toggle_runechat
@@ -436,13 +470,13 @@
 
 /datum/preference_toggle/toggle_debug_logs
 	name = "Toggle Debug Log Messages"
-	description = "Disables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
+	description = "Enables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
 	preftoggle_bitflag = PREFTOGGLE_CHAT_DEBUGLOGS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	rights_required = R_VIEWRUNTIMES | R_DEBUG
-	enable_message = "You now won't get debug logs."
-	disable_message = "You now will get debug logs."
+	enable_message = "You now will get debug logs."
+	disable_message = "You now won't get debug logs."
 	blackbox_message = "Debug logs toggled"
 
 /datum/preference_toggle/toggle_mctabs
@@ -490,8 +524,8 @@
 	blackbox_message = "Set Own OOC"
 
 /datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)
-	var/new_ooccolor = input(usr, "Please select your OOC color.", "OOC color", user.prefs.ooccolor) as color|null
-	if(new_ooccolor)
+	var/new_ooccolor = tgui_input_color(usr, "Please select your OOC color.", "OOC Color", user.prefs.ooccolor)
+	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 	else
@@ -544,13 +578,16 @@
 	. = ..()
 	if(length(user.screen))
 		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
 
 		exposure_master.alpha = user.prefs.light & LIGHT_NEW_LIGHTING ? 255 : 0
 		exposure_master.backdrop(user.mob)
-		glow_master.backdrop(user.mob)
-		glare_master.backdrop(user.mob)
+
+		for(var/atom/movable/screen/plane_master/lamps_selfglow/glow_master in user.screen)
+			glow_master.backdrop(user.mob)
+
+		for(var/atom/movable/screen/plane_master/lamps_glare/glare_master in user.screen)
+			glare_master.backdrop(user.mob)
+
 
 /datum/preference_toggle/special_toggle/set_glow_level
 	name = "Set Glow Level"
@@ -571,8 +608,8 @@
 	user.prefs.glowlevel = glow_levels[new_level]
 	to_chat(usr, "Glow level: [new_level].")
 	if(length(user.screen))
-		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
-		glow_master.backdrop(user.mob)
+		for(var/atom/movable/screen/plane_master/lamps_selfglow/glow_master in user.screen)
+			glow_master.backdrop(user.mob)
 	return ..()
 
 /datum/preference_toggle/toggle_lamp_exposure
@@ -603,6 +640,7 @@
 
 /datum/preference_toggle/toggle_lamps_glare/set_toggles(client/user)
 	. = ..()
-	if(length(user.screen))
-		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
+	if(!length(user.screen))
+		return
+	for(var/atom/movable/screen/plane_master/lamps_glare/glare_master in user.screen)
 		glare_master.backdrop(user.mob)

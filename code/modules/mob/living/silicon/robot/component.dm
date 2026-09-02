@@ -181,7 +181,6 @@
 /datum/robot_component/binary_communication
 	name = "binary communication device"
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
-	max_damage = 30
 
 /datum/robot_component/camera
 	name = "camera"
@@ -199,7 +198,6 @@
 /datum/robot_component/diagnosis_unit
 	name = "self-diagnosis unit"
 	external_type = /obj/item/robot_parts/robot_component/diagnosis_unit
-	max_damage = 30
 
 /mob/living/silicon/robot/proc/initialize_components()
 	// This only initializes the components, it doesn't set them to installed.
@@ -253,28 +251,34 @@
 	name = "binary communication device"
 	desc = "A module used for binary communications over encrypted frequencies, commonly used by synthetic robots."
 	icon_state = "binary_translator"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1000)
 
 /obj/item/robot_parts/robot_component/actuator
 	name = "actuator"
 	desc = "A modular, hydraulic actuator used by robots for movement and manipulation."
 	icon_state = "actuator"
+	materials = list(MAT_METAL = 3500)
 
 /obj/item/robot_parts/robot_component/armour
 	name = "armour plating"
 	desc = "A pair of flexible, adaptable armor plates, used to protect the internals of robots."
 	icon_state = "armor_plating"
+	materials = list(MAT_METAL = 5000)
 
 /obj/item/robot_parts/robot_component/camera
 	name = "camera"
 	desc = "A modified camera module used as a visual receptor for robots and exosuits, also serving as a relay for wireless video feed."
 	icon_state = "camera"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1000)
 
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
 	desc = "An internal computer and sensors used by robots and exosuits to accurately diagnose any system discrepancies on their components."
 	icon_state = "diagnosis_unit"
+	materials = list(MAT_METAL = 3500)
 
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
 	desc = "A modular, multi-frequency radio used by robots and exosuits to enable communication systems. Comes with built-in subspace receivers."
 	icon_state = "radio"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1000)

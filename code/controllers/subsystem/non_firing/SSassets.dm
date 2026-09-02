@@ -36,4 +36,4 @@ SUBSYSTEM_DEF(assets)
 		if(initial(asset_to_load._abstract))
 			continue
 
-		get_asset_datum(type)
+		load_asset_datum(type)

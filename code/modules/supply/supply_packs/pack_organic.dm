@@ -15,8 +15,6 @@
 					/obj/item/reagent_containers/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
-					/obj/item/mixing_bowl,
-					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/condiment/enzyme,
 					/obj/item/reagent_containers/condiment/sugar,
 					/obj/item/food/meat/monkey,
@@ -27,15 +25,43 @@
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
+/datum/supply_packs/organic/liquid_food
+	name = "LiquidFood Ration Crate"
+	contains = list(/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood)
+	cost = 500
+	containername = "Ration crate"
+
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
-					/obj/item/pizzabox/hawaiian)
+					/obj/item/pizzabox/hawaiian,
+					/obj/item/kitchen/knife/pizza_cutter)
 	cost = 500
 	containername = "Pizza crate"
+
+/datum/supply_packs/organic/fancyparty
+	name = "Executive Party Crate"
+	contains = list(/obj/item/food/sliceable/cheesewheel/edam,
+					/obj/item/food/sliceable/cheesewheel/blue,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/smoked,
+					/obj/item/reagent_containers/drinks/bottle/wine,
+					/obj/item/food/caviar,
+					/obj/item/food/caviar,
+					/obj/item/reagent_containers/drinks/drinkingglass,
+					/obj/item/reagent_containers/drinks/drinkingglass)
+	cost = 1000
+	containername = "Executive Party crate"
+	containertype = /obj/structure/closet/crate/freezer/deluxe
 
 /// its a bit hacky...
 /datum/supply_packs/misc/randomised/ingredients
@@ -75,6 +101,47 @@
 					/obj/item/reagent_containers/condiment/vinegar)
 	cost = 300
 	containername = "condiment crate"
+
+/datum/supply_packs/organic/seafood
+	name = "Seafood Crate"
+	contains = list(
+		/obj/item/fish/salmon,
+		/obj/item/fish/salmon,
+		/obj/item/fish/salmon,
+		/obj/item/fish/catfish,
+		/obj/item/fish/catfish,
+		/obj/item/fish/catfish,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp
+	)
+	cost = 300
+	containername = "seafood crate"
+
+/datum/supply_packs/organic/donuts
+	name = "Donuts Crate"
+	contains = list(
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box
+	)
+	cost = 450
+	containername = "donuts crate"
+
+/datum/supply_packs/organic/donkpocket
+	name = "Donk-Pockets Crate"
+	contains = list(
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets
+	)
+	cost = 400
+	containername = "donk-pockets crate"
 
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
@@ -126,12 +193,12 @@
 					/obj/item/reagent_containers/drinks/shaker,
 					/obj/item/reagent_containers/drinks/bottle/patron,
 					/obj/item/reagent_containers/drinks/bottle/goldschlager,
-					/obj/item/reagent_containers/drinks/cans/ale,
-					/obj/item/reagent_containers/drinks/cans/ale,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
-					/obj/item/reagent_containers/drinks/cans/beer,
+					/obj/item/reagent_containers/drinks/bottle/ale,
+					/obj/item/reagent_containers/drinks/bottle/ale,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
+					/obj/item/reagent_containers/drinks/bottle/beer,
 					/obj/item/grenade/confetti,
 					/obj/item/grenade/confetti)
 	cost = 250
@@ -148,22 +215,49 @@
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/juice_boxes
+	name = "Stationside Juice Boxes Variety Pack"
+	contains = list(/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+	)
+	cost = 400
+	containername = "juice box box box"
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
 	cost = 100
+	contains_special = list(
+		"Cow"
+	)
 	containertype = /obj/structure/closet/critter/cow
 	containername = "cow crate"
 
 /datum/supply_packs/organic/pig
 	name = "Pig Crate"
 	cost = 100
+	contains_special = list(
+		"Pig"
+	)
 	containertype = /obj/structure/closet/critter/pig
 	containername = "pig crate"
+
+/datum/supply_packs/organic/isopod
+	name = "Ahuitz Crate"
+	cost = 100
+	contains_special = list(
+		"Ahuitz"
+	)
+	containertype = /obj/structure/closet/critter/isopod
+	containername = "ahuitz crate"
 
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
 	cost = 100
+	contains_special = list(
+		"Goat"
+	)
 	containertype = /obj/structure/closet/critter/goat
 	containername = "goat crate"
 
@@ -179,12 +273,18 @@
 /datum/supply_packs/organic/turkey
 	name = "Turkey Crate"
 	cost = 100
+	contains_special = list(
+		"Turkey"
+	)
 	containertype = /obj/structure/closet/critter/turkey
 	containername = "turkey crate"
 
 /datum/supply_packs/organic/corgi
 	name = "Corgi Crate"
 	cost = 300
+	contains_special = list(
+		"Corgi"
+	)
 	containertype = /obj/structure/closet/critter/corgi
 	contains = list(/obj/item/petcollar)
 	containername = "corgi crate"
@@ -193,13 +293,28 @@
 	name = "Cat Crate"
 	cost = 300 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
+	contains_special = list(
+		"Cat"
+	)
 	contains = list(/obj/item/petcollar,
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
+/datum/supply_packs/organic/isopod_small
+	name = "Deverka Crate"
+	cost = 300
+	contains_special = list(
+		"Deverka"
+	)
+	containertype = /obj/structure/closet/critter/isopod_small
+	containername = "deverka crate"
+
 /datum/supply_packs/organic/pug
 	name = "Pug Crate"
 	cost = 300
+	contains_special = list(
+		"Pug"
+	)
 	containertype = /obj/structure/closet/critter/pug
 	contains = list(/obj/item/petcollar)
 	containername = "pug crate"
@@ -207,6 +322,9 @@
 /datum/supply_packs/organic/fox
 	name = "Fox Crate"
 	cost = 300 //Foxes are cool.
+	contains_special = list(
+		"Fox"
+	)
 	containertype = /obj/structure/closet/critter/fox
 	contains = list(/obj/item/petcollar)
 	containername = "fox crate"
@@ -214,12 +332,18 @@
 /datum/supply_packs/organic/butterfly
 	name = "Butterfly Crate"
 	cost = 300
+	contains_special = list(
+		"Butterfly"
+	)
 	containertype = /obj/structure/closet/critter/butterfly
 	containername = "butterfly crate"
 
 /datum/supply_packs/organic/nian_caterpillar
 	name = "Nian Caterpillar Crate"
 	cost = 150
+	contains_special = list(
+		"Nian citterpillar"
+	)
 	containertype = /obj/structure/closet/critter/nian_caterpillar
 	contains = list(/obj/item/petcollar)
 	containername = "nian caterpillar crate"
@@ -227,12 +351,18 @@
 /datum/supply_packs/organic/deer
 	name = "Deer Crate"
 	cost = 350 //Deer are best.
+	contains_special = list(
+		"Deer"
+	)
 	containertype = /obj/structure/closet/critter/deer
 	containername = "deer crate"
 
 /datum/supply_packs/organic/bunny
 	name = "Bunny Crate"
 	cost = 200
+	contains_special = list(
+		"Bunny"
+	)
 	containertype = /obj/structure/closet/critter/bunny
 	contains = list(/obj/item/petcollar)
 	containername = "bunny crate"
@@ -240,6 +370,9 @@
 /datum/supply_packs/organic/gorilla
 	name = "Gorilla Crate"
 	cost = 1000
+	contains_special = list(
+		"Gorilla"
+	)
 	containertype = /obj/structure/closet/critter/gorilla
 	containername = "gorilla crate"
 	department_restrictions = list(DEPARTMENT_SCIENCE)
@@ -247,6 +380,9 @@
 /datum/supply_packs/organic/gorilla/cargo
 	name = "Cargorilla Crate"
 	cost = 250
+	contains_special = list(
+		"Cargorilla"
+	)
 	containertype = /obj/structure/closet/critter/gorilla/cargo
 	containername = "cargorilla crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
@@ -281,7 +417,8 @@
 
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
-	contains = list(/obj/item/seeds/chili,
+	contains = list(/obj/item/seeds/tower,
+					/obj/item/seeds/chili,
 					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
@@ -292,6 +429,8 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/sunflower,
+					/obj/item/seeds/lettuce,
+					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
@@ -323,7 +462,6 @@
 					/obj/item/seeds/eggplant/eggy,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
-	cost = 200
 	containername = "exotic seeds crate"
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
@@ -347,3 +485,11 @@
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
+
+/datum/supply_packs/organic/bottler
+	name = "Bottler Unit Crate"
+	contains = list(/obj/machinery/bottler)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "Bottler Unit Crate"
+

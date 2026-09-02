@@ -2,9 +2,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 /datum/antagonist/vampire
 	name = "Vampire"
+	job_rank = ROLE_VAMPIRE
+	special_role = SPECIAL_ROLE_VAMPIRE
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
-	special_role = SPECIAL_ROLE_VAMPIRE
 	wiki_page_name = "Vampire"
 	var/bloodtotal = 0
 	var/bloodusable = 0
@@ -23,22 +24,32 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 									/datum/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/datum/spell/vampire/self/specialize = 150,
+									/datum/spell/vampire/self/exfiltrate = 150,
+									/datum/spell/vampire/lair = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
+	/// did the vampire build a lair?
+	var/has_lair = FALSE
 	blurb_text_color = COLOR_RED
-	blurb_text_outline_width = 0
 	blurb_r = 255
 	blurb_g = 221
 	blurb_b = 138
 	blurb_a = 1
+	boss_title = "Master Vampire"
 
 /datum/antagonist/vampire/Destroy(force, ...)
-	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
+	return ..()
+
+/datum/antagonist/vampire/detach_from_owner()
+	owner.current.create_log(CONVERSION_LOG, "De-vampired")
+	if(ishuman(owner.current))
+		var/mob/living/carbon/human/human_owner = owner.current
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
 	return ..()
 
 /datum/antagonist/vampire/add_owner_to_gamemode()
@@ -87,6 +98,27 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	mob_override.dna?.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
+	UnregisterSignal(owner, COMSIG_ATOM_HOLY_ATTACK)
+
+/datum/antagonist/vampire/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	remove_all_powers()
+	// Remove thralls
+	if(istype(subclass, SUBCLASS_DANTALION))
+		var/list/thralls = SSticker.mode.vampire_enthralled
+		for(var/datum/mind/possible_thrall in thralls)
+			for(var/datum/antagonist/slavetag in possible_thrall.antag_datums)
+				if(!istype(slavetag, /datum/antagonist/mindslave))
+					continue
+				var/datum/antagonist/mindslave/slave = slavetag
+				if(slave.master == extractor.mind)
+					possible_thrall.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
+	radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
+	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
@@ -96,20 +128,16 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	if(owner.current.is_muzzled())
-		to_chat(owner.current, "<span class='warning'>[owner.current.wear_mask] prevents you from biting [H]!</span>")
+		to_chat(owner.current, SPAN_WARNING("[owner.current.wear_mask] prevents you from biting [H]!"))
 		draining = null
 		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.current.visible_message("<span class='danger'>[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
-	if(!iscarbon(owner.current))
-		H.LAssailant = null
-	else
-		H.LAssailant = owner
-	while(do_mob(owner.current, H, suck_rate))
+	owner.current.visible_message(SPAN_DANGER("[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!"), SPAN_DANGER("You sink your fangs into [H] and begin to drain [H.p_their()] blood."), SPAN_NOTICE("You hear a soft puncture and a wet sucking noise."))
+	while(do_mob(owner.current, H, suck_rate, hidden = TRUE))
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner.current, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!</span>")
+				to_chat(owner.current, SPAN_WARNING("You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!"))
 				H.blood_volume = max(H.blood_volume - 25, 0)
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
@@ -118,26 +146,26 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
-				to_chat(owner.current, "<span class='notice'><b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b></span>")
+				to_chat(owner.current, SPAN_NOTICE("<b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b>"))
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+				to_chat(owner.current, SPAN_DANGER("Your victim's blood volume is dangerously low."))
 			else if(H.blood_volume <= BLOOD_VOLUME_STABLE && blood_volume_warning > BLOOD_VOLUME_STABLE)
-				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+				to_chat(owner.current, SPAN_WARNING("Your victim's blood is at an unsafe level."))
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
-			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
+			to_chat(owner.current, SPAN_WARNING("You have bled your victim dry!"))
 			break
 		if((!H.ckey && !H.player_ghosted) || HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN)) //Only runs if there is no ckey and the body has not being ghosted while alive, also runs if the victim is an evolved caterpillar or diona nymph.
-			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
+			to_chat(owner.current, SPAN_NOTICE("<b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b>"))
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
 
 	draining = null
-	to_chat(owner.current, "<span class='notice'>You stop draining [H.name] of blood.</span>")
+	to_chat(owner.current, SPAN_NOTICE("You stop draining [H.name] of blood."))
 
 #undef BLOOD_GAINED_MODIFIER
 
@@ -202,10 +230,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(!(p in old_powers))
 			if(istype(p, /datum/spell))
 				var/datum/spell/power = p
-				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, SPAN_BOLDNOTICE("[power.gain_desc]"))
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
-				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, SPAN_BOLDNOTICE("[power.gain_desc]"))
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x
@@ -226,14 +254,14 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='biggerdanger'>The starlight saps your strength, you should get out of the starlight!</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("The starlight saps your strength, you should get out of the starlight!"))
 		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("Your body is turning to ash, get out of the starlight NOW!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100)
+		if(owner.current.getCloneLoss() >= 100)
 			owner.current.dust()
 
 /datum/antagonist/vampire/proc/handle_vampire()
@@ -258,24 +286,25 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	if(!ishuman(owner.current))
 		owner.current.alpha = 255
 		return
-	var/turf/simulated/T = get_turf(owner.current)
+	var/mob/living/carbon/human/human_owner = owner.current
+	var/turf/simulated/T = get_turf(human_owner)
 	var/light_available = T.get_lumcount() * 10
 
 	if(!istype(T))
 		return
 
-	if(!iscloaking || owner.current.on_fire)
-		owner.current.alpha = 255
-		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	if(!iscloaking || human_owner.on_fire)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE, src)
+		REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	if(light_available <= 2)
-		owner.current.alpha = 38 // round(255 * 0.15)
-		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.15, src)
+		ADD_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
-	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-	owner.current.alpha = 204 // 255 * 0.80
+	REMOVE_TRAIT(human_owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	human_owner.set_alpha_tracking(ALPHA_VISIBLE * 0.80, src)
 
 /**
  * Handles unique drain ID checks and increases vampire's total and usable blood by blood_amount. Checks for ability upgrades.
@@ -297,7 +326,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	check_vampire_upgrade(TRUE)
 	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 
 /**
  * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.
@@ -312,16 +341,16 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	if(prob(burn_chance) && owner.current.health >= 50)
 		switch(owner.current.health)
 			if(75 to 100)
-				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
+				to_chat(owner.current, SPAN_WARNING("Your skin flakes away..."))
 			if(50 to 75)
-				to_chat(owner.current, "<span class='warning'>Your skin sizzles!</span>")
+				to_chat(owner.current, SPAN_WARNING("Your skin sizzles!"))
 		owner.current.adjustFireLoss(3)
 	else if(owner.current.health < 50)
 		if(!owner.current.on_fire)
-			to_chat(owner.current, "<span class='danger'>Your skin catches fire!</span>")
+			to_chat(owner.current, SPAN_DANGER("Your skin catches fire!"))
 			owner.current.emote("scream")
 		else
-			to_chat(owner.current, "<span class='danger'>You continue to burn!</span>")
+			to_chat(owner.current, SPAN_DANGER("You continue to burn!"))
 		owner.current.adjust_fire_stacks(5)
 		owner.current.IgniteMob()
 
@@ -332,7 +361,14 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 /datum/antagonist/vampire/give_objectives()
 	add_antag_objective(/datum/objective/blood)
 	add_antag_objective(/datum/objective/assassinate)
-	add_antag_objective(/datum/objective/steal)
+
+	if(prob(5)) // 5% chance of getting protect. 95% chance of getting a steal / specialization-specific objective.
+		add_antag_objective(/datum/objective/protect)
+	else if(prob(50))
+		add_antag_objective(/datum/objective/specialization)
+	else
+		add_antag_objective(/datum/objective/steal)
+	add_antag_objective(/datum/objective/lair)
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
 		add_antag_objective(/datum/objective/survive)
@@ -342,9 +378,9 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
+	messages.Add("[SPAN_DANGER("You are a Vampire!")]<br>")
 	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+		You are weak to holy things, starlight, and fire. Don't go into space and avoid the Chaplain, the chapel, and especially Holy Water.")
 	return messages
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
@@ -355,8 +391,25 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
+	RegisterSignal(mob_override, COMSIG_ATOM_HOLY_ATTACK, PROC_REF(holy_attack_reaction))
 
-
+/datum/antagonist/vampire/proc/holy_attack_reaction(mob/target, obj/item/source, mob/user, antimagic_flags)
+	SIGNAL_HANDLER // COMSIG_ATOM_HOLY_ATTACK
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY)) // Sec officer with a nullrod, or miner with a talisman, does not get to do this
+		return
+	if(!source.force) // Needs force to work.
+		return
+	var/bonus_force = 0
+	if(istype(source, /obj/item/nullrod))
+		var/obj/item/nullrod/N = source
+		bonus_force = N.sanctify_force
+	if(!get_ability(/datum/vampire_passive/full))
+		to_chat(owner.current, SPAN_WARNING("[source]'s power interferes with your own!"))
+		adjust_nullification(30 + bonus_force, 15 + bonus_force)
 
 /datum/antagonist/vampire/custom_blurb()
 	return "On the date [GLOB.current_date_string], at [station_time_timestamp()],\n in the [station_name()], [get_area_name(owner.current, TRUE)]...\nThe hunt begins again..."
+
+// Ramps up as you get more powerfull
+/datum/antagonist/vampire/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1 + bloodtotal / 500)

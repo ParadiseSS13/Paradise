@@ -8,25 +8,23 @@
 	desc = "A small scoop to collect fish eggs with."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
-	slot_flags = SLOT_FLAG_BELT
-	throwforce = 0
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
+	new_attack_chain = TRUE
 
 /obj/item/fish_net
 	name = "fish net"
 	desc = "A tiny net to capture fish with. It's a death sentence!"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
-	slot_flags = SLOT_FLAG_BELT
-	throwforce = 0
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
+	new_attack_chain = TRUE
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	visible_message("<span class='suicide'>[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	visible_message(SPAN_SUICIDE("[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -37,22 +35,21 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
+	new_attack_chain = TRUE
 
 /obj/item/tank_brush
 	name = "aquarium brush"
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
-	slot_flags = SLOT_FLAG_BELT
-	throwforce = 0
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	attack_verb = list("scrubbed", "brushed", "scraped")
+	new_attack_chain = TRUE
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	visible_message(SPAN_SUICIDE("[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -67,6 +64,7 @@
 		/obj/item/fish,
 		/obj/item/fish_eggs,
 		/obj/item/food/shrimp,
+		/obj/item/grown/bananapeel/clownfish,
 	)
 	resistance_flags = FLAMMABLE
 
@@ -101,16 +99,16 @@
 
 /obj/item/fish
 	name = "fish"
-	desc = "A generic fish"
+	desc = "A generic fish."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "fish"
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 	hitsound = 'sound/effects/snap.ogg'
+	new_attack_chain = TRUE
 
 /obj/item/fish/glofish
 	name = "glofish"
@@ -133,20 +131,17 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby(obj/item/O, mob/user as mob)
-	if(istype(O, /obj/item/wirecutters))
-		to_chat(user, "You rip out the teeth of \the [src.name]!")
-		new /obj/item/fish/toothless_shark(get_turf(src))
-		new /obj/item/shard/shark_teeth(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/shark/wirecutter_act(mob/user, obj/item/wirecutters/tool)
+	to_chat(user, SPAN_NOTICE("You rip out the teeth of \the [src.name]!"))
+	new /obj/item/fish/toothless_shark(get_turf(src))
+	new /obj/item/shard/shark_teeth(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fish/toothless_shark
 	name = "toothless shark"
 	desc = "Looks like someone ripped it's teeth out!"
 	icon_state = "shark"
-	hitsound = 'sound/effects/snap.ogg'
 
 /obj/item/shard/shark_teeth
 	name = "shark teeth"
@@ -159,22 +154,21 @@
 
 /obj/item/shard/shark_teeth/set_initial_icon_state()
 	icon_state = "teeth"
-	pixel_x = rand(-5,5)
-	pixel_y = rand(-5,5)
+	scatter_atom()
 
 /obj/item/fish/catfish
 	name = "catfish"
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
-	if(O.sharp)
-		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/catfishmeat(get_turf(src))
-		new /obj/item/food/catfishmeat(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/catfish/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return ..()
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
+	new /obj/item/food/catfishmeat(get_turf(src))
+	new /obj/item/food/catfishmeat(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fish/goldfish
 	name = "goldfish"
@@ -186,14 +180,14 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
-	if(O.sharp)
-		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/salmonmeat(get_turf(src))
-		new /obj/item/food/salmonmeat(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/salmon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return ..()
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
+	new /obj/item/food/salmonmeat(get_turf(src))
+	new /obj/item/food/salmonmeat(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fish/babycarp
 	name = "baby space carp"
@@ -202,14 +196,13 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
-	if(O.sharp)
-		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
-		qdel(src)
-		return
-	..()
-
+/obj/item/fish/babycarp/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return ..()
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
+	new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grown/bananapeel/clownfish
 	name = "clown fish"

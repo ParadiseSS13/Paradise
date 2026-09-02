@@ -104,20 +104,20 @@
 /datum/component/two_handed/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(parent, COMSIG_ACTIVATE_SELF, PROC_REF(on_attack_self))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 	RegisterSignal(parent, COMSIG_CARBON_UPDATE_HANDCUFFED, PROC_REF(on_handcuff_user))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(parent, COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT, PROC_REF(check_unwielded))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED,
 								COMSIG_ITEM_DROPPED,
-								COMSIG_ITEM_ATTACK_SELF,
-								COMSIG_ITEM_ATTACK,
+								COMSIG_ACTIVATE_SELF,
+								COMSIG_ATTACK,
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
 								COMSIG_ITEM_SHARPEN_ACT))
@@ -126,7 +126,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER  // COMSIG_ITEM_EQUIPPED
 
-	if(require_twohands && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)) // force equip the item
+	if(require_twohands && (slot & ITEM_SLOT_BOTH_HANDS)) // force equip the item
 		INVOKE_ASYNC(src, PROC_REF(wield), user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
 		INVOKE_ASYNC(src, PROC_REF(unwield), user)
@@ -151,7 +151,7 @@
 
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK_SELF
+	SIGNAL_HANDLER  // COMSIG_ACTIVATE_SELF
 
 	if(require_twohands)
 		return
@@ -163,7 +163,7 @@
 /datum/component/two_handed/proc/on_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ATTACK_HAND if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 	if(require_twohands && user.get_inactive_hand())
-		to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
+		to_chat(user, SPAN_NOTICE("[parent] is too cumbersome to carry in one hand!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
@@ -177,22 +177,22 @@
 		return
 	if(ismonkeybasic(user))
 		if(require_twohands)
-			to_chat(user, "<span class='notice'>[parent] is too heavy and cumbersome for you to carry!</span>")
-			user.unEquip(parent, force = TRUE)
+			to_chat(user, SPAN_NOTICE("[parent] is too heavy and cumbersome for you to carry!"))
+			user.drop_item_to_ground(parent, force = TRUE)
 		else
-			to_chat(user, "<span class='notice'>[parent] too heavy for you to wield fully.</span>")
+			to_chat(user, SPAN_NOTICE("[parent] too heavy for you to wield fully."))
 		return
 	if(user.get_inactive_hand())
 		if(require_twohands)
-			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
-			user.unEquip(parent, force = TRUE)
+			to_chat(user, SPAN_NOTICE("[parent] is too cumbersome to carry in one hand!"))
+			user.drop_item_to_ground(parent, force = TRUE)
 		else
-			to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
+			to_chat(user, SPAN_WARNING("You need your other hand to be empty!"))
 		return
 	if(!user.has_both_hands())
 		if(require_twohands)
-			user.unEquip(parent, force = TRUE)
-		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
+			user.drop_item_to_ground(parent, force = TRUE)
+		to_chat(user, SPAN_WARNING("You don't have enough intact hands."))
 		return
 
 	// wield update status
@@ -218,13 +218,16 @@
 	parent_item.update_appearance()
 
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [parent].</span>")
+		to_chat(user, SPAN_NOTICE("You dedicate your module to [parent]."))
 	else
-		to_chat(user, "<span class='notice'>You grab [parent] with both hands.</span>")
+		to_chat(user, SPAN_NOTICE("You grab [parent] with both hands."))
 
 	// Play sound if one is set
 	if(wieldsound)
 		playsound(parent_item.loc, wieldsound, 50, TRUE)
+
+	if(attacksound)
+		parent_item.hitsound = attacksound
 
 	// Let's reserve the other hand
 	offhand_item = new(user)
@@ -277,7 +280,7 @@
 	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		if(user.get_item_by_slot(SLOT_HUD_BACK) == parent)
+		if(user.get_item_by_slot(ITEM_SLOT_BACK) == parent)
 			user.update_inv_back()
 		else
 			user.update_inv_l_hand()
@@ -285,20 +288,23 @@
 
 		// if the item requires two handed drop the item on unwield
 		if(require_twohands && can_drop)
-			user.unEquip(parent, force = TRUE)
+			user.drop_item_to_ground(parent, force = TRUE)
 
 		// Show message if requested
 		if(show_message)
 			if(isrobot(user))
-				to_chat(user, "<span class='notice'>You free up your module.</span>")
+				to_chat(user, SPAN_NOTICE("You free up your module."))
 			else if(require_twohands)
-				to_chat(user, "<span class='notice'>You drop [parent].</span>")
+				to_chat(user, SPAN_NOTICE("You drop [parent]."))
 			else
-				to_chat(user, "<span class='notice'>You are now carrying [parent] with one hand.</span>")
+				to_chat(user, SPAN_NOTICE("You are now carrying [parent] with one hand."))
 
 	// Play sound if set
 	if(unwieldsound)
 		playsound(parent_item.loc, unwieldsound, 50, TRUE)
+
+	if(attacksound)
+		parent_item.hitsound = initial(parent_item.hitsound)
 
 	// Remove the object in the offhand
 	if(offhand_item)
@@ -308,13 +314,13 @@
 	offhand_item = null
 
 /**
- * on_attack triggers on attack with the parent item
+ * Check if item is unwielded
+ *
+ * returns TRUE if unwielded
  */
-/datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
-	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
-	if(wielded && attacksound)
-		var/obj/item/parent_item = parent
-		playsound(parent_item.loc, attacksound, 50, TRUE)
+/datum/component/two_handed/proc/check_unwielded()
+	SIGNAL_HANDLER // COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT
+	return wielded ? FALSE : TRUE;
 
 /**
  * on_update_icon triggers on call to update parent items icon
@@ -389,12 +395,12 @@
 		if(require_twohands)
 			INVOKE_ASYNC(src, PROC_REF(try_drop_item), user)
 		else
-			user.visible_message("<span class='notice'>[user] unwields [parent] as the handcuffs make it too hard to hold properly.</span>")
+			user.visible_message(SPAN_NOTICE("[user] unwields [parent] as the handcuffs make it too hard to hold properly."))
 			INVOKE_ASYNC(src, PROC_REF(unwield), user)
 
 /datum/component/two_handed/proc/try_drop_item(mob/user)
-	if(user.unEquip(parent))
-		user.visible_message("<span class='notice'>[user] loses [user.p_their()] grip on [parent]!</span>")
+	if(user.drop_item_to_ground(parent))
+		user.visible_message(SPAN_NOTICE("[user] loses [user.p_their()] grip on [parent]!"))
 
 /**
  * The offhand dummy item for two handed items
@@ -404,7 +410,7 @@
 	name = "offhand"
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT | NODROP | SKIP_TRANSFORM_REEQUIP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/wielded = FALSE // Off Hand tracking of wielded status
 

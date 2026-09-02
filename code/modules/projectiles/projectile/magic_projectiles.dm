@@ -1,13 +1,15 @@
-/obj/item/projectile/magic
+/obj/projectile/magic
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
 	damage_type = OXY
 	nodamage = 1
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	flag = MAGIC
+	antimagic_flags = MAGIC_RESISTANCE
+	antimagic_charge_cost = 1
 
-/obj/item/projectile/magic/death
+/obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = null
 	hitscan = TRUE
@@ -15,16 +17,33 @@
 	tracer_type = /obj/effect/projectile/tracer/death
 	impact_type = /obj/effect/projectile/impact/death
 	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_PURPLE
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
 	muzzle_flash_color_override = LIGHT_COLOR_PURPLE
 	impact_light_intensity = 7
-	impact_light_range =  2.5
+	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_PURPLE
 
-/obj/item/projectile/magic/fireball
+/obj/projectile/magic/death/on_hit(mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return .
+	if(isliving(target))
+		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
+			if(target.revive())
+				target.grab_ghost(force = TRUE) // even suicides
+				to_chat(target, SPAN_NOTICE("You rise with a start, you're undead!!!"))
+			else if(target.stat != DEAD)
+				to_chat(target, SPAN_NOTICE("You feel great!"))
+			return
+		if(ismachineperson(target) || issilicon(target)) //speshul snowfleks deserv speshul treetment
+			target.adjustFireLoss(6969)  //remember - slimes love fire
+		target.death(FALSE)
+
+		target.visible_message(SPAN_DANGER("[target] topples backwards as the death bolt impacts [target.p_them()]!"))
+
+/obj/projectile/magic/fireball
 	name = "bolt of fireball"
 	icon_state = "fireball"
 	damage = 10
@@ -32,30 +51,14 @@
 	nodamage = 0
 	immolate = 6
 
-	//explosion values
+	// explosion values
 	var/exp_devastate = -1
 	var/exp_heavy = 0
 	var/exp_light = 2
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
-	. = ..()
-	if(isliving(target))
-		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
-			if(target.revive())
-				target.grab_ghost(force = TRUE) // even suicides
-				to_chat(target, "<span class='notice'>You rise with a start, you're undead!!!</span>")
-			else if(target.stat != DEAD)
-				to_chat(target, "<span class='notice'>You feel great!</span>")
-			return
-		if(ismachineperson(target) || issilicon(target)) //speshul snowfleks deserv speshul treetment
-			target.adjustFireLoss(6969)  //remember - slimes love fire
-		target.death(FALSE)
-
-		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
-
-/obj/item/projectile/magic/fireball/Range()
+/obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
 	var/turf/T2 = get_step(src,turn(dir, 45))
 	var/turf/T3 = get_step(src,dir)
@@ -73,32 +76,42 @@
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(target)
+/obj/projectile/magic/fireball/on_hit(target)
 	. = ..()
-	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	if(ismob(target))
+		if(!.)
+			return .
+	explosion(get_turf(target), exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
-		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
+		M.adjustFireLoss(10) // between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
 
-/obj/item/projectile/magic/fireball/infernal
+/obj/projectile/magic/fireball/infernal
 	name = "infernal fireball"
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 4
 	exp_fire= 5
 
-/obj/item/projectile/magic/resurrection
+/obj/projectile/magic/fireball/small
+	name = "firebolt"
+	exp_heavy = -1
+	exp_light = 1
+	exp_fire = 3
+
+/obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
 
-/obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
+	if(!.)
+		return .
 	if(ismob(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.death(FALSE)
-			target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+			target.visible_message(SPAN_DANGER("[target] topples backwards as the death bolt impacts [target.p_them()]!"))
 		else
 			var/old_stat = target.stat
 			target.suiciding = FALSE
@@ -109,18 +122,20 @@
 						ghost.reenter_corpse()
 						break
 			if(old_stat != DEAD)
-				to_chat(target, "<span class='notice'>You feel great!</span>")
+				to_chat(target, SPAN_NOTICE("You feel great!"))
 			else
-				to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+				to_chat(target, SPAN_NOTICE("You rise with a start, you're alive!!!"))
 
-/obj/item/projectile/magic/teleport
+/obj/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/item/projectile/magic/teleport/on_hit(mob/target)
+/obj/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
+	if(!.)
+		return .
 	var/teleammount = 0
 	var/teleloc = target
 	if(!isturf(target))
@@ -133,14 +148,13 @@
 			smoke.set_up(max(round(10 - teleammount), 1), FALSE, stuff) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
-/obj/item/projectile/magic/door
+/obj/projectile/magic/door
 	name = "bolt of door creation"
-	icon_state = "energy"
-	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
-		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
+	var/list/door_types = list(/obj/structure/mineral_door/wood, /obj/structure/mineral_door, /obj/structure/mineral_door/silver, \
+		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium, /obj/structure/mineral_door/sandstone, /obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
-/obj/item/projectile/magic/door/on_hit(atom/target)
+/obj/projectile/magic/door/on_hit(atom/target)
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
@@ -154,61 +168,63 @@
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
 
-/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
+/obj/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.operate()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
+/obj/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/item/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
+/obj/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
 		SC.locked = FALSE
 	C.open()
 
-/obj/item/projectile/magic/change
+/obj/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/change/on_hit(atom/change)
+/obj/projectile/magic/change/on_hit(atom/change)
 	. = ..()
+	if(!.)
+		return .
 	wabbajack(change)
 
 GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
-	"carp" = /mob/living/simple_animal/hostile/carp,
-	"bear" = /mob/living/simple_animal/hostile/bear,
+	"carp" = /mob/living/basic/carp,
+	"bear" = /mob/living/basic/bear,
 	"mushroom" = /mob/living/simple_animal/hostile/mushroom,
 	"statue" = /mob/living/simple_animal/hostile/statue,
-	"bat" = /mob/living/simple_animal/hostile/scarybat,
-	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
-	"tomato" = /mob/living/simple_animal/hostile/killertomato,
-	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
-	"kangaroo" = /mob/living/simple_animal/hostile/retaliate/kangaroo,
+	"bat" = /mob/living/basic/scarybat,
+	"goat" = /mob/living/basic/goat,
+	"kangaroo" = /mob/living/basic/kangaroo,
+	"tomato" = /mob/living/basic/killertomato,
+	"gorilla" = /mob/living/basic/gorilla,
 ))
 
 GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"parrot" = /mob/living/simple_animal/parrot,
 	"corgi" = /mob/living/simple_animal/pet/dog/corgi,
-	"crab" = /mob/living/simple_animal/crab,
+	"crab" = /mob/living/basic/crab,
 	"cat" = /mob/living/simple_animal/pet/cat,
-	"mouse" = /mob/living/simple_animal/mouse,
-	"chicken" = /mob/living/simple_animal/chicken,
-	"cow" = /mob/living/simple_animal/cow,
-	"lizard" = /mob/living/simple_animal/lizard,
+	"mouse" = /mob/living/basic/mouse,
+	"chicken" = /mob/living/basic/chicken,
+	"cow" = /mob/living/basic/cow,
+	"lizard" = /mob/living/basic/lizard,
 	"fox" = /mob/living/simple_animal/pet/dog/fox,
-	"chick" = /mob/living/simple_animal/chick,
+	"chick" = /mob/living/basic/chick,
 	"pug" = /mob/living/simple_animal/pet/dog/pug,
-	"turkey" = /mob/living/simple_animal/turkey,
-	"seal" = /mob/living/simple_animal/seal,
-	"bunny" = /mob/living/simple_animal/bunny,
-	"penguin" = /mob/living/simple_animal/pet/penguin/emperor,
+	"turkey" = /mob/living/basic/turkey,
+	"seal" = /mob/living/basic/seal,
+	"bunny" = /mob/living/basic/bunny,
+	"penguin" = /mob/living/basic/pet/penguin/emperor,
 ))
 
 /proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
@@ -223,7 +239,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 		if(isrobot(M))
 			var/mob/living/silicon/robot/Robot = M
 			QDEL_NULL(Robot.mmi)
-			Robot.notify_ai(1)
+			Robot.notify_ai(NEW_BORG)
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
@@ -235,7 +251,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				for(var/i in H.internal_organs)
 					qdel(i)
 			for(var/obj/item/W in M)
-				M.unEquip(W, 1)
+				M.unequip(W, force = TRUE)
 				qdel(W)
 
 		var/mob/living/new_mob
@@ -286,7 +302,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
-				to_chat(M, chat_box_red("<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>"))
+				to_chat(M, chat_box_red(SPAN_USERDANGER("Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!")))
 			if("terror")
 				var/terror_type = pick(
 					/mob/living/simple_animal/hostile/poison/terror_spider/red,
@@ -294,7 +310,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 					/mob/living/simple_animal/hostile/poison/terror_spider/gray,
 					/mob/living/simple_animal/hostile/poison/terror_spider/black)
 				new_mob = new terror_type(M.loc)
-				to_chat(M, chat_box_red("<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror-spider lifeforms!</span>"))
+				to_chat(M, chat_box_red(SPAN_USERDANGER("Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards all non-terror-spider lifeforms!")))
 			if("animal")
 				if(prob(50))
 					var/beast = pick(GLOB.wabbajack_hostile_animals)
@@ -332,12 +348,12 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 		qdel(M)
 		return new_mob
 
-/obj/item/projectile/magic/animate
+/obj/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(atom/change)
+/obj/projectile/magic/animate/Bump(atom/change)
 	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
@@ -348,7 +364,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				if(H.mind)
 					H.mind.transfer_to(S)
 					var/list/messages = list()
-					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add(SPAN_USERDANGER("You have been transformed into an animated statue."))
 					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
 					messages.Add("Do not harm [firer.name], your creator.")
 					to_chat(S, chat_box_red(messages.Join("<br>")))
@@ -358,16 +374,16 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 		else
 			var/obj/O = change
 			if(isgun(O))
-				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
+				new /mob/living/basic/mimic/copy/ranged(O.loc, O, firer)
 			else
-				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
-	else if(istype(change, /mob/living/simple_animal/hostile/mimic/copy))
+				new /mob/living/basic/mimic/copy(O.loc, O, firer)
+	else if(istype(change, /mob/living/basic/mimic/copy))
 		// Change our allegiance!
-		var/mob/living/simple_animal/hostile/mimic/copy/C = change
+		var/mob/living/basic/mimic/copy/C = change
 		C.ChangeOwner(firer)
 	return ..()
 
-/obj/item/projectile/magic/slipping
+/obj/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
@@ -375,33 +391,33 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
 
-/obj/item/projectile/magic/slipping/New()
+/obj/projectile/magic/slipping/New()
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
+/obj/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(!.)
+		return .
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.slip(src, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
-			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
+			to_chat(target, SPAN_WARNING("You get splatted by [src], HONKING your sensors!"))
 			R.Stun(slip_stun)
 	else if(isliving(target))
 		var/mob/living/L = target
 		if(!L.IsStunned())
-			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
+			to_chat(target, SPAN_NOTICE("You get splatted by [src]."))
 			L.Weaken(slip_weaken)
 			L.Stun(slip_stun)
-	. = ..()
 
-/obj/item/projectile/magic/arcane_barrage
+/obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
 	icon_state = "arcane_barrage"
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
-	armour_penetration_flat = 0
-	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'

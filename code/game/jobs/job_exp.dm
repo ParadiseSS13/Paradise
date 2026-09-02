@@ -19,6 +19,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,
 	ROLE_ELITE = 5,
+	ROLE_FLOCK = 20,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
@@ -30,15 +31,12 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_CULTIST = 20,
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 20,
+	ROLE_UPLIFTED_PRIMITIVE = 10,
 ))
 
 // Admin Verbs
-
-/client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
-	set category = "Admin"
-	set name = "Check Player Playtime"
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
-		return
+/// Allows admins to determine who the newer players are.
+USER_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Return a playtime report.", VERB_CATEGORY_ADMIN)
 	var/list/msg = list()
 	msg  += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob
@@ -69,8 +67,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		msg += "</TR>"
 
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg.Join(""), "window=Player_playtime_check")
-
+	client << browse(msg.Join(""), "window=Player_playtime_check")
 
 /datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)

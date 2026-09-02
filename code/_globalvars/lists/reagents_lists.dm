@@ -9,25 +9,28 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 // Rare medicines
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
-GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
-					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
-					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
-					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
-					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",
-					"tequila","vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
-					"ice","bilk","atomicbomb","threemileisland","goldschlager","patron","gintonic",
-					"cubalibre","whiskeycola","martini","vodkamartini","whiterussian","screwdrivercocktail",
-					"booger","bloodymary","gargleblaster","bravebull","tequilasunrise","toxinsspecial",
-					"beepskysmash","salglu_solution","irishcream","manlydorf","longislandicedtea",
-					"moonshine","b52","irishcoffee","margarita","blackrussian","manhattan",
-					"manhattan_proj","whiskeysoda","adminfreeze","antifreeze","barefoot","snowwhite","demonsblood",
-					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
-					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
-					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
-					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe",
-					"arnold_palmer","gimlet","sidecar","whiskeysour","mintjulep","pinacolada","sontse","ahdomaieclipse",
-					"beachfeast","fyrsskartears","junglevox","slimemold","dieseife","aciddreams","islaywhiskey","ultramatter",
-					"howler", "dionasmash"))
+GLOBAL_LIST_EMPTY(alcoholic_drinks)
+GLOBAL_LIST_EMPTY(soft_drinks)
+GLOBAL_LIST_EMPTY(synthanolic_drinks)
+GLOBAL_LIST_EMPTY(synthetic_soft_drinks)
+
+/proc/populate_global_drink_lists()
+	for(var/path in subtypesof(/datum/reagent/consumable))
+		var/datum/reagent/consumable/beverage = path
+		if(beverage.description == ABSTRACT_TYPE_DESC || beverage.id == "bacchus_blessing")
+			// Skip abstract drinks that we shouldn't be spawning
+			continue
+		if(ispath(beverage, /datum/reagent/consumable/ethanol/synthanol))
+			GLOB.synthanolic_drinks += beverage.id
+			continue
+		if(ispath(beverage, /datum/reagent/consumable/ethanol))
+			GLOB.alcoholic_drinks += beverage.id
+			continue
+		if(beverage.taste_flag == SYNTHETIC)
+			GLOB.synthetic_soft_drinks += beverage.id
+			continue
+		if(ispath(beverage, /datum/reagent/consumable/drink))
+			GLOB.soft_drinks += beverage.id
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))
@@ -41,12 +44,14 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "liquid_dark_matter", "b_sorium",
-							"reagent", "dragonsbreath", "nanocalcium",
-							"xenomicrobes", "nanomachines", "gibbis", "prions",
+							"reagent", "drink", "medicine", "plantnutrient", "consumable", "dragonsbreath",
+							"nanocalcium", "xenomicrobes", "nanomachines", "gibbis", "prions",
 							"spidereggs", "heartworms", "bacon_grease",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2",
 							"curare", "gluttonytoxin", "smoke_powder", "stimulative_cling",
 							"teslium_paste", "omnizine_no_addiction", "zombiecure1",
-							"zombiecure2", "zombiecure3", "zombiecure4"
+							"zombiecure2", "zombiecure3", "zombiecure4",
+							"admincleaner_all", "admincleaner_item", "admincleaner_mob",
+							"synthetic_omnizine_no_addiction", "surge_plus", "viral_eraser",
 							))

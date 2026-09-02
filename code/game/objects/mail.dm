@@ -1,14 +1,13 @@
 /obj/item/envelope
 	name = "broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
-	force = 0
-	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_misc"
-	item_state = "paper"
+	inhand_icon_state = "paper"
+	w_class = WEIGHT_CLASS_SMALL
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
+	new_attack_chain = TRUE
 
 	var/list/possible_contents = list()
 	/// A list that contains the names of the jobs that can receive this type of letter. Only the base job has to be put in it, alternative titles have the same definition on the mind. Name of the job can be found in `mind.assigned_role`
@@ -20,23 +19,26 @@
 	var/has_been_scanned = FALSE
 
 /obj/item/envelope/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is licking a sharp corner of the envelope. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is licking a sharp corner of the envelope. It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/effects/-adminhelp.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/envelope/attack_self(mob/user)
+/obj/item/envelope/activate_self(mob/user)
 	if(!user?.mind)
-		return
+		return ..()
+
 	if(user.real_name != recipient)
-		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
-		return
+		to_chat(user, SPAN_WARNING("You don't want to open up another person's mail, that's an invasion of their privacy!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
-		to_chat(user, "<span class='notice'>You begin to open the envelope.</span>")
+		to_chat(user, SPAN_NOTICE("You begin to open the envelope."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
-		user.unEquip(src)
+		user.unequip(src)
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/envelope/Initialize(mapload)
 	. = ..()
@@ -76,7 +78,7 @@
 							/obj/item/toy/figure/crew/hos,
 							/obj/item/toy/figure/crew/secofficer,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Head of Security", "Security Officer", "Detective", "Warden")
+	job_list = DEP_MAIL_LIST_SECURITY
 
 /obj/item/envelope/science
 	icon_state = "mail_sci"
@@ -94,7 +96,7 @@
 							/obj/item/toy/figure/crew/roboticist,
 							/obj/item/toy/figure/crew/scientist,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Research Director", "Roboticist", "Geneticist", "Scientist")
+	job_list = DEP_MAIL_LIST_SCIENCE
 
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
@@ -111,7 +113,7 @@
 							/obj/item/toy/figure/crew/qm,
 							/obj/item/toy/figure/crew/miner,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+	job_list = DEP_MAIL_LIST_SUPPLY
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -122,7 +124,7 @@
 							/obj/item/reagent_containers/applicator/burn,
 							/obj/item/clothing/glasses/sunglasses,
 							/obj/item/food/fortunecookie,
-							/obj/item/scalpel/laser/laser1,
+							/obj/item/scalpel/laser,
 							/obj/item/surgical_drapes,
 							/obj/item/toy/figure/crew/cmo,
 							/obj/item/toy/figure/crew/chemist,
@@ -130,12 +132,12 @@
 							/obj/item/toy/figure/crew/md,
 							/obj/item/toy/figure/crew/virologist,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
+	job_list = DEP_MAIL_LIST_MEDICAL
 
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
-							/obj/item/reagent_containers/drinks/cans/beer,
+							/obj/item/reagent_containers/drinks/bottle/beer,
 							/obj/item/food/candy/confectionery/nougat,
 							/obj/item/mod/module/storage/large_capacity,
 							/obj/item/weldingtool/hugetank,
@@ -146,7 +148,7 @@
 							/obj/item/toy/figure/crew/ce,
 							/obj/item/toy/figure/crew/engineer,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+	job_list = DEP_MAIL_LIST_ENGINEERING
 
 /obj/item/envelope/bread
 	icon_state = "mail_serv"
@@ -164,7 +166,7 @@
 							/obj/item/toy/figure/crew/janitor,
 							/obj/item/toy/figure/crew/librarian,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Librarian")
+	job_list = DEP_MAIL_LIST_BREAD
 
 /obj/item/envelope/circuses
 	icon_state = "mail_serv"
@@ -181,7 +183,7 @@
 							/obj/item/toy/figure/crew/chaplain,
 							/obj/item/toy/figure/crew/mime,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Clown", "Mime", "Head of Personnel", "Chaplain")
+	job_list = DEP_MAIL_LIST_SERVICE
 
 
 /obj/item/envelope/command
@@ -198,7 +200,7 @@
 							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
+	job_list = DEP_MAIL_LIST_COMMAND
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
@@ -213,7 +215,7 @@
 							/obj/item/toy/figure/owl,
 							/obj/item/toy/figure/griffin,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Assistant")
+	job_list = DEP_MAIL_LIST_MISC
 
 
 	/*//////////////////////\/
@@ -230,70 +232,97 @@
 
 /obj/item/mail_scanner
 	name = "mail scanner"
-	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
-	force = 0
-	throwforce = 0
+	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
-	item_state = "mail_scanner"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1"
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
 	/// How far away can the scanner scan mail or people
 	var/scanner_range = 7
+	new_attack_chain = TRUE
 
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.</span>"
+	. += SPAN_NOTICE("Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.")
 
-/obj/item/mail_scanner/attack()
-	return
+/obj/item/mail_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(get_dist(target, user) > scanner_range)
+		to_chat(user, SPAN_WARNING("The scanner doesn't reach that far!"))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/mail_scanner/afterattack(atom/A, mob/user)
-	if(get_dist(A, user) > scanner_range)
-		to_chat(user, "<span class='warning'>The scanner doesn't reach that far!</span>")
-		return
-	if(istype(A, /obj/item/envelope))
-		var/obj/item/envelope/envelope = A
-		if(envelope.has_been_scanned)
-			to_chat(user, "<span class='warning'>This letter has already been logged to the active database!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
-		to_chat(user, "<span class='notice'>You add [envelope] to the active database.</span>")
-		playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
-		saved = A
-		SSblackbox.record_feedback("amount", "successful_mail_scan", 1)
-		return
-	if(isliving(A))
-		var/mob/living/M = A
-		if(!saved)
-			to_chat(user, "<span class='warning'>Error: You have not logged mail to the mail scanner!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+	if(istype(target, /obj/item/envelope))
+		scan_envelope(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-		if(M.stat == DEAD)
-			to_chat(user, "<span class='warning'>Consent Verification failed: You can't deliver mail to a corpse!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+	if(isliving(target))
+		scan_recipient(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-		if(M.real_name != saved.recipient)
-			to_chat(user, "<span class='warning'>'Identity Verification failed: Target is not an authorized recipient of this package!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+	return ..()
 
-		if(!M.client)
-			to_chat(user, "<span class='warning'>Consent Verification failed: The scanner will not accept confirmation of orders from SSD people!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+/obj/item/mail_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/item/envelope))
+		scan_envelope(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-		saved.has_been_scanned = TRUE
-		saved = null
-		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
-		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
-		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
-		SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)
+	if(isliving(target))
+		scan_recipient(target, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/item/mail_scanner/proc/scan_envelope(obj/item/envelope/envelope, mob/user)
+	if(!istype(envelope))
+		return FALSE
+
+	if(envelope.has_been_scanned)
+		to_chat(user, SPAN_WARNING("This letter has already been logged to the active database!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	to_chat(user, SPAN_NOTICE("You add [envelope] to the active database."))
+	playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
+	saved = envelope
+	SSblackbox.record_feedback("amount", "successful_mail_scan", 1)
+	add_fingerprint(user)
+	return TRUE
+
+/obj/item/mail_scanner/proc/scan_recipient(mob/living/recipient, mob/user)
+	if(!istype(recipient))
+		return FALSE
+
+	if(!saved)
+		to_chat(user, SPAN_WARNING("Error: You have not logged mail to the mail scanner!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	if(recipient.stat == DEAD)
+		to_chat(user, SPAN_WARNING("Consent Verification failed: You can't deliver mail to a corpse!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	if(recipient.real_name != saved.recipient)
+		to_chat(user, SPAN_WARNING("'Identity Verification failed: Target is not an authorized recipient of this package!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	if(!recipient.client)
+		to_chat(user, SPAN_WARNING("Consent Verification failed: The scanner will not accept confirmation of orders from SSD people!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	saved.has_been_scanned = TRUE
+	saved = null
+	to_chat(user, SPAN_NOTICE("Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!"))
+	playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
+	GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Nanotrasen Mail and Interstellar Logistics", supress_log = FALSE)
+	SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)
+	add_fingerprint(user)
+	return TRUE

@@ -6,18 +6,16 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "minibar"
 	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/deconstructible = TRUE
 
 /obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
 	if(!deconstructible)
 		return FALSE
 
-	user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts disassembling [src]..."), SPAN_NOTICE("You start disassembling [src]..."))
 	playsound(loc, I.usesound, 50, TRUE)
 	if(I.use_tool(src, user, 5 SECONDS, 0, 50))
-		user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
+		user.visible_message(SPAN_NOTICE("[user] disassembles [src]!"), SPAN_NOTICE("You break down [src] into scrap metal."))
 		playsound(user, 'sound/items/deconstruct.ogg', 50, TRUE)
 		new /obj/item/stack/sheet/metal(drop_location())
 		qdel(src)
@@ -73,7 +71,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
-	anchored = TRUE
+	icon_state = null
 	density = TRUE
 
 /obj/structure/fluff/divine/nexus
@@ -83,5 +81,5 @@
 
 /obj/structure/fluff/divine/conduit
 	name = "conduit"
-	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
+	desc = "It allows a deity to extend their reach. Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"

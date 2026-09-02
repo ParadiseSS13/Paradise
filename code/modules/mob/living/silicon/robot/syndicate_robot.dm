@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/syndicate
-	base_icon = "syndie_bloodhound"
-	icon_state = "syndie_bloodhound"
+	icon_state = "spidersyndi"
+	base_icon_state = "spidersyndi"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
@@ -9,6 +9,7 @@
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
+	allow_resprite = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = TRUE
 	damage_protection = 5
@@ -21,11 +22,11 @@
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
 							<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/New(loc)
-	..()
+/mob/living/silicon/robot/syndicate/Initialize(mapload, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+	. = ..()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
-/mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/syndicate/init(mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/robot_module/syndicate(src)
 
@@ -39,9 +40,14 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
+/mob/living/silicon/robot/syndicate/air_push(direction, strength)
+	// Syndicate borgs ignore airflow, because they're bloody expensive.
+	// This should probably be revisited later, as part of a broader move_resist/move_force/pull_force rework.
+	return
+
 /mob/living/silicon/robot/syndicate/medical
-	base_icon = "syndi-medi"
-	icon_state = "syndi-medi"
+	icon_state = "syndi_medi"
+	base_icon_state = "syndi_medi"
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
@@ -53,13 +59,13 @@
 						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/medical/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/syndicate/medical/init(mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
 	module = new /obj/item/robot_module/syndicate_medical(src)
 
 /mob/living/silicon/robot/syndicate/saboteur
-	base_icon = "syndi-engi"
-	icon_state = "syndi-engi"
+	icon_state = "syndi_engi"
+	base_icon_state = "syndi_engi"
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
@@ -78,7 +84,7 @@
 						Be aware that physical contact or taking damage will break your disguise. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/saboteur/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/syndicate/saboteur/init(mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
@@ -108,14 +114,14 @@
 		for(var/obj/item/borg_chameleon/C in module.contents)
 			cham_proj = C
 		if(!cham_proj)
-			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
+			to_chat(src, SPAN_WARNING("Error : No chameleon projector system found."))
 			return
-	cham_proj.attack_self(src)
+	cham_proj.attack_self__legacy__attackchain(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
+/mob/living/silicon/robot/syndicate/saboteur/attack_by(obj/item/attacking, mob/living/user, params)
+	. = ..()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)

@@ -1,7 +1,5 @@
 /mob/living/Logout()
 	update_z(null)
-	if(ranged_ability && client)
-		ranged_ability.remove_mousepointer(client)
 	if(isobj(loc))
 		var/obj/our_location = loc
 		if(length(our_location.client_mobs_in_contents))

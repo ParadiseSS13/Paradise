@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will burn to death for being a heretic."
-	severity = HARMFUL
+	severity = VIRUS_HARMFUL
 
 /datum/disease/fluspanish/stage_act()
 	if(!..())
@@ -24,5 +24,5 @@
 	if(prob(3 * stage_factor))
 		affected_mob.emote("cough")
 	if(prob(2.5 * stage_factor))
-		to_chat(affected_mob, "<span class='danger'>You're burning in your own skin!</span>")
+		to_chat(affected_mob, SPAN_DANGER("You're burning in your own skin!"))
 		affected_mob.adjustFireLoss(5)

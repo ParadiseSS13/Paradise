@@ -63,12 +63,9 @@
 /area/shuttle/escape)
 "ar" = (
 /obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "at" = (
@@ -85,9 +82,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ay" = (
@@ -126,13 +121,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/wood,
 /area/shuttle/escape)
-"aF" = (
-/obj/machinery/door/airlock/wood/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/grass,
-/area/shuttle/escape)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
@@ -163,7 +151,7 @@
 	},
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aN" = (
@@ -269,7 +257,7 @@
 /area/shuttle/escape)
 "bn" = (
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bo" = (
@@ -313,7 +301,7 @@
 /area/shuttle/escape)
 "by" = (
 /obj/structure/table/wood,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bz" = (
@@ -321,13 +309,10 @@
 	dir = 1
 	},
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/goat,
+/mob/living/basic/goat,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bA" = (
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
 /obj/structure/chair/sofa/bamboo{
 	dir = 1
 	},
@@ -538,6 +523,9 @@
 /area/shuttle/escape)
 "cq" = (
 /obj/machinery/sleeper,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cr" = (
@@ -550,11 +538,8 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cu" = (
@@ -717,7 +702,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/retaliate/goat,
+/mob/living/basic/goat,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "qH" = (
@@ -731,7 +716,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "tc" = (
-/obj/structure/bonfire/lit/dense,
+/obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -747,12 +732,12 @@
 /area/shuttle/escape)
 "xd" = (
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /obj/machinery/light/small,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Av" = (
-/mob/living/simple_animal/bunny,
+/mob/living/basic/bunny,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "BA" = (
@@ -807,7 +792,7 @@
 /obj/structure/chair/sofa/bamboo{
 	dir = 8
 	},
-/mob/living/simple_animal/bunny,
+/mob/living/basic/bunny,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "LW" = (
@@ -837,6 +822,14 @@
 	},
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
+"PX" = (
+/obj/machinery/door/airlock/wood/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
 "Rr" = (
 /obj/structure/flora/junglebush,
 /obj/machinery/light/small{
@@ -851,7 +844,7 @@
 /area/shuttle/escape)
 "SO" = (
 /obj/structure/flora/grass/jungle,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "TY" = (
@@ -1122,7 +1115,7 @@ ah
 mC
 SO
 cu
-aF
+PX
 cv
 bM
 ia
@@ -1153,7 +1146,7 @@ ai
 mC
 IH
 cv
-aF
+PX
 SO
 cu
 bM
@@ -1308,7 +1301,7 @@ aa
 aa
 aa
 ab
-ab
+aD
 eP
 HY
 bM

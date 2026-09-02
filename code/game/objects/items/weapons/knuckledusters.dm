@@ -18,37 +18,53 @@
 	var/elite = FALSE
 	/// How much organ damage can the weapon do?
 	var/trauma = 5
+	new_attack_chain = TRUE
 
-/obj/item/melee/knuckleduster/attack_self(mob/user)
+/obj/item/melee/knuckleduster/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	add_fingerprint(user)
+
 	if(!gripped)
 		gripped = TRUE
-		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
-		flags |= (NODROP | ABSTRACT)
-	else
-		gripped = FALSE
-		to_chat(user, "You relax your grip on [src].")
-		flags &= ~(NODROP | ABSTRACT)
+		to_chat(user, SPAN_NOTICE("You tighten your grip on [src], ensuring you won't drop it."))
+		set_nodrop(TRUE, user)
+		ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
+		return ITEM_INTERACT_COMPLETE
+
+	gripped = FALSE
+	to_chat(user, SPAN_NOTICE("You relax your grip on [src]."))
+	set_nodrop(FALSE, user)
+	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/knuckleduster/dropped(mob/user, silent)
 	. = ..()
 	gripped = FALSE
-	flags &= ~(NODROP | ABSTRACT)
+	set_nodrop(FALSE, user)
+	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 
-/obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
-	. = ..()
+/obj/item/melee/knuckleduster/pre_attack(atom/target, mob/living/user, params)
 	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	return ..()
+
+/obj/item/melee/knuckleduster/after_attack(mob/living/carbon/human/target, mob/user, proximity_flag, click_parameters)
+	if(..())
+		return FINISH_ATTACK
 	if(!ishuman(target) || QDELETED(target))
-		return
+		return FINISH_ATTACK
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)
 	if(!length(punched.internal_organs))
-		return
+		return FINISH_ATTACK
 
 	var/obj/item/organ/internal/squishy = pick(punched.internal_organs)
 	if(gripped && elite)
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard by a metal object
+	return FINISH_ATTACK
 
 /obj/item/melee/knuckleduster/syndie
 	name = "syndicate knuckleduster"
@@ -63,12 +79,15 @@
 	name = "engraved knuckleduster"
 	desc = "Perfect for giving that Greytider a golden, painful lesson."
 	icon_state = "knuckleduster_nt"
-	force = 10
 	throwforce = 5
-	origin_tech = "combat=3"
+	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Steal objectives shouldnt be easy to destroy.
 	materials = list(MAT_GOLD = 500, MAT_TITANIUM = 200, MAT_PLASMA = 200)
 	trauma = 10
+
+/obj/item/melee/knuckleduster/nanotrasen/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/melee/knuckleduster/nanotrasen/examine_more(mob/user)
 	. = ..()

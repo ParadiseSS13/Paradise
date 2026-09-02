@@ -20,8 +20,9 @@ has the ability to look at the changes between two maps, merge them together
 correctly, and provide markers on the map where it requires a contributor to
 make a manual change.
 
-To install Mapmerge, run `\tools\hooks\Install.bat`. Further usage of Mapmerge
-is documented in the [Guide to Mapmerge]().
+To install Mapmerge, run `\tools\hooks\Install.bat`.
+
+Further documentation on Mapmerge is forthcoming.
 
 <div class="warning">
 

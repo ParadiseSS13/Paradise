@@ -2,7 +2,6 @@
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
-	has_gravity = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = MINING_SOUNDS
 
@@ -16,13 +15,14 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/survivalcapsule/emag_act()
 	if(!emagged)
-		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		to_chat(usr, SPAN_WARNING("You short out the safeties, allowing it to be placed in the station sector."))
 		emagged = TRUE
 		return TRUE
-	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+	to_chat(usr, SPAN_WARNING("The safeties are already shorted out!"))
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -38,28 +38,31 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/activate_self(mob/user)
+	if(..())
+		return
+
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
-		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+		loc.visible_message(SPAN_WARNING("[src] begins to shake. Stand back!"))
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		var/turf/UT = get_turf(usr)
 		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
-			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			to_chat(usr, SPAN_NOTICE("Error. Deployment was attempted on the station sector. Deployment aborted."))
 			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 			used = FALSE
 			return
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
-				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
+				loc.visible_message(SPAN_WARNING("[src] will not function in this area."))
 			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
 				var/width = template.width
 				var/height = template.height
-				loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+				loc.visible_message(SPAN_WARNING("[src] doesn't have room to deploy! You need to clear a [width]x[height] area!"))
 
 		if(status != SHELTER_DEPLOY_ALLOWED)
 			used = FALSE
@@ -73,24 +76,35 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+
+		// get structures on turf, then delete large rocks and plants
+		var/affected_turfs = template.get_affected_turfs(deploy_location, TRUE)
+		for(var/turf/selected_turf as anything in affected_turfs)
+			for(var/obj/structure/flora/ash/found_flora in selected_turf)
+				qdel(found_flora)
+
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
-	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace. It is made of durable materials more capable of withstanding harsh weather over standard capsules."
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
+
+// for things that shouldnt affect specifically the luxury pods
+/area/survivalpod/luxurypod
+	name = "\improper Luxury Shelter"
 
 //Pod turfs and objects
 
 //Window
 /obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
-	smoothing_flags = SMOOTH_BITMASK
-	glass_type = /obj/item/stack/sheet/titaniumglass
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/pod_window_edges.dmi'
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
@@ -98,6 +112,10 @@
 	name = "pod window"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
+
+/obj/structure/window/full/shuttle/survival_pod/tinted
+	name = "tinted pod window"
+	opacity = TRUE
 
 //Floors
 /turf/simulated/floor/pod
@@ -136,9 +154,15 @@
 	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
 
+/obj/machinery/door/airlock/survival_pod/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/survival_pod/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
@@ -165,7 +189,6 @@
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "sleeper-open"
 	density = FALSE
 
 /obj/machinery/sleeper/survival_pod/Initialize(mapload)
@@ -180,14 +203,23 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	update_icon()
+
+/obj/machinery/sleeper/survival_pod/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_lightmask")
 
 //NanoMed
 /obj/machinery/economy/vending/wallmed/survival_pod
-	name = "survival pod medical supply"
+	name = "survival pod emergency medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
-	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2)
+	products = list(/obj/item/stack/medical/bruise_pack = 1,
+				/obj/item/stack/medical/ointment = 1,
+				/obj/item/reagent_containers/syringe/charcoal = 1,
+				/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 2,
+				/obj/item/stack/medical/splint = 1,
+	)
 	contraband = list()
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
@@ -199,26 +231,37 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
 	anchored = TRUE
 	density = TRUE
+	tracking = TRUE
 	pixel_y = -32
+	light_power = 1.4
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = "#79dcc4"
+
+/obj/item/gps/computer/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/gps/computer/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
-						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] starts to disassemble [src]."), \
+						SPAN_NOTICE("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
 		return
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-				"<span class='notice'>You disassemble [src].</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+				SPAN_NOTICE("You disassemble [src]."), "You hear clanking and banging noises.")
 	new /obj/item/gps(loc)
 	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self(user)
+	ui_interact(user)
 
 //Bed
 /obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "bed"
 
 //Survival Storage Unit
 /obj/machinery/smartfridge/survival_pod
@@ -226,9 +269,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	desc = "A heated storage unit."
 	icon_state = "donkvendor"
 	icon = 'icons/obj/lavaland/donkvendor.dmi'
-	light_range = 8
-	light_power = 1.2
-	light_color = "#DDFFD3"
+	light_range_on = 3
+	light_power_on = 1
+	light_color = "#79dcc4"
 	max_n_of_items = 10
 	pixel_y = -4
 	flags = NODECONSTRUCT
@@ -254,7 +297,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	return
 
 /obj/machinery/smartfridge/survival_pod/update_overlays()
-	return list()
+	underlays.Cut()
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
@@ -279,7 +323,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	recalculate_atmos_connectivity()
 
@@ -299,12 +343,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
-						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] starts to disassemble [src]."), \
+						SPAN_NOTICE("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-						"<span class='notice'>You disassemble [src].</span>", "You hear something fall on the floor.")
+	user.visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+						SPAN_NOTICE("You disassemble [src]."), "You hear something fall on the floor.")
 	deconstruct()
 
 /obj/structure/fans/tiny
@@ -327,13 +371,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
+	layer = TABLE_LAYER // scuffed but it works
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"
 	desc = "A high visibility sign designating a safe shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "survival"
 
 //Fluff
@@ -343,12 +386,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = FALSE
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/W)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+						SPAN_NOTICE("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(!W.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
 	new /obj/item/stack/rods(loc)
@@ -374,11 +416,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 						/obj/item/stack/telecrystal/twenty,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)
 	icon = initial(I.icon)
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
-	item_state = initial(I.item_state)
+	inhand_icon_state = initial(I.inhand_icon_state)
+	lefthand_file = initial(I.lefthand_file)
+	righthand_file = initial(I.righthand_file)
+	slot_flags = initial(I.slot_flags)
+	w_class = initial(I.w_class)

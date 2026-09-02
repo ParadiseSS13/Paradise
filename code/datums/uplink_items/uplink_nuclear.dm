@@ -5,10 +5,10 @@
 ////////////////////////////////////////
 
 /datum/uplink_item/dangerous/aps
-	name = "Stechkin APS Pistol"
+	name = "Type 230 Machine Pistol"
 	reference = "APS"
-	desc = "The automatic machine pistol version of the FK-69 'Stechkin' chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
-	item = /obj/item/gun/projectile/automatic/pistol/APS
+	desc = "A compact machine pistol, chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
+	item = /obj/item/gun/projectile/automatic/pistol/type_230
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -66,7 +66,7 @@
 
 /datum/uplink_item/dangerous/combat_defib
 	name = "Combat Defibrillator Module"
-	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a modsuit."
+	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a MODsuit."
 	reference = "CD"
 	item = /obj/item/mod/module/defibrillator/combat
 	cost = 60
@@ -90,6 +90,14 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/dangerous/bulldog
+	name = "Bulldog Shotgun"
+	desc = "Lean and mean: Optimized for people that want to get up close and personal. Extra Ammo sold separately."
+	reference = "BULD"
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog
+	cost = 15
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 ////////////////////////////////////////
 // MARK: SUPPORT AND MECHAS
 ////////////////////////////////////////
@@ -101,11 +109,10 @@
 
 /datum/uplink_item/support/gygax
 	name = "Gygax Exosuit"
-	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks. \
-	This model lacks a method of space propulsion, and therefore it is advised to repair the mothership's teleporter if you wish to make use of it."
+	desc = "A lightweight exosuit, painted in a dark scheme. Its speed and equipment selection make it excellent for hit-and-run style attacks."
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
-	cost = 400
+	cost = 350
 
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"
@@ -128,7 +135,7 @@
 /datum/uplink_item/support/reinforcement/assault_borg
 	name = "Syndicate Assault Cyborg"
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel. \
-			Comes equipped with a self-resupplying LMG, a grenade launcher, energy sword, emag, pinpointer, flash and crowbar."
+			Comes equipped with a self-resupplying LMG, a grenade launcher, energy sword, emag, pinpointer, flash, and crowbar."
 	reference = "SAC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
@@ -137,7 +144,7 @@
 /datum/uplink_item/support/reinforcement/medical_borg
 	name = "Syndicate Medical Cyborg"
 	desc = "A combat medical cyborg. Has limited offensive potential, but makes more than up for it with its support capabilities. \
-			It comes equipped with a nanite hypospray, a medical beamgun, combat defibrillator, full surgical kit including an energy saw, an emag, pinpointer and flash. \
+			It comes equipped with a nanite hypospray, a medical beamgun, combat defibrillator, full surgical kit including an energy saw, an emag, pinpointer, and flash. \
 			Thanks to its organ storage bag, it can perform surgery as well as any humanoid."
 	reference = "SMC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
@@ -158,32 +165,32 @@
 ////////////////////////////////////////
 
 /datum/uplink_item/ammo/aps
-	name = "Stechkin APS - 10mm Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds that are cheap but around half as effective as .357"
+	name = "Type 230 - 10mm Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MMAPS"
 	item = /obj/item/ammo_box/magazine/apsm10mm
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/apsap
-	name = "Stechkin APS - 10mm Armour Piercing Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
+	name = "Type 230 - 10mm Armour Piercing Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
 	reference = "10MMAPSAP"
 	item = /obj/item/ammo_box/magazine/apsm10mm/ap
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/apsfire
-	name = "Stechkin APS - 10mm Incendiary Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with incendiary rounds which ignite the target."
+	name = "Type 230 - 10mm Incendiary Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMAPSFIRE"
 	item = /obj/item/ammo_box/magazine/apsm10mm/fire
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/apshp
-	name = "Stechkin APS - 10mm Hollow Point Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds which are more damaging but ineffective against armour."
+	name = "Type 230 - 10mm Hollow Point Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMAPSHP"
 	item = /obj/item/ammo_box/magazine/apsm10mm/hp
 	cost = 20
@@ -223,18 +230,19 @@
 
 /datum/uplink_item/ammo/bulldog_ammobag
 	name = "Bulldog - 12g Ammo Duffel Bag"
-	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
+	desc = "A duffel bag filled with nine 8-round drum magazines. (6 Slug, 2 Buckshot, 1 Dragon's Breath)"
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/shotgun
 	cost = 60 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/ammo/bulldog_XLmagsbag
-	name = "Bulldog - 12g XL Magazine Duffel Bag"
-	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+/datum/uplink_item/ammo/bulldog_xl_magsbag
+	name = "Bulldog - 12g Extra-Large Magazine Duffel Bag"
+	desc = "A duffel bag containing five XL 16-round drum magazines. (3 Slug, 1 Buckshot, 1 Dragon's Breath)."
 	reference = "12XLDB"
-	item = /obj/item/storage/backpack/duffel/syndie/shotgunXLmags
-	cost = 60 // normally 90
+	item = /obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags
+	// same price for more ammo, but you're likely to lose more ammo if you drop your bulldog. High risk, high reward.
+	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
@@ -286,13 +294,12 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/machinegun
-	name = "L6 SAW - 5.56x45mm Box Magazine"
-	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "L6 SAW - 7.62x51mm Box Magazine"
+	desc = "A 50-round magazine of 7.62x51mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/mm762x51
 	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 0
 
 /datum/uplink_item/ammo/sniper
 	cost = 15
@@ -319,8 +326,8 @@
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
 
 /datum/uplink_item/ammo/sniper/haemorrhage
-	name = "Sniper - .50 Haemorrhage Magazine"
-	desc = "A 5-round magazine of haemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
+	name = "Sniper - .50 Hemorrhage Magazine"
+	desc = "A 5-round magazine of hemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
 			in the target."
 	reference = "50B"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
@@ -348,7 +355,6 @@
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 0
 
 ////////////////////////////////////////
 // MARK: EXPLOSIVES
@@ -433,7 +439,7 @@
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
-	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical HUD for quick identification of injured comrades, \
+	desc = "The Syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical HUD for quick identification of injured comrades, \
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
@@ -459,7 +465,7 @@
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
-	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
+	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live Syndicate bombs to detonate. \
 	Useful for when speed matters or you wish to synchronize multiple bomb blasts. Be sure to stand clear of the blast radius before using the detonator."
 	reference = "SD"
 	item = /obj/item/syndicatedetonator
@@ -524,7 +530,7 @@
 
 /datum/uplink_item/suits/shielded
 	name = "Energy Shield Module"
-	desc = "A personal, protective forcefield typically seen in military applications. \
+	desc = "A personal, protective force field typically seen in military applications. \
 		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
 		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
 		though with its' low amount of separate charges, the user remains mortal."
@@ -544,7 +550,7 @@
 	reference = "KMI"
 	item = /obj/item/bio_chip_implanter/krav_maga
 	cost = 25
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bio_chips/uplink/nuclear
 	name = "Nuclear Uplink Bio-chip"
@@ -613,16 +619,7 @@
 // MARK: BUNDLES
 ////////////////////////////////////////
 
-/datum/uplink_item/bundles_TC/bulldog
-	name = "Bulldog Bundle"
-	desc = "Lean and mean: Optimized for people that want to get up close and personal. Contains the popular \
-			Bulldog shotgun, two 12g buckshot drums, and a pair of Thermal imaging goggles."
-	reference = "BULB"
-	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	cost = 45 // normally 60
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/bundles_TC/c20r
+/datum/uplink_item/bundles_tc/c20r
 	name = "C-20r Bundle"
 	desc = "Old Faithful: The classic C-20r, bundled with three magazines and a (surplus) suppressor at discount price."
 	reference = "C20B"
@@ -630,7 +627,7 @@
 	cost = 90 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/cyber_implants
+/datum/uplink_item/bundles_tc/cyber_implants
 	name = "Cybernetic Implants Bundle"
 	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. Comes with an autosurgeon."
 	reference = "CIB"
@@ -638,16 +635,16 @@
 	cost = 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/medical
+/datum/uplink_item/bundles_tc/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
-			a medical beam gun and a pair of syndicate magboots."
+			a medical beam gun and a pair of Syndicate magboots."
 	reference = "MEDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	cost = 80 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/bundles_TC/sniper
+/datum/uplink_item/bundles_tc/sniper
 	name = "Sniper bundle"
 	desc = "Elegant and refined: Contains a collapsed sniper rifle in an expensive carrying case, \
 			two soporific knockout magazines, a free surplus suppressor, and a sharp-looking tactical turtleneck suit. \
@@ -664,42 +661,37 @@
 /datum/uplink_item/stealthy_weapons/cqc/nuke
 	reference = "NCQC"
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/syndicate_bomb/nuke
 	reference = "NSB"
 	cost = 55
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
-	surplus = 0
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "NSBEMP"
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
-	surplus = 0
-	can_discount = FALSE
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
 	cost = 60
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
-	surplus = 0
-	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon/nuke
 	cost = 30
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	reference = "NNSSS"
 	cost = 20
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/detomatix/nuclear
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crew members who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
 	item = /obj/item/cartridge/syndicate/nuclear
 	reference = "DEPCN"
 	excludefrom = list()
@@ -719,7 +711,7 @@
 
 /datum/uplink_item/badass/confetti_party_pack
 	name = "Nuclear party pack"
-	desc = "A dufflebag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
+	desc = "A duffel bag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
 	item = /obj/item/storage/backpack/duffel/syndie/party
 	reference = "SPP"
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

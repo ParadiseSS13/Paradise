@@ -123,7 +123,48 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	animated_icon_state = "straightbushy_a"
 	allowed_species = list("Vulpkanin")
 
-//Moth wings
+// Skrell
+/datum/body_accessory/tail/skrell_short
+	name = "Short Skrell Tail"
+	icon_state = "skrell_tail_short"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell
+	name = "Skrell Tail"
+	icon_state = "skrell_tail"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_long
+	name = "Long Skrell Tail"
+	icon_state = "skrell_tail_long"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_xlong
+	name = "Extra Long Skrell Tail"
+	icon_state = "skrell_tail_xlong"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_short_fringed
+	name = "Short Fringed Skrell Tail"
+	icon_state = "skrell_fringetail_short"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_fringed
+	name = "Fringed Skrell Tail"
+	icon_state = "skrell_fringetail"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_long_fringed
+	name = "Long Fringed Skrell Tail"
+	icon_state = "skrell_fringetail_long"
+	allowed_species = list("Skrell")
+
+/datum/body_accessory/tail/skrell_xlong_fringed
+	name = "Extra Long Fringed Skrell Tail"
+	icon_state = "skrell_fringetail_xlong"
+	allowed_species = list("Skrell")
+
+// Moth wings
 /datum/body_accessory/wing
 	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
 	animated_icon = null
@@ -131,6 +172,8 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "plain"
 	allowed_species = list("Nian")
 	has_behind = TRUE
+	var/is_open = FALSE
+	var/open_icon = 'icons/mob/sprite_accessories/moth/moth_wingsopen.dmi'
 
 /datum/body_accessory/wing/plain
 
@@ -233,3 +276,31 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/wing/bluespace
 	name = "Bluespace Wings"
 	icon_state = "bluespace"
+
+// Skulk spines
+/datum/body_accessory/spines
+	icon = 'icons/mob/sprite_accessories/skulk/skulk_spines.dmi'
+	animated_icon = null
+	name = "Report this bug on github"
+	icon_state = "hunter1"
+	allowed_species = list("Skkulakin")
+	has_behind = TRUE
+
+/datum/body_accessory/spines/hunter
+	name = "Hunter"
+
+/datum/body_accessory/spines/cosmic
+	name = "Cosmic"
+	icon_state = "cosmic1"
+
+/datum/body_accessory/spines/illusive
+	name = "Illusive"
+	icon_state = "illusive1"
+
+/datum/body_accessory/spines/venom
+	name = "Venom"
+	icon_state = "venom1"
+
+/datum/body_accessory/spines/hunger1
+	name = "Hunger"
+	icon_state = "hunger1"

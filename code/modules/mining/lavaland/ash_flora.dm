@@ -2,7 +2,8 @@
 	gender = PLURAL
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "l_mushroom"
+	icon_state = "l_mushroom1"
+	base_icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
 	anchored = TRUE
@@ -24,7 +25,7 @@
 
 /obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
-	base_icon = "[icon_state][rand(1, 4)]"
+	base_icon = "[base_icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
 /obj/structure/flora/ash/proc/harvest(user)
@@ -39,7 +40,7 @@
 				msg = harvest_message_low
 			else if(rand_harvested == harvest_amount_high)
 				msg = harvest_message_high
-			to_chat(user, "<span class='notice'>[msg]</span>")
+			to_chat(user, SPAN_NOTICE("[msg]"))
 		for(var/i in 1 to rand_harvested)
 			new harvest(get_turf(src))
 
@@ -59,17 +60,19 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
+/obj/structure/flora/ash/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(!harvested && needs_sharp_harvest && W.sharp)
-		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
+		user.visible_message(SPAN_NOTICE("[user] starts to harvest from [src] with [W]."),SPAN_NOTICE("You begin to harvest from [src] with [W]."))
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
-		user.visible_message("<span class='notice'>[user] starts to harvest from [src].</span>","<span class='notice'>You begin to harvest from [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] starts to harvest from [src]."),SPAN_NOTICE("You begin to harvest from [src]."))
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
 	else
@@ -80,7 +83,8 @@
 	regrowth_time_low = 4200
 
 /obj/structure/flora/ash/leaf_shroom
-	icon_state = "s_mushroom"
+	icon_state = "s_mushroom1"
+	base_icon_state = "s_mushroom"
 	name = "leafy mushrooms"
 	desc = "A number of mushrooms, each of which surrounds a greenish sporangium with a number of leaf-like structures."
 	harvested_name = "leafless mushrooms"
@@ -96,7 +100,8 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cap_shroom
-	icon_state = "r_mushroom"
+	icon_state = "r_mushroom1"
+	base_icon_state = "r_mushroom"
 	name = "tall mushrooms"
 	desc = "Several mushrooms, the larger of which have a ring of conks at the midpoint of their stems."
 	harvested_name = "small mushrooms"
@@ -111,7 +116,8 @@
 	regrowth_time_high = 5400
 
 /obj/structure/flora/ash/stem_shroom
-	icon_state = "t_mushroom"
+	icon_state = "t_mushroom1"
+	base_icon_state = "t_mushroom"
 	name = "numerous mushrooms"
 	desc = "A large number of mushrooms, some of which have long, fleshy stems. They're radiating light!"
 	light_range = 1.5
@@ -128,7 +134,8 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cacti
-	icon_state = "cactus"
+	icon_state = "cactus1"
+	base_icon_state = "cactus"
 	name = "fruiting cacti"
 	desc = "Several prickly cacti, brimming with ripe fruit and covered in a thin layer of ash."
 	harvested_name = "cacti"
@@ -140,7 +147,6 @@
 	harvest_message_low = "You pick a cactus fruit."
 	harvest_message_med = "You pick several cactus fruit." //shouldn't show up, because you can't get more than two
 	harvest_message_high = "You pick a pair of cactus fruit."
-	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
@@ -156,10 +162,10 @@
 	name = "large rock"
 	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
 	icon_state = "basalt1"
+	base_icon_state = "basalt"
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt
-	harvest_time = 6 SECONDS
 	harvest_amount_low = 10
 	harvest_amount_high = 20
 	harvest_message_low = "You finish mining the rock."
@@ -189,16 +195,13 @@
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
-	w_class = WEIGHT_CLASS_TINY
-	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
 
 /obj/item/food/grown/ash_flora/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4, 4)
-	pixel_y = rand(-4, 4)
+	scatter_atom()
 
 /// for actual crafting
 /obj/item/food/grown/ash_flora/shavings
@@ -311,7 +314,6 @@
 	name = "Mushroom Bowl"
 	result = list(/obj/item/reagent_containers/drinks/mushroom_bowl)
 	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
-	time = 30
 	category = CAT_PRIMAL
 
 /obj/item/reagent_containers/drinks/mushroom_bowl

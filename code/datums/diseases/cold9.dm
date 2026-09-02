@@ -3,13 +3,13 @@
 	medical_name = "ICE9 Cold"
 	max_stages = 3
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Spaceacillin"
 	cures = list("spaceacillin")
 	agent = "ICE9-rhinovirus"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "If left untreated the subject will slow, as if partly frozen."
-	severity = HARMFUL
+	severity = VIRUS_HARMFUL
 
 /datum/disease/cold9/stage_act()
 	if(!..())
@@ -24,7 +24,7 @@
 	if(prob(2 * stage_factor))
 		affected_mob.emote("cough")
 	if(prob(3 * stage_factor))
-		to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
+		to_chat(affected_mob, SPAN_DANGER("Your throat feels sore."))
 	if(prob(5 * stage_factor))
-		to_chat(affected_mob, "<span class='danger'>You feel stiff.</span>")
+		to_chat(affected_mob, SPAN_DANGER("You feel stiff."))
 		affected_mob.adjustFireLoss(1)

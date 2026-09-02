@@ -13,12 +13,12 @@
 
 /obj/tgvehicle/scooter/wrench_act(mob/living/user, obj/item/I)
 	..()
-	to_chat(user, "<span class='notice'>You begin to remove the handlebars...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to remove the handlebars..."))
 	if(!I.use_tool(src, user, 40, volume = 50))
 		return TRUE
 	var/obj/tgvehicle/scooter/skateboard/improvised/skater = new(drop_location())
 	new /obj/item/stack/rods(drop_location(), 2)
-	to_chat(user, "<span class='notice'>You remove the handlebars from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove the handlebars from [src]."))
 	if(has_buckled_mobs())
 		var/mob/living/carbon/carbons = buckled_mobs[1]
 		unbuckle_mob(carbons)
@@ -33,6 +33,11 @@
 			buckled_mob.pixel_y = 5
 		else
 			buckled_mob.pixel_y = -4
+		if(istype(get_turf(src), /turf/simulated/floor/plating/asteroid)) //Rocks are bad for wheels mkay?
+			if(!HAS_TRAIT(src, TRAIT_NO_BREAK_GLASS_TABLES))
+				buckled_mob.adjustStaminaLoss(2)
+				if(prob(7)) //Not to much spam.
+					to_chat(buckled_mob, SPAN_WARNING("The rocky terrain you are riding on is tiring you out!"))
 
 /obj/tgvehicle/scooter/skateboard
 	name = "skateboard"
@@ -51,6 +56,8 @@
 	var/instability = 10
 	///If true, riding the skateboard with walk intent on will prevent crashing.
 	var/can_slow_down = TRUE
+	///Is this board cursed, preventing the cheeser from picking it up right away and using it again. Can not get on it while cursed either.
+	var/cursed = FALSE
 
 /obj/tgvehicle/scooter/skateboard/Initialize(mapload)
 	. = ..()
@@ -73,10 +80,19 @@
 
 /obj/tgvehicle/scooter/skateboard/generate_actions()
 	. = ..()
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/scooter/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
+	if(M.pulling)
+		M.stop_pulling()
+		to_chat(M, SPAN_WARNING("You can't pull things along while skateboarding!"))
+	if(istype(M.l_hand, /obj/item/grab)) // We need to run the check on both hands to ensure someone isn't grabbing something in each hand
+		M.drop_l_hand()
+		to_chat(M, SPAN_WARNING("You can't pull things along while skateboarding!"))
+	if(istype(M.r_hand, /obj/item/grab))
+		M.drop_r_hand()
+		to_chat(M, SPAN_WARNING("You can't pull things along while skateboarding!"))
 	set_density(TRUE)
 	return ..()
 
@@ -103,20 +119,20 @@
 			rider.Weaken(8 SECONDS)
 			rider.forceMove(bumped_thing)
 			forceMove(bumped_thing)
-			visible_message("<span class='danger'>[src] crashes into [bumped_thing], and gets dumped straight into it!</span>")
+			visible_message(SPAN_DANGER("[src] crashes into [bumped_thing], and gets dumped straight into it!"))
 			return
 		if((istype(bumped_thing, /obj/machinery/economy/vending)))
 			var/obj/machinery/economy/vending/V = bumped_thing
 			rider.Weaken(8 SECONDS)
-			visible_message("<span class='danger'>[src] crashes into [V]!</span>")
+			visible_message(SPAN_DANGER("[src] crashes into [V]!"))
 			V.tilt(rider, from_combat = TRUE)
 			return
 		rider.throw_at(throw_target, 3, 2)
-		var/head_slot = rider.get_item_by_slot(SLOT_HUD_HEAD)
+		var/head_slot = rider.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(!head_slot || !(istype(head_slot, /obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
-		visible_message("<span class='danger'>[src] crashes into [bumped_thing], sending [rider] flying!</span>")
+		visible_message(SPAN_DANGER("[src] crashes into [bumped_thing], sending [rider] flying!"))
 		rider.Weaken(6 SECONDS)
 		if(iscarbon(bumped_thing))
 			var/mob/living/carbon/victim = bumped_thing
@@ -159,7 +175,7 @@
 		unbuckle_mob(skater)
 		var/atom/throw_target = get_edge_target_turf(src, pick(NORTH, SOUTH, EAST, WEST))
 		skater.throw_at(throw_target, 2, 2)
-		visible_message("<span class='danger'>[skater] loses [skater.p_their()] footing and slams on the ground!</span>")
+		visible_message(SPAN_DANGER("[skater] loses [skater.p_their()] footing and slams on the ground!"))
 		skater.Weaken(4 SECONDS)
 		grinding = FALSE
 		icon_state = "[initial(icon_state)]"
@@ -169,7 +185,7 @@
 
 	if(location)
 		if(prob(33))
-			location.hotspot_expose(1000, 1000)
+			location.hotspot_expose(1000, 1)
 			sparks.start() //the most radical way to start plasma fires
 	for(var/mob/living/carbon/victim in location)
 		if(victim.body_position == LYING_DOWN)
@@ -177,7 +193,7 @@
 			victim.apply_damage(damage = 25, damagetype = BRUTE, def_zone = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 			victim.Weaken(1.5 SECONDS)
 			skater.adjustStaminaLoss(instability)
-			victim.visible_message("<span class='danger'>[victim] straight up gets grinded into the ground by [skater]'s [src]! Radical!</span>")
+			victim.visible_message(SPAN_DANGER("[victim] straight up gets grinded into the ground by [skater]'s [src]! Radical!"))
 	addtimer(CALLBACK(src, PROC_REF(grind)), 1 DECISECONDS)
 
 /obj/tgvehicle/scooter/skateboard/MouseDrop(atom/over_object)
@@ -191,8 +207,11 @@
 /obj/tgvehicle/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
 	if(skater.incapacitated() || !Adjacent(skater))
 		return
+	if(cursed)
+		to_chat(skater, SPAN_DANGER("Some magic burns your hands whenever you go to pick [src] up!"))
+		return
 	if(has_buckled_mobs())
-		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
+		to_chat(skater, SPAN_WARNING("You can't lift this up when somebody's on it."))
 		return
 	skater.put_in_hands(new board_item_type(get_turf(skater)))
 	qdel(src)
@@ -214,6 +233,7 @@
 	instability = 3
 	icon_state = "hoverboard_red"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	var/mutable_appearance/curse_overlay
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
 	. = ..()
@@ -221,6 +241,27 @@
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/necropolis_curse()
+	cursed = TRUE
+	can_buckle = FALSE
+	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	curse_overlay.pixel_y = -10
+
+	add_overlay(curse_overlay)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/remove_rider()
+	visible_message(SPAN_WARNING("The boosters on [src] burn out as the magic extinguishes it!"))
+	if(has_buckled_mobs())
+		var/mob/living/carbon/skaterboy = buckled_mobs[1]
+		unbuckle_mob(skaterboy)
+	addtimer(CALLBACK(src, PROC_REF(clear_curse)), 30 SECONDS,TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
+
+/obj/tgvehicle/scooter/skateboard/hoverboard/proc/clear_curse()
+	can_buckle = TRUE
+	cursed = FALSE
+	cut_overlay(curse_overlay)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"
@@ -238,29 +279,38 @@
 //CONSTRUCTION
 /obj/item/scooter_frame
 	name = "scooter frame"
-	desc = "A metal frame for building a scooter. Looks like you'll need to add some iron to make wheels."
+	desc = "A metal frame for building a scooter. Looks like you'll need to add some metal to make wheels."
 	icon = 'icons/obj/tgvehicles.dmi'
 	icon_state = "scooter_frame"
-	w_class = WEIGHT_CLASS_NORMAL
+	new_attack_chain = TRUE
 
-/obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stack/sheet/metal))
+/obj/item/scooter_frame/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/sheet/metal))
 		return ..()
-	var/obj/item/stack/S = I
-	if(S.get_amount() < 5)
-		return
-	to_chat(user, "<span class='notice'>You begin to add wheels to [src].</span>")
-	if(do_after(user, 5 SECONDS, target = src))
-		if(!loc || !S || S.get_amount() < 2)
-			return
-	S.use(2)
-	to_chat(user, "<span class='notice'>You finish making wheels for [src].</span>")
-	new /obj/tgvehicle/scooter/skateboard/improvised(user.loc)
+
+	var/obj/item/stack/metal_stack = used
+	if(metal_stack.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least 2 sheets of metal to build a skateboard!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You begin to add wheels to [src]."))
+	if(!do_after_once(user, 5 SECONDS, target = src))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!loc || !metal_stack || metal_stack.get_amount() < 2)
+		return ITEM_INTERACT_COMPLETE
+
+	metal_stack.use(2)
+	to_chat(user, SPAN_NOTICE("You finish making wheels for [src]."))
+	var/obj/tgvehicle/scooter/skateboard/improvised/new_skateboard = new(user.loc)
+	transfer_fingerprints_to(new_skateboard)
+	new_skateboard.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/scooter_frame/wrench_act(mob/living/user, obj/item/I)
 	..()
-	to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+	to_chat(user, SPAN_NOTICE("You deconstruct [src]."))
 	new /obj/item/stack/rods(drop_location(), 10)
 	I.play_tool_sound(src)
 	qdel(src)
@@ -269,32 +319,35 @@
 /obj/tgvehicle/scooter/skateboard/wrench_act(mob/living/user, obj/item/I)
 	return
 
-/obj/tgvehicle/scooter/skateboard/improvised/attackby(obj/item/I, mob/user, params)
+/obj/tgvehicle/scooter/skateboard/improvised/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
 	var/obj/item/stack/S = I
 	if(S.get_amount() < 2)
-		return
-	to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
+		return ITEM_INTERACT_COMPLETE
+	to_chat(user, SPAN_NOTICE("You begin making handlebars for [src]."))
 	if(do_after(user, 2.5 SECONDS, target = src))
 		if(!loc || !S || S.get_amount() < 2 || !S.use(2))
-			return
-	to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
+			return ITEM_INTERACT_COMPLETE
+	to_chat(user, SPAN_NOTICE("You add the rods to [src], creating handlebars."))
 	var/obj/tgvehicle/scooter/skaterskoot = new(loc)
 	if(has_buckled_mobs())
 		var/mob/living/carbon/skaterboy = buckled_mobs[1]
 		unbuckle_mob(skaterboy)
 		skaterskoot.buckle_mob(skaterboy)
+	transfer_fingerprints_to(skaterskoot)
+	skaterskoot.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/tgvehicle/scooter/skateboard/improvised/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>You begin to deconstruct and remove the wheels on [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin to deconstruct and remove the wheels on [src]..."))
 	if(!I.use_tool(src, user, 20, volume = 50))
 		return
-	to_chat(user, "<span class='notice'>You deconstruct the wheels on [src].</span>")
+	to_chat(user, SPAN_NOTICE("You deconstruct the wheels on [src]."))
 	new /obj/item/stack/sheet/metal(drop_location(), 5)
 	new /obj/item/scooter_frame(drop_location())
 	if(has_buckled_mobs())
@@ -307,19 +360,19 @@
 	name = "skateboard"
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."
 	icon = 'icons/obj/tgvehicles.dmi'
+	icon_state = "skateboard_held"
+	inhand_icon_state = "skateboard"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "skateboard_held"
-	item_state = "skateboard"
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
 
-/obj/item/melee/skateboard/attack_self(mob/user)
+/obj/item/melee/skateboard/attack_self__legacy__attackchain(mob/user)
 	var/obj/tgvehicle/scooter/skateboard/S = new board_item_type(get_turf(user))//this probably has fucky interactions with telekinesis but for the record it wasn't my fault
 	S.buckle_mob(user)
 	qdel(src)
@@ -333,7 +386,7 @@
 	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
 	icon_state = "skateboardpro_held"
-	item_state = "skateboardpro"
+	inhand_icon_state = "skateboardpro"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/pro
 
 /obj/item/melee/skateboard/hoverboard
@@ -341,12 +394,12 @@
 	desc = "A blast from the past, so retro!"
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hoverboard_red_held"
-	item_state = "hoverboard_red"
+	inhand_icon_state = "hoverboard_red"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard
 
 /obj/item/melee/skateboard/hoverboard/admin
 	name = "Board Of Directors"
 	desc = "The engineering complexity of a spaceship concentrated inside of a board. Just as expensive, too."
 	icon_state = "hoverboard_nt_held"
-	item_state = "hoverboard_nt"
+	inhand_icon_state = "hoverboard_nt"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard/admin

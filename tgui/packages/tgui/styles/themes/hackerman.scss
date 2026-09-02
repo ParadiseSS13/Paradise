@@ -1,61 +1,30 @@
-/**
- * Copyright (c) 2020 Aleksej Komarov
- * SPDX-License-Identifier: MIT
- */
-
-@use 'sass:color';
-@use 'sass:meta';
-
-@use '../colors.scss' with (
-  $primary: #00ff00,
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: #121b12,
-  $color-bg-grad-spread: 0%
-);
-
-.theme-hackerman {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
+.theme-hackerman:root {
+  // Base
+  --color-base: hsl(120, 20%, 8.8%);
+  --color-primary: hsl(120, 100%, 50%);
+  --color-secondary: hsl(120, 28%, 18.5%);
+  --base-gradient-spread: 0;
+  --candystripe-odd: hsla(120, 100%, 20%, 0.5);
 
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: ('color-default': colors.$primary, 'color-disabled': #363636, 'color-selected': #00ff00)
-  );
-  @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: (
-      'color-default': darken(colors.$primary, 25%),
-      'color-disabled': #363636,
-      'color-selected': lighten(colors.$primary, 25%)
-    )
-  );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': colors.$primary));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-disabled': #363636));
-  @include meta.load-css('../components/Modal.scss');
-  @include meta.load-css('../components/Section.scss');
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #223d22));
+  --button-background-selected: var(--color-primary);
+  --tab-background-selected: hsla(120, 100%, 50%, 0.25);
+  --tab-color: hsl(0, 0%, 90%);
+  --tab-color-selected: var(--color-primary);
 
   .Layout__content {
     background-image: none;
   }
 
   .Button {
-    font-family: monospace;
-    border-width: base.em(2px);
+    font-family: var(--font-family-mono);
+    border-width: var(--border-thickness-small);
     border-style: outset;
-    border-color: #00aa00;
-    outline: base.em(1px) solid rgb(0, 122, 0);
-  }
+    border-color: hsl(120, 100%, 33.33%);
+    outline: var(--border-thickness-tiny) solid rgb(0, 122, 0);
 
-  .candystripe:nth-child(odd) {
-    background-color: rgba(0, 100, 0, 0.5);
+    &--color--default {
+      color: var(--color-text-fixed-black);
+    }
   }
 }

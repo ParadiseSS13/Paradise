@@ -1,21 +1,18 @@
 /obj/item/grenade/megafauna_hardmode
 	name = "\improper HRD-MDE Scanning Grenade"
 	desc = "An advanced grenade that releases nanomachines, which enter nearby megafauna. This will enrage them greatly, but allows nanotrasen to fully research their abilities."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "enrager"
-	item_state = "grenade"
 
 /obj/item/grenade/megafauna_hardmode/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))
 		M.enrage()
-		visible_message("<span class='userdanger'>[M] begins to wake up as the nanomachines enter them, it looks pissed!</span>")
+		visible_message(SPAN_USERDANGER("[M] begins to wake up as the nanomachines enter them, it looks pissed!"))
 	qdel(src)
 
 /obj/item/paper/hardmode
 	name = "HRD-MDE Scanner Guide"
-	icon_state = "paper"
 	info = {"<b>Welcome to the NT HRD-MDE Project</b><br>
 	<br>
 	This guide will cover the basics on the Hi-tech Research and Development, Mining Department Experiment project.<br>
@@ -28,7 +25,6 @@
 	<br><hr>
 	<font size =\"1\"><i>By participating in this experiment you waive all rights for compensation of death on the job.</font></i>
 "}
-
 
 /obj/item/disk/fauna_research
 	name = "empty HRD-MDE project disk"

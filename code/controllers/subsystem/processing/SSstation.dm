@@ -9,7 +9,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	/// A list of currently active station traits
 	var/list/station_traits = list()
 	/// Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
-	var/list/selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
+	var/alist/selectable_traits_by_types = alist(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
 
 /datum/controller/subsystem/processing/station/Initialize()
 	SetupTraits()
@@ -18,9 +18,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 /datum/controller/subsystem/processing/station/proc/SetupTraits()
 
 	if(fexists("data/next_traits.txt"))
-		var/forced_traits_contents = file2list("data/next_traits.txt")
+		var/forced_traits_contents = file2text("data/next_traits.txt")
 		fdel("data/next_traits.txt")
-		var/list/temp_list = splittext(forced_traits_contents[1], ",")
+		var/list/temp_list = json_decode(forced_traits_contents)
 
 		for(var/trait_text_path in temp_list)
 			var/station_trait_path = text2path(trait_text_path)

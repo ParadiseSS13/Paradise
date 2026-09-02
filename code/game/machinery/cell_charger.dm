@@ -4,14 +4,21 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
 	anchored = TRUE
-	idle_power_consumption = 5
-	active_power_consumption = 60
-	power_channel = PW_CHANNEL_EQUIPMENT
+	idle_power_consumption = 4
+	active_power_consumption = 200
 	pass_flags = PASSTABLE
-	var/obj/item/stock_parts/cell/charging = null
+	var/obj/item/stock_parts/cell/cell_inside = null
 	var/chargelevel = -1
-	/// Cell charge rate (Watts)
-	var/charge_rate = 500
+	/// Charge rate multiplier.
+	var/recharge_coeff = 1
+
+/obj/machinery/cell_charger/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("There's [cell_inside ? "\a [cell_inside.name]" : "no cell"] in [src].")
+	if(cell_inside && !(stat & (NOPOWER|BROKEN)))
+		. += SPAN_NOTICE("Current charge: <b>[round(cell_inside.percent(), 1)]%</b>")
+		if(cell_inside.percent() < 100)
+			. += SPAN_NOTICE("- Recharging <b>[((cell_inside.chargerate * recharge_coeff) / cell_inside.maxcharge) * 100]%</b> cell charge per cycle.")
 
 /obj/machinery/cell_charger/Initialize(mapload)
 	. = ..()
@@ -24,27 +31,26 @@
 
 	for(var/obj/item/stock_parts/cell/I in get_turf(src)) //suck any cells in at roundstart
 		I.forceMove(src)
-		charging = I
-		check_level()
+		cell_inside = I
 		update_icon(UPDATE_OVERLAYS)
 		break
 
 /obj/machinery/cell_charger/deconstruct()
-	if(charging)
-		charging.forceMove(drop_location())
+	if(cell_inside)
+		cell_inside.forceMove(drop_location())
 	return ..()
 
 /obj/machinery/cell_charger/Destroy()
-	QDEL_NULL(charging)
+	QDEL_NULL(cell_inside)
 	return ..()
 
 /obj/machinery/cell_charger/update_overlays()
 	. = ..()
-	if(!charging)
+	if(!cell_inside)
 		return
-	. += "[charging.icon_state]"
+	. += "[cell_inside.icon_state]"
 
-	switch(charging.charge / charging.maxcharge)
+	switch(cell_inside.charge / cell_inside.maxcharge)
 		if(0.1 to 0.995)
 			. += "cell-o1"
 		if(0.995 to 1)
@@ -52,81 +58,76 @@
 
 	if(stat & (BROKEN|NOPOWER))
 		return
+	check_level()
 	. += "ccharger-o[chargelevel]"
 
-/obj/machinery/cell_charger/examine(mob/user)
-	. = ..()
-	. += "There's [charging ? "a" : "no"] cell in the charger."
-	if(charging)
-		. += "Current charge: [round(charging.percent(), 1)]%"
-
-/obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell) && !panel_open)
+/obj/machinery/cell_charger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell) && !panel_open)
 		if(stat & BROKEN)
-			to_chat(user, "<span class='warning'>[src] is broken!</span>")
-			return
+			to_chat(user, SPAN_WARNING("[src] is broken!"))
+			return ITEM_INTERACT_COMPLETE
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
-			return
-		if(charging)
-			to_chat(user, "<span class='warning'>There is already a cell in the charger!</span>")
-			return
+			to_chat(user, SPAN_WARNING("[src] isn't attached to the ground!"))
+			return ITEM_INTERACT_COMPLETE
+		if(cell_inside)
+			to_chat(user, SPAN_WARNING("There is already a cell in the charger!"))
+			return ITEM_INTERACT_COMPLETE
 		else
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(!a.powernet.has_power(PW_CHANNEL_EQUIPMENT)) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
-				return
+				to_chat(user, SPAN_WARNING("[src] blinks red as you try to insert the cell!"))
+				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
-				return
+				return ITEM_INTERACT_COMPLETE
 
-			I.forceMove(src)
-			charging = I
-			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
-			check_level()
+			used.forceMove(src)
+			cell_inside = used
+			user.visible_message("[user] inserts a cell into the charger.", SPAN_NOTICE("You insert a cell into the charger."))
 			update_icon(UPDATE_OVERLAYS)
-	else
-		return ..()
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/cell_charger/crowbar_act(mob/user, obj/item/I)
-	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
+	if(panel_open && !cell_inside && default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/cell_charger/screwdriver_act(mob/user, obj/item/I)
-	if(anchored && !charging && default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+	if(anchored && !cell_inside && default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 		return TRUE
 
 /obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(charging)
-		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+	if(cell_inside)
+		to_chat(user, SPAN_WARNING("Remove the cell first!"))
 		return
 	default_unfasten_wrench(user, I, 0)
 
 /obj/machinery/cell_charger/proc/removecell()
-	charging.update_icon()
-	charging = null
+	cell_inside.update_icon()
+	cell_inside = null
 	chargelevel = -1
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
-	if(!charging)
+	if(!cell_inside)
 		return
 
-	user.put_in_hands(charging)
-	charging.add_fingerprint(user)
+	user.put_in_hands(cell_inside)
+	cell_inside.add_fingerprint(user)
 
-	user.visible_message("[user] removes [charging] from [src].", "<span class='notice'>You remove [charging] from [src].</span>")
+	user.visible_message("[user] removes [cell_inside] from [src].", SPAN_NOTICE("You remove [cell_inside] from [src]."))
 
 	removecell()
 
 /obj/machinery/cell_charger/attack_tk(mob/user)
-	if(!charging)
+	if(!cell_inside)
 		return
 
-	charging.forceMove(loc)
-	to_chat(user, "<span class='notice'>You telekinetically remove [charging] from [src].</span>")
+	cell_inside.forceMove(loc)
+	to_chat(user, SPAN_NOTICE("You telekinetically remove [cell_inside] from [src]."))
 
 	removecell()
 
@@ -137,31 +138,37 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	if(charging)
-		charging.emp_act(severity)
+	if(cell_inside)
+		cell_inside.emp_act(severity)
 
 	..(severity)
 
 /obj/machinery/cell_charger/RefreshParts()
-	charge_rate = 500
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		charge_rate *= C.rating
+		recharge_coeff = C.rating
 
 /obj/machinery/cell_charger/process()
-	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
+	if(!cell_inside || !anchored || (stat & (BROKEN|NOPOWER)))
 		return
 
-	if(charging.percent() >= 100)
+	if(cell_inside.percent() >= 100)
 		return
 
-	use_power(charge_rate)
-	charging.give(charge_rate)
+	use_power(cell_inside.chargerate * recharge_coeff)
+	cell_inside.give(cell_inside.chargerate * recharge_coeff)
 
 	if(check_level())
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cell_charger/proc/check_level()
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel = round(cell_inside.percent() * 4 / 100)
 	if(chargelevel != newlevel)
 		chargelevel = newlevel
 		return TRUE
+
+/obj/machinery/cell_charger/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cell_charger(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	RefreshParts()

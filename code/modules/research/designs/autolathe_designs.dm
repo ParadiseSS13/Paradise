@@ -31,7 +31,7 @@
 	id = "extinguisher"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200)
-	build_path = /obj/item/extinguisher
+	build_path = /obj/item/extinguisher/empty
 	category = list("initial","Tools")
 
 /datum/design/multitool
@@ -63,7 +63,7 @@
 	id = "welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
-	build_path = /obj/item/weldingtool
+	build_path = /obj/item/weldingtool/empty
 	category = list("initial","Tools")
 
 /datum/design/mini_weldingtool
@@ -71,7 +71,7 @@
 	id = "mini_welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
-	build_path = /obj/item/weldingtool/mini
+	build_path = /obj/item/weldingtool/mini/empty
 	category = list("initial","Tools")
 
 /datum/design/screwdriver
@@ -80,6 +80,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 350)
 	build_path = /obj/item/screwdriver
+	category = list("initial","Tools")
+
+/datum/design/hammer
+	name = "Hammer"
+	id = "hammer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/hammer
 	category = list("initial","Tools")
 
 /datum/design/wirecutters
@@ -112,6 +120,15 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	build_path = /obj/item/stack/cable_coil
+	category = list("initial","Tools")
+	maxstack = 30
+
+/datum/design/cable_coil_heavy_duty
+	name = "Heavy Duty Cable Coil"
+	id = "cable_coil_heavy_duty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30, MAT_GLASS = 30)
+	build_path = /obj/item/stack/cable_coil/extra_insulated
 	category = list("initial","Tools")
 	maxstack = 30
 
@@ -186,6 +203,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Miscellaneous")
+
 /datum/design/painter
 	name = "Modular Painter"
 	id = "mod_painter"
@@ -193,6 +211,14 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
 	build_path = /obj/item/painter
 	category = list("initial", "Miscellaneous")
+
+/datum/design/eftpos
+	name = "EFTPOS"
+	id = "eftpos"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
+	build_path = /obj/item/eftpos
+	category = list("initial","Miscellaneous")
 
 /datum/design/metal
 	name = "Metal"
@@ -217,7 +243,7 @@
 	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
-	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT / 2, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 	maxstack = 50
@@ -235,7 +261,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 8000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -245,6 +271,22 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/kitchen/knife
+	category = list("initial","Dinnerware")
+
+/datum/design/cheese_knife
+	name = "Cheese Knife"
+	id = "cheese_knife"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/kitchen/knife/cheese
+	category = list("initial","Dinnerware")
+
+/datum/design/pizza_cutter
+	name = "Pizza Cutter"
+	id = "pizza_cutter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/kitchen/knife/pizza_cutter
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
@@ -303,11 +345,67 @@
 	build_path = /obj/item/reagent_containers/drinks/shaker
 	category = list("initial","Dinnerware")
 
+/datum/design/bowl
+	name = "Prep Bowl"
+	id = "prep_bowl"
+	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/bowl
+	category = list("initial","Dinnerware")
+
+/datum/design/icecream_bowl
+	name = "Icecream Bowl"
+	id = "icecream_bowl"
+	materials = list(MAT_METAL = 750)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/icecream_bowl
+	category = list("initial","Dinnerware")
+
+/datum/design/pot
+	name = "Cooking Pot"
+	id = "pot"
+	materials = list(MAT_METAL = 1250)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/pot
+	category = list("initial","Dinnerware")
+
+/datum/design/pan
+	name = "Pan"
+	id = "pan"
+	materials = list(MAT_METAL = 1000)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/pan
+	category = list("initial","Dinnerware")
+
+/datum/design/ovendish
+	name = "Oven Dish"
+	id = "oven_dish"
+	materials = list(MAT_METAL = 1500)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/oven
+	category = list("initial","Dinnerware")
+
+/datum/design/grill_grate
+	name = "Grill Grate"
+	id = "grill_grate"
+	materials = list(MAT_METAL = 750)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/grill_grate
+	category = list("initial","Dinnerware")
+
+/datum/design/deep_basket
+	name = "Deep Fryer Basket"
+	id = "basket"
+	materials = list(MAT_METAL = 1000)
+	build_type = AUTOLATHE
+	build_path = /obj/item/reagent_containers/cooking/deep_basket
+	category = list("initial","Dinnerware")
+
 /datum/design/cultivator
 	name = "Cultivator"
 	id = "cultivator"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/cultivator
 	category = list("initial","Miscellaneous")
 
@@ -404,7 +502,7 @@
 	id = "fixovein"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/FixOVein
+	build_path = /obj/item/fix_o_vein
 	category = list("initial", "Medical")
 
 /datum/design/bonegel
@@ -455,6 +553,14 @@
 	build_path = /obj/item/storage/lockbox/vials
 	category = list("initial", "Medical")
 
+/datum/design/roller_bed
+	name = "Roller Bed"
+	id = "roller_bed"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/roller
+	category = list("initial", "Medical")
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
@@ -478,6 +584,14 @@
 	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
+
+/datum/design/paintball_magazine
+	name = "Paintball Magazine"
+	id = "paintball_mag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/paintball
+	category = list("initial", "Miscellaneous")
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -548,7 +662,7 @@
 	id = "stethoscope"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/clothing/accessory/stethoscope
+	build_path = /obj/item/clothing/neck/stethoscope
 	category = list("initial", "Medical")
 
 /datum/design/timer
@@ -579,7 +693,7 @@
 	name = "Goggles"
 	id = "goggles"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	build_path = /obj/item/clothing/glasses/goggles
 	category = list("initial", "Miscellaneous")
 
@@ -655,14 +769,6 @@
 	build_path = /obj/item/reagent_containers/hypospray/safety
 	category = list("initial", "Medical")
 
-/datum/design/automender
-	name = "Auto-mender"
-	id = "automender"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
-	build_path = /obj/item/reagent_containers/applicator
-	category = list("initial", "Medical")
-
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"
@@ -692,8 +798,16 @@
 	id = "large_welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
-	build_path = /obj/item/weldingtool/largetank
+	build_path = /obj/item/weldingtool/largetank/empty
 	category = list("initial", "Tools")
+
+/datum/design/inflatable_briefcase
+	name = "Inflatable Barrier Box"
+	id = "inflatable_briefcase"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/briefcase/inflatable
+	category = list("initial", "Construction")
 
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"
@@ -716,7 +830,7 @@
 	id = "rcl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/rcl
+	build_path = /obj/item/stack/cable_coil/rcl/empty
 	category = list("initial", "Construction")
 
 //hacked autolathe recipes
@@ -767,6 +881,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
+	category = list("hacked", "Security")
+
+/datum/design/laser_slug
+	name = "Laser Slug"
+	id = "laser_slug"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000) //Power comes at a price of 4000 glass
+	build_path = /obj/item/ammo_casing/shotgun/laserslug
 	category = list("hacked", "Security")
 
 /datum/design/buckshot
@@ -878,7 +1000,7 @@
 	id = "desttagger"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 250, MAT_GLASS = 150)
-	build_path = /obj/item/destTagger
+	build_path = /obj/item/dest_tagger
 	category = list("initial", "Electronics")
 
 /datum/design/handlabeler
@@ -955,6 +1077,7 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+	requires_whitelist = TRUE
 
 /datum/design/desk_bell
 	name = "Desk Bell"
@@ -988,3 +1111,19 @@
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/melee/knuckleduster
 	category = list("hacked", "Security")
+
+/datum/design/sample_kit
+	name = "Forensic Swab"
+	id = "forensicswab"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
+	build_path = /obj/item/forensics/swab
+	category = list("initial", "Security")
+
+/datum/design/suture_needle
+	name = "Suture Needle"
+	id = "sutureneedle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/suture_needle
+	category = list("initial", "Medical")

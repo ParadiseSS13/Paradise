@@ -24,7 +24,6 @@
 	density = TRUE
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
-	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
 	active_power_consumption = 600
@@ -60,18 +59,23 @@
 		T.nicely_link_to_other_stuff(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
-/obj/machinery/disposal/Moved(atom/OldLoc, Dir)
+/obj/machinery/disposal/Moved(atom/old_loc, Dir)
+	if(isnull(old_loc))
+		return
+
 	. = ..()
 	eject()
-	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
-	var/turf/T = OldLoc
+	var/ptype = istype(src, /obj/machinery/disposal/delivery_chute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
+	var/turf/T = old_loc
+
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
 		T.visible_message(
-			"<span class='warning'>The floortile is ripped from the floor!</span>",
-			"<span class='warning'>You hear a loud bang!</span>"
+			SPAN_WARNING("The floortile is ripped from the floor!"),
+			SPAN_WARNING("You hear a loud bang!")
 		)
+
 	if(trunk)
 		trunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)
@@ -123,94 +127,105 @@
 		disposal.update()
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN || !user || I.flags & ABSTRACT)
-		return
+/obj/machinery/disposal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(stat & BROKEN || !user)
+		return ITEM_INTERACT_COMPLETE
+
+	// Borg gripper check here because it is an `ABSTRACT` item.
+	if(istype(used, /obj/item/gripper))
+		var/obj/item/gripper/gripper = used
+		if(!gripper.gripped_item)
+			to_chat(user, SPAN_WARNING("There's nothing in your gripper to throw away!"))
+			return ITEM_INTERACT_COMPLETE
+
+		// Gripper will cancel the attack and call `item_interaction()` with the held item.
+		return ..()
+
+	if(used.flags & ABSTRACT)
+		return ITEM_INTERACT_COMPLETE
+
+	if(user.a_intent != INTENT_HELP)
+		return ..()
 
 	src.add_fingerprint(user)
 
-	if(istype(I, /obj/item/melee/energy/blade))
+	if(istype(used, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(isstorage(I))
-		var/obj/item/storage/S = I
+	if(isstorage(used))
+		var/obj/item/storage/S = used
 		if(!S.removal_allowed_check(user))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
 			user.visible_message(
-				"<span class='notice'>[user] empties [S] into the disposal unit.</span>",
-				"<span class='notice'>You empty [S] into disposal unit.</span>",
-				"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
+				SPAN_NOTICE("[user] empties [S] into the disposal unit."),
+				SPAN_NOTICE("You empty [S] into disposal unit."),
+				SPAN_NOTICE("You hear someone emptying something into a disposal unit.")
 			)
 			for(var/obj/item/O in S.contents)
 				S.remove_from_storage(O, src)
 			S.update_icon() // For content-sensitive icons
 			update()
-			return
-
-	// Borg using their gripper to throw stuff away.
-	if(istype(I, /obj/item/gripper/))
-		var/obj/item/gripper/gripper = I
-		// Gripper is empty.
-		if(!gripper.gripped_item)
-			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
-			return
-
-		gripper.gripped_item.forceMove(src)
-		user.visible_message(
-			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
-		)
-		return
+			return ITEM_INTERACT_COMPLETE
 
 	// Someone has a mob in a grab.
-	var/obj/item/grab/G = I
+	var/obj/item/grab/G = used
 	if(istype(G))
 		// If there's not actually a mob in the grab, stop it. Get some help.
 		if(!ismob(G.affecting))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/GM = G.affecting
-		user.visible_message(
-			"<span class='warning'>[user] starts stuffing [GM] into the disposal unit!</span>",
-			"<span class='warning'>You start stuffing [GM] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
-		)
-
-		// Abort if the target manages to scurry away.
-		if(!do_after(user, 2 SECONDS, target = GM))
-			return
-
-		GM.forceMove(src)
-		user.visible_message(
-			"<span class='warning'>[GM] has been stuffed into the disposal unit by [user]!</span>",
-			"<span class='warning'>You stuff [GM] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone being stuffed into a disposal unit!</span>"
-		)
+		stuff_mob_in(GM, user)
 		qdel(G)
-		update()
-		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(!user.drop_item() || QDELETED(I))
-		return
+	if(!user.drop_item() || QDELETED(used))
+		return ITEM_INTERACT_COMPLETE
 
 	// If we're here, it's an item without any special interactions, drop it in the bin without any further delay.
-	I.forceMove(src)
+	used.forceMove(src)
 	user.visible_message(
-		"<span class='notice'>[user] places [I] into the disposal unit.</span>",
-		"<span class='notice'>You place [I] into the disposal unit.</span>",
-		"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
+		SPAN_NOTICE("[user] places [used] into the disposal unit."),
+		SPAN_NOTICE("You place [used] into the disposal unit."),
+		SPAN_NOTICE("You hear someone dropping something into a disposal unit.")
 	)
 	update()
 
+	return ITEM_INTERACT_COMPLETE
+
+/// Handles stuffing a grabbed mob into the disposal
+/obj/machinery/disposal/proc/stuff_mob_in(mob/living/target, mob/living/user)
+	// If there's not actually a mob in the grab, stop it. Get some help.
+	if(!istype(target))
+		return FALSE
+
+	user.visible_message(
+		SPAN_WARNING("[user] starts stuffing [target] into the disposal unit!"),
+		SPAN_WARNING("You start stuffing [target] into the disposal unit."),
+		SPAN_WARNING("You hear someone trying to stuff someone else into a disposal unit!")
+	)
+
+	// Abort if the target manages to scurry away.
+	if(!do_after(user, 2 SECONDS, target = target))
+		return ITEM_INTERACT_COMPLETE
+
+	target.forceMove(src)
+	user.visible_message(
+	SPAN_WARNING("[target] has been stuffed into the disposal unit by [user]!"),
+		SPAN_WARNING("You stuff [target] into the disposal unit."),
+		SPAN_WARNING("You hear someone being stuffed into a disposal unit!")
+	)
+	update()
+	add_attack_logs(user, target, "Disposal'ed", !target.ckey ? null : ATKLOG_ALL)
+	return TRUE
+
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
 	if(mode != DISPOSALS_OFF) // It's on
-		to_chat(user, "<span class='warning'>You need to turn the disposal unit off first!</span>")
+		to_chat(user, SPAN_WARNING("You need to turn the disposal unit off first!"))
 		return
 
 	. = TRUE
@@ -218,7 +233,7 @@
 		return
 
 	if(length(contents) > 0)
-		to_chat(user, "<span class='warning'>You need to empty the contents of the disposal unit first!</span>")
+		to_chat(user, SPAN_WARNING("You need to empty the contents of the disposal unit first!"))
 		return
 
 	if(mode == DISPOSALS_OFF) // It's off but still not unscrewed
@@ -226,20 +241,20 @@
 	else if(mode == DISPOSALS_UNSCREWED)
 		mode = DISPOSALS_OFF
 	user.visible_message(
-		"<span class='notice'>[user] [mode ? "unfastens": "fastens"] the screws around the power connection of the disposal unit.</span>",
-		"<span class='notice'>You [mode ? "unfasten": "fasten"] the screws around the power connection of the disposal unit.</span>",
-		"<span class='notice'>You hear screws being [mode ? "unfastened": "fastened"].</span>"
+		SPAN_NOTICE("[user] [mode ? "unfastens": "fastens"] the screws around the power connection of the disposal unit."),
+		SPAN_NOTICE("You [mode ? "unfasten": "fasten"] the screws around the power connection of the disposal unit."),
+		SPAN_NOTICE("You hear screws being [mode ? "unfastened": "fastened"].")
 	)
 	update()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	if(mode != DISPOSALS_UNSCREWED)
-		to_chat(user, "<span class='warning'>You need to unscrew the disposal unit first!</span>")
+		to_chat(user, SPAN_WARNING("You need to unscrew the disposal unit first!"))
 		return
 
 	. = TRUE
 	if(length(contents) > 0)
-		to_chat(user, "<span class='warning'>You need to empty the contents of the disposal unit first!</span>")
+		to_chat(user, SPAN_WARNING("You need to empty the contents of the disposal unit first!"))
 		return
 
 	if(!I.tool_use_check(user, 0))
@@ -257,9 +272,9 @@
 
 /obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
 	target.visible_message(
-		"<span class='warning'>[attacker] shoves [target] inside of the disposal unit!</span>",
-		"<span class='userdanger'>[attacker] shoves you inside of the disposal unit!</span>",
-		"<span class='warning'>You hear the sound of someone being thrown into a disposal unit.</span>"
+		SPAN_WARNING("[attacker] shoves [target] inside of the disposal unit!"),
+		SPAN_USERDANGER("[attacker] shoves you inside of the disposal unit!"),
+		SPAN_WARNING("You hear the sound of someone being thrown into a disposal unit.")
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
@@ -270,7 +285,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || is_ai(user))
 		return
 
 	// Animals cannot put mobs other than themselves into disposals.
@@ -280,19 +295,19 @@
 	src.add_fingerprint(user)
 	if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		user.visible_message(
-			"<span class='notice'>[user] starts climbing into the disposal unit.</span>",
-			"<span class='notice'>You start climbing into the disposal unit.</span>",
-			"<span class='notice'>You hear someone trying to climb into a disposal unit.</span>"
+			SPAN_NOTICE("[user] starts climbing into the disposal unit."),
+			SPAN_NOTICE("You start climbing into the disposal unit."),
+			SPAN_NOTICE("You hear someone trying to climb into a disposal unit.")
 		)
 
 	if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		if(target.anchored)
 			return
-		user.visible_message("<span class='warning'>[user] starts stuffing [target.name] into the disposal.</span>")
+		user.visible_message(SPAN_WARNING("[user] starts stuffing [target.name] into the disposal."))
 		user.visible_message(
-			"<span class='warning'>[user] starts stuffing [target] into the disposal unit!</span>",
-			"<span class='warning'>You start stuffing [target] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
+			SPAN_WARNING("[user] starts stuffing [target] into the disposal unit!"),
+			SPAN_WARNING("You start stuffing [target] into the disposal unit."),
+			SPAN_WARNING("You hear someone trying to stuff someone else into a disposal unit!")
 		)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
@@ -308,22 +323,18 @@
 	// All the extra checks ensure you cannot disposal yourself/others whilst incapacitated.
 	if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		user.visible_message(
-			"<span class='notice'>[user] climbs into the disposal unit.</span>",
-			"<span class='notice'>You climb into the disposal unit.</span>",
-			"<span class='notice'>You hear someone climbing into a disposal unit.</span>"
+			SPAN_NOTICE("[user] climbs into the disposal unit."),
+			SPAN_NOTICE("You climb into the disposal unit."),
+			SPAN_NOTICE("You hear someone climbing into a disposal unit.")
 		)
 
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		user.visible_message(
-			"<span class='warning'>[user] stuffs [target] into the disposal unit.</span>",
-			"<span class='warning'>You stuff [target] into the disposal unit.</span>",
-			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>"
+			SPAN_WARNING("[user] stuffs [target] into the disposal unit."),
+			SPAN_WARNING("You stuff [target] into the disposal unit."),
+			SPAN_WARNING("You hear the sound of someone being stuffed into a disposal unit.")
 		)
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
@@ -362,7 +373,7 @@
 		return
 
 	if(user && user.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, SPAN_WARNING("You cannot reach the controls from inside."))
 		return
 
 	// Clumsy folks can only flush it.
@@ -386,7 +397,7 @@
 /obj/machinery/disposal/ui_data(mob/user)
 	var/list/data = list()
 
-	data["isAI"] = isAI(user)
+	data["is_ai"] = is_ai(user)
 	data["flushing"] = flush
 	data["mode"] = mode
 	data["pressure"] = round(clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100),1)
@@ -397,11 +408,11 @@
 	if(..())
 		return
 	if(usr.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside!</span>")
+		to_chat(usr, SPAN_WARNING("You cannot reach the controls from inside!"))
 		return
 
 	if(mode == DISPOSALS_UNSCREWED && action != "eject") // If the mode is DISPOSALS_UNSCREWED, only allow ejection
-		to_chat(usr, "<span class='warning'>The disposal unit's power is disabled!</span>")
+		to_chat(usr, SPAN_WARNING("The disposal unit's power is disabled!"))
 		return
 
 	if(stat & BROKEN)
@@ -444,16 +455,16 @@
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	user.visible_message(
-		"<span class='notice'>[user] tries to eject the contents of the disposal unit manually.</span>",
-		"<span class='notice'>You operate the manual ejection lever on the disposal unit.</span>",
-		"<span class='notice'>You hear a lever being pulled.</span>"
+		SPAN_NOTICE("[user] tries to eject the contents of the disposal unit manually."),
+		SPAN_NOTICE("You operate the manual ejection lever on the disposal unit."),
+		SPAN_NOTICE("You hear a lever being pulled.")
 	)
 
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message(
-			"<span class='notice'>[user] ejects the contents of the disposal unit.</span>",
-			"<span class='notice'>You eject the contents of the disposal unit.</span>",
-			"<span class='notice'>You hear a sudden gush of air and the clattering of objects.</span>"
+			SPAN_NOTICE("[user] ejects the contents of the disposal unit."),
+			SPAN_NOTICE("You eject the contents of the disposal unit."),
+			SPAN_NOTICE("You hear a sudden gush of air and the clattering of objects.")
 		)
 		eject()
 
@@ -537,21 +548,21 @@
 	flushing = 1
 	flick("[icon_state]-flush", src)
 
-	var/wrapcheck = 0
+	var/wrapcheck = FALSE
 	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
-												// travels through the pipes.
+	// travels through the pipes.
 	//Hacky test to get drones to mail themselves through disposals.
 	for(var/mob/living/silicon/robot/drone/D in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
 	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
-	for(var/obj/item/smallDelivery/O in src)
-		wrapcheck = 1
+	for(var/obj/item/small_delivery/O in src)
+		wrapcheck = TRUE
 
-	if(wrapcheck == 1)
-		H.tomail = 1
+	if(wrapcheck)
+		H.tomail = TRUE
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
@@ -610,7 +621,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, border_dir)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(isprojectile(I))
@@ -620,21 +631,21 @@
 		if(prob(75) || (istype(thrower) && (HAS_TRAIT(thrower, TRAIT_BADASS) || HAS_TRAIT(thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
 			I.forceMove(src)
 			visible_message(
-				"<span class='notice'>[I] lands in [src].</span>",
-				"<span class='notice'>You hear something being tossed into a disposal unit.</span>"
+				SPAN_NOTICE("[I] lands in [src]."),
+				SPAN_NOTICE("You hear something being tossed into a disposal unit.")
 			)
 			update()
 			return
 
 		else
 			visible_message(
-				"<span class='warning'>[I] bounces off of [src]'s rim!</span>",
-				"<span class='warning'>You hear something bouncing off the rim of a disposal unit!</span>"
+				SPAN_WARNING("[I] bounces off of [src]'s rim!"),
+				SPAN_WARNING("You hear something bouncing off the rim of a disposal unit!")
 			)
 		return
 
 	else
-		return ..(mover, target, height)
+		return ..()
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -665,9 +676,11 @@
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/has_fat_guy = FALSE	// true if contains a fat person
 	/// Destination the holder is set to, defaulting to disposals and changes if the contents have a mail/sort tag.
-	var/destinationTag = 1
-	var/tomail = 0 //changes if contains wrapped package
-	var/hasmob = 0 //If it contains a mob
+	var/destination_tag = TAGGER_LOCATION_DISPOSALS
+	/// Do we contain a package?
+	var/tomail = FALSE
+	/// Do we contain a mob?
+	var/hasmob = FALSE
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
@@ -701,23 +714,23 @@
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = TRUE			// set flag on holder
-		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
-			var/obj/structure/bigDelivery/T = AM
-			destinationTag = T.sortTag
-		if(istype(AM, /obj/item/smallDelivery) && !hasmob)
-			var/obj/item/smallDelivery/T = AM
-			destinationTag = T.sortTag
+		if(istype(AM, /obj/structure/big_delivery) && !hasmob)
+			var/obj/structure/big_delivery/T = AM
+			destination_tag = T.sort_tag
+		if(istype(AM, /obj/item/small_delivery) && !hasmob)
+			var/obj/item/small_delivery/T = AM
+			destination_tag = T.sort_tag
 		//Drones can mail themselves through maint.
 		if(isdrone(AM))
 			var/mob/living/silicon/robot/drone/drone = AM
-			destinationTag = drone.mail_destination
+			destination_tag = drone.mail_destination
 		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
 			var/mob/living/silicon/robot/syndicate/saboteur/S = AM
-			destinationTag = S.mail_destination
-		if(istype(AM, /obj/item/shippingPackage) && !hasmob)
-			var/obj/item/shippingPackage/sp = AM
+			destination_tag = S.mail_destination
+		if(istype(AM, /obj/item/shipping_package) && !hasmob)
+			var/obj/item/shipping_package/sp = AM
 			if(sp.sealed)	//only sealed packages get delivered to their intended destination
-				destinationTag = sp.sortTag
+				destination_tag = sp.sort_tag
 
 
 	// start the movement process
@@ -749,7 +762,7 @@
 			// find the fat guys
 			for(var/mob/living/carbon/human/H in src)
 				if(HAS_TRAIT(H, TRAIT_FAT))
-					to_chat(H, "<span class='userdanger'>You suddenly stop in [last], your extra weight jamming you against the walls!</span>")
+					to_chat(H, SPAN_USERDANGER("You suddenly stop in [last], your extra weight jamming you against the walls!"))
 			break
 		sleep(1)		// was 1
 		var/obj/structure/disposalpipe/curr = loc
@@ -827,7 +840,6 @@
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
 	anchored = TRUE
-	density = FALSE
 
 	on_blueprints = TRUE
 	level = 1			// underfloor only
@@ -898,7 +910,7 @@
 
 		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			H.forceMove(loc)
 		else
 			H.forceMove(T)
@@ -1047,11 +1059,11 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
+		to_chat(user, SPAN_DANGER("You can't interact with something that's under the floor!"))
+		return ITEM_INTERACT_COMPLETE // prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
 
@@ -1061,7 +1073,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(T.transparent_floor)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, SPAN_DANGER("You can't interact with something that's under the floor!"))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -1171,7 +1183,6 @@
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
 	var/list/sort_type = list(1)
-	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
@@ -1194,60 +1205,34 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	if(mapload)
-		parse_sort_destinations()
 	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	update()
 	return
 
-/obj/structure/disposalpipe/sortjunction/proc/parse_sort_destinations()
-	if(sort_type_txt == "1")
-		return
-
-	var/list/sort_type_str = splittext(sort_type_txt, ";")
-	var/mapping_fail
-
-	if(length(sort_type_str)) // Default to disposals if mapped with it along other destinations
-		if("1" in sort_type_str)
-			mapping_fail = "Mutually exclusive sort types in sort_type_txt"
-		else
-			var/new_sort_type = list()
-			for(var/x in sort_type_str)
-				var/n = text2num(x)
-				if(n)
-					new_sort_type |= n
-			if(length(new_sort_type))
-				sort_type = new_sort_type
-			else
-				mapping_fail = "No sort types after parsing sort_type_txt"
-	else
-		mapping_fail = "Sort_type_txt is empty"
-	if(mapping_fail)
-		stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
-
-/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sortjunction/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(..())
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/destTagger))
-		var/obj/item/destTagger/O = I
-		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
+	if(istype(I, /obj/item/dest_tagger))
+		var/obj/item/dest_tagger/O = I
+		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.current_tag])
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
-		if(O.currTag == 1)
+		if(O.current_tag == 1)
 			sort_type = list(1)
-			to_chat(user, "<span class='notice'>Filter set to [tag] only.</span>")
-		else if(O.currTag in sort_type)
-			sort_type.Remove(O.currTag)
-			to_chat(user, "<span class='notice'>Removed [tag] from filter.</span>")
+			to_chat(user, SPAN_NOTICE("Filter set to [tag] only."))
+		else if(O.current_tag in sort_type)
+			sort_type.Remove(O.current_tag)
+			to_chat(user, SPAN_NOTICE("Removed [tag] from filter."))
 			if(!length(sort_type))
 				sort_type.Add(1) // Default to Disposals if everything is removed.
-				to_chat(user, "<span class='notice'>Filter defaulting to [uppertext(GLOB.TAGGERLOCATIONS[1])].</span>")
+				to_chat(user, SPAN_NOTICE("Filter defaulting to [uppertext(GLOB.TAGGERLOCATIONS[1])]."))
 		else
 			if(1 in sort_type) // Remove Disposals if a destination is added.
 				sort_type.Remove(1)
-			sort_type.Add(O.currTag)
-			to_chat(user, "<span class='notice'>Added [tag] to filter.</span>")
+			sort_type.Add(O.current_tag)
+			to_chat(user, SPAN_NOTICE("Added [tag] to filter."))
 		update_appearance(UPDATE_NAME|UPDATE_DESC)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/disposalpipe/sortjunction/update_name()
 	. = ..()
@@ -1284,7 +1269,7 @@
 		return posdir
 
 /obj/structure/disposalpipe/sortjunction/transfer(obj/structure/disposalholder/H)
-	var/nextdir = nextdir(H.dir, H.destinationTag)
+	var/nextdir = nextdir(H.dir, H.destination_tag)
 	H.dir = nextdir
 	var/turf/T = H.nextloc()
 	var/obj/structure/disposalpipe/P = H.findpipe(T)
@@ -1295,6 +1280,11 @@
 		if(H2 && !H2.active)
 			H.merge(H2)
 		H.forceMove(P)
+		if(loc)
+			loc.color = initial(loc.color)
+		else
+			color = initial(color)
+
 	else			// if wasn't a pipe, then set loc to turf
 		H.forceMove(T)
 		return null
@@ -1373,7 +1363,7 @@
 /obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	dpdir = dir
-	addtimer(CALLBACK(src, PROC_REF(getlinked)), 0) // This has a delay of 0, but wont actually start until the MC is done
+	END_OF_TICK(CALLBACK(src, PROC_REF(getlinked)))
 
 	update()
 	return
@@ -1381,7 +1371,7 @@
 /obj/structure/disposalpipe/trunk/Destroy()
 	if(istype(linked, /obj/structure/disposaloutlet))
 		var/obj/structure/disposaloutlet/O = linked
-		O.expel(animation = 0)
+		O.expel_all_contents_immediately()
 	else if(istype(linked, /obj/machinery/disposal))
 		var/obj/machinery/disposal/D = linked
 		if(D.trunk == src)
@@ -1422,18 +1412,18 @@
 		linked = D
 		D.linkedtrunk = src
 
-	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, params)
-
+/// Disallow trunkremoval when something's on top
+/obj/structure/disposalpipe/trunk/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	//Disposal bins or chutes
 	//Disposal constructors
 	var/obj/structure/disposalconstruct/C = locate() in src.loc
 	if(C && C.anchored)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/turf/T = src.loc
 	if(T.intact || T.transparent_floor)
-		return		// prevent interaction with T-scanner revealed pipes
+		// prevent interaction with T-scanner revealed pipes
+		return ITEM_INTERACT_COMPLETE
 	src.add_fingerprint(user)
 
 	// would transfer to next pipe segment, but we are in a trunk
@@ -1454,7 +1444,6 @@
 			AM.forceMove(DO)
 		qdel(H)
 		H.vent_gas(loc)
-		DO.expel()
 	else if(istype(linked, /obj/machinery/disposal))
 		var/obj/machinery/disposal/D = linked
 		H.forceMove(D)
@@ -1474,7 +1463,6 @@
 ////////////////////////////////////////
 /obj/structure/disposalpipe/broken
 	icon_state = "pipe-b"
-	dpdir = 0		// broken pipes have dpdir=0 so they're not found as 'real' pipes
 					// i.e. will be treated as an empty turf
 	desc = "A broken piece of disposal pipe."
 
@@ -1485,7 +1473,7 @@
 
 /obj/structure/disposalpipe/broken/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, 0, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You remove [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You remove [src]!"))
 		I.play_tool_sound(src, I.tool_volume)
 		qdel(src)
 		return TRUE
@@ -1507,57 +1495,87 @@
 	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
 	/// The last time a sound was played
 	var/last_sound
+	var/delay_large_object_expel_enabled = FALSE
+	COOLDOWN_DECLARE(large_object_expel_cooldown)
+	var/list/delayed_objects = list(
+		/obj/structure/closet,
+		/obj/structure/big_delivery,
+	)
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
-
+	END_OF_TICK(CALLBACK(src, PROC_REF(setup)))
 
 /obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)
 	var/obj/structure/disposalpipe/trunk/T = locate() in get_turf(src)
 	if(T)
 		T.nicely_link_to_other_stuff(src)
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/disposaloutlet/multitool_act(mob/living/user, obj/item/I)
+	to_chat(user, SPAN_NOTICE("You [delay_large_object_expel_enabled ? "disable" : "enable"] the delay between large objects leaving the disposal outlet."))
+	delay_large_object_expel_enabled = !delay_large_object_expel_enabled
+
+/obj/structure/disposaloutlet/process()
+	var/list/expelled_contents = list()
+	for(var/atom/movable/AM in contents)
+		if(delay_large_object_expel_enabled && is_type_in_list(AM, delayed_objects))
+			if(COOLDOWN_FINISHED(src, large_object_expel_cooldown))
+				COOLDOWN_START(src, large_object_expel_cooldown, 5 SECONDS)
+				expelled_contents += AM
+		else
+			expelled_contents += AM
+
+	if(length(expelled_contents))
+		play_animation()
+		for(var/atom/movable/AM in expelled_contents)
+			expel_atom(AM)
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)
 		linkedtrunk.remove_trunk_links()
-	expel(FALSE)
+	expel_all_contents_immediately()
 	return ..()
 
-
-// expel the contents of the outlet
-/obj/structure/disposaloutlet/proc/expel(animation = TRUE)
-	if(animation)
-		flick("outlet-open", src)
-		var/play_sound = FALSE
-		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			play_sound = TRUE
-			last_sound = world.time
-		if(play_sound)
-			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, FALSE, FALSE)
-		sleep(20)	//wait until correct animation frame
-		if(play_sound)
-			playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
+/obj/structure/disposaloutlet/proc/expel_all_contents_immediately()
 	for(var/atom/movable/AM in contents)
-		AM.forceMove(loc)
-		AM.pipe_eject(dir)
-		if(QDELETED(AM))
+		expel_atom(AM)
+
+/obj/structure/disposaloutlet/proc/expel_atom(atom/movable/AM)
+	if(!(AM in contents))
+		return
+
+	AM.forceMove(loc)
+	AM.pipe_eject(dir)
+	if(QDELETED(AM))
+		return
+	if(isliving(AM))
+		var/mob/living/mob_to_immobilize = AM
+		if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 			return
-		if(isliving(AM))
-			var/mob/living/mob_to_immobilize = AM
-			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
-				return
-			mob_to_immobilize.Immobilize(1 SECONDS)
-		AM.throw_at(target, 3, 1)
+		mob_to_immobilize.Immobilize(1 SECONDS)
+	AM.throw_at(target, 3, 1)
+
+/obj/structure/disposaloutlet/proc/play_animation()
+	flick("outlet-open", src)
+	var/play_sound = FALSE
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+		play_sound = TRUE
+		last_sound = world.time
+	if(play_sound)
+		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, FALSE, FALSE)
+	sleep(20)	//wait until correct animation frame
+	if(play_sound)
+		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
 
 	if(!mode)
-		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
+		to_chat(user, SPAN_NOTICE("You remove the screws around the power connection."))
 	else if(mode)
-		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
+		to_chat(user, SPAN_NOTICE("You attach the screws around the power connection."))
 	I.play_tool_sound(src)
 	mode = !mode
 	return TRUE
@@ -1585,8 +1603,8 @@
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
 		T.visible_message(
-			"<span class='warning'>The floortile is ripped from the floor!</span>",
-			"<span class='warning'>You hear a loud bang!</span>"
+			SPAN_WARNING("The floortile is ripped from the floor!"),
+			SPAN_WARNING("You hear a loud bang!")
 		)
 
 	if(linkedtrunk)
@@ -1599,6 +1617,9 @@
 	C.density = TRUE
 	qdel(src)
 
+/obj/structure/disposaloutlet/cere
+	delay_large_object_expel_enabled = TRUE
+
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
 
@@ -1608,7 +1629,7 @@
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(direction)
 	var/list/dirs
 	if(direction)
-		dirs = list( direction, turn(direction, -45), turn(direction, 45))
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
 	else
 		dirs = GLOB.alldirs.Copy()
 
@@ -1617,7 +1638,7 @@
 /obj/effect/decal/cleanable/blood/gibs/robot/gib/pipe_eject(direction)
 	var/list/dirs
 	if(direction)
-		dirs = list( direction, turn(direction, -45), turn(direction, 45))
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
 	else
 		dirs = GLOB.alldirs.Copy()
 

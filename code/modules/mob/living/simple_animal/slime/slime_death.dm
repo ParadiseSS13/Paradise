@@ -22,12 +22,15 @@
 			E.Grant(src)
 			revive()
 			regenerate_icons()
-			update_name()
+			update_appearance(UPDATE_NAME)
 			return
 
 	set_stat(DEAD) //Temporarily set to dead for icon updates
 	regenerate_icons()
 	set_stat(CONSCIOUS)
+	if(holding_organ)
+		eject_organ()
+	underlays.Cut()
 
 	return ..(gibbed)
 

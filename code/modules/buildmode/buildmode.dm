@@ -108,6 +108,7 @@
 
 /datum/click_intercept/buildmode/InterceptClickOn(user, params, atom/object)
 	mode.handle_click(user, params, object)
+	return TRUE
 
 /proc/togglebuildmode(mob/M in GLOB.player_list)
 	set name = "Toggle Build Mode"

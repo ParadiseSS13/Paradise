@@ -13,19 +13,23 @@
 
 	var/list/list_enginebeacons = list()
 	var/isactive = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/enginepicker/Destroy()
 	list_enginebeacons.Cut()
 	return ..()
 
-/obj/item/enginepicker/attack_self(mob/living/carbon/user)
+/obj/item/enginepicker/activate_self(mob/living/carbon/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.incapacitated())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!isactive)
-		isactive = TRUE	//Self-attack spam exploit prevention
+		isactive = TRUE// Self-attack spam exploit prevention.
 	else
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	locatebeacons()
 	var/E = tgui_input_list(user, "Select the station's Engine", "[src]", list_enginebeacons)
@@ -33,23 +37,26 @@
 		processchoice(E, user)
 	else
 		isactive = FALSE
-		return
+	return ITEM_INTERACT_COMPLETE
 
-//This proc re-assigns all of engine beacons in the global list to a local list.
+/// This proc re-assigns all of engine beacons in the global list to a local list.
 /obj/item/enginepicker/proc/locatebeacons()
 	LAZYCLEARLIST(list_enginebeacons)
 	for(var/obj/item/beacon/engine/B in GLOB.engine_beacon_list)
-		if(B && !QDELETED(B))	//This ensures that the input pop-up won't have any qdeleted beacons
+		if(B && !QDELETED(B)) // This ensures that the input pop-up won't have any qdeleted beacons.
 			list_enginebeacons += B
 
-//Spawns and logs / announces the appropriate engine based on the choice made
+/// Spawns and logs / announces the appropriate engine based on the choice made.
 /obj/item/enginepicker/proc/processchoice(obj/item/beacon/engine/choice, mob/living/carbon/user)
-	var/issuccessful = FALSE	//Check for a successful choice
-	var/engtype					//Engine type
-	var/G						//Generator that will be spawned
+	/// Check for a successful choice.
+	var/issuccessful = FALSE
+	/// Engine type.
+	var/engtype
+	/// Generator that will be spawned.			
+	var/G						
 	var/turf/T = get_turf(choice)
 
-	if(length(choice.enginetype) > 1)	//If the beacon has multiple engine types
+	if(length(choice.enginetype) > 1)	// If the beacon has multiple engine types.
 		var/E = tgui_input_list(user, "You have selected a combined beacon, which option would you prefer?", "[src]", choice.enginetype)
 		if(E)
 			engtype = E
@@ -58,41 +65,41 @@
 			isactive = FALSE
 			return
 
-	if(!engtype)				//If it has only one type
-		engtype = DEFAULTPICK(choice.enginetype, null)	//This should(?) account for a possibly scrambled list with a single entry
+	if(!engtype)				// If it has only one type.
+		engtype = DEFAULTPICK(choice.enginetype, null)	// This should(?) account for a possibly scrambled list with a single entry.
 	switch(engtype)
 		if(ENGTYPE_TESLA)
 			G = /obj/machinery/the_singularitygen/tesla
 		if(ENGTYPE_SING)
 			G = /obj/machinery/the_singularitygen
 
-	if(G)	//This can only be not-null if the switch operation was successful
+	if(G)	// This can only be not-null if the switch operation was successful.
 		issuccessful = TRUE
 
 	if(issuccessful)
-		clearturf(T) 	//qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
-		new G(T)		//Spawns the switch-selected engine on the chosen beacon's turf
+		clearturf(T) 	// qdels all items / gibs all mobs on the turf. Let's not have an SM shard spawn on top of a poor sod.
+		new G(T)		// Spawns the switch-selected engine on the chosen beacon's turf.
 
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			ailist += A
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
-			announcer.say(";Engine delivery detected. Type: [engtype].")	//Let's announce the terrible choice to everyone
+			announcer.say(";Engine delivery detected. Type: [engtype].")	// Let's announce the terrible choice to everyone.
 
-		visible_message("<span class='notice'>\The [src] begins to violently vibrate and hiss, then promptly disintegrates!</span>")
-		qdel(src)	//Self-destructs to prevent crew from spawning multiple engines.
+		visible_message(SPAN_WARNING("[src] begins to violently vibrate and hiss, then promptly disintegrates!"))
+		qdel(src)	// Self-destructs to prevent crew from spawning multiple engines.
 	else
-		visible_message("<span class='notice'>\The [src] buzzes! No beacon found or selected!</span>")
+		visible_message(SPAN_WARNING("[src] buzzes! No beacon found or selected!"))
 		isactive = FALSE
 		return
 
-//Deletes objects and mobs from the beacon's turf.
+// Deletes objects and mobs from the beacon's turf.
 /obj/item/enginepicker/proc/clearturf(turf/T)
 	for(var/obj/item/I in T)
-		I.visible_message("\The [I] gets crushed to dust!")
+		I.visible_message(SPAN_WARNING("[I] gets crushed to dust!"))
 		qdel(I)
 
 	for(var/mob/living/M in T)
-		M.visible_message("\The [M] gets obliterated!")
+		M.visible_message(SPAN_DANGER("[M] gets obliterated!"))
 		M.gib()

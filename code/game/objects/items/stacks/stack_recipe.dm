@@ -4,10 +4,10 @@
 /datum/stack_recipe
 	/// Visible title of recipe
 	var/title = "ERROR"
-	/// Cached recipe result base64 image
-	var/image
 	/// Resulting typepath of crafted atom
 	var/result_type
+	/// Generated base64 image. Used only if result has color
+	var/result_image
 	/// Required stack amount to make
 	var/req_amount = 1
 	/// Amount of atoms made
@@ -52,64 +52,71 @@
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
 
+	// We create base64 image only if item have color. Otherwise use icon_ref for TGUI
 	var/obj/item/result = result_type
-	var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
 	var/paint = result::color
-
-	result_icon.Scale(32, 32)
 	if(!isnull(paint) && paint != COLOR_WHITE)
+		var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
+		result_icon.Scale(32, 32)
 		result_icon.Blend(paint, ICON_MULTIPLY)
-
-	src.image = "[icon2base64(result_icon)]"
+		src.result_image = "[icon2base64(result_icon)]"
 
 /// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/material, multiplier)
 	if(material.get_amount() < req_amount * multiplier)
 		if(req_amount * multiplier > 1)
-			to_chat(user, "<span class='warning'>You haven't got enough [material] to build [res_amount * multiplier] [title]\s!</span>")
+			to_chat(user, SPAN_WARNING("You haven't got enough [material] to build [res_amount * multiplier] [title]\s!"))
 		else
-			to_chat(user, "<span class='warning'>You haven't got enough [material] to build [title]!</span>")
+			to_chat(user, SPAN_WARNING("You haven't got enough [material] to build [title]!"))
 		return FALSE
 
 	if(window_checks && !valid_window_location(get_turf(material), user.dir))
-		to_chat(user, "<span class='warning'>[title] won't fit here!</span>")
+		to_chat(user, SPAN_WARNING("[title] won't fit here!"))
 		return FALSE
 
 	if(one_per_turf && (locate(result_type) in get_turf(material)))
-		to_chat(user, "<span class='warning'>There is another [title] here!</span>")
+		to_chat(user, SPAN_WARNING("There is another [title] here!"))
 		return FALSE
 
 	if(on_floor && !issimulatedturf(get_turf(material)))
-		to_chat(user, "<span class='warning'>[title] must be constructed on the floor!</span>")
+		to_chat(user, SPAN_WARNING("[title] must be constructed on the floor!"))
 		return FALSE
 	if(on_floor_or_lattice && !(issimulatedturf(get_turf(material)) || locate(/obj/structure/lattice) in get_turf(material)))
-		to_chat(user, "<span class='warning'>[title] must be constructed on the floor or lattice!</span>")
+		to_chat(user, SPAN_WARNING("[title] must be constructed on the floor or lattice!"))
 		return FALSE
 
 	if(cult_structure)
 		if(user.holy_check())
 			return FALSE
 		if(!is_level_reachable(user.z))
-			to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+			to_chat(user, SPAN_WARNING("The energies of this place interfere with the metal shaping!"))
 			return FALSE
 		if(locate(/obj/structure/cult) in get_turf(material))
-			to_chat(user, "<span class='warning'>There is a structure here!</span>")
+			to_chat(user, SPAN_WARNING("There is a structure here!"))
 			return FALSE
 
+	if(locate(/obj/machinery/atmospherics/reactor_chamber) in get_turf(material))
+		to_chat(user, SPAN_WARNING("Building something here would get in the way of the reactor!"))
+		return FALSE
+		
 	return TRUE
 
 /// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
 /datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/material, multiplier, atom/result)
 	if(time)
-		to_chat(user, "<span class='notice'>Building [title]...</span>")
+		to_chat(user, SPAN_NOTICE("Building [title]..."))
 		if(!do_after(user, time, target = material.loc))
 			return FALSE
 
-	if(cult_structure && locate(/obj/structure/cult) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
-		to_chat(user, "<span class='warning'>There is a structure here!</span>")
+	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
 		return FALSE
 
-	if(material.get_amount() < req_amount * multiplier) // Check they still have enough.
+	if(cult_structure && locate(/obj/structure/cult) in get_turf(material)) // Check again after do_after to prevent queuing construction exploit.
+		to_chat(user, SPAN_WARNING("There is a structure here!"))
+		return FALSE
+
+	if(one_per_turf && (locate(result_type) in get_turf(material))) // Yes, we need to do this twice. Once during try_build, and when we build the actual thing, in case it was on a do-after and there's now a structure here.
+		to_chat(user, SPAN_WARNING("There is another [title] here!"))
 		return FALSE
 
 	if(max_res_amount > 1) // Is it a stack?
@@ -129,7 +136,9 @@
 
 	if(isitem(result))
 		if(isstack(result) && istype(result, user.get_inactive_hand()))
-			result.merge(user.get_inactive_hand())
+			// Make sure the result hasn't already gotten sucked into another stack while initializing
+			if(!QDELETED(result))
+				result.merge(user.get_inactive_hand())
 		user.put_in_hands(result)
 
 	// BubbleWrap - so newly formed boxes are empty

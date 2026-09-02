@@ -11,37 +11,39 @@
 
 /datum/outfit/varedit/proc/set_equipment_by_slot(slot, item_path)
 	switch(slot)
-		if(SLOT_HUD_JUMPSUIT)
+		if(ITEM_SLOT_JUMPSUIT)
 			uniform = item_path
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			back = item_path
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_OUTER_SUIT)
 			suit = item_path
-		if(SLOT_HUD_BELT)
+		if(ITEM_SLOT_BELT)
 			belt = item_path
-		if(SLOT_HUD_GLOVES)
+		if(ITEM_SLOT_GLOVES)
 			gloves = item_path
-		if(SLOT_HUD_SHOES)
+		if(ITEM_SLOT_SHOES)
 			shoes = item_path
-		if(SLOT_HUD_HEAD)
+		if(ITEM_SLOT_HEAD)
 			head = item_path
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			mask = item_path
-		if(SLOT_HUD_LEFT_EAR)
+		if(ITEM_SLOT_NECK)
+			neck = item_path
+		if(ITEM_SLOT_LEFT_EAR)
 			l_ear = item_path
-		if(SLOT_HUD_RIGHT_EAR)
+		if(ITEM_SLOT_RIGHT_EAR)
 			r_ear = item_path
-		if(SLOT_HUD_GLASSES)
+		if(ITEM_SLOT_EYES)
 			glasses = item_path
-		if(SLOT_HUD_WEAR_ID)
+		if(ITEM_SLOT_ID)
 			id = item_path
-		if(SLOT_HUD_WEAR_PDA)
+		if(ITEM_SLOT_PDA)
 			pda = item_path
-		if(SLOT_HUD_SUIT_STORE)
+		if(ITEM_SLOT_SUIT_STORE)
 			suit_store = item_path
-		if(SLOT_HUD_LEFT_STORE)
+		if(ITEM_SLOT_LEFT_POCKET)
 			l_pocket = item_path
-		if(SLOT_HUD_RIGHT_STORE)
+		if(ITEM_SLOT_RIGHT_POCKET)
 			r_pocket = item_path
 
 
@@ -70,7 +72,7 @@
 
 	// Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(SLOT_HUD_JUMPSUIT, SLOT_HUD_BACK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_BELT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_WEAR_ID, SLOT_HUD_WEAR_PDA, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
+	var/list/slots_to_check = list(ITEM_SLOT_JUMPSUIT, ITEM_SLOT_BACK, ITEM_SLOT_OUTER_SUIT, ITEM_SLOT_BELT, ITEM_SLOT_GLOVES, ITEM_SLOT_SHOES, ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_ID, ITEM_SLOT_PDA, ITEM_SLOT_SUIT_STORE, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET, ITEM_SLOT_NECK)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -81,7 +83,7 @@
 
 	// Copy access
 	O.stored_access = list()
-	var/obj/item/id_slot = get_item_by_slot(SLOT_HUD_WEAR_ID)
+	var/obj/item/id_slot = get_item_by_slot(ITEM_SLOT_ID)
 	if(id_slot)
 		O.stored_access |= id_slot.GetAccess()
 		var/obj/item/card/id/ID = id_slot.GetID()
@@ -105,7 +107,7 @@
 	O.vv_values = result
 
 	// Copy backpack contents if exist.
-	var/obj/item/backpack = get_item_by_slot(SLOT_HUD_BACK)
+	var/obj/item/backpack = get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(backpack) && LAZYLEN(backpack.contents) > 0)
 		var/list/typecounts = list()
 		for(var/obj/item/I in backpack)
@@ -129,7 +131,7 @@
 		O.cybernetic_implants |= aug.type
 
 	// Copy accessories
-	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(SLOT_HUD_JUMPSUIT)
+	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(ITEM_SLOT_JUMPSUIT)
 	if(uniform_slot)
 		O.accessories = list()
 		for(var/obj/item/clothing/accessory/A in uniform_slot.accessories)
@@ -160,7 +162,7 @@
 			I.vv_edit_var(vname,edits[vname])
 
 	// Apply access
-	var/obj/item/id_slot = H.get_item_by_slot(SLOT_HUD_WEAR_ID)
+	var/obj/item/id_slot = H.get_item_by_slot(ITEM_SLOT_ID)
 	if(!id_slot)
 		return
 

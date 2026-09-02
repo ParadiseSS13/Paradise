@@ -37,6 +37,7 @@
 	var/weed_chance = 5
 	/// If weed chance passes, this many weeds sprout during growth
 	var/weed_rate = 1
+	new_attack_chain = TRUE
 
 	/// The size of a small mutation for each stat.
 	var/static/list/stat_mutation_sizes = list(
@@ -58,8 +59,8 @@
 		"weed rate" = TRUE,
 		"weed chance" = TRUE)
 
-/obj/item/seeds/New(loc, nogenes = 0)
-	..()
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(-6, 6)
 
@@ -174,8 +175,8 @@
 		if("weed chance")
 			adjust_weed_chance(mod)
 
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) // Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florayield))
+/obj/item/seeds/bullet_act(obj/projectile/Proj) // Works with the Somatoray to modify plant variables.
+	if(istype(Proj, /obj/projectile/energy/florayield))
 		var/rating = 1
 		if(istype(loc, /obj/machinery/hydroponics))
 			var/obj/machinery/hydroponics/H = loc
@@ -208,9 +209,9 @@
 	if(!mutation_level)
 		return src
 
-	return new /obj/item/unsorted_seeds(src, mutation_level, tray.get_mutation_focus())
+	return new /obj/item/unsorted_seeds(src, src, mutation_level, tray.get_mutation_focus())
 
-/obj/item/seeds/proc/harvest(mob/user = usr)
+/obj/item/seeds/proc/harvest(mob/user, obj/item/storage/bag/plants/bag)
 	var/obj/machinery/hydroponics/tray = loc
 	var/output_loc = tray.Adjacent(user) ? user.loc : tray.loc // Needed for TK
 
@@ -222,6 +223,8 @@
 		var/obj/item/produce = new product(output_loc, mutated_seed)
 		if(!produce)
 			return
+		if(bag && bag.can_be_inserted(produce))
+			bag.handle_item_insertion(produce, user, TRUE)
 
 		product_name = produce.name
 
@@ -349,7 +352,7 @@
 		C.value = weed_chance
 
 
-/obj/item/seeds/proc/get_analyzer_text(show_detail = TRUE)  // In case seeds have something special to tell to the analyzer
+/obj/item/seeds/proc/get_analyzer_text(show_detail = TRUE, high_details_mode = TRUE)  // In case seeds have something special to tell to the analyzer
 	var/list/text = list()
 	if(show_detail)
 		if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
@@ -359,22 +362,23 @@
 		if(get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			text += "- Plant type: Mushroom. Can grow in dry soil."
 		if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
-			text += "- Plant type: <span class='warning'>UNKNOWN</span> "
-	if(potency != -1)
-		text += "- Potency: [potency]"
-	if(yield != -1)
-		var/obj/machinery/hydroponics/tray = loc
-		if(istype(tray) && tray.yield_beamed)
-			text += "- Yield: [yield] (+1-3 from somatoray)"
-		else
-			text += "- Yield: [yield]"
-	text += "- Maturation speed: [maturation]"
-	if(yield != -1)
-		text += "- Production speed: [production]"
-	text += "- Endurance: [endurance]"
-	text += "- Lifespan: [lifespan]"
-	text += "- Weed Growth Rate: [weed_rate]"
-	text += "- Weed Vulnerability: [weed_chance]"
+			text += "- Plant type: [SPAN_WARNING("UNKNOWN")] "
+	if(high_details_mode)
+		if(potency != -1)
+			text += "- Potency: [potency]"
+		if(yield != -1)
+			var/obj/machinery/hydroponics/tray = loc
+			if(istype(tray) && tray.yield_beamed)
+				text += "- Yield: [yield] (+1-3 from somatoray)"
+			else
+				text += "- Yield: [yield]"
+		text += "- Maturation speed: [maturation]"
+		if(yield != -1)
+			text += "- Production speed: [production]"
+		text += "- Endurance: [endurance]"
+		text += "- Lifespan: [lifespan]"
+		text += "- Weed Growth Rate: [weed_rate]"
+		text += "- Weed Vulnerability: [weed_chance]"
 	if(!show_detail)
 		return text.Join("<br>")
 	if(rarity)
@@ -391,19 +395,21 @@
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
+/obj/item/seeds/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/plant_analyzer))
+		to_chat(user, SPAN_NOTICE("This is \a [SPAN_NAME("[src].")]"))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+			to_chat(user, SPAN_NOTICE(text))
 
-		return
-	if(is_pen(O))
+		return ITEM_INTERACT_COMPLETE
+
+	if(is_pen(used))
 		variant_prompt(user)
-		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
+	return ..() // Fall through to parent so that bags can pick seeds up.
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
@@ -418,7 +424,7 @@
 	if(variant == "")
 		variant = null
 	if(prev != variant)
-		to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
+		to_chat(user, SPAN_NOTICE("You [variant ? "change" : "remove"] the [plantname]'s variant designation."))
 	apply_variant_name()
 
 /obj/item/seeds/proc/apply_variant_name()
@@ -427,8 +433,7 @@
 	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
 		N = "experimental " + N
 	name = N + V
-	if(GetComponent(/datum/component/label))
-		GetComponent(/datum/component/label).apply_label() // Don't delete labels
+	update_appearance(UPDATE_NAME) //Append name additives such as from labels
 
 
 
@@ -525,7 +530,7 @@
 /obj/item/seeds/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		to_chat(user, get_analyzer_text())
 
 /obj/item/seeds/openTip()
@@ -614,14 +619,13 @@
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-
+	new_attack_chain = TRUE
 	var/datum/unsorted_seed/seed_data
 
-/obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
-	..()
+/obj/item/unsorted_seeds/Initialize(mapload, obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
+	. = ..()
 	template = template.Copy()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(-6, 6)
+	scatter_atom()
 	if(seed_data_in)
 		seed_data = seed_data_in
 	else
@@ -636,41 +640,49 @@
 	return ..()
 
 /obj/item/unsorted_seeds/proc/Copy()
-	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
+	return new /obj/item/unsorted_seeds(seed_data.original_seed, seed_data.original_seed, seed_data.mutation_level, seed_data.mutation_focus, seed_data)
 
 /obj/item/unsorted_seeds/proc/sort(depth = 1)
 	seed_data.transform(src, depth)
 
-/obj/item/unsorted_seeds/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] crudely sorts through [src] by hand.</span>", "<span class='notice'>You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool.")
+/obj/item/unsorted_seeds/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	user.visible_message(
+		SPAN_NOTICE("[user] crudely sorts through [src] by hand."),
+		SPAN_NOTICE("You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool."),
+		SPAN_HEAR("You hear shuffling seeds.")
+	)
 	if(do_after(user, 3 SECONDS, TRUE, src, must_be_held = TRUE))
 		sort()
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/unsorted_seeds/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
-		var/text = get_analyzer_text()
-		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+/obj/item/unsorted_seeds/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		to_chat(user, SPAN_WARNING("Sort it first."))
+		return ITEM_INTERACT_COMPLETE
 
-		return
-	if(is_pen(O))
-		to_chat(user, "<span class='notice'>Sort it first.</span>")
-		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+	if(!istype(used, /obj/item/plant_analyzer))
+		return ..()
+
+	to_chat(user, SPAN_NOTICE("This is \a [SPAN_NAME("[src].")]"))
+	var/text = get_analyzer_text()
+	if(text)
+		to_chat(user, SPAN_NOTICE("[text]"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/unsorted_seeds/proc/get_analyzer_text(show_detail = TRUE)
 	var/list/output = list()
 	output += seed_data.original_seed.get_analyzer_text(show_detail)
 	output += "- Mutation level: [seed_data.mutation_level]"
 	output += "- Mutation focus: [english_list(seed_data.mutation_focus, "None.")]"
-	output += "<span class='notice'>Data may change after sorting.</span>"
+	output += SPAN_NOTICE("Data may change after sorting.")
 	return output.Join("<br>")
 
 /obj/item/unsorted_seeds/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		to_chat(user, get_analyzer_text())
 
 /obj/item/unsorted_seeds/openTip()

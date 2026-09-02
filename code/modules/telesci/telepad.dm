@@ -89,20 +89,22 @@
 		new /obj/item/stack/sheet/glass(loc)
 	..()
 
-
 ///TELEPAD CALLER///
 /obj/item/telepad_beacon
 	name = "telepad beacon"
 	desc = "Use to warp in a cargo telepad."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
-	item_state = "signaler"
+	inhand_icon_state = "signaler"
 	origin_tech = "bluespace=3"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
+	new_attack_chain = TRUE
 
-/obj/item/telepad_beacon/attack_self(mob/user as mob)
-	if(user)
-		to_chat(user, "<span class = 'caution'> Locked In</span>")
-		new /obj/machinery/telepad_cargo(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
-		qdel(src)
-	return
+/obj/item/telepad_beacon/activate_self(mob/user)
+	if(!user)
+		return ..()
+	to_chat(user, SPAN_CAUTION("Locked In."))
+	new /obj/machinery/telepad_cargo(user.loc)
+	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE

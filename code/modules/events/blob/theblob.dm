@@ -8,9 +8,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
-	desc = "Some blob creature thingy"
-	density = FALSE
-	opacity = FALSE
+	desc = "Some blob creature thingy."
 	anchored = TRUE
 	max_integrity = 30
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 70)
@@ -33,6 +31,16 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	if(atmosblock)
 		recalculate_atmos_connectivity()
 	ConsumeTile()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
+
+/obj/structure/blob/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_CREW = 0.07)
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
@@ -49,9 +57,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return FALSE
 	return ..()
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/blob/CanPass(atom/movable/mover, border_dir)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(direction)
@@ -69,8 +75,8 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/blob/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/kinetic))
+/obj/structure/blob/bullet_act(obj/projectile/P)
+	if(istype(P, /obj/projectile/kinetic))
 		P.damage /= 2
 	return ..()
 
@@ -203,9 +209,8 @@ GLOBAL_LIST_EMPTY(blob_minions)
 			color = incoming_overmind.blob_reagent_datum.color
 			return
 
-/obj/structure/blob/Crossed(mob/living/L, oldloc)
-	..()
-	L.blob_act(src)
+/obj/structure/blob/proc/on_atom_entered(datum/source, atom/movable/entered)
+	entered.blob_act(src)
 
 /obj/structure/blob/zap_act(power, zap_flags)
 	take_damage(power * 0.0025, BURN, ENERGY)

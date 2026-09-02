@@ -6,7 +6,6 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(ACCESS_ENGINE)
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set
 	var/list/selected_accesses = list()
@@ -21,6 +20,8 @@
 	/// Is this electronic installed in a door?
 	var/is_installed = FALSE
 
+	new_attack_chain = TRUE
+
 /obj/item/airlock_electronics/Initialize(mapload)
 	. = ..()
 	if(!length(door_accesses_list))
@@ -29,14 +30,14 @@
 				"name" = get_access_desc(access),
 				"id" = access))
 
-/obj/item/airlock_electronics/attack_self(mob/user)
-	if(!ishuman(user) && !isrobot(user))
-		return ..()
+/obj/item/airlock_electronics/activate_self(mob/user)
+	if(..() || (!ishuman(user) && !isrobot(user)))
+		return
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
+			to_chat(user, SPAN_WARNING("You forget how to use [src]."))
 			return
 	ui_interact(user)
 
@@ -104,12 +105,24 @@
 		if("clear_all")
 			selected_accesses = list()
 
+/obj/item/airlock_electronics/proc/apply_access_to(obj/target)
+	if(!istype(target))
+		return
+
+	if(one_access)
+		target.req_access = null
+		target.req_one_access = selected_accesses
+	else
+		target.req_one_access = null
+		target.req_access = selected_accesses
+
 /obj/item/airlock_electronics/destroyed
 	name = "burned-out airlock electronics"
 	icon_state = "door_electronics_smoked"
 
-/obj/item/airlock_electronics/destroyed/attack_self(mob/user)
-	return
+/obj/item/airlock_electronics/destroyed/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 /obj/item/airlock_electronics/destroyed/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["metal"] += 1

@@ -37,7 +37,7 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATTACK_BY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
@@ -59,7 +59,7 @@
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
 			if(amt)
-				examine_list += "<span class='notice'>It has [amt] units of [lowertext(M.name)] stored.</span>"
+				examine_list += SPAN_NOTICE("It has [amt] units of [lowertext(M.name)] stored.")
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -72,18 +72,18 @@
 	if(I.flags & ABSTRACT)
 		return
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
-		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
+		to_chat(user, SPAN_WARNING("[parent] won't accept [I]!"))
 		return
-	. = COMPONENT_NO_AFTERATTACK
+	. = COMPONENT_SKIP_AFTERATTACK
 	var/datum/callback/pc = precondition
 	if(pc && !pc.Invoke(user))
 		return
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount)
-		to_chat(user, "<span class='warning'>[I] does not contain sufficient amounts of metal or glass to be accepted by [parent].</span>")
+		to_chat(user, SPAN_WARNING("[I] does not contain sufficient amounts of metal or glass to be accepted by [parent]."))
 		return
 	if(!has_space(material_amount))
-		to_chat(user, "<span class='warning'>[parent] is full. Please remove metal or glass from [parent] in order to insert more.</span>")
+		to_chat(user, SPAN_WARNING("[parent] is full. Please remove metal or glass from [parent] in order to insert more."))
 		return
 	user_insert(I, user)
 
@@ -99,18 +99,18 @@
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
+		to_chat(user, SPAN_WARNING("[I] is stuck to you and cannot be placed into [parent]."))
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
-			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
+			to_chat(user, SPAN_NOTICE("You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent]."))
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
-			to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
+			to_chat(user, SPAN_NOTICE("You insert a material total of [inserted] into [parent]."))
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)
@@ -328,6 +328,41 @@
 		material_amount += I.materials[MAT]
 	return material_amount
 
+/datum/component/material_container/proc/get_ui_data(mob/user)
+	. = list()
+
+	var/list/data_materials = list()
+	for(var/key in materials)
+		var/datum/material/material = materials[key]
+		if(!material)
+			continue
+		data_materials += list(list(
+			"id" = key,
+			"amount" = material.amount / MINERAL_MATERIAL_AMOUNT,
+		))
+	.["materials"] = data_materials
+
+/datum/component/material_container/proc/get_ui_static_data(mob/user, show_points = FALSE, points_multiplier=1)
+	. = list()
+
+	.["icon"] = 'icons/obj/stacks/minerals.dmi'
+	.["showPoints"] = show_points
+
+	var/list/static_materials = list()
+	for(var/key in materials)
+		var/datum/material/material = materials[key]
+		var/list/static_material = list()
+		static_material["name"] = material.name
+		if(show_points && material.ore_type)
+			var/obj/item/stack/ore/ore = material.ore_type
+			static_material["points"] = ore.points * points_multiplier
+		if(material.sheet_type)
+			var/obj/item/stack/sheet/sheet = material.sheet_type
+			static_material["iconState"] = sheet.icon_state
+		static_materials[material.id] = static_material
+	.["staticMaterials"] = static_materials
+
+
 
 /datum/material
 	var/name
@@ -391,6 +426,40 @@
 	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	ore_type = /obj/item/stack/ore/bluespace_crystal
 
+/datum/material/brass
+	name = "Brass"
+	id = MAT_BRASS
+	sheet_type = /obj/item/stack/tile/brass
+	ore_type = /obj/item/stack/ore/brass
+
+/datum/material/palladium
+	name = "Palladium"
+	id = MAT_PALLADIUM
+	sheet_type = /obj/item/stack/sheet/mineral/palladium
+	ore_type = /obj/item/stack/ore/palladium
+
+/datum/material/platinum
+	name = "Platinum"
+	id = MAT_PLATINUM
+	sheet_type = /obj/item/stack/sheet/mineral/platinum
+	ore_type = /obj/item/stack/ore/platinum
+
+/datum/material/iridium
+	name = "Iridium"
+	id = MAT_IRIDIUM
+	sheet_type = /obj/item/stack/sheet/mineral/iridium
+	ore_type = /obj/item/stack/ore/iridium
+
+/datum/material/gnesis
+	name = "gnesis"
+	id = MAT_GNESIS
+	sheet_type = /obj/item/stack/sheet/gnesis
+
+/datum/material/gnesis_glass
+	name = "translucent gnesis"
+	id = MAT_GNESIS_GLASS
+	sheet_type = /obj/item/stack/sheet/gnesis_glass
+
 /datum/material/bananium
 	name = "Bananium"
 	id = MAT_BANANIUM
@@ -419,3 +488,13 @@
 	name = "Plastic"
 	id = MAT_PLASTIC
 	sheet_type = /obj/item/stack/sheet/plastic
+
+/datum/material/wood
+	name = "Wood"
+	id = MAT_WOOD
+	sheet_type = /obj/item/stack/sheet/wood
+
+/datum/material/cardboard
+	name = "Cardboard"
+	id = MAT_CARDBOARD
+	sheet_type = /obj/item/stack/sheet/cardboard

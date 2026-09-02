@@ -40,13 +40,29 @@
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
 	files = new(src)
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/biogenerator/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/biogenerator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	RefreshParts()
+
+/obj/machinery/biogenerator/loaded/Initialize(mapload)
+	. = ..()
+	container = new /obj/item/reagent_containers/glass/bucket(null)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/biogenerator/loaded/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/biogenerator(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(container)
@@ -102,42 +118,46 @@
 /obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
+/obj/machinery/biogenerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// TODO: This feels off, no where else do we have a blanket "print a
+	// message for any other kind of item interaction attempt" that's keyed to intent
+	// See if this can be made more sensible after everything's been migrated
+	// to the new attack chain
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing.</span>")
-		return
+		to_chat(user, SPAN_WARNING("[src] is currently processing."))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/reagent_containers/glass))
+	if(istype(used, /obj/item/reagent_containers/glass))
 		if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-			return
+			to_chat(user, SPAN_WARNING("Close the maintenance panel first."))
+			return ITEM_INTERACT_COMPLETE
 
 		if(container)
-			to_chat(user, "<span class='warning'>A container is already loaded into [src].</span>")
-			return
+			to_chat(user, SPAN_WARNING("A container is already loaded into [src]."))
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		O.forceMove(src)
-		container = O
-		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
+		used.forceMove(src)
+		container = used
+		to_chat(user, SPAN_NOTICE("You add the [container] to [src]."))
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/bag/plants))
+	else if(istype(used, /obj/item/storage/bag/plants))
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
-			return
+			to_chat(user, SPAN_WARNING("[src] can't hold any more plants!"))
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/storage/bag/plants/PB = O
+		var/obj/item/storage/bag/plants/PB = used
 		for(var/obj/item/P in PB.contents)
 			// No need to filter here, because plant bags should have the same list of acceptable items we do.
 			if(length(stored_plants) >= max_storable_plants)
@@ -146,42 +166,42 @@
 			stored_plants += P
 
 		if(length(stored_plants) < max_storable_plants)
-			to_chat(user, "<span class='notice'>You empty [PB] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You empty [PB] into [src]."))
 		else
-			to_chat(user, "<span class='notice'>You fill [src] to its capacity.</span>")
+			to_chat(user, SPAN_NOTICE("You fill [src] to its capacity."))
 
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(is_type_in_typecache(O, acceptable_items))
+	else if(is_type_in_typecache(used, acceptable_items))
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
-			return
-		if(!user.unEquip(O))
-			return
+			to_chat(user, SPAN_WARNING("[src] can't hold any more plants!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!user.transfer_item_to(used, src))
+			return ITEM_INTERACT_COMPLETE
 
-		O.forceMove(src)
-		stored_plants += O
-		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
+		stored_plants += used
+		to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/disk/design_disk))
-		user.visible_message("[user] begins to load [O] in [src]...",
-			"You begin to load a design from [O]...",
+	else if(istype(used, /obj/item/disk/design_disk))
+		user.visible_message("[user] begins to load [used] in [src]...",
+			"You begin to load a design from [used]...",
 			"You hear the chatter of a floppy drive.")
 		processing = TRUE
 		SStgui.update_uis(src)
 
-		var/obj/item/disk/design_disk/D = O
+		var/obj/item/disk/design_disk/D = used
 		if(do_after(user, 1 SECONDS, target = src))
 			files.AddDesign2Known(D.blueprint)
 
 		processing = FALSE
 		update_ui_product_list(user)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='warning'>You cannot put [src] in [name]!</span>")
+	to_chat(user, SPAN_WARNING("You cannot put [used] in [src]!"))
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Builds/Updates the `product_list` used by the UI.
@@ -270,7 +290,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently processing!"))
 		return
 
 	processing = TRUE

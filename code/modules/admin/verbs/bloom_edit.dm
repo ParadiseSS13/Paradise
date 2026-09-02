@@ -1,14 +1,9 @@
-/client/proc/debug_bloom()
-	set name = "Bloom Edit"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
+USER_VERB(debug_bloom, R_DEBUG, "Bloom Edit", "Open bloom editor panel.", VERB_CATEGORY_DEBUG)
 	var/datum/bloom_edit/editor = new()
-	editor.ui_interact(usr)
+	editor.ui_interact(client.mob)
 
-	message_admins("[key_name(src)] opened Bloom Edit panel.")
-	log_admin("[key_name(src)] opened Bloom Edit panel.")
+	message_admins("[key_name(client)] opened Bloom Edit panel.")
+	log_admin("[key_name(client)] opened Bloom Edit panel.")
 
 /datum/bloom_edit
 
@@ -62,7 +57,7 @@
 			GLOB.configuration.lighting_effects.exposure_contrast_base = initial(GLOB.configuration.lighting_effects.exposure_contrast_base)
 			GLOB.configuration.lighting_effects.exposure_contrast_power = initial(GLOB.configuration.lighting_effects.exposure_contrast_power)
 		if("update_lamps")
-			for(var/obj/machinery/light/L in GLOB.machines)
+			for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 				if(L.glow_overlay || L.exposure_overlay)
 					L.update_bloom()
 	return TRUE

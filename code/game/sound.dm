@@ -194,7 +194,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || GLOB.configuration.general.disable_lobby_music)
+	if(SSticker.current_state < GAME_STATE_STARTUP || !SSticker.login_music || GLOB.configuration.general.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
@@ -248,6 +248,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 			if("bonebreak")
 				soundin = pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg', 'sound/effects/bone_break_3.ogg', 'sound/effects/bone_break_4.ogg', 'sound/effects/bone_break_5.ogg', 'sound/effects/bone_break_6.ogg')
+			if("boxing")
+				soundin = pick('sound/weapons/boxing1.ogg', 'sound/weapons/boxing2.ogg', 'sound/weapons/boxing3.ogg', 'sound/weapons/boxing4.ogg', 'sound/weapons/boxing5.ogg', 'sound/weapons/boxing6.ogg')
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/items/WEEOO1.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bcreep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
 			if("smcalm")

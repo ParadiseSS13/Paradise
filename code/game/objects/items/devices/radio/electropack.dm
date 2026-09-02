@@ -2,14 +2,14 @@
 	name = "electropack"
 	desc = "Dance my monkeys! DANCE!!!"
 	icon = 'icons/obj/radio.dmi'
-	icon_state = "electropack0"
-	item_state = "electropack"
+	icon_state = "electropack"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler
 	var/obj/item/assembly/signaler/electropack/integrated_signaler
+	new_attack_chain = TRUE
 
 /obj/item/electropack/Initialize(mapload)
 	. = ..()
@@ -21,11 +21,11 @@
 
 	if(istype(loc, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/S = loc
-		if(S.part1 == src)
-			S.part1 = null
+		if(S.attached_helmet == src)
+			S.attached_helmet = null
 
-		else if(S.part2 == src)
-			S.part2 = null
+		else if(S.attached_electropack == src)
+			S.attached_electropack = null
 
 		master = null
 
@@ -33,39 +33,56 @@
 
 /obj/item/electropack/attack_hand(mob/user)
 	if(src == user.back)
-		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
+		to_chat(user, SPAN_NOTICE("You need help taking this off!"))
 		return FALSE
 
 	..()
 
-/obj/item/electropack/attack_self(mob/user)
+/obj/item/electropack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/electropack/attackby(obj/item/W, mob/user, params)
-	..()
+/obj/item/electropack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/clothing/head/helmet))
+		return ..()
 
-	if(istype(W, /obj/item/clothing/head/helmet))
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(user)
-		A.icon = 'icons/obj/assemblies.dmi'
+	attach_helmet(used, user)
+	return ITEM_INTERACT_COMPLETE
 
-		if(!user.unEquip(W))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
-			return
+/obj/item/electropack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/clothing/head/helmet))
+		return ..()
 
-		W.loc = A
-		W.master = A
-		A.part1 = W
+	attach_helmet(target, user)
+	return ITEM_INTERACT_COMPLETE
 
-		user.unEquip(src)
-		loc = A
-		master = A
-		A.part2 = src
+/obj/item/electropack/proc/attach_helmet(obj/item/clothing/head/helmet/used, mob/living/user)
+	if(!istype(used))
+		return FALSE
 
-		user.put_in_hands(A)
-		A.add_fingerprint(user)
-		if(src.flags & NODROP)
-			A.flags |= NODROP
+	var/obj/item/assembly/shock_kit/kit = new /obj/item/assembly/shock_kit(user)
+	kit.icon = 'icons/obj/assemblies.dmi'
 
+	if(!user.unequip(used))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot attach it to [src]!"))
+		return FALSE
+
+	used.forceMove(kit)
+	used.master = kit
+	kit.attached_helmet = used
+
+	user.transfer_item_to(src, kit)
+	master = kit
+	kit.attached_electropack = src
+
+	user.put_in_hands(kit)
+	kit.add_fingerprint(user)
+	if(src.flags & NODROP)
+		kit.set_nodrop(TRUE)
+	return TRUE
 
 /obj/item/electropack/proc/handle_shock()
 	if(istype(master, /obj/item/assembly/shock_kit))
@@ -74,14 +91,14 @@
 
 	if(isliving(loc))
 		var/mob/living/M = loc
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
+		to_chat(M, SPAN_DANGER("You feel a sharp shock!"))
 		do_sparks(3, 1, M)
 
 		M.Weaken(10 SECONDS)
 
 // This should honestly just proxy the UI to the internal signaler
 /obj/item/electropack/ui_state(mob/user)
-	return GLOB.inventory_state
+	return GLOB.deep_inventory_state
 
 /obj/item/electropack/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -136,10 +153,9 @@
 
 // Electropack signaller type
 /obj/item/assembly/signaler/electropack
-	frequency = AIRLOCK_FREQ
+	frequency = ELECTROPACK_FREQ
 	code = 2
 	receiving = TRUE
-
 	var/obj/item/electropack/owning_pack
 
 /obj/item/assembly/signaler/electropack/Initialize(mapload, holding_electropack)

@@ -25,33 +25,36 @@
 //PLASMA
 /turf/simulated/floor/mineral/plasma
 	name = "plasma floor"
+	desc = "Flooring constructed from pure plasma crystal. There is absolutely nothing that can go wrong."
 	icon_state = "plasma"
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
 
-/turf/simulated/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/turf/simulated/floor/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
+/turf/simulated/floor/mineral/plasma/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(attacking.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-		ignite(W.get_heat())
-		return
-	..()
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
+		ignite(attacking.get_heat())
+		return FINISH_ATTACK
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		user.visible_message(SPAN_DANGER("[user] sets [src] on fire!"),\
+						SPAN_DANGER("[src] disintegrates into a cloud of plasma!"),\
+						SPAN_WARNING("You hear a 'whoompf' and a roar."))
 		ignite(2500) //Big enough to ignite
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating()
@@ -64,6 +67,7 @@
 //GOLD
 /turf/simulated/floor/mineral/gold
 	name = "gold floor"
+	desc = "Flooring made of solid gold. It's only a matter of time before someone tries to steal it."
 	icon_state = "gold"
 	floor_tile = /obj/item/stack/tile/mineral/gold
 	icons = list("gold","gold_dam")
@@ -76,6 +80,7 @@
 //SILVER
 /turf/simulated/floor/mineral/silver
 	name = "silver floor"
+	desc = "Flooring made of solid silver. Not quite as valuable as gold, but still very snobby to use."
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
@@ -98,7 +103,8 @@
 //TITANIUM (shuttle)
 
 /turf/simulated/floor/mineral/titanium
-	name = "shuttle floor"
+	name = "titanium floor"
+	desc = "Lightweight flooring made out of titanium, often used in spacecraft construction."
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
 
@@ -137,7 +143,8 @@
 
 //PLASTITANIUM (syndieshuttle)
 /turf/simulated/floor/mineral/plastitanium
-	name = "shuttle floor"
+	name = "plastitanium floor"
+	desc = "Evil-looking flooring made out of plastitanium. Often used for constructing military-grade spacecraft."
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
@@ -154,6 +161,7 @@
 
 /turf/simulated/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
+	desc = "You're either taking the Big Ride, or taking someone else on it."
 
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen
 	oxygen = 0
@@ -163,6 +171,7 @@
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
 	name = "bananium floor"
+	desc = "Flooring constructed from pure bananium crystal. It squeaks with every step taken on it. Pressing into it causes it to HONK!"
 	icon_state = "bananium"
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
@@ -174,10 +183,11 @@
 		if(istype(M))
 			squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		honk()
+/turf/simulated/floor/mineral/bananium/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	honk()
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()
@@ -207,7 +217,7 @@
 /turf/simulated/floor/mineral/bananium/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
+		to_chat(H, SPAN_WARNING("You lose your footing trying to pry off the tile!"))
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
@@ -221,7 +231,9 @@
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
+	desc = "Flooring constructed from pure tranquilite crystal. No matter how hard it is stamped on, no sound is produced."
 	icon_state = "tranquillite"
+	icons = list("tranquillite", "tranquillite_dam")
 	floor_tile = /obj/item/stack/tile/mineral/tranquillite
 	footstep = null
 	barefootstep = null
@@ -231,6 +243,7 @@
 //DIAMOND
 /turf/simulated/floor/mineral/diamond
 	name = "diamond floor"
+	desc = "Flooring made out of pure diamond. Considering the large variety of industrial and scientific uses for diamond, this seems extremely wasteful."
 	icon_state = "diamond"
 	floor_tile = /obj/item/stack/tile/mineral/diamond
 	icons = list("diamond","diamond_dam")
@@ -238,11 +251,17 @@
 //URANIUM
 /turf/simulated/floor/mineral/uranium
 	name = "uranium floor"
+	desc = "Flooring made from uranium. It's radioactive, IT'S RADIOACTIVE!"
 	icon_state = "uranium"
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
 	var/last_event = 0
 	var/active = FALSE
+
+/turf/simulated/floor/mineral/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 100, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()
@@ -250,10 +269,11 @@
 		if(istype(AM))
 			radiate()
 
-/turf/simulated/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		radiate()
+/turf/simulated/floor/mineral/uranium/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	radiate()
 
 /turf/simulated/floor/mineral/uranium/attack_hand(mob/user)
 	.=..()
@@ -264,7 +284,7 @@
 	if(!active)
 		if(world.time > last_event + 15)
 			active = TRUE
-			radiation_pulse(src, 10)
+			radiation_pulse(src, 40, ALPHA_RAD)
 			for(var/turf/simulated/floor/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
@@ -273,6 +293,7 @@
 // ALIEN ALLOY
 /turf/simulated/floor/mineral/abductor
 	name = "alien floor"
+	desc = "Did we learn the secrets of building floors from an advanced alien civilization like this one?"
 	icon_state = "alienpod1"
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")

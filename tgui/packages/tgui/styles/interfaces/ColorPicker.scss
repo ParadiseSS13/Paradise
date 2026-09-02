@@ -1,0 +1,155 @@
+/**
+ * MIT License
+ * https://github.com/omgovich/react-colorful/
+ *
+ * Copyright (c) 2020 Vlad Shilov <omgovich@ya.ru>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+.ColorPicker--Inputs {
+  .LabeledList__cell {
+    padding: var(--space-s) var(--space-m);
+    vertical-align: middle !important;
+
+    &:nth-child(2n):not(:last-child) {
+      padding: 0;
+    }
+
+    &:nth-child(2n):last-child {
+      padding-left: 0;
+    }
+  }
+}
+
+.react-colorful {
+  cursor: var(--cursor-default);
+  user-select: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 200px;
+}
+
+.react-colorful__saturation_value {
+  position: relative;
+  flex-grow: 1;
+  border-color: transparent; /* Fixes https://github.com/omgovich/react-colorful/issues/139 */
+  border-bottom: 12px solid #000;
+  border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+  background-image:
+    linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0)),
+    linear-gradient(to right, rgba(255, 255, 255, 255), rgba(255, 255, 255, 0));
+}
+
+.react-colorful__pointer-fill,
+.react-colorful__alpha-gradient {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Improve elements rendering on light backgrounds */
+.react-colorful__alpha-gradient,
+.react-colorful__saturation_value {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.react-colorful__hue,
+.react-colorful__r,
+.react-colorful__g,
+.react-colorful__b,
+.react-colorful__alpha,
+.react-colorful__saturation,
+.react-colorful__value {
+  position: relative;
+  height: 24px;
+}
+
+.react-colorful {
+  &__hue {
+    background: linear-gradient(
+      to right,
+      hsl(0, 100%, 50%) 0%,
+      hsl(60, 100%, 50%) 17%,
+      hsl(120, 100%, 50%) 33%,
+      hsl(180, 100%, 50%) 50%,
+      hsl(240, 100%, 50%) 67%,
+      hsl(300, 100%, 50%) 83%,
+      hsl(0, 100%, 50%) 100%
+    );
+  }
+
+  &__r {
+    background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(0, 100%, 50%));
+  }
+
+  &__g {
+    background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(120, 100%, 50%));
+  }
+
+  &__b {
+    background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(240, 100%, 50%));
+  }
+}
+
+/* Round bottom corners of the last element: `Hue` for `ColorPicker` or `Alpha` for `AlphaColorPicker` */
+.react-colorful__last-control {
+  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+}
+
+.react-colorful__interactive {
+  position: absolute;
+  inset: 0;
+  outline: none;
+}
+
+.react-colorful__pointer {
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  background-color: hsl(0, 0%, 80%);
+  border: var(--border-thickness-small) solid hsl(0, 0%, 80%);
+  border-radius: var(--border-radius-circular);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.react-colorful__interactive:focus .react-colorful__pointer {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+/* Chessboard-like pattern for alpha related elements */
+.react-colorful__alpha,
+.react-colorful__alpha-pointer {
+  background-color: var(--color-white);
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
+}
+
+.react-colorful__saturation-pointer,
+.react-colorful__value-pointer,
+.react-colorful__hue-pointer,
+.react-colorful__r-pointer,
+.react-colorful__g-pointer,
+.react-colorful__b-pointer {
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+}
+
+/* Display the saturation value pointer over the hue one */
+.react-colorful__saturation_value-pointer {
+  z-index: 3;
+}

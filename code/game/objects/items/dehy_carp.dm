@@ -14,10 +14,12 @@
 	return ..()
 
 // Attack self
-/obj/item/toy/plushie/carpplushie/dehy_carp/attack_self(mob/user as mob)
+/obj/item/toy/plushie/carpplushie/dehy_carp/activate_self(mob/user)
+	if(..())
+		return
 	src.add_fingerprint(user)	// Anyone can add their fingerprints to it with this
 	if(owned)
-		to_chat(user, "<span class='notice'>[src] stares up at you with friendly eyes.</span>")
+		to_chat(user, SPAN_NOTICE("[src] stares up at you with friendly eyes."))
 		owner = user
 		owned = 0
 	return ..()
@@ -27,18 +29,19 @@
 	if(volume >= 1)
 		Swell()
 
-/obj/item/toy/plushie/carpplushie/dehy_carp/afterattack(obj/O, mob/user,proximity)
-	if(!proximity) return
-	if(istype(O,/obj/structure/sink))
-		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")
+/obj/item/toy/plushie/carpplushie/dehy_carp/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(istype(target,/obj/structure/sink))
+		to_chat(user, SPAN_NOTICE("You place [src] under a stream of water..."))
 		user.drop_item()
-		loc = get_turf(O)
+		loc = get_turf(target)
 		return Swell()
-	..()
 
 /obj/item/toy/plushie/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
-	visible_message("<span class='notice'>[src] swells up!</span>")
+	visible_message(SPAN_NOTICE("[src] swells up!"))
 	// Animation
 	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)
@@ -47,7 +50,7 @@
 
 /obj/item/toy/plushie/carpplushie/dehy_carp/proc/make_carp()
 	// Make space carp
-	var/mob/living/simple_animal/hostile/carp/C = new /mob/living/simple_animal/hostile/carp(get_turf(src))
+	var/mob/living/basic/carp/C = new(get_turf(src))
 	// Make carp non-hostile to user, yes this means
 	C.faction |= list("syndicate", "\ref[owner]")
 	qdel(src)

@@ -3,7 +3,6 @@
 	desc = "Just add water and you too can have your own winter wonderland! Carol singers not included."
 	icon_state = "snow_machine_off"
 	density = TRUE
-	anchored = FALSE
 	layer = OBJ_LAYER
 	var/active = FALSE
 	var/power_used_this_cycle = 0
@@ -26,7 +25,7 @@
 
 /obj/machinery/snow_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>"
+	. += SPAN_NOTICE("The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.")
 
 /obj/machinery/snow_machine/RefreshParts()
 	power_efficiency = 0
@@ -40,7 +39,7 @@
 	if(!has_power() || !anchored)
 		return
 	if(turn_on_or_off(!active))
-		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
+		to_chat(user, SPAN_NOTICE("You [active ? "turn on" : "turn off"] [src]."))
 	return ..()
 
 /obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/I)
@@ -130,7 +129,7 @@
 /obj/machinery/snow_machine/proc/turn_on_or_off(activate, give_message = FALSE)
 	active = activate ? TRUE : FALSE
 	if(!active && give_message)
-		visible_message("<span class='warning'>[src] switches off!</span>")
+		visible_message(SPAN_WARNING("[src] switches off!"))
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE

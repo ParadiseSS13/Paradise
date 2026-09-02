@@ -6,7 +6,6 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	icon_state = "frame"
 	name = "AI display"
 	anchored = TRUE
-	density = FALSE
 
 	/// Current mode
 	var/mode = AI_DISPLAY_MODE_BLANK
@@ -23,7 +22,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	return ..()
 
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
-	if(isAI(user))
+	if(is_ai(user))
 		user.ai_statuschange()
 
 /obj/machinery/ai_status_display/emp_act(severity)

@@ -4,6 +4,7 @@
 	maxHealth = 150
 	health = 150
 	icon_state = "aliend_s"
+	surgery_container = /datum/xenobiology_surgery_container/alien/drone
 
 /mob/living/carbon/alien/humanoid/drone/Initialize(mapload)
 	. = ..()

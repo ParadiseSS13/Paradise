@@ -8,11 +8,17 @@
 	var/leap_on_click = FALSE
 	/// Are we on leap cooldown?
 	var/on_leap_cooldown = FALSE
+	surgery_container = /datum/xenobiology_surgery_container/alien/hunter
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
 	name = "alien hunter ([rand(1, 1000)])"
 	real_name = name
+
+/mob/living/carbon/alien/humanoid/hunter/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 0.8, ASSIGNMENT_CREW = 4, ASSIGNMENT_MEDICAL = 0.4)
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()
@@ -29,7 +35,7 @@
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	update_icons()
 	if(message)
-		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at" : "slash at"] enemies!</span>")
+		to_chat(src, SPAN_NOTICEALIEN("You will now [leap_on_click ? "leap at" : "slash at"] enemies!"))
 
 /mob/living/carbon/alien/humanoid/hunter/ClickOn(atom/A, params)
 	face_atom(A)
@@ -74,7 +80,7 @@
 			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
-				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
+				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(armor_type = MELEE))
 				H.apply_damage(40, STAMINA)
 			else
 				L.Weaken(5 SECONDS)

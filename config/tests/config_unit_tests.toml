@@ -1,0 +1,16 @@
+[ruin_configuration]
+enable_lavaland = false
+enable_space = false
+enable_ruins = false
+minimum_space_zlevels = 0
+maximum_space_zlevels = 0
+minimum_lavaland_zlevels = 0
+maximum_lavaland_zlevels = 0
+
+[redis_configuration]
+enabled = false
+
+[database_configuration]
+sql_enabled = true
+sql_username = "root"
+sql_password = "root"

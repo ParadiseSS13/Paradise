@@ -2,12 +2,10 @@
 	name = "briefcase"
 	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
 	icon_state = "briefcase"
-	item_state = "briefcase"
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -22,7 +20,7 @@
 
 /obj/item/storage/briefcase/sniperbundle/populate_contents()
 	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
-	new /obj/item/clothing/accessory/red(src)
+	new /obj/item/clothing/neck/tie/red(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
@@ -41,28 +39,28 @@
 		QDEL_NULL(stored_item)
 	return ..()
 
-/obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
+/obj/item/storage/briefcase/false_bottomed/afterattack__legacy__attackchain(atom/A, mob/user, flag, params)
 	..()
 	if(stored_item && isgun(stored_item))
 		var/obj/item/gun/stored_gun = stored_item
-		stored_gun.afterattack(A, user, flag, params)
+		stored_gun.afterattack__legacy__attackchain(A, user, flag, params)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
+/obj/item/storage/briefcase/false_bottomed/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(bottom_open)
 		if(stored_item)
-			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")
+			to_chat(user, SPAN_WARNING("There's already something in the false bottom!"))
 			return
 		if(I.w_class > WEIGHT_CLASS_NORMAL)
-			to_chat(user, "<span class='warning'>[I] is too big to fit in the false bottom!</span>")
+			to_chat(user, SPAN_WARNING("[I] is too big to fit in the false bottom!"))
 			return
 		if(!user.drop_item(I))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hands!</span>")
+			to_chat(user, SPAN_WARNING("[I] is stuck to your hands!"))
 			return
 
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
-		I.forceMove(null) //null space here we go - to stop it showing up in the briefcase
-		to_chat(user, "<span class='notice'>You place [I] into the false bottom of the briefcase.</span>")
+		I.moveToNullspace() // to stop it showing up in the briefcase
+		to_chat(user, SPAN_NOTICE("You place [I] into the false bottom of the briefcase."))
 	else
 		return ..()
 
@@ -73,7 +71,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!bottom_open)
-		to_chat(user, "<span class='notice'>You begin to hunt around the rim of [src]...</span>")
+		to_chat(user, SPAN_NOTICE("You begin to hunt around the rim of [src]..."))
 		busy_hunting = TRUE
 		if(do_after(user, 20, target = src))
 			if(user)
@@ -81,13 +79,13 @@
 			bottom_open = TRUE
 		busy_hunting = FALSE
 	else
-		to_chat(user, "<span class='notice'>You push the false bottom down and close it with a click[stored_item ? ", with [stored_item] snugly inside." : "."]</span>")
+		to_chat(user, SPAN_NOTICE("You push the false bottom down and close it with a click[stored_item ? ", with [stored_item] snugly inside." : "."]"))
 		bottom_open = FALSE
 
 /obj/item/storage/briefcase/false_bottomed/attack_hand(mob/user)
 	if(bottom_open && stored_item)
 		user.put_in_hands(stored_item)
-		to_chat(user, "<span class='notice'>You pull out [stored_item] from [src]'s false bottom.</span>")
+		to_chat(user, SPAN_NOTICE("You pull out [stored_item] from [src]'s false bottom."))
 		stored_item = null
 		max_w_class = initial(max_w_class)
 	else

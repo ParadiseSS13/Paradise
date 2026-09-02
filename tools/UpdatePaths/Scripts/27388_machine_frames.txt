@@ -1,0 +1,1 @@
+/obj/machinery/constructable_frame/@SUBTYPES : /obj/structure/machine_frame{@OLD}

@@ -11,6 +11,8 @@
 	var/thrall_cap = 1
 	/// If true, lets the vampire have access to their full power abilities without meeting the blood requirement, or needing a certain number of drained humans.
 	var/full_power_override = FALSE
+	/// The subclass' potential unique objectives.
+	var/list/unique_objectives
 
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
 	for(var/thing in standard_powers)
@@ -33,6 +35,9 @@
 								/datum/vampire_passive/vision/full,
 								/datum/spell/vampire/self/eternal_darkness,
 								/datum/vampire_passive/vision/xray)
+	unique_objectives = list("Silence the station's telecommunications equipment. Their screams will fall on deaf ears.",
+							"Shroud %DEPARTMENT in darkness.",
+							"Show the station why they fear the dark.")
 
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
@@ -45,6 +50,9 @@
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/datum/vampire_passive/vision/full,
 								/datum/spell/vampire/self/blood_spill)
+	unique_objectives = list("Deprive the medical bay of blood. It's not theirs to use.",
+							"Paint %DEPARTMENT red with the blood of those who would oppose you.",
+							"Show the station that you stand at the peak of strength.")
 
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
@@ -59,6 +67,9 @@
 								/datum/vampire_passive/vision/full,
 								/datum/spell/vampire/arena)
 	improved_rejuv_healing = TRUE
+	unique_objectives = list("Destroy Research's servers. Technology is no substitute for strength.",
+							"Vandalize %DEPARTMENT. They've grown complacent.",
+							"Show the station that you stand at the peak of strength.") // I think multiple vampires competing would be cool
 
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
@@ -75,7 +86,9 @@
 								/datum/spell/vampire/hysteria,
 								/datum/vampire_passive/vision/full,
 								/datum/vampire_passive/increment_thrall_cap/three)
-
+	unique_objectives = list("Enthrall a member of security. Their potential is wasted in Nanotrasen's ranks.",
+							"Enthrall only members of %DEPARTMENT. Their experience will assist your lord.",
+							"Control the station from the shadows.")
 
 /datum/vampire_subclass/ancient
 	name = "ancient"
@@ -115,3 +128,4 @@
 							/datum/vampire_passive/vision/xray)
 	improved_rejuv_healing = TRUE
 	thrall_cap = 150 // can thrall high pop
+	unique_objectives = list("Your ranks grow thin. Ensure your thralls remain in good health.") //idk

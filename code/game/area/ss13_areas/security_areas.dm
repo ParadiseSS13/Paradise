@@ -2,6 +2,9 @@
 /area/station/security
 	ambientsounds = HIGHSEC_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	airlock_wires = /datum/wires/airlock/security
+	area_light_color = LIGHT_COLOR_STATION_WORK
+	area_nightlight_color = LIGHT_COLOR_STATION_WORK_NIGHT
 
 /area/station/security/main
 	name = "\improper Security Office"
@@ -51,7 +54,7 @@
 	name = "\improper Prison Cell Block"
 	icon_state = "brig"
 
-/area/station/security/prison/cell_block/A
+/area/station/security/prison/cell_block/a
 	name = "\improper Prison Cell Block A"
 	icon_state = "brigcella"
 
@@ -122,6 +125,14 @@
 	name = "\improper Defusal Workshop"
 	icon_state = "defusal"
 
+/area/station/security/gamma_dock_access
+	name = "\improper Gamma Armory Dock Access"
+	icon_state = "gamma_access"
+
+/area/station/security/gamma_dock
+	name = "\improper Gamma Armory Dock"
+	icon_state = "gamma_dock"
+
 // Checkpoints
 
 /area/station/security/checkpoint
@@ -129,8 +140,6 @@
 	icon_state = "checkpoint1"
 
 /area/station/security/checkpoint/secondary
-	name = "\improper Security Checkpoint"
-	icon_state = "checkpoint1"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Security"
 

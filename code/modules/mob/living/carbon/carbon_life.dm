@@ -1,6 +1,9 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 
+	if(flags & ABSTRACT)
+		return
+
 	if(notransform)
 		return
 
@@ -10,6 +13,8 @@
 
 	if(stat != DEAD)
 		handle_organs()
+	else
+		handle_dead_organs()
 
 	//stuff in the stomach
 	if(LAZYLEN(stomach_contents))
@@ -41,7 +46,7 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
-	if(times_fired % 2 == 1)
+	if(ISODD(times_fired))
 		var/datum/milla_safe/carbon_breathe/milla = new()
 		milla.invoke_async(src)
 	else
@@ -53,11 +58,18 @@
 
 /datum/milla_safe/carbon_breathe/on_run(mob/living/carbon/carbon)
 	var/turf/T = get_turf(carbon)
-	carbon.breathe(get_turf_air(T))
+	if(istype(T))
+		carbon.breathe(get_turf_air(T))
+	else
+		var/datum/gas_mixture/vacuum = new()
+		carbon.breathe(vacuum)
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(datum/gas_mixture/environment)
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return
+
+	if(istype(loc, /obj/machinery/cryopod)) // Do not suffocate in cryogenic storage. What the hell.
 		return
 
 	var/datum/gas_mixture/breath
@@ -205,6 +217,14 @@
 		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
 		datum_organ_var_name_idk.on_life()
 
+/mob/living/carbon/proc/handle_dead_organs()
+	for(var/thing in internal_organs)
+		var/obj/item/organ/internal/O = thing
+		O.dead_process()
+	for(var/organ_tag in internal_organ_datums)
+		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
+		datum_organ_var_name_idk.dead_process()
+
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
@@ -239,6 +259,9 @@
 			continue
 		if(stat != DEAD)
 			if(M.stat == DEAD && !iscarbon(M))
+				if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+					apply_effect(20000, IRRADIATE) // You willingly ate the green mouse that is clearly making everyone sick, this is on you.
+
 				LAZYREMOVE(stomach_contents, M)
 				qdel(M)
 				continue

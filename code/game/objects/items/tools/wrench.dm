@@ -1,11 +1,11 @@
 /obj/item/wrench
 	name = "wrench"
-	desc = "A wrench with common uses. Can be found in your hand."
+	desc = "A standard adjustable wrench made of forged steel. Can be used to fasten or remove bolts, and deconstruct objects."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
 	belt_icon = "wrench"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
@@ -15,12 +15,18 @@
 	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
+	new_attack_chain = TRUE
+
+/obj/item/wrench/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/wrench/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is unsecuring [user.p_their()] head with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
 		return SHAME
@@ -31,37 +37,38 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 	if(!head)
-		user.visible_message("<span class='suicide'>...but [user.p_they()] [user.p_are()] already headless! How embarassing.</span>")
+		user.visible_message(SPAN_SUICIDE("...but [user.p_they()] [user.p_are()] already headless! How embarassing."))
 		return SHAME
 
 	head.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 
 	if(user.stat != DEAD)
-		user.visible_message("<span class='suicide'>...but [user.p_they()] didn't need it anyway! How embarassing.</span>")
+		user.visible_message(SPAN_SUICIDE("...but [user.p_they()] didn't need it anyway! How embarassing."))
 		return SHAME
 
 	return OXYLOSS
 
 /obj/item/wrench/cyborg
 	name = "automatic wrench"
-	desc = "An advanced robotic wrench. Can be found in construction cyborgs."
+	desc = "A powered industrial wrench commonly found in construction and engineering robots. More efficient than most manual wrenches."
 	toolspeed = 0.5
 
 /obj/item/wrench/brass
 	name = "brass wrench"
-	desc = "A brass wrench. It's faintly warm to the touch."
+	desc = "A brass adjustable wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
+	belt_icon = "wrench_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wrench/power
 	name = "hand drill"
-	desc = "A simple powered drill with a bolt bit."
+	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a bolt driver head attached."
 	icon_state = "drill_bolt"
-	item_state = "drill"
+	inhand_icon_state = "drill"
 	belt_icon = "hand_drill"
 	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
 	origin_tech = "materials=2;engineering=2"
 	force = 8
 	throwforce = 8
@@ -69,10 +76,18 @@
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/wrench/power/attack_self(mob/user)
+/obj/item/wrench/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
 	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
-	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You attach the screwdriver bit to [src]."))
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.on_detached()
+		bit.forceMove(s_drill)
+		s_drill.attached_bits += bit
+		bit.on_attached(s_drill)
 	qdel(src)
 	user.put_in_active_hand(s_drill)
 
@@ -82,15 +97,16 @@
 
 /obj/item/wrench/medical
 	name = "medical wrench"
-	desc = "A medical wrench with common (medical?) uses. Can be found in your hand."
+	desc = "A standard adjustable wrench covered in medical iconography. Its outer surface is mostly covered in rubber, and it seems to be more efficient than a normal wrench."
 	icon_state = "wrench_medical"
 	force = 2 //MEDICAL
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
 	attack_verb = list("wrenched", "medicaled", "tapped", "jabbed", "whacked")
+	toolspeed = 0.75
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!"))
 	// HAVE THEM GLOW WITH THE BRIGHTNESS OF A THOUSAND SUNS
 	user.set_light(10, 25, rgb(255, 252, 82))
 
@@ -116,7 +132,7 @@
 		return
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_to_ground(W)
 
 	for(var/mob/living/M in orange(2, src))
 		// you're close enough, it's pretty fuckin bright
@@ -132,7 +148,7 @@
 	user.color = previous_color  // for the sake of their ghost
 
 	user.dust()
-	user.visible_message("<span class='suicide'>[user]'s soul coalesces into a new [W.name]!</span>")
+	user.visible_message(SPAN_SUICIDE("[user]'s soul coalesces into a new [W.name]!"))
 	return OBLITERATION
 
 /obj/item/wrench/bolter
@@ -140,5 +156,6 @@
 	desc = "A large wrench designed to interlock with an airlock's bolting mechanisms, allowing it to lift the bolts regardless of power."
 	icon_state = "bolter_wrench"
 	origin_tech = "materials=5;engineering=4"
+	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000)
 	w_class = WEIGHT_CLASS_NORMAL
 	toolspeed = 2.5

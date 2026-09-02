@@ -1,9 +1,9 @@
 /obj/item/ammo_box/magazine
-	icon_state = "enforcer" // placeholder icon
+	icon_state = null
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
 /obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/R)
@@ -14,7 +14,6 @@
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = "357"
-	max_ammo = 7
 
 
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = 1)
@@ -44,19 +43,23 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 
 	for(var/i in 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
 		if(!bullet || !bullet.BB) // found a spent ammo
 			stored_ammo[i] = R
-			R.loc = src
+			R.forceMove(src)
 
 			if(bullet)
-				bullet.loc = get_turf(loc)
-			return 1
+				bullet.forceMove(get_turf(loc))
+			return TRUE
 
-	return 0
+	return FALSE
+
+/obj/item/ammo_box/magazine/internal/cylinder/charons_special
+	ammo_type = /obj/item/ammo_casing/huntsman32
+	caliber = "32"
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	name = "finger gun cylinder"
@@ -71,18 +74,14 @@
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
 	caliber = "n762"
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
-	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/overgrown
 	name = "overgrown pistol magazine"
-	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/overgrown
 	max_ammo = 8
 
@@ -107,15 +106,16 @@
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/lethal
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/magazine/internal/shot/com
 	name = "combat shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	max_ammo = 6
+
+/obj/item/ammo_box/magazine/internal/shot/com/confetti
+	ammo_type = /obj/item/ammo_casing/shotgun/confetti
 
 /obj/item/ammo_box/magazine/internal/shot/malf
 	name = "cyborg shotgun internal magazine"
@@ -129,6 +129,12 @@
 /obj/item/ammo_box/magazine/internal/shot/improvised
 	name = "improvised shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/dueling_pistol
+	name = "dueling pistol internal magazine"
+	caliber = "50AE"
+	ammo_type = /obj/item/ammo_casing/dueling
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/shot/improvised/cane
@@ -153,7 +159,6 @@
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/fifteen
-	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 15
 
 /obj/item/ammo_box/magazine/internal/speargun
@@ -176,11 +181,9 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = "a762"
 	max_ammo = 5
-	multiload = 1
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
@@ -189,7 +192,6 @@
 /obj/item/ammo_box/magazine/internal/shot/toy
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = "foam_force"
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	max_ammo = 5
@@ -202,6 +204,7 @@
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
@@ -229,25 +232,27 @@
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
-	multi_sprite_step = 1
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
-	multi_sprite_step = 1
 	caliber = "9mm"
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -257,10 +262,10 @@
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
@@ -276,34 +281,39 @@
 	multiload = 0
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 10000)
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE
 	/// There are two reloading processes ongoing so cancel them
 	var/double_loaded = FALSE
 
-/obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_casing))
-		var/obj/item/ammo_casing/AC = A
-		if(give_round(AC))
-			user.drop_item()
-			AC.loc = src
-			return
-	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
-		to_chat(user, "<span class='notice'>You begin to load the magazine with [A].</span>")
-		var/obj/item/ammo_box/AB = A
-		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
-			if(length(stored_ammo) >= max_ammo)
-				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
-				break
-			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = "<span class='notice'>You stop loading the magazine with [A].</span>"))
-				src.give_round(AC)
-				AB.stored_ammo -= AC
-				update_mat_value()
-				update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-				AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-			else
-				break
+/obj/item/ammo_box/magazine/wt550m9/load_box(obj/item/used, mob/living/user, silent = FALSE)
+	if(istype(used, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/used_casing = used
+		if(give_round(used_casing))
+			user.transfer_item_to(used_casing, src)
+		return
+
+	if(!(istype(used, /obj/item/ammo_box/wt550) || istype(used, /obj/item/ammo_box/magazine/wt550m9)))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin to load the magazine with [used]."))
+	var/obj/item/ammo_box/used_box = used
+
+	for(var/obj/item/ammo_casing/used_casing in used_box.stored_ammo)
+		if(length(stored_ammo) >= max_ammo)
+			to_chat(user, SPAN_NOTICE("You stop loading the magazine with [used]."))
+			break
+
+		if(!do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = SPAN_NOTICE("You stop loading the magazine with [used].")))
+			break
+
+		src.give_round(used_casing)
+		used_box.stored_ammo -= used_casing
+		update_mat_value()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		used_box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -321,9 +331,6 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/wt550m9/empty
-	name = "wt550 magazine (4.6x30mm)"
-	icon_state = "46x30mmt"
-	ammo_type = /obj/item/ammo_casing/c46x30mm
 
 /obj/item/ammo_box/magazine/wt550m9/empty/Initialize(mapload)
 	. = ..()
@@ -332,11 +339,12 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 32
-	multi_sprite_step = 4
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "\improper SMG magazine (9mm)"
@@ -363,36 +371,28 @@
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/apsm10mm
-	name = "stechkin aps magazine (10mm)"
+	name = "Type 230 magazine (10mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmaps"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/fire
-	name = "stechkin aps magazine (10mm incendiary)"
+	name = "Type 230 magazine (10mm incendiary)"
 	icon_state = "10mmapsI"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/apsm10mm/hp
-	name = "stechkin aps magazine (10mm HP)"
+	name = "Type 230 magazine (10mm HP)"
 	icon_state = "10mmapsH"
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/apsm10mm/ap
-	name = "stechkin aps magazine (10mm AP)"
+	name = "Type 230 magazine (10mm AP)"
 	icon_state = "10mmapsA"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -406,7 +406,7 @@
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "drum magazine (.45)"
 	icon_state = "drum45"
-	ammo_type = /obj/item/ammo_casing/c45
+	ammo_type = /obj/item/ammo_casing/c45/nostamina
 	caliber = ".45"
 	max_ammo = 50
 
@@ -416,12 +416,10 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50"
-	max_ammo = 7
 	multi_sprite_step = 1
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
-	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
@@ -466,6 +464,16 @@
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
+/obj/item/ammo_box/magazine/m12g/rubbershot
+	name = "shotgun magazine (12g rubbershot)"
+	icon_state = "m12gb"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+
+/obj/item/ammo_box/magazine/m12g/rubbershot/give_round(obj/item/ammo_casing/R, replace_spent)
+	if(istype(R, /obj/item/ammo_casing/shotgun/frag12) || istype(R, /obj/item/ammo_casing/shotgun/buckshot))
+		return FALSE
+	return ..()
+
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"
 	icon_state = "m12gs"
@@ -487,20 +495,19 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg
+/obj/item/ammo_box/magazine/m12g/xtr_lrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot
 	name = "\improper XL shotgun magazine (12g buckshot)"
 	icon_state = "m12gXlBs"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
-/obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+/obj/item/ammo_box/magazine/m12g/xtr_lrg/dragon
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
@@ -509,6 +516,24 @@
 	name = "\improper XL shotgun magazine (12g confetti)"
 	icon_state = "party_drum"
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
+
+/obj/item/ammo_box/magazine/paintball
+	name = "paintball magazine"
+	desc = "A magazine that holds a large amount of paintballs."
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "paintballmag"
+	ammo_type = /obj/item/ammo_casing/caseless/paintball
+	caliber = "paintball"
+	max_ammo = 25
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
+
+/obj/item/ammo_box/magazine/paintball/pepperball
+	name = "pepperball magazine"
+	desc = "A magazine that holds a large amount of pepperballs."
+	icon_state = "pepperballmag"
+	ammo_type = /obj/item/ammo_casing/caseless/pepperball
+	caliber = "pepperball"
+	max_ammo = 10
 
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
@@ -526,6 +551,7 @@
 
 /obj/item/ammo_box/magazine/toy/pistol
 	name = "foam force pistol magazine"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	max_ammo = 8
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
@@ -535,26 +561,27 @@
 
 /obj/item/ammo_box/magazine/toy/enforcer
 	name = "\improper Enforcer foam magazine"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	max_ammo = 8
-	multi_sprite_step = 1
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/riot))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
@@ -564,7 +591,6 @@
 	multi_sprite_step = 10
 
 /obj/item/ammo_box/magazine/toy/m762/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
 	name = "laser carbine projector magazine"
@@ -580,7 +606,8 @@
 /// Used by red ERT. Keeps the size for them
 /obj/item/ammo_box/magazine/laser/ert
 	name = "compact laser carbine projector magazine"
-	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
+	desc = "An ultra-compact magazine incorporating experimental bluespace technology to hold 20 rounds in a mag the size of a cigarette lighter, while keeping them safe from EMPs. Each magazine costs as much as 5 of the carbines that use it, \
+		but nobody's accused NT budget allocation of being practical before."
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/ammo_box/magazine/laser/ert/emp_act(severity)
@@ -594,15 +621,19 @@
 	multi_sprite_step = 2
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 // yes this doesn't really belong here but nowhere else works
 /obj/item/ammo_box/magazine/detective/speedcharger
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
 	icon_state = "handgun_ammo_battery"
-	materials = list(MAT_METAL = 20000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	var/charge = 1000
+
+// Overwrite description so shells aren't displayed
+/obj/item/ammo_box/magazine/detective/speedcharger/update_desc()
+	. = ..()
+	desc = "[initial(desc)]"
 
 /obj/item/ammo_box/magazine/detective/speedcharger/update_icon_state()
 	return
@@ -618,13 +649,15 @@
 
 /obj/item/ammo_box/magazine/detective/speedcharger/examine()
 	. = ..()
-	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
+	. += SPAN_NOTICE("There is [charge_percent()]% charge left!")
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
-	return
+/obj/item/ammo_box/magazine/detective/speedcharger/activate_self(mob/user)
+	if(!user)
+		return ..()
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
-	return
+/obj/item/ammo_box/magazine/detective/speedcharger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return NONE
 
 /obj/item/ammo_box/magazine/c_foam
 	name = "\improper C-Foam canister"
@@ -633,5 +666,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/c_foam
 	max_ammo = 12
 
-/obj/item/ammo_box/magazine/c_foam/attack_self(mob/user)
-	return
+/obj/item/ammo_box/magazine/c_foam/activate_self(mob/user)
+	if(!user)
+		return ..()
+	return ITEM_INTERACT_COMPLETE

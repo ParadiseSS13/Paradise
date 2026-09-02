@@ -42,8 +42,7 @@ merged.
 
 After a twenty four hour minimum waiting period, Pull Requests can be merged
 once they receive approval from the relevant team. An exception is made for
-refactors and fixes, which may be merged by any member with commit access'
-discretion with no waiting period.
+refactors and fixes, which may be merged by any maintainer with no waiting period.
 
 While normally provided, voting team members are not obligated to publicly state
 their objections to a Pull Request. Attacking or berating a voting team member
@@ -58,11 +57,6 @@ little-to-no time played on the server. This is to ensure balance changes are
 made by people actually in-touch with the server atmosphere.
 
 ### PR Expectations
-
-Contributors may only have a maximum of **2** feature or balance Pull Requests
-open at any given time. Any additional Pull Requests beyond this limit will be
-closed at the discretion of the Headcoders. The Headcoders may grant an
-exemption to this limit on a case-by-case basis, as the need arises.
 
 All Pull Requests are expected to be tested prior to submission. If a submitted
 Pull Request fails to pass CI checks, the likelihood of it being merged will be
@@ -95,6 +89,10 @@ a headcoder or a member of either the balance, design, mapping, or sprite team
 Request. This approval must be displayed in the Pull Request description body in
 the form of a screenshot. The Headcoders may grant an exemption to this
 requirement on a case-by-case basis, as the need arises.
+
+### Generative AI
+
+The use of generative AI tools is not permitted on the ParadiseSS13 repository. This includes pull request code, code review, and filing issues. If you proceed to post PRs, issues, or comments that are clearly AI generated, you will be warned against this and your content will be closed/deleted. Multiple infractions will result in an outright ban from the repository.
 
 <!-- Add a fixed link so that changing the heading name doesn't break the link. -->
 

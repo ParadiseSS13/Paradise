@@ -28,9 +28,9 @@
 
 /datum/station_goal/proc/print_result()
 	if(check_completion())
-		to_chat(world, "<b>Station Goal</b>: [name]:  <span class='greenannounce'>Completed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]:  [SPAN_GREENANNOUNCE("Completed!")]")
 	else
-		to_chat(world, "<b>Station Goal</b>: [name]: <span class='boldannounceic'>Failed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]: [SPAN_BOLDANNOUNCEIC("Failed!")]")
 
 /datum/station_goal/Destroy()
 	SSticker.mode.station_goals -= src
@@ -52,4 +52,4 @@
 		message_admins("[key_name_admin(usr)] removed station goal [src]")
 		log_admin("[key_name_admin(usr)] removed station goal [src]")
 		qdel(src)
-		usr.client.modify_goals()
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/modify_goals)

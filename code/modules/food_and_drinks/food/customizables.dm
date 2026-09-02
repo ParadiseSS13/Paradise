@@ -6,37 +6,37 @@ do {\
 	qdel(src);\
 } while(FALSE)
 
-/obj/item/food/breadslice/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/sandwich)
-		return
+/obj/item/food/sliced/bread/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/sandwich)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
-/obj/item/food/bun/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/burger)
-		return
+/obj/item/food/bun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/burger)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
-/obj/item/food/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pizza)
-		return
+/obj/item/food/sliceable/flatdough/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/pizza)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
-
-/obj/item/food/boiledspaghetti/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pasta)
-		return
+/obj/item/food/boiledspaghetti/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/pasta)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
+/obj/item/trash/plate/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/fullycustom)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/fullycustom)
-		return
-	..()
+	return ..()
 
 #undef MAKE_CUSTOM_FOOD
 
@@ -46,13 +46,14 @@ do {\
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food) && !(I.flags & NODROP))
+/obj/item/trash/bowl/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
 		var/obj/item/food/customizable/soup/S = new(get_turf(user))
-		S.attackby(I, user, params)
+		S.item_interaction(user, used, modifiers)
 		qdel(src)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/food/customizable
 	name = "sandwich"
@@ -81,10 +82,6 @@ do {\
 		add_overlay(top_image)
 
 /obj/item/food/customizable/sandwich
-	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
-	icon_state = "sandwichcustom"
-	baseicon = "sandwichcustom"
 	basename = "sandwich"
 
 /obj/item/food/customizable/pizza
@@ -147,7 +144,7 @@ do {\
 
 /obj/item/food/customizable/cook/donkpocket
 	name = "donk pocket"
-	desc = "You wanna put a bangin-Oh nevermind."
+	desc = "You wanna put a bangin- Oh, never mind."
 	icon_state = "donkcustom"
 	baseicon = "donkcustom"
 	basename = "donk pocket"
@@ -196,7 +193,7 @@ do {\
 
 /obj/item/food/customizable/candy/cotton
 	name = "flavored cotton candy"
-	desc = "Who can take a sunrise, sprinkle it with dew,"
+	desc = "Who can take a sunrise, sprinkle it with dew."
 	icon_state = "cottoncandycustom"
 	baseicon = "cottoncandycustom"
 	basename = "flavored cotton candy"
@@ -205,7 +202,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummybear
 	name = "flavored giant gummy bear"
-	desc = "Cover it in chocolate and a miracle or two,"
+	desc = "Cover it in chocolate and a miracle or two."
 	icon_state = "gummybearcustom"
 	baseicon = "gummybearcustom"
 	basename = "flavored giant gummy bear"
@@ -214,7 +211,7 @@ do {\
 
 /obj/item/food/customizable/candy/gummyworm
 	name = "flavored giant gummy worm"
-	desc = "The Candy Man can 'cause he mixes it with love,"
+	desc = "The Candy Man can 'cause he mixes it with love."
 	icon_state = "gummywormcustom"
 	baseicon = "gummywormcustom"
 	basename = "flavored giant gummy worm"
@@ -232,7 +229,7 @@ do {\
 
 /obj/item/food/customizable/candy/jawbreaker
 	name = "flavored jawbreaker"
-	desc = "Who can take a rainbow, Wrap it in a sigh,"
+	desc = "Who can take a rainbow, Wrap it in a sigh."
 	icon_state = "jawbreakercustom"
 	baseicon = "jawbreakercustom"
 	basename = "flavored jawbreaker"
@@ -241,7 +238,7 @@ do {\
 
 /obj/item/food/customizable/candy/candycane
 	name = "flavored candy cane"
-	desc = "Soak it in the sun and make strawberry-lemon pie,"
+	desc = "Soak it in the sun and make strawberry-lemon pie."
 	icon_state = "candycanecustom"
 	baseicon = "candycanecustom"
 	basename = "flavored candy cane"
@@ -263,15 +260,6 @@ do {\
 	icon_state = "donutcustom"
 	baseicon = "donutcustom"
 	basename = "filled donut"
-	snack_overlays = 0
-	top = 0
-
-/obj/item/food/customizable/candy/bar
-	name = "flavored chocolate bar"
-	desc = "Made in a factory downtown."
-	icon_state = "barcustom"
-	baseicon = "barcustom"
-	basename = "flavored chocolate bar"
 	snack_overlays = 0
 	top = 0
 
@@ -335,18 +323,16 @@ do {\
 	tastes = list("bun" = 4)
 
 
-/obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
-		if(!isnull(new_name))
-			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
-			return
+/obj/item/food/customizable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil) || is_pen(used))
+		return ..()
 
-	if(!istype(I, /obj/item/food))
-		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
-		return
+	if(!istype(used, /obj/item/food))
+		to_chat(user, SPAN_WARNING("[used] isn't exactly something that you would want to eat."))
+		return ITEM_INTERACT_COMPLETE
 
-	add_ingredient(I, user)
+	add_ingredient(used, user)
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Tries to add one ingredient and it's ingredients, if any and applicable, to this snack
@@ -356,21 +342,21 @@ do {\
  */
 /obj/item/food/customizable/proc/add_ingredient(obj/item/food/snack, mob/user)
 	if(length(ingredients) > ingredient_limit)
-		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
+		to_chat(user, SPAN_WARNING("If you put anything else in or on [src] it's going to make a mess."))
 		return
 
 	// Fully custom snacks don't add the ingredients. So no need to check
 	if(!fullycustom && istype(snack, /obj/item/food/customizable))
 		var/obj/item/food/customizable/origin = snack
 		if(length(ingredients) + length(origin.ingredients) > ingredient_limit)
-			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
+			to_chat(user, SPAN_WARNING("Merging [snack] and [src] together is going to make a mess."))
 			return
 
-	if(!user.unEquip(snack))
-		to_chat(user, "<span class='warning'>[snack] is stuck to your hand!</span>")
+	if(!user.unequip(snack))
+		to_chat(user, SPAN_WARNING("[snack] is stuck to your hand!"))
 		return
 
-	to_chat(user, "<span class='notice'>You add [snack] to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You add [snack] to [src]."))
 	snack.reagents.trans_to(src, snack.reagents.total_volume)
 
 	var/list/added_ingredients = list(snack)
@@ -435,7 +421,7 @@ do {\
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += "<span class='notice'>You think you can see [whatsinside] in there.</span>"
+		. += SPAN_NOTICE("You think you can see [whatsinside] in there.")
 
 
 /obj/item/food/customizable/proc/newname()

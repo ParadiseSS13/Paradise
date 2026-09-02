@@ -3,7 +3,6 @@
 /obj/machinery/flasher
 	name = "Mounted flash"
 	desc = "A wall-mounted flashbulb device."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mflash1"
 	max_integrity = 250
 	integrity_failure = 100
@@ -15,8 +14,9 @@
 	var/strength = 10 SECONDS //How weakened targets are when flashed.
 	var/base_state = "mflash"
 	anchored = TRUE
+	var/datum/proximity_monitor/proximity_monitor
 
-/obj/machinery/flasher/Initialize()
+/obj/machinery/flasher/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -32,7 +32,7 @@
 
 /obj/machinery/flasher/portable/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	proximity_monitor = new(src, range)
 
 /obj/machinery/flasher/power_change()
 	if(!..())
@@ -116,9 +116,9 @@
 		return
 	disable = !disable
 	if(disable)
-		user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
+		user.visible_message(SPAN_WARNING("[user] has disconnected [src]'s flashbulb!"), SPAN_WARNING("You disconnect [src]'s flashbulb!"))
 	if(!disable)
-		user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
+		user.visible_message(SPAN_WARNING("[user] has connected [src]'s flashbulb!"), SPAN_WARNING("You connect [src]'s flashbulb!"))
 
 /obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -161,7 +161,7 @@
 	active = TRUE
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/flasher/M in GLOB.machines)
+	for(var/obj/machinery/flasher/M in SSmachines.get_by_type(/obj/machinery/flasher))
 		if(M.id == id)
 			spawn()
 				M.flash()

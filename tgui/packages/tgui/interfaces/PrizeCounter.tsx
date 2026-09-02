@@ -1,14 +1,16 @@
-import { classes } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Stack, ImageButton, Input, Icon } from '../components';
+import { useState } from 'react';
+import { Button, Icon, ImageButton, Input, Section, Stack } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Prize = {
   name: string;
   desc: string;
+  icon: string;
+  icon_state: string;
   cost: number;
   itemID: number;
-  imageID: string;
 };
 
 type PrizeData = {
@@ -16,11 +18,11 @@ type PrizeData = {
   prizes: Prize[];
 };
 
-export const PrizeCounter = (props, context) => {
-  const { act, data } = useBackend<PrizeData>(context);
+export const PrizeCounter = (props) => {
+  const { act, data } = useBackend<PrizeData>();
   const { tickets, prizes = [] } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [toggleSearch, setToggleSearch] = useLocalState(context, 'toggleSearch', false);
+  const [searchText, setSearchText] = useState('');
+  const [toggleSearch, setToggleSearch] = useState(false);
   const filteredPrizes = prizes.filter((prize) => prize.name.toLowerCase().includes(searchText.toLowerCase()));
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">
@@ -40,19 +42,14 @@ export const PrizeCounter = (props, context) => {
                         width={12.5}
                         placeholder="Search for a prize"
                         value={searchText}
-                        onInput={(e, value) => setSearchText(value)}
+                        onChange={(value) => setSearchText(value)}
                       />
                     </Stack.Item>
                   )}
                   <Stack.Item>
-                    <Button
-                      fluid
-                      iconRight
-                      icon="ticket"
-                      disabled={!tickets}
-                      content={<>Tickets: {<b>{tickets}</b>}</>}
-                      onClick={() => act('eject')}
-                    />
+                    <Button fluid iconPosition="right" icon="ticket" disabled={!tickets} onClick={() => act('eject')}>
+                      Tickets: <b>{tickets}</b>
+                    </Button>
                   </Stack.Item>
                   <Stack.Item>
                     <Button
@@ -72,13 +69,12 @@ export const PrizeCounter = (props, context) => {
                   <ImageButton
                     fluid
                     key={prize.name}
-                    asset={['prize_counter64x64', prize.imageID]}
                     title={prize.name}
-                    buttonsAlt
-                    buttons={
+                    dmIcon={prize.icon}
+                    dmIconState={prize.icon_state}
+                    buttonsAlt={
                       <Button
                         bold
-                        translucent
                         fontSize={1.5}
                         tooltip={disabled && 'Not enough tickets'}
                         disabled={disabled}

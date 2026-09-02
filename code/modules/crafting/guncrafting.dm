@@ -8,6 +8,7 @@
 	desc = "A prototype modular receiver and trigger assembly for a firearm."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "receiver"
+	materials = list(MAT_METAL = 15000)
 
 /obj/item/weaponcrafting/stock
 	name = "rifle stock"
@@ -32,83 +33,97 @@
 	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into an advanced energy gun."
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	outcome = /obj/item/gun/energy/gun/nuclear
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 3000, MAT_TITANIUM = 1000)
 
 /obj/item/weaponcrafting/gunkit/tesla
 	name = "arc revolver parts kit"
 	desc = "A suitcase containing the necessary gun parts to construct a arc revolver around a laser rifle. Handle with care."
 	origin_tech = "combat=5;materials=5;powerstorage=5"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
 	outcome = /obj/item/gun/energy/arc_revolver
 
 /obj/item/weaponcrafting/gunkit/xray
 	name = "x-ray laser gun parts kit"
 	desc = "A suitcase containing the necessary gun parts to turn a laser gun into a x-ray laser gun. Do not point most parts directly towards face."
 	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 	outcome = /obj/item/gun/energy/xray
 
 /obj/item/weaponcrafting/gunkit/ion
 	name = "ion carbine parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into a ion carbine."
 	origin_tech = "combat=4;magnets=4"
+	materials = list(MAT_SILVER = 6000, MAT_METAL = 8000, MAT_URANIUM = 2000)
 	outcome = /obj/item/gun/energy/ionrifle/carbine
 
 /obj/item/weaponcrafting/gunkit/temperature
 	name = "temperature gun parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into a temperature gun. Fantastic at birthday parties and killing indigenious populations of Ash Walkers."
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 500, MAT_SILVER = 3000)
 	outcome = /obj/item/gun/energy/temperature
 
 /obj/item/weaponcrafting/gunkit/decloner
 	name = "decloner parts kit"
 	desc = "An uttery baffling array of gun parts and technology that somehow turns an energy gun into a decloner. Haircut not included."
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 10000)
 	outcome = /obj/item/gun/energy/decloner
 
 /obj/item/weaponcrafting/gunkit/ebow
 	name = "energy crossbow parts kit"
 	desc = "Highly illegal weapons refurbishment kit that allows you to turn a laser gun into a near-duplicate energy crossbow. Almost like the real thing!"
 	origin_tech = "combat=4;magnets=4;syndicate=2"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
 	outcome = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 
 /obj/item/weaponcrafting/gunkit/immolator
 	name = "immolator laser gun parts kit"
 	desc = "Take a perfectly functioning laser gun. Butcher the inside of the gun so it runs hot and mean. You now have a immolator laser. You monster."
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
 	outcome = /obj/item/gun/energy/immolator
 
 /obj/item/weaponcrafting/gunkit/accelerator
 	name = "accelerator laser cannon parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into an accelerator laser cannon."
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 3000, MAT_DIAMOND = 3000)
 	outcome = /obj/item/gun/energy/lasercannon
 
 /obj/item/weaponcrafting/gunkit/lwap
 	name = "lwap laser sniper parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform an laser gun into an advanced piercing laser sniper. Now with wall hacks!"
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_GOLD = 5000, MAT_DIAMOND = 8000)
 	outcome = /obj/item/gun/energy/lwap
 
 /obj/item/weaponcrafting/gunkit/plasma
 	name = "plasma pistol parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into a plasma pistol. Wort, wort, wort!"
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
 	outcome = /obj/item/gun/energy/plasma_pistol
 
 /obj/item/weaponcrafting/gunkit/sparker
 	name = "\improper SPRK-12 pistol parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a mini energy gun into a SPRK-12 pistol. Double or nothing!"
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1000, MAT_SILVER = 1500)
 	outcome = /obj/item/gun/energy/sparker
 
 /obj/item/weaponcrafting/gunkit/u_ionsilencer
 	name = "u-ion silencer parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard disabler into a silenced and lethal disabling weapon. Look officer, he has no wounds from me!"
 	origin_tech = "combat=6;magnets=6;syndicate=2"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 	outcome = /obj/item/gun/energy/disabler/silencer
 
 /obj/item/weaponcrafting/gunkit/chemical_flamethrower
 	name = "extended chemical flamethrower parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard chemical flamethrower into a version that can accept two cartridges instead of one."
 	origin_tech = "combat=5;engineering=6;plasmatech=4"
+	materials = list(MAT_TITANIUM = 7000, MAT_METAL = 13000, MAT_GOLD = 1000)
 	outcome = /obj/item/chemical_flamethrower/extended
 
 /obj/item/weaponcrafting/gunkit/universal_gun_kit
@@ -120,11 +135,11 @@
 	name = "sol gov universal self assembling gun parts kit"
 	icon_state = "solcase" //Ikea reference pending.
 
-/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
+/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack__legacy__attackchain(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
 	if(!istype(gunkit_to_use))
 		return
 	if(!gunkit_to_use.outcome)
-		to_chat(user, "<span class='warning'>That gunkit can not be used to craft a weapon.</span>")
+		to_chat(user, SPAN_WARNING("That gunkit can not be used to craft a weapon."))
 		return
 
 	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -134,23 +149,23 @@
 	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) //Snowflake checking, but I don't want a person with a self assembling kit to be robbed
 		var/obj/item/gun_produceda = new gunkit_to_use.outcome
 		var/obj/item/gun_producedb = new gunkit_to_use.outcome
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(gun_produceda)
 		user.put_in_hands(gun_producedb)
 	else
 		var/obj/item/gun_produced = new gunkit_to_use.outcome
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(gun_produced)
 	qdel(gunkit_to_use)
 	qdel(src)
 
 // CRAFTING //
 
-/obj/item/weaponcrafting/receiver/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weaponcrafting/receiver/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/pipe))
 		to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
 		var/obj/item/weaponcrafting/ishotgunconstruction/I = new /obj/item/weaponcrafting/ishotgunconstruction
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(I)
 		qdel(W)
 		qdel(src)
@@ -166,9 +181,9 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
 	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-	user.unEquip(src)
+	user.unequip(src)
 	user.put_in_hands(C)
-	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
+	to_chat(user, SPAN_NOTICE("You screw the pins into place, securing the pipe to the receiver."))
 	qdel(src)
 	return TRUE
 
@@ -178,11 +193,11 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/weaponcrafting/ishotgunconstruction2/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weaponcrafting/stock))
 		to_chat(user, "You attach the stock to the receiver-barrel assembly.")
 		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new /obj/item/weaponcrafting/ishotgunconstruction3
-		user.unEquip(src)
+		user.unequip(src)
 		user.put_in_hands(I)
 		qdel(W)
 		qdel(src)
@@ -194,17 +209,17 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep2"
 
-/obj/item/weaponcrafting/ishotgunconstruction3/attackby(obj/item/I, mob/user as mob, params)
+/obj/item/weaponcrafting/ishotgunconstruction3/attackby__legacy__attackchain(obj/item/I, mob/user as mob, params)
 	..()
-	if(istype(I, /obj/item/stack/packageWrap))
-		var/obj/item/stack/packageWrap/C = I
+	if(istype(I, /obj/item/stack/package_wrap))
+		var/obj/item/stack/package_wrap/C = I
 		if(C.use(5))
 			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
-			user.unEquip(src)
+			user.unequip(src)
 			user.put_in_hands(W)
-			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")
+			to_chat(user, SPAN_NOTICE("You tie the wrapping paper around the stock and the barrel to secure it."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>")
+			to_chat(user, SPAN_WARNING("You need at least five feet of wrapping paper to secure the stock."))
 			return
 

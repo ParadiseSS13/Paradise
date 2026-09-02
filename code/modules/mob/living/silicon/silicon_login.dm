@@ -6,5 +6,5 @@
 		mind.remove_antag_datum(/datum/antagonist/wizard)
 		mind.remove_antag_datum(/datum/antagonist/changeling)
 		mind.remove_antag_datum(/datum/antagonist/vampire)
-		SSticker.mode.remove_abductor(mind)
+		mind.remove_antag_datum(/datum/antagonist/abductor)
 	..()

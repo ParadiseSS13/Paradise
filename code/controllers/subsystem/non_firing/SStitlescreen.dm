@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(title)
 				break
 
 		var/file_path = "config/title_screens/images/[pick(title_screens)]"
+		log_debug("Loading title screen from '[file_path]'.")
 
 		var/icon/icon = new(fcopy_rsc(file_path))
 

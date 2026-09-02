@@ -1,0 +1,3 @@
+/obj/structure/window:
+  banned_variables:
+    - layer

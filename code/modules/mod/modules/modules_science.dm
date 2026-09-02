@@ -35,21 +35,21 @@
 	. = ..()
 	if(!.)
 		return
-	GLOB.doppler_arrays += src
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 
 /obj/item/mod/module/reagent_scanner/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	GLOB.doppler_arrays -= src
+	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 
-/obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+/obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	var/turf/T = get_turf(src)
-	var/dx = abs(x0 - T.x)
-	var/dy = abs(y0 - T.y)
+	var/dx = abs(epicenter.x - T.x)
+	var/dy = abs(epicenter.y - T.y)
 	var/distance
-	if(T.z != z0)
+	if(T.z != epicenter.z)
 		return
 	if(dx > dy)
 		distance = dx
@@ -57,7 +57,7 @@
 		distance = dy
 	if(distance > explosion_detection_dist)
 		return
-	to_chat(mod.wearer, "<span class='notice'>Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]</span>")
+	to_chat(mod.wearer, SPAN_NOTICE("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]"))
 
 ///Teleporter - Lets the user teleport to a nearby location.
 /obj/item/mod/module/anomaly_locked/teleporter

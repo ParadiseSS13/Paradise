@@ -1,7 +1,7 @@
 /turf/simulated/floor/vault
-	icon = 'icons/turf/floors.dmi'
+	name = "stone floor"
+	desc = "Smooth flooring carved from solid rock. It looks sturdy."
 	icon_state = "rockvault"
-	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
 	oxygen = LAVALAND_OXYGEN
@@ -17,7 +17,6 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/bluegrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
 
 /turf/simulated/floor/bluegrid/telecomms
@@ -29,11 +28,9 @@
 	name = "server base"
 
 /turf/simulated/floor/greengrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
 
 /turf/simulated/floor/greengrid/airless
-	icon_state = "gcircuit"
 	name = "airless floor"
 	oxygen = 0
 	nitrogen = 0
@@ -44,16 +41,24 @@
 	name = "floor"
 
 /turf/simulated/floor/redgrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "rcircuit"
 
 /turf/simulated/floor/beach
 	name = "beach"
+	desc = "The sandy seaside, waves crashing, the sun shining... It's a true paradise."
 	icon = 'icons/misc/beach.dmi'
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/desert_sand
+	name = "sand"
+	desc = "I don't like sand... It's coarse, and rough, and irritating... And it gets everywhere."
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "desert"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
 
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
@@ -118,7 +123,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/AM, direction)
 	. = ..()
 	if(!linkedcontroller)
 		return
@@ -133,6 +138,7 @@
 
 /turf/simulated/floor/noslip
 	name = "high-traction floor"
+	desc = "Textured and rubberized flooring designed to maximize grip. You won't slip on this."
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
 	slowdown = -0.3
@@ -155,7 +161,8 @@
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
-	icon_state = "floor"
+	desc = "This floor appears to be perpetually covered in a thick layer of slippery lubricant."
+	icon_state = "tile_standard"
 
 /turf/simulated/floor/lubed/Initialize(mapload)
 	. = ..()
@@ -164,7 +171,7 @@
 /turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
+		to_chat(H, SPAN_WARNING("You lose your footing trying to pry off the tile!"))
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
@@ -179,7 +186,6 @@
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
 	desc = "Tightly-pressed brass tiles. They emit minute vibration."
-	icon_state = "plating"
 	baseturf = /turf/simulated/floor/clockwork
 	var/dropped_brass
 	var/uses_overlay = TRUE
@@ -215,10 +221,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins slowly prying up [src]..."), SPAN_NOTICE("You begin painstakingly prying up [src]..."))
 	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+	user.visible_message(SPAN_NOTICE("[user] pries up [src]!"), SPAN_NOTICE("You pry up [src]!"))
 	make_plating()
 
 /turf/simulated/floor/clockwork/make_plating()
@@ -253,7 +259,7 @@
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"
-	desc = "A catwalk for easier inspection of cable and pipe installations."
+	desc = "Flooring made of a metal grid with large holes for easier inspection of cable and pipe installations."
 	icon = 'icons/turf/floors/catwalk_floor.dmi'
 	icon_state = "catwalk"
 	base_icon_state = "catwalk"
@@ -267,6 +273,19 @@
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
+	rust_resistance = RUST_RESISTANCE_BASIC
+
+/turf/simulated/floor/catwalk/grey
+	icon = 'icons/turf/floors/catwalk_floor_grey.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/grey
+
+/turf/simulated/floor/catwalk/white
+	icon = 'icons/turf/floors/catwalk_floor_white.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/white
+
+/turf/simulated/floor/catwalk/black
+	icon = 'icons/turf/floors/catwalk_floor_black.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/black
 
 /turf/simulated/floor/catwalk/Initialize(mapload)
 	. = ..()
@@ -307,3 +326,28 @@
 			if(prob(50))
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
+
+/turf/simulated/floor/backrooms_carpet
+	name = "backrooms carpet"
+	desc = "An old, musty carpet. It smells faintly mildewy."
+	icon_state = "backrooms_carpet"
+	baseturf = /turf/simulated/floor/backrooms_carpet
+
+/turf/simulated/floor/plating/rust
+// Carpet used in the backrooms hallucination
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_BROWN
+
+/turf/simulated/floor/plating/rust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/rust)
+	color = null
+
+/turf/simulated/floor/plating/heretic_rust
+	color = COLOR_GREEN_GRAY
+
+/turf/simulated/floor/plating/heretic_rust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/rust/heretic)
+	color = null

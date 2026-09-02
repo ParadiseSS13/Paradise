@@ -6,10 +6,12 @@
 	name = "Printing Pen"
 	var/mode = 1
 
-/obj/item/pen/multi/robopen/attack_self(mob/user as mob)
-	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour","Mode"))
+/obj/item/pen/multi/robopen/activate_self(mob/user)
+	if(!user)
+		return ..()
+	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour", "Mode"))
 	if(!choice)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	switch(choice)
 		if("Colour")
@@ -21,7 +23,7 @@
 				mode = 1
 			to_chat(user, "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'")
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 // Copied over from paper's rename verb
 // see code\modules\paperwork\paper.dm line 62
@@ -43,12 +45,11 @@
 	name = "paper dispenser"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
-	item_state = "sheet-metal"
 
-/obj/item/form_printer/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/form_printer/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
 
-/obj/item/form_printer/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+/obj/item/form_printer/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 
 	if(!target || !flag)
 		return
@@ -56,11 +57,11 @@
 	if(istype(target,/obj/structure/table))
 		deploy_paper(get_turf(target))
 
-/obj/item/form_printer/attack_self(mob/user as mob)
+/obj/item/form_printer/attack_self__legacy__attackchain(mob/user as mob)
 	deploy_paper(get_turf(src))
 
 /obj/item/form_printer/proc/deploy_paper(turf/T)
-	T.visible_message("<span class='notice'>\The [src.loc] dispenses a sheet of crisp white paper.</span>")
+	T.visible_message(SPAN_NOTICE("\The [src.loc] dispenses a sheet of crisp white paper."))
 	new /obj/item/paper(T)
 
 

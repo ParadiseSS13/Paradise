@@ -79,12 +79,16 @@
 				if(A)
 					start_program(A)
 		if("Eject")//Ejects the cart, only done from hub.
+			// Do not eject the sillycone cart!
+			if(silicon_pda)
+				return
 			if(!isnull(cartridge))
-				var/turf/T = loc
-				if(ismob(T))
-					T = T.loc
 				var/obj/item/cartridge/C = cartridge
-				C.forceMove(T)
+				if(ismob(loc))
+					var/mob/T = loc
+					T.put_in_hands(C)
+				else
+					C.forceMove(get_turf(src))
 				if(scanmode in C.programs)
 					scanmode = null
 				if(current_app in C.programs)

@@ -4,6 +4,7 @@
 	maxHealth = 175
 	health = 175
 	icon_state = "aliens_s"
+	surgery_container = /datum/xenobiology_surgery_container/alien/sentinel
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
@@ -29,6 +30,11 @@
 	. = ..()
 	name = "alien sentinel ([rand(1, 1000)])"
 	real_name = name
+
+/mob/living/carbon/alien/humenoid/sentinel/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.2)
 
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()

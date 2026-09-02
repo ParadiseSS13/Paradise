@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(verb_manager)
 
 	//we want unit tests to be able to directly call verbs that attempt to queue, and since unit tests should test internal behavior, we want the queue
 	//to happen as if it was actually from player input if its called on a mob.
-#ifdef UNIT_TESTS
+#ifdef GAME_TESTS
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.usr_uid = incoming_callback.object.UID()
 		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, GLOBAL_PROC_REF(_queue_verb)) + args.Copy()))
@@ -162,13 +162,7 @@ SUBSYSTEM_DEF(verb_manager)
 /datum/controller/subsystem/verb_manager/Recover()
 	verb_queue = SSverb_manager.verb_queue
 
-/client/proc/force_verb_bypass()
-	set category = "Debug"
-	set name = "Enable Forced Verb Execution"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(alert(src,"This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?","Verb Manager","Yes","No") == "Yes")
+USER_VERB(force_verb_bypass, R_DEBUG, "Enable Forced Verb Execution", "Enable Forced Verb Execution", VERB_CATEGORY_DEBUG)
+	if(alert(client, "This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?","Verb Manager","Yes","No") == "Yes")
 		SSverb_manager.FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs = TRUE
-		message_admins("Admin [key_name_admin(usr)] has forced verbs to bypass the verb queue subsystem.")
+		message_admins("Admin [key_name_admin(client)] has forced verbs to bypass the verb queue subsystem.")

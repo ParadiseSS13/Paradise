@@ -42,6 +42,8 @@
 		return
 	if(possible_target.has_antag_datum(/datum/antagonist/cultist))
 		return TARGET_INVALID_CULTIST
+	if(possible_target.has_antag_datum(/datum/antagonist/heretic))
+		return TARGET_INVALID_HERETIC
 	if(!SSticker.mode.cult_team)
 		stack_trace("/datum/objective/sacrifice/is_invalid_target was called without there being an assigned cult team")
 		return

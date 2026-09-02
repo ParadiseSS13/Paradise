@@ -26,7 +26,7 @@
 			owner?.apply_damage(20, STAMINA)
 		if(2)
 			owner?.apply_damage(10, STAMINA)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
+	to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, causing fatigue!"))
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -37,7 +37,6 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = TRUE
-	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = TRUE
 
@@ -46,10 +45,8 @@
 	name = "left arm"
 	icon_name = "l_arm"
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
+	malfdamage = 35
 	body_part = ARM_LEFT
-	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
@@ -61,8 +58,8 @@
 		return
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		owner.drop_item_to_ground(hand)
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping what it was holding!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/arm/right
@@ -78,8 +75,7 @@
 	name = "left leg"
 	icon_name = "l_leg"
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
+	malfdamage = 35
 	body_part = LEG_LEFT
 	icon_position = LEFT
 	parent_organ = "groin"
@@ -93,10 +89,10 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.AmountWeakened())
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, preventing you from getting back up!"))
 		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping you to the ground!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
@@ -119,6 +115,7 @@
 	icon_name = "l_foot"
 	max_damage = 30
 	min_broken_damage = 15
+	malfdamage = 20
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = FOOT_LEFT
 	icon_position = LEFT
@@ -132,10 +129,10 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.AmountWeakened())
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, preventing you from getting back up!"))
 		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping you to the ground!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
@@ -144,7 +141,8 @@
 			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes)
+		owner.drop_item_to_ground(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -162,6 +160,7 @@
 	icon_name = "l_hand"
 	max_damage = 30
 	min_broken_damage = 15
+	malfdamage = 20
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = HAND_LEFT
 	parent_organ = "l_arm"
@@ -169,25 +168,29 @@
 	can_grasp = 1
 	fragile = TRUE
 
+/obj/item/organ/external/hand/unmutate()
+	..()
+	owner.update_hands_hud()
+
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		owner.drop_item_to_ground(hand)
+		to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, dropping what it was holding!"))
 		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
 		update_hand_missing()
 		if(owner.gloves)
-			owner.unEquip(owner.gloves)
+			owner.drop_item_to_ground(owner.gloves)
 		if(owner.l_hand && (body_part == HAND_LEFT))
-			owner.unEquip(owner.l_hand, TRUE)
+			owner.drop_item_to_ground(owner.l_hand, force = TRUE)
 		if(owner.r_hand && (body_part == HAND_RIGHT))
-			owner.unEquip(owner.r_hand, TRUE)
+			owner.drop_item_to_ground(owner.r_hand, force = TRUE)
 
 	. = ..()
 
@@ -209,9 +212,9 @@
 
 /obj/item/organ/external/hand/proc/update_hand_missing()
 	// we need to come back to this once the hand is actually removed/dead
-	if(!owner) // Rather not have this trigger on already remove limbs
+	if(!owner) // Rather not have this trigger on already removed limbs
 		return
-	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud), 0))
+	END_OF_TICK(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud)))
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
@@ -227,9 +230,7 @@
 	name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
-	parent_organ = "chest"
 	amputation_point = "neck"
 	gendered_icon = TRUE
 	encased = "skull"
@@ -259,10 +260,14 @@
 /obj/item/organ/external/head/examine(mob/user)
 	. = ..()
 	if(!length(contents))
-		. += "<span class='warning'>There is nothing left inside!</span>"
+		. += SPAN_WARNING("There is nothing left inside!")
 
 /obj/item/organ/external/head/vars_to_save()
 	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
+
+/obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
+	disintegrate = DROPLIMB_SHARP // Lets make sure to not delete brains
+	return ..(clean, disintegrate, ignore_children, nodamage)
 
 /obj/item/organ/external/head/remove()
 	if(owner)
@@ -270,15 +275,15 @@
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses, force = TRUE)
+			owner.drop_item_to_ground(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head, force = TRUE)
+			owner.drop_item_to_ground(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear, force = TRUE)
+			owner.drop_item_to_ground(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear, force = TRUE)
+			owner.drop_item_to_ground(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask, force = TRUE)
+			owner.drop_item_to_ground(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
@@ -324,4 +329,4 @@
 			owner?.AdjustConfused(60 SECONDS)
 		if(2)
 			owner?.AdjustConfused(40 SECONDS)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")
+	to_chat(owner, SPAN_USERDANGER("Your [name] malfunctions, overloading your motor control!"))

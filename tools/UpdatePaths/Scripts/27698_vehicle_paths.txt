@@ -1,0 +1,1 @@
+/obj/vehicle/space/speedbike/@SUBTYPES : /obj/tgvehicle/speedbike/@SUBTYPE

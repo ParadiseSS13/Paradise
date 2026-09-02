@@ -20,7 +20,7 @@
 	if(!clean_screen)
 		if(!deep_clean)
 			if(SEND_SIGNAL(target, COMSIG_ADMIN_DECONTAMINATE))
-				to_chat(user, "<span class='notice'>Decontaminated [target].</span>")
+				to_chat(user, SPAN_NOTICE("Decontaminated [target]."))
 				log_admin("Build Mode: [key_name(user)] decontaminated radiation at ([target.x],[target.y],[target.z])")
 			return
 
@@ -36,7 +36,7 @@
 				for(var/atom/movable/cleanable2 in L.get_contents())
 					counter += SEND_SIGNAL(cleanable2, COMSIG_ADMIN_DECONTAMINATE)
 					CHECK_TICK
-		to_chat(user, "<span class='notice'>Decontaminated [counter] atom\s.</span>")
+		to_chat(user, SPAN_NOTICE("Decontaminated [counter] atom\s."))
 		log_admin("Build Mode: [key_name(user)] deep-clean decontaminated radiation at ([target.x],[target.y],[target.z])")
 		return
 
@@ -51,5 +51,5 @@
 				for(var/atom/movable/cleanable2 in L.get_contents())
 					counter += 	SEND_SIGNAL(cleanable2, COMSIG_ADMIN_DECONTAMINATE)
 					CHECK_TICK
-	to_chat(user, "<span class='notice'>Decontaminated [counter] atom\s.</span>")
+	to_chat(user, SPAN_NOTICE("Decontaminated [counter] atom\s."))
 	log_admin("Build Mode: [key_name(user)] [deep_clean ? "deep-clean " : ""]decontaminated their screen of radiation at ([target.x],[target.y],[target.z])")

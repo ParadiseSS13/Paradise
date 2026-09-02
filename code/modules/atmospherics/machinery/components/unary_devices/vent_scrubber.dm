@@ -23,6 +23,8 @@
 	var/scrub_CO2 = TRUE
 	var/scrub_Toxins = FALSE
 	var/scrub_N2O = FALSE
+	var/scrub_H2 = FALSE
+	var/scrub_H2O = FALSE
 
 	var/volume_rate = 200
 	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
@@ -35,24 +37,36 @@
 	on = TRUE
 	icon_state = "map_scrubber"
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon
+	scrubbing = FALSE
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
 	. = ..()
 	icon = null
 	initial_loc = get_area(loc)
 	initial_loc.scrubbers += src
+	GLOB.all_scrubbers += src
 	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
-
-/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.</span>"
-	if(welded)
-		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc)
 		initial_loc.scrubbers -= src
 
+	GLOB.all_scrubbers -= src
+
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.")
+	if(welded)
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
 	. = ..()
@@ -73,8 +87,8 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
-	update_pipe_image()
+	. += GLOB.pipe_icon_manager.get_atmos_icon("device", state = scrubber_icon)
+	update_pipe_image(.)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
 	if(..())
@@ -131,8 +145,34 @@
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
+	if(!tile || !istype(tile))
+		return 0
+
+	if(scrubbing && !should_scrub(tile.get_readonly_air()))
+		return 0
+
 	var/datum/milla_safe/vent_scrubber_process/milla = new()
 	milla.invoke_async(src, tile)
+
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/should_scrub(datum/gas_mixture/environment)
+	if(scrub_O2 && environment.oxygen() > 0.001)
+		return TRUE
+	if(scrub_N2 && environment.nitrogen() > 0.001)
+		return TRUE
+	if(scrub_CO2 && environment.carbon_dioxide() > 0.001)
+		return TRUE
+	if(scrub_Toxins && environment.toxins() > 0.001)
+		return TRUE
+	if(environment.sleeping_agent() > 0.001)
+		return TRUE
+	if(environment.agent_b() > 0.001)
+		return TRUE
+	if(environment.hydrogen() > 0.001)
+		return TRUE
+	if(environment.water_vapor() > 0.001)
+		return TRUE
+
+	return FALSE
 
 /datum/milla_safe/vent_scrubber_process
 
@@ -143,7 +183,7 @@
 	var/datum/gas_mixture/environment = get_turf_air(tile)
 
 	if(scrubber.scrubbing)
-		if((scrubber.scrub_O2 && environment.oxygen() > 0.001) || (scrubber.scrub_N2 && environment.nitrogen() > 0.001) || (scrubber.scrub_CO2 && environment.carbon_dioxide() > 0.001) || (scrubber.scrub_Toxins && environment.toxins() > 0.001) || (environment.sleeping_agent()) || (environment.agent_b()))
+		if(scrubber.should_scrub(environment))
 			var/transfer_moles = min(1, scrubber.volume_rate / environment.volume) * environment.total_moles()
 
 			//Take a gas sample
@@ -174,6 +214,14 @@
 			if(scrubber.scrub_N2O)
 				filtered_out.set_sleeping_agent(removed.sleeping_agent())
 				removed.set_sleeping_agent(0)
+
+			if(scrubber.scrub_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
+
+			if(scrubber.scrub_H2O)
+				filtered_out.set_water_vapor(removed.water_vapor())
+				removed.set_water_vapor(0)
 
 			//Remix the resulting gases
 			scrubber.air_contents.merge(filtered_out)
@@ -209,7 +257,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
 		return
-	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the scrubber.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
+	user.visible_message(SPAN_WARNING("[user] furiously claws at [src]!"), SPAN_NOTICE("You manage to clear away the stuff blocking the scrubber."), SPAN_ITALICS("You hear loud scraping noises."))
 	welded = FALSE
 	update_icon()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
@@ -224,10 +272,18 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
-				"<span class='notice'>You weld [src] shut!</span>")
+			user.visible_message(SPAN_NOTICE("[user] welds [src] shut!"),\
+				SPAN_NOTICE("You weld [src] shut!"))
 		else
 			welded = FALSE
-			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
-				"<span class='notice'>You unweld [src]!</span>")
+			user.visible_message(SPAN_NOTICE("[user] unwelds [src]!"),\
+				SPAN_NOTICE("You unweld [src]!"))
 		update_icon()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/living/user, obj/item/I)
+	if(!ismultitool(I))
+		return
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer."))

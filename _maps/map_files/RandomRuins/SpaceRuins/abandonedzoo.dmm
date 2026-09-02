@@ -1,22 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ab" = (
 /obj/machinery/shieldwallgen{
 	activated = 1;
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -28,12 +25,9 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -44,12 +38,9 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -60,7 +51,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -81,8 +71,6 @@
 /area/ruin/space/unpowered)
 "ak" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -93,16 +81,16 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "am" = (
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "an" = (
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "ao" = (
@@ -110,7 +98,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "ap" = (
-/mob/living/simple_animal/hostile/asteroid/goldgrub{
+/mob/living/basic/mining/goldgrub{
 	will_burrow = 0
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -124,7 +112,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "as" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk,
+/mob/living/basic/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "at" = (
@@ -132,7 +120,7 @@
 /area/ruin/space/unpowered)
 "au" = (
 /obj/structure/flora/ausbushes/leafybush,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "av" = (
@@ -152,9 +140,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "ay" = (
 /turf/simulated/floor/plasteel,
@@ -169,9 +155,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aA" = (
 /obj/structure/flora/ausbushes/ywflowers,
@@ -179,26 +163,12 @@
 /area/ruin/space/unpowered)
 "aB" = (
 /obj/machinery/light,
-/mob/living/simple_animal/hostile/poison/bees,
+/mob/living/basic/bee,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "aC" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
-/area/ruin/space/unpowered)
-"aD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/research,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/ruin/space/unpowered)
 "aE" = (
 /obj/machinery/shieldwallgen{
@@ -206,30 +176,21 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/r_wall,
@@ -237,19 +198,13 @@
 "aG" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/gun/energy/floragun,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/random/pool/spaceloot/zoo,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -258,13 +213,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/computer/med_data/laptop,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aJ" = (
 /obj/machinery/shieldwallgen{
@@ -272,17 +223,12 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -291,17 +237,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "aL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/r_wall,
@@ -309,12 +251,10 @@
 "aN" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aO" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -323,54 +263,41 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/bottle/liver_enhance_virion,
 /obj/item/reagent_containers/dropper,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aQ" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "aR" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aS" = (
 /obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
 /obj/item/melee/baton/cattleprod,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aT" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
 /obj/item/mod/control/pre_equipped/medical,
 /obj/item/tank/internals/emergency_oxygen/double,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aU" = (
 /obj/structure/rack,
@@ -379,21 +306,15 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aV" = (
 /obj/machinery/smartfridge/secure/chemistry,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aW" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aX" = (
 /obj/structure/table/reinforced,
@@ -411,32 +332,24 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aY" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/temperature,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/random/pool/spaceloot/zoo,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "aZ" = (
 /obj/structure/table/reinforced,
 /obj/item/cultivator,
 /obj/item/shovel,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "ba" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bb" = (
 /obj/machinery/door/airlock/hatch{
@@ -446,8 +359,6 @@
 /area/ruin/space/unpowered)
 "bc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -455,17 +366,13 @@
 "bd" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "be" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bf" = (
 /obj/machinery/power/smes/magical{
@@ -474,35 +381,25 @@
 	},
 /obj/structure/cable,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bg" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bh" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bi" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack,
 /obj/item/reagent_containers/glass/bottle/mutagen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bj" = (
 /obj/structure/table/reinforced,
@@ -514,35 +411,25 @@
 /obj/item/cautery,
 /obj/item/circular_saw,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bk" = (
 /obj/machinery/optable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bl" = (
 /obj/machinery/computer/operating,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bm" = (
 /obj/structure/closet/wardrobe/toxins_white,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bn" = (
 /obj/structure/table/reinforced,
 /obj/item/food/carrotfries,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bo" = (
 /obj/machinery/shieldwallgen{
@@ -550,19 +437,13 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -571,9 +452,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/green,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bq" = (
 /obj/item/stack/cable_coil/cut,
@@ -588,27 +467,18 @@
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen,
@@ -616,7 +486,6 @@
 /area/ruin/space/unpowered)
 "bt" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen,
@@ -633,7 +502,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bx" = (
@@ -654,16 +523,12 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "bC" = (
 /obj/structure/alien/weeds/node,
@@ -687,10 +552,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
-"bG" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
 "bH" = (
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating,
@@ -700,7 +561,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bJ" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	faction = list("carp")
 	},
 /turf/simulated/floor/plating,
@@ -734,7 +595,7 @@
 /area/ruin/space/unpowered)
 "bP" = (
 /obj/structure/lattice,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "bQ" = (
 /obj/machinery/shieldwallgen{
@@ -742,8 +603,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable,
@@ -758,8 +617,6 @@
 /area/space/nearstation)
 "bS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
@@ -779,11 +636,11 @@
 /area/ruin/space/unpowered)
 "bV" = (
 /obj/machinery/shieldwallgen,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "bW" = (
 /obj/item/shard,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ov" = (
 /turf/simulated/floor/plating/airless,
@@ -796,30 +653,71 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"UD" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"Wk" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	name = "Bio Containment";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 aa
-ab
-ag
-ag
-ag
-ag
-ab
 aa
 aa
 aa
 aa
 aa
 aa
-ab
-ag
-ag
-ag
-ag
-ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 "}
 (2,1,1) = {"
+aa
+ab
+ag
+ag
+ag
+ag
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ag
+ag
+ag
+ag
+ab
+aa
+aa
+"}
+(3,1,1) = {"
 aa
 ac
 ah
@@ -840,30 +738,32 @@ bI
 bv
 ac
 aa
+aa
 "}
-(3,1,1) = {"
+(4,1,1) = {"
 aa
 ac
 ah
 ap
 ai
 ai
-aD
+Wk
 aL
 aR
 aL
 aL
 aR
 aL
-aD
+Wk
 bv
 bv
 bJ
 bv
 ac
 aa
+aa
 "}
-(4,1,1) = {"
+(5,1,1) = {"
 aa
 ac
 ai
@@ -884,8 +784,9 @@ bv
 bv
 ac
 aa
+aa
 "}
-(5,1,1) = {"
+(6,1,1) = {"
 aa
 ac
 aj
@@ -906,8 +807,9 @@ bv
 bv
 ac
 aa
+aa
 "}
-(6,1,1) = {"
+(7,1,1) = {"
 aa
 ad
 ak
@@ -928,8 +830,9 @@ ak
 ak
 bQ
 aa
+aa
 "}
-(7,1,1) = {"
+(8,1,1) = {"
 aa
 aa
 aa
@@ -950,8 +853,9 @@ bK
 bK
 bR
 aa
+aa
 "}
-(8,1,1) = {"
+(9,1,1) = {"
 aa
 aa
 aa
@@ -972,8 +876,9 @@ at
 at
 aa
 aa
+aa
 "}
-(9,1,1) = {"
+(10,1,1) = {"
 aa
 aa
 aa
@@ -989,13 +894,14 @@ ay
 ay
 aH
 ay
-bG
+UD
 bL
-bG
+UD
+aa
 aa
 aa
 "}
-(10,1,1) = {"
+(11,1,1) = {"
 aa
 aa
 aa
@@ -1011,13 +917,14 @@ ay
 ay
 bq
 ay
-bG
+UD
 bM
-bG
+UD
+aa
 aa
 aa
 "}
-(11,1,1) = {"
+(12,1,1) = {"
 aa
 aa
 aa
@@ -1038,8 +945,9 @@ at
 at
 aa
 aa
+aa
 "}
-(12,1,1) = {"
+(13,1,1) = {"
 aa
 aa
 aa
@@ -1060,8 +968,9 @@ aa
 aa
 aa
 aa
+aa
 "}
-(13,1,1) = {"
+(14,1,1) = {"
 aa
 ae
 ak
@@ -1082,8 +991,9 @@ ak
 ak
 bS
 aa
+aa
 "}
-(14,1,1) = {"
+(15,1,1) = {"
 aa
 ac
 al
@@ -1104,8 +1014,9 @@ bD
 bH
 ac
 aa
+aa
 "}
-(15,1,1) = {"
+(16,1,1) = {"
 aa
 ac
 am
@@ -1126,30 +1037,32 @@ bH
 ov
 bT
 aa
+aa
 "}
-(16,1,1) = {"
+(17,1,1) = {"
 aa
 ac
 an
 aq
 au
 am
-aD
+Wk
 aL
 ba
 aL
 aL
 ba
 aL
-aD
+Wk
 bD
 Qh
 ov
 bO
 bU
 bW
+aa
 "}
-(17,1,1) = {"
+(18,1,1) = {"
 aa
 ac
 ao
@@ -1170,8 +1083,9 @@ ov
 ov
 bP
 aa
+aa
 "}
-(18,1,1) = {"
+(19,1,1) = {"
 aa
 af
 ak
@@ -1192,8 +1106,9 @@ bN
 bP
 aa
 aa
+aa
 "}
-(19,1,1) = {"
+(20,1,1) = {"
 aa
 aa
 aa
@@ -1214,8 +1129,10 @@ aa
 aa
 bV
 aa
+aa
 "}
-(20,1,1) = {"
+(21,1,1) = {"
+aa
 aa
 aa
 aa

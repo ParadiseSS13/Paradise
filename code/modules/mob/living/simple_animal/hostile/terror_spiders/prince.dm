@@ -52,7 +52,9 @@
 		RegisterSignal(src, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/terror_spider/prince, give_spell))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/give_spell()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOB_LOGIN
+	if(isnull(mind))
+		mind_initialize()
 	var/datum/spell/spell = new /datum/spell/princely_charge()
 	mind.AddSpell(spell)
 	UnregisterSignal(src, COMSIG_MOB_LOGIN)
@@ -63,6 +65,7 @@
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_icon_state = "terror_prince"
 
 /datum/spell/princely_charge/create_new_targeting()
@@ -104,5 +107,9 @@
 			T.dismantle_wall(TRUE)
 			hit_something = TRUE
 	if(hit_something)
-		visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+		visible_message(SPAN_DANGER("[src] slams into [hit_atom]!"), SPAN_USERDANGER("You slam into [hit_atom]!"))
 		playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 20, ASSIGNMENT_MEDICAL = 3)

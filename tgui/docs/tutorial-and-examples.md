@@ -118,11 +118,11 @@ snippet (make sure component name matches the file name):
 
 ```jsx
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const SampleInterface = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const {
     health,
@@ -152,7 +152,7 @@ export const SampleInterface = (props, context) => {
 };
 ```
 
-Here are the key variables you get from a `useBackend(context)` function:
+Here are the key variables you get from a `useBackend()` function:
 
 - `config` is part of core tgui. It contains meta-information about the
 interface and who uses it, BYOND refs to various objects, and so forth.
@@ -250,7 +250,7 @@ JSX code, and wrap it into a second, smaller React component:
 
 ```jsx
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const SampleInterface = (props, context) => {
@@ -264,7 +264,7 @@ export const SampleInterface = (props, context) => {
 };
 
 const HealthStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const {
     user,
   } = props;
@@ -321,11 +321,11 @@ And the template:
 
 ```jsx
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { Window } from '../layouts';
 
 export const SampleInterface = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   // Extract `health` and `color` variables from the `data` object.
   const {
     health,

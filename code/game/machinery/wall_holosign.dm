@@ -1,7 +1,7 @@
 ////////////////////HOLOSIGN///////////////////////////////////////
 /obj/machinery/holosign
 	name = "holosign"
-	desc = "Small wall-mounted holographic projector"
+	desc = "Small wall-mounted holographic projector."
 	icon = 'icons/obj/holosign.dmi'
 	icon_state = "sign_off"
 	layer = 4
@@ -49,9 +49,9 @@
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/holosign_switch/attackby(obj/item/W, mob/user as mob, params)
-	if(istype(W, /obj/item/detective_scanner))
-		return
+/obj/machinery/holosign_switch/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/detective_scanner))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/holosign_switch/attack_hand(mob/user as mob)
@@ -68,7 +68,7 @@
 	else
 		icon_state = "light0"
 
-	for(var/obj/machinery/holosign/M in GLOB.machines)
+	for(var/obj/machinery/holosign/M in SSmachines.get_by_type(/obj/machinery/holosign))
 		if(M.id == src.id)
 			spawn( 0 )
 				M.toggle()

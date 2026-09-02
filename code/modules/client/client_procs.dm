@@ -84,7 +84,7 @@
 				msg += " Administrators have been informed."
 				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
-			to_chat(src, "<span class='danger'>[msg]</span>")
+			to_chat(src, SPAN_DANGER("[msg]"))
 			return
 
 	var/stl = 10 // 10 topics a second
@@ -99,7 +99,7 @@
 
 		topiclimiter[SECOND_COUNT] += 1
 		if(topiclimiter[SECOND_COUNT] > stl)
-			to_chat(src, "<span class='danger'>Your previous action was ignored because you've done too many in a second</span>")
+			to_chat(src, SPAN_DANGER("Your previous action was ignored because you've done too many in a second"))
 			return
 
 	//search the href for script injection
@@ -118,10 +118,10 @@
 
 	if(href_list["discord_msg"])
 		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
-			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on Discord has responded to you</span>")
+			to_chat(usr, SPAN_WARNING("You are no longer able to use this, it's been more then 10 minutes since an admin on Discord has responded to you"))
 			return
 		if(check_mute(ckey, MUTE_ADMINHELP))
-			to_chat(usr, "<span class='warning'>You cannot use this as your client has been muted from sending messages to the admins on Discord</span>")
+			to_chat(usr, SPAN_WARNING("You cannot use this as your client has been muted from sending messages to the admins on Discord"))
 			return
 		cmd_admin_discord_pm()
 		return
@@ -138,12 +138,8 @@
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
-		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		to_chat(src, SPAN_NOTICE("SSD warning acknowledged."))
 		return
-
-	if(href_list["link_forum_account"])
-		link_forum_account()
-		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
 
 	if(href_list["withdraw_consent"])
 		var/choice = tgui_alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", list("Yes", "No"))
@@ -159,7 +155,7 @@
 
 			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
 			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
-			to_chat(usr, "<span class='boldannounceooc'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
+			to_chat(usr, SPAN_BOLDANNOUNCEOOC("Your ToS consent has been withdrawn. You have been kicked from the server"))
 			qdel(src)
 			return
 
@@ -177,7 +173,7 @@
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
-		to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
+		to_chat(src, SPAN_DANGER("An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)"))
 		src << browse("...", "window=asset_cache_browser")
 		return
 
@@ -192,10 +188,12 @@
 
 		if("silenceSound")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
+			tgui_panel?.stop_music()
 			return
 
 		if("muteAdmin")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
+			tgui_panel?.stop_music()
 			prefs.admin_sound_ckey_ignore |= href_list["a"]
 			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
 			prefs.save_preferences(src)
@@ -226,7 +224,7 @@
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
+			to_chat(src, SPAN_DANGER("You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message."))
 			return 1
 		last_message_time = world.time
 
@@ -235,12 +233,12 @@
 		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
 			return FALSE
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
+			to_chat(src, SPAN_DANGER("You have exceeded the spam filter limit for identical messages. An auto-mute was applied."))
 			cmd_admin_mute(mob, mute_type, 1)
 			return TRUE
 
 		if(last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
+			to_chat(src, SPAN_DANGER("You are nearing the spam filter limit for identical messages."))
 			return FALSE
 
 	else
@@ -269,15 +267,17 @@
 /client/New(TopicData)
 	// TODO: Remove with 516
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage")
+		winset(src, "", "browser-options=byondstorage,find")
 
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	// Create a PM tracker bound to this ckey.
-	pm_tracker = new(ckey)
+	persistent = GLOB.persistent_clients[ckey]
+	if(!persistent)
+		persistent = new(ckey)
+		GLOB.persistent_clients[ckey] = persistent
 
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
@@ -301,22 +301,14 @@
 		show_update_prompt = TRUE
 
 	// Actually sent to client much later, so it appears after MOTD.
-	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
+	to_chat(src, SPAN_WARNING("If the title screen is black, resources are still downloading. Please be patient until the title screen appears."))
 
 	GLOB.directory[ckey] = src
 	// Admin Authorisation
 	// Automatically makes localhost connection an admin
 	try_localhost_autoadmin()
 
-	holder = GLOB.admin_datums[ckey]
-	if(holder)
-		GLOB.admins += src
-		holder.owner = src
-
 	log_client_to_db(tdata) // Make sure our client exists in the DB
-
-	// We have a holder. Inform the relevant places
-	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	pai_save = new(src)
 
@@ -350,6 +342,15 @@
 		// ToS accepted
 		tos_consent = TRUE
 
+	holder = GLOB.admin_datums[ckey]
+	if(holder)
+		holder.associate(src, delay_2fa_complaint = TRUE)
+		// Must be async because any sleeps (happen in sql queries) will break connecting clients
+		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
+
+	// Holder set up. Inform the relevant places
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
+
 	// Setup widescreen
 	view = prefs.viewrange
 
@@ -375,22 +376,6 @@
 	GLOB.clients += src
 	connection_time = world.time
 
-	var/_2fa_alert = FALSE // This is so we can display the message where it will be seen
-	if(holder)
-		if(GLOB.configuration.system.is_production && (holder.rights & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-			// No, check_rights() does not work in the above proc, because we dont have a mob yet
-			_2fa_alert = TRUE
-			// This also has to be manually done since no mob to use check_rights() on
-			deadmin()
-			add_verb(src, /client/proc/readmin)
-			GLOB.de_admins += ckey
-
-		else
-			add_admin_verbs()
-			// Must be async because any sleeps (happen in sql queries) will break connectings clients
-			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
-
-
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
 	spawn(5) // And wait a half-second, since it sounds like you can do this too fast.
@@ -411,6 +396,8 @@
 		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
 		GLOB.clientmessages.Remove(ckey)
+
+	acquire_dpi()
 
 	if(SSinput.initialized)
 		set_macros()
@@ -440,11 +427,11 @@
 	if(GLOB.custom_event_msg && GLOB.custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
+		to_chat(src, SPAN_ALERT("[html_encode(GLOB.custom_event_msg)]"))
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
-		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
+		to_chat(src, SPAN_WARNING("Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you."))
 
 	update_ambience_pref()
 
@@ -453,6 +440,7 @@
 		tooltips = new /datum/tooltip(src)
 
 	Master.UpdateTickRate()
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
@@ -461,16 +449,15 @@
 	if(check_rights(R_ADMIN, FALSE, mob)) // Mob is required. Dont even try without it.
 		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
 
-	if(_2fa_alert)
-		to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+	if(holder && holder.restricted_by_2fa)
+		to_chat(src,SPAN_BOLDANNOUNCEOOC("<big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.\nTo setup 2FA, head to the following menu: <a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]'>Game Preferences</a>"))  // Very fucking obvious
 
+	#ifdef SERVERREGIONS
 	// Tell client about their connection
-	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
-	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
+	to_chat(src, SPAN_NOTICE("You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise."))
+	to_chat(src, SPAN_NOTICE("You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency."))
+	#endif
 	display_job_bans(TRUE)
-	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
-		winset(src, "debugmcbutton", "is-disabled=false")
-		winset(src, "profilecode", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -496,6 +483,7 @@
 		holder.owner = null
 		GLOB.admins -= src
 
+	mob?.become_uncliented()
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	#ifdef MULTIINSTANCE
@@ -600,13 +588,9 @@
 
 	qdel(query)
 
-	var/admin_rank = "Player"
 	// Admins don't get slammed by this, I guess
-	if(holder)
-		admin_rank = holder.rank
-	else
-		if(check_randomizer(connectiontopic))
-			return
+	if(!holder && check_randomizer(connectiontopic))
+		return
 
 	var/client_address = address
 	if(!client_address) // Localhost can sometimes have no address set
@@ -620,10 +604,9 @@
 			return // Return here because if we somehow didnt pull a number from an INT column, EVERYTHING is breaking
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
+		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
 			"sql_cid" = computer_id,
-			"sql_ar" = admin_rank,
 			"sql_id" = sql_id
 		))
 
@@ -637,11 +620,10 @@
 
 	else
 		//New player!! Need to insert all the stuff
-		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid) VALUES (null, :ckey, Now(), Now(), :ip, :cid)", list(
 			"ckey" = ckey,
 			"ip" = client_address,
 			"cid" = computer_id,
-			"rank" = admin_rank
 		))
 		if(!query_insert.warn_execute())
 			qdel(query_insert)
@@ -682,18 +664,18 @@
 			// This needs to happen after their account is put into the DB
 			// This way, admins can then note people
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
-				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
+				message_admins(SPAN_ADMINNOTICE("IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]"))
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
 				if(GLOB.configuration.url.banappeals_url)
 					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [GLOB.configuration.url.banappeals_url]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
-			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]</span>")
+			message_admins(SPAN_ADMINNOTICE("IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]"))
 
 
 /client/proc/check_forum_link()
-	if(!GLOB.configuration.url.forum_link_url || !prefs || prefs.fuid)
+	if(!GLOB.configuration.system.is_production || !prefs || prefs.fuid)
 		return
 
 	if(GLOB.configuration.jobs.enable_exp_tracking)
@@ -701,84 +683,8 @@
 		if(living_hours < 20)
 			return
 
-	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
-
-/client/proc/create_oauth_token()
-	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
-		"ckey" = ckey
-	))
-
-	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
-	if(!query_find_token.warn_execute(log_error=FALSE))
-		qdel(query_find_token)
-		return
-
-	if(query_find_token.NextRow())
-		var/tkn = query_find_token.item[1]
-		qdel(query_find_token)
-		return tkn
-
-	qdel(query_find_token)
-
-	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
-
-	var/datum/db_query/query_insert_token = SSdbcore.NewQuery("INSERT INTO oauth_tokens (ckey, token) VALUES(:ckey, :tokenstr)", list(
-		"ckey" = ckey,
-		"tokenstr" = tokenstr,
-	))
-
-	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
-	if(!query_insert_token.warn_execute(log_error = FALSE))
-		qdel(query_insert_token)
-		return
-
-	qdel(query_insert_token)
-	return tokenstr
-
-/client/proc/link_forum_account(fromban)
-	if(!GLOB.configuration.url.forum_link_url)
-		return
-
-	if(IsGuestKey(key))
-		to_chat(src, "Guest keys cannot be linked.")
-		return
-
-	if(prefs && prefs.fuid)
-		if(!fromban)
-			to_chat(src, "Your forum account is already set.")
-		return
-
-	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM player WHERE ckey=:ckey LIMIT 1", list(
-		"ckey" = ckey
-	))
-
-	if(!query_find_link.warn_execute())
-		qdel(query_find_link)
-		return
-
-	if(query_find_link.NextRow())
-		if(query_find_link.item[1])
-			if(!fromban)
-				to_chat(src, "Your forum account is already set. ([query_find_link.item[1]])")
-			qdel(query_find_link)
-			return
-
-	qdel(query_find_link)
-	var/tokenid = create_oauth_token()
-	if(!tokenid)
-		to_chat(src, "link_forum_account: unable to create token")
-		return
-
-	var/url = "[GLOB.configuration.url.forum_link_url][tokenid]"
-	if(fromban)
-		url += "&fwd=appeal"
-		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
-		to_chat(src, "<span class='boldannounceooc'>If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link.</span>")
-	else
-		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
-
-	src << link(url)
-	return
+	to_chat(src, "<b>You have not linked your BYOND account to your Paradise account. <a href='[GLOB.configuration.url.wiki_url]/Guide_to_account_linkage'>Click here for more information.</a></b>")
+	to_chat(src, SPAN_NOTICE("If you have linked your account in the past hour, please ignore the above. If you are still seeing this message with a linked account, please inform the server host."))
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT
@@ -837,7 +743,7 @@
 	else
 		if(!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
 			if(!cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				message_admins(SPAN_ADMINNOTICE("[key_name(src)] appears to have attempted to spoof a cid randomizer check."))
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
 			tokens[ckey] = cid_check_reconnect()
@@ -851,11 +757,11 @@
 			// Change detected, they are randomizing
 			cidcheck -= ckey	// To allow them to try again after removing CID randomization
 
-			to_chat(src, "<span class='userdanger'>Connection Error:</span>")
-			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
+			to_chat(src, SPAN_USERDANGER("Connection Error:"))
+			to_chat(src, SPAN_DANGER("Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again."))
 
 			if(!cidcheck_failedckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				message_admins(SPAN_ADMINNOTICE("[key_name(src)] has been detected as using a CID randomizer. Connection rejected."))
 				GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
@@ -869,12 +775,12 @@
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				message_admins(SPAN_ADMINNOTICE("[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer"))
 				GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 
 			if(cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				message_admins(SPAN_ADMINNOTICE("[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time"))
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
 
@@ -976,7 +882,7 @@
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
-		screen += void
+	screen += void
 
 /client/proc/apply_clickcatcher()
 	generate_clickcatcher()
@@ -1123,7 +1029,7 @@
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+	to_chat(src, SPAN_USERDANGER("Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application."))
 
 /client/proc/update_ambience_pref()
 	if(prefs.sound & SOUND_AMBIENCE)
@@ -1136,8 +1042,22 @@
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/try_localhost_autoadmin()
-	if(GLOB.configuration.admin.enable_localhost_autoadmin && is_connecting_from_localhost())
-		return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
+	if(!GLOB.configuration.admin.enable_localhost_autoadmin)
+		return FALSE
+	if(!is_connecting_from_localhost())
+		if(holder && holder.is_localhost_autoadmin)
+			qdel(holder)
+		return FALSE
+
+	// Unhook the old admin datum, if any.
+	if(holder)
+		qdel(holder)
+
+	// Hook up a new localhost admin datum.
+	var/datum/admins/admin_datum = new /datum/admins("!LOCALHOST!", R_HOST, ckey)
+	admin_datum.is_localhost_autoadmin = TRUE
+	admin_datum.associate(src)
+	return TRUE
 
 // Verb scoped to the client level so its ALWAYS available
 /client/verb/open_tos()
@@ -1153,12 +1073,13 @@
 	popup.set_content(output)
 	popup.open(FALSE)
 
+#ifdef SERVERREGIONS
 /client/verb/change_region()
 	set category = "OOC"
 	set name = "Change Region"
 
 	if(!length(GLOB.configuration.system.region_map))
-		to_chat(usr, "<span class='warning'>Error: No extra regions defined for this server</span>")
+		to_chat(usr, SPAN_WARNING("Error: No extra regions defined for this server"))
 		return
 
 	var/list/target_regions = list("--DIRECT--")
@@ -1181,6 +1102,7 @@
 		src << link("byond://[GLOB.configuration.url.server_url]")
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
+#endif
 
 /client/proc/set_eye(new_eye)
 	if(new_eye == eye)
@@ -1235,7 +1157,7 @@
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
 		return
-	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+	to_chat(src, SPAN_USERDANGER("Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel "))
 
 /**
  * Handles incoming messages from the stat-panel TGUI.
@@ -1316,6 +1238,38 @@
 		editor.editors[target_UID] = editor
 
 	editor.ui_interact(mob)
+
+/client/verb/stop_client_sounds()
+	set category = "Special Verbs"
+	set name = "Stop Sounds"
+	set desc = "Stop Current Sounds."
+	SEND_SOUND(usr, sound(null))
+	to_chat(src, "All sounds stopped.")
+	tgui_panel?.stop_music()
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
+
+// This is in its own proc so we can async it out
+/client/proc/nag_516()
+	if(byond_version >= 516)
+		return
+
+	var/choice = alert(src, "Warning - You are currently on BYOND version [byond_version].[byond_build]. Soon, Paradise will start enforcing 516 as the minimum required version, and 515 will no longer work. Please update now to avoid being unable to play in the future.", "BYOND Version Warning", "Update Now", "Ignore for now")
+	if(choice != "Update Now")
+		return
+
+	src << link("https://secure.byond.com/download/")
+
+/datum/persistent_client/New(ckey)
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

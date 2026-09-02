@@ -1,7 +1,6 @@
 /datum/spell/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
-	school = "transmutation"
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	invocation = "DIRI CEL"
@@ -26,9 +25,9 @@
 				if(M.mind)
 					for(var/datum/spell/S in M.mind.spell_list)
 						S.cooldown_handler.revert_cast()
-				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
+				to_chat(M, SPAN_NOTICE("You feel raw magical energy flowing through you, it feels good!"))
 			else
-				to_chat(M, "<span class='notice'>You feel very strange for a moment, but then it passes.</span>")
+				to_chat(M, SPAN_NOTICE("You feel very strange for a moment, but then it passes."))
 				burnt_out = TRUE
 			charged_item = M
 			break
@@ -37,20 +36,20 @@
 				if(istype(item, /obj/item/spellbook/oneuse))
 					var/obj/item/spellbook/oneuse/I = item
 					if(prob(80))
-						L.visible_message("<span class='warning'>[I] catches fire!</span>")
+						L.visible_message(SPAN_WARNING("[I] catches fire!"))
 						qdel(I)
 					else
 						I.used = FALSE
 						charged_item = I
 						break
 				else
-					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
-					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
+					to_chat(L, SPAN_CAUTION("Glowing red letters appear on the front cover..."))
+					to_chat(L, SPAN_WARNING("[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]"))
 					burnt_out = TRUE
 			else if(istype(item, /obj/item/book/granter))
 				var/obj/item/book/granter/I = item
 				if(prob(80))
-					L.visible_message("<span class='warning'>[I] catches fire!</span>")
+					L.visible_message(SPAN_WARNING("[I] catches fire!"))
 					qdel(I)
 				else
 					I.uses += 1
@@ -72,12 +71,6 @@
 				break
 			else if(istype(item, /obj/item/stock_parts/cell/))
 				var/obj/item/stock_parts/cell/C = item
-				if(!C.self_recharge)
-					if(prob(80))
-						C.maxcharge -= 200
-					if(C.maxcharge <= 1) //Div by 0 protection
-						C.maxcharge = 1
-						burnt_out = TRUE
 				C.charge = C.maxcharge
 				charged_item = C
 				break
@@ -86,19 +79,13 @@
 				for(I in item.contents)
 					if(istype(I, /obj/item/stock_parts/cell/))
 						var/obj/item/stock_parts/cell/C = I
-						if(!C.self_recharge)
-							if(prob(80))
-								C.maxcharge -= 200
-							if(C.maxcharge <= 1) //Div by 0 protection
-								C.maxcharge = 1
-								burnt_out = TRUE
 						C.charge = C.maxcharge
 						item.update_icon()
 						charged_item = item
 						break
 		if(!charged_item)
-			to_chat(L, "<span class='notice'>You feel magical power surging to your hands, but the feeling rapidly fades...</span>")
+			to_chat(L, SPAN_NOTICE("You feel magical power surging to your hands, but the feeling rapidly fades..."))
 		else if(burnt_out)
-			to_chat(L, "<span class='caution'>[charged_item] doesn't seem to be reacting to the spell...</span>")
+			to_chat(L, SPAN_CAUTION("[charged_item] doesn't seem to be reacting to the spell..."))
 		else
-			to_chat(L, "<span class='notice'>[charged_item] suddenly feels very warm!</span>")
+			to_chat(L, SPAN_NOTICE("[charged_item] suddenly feels very warm!"))

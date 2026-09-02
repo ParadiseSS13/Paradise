@@ -50,6 +50,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/vote_configuration/vote
 	/// Holder for the asset cache configuration datum
 	var/datum/configuration_section/asset_cache_configuration/asset_cache
+	/// Holder for the tgui configuration datum
+	var/datum/configuration_section/tgui_configuration/tgui
 	/// Raw data. Stored here to avoid passing data between procs constantly
 	var/list/raw_data = list()
 
@@ -98,12 +100,13 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	url = new()
 	vote = new()
 	asset_cache = new()
+	tgui = new()
 
 	// Load our stuff up
 	var/config_file = "config/config.toml"
 	if(!fexists(config_file))
 		config_file = "config/example/config.toml" // Fallback to example if user hasnt setup config properly
-	raw_data = rustg_read_toml_file(config_file)
+	raw_data = rustlibs_read_toml_file(config_file)
 
 	// Now pass through all our stuff
 	load_all_sections()
@@ -137,18 +140,18 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(url, "url_configuration")
 	safe_load(vote, "voting_configuration")
 	safe_load(asset_cache, "asset_cache_configuration")
+	safe_load(tgui, "tgui_configuration")
 
 // Proc to load up instance-specific overrides
-/datum/server_configuration/proc/load_overrides()
-	var/override_file = "config/overrides_[world.port].toml"
+/datum/server_configuration/proc/load_overrides(override_file)
 	if(!fexists(override_file))
-		DIRECT_OUTPUT(world.log, "Overrides not found for this instance.")
+		DIRECT_OUTPUT(world.log, "Override file [override_file] not found for this instance.")
 		return
 
-	DIRECT_OUTPUT(world.log, "Overrides found for this instance. Loading them.")
+	DIRECT_OUTPUT(world.log, "Override file [override_file] found. Loading.")
 	var/start = start_watch() // Time tracking
 
-	raw_data = rustg_read_toml_file(override_file)
+	raw_data = rustlibs_read_toml_file(override_file)
 
 	// Now safely load our overrides.
 	// Due to the nature of config wrappers, only vars that exist in the config file are applied to the config datums.

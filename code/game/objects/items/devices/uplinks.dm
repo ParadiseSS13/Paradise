@@ -29,14 +29,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Whether or not the uplink has generated its stock and discounts
 	var/items_generated = FALSE
 
+	var/datum/data/record/selected_record
+	new_attack_chain = TRUE
+
 /obj/item/uplink/ui_host()
 	return loc
 
 /obj/item/uplink/proc/update_uplink_type(new_uplink_type)
 	uplink_type = new_uplink_type
 
-/obj/item/uplink/New()
-	..()
+/obj/item/uplink/Initialize(mapload)
+	. = ..()
 	uses = 100
 	GLOB.world_uplinks += src
 
@@ -99,12 +102,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/proc/buy(datum/uplink_item/UI, reference)
 	if(is_jammed)
-		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		to_chat(usr, SPAN_WARNING("[src] seems to be jammed - it cannot be used here!"))
 		return
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
-		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
+		to_chat(usr, SPAN_WARNING("You have redeemed this discount already."))
 		return
 	UI.buy_uplink_item(src,usr)
 	SStgui.update_uis(src)
@@ -132,7 +135,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
 	if(!I) // Make sure there's actually something in the hand before even bothering to check
-		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
+		to_chat(user, SPAN_WARNING("[I] is not refundable."))
 		return
 
 	for(var/category in uplink_items)
@@ -150,12 +153,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					refund_amount = holopara.refund_cost
 				uses += refund_amount
 				used_TC -= refund_amount
-				to_chat(user, "<span class='notice'>[I] refunded.</span>")
+				to_chat(user, SPAN_NOTICE("[I] refunded."))
 				qdel(I)
 				return
 
 	// If we are here, we didnt refund
-	to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
+	to_chat(user, SPAN_WARNING("[I] is not refundable."))
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -181,10 +184,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/lucky_numbers
 
 // The hidden uplink MUST be inside an obj/item's contents.
-/obj/item/uplink/hidden/New(loc)
+/obj/item/uplink/hidden/Initialize(mapload)
 	if(!isitem(loc))
 		qdel(src)
-	..()
+	return ..()
 
 // Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
 /obj/item/uplink/hidden/proc/toggle()
@@ -201,7 +204,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // current item's menu.
 /obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
-		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		to_chat(user, SPAN_WARNING("[src] seems to be jammed - it cannot be used here!"))
 		return
 	if(value == target)
 		trigger(user)
@@ -225,6 +228,18 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart"] = generate_tgui_cart()
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
+	if(selected_record && GLOB.data_core.general.Find(selected_record))
+		data["selected_record"] = list(
+				"name" = html_encode(selected_record.fields["name"]),
+				"sex" = html_encode(selected_record.fields["sex"]),
+				"age" = html_encode(selected_record.fields["age"]),
+				"species" = html_encode(selected_record.fields["species"]),
+				"rank" = html_encode(selected_record.fields["rank"]),
+				"nt_relation" = html_encode(selected_record.fields["nt_relation"]),
+				"fingerprint" = html_encode(selected_record.fields["fingerprint"]),
+				"has_photos" = (selected_record.fields["photo-south"] || selected_record.fields["photo-west"]) ? TRUE : FALSE,
+				"photos" = list(selected_record.fields["photo-south"], selected_record.fields["photo-west"])
+			)
 
 	return data
 
@@ -241,13 +256,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	// Exploitable info
 	var/list/exploitable = list()
 	for(var/datum/data/record/L in GLOB.data_core.general)
+		if(isnull(selected_record))
+			selected_record = L
 		exploitable += list(list(
 			"name" = html_encode(L.fields["name"]),
-			"sex" = html_encode(L.fields["sex"]),
-			"age" = html_encode(L.fields["age"]),
-			"species" = html_encode(L.fields["species"]),
-			"rank" = html_encode(L.fields["rank"]),
-			"fingerprint" = html_encode(L.fields["fingerprint"])
+			"uid_gen" = L.UID(),
 		))
 
 	data["exploitable"] = exploitable
@@ -317,7 +330,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if("add_to_cart")
 			var/datum/uplink_item/UI = uplink_items[params["item"]]
 			if(LAZYIN(shopping_cart, params["item"]))
-				to_chat(ui.user, "<span class='warning'>[UI.name] is already in your cart!</span>")
+				to_chat(ui.user, SPAN_WARNING("[UI.name] is already in your cart!"))
 				return
 			var/startamount = 1
 			if(UI.limited_stock == 0)
@@ -337,10 +350,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(!LAZYLEN(shopping_cart)) // sanity check
 				return
 			if(calculate_cart_tc() > uses)
-				to_chat(ui.user, "<span class='warning'>[src] buzzes, it doesn't contain enough telecrystals!</span>")
+				to_chat(ui.user, SPAN_WARNING("[src] buzzes, it doesn't contain enough telecrystals!"))
 				return
 			if(is_jammed)
-				to_chat(ui.user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+				to_chat(ui.user, SPAN_WARNING("[src] seems to be jammed - it cannot be used here!"))
 				return
 
 			// Buying of the uplink stuff
@@ -380,6 +393,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			// lets see paul allen's random uplink item
 			shuffle_lucky_numbers()
 
+		if("view_record") // View Record
+			var/datum/data/record/G = locateUID(params["uid_gen"])
+			if(!istype(G))
+				return
+			selected_record = G
+
 /obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
 	lucky_numbers = list()
 	for(var/i in 1 to 4)
@@ -413,8 +432,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // Includes normal radio uplink, multitool uplink,
 // implant uplink (not the implant tool) and a preset headset uplink.
 
-/obj/item/radio/uplink/New()
-	..()
+/obj/item/radio/uplink/Initialize(mapload)
+	. = ..()
 	hidden_uplink = new(src)
 	icon_state = "radio"
 
@@ -427,12 +446,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/show_examine_hotkeys()
 	return list()
 
-/obj/item/radio/uplink/attack_self(mob/user as mob)
+/obj/item/radio/uplink/activate_self(mob/user)
+	if(!user)
+		return ..()
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/radio/uplink/nuclear/New()
-	..()
+/obj/item/radio/uplink/nuclear/Initialize(mapload)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_NUCLEAR)
 	GLOB.nuclear_uplink_list += src
@@ -441,29 +463,30 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	GLOB.nuclear_uplink_list -= src
 	return ..()
 
-/obj/item/radio/uplink/sst/New()
-	..()
+/obj/item/radio/uplink/sst/Initialize(mapload)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_SST)
 
-/obj/item/radio/uplink/admin/New()
-	..()
+/obj/item/radio/uplink/admin/Initialize(mapload)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
 		hidden_uplink.uses = 2500
 
-/obj/item/multitool/uplink/New()
-	..()
+/obj/item/multitool/uplink/Initialize(mapload)
+	. = ..()
 	hidden_uplink = new(src)
 
-/obj/item/multitool/uplink/attack_self(mob/user as mob)
+/obj/item/multitool/uplink/activate_self(mob/user as mob)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
 /obj/item/radio/headset/uplink
 	traitor_frequency = 1445
 
-/obj/item/radio/headset/uplink/New()
-	..()
+/obj/item/radio/headset/uplink/Initialize(mapload)
+	. = ..()
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 100

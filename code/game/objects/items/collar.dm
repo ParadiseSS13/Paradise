@@ -2,46 +2,53 @@
 	name = "pet collar"
 	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
-	item_color = "petcollar"
 	var/tagname = null
+	var/original_name
+	var/original_real_name
 	var/obj/item/card/id/access_id
+	new_attack_chain = TRUE
 
 /obj/item/petcollar/Destroy()
 	QDEL_NULL(access_id)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/petcollar/attack_self(mob/user)
+/obj/item/petcollar/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/option = "Change Name"
 	if(access_id)
 		option = tgui_input_list(user, "What do you want to do?", "[src]", list("Change Name", "Remove ID"))
 		if(QDELETED(src) || !Adjacent(user))
-			return
+			return ITEM_INTERACT_COMPLETE
 	switch(option)
 		if("Change Name")
 			var/petname = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
 			if(petname && !QDELETED(src) && Adjacent(user))
 				tagname = copytext(sanitize(petname), 1, MAX_NAME_LEN)
 				name = "[initial(name)] - [tagname]"
+			return ITEM_INTERACT_COMPLETE
 		if("Remove ID")
 			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping [access_id] from [src].</span>")
+				user.visible_message(SPAN_WARNING("[user] starts unclipping [access_id] from [src]."))
 				if(do_after(user, 5 SECONDS, target = user) && access_id && !QDELETED(src) && Adjacent(user))
-					user.visible_message("<span class='warning'>[user] unclips [access_id] from [src].</span>")
+					user.visible_message(SPAN_WARNING("[user] unclips [access_id] from [src]."))
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
 					access_id = null
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/petcollar/attackby(obj/item/card/id/W, mob/user, params)
-	if(!istype(W))
+/obj/item/petcollar/item_interaction(mob/living/user, obj/item/card/id/tool, list/modifiers)
+	if(!istype(tool))
 		return ..()
 	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto [src].</span>")
-		return ..()
+		to_chat(user, SPAN_WARNING("There is already \a [access_id] clipped onto [src]."))
+		return ITEM_INTERACT_COMPLETE
 	user.drop_item()
-	W.forceMove(src)
-	access_id = W
-	to_chat(user, "<span class='notice'>[W] clips onto [src] snugly.</span>")
+	tool.forceMove(src)
+	access_id = tool
+	to_chat(user, SPAN_NOTICE("[tool] clips onto [src] snugly."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
@@ -62,7 +69,7 @@
 /obj/item/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.pcollar && M.stat != DEAD)
+	if(istype(M) && M.stat != DEAD)
 		return
 
 	var/area/pet_death_area = get_area(M)

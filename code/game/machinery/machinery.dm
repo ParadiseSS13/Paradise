@@ -5,10 +5,11 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
 	atom_say_verb = "beeps"
 	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.3
+	new_attack_chain = TRUE
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
@@ -32,10 +33,13 @@
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	COOLDOWN_DECLARE(sparks_cooldown)
+
+	new_attack_chain = TRUE
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	var/area/machine_area = get_area(src)
 	if(machine_area)
@@ -78,7 +82,7 @@
 /obj/machinery/Destroy()
 	change_power_mode(NO_POWER_USE) //we want to clear our static power usage on the local powernet
 	machine_powernet?.unregister_machine(src)
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
 	else
@@ -142,9 +146,12 @@
 	if(machine_powernet?.powernet_area != get_area(src))
 		var/area/machine_area = get_area(src)
 		if(machine_area)
+			var/old_power_mode = power_state
+			change_power_mode(NO_POWER_USE) // Take away our current power from the old network
 			machine_powernet?.unregister_machine(src)
 			machine_powernet = machine_area.powernet
 			machine_powernet.register_machine(src)
+			change_power_mode(old_power_mode) // add it to the new network
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
@@ -247,16 +254,16 @@
 		return TRUE
 
 	if(!user.IsAdvancedToolUser() && !isobserver(user))
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return TRUE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("<span class='warning'>[H] stares cluelessly at [src].</span>")
+			visible_message(SPAN_WARNING("[H] stares cluelessly at [src]."))
 			return TRUE
 		else if(prob(H.getBrainLoss()))
-			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
+			to_chat(user, SPAN_WARNING("You momentarily forget how to use [src]."))
 			return TRUE
 
 	if(panel_open)
@@ -290,7 +297,7 @@
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	var/obj/structure/machine_frame/M = new /obj/structure/machine_frame(loc)
 	. = M
 	M.anchored = anchored
 	if(!disassembled)
@@ -310,7 +317,7 @@
 		return FALSE
 	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
 		deconstruct(TRUE)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		to_chat(user, SPAN_NOTICE("You disassemble [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE
 	return FALSE
@@ -324,11 +331,11 @@
 		if(!panel_open)
 			panel_open = TRUE
 			icon_state = icon_state_open
-			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You open the maintenance hatch of [src]."))
 		else
 			panel_open = FALSE
 			icon_state = icon_state_closed
-			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You close the maintenance hatch of [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
@@ -340,7 +347,7 @@
 		return FALSE
 	if(panel_open)
 		dir = turn(dir,-90)
-		to_chat(user, "<span class='notice'>You rotate [src].</span>")
+		to_chat(user, SPAN_NOTICE("You rotate [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE
 	return FALSE
@@ -351,43 +358,45 @@
 		reregister_machine()
 		power_change()
 
-/obj/machinery/attackby(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(exchange_parts(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/N = O
+	if(istype(used, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = used
 		if(stat & BROKEN)
-			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
-			return
+			to_chat(user, SPAN_NOTICE("[src] is too damaged to be fixed with nanopaste!"))
+			return ITEM_INTERACT_COMPLETE
 
 		if(obj_integrity == max_integrity)
-			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
-			return
+			to_chat(user, SPAN_NOTICE("[src] is fully intact."))
+			return ITEM_INTERACT_COMPLETE
 
 		if(being_repaired)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(N.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
-			return
+			to_chat(user, SPAN_WARNING("You don't have enough to complete this task!"))
+			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You start applying [used] to [src]."))
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
 		if(!result)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!N.use(1))
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
-			return
+			to_chat(user, SPAN_WARNING("You don't have enough to complete this task!")) // this is here, as we don't want to use nanopaste until you finish applying
+			return ITEM_INTERACT_COMPLETE
 
 		obj_integrity = min(obj_integrity + 50, max_integrity)
-		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
-			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
-	else
-		return ..()
+		user.visible_message(SPAN_NOTICE("[user] applied some [used] at [src]'s damaged areas."),\
+			SPAN_NOTICE("You apply some [used] at [src]'s damaged areas."))
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
@@ -423,7 +432,7 @@
 					component_parts -= A
 					component_parts += B
 					B.loc = null
-					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+					to_chat(user, SPAN_NOTICE("[A.name] replaced with [B.name]."))
 					shouldplaysound = TRUE
 					break
 		for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
@@ -432,11 +441,11 @@
 				if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
 					continue
 				W.remove_from_storage(B, src)
-				W.handle_item_insertion(A, TRUE)
+				W.handle_item_insertion(A, user, TRUE)
 				component_parts -= A
 				component_parts += B
 				B.loc = null
-				to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+				to_chat(user, SPAN_NOTICE("[A.name] replaced with [B.name]."))
 				shouldplaysound = TRUE
 				break
 		RefreshParts()
@@ -447,18 +456,18 @@
 	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)
-	. = list("<span class='notice'>Following parts detected in the machine:</span>")
+	. = list(SPAN_NOTICE("Following parts detected in the machine:"))
 	for(var/obj/item/C in component_parts)
-		. += "<span class='notice'>[bicon(C)] [C.name]</span>"
+		. += SPAN_NOTICE("[bicon(C)] [C.name]")
 	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
 	. = ..()
 	if(stat & BROKEN)
-		. += "<span class='notice'>It looks broken and non-functional.</span>"
+		. += SPAN_NOTICE("It looks broken and non-functional.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += SPAN_WARNING("It's on fire!")
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
@@ -466,7 +475,7 @@
 			if(25 to 50)
 				. +=  "It appears heavily damaged."
 			if(0 to 25)
-				. +=  "<span class='warning'>It's falling apart!</span>"
+				. +=  SPAN_WARNING("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user)
 
@@ -527,7 +536,9 @@
 		return FALSE
 	if(!prob(prb))
 		return FALSE
-	do_sparks(5, 1, src)
+	if(COOLDOWN_FINISHED(src, sparks_cooldown))
+		do_sparks(5, 1, src)
+		COOLDOWN_START(src, sparks_cooldown, 1 SECONDS)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
 		return TRUE
 	return FALSE
@@ -539,6 +550,15 @@
 /obj/machinery/proc/on_deconstruction()
 	return
 
+/**
+* Returns the wires of the machine, or null if not declared.
+*
+* Note: `/obj/machinery/` does not contain a `/datum/wires/` variable,
+* and needs to be implemented on any child object with this function overwritten.
+*/
+/obj/machinery/proc/get_internal_wires()
+	return
+
 /obj/machinery/emp_act(severity)
 	if(power_state && !stat)
 		use_power(7500/severity)
@@ -547,7 +567,7 @@
 
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, cause = "Random Zap Explosion")
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 0.0005, BURN, ENERGY)
 		if(prob(40))
@@ -571,7 +591,7 @@
  */
 /obj/machinery/proc/can_use_shortcut(mob/living/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return FALSE
 	if(ishuman(user) && in_range(src, user))
 		return TRUE
@@ -595,3 +615,6 @@
 
 /obj/machinery/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, rightable = TRUE, block_interactions_until_righted = TRUE)
+
+/obj/machinery/rust_heretic_act()
+	take_damage(500, BRUTE, MELEE, 1)

@@ -14,7 +14,8 @@
   * This makes it easier to track stuff down -AA07
   *
   * Also if you have used other languages before with "interface" types (Java, C# (Microsoft Java), etc),
-  * treat this class as one of those. [get_query(client/C)] and [process_result(datum/db_query/Q, client/C)] MUST be overriden
+  * treat this class as one of those. [/datum/client_login_processor/proc/get_query] and
+  * [/datum/client_login_processor/proc/process_result] MUST be overriden.
   */
 /datum/client_login_processor
 	/// The login priority. A lower priority will fire first

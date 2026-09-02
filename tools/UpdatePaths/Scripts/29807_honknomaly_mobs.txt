@@ -1,0 +1,1 @@
+/mob/living/simple_animal/hostile/retaliate/clown/@SUBTYPES : /mob/living/basic/clown/@SUBTYPES{@OLD}

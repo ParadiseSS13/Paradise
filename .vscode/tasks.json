@@ -12,9 +12,9 @@
 		},
 		{
 			"type": "shell",
-			"command": "tgui/bin/tgui-build",
-			"windows": {
-				"command": ".\\tgui\\bin\\tgui.bat"
+			"command": ".\\tgui\\bin\\tgui.bat",
+			"linux":{
+				"command": "tgui/bin/tgui",
 			},
 			"problemMatcher": [
 				"$tsc",
@@ -25,9 +25,10 @@
 		},
 		{
 			"type": "shell",
-			"command": "tgui/bin/tgui-dev-server",
-			"windows": {
-				"command": ".\\tgui\\bin\\tgui-dev-server.bat"
+			"command": ".\\tgui\\bin\\tgui-dev-server.bat",
+			"linux":{
+				"command": "tgui/bin/tgui",
+				"args": ["--dev"]
 			},
 			"problemMatcher": [
 				"$tsc",
@@ -35,7 +36,6 @@
 			],
 			"group": "build",
 			"label": "tgui: run dev server"
-		}
-		,
+		},
 	]
 }

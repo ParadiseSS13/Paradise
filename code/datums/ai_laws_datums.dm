@@ -94,13 +94,17 @@
 
 
 /mob/living/silicon/proc/sync_zeroth(datum/ai_law/zeroth_law, datum/ai_law/zeroth_law_borg)
-	if(!is_special_character(src) || !mind.is_original_mob(src))
+	if(!is_special_character(src) || (mind && !mind.is_original_mob(src)))
 		if(zeroth_law_borg)
 			laws.set_zeroth_law(zeroth_law_borg.law)
+			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+			H.add_hud_to(src, "zeroth law")
 		else if(zeroth_law)
 			laws.set_zeroth_law(zeroth_law.law)
 		else
 			laws.clear_zeroth_laws()
+			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+			H.remove_hud_from(src, "zeroth law")
 
 /mob/living/silicon/ai/sync_zeroth(datum/ai_law/zeroth_law, datum/ai_law/zeroth_law_borg)
 	if(zeroth_law)
@@ -232,9 +236,21 @@
 		if(law == zeroth_law_borg)
 			continue
 		if(law == zeroth_law)
-			to_chat(who, "<span class='danger'>[law.get_index()]. [law.law]</span>")
+			to_chat(who, SPAN_DANGER("[law.get_index()]. [law.law]"))
 		else
 			to_chat(who, "[law.get_index()]. [law.law]")
+
+/datum/ai_laws/proc/return_laws_text()
+	. = list()
+	sort_laws()
+	for(var/datum/ai_law/law in sorted_laws)
+		if(law == zeroth_law_borg)
+			continue
+		if(law == zeroth_law)
+			. += SPAN_DANGER("[law.get_index()]. [law.law]")
+		else
+			. += "[law.get_index()]. [law.law]"
+
 
 /********************
 *	Stating Laws	*

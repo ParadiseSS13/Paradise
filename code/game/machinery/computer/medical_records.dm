@@ -27,7 +27,7 @@
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/machinery/computer/med_data/Initialize()
+/obj/machinery/computer/med_data/Initialize(mapload)
 	. = ..()
 	field_edit_questions = list(
 		// General
@@ -63,16 +63,17 @@
 	active2 = null
 	return ..()
 
-/obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(ui_login_attackby(O, user))
-		return
+/obj/machinery/computer/med_data/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(ui_login_attackby(used, user))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, "[SPAN_DANGER("Unable to establish a connection")]: You're too far away from the station!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -105,6 +106,7 @@
 							"ref" = "\ref[R]",
 							"name" = R.fields["name"],
 							"id" = R.fields["id"],
+							"dna" = R.fields["b_dna"],
 							"rank" = R.fields["rank"],
 							"p_stat" = R.fields["p_stat"],
 							"m_stat" = R.fields["m_stat"])
@@ -408,7 +410,7 @@
 		<br>\nCurrent Diseases: [active2.fields["cdi"]] (per disease info placed in log/comment section)
 		<br>\nDetails: [active2.fields["cdi_d"]]<br>\n
 		<br>\nImportant Notes:
-		<br>\n\t[active2.fields["notes"]]<br>\n
+		<br>\n\t[replacetext(active2.fields["notes"], "\n", "<BR>")]<br>\n
 		<br>\n
 		<center><b>Comments/Log</b></center><br>"}
 		for(var/c in active2.fields["comments"])

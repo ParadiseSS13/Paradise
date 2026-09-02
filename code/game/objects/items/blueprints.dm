@@ -1,6 +1,5 @@
 /obj/item/areaeditor
 	name = "area modification item"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
 	attack_verb = list("attacked", "bapped", "hit")
 	/// Extra text added to the description.
@@ -22,7 +21,7 @@
 	var/const/ROOM_ERR_TOOLARGE = -2
 
 
-/obj/item/areaeditor/attack_self(mob/user as mob)
+/obj/item/areaeditor/attack_self__legacy__attackchain(mob/user as mob)
 	add_fingerprint(user)
 	var/text = "<BODY><HTML><meta charset='utf-8'><head><title>[src]</title></head> \
 				<h2>[station_name()] [src.name]</h2> \
@@ -54,7 +53,7 @@
 						By submitting this form, you accept any fines, fees, or personal injury/death that may occur during construction."
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/areaeditor/permit/attack_self(mob/user)
+/obj/item/areaeditor/permit/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
@@ -69,32 +68,12 @@
 	if(..())
 		qdel(src)
 
-//free golem blueprints, like permit but can claim as much as needed
-
-/obj/item/areaeditor/golem
-	name = "Golem Land Claim"
-	desc = "Used to define new areas in space."
-	fluffnotice = "Praise the Liberator!"
-
-/obj/item/areaeditor/golem/attack_self(mob/user)
-	. = ..()
-	var/area/our_area = get_area(src)
-	if(get_area_type() == AREA_STATION)
-		. += "<p>According to [src], you are now in <b>\"[sanitize(our_area.name)]\"</b>.</p>"
-	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
-	popup.set_content(.)
-	popup.open()
-	onclose(usr, "blueprints")
-
 //Station blueprints!!!
 /obj/item/areaeditor/blueprints
 	name = "station blueprints"
 	desc = "Blueprints of the station. There is a \"<b>CONFIDENTIAL</b>\" stamp and several coffee stains on it."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "blueprints"
 	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-security storage."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	w_class = WEIGHT_CLASS_NORMAL
 	var/list/showing = list()
 	var/client/viewing
 
@@ -103,7 +82,7 @@
 	return ..()
 
 
-/obj/item/areaeditor/blueprints/attack_self(mob/user)
+/obj/item/areaeditor/blueprints/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
@@ -127,14 +106,14 @@
 			return
 		edit_area()
 	if(href_list["view_blueprints"])
-		set_viewer(usr, "<span class='notice'>You flip the blueprints over to view the complex information diagram.</span>")
+		set_viewer(usr, SPAN_NOTICE("You flip the blueprints over to view the complex information diagram."))
 	if(href_list["hide_blueprints"])
-		clear_viewer(usr, "<span class='notice'>You flip the blueprints over to view the simple information diagram.</span>")
+		clear_viewer(usr, SPAN_NOTICE("You flip the blueprints over to view the simple information diagram."))
 	if(href_list["refresh"])
 		clear_viewer(usr)
 		set_viewer(usr)
 
-	attack_self(usr)
+	attack_self__legacy__attackchain(usr)
 
 /obj/item/areaeditor/blueprints/proc/get_images(turf/central_turf, viewsize)
 	. = list()
@@ -191,13 +170,13 @@
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
-				to_chat(usr, "<span class='warning'>The new area must be completely airtight.</span>")
+				to_chat(usr, SPAN_WARNING("The new area must be completely airtight."))
 				return area_created
 			if(ROOM_ERR_TOOLARGE)
-				to_chat(usr, "<span class='warning'>The new area is too large.</span>")
+				to_chat(usr, SPAN_WARNING("The new area is too large."))
 				return area_created
 			else
-				to_chat(usr, "<span class='warning'>Error! Please notify administration.</span>")
+				to_chat(usr, SPAN_WARNING("Error! Please notify administration."))
 				return area_created
 	var/list/turf/turfs = res
 	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", max_length = MAX_NAME_LEN, encode = FALSE)
@@ -241,7 +220,7 @@
 		for(var/D in our_area.firedoors)
 			var/obj/machinery/door/firedoor/FD = D
 			FD.CalculateAffectingAreas()
-	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
+	to_chat(usr, SPAN_NOTICE("You rename the '[prevname]' to '[str]'."))
 	interact()
 	message_admins("A room was renamed by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
 	log_game("A room was renamed by [key_name(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")
@@ -335,4 +314,4 @@
 /obj/item/areaeditor/blueprints/ce/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	AddElement(/datum/element/high_value_item)

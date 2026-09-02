@@ -13,7 +13,6 @@
 	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "candy"
 	tastes = list("candy" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 // ***********************************************************
 // Candy Ingredients / Flavorings / Byproduct
@@ -38,7 +37,7 @@
 
 /obj/item/food/candy/nougat
 	name = "nougat"
-	desc = "A soft, chewy candy commonly found in candybars."
+	desc = "A soft, chewy candy commonly found in candy bars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
@@ -69,29 +68,66 @@
 	name = "peanut fudge"
 	desc = "Chocolate fudge, with bits of peanuts mixed in. People with nut allergies shouldn't eat this."
 	icon_state = "fudge_peanut"
-	filling_color = "#7D5F46"
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/fudge/cherry
 	name = "chocolate cherry fudge"
 	desc = "Chocolate fudge surrounding sweet cherries. Good for tricking kids into eating some fruit."
 	icon_state = "fudge_cherry"
-	filling_color = "#7D5F46"
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/fudge/cookies_n_cream
 	name = "cookies 'n' cream fudge"
 	desc = "An extra creamy fudge with bits of real chocolate cookie mixed in. Crunchy!"
 	icon_state = "fudge_cookies_n_cream"
-	filling_color = "#7D5F46"
 	list_reagents = list("cream" = 6, "chocolate" = 6)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/fudge/turtle
 	name = "turtle fudge"
 	desc = "Chocolate fudge with caramel and nuts. It doesn't contain real turtles, thankfully."
 	icon_state = "fudge_turtle"
+
+/obj/item/food/candy/chocolate_orange
+	name = "chocolate orange"
+	desc = "A festive chocolate orange."
+	icon_state = "choco_orange"
 	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 3, "sugar" = 1)
+	tastes = list("chocolate" = 3, "oranges" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/candy/candied_pineapple
+	name = "candied pineapple"
+	desc = "A chunk of pineapple coated in sugar and dried into a chewy treat."
+	icon_state = "candied_pineapple"
+	filling_color = "#ffbd35"
+	list_reagents = list("nutriment" = 3, "vitamin" = 3)
+	tastes = list("sugar" = 2, "chewy pineapple" = 4)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/candy/chocolate_coin
+	name = "chocolate coin"
+	desc = "A completely edible but non-flippable festive coin."
+	icon_state = "choco_coin"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 4, "sugar" = 1, "cocoa" = 1, "vitamin" = 1)
+	tastes = list("chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/candy/chocolate_bunny
+	name = "chocolate bunny"
+	desc = "Contains less than 10% real rabbit!"
+	icon_state = "chocolate_bunny"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 4, "sugar" = 1, "cocoa" = 1)
+	tastes = list("chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/candy/fudge_dice
+	name = "fudge dice"
+	desc = "A little cube of chocolate that tends to have a less intense taste if you eat too many at once."
+	icon_state = "choco_dice"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 3, "sugar" = 1, "cocoa" = 1)
+	tastes = list("fudge" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 // ***********************************************************
@@ -122,15 +158,13 @@
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_plain"
 	trash = /obj/item/c_tube
-	filling_color = "#FFFFFF"
 	bitesize = 4
 	list_reagents = list("sugar" = 15)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/candy/candybar
 	name = "candy"
-	desc = "A chocolate candybar, wrapped in a bit of foil."
-	icon_state = "candy"
+	desc = "A chocolate candy bar, wrapped in a bit of foil."
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 	bitesize = 3
@@ -153,7 +187,6 @@
 	name = "gummy bear"
 	desc = "A small edible bear. It's squishy and chewy!"
 	icon_state = "gbear"
-	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
@@ -162,7 +195,6 @@
 	name = "gummy worm"
 	desc = "An edible worm, made from gelatin."
 	icon_state = "gworm"
-	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
@@ -171,7 +203,6 @@
 	name = "jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas."
 	icon_state = "jbean"
-	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
@@ -220,7 +251,6 @@
 	name = "sucker"
 	desc = "For being such a good sport!"
 	icon_state = "sucker"
-	filling_color = "#FFFFFF"
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
@@ -451,7 +481,7 @@
 
 /obj/item/food/candy/jellybean/coffee
 	name = "coffee jelly bean"
-	desc = "A candy bean, guaranteed to not give you gas. It's Coffee flavored!"
+	desc = "A candy bean, guaranteed to not give you gas. It's coffee flavored!"
 	icon_state = "jbean_choc"
 	filling_color = "#482000"
 	list_reagents = list("sugar" = 10, "coffee" = 2)
@@ -471,89 +501,69 @@
 
 /obj/item/food/candy/cotton/red
 	name = "red cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_red"
-	trash = /obj/item/c_tube
 	filling_color = "#801E28"
 	list_reagents = list("sugar" = 15, "cherryjelly" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/blue
 	name = "blue cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_blue"
-	trash = /obj/item/c_tube
 	filling_color = "#863333"
 	list_reagents = list("sugar" = 15, "berryjuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/poison
 	name = "blue cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_blue"
-	trash = /obj/item/c_tube
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 20)
 
 /obj/item/food/candy/cotton/green
 	name = "green cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_green"
-	trash = /obj/item/c_tube
 	filling_color = "#365E30"
 	list_reagents = list("sugar" = 15, "limejuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/yellow
 	name = "yellow cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_yellow"
-	trash = /obj/item/c_tube
 	filling_color = "#863333"
 	list_reagents = list("sugar" = 15, "lemonjuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/orange
 	name = "orange cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_orange"
-	trash = /obj/item/c_tube
 	filling_color = "#E78108"
 	list_reagents = list("sugar" = 15, "orangejuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/purple
 	name = "purple cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_purple"
-	trash = /obj/item/c_tube
 	filling_color = "#993399"
 	list_reagents = list("sugar" = 15, "grapejuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/pink
 	name = "pink cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_pink"
-	trash = /obj/item/c_tube
 	filling_color = "#863333"
 	list_reagents = list("sugar" = 15, "watermelonjuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/candy/cotton/rainbow
 	name = "rainbow cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
-	trash = /obj/item/c_tube
-	filling_color = "#C8A5DC"
+	filling_color = "#eb0dc6"
 	list_reagents = list("omnizine" = 20)
 	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/candy/cotton/bad_rainbow
 	name = "rainbow cotton candy"
-	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
-	trash = /obj/item/c_tube
 	filling_color = "#32127A"
 	list_reagents = list("sulfonal" = 20)
 
@@ -599,3 +609,76 @@
 	icon_state = "toolerone"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+// ***********************************************************
+// Candy from Hispania!
+// ***********************************************************
+
+/obj/item/food/candy/nispero
+	name = "Nispero Candy"
+	desc = "A jar full of sticky nispero candies."
+	icon_state = "nisperocandy"
+	bitesize = 0.8
+	trash = /obj/item/trash/empty_jar
+	list_reagents = list("nutriment" = 1, "sugar" = 4)
+	filling_color = "#A0522D"
+	tastes = list("sweet citric" = 1)
+
+/obj/item/food/candy/mre_cracker
+	name = "enriched cracker"
+	desc = "It's a salted cracker, the surface looks saturated with oil."
+	icon_state = "mre_cracker"
+	list_reagents = list("nutriment" = 0.25, "teporone" = 1, "weak_omnizine" = 1)
+	tastes = list("salty" = 1, "oily" = 1)
+
+/obj/item/food/candy/choco_mre
+	name = "morale bar"
+	desc = "Some brand of non-melting military chocolate with a lot of stimulants. It has a label that says \"WARNING DO NOT EAT MORE THAN ONE\"."
+	icon_state = "mre_candy"
+	var/initial_state
+	list_reagents = list("sugar" = 4, "coffee" = 8, "nicotine" = 20, "epinephrine" = 12, "nutriment" = 0.25)
+	var/open = FALSE
+	antable = FALSE
+	tastes = list("chocolate" = 1, "chemical" = 1, "coffee" = 1)
+	bitesize = 25
+
+/obj/item/food/candy/choco_mre/Initialize(mapload)
+	. = ..()
+	initial_state = icon_state
+
+/obj/item/food/candy/choco_mre/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!open)
+		open = TRUE
+		antable = TRUE
+		to_chat(user, "<span class='notice'>You tear \the [src] open.</span>")
+		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+		icon_state = "[initial_state]open"
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/food/candy/choco_mre/attack(mob/M, mob/user, def_zone)
+	if(!open && (M == user))
+		open = TRUE
+		antable = TRUE
+		to_chat(user,("You viciously rip \the [src] open with your teeth, swallowing some plastic in the process, you animal."))
+		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+		icon_state = "[initial_state]open"
+		return
+	if(!open)
+		to_chat(usr, "<span class='warning'>Open \the [src] first!</span>")
+		return
+	else
+		..()
+
+/obj/item/food/candy/choco_mre/barcardine
+	name = "barcardine bars"
+	desc = "A bar of chocolate, it smells like the medical bay. <i>\"Chocolate always helps the pain go away.\"</i>"
+	icon_state = "barcardine"
+	trash = /obj/item/trash/barcardine
+	list_reagents = list("sugar" = 5, "epinephrine" = 3, "nutriment" = 1, "hydrocodone" = 2)
+	tastes = list("chocolate" = 1)
+	bitesize = 3
+
+// ----------- END of imports from Hispania!

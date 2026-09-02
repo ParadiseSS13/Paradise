@@ -6,6 +6,9 @@
 	/// Job access. A list of constants from access_defines.dm.
 	var/list/access = list()
 
+	/// Extra job access when the number of crew is below the skeleton crew threshold.
+	var/list/skeleton_access = list()
+
 	///Job Bitflag, used for Database entries - DO NOT JUST EDIT THESE
 	var/flag = 0
 	///Department(s) Bitflag, used for Databse entries - DO NOT JUST EDIT THESE
@@ -60,6 +63,7 @@
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 
 	var/admin_only = 0
+	var/mentor_only = 0
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
@@ -71,10 +75,21 @@
 	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
 	var/job_banned_gamemode = FALSE
 
+	/// Standard paycheck amount for this job
+	var/standard_paycheck = CREW_PAY_ASSISTANT
+
+	/// A description to be shown when set to high priority
+	var/description = "Missing description"
+
+	/// How mechanically difficult this job is, shown on the job selection screen
+	var/difficulty
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
 
+	H.mind.initial_account?.payday_amount = standard_paycheck
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	return
@@ -95,6 +110,9 @@
 
 /datum/job/proc/get_access()
 	return access.Copy()
+
+/datum/job/proc/get_skeleton_access()
+	return skeleton_access.Copy()
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
@@ -124,6 +142,17 @@
 			return TRUE
 	return FALSE
 
+/datum/job/proc/barred_by_quirk(client/C)
+	if(!C || !length(blacklisted_disabilities)) // If there's no disability locks, there won't be a quirk lock either.
+		return FALSE
+	if(!length(C.prefs.active_character.quirks)) // If there's no quirks, don't bother
+		return FALSE
+	if(istext(C.prefs.active_character.quirks[1])) // These quirks were not properly built after loading from database.
+		C.prefs.active_character.rebuild_quirks()
+	for(var/datum/quirk/quirk in C.prefs.active_character.quirks)
+		if(quirk.blacklisted)
+			return TRUE
+	return FALSE
 /// Returns true if the character has amputated limbs when their selected job doesn't allow it
 /datum/job/proc/barred_by_missing_limbs(client/C)
 	if(!C || missing_limbs_allowed)
@@ -147,6 +176,9 @@
 	if(job_banned_gamemode)
 		return FALSE
 	return (current_positions < spawn_positions) || (spawn_positions == -1)
+
+/datum/job/proc/is_command_position()
+	return (title in GLOB.command_positions)
 
 /datum/outfit/job
 	name = "Standard Gear"
@@ -204,12 +236,12 @@
 					permitted = TRUE
 
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+					to_chat(H, SPAN_WARNING("Your current job or whitelist status does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
-						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+					if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.active_character.get_gear_metadata(G)), G.slot, TRUE))
+						to_chat(H, SPAN_NOTICE("Equipping you with [G.display_name]!"))
 					else
 						gear_leftovers += G
 				else
@@ -225,24 +257,31 @@
 	H.sec_hud_set_ID()
 
 	imprint_pda(H)
+	var/list/leftover_items = list()
+	for(var/datum/quirk/quirk as anything in H.quirks)
+		if(quirk.item_to_give)
+			var/obj/item/new_item = new quirk.item_to_give
+			leftover_items += new_item
 
-	if(length(gear_leftovers))
-		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.loadout_gear[G.display_name]))
-			if(istype(placed_in))
-				if(isturf(placed_in))
-					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
-				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in your [placed_in.name].</span>")
-				continue
-			if(H.equip_to_appropriate_slot(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
-				continue
-			if(H.put_in_hands(G))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(G)
+	for(var/datum/gear/G in gear_leftovers)
+		leftover_items += G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
+
+	for(var/obj/item/item in leftover_items)
+		var/atom/placed_in = H.equip_or_collect(item)
+		if(istype(placed_in))
+			if(isturf(placed_in))
+				to_chat(H, SPAN_NOTICE("Placing [item] on [placed_in]!"))
+			else
+				to_chat(H, SPAN_NOTICE("Placing [item] in your [placed_in.name]."))
+			continue
+		if(H.equip_to_appropriate_slot(item))
+			to_chat(H, SPAN_NOTICE("Placing [item] in your inventory!"))
+			continue
+		if(H.put_in_hands(item))
+			to_chat(H, SPAN_NOTICE("Placing [item] in your hands!"))
+			continue
+		to_chat(H, SPAN_DANGER("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
+		qdel(item)
 
 		gear_leftovers.Cut()
 
@@ -281,6 +320,8 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		if(H.client?.prefs.active_character.pda_ringtone)
+			PDA.ttone = H.client.prefs.active_character.pda_ringtone
 
 /datum/outfit/job/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -290,7 +331,70 @@
 	var/datum/job/J = SSjobs.GetJobType(jobtype)
 	if(!J)
 		J = SSjobs.GetJob(H.job)
-	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(H.mind.role_alt_title)
+		id.assignment = H.mind.role_alt_title
+	else if(J)
+		id.assignment = J.title
+	else
+		id.assignment = H.job // ERTs and other things without job datums
+
 	if(!H.mind.initial_account)
 		return
 	id.associated_account_number = H.mind.initial_account.account_number
+
+/// Used to give the gaze ability to NTReps and IAAs
+/datum/outfit/job/proc/give_gaze(mob/living/carbon/human/user)
+	user.AddSpell(new /datum/spell/inspectors_gaze(null))
+
+/// Gives the imaginary space law booklet verb
+/mob/living/carbon/human/proc/space_law()
+	set name = "Open Space Law"
+	set desc = "Open a memorized version of the space law booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/security_space_law/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
+
+/// Gives the imaginary legal sop booklet verb
+/mob/living/carbon/human/proc/sop_legal()
+	set name = "Open Legal SOP"
+	set desc = "Open a memorized version of the legal SOP booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/sop_legal/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
+
+/proc/get_full_job_name(job)
+	var/static/regex/cap_expand = new("cap(?!tain)")
+	var/static/regex/cmo_expand = new("cmo")
+	var/static/regex/hos_expand = new("hos")
+	var/static/regex/hop_expand = new("hop")
+	var/static/regex/rd_expand = new("rd")
+	var/static/regex/ce_expand = new("ce")
+	var/static/regex/qm_expand = new("qm")
+	var/static/regex/sec_expand = new("(?<!security )officer")
+	var/static/regex/engi_expand = new("(?<!station )engineer")
+	var/static/regex/atmos_expand = new("atmos tech")
+	var/static/regex/doc_expand = new("(?<!medical )doctor|medic(?!al)")
+	var/static/regex/mine_expand = new("(?<!shaft )miner")
+	var/static/regex/chef_expand = new("chef")
+	var/static/regex/borg_expand = new("(?<!cy)borg")
+
+	job = lowertext(job)
+	job = cap_expand.Replace(job, "captain")
+	job = cmo_expand.Replace(job, "chief medical officer")
+	job = hos_expand.Replace(job, "head of security")
+	job = hop_expand.Replace(job, "head of personnel")
+	job = rd_expand.Replace(job, "research director")
+	job = ce_expand.Replace(job, "chief engineer")
+	job = qm_expand.Replace(job, "quartermaster")
+	job = sec_expand.Replace(job, "security officer")
+	job = engi_expand.Replace(job, "station engineer")
+	job = atmos_expand.Replace(job, "atmospheric technician")
+	job = doc_expand.Replace(job, "medical doctor")
+	job = mine_expand.Replace(job, "shaft miner")
+	job = chef_expand.Replace(job, "cook")
+	job = borg_expand.Replace(job, "cyborg")
+	return job

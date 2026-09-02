@@ -43,6 +43,14 @@
 
 #define TIMER_COOLDOWN_END(cd_source, cd_index) LAZYREMOVE(cd_source.cooldowns, cd_index)
 
+
+/// Checks if a timer based cooldown is NOT finished.
+#define TIMER_COOLDOWN_RUNNING(cd_source, cd_index) LAZYACCESS(cd_source.cooldowns, cd_index)
+
+/// Checks if a timer based cooldown is finished.
+#define TIMER_COOLDOWN_FINISHED(cd_source, cd_index) (!TIMER_COOLDOWN_RUNNING(cd_source, cd_index))
+
+
 /*
  * Stoppable timer cooldowns.
  * Use indexes the same as the regular tiemr cooldowns.
@@ -74,3 +82,11 @@
 #define COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
 
 #define COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - world.time))
+
+///adds to existing cooldown timer if its started, otherwise starts anew
+#define COOLDOWN_INCREMENT(cd_source, cd_index, cd_increment) \
+	if(COOLDOWN_FINISHED(cd_source, cd_index)) { \
+		COOLDOWN_START(cd_source, cd_index, cd_increment); \
+		return; \
+	} \
+	cd_source.cd_index += (cd_increment);

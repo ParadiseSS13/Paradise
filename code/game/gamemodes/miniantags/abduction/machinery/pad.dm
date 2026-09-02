@@ -1,13 +1,17 @@
 /obj/machinery/abductor/pad
 	name = "Alien Telepad"
-	desc = "Use this to transport to and from human habitat"
+	desc = "Use this to transport to and from the nearby space station."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien-pad-idle"
 	anchored = TRUE
 	var/turf/teleport_target
 
-/obj/machinery/abductor/pad/proc/Warp(mob/living/target)
-	if(target.buckled || target.has_status_effect(STATUS_EFFECT_ABDUCTOR_COOLDOWN))
+/obj/machinery/abductor/pad/proc/Warp(mob/living/target, mob/user)
+	if(target.buckled)
+		to_chat(user, SPAN_WARNING("Please ensure the target is not buckled!"))
+		return FALSE
+	if(target.has_status_effect(STATUS_EFFECT_ABDUCTOR_COOLDOWN))
+		to_chat(user, SPAN_WARNING("Please wait at least 10,000 milliseconds before teleporting the same target again!"))
 		return FALSE
 	target.forceMove(get_turf(src))
 	target.apply_status_effect(STATUS_EFFECT_ABDUCTOR_COOLDOWN)
@@ -20,13 +24,13 @@
 	for(var/mob/living/target in loc)
 		target.forceMove(teleport_target)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
-		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
+		to_chat(target, SPAN_WARNING("The instability of the warp leaves you disoriented!"))
 		target.Stun(6 SECONDS)
 
-/obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
+/obj/machinery/abductor/pad/proc/Retrieve(mob/living/target, mob/user)
 	flick("alien-pad", src)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
-	return Warp(target)
+	return Warp(target, user)
 
 /obj/machinery/abductor/pad/proc/MobToLoc(place,mob/living/target)
 	new/obj/effect/temp_visual/teleport_abductor(place)

@@ -22,7 +22,7 @@
 	name = "poppy"
 	desc = "Long-used as a symbol of rest, peace, and death."
 	icon_state = "poppy"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	bitesize_mod = 3
 	tastes = list("poppy" = 1)
 	filling_color = "#FF6347"
@@ -38,18 +38,45 @@
 	icon_grow = "lily-grow"
 	icon_dead = "lily-dead"
 	product = /obj/item/food/grown/lily
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/poppy/lily/trumpet)
 
 /obj/item/food/grown/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
 	desc = "A beautiful white flower."
 	icon_state = "lily"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	bitesize_mod = 3
 	tastes = list("lily" = 1)
 	filling_color = "#C7BBAD"
 	distill_reagent = "vermouth"
+
+//Spaceman's Trumpet
+
+/obj/item/seeds/poppy/lily/trumpet
+	name = "pack of spaceman's trumpet seeds"
+	desc = "A plant sculped by extensive genetic engineering. The spaceman's trumpet is said to bear no resemblance to its wild ancestors. Inside NT AgriSci circles it is better known as NTPW-0372."
+	icon_state = "seed-trumpet"
+	species = "spacemanstrumpet"
+	plantname = "Spaceman's Trumpet Plant"
+	product = /obj/item/food/grown/trumpet
+	lifespan = 80
+	production = 5
+	maturation = 12
+	yield = 4
+	growthstages = 4
+	weed_rate = 2
+	weed_chance = 10
+	icon_grow = "spacemanstrumpet-grow"
+	icon_dead = "spacemanstrumpet-dead"
+	mutatelist = null
+	reagents_add = list("nutriment" = 0.05)
+
+/obj/item/food/grown/trumpet
+	seed = /obj/item/seeds/poppy/lily/trumpet
+	name = "spaceman's trumpet"
+	desc = "A vivid flower that smells faintly of freshly cut grass. Touching the flower seems to stain the skin some time after contact, yet most other surfaces seem to be unaffected by this phenomenon."
+	icon_state = "spacemanstrumpet"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -68,7 +95,7 @@
 	name = "geranium"
 	desc = "A beautiful purple flower."
 	icon_state = "geranium"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	bitesize_mod = 3
 	tastes = list("geranium" = 1)
 	filling_color = "#A463FB"
@@ -98,7 +125,7 @@
 	name = "harebell"
 	desc = "\"I'll sweeten thy sad grave: thou shalt not lack the flower that's like thy face, pale primrose, nor the azured hare-bell, like thy veins; no, nor the leaf of eglantine, whom not to slander, out-sweeten'd not thy breath.\""
 	icon_state = "harebell"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	tastes = list("harebell" = 1)
 	bitesize_mod = 3
@@ -130,16 +157,17 @@
 	desc = "It's beautiful! A certain person might beat you to death if you trample these."
 	icon_state = "sunflower"
 	damtype = "fire"
-	force = 0
-	slot_flags = SLOT_FLAG_HEAD
-	throwforce = 0
+	slot_flags = ITEM_SLOT_HEAD
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/attack(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</font><font color='yellow'><b> FLOWER POWER<b></font>")
-	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
+/obj/item/grown/sunflower/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	to_chat(target, "<font color='green'><b>[user] smacks you with a sunflower!</b></font><font color='yellow'><b>FLOWER POWER</b></font>")
+	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [target]</font>")
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
@@ -149,7 +177,6 @@
 	species = "moonflower"
 	plantname = "Moonflowers"
 	icon_grow = "moonflower-grow"
-	icon_dead = "sunflower-dead"
 	product = /obj/item/food/grown/moonflower
 	mutatelist = list()
 	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
@@ -160,7 +187,7 @@
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	tastes = list("moonflower" = 1)
@@ -174,7 +201,6 @@
 	species = "novaflower"
 	plantname = "Novaflowers"
 	icon_grow = "novaflower-grow"
-	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
 	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)
@@ -186,9 +212,7 @@
 	desc = "These beautiful flowers have a crisp smokey scent, like a summer bonfire."
 	icon_state = "novaflower"
 	damtype = "fire"
-	force = 0
-	slot_flags = SLOT_FLAG_HEAD
-	throwforce = 0
+	slot_flags = ITEM_SLOT_HEAD
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
@@ -198,27 +222,29 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of [src]!</span>")
-		M.adjust_fire_stacks(seed.potency / 20)
-		if(M.IgniteMob())
-			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-			log_game("[key_name(user)] set [key_name(M)] on fire")
+/obj/item/grown/novaflower/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
-/obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
-	if(!proximity)
+	if(isliving(target))
+		to_chat(target, SPAN_DANGER("You are lit on fire from the intense heat of [src]!"))
+		target.adjust_fire_stacks(seed.potency / 20)
+		if(target.IgniteMob())
+			message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
+			log_game("[key_name(user)] set [key_name(target)] on fire")
+
+/obj/item/grown/novaflower/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(..() || !proximity_flag)
 		return
+
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
-		to_chat(usr, "<span class='warning'>All the petals have fallen off [src] from violent whacking!</span>")
-		usr.unEquip(src)
+		to_chat(usr, SPAN_WARNING("All the petals have fallen off [src] from violent whacking!"))
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
 	. = ..()
 	if(!user.gloves)
-		to_chat(user, "<span class='danger'>[src] burns your bare hand!</span>")
+		to_chat(user, SPAN_DANGER("[src] burns your bare hand!"))
 		user.adjustFireLoss(rand(1, 5))

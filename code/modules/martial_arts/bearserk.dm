@@ -9,7 +9,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("punches", "claws", "hits", "mauls")
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", "<span class='userdanger'>[A] [atk_verb] you!</span>")
+	D.visible_message(SPAN_DANGER("[A] [atk_verb] [D]!"), SPAN_USERDANGER("[A] [atk_verb] you!"))
 	D.apply_damage(10, BRUTE, A.zone_selected)
 	if(isliving(D) && D.stat != DEAD)
 		A.adjustStaminaLoss(-20)
@@ -28,13 +28,13 @@
 		to_chat(H, "<span class='warning'>You feel otherworldly rage flicker briefly in your mind, before you reject such violent thoughts and calm down. \
 		At the very least, the weighty pelt still protects your body.</span>")
 		return
-	to_chat(H, "<span class='userdanger'>Like a berserker of old, you harness the Rage of the Space Bear!</span>")
+	to_chat(H, SPAN_USERDANGER("Like a berserker of old, you harness the Rage of the Space Bear!"))
 	to_chat(H, "<span class='warning'>The occultic, ursine might and anger of Foh'Sie and Smoh'Kie flows through your body, making you far more dangerous in unarmed combat. \
 	You can learn more about this newfound strength in the Recall Teachings verb in the martial arts tab.</span>")
 
 /datum/martial_art/bearserk/remove(mob/living/carbon/human/H)
 	..()
-	to_chat(H, "<span class='sciradio'>The ancient fury of bears leaves your mind...</span>")
+	to_chat(H, SPAN_SCIRADIO("The ancient fury of bears leaves your mind..."))
 
 // The Pelt
 
@@ -45,7 +45,7 @@
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style
 
-/obj/item/clothing/head/bearpelt/bearserk/Initialize()
+/obj/item/clothing/head/bearpelt/bearserk/Initialize(mapload)
 	. = ..()
 	style = new()
 
@@ -54,9 +54,9 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		style.teach(H, TRUE)
-		H.faction |= "russian" // Russian Hardbass Begins
+		H.faction |= "soviet"
 		H.physiology.stun_mod *= 0.80
 		ADD_TRAIT(H, TRAIT_RESISTHEAT, "bearserk")
 
@@ -65,9 +65,9 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		style.remove(H)
-		H.faction -= "russian" // Hardbass stops
+		H.faction -= "soviet"
 		H.physiology.stun_mod /= 0.80
 		REMOVE_TRAIT (H, TRAIT_RESISTHEAT, "bearserk")
 
@@ -75,4 +75,4 @@
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>Wearing this armored pelt grants you the strength of the space bear. \
-		It also makes wild bears and Russians neutral towards you.</span>"
+		It also makes wild bears and wild communists neutral towards you.</span>"

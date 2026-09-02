@@ -1,68 +1,47 @@
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss' as *;
+.SecureStorage {
+  --display-box-color: hsl(from var(--color-base) h s calc(l + 7.5));
 
-$color-danger: colors.bg(colors.$red) !default;
-$color-caution: colors.bg(colors.$yellow) !default;
+  &__displayBox {
+    background-color: hsl(from var(--display-box-color) h s 9);
+    color: var(--display-box-color);
+    border: var(--border-thickness-small) inset var(--color-base);
+    font-size: 375%;
+    font-family: var(--font-family-mono);
+    padding: var(--space-s);
 
-$background-beige: #e8e4c9;
+    &--good {
+      --display-box-color: hsl(from var(--color-good) h 75 50);
+    }
 
-.SecureStorage__displayBox {
-  background-color: #212121;
-  color: #8b8b8b;
-  border: 0.167em inset $background-beige;
-  font-size: 375%;
-  font-family: monospace;
-  padding: 0.25em;
-}
-
-.SecureStorage__displayBox--good {
-  background-color: #002003;
-  color: #03e017;
-}
-
-.SecureStorage__displayBox--bad {
-  background-color: #210000;
-  color: #e00202;
+    &--bad {
+      --display-box-color: hsl(from var(--color-bad) h 75 50);
+    }
+  }
 }
 
 .SecureStorage__Button {
-  outline-width: 0.25rem !important;
-  border-width: 0.3rem !important;
-  border: 0.167em outset $background-beige;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
+  padding: 0 !important;
+  background-color: var(--display-box-color);
+  border: var(--border-thickness-small) outset var(--display-box-color);
+  transition-property: border-color, background-color;
 
-.SecureStorage__Button--keypad {
-  background-color: $background-beige;
-  border-color: $background-beige;
-  color: #a9a692;
-  &:hover {
-    background-color: lighten($background-beige, 15%);
-    border-color: lighten($background-beige, 15%);
-    color: #a9a692;
+  &:hover:not(:active) {
+    background-color: hsl(from var(--display-box-color) h s calc(l + var(--adjust-hover)));
+    border-color: hsl(from var(--display-box-color) h s calc(l + var(--adjust-hover)));
   }
-}
 
-.SecureStorage__Button--E {
-  background-color: $color-caution;
-  border-color: $color-caution;
-  color: #ffffff;
-  &:hover {
-    background-color: lighten($color-caution, 20%);
-    border-color: lighten($color-caution, 20%);
-    color: #ffffff;
+  &:active {
+    background-color: var(--display-box-color) !important;
+    border-style: inset;
   }
-}
 
-.SecureStorage__Button--C {
-  background-color: $color-danger;
-  border-color: $color-danger;
-  color: #ffffff;
-  &:hover {
-    background-color: lighten($color-danger, 20%);
-    border-color: lighten($color-danger, 20%);
-    color: #ffffff;
+  &--E,
+  &--C {
+    --display-box-color: var(--color-caution);
+    color: var(--color-black) !important;
+  }
+
+  &--C {
+    --display-box-color: var(--color-danger);
   }
 }

@@ -15,12 +15,12 @@
 /datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
-		H.unEquip(W)
-	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), SLOT_HUD_LEFT_EAR)
+		H.drop_item_to_ground(W)
+	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), ITEM_SLOT_LEFT_EAR)
 
 /datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
-		W.flags |= NODROP
+		W.set_nodrop(TRUE, H)
 
 /datum/superheroes/proc/assign_mutations(mob/living/carbon/human/H)
 	var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
@@ -51,8 +51,8 @@
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
 	W.UpdateName()
-	W.flags |= NODROP
-	H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	W.set_nodrop(TRUE, H)
+	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	H.regenerate_icons()
 
 	to_chat(H, desc)
@@ -67,12 +67,12 @@
 /datum/superheroes/owlman/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), SLOT_HUD_JUMPSUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), SLOT_HUD_WEAR_MASK)
-	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), SLOT_HUD_BELT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), SLOT_HUD_GLASSES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), ITEM_SLOT_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), ITEM_SLOT_MASK)
+	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), ITEM_SLOT_BELT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), ITEM_SLOT_EYES)
 
 
 /datum/superheroes/griffin
@@ -86,10 +86,10 @@
 /datum/superheroes/griffin/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/griffin(H), SLOT_HUD_JUMPSUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), SLOT_HUD_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/griffin(H), ITEM_SLOT_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), ITEM_SLOT_HEAD)
 
 	var/obj/item/bio_chip/freedom/L = new/obj/item/bio_chip/freedom(H)
 	L.implant(H)
@@ -106,12 +106,12 @@
 /datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), SLOT_HUD_JUMPSUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), SLOT_HUD_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), SLOT_HUD_GLOVES)
-	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), SLOT_HUD_BACK)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), ITEM_SLOT_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), ITEM_SLOT_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), ITEM_SLOT_BACK)
 
 
 /datum/superheroes/electro
@@ -125,11 +125,11 @@
 /datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), SLOT_HUD_JUMPSUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), SLOT_HUD_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), SLOT_HUD_BACK)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), ITEM_SLOT_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), ITEM_SLOT_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), ITEM_SLOT_BACK)
 
 
 
@@ -143,11 +143,12 @@
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
 	base_cooldown = 450
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <b>Left-click to cast at a target!</b></span>"
-	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
+	selection_activated_message		= SPAN_NOTICE("You start preparing a mindblowing monologue. <b>Left-click to cast at a target!</b>")
+	selection_deactivated_message	= SPAN_NOTICE("You decide to save your brilliance for another day.")
 
 /datum/spell/recruit/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -158,11 +159,11 @@
 /datum/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(length(SSticker.mode.greyshirts) >= 3)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
+			to_chat(user, SPAN_WARNING("You have already recruited the maximum number of henchmen."))
 		return FALSE
 	if(recruiting)
 		if(show_message)
-			to_chat(user, "<span class='danger'>You are already recruiting!</span>")
+			to_chat(user, SPAN_DANGER("You are already recruiting!"))
 		return FALSE
 	return ..()
 
@@ -172,68 +173,68 @@
 /datum/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 	if(target.mind.assigned_role != "Assistant")
-		to_chat(user, "<span class='warning'>You can only recruit Assistants.</span>")
+		to_chat(user, SPAN_WARNING("You can only recruit Assistants."))
 		revert_cast(user)
 		return
 	recruiting = TRUE
-	to_chat(user, "<span class='danger'>This target is valid. You begin the recruiting process.</span>")
-	to_chat(target, "<span class='userdanger'>[user] focuses in concentration. Your head begins to ache.</span>")
+	to_chat(user, SPAN_DANGER("This target is valid. You begin the recruiting process."))
+	to_chat(target, SPAN_USERDANGER("[user] focuses in concentration. Your head begins to ache."))
 
 	for(var/progress = 0, progress <= 3, progress++)
 		switch(progress)
 			if(1)
-				to_chat(user, "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>")
-				user.visible_message("<span class='danger'>[user] introduces [user.p_themselves()] and explains [user.p_their()] plans.</span>")
+				to_chat(user, SPAN_NOTICE("You begin by introducing yourself and explaining what you're about."))
+				user.visible_message(SPAN_DANGER("[user] introduces [user.p_themselves()] and explains [user.p_their()] plans."))
 			if(2)
-				to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
-				user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
-				to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
+				to_chat(user, SPAN_NOTICE("You begin the recruitment of [target]."))
+				user.visible_message(SPAN_DANGER("[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech."))
+				to_chat(target, SPAN_DANGER("You feel yourself agreeing with [user], and a surge of loyalty begins building."))
 				target.Weaken(24 SECONDS)
 				sleep(20)
 				if(ismindshielded(target))
-					to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")
-					user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
-					to_chat(target, "<span class='danger'>Your mindshield bio-chip activates, protecting you from conversion.</span>")
+					to_chat(user, SPAN_NOTICE("[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear."))
+					user.visible_message(SPAN_DANGER("[user] stops talking for a moment, then moves back away from [target]."))
+					to_chat(target, SPAN_DANGER("Your mindshield bio-chip activates, protecting you from conversion."))
 					return
 			if(3)
-				to_chat(user, "<span class='notice'>You begin filling out the application form with [target].</span>")
-				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
-				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
+				to_chat(user, SPAN_NOTICE("You begin filling out the application form with [target]."))
+				user.visible_message(SPAN_DANGER("[user] pulls out a pen and paper and begins filling an application form with [target]."))
+				to_chat(target, SPAN_DANGER("You are being convinced by [user] to fill out an application form to become a henchman."))//Ow the edge
 
 		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield bio-chip
-			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
-			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
+			to_chat(user, SPAN_DANGER("The enrollment process has been interrupted - you have lost the attention of [target]."))
+			to_chat(target, SPAN_WARNING("You move away and are no longer under the charm of [user]. The application form is null and void."))
 			recruiting = FALSE
 			return
 
 	recruiting = FALSE
-	to_chat(user, "<span class='notice'>You have recruited <b>[target]</b> as your henchman!</span>")
-	to_chat(target, "<span class='deadsay'><b>You have decided to enroll as a henchman for [user]. You are now part of the feared 'Greyshirts'.</b></span>")
-	to_chat(target, "<span class='deadsay'><b>You must follow the orders of [user], and help [user.p_them()] succeed in [user.p_their()] dastardly schemes.</span>")
-	to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts.</span>")
+	to_chat(user, SPAN_NOTICE("You have recruited <b>[target]</b> as your henchman!"))
+	to_chat(target, SPAN_DEADSAY("<b>You have decided to enroll as a henchman for [user]. You are now part of the feared 'Greyshirts'.</b>"))
+	to_chat(target, SPAN_DEADSAY("<b>You must follow the orders of [user], and help [user.p_them()] succeed in [user.p_their()] dastardly schemes.</b>"))
+	to_chat(target, SPAN_DEADSAY("You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts."))
 	SSticker.mode.greyshirts += target.mind
 	target.set_species(/datum/species/human)
 	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
 	if(istype(head_organ))
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
-	target.s_tone = 35
+	target.change_skin_tone(1)
 	// No `update_dna=0` here because the character is being over-written
 	target.change_eye_color(1,1,1)
 	for(var/obj/item/W in target.get_all_slots())
-		target.unEquip(W)
+		target.drop_item_to_ground(W)
 	target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
-	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), SLOT_HUD_JUMPSUIT)
-	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), SLOT_HUD_SHOES)
-	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), SLOT_HUD_LEFT_HAND)
-	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), SLOT_HUD_LEFT_EAR)
+	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), ITEM_SLOT_JUMPSUIT)
+	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), ITEM_SLOT_SHOES)
+	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), ITEM_SLOT_LEFT_HAND)
+	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), ITEM_SLOT_LEFT_EAR)
 	var/obj/item/card/id/syndicate/W = new(target)
 	W.icon_state = "lifetimeid"
 	W.access = list(ACCESS_MAINT_TUNNELS)
 	W.assignment = "Greyshirt"
 	W.rank = "Greyshirt"
-	W.flags |= NODROP
+	W.set_nodrop(TRUE, W.loc)
 	W.SetOwnerInfo(target)
 	W.UpdateName()
-	target.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	target.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	target.regenerate_icons()

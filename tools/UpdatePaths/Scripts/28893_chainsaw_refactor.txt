@@ -1,0 +1,1 @@
+/obj/item/butcher_chainsaw : /obj/item/chainsaw/syndie{@OLD}

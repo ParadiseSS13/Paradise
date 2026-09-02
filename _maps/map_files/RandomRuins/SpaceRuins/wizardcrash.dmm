@@ -13,26 +13,23 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered)
-"ae" = (
-/turf/simulated/wall/mineral/titanium/nodecon/wizard,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "af" = (
 /obj/structure/computerframe,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ag" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ah" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "aj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -84,7 +81,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "as" = (
@@ -183,7 +180,8 @@
 /area/ruin/space/powered)
 "aM" = (
 /obj/machinery/door/airlock/external,
-/turf/space,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "aN" = (
 /obj/structure/bookcase,
@@ -240,7 +238,7 @@
 /area/ruin/space/powered)
 "aW" = (
 /obj/effect/spawner/window/reinforced,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "aY" = (
@@ -315,12 +313,13 @@
 /area/ruin/space/powered)
 "bk" = (
 /obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
 "bl" = (
-/mob/living/simple_animal/hostile/creature{
+/mob/living/basic/creature{
 	health = 150;
 	name = "Experiment 17e"
 	},
@@ -375,10 +374,6 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
-"bv" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered)
 "bw" = (
 /obj/item/storage/toolbox/electrical,
 /obj/structure/table,
@@ -395,7 +390,7 @@
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/space/powered)
 "bz" = (
-/mob/living/simple_animal/hostile/mimic/crate,
+/mob/living/basic/mimic/crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bA" = (
@@ -437,8 +432,7 @@
 "bF" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
@@ -447,8 +441,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "bH" = (
-/turf/simulated/wall/mineral/titanium/nodecon/wizard,
-/area/space/nearstation)
+/turf/simulated/wall/indestructible/titanium,
+/area/ruin/space/powered)
 "bI" = (
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/mineral/plasma,
@@ -461,7 +455,7 @@
 /area/ruin/space/powered)
 "bK" = (
 /obj/singularity/onetile,
-/turf/space,
+/turf/template_noop,
 /area/ruin/space/powered)
 "bL" = (
 /obj/structure/window/plasmareinforced{
@@ -479,7 +473,8 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/spawner/lootdrop/wizardcrash,
+/obj/effect/spawner/random/wizardcrash,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bP" = (
@@ -488,20 +483,24 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"xW" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered)
+"EZ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 "YM" = (
 /obj/structure/table/wood,
 /obj/item/blank_tarot_card,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -538,6 +537,10 @@ aa
 aa
 aa
 aa
+ab
+ab
+ac
+ac
 aa
 aa
 aa
@@ -546,26 +549,16 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bH
+bH
+bH
+bH
+bH
+bH
+bH
+bH
+bH
+bH
 aa
 aa
 "}
@@ -574,10 +567,10 @@ aa
 aa
 aa
 aa
-aa
-aa
-ab
-ab
+ac
+ac
+ac
+ac
 ac
 ac
 aa
@@ -586,67 +579,23 @@ aa
 aa
 aa
 aa
-aa
-aa
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
 bH
-aa
-aa
-aa
-aa
-aa
-aa
+bH
+aY
+EZ
+bl
+bq
+bH
+bw
+bA
+bD
+bH
+bH
 aa
 "}
 (4,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-ae
-ae
-aY
-aS
-bl
-bq
-ae
-bw
-bA
-bD
-ae
-ae
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(5,1,1) = {"
-aa
-aa
-aa
 ac
 ac
 ac
@@ -654,36 +603,30 @@ ac
 ac
 ac
 ac
-ae
-ae
+bH
+bH
 al
-ae
-ae
+bH
+bH
 al
-ae
-ae
-ae
+bH
+bH
+bH
 bc
 aS
 aS
 bg
-ae
+bH
 bx
 bJ
 bx
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 aa
 aa
-aa
 ac
 ac
 ac
@@ -691,7 +634,7 @@ ac
 ac
 ac
 ac
-ae
+bH
 am
 au
 aC
@@ -704,21 +647,15 @@ aZ
 aS
 aZ
 aS
-ae
+bH
 bB
 bK
 bM
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(7,1,1) = {"
-aa
+(6,1,1) = {"
 aa
 ab
 ac
@@ -741,21 +678,15 @@ aZ
 bf
 aS
 aS
-ae
+bH
 bx
 bL
 bx
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(8,1,1) = {"
-aa
+(7,1,1) = {"
 aa
 ab
 ac
@@ -764,8 +695,8 @@ ac
 ac
 ac
 ac
-ae
-ae
+bH
+bH
 ao
 aw
 aC
@@ -778,21 +709,15 @@ aU
 be
 aU
 aU
-ae
+bH
 aS
 aS
 aS
-ae
-ae
-aa
-aa
-aa
-aa
-aa
+bH
+bH
 aa
 "}
-(9,1,1) = {"
-aa
+(8,1,1) = {"
 aa
 ac
 ac
@@ -815,21 +740,15 @@ aC
 aC
 bm
 aC
-ae
+bH
 by
 bJ
 bx
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(10,1,1) = {"
-aa
+(9,1,1) = {"
 aa
 ac
 ac
@@ -852,29 +771,23 @@ aC
 aC
 aC
 aC
-bv
+xW
 bI
 bK
 bM
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(11,1,1) = {"
+(10,1,1) = {"
 aa
-aa
 ac
 ac
 ac
 ac
 ac
 ac
-ae
+bH
 ag
 ak
 aC
@@ -889,22 +802,16 @@ aC
 aC
 aC
 aC
-ae
+bH
 by
 bL
 bx
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(12,1,1) = {"
+(11,1,1) = {"
 aa
-aa
 ac
 ac
 ac
@@ -912,8 +819,8 @@ ac
 ac
 ac
 ac
-ae
-ae
+bH
+bH
 ar
 ag
 aC
@@ -926,21 +833,15 @@ aU
 bh
 aU
 aU
-ae
+bH
 aS
 aS
 aS
-ae
-ae
-aa
-aa
-aa
-aa
-aa
+bH
+bH
 aa
 "}
-(13,1,1) = {"
-aa
+(12,1,1) = {"
 aa
 ac
 ac
@@ -963,21 +864,15 @@ ba
 bi
 bn
 bi
-ae
+bH
 bx
 bJ
 bx
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(14,1,1) = {"
-aa
+(13,1,1) = {"
 aa
 aa
 ab
@@ -987,7 +882,7 @@ ac
 ac
 ac
 ac
-ae
+bH
 at
 aB
 aD
@@ -1000,21 +895,15 @@ bb
 bj
 bo
 bs
-ae
+bH
 bB
 bK
 bM
 bF
 bG
 aa
-aa
-aa
-aa
-aa
-aa
 "}
-(15,1,1) = {"
-aa
+(14,1,1) = {"
 aa
 aa
 aa
@@ -1024,30 +913,56 @@ ac
 ac
 ac
 ac
-ae
-ae
+bH
+bH
 al
-ae
-ae
+bH
+bH
 aM
-ae
-ae
-ae
+bH
+bH
+bH
 bd
 bE
 bn
 bt
-ae
+bH
 bx
 bL
 bx
 bF
 bG
 aa
+"}
+(15,1,1) = {"
+aa
+aa
+aa
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+bH
+bH
+bC
+bk
+bp
+bu
+bH
+bz
+bP
+bN
+bH
+bH
 aa
 "}
 (16,1,1) = {"
@@ -1058,8 +973,6 @@ aa
 ac
 ac
 ac
-ac
-ac
 aa
 aa
 aa
@@ -1068,143 +981,22 @@ aa
 aa
 aa
 aa
-ae
-ae
-bC
-bk
-bp
-bu
-ae
-bz
-bP
-bN
-ae
-ae
 aa
 aa
-aa
-aa
+bH
+bH
+bH
+bH
+bH
+bH
+bH
+bH
+bH
+bH
 aa
 aa
 "}
 (17,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-bH
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(18,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(19,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(20,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa

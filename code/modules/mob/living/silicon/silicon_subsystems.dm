@@ -49,7 +49,7 @@
 	set name = "Self Diagnosis"
 
 	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
+		to_chat(src, SPAN_WARNING("Your self-diagnosis component isn't functioning."))
 		return
 
 	self_diagnosis.ui_interact(src)

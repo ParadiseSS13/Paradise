@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) // Stops the job specific category appearing for nukies
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -35,7 +35,7 @@
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
-	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
+	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilantes or just a good laugh."
 	reference = "CTR"
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 5
@@ -49,10 +49,25 @@
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/clown_car
+	name = "Clown Car"
+	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
+			Simply insert your bikehorn and get in, and get ready to have the funniest ride of your life! \
+			You can ram any crew you come across and stuff them into your car, kidnapping them and locking them inside until \
+			someone saves them or they manage to crawl out. Be sure not to ram into any walls or vending machines, as the springloaded seats \
+			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
+			Premium features can be unlocked with a cryptographic sequencer!"
+	reference = "CCR"
+	item = /obj/tgvehicle/sealed/car/clowncar
+	cost = 50
+	job = list("Clown")
+	surplus = 0
+	hijack_only = TRUE
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
-	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being suppressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
+	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding its contents and the pin alongside being suppressed. Comes boxed with 6 specialized shrapnel rounds laced with a silencing toxin, and 1 preloaded in the shotgun's chamber."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 40
@@ -107,7 +122,7 @@
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Meat Cleaver"
-	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died."
+	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword, but with the added benefit of chopping your victim into hunks of meat after they've died."
 	reference = "MC"
 	item = /obj/item/kitchen/knife/butcher/meatcleaver
 	cost = 40
@@ -134,7 +149,7 @@
 
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "His Grace"
-	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
+	desc = "An incredibly dangerous weapon recovered from a station overcome by the Grey Tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
 	His Grace grants gradual regeneration and complete stun immunity to His wielder, but be wary: if He gets too hungry, He will become impossible to drop and eventually kill you if not fed. \
 	However, if left alone for long enough, He will fall back to slumber. \
 	To activate His Grace, simply unlatch Him."
@@ -149,7 +164,7 @@
 
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Proximity Mine"
-	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
+	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it. Activate it to start the 15 second timer and activate again to disarm."
 	reference = "PM"
 	item = /obj/item/caution/proximity_sign
 	cost = 10
@@ -158,7 +173,7 @@
 /datum/uplink_item/jobspecific/titaniumbroom
 	name = "Titanium Push Broom"
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
-			When wielded hitting people will have different effects based on your intent. "
+			When wielded, hitting people will have different effects based on your intent. "
 	reference = "TPBR"
 	item = /obj/item/push_broom/traitor
 	cost = 60
@@ -177,7 +192,7 @@
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
-	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be re-hydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
 	cost = 10
@@ -206,7 +221,7 @@
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
-	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercoms to broadcast a message of TERROR."
 	reference = "BEE"
 	item = /obj/item/bee_briefcase
 	cost = 50
@@ -218,26 +233,38 @@
 	name = "Power Bio-Chip"
 	desc = "A Bio-Chip that can utilize the power of the station to deliver a short arc of electricity at a target. \
 			Must be standing on a powered cable to use. \
-			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
+			Activated by alt-clicking, or pressing the middle mouse button. Help/disarm intent will deal stamina damage and cause jittering, while harm/grab intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
 	reference = "PG"
 	item = /obj/item/bio_chip_implanter/shock
 	cost = 50
 	job = list("Station Engineer", "Chief Engineer")
 
+/datum/uplink_item/jobspecific/meltdown_rod
+	name = "Nuclear Meltdown Rod"
+	desc = "A specially designed nuclear rod, guaranteed to cause the meltdown of any reactor it's placed into. For those tasked with detonating the station's nuclear warhead, this will not achieve that end."
+	reference = "SMDR"
+	item = /obj/item/nuclear_rod/fuel/meltdown
+	cost = 25
+	job = list("Station Engineer", "Chief Engineer")
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+
 //RD
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Telegun"
-	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto. Can only send targets to beacons in-sector unless they are emagged!"
+	desc = "An extremely high-tech energy gun that utilizes jury-rigged bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto. Can only send targets to beacons in-sector unless they are emagged!"
 	reference = "TG"
 	item = /obj/item/gun/energy/telegun
 	cost = 50
-	job = list("Research Director")
+	job = list("Scientist")
+	hijack_only = TRUE
+	surplus = 0
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to you but otherwise function normally."
+	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's inside. Cyborgs made with this MMI will be permanently slaved to you, but will appear to have a normal set of laws and be synchronized to the station AI, if present. Provides immunity to remote detonation and allows overriding lockdowns if the cyborg is not also emagged. It can also be inserted into a mech, but will not fit inside an AI core."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 10
@@ -248,7 +275,7 @@
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
-	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
+	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find its effects quite explosive. Has a four second timer."
 	reference = "ETW"
 	item = /obj/item/dice/d20/e20
 	cost = 15
@@ -273,6 +300,15 @@
 	item = /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
 	cost = 30
 	job = list("Life Support Specialist")
+
+/datum/uplink_item/jobspecific/contortionist_plasmaman
+	name = "Contortionist's Plasma Envirosuit"
+	desc = "A highly flexible envirosuit that will help you navigate the ventilation loops of the station internally, specialized for Plasmamen. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, and exosuit. Free hands are also necessary to crawl around inside."
+	reference = "AIRJP"
+	item = /obj/item/clothing/under/plasmaman/atmospherics/contortionist
+	cost = 30
+	job = list("Life Support Specialist")
+	species = list("Plasmaman")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
@@ -311,7 +347,7 @@
 	reference = "PP"
 	item = /obj/item/storage/box/syndie_kit/poisoner
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
 
 // Tarot card generator, librarian and Chaplain.
@@ -332,12 +368,12 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) // Stops the job specific category appearing for nukies
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
 	name = "Aggression Suppression Pen"
-	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
+	desc = "A hypospray disguised as a functional pen which is filled with a potent aggression suppressing chemical. The pen holds four doses of the mixture which slowly regenerates over time, but cannot be refilled."
 	reference = "LP"
 	item = /obj/item/pen/sleepy/love
 	cost = 20
@@ -397,7 +433,7 @@
 // Drask
 /datum/uplink_item/species_restricted/cryoregenerative_enhancer
 	name = "Cryoregenerative Enhancer"
-	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
+	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the environment or internals to function."
 	reference = "CRE"
 	item = /obj/item/cryoregenerative_enhancer
 	cost = 25
@@ -427,13 +463,29 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
+/datum/uplink_item/dangerous/bulldog_traitor
+	name = "Bulldog Shotgun"
+	desc = "Lean and mean: Optimized for people that want to get up close and personal. Comes loaded with rubbershot. Extra Ammo sold separately."
+	reference = "BLSG"
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
+	cost = 50
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
+
+/datum/uplink_item/ammo/bull_rubbershot
+	name = "Bulldog - 12g Rubbershot Magazine"
+	desc = "An additional 8-round rubbershot magazine for use in the Bulldog shotgun."
+	reference = "12BRU"
+	item = /obj/item/ammo_box/magazine/m12g/rubbershot
+	cost = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
+
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
 	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
 	item = /obj/item/storage/box/syndie_kit/guardian/uplink
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
@@ -454,14 +506,14 @@
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
-	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
+	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge of an occultic martial art known as Rage of the Space Bear. \
 			The pelt itself is also armored, providing the wearer great longevity. \
-			Made with love, lots of spirits and lots of the other kind of spirits by the Sydnicate-affiliated cult, Children of Ursa Major."
+			Made with love, lots of spirits and lots of the other kind of spirits by the Syndicate-affiliated cult, Children of Ursa Major."
 	reference = "BSP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 60
@@ -469,11 +521,11 @@
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
-	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
+	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modeled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	reference = "SBM"
 	item = /obj/item/storage/belt/military/traitor
 	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
@@ -483,7 +535,7 @@
 			telecrystals normally."
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	cost = 20
 
 /datum/uplink_item/stealthy_tools/voice_modulator
@@ -515,7 +567,7 @@
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
+	desc = "A syringe disguised as a functional pen. It's filled with a potent anesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	reference = "SP"
 	item = /obj/item/pen/sleepy
 	cost = 40
@@ -537,7 +589,15 @@
 	reference = "CGM"
 	item = /obj/item/clothing/gloves/color/black/krav_maga
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
+
+/datum/uplink_item/device_tools/extraction_beacon
+	name = "Extraction Flare"
+	desc = "A special flare used to call in an extraction portal. The portal takes time to generate, and will only work in certain rooms that it is pre-calibrated for. The Syndicate withholds the right to deny a portal to agents with certain objectives."
+	reference = "EXTF"
+	item = /obj/item/wormhole_jaunter/extraction
+	limited_stock = 1
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/device_tools/hyper_medipen
 	name = "Hyper-regenerative Medipen"
@@ -555,11 +615,11 @@
 	item = /obj/item/thermal_drill/syndicate
 	cost = 5
 	surplus = 0 // I feel like its amazing for one objective and one objective only. Far too specific.
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/suits/modsuit
 	name = "Syndicate MODsuit"
-	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
+	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and an EVA mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Comes containing internals. \
@@ -568,7 +628,7 @@
 	item = /obj/item/mod/control/pre_equipped/traitor
 	cost = 30
 	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/suits/modsuit_elite
 	name = "Syndicate Elite MODsuit"
@@ -578,7 +638,7 @@
 	item = /obj/item/mod/control/pre_equipped/traitor_elite
 	cost = 45 //45 to start, no holopara / ebow.
 	surplus = 60
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /// Nukies get Nuclear Uplink Bio-chip instead
 /datum/uplink_item/bio_chips/uplink
@@ -587,7 +647,7 @@
 	reference = "UI"
 	item = /obj/item/bio_chip_implanter/uplink
 	cost = 70
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	can_discount = FALSE
 
@@ -601,7 +661,17 @@
 	reference = "QLSC"
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) //No, nukies do not get to dodge bullets.
+
+/datum/uplink_item/species_restricted/skinmonger
+	name = "Skinmonger Autoimplanter"
+	desc = "A strange implant that continuously fabricates synthetic epidermis, covering up prosthetics. \
+	When implanted, the Skinmonger will bond to its host, first covering every limb in synthetic skin, then replacing destroyed skin periodically. \
+	IPCs can use this implant to disguise themselves as human. However, it will not cover monitor-shaped heads."
+	reference = "SKINMON"
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
+	cost = 10
+	species = list("Machine")
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -610,7 +680,7 @@
 	reference = "SPC"
 	item = /obj/item/deck/cards/syndicate
 	cost = 2
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 40
 
 /datum/uplink_item/badass/plasticbag
@@ -619,27 +689,27 @@
 	reference = "PBAG"
 	item = /obj/item/storage/bag/plasticbag
 	cost = 1
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
-/datum/uplink_item/bundles_TC/contractor
+/datum/uplink_item/bundles_tc/contractor
 	name = "Syndicate Contractor Kit"
 	desc = "A bundle granting you the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than its initial cost."
 	reference = "SCOK"
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/contractor
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
-/datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
+/datum/uplink_item/bundles_tc/contractor/spawn_item(turf/loc, obj/item/uplink/U)
 	var/datum/mind/mind = usr.mind
 	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(LAZYACCESS(GLOB.contractors, mind))
-		to_chat(usr, "<span class='warning'>Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit.</span>")
+		to_chat(usr, SPAN_WARNING("Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit."))
 		return
 	else if(!AT)
-		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
+		to_chat(usr, SPAN_WARNING("Error: Embedded Syndicate credentials not found."))
 		return
 	else if(IS_CHANGELING(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
-		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
+		to_chat(usr, SPAN_WARNING("Error: Embedded Syndicate credentials contain an abnormal signature. Aborting."))
 		return
 
 	var/obj/item/I = ..()
@@ -653,25 +723,25 @@
 	log_game("[key_name(usr)] became a Contractor")
 	return I
 
-/datum/uplink_item/bundles_TC/badass
+/datum/uplink_item/bundles_tc/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
+	desc = "Syndicate Bundles are specialized groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specializations after purchase."
 	reference = "SYB"
 	item = /obj/item/beacon/syndicate/bundle
 	cost = 100
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
-/datum/uplink_item/bundles_TC/surplus_crate
+/datum/uplink_item/bundles_tc/surplus_crate
 	name = "Syndicate Surplus Crate"
 	desc = "A crate containing 250 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/bundle
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	var/crate_value = 250
 	uses_special_spawn = TRUE
 
-/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U, mob/user)
+/datum/uplink_item/bundles_tc/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U, mob/user)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
 		return FALSE
 
@@ -687,7 +757,7 @@
 			Changes your unarmed damage to deal non-lethal stamina damage. \
 			Does not restrict weapon usage, and can be used alongside Gloves of the North Star."
 	reference = "CQC"
-	item = /obj/item/CQC_manual
+	item = /obj/item/cqc_manual
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -698,7 +768,7 @@
 	reference = "SB"
 	item = /obj/item/beacon/syndicate/bomb
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	hijack_only = TRUE
 
@@ -709,7 +779,7 @@
 	reference = "SBEMP"
 	item = /obj/item/beacon/syndicate/bomb/emp
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	can_discount = FALSE
 
@@ -724,7 +794,7 @@
 	reference = "APG"
 	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	surplus = 0
 	hijack_only = TRUE
 
@@ -748,8 +818,8 @@
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crew members who have their message feature enabled. The concussive effect from the explosion will knock the recipient down for a short period, and deafen them for longer."
 	reference = "DEPC"
 	item = /obj/item/cartridge/syndicate
 	cost = 30
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)

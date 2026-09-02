@@ -1,6 +1,5 @@
 /obj/structure/blob/core
 	name = "blob core"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 400
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 90)
@@ -35,6 +34,10 @@
 	var/image/C = new('icons/mob/blob.dmi', "blob_core_overlay")
 	overlays += C
 
+/obj/structure/blob/core/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 15, ASSIGNMENT_MEDICAL = 2)
 
 /obj/structure/blob/core/Destroy()
 	if(overmind)
@@ -139,7 +142,7 @@
 	else
 		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")
 
-/obj/structure/blob/core/onTransitZ(old_z, new_z)
-	if(overmind && is_station_level(new_z))
+/obj/structure/blob/core/on_changed_z_level(turf/old_turf, turf/new_turf)
+	if(overmind && is_station_level(new_turf?.z))
 		overmind.forceMove(get_turf(src))
 	return ..()

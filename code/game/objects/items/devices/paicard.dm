@@ -3,10 +3,12 @@
 	desc = "A handheld device that allows you to install an artificial intelligence to be your companion."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
+	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/radio
@@ -15,13 +17,14 @@
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	var/current_emotion = 1
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	new_attack_chain = TRUE
 
 /obj/item/paicard/syndicate
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
-/obj/item/paicard/New()
-	..()
+/obj/item/paicard/Initialize(mapload)
+	. = ..()
 	overlays += "pai-off"
 
 /obj/item/paicard/Destroy()
@@ -31,10 +34,11 @@
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/item/paicard/attack_self(mob/user)
+/obj/item/paicard/activate_self(mob/user)
 	if(!in_range(src, user))
-		return
+		return ..()
 	user.set_machine(src)
+	add_fingerprint(user)
 	var/dat = {"
 		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
 		<html><meta charset='utf-8'>
@@ -225,7 +229,7 @@
 			"}
 	user << browse(dat, "window=paicard")
 	onclose(user, "paicard")
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paicard/Topic(href, href_list)
 
@@ -255,7 +259,7 @@
 		var/delta = (world.time / 10) - last_request
 		if(request_cooldown > delta)
 			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
-			to_chat(usr, "<span class='warning'>The request system is currently offline. Please wait another [cooldown_time] seconds.</span>")
+			to_chat(usr, SPAN_WARNING("The request system is currently offline. Please wait another [cooldown_time] seconds."))
 			return
 		last_request = world.time / 10
 		looking_for_personality = 1
@@ -288,7 +292,7 @@
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
 			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
 			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
-	attack_self(usr)
+	activate_self(usr)
 
 // 		WIRE_SIGNAL = 1
 //		WIRE_RECEIVE = 2
@@ -321,7 +325,7 @@
 /obj/item/paicard/proc/alertUpdate()
 	var/turf/T = get_turf(loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+		M.show_message(SPAN_NOTICE("[src] flashes a message across its screen, \"Additional personalities available for download.\""), 3, SPAN_NOTICE("[src] bleeps electronically."), 2)
 
 /obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)

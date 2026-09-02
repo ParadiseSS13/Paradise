@@ -2,7 +2,7 @@
 	name = "infrared emitter"
 	desc = "Emits a visible or invisible beam and is triggered when the beam is interrupted."
 	icon_state = "infrared"
-	materials = list(MAT_METAL=1000, MAT_GLASS=500)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	origin_tech = "magnets=2;materials=2"
 
 	bomb_name = "tripwire mine"
@@ -28,7 +28,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
-	. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -49,8 +49,8 @@
 	update_icon()
 	return secured
 
-/obj/item/assembly/infra/New()
-	..()
+/obj/item/assembly/infra/Initialize(mapload)
+	. = ..()
 	if(!secured)
 		toggle_secure()
 
@@ -126,7 +126,8 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	audible_message("[bicon(src)] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -14)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
@@ -145,6 +146,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "infra")
+	return ..()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
@@ -165,7 +167,7 @@
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
-		attack_self(usr)
+		activate_self(usr)
 
 /obj/item/assembly/infra/AltClick(mob/user)
 	rotate(user)
@@ -184,8 +186,8 @@
 
 
 
-/obj/item/assembly/infra/armed/New()
-	..()
+/obj/item/assembly/infra/armed/Initialize(mapload)
+	. = ..()
 	spawn(3)
 		if(holder)
 			if(holder.master)
@@ -210,9 +212,14 @@
 	var/left = null
 	var/life_cycles = 0
 	var/life_cap = 20
-	anchored = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
+/obj/effect/beam/i_beam/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/beam/i_beam/proc/hit()
 	if(master)
@@ -227,7 +234,7 @@
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
-/obj/effect/beam/i_beam/Process_Spacemove(movement_dir)
+/obj/effect/beam/i_beam/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/effect/beam/i_beam/process()
@@ -267,10 +274,10 @@
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
-	if(!isobj(AM) && !isliving(AM))
+/obj/effect/beam/i_beam/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isobj(entered) && !isliving(entered))
 		return
-	if(iseffect(AM))
+	if(iseffect(entered))
 		return
 	hit()
 

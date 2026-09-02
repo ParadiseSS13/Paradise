@@ -2,7 +2,6 @@
 	icon = 'icons/mob/sprite_accessories/kidan/kidan_head_accessories.dmi'
 	species_allowed = list("Kidan")
 	over_hair = 1
-	do_colouration = 1
 
 /datum/sprite_accessory/head_accessory/kidan/perked_antennae
 	name = "Perked-up Antennae"
@@ -38,11 +37,11 @@
 
 // Sprites by Travelling Merchant
 
-/datum/sprite_accessory/head_accessory/kidan/kidan_Mantie_Long
+/datum/sprite_accessory/head_accessory/kidan/kidan_mantie_long
 	name = "Mantie Long"
 	icon_state = "Mantie_Long"
 
-/datum/sprite_accessory/head_accessory/kidan/kidan_Mantie_Curled
+/datum/sprite_accessory/head_accessory/kidan/kidan_mantie_curled
 	name = "Mantie Curled"
 	icon_state = "Mantie_Curled"
 

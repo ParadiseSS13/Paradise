@@ -13,6 +13,8 @@
 	voice = GetVoice()
 
 	if(.) //not dead
+		handle_kidneys()
+		check_for_missing_organs()
 
 		if(check_mutations)
 			domutcheck(src)
@@ -42,6 +44,12 @@
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
+	var/datum/antagonist/mindflayer/F = mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(F)
+		F.handle_mindflayer()
+		if(life_tick == 1)
+			regenerate_icons()
+
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
 		handle_ghosted()
 	if(player_logged > 0 && stat != DEAD && job)
@@ -56,7 +64,7 @@
 	else
 		player_ghosted++
 		if(player_ghosted % 150 == 0)
-			force_cryo_human(src)
+			force_cryo(src)
 
 /mob/living/carbon/human/proc/handle_ssd()
 	player_logged++
@@ -69,7 +77,7 @@
 		var/area/A = get_area(src)
 		cryo_ssd(src)
 		if(A.fast_despawn)
-			force_cryo_human(src)
+			force_cryo(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()
@@ -103,21 +111,23 @@
 	for(var/mutation_type in active_mutations)
 		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 		mutation.on_life(src)
-
-	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
+	var/gene_bonus
+	if(mind && HAS_TRAIT(mind, TRAIT_GENETIC_BUDGET))
+		gene_bonus = 5
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1 - gene_bonus)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(10, instability * 0.67))
-			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
-		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
+			to_chat(src, SPAN_DANGER("You feel like your skin is burning and bubbling off!"))
+		if(gene_stability < GENETIC_DAMAGE_STAGE_2  - gene_bonus)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(8, instability * 0.05))
-				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
+				to_chat(src, SPAN_DANGER("You feel as if your body is warping."))
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(10, instability * 0.67))
-				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
-				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
+				to_chat(src, SPAN_DANGER("You feel weak and nauseous."))
+			if(gene_stability < (GENETIC_DAMAGE_STAGE_3  - gene_bonus) && prob(1))
+				to_chat(src, SPAN_BIGGERDANGER("You feel incredibly sick... Something isn't right!"))
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
@@ -192,7 +202,7 @@
 	var/loc_temp = get_temperature(readonly_environment)
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != DEAD)
+	if(stat != DEAD || !HAS_TRAIT(src, TRAIT_HYPOTHERMIC))
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -201,8 +211,8 @@
 			//Place is colder than we are
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-		else
+				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+		else if(!HAS_TRAIT(src, TRAIT_HYPOTHERMIC))
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
@@ -297,7 +307,7 @@
 		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			V.bloodusable = max(V.bloodusable - 5, 0)
 
-/mob/living/carbon/human/proc/get_thermal_protection()
+/mob/living/carbon/human/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
@@ -347,6 +357,9 @@
 	if(gloves)
 		if(gloves.max_heat_protection_temperature && gloves.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= gloves.heat_protection
+	if(neck)
+		if(neck.max_heat_protection_temperature && neck.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= neck.heat_protection
 	if(wear_mask)
 		if(wear_mask.max_heat_protection_temperature && wear_mask.max_heat_protection_temperature >= temperature)
 			thermal_protection_flags |= wear_mask.heat_protection
@@ -408,6 +421,9 @@
 	if(gloves)
 		if(gloves.min_cold_protection_temperature && gloves.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= gloves.cold_protection
+	if(neck)
+		if(neck.min_cold_protection_temperature && neck.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= neck.cold_protection
 	if(wear_mask)
 		if(wear_mask.min_cold_protection_temperature && wear_mask.min_cold_protection_temperature <= temperature)
 			thermal_protection_flags |= wear_mask.cold_protection
@@ -522,6 +538,8 @@
 		covered |= shoes.body_parts_covered
 	if(gloves)
 		covered |= gloves.body_parts_covered
+	if(neck)
+		covered |= neck.body_parts_covered
 	if(wear_mask)
 		covered |= wear_mask.body_parts_covered
 
@@ -576,15 +594,15 @@
 			metabolism_efficiency = 1
 		else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
 			if(metabolism_efficiency != 1.25)
-				to_chat(src, "<span class='notice'>You feel vigorous.</span>")
+				to_chat(src, SPAN_NOTICE("You feel vigorous."))
 				metabolism_efficiency = 1.25
 		else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
 			if(metabolism_efficiency != 0.8)
-				to_chat(src, "<span class='notice'>You feel sluggish.</span>")
+				to_chat(src, SPAN_NOTICE("You feel sluggish."))
 			metabolism_efficiency = 0.8
 		else
 			if(metabolism_efficiency == 1.25)
-				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
+				to_chat(src, SPAN_NOTICE("You no longer feel vigorous."))
 			metabolism_efficiency = 1
 
 
@@ -605,17 +623,22 @@
 	if(status_flags & GODMODE)
 		return 0
 
+	if(status_flags & TERMINATOR_FORM)
+		return FALSE
+
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
-	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
+	var/obj/item/organ/internal/brain = get_int_organ(/obj/item/organ/internal/brain)
+	if(brain?.damage >= brain?.max_damage || guaranteed_death_threshold <= -500)
 		death()
 		return
 
-	if(getBrainLoss() >= 100) // braindeath
+	if(check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL)) // braindeath
 		dna.species.handle_brain_death(src)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
+			// No need to get the fraction of the max brain damage here, because for it to matter, they'd probably be dead already
 			var/deathchance = min(99, ((getBrainLoss() / 5) + (health + (getOxyLoss() / -2))) * -0.1)
 			if(prob(deathchance))
 				death()
@@ -644,7 +667,7 @@
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
-						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+						to_chat(src, SPAN_USERDANGER("Your chest hurts..."))
 						Paralyse(4 SECONDS)
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
@@ -657,7 +680,7 @@
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
 					if(prob(6))
-						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+						to_chat(src, SPAN_USERDANGER("You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!"))
 						Weaken(6 SECONDS)
 					if(prob(3))
 						Paralyse(4 SECONDS)
@@ -667,63 +690,88 @@
 						var/datum/disease/D = new /datum/disease/critical/shock
 						ForceContractDisease(D)
 					if(prob(5))
-						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+						to_chat(src, SPAN_USERDANGER("You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!"))
 						Weaken(6 SECONDS)
+
+/mob/living/carbon/human/proc/can_metabolize(datum/reagent/reagent)
+	var/datum/species/species = dna.species
+	if(!species || !species.reagent_tag)
+		return FALSE
+
+	// SYNTHETIC-oriented reagents require PROCESS_SYN
+	if((reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_SYN))
+		return TRUE
+
+	// ORGANIC-oriented reagents require PROCESS_ORG
+	if((reagent.process_flags & ORGANIC) && (species.reagent_tag & PROCESS_ORG))
+		return TRUE
+
+	// Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((reagent.process_flags & ORGANIC) && (reagent.process_flags & SYNTHETIC) && (species.reagent_tag & PROCESS_DUO))
+		return TRUE
+	return FALSE
+
+/mob/living/carbon/human/shock_reduction(allow_true_health_reagents = TRUE)
+	var/shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(allow_true_health_reagents && R.view_true_health) // Checks if the call is for movement speed and if the reagent shouldn't muddy up the player's health HUD
+				continue
+			if(R.shock_reduction && can_metabolize(R))
+				shock_reduction += R.shock_reduction
+	return shock_reduction
 
 #define BODYPART_PAIN_REDUCTION 5
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
-	if(dna.species.update_health_hud())
-		return
-	else
-		var/shock_reduction = shock_reduction()
-		if(healths)
-			var/health_amount = get_perceived_trauma(shock_reduction)
-			if(..(health_amount)) //not dead
-				switch(health_hud_override)
-					if(HEALTH_HUD_OVERRIDE_CRIT)
-						healths.icon_state = "health6"
-					if(HEALTH_HUD_OVERRIDE_DEAD)
-						healths.icon_state = "health7"
-					if(HEALTH_HUD_OVERRIDE_HEALTHY)
-						healths.icon_state = "health0"
+	var/shock_reduction = shock_reduction()
+	if(healths)
+		var/health_amount = get_perceived_trauma(shock_reduction)
+		if(..(health_amount)) //not dead
+			switch(health_hud_override)
+				if(HEALTH_HUD_OVERRIDE_CRIT)
+					healths.icon_state = "health6"
+				if(HEALTH_HUD_OVERRIDE_DEAD)
+					healths.icon_state = "health7"
+				if(HEALTH_HUD_OVERRIDE_HEALTHY)
+					healths.icon_state = "health0"
 
-		if(healthdoll)
-			if(stat == DEAD)
-				healthdoll.icon_state = "healthdoll_DEAD"
-				if(length(healthdoll.overlays))
-					healthdoll.overlays.Cut()
-			else
-				var/list/new_overlays = list()
-				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
-				// Use the dead health doll as the base, since we have proper "healthy" overlays now
-				healthdoll.icon_state = "healthdoll_DEAD"
-				for(var/obj/item/organ/external/O in bodyparts)
-					var/damage = O.get_damage()
-					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
-					var/comparison = (O.max_damage/5)
-					var/icon_num = 0
-					if(damage > 0)
-						icon_num = 1
-					if(damage > (comparison))
-						icon_num = 2
-					if(damage > (comparison*2))
-						icon_num = 3
-					if(damage > (comparison*3))
-						icon_num = 4
-					if(damage > (comparison*4))
-						icon_num = 5
-					new_overlays += "[O.limb_name][icon_num]"
-				healthdoll.overlays += (new_overlays - cached_overlays)
-				healthdoll.overlays -= (cached_overlays - new_overlays)
-				healthdoll.cached_healthdoll_overlays = new_overlays
-
-		if(health <= HEALTH_THRESHOLD_CRIT)
-			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+	if(healthdoll)
+		if(stat == DEAD)
+			healthdoll.icon_state = "healthdoll_DEAD"
+			if(length(healthdoll.overlays))
+				healthdoll.overlays.Cut()
 		else
-			clear_alert("succumb")
+			var/list/new_overlays = list()
+			var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
+			// Use the dead health doll as the base, since we have proper "healthy" overlays now
+			healthdoll.icon_state = "healthdoll_DEAD"
+			for(var/obj/item/organ/external/O in bodyparts)
+				var/damage = O.get_damage()
+				damage -= shock_reduction / BODYPART_PAIN_REDUCTION
+				var/comparison = (O.max_damage/5)
+				var/icon_num = 0
+				if(damage > 0)
+					icon_num = 1
+				if(damage > (comparison))
+					icon_num = 2
+				if(damage > (comparison*2))
+					icon_num = 3
+				if(damage > (comparison*3))
+					icon_num = 4
+				if(damage > (comparison*4))
+					icon_num = 5
+				new_overlays += "[O.limb_name][icon_num]"
+			healthdoll.overlays += (new_overlays - cached_overlays)
+			healthdoll.overlays -= (cached_overlays - new_overlays)
+			healthdoll.cached_healthdoll_overlays = new_overlays
+
+	if(health <= HEALTH_THRESHOLD_SUCCUMB)
+		throw_alert("succumb", /atom/movable/screen/alert/succumb)
+	else
+		clear_alert("succumb")
 
 #undef BODYPART_PAIN_REDUCTION
 
@@ -734,6 +782,9 @@
 		nutrition_display.icon_state = null
 		return
 	nutrition_display.icon = dna.species.hunger_icon
+	if(nutrition_hud_override)
+		nutrition_display.icon_state = nutrition_hud_override
+		return
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			nutrition_display.icon_state = "fat"
@@ -763,14 +814,18 @@
 		var/obj/item/organ/external/BP = X
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
-				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
-				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
+				BP.receive_damage(I.w_class * I.embedded_pain_multiplier)
+				to_chat(src, SPAN_USERDANGER("[I] embedded in your [BP.name] [can_feel_pain() ? "hurts" : "crunches"]!"))
 
 			if(prob(I.embedded_fall_chance))
-				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
+				BP.receive_damage(I.w_class * I.embedded_fall_pain_multiplier)
 				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
-				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
+				visible_message(
+					SPAN_DANGER("[I] falls out of [name]'s [BP.name]!"),
+					SPAN_USERDANGER("[I] falls out of your [BP.name]!"),
+					SPAN_HEAR("Something clatters to the floor!")
+				)
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
@@ -851,9 +906,10 @@
 			if(HAS_TRAIT(H, TRAIT_NOBREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
-				continue //too cool for puke
-			to_chat(H, "<span class='warning'>You smell something foul...</span>")
+			if(H.mind && HAS_TRAIT(H.mind, TRAIT_CORPSE_RESIST))
+				to_chat(H, SPAN_WARNING("You smell something rotting nearby."))
+				continue
+			to_chat(H, SPAN_WARNING("You smell something foul..."))
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
@@ -934,6 +990,48 @@
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
 
-// Need this in species.
-//#undef HUMAN_MAX_OXYLOSS
-//#undef HUMAN_CRIT_MAX_OXYLOSS
+/mob/living/carbon/human/proc/handle_kidneys()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+
+	var/obj/item/organ/kidneys = get_int_organ(/obj/item/organ/internal/kidneys)
+	if(isslimeperson(src))
+		kidneys = get_int_organ(/obj/item/organ/internal/brain)
+	if(isdrask(src))
+		// Drask have their liver fulfill the same function as kidneys
+		kidneys = get_int_organ(/obj/item/organ/internal/liver)
+
+	var/damage_percentage = 0
+	if(kidneys && !(kidneys.status & ORGAN_DEAD)) // No kidneys = full damage
+		damage_percentage = ((kidneys.max_damage - kidneys.damage) / kidneys.max_damage) * 100
+		if(damage_percentage >= 75) // Above 75% HP, no damage
+			return
+
+	var/total_damage = 0
+	for(var/datum/reagent/chem as anything in reagents.reagent_list)
+		total_damage += chem.max_kidney_damage
+
+	if(!total_damage)
+		return // No damage
+
+	switch(damage_percentage)
+		// No 0 since that's full damage
+		if(1 to 25)
+			total_damage *= 0.5
+		if(25 to 50)
+			total_damage *= 0.2
+		if(50 to 75)
+			total_damage *= 0.05
+
+	adjustToxLoss(total_damage)
+
+/// A proc that checks for any missing organs and gives you damage for not having them
+/mob/living/carbon/human/proc/check_for_missing_organs()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+
+	// Currently only checks for a liver
+	// This has to be here since we can't check this in the on_life of organs
+	var/obj/item/organ/internal/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver && !isslimeperson(src))
+		adjustToxLoss(2)

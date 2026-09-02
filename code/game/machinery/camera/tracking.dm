@@ -1,9 +1,9 @@
 /mob/living/silicon/ai/proc/InvalidTurf(turf/T as turf)
 	if(!T)
-		return 1
+		return TRUE
 	if(!is_level_reachable(T.z))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/silicon/ai/proc/get_camera_list()
 
@@ -38,10 +38,10 @@
 		return
 
 	if(!camera || camera == "Cancel")
-		return 0
+		return FALSE
 
 	var/obj/machinery/camera/C = track.cameras[camera]
-	src.eyeobj.setLoc(C)
+	src.eyeobj.set_loc(C)
 
 	return
 
@@ -67,11 +67,6 @@
 		if(!M.can_track(usr))
 			continue
 
-		// Human check
-		var/human = 0
-		if(ishuman(M))
-			human = 1
-
 		var/name = M.name
 		if(name in track.names)
 			track.namecounts[name]++
@@ -79,7 +74,7 @@
 		else
 			track.names.Add(name)
 			track.namecounts[name] = 1
-		if(human)
+		if(ishuman(M))
 			track.humans[name] = M
 		else
 			track.others[name] = M
@@ -104,52 +99,52 @@
 	ai_actual_track(target)
 
 /mob/living/silicon/ai/proc/ai_cancel_tracking(forced = 0)
-	if(!cameraFollow)
+	if(!camera_follow)
 		return
 
 	to_chat(src, "Follow camera mode [forced ? "terminated" : "ended"].")
-	cameraFollow = null
+	camera_follow = null
 
 /mob/living/silicon/ai/proc/ai_actual_track(mob/living/target, doubleclick = FALSE)
 	if(!istype(target))
 		return
 	var/mob/living/silicon/ai/U = usr
 
-	U.cameraFollow = target
+	U.camera_follow = target
 	U.tracking = TRUE
 
-	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
+	to_chat(U, SPAN_NOTICE("Attempting to track [target.get_visible_name()]..."))
 	if(!doubleclick)
 		sleep(1.5 SECONDS) // Gives antags a brief window to get out of dodge before the eye of sauron decends upon them when someone yells ;HALP
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
 	if(target.is_jammed())
-		to_chat(U, "<span class='warning'>Unable to track [target.get_visible_name()]...</span>")
-		U.cameraFollow = null
+		to_chat(U, SPAN_WARNING("Unable to track [target.get_visible_name()]..."))
+		U.camera_follow = null
 		return
 
 	if(!target || !target.can_track(usr))
-		to_chat(U, "<span class='warning'>Target is not near any active cameras.</span>")
-		U.cameraFollow = null
+		to_chat(U, SPAN_WARNING("Target is not near any active cameras."))
+		U.camera_follow = null
 		return
 
-	to_chat(U, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
+	to_chat(U, SPAN_NOTICE("Now tracking [target.get_visible_name()] on camera."))
 
 	var/cameraticks = 0
 	spawn(0)
-		while(U.cameraFollow == target)
-			if(U.cameraFollow == null)
+		while(U.camera_follow == target)
+			if(U.camera_follow == null)
 				return
 
 			if(!target.can_track(usr))
 				U.tracking = TRUE
 				if(!cameraticks)
-					to_chat(U, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
+					to_chat(U, SPAN_WARNING("Target is not near any active cameras. Attempting to reacquire..."))
 				cameraticks++
 				if(cameraticks > 9)
-					U.cameraFollow = null
-					to_chat(U, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
+					U.camera_follow = null
+					to_chat(U, SPAN_WARNING("Unable to reacquire, cancelling track..."))
 					U.tracking = FALSE
 					return
 				else
@@ -161,32 +156,32 @@
 				U.tracking = FALSE
 
 			if(U.eyeobj)
-				U.eyeobj.setLoc(get_turf(target))
+				U.eyeobj.set_loc(get_turf(target))
 
 			else
 				view_core()
-				U.cameraFollow = null
+				U.camera_follow = null
 				return
 
 			sleep(10)
 
 /proc/near_camera(mob/living/M)
 	if(!isturf(M.loc))
-		return 0
+		return FALSE
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
-		if(!(R.camera && R.camera.can_use()) && !GLOB.cameranet.checkCameraVis(M))
-			return 0
-	else if(!GLOB.cameranet.checkCameraVis(M))
-		return 0
-	return 1
+		if(!(R.camera && R.camera.can_use()) && !GLOB.cameranet.check_camera_vis(M))
+			return FALSE
+	else if(!GLOB.cameranet.check_camera_vis(M))
+		return FALSE
+	return TRUE
 
 /obj/machinery/camera/attack_ai(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
 	if(!src.can_use())
 		return
-	user.eyeobj.setLoc(get_turf(src))
+	user.eyeobj.set_loc(get_turf(src))
 
 
 /mob/living/silicon/ai/attack_ai(mob/user)

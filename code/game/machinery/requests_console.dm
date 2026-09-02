@@ -58,7 +58,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	light_range = 0
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	/// The ID card of the person requesting a secondary goal.
 	var/goalRequester
@@ -69,6 +68,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/obj/item/radio/Radio
 	var/reminder_timer_id = TIMER_ID_NULL
 	var/has_active_secondary_goal = FALSE
+
+/obj/machinery/requests_console/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly swipe your ID.")
 
 /obj/machinery/requests_console/power_change()
 	if(!..())
@@ -225,6 +228,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
+			if(!announceAuth) // No you don't
+				return
 			announcer.Announce(message)
 			reset_message(TRUE)
 
@@ -290,43 +295,56 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("toggleSilent")
 			silent = !silent
 
+/obj/machinery/requests_console/AltClick(mob/living/user)
+	if(Adjacent(user) && user.get_id_card())
+		use_id(user, user.get_id_card())
 
-/obj/machinery/requests_console/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
-		if(inoperable(MAINT))
-			return
-		if(screen == RCS_MESSAUTH)
-			var/obj/item/card/id/T = I
-			msgVerified = "Verified by [T.registered_name] ([T.assignment])"
+/obj/machinery/requests_console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/stamp/stamp = used
+	if(istype(stamp))
+		if(screen == RCS_MESSAUTH && !inoperable(MAINT))
+			msgStamped = "Stamped with the [stamp.name]"
 			SStgui.update_uis(src)
-		if(screen == RCS_ANNOUNCE)
-			var/obj/item/card/id/ID = I
-			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
-				announceAuth = TRUE
-				announcer.author = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
-			else
-				reset_message()
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
-			SStgui.update_uis(src)
-		if(screen == RCS_SECONDARY)
-			var/obj/item/card/id/ID = I
-			if(ID)
-				secondaryGoalAuth = TRUE
-				goalRequester = ID
-				has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
-		if(screen == RCS_SHIPPING)
-			var/obj/item/card/id/T = I
-			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
-			SStgui.update_uis(src)
-	if(istype(I, /obj/item/stamp))
-		if(inoperable(MAINT))
-			return
-		if(screen == RCS_MESSAUTH)
-			var/obj/item/stamp/T = I
-			msgStamped = "Stamped with the [T.name]"
-			SStgui.update_uis(src)
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
+
+	if(use_id(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/machinery/requests_console/proc/use_id(mob/living/user, obj/item/card/id/id_card)
+	if(!istype(id_card))
+		return FALSE
+
+	if(inoperable(MAINT))
+		return TRUE
+	if(screen == RCS_MESSAUTH)
+		msgVerified = "Verified by [id_card.registered_name] ([id_card.assignment])"
+		SStgui.update_uis(src)
+		return TRUE
+	if(screen == RCS_ANNOUNCE)
+		if(ACCESS_RC_ANNOUNCE in id_card.GetAccess())
+			announceAuth = TRUE
+			announcer.author = id_card.assignment ? "[id_card.assignment] [id_card.registered_name]" : id_card.registered_name
+		else
+			reset_message()
+			to_chat(user, SPAN_WARNING("You are not authorized to send announcements."))
+		SStgui.update_uis(src)
+		return TRUE
+	if(screen == RCS_SECONDARY)
+		secondaryGoalAuth = TRUE
+		goalRequester = id_card
+		has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
+
+		return TRUE
+	if(screen == RCS_SHIPPING)
+		msgVerified = "Sender verified as [id_card.registered_name] ([id_card.assignment])"
+		SStgui.update_uis(src)
+
+		return TRUE
+
+	return FALSE
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""
@@ -378,12 +396,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		reminder_timer_id = TIMER_ID_NULL
 		return
 
+	if(stat & NOPOWER)
+		return
+
 	atom_say("Unread message(s) available.")
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
-	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
-	sp.sortTag = tag_index
-	sp.update_desc()
+	var/obj/item/shipping_package/sp = new /obj/item/shipping_package(get_turf(src))
+	sp.sort_tag = tag_index
+	sp.update_appearance(UPDATE_DESC)
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
 
 /obj/machinery/requests_console/proc/view_messages()
@@ -442,6 +463,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30, 30)
 	radio.autosay("Alert; a new message has been received from [sender]", "[recipient] Requests Console", "[radiochannel]")
 
 	return TRUE
+
+/obj/machinery/requests_console/smith
+	department = "Smith"
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console/smith, 30, 30)
 
 #undef RCS_MAINMENU
 #undef RCS_RQSUPPLY

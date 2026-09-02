@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(metrics)
 
 
 /datum/controller/subsystem/metrics/fire(resumed)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, GLOB.configuration.metrics.metrics_endpoint, get_metrics_json(), list(
+	SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, GLOB.configuration.metrics.metrics_endpoint, get_metrics_json(), list(
 		"Authorization" = "ApiKey [GLOB.configuration.metrics.metrics_api_token]",
 		"Content-Type" = "application/json"
 	))

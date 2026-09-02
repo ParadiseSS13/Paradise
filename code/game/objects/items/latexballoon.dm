@@ -2,14 +2,15 @@
 	name = "latex glove"
 	desc = "You wanted a fiery fist o' pain, but all you got was this dumb balloon."
 	icon_state = "latexballon"
-	item_state = "lgloves"
-	force = 0
-	throwforce = 0
+	inhand_icon_state = "lgloves"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
-	throw_range = 7
+	cares_about_temperature = TRUE
 	var/state
 	var/datum/gas_mixture/air_contents = null
+	new_attack_chain = TRUE
 
 /obj/item/latexballon/Destroy()
 	QDEL_NULL(air_contents)
@@ -19,18 +20,21 @@
 	if(icon_state == "latexballon_bursted")
 		return
 	icon_state = "latexballon_blow"
-	item_state = "latexballon"
+	inhand_icon_state = "latexballon"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	user.update_inv_r_hand()
 	user.update_inv_l_hand()
-	to_chat(user, "<span class='notice'>You blow up [src] with [tank].</span>")
+	to_chat(user, SPAN_NOTICE("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
+	add_fingerprint(user)
 
 /obj/item/latexballon/proc/burst()
 	if(!air_contents || icon_state != "latexballon_blow")
 		return
 	playsound(src, 'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 	icon_state = "latexballon_bursted"
-	item_state = "lgloves"
+	inhand_icon_state = null
 	if(isliving(loc))
 		var/mob/living/user = loc
 		user.update_inv_r_hand()
@@ -47,20 +51,23 @@
 			if(prob(50))
 				qdel(src)
 
-/obj/item/latexballon/bullet_act(obj/item/projectile/P)
+/obj/item/latexballon/bullet_act(obj/projectile/P)
 	if(!P.nodamage)
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/latexballon/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > T0C+100)
+	if(exposed_temperature > T0C+100)
 		burst()
 
-/obj/item/latexballon/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
-		var/obj/item/tank/T = W
-		blow(T, user)
-		return
-	if(W.sharp || W.get_heat() || is_pointed(W))
+/obj/item/latexballon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tank))
+		var/obj/item/tank/tank = used
+		blow(tank, user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(used.sharp || used.get_heat() || is_pointed(used))
 		burst()
+
+	return ITEM_INTERACT_COMPLETE

@@ -1,31 +1,32 @@
 /obj/item/reagent_containers/glass/rag
 	name = "damp rag"
 	desc = "For cleaning up messes, you suppose."
-	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
+	inhand_icon_state = "rag"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	volume = 5
 	flags = NOBLUDGEON
-	container_type = OPENCONTAINER
 	has_lid = FALSE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/wipespeed = 30
 
-/obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
-	if(ismob(target) && target.reagents && reagents.total_volume)
-		user.visible_message("<span class='danger'>[user] has smothered [target] with [src]!</span>", "<span class='danger'>You smother [target] with [src]!</span>", "You hear some struggling and muffled cries of surprise")
+/obj/item/reagent_containers/glass/rag/mob_act(mob/target, mob/living/user)
+	if(target.reagents && reagents.total_volume)
+		user.visible_message(SPAN_DANGER("[user] has smothered [target] with [src]!"), SPAN_DANGER("You smother [target] with [src]!"), "You hear some struggling and muffled cries of surprise")
 		src.reagents.reaction(target, REAGENT_TOUCH)
 		src.reagents.clear_reagents()
-		return
+		return TRUE
 	else
-		..()
+		return ..()
 
-/obj/item/reagent_containers/glass/rag/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || ishuman(target)) //Human check so we don't clean the person we're trying to ether
-		return
+/obj/item/reagent_containers/glass/rag/normal_act(atom/target, mob/living/user)
+	// if it's a storage item and it isn't dirty, just put the rag in the storage
+	if(isstorage(target) && !target.is_dirty())
+		return ..()
 	target.cleaning_act(user, src, wipespeed)
+	return TRUE
 
 /obj/item/reagent_containers/glass/rag/can_clean()
 	return TRUE

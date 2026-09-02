@@ -6,8 +6,8 @@
 /datum/martial_combo/bearserk/paw_slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(IS_HORIZONTAL(target))
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-		target.visible_message("<span class='warning'>[user] pounds down on [target] with both fists!</span>", \
-						"<span class='userdanger'>[user] pounds down on you with both fists!</span>")
+		target.visible_message(SPAN_WARNING("[user] pounds down on [target] with both fists!"), \
+						SPAN_USERDANGER("[user] pounds down on you with both fists!"))
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 25, vary = TRUE, extrarange = -1)
 		target.apply_damage(20, BRUTE, user.zone_selected)
 		target.Slowed(2 SECONDS)
@@ -17,8 +17,8 @@
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Paw Slam", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-	target.visible_message("<span class='warning'>[user] strikes [target] to the ground with a mighty slap!</span>", \
-						"<span class='userdanger'>[user] slaps you so hard, you fall over!</span>")
+	target.visible_message(SPAN_WARNING("[user] strikes [target] to the ground with a mighty slap!"), \
+						SPAN_USERDANGER("[user] slaps you so hard, you fall over!"))
 	playsound(get_turf(user), 'sound/weapons/slap.ogg', 25, vary = TRUE, extrarange = -1)
 	target.apply_damage(10, BRUTE, user.zone_selected)
 	target.KnockDown(4 SECONDS)

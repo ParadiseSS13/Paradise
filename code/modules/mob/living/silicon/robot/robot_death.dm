@@ -1,6 +1,8 @@
 /mob/living/silicon/robot/gib()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
+
+	remove_robot_mindslave()
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
 	notransform = TRUE
@@ -58,7 +60,7 @@
 	diag_hud_set_status()
 	diag_hud_set_health()
 	if(camera)
-		camera.status = FALSE
+		camera.turn_off(src, FALSE)
 	update_headlamp(1) //So borg lights are disabled when killed.
 
 	if(in_contents_of(/obj/machinery/recharge_station))//exit the recharge station

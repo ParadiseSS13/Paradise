@@ -2,12 +2,11 @@
 	name = "clown's locker"
 	req_access = list(ACCESS_CLOWN)
 	icon_state = "clown"
-	open_door_sprite = "clown_door"
 
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
 	new /obj/item/storage/backpack/duffel/clown(src)
-	new /obj/item/storage/backpack/satchel/clown(src)
+	new /obj/item/storage/backpack/satchel_clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/clown/sexy(src)
@@ -28,7 +27,6 @@
 	name = "mime's locker"
 	req_access = list(ACCESS_MIME)
 	icon_state = "mime"
-	open_door_sprite = "mime_door"
 	// It's silent!
 	open_sound = null
 	close_sound = null

@@ -57,16 +57,17 @@
 	record_security = null
 	return ..()
 
-/obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
-	if(ui_login_attackby(O, user))
-		return
+/obj/machinery/computer/secure_data/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(ui_login_attackby(used, user))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/secure_data/attack_hand(mob/user)
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, "[SPAN_DANGER("Unable to establish a connection")]: You're too far away from the station!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -202,6 +203,7 @@
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = "Human"
 			G.fields["notes"] = "No notes."
+			G.fields["nt_relation"] = "Unknown relation."
 			GLOB.data_core.general += G
 			record_general = G
 			record_security = null
@@ -417,7 +419,7 @@
 		<br>\nMajor Crimes: [record_security.fields["ma_crim"]]
 		<br>\nDetails: [record_security.fields["ma_crim_d"]]<br>\n
 		<br>\nImportant Notes:
-		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><B>Comments/Log</B></center><br>"}
+		<br>\n\t[replacetext(record_security.fields["notes"], "\n", "<BR>")]<br>\n<br>\n<center><B>Comments/Log</B></center><br>"}
 		for(var/c in record_security.fields["comments"])
 			if(islist(c))
 				P.info += "\"[c["text"]]\" Comment [c["header"]]<br>"

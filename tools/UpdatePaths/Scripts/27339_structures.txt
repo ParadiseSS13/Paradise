@@ -1,0 +1,1 @@
+/obj/structures/@SUBTYPES : /obj/structure/@SUBTYPES{@OLD}

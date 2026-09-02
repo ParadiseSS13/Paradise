@@ -10,6 +10,7 @@
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
+	..()
 	if(stage < 5 && prob(3))
 		stage++
 
@@ -24,14 +25,14 @@
 			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
+			to_chat(owner, SPAN_DANGER("You feel like something is tearing its way out of your skin..."))
 			owner.reagents.add_reagent("histamine", 10)
 			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
-					new/obj/structure/spider/spiderling(get_turf(owner))
-				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
+					new/mob/living/basic/spiderling(get_turf(owner))
+				owner.visible_message(SPAN_DANGER("[owner] bursts open! Holy fuck!"))
 				owner.gib()
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = 0)
@@ -55,6 +56,7 @@
 	// Safety first.
 	if(!owner)
 		return
+	..()
 
 	// Parasite growth
 	cycle_num += 1
@@ -83,7 +85,7 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
 	var/infection_completed = FALSE
-	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
+	var/mob/living/basic/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
@@ -96,9 +98,8 @@
 		if(4) // 5th
 			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			infection_completed = TRUE
-	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
-	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
+	to_chat(owner, SPAN_WARNING("A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!"))
 	owner.Paralyse(20 SECONDS)
 	if(infection_completed)
 		remove(owner)

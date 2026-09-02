@@ -20,12 +20,10 @@
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/grenade/gas/oxygen,
-					/obj/item/grenade/gas/oxygen)
+					/obj/item/storage/box/oxygen_grenades,
+					/obj/item/storage/box/oxygen_grenades)
 	cost = 400
-	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
-	group = SUPPLY_EMERGENCY
 
 /datum/supply_packs/emergency/glowstick/emergency
 	name = "Emergency Glowstick Crate"
@@ -114,7 +112,7 @@
 					/obj/item/tank/internals/emergency_oxygen/double/vox,
 					/obj/item/tank/internals/emergency_oxygen/double/vox)
 	cost = 200
-	containertype = /obj/structure/closet/crate/medical
+	containertype = /obj/structure/closet/crate/internals/nitrogen
 	containername = "vox life support supplies crate"
 
 /datum/supply_packs/emergency/plasmamansupport

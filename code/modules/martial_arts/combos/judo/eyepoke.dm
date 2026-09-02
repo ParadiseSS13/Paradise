@@ -5,8 +5,8 @@
 	combo_text_override = "Disarm, Harm"
 
 /datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] jabs [target] in [user.p_their()] eyes!</span>", \
-						"<span class='userdanger'>[user] jabs you in the eyes!</span>")
+	target.visible_message(SPAN_WARNING("[user] jabs [target] in [user.p_their()] eyes!"), \
+						SPAN_USERDANGER("[user] jabs you in the eyes!"))
 	playsound(get_turf(user), 'sound/weapons/whip.ogg', 40, TRUE, -1)
 	target.apply_damage(10, BRUTE)
 	target.AdjustEyeBlurry(50, 0, 30 SECONDS)

@@ -40,11 +40,18 @@
 	var/detectTime = 0
 	var/area/station/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
+	var/datum/proximity_monitor/proximity_monitor
+	/// If this camera doesnt add to camera chunks. Used by camera bugs.
+	var/non_chunking_camera = FALSE
 
-/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
+/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE, obj/item/camera_assembly/use_assembly = null)
 	. = ..()
 	wires = new(src)
-	assembly = new(src)
+	if(istype(use_assembly))
+		assembly = use_assembly
+	else
+		assembly = new(src)
+	apply_upgrades()
 	assembly.state = 4
 	assembly.anchored = TRUE
 	assembly.update_icon()
@@ -52,7 +59,7 @@
 	GLOB.cameranet.cameras += src
 	part_of_camera_network = should_add_to_cameranet
 	if(part_of_camera_network)
-		GLOB.cameranet.addCamera(src)
+		GLOB.cameranet.add_camera(src)
 	if(isturf(loc))
 		var/area/our_area = get_area(src)
 		LAZYADD(our_area.cameras, UID())
@@ -62,6 +69,12 @@
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
+	create_prox_monitor()
+
+/obj/machinery/camera/proc/create_prox_monitor()
+	if(!proximity_monitor)
+		proximity_monitor = new(src, CAMERA_VIEW_DISTANCE)
+		RegisterSignal(proximity_monitor, COMSIG_PARENT_QDELETING, PROC_REF(proximity_deleted))
 
 /obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -72,7 +85,7 @@
 	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
-	GLOB.cameranet.removeCamera(src)
+	GLOB.cameranet.remove_camera(src)
 	GLOB.cameranet.cameras -= src
 	var/area/our_area = get_area(src)
 	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!
@@ -86,14 +99,13 @@
 
 /obj/machinery/camera/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
+	. += SPAN_NOTICE("[src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.")
 	if(panel_open)
-		. += "<span class='notice'>Upgrades can be added to [src] or <b>pried out</b>.</span>"
+		. += SPAN_NOTICE("Upgrades can be added to [src] or <b>pried out</b>.")
 		if(!wires.CanDeconstruct())
-			. += "<span class='notice'>[src]'s <b>internal wires</b> are preventing you from cutting it free.</span>"
+			. += SPAN_NOTICE("[src]'s <b>internal wires</b> are preventing you from cutting it free.")
 		else
-			. += "<span class='notice'>[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.</span>"
-
+			. += SPAN_NOTICE("[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.")
 
 /obj/machinery/camera/emp_act(severity)
 	if(!status)
@@ -119,46 +131,55 @@
 		return
 	..()
 
+/obj/machinery/camera/proc/proximity_deleted()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	proximity_monitor = null
+
 /obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)
 	view_range = num
-	GLOB.cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.update_visibility(src, 0)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
 	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
-/obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
-	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
-	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
+/obj/machinery/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/attach_msg = SPAN_NOTICE("You attach [used] to the inner circuits of [src].")
+	var/reject_msg = SPAN_WARNING("[src] already has that upgrade!")
 
-	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.canUnEquip(I, FALSE))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
+	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
+		if(!user.canUnEquip(used, FALSE))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
 		if(!isEmpProof())
-			var/obj/item/stack/sheet/mineral/plasma/P = I
+			var/obj/item/stack/sheet/mineral/plasma/P = used
+			if(!P.use(1))
+				to_chat(user, SPAN_WARNING("You need at least one sheet of plasma to add EMP shielding to [src]!"))
+				return ITEM_INTERACT_COMPLETE
 			upgradeEmpProof()
-			to_chat(user, "[msg]")
-			P.use(1)
+			to_chat(user, attach_msg)
+			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.canUnEquip(I, FALSE))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
+			to_chat(user, reject_msg)
+	else if(istype(used, /obj/item/assembly/prox_sensor) && panel_open)
+		if(!user.canUnEquip(used, FALSE))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
 		if(!isMotion())
 			upgradeMotion()
-			to_chat(user, "[msg]")
-			qdel(I)
+			to_chat(user, attach_msg)
+			qdel(used)
 		else
-			to_chat(user, "[msg2]")
+			to_chat(user, reject_msg)
+
+		return ITEM_INTERACT_COMPLETE
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	else if((istype(used, /obj/item/paper) || istype(used, /obj/item/pda)) && isliving(user))
 		if(!can_use())
-			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
-			return
+			to_chat(user, SPAN_WARNING("You can't show something to a disabled camera!"))
+			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/U = user
 		var/obj/item/paper/X = null
@@ -166,12 +187,12 @@
 
 		var/itemname = ""
 		var/info = ""
-		if(istype(I, /obj/item/paper))
-			X = I
+		if(istype(used, /obj/item/paper))
+			X = used
 			itemname = X.name
 			info = X.info
 		else
-			PDA = I
+			PDA = used
 			var/datum/data/pda/app/notekeeper/N = PDA.find_program(/datum/data/pda/app/notekeeper)
 			if(N)
 				itemname = PDA.name
@@ -179,10 +200,10 @@
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in GLOB.player_list)
-			if(isAI(O))
+			if(is_ai(O))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(U.name == "Unknown")
 					to_chat(AI, "<b>[U]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
@@ -191,20 +212,18 @@
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse("<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>", "window=[itemname]")
-
-	else if(istype(I, /obj/item/laser_pointer))
-		var/obj/item/laser_pointer/L = I
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/laser_pointer))
+		var/obj/item/laser_pointer/L = used
 		L.laser_act(src, user)
-	else
-		return ..()
-
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+	to_chat(user, SPAN_NOTICE("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -228,8 +247,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		visible_message(
+			SPAN_WARNING("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			SPAN_WARNING("You unweld [src], leaving it as just a frame bolted to the wall.")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -283,10 +304,10 @@
 
 	if(display_message)
 		if(user)
-			visible_message("<span class='danger'>[user] reactivates [src]!</span>")
+			visible_message(SPAN_DANGER("[user] reactivates [src]!"))
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] reactivates!</span>")
+			visible_message(SPAN_DANGER("\The [src] reactivates!"))
 		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	SEND_SIGNAL(src, COMSIG_CAMERA_ON, user, display_message)
@@ -305,10 +326,10 @@
 
 	if(display_message)
 		if(user)
-			visible_message("<span class='danger'>[user] deactivates [src]!</span>")
+			visible_message(SPAN_DANGER("[user] deactivates [src]!"))
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] deactivates!</span>")
+			visible_message(SPAN_DANGER("\The [src] deactivates!"))
 		playsound(loc, toggle_sound, 100, 1)
 
 	update_icon(UPDATE_ICON_STATE)
@@ -325,10 +346,10 @@
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
-		return 0
+		return FALSE
 	if(stat & EMPED)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null
@@ -342,7 +363,7 @@
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.
 	var/turf/simulated/wall/T = null
-	for(var/i = 1, i <= 8; i += i)
+	for(var/i in 1 to 8)
 		T = get_ranged_target_turf(src, i, 1)
 		if(istype(T))
 			//If someone knows a better way to do this, let me know. -Giacom
@@ -402,7 +423,7 @@
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
-	if(isXRay() && isAI(user))
+	if(isXRay() && is_ai(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.see_in_dark = max(user.see_in_dark, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -413,6 +434,9 @@
 
 	..()
 	return TRUE
+
+/obj/machinery/camera/get_internal_wires()
+	return wires
 
 /// Cameras which are placed inside of things, such as helmets.
 /obj/machinery/camera/portable
@@ -433,5 +457,14 @@
 		return
 
 	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
-	GLOB.cameranet.updatePortableCamera(src, prev_turf)
+	GLOB.cameranet.update_portable_camera(src, prev_turf)
 	prev_turf = get_turf(src)
+
+/obj/machinery/camera/toxins // cameras to be used in toxins
+	c_tag = "Research Toxins Test Chamber East";
+	c_tag = "Bomb Test Site";
+	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top.";
+	invuln = 1;
+	name = "Hardened Bomb-Test Camera";
+	network = list("Toxins","Research","SS13")
+

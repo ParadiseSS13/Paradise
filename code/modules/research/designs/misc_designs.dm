@@ -17,7 +17,7 @@
 	id = "diskplantgene"
 	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=200, MAT_GLASS=100)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	build_path = /obj/item/disk/plantgene
 	category = list("Miscellaneous")
 
@@ -31,9 +31,20 @@
 	build_path = /obj/item/aicard
 	category = list("Miscellaneous")
 
+/datum/design/boris_ai_controller
+	name = "B.O.R.I.S."
+	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
+	id = "borg_ai_control"
+	req_tech = list("programming" = 5, "magnets" = 4, "engineering" = 3)
+	build_type = MECHFAB | PROTOLATHE
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) // Same as robobrain.
+	construction_time = 75
+	build_path = /obj/item/borg/upgrade/ai
+	category = list("Miscellaneous", "Misc")
+
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
-	desc = "Allows for the construction of a pAI Card"
+	desc = "Allows for the construction of a pAI Card."
 	id = "paicard"
 	req_tech = list("programming" = 2)
 	build_type = PROTOLATHE
@@ -94,11 +105,11 @@
 
 /datum/design/safety_muzzle
 	name = "Safety Muzzle"
-	desc = "Produce a lockable muzzle keyed to security ID cards"
+	desc = "Produce a lockable muzzle keyed to security ID cards."
 	id = "safetymuzzle"
 	req_tech = list("materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/mask/muzzle/safety
 	category = list("Miscellaneous")
 
@@ -108,7 +119,7 @@
 	id = "shockmuzzle"
 	req_tech = list("materials" = 1, "engineering" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/mask/muzzle/safety/shock
 	category = list("Miscellaneous")
 
@@ -118,17 +129,17 @@
 	id = "datadisk"
 	req_tech = list("programming" = 3, "biotech" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=300, MAT_GLASS=100)
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	build_path = /obj/item/disk/data
 	category = list("Miscellaneous")
 
 /datum/design/emergency_oxygen
 	name = "Empty Emergency Oxygen Tank"
-	desc = "Used for emergencies. Onl contains very little oxygen once filled up."
+	desc = "Used for emergencies. Only contains very little oxygen once filled up."
 	id = "emergencyoxygen"
 	req_tech = list("toxins" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=100)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 100)
 	build_path = /obj/item/tank/internals/emergency_oxygen/empty
 	category = list("Miscellaneous")
 
@@ -138,7 +149,7 @@
 	id = "extendedoxygen"
 	req_tech = list("toxins" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=800, MAT_GLASS=100)
+	materials = list(MAT_METAL = 800, MAT_GLASS = 100)
 	build_path = /obj/item/tank/internals/emergency_oxygen/engi/empty
 	category = list("Miscellaneous")
 
@@ -148,7 +159,7 @@
 	id = "doubleoxygen"
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=1500, MAT_GLASS=200)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 	build_path = /obj/item/tank/internals/emergency_oxygen/double/empty
 	category = list("Miscellaneous")
 
@@ -158,6 +169,27 @@
 	id = "oxygentank"
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=3000, MAT_GLASS=500)
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 	build_path = /obj/item/tank/internals/oxygen/empty
+	category = list("Miscellaneous")
+
+/datum/design/oxygen_grenade
+	name = "Oxygen Grenade"
+	desc = "When triggered, releases a stream of pure O2 gas from the grenade."
+	id = "oxygen_Grenade"
+	req_tech = list("combat" = 3, "engineering" = 6, "toxins" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500) //Same as Advanced Release Grenade
+	reagents_list = list("oxygen" = 50) //One small beaker at least, to make it require Chem Dispenser
+	build_path = /obj/item/grenade/gas/oxygen
+	category = list("Miscellaneous")
+
+/datum/design/autochef_remote
+	name = "Autochef Remote"
+	desc = "A remote for configuring an autochef."
+	id = "autochef_remote"
+	req_tech = list("programming" = 3, "bluespace" = 3, "materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/autochef_remote
 	category = list("Miscellaneous")

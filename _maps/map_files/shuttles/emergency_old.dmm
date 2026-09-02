@@ -14,9 +14,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ai" = (
@@ -59,18 +57,14 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ap" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -90,13 +84,6 @@
 /area/shuttle/escape)
 "au" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"ay" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aA" = (
@@ -121,18 +108,14 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -155,9 +138,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -185,20 +166,6 @@
 	pixel_y = -30
 	},
 /obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"aT" = (
-/obj/machinery/door/airlock/titanium{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Shuttle Cargo Hatch"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aW" = (
@@ -283,6 +250,22 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"dm" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"dZ" = (
+/obj/machinery/door/airlock/titanium{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Shuttle Cargo Hatch";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "ev" = (
 /obj/machinery/sleeper{
 	dir = 1;
@@ -326,10 +309,21 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"nt" = (
+/turf/simulated/wall/indestructible/titanium,
+/area/shuttle/escape)
 "rj" = (
 /obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"uB" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "xo" = (
 /obj/machinery/recharge_station,
@@ -341,9 +335,6 @@
 /area/shuttle/escape)
 "DZ" = (
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"Jw" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -365,7 +356,7 @@ ac
 ac
 ab
 aW
-Jw
+ab
 aW
 ac
 ab
@@ -395,7 +386,7 @@ ab
 DZ
 bb
 bf
-ab
+nt
 ab
 "}
 (3,1,1) = {"
@@ -429,7 +420,7 @@ aa
 aa
 ab
 ac
-ab
+nt
 as
 ab
 aZ
@@ -443,7 +434,7 @@ aC
 aC
 an
 an
-aT
+dZ
 DZ
 DZ
 xo
@@ -453,7 +444,7 @@ bo
 (5,1,1) = {"
 aa
 ab
-ab
+nt
 al
 ap
 at
@@ -478,7 +469,7 @@ bo
 "}
 (6,1,1) = {"
 ab
-ab
+nt
 ah
 ai
 an
@@ -509,7 +500,7 @@ ai
 an
 an
 an
-ay
+uB
 an
 an
 an
@@ -530,7 +521,7 @@ aa
 "}
 (8,1,1) = {"
 ab
-ab
+nt
 aj
 ai
 an
@@ -557,7 +548,7 @@ ab
 (9,1,1) = {"
 aa
 ab
-ab
+nt
 ao
 aq
 an
@@ -585,7 +576,7 @@ aa
 aa
 ab
 ac
-ab
+nt
 at
 ab
 aA
@@ -599,7 +590,7 @@ aA
 aA
 an
 an
-aV
+dm
 aI
 aI
 aI
@@ -655,7 +646,7 @@ ac
 rj
 be
 aI
-ab
+nt
 ab
 "}
 (13,1,1) = {"

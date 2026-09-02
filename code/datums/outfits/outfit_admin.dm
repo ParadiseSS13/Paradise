@@ -92,7 +92,7 @@
 	l_hand = /obj/item/tank/internals/oxygen/red
 
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
+		/obj/item/storage/box/survival_syndie = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
@@ -292,7 +292,9 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy
+		/obj/item/shield/energy,
+		/obj/item/soap/ds,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -317,7 +319,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/disk/nuclear/unrestricted
+		/obj/item/disk/nuclear/unrestricted,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/admin/deathsquad_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -371,7 +374,7 @@
 	name = "Tunnel Clown"
 
 	uniform = /obj/item/clothing/under/rank/civilian/clown
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	suit = /obj/item/clothing/suit/hooded/dark_robes
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/black
@@ -561,9 +564,9 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Bard")
 
-	var/obj/item/clothing/ears/headphones/P = r_ear
+	var/obj/item/clothing/ears/headphones/P = H.r_ear
 	if(istype(P))
-		P.attack_self(H) // activate them, display musical notes effect
+		P.toggle_visual_notes(H) // activate them, display musical notes effect
 
 // Soviet Military
 
@@ -585,8 +588,8 @@
 		return
 	H.real_name = "[capitalize(pick(GLOB.first_names_soviet))] [capitalize(pick(GLOB.last_names_soviet))]"
 	H.name = H.real_name
-	H.add_language("Neo-Russkiya")
-	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+	H.add_language("Cygni Standard")
+	H.set_default_language(GLOB.all_languages["Cygni Standard"])
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
@@ -601,7 +604,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/ammo_box/a762 = 4
+		/obj/item/ammo_box/a762 = 4,
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/soldier
@@ -611,13 +615,12 @@
 	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
-	belt = /obj/item/gun/projectile/automatic/pistol/APS
+	belt = /obj/item/gun/projectile/automatic/pistol/type_230
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/lighter = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
-		/obj/item/ammo_box/magazine/apsm10mm = 2
+		/obj/item/ammo_box/magazine/apsm10mm = 2,
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/officer
@@ -654,10 +657,9 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/projectile/automatic/pistol/type_230 = 1,
 		/obj/item/ammo_box/magazine/apsm10mm = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/marine/captain
@@ -670,8 +672,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -719,19 +720,17 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
+		apply_to_card(I, H, get_all_centcom_access(), name, "tsf")
 	I.assignment = "Trans-Solar Federation Representative"
 	H.sec_hud_set_ID()
-
 
 /datum/outfit/admin/solgov
 	name = "TSF Marine"
 	uniform = /obj/item/clothing/under/solgov
-	suit = /obj/item/clothing/suit/armor/bulletproof
+	suit = /obj/item/clothing/suit/armor/federation/marine
 	back = /obj/item/storage/backpack/ert/solgov
-	belt = /obj/item/storage/belt/military/assault/marines/full
-	head = /obj/item/clothing/head/soft/solgov/marines
-	glasses = /obj/item/clothing/glasses/night
+	belt = /obj/item/storage/belt/federation_webbing/marine
+	head = /obj/item/clothing/head/helmet/federation/marine
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
@@ -739,25 +738,27 @@
 	l_hand = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	suit_store = /obj/item/gun/projectile/automatic/pistol/m1911
 	r_pocket = /obj/item/flashlight/seclite
-	pda = /obj/item/pda
+	pda = /obj/item/pda/heads/ert/tsf
 	box = /obj/item/storage/box/responseteam
 	backpack_contents = list(
+		/obj/item/clothing/head/soft/solgov/marines = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/storage/fancy/crayons/marine = 1,
+		/obj/item/storage/mre = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/eyes/cybernetic/shield/hardened
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
 
 	var/is_solgov_lieutenant = FALSE
-
 
 /datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -772,28 +773,28 @@
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = name
 	if(istype(I) && is_solgov_lieutenant)
-		apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), name, "tsf")
 	else if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "tsf")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov/lieutenant
 	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
-	head = /obj/item/clothing/head/beret/solgov/command
-	glasses = /obj/item/clothing/glasses/night
+	suit = /obj/item/clothing/suit/armor/federation/marine/officer
+	head = /obj/item/clothing/head/helmet/federation/marine/officer
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	l_hand = null
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/storage/belt/federation_webbing/marine_officer
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
+		/obj/item/clothing/head/beret/solgov = 1,
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/storage/mre = 1
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -802,20 +803,21 @@
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
+	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/explorer/marines
-	belt = /obj/item/storage/belt/military/assault/marines/elite/full
+	belt = /obj/item/storage/belt/federation_webbing/marsoc
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/whetstone = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/storage/mre = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/eyes/cybernetic/shield
+		/obj/item/organ/internal/eyes/cybernetic/shield/hardened
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
@@ -823,17 +825,14 @@
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
-	mask = /obj/item/clothing/mask/gas/explorer/marines
-	glasses = /obj/item/clothing/glasses/night
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/storage/belt/federation_webbing/marsoc_officer
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/storage/mre = 1
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -876,7 +875,6 @@
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/security
-	box = /obj/item/storage/box/survival
 
 /datum/outfit/admin/trader/commie
 	name = "USSP Trader"
@@ -884,6 +882,12 @@
 	suit = /obj/item/clothing/suit/sovietcoat
 	head = /obj/item/clothing/head/ushanka
 	box = /obj/item/storage/box/soviet
+
+/datum/outfit/admin/trader/commie/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.add_language("Cygni Standard")
 
 /datum/outfit/admin/trader/unathi
 	name = "Glint-Scales Trader"
@@ -1060,7 +1064,6 @@
 
 	uniform = /obj/item/clothing/under/rank/security/detective
 	suit = /obj/item/clothing/suit/storage/det_suit
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/a357
@@ -1072,11 +1075,9 @@
 
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/kitchen/knife
-	l_hand = /obj/item/kitchen/knife
 	r_hand = /obj/item/kitchen/rollingpin
 
 /datum/outfit/admin/tournament/tournament_janitor
@@ -1084,7 +1085,6 @@
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/black
 	l_hand = /obj/item/reagent_containers/glass/bucket
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/cleaner = 2,
@@ -1195,7 +1195,7 @@
 	name = "Dark Lord"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	suit = /obj/item/clothing/suit/hooded/dark_robes
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
@@ -1212,7 +1212,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = H.wear_suit
+	var/obj/item/clothing/suit/hooded/dark_robes/C = H.wear_suit
 	if(istype(C))
 		C.name = "dark lord robes"
 		C.hood.name = "dark lord hood"
@@ -1243,11 +1243,11 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = new(H.loc)
+	var/obj/item/clothing/suit/hooded/dark_robes/C = new(H.loc)
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
-		H.equip_to_slot_or_del(C, SLOT_HUD_IN_BACKPACK)
+		H.equip_to_slot_or_del(C, ITEM_SLOT_IN_BACKPACK)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
@@ -1260,6 +1260,46 @@
 	V.bloodusable = 9999
 	V.bloodtotal = 9999
 	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
+	H.dna.SetSEState(GLOB.jumpblock, TRUE)
+	singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+	H.update_mutations()
+	H.gene_stability = 100
+
+/datum/outfit/admin/ancient_mindflayer
+	name = "Ancient Mindflayer"
+
+	// Shamelessly stolen from the `Dark Lord`
+	uniform = /obj/item/clothing/under/color/black
+	back = /obj/item/storage/backpack
+	gloves = /obj/item/clothing/gloves/color/yellow
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	l_ear = /obj/item/radio/headset/syndicate
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/flashlight = 1,
+	)
+
+/datum/outfit/admin/ancient_mindflayer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/clothing/suit/hooded/dark_robes/C = new(H.loc)
+	if(istype(C))
+		C.name = "ancient robes"
+		C.hood.name = "ancient hood"
+		H.equip_to_slot_or_del(C, ITEM_SLOT_IN_BACKPACK)
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
+
+/datum/outfit/admin/ancient_mindflayer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.make_mind_flayer()
+	var/datum/antagonist/mindflayer/flayer = H.mind.has_antag_datum(/datum/antagonist/mindflayer)
+	flayer.usable_swarms = 9999
 	H.dna.SetSEState(GLOB.jumpblock, TRUE)
 	singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 	H.update_mutations()
@@ -1337,9 +1377,9 @@
 	name = "Dark Priest"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	suit = /obj/item/clothing/suit/hooded/dark_robes
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/hooded/chaplain_hood
+	head = /obj/item/clothing/head/hooded/dark_hood
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/syndicate
@@ -1367,7 +1407,7 @@
 		B.desc = "Sometimes, someone's just gotta die."
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
-		R.flags |= NODROP
+		R.set_nodrop(TRUE, H)
 
 /datum/outfit/admin/honksquad
 	name = "Honksquad"
@@ -1514,7 +1554,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/viper
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/jackboots
+	shoes = /obj/item/clothing/shoes/combat
 	head = null // will end up being the bandana
 	mask = /obj/item/clothing/mask/bandana/black // will end up being a cigar
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
@@ -1528,7 +1568,8 @@
 		/obj/item/storage/box/smoke_grenades = 1,
 		/obj/item/lighter/zippo = 1,
 		/obj/item/clothing/mask/cigarette/cigar = 3,
-		/obj/item/clothing/mask/gas/explorer = 1
+		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/storage/mre = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/stealth)
@@ -1546,7 +1587,7 @@
 	if(prob(50))
 		var/codename_prefix = pick("Exposed", "Unveiled", "Phantom", "Mirage", "Punished", "Invisible", "Swift")
 		codename = "[codename_prefix] [codename]"
-	H.rename_character(null, codename)
+	H.rename_character(H.real_name, codename)
 
 	var/hair_color = "#361A00"
 
@@ -1561,8 +1602,9 @@
 	H.update_fhair()
 	H.update_dna()
 
-	H.wear_mask.adjustmask(H) // push it back on the head
-	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, SLOT_HUD_WEAR_MASK) // get them their cigar
+	var/obj/item/clothing/mask/worn_mask = H.wear_mask
+	worn_mask.adjustmask(H) // push it back on the head
+	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, ITEM_SLOT_MASK) // get them their cigar
 	if(istype(H.glasses, /obj/item/clothing/glasses)) // this is gonna be always true
 		var/obj/item/clothing/glasses/glassass = H.glasses
 		glassass.over_mask = TRUE
@@ -1570,9 +1612,10 @@
 	H.gloves.siemens_coefficient = 0 // black "insulated" gloves, since combat gloves look kinda shit
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "lifetimeid")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "tsf")
 
-	qdel(H.GetComponent(/datum/component/footstep)) // they're literally stealth
+	H.DeleteComponent(/datum/component/footstep)
+
 	var/datum/martial_art/cqc/CQC = new()
 	CQC.teach(H)
 
@@ -1622,3 +1665,137 @@
 		P.owner = H.real_name
 		P.ownjob = "Tourist"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
+
+/datum/outfit/admin/vox_explorer
+	name = "Vox Explorer"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	back = /obj/item/storage/backpack/satchel
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit = /obj/item/clothing/suit/space/vox/medic
+	l_ear = /obj/item/radio/headset/alt
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	box = /obj/item/storage/box/survival_vox
+	id = /obj/item/card/id/syndicate
+
+	backpack_contents = list(
+		/obj/item/folder/blue = 1,
+		/obj/item/gun/energy/plasma_pistol = 1,
+		/obj/item/pen/fancy = 1,
+		/obj/item/clothing/head/helmet/space/vox/medic = 1,
+	)
+
+/datum/outfit/admin/vox_explorer/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+	H.internal = internal_tank
+
+/datum/outfit/admin/vox_war_drone
+	name = "Vox War Drone"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	back = /obj/item/storage/backpack/satchel
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit = /obj/item/clothing/suit/space/vox/carapace
+	head = /obj/item/clothing/head/helmet/space/vox/carapace
+	box = /obj/item/storage/box/survival_vox
+	l_ear = /obj/item/radio/headset/alt
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	box = /obj/item/storage/box/survival_vox
+	id = /obj/item/card/id/syndicate
+
+	backpack_contents = list(
+		/obj/item/melee/energy/sword = 1,
+	)
+
+/datum/outfit/admin/vox_war_drone/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+	H.internal = internal_tank
+
+/datum/outfit/admin/supreme
+	name = "Supreme-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/supremeinquis
+	r_ear = /obj/item/radio/headset/alt
+	head = /obj/item/clothing/head/supremeinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	l_pocket = /obj/item/melee/energy/sword/saber/purple
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)
+
+/datum/outfit/admin/low
+	name = "Low-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/hooded/lowinquis
+	r_ear = /obj/item/radio/headset/alt
+	mask = /obj/item/clothing/mask/lowinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/storage/box/survival = 1,
+		/obj/item/shield/energy = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)
+
+/datum/outfit/admin/heretic_long
+	name = "Heretic Long"
+
+	uniform = /obj/item/clothing/under/suit/victsuit/red
+	neck = /obj/item/clothing/neck/heretic_focus
+	back = /obj/item/storage/backpack/satchel
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	l_ear = /obj/item/radio/headset/syndicate
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/melee/sickly_blade = 1,
+		/obj/item/codex_cicatrix = 1,
+
+	)
+
+/datum/outfit/admin/heretic_long/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	var/obj/item/clothing/suit/hooded/cultrobes/eldritch/R = new(H.loc)
+	if(istype(R))
+		R.name = "ascendant robes"
+		R.hood.name = "ascendant hood"
+		H.equip_to_slot_or_del(R, ITEM_SLOT_OUTER_SUIT)
+		R.ToggleHood()
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Heretic Long", "data")
+
+/datum/outfit/admin/heretic_long/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.add_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/A = H.mind.has_antag_datum(/datum/antagonist/heretic)
+	A.knowledge_points = 9999
+	A.force_unlock_ascension = TRUE

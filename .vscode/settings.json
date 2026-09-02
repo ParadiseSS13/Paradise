@@ -20,33 +20,20 @@
 		{ "rule": "*", "severity": "warn" }
 	],
 
-	"[javascript]": {
+	"[javascript][javascriptreact][typescript][typescriptreact][scss][css][html]": {
 		"editor.rulers": [120],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
-	"[javascriptreact]": {
-		"editor.rulers": [120],
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[typescript]": {
-		"editor.rulers": [120],
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[typescriptreact]": {
-		"editor.rulers": [120],
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[scss]": {
-		"editor.rulers": [120],
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
+	"[toml]": {
+		"editor.formatOnSave": false
 	},
 
 	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"files.insertFinalNewline": true,
 	"gitlens.advanced.blame.customArguments": [
 		"--ignore-revs-file",
 		"${workspaceRoot}/.git-blame-ignore-revs"

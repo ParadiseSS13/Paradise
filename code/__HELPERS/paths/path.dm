@@ -4,7 +4,7 @@
  * It will yield until a path is returned, using magic
  *
  * Arguments:
- * * caller: The movable atom that's trying to find the path
+ * * path_caller: The movable atom that's trying to find the path
  * * end: What we're trying to path to. It doesn't matter if this is a turf or some other atom, we're gonna just path to the turf it's on anyway
  * * max_distance: The maximum number of steps we can take in a given path to search (default: 30, 0 = infinite)
  * * mintargetdistance: Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example.
@@ -14,16 +14,16 @@
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  * * diagonal_handling: defines how we handle diagonal moves. see __DEFINES/path.dm
  */
-/proc/get_path_to(atom/movable/caller, atom/end, max_distance = 30, mintargetdist, access=list(), simulated_only = TRUE, turf/exclude, skip_first=TRUE, diagonal_handling=DIAGONAL_REMOVE_CLUNKY)
+/proc/get_path_to(atom/movable/path_caller, atom/end, max_distance = 30, mintargetdist, access=list(), simulated_only = TRUE, turf/exclude, skip_first=TRUE, diagonal_handling=DIAGONAL_REMOVE_CLUNKY)
 	var/list/hand_around = list()
 	// We're guarenteed that list will be the first list in pathfinding_finished's argset because of how callback handles the arguments list
 	var/datum/callback/await = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pathfinding_finished), hand_around))
-	if(!SSpathfinder.pathfind(caller, end, max_distance, mintargetdist, access, simulated_only, exclude, skip_first, diagonal_handling, await))
+	if(!SSpathfinder.pathfind(path_caller, end, max_distance, mintargetdist, access, simulated_only, exclude, skip_first, diagonal_handling, await))
 		return list()
 
 	UNTIL(length(hand_around))
 	var/list/return_val = hand_around[1]
-	if(!islist(return_val) || (QDELETED(caller) || QDELETED(end))) // It's trash, just hand back empty to make it easy
+	if(!islist(return_val) || (QDELETED(path_caller) || QDELETED(end))) // It's trash, just hand back empty to make it easy
 		return list()
 	return return_val
 
@@ -37,39 +37,39 @@
  * It will yield until a path is returned, using magic
  *
  * Arguments:
- * * caller: The movable atom that's trying to find the path
+ * * path_caller: The movable atom that's trying to find the path
  * * end: What we're trying to path to. It doesn't matter if this is a turf or some other atom, we're gonna just path to the turf it's on anyway
  * * max_distance: The maximum number of steps we can take in a given path to search (default: 30, 0 = infinite)
  * * mintargetdistance: Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example.
- * * age: How old a path map can be before we'll avoid reusing it. Use the defines found in [code/__DEFINES/path.dm], values larger then MAP_REUSE_SLOWEST will be discarded
+ * * age: How old a path map can be before we'll avoid reusing it. Use the defines found in [code/__DEFINES/path_defines.dm], values larger then MAP_REUSE_SLOWEST will be discarded
  * * access: A list representing what access we have and what doors we can open.
  * * simulated_only: Whether we consider tur fs without atmos simulation (AKA do we want to ignore space)
  * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  */
-/proc/get_swarm_path_to(atom/movable/caller, atom/end, max_distance = 30, mintargetdist, age = MAP_REUSE_INSTANT, access = list(), simulated_only = TRUE, turf/exclude, skip_first=TRUE)
+/proc/get_swarm_path_to(atom/movable/path_caller, atom/end, max_distance = 30, mintargetdist, age = MAP_REUSE_INSTANT, access = list(), simulated_only = TRUE, turf/exclude, skip_first=TRUE)
 	var/list/hand_around = list()
 	// We're guarenteed that list will be the first list in pathfinding_finished's argset because of how callback handles the arguments list
 	var/datum/callback/await = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pathfinding_finished), hand_around))
-	if(!SSpathfinder.swarmed_pathfind(caller, end, max_distance, mintargetdist, age, access, simulated_only, exclude, skip_first, await))
+	if(!SSpathfinder.swarmed_pathfind(path_caller, end, max_distance, mintargetdist, age, access, simulated_only, exclude, skip_first, await))
 		return list()
 
 	UNTIL(length(hand_around))
 	var/list/return_val = hand_around[1]
-	if(!islist(return_val) || (QDELETED(caller) || QDELETED(end))) // It's trash, just hand back empty to make it easy
+	if(!islist(return_val) || (QDELETED(path_caller) || QDELETED(end))) // It's trash, just hand back empty to make it easy
 		return list()
 	return return_val
 
-/proc/get_sssp(atom/movable/caller, max_distance = 30, access = list(), simulated_only = TRUE, turf/exclude)
+/proc/get_sssp(atom/movable/path_caller, max_distance = 30, access = list(), simulated_only = TRUE, turf/exclude)
 	var/list/hand_around = list()
 	// We're guarenteed that list will be the first list in pathfinding_finished's argset because of how callback handles the arguments list
 	var/datum/callback/await = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pathfinding_finished), hand_around))
-	if(!SSpathfinder.build_map(caller, get_turf(caller), max_distance, access, simulated_only, exclude, await))
+	if(!SSpathfinder.build_map(path_caller, get_turf(path_caller), max_distance, access, simulated_only, exclude, await))
 		return null
 
 	UNTIL(length(hand_around))
 	var/datum/path_map/return_val = hand_around[1]
-	if(!istype(return_val, /datum/path_map) || (QDELETED(caller))) // It's trash, just hand back null to make it easy
+	if(!istype(return_val, /datum/path_map) || (QDELETED(path_caller))) // It's trash, just hand back null to make it easy
 		return null
 	return return_val
 
@@ -202,7 +202,7 @@
 	return modified_path
 
 /**
- * For seeing if we can actually move between 2 given turfs while accounting for our access and the caller's pass_flags
+ * For seeing if we can actually move between 2 given turfs while accounting for our access and the path_caller's pass_flags
  *
  * Assumes destinantion turf is non-dense - check and shortcircuit in code invoking this proc to avoid overhead.
  * Makes some other assumptions, such as assuming that unless declared, non dense objects will not block movement.
@@ -229,9 +229,9 @@
 	/// These are generally cheaper than looping contents so they go first
 	switch(destination_turf.pathing_pass_method)
 		// This is already assumed to be true
-		//if(TURF_PATHING_PASS_DENSITY)
-		//	if(destination_turf.density)
-		//		return TRUE
+		if(TURF_PATHING_PASS_DENSITY)
+			if(destination_turf.density)
+				return TRUE
 		if(TURF_PATHING_PASS_PROC)
 			if(!destination_turf.CanPathfindPass(actual_dir, pass_info))
 				return TRUE
@@ -281,7 +281,7 @@
 	/// Are we being thrown?
 	var/thrown = FALSE
 	/// Are we anchored
-	var/anchored = FLASH_LIGHT_POWER
+	var/anchored = FALSE
 
 	/// Are we a ghost? (they have effectively unique pathfinding)
 	var/is_observer = FALSE
@@ -309,6 +309,8 @@
 	var/datum/can_pass_info/rider_info = null
 	/// If our mob is buckled to something, what's it like
 	var/datum/can_pass_info/buckled_info = null
+	/// If our mob is flock phasing or can flock phase.
+	var/able_to_flockphase = FALSE
 
 	var/list/factions = list()
 
@@ -359,10 +361,14 @@
 		src.can_ventcrawl = living_construct.ventcrawler == VENTCRAWLER_ALWAYS || living_construct.ventcrawler == VENTCRAWLER_NUDE
 		src.mob_size = living_construct.mob_size
 		src.incorporeal_move = living_construct.incorporeal_move
-		is_flying = living_construct.flying
+		is_flying = HAS_TRAIT(living_construct, TRAIT_FLYING)
 	if(iscameramob(construct_from))
 		src.camera_type = construct_from.type
 	src.is_bot = isbot(construct_from)
+	if(isflockdrone(construct_from))
+		var/mob/living/basic/flock/drone/bird = construct_from
+		if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE) || bird.substrate.has_points(10))
+			able_to_flockphase = TRUE
 
 	if(construct_from.pulling)
 		src.pulling_info = new(construct_from.pulling, access, no_id, call_depth + 1)
@@ -386,7 +392,7 @@ GLOBAL_LIST_INIT(can_pass_info_vars, GLOBAL_PROC_REF(can_pass_check_vars))
 
 /datum/can_pass_info/proc/compare_against(datum/can_pass_info/check_against)
 	for(var/comparable_var in GLOB.can_pass_info_vars)
-		if(!(vars[comparable_var] ~= check_against[comparable_var]))
+		if(!(vars[comparable_var] ~= check_against.vars[comparable_var]))
 			return FALSE
 	if(!pulling_info != !check_against.pulling_info)
 		return FALSE

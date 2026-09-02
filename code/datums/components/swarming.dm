@@ -3,6 +3,12 @@
 	var/offset_y = 0
 	var/is_swarming = FALSE
 	var/list/swarm_members = list()
+	var/static/list/swarming_loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(leave_swarm),
+		COMSIG_ATOM_ENTERED = PROC_REF(join_swarm),
+		COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(join_swarm)
+	)
+
 
 /datum/component/swarming/Initialize(max_x = 24, max_y = 24)
 	if(!ismovable(parent))
@@ -10,8 +16,7 @@
 	offset_x = rand(-max_x, max_x)
 	offset_y = rand(-max_y, max_y)
 
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(join_swarm))
-	RegisterSignal(parent, COMSIG_MOVABLE_UNCROSSED, PROC_REF(leave_swarm))
+	AddComponent(/datum/component/connect_loc_behalf, parent, swarming_loc_connections)
 
 /datum/component/swarming/Destroy()
 	for(var/other in swarm_members)
@@ -22,8 +27,13 @@
 	swarm_members = null
 	return ..()
 
-/datum/component/swarming/proc/join_swarm(datum/source, atom/movable/AM)
-	var/datum/component/swarming/other_swarm = AM.GetComponent(/datum/component/swarming)
+/datum/component/swarming/proc/join_swarm(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED + COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
+	if(isliving(arrived))
+		var/mob/living/our_mob = arrived
+		if(our_mob.stat == DEAD)
+			return
+	var/datum/component/swarming/other_swarm = arrived.GetComponent(/datum/component/swarming)
 	if(!other_swarm)
 		return
 	swarm()
@@ -31,8 +41,9 @@
 	other_swarm.swarm()
 	other_swarm.swarm_members |= src
 
-/datum/component/swarming/proc/leave_swarm(datum/source, atom/movable/AM)
-	var/datum/component/swarming/other_swarm = AM.GetComponent(/datum/component/swarming)
+/datum/component/swarming/proc/leave_swarm(datum/source, atom/movable/gone, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
+	var/datum/component/swarming/other_swarm = gone.GetComponent(/datum/component/swarming)
 	if(!other_swarm || !(other_swarm in swarm_members))
 		return
 	swarm_members -= other_swarm

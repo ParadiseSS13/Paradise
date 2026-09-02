@@ -6,6 +6,7 @@
 	base_cooldown = 1
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
+	antimagic_flags = NONE
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_custom_logs = TRUE
@@ -22,7 +23,7 @@
 
 /datum/spell/touch/alien_spell/Click(mob/user = usr)
 	if(attached_hand)
-		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
+		to_chat(user, SPAN_NOTICEALIEN("You withdraw your [src]."))
 	..()
 
 /datum/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)
@@ -40,6 +41,9 @@
 	catchphrase = null
 	/// Beepsky shouldn't be arresting you over this
 	needs_permit = FALSE
+
+/obj/item/melee/touch_attack/alien/customised_abstract_text()
+	return
 
 /obj/item/melee/touch_attack/alien/proc/plasma_check(plasma, mob/living/carbon/user)
 	var/plasma_current = user.get_plasma()

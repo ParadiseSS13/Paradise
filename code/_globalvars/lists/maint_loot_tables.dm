@@ -1,17 +1,20 @@
 GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 	list(
 		// Tools
-		/obj/effect/spawner/random/engineering/tools,
-
+		/obj/effect/spawner/random/engineering/tools = 4,
 		// Materials
-		/obj/effect/spawner/random/engineering/materials,
+		/obj/effect/spawner/random/engineering/materials = 4,
+		// Misc eng supplies
+		/obj/effect/spawner/random/engineering/misc = 1,
+		// Plushies
+		/obj/effect/spawner/random/plushies = 1,
 	) = 6,
 
 	list(
 		// Spawners for easily found items
 		/obj/effect/spawner/random/bureaucracy,
 		/obj/effect/spawner/random/dice,
-		/obj/effect/spawner/random/book,
+		/obj/effect/spawner/random/library_book,
 
 		// Other worthless/easily found items
 		/obj/item/camera_film,
@@ -29,6 +32,8 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 		/obj/item/storage/box,
 		/obj/item/storage/fancy/crayons,
 		/obj/item/storage/fancy/matches,
+		/obj/item/food/grown/harebell,
+		/obj/item/food/grown/poppy,
 	) = 2,
 
 	list(
@@ -43,6 +48,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		// Sub-spawners
 		/obj/effect/spawner/random/engineering/toolbox,
 		/obj/effect/spawner/random/snacks,
+		/obj/effect/spawner/random/food_or_drink/juice_boxes,
 
 		// Assemblies and cells
 		/obj/item/assembly/prox_sensor,
@@ -98,6 +104,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/emergency_oxygen/engi,
 		/obj/item/vending_refill/cola,
+		/obj/item/cardpack/series_one,
 	) = 85,
 
 	list(
@@ -107,26 +114,30 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 
 	list(
 		// Small chance of tier 1 stock parts
-		/obj/item/stock_parts/capacitor,
-		/obj/item/stock_parts/manipulator,
-		/obj/item/stock_parts/matter_bin,
-		/obj/item/stock_parts/micro_laser,
-		/obj/item/stock_parts/scanning_module,
+		/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/scanning_module = 2,
 
 		// Coins
-		/obj/item/coin/silver,
-		/obj/item/coin/twoheaded,
+		/obj/item/coin/silver = 2,
+		/obj/item/coin/twoheaded = 2,
+		/obj/item/toy/round_tuit,
 	) = 2,
+
 ))
 
 GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 	list(
 		// Rarer items
-		/obj/effect/spawner/random/mod/maint,
+		/obj/effect/spawner/random/mod_maint,
 		/obj/item/clothing/glasses/meson,
 		/obj/item/clothing/head/welding,
 		/obj/item/crowbar/red,
 		/obj/item/storage/belt/utility,
+		/obj/item/dissector,
+		/obj/effect/spawner/random/smithed_item/any,
 	) = 45,
 
 	list(
@@ -154,12 +165,19 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 		/obj/item/storage/backpack/satchel_flat,
 		/obj/item/storage/belt/military/traitor,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+		/obj/item/storage/fancy/cigarettes/cigpack_carcinoma,
 		/obj/item/storage/pill_bottle/fakedeath,
 		/obj/item/storage/secure/briefcase/syndie,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/suppressor,
 		/obj/item/weaponcrafting/receiver,
 	) = 45,
+
+	list(
+		// Plausible Deniability items
+		/obj/item/storage/box/syndie_kit/nuke,
+		/obj/item/storage/box/syndie_kit/supermatter
+	) = 1,
 
 	list(
 		// Health/repair kits
@@ -191,6 +209,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_3, list(
 		/obj/item/bio_chip_implanter/storage,
 		/obj/item/reagent_containers/spray/sticky_tar,
 		/obj/item/storage/box/syndie_kit/space,
+		/obj/item/card/cmag,
 	) = 3,
 ))
 

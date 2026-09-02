@@ -10,6 +10,7 @@
  */
 /obj/item/stack
 	origin_tech = "materials=1"
+	new_attack_chain = TRUE
 	/// Whether this stack is a `/cyborg` subtype or not.
 	var/is_cyborg = FALSE
 	/// The storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
@@ -35,59 +36,10 @@
 	var/dynamic_icon_state = FALSE
 	/// Whether this stack can't stack with subtypes.
 	var/parent_stack = FALSE
-
-/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	if(dynamic_icon_state) //If we have a dynamic icon state, we don't want item states to follow the same pattern.
-		item_state = initial(icon_state)
-
-	if(new_amount != null)
-		amount = new_amount
-
-	while(amount > max_amount)
-		amount -= max_amount
-		new type(loc, max_amount, FALSE)
-
-	if(!merge_type)
-		merge_type = type
-
-	if(merge && !(amount >= max_amount))
-		for(var/obj/item/stack/item_stack in loc)
-			if(item_stack == src)
-				continue
-			if(item_stack.merge_type == merge_type)
-				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
-				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack
-				if(is_zero_amount(FALSE))
-					return INITIALIZE_HINT_QDEL
-
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/stack/update_icon_state()
-	. = ..()
-	if(!dynamic_icon_state)
-		return
-
-	var/state = CEILING((amount/max_amount) * 3, 1)
-	if(state <= 1)
-		icon_state = initial(icon_state)
-		return
-
-	icon_state = "[initial(icon_state)]_[state]"
-
-/obj/item/stack/Crossed(obj/O, oldloc)
-	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
-		return
-
-	if(istype(O, merge_type) && !O.throwing)
-		merge(O)
-
-	..()
-
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(istype(AM, merge_type) && !(amount >= max_amount))
-		merge(AM)
-	. = ..()
+	/// Whether this stack can be split into multiple independent stacks.
+	var/allow_splitting = TRUE
+	/// Whether this stack deletes itself when `amount` reaches 0. 
+	var/destroy_upon_empty = TRUE
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
@@ -105,7 +57,87 @@
 		. += "There are [amount] [singular_name]\s in the stack."
 	else
 		. += "There are [amount] [name]\s in the stack."
-	. +="<span class='notice'>Alt-click to take a custom amount.</span>"
+	. +=SPAN_NOTICE("Alt-click to take a custom amount.")
+
+/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
+	if(dynamic_icon_state && isnull(inhand_icon_state)) //If we have a dynamic icon state, we don't want inhand icon states to follow the same pattern.
+		inhand_icon_state = initial(icon_state)
+
+	if(new_amount != null)
+		amount = new_amount
+
+	while(amount > max_amount)
+		amount -= max_amount
+		new type(loc, max_amount, FALSE)
+
+	if(!merge_type)
+		merge_type = type
+
+	. = ..()
+	if(merge)
+		for(var/obj/item/stack/item_stack in loc)
+			if(item_stack == src)
+				continue
+			if(can_merge(item_stack))
+				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
+				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack and let the hint handle deletion
+				if(is_zero_amount(FALSE))
+					return INITIALIZE_HINT_QDEL
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/stack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	// Don't bring up the crafting UI if there's nothing to craft.
+	if(!LAZYLEN(recipes))
+		return
+
+	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!can_merge(used, TRUE))
+		return ..()
+
+	var/obj/item/stack/material = used
+	if(merge(material))
+		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s."))
+
+/obj/item/stack/update_icon_state()
+	. = ..()
+	if(!dynamic_icon_state)
+		return
+
+	var/state = CEILING((amount/max_amount) * 3, 1)
+	if(state <= 1)
+		icon_state = initial(icon_state)
+		return
+
+	icon_state = "[initial(icon_state)]_[state]"
+
+/obj/item/stack/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
+	if(entered == src)
+		return
+
+	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
+		return
+
+	if(!entered.throwing && can_merge(entered))
+		INVOKE_ASYNC(src, PROC_REF(merge), entered)
+
+/obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(can_merge(hitting, inhand = TRUE))
+		merge(hitting)
+	. = ..()
 
 /obj/item/stack/proc/add(newamount)
 	if(is_cyborg)
@@ -114,8 +146,40 @@
 		amount += newamount
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/attack_self(mob/user)
-	ui_interact(user)
+/** Checks whether this stack can merge itself into another stack.
+ *
+ * Arguments:
+ * - check: The [/obj/item/stack] to check for mergeability.
+ * - inhand: `TRUE` if the stack should check should act like it's in a mob's hand, `FALSE` otherwise.
+ */
+/obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	// We don't only use istype here, since that will match subtypes, and stack things that shouldn't stack
+	if(!istype(check, merge_type) || check.merge_type != merge_type)
+		return FALSE
+	if(amount <= 0 || check.amount <= 0) // no merging empty stacks that are in the process of being qdel'd
+		return FALSE
+	if(is_cyborg) // No merging cyborg stacks into other stacks
+		return FALSE
+	if(ismob(loc) && !inhand) // no merging with items that are on the mob
+		return FALSE
+	return TRUE
+
+/obj/item/stack/use(used, check = TRUE)
+	if(check && is_zero_amount(TRUE))
+		return FALSE
+
+	if(is_cyborg)
+		return source.use_charge(used * cost)
+
+	if(amount < used)
+		return FALSE
+
+	amount -= used
+	if(check && is_zero_amount(TRUE))
+		return TRUE
+
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/item/stack/attack_self_tk(mob/user)
 	ui_interact(user)
@@ -136,41 +200,18 @@
 
 /obj/item/stack/attack_hand(mob/user)
 	if(!user.is_in_inactive_hand(src) && get_amount() > 1)
-		..()
-		return
+		return ..()
+
+	if(!allow_splitting)
+		return ..()
 
 	change_stack(user, 1)
 	if(src && user.machine == src)
 		ui_interact(user)
 
-/obj/item/stack/attackby(obj/item/thing, mob/user, params)
-	if((!parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
-		return ..()
-
-	var/obj/item/stack/material = thing
-	merge(material)
-	to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
-
-/obj/item/stack/use(used, check = TRUE)
-	if(check && is_zero_amount(TRUE))
-		return FALSE
-
-	if(is_cyborg)
-		return source.use_charge(used * cost)
-
-	if(amount < used)
-		return FALSE
-
-	amount -= used
-	if(check)
-		is_zero_amount(TRUE)
-
-	update_icon(UPDATE_ICON_STATE)
-	return TRUE
-
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 
 	if(!in_range(src, user) || !ishuman(usr) || amount < 1 || is_cyborg)
@@ -187,7 +228,7 @@
 		return
 
 	change_stack(user,stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+	to_chat(user, SPAN_NOTICE("You take [stackmaterial] sheets out of the stack."))
 
 /obj/item/stack/ui_state(mob/user)
 	return GLOB.hands_state
@@ -250,12 +291,18 @@
 
 /obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
 	var/list/data = list()
+	var/obj/result = recipe.result_type
 
 	data["uid"] = recipe.UID()
 	data["required_amount"] = recipe.req_amount
 	data["result_amount"] = recipe.res_amount
 	data["max_result_amount"] = recipe.max_res_amount
-	data["image"] = recipe.image
+	data["icon"] = result.icon
+	data["icon_state"] = result.icon_state
+
+	// DmIcon cannot paint images. So, if we have grayscale sprite, we need ready base64 image.
+	if(recipe.result_image)
+		data["image"] = recipe.result_image
 
 	return data
 
@@ -275,7 +322,10 @@
 	return to_transfer
 
 /obj/item/stack/proc/split(mob/user, amount)
-	var/obj/item/stack/material = new type(loc, amount)
+	if(!allow_splitting)
+		return
+
+	var/obj/item/stack/material = new type(loc, amount, FALSE)
 	material.copy_evidences(src)
 	if(isliving(user))
 		add_fingerprint(user)
@@ -285,6 +335,9 @@
 	return material
 
 /obj/item/stack/proc/change_stack(mob/user,amount)
+	if(!allow_splitting)
+		return
+
 	var/obj/item/stack/material = new type(user, amount, FALSE)
 	. = material
 	material.copy_evidences(src)
@@ -297,18 +350,15 @@
 /**
  * Returns TRUE if the item stack is the equivalent of a 0 amount item.
  *
- * Also deletes the item if delete_if_zero is TRUE and the stack does not have
- * is_cyborg set to true.
+ * Arguments: `delete_if_zero`: Deletes the stack if `TRUE` and the stack does not have
+ * `is_cyborg` set to `TRUE` or `destroy_upon_empty` set to `FALSE`.
  */
 /obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
 	if(is_cyborg)
 		return source.amount < cost
 
 	if(amount < 1)
-		if(ismob(loc))
-			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
-			L.unEquip(src, TRUE)
-		if(delete_if_zero)
+		if(destroy_upon_empty && delete_if_zero)
 			qdel(src)
 		return TRUE
 	return FALSE

@@ -60,14 +60,14 @@
 /obj/structure/sign/mining/survival,
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
-"n" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass,
-/turf/simulated/floor/pod,
-/area/survivalpod)
 "o" = (
 /obj/structure/sign/mining,
 /turf/simulated/wall/mineral/titanium/survival,
+/area/survivalpod)
+"L" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass/manual_rotation,
+/turf/simulated/floor/pod,
 /area/survivalpod)
 
 (1,1,1) = {"
@@ -89,7 +89,7 @@ b
 d
 h
 h
-n
+L
 "}
 (4,1,1) = {"
 a

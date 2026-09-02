@@ -25,9 +25,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_off"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
-	max_integrity = 200
 	integrity_failure = 50
-	light_range = 0
 	anchored = TRUE
 	/// The current screen index in the UI.
 	var/screen = NEWSCASTER_HEADLINES
@@ -92,7 +90,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 /obj/machinery/newscaster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to remove the photo currently inside it.")
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -145,17 +143,17 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
+	to_chat(user, SPAN_NOTICE("Now [anchored ? "un" : ""]securing [name]"))
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+		to_chat(user, SPAN_WARNING("The broken remains of [src] fall on the ground."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	else
-		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+		to_chat(user, SPAN_NOTICE("You [anchored ? "un" : ""]secure [name]."))
 		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
@@ -386,11 +384,10 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.transfer_item_to(P, src))
 					photo = P
-					P.forceMove(src)
-					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
-										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
+					usr.visible_message(SPAN_NOTICE("[usr] inserts [P] into [src]'s photo slot."),\
+										SPAN_NOTICE("You insert [P] into [src]'s photo slot."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
@@ -401,14 +398,14 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message("<span class='notice'>[src]'s photo slot quietly whirs as it prints [P] inside it.</span>")
+				visible_message(SPAN_NOTICE("[src]'s photo slot quietly whirs as it prints [P] inside it."))
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
 			return FALSE // Updating handled in that proc
 		if("censor_channel")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_channel/FC = locateUID(params["uid"])
 			if(!istype(FC))
@@ -419,7 +416,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_message/FM = locateUID(params["uid"])
 			if(!istype(FM))
@@ -435,7 +432,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return FALSE
 		if("clear_wanted_notice")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 			if(!WN)
@@ -645,18 +642,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
 	. = list(name = "Unknown", security = user.can_admin_interact())
 	if(ishuman(user))
-		var/mob/living/carbon/human/M = user
-		// No ID, no luck
-		if(!M.wear_id)
-			return
-		// Try to get the ID
-		var/obj/item/card/id/ID
-		if(istype(M.wear_id, /obj/item/pda))
-			var/obj/item/pda/P = M.wear_id
-			ID = P.id
-		else if(istype(M.wear_id, /obj/item/card/id))
-			ID = M.wear_id
-		if(istype(ID))
+		var/mob/living/carbon/human/human_user = user
+		var/obj/item/card/id/ID = human_user.get_id_card()
+		if(ID)
 			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
@@ -684,7 +672,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
+	visible_message(SPAN_NOTICE("[src] whirs as it prints a newspaper."))
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
@@ -739,6 +727,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	eject_photo(user)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster, 30, 30)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/newscaster/security_unit, 30, 30)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

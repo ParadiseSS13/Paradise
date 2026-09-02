@@ -23,14 +23,14 @@
 
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
-		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_HUD_LEFT_EAR)
-		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), SLOT_HUD_RIGHT_HAND)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), SLOT_HUD_SHOES)
+		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_LEFT_EAR)
+		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), ITEM_SLOT_RIGHT_HAND)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), ITEM_SLOT_SHOES)
 
 		if(!team_toggle)
 			GLOB.team_alpha += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), SLOT_HUD_JUMPSUIT)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_JUMPSUIT)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
@@ -38,12 +38,12 @@
 			W.access += get_all_centcom_access()
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+			H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 		else
 			GLOB.team_bravo += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), SLOT_HUD_JUMPSUIT)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_JUMPSUIT)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
@@ -51,7 +51,7 @@
 			W.access += get_all_centcom_access()
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+			H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 		team_toggle = !team_toggle
 		H.dna.species.after_equip_job(null, H)
@@ -66,7 +66,7 @@
 	desc = "Used for playing the most violent and degrading of childhood games."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	dribbleable = TRUE
 
 /obj/item/beach_ball/dodgeball_team/throw_impact(atom/hit_atom)
@@ -79,15 +79,15 @@
 			return
 		var/mob/A = locateUID(thrownby)
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
-			to_chat(A, "<span class='warning'>He's on your team!</span>")
+			to_chat(A, SPAN_WARNING("He's on your team!"))
 			return
 		else if((H in GLOB.team_bravo) && (A in GLOB.team_bravo))
-			to_chat(A, "<span class='warning'>He's on your team!</span>")
+			to_chat(A, SPAN_WARNING("He's on your team!"))
 			return
 		else if(!(A in GLOB.team_alpha) && !(A in GLOB.team_bravo))
-			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
+			to_chat(A, SPAN_WARNING("You're not part of the dodgeball game, sorry!"))
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
+			visible_message(SPAN_DANGER("[H] HAS BEEN ELIMINATED!"))
 			H.melt()

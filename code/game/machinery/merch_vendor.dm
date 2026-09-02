@@ -34,12 +34,18 @@
 			var/pp = replacetext(replacetext("[merch.typepath]", "/obj/item/", ""), "/", "-")
 			imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 
-/obj/machinery/economy/merch/attackby(obj/item/I, mob/user)
-	if(isspacecash(I))
-		insert_cash(I, user)
-		return TRUE
+/obj/machinery/economy/merch/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(isspacecash(used))
+		insert_cash(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
+
+/obj/machinery/economy/merch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	default_unfasten_wrench(user, I, time = 6 SECONDS)
 
 /obj/machinery/economy/merch/proc/do_purchase(datum/merch_item/merch, mob/user)
 	if(!merch)
@@ -64,13 +70,13 @@
 		if(!C || !pay_with_card(C, merch.cost, "Purchase of [merch.name]", "NAS Trurl Merchandising", user, account_database.vendor_account))
 			return FALSE
 	else
-		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.</span>")
+		to_chat(user, SPAN_WARNING("Payment failure: you have no ID or other method of payment."))
 		return FALSE
 	return TRUE
 
 /obj/machinery/economy/merch/proc/deliver(datum/merch_item/item, mob/user)
 	var/obj/item/merch = new item.typepath(get_turf(src))
-	var/obj/item/smallDelivery/D = new(get_turf(src))
+	var/obj/item/small_delivery/D = new(get_turf(src))
 	D.name = "small parcel - 'Your Nanotrasen Swag'"
 	D.wrapped = merch
 	merch.forceMove(D)
@@ -129,7 +135,7 @@
 			for(var/datum/merch_item/merch in merchandise[params["category"]])
 				if(merch.name == params["name"])
 					if(do_purchase(merch, user)) //null checking done in proc
-						to_chat(user, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
+						to_chat(user, SPAN_NOTICE("You've successfully purchased the item. It should be in your hands or on the floor."))
 					break
 		if("change")
 			. = TRUE

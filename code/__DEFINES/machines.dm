@@ -30,6 +30,23 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+#define REACTOR_INACTIVE 0		// Reactor is not operational
+#define REACTOR_NORMAL 1		// Normal operation
+#define REACTOR_NOTIFY 2		// Above 90% of heat_damage_threshold
+#define REACTOR_WARNING 3		// Integrity < 99%
+#define REACTOR_DANGER 4		// Integrity < 50%
+#define REACTOR_EMERGENCY 5		// Integrity < 25%
+#define REACTOR_MELTDOWN 6		// Integrity < 5%
+
+// The states of nuclear reactor chambers.
+#define CHAMBER_DOWN	 		1
+#define CHAMBER_UP		 		2
+#define CHAMBER_OPEN			3
+#define CHAMBER_OVERLOAD_IDLE	4
+#define CHAMBER_OVERLOAD_ACTIVE	5
+
+#define HEAT_MODIFIER 450 //! A flat multiplier for all reactor heat. Higher = more heat production.
+
 // More defines for the suppermatter
 /// Higher == Crystal safe operational temperature is higher.
 #define SUPERMATTER_HEAT_PENALTY_THRESHOLD 40
@@ -84,15 +101,16 @@
 /**
  * Air alarm modes
  */
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
+#define AALARM_MODE_FILTERING 1
+#define AALARM_MODE_DRAUGHT 2 //makes draught
 #define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_CYCLE 4 //sucks off all air, then refill and swithes to scrubbing
 #define AALARM_MODE_SIPHON 5 //Scrubbers suck air
 #define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
+#define AALARM_MODE_REFILL 7 //just like normal, but disables low pressure check until normalized, then switches to normal
 #define AALARM_MODE_OFF 8
 #define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
+#define AALARM_MODE_CUSTOM 10
 
 #define NUKE_STATUS_INTACT 0
 #define NUKE_CORE_MISSING 1
@@ -108,3 +126,19 @@
 #define RC_SUPPLY (1<<1)
 /// [/obj/machinery/requests_console] can relay anonymous information.
 #define RC_INFO   (1<<2)
+
+/// ORM point defines
+#define ORM_BASE_POINT_MULT 0.90
+#define ORM_BASE_SHEET_MULT 0.90
+#define ORM_POINT_MULT_ADD_PER_RATING 0.10
+#define ORM_SHEET_MULT_ADD_PER_RATING 0.10
+
+/// Salvage machine point defines
+#define SALVAGE_REDEMPTION_BASE_POINT_MULT 0.6
+#define SALVAGE_REDEMPTION_POINT_MULT_ADD_PER_RATING 0.1
+
+/// Solar panel material multiplier defines
+#define RGLASS_SOLAR_MULT 1.1
+#define PLASMAGLASS_SOLAR_MULT 1.7
+#define PLASMARGLASS_SOLAR_MULT 1.8
+#define PLASTITANIUMGLASS_SOLAR_MULT 2.4

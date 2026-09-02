@@ -17,16 +17,17 @@
 	///station account database
 	var/datum/money_account_database/account_db
 
-/obj/machinery/computer/account_database/Initialize()
+/obj/machinery/computer/account_database/Initialize(mapload)
 	. = ..()
 	reconnect_database()
 
 /obj/machinery/computer/account_database/proc/reconnect_database()
 	account_db = GLOB.station_money_database
 
-/obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
-	if(ui_login_attackby(O, user))
-		return
+/obj/machinery/computer/account_database/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(ui_login_attackby(used, user))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
@@ -117,16 +118,16 @@
 			if(!attempt_pin || !Adjacent(ui.user))
 				return
 			if(!account_db.try_authenticate_login(detailed_account_view, attempt_pin, FALSE, FALSE, FALSE) || detailed_account_view.account_pin != attempt_pin)
-				to_chat(ui.user, "<span class='warning'>Authentification Failure: Incorrect Pin or insufficient access.</span>")
+				to_chat(ui.user, SPAN_WARNING("Authentification Failure: Incorrect Pin or insufficient access."))
 				return
 			var/new_pin = input("Enter the new pin for this account", "New Account Pin") as num
 			if(!new_pin || !Adjacent(ui.user))
 				return
 			if(new_pin < 1 || new_pin >= 1000000)
-				to_chat(ui.user, "<span class='warning'>Account Error: New pin must be a number between 000001 and 999999.</span>")
+				to_chat(ui.user, SPAN_WARNING("Account Error: New pin must be a number between 000001 and 999999."))
 				return
 			detailed_account_view.account_pin = new_pin
-			to_chat(ui.user, "<span class='notice'>The [detailed_account_view.account_name] account pin has been set to [new_pin] successfully.</span>")
+			to_chat(ui.user, SPAN_NOTICE("The [detailed_account_view.account_name] account pin has been set to [new_pin] successfully."))
 		if("toggle_suspension")
 			if(detailed_account_view)
 				detailed_account_view.suspended = !detailed_account_view.suspended
@@ -142,7 +143,7 @@
 
 /obj/machinery/computer/account_database/proc/print_new_account_info(datum/money_account/account)
 	//create a sealed package containing the account details
-	var/obj/item/smallDelivery/package = new /obj/item/smallDelivery(loc)
+	var/obj/item/small_delivery/package = new /obj/item/small_delivery(loc)
 
 	var/obj/item/paper/printout = new /obj/item/paper(package)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)

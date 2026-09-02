@@ -17,3 +17,9 @@
 #define COLD_GAS_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
 #define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
 #define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
+
+/// Shock defines
+#define SHOCK_MINOR 1 // Minimum amount of damage for something to be considered a minor shock
+#define SHOCK_MODERATE 26 // Minimum amount of damage for something to be considered a moderate shock
+#define SHOCK_MAJOR 51 // Minimum amount of damage for something to be considered a major shock
+#define SHOCK_FLASH 201 // Minimum amount of damage to arc flash

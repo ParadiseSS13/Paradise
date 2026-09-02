@@ -11,7 +11,6 @@
 	layer = OBJ_LAYER
 
 	idle_power_consumption = 500
-	active_power_consumption = 0
 
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
@@ -42,11 +41,56 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
-	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
+	. += SPAN_NOTICE("Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.")
+	. += SPAN_NOTICE("The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).")
+	. += SPAN_NOTICE("You can <b>Ctrl-Click</b> this to toggle it on, or <b>Alt-Click</b> it to [cooling ? "minimize" : "maximize"] the set temperature.")
+	. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> this to switch it to [cooling ? "heating" : "cooling"] mode.")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
-		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
+		. += SPAN_NOTICE("The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.")
+		. += SPAN_NOTICE("Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.")
+
+/obj/machinery/atmospherics/unary/thermomachine/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
+/obj/machinery/atmospherics/unary/thermomachine/CtrlClick(mob/living/user)
+	if(can_use_shortcut(user))
+		if(on)
+			on = FALSE
+			update_icon()
+		else
+			on = TRUE
+			update_icon()
+
+/obj/machinery/atmospherics/unary/thermomachine/AltClick(mob/living/user)
+	if(can_use_shortcut(user))
+		if(cooling)
+			target_temperature = min_temperature
+		else
+			target_temperature = max_temperature
+
+/obj/machinery/atmospherics/unary/thermomachine/AltShiftClick(mob/living/carbon/human/user)
+	if(can_use_shortcut(user))
+		swap_function()
+
+/obj/machinery/atmospherics/unary/thermomachine/AICtrlClick(mob/living/silicon/user)
+	if(can_use_shortcut(user))
+		if(on)
+			on = FALSE
+			update_icon()
+		else
+			on = TRUE
+			update_icon()
+
+/obj/machinery/atmospherics/unary/thermomachine/AIAltClick(mob/living/silicon/user)
+	if(can_use_shortcut(user))
+		if(cooling)
+			target_temperature = min_temperature
+		else
+			target_temperature = max_temperature
+
+/obj/machinery/atmospherics/unary/thermomachine/AIAltShiftClick(mob/living/silicon/user)
+	if(can_use_shortcut(user))
+		swap_function()
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -132,7 +176,7 @@
 /obj/machinery/atmospherics/unary/thermomachine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Open the maintenance panel first."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -158,7 +202,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/attack_hand(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 	ui_interact(user)
 
@@ -193,12 +237,12 @@
 		if("power")
 			on = !on
 			change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			update_icon()
 			. = TRUE
 		if("cooling")
 			swap_function()
-			investigate_log("was changed to [cooling ? "cooling" : "heating"] by [key_name(usr)]", "atmos")
+			investigate_log("was changed to [cooling ? "cooling" : "heating"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 		if("target")
 			var/target = params["target"]
@@ -215,14 +259,9 @@
 				. = TRUE
 			if(.)
 				target_temperature = clamp(target, min_temperature, max_temperature)
-				investigate_log("was set to [target_temperature] K by [key_name(usr)]", "atmos")
+				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer
-	icon_state = "freezer"
-	icon_state_off = "freezer"
-	icon_state_on = "freezer_1"
-	icon_state_open = "freezer-o"
-	cooling = TRUE
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on
 	on = TRUE
@@ -257,3 +296,16 @@
 /obj/machinery/atmospherics/unary/thermomachine/heater/on
 	on = TRUE
 	icon_state = "heater_1"
+
+/obj/machinery/atmospherics/unary/thermomachine/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/thermomachine(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(src)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
+	update_icon()

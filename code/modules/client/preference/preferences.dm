@@ -1,13 +1,20 @@
-GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
+/// Minimum age (in days) for accounts to play these roles.
+GLOBAL_LIST_INIT(special_role_times, list(
+	ROLE_ROBOT_BRAIN = 0,
+	ROLE_GOLEM = 0,
 	ROLE_PAI = 0,
 	ROLE_GUARDIAN = 0,
+	ROLE_IRRADIATED_MOUSE = 7,
 	ROLE_TRAITOR = 7,
 	ROLE_CHANGELING = 14,
 	ROLE_WIZARD = 14,
+	ROLE_NINJA = 14,
 	ROLE_REV = 14,
 	ROLE_VAMPIRE = 14,
 	ROLE_BLOB = 14,
+	ROLE_FLOCK = 14,
 	ROLE_REVENANT = 14,
+	ROLE_UPLIFTED_PRIMITIVE = 14,
 	ROLE_OPERATIVE = 21,
 	ROLE_CULTIST = 21,
 	ROLE_ALIEN = 21,
@@ -62,13 +69,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT // Created for see above. I need to JSONify this at some point -aa07
 	var/sound = SOUND_DEFAULT
 	var/light = LIGHT_DEFAULT
 	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
 	var/glowlevel = GLOW_MED
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
-	var/clientfps = 63
+	/// This value will be converted by BYOND, don't set already converted values there, otherwise it will set client's fps 1 step higher than it should've
+	var/clientfps = 100
 	var/atklog = ATKLOG_ALL
 	/// Forum userid
 	var/fuid
@@ -87,7 +96,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1016" = 100, // CHANNEL_FIREALARM
 		"1015" = 100, // CHANNEL_ASH_STORM
 		"1014" = 100, // CHANNEL_RADIO_NOISE
-		"1013" = 100 // CHANNEL_BOSS_MUSIC
+		"1013" = 100, // CHANNEL_BOSS_MUSIC
+		"1011" = 100 // CHANNEL_SURGERY_SOUNDS
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -130,6 +140,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/admin_sound_ckey_ignore = list()
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+	/// Map preferences for the first past the post system
+	var/list/map_vote_pref_json = list()
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -150,7 +162,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		successful_load = load_preferences(Q)
 		if(!successful_load)
-			to_chat(C, "<span class='narsie'>Your preferences failed to load. Please inform the server host immediately.</span>")
+			to_chat(C, SPAN_NARSIE("Your preferences failed to load. Please inform the server host immediately."))
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -168,8 +180,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<center>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' 	[current_tab == TAB_CHAR 	? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' 	[current_tab == TAB_GAME 	? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GEAR]' 	[current_tab == TAB_GEAR 	? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_ANTAG]' 	[current_tab == TAB_ANTAG 	? "class='linkOn'" : ""]>Antagonists and Maps</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' 	[current_tab == TAB_KEYS 	? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
@@ -182,7 +193,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				active_character.species = initial(active_character.species)
 				S = GLOB.all_species[active_character.species]
 				active_character.randomise()
-
+			active_character.rebuild_quirks()
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
@@ -195,13 +206,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a>"
 			if(active_character.from_db)
-				dat += "- <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Clear slot</span></a>"
+				dat += "- <a href=\"byond://?_src_=prefs;preference=clear\">[SPAN_BAD("Clear slot")]</a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
 			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
-			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
+			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(Randomize)</a><br>"
 			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
@@ -234,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Physique:</b> <a href='byond://?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
 			dat += "<b>Height:</b> <a href='byond://?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<b>Cyborg Brain Type:</b> <a href='byond://?_src_=prefs;preference=cyborg_brain_type;task=input'>[active_character.cyborg_brain_type]</a><br>"
+			dat += "<b>PDA Ringtone:</b> <a href='byond://?_src_=prefs;preference=pda_ringtone;task=input'>[active_character.pda_ringtone]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))
@@ -294,7 +306,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				active_character.f_style = "Shaved"
 
 
-			if(!(S.bodyflags & ALL_RPARTS))
+			if(!(S.bodyflags & ALL_RPARTS) && (S.eyes != "blank_eyes") && !(S.bodyflags & NO_EYES))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
 
@@ -389,7 +401,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[active_character.undershirt]</a><BR>"
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
+			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br><br>"
+			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=quirks;task=input'>Open Quirk Menu</a><br>"
 
 			var/datum/species/myspecies = GLOB.all_species[active_character.species]
 			if(!isnull(myspecies))
@@ -414,7 +428,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Colourblind Mode:</b> <a href='byond://?_src_=prefs;preference=cbmode'>[colourblind_mode]</a><br>"
 			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
-			dat += "<b>FPS:</b>	 <a href='byond://?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>FPS:</b>	 <a href='byond://?_src_=prefs;preference=clientfps;task=input'>[user.client.fps]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
@@ -440,6 +454,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>TGUI strip menu size:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Full-size" : "Miniature"]</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='byond://?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='byond://?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Mute End Of Round Sounds:</b> <a href='byond://?_src_=prefs;preference=mute_end_of_round'><b>[(sound & SOUND_MUTE_END_OF_ROUND) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='byond://?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>View Range:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
@@ -467,6 +482,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Set screentip mode:</b> <a href='byond://?_src_=prefs;preference=screentip_mode'>[(screentip_mode == 0) ? "Disabled" : "[screentip_mode]px"]</a><br>"
 			dat += "<b>Screentip color:</b> <span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=screentip_color'><b>Change</b></a><br>"
 			dat += "<b>Thought Bubble when pointing:</b> <a href='byond://?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Cogbar indicators:</b> <a href='byond://?_src_=prefs;preference=cogbar'>[(toggles3 & PREFTOGGLE_3_COGBAR_ANIMATIONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>Alpha (transparency):</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
@@ -477,84 +493,25 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
+			dat += "<b>Dark flash:</b> <a href='byond://?_src_=prefs;preference=dark_flash'>[(toggles3 & PREFTOGGLE_3_DARK_FLASH) ? "Yes" : "No"]</a><br>"
 			dat += "</td></tr></table>"
 
-		if(TAB_ANTAG) // Antagonist's Preferences
+		if(TAB_ANTAG) // Antagonist's Preferences (and maps)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
-			dat += "<h2>Special Role Settings</h2>"
-			if(jobban_isbanned(user, ROLE_SYNDICATE))
-				dat += "<b>You are banned from special roles.</b>"
-				be_special = list()
-			else
-				for(var/i in GLOB.special_roles)
-					if(jobban_isbanned(user, i))
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-					else if(!player_old_enough_antag(user.client, i))
-						var/available_in_days_antag = available_in_days_antag(user.client, i)
-						var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
-						if(available_in_days_antag)
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
-						else if(role_available_in_playtime)
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
-						else
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
-					else
-						var/is_special = (i in src.be_special)
-						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+			dat += "<h2>Antagonist Role Settings</h2>"
+			dat += get_role_settings(user, GLOB.special_roles_antags)
+			dat += "<h2>Neutral Role Settings</h2>"
+			dat += get_role_settings(user, GLOB.special_roles_neutral)
 
 			dat += "<h2>Total Playtime:</h2>"
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
-				dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
+				dat += SPAN_WARNING("Playtime tracking is not enabled.")
 			else
 				dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
+			dat += "</td><td width='405px' height='300px' valign='top'>"
+			dat += "<h2>Map Settings</h2>"
+			dat += " - <b>Choose your map preferences:</b> <a href='byond://?_src_=prefs;preference=map_pick'><b>Click here!</b></a><br>"
 			dat += "</td></tr></table>"
-
-		if(TAB_GEAR)
-			var/total_cost = build_loadout()
-
-			var/fcolor = "#3366CC"
-			if(total_cost < max_gear_slots)
-				fcolor = "#E67300"
-			dat += "<table align='center' width='100%'>"
-			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='byond://?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
-			dat += "<tr><td colspan=4><center><b>"
-
-			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
-				if(firstcat)
-					firstcat = 0
-				else
-					dat += " |"
-				if(category == gear_tab)
-					dat += " <span class='linkOff'>[category]</span> "
-				else
-					dat += " <a href='byond://?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
-			dat += "</b></center></td></tr>"
-
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			for(var/gear_name in LC.gear)
-				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.type in active_character.loadout_gear)
-				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
-				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='byond://?_src_=prefs;preference=gear;toggle_gear=[G.type]'>[G.display_name]</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
-				if(G.allowed_roles)
-					dat += "<font size=2>Restrictions: "
-					for(var/role in G.allowed_roles)
-						dat += role + " "
-					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
-				if(ticked)
-					. += "<tr><td colspan=4>"
-					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
-						. += " <a href='byond://?_src_=prefs;preference=gear;gear=[G.type];tweak=\ref[tweak]'>[tweak.get_contents(active_character.get_tweak_metadata(G, tweak))]</a>"
-					. += "</td></tr>"
-			dat += "</table>"
 
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -593,7 +550,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'>[SPAN_GOOD("+")]</a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
 						var/datum/keybinding/custom/custom_emote_keybind = kb
@@ -647,13 +604,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if(PREFTOGGLE_SPECIAL)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
 						if(PREFTOGGLE_TOGGLE1)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_TOGGLE2)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
+						if(PREFTOGGLE_TOGGLE3)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_SOUND)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 						if(PREFTOGGLE_LIGHT)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? SPAN_GOOD("Enabled") : SPAN_BAD("Disabled")]</a></td>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 
@@ -666,9 +625,33 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
+
+/datum/preferences/proc/get_role_settings(mob/user, list/global_role_list)
+	var/html
+	if(jobban_isbanned(user, ROLE_SYNDICATE))
+		html += "<b>You are banned from special roles.</b>"
+		be_special = list()
+		return html
+
+	for(var/role in global_role_list)
+		if(jobban_isbanned(user, role))
+			html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[BANNED]</b></font><br>"
+		else if(!player_old_enough_antag(user.client, role))
+			var/available_in_days_antag = available_in_days_antag(user.client, role)
+			var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, role))
+			if(available_in_days_antag)
+				html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
+			else if(role_available_in_playtime)
+				html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
+			else
+				html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[ERROR]</b></font><br>"
+		else
+			var/is_special = (role in src.be_special)
+			html += "<b>Be [capitalize(role)]:</b><a class='[is_special ? "green" : "red"]' href='byond://?_src_=prefs;preference=be_special;role=[role]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+	return html
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 	var/dat = "<body>"
@@ -707,7 +690,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return
 
 	if(!isnum(desiredLvl))
-		to_chat(user, "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
+		to_chat(user, SPAN_WARNING("UpdateJobPreference - desired level was not a number. Please notify coders!"))
 		ShowChoices(user)
 		return
 
@@ -769,24 +752,23 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/loadout_cache = active_character.loadout_gear.Copy()
 	active_character.loadout_gear.Cut()
 	if(new_item)
-		loadout_cache += new_item.type
+		loadout_cache += "[new_item]"
 
-	for(var/I in loadout_cache)
-		var/datum/gear/G = GLOB.gear_datums[text2path(I) || I]
-		if(!G)
+	for(var/item in loadout_cache)
+		var/datum/gear/gear = text2path(item) || item
+		if(!gear || !(gear.type in GLOB.gear_datums))
 			continue
-		var/added_cost = G.cost
-		if(!G.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
-			if(G.main_typepath in type_blacklist)
+		var/added_cost = gear.cost
+		if(!gear.subtype_selection_cost) // If listings of the same subtype shouldn't have their cost added.
+			if(gear.main_typepath in type_blacklist)
 				added_cost = 0
 			else
-				type_blacklist += G.main_typepath
+				type_blacklist += gear.main_typepath
 		if((total_cost + added_cost) > max_gear_slots)
 			continue // If the final cost is too high, don't add the item.
-		active_character.loadout_gear += G.type
+		active_character.loadout_gear[item] = loadout_cache[item] ? loadout_cache[item] : list()
 		total_cost += added_cost
 	return total_cost
-
 
 /datum/preferences/proc/init_keybindings(overrides, raw)
 	if(raw)
@@ -817,7 +799,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		var shift = e.shiftKey ? 1 : 0;
 		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
 		var escPressed = e.keyCode == 27 ? 1 : 0;
-		var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		var number = 0;
+		if(e.keyCode >= 48 && e.keyCode <= 57) { <!-- keycodes 48-57 equate to 0-9, e.key returns the key eg, ! instead of shift + 1 -->
+			number = e.keyCode - 48; <!-- gets the number from the keycode and we use that instead of e.key -->
+			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+number+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		} else {
+			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		}
 		window.location=url;
 		deedDone = true;
 	}

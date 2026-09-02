@@ -80,28 +80,28 @@ how messages are typically handled.
 
 // Also Good
 user.visible_message(
-    "<span class='notice'>[user] writes Hello World!</span>",
-    "<span class='notice'>You write Hello World!.</span>",
-    "<span class='notice'>You hear someone writing Hello World!.</span>"
+    SPAN_NOTICE("[user] writes Hello World!"),
+    SPAN_NOTICE("You write Hello World!."),
+    SPAN_NOTICE("You hear someone writing Hello World!.")
 )
 ```
 
 #### Common Classes
 
-- ``'notice'``: used to convey anything the player should be aware of, including
+- `'notice'`: used to convey anything the player should be aware of, including
   actions, successes, and other pertinent information that is non-threatening.
   This also includes information directly unrelated to gameplay.
-- ``'warning'``: used for failures, errors, and warnings
-- ``'danger'``: danger occurring around the player or to other players, damage
+- `'warning'`: used for failures, errors, and warnings
+- `'danger'`: danger occurring around the player or to other players, damage
   to things around the player
-- ``'userdanger'``: used to convey to the player that they are being attacked or
+- `'userdanger'`: used to convey to the player that they are being attacked or
   damaged
 
 These can be set using in-line span tags.
 
 ```dm
 proc/my_example_proc
-    to_chat(user, "<span class='notice'>Message with the notice style.</span>")
+    to_chat(user, SPAN_NOTICE("Message with the notice style."))
 ```
 
 You are not limited to the styles listed above. It is important, however, to
@@ -205,8 +205,8 @@ unnecessarily down the line.
 var/list/numbers = list(
     1, 2, 3)
 
-user.visible_message("<span class='notice'>[user] writes the style guide.</span>",
-"<span class='notice'>You wonder if you're following the guide correctly.</span>")
+user.visible_message(SPAN_NOTICE("[user] writes the style guide."),
+SPAN_NOTICE("You wonder if you're following the guide correctly."))
 
 // Good
 var/list/numbers = list(
@@ -216,9 +216,9 @@ var/list/numbers = list(
 )
 
 user.visible_message(
-    "<span class='notice'>[user] writes the style guide.</span>",
-    "<span class='notice'>You write the style guide.</span>",
-    "<span class='notice'>You hear typing.</span>"
+    SPAN_NOTICE("[user] writes the style guide."),
+    SPAN_NOTICE("You write the style guide."),
+    SPAN_NOTICE("You hear typing.")
 )
 
 // Also good
@@ -305,7 +305,7 @@ guidelines when creating a new file.
 
 - Keep names short (≤ 25 characters).
 - Do not add spaces. Use underscores to separate words.
-- Do not include special characters such as: " / \ [ ] : ; | = , < ? > & $ # ! ' { } *.
+- Do not include special characters such as: " / \ [ ] : ; | = , < ? > & $ # ! ' { } \*.
 
 ### References
 

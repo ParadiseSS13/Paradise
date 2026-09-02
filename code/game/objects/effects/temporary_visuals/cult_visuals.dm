@@ -1,8 +1,8 @@
 //temporary visual effects(/obj/effect/temp_visual) used by cult stuff
 /obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
+	icon_state = null
 	randomdir = FALSE
-	duration = 10
 
 /obj/effect/temp_visual/cult/sparks
 	randomdir = TRUE
@@ -11,7 +11,6 @@
 
 /obj/effect/temp_visual/cult/sparks/hierophant
 	icon = 'icons/effects/effects.dmi'
-	randomdir = TRUE
 	duration = 12
 	name = "purple sparks"
 	icon_state = "hierophant_blast"

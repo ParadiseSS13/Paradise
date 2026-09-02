@@ -2,14 +2,11 @@
 /mob/living/simple_animal/bot/cleanbot
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	radio_channel = "Service" //Service
-	bot_filter = RADIO_CLEANBOT
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"
 	bot_purpose = "seek out messes and clean them"
@@ -43,7 +40,8 @@
 		/obj/effect/decal/cleanable/ash,
 		/obj/effect/decal/cleanable/greenglow,
 		/obj/effect/decal/cleanable/dirt,
-		/obj/effect/decal/cleanable/glass
+		/obj/effect/decal/cleanable/glass,
+		/obj/effect/decal/cleanable/paint_splat
 	)
 	var/static/list/clean_blood = list(
 		/obj/effect/decal/cleanable/blood,
@@ -77,7 +75,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
-	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
+	clear_ignore_list()
 	target = null
 	oldloc = null
 	area_locked = null
@@ -88,26 +86,18 @@
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(allowed(user) && !open && !emagged)
-			locked = !locked
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
-		else
-			if(emagged)
-				to_chat(user, "<span class='warning'>ERROR</span>")
-			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
-			else
-				to_chat(user, "<span class='notice'>\The [src] doesn't seem to respect your authority.</span>")
-	else
-		return ..()
+		toggle_lock(user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			to_chat(user, SPAN_DANGER("[src] buzzes and beeps."))
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	if(!(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood)))
@@ -133,7 +123,7 @@
 				T.MakeSlippery()
 
 			if(prob(5)) //Spawns foam!
-				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
+				visible_message(SPAN_DANGER("[src] whirs and bubbles violently, before releasing a plume of froth!"))
 				new /obj/effect/particle_effect/foam(loc)
 
 	else if(prob(5))
@@ -155,20 +145,23 @@
 		target = null
 
 	if(target)
-		if(!path || !length(path)) //No path, need a new one
-			//Try to produce a path to the target, and ignore airlocks to which it has access.
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
+		if(!length(path)) //No path, need a new one
+			set_mode(BOT_PATHING)
 			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				add_to_ignore(target)
 				target = null
 				path = list()
+				set_mode(BOT_IDLE)
 				return
-			mode = BOT_MOVING
+			set_mode(BOT_MOVING)
+
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
-			mode = BOT_IDLE
+			set_mode(BOT_IDLE)
 			return
 
 	oldloc = loc
@@ -183,8 +176,8 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
-	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
-	mode = BOT_CLEANING
+	visible_message(SPAN_NOTICE("[src] begins to clean up [target]"))
+	set_mode(BOT_CLEANING)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
@@ -193,12 +186,12 @@
 		ignore_job -= target.UID()
 		QDEL_NULL(target)
 		anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -231,7 +224,7 @@
 	if(..())
 		return
 	if(action != "area" && topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE

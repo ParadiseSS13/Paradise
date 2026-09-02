@@ -40,12 +40,12 @@
 
 /obj/machinery/gibber/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to empty it.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to empty it.")
 
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message(SPAN_DANGER("<b>[user] climbs into [src] and turns it on!</b>"))
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -84,33 +84,33 @@
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
+		to_chat(user, SPAN_DANGER("The gibber is locked and running, wait for it to finish."))
 		return
 
 	if(locked)
-		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
+		to_chat(user, SPAN_WARNING("Wait for [occupant.name] to finish being loaded!"))
 		return
 
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
+/obj/machinery/gibber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		if(G.state < 2)
-			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
+			to_chat(user, SPAN_DANGER("You need a better grip to do that!"))
+			return ITEM_INTERACT_COMPLETE
 		move_into_gibber(user,G.affecting)
 		qdel(G)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
-		return
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
-		return
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, P))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -131,28 +131,28 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>[src] is full, empty it first!</span>")
+		to_chat(user, SPAN_DANGER("[src] is full, empty it first!"))
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>[src] is locked and running, wait for it to finish.</span>")
+		to_chat(user, SPAN_DANGER("[src] is locked and running, wait for it to finish."))
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
+		to_chat(user, SPAN_DANGER("This is not suitable for [src]!"))
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")
+	user.visible_message(SPAN_DANGER("[user] starts to put [victim] into [src]!"))
 	add_fingerprint(user)
 
 	if(victim.abiotic(TRUE))
-		to_chat(user, "<span class='danger'>Clothing detected. Please speak to an engineer if any clothing jams up the internal grinders!</span>")
+		to_chat(user, SPAN_DANGER("Clothing detected. Please speak to an engineer if any clothing jams up the internal grinders!"))
 		if(do_after(user, 15 SECONDS, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant) //15 seconds if they are not fully stripped, 12 more than normal. Similarly, takes about that long to strip a person in a ert hardsuit of all gear.
-			user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
+			user.visible_message(SPAN_DANGER("[user] stuffs [victim] into [src]!"))
 		else
 			return
 	else if(do_after(user, 3 SECONDS, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
+		user.visible_message(SPAN_DANGER("[user] stuffs [victim] into [src]!"))
 	else
 		return
 	QDEL_LIST_CONTENTS(victim.grabbed_by)
@@ -228,15 +228,15 @@
 		return
 
 	if(!occupant)
-		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
+		visible_message(SPAN_DANGER("You hear a loud, metallic grinding sound."))
 		return
 
 	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
-		visible_message("<span class='warning'>[src] jams up as [occupant]'s corpse rapidly grows in size...</span>")
+		visible_message(SPAN_WARNING("[src] jams up as [occupant]'s corpse rapidly grows in size..."))
 		return
 
 	use_power(1000)
-	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
+	visible_message(SPAN_DANGER("You hear a loud, squelchy grinding sound."))
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
@@ -245,25 +245,22 @@
 
 	var/slab_name = occupant.name
 	var/slab_count = 6
-	var/slab_type = /obj/item/food/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
-
-	for(var/i=1 to slab_count)
-		var/obj/item/food/meat/new_meat = new slab_type(src)
-		new_meat.name = "[slab_name] [new_meat.name]"
-		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
-
-
-		if(occupant.reagents)
-			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count, 1))
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
 		var/skinned = H.dna.species.skinned_type
 		if(skinned)
 			new skinned(src)
+		var/slab_type = H.dna.species.meat_type
+		for(var/i in 1 to slab_count)
+			var/obj/item/food/meat/new_meat = new slab_type(src)
+			new_meat.name = "[slab_name] [new_meat.name]"
+			new_meat.reagents.add_reagent("nutriment", slab_nutrition)
+			if(occupant.reagents)
+				occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count, 1))
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
@@ -281,18 +278,18 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
-			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(ITEM_SLOT_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null
-		if(H.get_item_by_slot(SLOT_HUD_LEFT_STORE))
-			var/obj/item/ls = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET))
+			var/obj/item/ls = H.get_item_by_slot(ITEM_SLOT_LEFT_POCKET)
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
-			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
+		if(H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET))
+			var/obj/item/rs = H.get_item_by_slot(ITEM_SLOT_RIGHT_POCKET)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null
@@ -366,7 +363,7 @@
 		victim_targets += H
 
 	if(length(victim_targets))
-		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
+		visible_message(SPAN_DANGER("\The [src] states, \"Food detected!\""))
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
@@ -381,7 +378,7 @@
 
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(mob/living/carbon/human/victim)
 	if(!istype(victim))	return 0
-	visible_message("<span class='danger'>\The [victim.name] gets sucked into \the [src]!</span>")
+	visible_message(SPAN_DANGER("\The [victim.name] gets sucked into \the [src]!"))
 
 	victim.forceMove(src)
 	occupant = victim
@@ -402,16 +399,14 @@
 				continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
-		H.unEquip(O)
-		O.loc = loc
+		H.transfer_item_to(O, loc)
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
 		if(C.flags & NODROP || stealthmode)
 			qdel(C)
-		H.unEquip(C)
-		C.loc = loc
+		H.transfer_item_to(C, loc)
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
@@ -428,6 +423,6 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+		visible_message(SPAN_WARNING("\The [src] spits out more possessions!"))
 
 #undef GIBBER_ANIMATION_DELAY

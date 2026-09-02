@@ -1,18 +1,19 @@
 //copy pasta of the space piano, don't hurt me -Pete
 /obj/item/instrument
 	name = "generic instrument"
-	force = 10
-	max_integrity = 100
-	resistance_flags = FLAMMABLE
 	icon = 'icons/obj/musician.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/instruments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/instruments_righthand.dmi'
+	force = 10
+	max_integrity = 100
+	resistance_flags = FLAMMABLE
 	/// Our song datum.
 	var/datum/song/handheld/song
 	/// Our allowed list of instrument ids. This is nulled on initialize.
 	var/list/allowed_instrument_ids
 	/// How far away our song datum can be heard.
 	var/instrument_range = 15
+	new_attack_chain = TRUE
 
 /obj/item/instrument/Initialize(mapload)
 	. = ..()
@@ -24,11 +25,16 @@
 	return ..()
 
 /obj/item/instrument/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
-/obj/item/instrument/attack_self(mob/user)
+/obj/item/instrument/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/instrument/ui_data(mob/user)
 	return song.ui_data(user)

@@ -18,7 +18,7 @@
 	. = ..()
 	if(iscarbon(target) && target != summoner)
 		if(length(battlecry) > 11)//no more then 11 letters in a battle cry.
-			visible_message("<span class='danger'>[src] punches [target]!</span>")
+			visible_message(SPAN_DANGER("[src] punches [target]!"))
 		else
 			say("[battlecry][battlecry][battlecry][battlecry][battlecry]", TRUE)
 		playsound(loc, attack_sound, 50, TRUE, 1)

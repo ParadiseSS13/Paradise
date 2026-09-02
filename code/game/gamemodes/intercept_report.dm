@@ -116,7 +116,7 @@
 				if((man.mind.assigned_role in SSticker.mode.protected_jobs) || (man.mind.assigned_role in SSticker.mode.restricted_jobs))
 					return
 			//don't include suspects who can't possibly be the antag based on their species (no suspecting the machines of being sneaky changelings)
-			if(man.dna.species.name in SSticker.mode.protected_species)
+			if(man.dna.species.name in SSticker.mode.species_to_mindflayer)
 				return
 			dudes += man
 	for(var/i = 0, i < max(length(GLOB.player_list)/10,2), i++)
@@ -230,5 +230,5 @@
 	src.text += "Our intelligence suggests a [prob_right_job]% chance that a [changeling_job] on board your station has been replaced by the alien.  "
 	src.text += "Additionally, the report indicates a [prob_right_dude]% chance that [changeling_name] may have been in contact with the lifeform at a recent social gathering.  "
 	*/
-	src.text += "These lifeforms are assosciated with the [orgname1] [orgname2] and may be attempting to acquire sensitive materials on their behalf.  "
+	src.text += "These lifeforms are associated with the [orgname1] [orgname2] and may be attempting to acquire sensitive materials on their behalf. "
 	src.text += "Please take care not to alarm the crew, as [cname] may take advantage of a panic situation. Remember, they can be anybody, suspect everybody!"

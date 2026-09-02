@@ -14,6 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	var/list/cargo = list()
 	var/cargo_capacity = 15
 
@@ -123,6 +124,8 @@
 //drake hides
 	if(drake_hides)
 		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			underlays.Cut()
+			underlays += emissive_appearance(emissive_appearance_icon, occupant ? "ripley-d-full_lightmask" : "ripley-d-full-open_lightmask")
 			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
 		else if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
 			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
@@ -147,7 +150,6 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
@@ -162,16 +164,14 @@
 	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
 
 /obj/mecha/working/ripley/deathripley
-	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "DEATH-RIPLEY"
+	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE!"
 	icon_state = "deathripley"
 	initial_icon = "deathripley"
 	step_in = 3
 	slow_pressure_step_in = 3
-	opacity=0
 	max_temperature = 65000
 	max_integrity = 300
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
@@ -194,14 +194,39 @@
 	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
 
 /obj/mecha/working/ripley/mining
-	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
-	obj_integrity = 75 //Low starting health
+
+/obj/mecha/working/ripley/mining/proc/prepare_equipment()
+	SHOULD_CALL_PARENT(FALSE)
+
+	// Diamond drill as a treat
+	var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new
+	D.attach(src)
+
+	// Add ore box to cargo
+	cargo.Add(new /obj/structure/ore_box(src))
+
+	// Attach hydraulic clamp
+	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
+	HC.attach(src)
+
+	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
+	scanner.attach(src)
 
 /obj/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
+	prepare_equipment()
+
+/obj/mecha/working/ripley/mining/old
+	desc = "An old, dusty mining ripley."
+	obj_integrity = 75 //Low starting health
+
+/obj/mecha/working/ripley/mining/old/add_cell()
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
+
+/obj/mecha/working/ripley/mining/old/prepare_equipment()
 	//Attach drill
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?
@@ -232,18 +257,18 @@
 	return ..()
 
 /obj/mecha/working/ripley/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
+			occupant_message(SPAN_NOTICE("You unload [O]."))
 			O.loc = get_turf(src)
 			cargo -= O
 			var/turf/T = get_turf(O)
 			if(T)
 				T.Entered(O)
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
-	return
 
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()
@@ -282,5 +307,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
+		desc += "</br>[SPAN_DANGER("The mech's equipment slots spark dangerously!")]"
 	return ..()

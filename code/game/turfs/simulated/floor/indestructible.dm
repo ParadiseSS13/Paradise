@@ -1,5 +1,19 @@
 /turf/simulated/floor/indestructible
 
+/turf/simulated/floor/indestructible/examine(mob/user, infix, suffix)
+	. = ..()
+	. += SPAN_NOTICE("It appears to be effectively impervious to all conventional methods of destruction.")
+
+/turf/simulated/floor/indestructible/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "plating"
+
+/turf/simulated/floor/indestructible/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return
 
@@ -18,9 +32,6 @@
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
-/turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
-	return
-
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
 	return
 
@@ -33,6 +44,12 @@
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/indestructible/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
 /turf/simulated/floor/indestructible/airless
 	oxygen = 0
 	nitrogen = 0
@@ -41,7 +58,6 @@
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
 	oxygen = LAVALAND_OXYGEN
@@ -86,7 +102,6 @@
 	atmos_environment = null
 
 /turf/simulated/floor/indestructible/hierophant
-	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	oxygen = LAVALAND_OXYGEN
@@ -114,3 +129,10 @@
 	temperature = T20C
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
+
+/turf/simulated/floor/indestructible/titanium
+	name = "shuttle floor"
+	icon_state = "titanium"
+
+/turf/simulated/floor/indestructible/titanium/blue
+	icon_state = "titanium_blue"
