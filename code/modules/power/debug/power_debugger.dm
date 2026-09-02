@@ -1,10 +1,12 @@
+/// Rights that may open and use the Powernet Debugger.
+#define PW_DEBUGGER_RIGHTS	(R_DEBUG|R_VAREDIT)
 
 /client/proc/powernet_debugger()
 	set name = "Powernet Debugger"
 	set category = "Debug"
 	set desc = "Get Debug Information about Local/Regional Powernets in the World"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(PW_DEBUGGER_RIGHTS))
 		return
 
 	var/datum/ui_module/powernet_debugger/P = new()
@@ -32,10 +34,10 @@
 */
 /datum/ui_module/powernet_debugger
 	name = "Powernet Debugger"
-	/// A hard reference to the currnet regional powernet we are analyzing in the UI screen
-	var/datum/regional_powernet/selected_regional_net = null
-	/// A hard reference to the current local powernet we are analyzing in the UI screen
-	var/datum/local_powernet/selected_local_net = null
+	/// UID of the powernet currently open in the detail view. We store the UID and resolve it on demand (see
+	/// get_selected_powernet_data) rather than holding a hard ref, so a powernet that is rebuilt or destroyed while
+	/// selected can be garbage collected normally instead of being harddel'd by the debugger.
+	var/selected_net_uid = null
 
 	/// a list of UIDs pointing to powernets we have selected, all powernets in this list will show up as tabs in the UI module, great for bouncing between multiple things
 	var/list/selected_powernets = list()
@@ -66,10 +68,11 @@
 		ui.autoupdate = TRUE
 		ui.open()
 
-/// Returns a list of data on regional powernets in the world to be used in ui_act that
+/// Returns a list of data on regional powernets in the world for the global list view
 /datum/ui_module/powernet_debugger/proc/get_all_powernets()
 	var/list/powernets = list()
-	for(var/datum/regional_powernet/powernet in SSmachines.powernets)
+	// SSmachines.powernets only ever holds regional_powernet datums (see regional_powernet New/Destroy), so `as anything` is safe here
+	for(var/datum/regional_powernet/powernet as anything in SSmachines.powernets)
 		if(length(powernet.cables) < PW_MIN_CABLE_COUNT)
 			continue // we don't give a shit about tiny powernets
 		var/obj/structure/cable/test_cable = powernet.cables[1]
@@ -89,12 +92,13 @@
 
 /// Gets ui_data for the selected regional or local net, returns an empty list if nothing is selected
 /datum/ui_module/powernet_debugger/proc/get_selected_powernet_data()
-	if(!isnull(selected_regional_net))
-		return get_regional_net_data(selected_regional_net)
-	else if(!isnull(selected_local_net))
-		return get_local_net_data(selected_local_net)
+	var/datum/selected_net = locateUID(selected_net_uid)
+	if(istype(selected_net, /datum/regional_powernet))
+		return get_regional_net_data(selected_net)
+	else if(istype(selected_net, /datum/local_powernet))
+		return get_local_net_data(selected_net)
 	else if(debug_screen == PW_DEBUG_SCREEN_DETAILS)
-		debug_screen = PW_DEBUG_SCREEN_POWERNETS // powernets can be remade at a moments notice, kick them out of the menu now!
+		debug_screen = PW_DEBUG_SCREEN_POWERNETS // the net was rebuilt/destroyed out from under us, kick them back to the list now!
 	return list() //return an empty list
 
 /// Gets ui_data for the selected regional net and returns it
@@ -104,18 +108,18 @@
 	powernet_data["net_type"] = "regional"
 	// basic summary of the net
 	powernet_data["power_stats"] = list(
-		"PW_UID" = selected_regional_net.UID(),
-		"cables" = length(selected_regional_net.cables),
-		"nodes" = length(selected_regional_net.nodes),
-		"available_power" = selected_regional_net.available_power,
-		"power_demand" = selected_regional_net.power_demand,
-		"queued_demand" = selected_regional_net.queued_power_demand,
-		"queued_production" = selected_regional_net.queued_power_production
+		"PW_UID" = regional_net.UID(),
+		"cables" = length(regional_net.cables),
+		"nodes" = length(regional_net.nodes),
+		"available_power" = regional_net.available_power,
+		"power_demand" = regional_net.power_demand,
+		"queued_demand" = regional_net.queued_power_demand,
+		"queued_production" = regional_net.queued_power_production
 	)
 	powernet_data["power_machines"] = list()
 	// grab all end points of our powernet
-	var/list/power_machines = selected_regional_net.nodes
-	for(var/obj/machinery/power/terminal/terminal in selected_regional_net.nodes)
+	var/list/power_machines = regional_net.nodes.Copy()
+	for(var/obj/machinery/power/terminal/terminal in regional_net.nodes)
 		power_machines |= terminal.master // we want to grab all the machines terminals are hooked up to since they're not included in the nodes
 	for(var/obj/machinery/power/power_machine in power_machines)
 		if(filter_apcs && isapc(power_machine))
@@ -132,7 +136,7 @@
 		get_power_icon(power_machine, power_machine.dir)
 	// since we're a regional net, we want to see all the local nets hooked up to us for further investigation
 	powernet_data["local_powernets"] = list()
-	for(var/obj/machinery/power/terminal/terminal in selected_regional_net.nodes)
+	for(var/obj/machinery/power/terminal/terminal in regional_net.nodes)
 		if(!isapc(terminal.master))
 			continue
 		var/obj/machinery/power/apc/net_apc = terminal.master
@@ -153,25 +157,26 @@
 /datum/ui_module/powernet_debugger/proc/get_local_net_data(datum/local_powernet/local_net)
 	var/list/powernet_data = list()
 	powernet_data["net_type"] = "local"
-	// first thing we do is start summarizing info about powernet
-	var/power_flag = "No Power Flags"
-	if(selected_local_net.power_flags & PW_ALWAYS_UNPOWERED)
-		power_flag = "Always Unpowered"
-	if(selected_local_net.power_flags & PW_ALWAYS_POWERED)
-		power_flag += "Always Powered" // += is included here because we want to know if someone doubled up flags accidently and is causing issues
+	// first thing we do is start summarizing info about powernet. We build a list so that doubled-up flags both show up
+	var/list/power_flag_names = list()
+	if(local_net.power_flags & PW_ALWAYS_UNPOWERED)
+		power_flag_names += "Always Unpowered"
+	if(local_net.power_flags & PW_ALWAYS_POWERED)
+		power_flag_names += "Always Powered"
+	var/power_flag = length(power_flag_names) ? jointext(power_flag_names, ", ") : "No Power Flags"
 	// Basic facts about the powernet
 	powernet_data["power_stats"] = list(
-		"PW_UID" = selected_local_net.UID(),
-		"area_name" = selected_local_net.powernet_area.name,
+		"PW_UID" = local_net.UID(),
+		"area_name" = local_net.powernet_area.name,
 		"power_flag" = power_flag,
-		"has_apc" = istype(selected_local_net.powernet_apc),
-		"all_channels" = list("powered" = selected_local_net.powernet_apc?.operating, "passive_consumption" = selected_local_net.get_total_usage()),
-		"equipment_channel" = list("powered" = selected_local_net.equipment_powered, "passive_consumption" = selected_local_net.get_channel_usage(PW_CHANNEL_EQUIPMENT)),
-		"lighting_channel" = list("powered" = selected_local_net.lighting_powered, "passive_consumption" = selected_local_net.get_channel_usage(PW_CHANNEL_LIGHTING)),
-		"environment_channel" = list("powered" = selected_local_net.environment_powered, "passive_consumption" = selected_local_net.get_channel_usage(PW_CHANNEL_ENVIRONMENT)),
+		"has_apc" = istype(local_net.powernet_apc),
+		"all_channels" = list("powered" = local_net.powernet_apc?.operating, "passive_consumption" = local_net.get_total_usage()),
+		"equipment_channel" = list("powered" = local_net.equipment_powered, "passive_consumption" = local_net.get_channel_usage(PW_CHANNEL_EQUIPMENT)),
+		"lighting_channel" = list("powered" = local_net.lighting_powered, "passive_consumption" = local_net.get_channel_usage(PW_CHANNEL_LIGHTING)),
+		"environment_channel" = list("powered" = local_net.environment_powered, "passive_consumption" = local_net.get_channel_usage(PW_CHANNEL_ENVIRONMENT)),
 	)
 	powernet_data["local_machines"] = list()
-	for(var/obj/machinery/machine in selected_local_net.registered_machines)
+	for(var/obj/machinery/machine in local_net.registered_machines)
 		if(filter_lights && istype(machine, /obj/machinery/light))
 			continue
 		if(filter_pipes && istype(machine, /obj/machinery/atmospherics/pipe))
@@ -189,7 +194,7 @@
 		)
 		powernet_data["local_machines"] += list(machine_data)
 		get_power_icon(machine, machine.dir)
-	powernet_data["logs"] = selected_local_net.powernet_log
+	powernet_data["logs"] = local_net.powernet_log
 	return powernet_data
 
 
@@ -230,45 +235,39 @@
 	return power_icon_cache[power_machine.type][dir2text(machine_dir)] // return the icon incase we need it!
 
 /datum/ui_module/powernet_debugger/ui_act(action, params, datum/tgui/ui)
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(PW_DEBUGGER_RIGHTS, TRUE, ui.user))
 		return
 	if(..())
 		return
 
+	. = TRUE
 	switch(action)
 		if("detailed_view")
 			var/datum/powernet = locateUID(params["PW_UID"])
-			if(istype(powernet, /datum/regional_powernet))
-				selected_regional_net = powernet
-				selected_local_net = null
-			else if(istype(powernet, /datum/local_powernet))
-				selected_local_net = powernet
-				selected_regional_net = null
-			else
+			if(!istype(powernet, /datum/regional_powernet) && !istype(powernet, /datum/local_powernet))
 				return
+			selected_net_uid = params["PW_UID"]
 			selected_powernets |= params["PW_UID"]
 			debug_screen = PW_DEBUG_SCREEN_DETAILS
 		if("open_vv")
 			var/client/C = ui.user.client
-			if(!check_rights(R_ADMIN))
+			if(!check_rights(R_VAREDIT, TRUE, ui.user)) // opening VV is a var-edit action, so gate it on the var-edit right specifically
 				return
 			var/datum/tgt = locateUID(params["tgt_UID"])
-			if(!tgt)
+			if(!istype(tgt))
 				return
 			C.debug_variables(tgt)
 		if("jmp")
 			var/client/C = ui.user.client
 			// normally, in TGUI params, we would be more careful about preventing the usr from inject any atoms UID, however non-admins can't use jumptocoord!
-			var/atom/AM = locateUID(params["tgt_UID"])
-			if(!istype(AM))
-				return
-			sleep(2)
-			if(istype(AM, /datum/local_powernet))
-				var/datum/local_powernet/net_to_teleport_to = AM
+			// note: a local powernet is a plain datum (not an atom), so we must not gate this on istype(target, /atom) or the local net branch becomes unreachable
+			var/datum/target = locateUID(params["tgt_UID"])
+			if(istype(target, /datum/local_powernet))
+				var/datum/local_powernet/net_to_teleport_to = target
 				C.jumptoarea(net_to_teleport_to.powernet_area)
 				return
-			if(isobj(AM) && !isnull(AM.loc)) // pretty much anything else you can target with "jmp"
-				var/obj/O = AM
+			var/obj/O = target // isobj() below guards the runtime type before we touch obj-only vars like loc/x/y/z
+			if(isobj(O) && !isnull(O.loc)) // pretty much anything else you can target with "jmp"
 				C.jumptocoord(O.x, O.y, O.z)
 		if("set_page")
 			var/new_page = text2num(params["page"])
@@ -278,8 +277,7 @@
 		if("clear_tabs")
 			debug_screen = PW_DEBUG_SCREEN_POWERNETS
 			selected_powernets = list()
-			selected_regional_net = null
-			selected_local_net = null
+			selected_net_uid = null
 		// start filter button actions
 		if("filter_off_station")
 			filter_non_station_powernets = !filter_non_station_powernets
@@ -292,6 +290,7 @@
 		if("filter_pipes")
 			filter_pipes = !filter_pipes
 
+#undef PW_DEBUGGER_RIGHTS
 #undef PW_DEBUG_SCREEN_POWERNETS
 #undef PW_DEBUG_SCREEN_DETAILS
 #undef PW_MIN_CABLE_COUNT

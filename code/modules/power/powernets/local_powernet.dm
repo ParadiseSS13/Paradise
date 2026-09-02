@@ -46,7 +46,9 @@
 
 	/// All machines registered to this local powernet, strictly typed to machines, everything else needs to register power change signals
 	var/list/registered_machines = list()
-	/// A log of various tracking info on the powernet, only used for debugging purposes by coders when needed (Not for use on prod)
+	/// A log of various tracking info on the powernet.
+	/// This is an intentional opt-in hook: nothing writes to it by default. Wire up log_powernet() calls where you want to trace behaviour, then read them in the Powernet Debugger.
+	/// Capped at POWERNET_LOG_MAX_ENTRIES so an accidental left-in logging call can't leak memory for the whole round.
 	var/list/powernet_log = list()
 
 /// tethers a machine to this local powernet
@@ -174,11 +176,13 @@
 	if(prob(MACHINE_FLICKER_CHANCE))
 		powernet_apc?.flicker()
 
-/// Add some info to our powernet log, used for debug purposes only
-/datum/local_powernet/proc/log_powernet(log)
-	if(!log)
+/// Add a timestamped entry to our powernet log, used for debug purposes only. `entry` avoids shadowing the built-in log() math proc.
+/datum/local_powernet/proc/log_powernet(entry)
+	if(!entry)
 		return
-	powernet_log += log
+	powernet_log += "\[[time_stamp()]] [entry]"
+	if(length(powernet_log) > POWERNET_LOG_MAX_ENTRIES) // ring-buffer: drop the oldest so the log can't grow unbounded
+		powernet_log.Cut(1, length(powernet_log) - POWERNET_LOG_MAX_ENTRIES + 1)
 
 /datum/local_powernet/proc/channel_to_name(channel)
 	SHOULD_BE_PURE(TRUE)
