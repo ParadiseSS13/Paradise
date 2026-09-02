@@ -148,10 +148,12 @@
 /area/station/security/gamma_dock_access
 	name = "\improper Gamma Armory Dock Access"
 	icon_state = "gamma_access"
+	area_icon_text = "GAMMA\nACCESS"
 
 /area/station/security/gamma_dock
 	name = "\improper Gamma Armory Dock"
 	icon_state = "gamma_dock"
+	area_icon_text = "GAMMA\nDOCK"
 
 // Checkpoints
 

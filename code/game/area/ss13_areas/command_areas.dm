@@ -102,6 +102,7 @@
 /area/station/command/office/dignitary
 	name = "\improper Dignitary's Office"
 	icon_state = "dig_office"
+	area_icon_text = "DIG.\nOFFICE"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Dignitary"
 	request_console_announces = TRUE
