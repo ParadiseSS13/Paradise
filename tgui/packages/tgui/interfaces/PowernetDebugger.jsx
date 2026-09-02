@@ -511,7 +511,6 @@ const PowernetLogs = (props) => {
       {logs.length === 0 ? (
         <NoticeBox info>
           No log entries. Powernet logging is for debugging purposes only and is not enabled by default.
-          here.
         </NoticeBox>
       ) : (
         <Box m={1} style={{ fontFamily: 'monospace', maxHeight: '200px', overflowY: 'auto' }}>
