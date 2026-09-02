@@ -633,6 +633,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					linked_analyzer.loaded_item = null
 					linked_analyzer.icon_state = "s_analyzer"
 
+		if("unlock_node")
+			var/type_path = text2path(params["type_path"])
+			for(var/datum/technode/node in files.possible_technodes)
+				if(node.type == type_path) // exact check
+					if(files.can_buy_technode(node) && files.buy_technode(node))
+						to_chat(ui.user, SPAN_NOTICE("Successfully researched tech node [node.name]."))
+					else
+						to_chat(ui.user, SPAN_WARNING("Cannot research tech node [node.name] with current research points."))
+
 		if("deconstruct") //Deconstruct the item in the scientific analyzer and update the research holder.
 			start_analyzer_destroy(ui.user)
 
@@ -887,6 +896,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked"] = TRUE
 	files.RefreshResearch()
 
+	data["research_points"] = list()
+	for(var/research_type in files.research_points)
+		data["research_points"][research_type] = files.research_points[research_type]
+
 	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["menu"] = menu
 	data["submenu_protolathe"] = submenu_protolathe
@@ -909,15 +922,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			vis_node_data["name"] = T.name
 			vis_node_data["desc"] = T.desc
 			vis_node_data["id"] = T.id
-			vis_node_data["type"] = T.node_type
-			vis_node_data["type_path"] = T
+			vis_node_data["node_type"] = T.node_type
+			vis_node_data["type_path"] = T.type
+			vis_node_data["known"] = FALSE
 
 			vis_node_data["cost"] = list()
 			for(var/i in T.cost)
 				var/list/temp_cost = list()
-				temp_cost["type"] = i
+				temp_cost["cost_type"] = i
 				temp_cost["amount"] = T.cost[i]
-				vis_node_data["cost"] += temp_cost
+				vis_node_data["cost"] += list(temp_cost)
 
 			vis_node_data["prereqs"] = list()
 			for(var/id in T.prereqs)
@@ -931,11 +945,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					prereq_unlocked = TRUE
 				temp_prereqs["prereq_is_unlocked"] = prereq_unlocked
 
-				vis_node_data["prereqs"] += temp_prereqs
+				vis_node_data["prereqs"] += list(temp_prereqs)
 
 			vis_node_data["unlocks"] = list()
 			for(var/id in T.unlocks)
 				var/datum/design/D = files.find_possible_design_by_id(id)
+				if(!istype(D))
+					continue
 				var/obj/O = D.build_path
 				var/list/temp_unlocks = list()
 				temp_unlocks["unlock_id"] = D.id
@@ -943,9 +959,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				temp_unlocks["unlock_desc"] = O.desc
 				temp_unlocks["unlock_icon"] = O.icon
 				temp_unlocks["unlock_icon_state"] = O.icon_state
-				vis_node_data["unlocks"] += temp_unlocks
+				vis_node_data["unlocks"] += list(temp_unlocks)
 
-			data["visible_nodes"] += vis_node_data
+			data["visible_nodes"] += list(vis_node_data)
 
 		data["known_nodes"] = list()
 		for(var/tid in files.known_technodes)
@@ -954,16 +970,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			known_node_data["name"] = T.name
 			known_node_data["desc"] = T.desc
 			known_node_data["id"] = T.id
-			known_node_data["type"] = T.node_type
-			known_node_data["path"] = T
+			known_node_data["node_type"] = T.node_type
+			known_node_data["type_path"] = T.type
 			known_node_data["known"] = TRUE
 
 			known_node_data["cost"] = list() // Cost and prereqs arent super useful for known nodes, but its more effort to change the TGUI currently to not show them
 			for(var/i in T.cost)			 // MIXTODO - Eventually make TGUI not explode without this
 				var/list/temp_cost = list()
-				temp_cost["type"] = i
+				temp_cost["cost_type"] = i
 				temp_cost["amount"] = T.cost[i]
-				known_node_data["cost"] += temp_cost
+				known_node_data["cost"] += list(temp_cost)
 
 			known_node_data["prereqs"] = list()
 			for(var/id in T.prereqs)
@@ -977,7 +993,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					prereq_unlocked = TRUE
 				temp_prereqs["prereq_is_unlocked"] = prereq_unlocked
 
-				known_node_data["prereqs"] += temp_prereqs
+				known_node_data["prereqs"] += list(temp_prereqs)
 
 			known_node_data["unlocks"] = list()
 			for(var/id in T.unlocks)
@@ -989,8 +1005,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				temp_unlocks["unlock_desc"] = O.desc
 				temp_unlocks["unlock_icon"] = O.icon
 				temp_unlocks["unlock_icon_state"] = O.icon_state
-				known_node_data["unlocks"] += temp_unlocks
-			data["known_nodes"] += known_node_data
+				known_node_data["unlocks"] += list(temp_unlocks)
+			data["known_nodes"] += list(known_node_data)
 
 	else if(menu == MENU_DISK) // MIXTODO - Finish disks fully
 		if(t_disk != null)
@@ -1000,16 +1016,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				for(var/v in files.research_points)
 					var/list/item = list()
 					to_copy[++to_copy.len] = item
-					item["type"] = files.research_points[v]
+					item["point_type"] = files.research_points[v]
 					item["amount"] = files.research_points[files.research_points[v]] // No im not sorry.
 			else
 				var/list/disk_data = list()
 				data["disk_data"] = disk_data
 				if(t_disk.stored_research.len == 0)
-					disk_data["type"] = null
+					disk_data["data_type"] = null
 					disk_data["amount"] = 0
 				else
-					disk_data["type"] = t_disk.stored_research[1]
+					disk_data["data_type"] = t_disk.stored_research[1]
 					disk_data["amount"] = t_disk.stored_research[t_disk.stored_research[1]]
 		else if(d_disk != null)
 			if(d_disk.blueprint == null)

@@ -18,7 +18,7 @@ export const LinkMenu = (properties) => {
               <Table.Cell>Network ID</Table.Cell>
               <Table.Cell>Link</Table.Cell>
             </Table.Row>
-            {controllers.map((c) => (
+            {controllers && controllers.map((c) => (
               <Table.Row key={c.addr}>
                 <Table.Cell>{c.addr}</Table.Cell>
                 <Table.Cell>{c.net_id}</Table.Cell>
