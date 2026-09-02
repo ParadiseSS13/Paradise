@@ -56,7 +56,7 @@
 	/// When TRUE, removes off-station powernets from the initial regional powernet list
 	var/filter_non_station_powernets = TRUE // enabled by default b/c most contributors and admins wont care about off-station nets
 
-/datum/ui_module/library_manager/ui_state(mob/user)
+/datum/ui_module/powernet_debugger/ui_state(mob/user)
 	return GLOB.admin_state
 
 /datum/ui_module/powernet_debugger/ui_interact(mob/user, datum/tgui/ui = null)

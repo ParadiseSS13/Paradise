@@ -1,8 +1,10 @@
+import { Fragment } from 'react';
+import { Button, Collapsible, Icon, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
+
 import { useBackend, useLocalState } from '../backend';
-import { Button, Collapsible, Icon, LabeledList, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const PowernetDebugger = (props, context) => {
+export const PowernetDebugger = (props) => {
   return (
     <Window resizable width={1000} height={750}>
       <Window.Content scrollable>
@@ -13,9 +15,9 @@ export const PowernetDebugger = (props, context) => {
   );
 };
 
-const DebuggerNavigation = (properties, context) => {
-  const { data, act } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 'powernets');
+const DebuggerNavigation = (props) => {
+  const { data, act } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 'powernets');
   const { selected_nets } = data;
   return (
     <Tabs>
@@ -24,7 +26,7 @@ const DebuggerNavigation = (properties, context) => {
         selected={'powernets' === tabIndex}
         onClick={() => {
           setTabIndex('powernets');
-          act('set_page', { 'page': 1 });
+          act('set_page', { page: 1 });
         }}
       >
         Global Powernet List
@@ -34,7 +36,7 @@ const DebuggerNavigation = (properties, context) => {
           key={net}
           selected={net === tabIndex}
           onClick={() => {
-            act('detailed_view', { 'PW_UID': net });
+            act('detailed_view', { PW_UID: net });
             setTabIndex(net);
           }}
         >
@@ -50,8 +52,8 @@ const DebuggerNavigation = (properties, context) => {
   );
 };
 
-const DebuggerContent = (props, context) => {
-  const { data } = useBackend(context);
+const DebuggerContent = (props) => {
+  const { data } = useBackend();
   const { debug_page } = data;
 
   switch (debug_page) {
@@ -64,9 +66,9 @@ const DebuggerContent = (props, context) => {
   }
 };
 
-const PowernetList = (properties, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex');
-  const { act, data } = useBackend(context);
+const PowernetList = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex');
+  const { act, data } = useBackend();
 
   const { powernets, filters } = data;
 
@@ -97,7 +99,7 @@ const PowernetList = (properties, context) => {
             <Table.Cell>
               <Button
                 content={`${powernet.PW_UID} (VV)`}
-                onClick={() => act('open_vv', { 'tgt_UID': powernet.PW_UID })}
+                onClick={() => act('open_vv', { tgt_UID: powernet.PW_UID })}
               />
             </Table.Cell>
             <Table.Cell>{powernet.cables}</Table.Cell>
@@ -111,7 +113,7 @@ const PowernetList = (properties, context) => {
                 content="Details"
                 icon="microscope"
                 onClick={() => {
-                  act('detailed_view', { 'PW_UID': powernet.PW_UID });
+                  act('detailed_view', { PW_UID: powernet.PW_UID });
                   setTabIndex(powernet.PW_UID);
                 }}
               />
@@ -123,25 +125,25 @@ const PowernetList = (properties, context) => {
   );
 };
 
-const PowernetImage = (props, context) => {
-  const { data } = useBackend(context);
+const PowernetImage = (props) => {
+  const { data } = useBackend();
   return (
     <img
       src={`data:image/jpeg;base64,${data.power_images[props.power_type][props.dir]}`}
       style={{
-        'vertical-align': 'middle',
+        verticalAlign: 'middle',
         width: '32px',
         margin: '0px',
-        'margin-left': '0px',
-        'margin-right': '4px',
+        marginLeft: '0px',
+        marginRight: '4px',
       }}
     />
   );
 };
 
-const LocalNetList = (properties, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 'powernets');
+const LocalNetList = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 'powernets');
   const { selected_net } = data;
 
   return (
@@ -158,10 +160,7 @@ const LocalNetList = (properties, context) => {
         </Table.Row>
         {selected_net.local_powernets.map((powernet) => (
           <Table.Row key={powernet.PW_UID}>
-            <Button
-              content={`${powernet.PW_UID} (VV)`}
-              onClick={() => act('open_vv', { 'tgt_UID': powernet.PW_UID })}
-            />
+            <Button content={`${powernet.PW_UID} (VV)`} onClick={() => act('open_vv', { tgt_UID: powernet.PW_UID })} />
             <Table.Cell>{powernet.name}</Table.Cell>
             <Table.Cell>{powernet.machines} </Table.Cell>
             <Table.Cell>{powernet.master} </Table.Cell>
@@ -169,12 +168,12 @@ const LocalNetList = (properties, context) => {
             <Table.Cell>{powernet.lighting} </Table.Cell>
             <Table.Cell>{powernet.environment} </Table.Cell>
             <Table.Cell textAlign="right">
-              <Button content="JMP" icon="print" onClick={() => act('jmp', { 'tgt_UID': powernet.PW_UID })} />
+              <Button content="JMP" icon="print" onClick={() => act('jmp', { tgt_UID: powernet.PW_UID })} />
               <Button
                 content="Details"
                 icon="microscope"
                 onClick={() => {
-                  act('detailed_view', { 'PW_UID': powernet.PW_UID });
+                  act('detailed_view', { PW_UID: powernet.PW_UID });
                   setTabIndex(powernet.PW_UID);
                 }}
               />
@@ -186,8 +185,8 @@ const LocalNetList = (properties, context) => {
   );
 };
 
-const PowerMachineList = (properties, context) => {
-  const { act, data } = useBackend(context);
+const PowerMachineList = (props) => {
+  const { act, data } = useBackend();
 
   const { selected_net, filters } = data;
 
@@ -222,9 +221,9 @@ const PowerMachineList = (properties, context) => {
                   <PowernetImage power_type={machine.type} dir={machine.dir} />
                   <Button
                     content={`${machine.PW_UID} (VV)`}
-                    onClick={() => act('open_vv', { 'tgt_UID': machine.PW_UID })}
+                    onClick={() => act('open_vv', { tgt_UID: machine.PW_UID })}
                   />
-                  <Button content="JMP" onClick={() => act('jmp', { 'tgt_UID': machine.PW_UID })} />
+                  <Button content="JMP" onClick={() => act('jmp', { tgt_UID: machine.PW_UID })} />
                 </Table.Cell>
                 <Table.Cell>{machine.name}</Table.Cell>
               </Table.Row>
@@ -267,9 +266,9 @@ const PowerMachineList = (properties, context) => {
                     <PowernetImage power_type={machine.type} dir={machine.dir} />
                     <Button
                       content={`${machine.PW_UID} (VV)`}
-                      onClick={() => act('open_vv', { 'tgt_UID': machine.PW_UID })}
+                      onClick={() => act('open_vv', { tgt_UID: machine.PW_UID })}
                     />
-                    <Button content="JMP" onClick={() => act('jmp', { 'tgt_UID': machine.PW_UID })} />
+                    <Button content="JMP" onClick={() => act('jmp', { tgt_UID: machine.PW_UID })} />
                   </Table.Cell>
                   <Table.Cell>{machine.name}</Table.Cell>
                   <Table.Cell>{machine.powered ? 'Powered' : 'Offline'}</Table.Cell>
@@ -286,8 +285,8 @@ const PowerMachineList = (properties, context) => {
   );
 };
 
-const PowernetStats = (properties, context) => {
-  const { act, data } = useBackend(context);
+const PowernetStats = (props) => {
+  const { act, data } = useBackend();
   const { selected_net } = data;
 
   let masterChannel = '';
@@ -331,24 +330,24 @@ const PowernetStats = (properties, context) => {
   );
 };
 
-const PowernetLogs = (properties, context) => {
-  const { act, data } = useBackend(context);
+const PowernetLogs = (props) => {
+  const { act, data } = useBackend();
   const { selected_net } = data;
 
   return (
     <Collapsible title="Powernet Logs">
-      {selected_net.logs.map((log) => (
-        <>
+      {selected_net.logs.map((log, index) => (
+        <Fragment key={index}>
           {log}
           <br />
-        </>
+        </Fragment>
       ))}
     </Collapsible>
   );
 };
 
-const DetailedPowernet = (properties, context) => {
-  const { act, data } = useBackend(context);
+const DetailedPowernet = (props) => {
+  const { act, data } = useBackend();
 
   const { selected_net } = data;
 
@@ -360,7 +359,7 @@ const DetailedPowernet = (properties, context) => {
   return (
     <Section
       title={`Selected Powernet ${PW_UID}`}
-      buttons={<Button content="Back" icon="sign-out-alt" onClick={() => act('set_page', { 'page': 1 })} />}
+      buttons={<Button content="Back" icon="sign-out-alt" onClick={() => act('set_page', { page: 1 })} />}
     >
       <PowernetStats />
       <PowerMachineList />
