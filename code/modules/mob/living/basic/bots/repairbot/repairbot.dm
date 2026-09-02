@@ -80,7 +80,6 @@
 		/datum/action/repairbot_resources = null,
 	)
 	grant_actions_by_list(abilities)
-	// TODO: other traits added by tg: TRAIT_NEGATES_GRAVITY, TRAIT_MOB_MERGE_STACKS, TRAIT_FIREDOOR_OPENER
 	add_traits(list(TRAIT_SPACEWALK), INNATE_TRAIT)
 	our_welder = new(src)
 	our_welder.tool_enabled = TRUE
@@ -353,7 +352,7 @@
 
 /obj/item/rcd/repairbot
 	matter = INFINITY
-	mode = MODE_DECON
+	mode = "Deconstruction"
 
 /mob/living/basic/bot/repairbot/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
 	var/obj/item/carried_repairbot/carried = new(get_turf(src))
