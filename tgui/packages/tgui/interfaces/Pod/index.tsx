@@ -1,10 +1,4 @@
-import {
-  Button,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Stack,
-} from 'tgui-core/components';
+import { Button, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
 import { formatSiUnit } from 'tgui-core/format';
 
 import { useBackend } from '../../backend';
@@ -32,14 +26,7 @@ export const Content = () => {
             <Section
               fill
               title={name}
-              buttons={
-                <Button
-                  icon="edit"
-                  tooltip="Rename"
-                  tooltipPosition="left"
-                  onClick={() => act('changename')}
-                />
-              }
+              buttons={<Button icon="edit" tooltip="Rename" tooltipPosition="left" onClick={() => act('changename')} />}
             >
               <Stack fill vertical>
                 <Stack.Item>
@@ -79,11 +66,7 @@ const PowerBar = (props) => {
           ? 'Fuel Tank Missing'
           : power_level === 1e31
             ? 'Infinite'
-            : `${formatSiUnit(power_level * 1000, 0, 'L')} of ${formatSiUnit(
-                power_max * 1000,
-                0,
-                'L',
-              )}`}
+            : `${formatSiUnit(power_level * 1000, 0, 'L')} of ${formatSiUnit(power_max * 1000, 0, 'L')}`}
       </ProgressBar>
     </LabeledList.Item>
   );
@@ -142,12 +125,7 @@ const DNALock = (props) => {
       />
       {!!dna_lock && (
         <>
-          <Button
-            icon="key"
-            tooltip={`Key enzyme: ${dna_lock}`}
-            tooltipPosition="top"
-            disabled={!dna_lock}
-          />
+          <Button icon="key" tooltip={`Key enzyme: ${dna_lock}`} tooltipPosition="top" disabled={!dna_lock} />
           <Button
             onClick={() => act('reset_dna')}
             icon="ban"

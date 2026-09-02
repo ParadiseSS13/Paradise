@@ -52739,6 +52739,9 @@
 /obj/machinery/door/airlock/security/glass{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "hdR" = (
@@ -55728,10 +55731,13 @@
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
 "itI" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/brig_pilot)
 "itN" = (
@@ -65462,6 +65468,9 @@
 /obj/machinery/alarm/directional/west,
 /obj/item/kirbyplants/large,
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "mFv" = (
@@ -68199,6 +68208,9 @@
 "nQn" = (
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
@@ -71569,6 +71581,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
+"ppi" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig_pilot)
 "ppl" = (
 /obj/structure/rack,
 /obj/structure/cable{
@@ -76817,6 +76835,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "ryo" = (
@@ -81555,6 +81576,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "tJA" = (
@@ -84694,6 +84718,13 @@
 /obj/item/clothing/head/hardhat,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"vgX" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/brig_pilot)
 "vgY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -128592,7 +128623,7 @@ bUF
 rWZ
 iLZ
 itI
-iCq
+ppi
 nQn
 mFt
 iXd
@@ -129362,7 +129393,7 @@ iXd
 iXd
 iXd
 gFg
-itI
+vgX
 nmG
 iUo
 jZk

@@ -1,9 +1,4 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
+import { Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -22,12 +17,8 @@ export const FuelTank = (props) => {
       <Window.Content>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="Balance">
-              {data.balance} credits
-            </LabeledList.Item>
-            <LabeledList.Item label="Fuel Price">
-              {data.price} credits per liter
-            </LabeledList.Item>
+            <LabeledList.Item label="Balance">{data.balance} credits</LabeledList.Item>
+            <LabeledList.Item label="Fuel Price">{data.price} credits per liter</LabeledList.Item>
             <LabeledList.Item label="How many liters?">
               <NumberInput
                 animated
