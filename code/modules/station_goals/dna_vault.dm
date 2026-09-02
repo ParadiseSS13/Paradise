@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		if(HAS_TRAIT(human_target, TRAIT_GENELESS))
-			to_chat(user, SPAN_NOTICE("This humanoid doesn't have DNA!"))
+			to_chat(user, SPAN_WARNING("This humanoid doesn't have DNA!"))
 			return ITEM_INTERACT_COMPLETE
 		if(dna[human_target.dna.uni_identity])
 			to_chat(user, SPAN_WARNING("Humanoid data already present in local storage!"))
