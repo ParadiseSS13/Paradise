@@ -121,8 +121,6 @@
 	if(QDELETED(target))
 		return
 
-	var/datum/action/cooldown/bot_announcement/announcement = controller.blackboard[BB_ANNOUNCE_ABILITY]
-	announcement?.announce(pick(controller.blackboard[BB_AFTERHEAL_SPEECH]))
 	controller.clear_blackboard_key(target_key)
 
 /datum/ai_behavior/tend_to_patient/proc/check_if_healed(mob/living/carbon/human/patient, threshold, access_flags)
@@ -150,7 +148,7 @@
 	controller.queue_behavior(/datum/ai_behavior/handle_medbot_speech, BB_ANNOUNCE_ABILITY, bot_pawn.mode, bot_pawn.bot_access_flags, currently_tipped)
 
 /datum/ai_behavior/handle_medbot_speech
-	action_cooldown = 20 SECONDS
+	action_cooldown = 100 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/handle_medbot_speech/perform(seconds_per_tick, datum/ai_controller/controller, announce_key, mode, cover_flags, currently_tipped)

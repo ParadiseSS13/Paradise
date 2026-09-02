@@ -325,6 +325,9 @@
 	else
 		C.reagents.add_reagent(reagent_id, injection_amount)
 
+	var/datum/action/cooldown/bot_announcement/announcement = ai_controller.blackboard[BB_ANNOUNCE_ABILITY]
+	announcement?.announce(pick(ai_controller.blackboard[BB_AFTERHEAL_SPEECH]))
+
 	C.visible_message(
 		SPAN_DANGER("[src] injects [C] with its syringe!"),
 		SPAN_USERDANGER("[src] injects you with its syringe!")
