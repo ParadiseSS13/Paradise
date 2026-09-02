@@ -52,6 +52,10 @@
 	if(in_use)
 		to_chat(user, SPAN_WARNING("[src] is already busy!"))
 		return ITEM_INTERACT_COMPLETE
+
+	if(!ismob(target))
+		return NONE
+
 	if(!iscarbon(target))
 		to_chat(user, SPAN_WARNING("ERROR: [target] has no organs to harvest!"))
 		return ITEM_INTERACT_COMPLETE

@@ -34244,6 +34244,10 @@
 "cEj" = (
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/mirror{
+	pixel_x = -27;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "cEo" = (
@@ -56345,6 +56349,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
+"gZo" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "gZR" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "Detective"
@@ -60328,6 +60336,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 10
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "iGH" = (
@@ -123489,7 +123498,7 @@ cOm
 mDy
 cPK
 wCr
-jEI
+gZo
 jEI
 dUI
 dmq

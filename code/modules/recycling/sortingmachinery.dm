@@ -50,7 +50,7 @@
 				stowaway.forceMove(O)
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
-		AM.loc = T
+		AM.forceMove(T)
 	qdel(src)
 
 /obj/structure/big_delivery/item_interaction(mob/living/user, obj/item/W, list/modifiers)
@@ -229,7 +229,7 @@
 			if(user.client)
 				user.client.screen -= O
 		P.wrapped = O
-		O.loc = P
+		O.forceMove(P)
 		var/i = round(O.w_class)
 		if(i in list(1,2,3,4,5))
 			P.icon_state = "deliverycrate[i]"
@@ -290,7 +290,7 @@
 	for(var/mob/living/stowaway in C)
 		stowaway.forceMove(P)
 	P.wrapped = C
-	C.loc = P
+	C.forceMove(P)
 	return P
 
 /obj/item/dest_tagger
@@ -405,10 +405,10 @@
 
 	if(isobj(AM))
 		var/obj/O = AM
-		O.loc = src
+		O.forceMove(src)
 	else if(ismob(AM))
 		var/mob/M = AM
-		M.loc = src
+		M.forceMove(src)
 	flush()
 
 /obj/machinery/disposal/delivery_chute/flush()

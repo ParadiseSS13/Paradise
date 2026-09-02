@@ -36,7 +36,7 @@
 
 /obj/item/handheld_defibrillator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ishuman(target))
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 
 	if(cooldown)
 		to_chat(user, SPAN_WARNING("[src] is still charging!"))

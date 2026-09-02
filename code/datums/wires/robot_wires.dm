@@ -25,6 +25,8 @@
 					to_chat(R, "LawSync protocol engaged.")
 					R.lawsync()
 					R.show_laws()
+				if(!R.deployed)
+					R.lawupdate = FALSE
 			else
 				if(!R.lawupdate && !R.emagged)
 					R.lawupdate = TRUE
@@ -32,6 +34,9 @@
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mend)
 				if(R.connected_ai)
+					R.notify_ai(DISCONNECT)
+					if(R.shell)
+						R.undeploy() //Forced disconnect of an AI should this body be a shell.
 					R.disconnect_from_ai()
 
 		if(WIRE_BORG_CAMERA)
