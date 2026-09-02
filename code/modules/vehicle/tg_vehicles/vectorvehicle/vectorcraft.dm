@@ -378,3 +378,6 @@
 
 	if(sfx)
 		playsound(loc, 'sound/effects/vehicles/skid.ogg', 50, 0)
+
+#undef SPEED_MOD
+#undef PX_OFFSET
