@@ -93,23 +93,30 @@
 	desc = "A newly born watcher, apparently free of the Necropolis' corruption. Perhaps one of the last."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "watcher_baby"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF //No. The child will not die to lava.
-	w_class = WEIGHT_CLASS_SMALL //pocket monster. Plus doesn't work in bag.
-	/// The effect we create when out and about
+	// No. The child will not die to lava.
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	// Pocket monster. Plus doesn't work in bag.
+	w_class = WEIGHT_CLASS_SMALL
+	/// The effect we create when out and about.
 	var/obj/effect/watcher_orbiter/orbiter
 	/// Who are we orbiting?
 	var/mob/living/owner
+	new_attack_chain = TRUE
 
-/obj/item/watcher_hatchling/attack_self__legacy__attackchain(mob/user, modifiers)
-	. = ..()
+/obj/item/watcher_hatchling/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!isnull(orbiter))
 		watcher_return()
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	orbiter = new (get_turf(src))
 	orbiter.follow(user)
 	owner = user
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(remove_owner))
 	RegisterSignal(orbiter, COMSIG_PARENT_QDELETING, PROC_REF(our_remove_orbiter))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/watcher_hatchling/Moved(atom/old_loc, movement_dir, forced)
 	. = ..()
@@ -119,18 +126,18 @@
 	if(holder != owner)
 		watcher_return()
 
-/// If the guy we are orbiting is deleted but somehow we aren't
+/// If the guy we are orbiting is deleted but somehow we aren't.
 /obj/item/watcher_hatchling/proc/remove_owner()
 	SIGNAL_HANDLER
 	UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
 	owner = null
 
-/// In the more likely event that our orbiter is deleted, stop holding a reference to it
+/// In the more likely event that our orbiter is deleted, stop holding a reference to it.
 /obj/item/watcher_hatchling/proc/our_remove_orbiter()
 	SIGNAL_HANDLER
-	orbiter = null // No need to unregister signal because we only call this when it deletes
+	orbiter = null // No need to unregister signal because we only call this when it deletes.
 
-/// Get back in your ball pikachu
+/// Get back in your ball pikachu.
 /obj/item/watcher_hatchling/proc/watcher_return()
 	qdel(orbiter)
 	remove_owner()
