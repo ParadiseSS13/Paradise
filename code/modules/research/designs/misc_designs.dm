@@ -149,7 +149,7 @@
 /datum/design/oxygen_grenade
 	name = "Oxygen Grenade"
 	desc = "When triggered, releases a stream of pure O2 gas from the grenade."
-	id = "oxygen_Grenade"
+	id = "oxygen_grenade"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 500) //Same as Advanced Release Grenade
 	reagents_list = list("oxygen" = 50) //One small beaker at least, to make it require Chem Dispenser

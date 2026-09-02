@@ -46,6 +46,15 @@
 	build_path = /obj/item/pickaxe/drill/jackhammer
 	category = list("Mining")
 
+/datum/design/resonator
+	name = "Resonator"
+	desc = "A mining device that creates and collapses temporary resonance fields to destroy rock."
+	id = "resonator"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_PLASMA = 400)
+	build_path = /obj/item/resonator
+	category = list("Mining")
+
 /datum/design/superresonator
 	name = "Upgraded Resonator"
 	desc = "An upgraded version of the resonator that allows more fields to be active at once."
