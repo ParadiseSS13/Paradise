@@ -218,17 +218,16 @@
 /obj/item/antag_spawner/monster/proc/assign_objectives(mob/living/monster, mob/user)
 	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = monster.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
 	messages.Add(KillDaWiz.explanation_text)
 	monster.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = monster.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	messages.Add(KillDaCrew.explanation_text)
 	KillDaCrew.completed = TRUE
+	KillDaCrew.needs_target = FALSE
 	monster.mind.add_mind_objective(KillDaCrew)
 
 	to_chat(monster, chat_box_red(messages.Join("<br>")))
@@ -252,7 +251,7 @@
 	objective_verb = "Kill"
 	monster_type = /mob/living/basic/demon/slaughter
 
-/obj/item/antag_spawner/monster/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
+/obj/item/antag_spawner/monster/slaughter_demon/spawn_antag(client/C, turf/T, mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/basic/demon/D = new monster_type(holder)
 	if(istype(D, /mob/living/basic/demon/slaughter))
