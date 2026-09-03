@@ -450,6 +450,15 @@
 	cost = 65 // Incredibly strong melee weapon on par with a chainsaw.
 	species = list("Unathi")
 
+// Tajaran
+/datum/uplink_item/species_restricted/blizzard
+	name = "CFL-3 \"Blizzard\""
+	desc = "A small pistol capable of generating and firing groups of cryogenic flechettes that cool their target."
+	reference = "CLF3"
+	item = /obj/item/gun/energy/kinetic_accelerator/blizzard
+	cost = 45 // High utility, meh damage. It can be cheaper
+	species = list("Tajaran")
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
