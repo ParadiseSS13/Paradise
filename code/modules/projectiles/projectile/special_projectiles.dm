@@ -101,7 +101,7 @@
 
 /obj/projectile/blizzard
 	name = "blizzard shard"
-	icon_state = "temp_1"
+	icon_state = "cryoshot"
 	damage = 6
 	damage_type = BURN
 	flag = "energy"
