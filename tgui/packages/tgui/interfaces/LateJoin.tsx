@@ -42,7 +42,7 @@ export const DepartmentTable = (props: { title: string; dept: Department }) => {
   const { act } = useBackend();
   const { title, dept } = props;
   return (
-    <Box minWidth="30%" >
+    <Box minWidth="30%">
       <StyleableSection
         title={title}
         style={{
@@ -55,10 +55,9 @@ export const DepartmentTable = (props: { title: string; dept: Department }) => {
           textAlign: 'center',
         }}
         textStyle={{
-          color: "#dddddd",
+          color: '#dddddd',
           fontSize: '1.2rem',
         }}
-
       >
         <Stack vertical>
           {dept.jobs.map((job) => {
@@ -78,13 +77,18 @@ export const DepartmentTable = (props: { title: string; dept: Department }) => {
                     cursor: job.unavailable_to_player ? 'initial' : 'pointer',
                     border: job.prioritized ? '1px solid #16fc0f' : 'default',
                   }}
-                  onClick={() => { !job.unavailable_to_player && act('latejoin_role', { job: job.title }); }}
-                  tooltipPosition='top'
+                  onClick={() => {
+                    !job.unavailable_to_player && act('latejoin_role', { job: job.title });
+                  }}
+                  tooltipPosition="top"
                   tooltip={job.unavailable_to_player && job.unavailability_text}
-                ><Stack>
-                  <Stack.Item grow>{job.is_command ? (<b>{job.title}</b>) : job.title}</Stack.Item>
-                  <Stack.Item>{job.active_players} / {job.total_slots < 0 ? '∞' : job.total_slots}</Stack.Item>
-                 </Stack>
+                >
+                  <Stack>
+                    <Stack.Item grow>{job.is_command ? <b>{job.title}</b> : job.title}</Stack.Item>
+                    <Stack.Item>
+                      {job.active_players} / {job.total_slots < 0 ? '∞' : job.total_slots}
+                    </Stack.Item>
+                  </Stack>
                 </Button>
               </Stack.Item>
             );
@@ -106,12 +110,14 @@ export const LateJoin = () => {
           <Stack vertical>
             <Stack.Item>
               <Stack>
-                <Stack.Item grow>Round Duration: {round_duration.hours}h {round_duration.mins}m</Stack.Item>
+                <Stack.Item grow>
+                  Round Duration: {round_duration.hours}h {round_duration.mins}m
+                </Stack.Item>
                 <Stack.Item>
-                The station alert level is:{' '}
-                <Box inline color={security_level.color} fontWeight="bold">
-                  {security_level.name.toUpperCase()}
-                </Box>
+                  The station alert level is:{' '}
+                  <Box inline color={security_level.color} fontWeight="bold">
+                    {security_level.name.toUpperCase()}
+                  </Box>
                 </Stack.Item>
               </Stack>
             </Stack.Item>

@@ -33,23 +33,13 @@ export class Color {
   /**  Darkens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
   darken(percent: number): Color {
     const scaled = percent / 100;
-    return new Color(
-      this.r - this.r * scaled,
-      this.g - this.g * scaled,
-      this.b - this.b * scaled,
-      this.a,
-    );
+    return new Color(this.r - this.r * scaled, this.g - this.g * scaled, this.b - this.b * scaled, this.a);
   }
 
   /**  Lightens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
   lighten(percent: number): Color {
     const scaled = percent / 100;
-    return new Color(
-      this.r + this.r * scaled,
-      this.g + this.g * scaled,
-      this.b + this.b * scaled,
-      this.a,
-    );
+    return new Color(this.r + this.r * scaled, this.g + this.g * scaled, this.b + this.b * scaled, this.a);
   }
 
   /**
