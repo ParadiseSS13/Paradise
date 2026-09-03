@@ -24,7 +24,7 @@
 		user.put_in_active_hand(B)
 	B.icon_state = icon_state
 
-	var/icon/I = new('icons/obj/drinks.dmi', icon_state)
+	var/icon/I = new('icons/obj/drinks/bottles.dmi', icon_state)
 	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
 	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	B.icon = I
@@ -150,7 +150,7 @@
 /obj/item/broken_bottle
 	name = "Broken Bottle"
 	desc = "A bottle with a sharp broken bottom."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "broken_bottle"
 	inhand_icon_state = "broken_beer"
 	force = 9
@@ -160,7 +160,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
-	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
+	var/icon/broken_outline = icon('icons/obj/drinks/misc_drinks.dmi', "broken")
 	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -474,6 +474,7 @@
 /obj/item/reagent_containers/drinks/bottle/vampire_bestfriend
 	name = "Alucard's guilty sin"
 	desc = "You can distinguish pieces of garlic floating inside."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "vampire_bf_flask"
 	list_reagents = list("vampire_bf" = 100)
 
