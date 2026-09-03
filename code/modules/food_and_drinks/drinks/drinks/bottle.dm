@@ -8,6 +8,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	throwforce = 15
+	icon = 'icons/obj/drinks/bottles.dmi'
 	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	var/is_glass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
@@ -305,6 +306,7 @@
 /obj/item/reagent_containers/drinks/bottle/orangejuice
 	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "orangejuice"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -315,6 +317,7 @@
 /obj/item/reagent_containers/drinks/bottle/cream
 	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "cream"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -335,6 +338,7 @@
 /obj/item/reagent_containers/drinks/bottle/limejuice
 	name = "lime juice"
 	desc = "Sweet-sour goodness."
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "limejuice"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -345,6 +349,7 @@
 /obj/item/reagent_containers/drinks/bottle/milk
 	name = "milk"
 	desc = "Soothing milk."
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "milk"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -355,6 +360,7 @@
 /obj/item/reagent_containers/drinks/bottle/chocolate_milk
 	name = "chocolate milk"
 	desc = "Brown milk from brown cows. Maybe."
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "chocolatebox"
 	inhand_icon_state = "contvapour"
 	throwforce = 0

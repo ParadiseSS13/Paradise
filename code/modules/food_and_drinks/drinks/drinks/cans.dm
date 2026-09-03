@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/drinks/cans
+	icon = 'icons/obj/drinks/cans.dmi'
 	container_type = NONE
 	var/can_opened = FALSE
 	var/is_glass = FALSE

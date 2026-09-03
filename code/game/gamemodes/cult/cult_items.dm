@@ -651,6 +651,7 @@
 /obj/item/reagent_containers/drinks/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "A small flask made of darkened glass, and covered with minute inscriptions. The dark liquid within rejuvenates believers, and scalds the faithless."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	color = "#333333"
 	list_reagents = list("unholywater" = 40)
