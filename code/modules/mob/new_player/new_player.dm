@@ -552,11 +552,16 @@
 	set name = "Join Game"
 	set desc = "Choose a job and join the game!"
 
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		to_chat(src, SPAN_WARNING("You cannot join the game before it starts!"))
+		return
+
 	var/list/jobs = list()
 	for(var/datum/job/job as anything in SSjobs.occupations)
 		if(get_job_availability_code(job) == JOB_SELECT_AVAILABLE)
 			jobs += job.title
 
+	jobs = sortList(jobs)
 	var/input_contents = input(src, "Pick a job to join as:", "Latejoin Job Selection") as null|anything in jobs
 
 	if(!input_contents)
