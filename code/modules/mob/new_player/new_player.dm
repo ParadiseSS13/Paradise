@@ -546,3 +546,20 @@
 // No hearing announcements
 /mob/new_player/can_hear()
 	return 0
+
+/mob/new_player/verb/latejoin_fallback()
+	set category = "OOC"
+	set name = "Join Game"
+	set desc = "Choose a job and join the game!"
+
+	var/list/jobs = list()
+	for(var/datum/job/job as anything in SSjobs.occupations)
+		if(get_job_availability_code(job) == JOB_SELECT_AVAILABLE)
+			jobs += job.title
+
+	var/input_contents = input(src, "Pick a job to join as:", "Latejoin Job Selection") as null|anything in jobs
+
+	if(!input_contents)
+		return
+
+	AttemptLateSpawn(input_contents)

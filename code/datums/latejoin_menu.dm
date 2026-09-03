@@ -18,22 +18,11 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		"mins" = round((round_ticks % 36000) / 600),
 	)
 
-/datum/latejoin_menu/ui_data(mob/new_player/user)
+/datum/latejoin_menu/ui_static_data(mob/new_player/user)
 	if(!istype(user))
 		return
 
 	var/list/data = list()
-
-	data["round_duration"] = round_duration()
-	data["security_level"] = list(
-		"name" = SSsecurity_level.current_security_level.name,
-		"color" = SSsecurity_level.current_security_level.color,
-	)
-
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		data["shuttle_status"] = "The station has been evacuated."
-	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
-		data["shuttle_status"] = "The station is currently undergoing evacuation procedures."
 
 	if(length(SSjobs.prioritized_jobs))
 		var/prioritized_jobs = ""
@@ -79,8 +68,26 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		if(!categorized)
 			categorizedJobs["Miscellaneous"]["jobs"] += list(job.ui_data(user))
 
-	data["job_columns"] = list()
 	data["categorized_jobs"] = categorizedJobs
+
+	return data
+
+/datum/latejoin_menu/ui_data(mob/new_player/user)
+	if(!istype(user))
+		return
+
+	var/list/data = list()
+
+	data["round_duration"] = round_duration()
+	data["security_level"] = list(
+		"name" = SSsecurity_level.current_security_level.name,
+		"color" = SSsecurity_level.current_security_level.color,
+	)
+
+	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		data["shuttle_status"] = "The station has been evacuated."
+	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
+		data["shuttle_status"] = "The station is currently undergoing evacuation procedures."
 
 	return data
 
