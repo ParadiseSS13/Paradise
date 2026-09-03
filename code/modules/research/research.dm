@@ -138,10 +138,10 @@ If you want to add a new point type, look at SSResearch.
 	if(T.id in known_technodes)
 		if(T in visible_technodes)
 			visible_technodes -= T
-		log_debug("(Check Vis) Technode [T.name] was already known.") // MIXTODO - Remove logging later
+		// log_debug("(Check Vis) Technode [T.name] was already known.") // MIXTODO - Remove logging later
 		return FALSE // Technode is already known, we don't need to check this.
 	if(T.starting_node == FALSE && T.prereqs.len == 0)
-		log_debug("(Check Vis) Technode [T.name] has no prereqs and isnt a starting node.") // MIXTODO - Remove logging later
+		// log_debug("(Check Vis) Technode [T.name] has no prereqs and isnt a starting node.") // MIXTODO - Remove logging later
 		return FALSE
 	if(T.cost_hidden.len > 0)
 		var/tc = 0
@@ -149,16 +149,16 @@ If you want to add a new point type, look at SSResearch.
 			if(total_points[i] > T.cost_hidden[i])
 				tc += 1
 		if(tc == T.cost_hidden.len)
-			log_debug("(Check Vis - Hidden) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
+			// log_debug("(Check Vis - Hidden) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
 			return TRUE
-		log_debug("(Check Vis - Hidden) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
+		// log_debug("(Check Vis - Hidden) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
 		return FALSE
 	if(technode_has_prereqs(T))
 		if(!(T in visible_technodes))
 			visible_technodes += T
-		log_debug("(Check Vis) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
+		// log_debug("(Check Vis) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
 		return TRUE
-	log_debug("(Check Vis) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
+	// log_debug("(Check Vis) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
 	return FALSE
 
 /// Checks possible technode list for id, returns T if found.
