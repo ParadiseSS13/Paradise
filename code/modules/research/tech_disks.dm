@@ -1,10 +1,9 @@
 /obj/item/disk/tech_disk
 	name = "\improper Technology Disk"
 	desc = "A disk for storing research data for further research, it is only capable of holding one type of research at a time."
-	icon_state = "datadisk2"
+	icon_state = "tech_"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/list/stored_research = list() // "Research", "Illegal", "Alien"
-	var/possible_skins = list("Normal", "Research", "Illegal", "Alien")
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
@@ -37,6 +36,42 @@
 			change_name(i)
 			return ti // return how many points so we dont accidentally take more then we have.
 		return
+
+/obj/item/disk/tech_disk/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	make_radial(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/disk/tech_disk/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
+/obj/item/disk/tech_disk/proc/make_radial(mob/user)
+	if(!check_menu(user))
+		return
+	var/possible_skins = list(
+		"Normal" = image(icon = 'icons/obj/module.dmi', icon_state = "tech_"),
+		"Research" = image(icon = 'icons/obj/module.dmi', icon_state = "tech_Research"),
+		"Illegal" = image(icon = 'icons/obj/module.dmi', icon_state = "tech_Illegal"),
+		"Alien" = image(icon = 'icons/obj/module.dmi', icon_state = "tech_Alien"),
+	)
+	if(!possible_skins)
+		return
+	var/choice = show_radial_menu(user, src, possible_skins, null, 30, CALLBACK(src, PROC_REF(check_menu), user), TRUE)
+	if(!choice)
+		return
+	update_icon(UPDATE_ICON_STATE, choice)
+
+/obj/item/disk/tech_disk/update_icon(updates, type)
+	. = ..()
+	if(!type || type == "Normal")
+		icon_state = initial(icon_state)
+		return
+	icon_state = "[initial(icon_state)][type]"
 
 /obj/item/disk/tech_disk/proc/wipe_research()
 	stored_research = list()

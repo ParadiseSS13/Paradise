@@ -6,6 +6,7 @@
 	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	new_attack_chain = TRUE
 
 /obj/item/disk/data
 	name = "Cloning Data Disk"
@@ -57,7 +58,9 @@
 	var/diskcolor = pick(0, 1, 2, 3, 4, 5)
 	icon_state = "datadisk[diskcolor]"
 
-/obj/item/disk/data/attack_self__legacy__attackchain(mob/user)
+/obj/item/disk/data/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
 	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
 

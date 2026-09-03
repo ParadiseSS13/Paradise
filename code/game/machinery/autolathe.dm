@@ -288,7 +288,7 @@
 					to_chat(user, SPAN_WARNING("This design has already been loaded into the autolathe."))
 					return TRUE
 
-				if(!files.CanAddDesign2Known(design))
+				if(!files.AddDesign2Known(design))
 					to_chat(user, SPAN_WARNING("This design is not compatible with the autolathe."))
 					return TRUE
 

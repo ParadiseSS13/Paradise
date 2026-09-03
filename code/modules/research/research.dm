@@ -176,11 +176,11 @@ If you want to add a new point type, look at SSResearch.
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(D.id in blacklisted_designs)
 		return FALSE
-	if(D.requires_whitelist && !(known_designs[D.id]))
+	if(D.requires_whitelist && !(D.id in known_designs))
 		return FALSE
 	var/datum/technode/T = design_id_to_technode(D.id)
 	if(!T)
-		return TRUE // No technode unlocks this design and it doesnt require a disk, it should be unlocked.
+		return TRUE // No technode unlocks this design and it doesnt require a disk or has already been put in, it should be unlocked.
 	if(T.id in known_technodes)
 		return TRUE
 	return FALSE
@@ -195,7 +195,7 @@ If you want to add a new point type, look at SSResearch.
 /datum/research/proc/AddDesign2Known(datum/design/D)
 	if(!D)
 		return FALSE
-	if(!CanAddDesign2Known(D))
+	if(D in known_designs)
 		return FALSE
 	known_designs[D.id] = D
 	return TRUE
@@ -206,8 +206,9 @@ If you want to add a new point type, look at SSResearch.
 	for(var/datum/technode/PT in possible_technodes)
 		check_technode_visibility(PT)
 	for(var/datum/design/PD in possible_designs)
-		AddDesign2Known(PD) // Checking for dupes/requirements is already done in these procs.
-	if(length(blacklisted_designs)) // No need to run this unless there are blacklisted designs
+		if(CanAddDesign2Known(PD))
+			AddDesign2Known(PD)
+	if(length(blacklisted_designs)) // No need to run this unless there are blacklisted designs.
 		known_designs -= blacklisted_designs
 
 /datum/research/proc/find_possible_design_by_id(id)
@@ -221,15 +222,11 @@ If you want to add a new point type, look at SSResearch.
 //Autolathe files
 /datum/research/autolathe
 
-/datum/research/autolathe/DesignHasReqs(datum/design/D)
-	return D && (D.build_type & AUTOLATHE) && ("initial" in D.category)
-
-/datum/research/autolathe/CanAddDesign2Known(datum/design/design)
-	// Specifically excludes circuit imprinter and mechfab
-	if(design.locked || !(design.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)))
+/datum/research/autolathe/AddDesign2Known(datum/design/D)
+	if(D.locked || !(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)))
 		return FALSE
 
-	for(var/mat in design.materials)
+	for(var/mat in D.materials)
 		if(mat != MAT_METAL && mat != MAT_GLASS)
 			return FALSE
 
@@ -238,12 +235,9 @@ If you want to add a new point type, look at SSResearch.
 ///Gamma Armoury autolathe files
 /datum/research/autolathe/gamma
 
-/datum/research/autolathe/gamma/DesignHasReqs(datum/design/D)
-	return D && ((D.build_type & GAMMALATHE) || (D.build_type & (AUTOLATHE) && ("initial" in D.category)))
-
-/datum/research/autolathe/gamma/CanAddDesign2Known(datum/design/design)
-	if(design.build_type & GAMMALATHE)
-		return TRUE
+/datum/research/autolathe/gamma/AddDesign2Known(datum/design/D)
+	if(!(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE|GAMMALATHE)))
+		return FALSE
 	return ..()
 
 //Biogenerator files
