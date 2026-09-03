@@ -157,7 +157,7 @@ function SettingsDisplay(props) {
           <Icon size={2} name="power-off" color={power ? 'good' : 'gray'} onClick={() => act('power')} />
         </Tooltip>
       </LabeledControls.Item>
-      <LabeledControls.Item label="Airplane Mode">
+      <LabeledControls.Item label="AI Access Mode">
         <Tooltip content={`${!airplane_mode ? 'Disables' : 'Enables'} remote access via console.`}>
           <Icon size={2} name="plane" color={airplane_mode ? 'yellow' : 'gray'} onClick={() => act('airplane')} />
         </Tooltip>

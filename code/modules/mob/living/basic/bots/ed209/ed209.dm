@@ -11,7 +11,6 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW
 	mob_size = MOB_SIZE_LARGE
 	ai_controller = /datum/ai_controller/basic_controller/bot/ed209
-	bot_type = ADVANCED_SEC_BOT
 	hackables = "combat inhibitors"
 
 	projectile_sound = 'sound/weapons/taser2.ogg'

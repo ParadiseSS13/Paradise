@@ -74,11 +74,9 @@ DEFINE_BITFIELD(bot_mode_flags, list(
 
 //Bot types
 /// Secutritrons (Beepsky)
-#define SEC_BOT "Securitron"
-/// ED-209s
-#define ADVANCED_SEC_BOT "ED-209"
+#define SEC_BOT "Security"
 /// MULEbots
-#define MULE_BOT "MULEbot"
+#define MULE_BOT "Mule"
 /// Cleanbots
 #define CLEAN_BOT "Cleanbot"
 /// Medibots
@@ -87,8 +85,6 @@ DEFINE_BITFIELD(bot_mode_flags, list(
 #define HONK_BOT "Honkbot"
 /// Firebots
 #define FIRE_BOT "Firebot"
-/// Hygienebots
-#define HYGIENE_BOT "Hygienebot"
 /// Repairbots
 #define REPAIR_BOT "Repairbot"
 
