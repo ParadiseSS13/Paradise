@@ -348,7 +348,9 @@ RESTRICT_TYPE(/mob/living/basic)
 		density = FALSE
 
 /mob/living/basic/attack_hand(mob/living/carbon/human/M)
-	..()
+	if(..())
+		return TRUE
+
 	switch(M.a_intent)
 
 		if(INTENT_HELP)
