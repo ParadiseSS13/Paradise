@@ -450,6 +450,24 @@
 	cost = 65 // Incredibly strong melee weapon on par with a chainsaw.
 	species = list("Unathi")
 
+// Diona
+/datum/uplink_item/species_restricted/growthserum
+	name = "Experimental Growth Serum"
+	desc = "Using a highly illegal cocktail of chemicals, steroids, and stimulants, this bottle of growth serum will cause diona nymphs to rapidly reproduce and form a secondary gestalt, subservient to the first."
+	reference = "EGS"
+	item = /obj/item/diona_growth_serum
+	cost = 65
+	refund_path = /obj/item/diona_growth_serum
+	refundable = TRUE
+	surplus = 0
+	uses_special_spawn = TRUE
+
+/datum/uplink_item/species_restricted/growthserum/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
+	new /obj/item/diona_growth_serum(loc, cost)
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
