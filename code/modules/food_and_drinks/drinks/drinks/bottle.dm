@@ -226,6 +226,7 @@
 /obj/item/reagent_containers/drinks/bottle/holywater
 	name = "flask of holy water"
 	desc = "A flask of the chaplain's holy water."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	list_reagents = list("holywater" = 100)
 
