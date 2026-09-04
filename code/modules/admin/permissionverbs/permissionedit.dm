@@ -282,8 +282,6 @@ USER_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admi
 		to_chat(usr, SPAN_WARNING("No admin found with ckey [target_key]!"))
 		return
 
-	flag_account_for_forum_sync(target_key)
-
 	if(removed_permissions & permission_bit)
 		// They had an exception removing this permission bit, let them have it.
 		var/datum/db_query/remove_removal = SSdbcore.NewQuery("UPDATE admin SET removed_permissions = removed_permissions & ~:permission_bit WHERE id = :admin_id", list(
@@ -406,8 +404,6 @@ USER_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admi
 	if(!admin_id)
 		to_chat(usr, SPAN_WARNING("No admin found with ckey [target_key]!"))
 		return
-
-	flag_account_for_forum_sync(target_key)
 
 	var/datum/db_query/remove_admin = SSdbcore.NewQuery("UPDATE admin SET permissions_rank = NULL, display_rank = NULL WHERE id = :admin_id", list(
 		"admin_id" = admin_id,

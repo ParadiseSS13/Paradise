@@ -367,6 +367,16 @@
 	spawn_loot_count = 5
 	spawn_random_offset = TRUE
 
+/obj/effect/spawner/random/soap
+	name = "possible soap (50% chance)"
+	icon_state = "soap"
+	spawn_loot_chance = 50
+	loot = list(
+		/obj/item/soap,
+		/obj/item/soap/deluxe,
+		/obj/item/soap/nanotrasen
+	)
+
 /obj/effect/spawner/random/large_tank
 	name = "random large tank"
 	icon_state = "tank"

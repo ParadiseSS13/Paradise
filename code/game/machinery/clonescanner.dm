@@ -71,6 +71,8 @@
 		return
 	if(!ishuman(O))
 		return
+	if(!Adjacent(user))
+		return
 	var/mob/living/carbon/human/H = O
 	if(H.stat != DEAD)
 		to_chat(user, SPAN_WARNING("You don't think it'd be wise to scan a living being."))
