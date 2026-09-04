@@ -281,3 +281,10 @@
 
 	if(SSticker)
 		SSticker.Bible_deity_name = B.deity_name
+
+/datum/outfit/job/assistant
+	name = "Assistant"
+	jobtype = /datum/job/assistant
+
+	uniform = /obj/item/clothing/under/color/random
+	id = /obj/item/card/id/assistant

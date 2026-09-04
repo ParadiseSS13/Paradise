@@ -256,10 +256,3 @@
 		return list(ACCESS_MAINT_TUNNELS)
 	else
 		return list()
-
-/datum/outfit/job/assistant
-	name = "Assistant"
-	jobtype = /datum/job/assistant
-
-	uniform = /obj/item/clothing/under/color/random
-	id = /obj/item/card/id/assistant
