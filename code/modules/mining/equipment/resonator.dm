@@ -24,7 +24,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate only after you hit it with [src]."))
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate only after you hit them with [src]."))
 		mode = RESONATOR_MODE_MANUAL
 		return ITEM_INTERACT_COMPLETE
 
