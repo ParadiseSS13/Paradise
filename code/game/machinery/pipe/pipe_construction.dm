@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	var/makes_type = null
 	var/pipe_type = 0
 	var/pipename
-	// 1 = Regular, 2 = Supply, 3 = Scrubber
+	// 1 = Regular, 2 = Supply, 3 = Scrubber.
 	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
 
 /obj/item/pipe/Initialize(mapload, new_pipe_type, new_dir, obj/machinery/atmospherics/make_from)
@@ -176,7 +176,8 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 /obj/item/pipe/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("<b>Alt-click</b> it to rotate, <b>Alt-Shift-click it</b> to flip!")
+	. += SPAN_NOTICE("<b>Alt-click</b> to rotate it.")
+	. += SPAN_NOTICE("<b>Alt-Shift-click</b> to flip it.")
 
 /obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
