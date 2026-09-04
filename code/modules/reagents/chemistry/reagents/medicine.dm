@@ -609,7 +609,7 @@
 /datum/reagent/medicine/sal_acid
 	name = "Acetylsalicylic Acid"
 	id = "sal_acid"
-	description = "This is a is a standard salicylate pain reliever and fever reducer."
+	description = "This is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B54848"
 	metabolization_rate = 0.1
