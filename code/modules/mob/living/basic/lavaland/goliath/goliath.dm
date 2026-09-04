@@ -150,6 +150,7 @@
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	tentacle_warning_state = "Goliath_preattack"
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/goliath/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
