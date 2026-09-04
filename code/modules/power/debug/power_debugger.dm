@@ -236,13 +236,10 @@
 			selected_powernets |= params["PW_UID"]
 			debug_screen = PW_DEBUG_SCREEN_DETAILS
 		if("open_vv")
-			var/client/C = ui.user.client
-			if(!check_rights(R_VAREDIT, TRUE, ui.user)) // opening VV is a var-edit action, so gate it on the var-edit right specifically
-				return
 			var/datum/tgt = locateUID(params["tgt_UID"])
 			if(!istype(tgt))
 				return
-			C.debug_variables(tgt)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/debug_variables, tgt)
 		if("jmp")
 			var/client/C = ui.user.client
 			// normally, in TGUI params, we would be more careful about preventing the usr from inject any atoms UID, however non-admins can't use jumptocoord!
