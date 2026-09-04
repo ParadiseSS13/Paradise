@@ -211,7 +211,7 @@
 
 	// Abort if the target manages to scurry away.
 	if(!do_after(user, 2 SECONDS, target = target))
-		return ITEM_INTERACT_COMPLETE
+		return FALSE
 
 	target.forceMove(src)
 	user.visible_message(

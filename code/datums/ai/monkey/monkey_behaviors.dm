@@ -261,7 +261,7 @@
 
 	controller.set_blackboard_key(BB_MONKEY_DISPOSING, TRUE)
 
-	if(target && disposal?.stuff_mob_in(target, living_pawn))
+	if(target && disposal?.stuff_mob_in(target, living_pawn) && disposal.mode == 2)
 		disposal.flush()
 	finish_action(controller, TRUE, attack_target_key, disposal_target_key)
 
