@@ -66734,10 +66734,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/reception)
-"nkT" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/security/brig_pilot)
 "nkX" = (
 /obj/machinery/camera{
 	c_tag = "Brig Labor Camp Airlock North"
@@ -129653,7 +129649,7 @@ iXd
 iXd
 iXd
 iXd
-nkT
+iXd
 iXd
 iXd
 atG

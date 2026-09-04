@@ -249,10 +249,10 @@
 		apply_damage(speed/10)
 		bounce()
 		return ..()
-	if(istype(M, /obj/))
+	if(isobj(M))
 		var/obj/O = M
 		if(O.density)
-			O.take_damage(speed*2.5)
+			O.take_damage(speed * 0.5)
 	return ..()
 
 /// Returns the angle to move towards

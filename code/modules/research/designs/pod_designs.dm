@@ -5,7 +5,9 @@
 	build_path = /obj/item/circuitboard/podfabricator
 	build_type = IMPRINTER
 	req_tech = list("programming" = 2)
-	materials = list(MAT_GLASS = 1000)
+	materials = list(
+		MAT_GLASS = MINERAL_MATERIAL_AMOUNT * 5,
+	)
 	category = list("Computer Boards")
 
 /datum/design/spacepodbase
@@ -16,10 +18,10 @@
 	build_path = /obj/item/pods_parts/hull
 	build_type = PROTOLATHE
 	materials = list(
-		MAT_METAL = 15000,
-		MAT_GLASS = 10000,
-		MAT_SILVER = 5000,
-		MAT_GOLD = 1000,
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
+		MAT_GLASS = MINERAL_MATERIAL_AMOUNT * 5,
+		MAT_SILVER = MINERAL_MATERIAL_AMOUNT * 5,
+		MAT_GOLD = MINERAL_MATERIAL_AMOUNT * 5,
 	)
 	category = list("Space Pods")
 
@@ -30,7 +32,9 @@
 	req_tech = list("programming" = 1)
 	build_path = /obj/item/circuitboard/mecha/spacepod_main
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 5000)
+	materials = list(
+		MAT_GLASS = MINERAL_MATERIAL_AMOUNT * 5,
+	)
 	category = list("Space Pod Boards")
 
 /datum/design/spacepod_peri
@@ -40,7 +44,9 @@
 	req_tech = list("programming" = 1)
 	build_path = /obj/item/circuitboard/mecha/spacepod_peri
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 3000)
+	materials = list(
+		MAT_GLASS = MINERAL_MATERIAL_AMOUNT * 5,
+	)
 	category = list("Space Pod Boards")
 
 /datum/design/plate_basic
@@ -50,7 +56,9 @@
 	build_path = /obj/item/pods_parts/plate/basic
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 1)
-	materials = list(MAT_METAL = 2000)
+	materials = list(
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 5,
+	)
 	construction_time = 100
 	category = list("Space Pods")
 
@@ -61,7 +69,9 @@
 	build_path = /obj/item/pods_parts/plate/sci
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 2)
-	materials = list(MAT_METAL = 3000)
+	materials = list(
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
+	)
 	construction_time = 100
 	category = list("Space Pods")
 
@@ -73,8 +83,8 @@
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 4)
 	materials = list(
-		MAT_METAL = 2000,
-		MAT_TITANIUM = 1000,
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
+		MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT * 10,
 	)
 	construction_time = 100
 	category = list("Space Pods")
