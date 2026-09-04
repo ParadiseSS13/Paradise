@@ -129,8 +129,8 @@ GLOBAL_LIST_INIT(huds, alist(
 			serv_huds += serv.thrallhud
 
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
-		var/list/hudusers = hud.hudusers[src]
-		if(src in hudusers)
+		if(src in hud.hudusers)
+			var/list/hudusers = hud.hudusers[src]
 			hud.add_hud_to(src, hudusers[1])
 
 /mob/new_player/reload_huds()
