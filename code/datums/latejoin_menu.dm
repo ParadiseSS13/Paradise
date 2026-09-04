@@ -38,15 +38,15 @@ GLOBAL_DATUM_INIT(latejoin_menu, /datum/latejoin_menu, new)
 		data["prioritized_jobs"] = prioritized_jobs
 
 	var/list/categorizedJobs = list(
-		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#071b30"),
-		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#2e2e00"),
-		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#2e2e2e"),
-		"Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#123107"),
-		"Security" = list(jobs = list(), titles = GLOB.active_security_positions, color = "#310808"),
-		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#3a001f"),
-		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#002a30"),
-		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#24003d"),
-		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#332006"),
+		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#153965"),
+		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#614B0F"),
+		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#404040"),
+		"Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#1D4A0D"),
+		"Security" = list(jobs = list(), titles = GLOB.active_security_positions, color = "#661515"),
+		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#5D1840"),
+		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#004857"),
+		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#49186D"),
+		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#5A380C"),
 	)
 	for(var/datum/job/job in SSjobs.occupations)
 		var/categorized = FALSE
