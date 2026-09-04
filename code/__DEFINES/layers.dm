@@ -96,6 +96,10 @@
 #define RIPPLE_LAYER 5.1
 
 #define GHOST_LAYER 6
+/// Layer for pathfinding arrows
+#define PATH_ARROW_DEBUG_LAYER 7
+/// Layer for pathfinding overlays
+#define PATH_DEBUG_LAYER 8
 #define LOW_LANDMARK_LAYER 9
 #define MID_LANDMARK_LAYER 9.1
 #define HIGH_LANDMARK_LAYER 9.2

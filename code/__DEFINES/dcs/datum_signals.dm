@@ -150,3 +150,13 @@
 /// from base of /datum/wires/proc/cut : (wire)
 #define COMSIG_CUT_WIRE(wire) "cut_wire [wire]"
 #define COMSIG_MEND_WIRE(wire) "mend_wire [wire]"
+
+// EVLogging Signals
+
+/// fired on a datum when event-logger tracking is enabled on it [/datum/proc/enable_evlogging]: ()
+#define COMSIG_EVLOGGING_ENABLED "evlogging_enabled"
+/// fired on a datum when event-logger tracking is disabled on it [/datum/proc/disable_evlogging]: ()
+#define COMSIG_EVLOGGING_DISABLED "evlogging_disabled"
+
+/// fired on the source datum whenever an event is added for it in the event logger: (/datum/event_logger_track/track, list/event_data)
+#define COMSIG_EVLOG_EVENT_ADDED "evlog_event_added"

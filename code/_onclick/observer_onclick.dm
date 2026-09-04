@@ -33,6 +33,9 @@
 		return
 
 	var/list/modifiers = params2list(params)
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
 	if(check_rights(R_ADMIN, 0)) // Admin click shortcuts
 		var/mob/M
 		if(modifiers["shift"] && modifiers["ctrl"])
