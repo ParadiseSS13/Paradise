@@ -13,18 +13,18 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	if(!isdiona(user))
-		to_chat(user, SPAN_WARN("The contents of the bottle do not react to your touch."))
+		to_chat(user, SPAN_WARNING("The contents of the bottle do not react to your touch."))
 		return ITEM_INTERACT_COMPLETE
 	var/choice = tgui_alert(user, "Are you sure you wish to use [src]?", "Confirm", list("Yes", "No"))
 	if(choice != "Yes")
 		to_chat(user, SPAN_WARNING("You decide against using [src]."))
 		return ITEM_INTERACT_COMPLETE
-	to_chat(user, "You uncork [src] and pour its contents across your form.")
+	to_chat(user, SPAN_NOTICE("You uncork [src] and pour its contents across your form."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the grown gestalt clone of [user.real_name]?", ROLE_TRAITOR, FALSE, 10 SECONDS, source = src, role_cleanname = "Gestalt Clone")
 	var/mob/dead/observer/theghost = null
 
 	if(!length(candidates))
-		to_chat(user, "The dose of growth serum is ineffective.")
+		to_chat(user, SPAN_WARNING("The dose of growth serum is ineffective. Perhaps try again later."))
 		return ITEM_INTERACT_COMPLETE
 	theghost = pick(candidates)
 	dust_if_respawnable(theghost)
