@@ -50,9 +50,14 @@
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_THEATRE,
 		ACCESS_WEAPONS,
-		ACCESS_TRAINER
+		ACCESS_TRAINER,
 	)
-	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+	)
 	outfit = /datum/outfit/job/nanotrasenrep
 	important_information = "This role requires you to advise the Command team about Standard Operating Procedure, Chain of Command, and report to Central Command about various matters. You are required to act in a manner befitting someone representing Nanotrasen."
 	standard_paycheck = CREW_PAY_MEDIUM
@@ -89,10 +94,22 @@
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_RESEARCH,
 		ACCESS_SEC_DOORS,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
-	alt_titles = list("Blueshield Officer", "Bodyguard", "Command Escort")
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
+	alt_titles = list(
+		"Blueshield Officer",
+		"Bodyguard",
+		"Command Escort",
+	)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+		DISABILITY_FLAG_PARAPLEGIC,
+	)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/blueshield
 	important_information = "This role requires you to ensure the safety of the Heads of Staff, not the general crew. You may perform arrests only if the combatant is directly threatening a member of Command, the Nanotrasen Representative, or the Magistrate."
@@ -126,9 +143,14 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_THEATRE,
 		ACCESS_INTERNAL_AFFAIRS,
-		ACCESS_TRAINER
+		ACCESS_TRAINER,
 	)
-	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+	)
 	outfit = /datum/outfit/job/nct
 	important_information = "Your job is to try to assist as many crew members as possible regardless of department. You are NOT permitted to give command staff advice on any command SOP questions or aid in legal advice."
 	standard_paycheck = CREW_PAY_MEDIUM

@@ -43,10 +43,10 @@
 	id = /obj/item/card/id/shaftminer
 	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
-		/obj/item/kitchen/knife/combat/survival=1,\
-		/obj/item/mining_voucher=1,\
-		/obj/item/stack/marker_beacon/ten=1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/kitchen/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/stack/marker_beacon/ten = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
@@ -65,18 +65,18 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = ITEM_SLOT_SUIT_STORE
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
-		/obj/item/kitchen/knife/combat/survival=1,
-		/obj/item/mining_voucher=1,
-		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		/obj/item/gun/energy/kinetic_accelerator=1,\
-		/obj/item/stack/marker_beacon/ten=1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/kitchen/knife/combat/survival = 1,
+		/obj/item/mining_voucher = 1,
+		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
+		/obj/item/gun/energy/kinetic_accelerator = 1,
+		/obj/item/stack/marker_beacon/ten = 1,
 	)
 
 /datum/outfit/job/mining/equipped/less
 	backpack_contents = list(
-		/obj/item/flashlight/seclite=1,\
-		/obj/item/stack/marker_beacon/ten=1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/stack/marker_beacon/ten = 1,
 	)
 
 /datum/outfit/job/mining/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -115,4 +115,3 @@
 /datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
-

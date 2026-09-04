@@ -24,7 +24,11 @@
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
 	)
-	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
+	alt_titles = list(
+		"Anomalist",
+		"Plasma Researcher",
+		"Chemical Researcher",
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
 	// All science-y guys get bonuses for maxing out their tech.
@@ -67,7 +71,11 @@
 		ACCESS_TECH_STORAGE,
 		ACCESS_GENETICS,
 	)
-	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
+	alt_titles = list(
+		"Xenoarcheologist",
+		"Slime Cultivator",
+		"Slime Rancher",
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
 	// All science-y guys get bonuses for maxing out their tech.
@@ -107,13 +115,16 @@
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
 	)
-	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
+	alt_titles = list(
+		"Biomechanical Engineer",
+		"Mechatronic Engineer",
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 
 	required_objectives = list(
 		/datum/job_objective/make_cyborg,
-		/datum/job_objective/make_ripley
+		/datum/job_objective/make_ripley,
 	)
 
 	outfit = /datum/outfit/job/roboticist
@@ -135,7 +146,7 @@
 	access = list(
 		ACCESS_GENETICS,
 		ACCESS_MAINT_TUNNELS,
-		ACCESS_RESEARCH
+		ACCESS_RESEARCH,
 	)
 	skeleton_access = list(
 		ACCESS_MINERAL_STOREROOM,

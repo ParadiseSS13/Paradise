@@ -11,10 +11,21 @@
 	job_department_flags = DEP_FLAG_COMMAND
 	department_account_access = TRUE
 	access = list() 	//See get_access()
-	alt_titles = list("Station Commander", "Head of Command", "Commanding Officer")
+	alt_titles = list(
+		"Station Commander",
+		"Head of Command",
+		"Commanding Officer",
+	)
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_COMMAND = 1200)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+	)
 	outfit = /datum/outfit/job/captain
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
@@ -68,13 +79,24 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
 		ACCESS_SUPPLY_SHUTTLE,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Security Director", "Sheriff")
+	alt_titles = list(
+		"Security Director",
+		"Sheriff",
+	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+		DISABILITY_FLAG_PARAPLEGIC,
+	)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/hos
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
@@ -114,13 +136,25 @@
 		ACCESS_TCOMSAT,
 		ACCESS_TECH_STORAGE,
 		ACCESS_TELEPORTER,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Engineering Director", "Senior Engineer", "Engine Foreman")
+	alt_titles = list(
+		"Engineering Director",
+		"Senior Engineer",
+		"Engine Foreman",
+	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_ENGINEERING = 1200)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+		DISABILITY_FLAG_PARAPLEGIC,
+	)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/chief_engineer
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Engineering), basic job duties, and act professionally (roleplay)."
@@ -163,12 +197,20 @@
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
 		ACCESS_XENOBIOLOGY,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Senior Researcher", "Chief Research Officer")
+	alt_titles = list(
+		"Senior Researcher",
+		"Chief Research Officer",
+	)
 	minimal_player_age = 21
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+	)
 	exp_map = list(EXP_TYPE_SCIENCE = 1200)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
@@ -210,13 +252,21 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_SURGERY,
 		ACCESS_VIROLOGY,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Medical Director", "Senior Physician")
+	alt_titles = list(
+		"Medical Director",
+		"Senior Physician",
+	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+	)
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
@@ -271,11 +321,21 @@
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
 		ACCESS_THEATRE,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Head of Service", "Crew Relations Officer")
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY , DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	alt_titles = list(
+		"Head of Service",
+		"Crew Relations Officer",
+	)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+	)
 	outfit = /datum/outfit/job/hop
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Service), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
@@ -313,11 +373,20 @@
 		ACCESS_WEAPONS,
 		ACCESS_TELEPORTER,
 		ACCESS_EXPEDITION,
-		ACCESS_SMITH
+		ACCESS_SMITH,
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
-	alt_titles = list("Supply Director", "Chief Logistics Officer", "Requisitions Foreman")
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	alt_titles = list(
+		"Supply Director",
+		"Chief Logistics Officer",
+		"Requisitions Foreman",
+	)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+	)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)

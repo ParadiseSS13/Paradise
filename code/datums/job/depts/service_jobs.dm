@@ -8,13 +8,23 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_BAR,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_WEAPONS,
+		ACCESS_MINERAL_STOREROOM,
+	)
 	skeleton_access = list(
 		ACCESS_KITCHEN,
 		ACCESS_HYDROPONICS,
 		ACCESS_MORGUE,
 	)
-	alt_titles = list("Barkeep", "Waiter", "Brewmaster", "Barista")
+	alt_titles = list(
+		"Barkeep",
+		"Waiter",
+		"Brewmaster",
+		"Barista",
+	)
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = LOW_DIFFICULTY
@@ -33,7 +43,7 @@
 	selection_color = "#dddddd"
 	access = list(
 		ACCESS_KITCHEN,
-		ACCESS_MAINT_TUNNELS
+		ACCESS_MAINT_TUNNELS,
 	)
 	skeleton_access = list(
 		ACCESS_BAR,
@@ -41,7 +51,11 @@
 		ACCESS_HYDROPONICS,
 		ACCESS_MINERAL_STOREROOM,
 	)
-	alt_titles = list("Cook","Culinary Artist","Butcher")
+	alt_titles = list(
+		"Cook",
+		"Culinary Artist",
+		"Butcher",
+	)
 	outfit = /datum/outfit/job/chef
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = MEDIUM_DIFFICULTY
@@ -61,14 +75,19 @@
 	access = list(
 		ACCESS_HYDROPONICS,
 		ACCESS_MAINT_TUNNELS,
-		ACCESS_MORGUE
+		ACCESS_MORGUE,
 	)
 	skeleton_access = list(
 		ACCESS_KITCHEN,
 		ACCESS_BAR,
 		ACCESS_MINERAL_STOREROOM,
 	)
-	alt_titles = list("Hydroponicist", "Botanical Researcher", "Farmer", "Gardener")
+	alt_titles = list(
+		"Hydroponicist",
+		"Botanical Researcher",
+		"Farmer",
+		"Gardener",
+	)
 	outfit = /datum/outfit/job/hydro
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = MEDIUM_DIFFICULTY
@@ -88,9 +107,13 @@
 	access = list(
 		ACCESS_CLOWN,
 		ACCESS_MAINT_TUNNELS,
-		ACCESS_THEATRE
+		ACCESS_THEATRE,
 	)
-	alt_titles = list("Jester", "Entertainer", "Comedian")
+	alt_titles = list(
+		"Jester",
+		"Entertainer",
+		"Comedian",
+	)
 	outfit = /datum/outfit/job/clown
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -110,9 +133,13 @@
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MIME,
-		ACCESS_THEATRE
+		ACCESS_THEATRE,
 	)
-	alt_titles = list("Pantomime", "Performer", "Performance Artist")
+	alt_titles = list(
+		"Pantomime",
+		"Performer",
+		"Performance Artist",
+	)
 	outfit = /datum/outfit/job/mime
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -131,7 +158,7 @@
 	selection_color = "#dddddd"
 	access = list(
 		ACCESS_JANITOR,
-		ACCESS_MAINT_TUNNELS
+		ACCESS_MAINT_TUNNELS,
 	)
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
@@ -153,9 +180,15 @@
 	selection_color = "#dddddd"
 	access = list(
 		ACCESS_LIBRARY,
-		ACCESS_MAINT_TUNNELS
+		ACCESS_MAINT_TUNNELS,
 	)
-	alt_titles = list("Journalist", "Reporter", "News Anchor", "Antiquarian", "Curator")
+	alt_titles = list(
+		"Journalist",
+		"Reporter",
+		"News Anchor",
+		"Antiquarian",
+		"Curator",
+	)
 	outfit = /datum/outfit/job/librarian
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -176,9 +209,22 @@
 		ACCESS_CHAPEL_OFFICE,
 		ACCESS_CREMATORIUM,
 		ACCESS_MAINT_TUNNELS,
-		ACCESS_MORGUE
+		ACCESS_MORGUE,
 	)
-	alt_titles = list("Priest", "Cleric", "Clergyman", "Bishop", "Deacon", "Reverend", "Pastor", "Occult Specialist", "Paranormal Specialist", "Rabbi", "Monk", "Kannushi")
+	alt_titles = list(
+		"Priest",
+		"Cleric",
+		"Clergyman",
+		"Bishop",
+		"Deacon",
+		"Reverend",
+		"Pastor",
+		"Occult Specialist",
+		"Paranormal Specialist",
+		"Rabbi",
+		"Monk",
+		"Kannushi",
+	)
 	outfit = /datum/outfit/job/chaplain
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -195,7 +241,11 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list()			//See /datum/job/assistant/get_access()
-	alt_titles = list("Off-Duty", "Retired", "Intern")
+	alt_titles = list(
+		"Off-Duty",
+		"Retired",
+		"Intern",
+	)
 	outfit = /datum/outfit/job/assistant
 	difficulty = NONE_DIFFICULTY
 	description = "Assistants have the responsibility to learn the game.\n\n\

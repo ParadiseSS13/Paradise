@@ -17,10 +17,16 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_TECH_STORAGE
+		ACCESS_TECH_STORAGE,
 	)
 	skeleton_access = list(ACCESS_ATMOSPHERICS)
-	alt_titles = list("Maintenance Technician", "Engine Technician", "Electrician", "Mechanic", "Repairman")
+	alt_titles = list(
+		"Maintenance Technician",
+		"Engine Technician",
+		"Electrician",
+		"Mechanic",
+		"Repairman",
+	)
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/engineer
@@ -47,13 +53,16 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_TECH_STORAGE
+		ACCESS_TECH_STORAGE,
 	)
 	skeleton_access = list(
 		ACCESS_STATION_ENGINEER,
 		ACCESS_ENGINE_EQUIP,
 	)
-	alt_titles = list("Atmospheric Technician", "Firefighter")
+	alt_titles = list(
+		"Atmospheric Technician",
+		"Firefighter",
+	)
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/atmos

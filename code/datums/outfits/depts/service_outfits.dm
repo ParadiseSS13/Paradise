@@ -11,14 +11,15 @@
 	pda = /obj/item/pda/bar
 	backpack_contents = list(
 		/obj/item/toy/russian_revolver = 1,
-		/obj/item/eftpos = 1)
+		/obj/item/eftpos = 1,
+	)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
+	H.dna.SetSEState(GLOB.soberblock, 1)
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
@@ -91,7 +92,7 @@
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/drinks/bottle/bottleofbanana = 1,
-		/obj/item/instrument/bikehorn = 1
+		/obj/item/instrument/bikehorn = 1,
 	)
 
 	bio_chips = list(/obj/item/bio_chip/sad_trombone)
@@ -144,7 +145,7 @@
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/reagent_containers/drinks/bottle/bottleofnothing = 1,
-		/obj/item/cane = 1
+		/obj/item/cane = 1,
 	)
 
 	backpack = /obj/item/storage/backpack/mime
@@ -219,7 +220,7 @@
 	pda = /obj/item/pda/chaplain
 	backpack_contents = list(
 		/obj/item/camera/spooky = 1,
-		/obj/item/nullrod = 1
+		/obj/item/nullrod = 1,
 	)
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

@@ -58,11 +58,12 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 	backpack_contents = list(
-					/obj/item/clothing/head/surgery/black = 1,
-					/obj/item/autopsy_scanner = 1,
-					/obj/item/reagent_scanner = 1,
-					/obj/item/healthanalyzer = 1,
-					/obj/item/storage/box/bodybags = 1)
+		/obj/item/clothing/head/surgery/black = 1,
+		/obj/item/autopsy_scanner = 1,
+		/obj/item/reagent_scanner = 1,
+		/obj/item/healthanalyzer = 1,
+		/obj/item/storage/box/bodybags = 1,
+	)
 
 /datum/outfit/job/coroner/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -148,7 +149,8 @@
 	backpack_contents = list(
 		/obj/item/healthanalyzer = 1,
 		/obj/item/sensor_device = 1,
-		/obj/item/pinpointer/crew = 1)
+		/obj/item/pinpointer/crew = 1,
+	)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med

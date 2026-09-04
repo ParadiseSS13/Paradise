@@ -12,14 +12,20 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MORGUE,
-		ACCESS_SURGERY
+		ACCESS_SURGERY,
 	)
 	skeleton_access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Surgeon", "Nurse", "Physician", "Medical Student", "Medical Resident")
+	alt_titles = list(
+		"Surgeon",
+		"Nurse",
+		"Physician",
+		"Medical Student",
+		"Medical Resident",
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
@@ -41,7 +47,7 @@
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
-		ACCESS_MORGUE
+		ACCESS_MORGUE,
 	)
 	skeleton_access = list(
 		ACCESS_SURGERY,
@@ -73,14 +79,17 @@
 		ACCESS_CHEMISTRY,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
-		ACCESS_MINERAL_STOREROOM
+		ACCESS_MINERAL_STOREROOM,
 	)
 	skeleton_access = list(
 		ACCESS_MORGUE,
 		ACCESS_SURGERY,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Pharmacist", "Pharmacologist")
+	alt_titles = list(
+		"Pharmacist",
+		"Pharmacologist",
+	)
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/chemist
@@ -103,7 +112,7 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_VIROLOGY
+		ACCESS_VIROLOGY,
 	)
 	skeleton_access = list(
 		ACCESS_MORGUE,
@@ -111,7 +120,10 @@
 		ACCESS_CHEMISTRY,
 		ACCESS_MINERAL_STOREROOM,
 	)
-	alt_titles = list("Pathologist","Microbiologist")
+	alt_titles = list(
+		"Pathologist",
+		"Microbiologist",
+	)
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	required_objectives = list(
@@ -136,7 +148,7 @@
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
-		ACCESS_PSYCHIATRIST
+		ACCESS_PSYCHIATRIST,
 	)
 	skeleton_access = list(
 		ACCESS_MORGUE,
@@ -145,7 +157,10 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Psychologist","Therapist")
+	alt_titles = list(
+		"Psychologist",
+		"Therapist",
+	)
 	outfit = /datum/outfit/job/psychiatrist
 	standard_paycheck = CREW_PAY_MEDIUM
 	difficulty = EASY_DIFFICULTY
@@ -174,7 +189,7 @@
 		ACCESS_MINING,
 		ACCESS_MORGUE,
 		ACCESS_PARAMEDIC,
-		ACCESS_TELEPORTER
+		ACCESS_TELEPORTER,
 	)
 	skeleton_access = list(
 		ACCESS_SURGERY,
@@ -182,7 +197,11 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Emergency Medical Technician", "First Responder", "Rescue Technician")
+	alt_titles = list(
+		"Emergency Medical Technician",
+		"First Responder",
+		"Rescue Technician",
+	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic

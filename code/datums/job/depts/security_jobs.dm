@@ -16,16 +16,28 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
-	alt_titles = list("Bailiff", "Correctional Officer", "Armorer")
+	alt_titles = list(
+		"Bailiff",
+		"Correctional Officer",
+		"Armorer",
+	)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_NERVOUS,
+		DISABILITY_FLAG_LISP,
+		DISABILITY_FLAG_PARAPLEGIC,
+	)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
 	important_information = "Space Law is the law, not a suggestion."
@@ -44,7 +56,10 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	alt_titles = list("Forensic Technician", "Investigator")
+	alt_titles = list(
+		"Forensic Technician",
+		"Investigator",
+	)
 	access = list(
 		ACCESS_BRIG,
 		ACCESS_COURT,
@@ -54,11 +69,17 @@
 		ACCESS_MORGUE,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_PARAPLEGIC,
+	)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/detective
 	important_information = "Track, investigate, and look cool while doing it. Space Law is not a suggestion."
@@ -84,16 +105,26 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
 	)
 	skeleton_access = list(
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
-	alt_titles = list("Deputy", "Ranger", "Constable")
+	alt_titles = list(
+		"Deputy",
+		"Ranger",
+		"Constable",
+	)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)
+	blacklisted_disabilities = list(
+		DISABILITY_FLAG_BLIND,
+		DISABILITY_FLAG_DEAF,
+		DISABILITY_FLAG_MUTE,
+		DISABILITY_FLAG_DIZZY,
+		DISABILITY_FLAG_PARAPLEGIC,
+	)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/officer
 	important_information = "Space Law is the law, not a suggestion."

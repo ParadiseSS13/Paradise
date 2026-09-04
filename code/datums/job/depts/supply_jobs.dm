@@ -21,7 +21,12 @@
 		ACCESS_MINING_STATION,
 		ACCESS_SMITH,
 	)
-	alt_titles = list("Mail Carrier", "Courier", "Logistics Technician", "Requisitions Specialist")
+	alt_titles = list(
+		"Mail Carrier",
+		"Courier",
+		"Logistics Technician",
+		"Requisitions Specialist",
+	)
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -52,7 +57,10 @@
 		ACCESS_MAILSORTING,
 		ACCESS_SUPPLY_SHUTTLE,
 	)
-	alt_titles = list("Metalworker", "Tinkerer")
+	alt_titles = list(
+		"Metalworker",
+		"Tinkerer",
+	)
 	outfit = /datum/outfit/job/smith
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = MEDIUM_DIFFICULTY
@@ -117,7 +125,10 @@
 		ACCESS_MINING,
 		ACCESS_SMITH,
 	)
-	alt_titles = list("Salvage Technician", "Scavenger")
+	alt_titles = list(
+		"Salvage Technician",
+		"Scavenger",
+	)
 	outfit = /datum/outfit/job/explorer
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = HARD_DIFFICULTY
