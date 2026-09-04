@@ -3273,6 +3273,7 @@
 #include "code\modules\power\engines\fission\reactor.dm"
 #include "code\modules\power\engines\fission\reactor_machines.dm"
 #include "code\modules\power\engines\fission\rod_chamber.dm"
+#include "code\modules\power\debug\power_debugger.dm"
 #include "code\modules\power\engines\singularity\collector.dm"
 #include "code\modules\power\engines\singularity\containment_field.dm"
 #include "code\modules\power\engines\singularity\emitter.dm"
