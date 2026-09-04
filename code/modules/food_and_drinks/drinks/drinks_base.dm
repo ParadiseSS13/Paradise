@@ -204,6 +204,7 @@
 /obj/item/reagent_containers/drinks/mugwort
 	name = "mugwort tea"
 	desc = "A bitter herbal tea."
+	icon = 'icons/obj/drinks/drinkingglass.dmi'
 	icon_state = "manlydorfglass"
 	inhand_icon_state = "coffee"
 	list_reagents = list("mugwort" = 30)
