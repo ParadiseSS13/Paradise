@@ -66,18 +66,20 @@
 /turf/space,
 /area/space)
 "aaR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/phone{
 	pixel_y = 2;
 	pixel_x = 7
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/item/book/manual/wiki/faxes{
 	pixel_x = -10;
 	pixel_y = 3
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -15498,15 +15500,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
-"bgJ" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/east)
 "bgM" = (
 /obj/structure/table/glass,
 /obj/item/hatchet,
@@ -19088,7 +19081,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "bss" = (
@@ -46031,6 +46023,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/sortjunc_helper/disposals,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "epQ" = (
@@ -46654,12 +46647,6 @@
 /obj/effect/spawner/airlock/long,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
-"eEP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/ntrep)
 "eER" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -46948,6 +46935,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
+"eMc" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "eMo" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -48083,9 +48074,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "fly" = (
@@ -52477,9 +52466,6 @@
 /obj/item/stamp/rep{
 	pixel_x = 24;
 	pixel_y = 11
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
 	},
 /obj/item/ashtray/glass{
 	pixel_x = -7;
@@ -71440,6 +71426,9 @@
 	department = "NT Representative's Office";
 	pixel_y = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "prM" = (
@@ -72481,6 +72470,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "pNe" = (
@@ -77992,7 +77982,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "sgA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -80815,10 +80804,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"txa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/ntrep)
 "txr" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 4
@@ -85332,9 +85317,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "vxR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -89363,8 +89345,10 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "xkB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -114751,7 +114735,7 @@ baq
 bdO
 aSC
 cmU
-bgJ
+bkg
 rVo
 epu
 wrU
@@ -118121,7 +118105,7 @@ bXX
 mun
 mun
 bSi
-cdV
+cdU
 cfu
 bTy
 dim
@@ -118378,7 +118362,7 @@ jqu
 iLY
 bZc
 bSi
-cdU
+cdV
 jTk
 shN
 mfx
@@ -119114,7 +119098,7 @@ cgW
 efV
 pfr
 xkB
-eEP
+ckv
 ckv
 ckv
 ciG
@@ -119408,7 +119392,7 @@ bSi
 bSi
 cdY
 qVN
-cdN
+eMc
 gHr
 rmK
 eRS
@@ -119626,7 +119610,7 @@ bag
 awg
 cgW
 sgA
-txa
+ckw
 aaR
 fls
 bFh
