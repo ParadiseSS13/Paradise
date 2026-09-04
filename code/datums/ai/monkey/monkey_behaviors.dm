@@ -221,37 +221,38 @@
 /datum/ai_behavior/disposal_mob/finish_action(datum/ai_controller/controller, succeeded, attack_target_key, disposal_target_key)
 	. = ..()
 	controller.clear_blackboard_key(attack_target_key) // Reset attack target
-	controller.set_blackboard_key(BB_MONKEY_DISPOSING, FALSE) // No longer disposing
+	controller.set_blackboard_key(BB_MONKEY_DISPOSING, MONKEY_DISPOSING_READY) // No longer disposing
 	controller.clear_blackboard_key(disposal_target_key) // No target disposal
 
 /datum/ai_behavior/disposal_mob/perform(seconds_per_tick, datum/ai_controller/controller, attack_target_key, disposal_target_key)
 	. = ..()
-	if(controller.blackboard[BB_MONKEY_DISPOSING]) // We are disposing, don't do ANYTHING!!!!
+
+	var/mob/living/living_pawn = controller.pawn
+
+	if(DOING_INTERACTION(living_pawn, "stuff_mob_in_disposal")) // We are disposing, don't do ANYTHING!!!!
 		return AI_BEHAVIOR_DELAY
 
 	var/mob/living/target = controller.blackboard[attack_target_key]
-	var/mob/living/living_pawn = controller.pawn
+	var/obj/machinery/disposal/disposal = controller.blackboard[disposal_target_key]
 
-	set_movement_target(controller, target)
-
-	if(!target)
+	if(!target || !disposal)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-	if(target.pulledby != living_pawn && !HAS_AI_CONTROLLER_TYPE(target.pulledby, /datum/ai_controller/monkey)) // Dont steal from my fellow monkeys.
+	if(controller.blackboard[BB_MONKEY_DISPOSING] == MONKEY_DISPOSING_READY && target.pulledby != living_pawn && !HAS_AI_CONTROLLER_TYPE(target.pulledby, /datum/ai_controller/monkey)) // Dont steal from my fellow monkeys.
 		if(living_pawn.Adjacent(target) && isturf(target.loc))
 			living_pawn.start_pulling(target)
+			controller.set_blackboard_key(BB_MONKEY_DISPOSING, MONKEY_DISPOSING_DRAGGING)
 		return AI_BEHAVIOR_DELAY // Do the rest next turn
 
-	var/obj/machinery/disposal/disposal = controller.blackboard[disposal_target_key]
-	set_movement_target(controller, disposal)
+	if(controller.blackboard[BB_MONKEY_DISPOSING] == MONKEY_DISPOSING_DRAGGING && !living_pawn.Adjacent(disposal))
+		set_movement_target(controller, disposal)
+		return AI_BEHAVIOR_DELAY
 
-	if(!disposal)
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-
-	if(living_pawn.Adjacent(disposal))
+	if(living_pawn.Adjacent(disposal) && controller.blackboard[BB_MONKEY_DISPOSING] == MONKEY_DISPOSING_DRAGGING)
+		controller.set_blackboard_key(BB_MONKEY_DISPOSING, MONKEY_DISPOSING_REACHED_DISPOSAL)
 		INVOKE_ASYNC(src, PROC_REF(try_disposal_mob), controller, attack_target_key, disposal_target_key) // put him in!
 		return AI_BEHAVIOR_DELAY
-	// This means we might be getting pissed!
+
 	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/disposal_mob/proc/try_disposal_mob(datum/ai_controller/controller, attack_target_key, disposal_target_key)
@@ -259,10 +260,12 @@
 	var/mob/living/target = controller.blackboard[attack_target_key]
 	var/obj/machinery/disposal/disposal = controller.blackboard[disposal_target_key]
 
-	controller.set_blackboard_key(BB_MONKEY_DISPOSING, TRUE)
+	controller.set_blackboard_key(BB_MONKEY_DISPOSING, MONKEY_DISPOSING_STUFFING)
 
-	if(target && disposal?.stuff_mob_in(target, living_pawn) && disposal.mode == 2)
+	if(target && target.pulledby == living_pawn && disposal?.stuff_mob_in(target, living_pawn) && disposal.mode == 2)
+		controller.set_blackboard_key(BB_MONKEY_DISPOSING, MONKEY_DISPOSING_FLUSHING)
 		disposal.flush()
+
 	finish_action(controller, TRUE, attack_target_key, disposal_target_key)
 
 /datum/ai_behavior/recruit_monkeys/perform(seconds_per_tick, datum/ai_controller/controller)

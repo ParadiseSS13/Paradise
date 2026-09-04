@@ -210,7 +210,7 @@
 	)
 
 	// Abort if the target manages to scurry away.
-	if(!do_after(user, 2 SECONDS, target = target))
+	if(!do_after(user, 2 SECONDS, target = target, interaction_key = "stuff_mob_in_disposal"))
 		return FALSE
 
 	target.forceMove(src)
