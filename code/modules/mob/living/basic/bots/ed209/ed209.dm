@@ -8,6 +8,7 @@
 	health = 100
 	maxHealth = 100
 	obj_damage = 60
+	speed = 1
 	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW
 	mob_size = MOB_SIZE_LARGE
 	ai_controller = /datum/ai_controller/basic_controller/bot/ed209
@@ -123,6 +124,9 @@
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/pathing_failed = FALSE
+
+/mob/living/basic/bot/secbot/ed209/syndicate/update_icon_state()
+	return
 
 /mob/living/basic/bot/secbot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, SPAN_WARNING("[src] has no card reader slot!"))
