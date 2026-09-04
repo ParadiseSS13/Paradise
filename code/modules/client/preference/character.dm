@@ -2396,6 +2396,7 @@
 	for(var/quirk_name in quirk_cache)
 		var/datum/quirk/chosen_quirk = GLOB.quirk_paths["[quirk_name]"]
 		if(!chosen_quirk)
+			log_debug("rebuild_quirks() tried to load an invalid quirk: '[quirk_name]'")
 			continue
 		var/datum/quirk/quirk = new chosen_quirk.type // Don't want hard refs to the global list
 		if(!quirk)
