@@ -453,5 +453,6 @@
 		/obj/structure/closet/crate/sci,
 		/obj/structure/closet/crate/sci/robo,
 		/obj/structure/closet/crate/engineering,
+		/obj/structure/closet/crate/engineering/electrical,
 		/obj/structure/closet/crate/nanotrasen,
 	)
