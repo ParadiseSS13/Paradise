@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(M.gender != FEMALE) // no beard for women pls
 		head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 
-	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
+	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(S.get_random_name(M.gender))]")
 	M.age = rand(23,35)
 	M.update_dna()
 	M.regenerate_icons()
