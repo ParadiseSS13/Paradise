@@ -57,7 +57,7 @@
 #define PLASMA_OVERHEAT_BONUS 200 //! The overheat threshold bonus that plasma coolant provides
 
 /obj/machinery/atmospherics/fission_reactor
-	name = "Nuclear Fission Reactor"
+	name = "\improper Nuclear Fission Reactor"
 	desc = "An ancient yet reliable form of power generation utilizing fissile materials to generate heat."
 	icon = 'icons/goonstation/objects/reactor.dmi'
 	icon_state = "reactor_off"
@@ -153,22 +153,27 @@
 			if(REACTOR_NEEDS_DIGGING)
 				. += SPAN_NOTICE("A shovel will be needed to extract all of the melted corium.")
 			if(REACTOR_NEEDS_CROWBAR)
-				. += SPAN_NOTICE("The old broken plating needs to be removed with a crowbar.")
+				. += SPAN_NOTICE("The old broken plating needs to be <b>pried</b> away.")
 			if(REACTOR_NEEDS_PLASTITANIUM)
 				. += SPAN_NOTICE("The reactor requires a new plastitanium core.")
 			if(REACTOR_NEEDS_WRENCH)
-				. += SPAN_NOTICE("The new plastitanium core needs to be wrenched into place.")
+				. += SPAN_NOTICE("The new plastitanium core needs to be <b>wrenched</b> into place.")
 			if(REACTOR_NEEDS_WELDING)
-				. += SPAN_NOTICE("The new plastitanium core needs to be welded into place.")
+				. += SPAN_NOTICE("The new plastitanium core needs to be <b>welded</b> into place.")
 			if(REACTOR_NEEDS_PLASTEEL)
 				. += SPAN_NOTICE("The new plastitanium core needs a new plasteel housing cover.")
 			if(REACTOR_NEEDS_SCREWDRIVER)
-				. += SPAN_NOTICE("The plasteel housing cover needs screwed into place.")
+				. += SPAN_NOTICE("The plasteel housing cover needs to be <b>screwed</b> into place.")
 		return
+	
+	if(damage)
+		. += SPAN_NOTICE("The reactor can be repaired with <b>plastitanium sheets<b>.")
+	if(control_rods_remaining < TOTAL_CONTROL_RODS)
+		. += SPAN_NOTICE("The displaced control rods can be <b>wrenched</b> back in place.")
 	if(venting)
-		. += SPAN_NOTICE("A crowbar can be used to close the malfunctioning vent.")
+		. += SPAN_NOTICE("The malfunctioning vent can be <b>pried</b> closed.")
 	if(grill)
-		. += SPAN_NOTICE("Wirecutters can be used to remove the grill.")
+		. += SPAN_NOTICE("The grills can be <b>cut</b> free of the reactor.")
 
 /obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
@@ -288,15 +293,29 @@
 	var/mob/living/carbon/creature = user
 	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING && (stat & BROKEN))
 		playsound(src, used.usesound, 50, TRUE)
-		if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-			playsound(src, used.usesound, 50, TRUE)
-			new /obj/item/slag(loc)
-			if(prob(20))
-				repair_step++
-				to_chat(creature, SPAN_INFORMATION("No more melted slag remains in the chamber."))
-			else
-				to_chat(creature, SPAN_INFORMATION("There seems to be additional slag clogging the ruined reactor core."))
+		user.visible_message(
+			SPAN_NOTICE("[user] begins to shovel slag from the ruined reactor core..."),
+			SPAN_NOTICE("You begin to shovel slag from the ruined reactor core..."),
+			SPAN_HEAR("You hear digging.")
+		)
+		if(!do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+			to_chat(user, SPAN_WARNING("You stop shoveling slag."))
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] shovels a load of slag out of the ruined reactor core."),
+			SPAN_NOTICE("You shovel a load of slag out of the ruined reactor core."),
+			SPAN_HEAR("You hear something loose being piled on the ground.")
+		)
+		playsound(src, used.usesound, 50, TRUE)
+		new /obj/item/slag(loc)
+		if(prob(20))
+			repair_step++
+			to_chat(creature, SPAN_NOTICE("No more melted slag remains in the chamber."))
+		else
+			to_chat(creature, SPAN_DANGER("There seems to be additional slag still clogging the ruined reactor core!"))
 		return ITEM_INTERACT_COMPLETE
+
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
 		if(plastitanium.amount < 5)
@@ -304,18 +323,29 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
-			if(do_after_once(creature, 3 SECONDS, TRUE, src))
-				if(plastitanium.amount < 5)
-					to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
-					return ITEM_INTERACT_COMPLETE
-				plastitanium.use(5)
-				to_chat(creature, SPAN_INFORMATION("You reform the control rod housing and slot the structure into place."))
-				repair_step++
-				icon_state = "reactor_maintenance"
-				return
+			user.visible_message(
+				SPAN_NOTICE("[user] begins to fabricate a new control rod housing..."),
+				SPAN_NOTICE("You begin to fabricate a new control rod housing...")
+			)
+			if(!do_after_once(creature, 3 SECONDS, TRUE, src))
+				to_chat(user, SPAN_WARNING("You stop fabricating the control rod housing!"))
+				return ITEM_INTERACT_COMPLETE
+
+			if(plastitanium.amount < 5)
+				to_chat(creature, SPAN_WARNING("You need at least five sheets of plastitanium to reform the reactor core structure!"))
+				return ITEM_INTERACT_COMPLETE
+
+			plastitanium.use(5)
+			user.visible_message(
+				SPAN_NOTICE("[user] reforms the control rod housing and slots the structure into place."),
+				SPAN_NOTICE("You reform the control rod housing and slots the structure into place.")
+			)
+			repair_step++
+			icon_state = "reactor_maintenance"
+			return ITEM_INTERACT_COMPLETE
 
 		if(!offline)
-			to_chat(creature, SPAN_WARNING("The reactor must be off to repair it!"))
+			to_chat(creature, SPAN_WARNING("The reactor must be deactivated to repair it!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(damage == 0)
@@ -324,15 +354,26 @@
 
 		var/obj/item/item = creature.get_inactive_hand()
 		if(!istype(item, /obj/item/weldingtool))
-			to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium."))
+			to_chat(creature, SPAN_WARNING("A functional welder is required to adhere the plastitanium!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
 			return ITEM_INTERACT_COMPLETE
 
-		if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
-			plastitanium.use(5)
-			adjust_damage((-MELTDOWN_POINT * 0.1))
+		user.visible_message(
+			SPAN_NOTICE("[user] begins to apply [used] to the damaged parts of [src]..."),
+			SPAN_NOTICE("You begin to apply [used] to the damaged parts of [src]...")		
+		)
+		if(!do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
+			to_chat(user, SPAN_WARNING("You stop repairing [src]."))
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] repairs some damage on [src]."),
+			SPAN_NOTICE("You repair some some damage on [src].")		
+		)		
+		plastitanium.use(5)
+		adjust_damage((-MELTDOWN_POINT * 0.1))
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -341,10 +382,21 @@
 		if(plasteel.amount < 5)
 			to_chat(user, SPAN_WARNING("You need at least five sheets of plasteel to reform the reactor core structure!"))
 			return ITEM_INTERACT_COMPLETE
-		if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-			repair_step++
-			plasteel.use(5)
-			to_chat(user, SPAN_INFORMATION("You attach a layer of radiation shielding around the reactor core."))
+
+		user.visible_message(
+			SPAN_NOTICE("[user] begins repairing the reactor core with [used]."),
+			SPAN_NOTICE("You begin repairing the reactor core with [used].")
+		)
+		if(!do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+			to_chat(user, SPAN_WARNING("You stop repairing the reactor core!"))
+			return ITEM_INTERACT_COMPLETE
+
+		repair_step++
+		plasteel.use(5)
+		user.visible_message(
+			SPAN_NOTICE("[user] attaches a layer of radiation shielding around the reactor core."),
+			SPAN_NOTICE("You attach a layer of radiation shielding around the reactor core.")
+		)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
@@ -353,9 +405,13 @@
 			to_chat(user, SPAN_WARNING("You need a second grate to set up a proper grill!"))
 			return ITEM_INTERACT_COMPLETE
 		if(grill)
-			to_chat(user, SPAN_WARNING("There are already grill grates adhered to the surface of the reactor!"))
+			to_chat(user, SPAN_WARNING("There are already grill grates adhered to the surface [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
+		user.visible_message(
+			SPAN_NOTICE("[user] attaches a pair of [used.name]s to [src]."),
+			SPAN_NOTICE("You attach [used]s to [src].")
+		)
 		qdel(used)
 		qdel(item)
 		grill = new(loc)
@@ -363,40 +419,91 @@
 
 /obj/machinery/atmospherics/fission_reactor/wirecutter_act(mob/living/user, obj/item/I)
 	if(grill)
-		to_chat(user, SPAN_WARNING("You begin cutting the adhered grates from the reactor body..."))
-		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-			new /obj/item/reagent_containers/cooking/grill_grate(loc)
-			new /obj/item/reagent_containers/cooking/grill_grate(loc)
-			QDEL_NULL(grill)
+		user.visible_message(
+			SPAN_NOTICE("[user] begins cutting the adhered grates from [src]..."),
+			SPAN_NOTICE("You begin cutting the adhered grates from [src]..."),
+			SPAN_NOTICE("You hear snipping.")
+		)
+		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+			to_chat(user, SPAN_WARNING("You stop cutting the grates!"))
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] finishes cutting the adhered grates from [src]..."),
+			SPAN_NOTICE("You finish cutting the adhered grates from [src]..."),
+			SPAN_NOTICE("You hear snipping.")
+		)
+		new /obj/item/reagent_containers/cooking/grill_grate(loc)
+		new /obj/item/reagent_containers/cooking/grill_grate(loc)
+		QDEL_NULL(grill)
 		return ITEM_INTERACT_COMPLETE
+	
+	to_chat(user, SPAN_WARNING("You don't see anything that you can cut free from [src] right now."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_CROWBAR)
 		if(I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
-			to_chat(user, SPAN_INFORMATION("You remove any remaining damaged structure from the housing."))
+			user.visible_message(
+				SPAN_NOTICE("[user] pries any remaining damaged structure from the reactor housing"),
+				SPAN_NOTICE("You remove any remaining damaged structure from the reactor housing."),
+				SPAN_HEAR("You hear prying noises.")
+			)
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
-	if(!(stat & BROKEN) && venting)
-		if(I.use_tool(src, user, (8 SECONDS * I.toolspeed), volume = I.tool_volume))
-			venting = FALSE
-			return ITEM_INTERACT_COMPLETE
+
+	if(!(stat & BROKEN))
+		if(venting)
+			if(I.use_tool(src, user, (8 SECONDS * I.toolspeed), volume = I.tool_volume))
+				venting = FALSE
+				return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_WARNING("The emergency coolant vent is functioning correctly, you don't need to pry it right now."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_WARNING("You don't see anything you can pry free from the reactor right now."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/wrench_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WRENCH)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
-			to_chat(user, SPAN_INFORMATION("You secure the new plastitanium structure in place."))
+			user.visible_message(
+				SPAN_NOTICE("[user] secures the new plastitanium structure in place."),
+				SPAN_NOTICE("You secure the new plastitanium structure in place."),
+				SPAN_HEAR("You hear ratcheting.")
+			)
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
-	if(!(stat & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
-		if(I.use_tool(src, user, 0, volume = I.tool_volume))
-			if(do_after_once(user, (8 SECONDS * I.toolspeed), allow_moving = FALSE, target = src, progress = TRUE))
+
+	if(!(stat & BROKEN))
+		if(control_rods_remaining < TOTAL_CONTROL_RODS)
+			if(I.use_tool(src, user, 0, volume = I.tool_volume))
+				user.visible_message(
+					SPAN_NOTICE("[user] begins wrenching a displaced control rod back into place..."),
+					SPAN_NOTICE("You begin wrenching a displaced control rod back into place..."),
+					SPAN_HEAR("You hear ratcheting.")
+				)
+				if(!do_after_once(user, (8 SECONDS * I.toolspeed), allow_moving = FALSE, target = src, progress = TRUE))
+					to_chat(user, SPAN_WARNING("You stop re-securing the control rod!"))
+					return ITEM_INTERACT_COMPLETE
+
+				user.visible_message(
+					SPAN_NOTICE("[user] wrenches a displaced control rod back into place."),
+					SPAN_NOTICE("You wrench a displaced control rod back into place."),
+					SPAN_HEAR("You hear ratcheting.")
+				)			
 				control_rods_remaining++
 				update_icon(UPDATE_OVERLAYS)
 			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_WARNING("You don't need to re-secure any of the control rods right now."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_WARNING("You don't see anything that you that you can wrench right now."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
@@ -406,14 +513,24 @@
 			set_fixed()
 		return ITEM_INTERACT_COMPLETE
 
+	to_chat(user, SPAN_WARNING("You don't see anything that you that you can screw right now."))
+	return ITEM_INTERACT_COMPLETE
+
 /obj/machinery/atmospherics/fission_reactor/welder_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WELDING)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, TRUE)
 			repair_step++
-			to_chat(user, SPAN_INFORMATION("You weld together the framing, ensuring an airtight seal within the core."))
+			user.visible_message(
+				SPAN_NOTICE("[user] welds together the framing, ensuring an airtight seal within the core."),
+				SPAN_NOTICE("You weld together the framing, ensuring an airtight seal within the core."),
+				SPAN_HEAR("You hear welding.")
+			)
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
+	
+	to_chat(user, SPAN_WARNING("You don't see anything that you that you can weld right now."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/proc/get_integrity()
 	var/integrity = damage / MELTDOWN_POINT
