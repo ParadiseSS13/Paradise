@@ -14,6 +14,15 @@
 	var/metal_per_use = 5
 
 	var/applying = FALSE
+	/// The species the body part will look like, default is human
+	var/chosen_species = "human" // Default species
+	/// List of species to choose a body part to look like
+	var/list/available_species = list("human", "unathi", "vulpkanin", "tajaran", "skrell", "diona", "nian", "drask", "grey", "kidan") // Species not included are special
+
+	//MARK: JOHN DEBUG HERE TO LET YOU KNOW
+	/*
+	to_chat(YOU, SPAN_BOLDANNOUNCEIC("John debug here to let you know the following:[var1], [var2]"))
+	*/
 
 /obj/item/epidermal_applicator/Initialize(mapload)
 	. = ..()
@@ -23,6 +32,7 @@
 /obj/item/epidermal_applicator/examine(mob/user)
 	. = ..()
 
+	. += SPAN_NOTICE("Alt+clcick to select a species you want to look like.")
 	if(metal_stored >= metal_per_use)
 		. += SPAN_NOTICE("It is loaded and ready to apply an epidermal layer to a body part.")
 	else
@@ -49,6 +59,17 @@
 
 	to_chat(user, SPAN_NOTICE("You load [to_load] sheet\s of metal into [src]."))
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/epidermal_applicator/AltClick(mob/user, modifiers)
+	if(!is_insertion_ready(user))
+		to_chat(user, SPAN_WARNING("You need to be holding a body part to apply synthetic skin."))
+		return
+
+	var/list/species_choices = available_species
+	chosen_species = tgui_input_list(user, "Select a species to look like:", "Species Selection", available_species)
+	if(chosen_species == "human")
+		//TODO: Make them choose a skin tone
+
 
 /obj/item/epidermal_applicator/activate_self(mob/user)
 	. = ..()
