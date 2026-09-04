@@ -267,7 +267,7 @@
 /obj/item/disk/rnd_backup_disk
 	name = "rnd backup disk"
 	desc = "A disk for storing technology data for backup purposes."
-	icon_state = "datadisk2"
+	icon_state = "tech_Backup"
 	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
 	/// List of stored technode IDs
 	var/list/stored_tech_assoc = list()
