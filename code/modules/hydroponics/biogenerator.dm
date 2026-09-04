@@ -194,7 +194,7 @@
 
 		var/obj/item/disk/design_disk/D = used
 		if(do_after(user, 1 SECONDS, target = src))
-			files.AddDesign2Known(D.blueprint)
+			files.unlock_design(D.blueprint)
 
 		processing = FALSE
 		update_ui_product_list(user)

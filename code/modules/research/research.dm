@@ -109,10 +109,7 @@ If you want to add a new point type, look at SSResearch.
 	if(T.id in known_technodes)
 		log_debug("(Unlock Node) Technode [T.name] attempted unlock but was already unlocked.")
 		return FALSE
-	var/list/i = list("[T.id]" = T)
-	known_technodes += i
-	for(var/d in T.unlocks)
-		AddDesign2Known(find_possible_design_by_id(d))
+	known_technodes[T.id] = T
 	RefreshResearch()
 	log_debug("(Unlock Node) Technode [T.name] successfully unlocked.") // MIXTODO - Remove logging later
 	return TRUE
@@ -138,10 +135,8 @@ If you want to add a new point type, look at SSResearch.
 	if(T.id in known_technodes)
 		if(T in visible_technodes)
 			visible_technodes -= T
-		// log_debug("(Check Vis) Technode [T.name] was already known.") // MIXTODO - Remove logging later
 		return FALSE // Technode is already known, we don't need to check this.
-	if(T.starting_node == FALSE && T.prereqs.len == 0)
-		// log_debug("(Check Vis) Technode [T.name] has no prereqs and isnt a starting node.") // MIXTODO - Remove logging later
+	if(!T.starting_node && T.prereqs.len == 0)
 		return FALSE
 	if(T.cost_hidden.len > 0)
 		var/tc = 0
@@ -149,16 +144,12 @@ If you want to add a new point type, look at SSResearch.
 			if(total_points[i] > T.cost_hidden[i])
 				tc += 1
 		if(tc == T.cost_hidden.len)
-			// log_debug("(Check Vis - Hidden) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
 			return TRUE
-		// log_debug("(Check Vis - Hidden) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
 		return FALSE
 	if(technode_has_prereqs(T))
 		if(!(T in visible_technodes))
 			visible_technodes += T
-		// log_debug("(Check Vis) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
 		return TRUE
-	// log_debug("(Check Vis) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
 	return FALSE
 
 /// Checks possible technode list for id, returns T if found.
@@ -171,28 +162,28 @@ If you want to add a new point type, look at SSResearch.
 	for(var/datum/technode/T in possible_technodes)
 		if(id in T.unlocks)
 			return T
-		return FALSE
-
-/datum/research/proc/DesignHasReqs(datum/design/D)
-	if(D.id in blacklisted_designs)
-		return FALSE
-	if(D.requires_whitelist && !(D.id in known_designs))
-		return FALSE
-	var/datum/technode/T = design_id_to_technode(D.id)
-	if(!T)
-		return TRUE // No technode unlocks this design and it doesnt require a disk or has already been put in, it should be unlocked.
-	if(T.id in known_technodes)
-		return TRUE
 	return FALSE
 
-/datum/research/proc/CanAddDesign2Known(datum/design/D)
+/datum/research/proc/design_has_reqs(datum/design/D)
+	if(D.id in blacklisted_designs)
+		return FALSE
+	if(D.requires_whitelist) // Whitelist designs come from disks, which do not go through the checks anyway.
+		return FALSE
+	if(design_id_to_technode(D.id))
+		var/datum/technode/T = design_id_to_technode(D.id)
+		if(T.id in known_technodes)
+			return TRUE
+		return FALSE
+	return TRUE // No technode unlocks this and it does not require a disk, it should be unlocked.
+
+/datum/research/proc/can_unlock_design(datum/design/D)
 	if(D.id in known_designs)
 		return FALSE
-	if(!DesignHasReqs(D))
+	if(!design_has_reqs(D))
 		return FALSE
 	return TRUE
 
-/datum/research/proc/AddDesign2Known(datum/design/D)
+/datum/research/proc/unlock_design(datum/design/D)
 	if(!D)
 		return FALSE
 	if(D in known_designs)
@@ -206,8 +197,8 @@ If you want to add a new point type, look at SSResearch.
 	for(var/datum/technode/PT in possible_technodes)
 		check_technode_visibility(PT)
 	for(var/datum/design/PD in possible_designs)
-		if(CanAddDesign2Known(PD))
-			AddDesign2Known(PD)
+		if(can_unlock_design(PD))
+			unlock_design(PD)
 	if(length(blacklisted_designs)) // No need to run this unless there are blacklisted designs.
 		known_designs -= blacklisted_designs
 
@@ -222,7 +213,7 @@ If you want to add a new point type, look at SSResearch.
 //Autolathe files
 /datum/research/autolathe
 
-/datum/research/autolathe/AddDesign2Known(datum/design/D)
+/datum/research/autolathe/unlock_design(datum/design/D)
 	if(D.locked || !(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)))
 		return FALSE
 
@@ -235,7 +226,7 @@ If you want to add a new point type, look at SSResearch.
 ///Gamma Armoury autolathe files
 /datum/research/autolathe/gamma
 
-/datum/research/autolathe/gamma/AddDesign2Known(datum/design/D)
+/datum/research/autolathe/gamma/unlock_design(datum/design/D)
 	if(!(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE|GAMMALATHE)))
 		return FALSE
 	return ..()
@@ -248,9 +239,9 @@ If you want to add a new point type, look at SSResearch.
 		var/datum/design/D = new path(src)
 		possible_designs += D
 		if((D.build_type & BIOGENERATOR) && ("initial" in D.category))
-			AddDesign2Known(D)
+			unlock_design(D)
 
-/datum/research/biogenerator/CanAddDesign2Known(datum/design/D)
+/datum/research/biogenerator/can_unlock_design(datum/design/D)
 	if(!(D.build_type & BIOGENERATOR))
 		return FALSE
 	return ..()
@@ -263,9 +254,9 @@ If you want to add a new point type, look at SSResearch.
 		var/datum/design/D = new path(src)
 		possible_designs += D
 		if((D.build_type & SMELTER) && ("initial" in D.category))
-			AddDesign2Known(D)
+			unlock_design(D)
 
-/datum/research/smelter/CanAddDesign2Known(datum/design/D)
+/datum/research/smelter/can_unlock_design(datum/design/D)
 	if(!(D.build_type & SMELTER))
 		return FALSE
 	return ..()

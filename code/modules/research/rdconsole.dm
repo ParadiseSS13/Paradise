@@ -235,7 +235,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!files)
 		return
 	if(d_disk && d_disk.blueprint)
-		files.AddDesign2Known(d_disk.blueprint)
+		files.unlock_design(d_disk.blueprint)
 	else if(t_disk)
 		var/disk_points = t_disk.stored_research
 		var/temp_points = t_disk.unload_research(disk_points)

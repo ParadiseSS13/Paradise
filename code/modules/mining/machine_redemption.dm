@@ -426,7 +426,7 @@
 			inserted_disk = null
 		if("download")
 			if(inserted_disk?.blueprint?.build_type & SMELTER)
-				files.AddDesign2Known(inserted_disk.blueprint)
+				files.unlock_design(inserted_disk.blueprint)
 				atom_say("Design \"[inserted_disk.blueprint.name]\" downloaded successfully.")
 		else
 			return FALSE

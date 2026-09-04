@@ -288,7 +288,7 @@
 					to_chat(user, SPAN_WARNING("This design has already been loaded into the autolathe."))
 					return TRUE
 
-				if(!files.AddDesign2Known(design))
+				if(!files.unlock_design(design))
 					to_chat(user, SPAN_WARNING("This design is not compatible with the autolathe."))
 					return TRUE
 
@@ -301,7 +301,7 @@
 				busy = TRUE
 				if(do_after(user, disk_design_load_delay, target = src))
 					imported[design.id] = TRUE
-					files.AddDesign2Known(design)
+					files.unlock_design(design)
 					recipiecache = list()
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE
@@ -509,7 +509,7 @@
 	if(hack)
 		for(var/datum/design/D in files.possible_designs)
 			if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
-				files.AddDesign2Known(D)
+				files.unlock_design(D)
 	else
 		for(var/datum/design/D in files.known_designs)
 			if("hacked" in D.category)
