@@ -135,7 +135,7 @@
 		if(P.density && P.id_tag == PW_CHALLENGE_LOOTROOM && P.z == z && !P.operating)
 			P.open()
 	atom_say("Lockdown lifted. Have a secure daayayyyayyy... -ZZZT!")
-	visible_message("<span class='userdanger'>[src] starts beeping ominously!</span>")
+	visible_message(SPAN_USERDANGER("[src] starts beeping ominously!"))
 	for(var/i in 1 to 4)
 		playsound(loc, 'sound/items/timer.ogg', 30, 0)
 		sleep(1 SECONDS)

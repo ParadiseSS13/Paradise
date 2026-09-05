@@ -55,9 +55,9 @@
 /obj/item/organ/internal/examine(mob/user)
 	. = ..()
 	if(is_xeno_organ)
-		. += "<span class='info'>It looks like it would replace \the [slot]."
+		. += SPAN_INFO("It looks like it would replace \the [slot].")
 	if(self_augmented_skin_level)
-		. += "<span class='info'>It seems to have level-[self_augmented_skin_level] synthetic skin applied."
+		. += SPAN_INFO("It seems to have level-[self_augmented_skin_level] synthetic skin applied.")
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)

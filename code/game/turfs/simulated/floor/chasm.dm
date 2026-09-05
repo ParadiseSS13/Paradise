@@ -220,8 +220,10 @@
 	if(!AM || QDELETED(AM))
 		return
 	falling_atoms[AM] = TRUE
-	AM.visible_message(SPAN_BOLDWARNING("[AM] falls into [src]!"), "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
-	into the enveloping dark.</span>")
+	AM.visible_message(
+		SPAN_BOLDWARNING("[AM] falls into [src]!"),
+		SPAN_USERDANGER("You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark.")
+	)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE

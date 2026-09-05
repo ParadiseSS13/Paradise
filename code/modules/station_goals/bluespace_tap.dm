@@ -25,7 +25,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceic'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? SPAN_GREENANNOUNCE(highscore) : SPAN_BOLDANNOUNCEIC(highscore)]")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
