@@ -615,6 +615,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/R = I
+		if(IS_ACOLYTE(user) && R.z != user.z)
+			continue
 		var/resultkey = R.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++

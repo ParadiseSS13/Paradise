@@ -366,19 +366,19 @@
 			var/list/construct_types
 			var/list/construct_icons
 			if(IS_ACOLYTE(user))
-				var/list/construct_types = list("Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
-												"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+				construct_types = list("Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+										"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 				/// Custom construct icons for different cults
-				var/list/construct_icons = list("Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
-												"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
+				construct_icons = list("Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+										"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
 			else
-				var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
-												"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
-												"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+				construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
+										"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+										"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 				/// Custom construct icons for different cults
-				var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
-												"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
-												"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
+				construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
+										"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+										"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
@@ -466,6 +466,8 @@
 		if(IS_CULTIST(user) && !IS_ACOLYTE(user))
 			S.mind.add_antag_datum(/datum/antagonist/cultist)
 			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
+		else if(IS_ACOLYTE(user))
+			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
 		else
 			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
 			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))

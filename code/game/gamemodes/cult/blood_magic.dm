@@ -570,6 +570,8 @@
 
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
+		if(IS_ACOLYTE(user) && T.z != teleportee.z)
+			continue
 		var/resultkey = T.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++
