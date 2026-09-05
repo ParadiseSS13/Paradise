@@ -458,3 +458,8 @@
 #define GHOST_FLAGS_NO_REENTER (GHOST_FLAGS_DEFAULT & ~GHOST_CAN_REENTER)
 #define GHOST_FLAGS_NO_RESPAWNABLE (GHOST_FLAGS_DEFAULT & ~GHOST_RESPAWNABLE)
 #define GHOST_FLAGS_OBSERVE_ONLY (GHOST_FLAGS_DEFAULT & ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE))
+
+/// Acts as a default faction for most violent creatures
+#define FACTION_HOSTILE "hostile"
+/// Acts as a default faction for most peaceful creatures
+#define FACTION_NEUTRAL "neutral"
