@@ -490,10 +490,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/offer_targets = list()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
-		if(!IS_CULTIST(M) || (M.mind && IS_SACRIFICE_TARGET(M.mind)))
-			if(isconstruct(M)) // No offering constructs, please.
-				continue
-			offer_targets += M
+		if(isconstruct(M)) // No offering constructs, please.
+			continue
+		offer_targets += M
 
 	// Offering a head/brain.
 	for(var/obj/item/organ/O in T)
