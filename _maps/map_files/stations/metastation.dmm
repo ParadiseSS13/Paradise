@@ -92012,10 +92012,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "xVD" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden{
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "xVF" = (
