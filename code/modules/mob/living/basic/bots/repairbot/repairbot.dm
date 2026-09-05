@@ -85,7 +85,7 @@
 	our_welder.tool_enabled = TRUE
 	our_crowbar = new(src)
 	our_screwdriver = new(src)
-	our_rods = new(src, our_rods::max_amount)
+	our_rods = new /obj/item/stack/rods/fifty(src)
 	set_color(toolbox_color)
 	START_PROCESSING(SSobj, src)
 
@@ -250,9 +250,11 @@
 	return ..()
 
 /mob/living/basic/bot/repairbot/process(seconds_per_tick) //generate 1 iron rod every 2 seconds
-	if(isnull(our_rods) || our_rods.amount < our_rods.max_amount)
+	if(!our_rods)
 		var/obj/item/stack/rods/new_rods = new()
 		new_rods.forceMove(src)
+	else if(our_rods.amount < our_rods.max_amount)
+		our_rods.amount++
 
 /mob/living/basic/bot/repairbot/turn_on(mob/user)
 	. = ..()
