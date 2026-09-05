@@ -73,9 +73,7 @@
 		M.ckey = P.ckey
 		M.dna.species.after_equip_job(null, M)
 		M.age = rand(21, 50)
-		if(prob(50))
-			M.change_gender(FEMALE)
-		set_appearance(M)
+		M.generate_random_appearance(prosthesis_prob = 0)
 		M.equipOutfit(T.tourist_outfit)
 		GLOB.data_core.manifest_inject(M) // Proc checks if they have a special role before adding to the manifest, if they do, they aren't added. This needs to be done before adding the special role.
 		M.mind.special_role = SPECIAL_ROLE_TOURIST
@@ -111,27 +109,6 @@
 	greeting.Add(SPAN_NOTICE("<br>Your current objectives are:"))
 	greeting.Add(M.mind.prepare_announce_objectives(FALSE))
 	to_chat(M, chat_box_green(greeting.Join("<br>")))
-
-// All of this code down here is from ert.dm.
-/datum/event/tourist_arrivals/proc/set_appearance(mob/living/carbon/human/M)
-
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	var/hair_c = pick("#8B4513", "#000000", "#FF4500", "#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000", "#8B4513", "1E90FF") // Black, brown, blue
-	var/skin_tone = rand(-120, 20)
-
-	head_organ.facial_colour = hair_c
-	head_organ.sec_facial_colour = hair_c
-	head_organ.hair_colour = hair_c
-	head_organ.sec_hair_colour = hair_c
-	M.change_eye_color(eye_c)
-	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
-
-	M.regenerate_icons()
-	M.update_body()
-	M.update_dna()
 
 // Tourist datum stuff, mostly being species and outfit.
 /datum/tourist
