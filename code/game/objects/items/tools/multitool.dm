@@ -63,7 +63,7 @@
 	if(!(istype(target, /obj/machinery/atmospherics/unary) || istype(target, /obj/machinery/atmospherics/air_sensor)))
 		return
 	if(!(target in view(5, user)))
-		to_chat(user,"<span class='warning'>[target] out of multitool range. Please get within 5 meters and try again.<span>")
+		to_chat(user, SPAN_WARNING("[target] out of multitool range. Please get within 5 meters and try again."))
 		return
 	return target.multitool_act(user, src)
 

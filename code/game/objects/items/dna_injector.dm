@@ -147,7 +147,6 @@
 				attack_log = "injected with the Isolated [name] (MONKEY)"
 				message_admins("[key_name_admin(user)] injected [key_name_admin(target)] with the Isolated [name] [SPAN_WARNING("(MONKEY)")]")
 
-
 	if(target != user)
 		target.visible_message(
 			SPAN_DANGER("[user] is trying to inject [target] with [src]!"),

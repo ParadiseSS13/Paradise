@@ -441,9 +441,9 @@
 	if(opened && !issilicon(user))
 		if(cell)
 			user.visible_message(
-				"<span class='notice'>[user] removes [cell] from [src].",
+				SPAN_NOTICE("[user] removes [cell] from [src]."),
 				SPAN_NOTICE("You remove [cell].")
-				)
+			)
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon(UPDATE_OVERLAYS)

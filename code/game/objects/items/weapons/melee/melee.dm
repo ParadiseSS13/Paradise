@@ -405,9 +405,9 @@
 /obj/item/melee/breach_cleaver/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='notice'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+		. += SPAN_NOTICE("When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
-			and harm intent deals heavy damage.</span>"
+			and harm intent deals heavy damage.")
 
 /obj/item/melee/breach_cleaver/examine_more(mob/user)
 	. = ..()
@@ -623,5 +623,5 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
 	return BRUTELOSS
