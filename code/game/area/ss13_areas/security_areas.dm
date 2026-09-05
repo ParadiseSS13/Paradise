@@ -174,4 +174,5 @@
 
 /area/station/security/brig_pilot
 	name = "Brig Pilot's Hangar"
-
+	icon_state = "brig_hangar"
+	area_icon_text = "BRIG\nHANGAR"

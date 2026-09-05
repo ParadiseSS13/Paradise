@@ -206,4 +206,5 @@
 
 /area/station/engineering/shipwright/hangar
 	name = "Hangar"
-	icon_state = "engine_smes"
+	icon_state = "hangar"
+	area_icon_text = "HANGAR"
