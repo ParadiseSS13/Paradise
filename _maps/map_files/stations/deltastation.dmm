@@ -689,9 +689,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "afz" = (
@@ -11451,6 +11448,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "aUv" = (
@@ -24846,14 +24844,14 @@
 /obj/machinery/computer/communications{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
-"bUW" = (
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
+"bUW" = (
 /obj/machinery/camera{
 	c_tag = "Captain's Desk";
 	dir = 1
@@ -26304,11 +26302,6 @@
 /turf/simulated/floor/catwalk/black,
 /area/station/telecomms/chamber)
 "caY" = (
-/obj/machinery/camera/motion{
-	c_tag = "AI Satellite Telecomms";
-	network = list("SS13","Minisat");
-	start_active = 1
-	},
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -28637,6 +28630,9 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/machinery/camera{
+	c_tag = "Teleporter"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "ckD" = (
@@ -29493,10 +29489,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "cnA" = (
-/obj/machinery/camera{
-	c_tag = "Teleporter";
-	dir = 1
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
@@ -34244,6 +34236,10 @@
 "cEj" = (
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/mirror{
+	pixel_x = -27;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "cEo" = (
@@ -45202,6 +45198,19 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
+"dDZ" = (
+/obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera/motion{
+	c_tag = "AI Satellite Telecomms";
+	network = list("SS13","Minisat");
+	start_active = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "dEa" = (
 /obj/vehicle/ambulance{
 	dir = 1
@@ -47835,6 +47844,11 @@
 "dWm" = (
 /obj/item/kirbyplants/large,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/camera{
+	c_tag = "Xenobiology West";
+	network = list("Research","SS13");
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "dWp" = (
@@ -49168,10 +49182,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "enR" = (
-/obj/machinery/camera{
-	c_tag = "Xenobiology West";
-	network = list("Research","SS13")
-	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -51888,17 +51898,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
-"foX" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "fpK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -53980,15 +53979,6 @@
 	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/airlock_controller/access_controller{
-	ext_button_link_id = "virolab_btn_ext";
-	ext_door_link_id = "virolab_door_ext";
-	int_button_link_id = "virolab_btn_int";
-	int_door_link_id = "virolab_door_int";
-	name = "Virology Lab Access Console";
-	pixel_x = -24;
-	req_access = list(39)
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/electrical/aft_starboard)
@@ -56345,6 +56335,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
+"gZo" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "gZR" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "Detective"
@@ -60328,6 +60322,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 10
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "iGH" = (
@@ -73178,18 +73173,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "nUf" = (
-/obj/machinery/computer/monitor{
-	dir = 8
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
+	},
+/obj/machinery/computer/monitor{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_starboard)
@@ -85759,14 +85750,14 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer/monitor{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
+	},
+/obj/machinery/computer/monitor{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_starboard)
@@ -97701,6 +97692,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/aft_starboard)
 "xeG" = (
@@ -109080,7 +109075,7 @@ bTB
 pJY
 bXH
 bNM
-caV
+dDZ
 caW
 fmm
 fmm
@@ -123489,7 +123484,7 @@ cOm
 mDy
 cPK
 wCr
-jEI
+gZo
 jEI
 dUI
 dmq
@@ -139365,7 +139360,7 @@ aHR
 aJb
 msE
 aZZ
-foX
+aZc
 aWk
 wLH
 aWk

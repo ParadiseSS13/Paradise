@@ -55,8 +55,8 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/garrote/interact_with_atom(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!ismob(target))
+		return NONE
 
 	if(garrote_time > world.time) // Cooldown.
 		return ITEM_INTERACT_COMPLETE

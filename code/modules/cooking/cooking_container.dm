@@ -41,6 +41,8 @@
 	/// Whether the container is in "mini" mode, that is, placed on a cooking machine and rendered
 	/// with its smaller icons
 	var/mini = FALSE
+	/// References the current surface the container is inside.
+	var/datum/cooking_surface/surface
 
 /obj/item/reagent_containers/cooking/Initialize(mapload)
 	. = ..()
@@ -87,8 +89,14 @@
 /obj/item/reagent_containers/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/autochef_remote))
 		return
-
-	process_item(user, used)
+	if(istype(used, /obj/item/disk/nuclear))
+		used.visible_message(SPAN_DANGER("[used] disappears as soon as it touches the scalding oil!"))
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
+	if(surface)
+		process_item(user, used, surface.frier_bypass)
+	else
+		process_item(user, used, FALSE)
 
 	return ITEM_INTERACT_COMPLETE
 
@@ -98,7 +106,7 @@
 /// machine, such as an oven or stove. So in some cases `used` will be something
 /// like a food item, and in other cases `used` will be an
 /// [/obj/machinery/cooking].
-/obj/item/reagent_containers/cooking/proc/process_item(mob/user, obj/used)
+/obj/item/reagent_containers/cooking/proc/process_item(mob/user, obj/used, fryer_bypass = FALSE)
 	if(!istype(used))
 		return PCWJ_NO_STEPS
 
@@ -119,6 +127,7 @@
 		to_chat(user, SPAN_NOTICE("\The [src] is full. Empty its contents first."))
 		return PCWJ_CONTAINER_FULL
 
+	tracker.frying_exception = fryer_bypass
 	var/process_reaction = tracker.process_item_wrap(user, used)
 	react_to_process(process_reaction, user, used)
 	return process_reaction

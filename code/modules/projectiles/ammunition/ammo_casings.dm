@@ -12,7 +12,7 @@
 	desc = "A .32 caliber round. The bullet is scored and designed to fragment on hit, dealing large amounts of damage to large creatures."
 	icon_state = "magnum_steel"
 	caliber = "32"
-	projectile_type = /obj/projectile/bullet
+	projectile_type = /obj/projectile/bullet/huntsman32
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
@@ -28,7 +28,7 @@
 	desc = "A 7.62mm rifle cartridge, often used in Soviet rifles."
 	icon_state = "rifle_brass"
 	caliber = "a762"
-	projectile_type = /obj/projectile/bullet/huntsman32
+	projectile_type = /obj/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
@@ -326,8 +326,8 @@
 	. = ..()
 	create_reagents(30)
 
-/obj/item/ammo_casing/shotgun/dart/attackby__legacy__attackchain()
-	return
+/obj/item/ammo_casing/shotgun/dart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return NONE
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
@@ -479,17 +479,20 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
-	if((is_pen(A)) && modified && !FD.pen)
-		if(!user.unequip(A)) // forceMove happens in add_pen
-			return
-		add_pen(A)
-		to_chat(user, SPAN_NOTICE("You insert [A] into [src]."))
+	if((is_pen(used)) && modified && !FD.pen)
+		if(!user.unequip(used)) // forceMove happens in add_pen
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+		add_pen(used)
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
 	if(modified)
+		to_chat(user, SPAN_WARNING("[src] has already been modified!"))
 		return
 
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
@@ -508,14 +511,18 @@
 	FD.damage = 5
 	FD.nodamage = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/ammo_casing/caseless/foam_dart/activate_self(mob/living/user)
+	if(!user)
+		return ..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
-	if(FD.pen)
-		FD.damage = initial(FD.damage)
-		FD.nodamage = initial(FD.nodamage)
-		user.put_in_hands(FD.pen)
-		to_chat(user, SPAN_NOTICE("You remove [FD.pen] from [src]."))
-		FD.pen = null
+	if(!FD.pen)
+		return ITEM_INTERACT_COMPLETE
+	FD.damage = initial(FD.damage)
+	FD.nodamage = initial(FD.nodamage)
+	user.put_in_hands(FD.pen)
+	to_chat(user, SPAN_NOTICE("You remove [FD.pen] from [src]."))
+	FD.pen = null
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/ammo_casing/caseless/foam_dart/riot
 	name = "riot foam dart"
