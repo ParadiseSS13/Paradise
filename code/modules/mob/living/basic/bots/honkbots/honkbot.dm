@@ -9,6 +9,7 @@
 	radio_channel = "Service"
 	bot_type = HONK_BOT
 	bot_mode_flags = BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_AUTOPATROL | BOT_MODE_ROUNDSTART_POSSESSION
+	additional_access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	hackables = "sound control systems"
 	path_image_color = "#FF69B4"
 	possessed_message = "You are a honkbot! Make sure the crew are having a great time!"

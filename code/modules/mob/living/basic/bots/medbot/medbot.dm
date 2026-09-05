@@ -22,6 +22,7 @@
 
 	announcement_type = /datum/action/cooldown/bot_announcement/medbot
 	path_image_color = "#d9d9f4"
+	additional_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM, ACCESS_VIROLOGY)
 
 	/// Reagent Beaker
 	var/obj/item/reagent_containers/glass/reagent_glass = null

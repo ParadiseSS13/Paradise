@@ -14,6 +14,7 @@
 	radio_channel = "Engineering"
 	bot_type = REPAIR_BOT
 	ai_controller = /datum/ai_controller/basic_controller/bot/repairbot
+	additional_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ENGINEERING_GENERAL, ACCESS_ATMOSPHERICS, ACCESS_TCOMSAT)
 	mob_size = MOB_SIZE_SMALL
 	possessed_message = "You are a repairbot, cursed to prolong the swiss-cheesening of this death metal trap!"
 	/// our iron stack

@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	///our access card
 	var/obj/item/card/id/access_card
 	///The trim type that will grant additional acces
-	var/datum/id_trim/additional_access
+	var/additional_access = list()
 	///file the path icon is stored in
 	var/path_image_icon = 'icons/obj/aibots.dmi'
 	///state of the path icon
@@ -137,6 +137,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	access_card = new /obj/item/card/id(src)
 	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += ACCESS_ROBOTICS
+	access_card.access += additional_access
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
 

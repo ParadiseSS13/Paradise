@@ -10,6 +10,7 @@
 	req_one_access = list(ACCESS_ROBOTICS, ACCESS_ATMOSPHERICS)
 	radio_channel = "Engineering"
 	bot_type = FIRE_BOT
+	additional_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ENGINEERING_GENERAL, ACCESS_ATMOSPHERICS, ACCESS_TCOMSAT)
 	hackables = "fire safety protocols"
 	path_image_color = "#FFA500"
 	possessed_message = "You are a firebot! Protect the station from fires to the best of your ability!"
