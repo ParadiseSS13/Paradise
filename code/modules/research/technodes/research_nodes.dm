@@ -24,7 +24,7 @@
 	desc = "Various experimental parts utilizing advanced materials and bluespace to create and improve machinery."
 	id = "blueparts"
 	prereqs = list("superparts")
-	unlocks = list("quadratic_capacitor", "triphasic_sensor", "femto_mani", "quadultra_micro_laser", "bluespace_matter_bin")
+	unlocks = list("quadratic_capacitor", "triphasic_scanning", "femto_mani", "quadultra_micro_laser", "bluespace_matter_bin")
 	cost = list("Research" = 2500)
 
 /datum/technode/rnd/aplu_mech
