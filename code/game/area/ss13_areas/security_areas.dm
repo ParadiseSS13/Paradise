@@ -171,3 +171,7 @@
 	name = "Solitary Confinement"
 	icon_state = "solitary"
 	area_icon_text = "SOLITARY"
+
+/area/station/security/brig_pilot
+	name = "Brig Pilot's Hangar"
+

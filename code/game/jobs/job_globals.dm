@@ -72,6 +72,7 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
+	"Shipwright",
 ))
 
 
@@ -122,7 +123,8 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Detective",
 	"Security Officer",
 	"Magistrate",
-	"Blueshield"
+	"Blueshield",
+	"Brig Pilot",
 ))
 
 /// Active security roles
@@ -130,7 +132,8 @@ GLOBAL_LIST_INIT(active_security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
-	"Security Officer"
+	"Security Officer",
+	"Brig Pilot",
 ))
 
 
