@@ -21,6 +21,7 @@ Note: Must be placed west/left of and R&D console to function.
 		"Mining",
 		"Miscellaneous",
 		"Power",
+		"Space Pods",
 		"Stock Parts",
 		"Weapons"
 	)

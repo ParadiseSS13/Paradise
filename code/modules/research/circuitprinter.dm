@@ -19,6 +19,7 @@ sometimes a secondary material (often gold or diamond).
 		"Medical Machinery",
 		"Misc. Machinery",
 		"Research Machinery",
+		"Space Pod Boards",
 		"Subspace Telecomms",
 		"Teleportation Machinery"
 	)
