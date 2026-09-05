@@ -86,7 +86,7 @@
 
 /obj/machinery/camera/tracking_head/proc/prime_the_camera()
 	SIGNAL_HANDLER //COMSIG_CAMERA_OFF
-	visible_message("<span class='danger'>[src] begins to spark violently!")
+	visible_message(SPAN_DANGER("[src] begins to spark violently!"))
 	do_sparks(4, 0, src)
 	addtimer(CALLBACK(src, PROC_REF(explode_the_camera)), 2.5 SECONDS)
 

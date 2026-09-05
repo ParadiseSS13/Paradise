@@ -26,7 +26,7 @@ def main():
     all_failures = []
 
     for path in dme.subtypesof("/"):
-        typepath = dme.type_decl(path)
+        typepath = dme.types[path]
 
         for variable_name in typepath.var_names(modified=True):
             modded = typepath.var_decl(variable_name, False)
@@ -35,7 +35,7 @@ def main():
                 continue
             if path.parent.is_root:
                 continue
-            parent_typepath = dme.type_decl(path.parent)
+            parent_typepath = dme.types[path.parent]
             original = parent_typepath.var_decl(variable_name, True)
             if(modded.const_val == original.const_val):
                 if(modded.const_val == None): # Both proc calls (like sound() or icon()) and nulls are treated as "None", this sucks.
