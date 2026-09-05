@@ -877,6 +877,20 @@
 
 ///Ume hairs end here///
 
+/datum/sprite_accessory/hair/liberator
+	name = "Liberator"
+	icon_state = "liberator_long"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/liberator_short
+	name = "Liberator Short"
+	icon_state = "liberator_short"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/liberator_tied
+	name = "Liberator Tied"
+	icon_state = "liberator_tied"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
 
 ///Fluff HairStyles//
 /// Pineapple Salad hair fluff its for a slime..has to go under human
