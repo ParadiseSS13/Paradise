@@ -1062,8 +1062,8 @@
 	var/has_gloves = FALSE
 
 	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
-		clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "solid")
-		clothes_s.swap_palette(PALETTE_JS_WHITE, PALETTE_JS_GREY)
+		var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
+		clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
 		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if(backbag == 2)
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
@@ -1546,8 +1546,8 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 
 			if(JOB_AI)//Gives AI and borgs assistant-wear, so they can still customize their character
-				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "solid")
-				clothes_s.swap_palette(PALETTE_JS_WHITE, PALETTE_JS_GREY)
+				var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
+				clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "straight_jacket"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/head/cardborg.dmi', "cardborg_h"), ICON_OVERLAY)
@@ -1556,8 +1556,8 @@
 				else if(backbag == 3 || backbag == 4)
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_CYBORG)
-				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "solid")
-				clothes_s.swap_palette(PALETTE_JS_WHITE, PALETTE_JS_GREY)
+				var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
+				clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suits/cardborg.dmi', "cardborg"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/head/cardborg.dmi', "cardborg_h"), ICON_OVERLAY)
