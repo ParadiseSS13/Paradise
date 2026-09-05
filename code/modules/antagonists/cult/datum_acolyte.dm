@@ -2,7 +2,7 @@
 	name = "Cultist Acolyte"
 	job_rank = ROLE_ACOLYTE
 	special_role = SPECIAL_ROLE_ACOLYTE
-	antag_hud_name = "hudcultist"
+	antag_hud_name = "hudacolyte"
 	antag_hud_type = ANTAG_HUD_CULT
 	clown_gain_text = "A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."
 	clown_removal_text = "You are free of the dark power suppressing your clownish nature. You are clumsy again! Honk!"
