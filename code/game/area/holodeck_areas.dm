@@ -2,6 +2,8 @@
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
+	area_icon_text = "HOLO"
+	area_icon_color = AREA_COLOR_PUBLIC
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 

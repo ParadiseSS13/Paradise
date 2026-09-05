@@ -700,10 +700,10 @@
 				if(L.incorporeal_move || L.status_flags & GODMODE)
 					continue
 				L.stop_pulling()
-				L.visible_message("<span class='warning'>[L] is hit by \
-								a hyperspace ripple!</span>",
-								"<span class='userdanger'>You feel an immense \
-								crushing pressure as the space around you ripples.</span>")
+				L.visible_message(
+					SPAN_DANGER("[L] is hit by a hyperspace ripple!"),
+					SPAN_USERDANGER("You feel an immense crushing pressure as the space around you ripples.")
+				)
 				L.gib()
 			else if(lance_docking) //corrupt the child, destroy them all
 				if(!AM.simulated)

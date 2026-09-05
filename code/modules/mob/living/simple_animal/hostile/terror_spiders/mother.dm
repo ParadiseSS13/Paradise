@@ -103,9 +103,9 @@
 		S.forceMove(src)
 		pickup_count++
 	if(pickup_count)
-		to_chat(src, "<span class='notice'>You pick up [pickup_count] spiderling(s), storing them safely on your back.")
+		to_chat(src, SPAN_NOTICE("You pick up [pickup_count] spiderling(s), storing them safely on your back."))
 	else
-		to_chat(src, "<span class='warning'>There are no spiderlings close enough for you to pick up.")
+		to_chat(src, SPAN_WARNING("There are no spiderlings close enough for you to pick up!"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/DropSpiderlings()
 	// Called when a mother dies.
@@ -124,9 +124,9 @@
 		new /obj/effect/temp_visual/heal(T)
 		C.amount_grown += 25
 		regen_points -= 25
-		to_chat(src, "<span class='notice'>You warm [C], encouraging faster growth.")
+		to_chat(src, SPAN_NOTICE("You warm [C], encouraging faster growth."))
 		return
-	to_chat(src, "<span class='warning'>The 'incubate eggs' ability can only be used on top of existing eggs.")
+	to_chat(src, SPAN_WARNING("The 'incubate eggs' ability can only be used on top of existing eggs."))
 
 /obj/structure/spider/terrorweb/mother
 	name = "mother web"
