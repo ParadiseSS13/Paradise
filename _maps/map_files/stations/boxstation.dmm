@@ -36662,6 +36662,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "cON" = (
@@ -46315,6 +46316,7 @@
 /area/station/maintenance/disposal)
 "etJ" = (
 /obj/machinery/light,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "eum" = (
@@ -49068,9 +49070,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
-"fBX" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
 "fCa" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -50640,11 +50639,8 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 10
 	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 3
-	},
-/obj/machinery/firealarm/directional/south,
+/obj/machinery/light/small,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "gkH" = (
@@ -50664,6 +50660,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "glr" = (
@@ -60253,7 +60250,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "kqN" = (
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/structure/table,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/obj/item/fan,
+/obj/item/gps{
+	pixel_x = 11
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "kqO" = (
@@ -61127,7 +61133,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 6
 	},
-/obj/machinery/economy/vending/coffee,
+/obj/structure/closet/secure_closet/shipwright,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "kJy" = (
@@ -61907,6 +61913,7 @@
 	dir = 4;
 	id_tag = "pod_hangar_inner"
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "laa" = (
@@ -64105,7 +64112,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "lYy" = (
-/obj/machinery/r_n_d/protolathe/pod_fabricator,
+/obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "lYB" = (
@@ -64134,6 +64141,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "lZG" = (
@@ -64666,6 +64674,7 @@
 	req_access = list(82);
 	pixel_x = 6
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "mjE" = (
@@ -64949,10 +64958,13 @@
 	dir = 10
 	},
 /obj/structure/shelf/engineering,
-/obj/item/stack/sheet/mineral/gold/twenty,
-/obj/item/stack/sheet/mineral/silver/twenty,
-/obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/mineral/plastitanium/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "mqP" = (
@@ -66117,13 +66129,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"mPg" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
 "mPx" = (
 /turf/simulated/wall,
 /area/station/maintenance/electrical/fore_port)
@@ -68302,6 +68307,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
@@ -70991,9 +70999,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/random/dirt/maybe,
-/obj/machinery/camera{
-	c_tag = "Shipwright's Office"
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "oUq" = (
@@ -72751,12 +72757,7 @@
 /area/station/hallway/secondary/entry/north)
 "pJF" = (
 /obj/effect/turf_decal/tiles/department/engineering/side,
-/obj/machinery/light/small,
-/obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/gps,
+/obj/machinery/r_n_d/protolathe/pod_fabricator,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "pJU" = (
@@ -75727,6 +75728,7 @@
 "qTd" = (
 /obj/effect/turf_decal/tiles/department/engineering/side,
 /obj/machinery/alarm/directional/south,
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "qTA" = (
@@ -76970,8 +76972,8 @@
 	pixel_x = 28
 	},
 /obj/structure/table,
-/obj/machinery/light/small{
-	dir = 4
+/obj/item/flashlight/lamp{
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
@@ -78173,6 +78175,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "rYm" = (
@@ -80761,6 +80764,7 @@
 	dir = 4;
 	id_tag = "pod_hangar_outer"
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "tiG" = (
@@ -81030,6 +81034,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "toI" = (
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "toQ" = (
@@ -83051,6 +83056,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "ufh" = (
@@ -84351,6 +84357,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "uNo" = (
@@ -89382,8 +89389,19 @@
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "wSG" = (
-/obj/structure/closet/secure_closet/shipwright,
 /obj/structure/sign/poster/official/soul/directional/north,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_engineering{
+	pixel_x = -6
+	},
+/obj/machinery/camera{
+	c_tag = "Shipwright's Office"
+	},
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "wSI" = (
@@ -89987,6 +90005,7 @@
 /obj/machinery/fuel_pump{
 	pixel_y = 32
 	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright/hangar)
 "xkh" = (
@@ -110831,7 +110850,7 @@ cDX
 wNY
 wSG
 hZr
-mPg
+val
 pJF
 klw
 klw
@@ -111346,7 +111365,7 @@ tzm
 qEF
 ilt
 lZd
-fBX
+tig
 qTd
 klw
 aaa

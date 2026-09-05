@@ -13,7 +13,8 @@
 /datum/design/space_pod_wing
 	name = "Space Pod Wing"
 	category = list("Space Pods")
-	build_path = /obj/item/pods_parts/wing
+	build_path = /obj/item/spacepod_part/wing
+	build_type = PROTOLATHE
 	id = "spacepods_parts_wing"
 	req_tech = list("materials" = 1, "magnets" = 1)
 	materials = list(
@@ -23,7 +24,8 @@
 /datum/design/space_pod_frame
 	name = "Space Pod Frame"
 	category = list("Space Pods")
-	build_path = /obj/item/pods_parts/frame
+	build_path = /obj/item/spacepod_part/frame
+	build_type = PROTOLATHE
 	id = "spacepods_parts_frame"
 	req_tech = list("materials" = 1, "magnets" = 1)
 	materials = list(
@@ -34,7 +36,8 @@
 /datum/design/space_pod_nacelle
 	name = "Space Pod Nacelle"
 	category = list("Space Pods")
-	build_path = /obj/item/pods_parts/nacelle
+	build_path = /obj/item/spacepod_part/nacelle
+	build_type = PROTOLATHE
 	id = "spacepods_parts_nacelle"
 	req_tech = list("materials" = 1, "magnets" = 1)
 	materials = list(
@@ -44,7 +47,8 @@
 /datum/design/space_pod_cockpit
 	name = "Space Pod Cockpit"
 	category = list("Space Pods")
-	build_path = /obj/item/pods_parts/cockpit
+	build_path = /obj/item/spacepod_part/cockpit
+	build_type = PROTOLATHE
 	id = "spacepods_parts_cockpit"
 	req_tech = list("materials" = 1, "magnets" = 1)
 	materials = list(
@@ -54,7 +58,8 @@
 /datum/design/space_pod_engine
 	name = "Space Pod Engine"
 	category = list("Space Pods")
-	build_path = /obj/item/pods_parts/engine
+	build_path = /obj/item/spacepod_part/engine
+	build_type = PROTOLATHE
 	id = "spacepods_parts_engine"
 	req_tech = list("materials" = 1, "magnets" = 1)
 	materials = list(
@@ -90,7 +95,7 @@
 	name = "Space Pod Standard Plate"
 	desc = "The Standard Armor Plate of the Space Pod."
 	id = "spacepod_plate_basic"
-	build_path = /obj/item/pods_parts/plate/basic
+	build_path = /obj/item/spacepod_plate
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 1)
 	materials = list(
@@ -103,7 +108,7 @@
 	name = "Space Pod Explorer Plate"
 	desc = "The Science Armor Plate of the Space Pod. For Vanguard!"
 	id = "spacepod_plate_sci"
-	build_path = /obj/item/pods_parts/plate/sci
+	build_path = /obj/item/spacepod_plate/sci
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 2)
 	materials = list(
@@ -116,7 +121,7 @@
 	name = "Space Pod Security Plate"
 	desc = "The Science Armor Plate of the Space Pod. For Vanguard!"
 	id = "spacepod_plate_sec"
-	build_path = /obj/item/pods_parts/plate/sec
+	build_path = /obj/item/spacepod_plate/sec
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 4)
 	materials = list(
