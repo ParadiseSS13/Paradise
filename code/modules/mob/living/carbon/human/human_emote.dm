@@ -440,6 +440,11 @@
 	key_third_person = "handshakes"
 	status = STATUS_EFFECT_HANDSHAKE
 
+/datum/emote/living/carbon/human/highfive/fistbump
+	key = "fistbump"
+	key_third_person = "fistbumps"
+	status = STATUS_EFFECT_FISTBUMP
+
 /datum/emote/living/carbon/human/highfive/rps
 	key = "rps"
 	param_desc = "r,p,s"
