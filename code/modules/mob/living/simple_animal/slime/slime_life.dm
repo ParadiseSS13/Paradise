@@ -183,13 +183,16 @@
 		C.adjustToxLoss(rand(1, 2))
 
 		if(prob(10) && C.client)
-			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
-			"You feel like you're about to die!", \
-			"You feel every part of your body screaming in agony!", \
-			"A low, rolling pain passes through your body!", \
-			"Your body feels as if it's falling apart!", \
-			"You feel extremely weak!", \
-			"A sharp, deep pain bathes every inch of your body!")]</span>")
+			var/feed_messages = list(
+				"You can feel your body becoming weak!",
+				"You feel like you're about to die!",
+				"You feel every part of your body screaming in agony!",
+				"A low, rolling pain passes through your body!",
+				"Your body feels as if it's falling apart!",
+				"You feel extremely weak!",
+				"A sharp, deep pain bathes every inch of your body!"
+			)
+			to_chat(C, SPAN_USERDANGER(pick(feed_messages)))
 
 	else if(isanimal(M))
 		var/mob/living/simple_animal/SA = M

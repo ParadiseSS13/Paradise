@@ -19,8 +19,8 @@
 
 /obj/machinery/atmospherics/binary/circulator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
-		the center of the machine gives an indicator of how much electricity is being generated.</span>"
+	. += SPAN_NOTICE("This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
+		the center of the machine gives an indicator of how much electricity is being generated.")
 
 
 // Creating a custom circulator pipe subtype to be delivered through cargo

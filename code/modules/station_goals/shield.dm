@@ -111,6 +111,8 @@
 	data["satellites"] = list()
 	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		var/turf/T = get_turf(S)
+		if(T.z != z) // This satellite isn't on the station level, don't show it on the station level map.
+			continue
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,
