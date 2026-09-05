@@ -7,7 +7,7 @@
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
 	force = 15
 	throwforce = 10
-
+	new_attack_chain = TRUE
 	/// the mode of the resonator; has three modes: auto (1), manual (2), and matrix (3)
 	var/mode = RESONATOR_MODE_AUTO
 	/// How efficient it is in manual mode. Yes, we lower the damage cuz it's gonna be used for mobhunt
@@ -19,13 +19,18 @@
 	/// the number that is added to the failure_prob, which is the probability of whether it will spread or not
 	var/adding_failure = 50
 
-/obj/item/resonator/attack_self__legacy__attackchain(mob/user)
+/obj/item/resonator/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, SPAN_NOTICE("You set the [name]'s fields to detonate only after you hit it with [src]."))
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate only after you hit them with [src]."))
 		mode = RESONATOR_MODE_MANUAL
-	else
-		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate after 2 seconds."))
-		mode = RESONATOR_MODE_AUTO
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate after 2 seconds."))
+	mode = RESONATOR_MODE_AUTO
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/resonator/upgraded
 	name = "upgraded resonator"
@@ -36,16 +41,13 @@
 	fieldlimit = 6
 	quick_burst_mod = 1
 
-/obj/item/resonator/upgraded/attack_self__legacy__attackchain(mob/user)
-	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate only after being attacked by [src]."))
-		mode = RESONATOR_MODE_MANUAL
-	else if(mode == RESONATOR_MODE_MANUAL)
+/obj/item/resonator/upgraded/activate_self(mob/user)
+	if(mode == RESONATOR_MODE_MANUAL)
 		to_chat(user, SPAN_NOTICE("You set [src]'s fields to work as matrix traps."))
 		mode = RESONATOR_MODE_MATRIX
-	else
-		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate automatically after 2 seconds."))
-		mode = RESONATOR_MODE_AUTO
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/resonator/proc/create_resonance(target, mob/user)
 	var/turf/target_turf = get_turf(target)
@@ -58,10 +60,13 @@
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
 		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/resonator/pre_attack(atom/target, mob/user, params)
+/obj/item/resonator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target) || is_surface(target) || istype(target, /obj/item/mod/control))
+		return NONE
+
 	if(check_allowed_items(target, not_inside = TRUE))
 		create_resonance(target, user)
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
