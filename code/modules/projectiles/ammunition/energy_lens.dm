@@ -261,6 +261,13 @@
 	projectile_type = /obj/projectile/energy/bolt/large
 	select_name = "heavy bolt"
 
+/obj/item/ammo_casing/energy/blizzard
+	projectile_type = /obj/projectile/blizzard
+	e_cost = 500
+	pellets = 6
+	variance = 25
+	fire_sound = 'sound/weapons/thermalpistol.ogg'
+
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/projectile/beam/instakill
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
