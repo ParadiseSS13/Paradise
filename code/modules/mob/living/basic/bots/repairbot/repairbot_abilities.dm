@@ -10,17 +10,17 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/obj/item/stack/rods/our_rods = locate() in owner
-	if(isnull(our_rods) || our_rods.amount < 2)
+	var/obj/item/stack/sheet/metal/our_metal = locate() in owner
+	if(isnull(our_metal) || our_metal.amount < 2)
 		return FALSE
 	return TRUE
 
 /datum/action/cooldown/mob_cooldown/bot/build_girder/Activate(atom/target)
-	var/turf/turf_target = target
+	var/turf/turf_target = get_turf(target)
 	if(turf_target.is_blocked_turf() || isspaceturf(turf_target))
 		to_chat(owner, SPAN_WARNING("You cannot build here!"))
 		return TRUE
-	var/obj/item/stack/rods/our_rods = locate() in owner
+	var/obj/item/stack/sheet/metal/our_metal = locate() in owner
 	var/obj/effect/temp_visual/rcd_effect/short/effect = new(turf_target, 3 SECONDS)
 
 	if(!do_after(owner, 3 SECONDS, target = turf_target, interaction_key = BUILDING_WALL_ABILITY) || isnull(turf_target) || turf_target.is_blocked_turf())
@@ -29,7 +29,7 @@
 
 	playsound(turf_target, 'sound/machines/click.ogg', 50, TRUE)
 	new /obj/structure/girder(turf_target)
-	our_rods.use(2)
+	our_metal.use(2)
 	StartCooldown()
 	qdel(effect)
 	return TRUE

@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	var/list/current_pathed_turfs = list()
 
 	///The type of data HUD the bot uses. Diagnostic by default.
-	var/data_hud_type = TRAIT_DIAGNOSTIC_HUD
+	var/data_hud_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 	/// If true we will allow ghosts to control this mob
 	var/can_be_possessed = FALSE
 	/// Message to display upon possession
@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
 
-	//Adds bot to the diagnostic HUD system
+	// Adds bot to the diagnostic HUD system
 	prepare_huds()
 	for(var/hud_key, hud in GLOB.huds)
 		var/datum/atom_hud/data/diagnostic/diag_hud = hud
@@ -157,7 +157,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 	// If a bot has its own HUD (for player bots), provide it.
 	if(!isnull(data_hud_type))
-		ADD_TRAIT(src, data_hud_type, INNATE_TRAIT)
+		var/datum/atom_hud/H = GLOB.huds[data_hud_type]
+		H.add_hud_to(src, "Innate")
 
 	pa_system = (isnull(announcement_type)) ? new(src, automated_announcements = generate_speak_list()) : new announcement_type(src, automated_announcements = generate_speak_list())
 	pa_system.Grant(src)
@@ -275,6 +276,9 @@ GLOBAL_LIST_INIT(command_strings, list(
 /mob/living/basic/bot/death(gibbed)
 	if(paicard)
 		ejectpai()
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.remove_hud_from(src, "Innate")
 	explode()
 	return ..()
 

@@ -119,7 +119,7 @@
 	/// Type of bot, one of the *_BOT defines.
 	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
-	var/data_hud_type = TRAIT_DIAGNOSTIC_HUD
+	var/data_hud_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 	// This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
