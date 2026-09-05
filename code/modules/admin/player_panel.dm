@@ -429,6 +429,9 @@
 		if(length(SSticker.mode.changelings))
 			dat += check_role_table("Changelings", SSticker.mode.changelings)
 
+		if(length(SSticker.mode.acolytes))
+			dat += check_role_table("Acolytes", SSticker.mode.acolytes)
+
 		if(length(SSticker.mode.wizards))
 			dat += check_role_table("Wizards", SSticker.mode.wizards)
 

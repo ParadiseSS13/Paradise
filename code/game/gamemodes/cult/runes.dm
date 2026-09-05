@@ -19,6 +19,8 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
+	/// Description that acolytes see. Defaults to cult description unless stated.
+	var/acolyte_desc
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -69,8 +71,12 @@ To draw a rune, use a ritual dagger.
 	. = ..()
 	if(IS_CULTIST(user) || isobserver(user)) //If they're a cultist or a ghost, tell them the effects
 		. += "<b>Name:</b> [cultist_name]"
-		. += "<b>Effects:</b> [capitalize(cultist_desc)]"
-		. += "<b>Required Acolytes:</b> [req_cultists]"
+		if(IS_ACOLYTE(user) && acolyte_desc)
+			. += "<b>Effects:</b> [capitalize(acolyte_desc)]"
+		else
+			. += "<b>Effects:</b> [capitalize(cultist_desc)]"
+		if(!IS_ACOLYTE(user))
+			. += "<b>Required Acolytes:</b> [req_cultists]"
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [SPAN_CULTITALIC("[keyword]")]"
 
@@ -106,7 +112,7 @@ To draw a rune, use a ritual dagger.
 		to_chat(user, SPAN_WARNING("You aren't able to understand the words of [src]."))
 		return
 	var/list/invokers = can_invoke(user)
-	if(length(invokers) >= req_cultists)
+	if(length(invokers) >= req_cultists || IS_ACOLYTE(invokers[1]))
 		invoke(invokers)
 	else
 		fail_invoke()
@@ -200,6 +206,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.apply_damage(invoke_damage, BRUTE)
 			to_chat(L, SPAN_CULTITALIC("[src] saps your strength!"))
 	do_invoke_glow()
+	if(IS_ACOLYTE(invokers[1]))
+		return
 	SSblackbox.record_feedback("nested tally", "runes_invoked", 1, list("[initial(cultist_name)]", "[length(SSticker.mode.cult_team.members)]")) // the name of the rune, and the number of cultists in the cult when it was invoked
 	if(ghost_invokers)
 		SSblackbox.record_feedback("nested tally", "runes_invoked_with_ghost", 1, list("[initial(cultist_name)]", "[ghost_invokers]")) //the name of the rune and the number of ghosts used to invoke it.
@@ -469,6 +477,105 @@ structure_check() searches for nearby cultist structures required for the invoca
 		SSticker.mode.cult_team.successful_sacrifice()
 	return TRUE
 
+/obj/effect/rune/sacrifice
+	cultist_name = "Sacrifice"
+	cultist_desc = "Offers non-cultists to the dark gods."
+	invocation = "Barhah hra zar'garis!"
+	icon_state = "offering"
+
+/obj/effect/rune/sacrifice/invoke(list/invokers)
+	if(rune_in_use)
+		return
+
+	var/list/offer_targets = list()
+	var/turf/T = get_turf(src)
+	for(var/mob/living/M in T)
+		if(isconstruct(M)) // No offering constructs, please.
+			continue
+		offer_targets += M
+
+	// Offering a head/brain.
+	for(var/obj/item/organ/O in T)
+		var/mob/living/brain/b_mob
+		if(istype(O, /obj/item/organ/external/head)) // Offering a head.
+			var/obj/item/organ/external/head/H = O
+			for(var/obj/item/organ/internal/brain/brain in H.contents)
+				b_mob = brain.brainmob
+				brain.forceMove(T)
+
+		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain.
+			var/obj/item/organ/internal/brain/brain = O
+			b_mob = brain.brainmob
+
+		if(b_mob && b_mob.mind && (!IS_CULTIST(b_mob) || IS_SACRIFICE_TARGET(b_mob.mind)))
+			offer_targets += b_mob
+
+	if(!length(offer_targets))
+		fail_invoke()
+		log_game("Sacrifice rune failed - no eligible targets")
+		rune_in_use = FALSE
+		return
+
+	rune_in_use = TRUE
+	var/mob/living/L = pick(offer_targets)
+	..()
+	do_sacrifice(L, invokers)
+	rune_in_use = FALSE
+
+/obj/effect/rune/sacrifice/proc/do_sacrifice(mob/living/offering, list/invokers)
+	var/mob/living/user = invokers[1] // The first invoker is always the user.
+	var/valid = FALSE
+
+	var/datum/antagonist/heretic/ascended_heretic = IS_HERETIC(offering)
+	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No slipping an ascended heretic on a sacrifice rune to sacrifice them, lmao.
+		for(var/M in invokers)
+			to_chat(M, SPAN_CULTITALIC("[offering] is too powerful to be sacrificed alive!"))
+		fail_invoke()
+		log_game("Sacrifice rune failed - heretic is ascended and alive")
+		return
+
+	var/mob/living/invoker = invokers[1]
+	var/datum/antagonist/cultist/invoker_datum = invoker.mind.has_antag_datum(/datum/antagonist/acolyte)
+
+	for(var/datum/objective/O in invoker_datum.get_antag_objectives())
+		if(O.target == offering.mind && !istype(O, /datum/objective/protect))
+			valid = TRUE
+			O.completed = TRUE
+	if(ascended_heretic)
+		valid = TRUE
+	if(!valid)
+		for(var/M in invokers)
+			to_chat(M, SPAN_CULTITALIC("[offering] is not who we desire!"))
+		fail_invoke()
+		log_game("Sacrifice rune failed - wrong target")
+		return
+
+	if(isliving(offering) && !isbrain(offering))
+		var/mob/living/L = offering
+		if(isrobot(L) || ismachineperson(L))
+			L.adjustBruteLoss(250)
+		else
+			L.adjustCloneLoss(120)
+		L.death(FALSE)
+
+	GLOB.sacrificed += offering
+
+	new /obj/effect/temp_visual/cult/sac(loc)
+	for(var/M in invokers)
+		to_chat(M, SPAN_CULTLARGE("\"I accept this sacrifice.\""))
+
+	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE, SOUND_RANGE_SET(10))
+	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind))
+		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
+		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during `transfer_soul()`.
+		stone.transfer_soul("FORCE", offering, user) // If it cannot be added.
+		stone.invisibility = 0
+		var/put_in_hands = user.put_in_any_hand_if_possible(stone)
+		if(put_in_hands)
+			to_chat(user, SPAN_CULTITALIC("A glowing crimson shard appears in your hand - your new ally contained within."))
+
+	return TRUE
+
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
 	cultist_desc = "warps everything above it to another chosen teleport rune."
@@ -508,6 +615,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/R = I
+		if(IS_ACOLYTE(user) && R.z != user.z)
+			continue
 		var/resultkey = R.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++
@@ -625,6 +734,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/raise_dead
 	cultist_name = "Revive"
 	cultist_desc = "requires a dead, alive, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken. Mending living cultist requires two cultists at the rune"
+	acolyte_desc = "Standing upon the rune allows your dark patron to use a limited amount of energy to mend your body of injury and ailments. It takes time to mend your body."
 	invocation = "Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!" //Depends on the name of the user - see below
 	icon_state = "revive"
 	var/static/sacrifices_used = -SOULS_TO_REVIVE // Cultists get one "free" revive
@@ -632,9 +742,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/raise_dead/examine(mob/user)
 	. = ..()
-	if(IS_CULTIST(user) || user.stat == DEAD)
+	if((IS_CULTIST(user) || user.stat == DEAD) && !IS_ACOLYTE(user))
 		. += "<b>Sacrifices unrewarded:</b>[SPAN_CULTITALIC(" [length(GLOB.sacrificed) - sacrifices_used]")]"
 		. += "<b>Sacrifice cost per ressurection:</b>[SPAN_CULTITALIC(" [SOULS_TO_REVIVE]")]"
+	if(IS_ACOLYTE(user))
+		var/datum/antagonist/acolyte/A = user.mind.has_antag_datum(/datum/antagonist/acolyte)
+		. += "<b>Remaining Uses:</b>[SPAN_CULTITALIC(" [A.revives_left]")]"
 
 /obj/effect/rune/raise_dead/proc/revive_alive(mob/living/target)
 	target.visible_message(SPAN_WARNING("Dark magic begins to surround [target], regenerating their body."))
@@ -658,6 +771,28 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(rune_in_use)
 		return
 	rune_in_use = TRUE
+
+	if(IS_ACOLYTE(user))
+		var/datum/antagonist/acolyte/A = user.mind.has_antag_datum(/datum/antagonist/acolyte)
+		if(A.revives_left <= 0)
+			to_chat(user, SPAN_CULT("The power lent to you by [GET_CULT_DATA(entity_title3, "your god")] wanes! The rune's effect fizzles!"))
+			fail_invoke()
+			rune_in_use = FALSE
+			return
+		if(get_turf(user) != T)
+			to_chat(user, SPAN_CULTITALIC("You must stand on the rune for it to work!"))
+			fail_invoke()
+			rune_in_use = FALSE
+			return
+		if(!revive_alive(user))
+			fail_invoke()
+			rune_in_use = FALSE
+			return
+		A.revives_left -= 1
+		to_chat(user, SPAN_CULTLARGE("All your injuries are now gone!"))
+		rune_in_use = FALSE
+		return
+
 	var/diff = length(GLOB.sacrificed) - SOULS_TO_REVIVE - sacrifices_used
 	var/revived_from_dead = FALSE
 	if(diff < 0)
@@ -850,6 +985,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/blood_boil
 	cultist_name = "Boil Blood"
 	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 2 invokers channeling the rune."
+	acolyte_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "blood_boil"
 	light_color = LIGHT_COLOR_LAVA
