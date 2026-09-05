@@ -1,10 +1,85 @@
 /obj/item/pods_parts
 	name = "space pod part"
-	icon = 'icons/obj/spacepods/pod_construct.dmi'
-	icon_state = "raptor0"
+	icon = 'icons/obj/spacepods/pod_parts.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
 	new_attack_chain = TRUE
+
+/obj/item/pods_parts/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_ATTACK_HAND, PROC_REF(prevent_pickup))
+
+// Trying to pick up these parts, which are 96x96 sprites, is goofy and unrealistic
+// Just prevent it happening at all
+/obj/item/pods_parts/proc/prevent_pickup(datum/source)
+	SIGNAL_HANDLER // COMSIG_ATOM_ATTACK_HAND
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/obj/item/pods_parts/wing
+	name = "space pod wing"
+	icon_state = "wing"
+
+/obj/item/pods_parts/nacelle
+	name = "space pod nacelle"
+	icon_state = "nacelle"
+
+/obj/item/pods_parts/frame
+	name = "space pod frame"
+	icon = 'icons/obj/spacepods/pod_preconstruct.dmi'
+	icon_state = "frame"
+	pixel_x = -32
+	pixel_y = -32
+	var/datum/construction/construct
+
+/obj/item/pods_parts/frame/Initialize(mapload)
+	. = ..()
+	construct = new /datum/construction/space_pod/basic(src)
+
+/obj/item/pods_parts/frame/MouseDrop_T(obj/item/used, mob/user)
+	if(construct && construct.action(used, user))
+		return TRUE
+
+	return ..()
+
+/obj/item/pods_parts/engine
+	name = "space pod engine"
+	icon_state = "engine"
+
+/obj/item/pods_parts/cockpit
+	name = "space pod cockpit"
+	icon_state = "cockpit"
+
+/datum/construction/space_pod/basic
+	steps = list(
+		list("key" = /obj/item/pods_parts/engine),
+		list("key" = /obj/item/pods_parts/engine),
+		list("key" = /obj/item/pods_parts/nacelle),
+		list("key" = /obj/item/pods_parts/nacelle),
+		list("key" = /obj/item/pods_parts/wing),
+		list("key" = /obj/item/pods_parts/wing),
+		list("key" = /obj/item/pods_parts/cockpit),
+	)
+	result = /obj/item/pods_parts/hull
+
+	var/list/added_parts = list()
+
+/datum/construction/space_pod/basic/custom_action(step, atom/used_atom, mob/user)
+	user.visible_message(
+		SPAN_NOTICE("[user] has connected [used_atom] to the [holder]."),
+		SPAN_NOTICE("You connect [used_atom] to the [holder].")
+	)
+	if(used_atom.type in added_parts)
+		holder.overlays += used_atom.icon_state + "_right"
+	else
+		holder.overlays += used_atom.icon_state
+		added_parts += used_atom.type
+
+	qdel(used_atom)
+
+	return TRUE
+
+/datum/construction/space_pod/basic/action(atom/used_atom,mob/user as mob)
+	return check_all_steps(used_atom, user)
 
 /obj/item/pods_parts/plate/basic
 	name = "standard armor plate"
@@ -27,6 +102,8 @@
 /obj/item/pods_parts/hull
 	name = "space pod hull"
 	desc = "The beginning of every space pod."
+	icon = 'icons/obj/spacepods/pod_construct.dmi'
+	icon_state = "raptor0"
 	var/state = POD_MAIN_BOARD
 	var/obj/tgvehicle/sealed/vectorcraft/spacepod/pod_type
 	pixel_x = -32

@@ -10,20 +10,57 @@
 	)
 	category = list("Computer Boards")
 
-/datum/design/spacepodbase
-	name = "Space Pod Hull"
-	desc = "The body of the Space Pod, the basis for the rest of the parts."
-	id = "spacepod_basic"
+/datum/design/space_pod_wing
+	name = "Space Pod Wing"
+	category = list("Space Pods")
+	build_path = /obj/item/pods_parts/wing
+	id = "spacepods_parts_wing"
 	req_tech = list("materials" = 1, "magnets" = 1)
-	build_path = /obj/item/pods_parts/hull
-	build_type = PROTOLATHE
 	materials = list(
 		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
-		MAT_GLASS = MINERAL_MATERIAL_AMOUNT * 5,
-		MAT_SILVER = MINERAL_MATERIAL_AMOUNT * 5,
-		MAT_GOLD = MINERAL_MATERIAL_AMOUNT * 5,
 	)
+
+/datum/design/space_pod_frame
+	name = "Space Pod Frame"
 	category = list("Space Pods")
+	build_path = /obj/item/pods_parts/frame
+	id = "spacepods_parts_frame"
+	req_tech = list("materials" = 1, "magnets" = 1)
+	materials = list(
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
+		MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 10,
+	)
+
+/datum/design/space_pod_nacelle
+	name = "Space Pod Nacelle"
+	category = list("Space Pods")
+	build_path = /obj/item/pods_parts/nacelle
+	id = "spacepods_parts_nacelle"
+	req_tech = list("materials" = 1, "magnets" = 1)
+	materials = list(
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
+	)
+
+/datum/design/space_pod_cockpit
+	name = "Space Pod Cockpit"
+	category = list("Space Pods")
+	build_path = /obj/item/pods_parts/cockpit
+	id = "spacepods_parts_cockpit"
+	req_tech = list("materials" = 1, "magnets" = 1)
+	materials = list(
+		MAT_METAL = MINERAL_MATERIAL_AMOUNT * 10,
+	)
+
+/datum/design/space_pod_engine
+	name = "Space Pod Engine"
+	category = list("Space Pods")
+	build_path = /obj/item/pods_parts/engine
+	id = "spacepods_parts_engine"
+	req_tech = list("materials" = 1, "magnets" = 1)
+	materials = list(
+		MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 10,
+		MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT * 10,
+	)
 
 /datum/design/spacepod_main
 	name = "Space Pod Central Control module"
