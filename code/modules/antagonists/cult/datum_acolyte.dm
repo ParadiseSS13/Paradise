@@ -1,5 +1,3 @@
-RESTRICT_TYPE(/datum/antagonist/acolyte)
-
 /datum/antagonist/acolyte
 	name = "Cultist Acolyte"
 	job_rank = ROLE_ACOLYTE
