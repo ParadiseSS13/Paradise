@@ -63,6 +63,9 @@
 	/// Blocks the door from making sparks when on cooldown. Lag preventor, disabled by disable_door_sparks for 3 seconds
 	COOLDOWN_DECLARE(spark_block_cooldown)
 
+/obj/machinery/door/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-Click</b> to knock on it.")
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -250,6 +253,18 @@
 	if(!allowed(null))
 		return
 	..()
+
+/obj/machinery/door/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(src, 'sound/magic/hereticknock.ogg', 50, 1)
+	user.visible_message(
+		SPAN_NOTICE("[user] knocks on [src]."),
+		SPAN_NOTICE("You knock on [src]."),
+		SPAN_HEAR("You hear a knocking sound.")
+	)
+	add_fingerprint(user)
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
