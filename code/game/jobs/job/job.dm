@@ -180,6 +180,25 @@
 /datum/job/proc/is_command_position()
 	return (title in GLOB.command_positions)
 
+/datum/job/ui_data(mob/user)
+	. = list()
+	.["title"] = title
+	.["is_command"] = is_command_position()
+	.["total_slots"] = max(spawn_positions, total_positions) // AI cores are annoying
+	.["active_players"] = 0
+	.["prioritized"] = (src in SSjobs.prioritized_jobs)
+
+	if(isnewplayer(user))
+		var/mob/new_player/new_player = user
+		var/job_unavailable = new_player.get_job_availability_code(src)
+		.["unavailable_to_player"] = job_unavailable
+		if(job_unavailable != JOB_SELECT_AVAILABLE)
+			.["unavailability_text"] = format_job_unavailable_reason(job_unavailable)
+
+	for(var/mob/M in GLOB.player_list)
+		if(M.active_assigned_to_job(src))
+			.["active_players"]++
+
 /datum/outfit/job
 	name = "Standard Gear"
 	collect_not_del = TRUE // we don't want anyone to lose their job shit
@@ -398,3 +417,24 @@
 	job = chef_expand.Replace(job, "cook")
 	job = borg_expand.Replace(job, "cyborg")
 	return job
+
+/proc/format_job_unavailable_reason(code)
+	switch(code)
+		if(JOB_SELECT_SLOTS_FILLED)
+			return "This job is filled to capacity."
+		if(JOB_SELECT_PLAYER_BANNED)
+			return "You are banned from playing this job."
+		if(JOB_SELECT_NOT_ENOUGH_PLAYTIME)
+			return "You do not have enough playtime for this job."
+		if(JOB_SELECT_ADMIN_ONLY)
+			return "This job is an admin-only role."
+		if(JOB_SELECT_EXP_RESTRICTED)
+			return "You do not have the required experience for this job."
+		if(JOB_SELECT_MENTOR_ONLY)
+			return "This job is a mentor-only role."
+		if(JOB_SELECT_DISABILITY_BARRED)
+			return "Your character's disabilities bar you from this job."
+		if(JOB_SELECT_AMPUTEE_BARRED)
+			return "Your character's missing limbs bar you from this job."
+		if(JOB_SELECT_QUIRK_BARRED)
+			return "Your character's quirks bar you from this job."
