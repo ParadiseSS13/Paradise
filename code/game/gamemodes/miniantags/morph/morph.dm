@@ -244,7 +244,8 @@
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(ambush_prepared)
-		to_chat(M, SPAN_WARNING("[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!"))
+		to_chat(M, SPAN_WARNING("[src] feels a bit different from normal... it feels more..."))
+		to_chat(M, SPAN_USERDANGER("SLIMEY?!"))
 		ambush_attack(M, TRUE)
 	else
 		return ..()
@@ -268,7 +269,8 @@
 
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/M)
 	if(M.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(M, SPAN_NOTICE("You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!"))
+		to_chat(M, SPAN_NOTICE("You nuzzle [src]."))
+		to_chat(M, SPAN_USERDANGER("And [src] nuzzles back!"))
 		ambush_attack(M, TRUE)
 		return TRUE
 	MORPH_ATTACKED

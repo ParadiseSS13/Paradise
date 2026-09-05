@@ -1,9 +1,11 @@
 /area/station/legal
 	airlock_wires = /datum/wires/airlock/security
+	area_icon_color = AREA_COLOR_LEGAL
 
 /area/station/legal/courtroom
 	name = "\improper Courtroom"
 	icon_state = "courtroom"
+	area_icon_text = "COURT\nROOM"
 	request_console_flags = RC_ASSIST | RC_SUPPLY
 
 /area/station/legal/courtroom/gallery
@@ -13,6 +15,7 @@
 /area/station/legal/lawoffice
 	name = "\improper Law Office"
 	icon_state = "law"
+	area_icon_text = "LAW\nOFFICE"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	request_console_name = "Internal Affairs Office"
 	area_light_color = LIGHT_COLOR_STATION_OFFICE
@@ -21,6 +24,7 @@
 /area/station/legal/magistrate
 	name = "\improper Magistrate's Office"
 	icon_state = "magistrate"
+	area_icon_text = "MAGI"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Magistrate"
@@ -30,6 +34,7 @@
 /area/station/legal/legaloffice
 	name = "\improper Legal Office"
 	icon_state = "legal"
+	area_icon_text = "LEGAL\nOFFICE"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Legal Office"

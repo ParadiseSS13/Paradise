@@ -43,7 +43,8 @@
 	. = ..()
 	. += SPAN_NOTICE("Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.")
 	. += SPAN_NOTICE("The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).")
-	. += SPAN_NOTICE("You can <b>Ctrl-Click</b> this to toggle it on, or <b>Alt-Click</b> it to [cooling ? "minimize" : "maximize"] the set temperature.")
+	. += SPAN_NOTICE("You can <b>Ctrl-Click</b> this to toggle it on.")
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> this to set the thermostat to the [cooling ? "minimum" : "maximum"] temperature.")
 	. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> this to switch it to [cooling ? "heating" : "cooling"] mode.")
 	if(in_range(user, src) || isobserver(user))
 		. += SPAN_NOTICE("The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.")
@@ -54,23 +55,24 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
-		if(on)
-			on = FALSE
-			update_icon()
-		else
-			on = TRUE
-			update_icon()
+		toggle(user)
 
 /obj/machinery/atmospherics/unary/thermomachine/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		if(cooling)
 			target_temperature = min_temperature
+			if(user)
+				to_chat(user, SPAN_NOTICE("You set the [src] to the minimum temperature."))
 		else
 			target_temperature = max_temperature
+			if(user)
+				to_chat(user, SPAN_NOTICE("You set the [src] to the maximum temperature."))
 
 /obj/machinery/atmospherics/unary/thermomachine/AltShiftClick(mob/living/carbon/human/user)
 	if(can_use_shortcut(user))
 		swap_function()
+		if(user)
+			to_chat(user, SPAN_NOTICE("You switch the [src] to [cooling ? "cooling" : "heating"] mode."))
 
 /obj/machinery/atmospherics/unary/thermomachine/AICtrlClick(mob/living/silicon/user)
 	if(can_use_shortcut(user))

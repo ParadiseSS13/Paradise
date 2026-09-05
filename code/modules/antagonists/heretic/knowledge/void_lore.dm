@@ -31,7 +31,7 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	if(!isfloorturf(our_turf))
-		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, this is not a valid location!"))
 		return FALSE
 
 	var/turf/simulated/our_simulated_turf = our_turf
@@ -39,7 +39,7 @@
 	var/turf_hotness = G.temperature()
 	var/turf_pressure = G.return_pressure()
 	if(turf_hotness > T0C && turf_pressure >= ONE_ATMOSPHERE / 2 || turf_hotness > 475) // The magic number is approximently lavalands temperature. No, lavaland is not cold, depsite being low pressure
-		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, it is too hot for the ritual!"))
 		return FALSE
 
 	return ..()
@@ -203,14 +203,14 @@
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
 	if(!isfloorturf(our_turf))
-		to_chat(user, "<span class='hierophant'>The ritual failed, this is not a valid location!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, this is not a valid location!"))
 		return FALSE
 
 	var/datum/gas_mixture/G = our_turf.get_readonly_air()
 	var/turf_hotness = G.temperature()
 	var/turf_pressure = G.return_pressure()
 	if(turf_hotness > T0C && turf_pressure >= ONE_ATMOSPHERE / 2 || turf_hotness > 475)
-		to_chat(user, "<span class='hierophant'>The ritual failed, it is too hot for the ritual!</span>")
+		to_chat(user, SPAN_HIEROPHANT("The ritual failed, it is too hot for the ritual!"))
 		return FALSE
 
 	return ..()
@@ -314,8 +314,8 @@
 		return NONE
 
 	ascended_heretic.visible_message(
-		"<span class='danger'>The void storm surrounding [ascended_heretic] deflects [hitting_projectile]!</span>",
-		"<span class='userdanger'>The void storm protects you from [hitting_projectile]!</span>",
+		SPAN_DANGER("The void storm surrounding [ascended_heretic] deflects [hitting_projectile]!"),
+		SPAN_USERDANGER("The void storm protects you from [hitting_projectile]!"),
 	)
 	playsound(ascended_heretic, "void_deflect", 75, TRUE)
 	hitting_projectile.firer = ascended_heretic
