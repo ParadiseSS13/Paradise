@@ -269,7 +269,7 @@
 
 /datum/ruleset/acolyte
 	name = "Acolyte"
-	ruleset_weight = 9
+	ruleset_weight = 8
 	antag_cost = 10
 	antagonist_type = /datum/antagonist/acolyte
 
