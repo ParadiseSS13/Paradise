@@ -363,13 +363,22 @@
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target
 			var/mob/living/simple_animal/shade/shade = locate() in src
-			var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
-											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
-											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
-			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
-											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
-											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
+			var/list/construct_types
+			var/list/construct_icons
+			if(IS_ACOLYTE(user))
+				var/list/construct_types = list("Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+												"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+				/// Custom construct icons for different cults
+				var/list/construct_icons = list("Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+												"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
+			else
+				var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
+												"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+												"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+				/// Custom construct icons for different cults
+				var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
+												"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+												"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
