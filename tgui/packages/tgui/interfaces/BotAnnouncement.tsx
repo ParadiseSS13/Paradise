@@ -1,14 +1,5 @@
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Icon,
-  Input,
-  Section,
-  Stack,
-  Tabs,
-} from 'tgui-core/components';
+import { Box, Button, Dropdown, Icon, Input, Section, Stack, Tabs } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -63,16 +54,10 @@ export const BotAnnouncement = (props) => {
 
   if (search !== '') {
     if (tab === TAB.Announcements) {
-      const lineSearch = createSearch(
-        search,
-        (item: StringWithId) => item.string,
-      );
+      const lineSearch = createSearch(search, (item: StringWithId) => item.string);
       filteredLines = filteredLines.filter(lineSearch);
     } else {
-      const buttonSearch = createSearch(
-        search,
-        (item: ButtonDataWithId) => item.button.name,
-      );
+      const buttonSearch = createSearch(search, (item: ButtonDataWithId) => item.button.name);
       filteredShortcuts = filteredShortcuts.filter(buttonSearch);
     }
   }
@@ -131,9 +116,7 @@ export const BotAnnouncement = (props) => {
                 <Stack.Item key={val.index}>
                   <Button
                     py={1}
-                    color={
-                      selectedButton === val.index ? 'green' : 'transparent'
-                    }
+                    color={selectedButton === val.index ? 'green' : 'transparent'}
                     fluid
                     onClick={() => setSelectedButton(val.index)}
                     minHeight="32px"
@@ -148,10 +131,7 @@ export const BotAnnouncement = (props) => {
                           color={
                             selectedButton === val.index
                               ? 'white'
-                              : RADIO_CHANNELS.find(
-                                  (channel) =>
-                                    channel.name === val.button.channel,
-                                )?.color
+                              : RADIO_CHANNELS.find((channel) => channel.name === val.button.channel)?.color
                           }
                         >
                           {val.button.channel || 'No radio channel'}
@@ -167,12 +147,7 @@ export const BotAnnouncement = (props) => {
         <Section>
           <Stack vertical>
             <Stack.Item>
-              <Input
-                onChange={setSearch}
-                fluid
-                autoFocus
-                placeholder="Search..."
-              />
+              <Input onChange={setSearch} fluid autoFocus placeholder="Search..." />
             </Stack.Item>
             <Stack.Item>
               <Stack align="center">
@@ -180,11 +155,7 @@ export const BotAnnouncement = (props) => {
                   <Stack.Item grow>
                     <Dropdown
                       options={['No radio channel', ...channels]}
-                      displayText={
-                        selectedChannel === null
-                          ? 'No radio channel'
-                          : selectedChannel
-                      }
+                      displayText={selectedChannel === null ? 'No radio channel' : selectedChannel}
                       width="100%"
                       selected={selectedChannel}
                       onSelected={(value) => {
@@ -223,9 +194,7 @@ export const BotAnnouncement = (props) => {
                     color={tab === TAB.Announcements ? 'default' : 'red'}
                     minWidth="96px"
                   >
-                    {tab === TAB.Announcements
-                      ? 'Make Shortcut'
-                      : 'Delete Shortcut'}
+                    {tab === TAB.Announcements ? 'Make Shortcut' : 'Delete Shortcut'}
                   </Button>
                 </Stack.Item>
                 <Stack.Item>
@@ -254,10 +223,7 @@ export const BotAnnouncement = (props) => {
                     disabled={cooldown_left > 0}
                     minWidth="96px"
                   >
-                    Play{' '}
-                    {cooldown_left > 0
-                      ? `(${Math.round(cooldown_left / 10)}s)`
-                      : ''}
+                    Play {cooldown_left > 0 ? `(${Math.round(cooldown_left / 10)}s)` : ''}
                   </Button>
                 </Stack.Item>
               </Stack>
