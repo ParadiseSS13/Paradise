@@ -147,8 +147,10 @@
 		M.visible_message(SPAN_DANGER("[user] is trying to inject [M] with [src]!"), SPAN_USERDANGER("[user] is trying to inject [M] with [src]!"))
 		if(!do_mob(user, M))
 			return
-		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
-						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
+		M.visible_message(
+			SPAN_DANGER("[user] injects [M] with the syringe with [src]!"),
+			SPAN_USERDANGER("[user] injects [M] with the syringe with [src]!")
+		)
 	else
 		to_chat(user, SPAN_NOTICE("You inject yourself with [src]."))
 

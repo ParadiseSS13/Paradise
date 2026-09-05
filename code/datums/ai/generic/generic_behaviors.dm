@@ -170,8 +170,8 @@
 		return perform_flags
 	controller.pause_ai(1.5 SECONDS)
 	living_target.visible_message(
-		"<span class='notice'>[pawn] starts trying to give [held_item] to [living_target]!</span>",
-		"<span class='warning'>[pawn] tries to give you [held_item]!</span>"
+		SPAN_NOTICE("[pawn] starts trying to give [held_item] to [living_target]!"),
+		SPAN_WARNING("[pawn] tries to give you [held_item]!")
 	)
 	if(!do_after(pawn, 1 SECONDS, living_target))
 		return AI_BEHAVIOR_DELAY | perform_flags
