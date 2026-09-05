@@ -14,3 +14,6 @@
 
 /datum/autochef_task/proc/reset()
 	return
+
+/datum/autochef_task/proc/human_readable_desc()
+	return "UNKNOWN"
