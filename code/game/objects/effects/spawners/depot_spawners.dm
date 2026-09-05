@@ -27,7 +27,7 @@
 	name = "50pc trap medibot"
 	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "syndie_medbot"
-	loot = list(/mob/living/simple_animal/bot/medbot/syndicate/emagged)
+	loot = list(/mob/living/basic/bot/medbot/syndicate/emagged)
 	spawn_loot_chance = 50
 
 // Traps

@@ -1685,15 +1685,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return FALSE
 
-/mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged)
-		return 10 //Everyone is a criminal!
+/mob/living/carbon/human/assess_threat(judgement_criteria, lasercolor)
+	if(judgement_criteria & JUDGE_EMAGGED)
+		return 10 // Everyone is a criminal!
 
 	var/threatcount = 0
 
-	//Lasertag bullshit
+	// Lasertag bullshit
 	if(lasercolor)
-		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
+		if(lasercolor == "b")// Lasertag turrets target the opposing team, how great is that? -Sieve
 			if(istype(wear_suit, /obj/item/clothing/suit/redtag))
 				threatcount += 4
 			if((istype(r_hand,/obj/item/gun/energy/laser/tag/red)) || (istype(l_hand,/obj/item/gun/energy/laser/tag/red)))
@@ -1711,26 +1711,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 		return threatcount
 
-	//Check for ID
+	// Check for ID
 	var/obj/item/card/id/idcard = get_idcard(TRUE)
-	if(judgebot.idcheck && !idcard)
+	if((judgement_criteria & JUDGE_IDCHECK) && !idcard && name == "Unknown")
 		threatcount += 4
 
-	//Check for weapons
-	if(judgebot.weapons_check)
+	// Check for weapons
+	if(judgement_criteria & SECBOT_CHECK_WEAPONS)
 		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
-			if(judgebot.check_for_weapons(l_hand))
+			if(l_hand && l_hand.needs_permit)
 				threatcount += 4
-			if(judgebot.check_for_weapons(r_hand))
+			if(r_hand && r_hand.needs_permit)
 				threatcount += 4
-			if(judgebot.check_for_weapons(belt))
+			if(belt && belt.needs_permit)
 				threatcount += 4
-			if(judgebot.check_for_weapons(s_store))
+			if(s_store && s_store.needs_permit)
 				threatcount += 4
 
-
-	//Check for arrest warrant
-	if(judgebot.check_records)
+	// Check for arrest warrant
+	if(judgement_criteria & SECBOT_CHECK_RECORDS)
 		var/perpname = get_visible_name(TRUE)
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
@@ -1747,7 +1746,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	//Check for dresscode violations
 	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
 		threatcount += 2
-
 
 	//Mindshield implants imply slight trustworthiness
 	if(ismindshielded(src))

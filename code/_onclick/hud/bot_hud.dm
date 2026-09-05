@@ -8,7 +8,7 @@
 
 /atom/movable/screen/bot/radio/Click()
 	if(isbot(usr))
-		var/mob/living/simple_animal/bot/B = usr
+		var/mob/living/basic/bot/B = usr
 		B.Radio.interact(usr)
 
 /datum/hud/bot/New(mob/owner)

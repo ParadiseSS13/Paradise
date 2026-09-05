@@ -20,10 +20,29 @@
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
-	var/med_bot_skin = null
+	var/med_bot_skin = "generic"
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
+	/// Defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
+	var/damagetype_healed
 
+/obj/item/storage/firstaid/attackby__legacy__attackchain(obj/item/used, mob/user, params)
+	if(!(istype(used, /obj/item/robot_parts/l_arm) || istype(used, /obj/item/robot_parts/r_arm)))
+		return ..()
+
+	if(length(contents))
+		to_chat(user, SPAN_NOTICE("You cannot attach [used] with items still in [src]."))
+		return TRUE
+
+	to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+	var/obj/item/bot_assembly/medbot/assembly = new(drop_location())
+	assembly.set_skin(med_bot_skin)
+	assembly.robot_arm = used.type
+	assembly.medkit_type = type
+	qdel(used)
+	qdel(src)
+	user.put_in_hands(assembly)
+	return TRUE
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
@@ -60,7 +79,8 @@
 	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_burn"
 	inhand_icon_state = "firstaid_burn"
-	med_bot_skin = "ointment"
+	med_bot_skin = "burn"
+	damagetype_healed = BURN
 
 /obj/item/storage/firstaid/fire/populate_contents()
 	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
@@ -79,6 +99,7 @@
 	icon_state = "firstaid_toxin"
 	inhand_icon_state = "firstaid_toxin"
 	med_bot_skin = "tox"
+	damagetype_healed = TOX
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	for(var/I in 1 to 3)
@@ -94,7 +115,8 @@
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "firstaid_o2"
 	inhand_icon_state = "firstaid_o2"
-	med_bot_skin = "o2"
+	med_bot_skin = "oxy"
+	damagetype_healed = OXY
 
 /obj/item/storage/firstaid/o2/populate_contents()
 	new /obj/item/reagent_containers/pill/salbutamol(src)
@@ -112,6 +134,7 @@
 	icon_state = "firstaid_brute"
 	inhand_icon_state = "firstaid_brute"
 	med_bot_skin = "brute"
+	damagetype_healed = BRUTE
 
 /obj/item/storage/firstaid/brute/populate_contents()
 	new /obj/item/stack/medical/suture/medicated(src)
@@ -130,6 +153,7 @@
 	icon_state = "firstaid_advanced"
 	inhand_icon_state = "firstaid_advanced"
 	med_bot_skin = "adv"
+	damagetype_healed = HEAL_ALL_DAMAGE
 
 /obj/item/storage/firstaid/adv/populate_contents()
 	new /obj/item/stack/medical/bruise_pack(src)
@@ -172,6 +196,7 @@
 	req_one_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
+	damagetype_healed = HEAL_ALL_DAMAGE
 
 /obj/item/storage/firstaid/tactical/populate_contents()
 	new /obj/item/reagent_containers/hypospray/combat(src)

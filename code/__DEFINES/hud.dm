@@ -69,6 +69,7 @@
 #define ANTAG_HUD_HERETIC	 			28
 #define ANTAG_HUD_HERETIC_BEAST			29
 #define ANTAG_HUD_UPLIFTED_TEAMLESS		30
+#define DATA_HUD_BOT_PATH               31
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

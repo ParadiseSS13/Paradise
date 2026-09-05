@@ -12477,7 +12477,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "bzg" = (
@@ -12832,9 +12832,7 @@
 "bAA" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/light/small,
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
@@ -13470,9 +13468,7 @@
 /area/space/nearstation)
 "bDi" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/bot/cleanbot{
-	on = 0
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
@@ -23259,10 +23255,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "cDr" = (
-/obj/item/toolbox_tiles{
-	desc = "Why won't it work?";
-	name = "FloorDiffBot"
-	},
+/obj/item/bot_assembly/repairbot,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "cDs" = (
@@ -36556,9 +36549,7 @@
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "fWJ" = (
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -65639,7 +65630,7 @@
 	codes_txt = "patrol;next_patrol=1-BrigCells";
 	location = "0-SecurityDesk"
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},

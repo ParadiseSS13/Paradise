@@ -828,10 +828,7 @@
 /area/ruin/space/derelict/arrival)
 "co" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	desc = "It's Comrade Blyatsky! Powered by vodka, communism, and hardbass.";
-	name = "Comrade Blyatsky"
-	},
+/mob/living/basic/bot/secbot/buzzsky,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cp" = (
@@ -4771,7 +4768,7 @@
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nk" = (
-/obj/item/firstaid_arm_assembly,
+/obj/item/bot_assembly/medbot,
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nl" = (

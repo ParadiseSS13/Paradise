@@ -211,7 +211,7 @@
 	var/list/botsData = list()
 	var/list/beepskyData = list()
 
-	var/mob/living/simple_animal/bot/secbot/active_bot = locateUID(active_uid)
+	var/mob/living/basic/bot/secbot/active_bot = locateUID(active_uid)
 
 	if(active_bot && !QDELETED(active_bot))
 		beepskyData["active"] = active_bot ? sanitize(active_bot.name) : null
@@ -223,14 +223,14 @@
 
 	else
 		var/botsCount = 0
-		var/list/mob/living/simple_animal/bot/bots = list()
-		for(var/mob/living/simple_animal/bot/secbot/SB in GLOB.bots_list)
+		var/list/mob/living/basic/bot/bots = list()
+		for(var/mob/living/basic/bot/secbot/SB in GLOB.bots_list)
 			bots += SB
-		for(var/mob/living/simple_animal/bot/ed209/ED in GLOB.bots_list)
+		for(var/mob/living/basic/bot/secbot/ed209/ED in GLOB.bots_list)
 			if(!("syndicate" in ED.faction))
 				bots += ED
 
-		for(var/mob/living/simple_animal/bot/B in bots)
+		for(var/mob/living/basic/bot/B in bots)
 			botsCount++
 			if(B.loc)
 				var/area/our_area = get_area(B)
@@ -261,16 +261,16 @@
 			active_uid = null
 
 		if("stop", "go", "home")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, action)
+				active_bot.bot_control(action, usr)
 			else
 				active_uid = null
 
 		if("summon")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, "summon", list("target" = get_turf(usr), "useraccess" = usr.get_access()))
+				active_bot.bot_control("summon", usr, list("target" = get_turf(usr), "user_access" = usr.get_access()))
 			else
 				active_uid = null
 
@@ -338,16 +338,16 @@
 			active_uid = null
 
 		if("stop", "start", "home", "unload", "target")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, action)
+				active_bot.bot_control(action, usr)
 			else
 				active_uid = null
 
 		if("set_auto_return", "set_pickup_type")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, action, params)
+				active_bot.bot_control(action, usr, params)
 			else
 				active_uid = null
 
@@ -434,13 +434,13 @@
 			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/CbotData = list()
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
+	for(var/mob/living/basic/bot/cleanbot/B in GLOB.bots_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
+			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = (B.bot_mode_flags & BOT_MODE_ON) ? "Online" : "Offline")
 
 	var/list/CartData = list()
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
