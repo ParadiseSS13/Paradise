@@ -1327,6 +1327,7 @@
 #include "code\game\objects\items\decorations.dm"
 #include "code\game\objects\items\defib.dm"
 #include "code\game\objects\items\dehy_carp.dm"
+#include "code\game\objects\items\diona_growth_serum.dm"
 #include "code\game\objects\items\disks.dm"
 #include "code\game\objects\items\dna_injector.dm"
 #include "code\game\objects\items\dnascrambler.dm"
