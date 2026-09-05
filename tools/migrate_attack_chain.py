@@ -21,7 +21,7 @@ ASSISTED_PATHS = [
 
 
 def has_legacy_procs(dme: DME, pth: p) -> bool:
-    td = dme.type_decl(pth)
+    td = dme.types[pth]
     proc_names = td.proc_names(modified=True)
     return any([x for x in proc_names if "legacy__attackchain" in x])
 
@@ -31,7 +31,7 @@ def get_migration_plan(
 ) -> None | MigrationPlan:
     if checked_types is None:
         checked_types = set()
-    td = dme.type_decl(target_path)
+    td = dme.types[target_path]
     new_attack_chain = td.var_decl("new_attack_chain", parents=True)
     if new_attack_chain.const_val:
         print(

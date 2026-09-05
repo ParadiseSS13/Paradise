@@ -107,7 +107,7 @@
 			else
 				text += SPAN_BOLD("survived!")
 			if(mind.current.real_name != mind.name)
-				text += "<span class='bold'> as [mind.current.real_name]!</bold>"
+				text += SPAN_BOLD(" as [mind.current.real_name]!")
 			else
 				text += "!"
 		else

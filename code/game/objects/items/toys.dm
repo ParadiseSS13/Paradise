@@ -242,15 +242,15 @@
 	if(prob(1))
 		if(target == user)
 			user.visible_message(
-				"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow...</span>",
+				SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow..."),
 				SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade. Somehow..."),
 				SPAN_DANGER("You hear an energy blade slashing something!")
 			)
 		else
 			user.visible_message(
-				"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow...</span>",
+				SPAN_DANGER("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow..."),
 				SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade. Somehow..."),
 				SPAN_DANGER("You hear an energy blade slashing something!")
 			)
@@ -261,15 +261,15 @@
 	// Else, bat it out of the target's mouth.
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor.</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor."),
 			SPAN_WARNING("You casually slash [src] at [cig], swatting it out of your mouth."),
 			SPAN_NOTICE("You hear a gentle tapping.")
 		)
 	else
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!"),
 			SPAN_WARNING("You casually slash [src] at [cig] in the mouth of [target], swatting it to the floor!"),
 			SPAN_NOTICE("You hear a gentle tapping.")
 		)
