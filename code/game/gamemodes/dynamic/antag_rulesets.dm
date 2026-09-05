@@ -270,7 +270,7 @@
 /datum/ruleset/acolyte
 	name = "Acolyte"
 	ruleset_weight = 8
-	antag_cost = 10
+	antag_cost = 15
 	antagonist_type = /datum/antagonist/acolyte
 
 	banned_jobs = list("Cyborg", "AI", "Chaplain")
