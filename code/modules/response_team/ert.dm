@@ -338,6 +338,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"
 	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
+	/// The role of ERT this outfit is for, e.g. "Security", "Paranormal".
+	/// Is not a hard requirement, is just used to categorize ERT loadouts
+	/// for customization.
+	var/base_role
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert
