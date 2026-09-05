@@ -29,7 +29,7 @@
 /datum/buildmode_mode/link/show_help(mob/user)
 	to_chat(user, SPAN_NOTICE("***********************************************************"))
 	to_chat(user, SPAN_NOTICE("Left Mouse Button on obj  = Select button to link"))
-	to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on obj = Link/unlink to selected button"))
 	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 // FIXME: this probably would work better with something component-based
