@@ -50,7 +50,7 @@
 	layer = 2.9
 	},
 /obj/effect/spawner/random/engineering/materials,
-/obj/machinery/light/small{
+/obj/machinery/light/small/deepmaints{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -62,10 +62,10 @@
 /turf/simulated/floor/catwalk,
 /area/template_noop)
 "cD" = (
-/obj/machinery/light/small,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/department/science/side,
 /obj/effect/turf_decal/trimline/neutral/line,
+/obj/machinery/light/small/deepmaints,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "cE" = (
@@ -98,6 +98,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"dN" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "dP" = (
 /obj/structure/chair{
@@ -160,6 +165,11 @@
 /obj/machinery/cooking/ice_cream_mixer/loaded,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"gh" = (
+/obj/structure/reagent_dispensers/beerkeg/nuke,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "gn" = (
 /obj/structure/table,
@@ -243,12 +253,9 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood,
 /area/template_noop)
-"iD" = (
-/turf/simulated/floor/plasteel,
-/area/template_noop)
 "iT" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small{
+/obj/machinery/light/small/deepmaints{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -301,6 +308,10 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood,
 /area/template_noop)
+"kl" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall/r_wall,
+/area/template_noop)
 "kn" = (
 /obj/structure/railing,
 /obj/effect/spawner/random/dirt/frequent,
@@ -317,14 +328,14 @@
 /turf/simulated/floor/catwalk,
 /area/template_noop)
 "kx" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1
+	},
+/obj/machinery/light/small/deepmaints{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -398,7 +409,6 @@
 	input_dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "na" = (
@@ -461,6 +471,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/catwalk,
+/area/template_noop)
+"oE" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "pb" = (
 /obj/structure/railing{
@@ -576,6 +591,14 @@
 "rT" = (
 /obj/structure/railing/corner,
 /turf/simulated/floor/catwalk,
+/area/template_noop)
+"rW" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "sm" = (
 /obj/machinery/light{
@@ -700,7 +723,7 @@
 /area/template_noop)
 "vy" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small{
+/obj/machinery/light/small/deepmaints{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -725,9 +748,19 @@
 "wc" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/random/cobweb/right/rare,
-/obj/machinery/light{
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light_construct{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"wD" = (
+/obj/machinery/door/airlock/vault{
+	locked = 1;
+	name = "abandoned vault";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/vault,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -867,16 +900,13 @@
 /area/template_noop)
 "CD" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small,
+/obj/machinery/light/small/deepmaints,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "CQ" = (
 /obj/structure/reagent_dispensers/oil,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/template_noop)
-"CR" = (
-/turf/simulated/wall,
 /area/template_noop)
 "CT" = (
 /obj/structure/railing{
@@ -1016,7 +1046,7 @@
 /area/template_noop)
 "Gh" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small{
+/obj/machinery/light/small/deepmaints{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1078,6 +1108,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/catwalk,
 /area/template_noop)
+"HQ" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "Ib" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -1114,6 +1149,11 @@
 "IB" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"II" = (
+/mob/living/basic/mouse/white,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "IQ" = (
 /obj/structure/railing/corner,
@@ -1216,10 +1256,10 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/machinery/light{
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light_construct{
 	dir = 8
 	},
-/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Nb" = (
@@ -1234,7 +1274,7 @@
 /area/template_noop)
 "No" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small,
+/obj/machinery/light/small/deepmaints,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Nt" = (
@@ -1243,7 +1283,7 @@
 /area/template_noop)
 "On" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/machinery/light/small{
+/obj/machinery/light/small/deepmaints{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1321,10 +1361,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
-/area/template_noop)
-"Qy" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
-/turf/simulated/floor/plasteel,
 /area/template_noop)
 "QA" = (
 /obj/structure/railing/cap/normal{
@@ -1485,6 +1521,16 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/bluegrid,
+/area/template_noop)
+"VB" = (
+/obj/structure/closet/crate/secure/nanotrasen,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"VM" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "VS" = (
 /obj/machinery/mecha_part_fabricator,
@@ -1739,15 +1785,15 @@ nB
 (3,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+On
+IB
+IB
+IB
+nK
 nB
 nB
 IB
@@ -1787,15 +1833,15 @@ nB
 (4,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+kl
+kl
+kl
+kl
+kl
+IB
+IB
 nB
 nB
 IB
@@ -1835,15 +1881,15 @@ nB
 (5,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+kl
+kl
+HQ
+dN
+VB
+kl
+kl
+IB
 nB
 nB
 IB
@@ -1883,15 +1929,15 @@ nB
 (6,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+kl
+VM
+qX
+qX
+qX
+qX
+kl
+IB
 nB
 nB
 IB
@@ -1931,15 +1977,15 @@ nB
 (7,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+kl
+rW
+qX
+gh
+II
+qX
+wD
+IB
 nB
 nB
 No
@@ -1979,15 +2025,15 @@ nB
 (8,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+kl
+VM
+qX
+qX
+qX
+qX
+kl
+IB
 nB
 nB
 IB
@@ -2027,15 +2073,15 @@ nB
 (9,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+kl
+kl
+HQ
+oE
+VB
+kl
+kl
+IB
 nB
 nB
 IB
@@ -2075,15 +2121,15 @@ nB
 (10,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+kl
+kl
+kl
+kl
+kl
+IB
+IB
 nB
 nB
 IB
@@ -2123,15 +2169,15 @@ nB
 (11,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+Gh
+IB
+IB
+IB
+IB
 nB
 nB
 IB
@@ -2267,15 +2313,15 @@ nB
 (14,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nK
 nB
 nB
 qX
@@ -2315,15 +2361,15 @@ nB
 (15,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 qX
@@ -2363,15 +2409,15 @@ nB
 (16,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 CD
@@ -2411,15 +2457,15 @@ nB
 (17,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 Li
@@ -2459,15 +2505,15 @@ nB
 (18,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 Tk
@@ -2507,15 +2553,15 @@ nB
 (19,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 kT
@@ -2555,15 +2601,15 @@ nB
 (20,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 CD
@@ -2603,15 +2649,15 @@ nB
 (21,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 qX
@@ -2651,15 +2697,15 @@ nB
 (22,1,1) = {"
 nB
 nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
-nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
 nB
 nB
 qX
@@ -3323,15 +3369,15 @@ nB
 (36,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-Qy
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 lU
@@ -3371,15 +3417,15 @@ nB
 (37,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-CR
-ZF
-IB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3419,15 +3465,15 @@ nB
 (38,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3467,15 +3513,15 @@ nB
 (39,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3515,15 +3561,15 @@ nB
 (40,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3563,15 +3609,15 @@ nB
 (41,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3611,15 +3657,15 @@ nB
 (42,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3659,15 +3705,15 @@ nB
 (43,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 Sp
@@ -3707,15 +3753,15 @@ nB
 (44,1,1) = {"
 nB
 nB
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
-iD
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
 nB
 nB
 WW

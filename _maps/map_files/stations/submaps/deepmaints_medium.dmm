@@ -6,8 +6,7 @@
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
 "ak" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "av" = (
@@ -32,11 +31,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "bt" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/plasma/ten,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "bw" = (
 /obj/structure/shelf/command,
@@ -161,6 +159,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/bluegrid,
 /area/template_noop)
 "em" = (
@@ -182,6 +181,10 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "ew" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "eD" = (
@@ -201,6 +204,8 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "eR" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/medium,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "fq" = (
@@ -260,12 +265,6 @@
 	},
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
-"gD" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 9
-	},
-/turf/simulated/floor/wood,
-/area/template_noop)
 "gH" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
@@ -284,6 +283,15 @@
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -314,9 +322,6 @@
 /obj/effect/spawner/random/engineering/tools,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"hJ" = (
-/turf/simulated/floor/plasteel/dark,
-/area/template_noop)
 "hP" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /obj/effect/mapping_helpers/turfs/rust/maybe,
@@ -327,14 +332,36 @@
 /obj/effect/spawner/random/cobweb/right,
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
+"hT" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "hY" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"hZ" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "il" = (
 /obj/machinery/light/small,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "ir" = (
@@ -343,15 +370,10 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"is" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+"ix" = (
+/obj/structure/table,
 /obj/effect/spawner/random/dirt/frequent,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "iK" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -361,8 +383,15 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "iX" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "iZ" = (
 /obj/structure/railing{
@@ -396,6 +425,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"kD" = (
+/obj/structure/closet/cardboard,
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
+/turf/simulated/floor/bluegrid,
+/area/template_noop)
 "kL" = (
 /obj/structure/spider/cocoon,
 /obj/effect/spawner/random/dirt/frequent,
@@ -414,6 +448,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"lB" = (
+/obj/effect/turf_decal/trimline/black/corner,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "lC" = (
 /obj/machinery/light{
 	dir = 4
@@ -428,11 +467,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"lT" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 5
+"lY" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/machinery/light/small/deepmaints{
+	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "mc" = (
 /obj/effect/turf_decal/trimline/department/engineering/corner{
@@ -460,6 +501,13 @@
 /obj/effect/turf_decal/tiles/department/virology,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"mP" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "ns" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table/wood,
@@ -467,6 +515,13 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
+/turf/simulated/floor/wood,
+/area/template_noop)
+"nC" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "nL" = (
@@ -524,10 +579,6 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
-"oQ" = (
-/obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/wood,
-/area/template_noop)
 "oT" = (
 /obj/structure/railing/cap/reversed{
 	dir = 1
@@ -548,12 +599,21 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
-"pw" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 8
+"pi" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/door/airlock/hatch{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/c_foam/five,
+/turf/simulated/floor/catwalk/black,
+/area/template_noop)
+"pw" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
 /area/template_noop)
 "pC" = (
 /obj/structure/cable{
@@ -623,11 +683,28 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"qT" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/template_noop)
 "qW" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"rb" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "rm" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -636,7 +713,23 @@
 	},
 /turf/simulated/floor/wood,
 /area/template_noop)
+"rv" = (
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/largecrate,
+/turf/simulated/floor/catwalk/black,
+/area/template_noop)
 "rJ" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "rO" = (
@@ -649,6 +742,7 @@
 "rS" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/giant_spiders,
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
 "rW" = (
@@ -680,19 +774,15 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
-"sg" = (
-/obj/effect/turf_decal/woodsiding{
+"si" = (
+/obj/effect/turf_decal/trimline/black/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
-/area/template_noop)
-"sE" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 10
-	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "sQ" = (
 /obj/structure/closet/emcloset,
@@ -753,12 +843,6 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"tS" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 6
-	},
-/turf/simulated/floor/wood,
-/area/template_noop)
 "ua" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table/wood,
@@ -767,6 +851,13 @@
 "uh" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"ui" = (
+/obj/effect/turf_decal/trimline/black/warning{
+	dir = 8
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
@@ -824,16 +915,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"vx" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/spawner/random/dirt/frequent,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/template_noop)
 "vE" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
@@ -848,10 +929,6 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/template_noop)
-"wc" = (
-/obj/structure/chair,
-/turf/simulated/floor/wood,
 /area/template_noop)
 "wh" = (
 /obj/effect/turf_decal/trimline/department/engineering/filled/warning{
@@ -871,6 +948,11 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"wr" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/giant_spiders,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "wD" = (
 /obj/structure/closet/crate/engineering,
@@ -899,12 +981,6 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
-"xX" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/template_noop)
 "xY" = (
 /obj/effect/turf_decal/trimline/department/engineering/warning{
 	dir = 8
@@ -917,6 +993,22 @@
 /obj/machinery/light,
 /turf/simulated/floor/bluegrid,
 /area/template_noop)
+"yu" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
 "yJ" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -926,10 +1018,9 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "yW" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
+/obj/structure/falsewall,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "za" = (
 /obj/structure/table/reinforced,
@@ -937,16 +1028,6 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/bluegrid,
-/area/template_noop)
-"ze" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/spawner/random/dirt/frequent,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/template_noop)
 "zk" = (
 /obj/structure/window/reinforced{
@@ -988,9 +1069,12 @@
 /area/template_noop)
 "Ag" = (
 /obj/structure/grille,
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -1106,6 +1190,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Cr" = (
+/obj/effect/turf_decal/trimline/black/corner{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "CG" = (
 /obj/structure/shelf/command,
 /obj/effect/spawner/random/stock_parts,
@@ -1117,6 +1208,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "CS" = (
@@ -1197,6 +1289,13 @@
 /obj/machinery/light,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"EH" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
 /area/template_noop)
 "EW" = (
 /obj/structure/closet/crate/engineering,
@@ -1324,6 +1423,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"HD" = (
+/obj/effect/turf_decal/trimline/black/warning{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "HO" = (
 /obj/machinery/economy/vending/boozeomat,
 /obj/effect/spawner/random/dirt/frequent,
@@ -1354,6 +1460,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/catwalk,
 /area/template_noop)
+"IJ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Jb" = (
 /obj/effect/turf_decal/trimline/department/engineering/warning{
 	dir = 9
@@ -1361,6 +1472,17 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Je" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "Jk" = (
 /obj/structure/railing{
@@ -1445,6 +1567,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Lf" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/template_noop)
 "Ll" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light{
@@ -1483,10 +1612,16 @@
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
 "LG" = (
-/obj/structure/chair{
-	dir = 1
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/turf/simulated/floor/wood,
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "LK" = (
 /obj/effect/spawner/random/traders/solarcentral_major,
@@ -1499,6 +1634,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood,
 /area/template_noop)
+"MC" = (
+/obj/effect/turf_decal/trimline/black/corner{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "ML" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1509,6 +1651,14 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Nc" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/template_noop)
 "ND" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
@@ -1517,6 +1667,12 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/catwalk/black,
+/area/template_noop)
+"NI" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/giant_spiders,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "NJ" = (
 /obj/effect/turf_decal/trimline/department/engineering/filled/warning{
@@ -1545,6 +1701,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/template_noop)
+"NN" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/largecrate,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "NO" = (
 /obj/structure/railing{
 	dir = 9
@@ -1570,14 +1732,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "OW" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
+/obj/structure/chair,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "Pe" = (
 /obj/structure/cable{
@@ -1699,6 +1856,18 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/engine,
 /area/template_noop)
+"SR" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
 "TM" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/dirt/frequent,
@@ -1730,12 +1899,14 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"UT" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+"Vg" = (
 /obj/effect/spawner/random/dirt/frequent,
-/obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Vp" = (
@@ -1746,6 +1917,30 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"Vt" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Wc" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Wj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer{
@@ -1755,9 +1950,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/wood,
 /area/template_noop)
-"WP" = (
-/obj/machinery/light/small,
+"Wr" = (
 /obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "WQ" = (
@@ -1799,22 +1996,6 @@
 /obj/effect/turf_decal/trimline/department/engineering/warning,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/template_noop)
-"XY" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/template_noop)
-"XZ" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
 /area/template_noop)
 "Yi" = (
 /obj/machinery/computer/nonfunctional,
@@ -1866,15 +2047,19 @@
 /area/template_noop)
 "YC" = (
 /obj/structure/grille,
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
-"YI" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/medium,
-/turf/simulated/floor/plasteel/dark,
+"YE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/largecrate,
+/turf/simulated/floor/catwalk/black,
 /area/template_noop)
 "YR" = (
 /obj/effect/turf_decal/trimline/department/engineering/warning{
@@ -1883,23 +2068,12 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"YS" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/template_noop)
 "Zh" = (
 /obj/structure/chair/sofa/corp/left,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/template_noop)
-"Zk" = (
-/obj/structure/closet/cardboard,
-/obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Zy" = (
 /obj/effect/turf_decal/delivery,
@@ -2192,7 +2366,7 @@ MP
 MP
 MP
 MP
-MP
+mP
 MP
 MP
 MP
@@ -2501,7 +2675,7 @@ fu
 By
 zy
 cH
-rS
+YE
 hp
 zE
 uV
@@ -2593,13 +2767,13 @@ fz
 fz
 fz
 fz
-WP
+MP
 uV
 co
 RK
 zl
 Ly
-fu
+wr
 RZ
 RK
 gm
@@ -2695,7 +2869,7 @@ fz
 fz
 fz
 fz
-MP
+IJ
 uV
 oX
 BT
@@ -2913,7 +3087,7 @@ Xj
 fu
 fu
 uV
-MP
+Wr
 fz
 fz
 MP
@@ -3008,7 +3182,7 @@ fu
 QV
 QV
 qW
-QV
+NI
 QV
 QV
 QV
@@ -3103,7 +3277,7 @@ fz
 fz
 fz
 fz
-MP
+IJ
 uV
 fu
 QV
@@ -3205,7 +3379,7 @@ fz
 fz
 fz
 fz
-WP
+MP
 uV
 ca
 uC
@@ -3214,7 +3388,7 @@ fu
 fu
 By
 zy
-Gp
+rv
 RK
 RK
 zy
@@ -3415,7 +3589,7 @@ SG
 QV
 Ft
 QV
-QV
+NI
 RZ
 fE
 zy
@@ -3620,7 +3794,7 @@ MP
 MP
 MP
 MP
-MP
+hT
 MP
 MP
 MP
@@ -3919,38 +4093,38 @@ fz
 fz
 fz
 fz
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+MP
+MP
+MP
+MP
+mP
+MP
+lB
+HD
+Cr
+MP
+MP
+mP
+MP
+MP
 eR
 fz
 fz
-hJ
-hJ
-hJ
-hJ
-hJ
+fu
+fu
+fu
+fu
+fu
 CL
-hJ
-hJ
-hJ
+fu
+fu
+fu
 CL
-hJ
-hJ
-hJ
-hJ
-YI
+fu
+fu
+fu
+fu
+Qb
 fz
 fz
 "}
@@ -4021,24 +4195,24 @@ fz
 fz
 fz
 fz
-eR
-gD
+MP
+Kt
+Kt
+Kt
+Kt
+Kt
+Kt
 yW
-yW
-yW
-yW
-yW
-yW
-yW
-yW
-yW
-yW
-yW
-sE
-eR
+Kt
+Kt
+Kt
+Kt
+Kt
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 Kt
 Kt
@@ -4052,7 +4226,7 @@ Kt
 Kt
 Kt
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -4123,24 +4297,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-oQ
-eR
+MP
+Kt
+Hx
+Hx
+Hx
+qT
+Hx
+Hx
+Hx
+Hx
+qT
+Hx
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 Wj
 JW
@@ -4154,7 +4328,7 @@ cE
 XC
 Rs
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -4225,24 +4399,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
-xX
-xX
-xX
-xX
-xX
-xX
-xX
-ew
-ew
-ew
-oQ
-eR
+MP
+Kt
+Hx
+Hx
+Lf
+Lf
+Hx
+Hx
+Hx
+Lf
+Lf
+Hx
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 Hx
 Hx
@@ -4256,7 +4430,7 @@ Hx
 Hx
 Hx
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -4327,24 +4501,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-wc
+MP
+Kt
+Hx
 OW
+yu
+Ag
+Ag
 pw
-pw
-pw
-pw
-pw
+Ag
 Ag
 LG
 ew
-ew
-oQ
-eR
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 cb
 sR
@@ -4358,7 +4532,7 @@ Hx
 Hx
 Hx
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -4429,21 +4603,21 @@ fz
 fz
 fz
 fz
-eR
-sg
-wc
-bt
-rJ
-rJ
-rJ
-rJ
+MP
+Kt
+Hx
+OW
 rJ
 ak
+ak
+ak
+ak
+ak
 iX
-iX
-iX
-oQ
-eR
+ew
+Hx
+Kt
+MP
 fz
 fz
 il
@@ -4531,24 +4705,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
+MP
+Kt
+Hx
 bt
 rJ
-rJ
-rJ
-rJ
-rJ
 ak
-ew
-ew
+ak
+ak
+ak
+ak
 iX
-oQ
-eR
+ix
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Hx
 Hx
 Hx
@@ -4562,7 +4736,7 @@ Hx
 Hx
 Hx
 Hx
-hJ
+fu
 fz
 fz
 "}
@@ -4633,24 +4807,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
+MP
+Kt
+Hx
+Nc
+Vt
 ak
-ew
-ew
-ew
-oQ
-eR
+ak
+ak
+ak
+ak
+Je
+ix
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Hx
 Hx
 Hx
@@ -4664,7 +4838,7 @@ Hx
 Hx
 Hx
 Hx
-hJ
+fu
 fz
 fz
 "}
@@ -4735,24 +4909,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
-bt
-rJ
-rJ
-rJ
-rJ
-rJ
+MP
+Kt
+Hx
+ix
+hZ
 ak
-ew
-ew
-iX
-oQ
-eR
+ak
+ak
+ak
+ak
+Je
+ix
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Hx
 Hx
 Hx
@@ -4766,7 +4940,7 @@ Du
 Du
 Hx
 Hx
-hJ
+fu
 fz
 fz
 "}
@@ -4837,21 +5011,21 @@ fz
 fz
 fz
 fz
-eR
-sg
-wc
-bt
-rJ
-rJ
-rJ
-rJ
-rJ
+MP
+Kt
+Hx
+OW
+hZ
 ak
-iX
-iX
-iX
-oQ
-eR
+ak
+ak
+ak
+ak
+Je
+ew
+Hx
+Kt
+MP
 fz
 fz
 il
@@ -4939,24 +5113,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-wc
-XZ
-ha
-ha
-ha
-ha
+MP
+Kt
+Hx
+OW
 ha
 YC
-LG
+YC
+pw
+YC
+YC
+SR
 ew
-ew
-oQ
-eR
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 cr
 tz
@@ -4970,7 +5144,7 @@ qJ
 ua
 Hx
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -5041,24 +5215,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
-XY
-XY
-XY
-XY
-XY
-XY
-XY
-ew
-ew
-ew
-oQ
-eR
+MP
+Kt
+Hx
+Hx
+nC
+nC
+Hx
+Hx
+Hx
+nC
+nC
+Hx
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 cr
 tz
@@ -5072,7 +5246,7 @@ rm
 rm
 Hx
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -5143,24 +5317,24 @@ fz
 fz
 fz
 fz
-eR
-sg
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-ew
-oQ
-eR
+MP
+Kt
+Hx
+Hx
+Hx
+EH
+Hx
+Hx
+Hx
+Hx
+EH
+Hx
+Hx
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 cr
 av
@@ -5174,7 +5348,7 @@ Hx
 Ke
 Hx
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -5245,24 +5419,24 @@ fz
 fz
 fz
 fz
-eR
-lT
-YS
-YS
-YS
-YS
-YS
-YS
-YS
-YS
-YS
-YS
-YS
-tS
-eR
+MP
+Kt
+Kt
+Kt
+Kt
+Kt
+Kt
+yW
+Kt
+Kt
+Kt
+Kt
+Kt
+Kt
+MP
 fz
 fz
-hJ
+fu
 Kt
 Kt
 Kt
@@ -5276,7 +5450,7 @@ Kt
 Kt
 Kt
 Kt
-hJ
+fu
 fz
 fz
 "}
@@ -5347,38 +5521,38 @@ fz
 fz
 fz
 fz
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+MP
+MP
+MP
+MP
+hT
+MP
+MC
+ui
+si
+MP
+MP
+hT
+MP
+MP
+MP
 fz
 fz
-hJ
-hJ
-hJ
-hJ
-hJ
+fu
+fu
+fu
+fu
+fu
 sf
-hJ
-hJ
-hJ
+fu
+fu
+fu
 sf
-hJ
-hJ
-hJ
-hJ
-hJ
+fu
+fu
+fu
+fu
+fu
 fz
 fz
 "}
@@ -5653,21 +5827,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+dF
+qn
+qn
+rb
+MP
+MP
+MP
+MP
+lY
+qn
+qn
+qn
+qn
+qn
+Jt
 fz
 fz
 fu
@@ -5755,21 +5929,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+vi
+hP
+Kt
+Kt
+WQ
+NJ
+uZ
+Yp
+Kt
+Kt
+Kt
+Kt
+Kt
+hP
+iK
 fz
 fz
 fu
@@ -5857,21 +6031,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+vi
+Kt
+lg
+RZ
+fu
+ja
+AI
+fu
+fu
+Jk
+fP
+Uq
+Zy
+Kt
+iK
 fz
 fz
 fu
@@ -5959,21 +6133,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+JD
+Kt
+xr
+RZ
+fu
+YB
+oH
+fu
+fu
+mv
+MP
+DD
+yJ
+Kt
+nP
 fz
 fz
 fu
@@ -6061,21 +6235,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+MP
+Kt
+eD
+RZ
+fu
+YB
+dO
+oj
+oj
+pC
+FV
+rW
+qr
+Kt
+MP
 fz
 fz
 fu
@@ -6163,21 +6337,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+lt
+Kt
+Kt
+Hy
+fu
+YB
+oH
+fu
+BU
+iZ
+oT
+rW
+nL
+Kt
+MP
 fz
 fz
 fu
@@ -6265,21 +6439,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+XQ
+sQ
+Kt
+Hu
+fu
+YB
+oH
+fu
+CV
+JQ
+Pe
+Fa
+QT
+Kt
+MP
 fz
 fz
 fu
@@ -6290,7 +6464,7 @@ uV
 za
 dY
 jI
-jI
+kD
 uV
 RK
 uV
@@ -6367,28 +6541,28 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+XQ
+IJ
+Kt
+dq
+Sl
+IE
+oH
+fu
+cM
+Ch
+Pe
+ir
+qr
+Kt
+MP
 fz
 fz
 RK
 RK
 uV
 RK
-RK
+pi
 RK
 RK
 gi
@@ -6469,21 +6643,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+XQ
+qO
+Kt
+Yn
+fu
+YB
+oH
+fu
+Ha
+hB
+Pe
+rW
+qr
+Kt
+MP
 fz
 fz
 fu
@@ -6571,21 +6745,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+mc
+Kt
+Kt
+qp
+fu
+YB
+oH
+fu
+fu
+uu
+Cn
+eK
+wk
+Kt
+MP
 fz
 fz
 fu
@@ -6673,21 +6847,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+MP
+Kt
+Ot
+RZ
+fu
+YB
+Dk
+oj
+oj
+dl
+tN
+BS
+oD
+Kt
+MP
 fz
 fz
 fu
@@ -6775,21 +6949,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+dF
+Kt
+wb
+RZ
+fu
+YB
+oH
+fu
+fu
+tI
+lt
+YR
+Dq
+Kt
+lG
 fz
 fz
 fu
@@ -6877,21 +7051,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+vi
+Kt
+Zh
+LA
+fu
+ja
+AI
+fu
+fu
+NO
+mt
+TM
+NN
+Kt
+iK
 fz
 fz
 fu
@@ -6979,21 +7153,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+vi
+hP
+Kt
+Kt
+wh
+RO
+sb
+Gt
+Kt
+Kt
+Kt
+Kt
+Kt
+hP
+iK
 fz
 fz
 fu
@@ -7081,21 +7255,21 @@ fz
 fz
 fz
 fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
-fz
+JD
+ZK
+ZK
+Vg
+MP
+MP
+MP
+MP
+Wc
+ZK
+ZK
+ZK
+ZK
+ZK
+Bl
 fz
 fz
 fu
@@ -9138,21 +9312,21 @@ fz
 fz
 fz
 fz
-dF
-qn
-qn
-ze
-MP
-MP
-MP
-MP
-UT
-qn
-qn
-qn
-qn
-qn
-Jt
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9240,21 +9414,21 @@ fz
 fz
 fz
 fz
-vi
-hP
-Kt
-Kt
-WQ
-NJ
-uZ
-Yp
-Kt
-Kt
-Kt
-Kt
-Kt
-hP
-iK
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9342,21 +9516,21 @@ fz
 fz
 fz
 fz
-vi
-Kt
-lg
-RZ
-fu
-ja
-AI
-fu
-fu
-Jk
-fP
-Uq
-Zy
-Kt
-iK
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9444,21 +9618,21 @@ fz
 fz
 fz
 fz
-JD
-Kt
-xr
-RZ
-fu
-YB
-oH
-fu
-fu
-mv
-MP
-DD
-yJ
-Kt
-nP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9546,21 +9720,21 @@ fz
 fz
 fz
 fz
-MP
-Kt
-eD
-RZ
-fu
-YB
-dO
-oj
-oj
-pC
-FV
-rW
-qr
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9648,21 +9822,21 @@ fz
 fz
 fz
 fz
-lt
-Kt
-Kt
-Hy
-fu
-YB
-oH
-fu
-BU
-iZ
-oT
-rW
-nL
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9750,21 +9924,21 @@ fz
 fz
 fz
 fz
-XQ
-sQ
-Kt
-Hu
-fu
-YB
-oH
-fu
-CV
-JQ
-Pe
-Fa
-QT
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9852,21 +10026,21 @@ fz
 fz
 fz
 fz
-XQ
-WP
-Kt
-dq
-Sl
-IE
-oH
-fu
-cM
-Ch
-Pe
-ir
-qr
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -9954,21 +10128,21 @@ fz
 fz
 fz
 fz
-XQ
-qO
-Kt
-Yn
-fu
-YB
-oH
-fu
-Ha
-hB
-Pe
-rW
-qr
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -10056,21 +10230,21 @@ fz
 fz
 fz
 fz
-mc
-Kt
-Kt
-qp
-fu
-YB
-oH
-fu
-fu
-uu
-Cn
-eK
-wk
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -10158,21 +10332,21 @@ fz
 fz
 fz
 fz
-MP
-Kt
-Ot
-RZ
-fu
-YB
-Dk
-oj
-oj
-dl
-tN
-BS
-oD
-Kt
-MP
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -10260,21 +10434,21 @@ fz
 fz
 fz
 fz
-dF
-Kt
-wb
-RZ
-fu
-YB
-oH
-fu
-fu
-tI
-lt
-YR
-Dq
-Kt
-lG
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -10362,21 +10536,21 @@ fz
 fz
 fz
 fz
-vi
-Kt
-Zh
-LA
-fu
-ja
-AI
-fu
-fu
-NO
-mt
-TM
-Zk
-Kt
-iK
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -10464,21 +10638,21 @@ fz
 fz
 fz
 fz
-vi
-hP
-Kt
-Kt
-wh
-RO
-sb
-Gt
-Kt
-Kt
-Kt
-Kt
-Kt
-hP
-iK
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}
@@ -10566,21 +10740,21 @@ fz
 fz
 fz
 fz
-JD
-ZK
-ZK
-vx
-MP
-MP
-MP
-MP
-is
-ZK
-ZK
-ZK
-ZK
-ZK
-Bl
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
+fz
 fz
 fz
 "}

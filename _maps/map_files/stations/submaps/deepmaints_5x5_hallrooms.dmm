@@ -116,6 +116,12 @@
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"ea" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/line,
+/obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "em" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/closet/wardrobe/black,
@@ -140,6 +146,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"fw" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "gI" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light/small/deepmaints{
@@ -147,6 +162,19 @@
 	},
 /obj/effect/turf_decal/tiles/dark/side{
 	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"gM" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"gS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/spear_rack,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
@@ -166,6 +194,12 @@
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"hg" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "hl" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -194,6 +228,15 @@
 "jy" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"jA" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/machine_frame,
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 10
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "jF" = (
@@ -288,6 +331,19 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"oF" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/warning{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"oM" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/spear_rack,
+/obj/item/spear,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "oS" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/blood/often,
@@ -306,6 +362,19 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp/green,
 /obj/effect/turf_decal/tiles/dark/side,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"qn" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 1
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "qt" = (
@@ -350,6 +419,18 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
+"rE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "rI" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/stripes/line{
@@ -389,9 +470,22 @@
 /obj/item/circuitboard/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"tJ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/spear,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "tN" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/carpet/blue,
+/area/template_noop)
+"ua" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 6
+	},
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "un" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -405,6 +499,11 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass/no_creep,
+/area/template_noop)
+"uE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "uX" = (
 /turf/template_noop,
@@ -562,6 +661,18 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"Bg" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 8
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/structure/closet/crate,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "BH" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -688,6 +799,20 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/template_noop)
+"GX" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/machine_frame,
+/obj/item/circuitboard/processing_node,
+/obj/item/stack/sheet/mineral/silver,
+/obj/item/stack/sheet/mineral/gold,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "GZ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/dark/side{
@@ -797,12 +922,24 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Kw" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/line,
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "KZ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/closet/crate/can,
 /obj/effect/turf_decal/tiles/dark/side{
 	dir = 6
 	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Ld" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/lightable/bonfire,
+/obj/item/food/monstermeat/spidermeat,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Lr" = (
@@ -844,6 +981,12 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"MW" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/kirbyplants/large,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "MX" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5,
@@ -866,6 +1009,16 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
 /area/template_noop)
+"Nv" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "ND" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/trash,
@@ -883,6 +1036,11 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
+"Oa" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/spear_rack,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Or" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/weightmachine/stacklifter,
@@ -898,6 +1056,16 @@
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
+/area/template_noop)
+"Pj" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/science/filled/warning{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Pv" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -931,6 +1099,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Qq" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "QF" = (
 /obj/effect/turf_decal/woodsiding,
 /obj/structure/flora/junglebush/large,
@@ -942,11 +1117,22 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Rn" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/spider/stickyweb,
+/obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "RH" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light/small/deepmaints{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Sm" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "SI" = (
@@ -1013,6 +1199,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Ui" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/effect/turf_decal/trimline/department/science/filled/warning{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "UO" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/shelf,
@@ -1061,12 +1255,28 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"Wa" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/warning,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Wj" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/carpet/grimey,
 /area/template_noop)
 "Wp" = (
 /obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Wv" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/ai_node/network_node,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "XL" = (
@@ -1120,6 +1330,16 @@
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Zx" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/line{
+	dir = 4
+	},
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "ZA" = (
@@ -1413,12 +1633,12 @@ uX
 uX
 uX
 uX
-Wp
-Wp
-Wp
-Wp
-Wp
 uX
+uE
+Wp
+Wp
+Wp
+ML
 uX
 uX
 uX
@@ -1515,12 +1735,12 @@ uX
 uX
 uX
 uX
-Wp
-Wp
-Wp
-Wp
-Wp
 uX
+oM
+Wp
+gM
+hg
+Rn
 uX
 uX
 uX
@@ -1617,12 +1837,12 @@ uX
 uX
 uX
 uX
-Wp
-Wp
-Wp
-Wp
-Wp
 uX
+Oa
+Sm
+Ld
+tJ
+Wp
 uX
 uX
 uX
@@ -1719,12 +1939,12 @@ uX
 uX
 uX
 uX
-Wp
-Wp
-Wp
-Wp
-Wp
 uX
+gS
+uE
+uE
+gM
+Wp
 uX
 uX
 uX
@@ -1821,12 +2041,12 @@ uX
 uX
 uX
 uX
-Wp
-Wp
-Wp
-Wp
-Wp
 uX
+uE
+uE
+Wp
+Wp
+Wp
 uX
 uX
 uX
@@ -2230,11 +2450,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wv
+fw
+Ui
+Bg
+jA
 uX
 uX
 uX
@@ -2332,11 +2552,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Nv
+Wp
+Wp
+Wp
+ea
 uX
 uX
 uX
@@ -2434,11 +2654,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Pj
+Wp
+Wp
+Wp
+Wa
 uX
 uX
 uX
@@ -2536,11 +2756,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+qn
+Wp
+Wp
+Qq
+Kw
 uX
 uX
 uX
@@ -2638,11 +2858,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+GX
+rE
+oF
+Zx
+ua
 uX
 uX
 uX
@@ -3046,11 +3266,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Wp
+Wp
+Wp
+ML
 uX
 uX
 uX
@@ -3148,11 +3368,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Wp
+Wp
+Wp
+Wp
 uX
 uX
 uX
@@ -3250,11 +3470,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Wp
+Wp
+Wp
+Wp
 uX
 uX
 uX
@@ -3352,11 +3572,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Wp
+Wp
+Wp
+Wp
 uX
 uX
 uX
@@ -3454,11 +3674,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Wp
+Wp
+Wp
+Wp
 uX
 uX
 uX
@@ -5506,7 +5726,7 @@ Px
 An
 YK
 Jh
-IT
+MW
 uX
 uX
 uX
