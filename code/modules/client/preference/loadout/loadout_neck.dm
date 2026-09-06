@@ -233,3 +233,7 @@
 /datum/gear/neck/neckerchief/green
 	display_name = "Neckerchief, green"
 	path = /obj/item/clothing/neck/neckerchief/green
+
+/datum/gear/neck/mod_scryer
+	display_name = "MODlink Scryer"
+	path = /obj/item/clothing/neck/link_scryer/loaded
