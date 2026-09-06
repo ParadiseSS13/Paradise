@@ -87126,16 +87126,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
-"wuH" = (
-/obj/machinery/camera{
-	c_tag = "Arcade";
-	dir = 6
-	},
-/obj/structure/chair/stool{
-	dir = 1
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/station/public/arcade)
 "wuJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -88150,6 +88140,10 @@
 /area/space/nearstation)
 "wJW" = (
 /obj/machinery/computer/arcade/lawyer,
+/obj/machinery/camera{
+	c_tag = "Arcade";
+	dir = 6
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "wKg" = (
@@ -92018,10 +92012,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
 "xVD" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden{
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "xVF" = (
@@ -127894,7 +127888,7 @@ qWM
 ajg
 aiY
 wJW
-wuH
+ayb
 aEk
 aQv
 ajg

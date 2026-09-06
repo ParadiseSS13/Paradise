@@ -202,7 +202,7 @@
 	if(istype(used, /obj/item/kitchen/utensil))
 		var/obj/item/kitchen/utensil/U = used
 		if(length(U.contents) >= U.max_contents)
-			to_chat(user, "<span class='warning'>You cannot fit anything else on your [U].")
+			to_chat(user, SPAN_WARNING("You cannot fit anything else on your [U]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message(

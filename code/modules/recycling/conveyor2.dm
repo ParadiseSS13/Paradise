@@ -13,9 +13,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
-	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly.<br>\
-	<span class='notice'>Use a <b>wrench</b> on the belt to rotate it.<br>\
-	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
+	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
@@ -28,6 +26,11 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	var/slow_factor = 1 	// How slow the items move on the conveyor. MUST be >=1
 
 	var/list/affecting = list() // the list of all items that are in the process of being moved
+
+/obj/machinery/conveyor/examine()
+	. = ..()
+	. += SPAN_NOTICE("Use a <b>wrench</b> on the belt to rotate it.")
+	. += SPAN_NOTICE("Use a <b>crowbar</b> on the belt to dislodge it.")
 
 // create a conveyor
 /obj/machinery/conveyor/New(loc, new_dir, new_id)
@@ -254,10 +257,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
-	<span class='notice'>Use a <b>multitool</b> to configure.<br>\
-	Use a <b>crowbar</b> to dislodge it.<br>\
-	Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.</span>"
+	desc = "This switch controls any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	anchored = TRUE
@@ -267,6 +267,12 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	var/position = DIRECTION_OFF // Which way we are toggled right now.
 	var/reversed = TRUE  // If we're in neutral, would we go forwards or backwards next?
 	var/slow_factor = 1  // How slow the belts should go. Gets copied into connected belts slow_factor.
+
+/obj/machinery/conveyor_switch/examine()
+	. = ..()
+	. += SPAN_NOTICE("Use a <b>multitool</b> to configure.")
+	. += SPAN_NOTICE("Use a <b>crowbar</b> to dislodge it.")
+	. += SPAN_NOTICE("Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.")
 
 /obj/machinery/conveyor_switch/New(newloc, new_id)
 	..(newloc)
@@ -421,13 +427,16 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_loose"
 	name = "conveyor belt assembly"
-	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems.<br>\
-	<span class='notice'><b>Use</b> the assembly on the ground to finalize it.<br>\
-	Use a <b>conveyor belt switch</b> on the assembly to link them.</span>"
+	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems."
 	materials = list(MAT_METAL = 5000)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 	new_attack_chain = TRUE
+
+/obj/item/conveyor_construct/examine()
+	. = ..()
+	. += SPAN_NOTICE("<b>Use</b> the assembly on the ground to finalize it.")
+	. += SPAN_NOTICE("Use a <b>conveyor belt switch</b> on the assembly to link them.")
 
 /obj/item/conveyor_construct/item_interaction(mob/user, obj/item/conveyor_switch_construct/used, list/modifiers)
 	if(!istype(used, /obj/item/conveyor_switch_construct))
@@ -458,15 +467,18 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to.<br>\
-	<span class='notice'><b>Use</b> it on a section of conveyor belt to link them together.<br>\
-	<b>Use</b> the assembly on the ground to finalize it.<span>"
+	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
 	materials = list(MAT_METAL = 450, MAT_GLASS = 190)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 	new_attack_chain = TRUE
+
+/obj/item/conveyor_switch_construct/examine()
+	. = ..()
+	. += SPAN_NOTICE("<b>Use</b> it on a section of conveyor belt to link them together.")
+	. += SPAN_NOTICE("<b>Use</b> the assembly on the ground to finalize it.")
 
 /obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
 	. = ..()
