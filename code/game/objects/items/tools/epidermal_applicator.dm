@@ -17,7 +17,7 @@
 	/// The species the body part will look like, default is human
 	var/datum/species/chosen_species = "human" // Default species
 	/// List of species to choose a body part to look like
-	var/list/available_species = list(
+	var/list/available_species_datums = list(
 		"human" = /datum/species/human,
 		"unathi" = /datum/species/unathi,
 		"vulpkanin" = /datum/species/vulpkanin,
@@ -29,6 +29,13 @@
 		"grey" = /datum/species/grey,
 		"kidan" = /datum/species/kidan,
 	) // Species not included are special
+
+	var/list/available_species_carbons = list(
+
+
+
+		
+	)
 
 	//MARK: JOHN DEBUG HERE TO LET YOU KNOW
 	/*
@@ -76,7 +83,7 @@
 
 /obj/item/epidermal_applicator/AltClick(mob/user, modifiers)
 	chosen_species = tgui_input_list(user, "Select a species to look like:", "Species Selection", available_species)
-	if(length(chosen_species.icon_skin_tones))
+	if(chosen_species.dna.species.bodyflags & HAS_SKIN_TONE)
 		if(chosen_species == "human")
 			var/datum/species/human/H = chosen_species
 		human_skin_tones = H.icon_skin_tones
