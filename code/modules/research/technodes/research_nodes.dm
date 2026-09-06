@@ -4,11 +4,12 @@
 	id = "rnd_base"
 	node_type = "Research Inquiry"
 
+// MARK: Stock Parts
 /datum/technode/rnd/advparts
 	name = "Advanced Machine Parts"
 	desc = "Various advanced parts used to create and improve machinery."
 	id = "advparts"
-	unlocks = list("adv_capacitor", "adv_sensor", "nano_mani", "high_micro_laser", "adv_matter_bin")
+	unlocks = list("adv_capacitor", "adv_sensor", "nano_mani", "high_micro_laser", "adv_matter_bin", "rped")
 	starting_node = TRUE
 
 /datum/technode/rnd/superparts
@@ -16,7 +17,7 @@
 	desc = "Various precision parts used to create and improve machinery."
 	id = "superparts"
 	prereqs = list("advparts")
-	unlocks = list("super_capacitor", "phasic_sensor", "pico_mani", "ultra_micro_laser", "super_matter_bin")
+	unlocks = list("super_capacitor", "phasic_sensor", "pico_mani", "ultra_micro_laser", "super_matter_bin", "bs_rped")
 	cost = list("Research" = 1000)
 
 /datum/technode/rnd/blueparts
@@ -27,11 +28,27 @@
 	unlocks = list("quadratic_capacitor", "triphasic_scanning", "femto_mani", "quadultra_micro_laser", "bluespace_matter_bin")
 	cost = list("Research" = 2500)
 
+// MARK: Bluespace
+/datum/technode/rnd/arti_bs
+	name = "Bluespace Synthesis"
+	desc = "Artifical synthesis of extremely fragile bluespace crystals and experimental space compression technology."
+	id = "arti_bs"
+	prereqs = list()
+	unlocks = list("bluespace_crystal", "minerbag_holding", "bluespace_belt_holder", "brpd", "bluespaceshotglass")
+
+/datum/technode/rnd/bs_storage
+	name = "Bluespace Storage"
+	desc = "Experimental technology used to compress items in a pocket of bluespace, bigger on the inside."
+	id = "bs_storage"
+	prereqs = list()
+	unlocks = list("bag_holding", "bluespace_belt", "bluespace_closet")
+
+// MARK: Mechs
 /datum/technode/rnd/aplu_mech
 	name = "Working-Class Exosuits"
 	desc = "APLU working-class exosuits used for mining and heavy industry applications."
 	id = "mech_aplu"
-	prereqs = list("adv_parts")
+	prereqs = list("advparts")
 	unlocks = list("ripley_main", "ripley_peri", "ripley_chassis", "firefighter_chassis", "ripley_torso", "ripley_left_arm", "ripley_right_arm", "ripley_left_leg", "ripley_right_leg")
 
 /datum/technode/rnd/mech_ody
@@ -39,7 +56,7 @@
 	desc = "Odysseus civilian-class exosuit used for emergency response and general medicine."
 	id = "mech_ody"
 	prereqs = list("mech_aplu")
-	unlocks = list("odysseus_main", "odysseus_peri", "odysseus_chassis", "odysseus_torso", "odysseus_left_arm", "odysseus_right_arm", "odysseus_left_leg", "odysseus_right_leg")
+	unlocks = list("odysseus_main", "odysseus_peri", "odysseus_chassis", "odysseus_head", "odysseus_torso", "odysseus_left_arm", "odysseus_right_arm", "odysseus_left_leg", "odysseus_right_leg")
 	cost = list("Research" = 750)
 
 /datum/technode/rnd/mech_nkr
@@ -47,7 +64,7 @@
 	desc = "Nkarrdem civilian-class exosuit used for mass janitorial work."
 	id = "mech_nkr"
 	prereqs = list("mech_aplu")
-	unlocks = list("nkarrdem_main", "nkarrdem_peri", "nkarrdem_chassis", "nkarrdem_torso", "nkarrdem_left_arm", "nkarrdem_right_arm", "nkarrdem_left_leg", "nkarrdem_right_leg")
+	unlocks = list("nkarrdem_main", "nkarrdem_peri", "nkarrdem_chassis", "nkarrdem_head", "nkarrdem_torso", "nkarrdem_left_arm", "nkarrdem_right_arm", "nkarrdem_left_leg", "nkarrdem_right_leg")
 	cost = list("Research" = 750)
 
 /datum/technode/rnd/mech_ent
@@ -55,7 +72,7 @@
 	desc = "H.O.N.K and Reticence civilian-class exosuit used for maximum entertainment."
 	id = "mech_ent"
 	prereqs = list("mech_ody", "mech_nkr")
-	unlocks = list("honk_main", "honk_peri", "honk_chassis", "honk_torso", "honk_left_arm", "honk_right_arm", "honk_left_leg", "honk_right_leg", "reticence_main", "reticence_peri", "reticence_chassis", "reticence_torso", "reticence_left_arm", "reticence_right_arm", "reticence_left_leg", "reticence_right_leg")
+	unlocks = list("honk_main", "honk_peri", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm", "honk_left_leg", "honk_right_leg", "reticence_main", "reticence_peri", "reticence_chassis", "reticence_head", "reticence_torso", "reticence_left_arm", "reticence_right_arm", "reticence_left_leg", "reticence_right_leg")
 	cost = list("Research" = 1200, "Illegal" = 100) // MIXTODO - Remove the illegal from this, just for testing
 
 /datum/technode/rnd/mech_cmbt
@@ -63,9 +80,10 @@
 	desc = "Durand and Gygax combat-class exosuit used for securing stations and fighting alien threats."
 	id = "mech_cmbt"
 	prereqs = list("mech_ody", "mech_nkr")
-	unlocks = list("durand_main", "durand_peri", "durand_chassis", "durand_torso", "durand_left_arm", "durand_right_arm", "durand_left_leg", "durand_right_leg", "gygax_main", "gygax_peri", "gygax_chassis", "gygax_torso", "gygax_left_arm", "gygax_right_arm", "gygax_left_leg", "gygax_right_leg")
+	unlocks = list("durand_main", "durand_peri", "durand_chassis", "durand_head", "durand_torso", "durand_left_arm", "durand_right_arm", "durand_left_leg", "durand_right_leg", "durand_armor", "gygax_main", "gygax_peri", "gygax_chassis", "gygax_head", "gygax_torso", "gygax_left_arm", "gygax_right_arm", "gygax_left_leg", "gygax_right_leg", "gygax_armor")
 	cost = list("Research" = 1200)
 
+// MARK: Mining
 /datum/technode/rnd/mining
 	name = "Mining Equipment"
 	desc = "Standard mining equipment designed to destroy rock."
@@ -89,6 +107,7 @@
 	unlocks = list("megacharge", "lavarod", "jackhammer")
 	cost = list("Research" = 1000)
 
+// MARK: Equipment
 /datum/technode/rnd/huds
 	name = "Heads-up Displays"
 	desc = "Worn HUDs that provide specialised information to the wearer."
@@ -117,12 +136,55 @@
 	unlocks = list("breathmask", "emergencyoxygen", "oxygentank")
 	starting_node = TRUE
 
+// MARK: Engineering
+/datum/technode/rnd/power_tools
+	name = "Power Tools"
+	desc = "Advanced tools that are much faster then their standard counterparts."
+	id = "power_tools"
+	prereqs = list()
+	unlocks = list("exwelder", "handdrill", "jawsoflife", "bolter_wrench") // MIXTODO - might be ideal to move jaws to some later rescue tech or something.
+
 /datum/technode/rnd/porta_power
-	name = "Portable Generation"
-	desc = "Portable PACMAN generators for emergency or temporary power solutions."
+	name = "Portable Power"
+	desc = "Portable PACMAN generators and improved cells for emergency or temporary power."
 	id = "porta_power"
 	prereqs = list("emergency_equip", "advparts")
-	unlocks = list() // MIXTODO - genuinely cant find the pacman designs currently so i'll fill this later.
+	unlocks = list("pacman", "superpacman", "high_cell", "super_cell")
+
+/datum/technode/rnd/indus_power
+	name = "Industrial Power Solutions"
+	desc = "Energy dense power solutions for station and industry usage."
+	id = "indus_power"
+	prereqs = list("porta_power", "superparts")
+	unlocks = list("mrspacman", "smes", "ptransformer", "hyper_cell",)
+
+/datum/technode/rnd/turbine_power
+	name = "Gas Turbine Generation"
+	desc = "Creating power from heated gas."
+	id = "turbine_power"
+	prereqs = list("indus_power")
+	unlocks = list("power_compressor", "power_turbine", "power_turbine_console")
+
+/datum/technode/rnd/tesla_power
+	name = "Lightning Redirection"
+	desc = "Sticks of metal that attract lightning arcs better then humanoids!.. most of the time."
+	id = "tesla_power"
+	prereqs = list("indus_power")
+	unlocks = list("grounding_rod", "tesla_coil", "emitter")
+
+/datum/technode/rnd/nuclear_power
+	name = "Atomic Energy"
+	desc = "Reactor equipment for improving NGCR:tm: reactors, reactor core sold seperately."
+	id = "nuclear_power"
+	prereqs = list("indus_power")
+	unlocks = list("nuclear_centrifuge", "nuclear_fabricator", "nuclear_gas_node", "reactor_chamber")
+
+/datum/technode/rnd/nuclear_upgrade
+	name = "Fissile Fabrications"
+	desc = "Improved nuclear fabricator operations allow for more powerful rods to be made."
+	id = "nuclear_upgrade"
+	prereqs = list("nuclear_power")
+	unlocks = list("nuclear_fab_upgrade", "neutron_grenade")
 
 /datum/technode/rnd/atmospherics
 	name = "Atmospherics Equipment"
