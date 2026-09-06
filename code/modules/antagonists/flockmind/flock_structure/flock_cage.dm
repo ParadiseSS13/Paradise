@@ -53,7 +53,7 @@
 
 	if(isanimal_or_basicmob(victim))
 		victim.gib()
-		var/obj/structure/flock/egg/bit/B = new /obj/structure/flock/egg/bit(get_turf(src), flock)
+		new /obj/structure/flock/egg/bit(get_turf(src), flock)
 		qdel(src)
 		return
 
