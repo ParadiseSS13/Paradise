@@ -265,7 +265,7 @@
 	// We're the first ruleset, but we can afford another ruleset
 	if(ruleset_budget > 1)
 		return ..()
-	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
+	return RULESET_FAILURE_SECONDARY_RULESET
 
 /datum/ruleset/acolyte
 	name = "Acolyte"
@@ -274,6 +274,15 @@
 	antagonist_type = /datum/antagonist/acolyte
 
 	banned_jobs = list("Cyborg", "AI", "Chaplain")
+
+/datum/ruleset/acolyte/ruleset_possible(ruleset_budget, rulesets, antag_budget)
+	// Theres already a ruleset, we're good to go
+	if(length(rulesets))
+		return ..()
+	// We're the first ruleset, but we can afford another ruleset
+	if(ruleset_budget > 1)
+		return ..()
+	return RULESET_FAILURE_SECONDARY_RULESET
 
 // This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
 /datum/ruleset/implied
