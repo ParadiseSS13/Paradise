@@ -15,14 +15,28 @@
 
 	var/applying = FALSE
 	/// The species the body part will look like, default is human
-	var/chosen_species = "human" // Default species
+	var/datum/species/chosen_species = "human" // Default species
 	/// List of species to choose a body part to look like
-	var/list/available_species = list("human", "unathi", "vulpkanin", "tajaran", "skrell", "diona", "nian", "drask", "grey", "kidan") // Species not included are special
+	var/list/available_species = list(
+		"human" = /datum/species/human,
+		"unathi" = /datum/species/unathi,
+		"vulpkanin" = /datum/species/vulpkanin,
+		"tajaran" = /datum/species/tajaran,
+		"skrell" = /datum/species/skrell,
+		"diona" = /datum/species/diona,
+		"nian" = /datum/species/moth,
+		"drask" = /datum/species/drask,
+		"grey" = /datum/species/grey,
+		"kidan" = /datum/species/kidan,
+	) // Species not included are special
 
 	//MARK: JOHN DEBUG HERE TO LET YOU KNOW
 	/*
 	to_chat(YOU, SPAN_BOLDANNOUNCEIC("John debug here to let you know the following:[var1], [var2]"))
 	*/
+	var/list/human_skin_tones = list() //FOR DEBUG PURPOSES
+	var/chosen_skin_tone = null //FOR DEBUG PURPOSES
+	var/datum/species/human/H = null //FOR DEBUG PURPOSES
 
 /obj/item/epidermal_applicator/Initialize(mapload)
 	. = ..()
@@ -32,7 +46,7 @@
 /obj/item/epidermal_applicator/examine(mob/user)
 	. = ..()
 
-	. += SPAN_NOTICE("Alt+clcick to select a species you want to look like.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to select a species you want to look like.")
 	if(metal_stored >= metal_per_use)
 		. += SPAN_NOTICE("It is loaded and ready to apply an epidermal layer to a body part.")
 	else
@@ -61,15 +75,12 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/epidermal_applicator/AltClick(mob/user, modifiers)
-	if(!is_insertion_ready(user))
-		to_chat(user, SPAN_WARNING("You need to be holding a body part to apply synthetic skin."))
-		return
-
-	var/list/species_choices = available_species
 	chosen_species = tgui_input_list(user, "Select a species to look like:", "Species Selection", available_species)
-	if(chosen_species == "human")
-		//TODO: Make them choose a skin tone
-
+	if(length(chosen_species.icon_skin_tones))
+		if(chosen_species == "human")
+			var/datum/species/human/H = chosen_species
+		human_skin_tones = H.icon_skin_tones
+		chosen_skin_tone = tgui_input_list(user, "Select a skin tone:", "Skin Tone Selection", H.icon_skin_tones)
 
 /obj/item/epidermal_applicator/activate_self(mob/user)
 	. = ..()
