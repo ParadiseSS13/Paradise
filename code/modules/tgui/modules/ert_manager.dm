@@ -1,6 +1,6 @@
 /datum/ui_module/ert_manager
 	name = "ERT Manager"
-	var/ert_type = "Red"
+	var/ert_type
 	var/commander_slots = 1 // defaults for open slots
 	var/security_slots = 4
 	var/medical_slots = 0
@@ -11,6 +11,22 @@
 	/// The below is a toggle for if sec cyborgs are enabled or not
 	var/cyborg_security = FALSE
 
+	var/datum/response_team/response_team_type
+	var/list/loadouts_per_role = list()
+
+	var/datum/ert_loadout/commander_loadout
+	var/datum/ert_loadout/security_loadout
+	var/datum/ert_loadout/medical_loadout
+	var/datum/ert_loadout/engineering_loadout
+	var/datum/ert_loadout/janitor_loadout
+	var/datum/ert_loadout/paranormal_loadout
+
+/datum/ui_module/ert_manager/New(datum/_host)
+	. = ..()
+	set_ert_type("Red")
+	get_loadouts_per_role()
+	RegisterSignal(SSdcs, COMSIG_ERT_LOADOUT_CREATED, PROC_REF(add_created_loadout))
+
 /datum/ui_module/ert_manager/ui_state(mob/user)
 	return GLOB.admin_state
 
@@ -20,6 +36,58 @@
 		ui = new(user, src, "ERTManager", name)
 		ui.autoupdate = TRUE
 		ui.open()
+
+/datum/ui_module/ert_manager/proc/get_custom_loadout_ui_data(mob/user)
+	var/list/data = list()
+	data["Command"] = commander_loadout?.loadout_name
+	data["Security"] = security_loadout?.loadout_name
+	data["Medical"] = medical_loadout?.loadout_name
+	data["Engineering"] = engineering_loadout?.loadout_name
+	data["Janitor"] = janitor_loadout?.loadout_name
+	data["Paranormal"] = paranormal_loadout?.loadout_name
+
+	return data
+
+/datum/ui_module/ert_manager/proc/set_ert_type(new_type)
+	if(new_type == ert_type)
+		return
+
+	if(new_type != "Red")
+		cyborg_security = FALSE
+
+	switch(new_type)
+		if("Amber")
+			response_team_type = /datum/response_team/amber
+		if("Red")
+			response_team_type = /datum/response_team/red
+		if("Gamma")
+			response_team_type = /datum/response_team/gamma
+		if("Custom")
+			response_team_type = /datum/response_team/custom
+
+	ert_type = new_type
+
+	update_ert_loadouts(new_type)
+
+/datum/ui_module/ert_manager/proc/update_ert_loadouts(new_type)
+	switch(new_type)
+		if("Amber", "Red", "Gamma")
+			commander_loadout = GLOB.ert_loadouts[response_team_type::command_outfit]
+			security_loadout = GLOB.ert_loadouts[response_team_type::security_outfit]
+			medical_loadout = GLOB.ert_loadouts[response_team_type::medical_outfit]
+			engineering_loadout = GLOB.ert_loadouts[response_team_type::engineering_outfit]
+			janitor_loadout = GLOB.ert_loadouts[response_team_type::janitor_outfit]
+			paranormal_loadout = GLOB.ert_loadouts[response_team_type::paranormal_outfit]
+
+/datum/ui_module/ert_manager/proc/get_loadouts_per_role()
+	loadouts_per_role.Cut()
+
+	for(var/outfit_type in GLOB.ert_loadouts)
+		var/datum/ert_loadout/loadout = GLOB.ert_loadouts[outfit_type]
+		LAZYORASSOCLIST(loadouts_per_role, loadout.role, loadout.loadout_name)
+
+	for(var/datum/ert_loadout/custom_loadout in GLOB.ert_custom_loadouts)
+		LAZYORASSOCLIST(loadouts_per_role, custom_loadout.role, custom_loadout.loadout_name)
 
 /datum/ui_module/ert_manager/ui_data(mob/user)
 	var/list/data = list()
@@ -39,6 +107,8 @@
 	data["spawnpoints"] = length(GLOB.emergencyresponseteamspawn)
 
 	data["ert_request_messages"] = GLOB.ert_request_messages
+
+	data["custom_loadouts"] = get_custom_loadout_ui_data(user)
 	return data
 
 /datum/ui_module/ert_manager/ui_act(action, params, datum/tgui/ui)
@@ -49,9 +119,7 @@
 		if("toggle_ert_request_answered")
 			GLOB.ert_request_answered = !GLOB.ert_request_answered
 		if("ert_type")
-			ert_type = params["ert_type"]
-			if(ert_type != "Red")
-				cyborg_security = FALSE
+			set_ert_type(params["ert_type"])
 		if("toggle_com")
 			commander_slots = commander_slots ? 0 : 1
 		if("set_sec")
@@ -71,17 +139,14 @@
 		if("toggle_secborg")
 			cyborg_security = !cyborg_security
 		if("dispatch_ert")
-			var/datum/response_team/D
-			switch(ert_type)
-				if("Amber")
-					D = new /datum/response_team/amber
-				if("Red")
-					D = new /datum/response_team/red
-				if("Gamma")
-					D = new /datum/response_team/gamma
-				else
-					to_chat(usr, SPAN_USERDANGER("Invalid ERT type."))
-					return
+			var/datum/response_team/D = new response_team_type
+			D.command_outfit = commander_loadout?.to_outfit()
+			D.security_outfit = security_loadout?.to_outfit()
+			D.medical_outfit = medical_loadout?.to_outfit()
+			D.engineering_outfit = engineering_loadout?.to_outfit()
+			D.janitor_outfit = janitor_loadout?.to_outfit()
+			D.paranormal_outfit = paranormal_loadout?.to_outfit()
+
 			GLOB.ert_request_answered = TRUE
 			var/slots_list = list()
 			if(commander_slots > 0)
@@ -119,5 +184,39 @@
 			if(params["reason"])
 				message += " Your ERT request has been denied for the following reasons:\n\n[params["reason"]]"
 			GLOB.major_announcement.Announce(message, "ERT Unavailable")
+
+		if("choose_custom_loadout")
+			INVOKE_ASYNC(src, PROC_REF(choose_custom_loadout), ui, params["role"])
+
+		if("refresh_loadouts")
+			get_loadouts_per_role()
 		else
 			return FALSE
+
+/datum/ui_module/ert_manager/proc/choose_custom_loadout(datum/tgui/ui, role_name)
+	var/list/loadouts = loadouts_per_role[role_name]
+	var/choice = tgui_input_list(ui.user, "Select the custom loadout for the [role_name] role.", "Select custom loadout", loadouts)
+	if(choice)
+		set_custom_loadout(role_name, choice)
+
+/datum/ui_module/ert_manager/proc/set_custom_loadout(role_name, choice)
+	var/datum/ert_loadout/loadout = ert_loadout_by_name(choice)
+	if(istype(loadout))
+		switch(role_name)
+			if("Command")
+				commander_loadout = loadout
+			if("Security")
+				security_loadout = loadout
+			if("Medical")
+				medical_loadout = loadout
+			if("Engineering")
+				engineering_loadout = loadout
+			if("Janitor")
+				janitor_loadout = loadout
+			if("Paranormal")
+				paranormal_loadout = loadout
+
+/datum/ui_module/ert_manager/proc/add_created_loadout(datum/source, role_name, loadout_name)
+	SIGNAL_HANDLER // COMSIG_ERT_LOADOUT_CREATED
+	get_loadouts_per_role()
+

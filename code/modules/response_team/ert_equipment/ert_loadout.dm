@@ -77,6 +77,30 @@ GLOBAL_LIST_INIT(ert_loadouts, generate_ert_loadouts_from_outfits())
 
 	return new_loadout
 
+/datum/ert_loadout/proc/to_outfit()
+	var/datum/outfit/job/response_team/outfit = new
+
+	outfit.l_hand = primary_firearm.chosen_item
+	outfit.r_hand = secondary_firearm.chosen_item
+	outfit.head = head.chosen_item
+	outfit.shoes = shoes.chosen_item
+	outfit.belt = belt.chosen_item
+	outfit.back = back.chosen_item
+	outfit.glasses = glasses.chosen_item
+	outfit.mask = mask.chosen_item
+	outfit.l_pocket = l_pocket.chosen_item
+	outfit.r_pocket = r_pocket.chosen_item
+	outfit.neck = neck.chosen_item
+
+	for(var/implant in cybernetic_implants.chosen_items)
+		outfit.cybernetic_implants.Add(implant)
+	for(var/bio_chip in bio_chips.chosen_items)
+		outfit.bio_chips.Add(bio_chip)
+	for(var/backpack_item in backpack_contents.chosen_item_quantities)
+		outfit.backpack_contents[backpack_item] = backpack_contents.chosen_item_quantities[backpack_item]
+
+	return outfit
+
 /datum/ert_loadout/serialize()
 	. = ..()
 	.["loadout_name"] = loadout_name
@@ -208,6 +232,16 @@ GLOBAL_LIST_INIT(ert_loadouts, generate_ert_loadouts_from_outfits())
 
 	for(var/response_team_outfit in subtypesof(/datum/outfit/job/response_team))
 		var/datum/outfit/job/response_team/outfit = new response_team_outfit()
-		loadouts += ert_loadout_from_outfit(outfit)
+		loadouts[response_team_outfit] = ert_loadout_from_outfit(outfit)
 
 	return loadouts
+
+/proc/ert_loadout_by_name(name)
+	for(var/outfit_type in GLOB.ert_loadouts)
+		var/datum/ert_loadout/loadout = GLOB.ert_loadouts[outfit_type]
+		if(loadout.loadout_name == name)
+			return loadout
+
+	for(var/datum/ert_loadout/custom_loadout in GLOB.ert_custom_loadouts)
+		if(custom_loadout.loadout_name == name)
+			return custom_loadout

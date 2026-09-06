@@ -146,3 +146,6 @@
 #define SPATIAL_GRID_CELL_ENTERED(contents_type) "spatial_grid_cell_entered_[contents_type]"
 /// Called from base of /datum/controller/subsystem/spatial_grid/proc/exit_cell: (/atom/movable)
 #define SPATIAL_GRID_CELL_EXITED(contents_type) "spatial_grid_cell_exited_[contents_type]"
+
+
+#define COMSIG_ERT_LOADOUT_CREATED "ert_loadout_created" //! [role_name, loadout_name]

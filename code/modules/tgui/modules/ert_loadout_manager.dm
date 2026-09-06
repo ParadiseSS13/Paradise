@@ -10,9 +10,10 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 	var/ui_tab_index = 0
 
 /datum/ui_module/ert_loadout_manager/proc/set_loadout_by_name(loadout_name)
-	for(var/datum/ert_loadout/loadout in GLOB.ert_loadouts)
-		if(loadout.loadout_name == loadout_name)
-			selected_loadout = loadout
+	for(var/outfit_type in GLOB.ert_loadouts)
+		var/datum/outfit/outfit = outfit_type
+		if(ispath(outfit) && outfit::name == loadout_name)
+			selected_loadout = GLOB.ert_loadouts[outfit]
 			return
 	for(var/datum/ert_loadout/loadout in GLOB.ert_custom_loadouts)
 		if(loadout.loadout_name == loadout_name)
@@ -21,7 +22,8 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 
 /datum/ui_module/ert_loadout_manager/proc/get_all_loadout_names()
 	var/list/names = list()
-	for(var/datum/ert_loadout/loadout in GLOB.ert_loadouts)
+	for(var/outfit_type in GLOB.ert_loadouts)
+		var/datum/ert_loadout/loadout = GLOB.ert_loadouts[outfit_type]
 		names += loadout.loadout_name
 	for(var/datum/ert_loadout/loadout in GLOB.ert_custom_loadouts)
 		names += loadout.loadout_name
@@ -30,8 +32,9 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 
 /datum/ui_module/ert_loadout_manager/New(datum/_host)
 	. = ..()
-	var/datum/ert_loadout/first_loadout = GLOB.ert_loadouts[1]
-	set_loadout_by_name(first_loadout.loadout_name)
+	var/list/names = get_all_loadout_names()
+	if(length(names))
+		set_loadout_by_name(names[1])
 
 /datum/ui_module/ert_loadout_manager/ui_state(mob/user)
 	return GLOB.admin_state
@@ -51,7 +54,8 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 	.["loadouts"] = list()
 	.["loadout_roles"] = GLOB.ert_roles
 
-	for(var/datum/ert_loadout/loadout in GLOB.ert_loadouts)
+	for(var/outfit_type in GLOB.ert_loadouts)
+		var/datum/ert_loadout/loadout = GLOB.ert_loadouts[outfit_type]
 		.["loadouts"] += list(loadout.ui_data(user))
 
 	for(var/datum/ert_loadout/loadout in GLOB.ert_custom_loadouts)
@@ -225,3 +229,4 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 		GLOB.ert_custom_loadouts.Add(new_loadout)
 		set_loadout_by_name(new_name)
 		update_static_data(ui.user, ui)
+		SEND_GLOBAL_SIGNAL(COMSIG_ERT_LOADOUT_CREATED, new_loadout.role, new_loadout.loadout_name)
