@@ -1,4 +1,4 @@
-import { Button, Dropdown, LabeledList, NoticeBox, Section, Stack, Tabs } from 'tgui-core/components';
+import { Button, Dropdown, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
@@ -47,11 +47,6 @@ export const ERTLoadoutManager = () => {
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
-          <Stack.Item>
-            <NoticeBox>
-              This interface is a Work in Progress. It is not wired up to the ERT deployment system yet.
-            </NoticeBox>
-          </Stack.Item>
           <Stack.Item>
             <Section
               title="Loadout"

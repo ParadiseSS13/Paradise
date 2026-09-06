@@ -27,6 +27,18 @@
 	get_loadouts_per_role()
 	RegisterSignal(SSdcs, COMSIG_ERT_LOADOUT_CREATED, PROC_REF(add_created_loadout))
 
+/datum/ui_module/ert_manager/Destroy()
+	. = ..()
+	response_team_type = null
+	loadouts_per_role.Cut()
+	commander_loadout = null
+	security_loadout = null
+	medical_loadout = null
+	engineering_loadout = null
+	janitor_loadout = null
+	paranormal_loadout = null
+	UnregisterSignal(SSdcs, COMSIG_ERT_LOADOUT_CREATED)
+
 /datum/ui_module/ert_manager/ui_state(mob/user)
 	return GLOB.admin_state
 

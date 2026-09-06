@@ -182,6 +182,7 @@ const SendERT = () => {
               </Box>
             )}
           </LabeledList.Item>
+          {isCustom && <LabeledList.Divider />}
           <LabeledList.Item label="Security" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
@@ -202,6 +203,7 @@ const SendERT = () => {
               </Box>
             )}
           </LabeledList.Item>
+          {isCustom && <LabeledList.Divider />}
           <LabeledList.Item label="Medical" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
@@ -216,7 +218,13 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Medical" loadout_name={custom_loadouts['Medical']} />
+              </Box>
+            )}
           </LabeledList.Item>
+          {isCustom && <LabeledList.Divider />}
           <LabeledList.Item label="Engineering" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
@@ -231,7 +239,13 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Engineering" loadout_name={custom_loadouts['Engineering']} />
+              </Box>
+            )}
           </LabeledList.Item>
+          {isCustom && <LabeledList.Divider />}
           <LabeledList.Item label="Paranormal" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
@@ -246,7 +260,13 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Paranormal" loadout_name={custom_loadouts['Paranormal']} />
+              </Box>
+            )}
           </LabeledList.Item>
+          {isCustom && <LabeledList.Divider />}
           <LabeledList.Item label="Janitor" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
@@ -261,7 +281,13 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Janitor" loadout_name={custom_loadouts['Janitor']} />
+              </Box>
+            )}
           </LabeledList.Item>
+          {isCustom && <LabeledList.Divider />}
           <LabeledList.Item label="Cyborg" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
