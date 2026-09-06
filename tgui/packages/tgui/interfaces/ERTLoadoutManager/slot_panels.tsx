@@ -153,18 +153,11 @@ export const ERTLoadoutPanel = (props: { loadout: ERTLoadout; allowedItems: Allo
   const { loadout, allowedItems: allowed_items } = props;
 
   return (
-    <Section title="Loadout Slots">
+    <Section title="Loadout Slots" scrollable fill height="430px">
       <LabeledList>
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.primary_firearm} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.secondary_firearm} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.head} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.glasses} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.mask} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.back} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.belt} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.l_pocket} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.r_pocket} />
-        <ERTLoadoutSingleSlotPanel loadout={loadout} allowed={allowed_items} slot={loadout.shoes} />
+        {Object.values(loadout.single_slots).map((slot) => (
+          <ERTLoadoutSingleSlotPanel key={slot.name} loadout={loadout} allowed={allowed_items} slot={slot} />
+        ))}
       </LabeledList>
     </Section>
   );

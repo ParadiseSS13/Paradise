@@ -3,6 +3,12 @@ import { BooleanLike } from 'tgui-core/react';
 
 export type AllowedItems = Record<string, ERTItem[]>;
 
+export type ERTLoadoutSlot = {
+  name: string;
+  slot_type: string;
+  uid: string;
+};
+
 export type ERTLoadoutSingleSlot = ERTLoadoutSlot & {
   chosen_item?: string;
 };
@@ -32,30 +38,14 @@ export type ERTLoadout = {
   loadout_role: string;
   frozen: BooleanLike;
 
-  primary_firearm: ERTLoadoutSingleSlot;
-  secondary_firearm: ERTLoadoutSingleSlot;
+  single_slots: ERTLoadoutSingleSlot[];
   cybernetic_implants: ERTLoadoutMultipleSlot;
   bio_chips: ERTLoadoutMultipleSlot;
   backpack_contents: ERTLoadoutAssortedSlot;
-  head: ERTLoadoutSingleSlot;
-  shoes: ERTLoadoutSingleSlot;
-  belt: ERTLoadoutSingleSlot;
-  back: ERTLoadoutSingleSlot;
-  glasses: ERTLoadoutSingleSlot;
-  mask: ERTLoadoutSingleSlot;
-  l_pocket: ERTLoadoutSingleSlot;
-  r_pocket: ERTLoadoutSingleSlot;
-  neck: ERTLoadoutSingleSlot;
 };
 
 export type ERTItemValues = 'item_name' | 'item_type';
 export type ERTItem = Record<ERTItemValues, string>;
-
-export type ERTLoadoutSlot = {
-  name: string;
-  slot_type: string;
-  uid: string;
-};
 
 /* no clue why tgui doesn't expose this */
 export type DropdownEntry = {

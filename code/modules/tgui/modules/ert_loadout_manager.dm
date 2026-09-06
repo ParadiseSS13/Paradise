@@ -63,20 +63,9 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 
 	.["allowed_items"] = list()
 
-	.["allowed_items"][selected_loadout.primary_firearm.type] = get_loadout_allowed_items(selected_loadout.primary_firearm)
-	.["allowed_items"][selected_loadout.secondary_firearm.type] = get_loadout_allowed_items(selected_loadout.secondary_firearm)
-	.["allowed_items"][selected_loadout.cybernetic_implants.type] = get_loadout_allowed_items(selected_loadout.cybernetic_implants)
-	.["allowed_items"][selected_loadout.bio_chips.type] = get_loadout_allowed_items(selected_loadout.bio_chips)
-	.["allowed_items"][selected_loadout.backpack_contents.type] = get_loadout_allowed_items(selected_loadout.backpack_contents)
-	.["allowed_items"][selected_loadout.head.type] = get_loadout_allowed_items(selected_loadout.head)
-	.["allowed_items"][selected_loadout.shoes.type] = get_loadout_allowed_items(selected_loadout.shoes)
-	.["allowed_items"][selected_loadout.belt.type] = get_loadout_allowed_items(selected_loadout.belt)
-	.["allowed_items"][selected_loadout.back.type] = get_loadout_allowed_items(selected_loadout.back)
-	.["allowed_items"][selected_loadout.glasses.type] = get_loadout_allowed_items(selected_loadout.glasses)
-	.["allowed_items"][selected_loadout.mask.type] = get_loadout_allowed_items(selected_loadout.mask)
-	.["allowed_items"][selected_loadout.l_pocket.type] = get_loadout_allowed_items(selected_loadout.l_pocket)
-	.["allowed_items"][selected_loadout.r_pocket.type] = get_loadout_allowed_items(selected_loadout.r_pocket)
-	.["allowed_items"][selected_loadout.neck.type] = get_loadout_allowed_items(selected_loadout.neck)
+	for(var/outfit_var in selected_loadout.slots)
+		var/datum/ert_loadout_slot/slot = selected_loadout.slots[outfit_var]
+		.["allowed_items"][slot.type] = get_loadout_allowed_items(slot)
 
 /datum/ui_module/ert_loadout_manager/proc/get_loadout_allowed_items(datum/ert_loadout_slot/slot)
 	. = list()
@@ -140,14 +129,14 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 		if("increment_backpack_item")
 			var/item_path = text2path(params["item_type"])
 			if(item_path)
-				selected_loadout.backpack_contents.chosen_item_quantities[item_path]++
+				var/datum/ert_loadout_slot/slot = selected_loadout.slots["backpack_contents"]
+				slot.set_item(item_path)
 				return TRUE
 		if("decrement_backpack_item")
 			var/item_path = text2path(params["item_type"])
 			if(item_path)
-				selected_loadout.backpack_contents.chosen_item_quantities[item_path]--
-				if(selected_loadout.backpack_contents.chosen_item_quantities[item_path] <= 0)
-					selected_loadout.backpack_contents.chosen_item_quantities.Remove(item_path)
+				var/datum/ert_loadout_slot/assorted/slot = selected_loadout.slots["backpack_contents"]
+				slot.decrement_item(item_path)
 				return TRUE
 		if("toggle_biochip")
 			selected_loadout.toggle_biochip(text2path(params["biochip_type"]))
