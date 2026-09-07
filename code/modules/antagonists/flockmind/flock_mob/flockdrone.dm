@@ -39,6 +39,15 @@
 	if(stat == CONSCIOUS)
 		flock_talk(src, pick(GLOB.flockdrone_created_phrases), flock, TRUE)
 
+/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
+		if(avoid_stop_flockphase())
+			flockphase_tax()
+		else
+			stop_flockphase()
+
+
 /mob/living/basic/flock/drone/Destroy()
 	release_control()
 	QDEL_NULL(substrate)
