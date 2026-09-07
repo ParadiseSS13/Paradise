@@ -1,3 +1,7 @@
+/area/station/service/hallway
+	name = "\improper Service Hallway"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+
 /area/station/substation/security
 	name = "\improper Security Substation"
 

@@ -66,11 +66,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			#warn set these back when we're ready to release
-			map_datum = new /datum/map/moonstation // Assume cyberiad if non-existent
+			map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/moonstation // Assume cyberiad if non-existent
+		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
 	if(fexists("data/last_map.txt"))
 		var/list/lines = file2list("data/last_map.txt")
 		// Check its valid
@@ -360,6 +359,8 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_zlevels[1])
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
+	inject_map_events()
+
 	// Save station name in the DB
 	if(!SSdbcore.IsConnected())
 		return
@@ -369,6 +370,23 @@ SUBSYSTEM_DEF(mapping)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
+
+/datum/controller/subsystem/mapping/proc/inject_map_events()
+	if(!SSevents)
+		to_chat(world, SPAN_NARSIE("ERROR: SSevents was not available trying to inject map events."))
+		return
+
+	for(var/datum/event_meta/event in map_datum.mundane_events)
+		var/datum/event_container/container = SSevents.event_containers[EVENT_LEVEL_MUNDANE]
+		container.available_events += event
+
+	for(var/datum/event_meta/event in map_datum.moderate_events)
+		var/datum/event_container/container = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+		container.available_events += event
+
+	for(var/datum/event_meta/event in map_datum.major_events)
+		var/datum/event_container/container = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		container.available_events += event
 
 /datum/controller/subsystem/mapping/proc/procgen_lavaland()
 	var/theme_watch = start_watch()

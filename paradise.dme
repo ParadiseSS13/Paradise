@@ -2433,6 +2433,7 @@
 #include "code\modules\events\rogue_drones.dm"
 #include "code\modules\events\sentience.dm"
 #include "code\modules\events\slaughterevent.dm"
+#include "code\modules\events\sleet_storm.dm"
 #include "code\modules\events\solarflare.dm"
 #include "code\modules\events\space_ninja.dm"
 #include "code\modules\events\spacevine.dm"

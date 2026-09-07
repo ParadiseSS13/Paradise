@@ -30,3 +30,9 @@
 	var/list/level_traits = list(
 		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
 	)
+	/// A list of map-specific events to add to the mundane event table.
+	var/list/mundane_events = list()
+	/// A list of map-specific events to add to the moderate event table.
+	var/list/moderate_events = list()
+	/// A list of map-specific events to add to the major event table.
+	var/list/major_events = list()

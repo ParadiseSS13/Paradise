@@ -110,7 +110,3 @@
 	area_icon_text = "BOTANY"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_flags = RC_SUPPLY
-
-/area/station/service/hallway
-	name = "\improper Service Hallway"
-	sound_environment = SOUND_AREA_STANDARD_STATION
