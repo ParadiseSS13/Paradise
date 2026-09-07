@@ -165,3 +165,6 @@
 /// When using an insert on an item that can accept an insert
 #define COMSIG_INSERT_ATTACH "insert_attach"
 #define COMSIG_MINE_EXPOSE_GIBTONITE "mine_expose_gibtonite"
+
+/// signal sent when a mouse is hovering over us, sent by atom/proc/on_mouse_entered
+#define COMSIG_ATOM_MOUSE_ENTERED "mouse_entered"

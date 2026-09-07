@@ -1575,3 +1575,29 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(is_station_level((get_turf(src)).z))
 		return list(ASSIGNMENT_CREW = 1)
 
+/atom/MouseEntered(location, control, params)
+	SSmouse_entered.hovers[usr.client] = src
+
+/// Fired whenever this atom is the most recent to be hovered over in the tick.
+/// Preferred over MouseEntered if you do not need information such as the position of the mouse.
+/// Especially because this is deferred over a tick, do not trust that `client` is not null.
+/atom/proc/on_mouse_enter(client/client)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+	if(isnull(user))
+		return
+
+	SEND_SIGNAL(user, COMSIG_ATOM_MOUSE_ENTERED, src)
+
+	// Update the screentip to reflect what we're hovering over
+	if(invisibility > user.see_invisible)
+		return
+	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = user.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [client.prefs.screentip_color]'>[name]</span>"
+	user.client.moused_over = UID()
