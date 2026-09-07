@@ -12,15 +12,8 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
-"aW" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/mech_transport)
 "aZ" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
@@ -102,9 +95,7 @@
 /area/ruin/space/mech_transport)
 "hm" = (
 /obj/structure/table,
-/obj/structure/sign/poster/contraband/tools{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/tools/directional/north,
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage4,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
@@ -143,17 +134,19 @@
 /obj/item/chair,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
-"ma" = (
-/obj/machinery/door/airlock/hatch,
+"mn" = (
+/turf/template_noop,
+/area/template_noop)
+"mV" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "mechtransport_lockdown";
 	name = "lockdown blast door"
 	},
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
-"mn" = (
-/turf/template_noop,
-/area/template_noop)
 "nO" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -202,14 +195,12 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "qs" = (
-/obj/structure/sign/poster/ripped{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/ripped/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "qE" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = 32
 	},
 /obj/effect/mapping_helpers/turfs/burn,
@@ -225,9 +216,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "rx" = (
-/obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/safety_eye_protection/directional/west,
 /obj/machinery/light/built{
 	dir = 8
 	},
@@ -322,7 +311,7 @@
 /obj/effect/decal/cleanable/shreds{
 	pixel_y = -10
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "xE" = (
@@ -353,20 +342,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
-"yR" = (
-/obj/machinery/door/airlock/hatch,
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "mechtransport_lockdown";
-	name = "lockdown blast door"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/mech_transport)
 "zy" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "zM" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "zP" = (
@@ -405,9 +386,6 @@
 	stat = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
-/area/ruin/space/mech_transport)
-"CK" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/mech_transport)
 "CL" = (
 /obj/item/stack/sheet/metal,
@@ -549,7 +527,7 @@
 	pixel_y = -32;
 	name = "secure supplies blast door control"
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "Nq" = (
@@ -582,6 +560,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
+"Ox" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "mechtransport_lockdown";
+	name = "lockdown blast door"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
 "OQ" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
@@ -605,7 +593,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "RY" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "So" = (
@@ -677,6 +665,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
+"UX" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/mech_transport)
 "Vj" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -685,7 +682,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "Vp" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "mechtransport_ext"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -708,7 +705,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "Yq" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Zn" = (
@@ -726,7 +723,7 @@
 /turf/simulated/floor/redgrid,
 /area/ruin/space/mech_transport)
 "ZI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "ZK" = (
@@ -1094,7 +1091,7 @@ Uf
 sH
 kI
 di
-CK
+vo
 vo
 vo
 vo
@@ -1218,7 +1215,7 @@ VS
 VS
 RY
 VS
-yR
+mV
 Kz
 Lq
 HK
@@ -1244,7 +1241,7 @@ VS
 VS
 VS
 di
-CK
+vo
 jd
 vo
 vo
@@ -1306,7 +1303,7 @@ VS
 VS
 VS
 VS
-ma
+Ox
 uu
 QC
 HT
@@ -1400,7 +1397,7 @@ pJ
 VS
 zM
 VS
-aW
+UX
 aq
 gk
 sY

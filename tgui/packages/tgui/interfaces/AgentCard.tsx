@@ -1,6 +1,8 @@
-import { BooleanLike } from 'common/react';
-import { useBackend, useLocalState, useSharedState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Stack, Box, Slider, ImageButton, DmIcon } from '../components';
+import { useState } from 'react';
+import { Button, Icon, ImageButton, LabeledList, Section, Slider, Stack, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 const GENDERS = [
@@ -33,7 +35,7 @@ const InfoInput = ({ label, value, onCommit, onClick, onRClick, tooltip }) => (
   <LabeledList.Item label={label}>
     <Stack fill mb={-0.5}>
       <Stack.Item grow>
-        <Button.Input fluid textAlign="center" content={value || unset} onCommit={onCommit} />
+        <Button.Input fluid textAlign="center" value={value || unset} onCommit={onCommit} />
       </Stack.Item>
       <Stack.Item>
         <Button
@@ -48,8 +50,8 @@ const InfoInput = ({ label, value, onCommit, onClick, onRClick, tooltip }) => (
   </LabeledList.Item>
 );
 
-export const AgentCard = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const AgentCard = (props) => {
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -82,8 +84,8 @@ export const AgentCard = (props, context) => {
   );
 };
 
-export const AgentCardInfo = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const AgentCardInfo = (props) => {
+  const { act, data } = useBackend<Data>();
   const {
     registered_name,
     sex,
@@ -128,7 +130,7 @@ export const AgentCardInfo = (props, context) => {
               label="Name"
               value={registered_name}
               tooltip={tooltipTextCopy}
-              onCommit={(e, value) => act('change_name', { name: value })}
+              onCommit={(value) => act('change_name', { name: value })}
               onClick={() => act('change_name', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -152,8 +154,8 @@ export const AgentCardInfo = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Age">
               <Slider
-                fluid
-                minValue={17}
+                width="100%"
+                minValue={20}
                 value={age || 0}
                 maxValue={300}
                 onChange={(e, value) => act('change_age', { age: value })}
@@ -162,32 +164,28 @@ export const AgentCardInfo = (props, context) => {
             <LabeledList.Item label="Rank">
               <Stack fill mb={-0.5}>
                 <Stack.Item grow>
-                  <Button fluid onClick={() => act('change_occupation')} textAlign="middle">
+                  <Button fluid onClick={() => act('change_occupation')} textAlign="center">
                     {assignment ? assignment : '[UNSET]'}
                   </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button
+                  <ImageButton
+                    fluid
+                    imageSize={21}
+                    color={'transparent'}
                     tooltip={'Change HUD icon'}
                     tooltipPosition={'bottom-end'}
+                    dmIcon={'icons/mob/hud/job_assets.dmi'}
+                    dmIconState={job_icon}
                     onClick={() => act('change_occupation', { option: 'Primary' })}
-                  >
-                    <DmIcon
-                      fill
-                      icon={'icons/mob/hud/job_assets.dmi'}
-                      icon_state={job_icon}
-                      verticalAlign="bottom"
-                      my="2px"
-                      width="16px"
-                    />{' '}
-                  </Button>
+                  />
                 </Stack.Item>
               </Stack>
             </LabeledList.Item>
             <InfoInput
               label="Fingerprint"
               value={fingerprint_hash}
-              onCommit={(e, value) => act('change_fingerprints', { new_fingerprints: value })}
+              onCommit={(value) => act('change_fingerprints', { new_fingerprints: value })}
               onClick={() => act('change_fingerprints', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -207,7 +205,7 @@ export const AgentCardInfo = (props, context) => {
                     />
                   </Stack.Item>
                 ))}
-                <Stack.Item grow>
+                <Stack.Item>
                   <Button fluid icon="file-signature" onClick={() => act('change_blood_type', { option: 'Primary' })} />
                 </Stack.Item>
               </Stack>
@@ -215,7 +213,7 @@ export const AgentCardInfo = (props, context) => {
             <InfoInput
               label="DNA"
               value={dna_hash}
-              onCommit={(e, value) => act('change_dna_hash', { new_dna: value })}
+              onCommit={(value) => act('change_dna_hash', { new_dna: value })}
               onClick={() => act('change_dna_hash', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -226,7 +224,7 @@ export const AgentCardInfo = (props, context) => {
             <InfoInput
               label="Account"
               value={associated_account_number || 0}
-              onCommit={(e, value) => act('change_money_account', { new_account: value })}
+              onCommit={(value) => act('change_money_account', { new_account: value })}
               onClick={() => act('change_money_account', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -281,20 +279,19 @@ export const AgentCardInfo = (props, context) => {
   );
 };
 
-export const AgentCardAppearances = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', null);
+export const AgentCardAppearances = (props) => {
+  const { act, data } = useBackend<Data>();
+  const [selectedAppearance, setSelectedAppearance] = useSharedState('selectedAppearance', '');
   const { appearances, id_icon } = data;
   return (
     <Stack.Item grow>
-      <Section fill scrollable title={'Card Appearance'}>
+      <Section fitted fill scrollable title={'Card Appearance'}>
         {appearances.map((appearance) => (
           <ImageButton
             key={appearance}
             dmIcon={id_icon}
             dmIconState={appearance}
             imageSize={64}
-            compact
             selected={appearance === selectedAppearance}
             tooltip={appearance}
             style={{

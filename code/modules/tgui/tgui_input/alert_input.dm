@@ -20,8 +20,10 @@
 		var/client/client = user
 		user = client.mob
 
+#ifndef GAME_TESTS
 	if(isnull(user.client))
 		return
+#endif
 
 	// A gentle nudge - you should not be using TGUI alert for anything other than a simple message.
 	if(length(buttons) > 3)
@@ -37,11 +39,15 @@
 
 	var/datum/tgui_alert/alert = new(user, message, title, buttons, timeout, autofocus, ui_state)
 
+#ifdef GAME_TESTS
+	LAZYADD(GLOB.game_test_tguis[user.mind.key], alert)
+#else
 	alert.ui_interact(user)
 	alert.wait()
 	if(alert)
 		. = alert.choice
 		qdel(alert)
+#endif
 
 /**
  * # tgui_alert
@@ -87,6 +93,10 @@
 	SStgui.close_uis(src)
 	state = null
 	deltimer(deletion_timer)
+#ifdef GAME_TESTS
+	for(var/test_user_key in GLOB.game_test_tguis)
+		GLOB.game_test_tguis[test_user_key] -= src
+#endif
 	return ..()
 
 /**

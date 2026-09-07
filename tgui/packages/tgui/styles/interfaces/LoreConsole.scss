@@ -1,0 +1,17 @@
+@use '../base.scss';
+
+$background-color: rgba(0, 0, 0, 0.33) !default;
+
+.LoreConsole__titleText {
+  font-size: 300%;
+  font-weight: bold;
+  margin: 0;
+  padding: 4px;
+}
+
+.LoreConsole__entryText {
+  color: chocolate;
+  font-size: 150%;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 32px;
+}

@@ -67,7 +67,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	parent_area_type = machine_area.get_top_parent_type()
 	if(parent_area_type)
 		areas = typesof(parent_area_type)
-
+		// Holodecks have thier own areas and we don't have a way of knowing if we have one.
+		// This means the grav gen will affect all holodeck areas in the Z-level, regardless of where in it they are.
+		areas |= typesof(/area/holodeck)
 	update_gen_list()
 	set_power()
 
@@ -102,16 +104,16 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 	switch(construction_state)
 		if(GRAV_NEEDS_WELDING)
-			. += "<span class='notice'>The framework is damaged, and needs welding.</span>"
+			. += SPAN_NOTICE("The framework is damaged, and needs welding.")
 		if(GRAV_NEEDS_PLASTEEL)
-			. += "<span class='notice'>The framework needs new plasteel plating.</span>"
+			. += SPAN_NOTICE("The framework needs new plasteel plating.")
 		if(GRAV_NEEDS_WRENCH)
-			. += "<span class='notice'>The plating needs wrenching into place.</span>"
+			. += SPAN_NOTICE("The plating needs wrenching into place.")
 		if(GRAV_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The cover screws are loose.</span>"
+			. += SPAN_NOTICE("The cover screws are loose.")
 
 /obj/machinery/gravity_generator/main/Destroy() // If we somehow get deleted, remove all of our other parts.
-	investigate_log("was destroyed!", "gravity")
+	investigate_log("was destroyed!", INVESTIGATE_GRAVITY)
 	on = FALSE
 	update_gen_list()
 	for(var/area/A in world)
@@ -129,7 +131,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	breaker_on = FALSE
 	update_icon()
 	set_gravity(FALSE)
-	investigate_log("has broken down.", "gravity")
+	investigate_log("has broken down.", INVESTIGATE_GRAVITY)
 
 /obj/machinery/gravity_generator/main/set_fix()
 	..()
@@ -147,23 +149,27 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(!I.use_tool(src, user, null, 1, I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
+	to_chat(user, SPAN_NOTICE("You mend the damaged framework."))
 	construction_state = GRAV_NEEDS_PLASTEEL
 	update_icon()
 
 // Step 2
-/obj/machinery/gravity_generator/main/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/gravity_generator/main/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(construction_state != GRAV_NEEDS_PLASTEEL)
 		return ..()
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
-		if(PS.amount < 10)
-			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
-			return
 
-		to_chat(user, "<span class='notice'>You add new plating to the framework.</span>")
+	if(istype(used, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/PS = used
+		if(PS.amount < 10)
+			to_chat(user, SPAN_WARNING("You need 10 sheets of plasteel."))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You add new plating to the framework."))
 		construction_state = GRAV_NEEDS_WRENCH
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 // Step 3
 /obj/machinery/gravity_generator/main/wrench_act(mob/living/user, obj/item/I)
@@ -172,7 +178,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
+	to_chat(user, SPAN_NOTICE("You secure the plating to the framework."))
 	construction_state = GRAV_NEEDS_SCREWDRIVER
 	update_icon()
 
@@ -185,7 +191,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")
+	to_chat(user, SPAN_NOTICE("You screw the covers back into place."))
 	set_fix()
 
 /obj/machinery/gravity_generator/main/attack_hand(mob/user)
@@ -223,7 +229,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(action == "breaker")
 		breaker_on = !breaker_on
-		investigate_log("was toggled [breaker_on ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [usr.key].", "gravity")
+		investigate_log("was toggled [breaker_on ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [usr.key].", INVESTIGATE_GRAVITY)
 		set_power()
 
 // Power and Icon States
@@ -231,7 +237,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/power_change()
 	if(!..())
 		return
-	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", "gravity")
+	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
 
 /obj/machinery/gravity_generator/main/get_status()
@@ -260,7 +266,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	else if(breaker_on)
 		charging_state = GRAV_POWER_UP
 
-	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", "gravity")
+	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", INVESTIGATE_GRAVITY)
 	update_icon()
 
 /**
@@ -277,7 +283,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(gravity) // If we turned on
 		if(generators_in_area() == 0) // And there's no other gravity generators on this z level
 			alert = TRUE
-			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
+			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
 			message_admins("The gravity generator was brought online. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 			for(var/area/A in world)
 				if((A.type in areas) && A.z == z)
@@ -285,7 +291,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 	else if(generators_in_area() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
-		investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
+		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
 		message_admins("The gravity generator was brought offline with no backup generator. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 		for(var/area/A in world)
 			if((A.type in areas) && A.z == z)
@@ -339,9 +345,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	radiation_pulse(src, 600, 2)
+	radiation_pulse(src, 2400, BETA_RAD)
 	for(var/mob/living/L in view(7, src)) //Windows kinda make it a non threat, no matter how much I amp it up, so let us cheat a little
-		radiation_pulse(get_turf(L), 600, 2)
+		radiation_pulse(get_turf(L), 2400, BETA_RAD)
 
 /**
   * Shake everyone on the area list and play an alarm to let them know that gravity was enagaged/disenagaged.

@@ -1,3 +1,7 @@
+/datum/event/camera_failure
+	name = "Camera Failure"
+	role_weights = list(ASSIGNMENT_ENGINEERING = 10)
+
 /datum/event/camera_failure/start()
 	var/failed_cameras
 	var/failure_limit = rand(1, 3)

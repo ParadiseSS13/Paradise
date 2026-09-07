@@ -15,7 +15,7 @@
 	coat = null
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/coatrack/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/coatrack/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	var/can_hang = FALSE
 	for(var/T in allowed)
 		if(istype(W,T))
@@ -26,7 +26,7 @@
 		user.drop_item(src)
 		coat.forceMove(src)
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/coatrack/CanPass(atom/movable/mover, border_dir)

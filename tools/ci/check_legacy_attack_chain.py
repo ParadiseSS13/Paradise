@@ -2,11 +2,11 @@ import os
 import sys
 import time
 from dataclasses import dataclass
-from collections import namedtuple, defaultdict
+from collections import defaultdict
+from typing import Any
 
-from avulto import DMM, DME, DMI, Dir, Path as p, paths, ProcDecl, TypeDecl
+from avulto import DME, Path as p, ProcDecl, TypeDecl
 from avulto.ast import NodeKind
-from avulto import exceptions
 
 
 RED = "\033[0;31m"
@@ -21,7 +21,7 @@ class AttackChainCall:
     var_name: str
     var_type: p | None
     call_name: str
-    source_info: any
+    source_info: Any
     legacy: bool
 
     def make_error_message(self):
@@ -37,10 +37,10 @@ class AttackChainCall:
 
 def make_error_from_procdecl(proc_decl: ProcDecl, msg) -> str:
     if os.getenv("GITHUB_ACTIONS") == "true":
-        return f"::error file={proc_decl.source_info.file_path},line={proc_decl.source_info.line},title=Attack Chain::{proc_decl.source_info.file_path}:{proc_decl.source_info.line}: {RED}{msg}{NC}"
+        return f"::error file={proc_decl.source_loc.file_path},line={proc_decl.source_loc.line},title=Attack Chain::{proc_decl.source_loc.file_path}:{proc_decl.source_loc.line}: {RED}{msg}{NC}"
 
     else:
-        return f"{proc_decl.source_info.file_path}:{proc_decl.source_info.line}: {RED}{msg}{NC}"
+        return f"{proc_decl.source_loc.file_path}:{proc_decl.source_loc.line}: {RED}{msg}{NC}"
 
 
 # Walker for determining if a proc contains any calls to a legacy attack chain
@@ -90,6 +90,8 @@ class AttackChainCallWalker:
 
     def visit_Var(self, node, source_info):
         self.local_vars[str(node.name)] = node.declared_type
+        if node.value:
+            self.visit_Expr(node.value, source_info)
 
     def visit_Expr(self, node, source_info):
         if node.kind == NodeKind.CALL:
@@ -165,6 +167,9 @@ if __name__ == "__main__":
     dme = DME.from_file("paradise.dme", parse_procs=True)
 
     for pth in dme.subtypesof("/"):
+        if pth in IGNORED_TYPES:
+            continue
+
         td = dme.types[pth]
         if any(
             [
@@ -228,6 +233,7 @@ if __name__ == "__main__":
                         ERROR_STRINGS.append(call.format_error())
 
     for legacy_proc_error in sorted(ERROR_STRINGS):
+        exit_code = 1
         print(legacy_proc_error)
 
     end = time.time()

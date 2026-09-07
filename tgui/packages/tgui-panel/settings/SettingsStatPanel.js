@@ -1,15 +1,16 @@
-import { capitalize } from 'common/string';
-import { toFixed } from 'common/math';
-import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
-import { Button, Input, LabeledList, NoticeBox, Section, Stack, Slider, Collapsible } from 'tgui/components';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'tgui/backend';
+import { Button, Collapsible, Input, LabeledList, NoticeBox, Section, Slider, Stack } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { capitalize } from 'tgui-core/string';
+
 import { updateSettings } from './actions';
 import { FONTS } from './constants';
 import { selectSettings } from './selectors';
 
-export const SettingsStatPanel = (props, context) => {
-  const { statLinked, statFontSize, statFontFamily, statTabsStyle } = useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
+export const SettingsStatPanel = (props) => {
+  const { statLinked, statFontSize, statFontFamily, statTabsStyle } = useSelector(selectSettings);
+  const dispatch = useDispatch();
 
   const TabsViews = ['default', 'classic', 'scrollable'];
   const LinkedToChat = () => (
@@ -18,7 +19,7 @@ export const SettingsStatPanel = (props, context) => {
     </NoticeBox>
   );
 
-  const [freeStatFont, setFreeStatFont] = useLocalState(context, 'freeStatFont', false);
+  const [freeStatFont, setFreeStatFont] = useState(false);
 
   return (
     <Section fill>
@@ -81,7 +82,7 @@ export const SettingsStatPanel = (props, context) => {
                       <Input
                         width={'100%'}
                         value={statFontFamily}
-                        onChange={(e, value) =>
+                        onChange={(value) =>
                           dispatch(
                             updateSettings({
                               statFontFamily: value,

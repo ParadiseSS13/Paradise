@@ -27,8 +27,9 @@
 	GLOB.navigation_computers += src
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
-	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
-		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
+	if(access_mining)
+		for(var/zlvl in levels_by_trait(ORE_LEVEL))
+			jumpto_ports += list("nav_z[zlvl]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	GLOB.navigation_computers -= src
@@ -36,7 +37,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))
-		to_chat(user,"<span class='warning'>Warning: Shuttle connection severed!</span>")
+		to_chat(user,SPAN_WARNING("Warning: Shuttle connection severed!"))
 		return
 	return ..()
 
@@ -107,23 +108,23 @@
 	var/mob/camera/eye/shuttle_docker/the_eye = eyeobj
 	var/landing_clear = check_landing_spot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
-		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
+		to_chat(current_user, SPAN_WARNING("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
 		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
 		if(!wait_completed)
-			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
+			to_chat(current_user, SPAN_WARNING("Operation aborted."))
 			return
 		landing_clear = check_landing_spot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
 			if(SHUTTLE_DOCKER_BLOCKED)
-				to_chat(current_user, "<span class='warning'>Invalid transit location</span>")
+				to_chat(current_user, SPAN_WARNING("Invalid transit location"))
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				to_chat(current_user, "<span class='warning'>Unknown object detected in landing zone. Please designate another location.</span>")
+				to_chat(current_user, SPAN_WARNING("Unknown object detected in landing zone. Please designate another location."))
 		return
 
 	if(!my_port)
@@ -154,7 +155,7 @@
 
 	if(current_user.client)
 		current_user.client.images += the_eye.placed_images
-		to_chat(current_user, "<span class='notice'>Transit location designated</span>")
+		to_chat(current_user, SPAN_NOTICE("Transit location designated"))
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
@@ -256,8 +257,8 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_overlay_icon_state = "mech_cycle_equip_off"
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -269,8 +270,8 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_overlay_icon_state = "mech_zoom_off"
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -282,7 +283,6 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Jump to Location"
-	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -294,7 +294,7 @@
 	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
-	for(var/V in SSshuttle.stationary)
+	for(var/V in SSshuttle.stationary_docking_ports)
 		if(!V)
 			continue
 		var/obj/docking_port/stationary/S = V
@@ -311,6 +311,6 @@
 		if(T)
 			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 			remote_eye.set_loc(T)
-			to_chat(target, "<span class='notice'>Jumped to [selected]</span>")
+			to_chat(target, SPAN_NOTICE("Jumped to [selected]"))
 	else
 		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)

@@ -54,16 +54,16 @@
 		ride_check_flags |= RIDER_NEEDS_ARMS
 
 	if(arms_needed && !equip_buckle_inhands(potential_rider, arms_needed, target_movable))
-		potential_rider.visible_message("<span class='warning'>[potential_rider] can't get a grip on [target_movable] because [potential_rider.p_their()] hands are full!</span>", "<span class='warning'>You can't get a grip on [target_movable] because your hands are full!</span>")
+		potential_rider.visible_message(SPAN_WARNING("[potential_rider] can't get a grip on [target_movable] because [potential_rider.p_their()] hands are full!"), SPAN_WARNING("You can't get a grip on [target_movable] because your hands are full!"))
 		return COMPONENT_BLOCK_BUCKLE
 
 	if((ride_check_flags & RIDER_NEEDS_LEGS) && HAS_TRAIT(potential_rider, TRAIT_FLOORED))
-		potential_rider.visible_message("<span class='warning'>[potential_rider] can't get [potential_rider.p_their()] footing on [target_movable]!</span>",
-			"<span class='warning'>You can't get your footing on [target_movable]!</span>")
+		potential_rider.visible_message(SPAN_WARNING("[potential_rider] can't get [potential_rider.p_their()] footing on [target_movable]!"),
+			SPAN_WARNING("You can't get your footing on [target_movable]!"))
 		return COMPONENT_BLOCK_BUCKLE
 	if((ride_check_flags & RIDER_CARBON_OR_SILICON_NO_LARGE_MOBS) && !(iscarbon(potential_rider) || issilicon(potential_rider) || potential_rider.mob_size <= MOB_SIZE_SMALL))
-		potential_rider.visible_message("<span class='warning'>[potential_rider] is too big to get [potential_rider.p_their()] footing on [target_movable]!</span>",
-			"<span class='warning'>You are too big to get your footing on [target_movable]!</span>")
+		potential_rider.visible_message(SPAN_WARNING("[potential_rider] is too big to get [potential_rider.p_their()] footing on [target_movable]!"),
+			SPAN_WARNING("You are too big to get your footing on [target_movable]!"))
 		return COMPONENT_BLOCK_BUCKLE
 
 	var/mob/living/target_living = target_movable
@@ -113,20 +113,20 @@
 	SIGNAL_HANDLER
 
 	if(potion_boosted)
-		to_chat(user, "<span class='warning'>[ridable_atom] has already been coated with red, that's as fast as it'll go!</span>")
+		to_chat(user, SPAN_WARNING("[ridable_atom] has already been coated with red, that's as fast as it'll go!"))
 		return
 	if(ridable_atom.has_buckled_mobs()) // effect won't take place til the next time someone mounts it, so just prevent that situation
-		to_chat(user, "<span class='warning'>It's too dangerous to smear [speed_potion] on [ridable_atom] while it's being ridden!</span>")
+		to_chat(user, SPAN_WARNING("It's too dangerous to smear [speed_potion] on [ridable_atom] while it's being ridden!"))
 		return
 	var/speed_limit = round(GLOB.configuration.movement.human_delay * 0.85, 0.01)
 	var/datum/component/riding/theoretical_riding_component = riding_component_type
 	var/theoretical_speed = initial(theoretical_riding_component.vehicle_move_delay)
 	if(theoretical_speed <= speed_limit) // i say speed but this is actually move delay, so you have to be ABOVE the speed limit to pass
-		to_chat(user, "<span class='warning'>[ridable_atom] can't be made any faster!</span>")
+		to_chat(user, SPAN_WARNING("[ridable_atom] can't be made any faster!"))
 		return
 	Detach(ridable_atom)
 	ridable_atom.AddElement(/datum/element/ridable, component_type = riding_component_type, potion_boost = TRUE)
-	to_chat(user, "<span class='notice'>You slather the red gunk over [ridable_atom], making it faster.</span>")
+	to_chat(user, SPAN_NOTICE("You slather the red gunk over [ridable_atom], making it faster."))
 	ridable_atom.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	ridable_atom.add_atom_colour("#6e6e86", FIXED_COLOUR_PRIORITY)
 	ADD_TRAIT(ridable_atom, TRAIT_OIL_SLICKED, "potion")

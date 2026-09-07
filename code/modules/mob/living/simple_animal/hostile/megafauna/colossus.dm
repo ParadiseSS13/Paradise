@@ -18,9 +18,6 @@ The colossus' true danger lies in its ranged capabilities. It fires immensely da
 At 33% health, the colossus gains an additional attack:
  4. The colossus fires two spirals of death bolts, spinning in opposite directions.
 
-When a colossus dies, it leaves behind a chunk of glowing crystal known as a black box. Anything placed inside will carry over into future rounds.
-For instance, you could place a bag of holding into the black box, and then kill another colossus next round and retrieve the bag of holding from inside.
-
 Difficulty: Very Hard
 
 */
@@ -34,33 +31,36 @@ Difficulty: Very Hard
 	attack_sound = 'sound/magic/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
-	icon_dead = ""
+	icon_dead = "eva_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	speed = 10
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
-	del_on_death = TRUE
 	universal_speak = TRUE
 	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/colossus)
-	deathmessage = "disintegrates, leaving a glowing core in its wake."
+	crusher_loot = list(/obj/item/crusher_trophy/blaster_tubes)
+	deathmessage = "flakes away into innumerable pieces with the wind. It's metallic arm graft staying behind, falling to the ground with a loud thud."
+	difficulty_ore_modifier = 3
 	death_sound = 'sound/misc/demon_dies.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/colossus
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/colossus
+	/// Have we used our final attack yet?
+	var/final_available = TRUE
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,
 							/datum/action/innate/megafauna_attack/alternating_cardinals)
-	/// Have we used our final attack yet?
-	var/final_available = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()
@@ -71,36 +71,40 @@ Difficulty: Very Hard
 	for(var/mob/living/simple_animal/hostile/megafauna/hierophant/H in GLOB.mob_list)
 		H.RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, easy_anti_cheese))
 
+/mob/living/simple_animal/hostile/megafauna/colossus/death(gibbed)
+	. = ..()
+	icon = 'icons/mob/lavaland/corpses.dmi'
+
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
+	chosen_message = SPAN_COLOSSUS("You are now firing in a spiral.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "at_shield2"
-	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "at_shield2"
+	chosen_message = SPAN_COLOSSUS("You are now firing in all directions.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
-	button_overlay_icon_state = "shotgun"
-	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
+	button_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon_state = "shotgun"
+	chosen_message = SPAN_COLOSSUS("You are now firing shotgun shots where you aim.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
-	button_overlay_icon_state = "pistol"
-	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
+	button_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon_state = "pistol"
+	chosen_message = SPAN_COLOSSUS("You are now firing in alternating cardinal directions.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
-	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>"), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
+	. = ..((SPAN_COLOSSUS("<b>[uppertext(message)]</b>")), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 
 /mob/living/simple_animal/hostile/megafauna/colossus/enrage()
@@ -215,7 +219,7 @@ Difficulty: Very Hard
 	if(!startloc || !endloc || endloc == loc)
 		return
 
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
+	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
 	P.preparePixelProjectile(endloc, startloc)
 	P.firer = src
 	P.firer_source_atom = src
@@ -310,13 +314,12 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 4 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
-	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
+	visible_message(SPAN_COLOSSUS("[src] disintegrates [L]!"))
 	L.dust()
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "A shimmering forcefield protecting the colossus."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_range = 2
@@ -328,7 +331,7 @@ Difficulty: Very Hard
 	target = new_target
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
@@ -343,17 +346,21 @@ Difficulty: Very Hard
 		return
 	floating = on
 
-/obj/item/projectile/colossus
-	name ="death bolt"
-	icon_state= "chronobolt"
-	damage = 25
-	armour_penetration_percentage = 100
-	speed = 2
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE
+/mob/living/simple_animal/hostile/megafauna/colossus/generate_random_loot()
+	var/list/crystalchoices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(crystalchoices)
+	var/list/choices = list(/obj/item/organ/internal/vocal_cords/colossus, /obj/item/organ/internal/eyes/cybernetic/eyesofgod, random_crystal)
+	for(var/I in 1 to 2)
+		loot += pick_n_take(choices)
 
-/obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
+/obj/projectile/colossus
+	name = "death bolt"
+	icon_state = "chronobolt"
+	damage = 25
+	armor_penetration_percentage = 100
+	speed = 2
+
+/obj/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(EXPLODE_HEAVY)
@@ -368,7 +375,6 @@ Difficulty: Very Hard
 	icon_state = null
 	gpstag = "Angelic Signal"
 	desc = "Get in the fucking robot."
-	invisibility = 100
 
 #undef RANDOM_SHOTS
 #undef BLAST

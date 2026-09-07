@@ -5,18 +5,18 @@
 	var/use_json = TRUE
 
 /datum/buildmode_mode/save/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on turf/obj/mob      = Select corner"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/save/change_settings(mob/user)
-	use_json = (alert("Would you like to use json (Default is \"Yes\")?", null,"Yes","No") == "Yes")
+	use_json = (tgui_alert("Would you like to use json (Default is \"Yes\")?", list("Yes", "No")) == "Yes")
 
 /datum/buildmode_mode/save/handle_selected_region(mob/user, params)
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	if(left_click)
-		var/map_name = input(user, "Please select a name for your map", "Buildmode", "")
+		var/map_name = tgui_input_text(user, "Please select a name for your map", "Map Name", "")
 		if(map_name == "")
 			return
 		var/map_flags = 0

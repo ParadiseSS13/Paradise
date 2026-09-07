@@ -1,6 +1,6 @@
 /turf/simulated/floor/light
 	name = "light floor"
-	light_range = 0
+	desc = "Highly advanced technology that combines the functions of walking surface and area lighting. What will science think of next?"
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	/// Are we on
@@ -9,6 +9,10 @@
 	var/can_modify_colour = TRUE
 	/// Are we draining power
 	var/using_power = FALSE
+
+/turf/simulated/floor/light/examine(mob/user, infix, suffix)
+	. = ..()
+	. += SPAN_NOTICE("Use a multitool to change the hue of [src].")
 
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
@@ -48,6 +52,12 @@
 		return
 	toggle_light(!on)
 
+/turf/simulated/floor/light/attack_ai(mob/user)
+	return attack_hand(user)
+
+/turf/simulated/floor/light/attack_robot(mob/user)
+	return attack_hand(user)
+
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!can_modify_colour)
@@ -69,12 +79,12 @@
 	var/list/rgb = hsl2rgb(arglist(hsl))
 	color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
 
-	to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+	to_chat(user, SPAN_NOTICE("You change [src]'s light bulb color."))
 	update_icon()
 
 /turf/simulated/floor/light/proc/toggle_light(light)
 	if(!on && !power_check())
-		visible_message("<span class='danger'>[src] doesn't react, it seems to be out of power.</span>")
+		visible_message(SPAN_DANGER("[src] doesn't react, it seems to be out of power."))
 		return
 	var/area/A = get_area(src)
 	// 0 = OFF
@@ -90,7 +100,7 @@
 
 /turf/simulated/floor/light/extinguish_light(force = FALSE)
 	toggle_light(FALSE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	visible_message(SPAN_DANGER("[src] flickers and falls dark."))
 
 /turf/simulated/floor/light/clean(floor_only)
 	var/color_save = color

@@ -3,18 +3,19 @@
 /// wall piece
 /turf/simulated/mineral
 	name = "rock"
-	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon = 'icons/turf/walls/32x40smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_ROCK_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ROCK_WALLS)
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
+	flags = NO_RUST
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	color = COLOR_ROCK
@@ -73,7 +74,7 @@
 		return FINISH_ATTACK
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(usr, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return FINISH_ATTACK
 
 	if(istype(attacking, /obj/item/pickaxe))
@@ -89,30 +90,30 @@
 			return FINISH_ATTACK
 
 		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
+		to_chat(user, SPAN_NOTICE("You start picking..."))
 		P.playDigSound()
 
 		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-				gets_drilled(user)
+				to_chat(user, SPAN_NOTICE("You finish cutting into the rock."))
+				gets_drilled(user, productivity_mod = P.bit_productivity_mod)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 
 		return FINISH_ATTACK
 	else
 		return attack_hand(user)
 
-/turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion)
+/turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion, productivity_mod = 1)
 	if(!ore)
 		return MINERAL_ALLOW_DIG
 
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 
-	return ore.on_mine(src, user, triggered_by_explosion)
+	return ore.on_mine(src, user, triggered_by_explosion, productivity_mod)
 
-/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE)
-	if(mine_ore(user, triggered_by_explosion) == MINERAL_PREVENT_DIG)
+/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, productivity_mod = 1)
+	if(mine_ore(user, triggered_by_explosion, productivity_mod) == MINERAL_PREVENT_DIG)
 		return
 
 	ChangeTurf(turf_type, defer_change)
@@ -125,10 +126,10 @@
 	..()
 
 /turf/simulated/mineral/attack_alien(mob/living/carbon/alien/M)
-	to_chat(M, "<span class='notice'>You start digging into the rock...</span>")
+	to_chat(M, SPAN_NOTICE("You start digging into the rock..."))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 	if(do_after(M, 40, target = src))
-		to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
+		to_chat(M, SPAN_NOTICE("You tunnel into the rock."))
 		gets_drilled(M)
 
 /turf/simulated/mineral/Bumped(atom/movable/AM)
@@ -143,8 +144,8 @@
 
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
-		if(istype(R.module_active, /obj/item/pickaxe))
-			attack_by(R.module_active, R)
+		if(istype(R.selected_item, /obj/item/pickaxe))
+			attack_by(R.selected_item, R)
 
 	else if(ismecha(AM))
 		var/obj/mecha/M = AM
@@ -190,15 +191,30 @@
 		var/new_ore_type = pickweight(mineralSpawnChanceList)
 		set_ore(new_ore_type)
 
+/turf/simulated/mineral/random/space
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 20,
+		/datum/ore/silver = 12,
+		/datum/ore/titanium = 11,
+		/datum/ore/gold = 10,
+		/datum/ore/uranium = 5,
+		/datum/ore/gibtonite = 4,
+		/datum/ore/bluespace = 1,
+		/datum/ore/diamond = 1,
+		/datum/ore/platinum = 3,
+		/datum/ore/palladium = 3,
+		/datum/ore/iridium = 3
+	)
+
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	smoothing_groups = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_ROCK_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ROCK_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER
-	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
@@ -240,7 +256,7 @@
 		return TRUE
 
 	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
+		to_chat(user, SPAN_NOTICE("Only diamond tools or a sonic jackhammer can break this rock."))
 		return TRUE
 
 /turf/simulated/mineral/ancient/lava_land_surface_hard
@@ -270,7 +286,7 @@
 		return TRUE
 
 	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
+		to_chat(user, SPAN_NOTICE("Only diamond tools or a sonic jackhammer can break this rock."))
 		return TRUE
 
 /turf/simulated/mineral/random/high_chance
@@ -284,6 +300,20 @@
 		/datum/ore/uranium = 35,
 		/datum/ore/diamond = 30,
 		/datum/ore/bluespace = 20,
+	)
+
+/turf/simulated/mineral/random/high_chance/space
+	mineralSpawnChanceList = list(
+		/datum/ore/silver = 50,
+		/datum/ore/plasma = 50,
+		/datum/ore/gold = 45,
+		/datum/ore/titanium = 45,
+		/datum/ore/uranium = 35,
+		/datum/ore/diamond = 30,
+		/datum/ore/bluespace = 20,
+		/datum/ore/platinum = 25,
+		/datum/ore/palladium = 25,
+		/datum/ore/iridium = 25
 	)
 
 /turf/simulated/mineral/random/high_chance/clown
@@ -332,6 +362,22 @@
 		/datum/ore/uranium = 2,
 		/datum/ore/diamond = 1,
 		/datum/ore/bluespace = 1,
+	)
+
+/turf/simulated/mineral/random/low_chance/space
+	mineralSpawnChanceList = list(
+		/datum/ore/iron = 40,
+		/datum/ore/plasma = 15,
+		/datum/ore/silver = 6,
+		/datum/ore/gold = 4,
+		/datum/ore/titanium = 4,
+		/datum/ore/gibtonite = 2,
+		/datum/ore/uranium = 2,
+		/datum/ore/diamond = 1,
+		/datum/ore/bluespace = 1,
+		/datum/ore/platinum = 1,
+		/datum/ore/palladium = 1,
+		/datum/ore/iridium = 1
 	)
 
 /turf/simulated/mineral/random/volcanic
@@ -390,7 +436,4 @@
 	preset_ore_type = /datum/ore/bananium
 
 /turf/simulated/mineral/volcanic/lava_land_surface
-	environment_type = "basalt"
-	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	defer_change = 1

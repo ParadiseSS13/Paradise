@@ -5,8 +5,8 @@
 	combo_text_override = "Disarm, Grab"
 
 /datum/martial_combo/judo/discombobulate/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] strikes [target] in the head with [user.p_their()] palm!</span>", \
-						"<span class='userdanger'>[user] strikes you with [user.p_their()] palm!</span>")
+	target.visible_message(SPAN_WARNING("[user] strikes [target] in the head with [user.p_their()] palm!"), \
+						SPAN_USERDANGER("[user] strikes you with [user.p_their()] palm!"))
 	playsound(get_turf(user), 'sound/weapons/slap.ogg', 40, TRUE, -1)
 	target.apply_damage(10, STAMINA)
 	target.AdjustConfused(5 SECONDS)

@@ -1,6 +1,4 @@
-@use '../base.scss';
 @use '../colors.scss';
-@use '../functions.scss' as *;
 
 .AccountsUplinkTerminal__list {
   tr > td {
@@ -8,18 +6,18 @@
   }
 
   tr:not(:first-child) {
-    height: 24px;
+    cursor: var(--cursor-pointer);
     line-height: 24px;
-    cursor: pointer;
+    height: 24px;
+    transition: background-color var(--transition-time-fast);
 
-    transition: background-color 50ms;
     &:hover,
     &:focus {
-      background-color: rgba(base.$color-bg, 1);
+      background-color: var(--color-base);
     }
   }
 }
 
 .AccountsUplinkTerminal__listRow--SUSPENDED {
-  background-color: colors.bg(#890e26);
+  background-color: colors.bg(hsl(347.5, 80%, 30%));
 }

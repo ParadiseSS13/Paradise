@@ -38,21 +38,36 @@ Ask ninjanomnom if they're around
 #define RAD_MOB_GORILLIZE 1500						// How much stored radiation to check for gorillization
 #define RAD_MOB_GORILLIZE_PROB 0.1					// Chance of gorillization per tick when over threshold
 
-#define RAD_NO_INSULATION 1.0						// For things that shouldn't become irradiated for whatever reason
-#define RAD_VERY_LIGHT_INSULATION 0.9				// What girders have
+// Values here are for how much of the radiation is let through
+#define RAD_NO_INSULATION 1.0						// Default value for Gamma and Beta insulation
+#define RAD_ONE_PERCENT 0.99						// Used by geiger counters
+#define RAD_MOB_INSULATION 0.98						// Default value for mobs
+#define RAD_VERY_LIGHT_INSULATION 0.9
 #define RAD_LIGHT_INSULATION 0.8
-#define RAD_MEDIUM_INSULATION  0.7					// What common walls have
-#define RAD_HEAVY_INSULATION 0.6					// What reinforced walls have
-#define RAD_EXTREME_INSULATION 0.5					// What rad collectors have
+#define RAD_MEDIUM_INSULATION  0.7
+#define RAD_HEAVY_INSULATION 0.6
+#define RAD_VERY_HEAVY_INSULATION 0.5
+#define RAD_EXTREME_INSULATION 0.4
+#define RAD_VERY_EXTREME_INSULATION 0.2
+#define RAD_GAMMA_WINDOW 0.4						// For directional windows that are activated by gamma radiation
+#define RAD_GAMMA_FULL_WINDOW 0.16					// For full tile windows that are activated by gamma radiation
+#define RAD_BETA_COLLECTOR 0.2						// Amount of Beta radiation absorbed by collectors
+#define RAD_BETA_BLOCKER 0.2						// Amount of Beta radiation blocked by metallic things like walls and airlocks
+#define RAD_ALPHA_BLOCKER 0.01						// default value for Alpha insulation
 #define RAD_FULL_INSULATION 0						// Unused
 
-// WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
-// contamination_strength = 	(strength - RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
-#define RAD_MINIMUM_CONTAMINATION 350				// How strong does a radiation wave have to be to contaminate objects
-#define RAD_CONTAMINATION_STR_COEFFICIENT 0.25		// Higher means higher strength scaling contamination strength
-#define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
+// Contamination chance in percent. Mostly used by contaminate_adjacent(atom/source, intensity, emission_type)
+#define CONTAMINATION_CHANCE_TURF 1				// Chance to contaminate things while on/in a turf
+#define CONTAMINATION_CHANCE_OTHER 10			// Chance to contaminate things while in something like a bag
 
 #define RAD_HALF_LIFE 90							// The half-life of contaminated objects
 
 #define RAD_GEIGER_MEASURE_SMOOTHING 5
 #define RAD_GEIGER_GRACE_PERIOD 2
+
+/// The portion of a radiation wave that acts on the source tile.
+#define RAD_SOURCE_WEIGHT 0.25
+
+#define ALPHA_RAD 1
+#define BETA_RAD 2
+#define GAMMA_RAD 3

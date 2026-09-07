@@ -2,7 +2,6 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
-	roundend_category = "revs"
 	antag_hud_name = "hudheadrevolutionary"
 	converted = FALSE
 	var/should_equip = TRUE
@@ -17,7 +16,7 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 	INVOKE_ASYNC(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion), REVOLUTION_PROMOTION_AT_LEAST_ONE)
 
 /datum/antagonist/rev/head/greet()
-	return "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>"
+	return SPAN_USERDANGER("You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!")
 
 /datum/antagonist/rev/head/add_owner_to_gamemode()
 	SSticker.mode.head_revolutionaries |= owner
@@ -46,9 +45,9 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 		to_chat(revolutionary, "The flash in your [flashloc_name] will help you to persuade the crew to join your cause.")
 
 	if(give_hud)
-		var/obj/item/clothing/glasses/hud/security/chameleon/C = new(get_turf(revolutionary))
-		var/hudloc_name = revolutionary.equip_in_one_of_slots(C, slots)
-		to_chat(revolutionary, "The chameleon security HUD in your [hudloc_name] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
+		var/obj/item/organ/internal/cyberimp/eyes/hud/security/hidden/O = new /obj/item/organ/internal/cyberimp/eyes/hud/security/hidden
+		O.insert(revolutionary)
+		to_chat(revolutionary, "The security HUD implant in your head will help you keep track of who is mindshield-implanted, and unable to be recruited.")
 
 	revolutionary.update_icons()
 	return flashloc_name
@@ -65,5 +64,5 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 	demoted.converted = FALSE
 	old_owner.add_antag_datum(demoted, SSticker.mode.get_rev_team())
 	demoted.silent = FALSE
-	to_chat(old_owner.current, "<span class='userdanger'>The Revolution is disappointed in your leadership! You are a regular revolutionary now!</span>")
+	to_chat(old_owner.current, SPAN_USERDANGER("The Revolution is disappointed in your leadership! You are a regular revolutionary now!"))
 

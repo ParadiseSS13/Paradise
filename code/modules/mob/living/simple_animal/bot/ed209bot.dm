@@ -4,10 +4,7 @@
 /mob/living/simple_animal/bot/ed209
 	name = "\improper ED-209 Security Robot"
 	desc = "A security robot. He looks less than thrilled."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
-	density = TRUE
-	anchored = FALSE
 	health = 150
 	maxHealth = 150
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -17,7 +14,6 @@
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT
-	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
 	req_access = list(ACCESS_SECURITY)
@@ -42,7 +38,7 @@
 	var/weapons_check = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
 	var/no_handcuffs = FALSE //If true, don't handcuff
-	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
+	var/projectile = /obj/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
@@ -85,7 +81,7 @@
 /mob/living/simple_animal/bot/ed209/turn_on()
 	. = ..()
 	icon_state = "[lasercolor]ed209[on]"
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 
 /mob/living/simple_animal/bot/ed209/turn_off()
 	..()
@@ -132,7 +128,7 @@
 	if(..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -177,15 +173,17 @@
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
+/mob/living/simple_animal/bot/ed209/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(W.force && !target && W.damtype != STAMINA)
 		retaliate(user)
 		if(lasercolor)//To make up for the fact that lasertag bots don't hunt
@@ -195,22 +193,22 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
+			to_chat(user, SPAN_WARNING("You short out [src]'s target assessment circuits."))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+		audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 		declare_arrests = FALSE
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
 
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = FALSE
 		if(lasercolor == "b")
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
 				lasertag_check = TRUE
 
 		else if(lasercolor == "r")
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
 				lasertag_check = TRUE
 
 		if(lasertag_check)
@@ -221,7 +219,7 @@
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
 
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
@@ -266,7 +264,7 @@
 				if(find_new_target())
 					return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
@@ -287,11 +285,11 @@
 			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
 				stun_attack(target)
 				if(!lasercolor)
-					mode = BOT_PREP_ARREST
+					set_mode(BOT_PREP_ARREST)
 					anchored = TRUE
 					target_lastloc = target.loc
 					return
-				mode = BOT_HUNT
+				set_mode(BOT_HUNT)
 				target = null
 				target_lastloc = null
 				return
@@ -330,7 +328,7 @@
 				back_to_hunt()
 				return
 
-			mode = BOT_PREP_ARREST
+			set_mode(BOT_PREP_ARREST)
 			anchored = FALSE
 
 		if(BOT_START_PATROL)
@@ -348,7 +346,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -357,7 +355,7 @@
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
 // look for a criminal in view of the bot
@@ -384,7 +382,7 @@
 		speak("Level [threatlevel] infraction alert!")
 		playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -396,7 +394,7 @@
 
 /mob/living/simple_animal/bot/ed209/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
@@ -442,16 +440,16 @@
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged)
 		if(lasercolor)
-			projectile = /obj/item/projectile/beam/disabler
+			projectile = /obj/projectile/beam/disabler
 		else
-			projectile = /obj/item/projectile/beam
+			projectile = /obj/projectile/beam
 	else
 		if(!lasercolor)
-			projectile = /obj/item/projectile/beam/disabler
+			projectile = /obj/projectile/beam/disabler
 		else if(lasercolor == "b")
-			projectile = /obj/item/projectile/beam/lasertag/bluetag
+			projectile = /obj/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/item/projectile/beam/lasertag/redtag
+			projectile = /obj/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
@@ -471,7 +469,7 @@
 
 	if(!isturf(U))
 		return
-	var/obj/item/projectile/A = new projectile(loc)
+	var/obj/projectile/A = new projectile(loc)
 	playsound(loc, shoot_sound, 50, 1)
 	A.current = U
 	A.yo = U.y - T.y
@@ -482,7 +480,7 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/emp_act(severity)
 
@@ -519,7 +517,7 @@
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
 						target = toarrest
-						mode = BOT_HUNT
+						set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/proc/unset_disabled()
 	disabled = FALSE
@@ -560,7 +558,7 @@
 	var/threat = C.assess_threat(src)
 	var/prev_intent = a_intent
 	a_intent = INTENT_HELP
-	baton.attack__legacy__attackchain(C, src)
+	baton.pre_attack(C, src)
 	a_intent = prev_intent
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
@@ -571,10 +569,10 @@
 		speak("[no_handcuffs ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(SPAN_DANGER("[src] is trying to put zipties on [C]!"),\
+						SPAN_USERDANGER("[src] is trying to put zipties on you!"))
 
 	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 

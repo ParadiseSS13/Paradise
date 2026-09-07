@@ -2,19 +2,20 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = TRUE
+	area_icon_text = "MINING"
+	area_icon_color = AREA_COLOR_MINING
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
+	area_icon_text = "MINING\nUNEXPL"
 	always_unpowered = TRUE
-	requires_power = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	sound_environment = SOUND_AREA_ASTEROID
-	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 
@@ -42,26 +43,50 @@
 /area/mine/unexplored/cere/orbiting
 	name = "Near Station Asteroids"
 
+/area/mine/unexplored/omega/ai
+	name = "AI Asteroid"
+
+/area/mine/unexplored/omega/research
+	name = "Research Rocks"
+
+/area/mine/unexplored/omega/cargo
+	name = "Cargo Rocks"
+
+/area/mine/unexplored/omega/security
+	name = "Security Rocks"
+
+/area/mine/unexplored/omega/engineering
+	name = "Engineering Rocks"
+
+/area/mine/unexplored/omega/medical
+	name = "Medical Rocks"
+
 /**********************Outpost areas**************************/
 
 /area/mine/outpost
 	name = "Mining Station"
-	icon_state = "mining"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_name = "Mining Outpost"
 	request_console_flags = RC_SUPPLY
+	airlock_wires = /datum/wires/airlock/cargo
 
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
 	icon_state = "mining_eva"
+	area_icon_text = "MINING\nEVA"
 
 /area/mine/outpost/cafeteria
 	name = "Mining Station Cafeteria"
 	icon_state = "mining_living"
+	area_icon_text = "MINING\nLIVING"
 
 /// subtype of /surface so storms hit there
 /area/lavaland/surface/outdoors/outpost/catwalk
 	name = "Mining Station Catwalk"
+	icon_state = "mining"
+
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
 	icon_state = "mining"
 
 /area/mine/outpost/comms
@@ -97,9 +122,15 @@
 	name = "Mining Station Storage"
 	icon_state = "storage"
 
+/area/mine/outpost/smith_workshop
+	name = "Smith's Workshop"
+	icon_state = "smith"
+	area_icon_text = "SMITH"
+
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
 	icon_state = "maintcentral"
+	airlock_wires = /datum/wires/airlock/maint
 
 /area/mine/outpost/maintenance/south
 	name = "Mining Station South Maintenance"
@@ -120,6 +151,7 @@
 /area/mine/outpost/production
 	name = "Mining Station Production Room"
 	icon_state = "mining_production"
+	area_icon_text = "MINING\nPROD."
 
 /area/mine/outpost/quartermaster
 	name = "Mining Station Quartermaster's Office"
@@ -131,6 +163,7 @@
 /area/mine/laborcamp
 	name = "Labor Camp"
 	icon_state = "brig"
+	airlock_wires = /datum/wires/airlock/security
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
@@ -142,19 +175,24 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = TRUE
 	sound_environment = SOUND_AREA_LAVALAND
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/lavaland/surface
 	name = "Lavaland"
 	icon_state = "explored"
+	area_icon_text = "MINING\nEXPL"
+	area_icon_color = AREA_COLOR_LAVALAND
 	always_unpowered = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
-	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+
+/area/lavaland/surface/gulag_rock
+	name = "Lavaland Wastes"
+	outdoors = TRUE
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"

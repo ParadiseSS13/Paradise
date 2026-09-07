@@ -289,7 +289,7 @@
 
 /obj/item/food/soup/hong_kong_macaroni
 	name = "hong kong macaroni"
-	desc = "A favourite from Hong Kong's Cha Chaan Tengs, this macaroni soup came to Mars with Cantonese settlers under Cybersun Industries, and has become as much of a breakfast staple there as it is in its homeland."
+	desc = "A favorite from Hong Kong's Cha Chaan Tengs, this macaroni soup came to Mars with Cantonese settlers under Cybersun Industries, and has become as much of a breakfast staple there as it is in its homeland."
 	icon_state = "hong_kong_macaroni"
 	list_reagents = list("nutriment" = 8, "protein" = 2)
 	tastes = list("cream" = 1, "chicken" = 1, "pasta" = 1, "ham" =1)
@@ -319,7 +319,6 @@
 	tastes = list("tomato" = 1, "mint" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-
 /obj/item/food/soup/clownchili
 	name = "chili con carnival"
 	desc = "A delicious stew of meat, chiles, and salty, salty clown tears."
@@ -328,3 +327,31 @@
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 2, "protein" = 2)
 	tastes = list("tomato" = 1, "chili" = 1, "meat" = 1, "sad clowns" = 4)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
+
+////////////////////////
+// 		Hispania!		//
+////////////////////////
+
+/obj/item/food/soup/garlic
+	name = "Garlic Soup"
+	desc = "A garlic soup with an egg on top."
+	icon_state = "garlic_soup"
+	bitesize = 4
+	list_reagents = list("nutriment" = 6, "vitamin" = 3)
+
+/obj/item/food/soup/elfs_poison
+	name = "Elf's poison"
+	icon_state = "elfs_poison"
+	bitesize = 4
+	desc = "Ugh it looks nasty..."
+	list_reagents = list("nutriment" = 6, "amanitin" = 6, "psilocybin" = 3)
+
+/obj/item/food/soup/fishconsome
+	name = "Fish Consome"
+	desc = "A warm consome with tasty fish meat."
+	icon_state = "carpconsomme"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 2, "blackpepper" = 1)
+	tastes = list("mexico" = 1, "salmon" = 1, "potato" = 1)
+
+// ---------- END of imports from Hispania!

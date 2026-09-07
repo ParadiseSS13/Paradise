@@ -9,6 +9,12 @@ SUBSYSTEM_DEF(machines)
 	offline_implications = "Machinery will no longer process. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 
+	/// Associative list of all machines that exist.
+	VAR_PRIVATE/list/machines_by_type = list()
+
+	/// All machines, not just those that are processing.
+	VAR_PRIVATE/list/all_machines = list()
+
 	var/list/processing = list()
 	var/list/currentrun = list()
 	/// All regional powernets (/datum/regional_powernet) in the world
@@ -20,6 +26,37 @@ SUBSYSTEM_DEF(machines)
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
+
+/// Registers a machine with the machine subsystem; should only be called by the machine itself during its creation.
+/datum/controller/subsystem/machines/proc/register_machine(obj/machinery/machine)
+	LAZYADD(machines_by_type[machine.type], machine)
+	all_machines |= machine
+
+/// Removes a machine from the machine subsystem; should only be called by the machine itself inside Destroy.
+/datum/controller/subsystem/machines/proc/unregister_machine(obj/machinery/machine)
+	var/list/existing = machines_by_type[machine.type]
+	existing -= machine
+	if(!length(existing))
+		machines_by_type -= machine.type
+	all_machines -= machine
+
+/// Gets a list of all machines that are either the passed type or a subtype.
+/datum/controller/subsystem/machines/proc/get_by_type(obj/machinery/machine_type, subtypes = TRUE)
+	if(!ispath(machine_type))
+		machine_type = machine_type.type
+	if(!ispath(machine_type, /obj/machinery))
+		CRASH("called SSmachines.get_by_type with a non-machine type [machine_type]")
+	. = list()
+	if(machine_type in machines_by_type)
+		. |= machines_by_type[machine_type]
+
+	if(!subtypes)
+		return
+
+	for(var/next_type in subtypesof(machine_type))
+		var/list/found_machines = machines_by_type[next_type]
+		if(found_machines)
+			. |= found_machines
 
 /datum/controller/subsystem/machines/get_metrics()
 	. = ..()
@@ -39,7 +76,7 @@ SUBSYSTEM_DEF(machines)
 			propagate_network(PC, PC.powernet)
 
 /datum/controller/subsystem/machines/get_stat_details()
-	return "Machines: [length(processing)] | Powernets: [length(powernets)] | Deferred: [length(deferred_powernet_rebuilds)]"
+	return "Machines: [length(all_machines)] | Powernets: [length(powernets)] | Deferred: [length(deferred_powernet_rebuilds)]"
 
 /datum/controller/subsystem/machines/proc/process_defered_powernets(resumed = 0)
 	if(!resumed)

@@ -13,6 +13,8 @@
 	var/examine_text //If defined, this text will appear when the mob is examined - to use he, she etc. use "SUBJECTPRONOUN" and replace it in the examines themselves
 	var/alert_type = /atom/movable/screen/alert/status_effect //the alert thrown by the status effect, contains name and description
 	var/atom/movable/screen/alert/status_effect/linked_alert = null //the alert itself, if it exists
+	/// Do we show the duration of the status effect on the alert
+	var/show_duration = FALSE
 
 /datum/status_effect/New(list/arguments)
 	if(!id)
@@ -37,6 +39,7 @@
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
+		update_shown_duration()
 	if(duration > 0 || initial(tick_interval) > 0) //don't process if we don't care
 		START_PROCESSING(SSfastprocess, src)
 	return TRUE
@@ -57,12 +60,21 @@
 	if(!owner)
 		qdel(src)
 		return
+	update_shown_duration()
 	if(tick_interval <= world.time)
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 	if(duration != -1 && duration < world.time)
 		on_timeout()
 		qdel(src)
+
+/// Updates the status effect alert's maptext (if possible)
+/datum/status_effect/proc/update_shown_duration()
+	PRIVATE_PROC(TRUE)
+	if(!linked_alert || !show_duration)
+		return
+
+	linked_alert.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align:center'>[round((duration - world.time)/10, 1)]s</span>")
 
 /datum/status_effect/proc/on_apply() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.
 	return TRUE
@@ -120,9 +132,12 @@
 
 /// Applies a given status effect to this mob, returning the effect if it was successful or null otherwise
 /mob/living/proc/apply_status_effect(effect, ...)
+	RETURN_TYPE(/datum/status_effect)
 	. = null
 	if(QDELETED(src))
 		return
+	var/list/arguments = args.Copy()
+	arguments[1] = src
 	var/datum/status_effect/S1 = effect
 	LAZYINITLIST(status_effects)
 	for(var/datum/status_effect/S in status_effects)
@@ -130,14 +145,12 @@
 			if(S.status_type == STATUS_EFFECT_REPLACE)
 				S.be_replaced()
 			else if(S.status_type == STATUS_EFFECT_REFRESH)
-				S.refresh()
+				S.refresh(arglist(arguments))
 				return
 			else
 				return
-	var/list/arguments = args.Copy()
-	arguments[1] = src
 	S1 = new effect(arguments)
-	. = S1
+	return S1
 
 /// Removes all of a given status effect from this mob, returning TRUE if at least one was removed
 /mob/living/proc/remove_status_effect(effect, ...)
@@ -182,11 +195,9 @@
 
 /datum/status_effect/stacking
 	id = "stacking_base"
-	duration = -1 //removed under specific conditions
 	alert_type = null
 	var/stacks = 0 //how many stacks are accumulated, also is # of stacks that target will have when first applied
 	var/delay_before_decay //deciseconds until ticks start occuring, which removes stacks (first stack will be removed at this time plus tick_interval)
-	tick_interval = 10 //deciseconds between decays once decay starts
 	var/stack_decay = 1 //how many stacks are lost per tick (decay trigger)
 	var/stack_threshold //special effects trigger when stacks reach this amount
 	var/max_stacks //stacks cannot exceed this amount

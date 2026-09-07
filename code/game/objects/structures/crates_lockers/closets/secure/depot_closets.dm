@@ -31,15 +31,15 @@
 				depotarea.armory_locker_looted()
 
 /obj/structure/closet/secure_closet/depot/attack_animal(mob/M)
-	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>[src] resists your attack!</span>")
+	if(isanimal_or_basicmob(M) && ("syndicate" in M.faction))
+		to_chat(M, SPAN_WARNING("[src] resists your attack!"))
 		return
 	return ..()
 
-/obj/structure/closet/secure_closet/depot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/depot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents [W] from locking onto [src]!</span>")
-		return
+		to_chat(user, SPAN_WARNING("Bluespace interference prevents [W] from locking onto [src]!"))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/closet/secure_closet/depot/emp_act(severity)

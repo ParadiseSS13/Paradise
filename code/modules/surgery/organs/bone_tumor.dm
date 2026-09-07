@@ -5,8 +5,8 @@
 	destroy_on_removal = TRUE
 	var/tumor_size = 0 //Changed in New to be dependent on amount of osseous reagent in the system when formed, determines damage done
 
-/obj/item/organ/internal/bone_tumor/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/internal/bone_tumor/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
 	tumor_size = owner.reagents.get_reagent_amount("osseous_reagent")
 	owner.reagents.remove_all_type(/datum/reagent/medicine/osseous_reagent, tumor_size)
 
@@ -17,10 +17,10 @@
 
 	if(prob(5))
 		G.receive_damage(10 + tumor_damage_modifier, 0, FALSE)
-		to_chat(owner, "<span class='danger'>Something sharp is moving around in your lower body!</span>")
+		to_chat(owner, SPAN_DANGER("Something sharp is moving around in your lower body!"))
 
 	if(prob(1))
-		to_chat(owner, "<span class='userdanger'>Something just tore in your lower body!</span>")
+		to_chat(owner, SPAN_USERDANGER("Something just tore in your lower body!"))
 
 		var/list/other_groin_organs = G.internal_organs
 		other_groin_organs -= src
@@ -30,4 +30,3 @@
 
 /obj/item/organ/internal/bone_tumor/slime_tumor
 	name = "crystalized slime jelly"
-

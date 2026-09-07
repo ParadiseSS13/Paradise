@@ -66,7 +66,7 @@
 	desc = "Used for playing the most violent and degrading of childhood games."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	dribbleable = TRUE
 
 /obj/item/beach_ball/dodgeball_team/throw_impact(atom/hit_atom)
@@ -79,15 +79,15 @@
 			return
 		var/mob/A = locateUID(thrownby)
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
-			to_chat(A, "<span class='warning'>He's on your team!</span>")
+			to_chat(A, SPAN_WARNING("He's on your team!"))
 			return
 		else if((H in GLOB.team_bravo) && (A in GLOB.team_bravo))
-			to_chat(A, "<span class='warning'>He's on your team!</span>")
+			to_chat(A, SPAN_WARNING("He's on your team!"))
 			return
 		else if(!(A in GLOB.team_alpha) && !(A in GLOB.team_bravo))
-			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
+			to_chat(A, SPAN_WARNING("You're not part of the dodgeball game, sorry!"))
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
+			visible_message(SPAN_DANGER("[H] HAS BEEN ELIMINATED!"))
 			H.melt()

@@ -60,13 +60,13 @@
 	icon_state = "access_helper_eng"
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/equipment
 	access = ACCESS_ENGINE_EQUIP
 
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction
-	access = ACCESS_CONSTRUCTION
+/obj/effect/mapping_helpers/airlock/access/any/engineering/station_engineering
+	access = ACCESS_STATION_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
@@ -170,6 +170,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
 
+/obj/effect/mapping_helpers/airlock/access/any/security/evidence
+	access = ACCESS_EVIDENCE
+
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/access/any/service
 	icon_state = "access_helper_serv"
@@ -230,6 +233,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mineral_storage
 	access = ACCESS_MINERAL_STOREROOM
 
+/obj/effect/mapping_helpers/airlock/access/any/supply/smith
+	access = ACCESS_SMITH
+
 /obj/effect/mapping_helpers/airlock/access/any/supply/qm
 	access = ACCESS_QM
 
@@ -279,13 +285,16 @@
 	icon_state = "access_helper_eng"
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment
 	access = ACCESS_ENGINE_EQUIP
 
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction
-	access = ACCESS_CONSTRUCTION
+/obj/effect/mapping_helpers/airlock/access/all/engineering/station_engineer
+	access = ACCESS_STATION_ENGINEER
+
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine
+	access = ACCESS_ENGINE
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
@@ -388,6 +397,9 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
+
+/obj/effect/mapping_helpers/airlock/access/all/security/evidence
+	access = ACCESS_EVIDENCE
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/access/all/service

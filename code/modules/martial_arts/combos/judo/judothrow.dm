@@ -6,8 +6,8 @@
 /datum/martial_combo/judo/judothrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(IS_HORIZONTAL(user) || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
-	target.visible_message("<span class='warning'>[user] judo throws [target] to ground!</span>", \
-						"<span class='userdanger'>[user] judo throws you to the ground!</span>")
+	target.visible_message(SPAN_WARNING("[user] judo throws [target] to ground!"), \
+						SPAN_USERDANGER("[user] judo throws you to the ground!"))
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 	target.apply_damage(25, STAMINA)
 	target.KnockDown(7 SECONDS)

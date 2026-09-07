@@ -74,7 +74,7 @@
 	//Update the ignore_if_not_on_turf
 	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, ignore_if_not_on_turf)
 
-/datum/proximity_monitor/proc/on_uncrossed()
+/datum/proximity_monitor/proc/on_uncrossed(atom/source, atom/movable/exited)
 	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
 	return //Used by the advanced subtype for effect fields.
 

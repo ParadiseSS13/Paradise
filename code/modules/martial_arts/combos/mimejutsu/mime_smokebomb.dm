@@ -4,7 +4,7 @@
 	explaination_text = "Drops a mime smokebomb."
 
 /datum/martial_combo/mimejutsu/smokebomb/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='danger'>[user] throws an invisible smoke bomb!!</span>")
+	target.visible_message(SPAN_DANGER("[user] throws an invisible smoke bomb!!"))
 
 	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, FALSE, target)

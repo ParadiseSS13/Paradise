@@ -125,7 +125,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(0, amount, sharp = damage_source.sharp, used_weapon = damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
+			O.receive_damage(0, amount, sharp = (damage_source ? damage_source.sharp : null), used_weapon = damage_source, forbidden_limbs = list(), ignore_resists = FALSE, updating_health = updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
@@ -135,7 +135,7 @@
 	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.status & ORGAN_MUTATED)
 			O.unmutate()
-			to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+			to_chat(src, SPAN_NOTICE("Your [O.name] is shaped normally again."))
 
 /mob/living/carbon/human/adjustCloneLoss(amount)
 	if(dna.species && amount > 0)
@@ -164,7 +164,7 @@
 		if(length(candidates))
 			var/obj/item/organ/external/O = pick(candidates)
 			O.mutate()
-			to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
+			to_chat(src, SPAN_NOTICE("Something is not right with your [O.name]..."))
 			O.add_autopsy_data("Mutation", amount)
 	else // Cloneloss was partially healed - chance to unmutate an organ
 		if(!prob(heal_prob))
@@ -173,7 +173,7 @@
 		for(var/obj/item/organ/external/O in bodyparts)
 			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+				to_chat(src, SPAN_NOTICE("Your [O.name] is shaped normally again."))
 				return
 
 /mob/living/carbon/human/setCloneLoss(amount)
@@ -185,7 +185,7 @@
 		unmutateAllBodyparts()
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
-/mob/living/carbon/human/adjustOxyLoss(amount)
+/mob/living/carbon/human/adjustOxyLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.oxy_mod
 	. = ..()
@@ -195,7 +195,7 @@
 		amount *= dna.species.oxy_mod
 	. = ..()
 
-/mob/living/carbon/human/adjustToxLoss(amount)
+/mob/living/carbon/human/adjustToxLoss(amount, updating_health = TRUE)
 	if(dna.species && amount > 0)
 		amount *= dna.species.tox_mod
 	. = ..()

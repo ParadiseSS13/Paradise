@@ -6,7 +6,6 @@
 
 	volume = 105
 
-	dir = SOUTH
 	initialize_directions = EAST|NORTH|WEST
 
 	var/obj/machinery/atmospherics/node1
@@ -32,7 +31,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A pipe with three ends to connect to.</span>"
+	. += SPAN_NOTICE("A pipe with three ends to connect to.")
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
@@ -150,7 +149,6 @@
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
@@ -165,8 +163,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Pipe Adapter.")
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
@@ -180,8 +178,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Pipe Adapter.")
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
 	color = PIPE_COLOR_YELLOW
@@ -203,10 +201,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
-	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 	plane = FLOOR_PLANE
-	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
 	name="Scrubbers pipe manifold"
@@ -220,8 +216,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Pipe Adapter.")
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
@@ -235,8 +231,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Pipe Adapter.")
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
 	color = PIPE_COLOR_YELLOW

@@ -12,11 +12,17 @@
 	alien_disarm_damage = 60 //Queens do higher disarm stamina damage than normal aliens
 	alien_slash_damage = 30 //Queens do higher slashing damage to people
 	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
+	surgery_container = /datum/xenobiology_surgery_container/alien/queen
 
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCE_DOORS, UNIQUE_TRAIT_SOURCE(src))
 	AddSpell(new /datum/spell/alien_spell/tail_lash)
+
+/mob/living/carbon/alien/humenoid/queen/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 12, ASSIGNMENT_MEDICAL = 1)
 
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()

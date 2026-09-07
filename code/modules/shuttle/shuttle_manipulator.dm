@@ -116,7 +116,7 @@
 
 	// Status panel
 	data["shuttles"] = list()
-	for(var/i in SSshuttle.mobile)
+	for(var/i in SSshuttle.mobile_docking_ports)
 		var/obj/docking_port/mobile/M = i
 		if(!M)
 			continue
@@ -141,7 +141,7 @@
 	if(..())
 		return
 	if(shuttle_and_preview_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		to_chat(usr, SPAN_WARNING("Please wait until the desired shuttle has finished being loaded."))
 		return
 	. = TRUE
 
@@ -159,14 +159,14 @@
 
 		if("jump_to")
 			if(params["type"] == "mobile")
-				for(var/i in SSshuttle.mobile)
+				for(var/i in SSshuttle.mobile_docking_ports)
 					var/obj/docking_port/mobile/M = i
 					if(M.id == params["id"])
 						usr.forceMove(get_turf(M))
 						break
 
 		if("fast_travel")
-			for(var/i in SSshuttle.mobile)
+			for(var/i in SSshuttle.mobile_docking_ports)
 				var/obj/docking_port/mobile/M = i
 				if(M.id == params["id"] && M.timer && M.timeLeft() >= 50)
 					M.setTimer(50)
@@ -187,14 +187,9 @@
 		if("load")
 			shuttle_and_preview_cooldown = world.time + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
-			if(existing_shuttle == SSshuttle.backup_shuttle)
-				// TODO make the load button disabled
-				WARNING("The shuttle that the selected shuttle will replace \
-					is the backup shuttle. Backup shuttle is required to be \
-					intact for round sanity.")
-			else if(S)
+			if(S)
 				// If successful, returns the mobile docking port
-				var/obj/docking_port/mobile/mdp = action_load_old(S)
+				var/obj/docking_port/mobile/mdp = action_load(S)
 				if(mdp)
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
@@ -203,27 +198,6 @@
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
 	if(isnull(loading_template))
 		CRASH("No template passed.")
-	if(istype(loading_template, /datum/map_template/shuttle/emergency) && SSshuttle.emergency_locked_in)
-		message_admins("The emergency shuttle has been locked in. You can not load another shuttle.")
-		return
-
-	if(preview_shuttle && (loading_template != preview_template))
-		preview_shuttle.jumpToNullSpace()
-		preview_shuttle = null
-		preview_template = null
-
-	if(!preview_shuttle)
-		preview_shuttle = SSshuttle.load_template(loading_template)
-		preview_template = loading_template
-
-	SSshuttle.replace_shuttle(preview_shuttle)
-
-	existing_shuttle = null
-	preview_shuttle = null
-	preview_template = null
-	selected = null
-
-/obj/machinery/shuttle_manipulator/proc/action_load_old(datum/map_template/shuttle/loading_template)
 	if(istype(loading_template, /datum/map_template/shuttle/emergency) && SSshuttle.emergency_locked_in)
 		message_admins("The emergency shuttle has been locked in. You can not load another shuttle.")
 		return

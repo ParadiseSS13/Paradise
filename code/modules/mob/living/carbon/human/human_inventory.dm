@@ -87,12 +87,14 @@
 	else if(target == w_uniform)
 		//Again, makes sense for pockets to drop.
 		if(drop_inventory)
-			if(r_store)
-				drop_item_to_ground(r_store, force = TRUE)
-			if(l_store)
-				drop_item_to_ground(l_store, force = TRUE)
-			if(wear_id)
-				drop_item_to_ground(wear_id, force = TRUE)
+			// IPCs have pockets on their bodies, let's assume they stored their stuff there.
+			if(!ismachineperson(src))
+				if(r_store)
+					drop_item_to_ground(r_store, force = TRUE)
+				if(l_store)
+					drop_item_to_ground(l_store, force = TRUE)
+				if(wear_id)
+					drop_item_to_ground(wear_id, force = TRUE)
 			if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 				drop_item_to_ground(belt, force = TRUE)
 		w_uniform = null
@@ -154,11 +156,13 @@
 			update_inv_ears()
 		wear_mask_update(target, toggle_off = FALSE)
 		sec_hud_set_ID()
+		malf_hud_set_status()
 		update_misc_effects()
 		update_inv_wear_mask()
 	else if(target == wear_id)
 		wear_id = null
 		sec_hud_set_ID()
+		malf_hud_set_status()
 		update_inv_wear_id()
 	else if(target == wear_pda)
 		wear_pda = null
@@ -224,6 +228,7 @@
 				update_head_accessory()
 			if(length(hud_list))
 				sec_hud_set_ID()
+				malf_hud_set_status()
 			if(wear_mask.flags_inv & HIDEEARS)
 				update_inv_ears()
 			wear_mask_update(I, toggle_off = TRUE)
@@ -241,9 +246,11 @@
 		if(ITEM_SLOT_LEFT_HAND)
 			l_hand = I
 			update_inv_l_hand()
+			update_hands_hud()
 		if(ITEM_SLOT_RIGHT_HAND)
 			r_hand = I
 			update_inv_r_hand()
+			update_hands_hud()
 		if(ITEM_SLOT_BELT)
 			belt = I
 			update_inv_belt()
@@ -251,6 +258,7 @@
 			wear_id = I
 			if(length(hud_list))
 				sec_hud_set_ID()
+				malf_hud_set_status()
 			update_inv_wear_id()
 		if(ITEM_SLOT_PDA)
 			wear_pda = I
@@ -258,7 +266,7 @@
 		if(ITEM_SLOT_LEFT_EAR)
 			l_ear = I
 			// if(l_ear.slot_flags & ITEM_SLOT_LEFT_EAR) CHAP-TODO: ACTUALLY FIX OFFEARS OR REMOVE THEM COMPLETELY
-			// 	var/obj/item/clothing/ears/offear/O = new(I)
+			// 	var/obj/item/clothing/ears/offear/O = new(I, I)
 			// 	O.forceMove(src)
 			// 	r_ear = O
 			// 	O.layer = ABOVE_HUD_LAYER
@@ -267,7 +275,7 @@
 		if(ITEM_SLOT_RIGHT_EAR)
 			r_ear = I
 			// if(r_ear.slot_flags & ITEM_SLOT_RIGHT_EAR)
-			// 	var/obj/item/clothing/ears/offear/O = new(I)
+			// 	var/obj/item/clothing/ears/offear/O = new(I, I)
 			// 	O.forceMove(src)
 			// 	l_ear = O
 			// 	O.layer = ABOVE_HUD_LAYER
@@ -336,11 +344,12 @@
 					I.forceMove(C.bag)
 			else
 				I.forceMove(back)
+			I.in_storage = TRUE
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = src.w_uniform
-			uniform.attackby__legacy__attackchain(I, src)
+			uniform.item_interaction(src, I)
 		else
-			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
+			to_chat(src, SPAN_WARNING("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 			I.screen_loc = null
 

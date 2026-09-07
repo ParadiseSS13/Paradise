@@ -18,38 +18,56 @@
 /obj/structure/mopbucket/full/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("water", 150)
+	stored_mop = new /obj/item/mop(src)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/mopbucket/Destroy()
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/structure/mopbucket/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W.is_robot_module())
-		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+/obj/structure/mopbucket/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
+	if(istype(used, /obj/item/reagent_containers))
+		return ..()
+
+	if(handle_mop_interaction(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/structure/mopbucket/proc/handle_mop_interaction(mob/living/user, obj/item/used)
+	if(!istype(used, /obj/item/mop))
+		return FALSE
+
+	. = TRUE
+	var/robot_mop = used.is_robot_module()
+	var/obj/item/mop/attacking_mop = used
+	if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
+		attacking_mop.wet_mop(src, user, robot_mop)
 		return
 
-	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/attacking_mop = W
-		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
-			attacking_mop.wet_mop(src, user)
-			return
+	if(robot_mop)
+		to_chat(user, SPAN_WARNING("You cannot store [used] in [src]!"))
+		return
 
-		if(!user.drop_item_to_ground(attacking_mop))
-			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
-			return
+	if(stored_mop)
+		to_chat(user, SPAN_NOTICE("There is already a mop in [src]."))
+		return
 
-		if(!stored_mop)
-			mopbucket_insert(user, attacking_mop)
-			return
+	if(!put_in_cart(user, attacking_mop))
+		to_chat(user, SPAN_NOTICE("[attacking_mop] is stuck to your hand!"))
 
-		to_chat(user, "<span class='notice'>There is already a mop in the mopbucket.</span>")
+/obj/structure/mopbucket/proc/put_in_cart(mob/user, obj/item/mop/I)
+	if(!user.unequip(I))
+		return FALSE
 
-/obj/structure/mopbucket/proc/mopbucket_insert(mob/user, obj/item/mop/I)
 	stored_mop = I
 	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You put [I] into [src]."))
 	update_icon(UPDATE_OVERLAYS)
-	return
+	return TRUE
 
 /obj/structure/mopbucket/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
@@ -77,8 +95,7 @@
 	. = ..()
 	if(stored_mop)
 		user.put_in_hands(stored_mop)
-		to_chat(user, "<span class='notice'>You take [stored_mop] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You take [stored_mop] from [src]."))
 		stored_mop = null
 		update_icon(UPDATE_OVERLAYS)
 		return
-

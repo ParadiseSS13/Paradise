@@ -40,32 +40,32 @@
 			return FALSE
 	var/is_admin = is_admin(user)
 	if(!account_database.try_authenticate_login(customer_account, attempt_pin, restricted_bypass, FALSE, is_admin))
-		to_chat(user, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: incorrect credentials."))
 		return FALSE
 	return TRUE
 
 /obj/machinery/economy/proc/pay_with_card(obj/item/card/id/I, amount, purpose, transactor, mob/user, datum/money_account/target)
-	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
+	visible_message(SPAN_NOTICE("[user] swipes a card through [src]."))
 	return pay_with_account(I.get_card_account(), amount, purpose, transactor, user, target)
 
 /obj/machinery/economy/proc/pay_with_account(datum/money_account/customer_account, amount, purpose, transactor, mob/user, datum/money_account/target)
 	if(!customer_account)
-		to_chat(user, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		to_chat(user, SPAN_WARNING("Error: Unable to access account. Please contact technical support if problem persists."))
 		return FALSE
 	if(customer_account.suspended)
-		to_chat(user, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(user, SPAN_WARNING("Unable to access account: account suspended."))
 		return FALSE
 	if(!attempt_account_authentification(customer_account, null, user))
 		return FALSE
 	if(!account_database.charge_account(customer_account, amount, purpose, transactor, allow_overdraft = FALSE, supress_log = FALSE))
-		to_chat(user, "<span class='warning'>Unable to complete transaction: account has insufficient credit balance to purchase this.</span>")
+		to_chat(user, SPAN_WARNING("Unable to complete transaction: account has insufficient credit balance to purchase this."))
 		return FALSE
 	account_database.credit_account(target, amount, purpose, transactor, FALSE)
 	return TRUE
 
 /obj/machinery/economy/proc/pay_with_cash(item_cost, purpose, transactor, mob/user, datum/money_account/target)
 	if(item_cost > cash_transaction)
-		to_chat(user, "<span class='warning'>Unable to complete transaction: insufficient space cash inserted.</span>")
+		to_chat(user, SPAN_WARNING("Unable to complete transaction: insufficient space cash inserted."))
 		return FALSE
 
 	cash_stored -= item_cost
@@ -77,7 +77,7 @@
 	if(amount > cash_money.amount)
 		return
 	var/amount_to_insert = amount ? amount : cash_money.amount
-	visible_message("<span class='notice'>[user] inserts [amount_to_insert == 1 ? "[amount_to_insert] credit" : "[amount_to_insert] credits"]  into [src].</span>")
+	visible_message(SPAN_NOTICE("[user] inserts [amount_to_insert == 1 ? "[amount_to_insert] credit" : "[amount_to_insert] credits"]  into [src]."))
 	cash_stored += amount_to_insert
 	cash_transaction += amount_to_insert
 	cash_money.use(amount_to_insert)
@@ -101,7 +101,7 @@
 	var/stacks_to_dispense = min(CEILING(amount / MAX_STACKABLE_CASH, 1), 10)
 	var/remaining_cash = amount
 
-	visible_message("<span class='notice'>[src] spits out [stacks_to_dispense == 1 ? "1 wad" : "[stacks_to_dispense] wads"] of cash.</span>")
+	visible_message(SPAN_NOTICE("[src] spits out [stacks_to_dispense == 1 ? "1 wad" : "[stacks_to_dispense] wads"] of cash."))
 	for(var/i in 1 to stacks_to_dispense)
 		if(remaining_cash >= MAX_STACKABLE_CASH)
 			remaining_cash -= MAX_STACKABLE_CASH

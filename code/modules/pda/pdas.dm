@@ -103,11 +103,10 @@
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
-	icon_state = "pda-h"
 	default_pen = /obj/item/pen/fancy
 
 /obj/item/pda/heads/ert
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
 	detonate = FALSE
 	default_pen = /obj/item/pen/multi/fountain
 
@@ -126,6 +125,9 @@
 /obj/item/pda/heads/ert/paranormal
 	icon_state = "pda-chaplain"
 
+/obj/item/pda/heads/ert/tsf
+	icon_state = "pda-tsf"
+
 /obj/item/pda/cargo
 	default_cartridge = /obj/item/cartridge/cargo
 	icon_state = "pda-cargo"
@@ -143,11 +145,16 @@
 	owner = "John Doe"
 	default_pen = /obj/item/pen/multi/syndicate
 
-/obj/item/pda/syndicate/New()
-	..()
+/obj/item/pda/syndicate/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
-		M.m_hidden = 1
+		M.m_hidden = TRUE
+
+/obj/item/pda/syndicate_fake
+	icon_state = "pda-syndi"
+	name = "Military PDA"
+	default_pen = /obj/item/pen/multi/syndicate
 
 /obj/item/pda/chaplain
 	icon_state = "pda-chaplain"
@@ -179,6 +186,7 @@
 	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 
 /obj/item/pda/chef
+	default_cartridge = /obj/item/cartridge/chef
 	icon_state = "pda-chef"
 
 /obj/item/pda/bar
@@ -197,12 +205,13 @@
 	icon_state = "pda-genetics"
 
 /obj/item/pda/centcom
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
+	detonate = FALSE
 	icon_state = "pda-h"
 	default_pen = /obj/item/pen/multi/gold
 
-/obj/item/pda/centcom/New()
-	..()
+/obj/item/pda/centcom/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1

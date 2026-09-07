@@ -7,7 +7,7 @@
 	message = "chirps!"
 	sound = "sound/creatures/nymphchirp.ogg"
 	emote_type = EMOTE_AUDIBLE
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/diona)
+	mob_type_allowed_typecache = list(/mob/living/basic/diona_nymph)
 
 // Dog emotes
 
@@ -50,7 +50,7 @@
 // Mouse
 
 /datum/emote/living/simple_animal/mouse
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/mouse)
+	mob_type_allowed_typecache = list(/mob/living/basic/mouse)
 
 /datum/emote/living/simple_animal/mouse/squeak
 	key = "squeak"
@@ -60,7 +60,7 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/simple_animal/mouse/squeak/get_sound(mob/living/user)
-	var/mob/living/simple_animal/mouse/M = user
+	var/mob/living/basic/mouse/M = user
 	return M.squeak_sound
 
 // cat
@@ -100,3 +100,27 @@
 	var/mob/living/simple_animal/pet/cat/C = user
 	C.sit()
 	return TRUE
+
+/datum/emote/living/simple_animal/cow/moo
+	key = "moo"
+	key_third_person = "moos"
+	message = "moos!"
+	sound = "sound/creatures/cow.ogg"
+	emote_type = EMOTE_AUDIBLE
+	mob_type_allowed_typecache = list(/mob/living/basic/cow)
+
+/datum/emote/living/simple_animal/chicken/cluck
+	key = "cluck"
+	key_third_person = "clucks"
+	message = "clucks."
+	sound = "sound/creatures/clucks.ogg"
+	emote_type = EMOTE_AUDIBLE
+	mob_type_allowed_typecache = list(/mob/living/basic/chicken)
+
+/datum/emote/living/simple_animal/pig/oink
+	key = "oink"
+	key_third_person = "oinks"
+	message = "oinks."
+	sound = "sound/creatures/pig.ogg"
+	emote_type = EMOTE_AUDIBLE
+	mob_type_allowed_typecache = list(/mob/living/basic/pig)

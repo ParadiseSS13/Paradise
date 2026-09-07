@@ -1,4 +1,4 @@
-/datum/game_test/attack_chain_turf/Run()
+/datum/game_test/room_test/attack_chain_turf/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/area/admin_area = get_area(player.puppet)
 
@@ -32,7 +32,7 @@
 	qdel(rpd)
 
 	var/obj/resonator = player.spawn_obj_in_hand(/obj/item/resonator)
-	var/turf/mineral_wall = player.change_turf_nearby(/turf/simulated/mineral/ancient)
+	var/turf/mineral_wall = player.change_turf_nearby(/turf/simulated/mineral)
 	player.click_on(mineral_wall)
 	sleep(3 SECONDS)
 	TEST_ASSERT(istype(get_turf(mineral_wall), /turf/simulated/floor/plating/asteroid), "Did not find mineral wall dug with resonator")

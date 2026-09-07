@@ -27,11 +27,10 @@
 
 /obj/item/reagent_containers/drinks/bottle/random_drink
 	name = "unlabelled drink"
-	icon = 'icons/obj/drinks.dmi'
 
 /obj/item/reagent_containers/drinks/bottle/random_drink/Initialize(mapload)
 	. = ..()
-	var/list/possible_drinks = GLOB.drinks.Copy()
+	var/list/possible_drinks = GLOB.alcoholic_drinks | GLOB.synthanolic_drinks | GLOB.soft_drinks | GLOB.synthetic_soft_drinks
 	if(prob(50))
 		possible_drinks += list("pancuronium","lsd","omnizine","blood")
 
@@ -103,3 +102,6 @@
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)
+
+/obj/item/storage/box/grenades/empty/populate_contents()
+	return

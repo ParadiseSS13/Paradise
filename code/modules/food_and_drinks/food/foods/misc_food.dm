@@ -86,7 +86,6 @@
 	icon_state = "aesirsalad"
 	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
 	tastes = list("divinity" = 1, "lettuce" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/antipasto
 	name = "antipasto salad"
@@ -94,7 +93,19 @@
 	icon_state = "antipasto_salad"
 	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin" = 6)
 	tastes = list("lettuce" = 2, "salami" = 2, "mozzarella cheese" = 2, "tomatoes" = 2, "dressing" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/salad/ash_salad
+	name = "Ashlander Salad"
+	desc = "A salad of edible fauna and flora from an ashy wasteland."
+	resistance_flags = FIRE_PROOF
+	icon_state = "ash_salad"
+	list_reagents = list("protein" = 2, "vitamin" = 2, "plantmatter" = 2, "vitfro" = 1, "nicotine" = 2) // Nutritious and addictive
+	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
+
+/obj/item/food/salad/ash_salad/burn()
+	visible_message(SPAN_NOTICE("[src] burns, leaving only the Goliath Steak!")) // The steak is lavaproof, the rest is only fireproof
+	new /obj/item/food/goliath_steak(loc)
+	qdel(src)
 
 /obj/item/food/salad/caesar
 	name = "Caesar salad"
@@ -102,7 +113,6 @@
 	icon_state = "caesar_salad"
 	list_reagents = list("nutriment" = 12, "vitamin" = 6)
 	tastes = list("healthy greens" = 2, "olive dressing" = 2, "feta cheese" = 2, "pita bread" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/fruit
 	name = "fruit salad"
@@ -110,7 +120,6 @@
 	icon_state = "fruitsalad"
 	list_reagents = list("nutriment" = 9, "vitamin" = 4)
 	tastes = list("fruit" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/greek
 	name = "Greek salad"
@@ -118,7 +127,6 @@
 	icon_state = "greek_salad"
 	list_reagents = list("nutriment" = 13, "vitamin" = 14)
 	tastes = list("healthy greens" = 2, "olive dressing" = 1, "feta cheese" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/citrusdelight
 	name = "citrus delight"
@@ -126,7 +134,6 @@
 	icon_state = "citrusdelight"
 	list_reagents = list("nutriment" = 11, "vitamin" = 7)
 	tastes = list("sourness" = 1, "leaves" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/jungle
 	name = "jungle salad"
@@ -134,7 +141,6 @@
 	icon_state = "junglesalad"
 	list_reagents = list("banana" = 5, "nutriment" = 11, "vitamin" = 7)
 	tastes = list("fruit" = 1, "the jungle" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/kale
 	name = "kale salad"
@@ -142,7 +148,6 @@
 	icon_state = "kale_salad"
 	list_reagents = list("nutriment" = 12, "vitamin" = 12)
 	tastes = list("healthy greens" = 2, "olive dressing" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/potato
 	name = "potato salad"
@@ -150,7 +155,6 @@
 	icon_state = "potato_salad"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("potato" = 2, "egg" = 2, "mayonnaise" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/melonfruitbowl
 	name = "melon fruit bowl"
@@ -159,7 +163,6 @@
 	trash = null
 	list_reagents = list("nutriment" = 6, "vitamin" = 4)
 	tastes = list("melon" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/herb
 	name = "herb salad"
@@ -168,7 +171,6 @@
 	filling_color = "#76B87F"
 	list_reagents = list("nutriment" = 8, "vitamin" = 2)
 	tastes = list("lettuce" = 1, "apple" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/valid
 	name = "valid salad"
@@ -177,7 +179,6 @@
 	filling_color = "#76B87F"
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////
@@ -299,15 +300,6 @@
 
 /obj/item/food/popcorn/On_Consume(mob/M, mob/user)
 	if(prob(unpopped))	//lol ...what's the point?
-		to_chat(user, "<span class='userdanger'>You bite down on an un-popped kernel!</span>")
+		to_chat(user, SPAN_USERDANGER("You bite down on an un-popped kernel!"))
 		unpopped = max(0, unpopped-1)
 	..()
-
-/obj/item/food/liquidfood
-	name = "\improper LiquidFood ration"
-	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
-	icon_state = "liquidfood"
-	trash = /obj/item/trash/liquidfood
-	filling_color = "#A8A8A8"
-	bitesize = 4
-	list_reagents = list("nutriment" = 20, "iron" = 3, "vitamin" = 2)

@@ -9,6 +9,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/contract/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -44,7 +45,7 @@
 
 	if(!length(candidates))
 		used = FALSE
-		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+		to_chat(H, SPAN_WARNING("Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."))
 		return
 	new /obj/effect/particle_effect/smoke(get_turf(H))
 
@@ -59,15 +60,16 @@
 
 	dust_if_respawnable(C)
 
-/obj/item/contract/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/contract/activate_self(mob/user)
 	if(..())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(used)
-		to_chat(user, "<span class='warning'>You've already summoned an apprentice or you are in process of summoning one.</span>")
-		return
+		to_chat(user, SPAN_WARNING("You've already summoned an apprentice or you are in process of summoning one!"))
+		return ITEM_INTERACT_COMPLETE
 
 	ui_interact(user)
+	add_fingerprint(user)
 
 
 ///////////////////////////Veil Render//////////////////////
@@ -77,25 +79,31 @@
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast city."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "render"
+	inhand_icon_state = "knife"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 15
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 	var/spawn_type = /obj/singularity/narsie/wizard
 	var/spawn_amt = 1
 	var/activate_descriptor = "reality"
 	var/rend_desc = "You should run now."
+	new_attack_chain = TRUE
 
-/obj/item/veilrender/attack_self__legacy__attackchain(mob/user as mob)
-	if(charged)
-		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
-		charged = 0
-		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
-	else
-		to_chat(user, "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>")
+/obj/item/veilrender/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
+	if(!charged)
+		to_chat(user, SPAN_DANGER("The unearthly energies that powered the blade are now dormant."))
+		return ITEM_INTERACT_COMPLETE
+	new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
+	charged = 0
+	user.visible_message(
+		SPAN_USERDANGER("[src] hums with power as [user] deals a blow to [activate_descriptor] itself!")
+	)
 
 /obj/effect/rend
 	name = "tear in the fabric of reality"
@@ -103,8 +111,7 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = TRUE
-	anchored = TRUE
-	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
+	var/spawn_path = /mob/living/basic/cow // Default to cows to prevent unintentional Nar'Sies.
 	var/spawn_amt_left = 20
 
 /obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
@@ -128,12 +135,11 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob)
-	if(istype(I, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
+/obj/effect/rend/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/nullrod))
+		user.visible_message(SPAN_DANGER("[user] seals \the [src] with \the [used]."))
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/rend/singularity_pull()
 	return
@@ -141,7 +147,7 @@
 /obj/item/veilrender/vealrender
 	name = "veal render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast farm."
-	spawn_type = /mob/living/simple_animal/cow
+	spawn_type = /mob/living/basic/cow
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."
@@ -149,17 +155,16 @@
 /obj/item/veilrender/honkrender
 	name = "honk render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast circus."
-	spawn_type = /mob/living/simple_animal/hostile/retaliate/clown
+	spawn_type = /mob/living/basic/clown
 	spawn_amt = 10
 	activate_descriptor = "depression"
 	rend_desc = "Gently wafting with the sounds of endless laughter."
 	icon_state = "clownrender"
 
-
 /obj/item/veilrender/crabrender
 	name = "crab render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast aquarium."
-	spawn_type = /mob/living/simple_animal/crab
+	spawn_type = /mob/living/basic/crab
 	spawn_amt = 10
 	activate_descriptor = "sea life"
 	rend_desc = "Gently wafting with the sounds of endless clacking."
@@ -178,7 +183,9 @@
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
 	var/mob/current_owner
-	var/mob/dead/observer/ghost // owners ghost when active
+	/// Owners ghost when active.
+	var/mob/dead/observer/ghost
+	new_attack_chain = TRUE
 
 /obj/item/scrying/Initialize(mapload)
 	. = ..()
@@ -194,7 +201,7 @@
 	var/mob/holder = get(loc, /mob)
 	if(current_owner && current_owner != holder)
 
-		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
+		to_chat(current_owner, SPAN_NOTICE("Your otherworldly vision fades..."))
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
 		REMOVE_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
@@ -206,37 +213,48 @@
 	if(!current_owner && holder)
 		current_owner = holder
 
-		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
+		to_chat(current_owner, SPAN_NOTICE("You can see...everything!"))
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
 		ADD_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
-/obj/item/scrying/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/scrying/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(in_use)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
-	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
-					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
-	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
+	user.visible_message(
+		SPAN_NOTICE("[user] stares into [src], [user.p_their()] eyes glazing over."),
+		SPAN_DANGER("You stare into [src], you can see the entire universe!")
+		)
+	ghost = user.ghostize(ghost_name = "Magic Spirit of [user.name]", ghost_color = COLOR_BLUE)
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
-			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
-								"<span class='danger'>You look away from [src].</span>")
+			user.visible_message(
+				SPAN_NOTICE("[user] blinks, returning to the world around [user.p_them()]."),
+				SPAN_DANGER("You look away from [src].")
+			)
 			break
 		if(user.get_active_hand() != src)
 			user.grab_ghost()
-			user.visible_message("<span class='notice'>[user]'s focus is forced away from [src].</span>",
-								"<span class='userdanger'>Your vision is ripped away from [src].</span>")
+			user.visible_message(
+				SPAN_NOTICE("[user]'s focus is forced away from [src]."),
+				SPAN_USERDANGER("Your vision is ripped away from [src].")
+			)
 			break
 		sleep(5)
 	in_use = FALSE
 	if(QDELETED(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
 	REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/scrying/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
@@ -248,7 +266,6 @@
 	if(hit_limb)
 		hit_limb.fracture()
 
-
 /////////////////////Multiverse Blade////////////////////
 GLOBAL_LIST_EMPTY(multiverse)
 
@@ -256,10 +273,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "multiverse sword"
 	desc = "A weapon capable of conquering the universe and beyond. Activate it to summon copies of yourself from others dimensions to fight by your side."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
+	icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "energy_katana"
-	item_state = "energy_katana"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -270,87 +286,97 @@ GLOBAL_LIST_EMPTY(multiverse)
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")
 	var/cooldown = 0
-	var/cooldown_between_uses = 400 //time in deciseconds between uses--default of 40 seconds.
+	/// Time between uses. Default of 40 seconds.
+	var/cooldown_between_uses = 40 SECONDS
 	var/assigned = "unassigned"
 	var/evil = TRUE
-	var/probability_evil = 30 //what's the probability this sword will be evil when activated?
-	var/duplicate_self = 0 //Do we want the species randomized along with equipment should the user be duplicated in their entirety?
-	var/sword_type = /obj/item/multisword //type of sword to equip.
+	/// What's the probability this sword will be evil when activated?
+	var/probability_evil = 30
+	/// Do we want the species randomized along with equipment should the user be duplicated in their entirety?
+	var/duplicate_self = 0
+	/// Type of sword to equip.
+	var/sword_type = /obj/item/multisword
+	new_attack_chain = TRUE
 
-/obj/item/multisword/New()
-	..()
+/obj/item/multisword/Initialize(mapload)
+	. = ..()
 	GLOB.multiverse |= src
-
 
 /obj/item/multisword/Destroy()
 	GLOB.multiverse.Remove(src)
 	return ..()
 
-/obj/item/multisword/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
-	if(M.real_name == user.real_name)
-		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
-		return
-	..()
+/obj/item/multisword/pre_attack(mob/living/target, mob/living/user, params)
+	// To prevent accidental friendly fire or out and out grief.
+	if(!istype(target))
+		return ..()
 
-/obj/item/multisword/attack_self__legacy__attackchain(mob/user)
+	if(target.real_name == user.real_name)
+		to_chat(user, SPAN_WARNING("[src] detects benevolent energies in your target and redirects your attack!"))
+		return FINISH_ATTACK
+	return CONTINUE_ATTACK
+
+/obj/item/multisword/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
-		return
-	if(cooldown < world.time)
-		var/faction_check = 0
-		for(var/F in faction)
-			if(F in user.faction)
-				faction_check = 1
-				break
-		if(faction_check == 0)
-			faction = list("[user.real_name]")
-			assigned = "[user.real_name]"
-			user.faction = list("[user.real_name]")
-			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
-			if(!usr.mind.special_role)
-				if(prob(probability_evil))
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
+		to_chat(user, SPAN_WARNING("You know better than to touch your teacher's stuff."))
+		return ITEM_INTERACT_COMPLETE
 
-					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-					usr.mind.add_mind_objective(hijack_objective)
-					var/list/messages = user.mind.prepare_announce_objectives(FALSE)
-					to_chat(user, chat_box_red(messages.Join("<br>")))
+	if(cooldown >= world.time)
+		to_chat(user, SPAN_WARNING("[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
+		return ITEM_INTERACT_COMPLETE
+	var/faction_check = FALSE
+	for(var/F in faction)
+		if(F in user.faction)
+			faction_check = TRUE
+			break
+	if(faction_check)
+		cooldown = world.time + cooldown_between_uses
+		for(var/obj/item/multisword/M in GLOB.multiverse)
+			if(M.assigned == assigned)
+				M.cooldown = cooldown
 
-					SSticker.mode.traitors += usr.mind
-					usr.mind.special_role = "[usr.real_name] Prime"
-					evil = TRUE
-				else
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
+		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
+		if(!length(candidates))
+			to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
+		var/mob/C = pick(candidates)
+		spawn_copy(C.client, get_turf(user.loc), user)
+		to_chat(user, SPAN_WARNING("<B>The sword flashes, and you find yourself face to face with...you!</B>"))
+		dust_if_respawnable(C)
+		return ITEM_INTERACT_COMPLETE
 
-					var/datum/objective/survive/new_objective = new /datum/objective/survive
-					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
-					usr.mind.add_mind_objective(new_objective)
-					var/list/messages = user.mind.prepare_announce_objectives(FALSE)
-					to_chat(user, chat_box_red(messages.Join("<br>")))
+	faction = list("[user.real_name]")
+	assigned = "[user.real_name]"
+	user.faction = list("[user.real_name]")
+	to_chat(user, SPAN_NOTICE("You bind the sword to yourself. You can now use it to summon help."))
+	if(usr.mind.special_role)
+		return ITEM_INTERACT_COMPLETE
 
-					SSticker.mode.traitors += usr.mind
-					usr.mind.special_role = "[usr.real_name] Prime"
-					evil = FALSE
-		else
-			cooldown = world.time + cooldown_between_uses
-			for(var/obj/item/multisword/M in GLOB.multiverse)
-				if(M.assigned == assigned)
-					M.cooldown = cooldown
+	if(prob(probability_evil))
+		to_chat(user, SPAN_WARNING("<B>With your new found power you could easily conquer the station!</B>"))
 
-			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
-			if(length(candidates))
-				var/mob/C = pick(candidates)
-				spawn_copy(C.client, get_turf(user.loc), user)
-				to_chat(user, "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>")
-				dust_if_respawnable(C)
-
-			else
-				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
+		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
+		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
+		usr.mind.add_mind_objective(hijack_objective)
+		var/list/messages = user.mind.prepare_announce_objectives(FALSE)
+		to_chat(user, chat_box_red(messages.Join("<br>")))
+		evil = TRUE
 	else
-		to_chat(user, "<span class='warning'><B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
+		to_chat(user, SPAN_WARNING("<B>With your new found power you could easily defend the station!</B>"))
 
+		var/datum/objective/survive/new_objective = new /datum/objective/survive
+		new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
+		usr.mind.add_mind_objective(new_objective)
+		var/list/messages = user.mind.prepare_announce_objectives(FALSE)
+		to_chat(user, chat_box_red(messages.Join("<br>")))
+		evil = FALSE
+
+	SSticker.mode.traitors += usr.mind
+	usr.mind.special_role = "[usr.real_name] Prime"
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
@@ -363,12 +389,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
-		M.set_species(user.dna.species.type) //duplicate the sword user's species.
+		M.set_species(user.dna.species.type) // Duplicate the sword user's species.
 	else
 		if(prob(50))
 			var/list/list_all_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/golem, /datum/species/diona, /datum/species/machine, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
 			M.set_species(pick(list_all_species))
-	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
+	M.real_name = user.real_name // This is clear down here in case the user happens to become a golem; that way they have the proper name.
 	M.name = user.real_name
 	if(duplicate_self)
 		M.dna = user.dna.Clone()
@@ -644,12 +670,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
-	item_state = "harpoon"
-	cooldown_between_uses = 200 //Half the time
+	cooldown_between_uses = 200 // Half the time.
 	probability_evil = 100
 	duplicate_self = 1
 	sword_type = /obj/item/multisword/pike
-
 
 /////////////////////////////////////////Necromantic Stone///////////////////
 
@@ -658,20 +682,22 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A shard capable of resurrecting humans as skeleton thralls."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "necrostone"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
-	///List of mobs transformed into skeletons by the stone
+	new_attack_chain = TRUE
+	/// List of mobs transformed into skeletons by the stone
 	var/list/active_skeletons = list()
-	///How many skeletons can be converted by the stone at a time
+	/// How many skeletons can be converted by the stone at a time
 	var/max_skeletons = 3
-	///If the stone can convert infinite skeletons, bypassing max_skeletons
+	/// If the stone can convert infinite skeletons, bypassing max_skeletons
 	var/unlimited = FALSE
-	///If the stone converts into anime instead of skeletons
+	/// If the stone converts into anime instead of skeletons
 	var/heresy = FALSE
-	///how long the additional_thralls_cooldown is
+	/// How long the additional_thralls_cooldown is
 	var/above_cap_cooldown = 1 MINUTES
-	///Cooldown between uses when living skeletons above max skeletons
+	/// Cooldown between uses when living skeletons above max skeletons
 	COOLDOWN_DECLARE(additional_thralls_cooldown)
 
 /obj/item/necromantic_stone/Destroy()
@@ -689,43 +715,47 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(cooldown_time_left)
 		. += "[src] is being strained by the amount of risen skeletons thralls. It cannot be used to rise another skeleton thrall for <b>[cooldown_time_left / 10] seconds</b>."
 
-/obj/item/necromantic_stone/attack__legacy__attackchain(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+/obj/item/necromantic_stone/interact_with_atom(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, list/modifiers)
 	if(!istype(victim) || !istype(necromancer))
 		return ..()
 
-
 	if(victim.stat != DEAD)
-		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
-		return
+		to_chat(necromancer, SPAN_WARNING("This artifact can only affect the dead!"))
+		return ITEM_INTERACT_COMPLETE
 
 	if((!victim.mind || !victim.client) && !victim.grab_ghost())
-		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
-		return
+		to_chat(necromancer, SPAN_WARNING("There is no soul connected to this body...!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy/plague_zombie))
+		to_chat(necromancer, SPAN_WARNING("This one is already under another artifact's influence!"))
+		return ITEM_INTERACT_COMPLETE
 
 	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
-		to_chat(necromancer, "<span class='notice'>The amount of skeleton thralls risen by [src] strains its power.</span>")
+		to_chat(necromancer, SPAN_NOTICE("The amount of skeleton thralls risen by [src] strains its power."))
 		if(!COOLDOWN_FINISHED(src, additional_thralls_cooldown))
-			to_chat(necromancer, "<span class='warning'>[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))].</span>")
-			return
+			to_chat(necromancer, SPAN_WARNING("[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))]."))
+			return ITEM_INTERACT_COMPLETE
 		COOLDOWN_START(src, additional_thralls_cooldown, above_cap_cooldown)
 
 	convert_victim(victim, necromancer)
+	return ITEM_INTERACT_COMPLETE
 
-///Mindslave and equip the victim
+/// Mindslave and equip the victim.
 /obj/item/necromantic_stone/proc/convert_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	active_skeletons |= victim
-	var/greet_text = "<span class='userdanger'>You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>"
+	var/greet_text = SPAN_USERDANGER("You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!")
 	if(!victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
 		victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
 
 	if(heresy)
-		equip_heresy(victim)//oh god why
+		equip_heresy(victim) // Oh god why.
 		return
 
-	victim.visible_message("<span class='warning'>A massive amount of flesh sloughs off [victim] and a skeleton rises up!</span>")
+	victim.visible_message(SPAN_WARNING("A massive amount of flesh sloughs off [victim] and a skeleton rises up!"))
 	equip_skeleton(victim)
 
-///Clean the list of active skeletons and check if more can be summoned easily
+/// Clean the list of active skeletons and check if more can be summoned easily.
 /obj/item/necromantic_stone/proc/check_skeletons()
 	. = FALSE
 	if(unlimited)
@@ -743,12 +773,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(living_skeletons < max_skeletons)
 		return TRUE
 
-//Funny gimmick, skeletons always seem to wear roman/ancient armour
-//Voodoo Zombie Pirates added for paradise
-///Udate the mobs species and gear
+// Funny gimmick, skeletons always seem to wear roman/ancient armour.
+// Voodoo Zombie Pirates added for paradise.
+/// Update the mobs species and gear.
 /obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/victim)
-	victim.set_species(/datum/species/skeleton) // OP skellybones
-	victim.grab_ghost() // yoinks the ghost if its not in the body
+	victim.set_species(/datum/species/skeleton) // OP skellybones.
+	victim.grab_ghost() // Yoinks the ghost if its not in the body.
 	victim.revive()
 
 	for(var/obj/item/item in victim)
@@ -792,7 +822,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), ITEM_SLOT_LEFT_HAND)
 			victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
 
-///Updates the mobs species and gear to anime
+/// Updates the mobs species and gear to anime.
 /obj/item/necromantic_stone/proc/equip_heresy(mob/living/carbon/human/victim)
 	victim.set_species(/datum/species/human)
 	if(victim.gender == MALE)
@@ -836,12 +866,106 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/necromantic_stone/nya
 	name = "nya-cromantic stone"
 	desc = "A shard capable of resurrecting humans as creatures of Vile Heresy. Even the Wizard Federation fears it.."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "nyacrostone"
-	item_state = "electronic"
-	origin_tech = "bluespace=4;materials=4"
 	heresy = TRUE
 	unlimited = TRUE
+
+//////////////////////// Plague Talisman //////////////////////////////
+
+/obj/item/plague_talisman
+	name = "\improper Plague Talisman"
+	desc = "A vile rune, capable of raising the dead as plague-bearing creatures of destruction. The edges have sharp hooks."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "plague_talisman"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
+	var/chosen_plague
+
+// Checks if they're a valid target before trying to raise.
+/obj/item/plague_talisman/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	if(!istype(victim) || !istype(necromancer))
+		return ..()
+
+	if(victim.stat != DEAD)
+		to_chat(necromancer, SPAN_WARNING("This artifact can only affect the dead!"))
+		return
+
+	if(ismachineperson(victim))
+		to_chat(necromancer, SPAN_WARNING("This one isn't vulnerable to this form of plague magic."))
+		return
+
+	if((!victim.mind || !victim.client) && !victim.grab_ghost())
+		to_chat(necromancer, SPAN_WARNING("There is no soul connected to this body..."))
+		return
+
+	if(victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		to_chat(necromancer, SPAN_WARNING("This one is already under the artifact's influence! Give it time."))
+		return
+
+	raise_victim(victim, necromancer)
+
+// Raises the victim into a special zombies and binds them to wiz.
+/obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+
+	var/datum/disease/chosen_plague = pick_disease() // What disease to give them.
+
+	victim.grab_ghost() // To attempt to hold their ghost still while we do our thing.
+	victim.visible_message(SPAN_DANGER("[necromancer] places a vile rune upon [victim]'s lifeless forehead. The rune adheres to the flesh, and [victim]'s body rots and decays at unnatural speeds, before rising into a horrendous undead creature!"))
+
+	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE)
+	for(var/trait in plague_traits)
+		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
+
+	var/datum/disease/zombie/wizard/plague_virus = new /datum/disease/zombie/wizard(chosen_plague, TRUE)
+	victim.ForceContractDisease(plague_virus)
+	for(var/datum/disease/V in victim.viruses)
+		if(istype(V, /datum/disease/zombie))
+			V.stage = 8 // Immediate zombie!
+		else
+			V.cure() // Let's remove any other annoying viruses
+
+	// Wiz and minions shouldnt be able to contract their own diseases.
+	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	necromancer.add_language("Zombie", TRUE) // Make sure necromancer can speak to the bois.
+
+	playsound(victim, 'sound/magic/mutate.ogg', 50)
+	addtimer(CALLBACK(src, PROC_REF(finish_convert), victim, necromancer, chosen_plague), 5 SECONDS)
+
+/obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
+	var/greet_text = SPAN_USERDANGER("You have been raised into undeath by <b>[necromancer.real_name]</b>!<br> \
+		[necromancer.p_theyre(TRUE)] your master now, assist [necromancer.p_them()] at all costs, for you are now above death!<br> \
+		You have been bestowed the following plague: <br> \
+		[chosen_plague.name]!")
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
+
+	// Cant very well have your new minions dead for so long. Make em stronk!
+	victim.maxHealth = 200
+	victim.health = 200
+	victim.rejuvenate()
+	qdel(src) // talismans are single use
+
+//choose what disease this zombie will get
+/obj/item/plague_talisman/proc/pick_disease()
+	var/picked_disease
+	var/static/list/possible_diseases = list(
+		/datum/disease/beesease/wizard_variant,
+		/datum/disease/cold9/wizard_variant,
+		/datum/disease/fluspanish/wizard_variant,
+		/datum/disease/kingstons_advanced/wizard_variant,
+		/datum/disease/dna_retrovirus/wizard_variant,
+		/datum/disease/tuberculosis/wizard_variant,
+		/datum/disease/anxiety/wizard_variant,
+		/datum/disease/wizarditis/wizard_variant,
+		/datum/disease/berserker,
+		/datum/disease/appendicitis,
+		/datum/disease/grut_gut/wizard_variant,
+		/datum/disease/wand_rot/wizard_variant,
+		/datum/disease/mystic_malaise/wizard_variant,
+	)
+	picked_disease = pick(possible_diseases)
+	return picked_disease
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
@@ -855,7 +979,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "An enchanted mug which can be filled with any of various liquids on command."
 	icon_state = "evermug"
 
-/obj/item/reagent_containers/drinks/everfull/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/drinks/everfull/activate_self(mob/user)
+	if(..())
+		return
+
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
@@ -878,7 +1005,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
-	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
+	to_chat(user, SPAN_NOTICE("The [name] fills to brimming with [options_to_descriptions[choice]]."))
 	magic_fill(options_to_reagent[choice])
 
 /obj/item/reagent_containers/drinks/everfull/proc/magic_fill(reagent_choice)
@@ -899,6 +1026,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
@@ -913,7 +1041,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "Oblivion Enforcer's robes"
 	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
 	icon_state = "oblivionarmor"
-	item_state = "oblivionarmor"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	hoodtype = /obj/item/clothing/head/hooded/oblivion
 	allowed = list(/obj/item/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
@@ -929,7 +1056,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/hooded/oblivion/Initialize(mapload)
@@ -940,7 +1068,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "Oblivion Enforcer's mask"
 	desc = "The mask of an Oblivion Enforcer. Don't forget to turn it on before giving your one-liners!"
 	icon_state = "oblivionmask"
-	item_state = "oblivionmask"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',

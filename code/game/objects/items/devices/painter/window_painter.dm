@@ -21,7 +21,7 @@
 
 	if(is_type_in_list(target, polarized_windows))
 		if((W.opacity && W.old_color == GLOB.pipe_icon_manager.pipe_colors[paint_setting]) || (!W.opacity && W.color == GLOB.pipe_icon_manager.pipe_colors[paint_setting]))
-			to_chat(user, "<span class='notice'>This window is aready painted [paint_setting]!</span>")
+			to_chat(user, SPAN_NOTICE("This window is aready painted [paint_setting]!"))
 			return
 		if(!W.opacity)
 			W.color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
@@ -29,7 +29,7 @@
 		return TRUE
 
 	if(W.color == GLOB.pipe_icon_manager.pipe_colors[paint_setting])
-		to_chat(user, "<span class='notice'>This window is aready painted [paint_setting]!</span>")
+		to_chat(user, SPAN_NOTICE("This window is aready painted [paint_setting]!"))
 		return
 
 	W.color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]

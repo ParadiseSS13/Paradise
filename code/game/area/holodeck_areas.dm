@@ -2,6 +2,8 @@
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
+	area_icon_text = "HOLO"
+	area_icon_color = AREA_COLOR_PUBLIC
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
@@ -11,7 +13,6 @@
 
 /area/holodeck/source_plating
 	name = "\improper Holodeck - Off"
-	icon_state = "Holodeck"
 
 /area/holodeck/source_emptycourt
 	name = "\improper Holodeck - Empty Court"
@@ -27,7 +28,6 @@
 
 /area/holodeck/source_beach
 	name = "\improper Holodeck - Beach"
-	icon_state = "Holodeck" // Lazy.
 
 /area/holodeck/source_burntest
 	name = "\improper Holodeck - Atmospheric Burn Test"

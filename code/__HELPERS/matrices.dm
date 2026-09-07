@@ -7,6 +7,13 @@
 	. = new_angle - old_angle
 	Turn(.) //BYOND handles cases such as -270, 360, 540 etc. DOES NOT HANDLE 180 TURNS WELL, THEY TWEEN AND LOOK LIKE SHIT
 
+/**
+ * Shear the transform on either or both axes.
+ * * x - X axis shearing
+ * * y - Y axis shearing
+ */
+/matrix/proc/Shear(x, y)
+	return Multiply(matrix(1, x, 0, y, 1, 0))
 
 /atom/proc/SpinAnimation(speed = 10, loops = -1, clockwise = 1, segments = 3, parallel = TRUE)
 	if(!segments)

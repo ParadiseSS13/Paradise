@@ -33,8 +33,6 @@
 	COOLDOWN_DECLARE(charge_add_cd)
 	/// A callback for the sparks/message that play when a charge is used, see [/datum/component/shielded/proc/default_run_hit_callback]
 	var/datum/callback/on_hit_effects
-	///The visual effect
-	var/mutable_appearance/shield
 
 /datum/component/shielded/Initialize(max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, show_charge_as_alpha = FALSE, recharge_path = null, starting_charges = null, shield_icon_file = 'icons/effects/effects.dmi', shield_icon = "shield-old", shield_inhand = FALSE, run_hit_callback)
 	if(!isitem(parent) || max_charges <= 0)
@@ -122,7 +120,6 @@
 
 	if(wearer)
 		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
-		wearer.cut_overlay(shield)
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
 
@@ -134,14 +131,12 @@
 		wearer.update_appearance(UPDATE_ICON)
 
 /// Used to draw the shield overlay on the wearer
-/datum/component/shielded/proc/on_update_overlays(atom/parent_atom)
-	SIGNAL_HANDLER
-	wearer.cut_overlay(shield)
+/datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATE_OVERLAYS
 	var/mutable_appearance/shield_appearance = mutable_appearance(shield_icon_file, (current_charges > 0 ? shield_icon : "broken"), MOB_LAYER + 0.01)
 	if(show_charge_as_alpha)
 		shield_appearance.alpha = (current_charges/max_charges)*255
-	wearer.add_overlay(shield_appearance)
-	shield = shield_appearance
+	overlays += shield_appearance
 
 /**
  * This proc fires when we're hit, and is responsible for checking if we're charged, then deducting one + returning that we're blocking if so.
@@ -159,7 +154,7 @@
 	var/charge_loss = 1 // how many charges do we lose
 
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.shield_buster)
 			charge_loss = 3
 			if(lose_multiple_charges)
@@ -185,7 +180,7 @@
 /// Default on_hit proc, since cult robes are stupid and have different descriptions/sparks
 /datum/component/shielded/proc/default_run_hit_callback(mob/living/owner, attack_text, current_charges)
 	do_sparks(2, TRUE, owner)
-	owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
+	owner.visible_message(SPAN_DANGER("[owner]'s shields deflect [attack_text] in a shower of sparks!"))
 	if(current_charges <= 0)
-		owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
+		owner.visible_message(SPAN_WARNING("[owner]'s shield overloads!"))
 

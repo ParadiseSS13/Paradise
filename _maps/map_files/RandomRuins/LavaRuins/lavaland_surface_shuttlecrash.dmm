@@ -7,7 +7,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "bz" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
 	},
@@ -180,7 +180,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
@@ -197,7 +197,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/misc_lavaruin)
 "sx" = (
-/obj/structure/bonfire,
+/obj/structure/lightable/bonfire,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -233,7 +233,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "tN" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered/misc_lavaruin)
 "uQ" = (
@@ -313,7 +313,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "zG" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/unpowered/misc_lavaruin)
 "zM" = (
@@ -342,10 +342,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/unpowered/misc_lavaruin)
 "AC" = (
-/obj/structure/sink{
-	pixel_x = 12;
-	dir = 4
-	},
+/obj/structure/sink/directional/east,
 /obj/item/mounted/mirror{
 	icon_state = "mirror_broke";
 	pixel_y = -32
@@ -420,7 +417,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "HJ" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "It" = (
@@ -517,9 +514,6 @@
 "NG" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Oe" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/unpowered/misc_lavaruin)
 "Oq" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/reagent_dispensers/fueltank,
@@ -624,7 +618,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "Uw" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "titanium_blue"
@@ -643,7 +637,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Vs" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -1365,7 +1359,7 @@ NG
 dD
 dD
 Aj
-Oe
+It
 It
 It
 It
@@ -1377,7 +1371,7 @@ vA
 It
 It
 It
-Oe
+It
 dD
 NG
 "}
@@ -1386,7 +1380,7 @@ NG
 dD
 dD
 Gt
-Oe
+It
 tH
 tH
 It
@@ -1398,7 +1392,7 @@ oD
 It
 tH
 tH
-Oe
+It
 dD
 NG
 "}
@@ -1410,13 +1404,13 @@ Gt
 Aj
 ma
 ma
-Oe
-Oe
 It
 It
 It
-Oe
-Oe
+It
+It
+It
+It
 ma
 Aj
 Yf
@@ -1431,13 +1425,13 @@ dD
 SH
 Aj
 Aj
-Oe
+It
 tH
 tH
 tH
 tH
 tH
-Oe
+It
 Aj
 SH
 SH

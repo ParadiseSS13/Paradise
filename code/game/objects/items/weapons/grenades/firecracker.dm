@@ -56,9 +56,9 @@
 	. = ..()
 	if(!user.Adjacent(src))
 		return
-	. += "[src] will sound like \a <span class='warning'>[selected_sound]</span>."
-	. += "<span class='notice'>Alt-Click</span> to change the imitated sound."
-	. += "<span class='notice'>Alt-Shift-Click</span> to change the frequency of the sound."
+	. += "[src] will sound like \a [SPAN_WARNING("[selected_sound]")]."
+	. += "[SPAN_NOTICE("Alt-Click")] to change the imitated sound."
+	. += "[SPAN_NOTICE("Alt-Shift-Click")] to change the frequency of the sound."
 
 /obj/item/grenade/firecracker/decoy/AltClick(mob/user)
 	. = ..()
@@ -66,12 +66,12 @@
 		return
 	var/selected = tgui_input_list(user, "Choose the decoy sound.", items = possible_sounds)
 	if(!user.Adjacent(src))
-		to_chat(user, "<span class='warning'>You're too far from [src] to set the sound now!</span>")
+		to_chat(user, SPAN_WARNING("You're too far from [src] to set the sound now!"))
 		return
 	if(selected)
 		selected_sound = selected
 		sound_effect = possible_sounds[selected]
-		to_chat(user, "<span class='notice'>[src] will now sound like \a [selected].</span>")
+		to_chat(user, SPAN_NOTICE("[src] will now sound like \a [selected]."))
 
 /obj/item/grenade/firecracker/decoy/AltShiftClick(mob/user)
 	. = ..()
@@ -79,12 +79,12 @@
 		return
 	var/min_between_pops_input = tgui_input_number(user, "Select the minimum time between pops (in 1/10s of a second).", "Minimum time", min_time_between_pops, 50, 2)
 	if(!user.Adjacent(src))
-		to_chat(user, "<span class='notice'>You need to be closer to [src] to set this!</span>")
+		to_chat(user, SPAN_NOTICE("You need to be closer to [src] to set this!"))
 		return
 	min_time_between_pops = min_between_pops_input
 	var/max_between_pops_input = tgui_input_number(user, "Select the maximum time between pops (in 1/10s of a second).", "Maximum time", max_time_between_pops, 50, 2)
 	if(!user.Adjacent(src))
-		to_chat(user, "<span class='notice'>You need to be closer to [src] to set this!</span>")
+		to_chat(user, SPAN_NOTICE("You need to be closer to [src] to set this!"))
 		return
 
 	max_time_between_pops = max_between_pops_input

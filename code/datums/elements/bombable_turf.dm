@@ -38,4 +38,4 @@
 /// Show a little extra on examine
 /datum/element/bombable_turf/proc/on_examined(turf/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += "<span class='notice'>It seems to be slightly cracked...</span>"
+	examine_list += SPAN_NOTICE("It seems to be slightly cracked...")

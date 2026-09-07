@@ -32,13 +32,14 @@
 	Unlike most species in the galactic fold, Nian do not recognize the authority of the Trans-Solar Federation: \
 	having instead established close diplomatic relationships with their splinter faction, the USSP."
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default Biege",
 		2 = "Lighter",
 		3 = "Darker",
 		4 = "Purple"
 	)
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/nian,
 		"lungs" =    /obj/item/organ/internal/lungs/nian,
@@ -81,6 +82,8 @@
 	..()
 	var/datum/action/innate/cocoon/cocoon = new()
 	cocoon.Grant(H)
+	var/datum/action/innate/toggle_wings/wings_toggle = new()
+	wings_toggle.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
@@ -90,6 +93,8 @@
 	..()
 	for(var/datum/action/innate/cocoon/cocoon in H.actions)
 		cocoon.Remove(H)
+	for(var/datum/action/innate/toggle_wings/wings_toggle in H.actions)
+		wings_toggle.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
@@ -117,14 +122,26 @@
 	if(isobj(H.loc))
 		// Can't fly if you're in a box/mech/whatever.
 		return FALSE
+	// Open your wings to fly
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			return FALSE
 	var/turf/T = get_turf(H)
 	var/datum/gas_mixture/current = T.get_readonly_air()
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
-	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		return TRUE
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return FALSE
+
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			return FALSE
+
+	return TRUE
 
 /datum/species/moth/spec_movement_delay()
 	return FALSE
@@ -136,7 +153,7 @@
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
 	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 400 && H.fire_stacks > 0)
-		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
+		to_chat(H, SPAN_WARNING("Your precious wings burn to a crisp!"))
 		H.apply_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/proc/on_aheal(mob/living/carbon/human/H)
@@ -157,20 +174,20 @@
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "cocoon1"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
+		to_chat(H, SPAN_WARNING("You are too hungry to cocoon!"))
 		return
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
+	H.visible_message(SPAN_NOTICE("[H] begins to hold still and concentrate on weaving a cocoon..."), SPAN_NOTICE("You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)"))
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(H.incapacitated())
-			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
+			to_chat(H, SPAN_WARNING("You cannot weave a cocoon in your current state."))
 			return
-		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
+		H.visible_message(SPAN_NOTICE("[H] finishes weaving a cocoon!"), SPAN_NOTICE("You finish weaving your cocoon."))
 		var/obj/structure/moth_cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		C.preparing_to_emerge = TRUE
@@ -179,7 +196,17 @@
 		H.create_log(MISC_LOG, "has woven a cocoon")
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+		to_chat(H, SPAN_WARNING("You need to hold still in order to weave a cocoon!"))
+
+/datum/action/innate/toggle_wings
+	name = "Toggle Wings"
+	desc = "Open or close your wings! While your wings are open, you can fly in pressurized 0G environments!"
+	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
+	button_icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
+	button_icon_state = "monarch_BEHIND"
+
+/datum/action/innate/toggle_wings/Activate()
+	owner.emote("wings")
 
 /**
  * Removes moth from cocoon, restores burnt wings
@@ -206,9 +233,9 @@
 
 /obj/structure/moth_cocoon/Destroy()
 	if(!preparing_to_emerge)
-		visible_message("<span class='danger'>[src] splits open from within!</span>")
+		visible_message(SPAN_DANGER("[src] splits open from within!"))
 	else
-		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
+		visible_message(SPAN_DANGER("[src] is smashed open, harming the Nian within!"))
 		for(var/mob/living/carbon/human/H in contents)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)

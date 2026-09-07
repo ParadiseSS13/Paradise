@@ -1,4 +1,5 @@
 /datum/event/solar_flare
+	name =  "Solar Flare"
 	startWhen = 2
 	endWhen = 3
 	announceWhen = 1

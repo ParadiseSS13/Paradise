@@ -22,16 +22,17 @@
 	I.add_tape()
 
 /datum/component/proc/add_tape_text(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>There's some sticky tape attached to [source].</span>"
+	examine_list += SPAN_NOTICE("There's some sticky tape attached to [source].")
 
-/datum/component/ducttape/proc/add_tape_overlay(obj/item/O)
+/datum/component/ducttape/proc/add_tape_overlay(obj/item/O, list/overlays)
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATE_OVERLAYS
 	tape_overlay = new('icons/obj/bureaucracy.dmi', "tape")
 	tape_overlay.Shift(EAST, x_offset - 2)
 	tape_overlay.Shift(NORTH, y_offset - 2)
-	O.add_overlay(tape_overlay)
+	overlays += tape_overlay
 
 /datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
-	to_chat(user, "<span class='notice'>You tear the tape off [I]!</span>")
+	to_chat(user, SPAN_NOTICE("You tear the tape off [I]!"))
 	playsound(I, 'sound/items/poster_ripped.ogg', 50, 1)
 	new /obj/item/trash/tapetrash(user.loc)
 	I.update_icon()
@@ -57,7 +58,7 @@
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
 		if(target_direction in GLOB.diagonals)
-			to_chat(user, "<span class='warning'>You can't reach [target_turf].</span>")
+			to_chat(user, SPAN_WARNING("You can't reach [target_turf]."))
 			return
 		if(target_direction & EAST)
 			x_offset = 16
@@ -73,7 +74,7 @@
 			y_offset = -16
 	if(!user.drop_item_to_ground(I))
 		return
-	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
+	to_chat(user, SPAN_NOTICE("You stick [I] to [target_turf]."))
 	I.pixel_x = x_offset
 	I.pixel_y = y_offset
 

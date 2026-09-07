@@ -1,21 +1,17 @@
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss' as *;
-
 .PdaPainter__list {
   tr > td {
     text-align: center;
   }
 
   tr {
+    cursor: var(--cursor-pointer);
     height: 24px;
     line-height: 24px;
-    cursor: pointer;
+    transition: background-color var(--transition-time-fast);
 
-    transition: background-color 50ms;
     &:hover,
     &:focus {
-      background-color: rgba(base.$color-bg, 1);
+      background-color: var(--color-base);
     }
   }
 }

@@ -92,7 +92,6 @@
 /obj/item/food/grown/berries/glow
 	seed = /obj/item/seeds/berry/glow
 	name = "bunch of glow-berries"
-	desc = "Nutritious!"
 	icon_state = "glowberrypile"
 	filling_color = "#7CFC00"
 	origin_tech = "plasmatech=6"

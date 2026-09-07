@@ -44,12 +44,12 @@
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/structure/filingcabinet/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(insert(O, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't put [O.name] in [src]!</span>")
-		return
+		to_chat(user, SPAN_WARNING("You can't put [O.name] in [src]!"))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
@@ -80,9 +80,9 @@
 			if(prob(25))
 				step_rand(I)
 			SStgui.update_uis(src)
-			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
+			to_chat(user, SPAN_NOTICE("You pull \a [I] out of [src] at random."))
 			return
-	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
+	to_chat(user, SPAN_NOTICE("You find nothing in [src]."))
 
 /obj/structure/filingcabinet/ui_state(mob/user)
 	return GLOB.default_state
@@ -128,7 +128,7 @@
 		return
 	if(!user.unequip(O))
 		return
-	to_chat(user, "<span class='notice'>You put [O.name] in [src].</span>")
+	to_chat(user, SPAN_NOTICE("You put [O.name] in [src]."))
 	O.loc = src
 	SStgui.update_uis(src)
 	icon_state = "[initial(icon_state)]-open"

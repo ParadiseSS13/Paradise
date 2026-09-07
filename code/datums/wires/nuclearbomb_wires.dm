@@ -29,7 +29,7 @@
 	switch(wire)
 		if(WIRE_NUKE_SAFETY)
 			if(!is_cut(WIRE_NUKE_CONTROL))
-				N.audible_message("<span class='notice'>The safety controls flicker.</span>", hearing_distance = 1)
+				N.audible_message(SPAN_NOTICE("The safety controls flicker."), hearing_distance = 1)
 
 		if(WIRE_NUKE_DETONATOR)
 			if(N.timing)
@@ -37,30 +37,30 @@
 					message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonator wire, causing it to explode (<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 				N.explode()
 			else
-				N.audible_message("<span class='warning'>[N] whirrs ominously.</span>", hearing_distance = 1)
+				N.audible_message(SPAN_WARNING("[N] whirrs ominously."), hearing_distance = 1)
 
 		if(WIRE_NUKE_DISARM)
 			if(N.timing && is_cut(WIRE_NUKE_CONTROL))
 				if(!is_cut(WIRE_NUKE_LIGHT))
 					N.icon_state = N.sprite_prefix + "nuclearbomb1"
 				N.timing = FALSE
-				N.audible_message("<span class='boldnotice'>The timer on [N] stops!</span>", hearing_distance = 1)
+				N.audible_message(SPAN_BOLDNOTICE("The timer on [N] stops!"), hearing_distance = 1)
 				N.update_icon(UPDATE_OVERLAYS)
 				if(!N.training)
 					GLOB.bomb_set = FALSE
 				if(!N.is_syndicate && !N.training)
 					SSsecurity_level.set_level(N.previous_level)
 			else if(N.timing && !is_cut(WIRE_NUKE_CONTROL))
-				N.audible_message("<span class='boldnotice'>The disarm controls flash with an error. You need to disable the control panel first!</span>", hearing_distance = 1)
+				N.audible_message(SPAN_BOLDNOTICE("The disarm controls flash with an error. You need to disable the control panel first!"), hearing_distance = 1)
 			else if(!is_cut(WIRE_NUKE_CONTROL))
-				N.audible_message("<span class='notice'>The disarm controls flicker.</span>", hearing_distance = 1)
+				N.audible_message(SPAN_NOTICE("The disarm controls flicker."), hearing_distance = 1)
 
 		if(WIRE_NUKE_LIGHT)
-			N.audible_message("<span class='notice'>The lights on [N] flicker.</span>", hearing_distance = 1)
+			N.audible_message(SPAN_NOTICE("The lights on [N] flicker."), hearing_distance = 1)
 			flick(N.sprite_prefix + "nuclearbombc", N)
 
 		if(WIRE_NUKE_CONTROL)
-			N.audible_message("<span class='notice'>[N]'s control panel flickers.</span>", hearing_distance = 1)
+			N.audible_message(SPAN_NOTICE("[N]'s control panel flickers."), hearing_distance = 1)
 
 /datum/wires/nuclearbomb/on_cut(wire, mend)
 	var/obj/machinery/nuclearbomb/N = holder

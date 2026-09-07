@@ -23,7 +23,10 @@
 			return
 
 	// Attack phase
-	if(pre_attack(target, user, params))
+	var/pre_attack_result = pre_attack(target, user, params)
+	if(pre_attack_result & MELEE_COOLDOWN_PREATTACK)
+		user.changeNext_move(CLICK_CD_MELEE)
+	if(pre_attack_result & FINISH_ATTACK)
 		return
 
 	var/resolved = target.new_attack_chain \
@@ -52,26 +55,31 @@
  * Called on ourselves before we hit something. Return TRUE to cancel the remainder of the attack chain.
  *
  * Arguments:
- * * atom/A - The atom about to be hit
+ * * atom/target - The atom about to be hit
  * * mob/living/user - The mob doing the htting
  * * params - click params such as alt/shift etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/obj/item/proc/pre_attack(atom/A, mob/living/user, params)
+/obj/item/proc/pre_attack(atom/target, mob/living/user, params)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(SEND_SIGNAL(src, COMSIG_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(SEND_SIGNAL(src, COMSIG_PRE_ATTACK, target, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
 	// TODO: Turn this into a component and have a sane implementation instead of extra-specific behavior in a core proc
 	var/temperature = get_heat()
-	if(temperature && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
-		var/reagent_temp = A.reagents.chem_temp
+	if(temperature && target.reagents && !ismob(target) && !istype(target, /obj/item/clothing/mask/cigarette))
+		var/reagent_temp = target.reagents.chem_temp
 		var/time = (reagent_temp / 10) / (temperature / 1000)
-		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
-			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-			A.reagents.temperature_reagents(temperature)
+		if(user.mind && HAS_TRAIT(user.mind, TRAIT_QUICK_HEATER))
+			while(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [target]."))
+				to_chat(user, SPAN_NOTICE("You heat [target] with [src]."))
+				target.reagents.temperature_reagents(temperature)
+		else
+			if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [target]."))
+				to_chat(user, SPAN_NOTICE("You heat [target] with [src]."))
+				target.reagents.temperature_reagents(temperature)
 
 /**
  * Called when mob `user` is hitting us with an item `attacking`.
@@ -94,6 +102,9 @@
 		return FINISH_ATTACK
 
 /obj/attack_by(obj/item/attacking, mob/user, params)
+	if(!attacking.new_attack_chain)
+		return attackby__legacy__attackchain(attacking, user, params)
+
 	. = ..()
 
 	if(.)
@@ -108,7 +119,14 @@
 	if(..())
 		return TRUE
 	user.changeNext_move(CLICK_CD_MELEE)
-	return attacking.attack(src, user, params)
+
+	if(attempt_harvest(attacking, user))
+		return TRUE
+
+	if(attacking.new_attack_chain)
+		return attacking.attack(src, user, params)
+
+	return attacking.attack__legacy__attackchain(src, user)
 
 /**
  * Called when we are used by `user` to attack the living `target`.
@@ -128,10 +146,11 @@
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return FALSE
 
-	. = __attack_core(target, user)
-
-	if(!target.new_attack_chain && .)
-		return target.attacked_by__legacy__attackchain(src, user, /* def_zone */ null)
+	// Legacy attack uses TRUE to signal continuing the chain and FALSE otherwise;
+	// New attack chain flips that around. Horrible.
+	. = !__attack_core(target, user)
+	if(!.)
+		target.attacked_by(src, user)
 
 /obj/item/proc/__after_attack_core(mob/user, atom/target, params, proximity_flag = 1)
 	PRIVATE_PROC(TRUE)
@@ -152,25 +171,28 @@
 
 	// TODO: Migrate all of this to the proper objects so it's not clogging up a core proc and called at irrelevant times
 	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(target) && target != user)
-		to_chat(user, "<span class='notice'>You don't want to harm the person you're trying to help!</span>")
+		to_chat(user, SPAN_NOTICE("You don't want to harm the person you're trying to help!"))
 		return FALSE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
 		return FALSE
 
-	if(!force)
+	if(!should_play_hitsound(force))
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
-		SEND_SIGNAL(target, COMSIG_ATTACK)
-		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+		if(force)
+			SEND_SIGNAL(target, COMSIG_ATTACK)
+			add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
-
+	target.store_last_attacker(user)
 	user.do_attack_animation(target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK))
+			return FALSE
 	add_fingerprint(user)
 
 	return TRUE
@@ -205,9 +227,9 @@
 	var/damage = attacker.force
 	if(attacker.force)
 		user.visible_message(
-			"<span class='danger'>[user] has hit [src] with [attacker]!</span>",
-			"<span class='danger'>You hit [src] with [attacker]!</span>",
-			"<span class='danger'>You hear something being struck by a weapon!</span>"
+			SPAN_DANGER("[user] has hit [src] with [attacker]!"),
+			SPAN_DANGER("You hit [src] with [attacker]!"),
+			SPAN_DANGER("You hear something being struck by a weapon!")
 		)
 
 	if(ishuman(user))
@@ -234,16 +256,16 @@
 /mob/living/simple_animal/attacked_by(obj/item/attacker, mob/living/user)
 	if(!attacker.force)
 		user.visible_message(
-			"<span class='notice'>[user] gently taps [src] with [attacker].</span>",
-			"<span class='warning'>This weapon is ineffective, it does no damage!</span>",
-			"<span class='notice'>You hear a gentle tapping.</span>"
+			SPAN_NOTICE("[user] gently taps [src] with [attacker]."),
+			SPAN_WARNING("This weapon is ineffective, it does no damage!"),
+			SPAN_NOTICE("You hear a gentle tapping.")
 		)
 
 	else if(attacker.force < force_threshold || attacker.damtype == STAMINA)
 		visible_message(
-			"<span class='warning'>[attacker] bounces harmlessly off of [src].</span>",
-			"<span class='warning'>[attacker] bounces harmlessly off of [src]!</span>",
-			"<span class='warning'>You hear something being struck by a weapon!</span>"
+			SPAN_WARNING("[attacker] bounces harmlessly off of [src]."),
+			SPAN_WARNING("[attacker] bounces harmlessly off of [src]!"),
+			SPAN_WARNING("You hear something being struck by a weapon!")
 		)
 
 	else

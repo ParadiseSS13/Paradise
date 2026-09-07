@@ -1,0 +1,3 @@
+/mob/living/simple_animal/hostile/feral_cat/@SUBTYPES : /mob/living/basic/feral_cat/@SUBTYPES{@OLD}
+/mob/living/simple_animal/hostile/creature/@SUBTYPES : /mob/living/basic/creature/@SUBTYPES{@OLD}
+/mob/living/simple_animal/hostile/killertomato/@SUBTYPES : /mob/living/basic/killertomato/@SUBTYPES{@OLD}

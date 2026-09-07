@@ -51,5 +51,5 @@
 	if(stat != UNCONSCIOUS || InCritical())
 		return
 	if(isNightmare)
-		dream_image = "<span class='cultitalic'>[dream_image]</span>"
-	to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
+		dream_image = SPAN_CULTITALIC("[dream_image]")
+	to_chat(src, SPAN_NOTICE("<i>... [dream_image] ...</i>"))

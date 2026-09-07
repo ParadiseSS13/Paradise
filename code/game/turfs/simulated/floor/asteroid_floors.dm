@@ -4,13 +4,14 @@
 /turf/simulated/floor/plating/asteroid
 	gender = PLURAL
 	name = "asteroid sand"
+	desc = "Dusty space rock with a consistency similar to terrestrial sandstone."
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	rust_resistance = RUST_RESISTANCE_ORGANIC
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -24,17 +25,18 @@
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
 
-/turf/simulated/floor/plating/asteroid/proc/getDug()
-	new digResult(src, 5)
+/turf/simulated/floor/plating/asteroid/proc/getDug(productivity_mod = 1)
+	new digResult(src, round(5 + productivity_mod))
 	icon_plating = "[environment_type]_dug"
 	icon_state = "[environment_type]_dug"
+	SSblackbox.record_feedback("tally", "ore_mined", 5, "[digResult]")
 	dug = TRUE
 
 /turf/simulated/floor/plating/asteroid/proc/can_dig(mob/user)
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>Looks like someone has dug here already.</span>")
+		to_chat(user, SPAN_NOTICE("Looks like someone has dug here already."))
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -63,7 +65,7 @@
 
 	if(S.pickup_all_on_tile)
 		for(var/obj/item/stack/ore/O in contents)
-			O.attackby__legacy__attackchain(S, user)
+			S.try_insert_item(O, user)
 			return
 
 /turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -78,14 +80,14 @@
 		if(!istype(T))
 			return
 
-		to_chat(user, "<span class='notice'>You start digging...</span>")
+		to_chat(user, SPAN_NOTICE("You start digging..."))
 
 		playsound(src, used.usesound, 50, TRUE)
 		if(do_after(user, 40 * used.toolspeed, target = src))
 			if(!can_dig(user))
 				return TRUE
-			to_chat(user, "<span class='notice'>You dig a hole.</span>")
-			getDug()
+			to_chat(user, SPAN_NOTICE("You dig a hole."))
+			getDug(used.bit_productivity_mod)
 			return TRUE
 
 	else if(istype(used, /obj/item/storage/bag/ore))
@@ -109,12 +111,12 @@
 
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
+	desc = "A thick layer of volcanic rock, specificially basalt."
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	icon_state = "basalt"
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
-	digResult = /obj/item/stack/ore/glass/basalt
 
 /// lava underneath
 /turf/simulated/floor/plating/asteroid/basalt/lava
@@ -215,9 +217,8 @@
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/snow
-	gender = PLURAL
 	name = "snow"
-	desc = "Looks cold."
+	desc = "A cold layer of accumulated ice crystals with a consistency ranging between fluffy powder and heavy sand. As more and more snow falls, the bottom layers will eventually be compacted into solid ice."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
@@ -231,7 +232,7 @@
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message("<span class='danger'>[src] melts away!.</span>")
+		visible_message(SPAN_DANGER("[src] melts away!."))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"
@@ -249,3 +250,9 @@
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/plating/asteroid/snow/mansus
+	temperature = 293.15
+	slowdown = 0
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null

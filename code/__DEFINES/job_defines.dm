@@ -1,3 +1,13 @@
+#define NONE_DIFFICULTY				0
+#define EASY_DIFFICULTY				1
+#define LOW_DIFFICULTY				2
+#define MEDIUM_DIFFICULTY			3
+#define HARD_DIFFICULTY				4
+#define VERY_HARD_DIFFICULTY		5
+#define EXTREMELY_HARD_DIFFICULTY	6
+
+#define MAX_DIFFICULTY				6
+
 ///////////////////////////////
 //          WARNING          //
 ////////////////////////////////////////////////////////////////////////
@@ -37,7 +47,7 @@
 #define JOB_ROBOTICIST			(1<<8)
 #define JOB_PARAMEDIC			(1<<9)
 #define JOB_CORONER				(1<<10)
-
+#define JOB_XENOBIOLOGIST		(1<<15)
 
 #define JOBCAT_SUPPORT			(1<<2)
 
@@ -56,3 +66,4 @@
 #define JOB_MIME				(1<<12)
 #define JOB_ASSISTANT			(1<<13)
 #define JOB_EXPLORER			(1<<14)
+#define JOB_SMITH				(1<<15)

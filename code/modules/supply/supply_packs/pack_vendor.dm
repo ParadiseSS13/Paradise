@@ -44,7 +44,6 @@
 	name = "Cigarette Supply Crate"
 	contains = list(/obj/item/vending_refill/cigarette)
 	containername = "cigarette supply crate"
-	containertype = /obj/structure/closet/crate
 
 /datum/supply_packs/vending/dinnerware
 	name = "Dinnerware Supply Crate"

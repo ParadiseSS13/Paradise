@@ -8,6 +8,10 @@
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
+	/// Text shown on the area's icon for map editors.
+	var/area_icon_text = null
+	/// Background color drawn on the area's icon for map editors.
+	var/area_icon_color = null
 	layer = AREA_LAYER
 	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0
@@ -61,6 +65,8 @@
 	var/list/firealarms
 	var/firedoors_last_closed_on = 0
 
+	/// Timer to stop ongoing fire alarm sounds
+	var/firealarm_sound_stop_timer = null
 	/// The air alarms present in this area.
 	var/list/air_alarms = list()
 	/// The list of vents in our area.
@@ -91,6 +97,9 @@
 	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
 	var/list/turret_controls = list()
 
+	/// Wire assignment for airlocks in this area
+	var/airlock_wires = /datum/wires/airlock
+
 	/// The flags applied to request consoles spawned in this area.
 	/// See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
 	var/request_console_flags = 0
@@ -109,6 +118,8 @@
 	*/
 	luminosity = TRUE
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	var/area_light_color = null
+	var/area_nightlight_color = null
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -301,10 +312,17 @@
 			continue
 
 		// At this point, the area is safe and the door is technically functional.
+		// Firedoors do not close automatically by default, and setting it to false when the alarm is off prevents unnecessary timers from being created. Emagged doors are permanently disabled from automatically closing, or being operated by alarms altogether apart from the lights.
+		if(!D.emagged)
+			if(opening)
+				D.autoclose = FALSE
+			else
+				D.autoclose = TRUE
 
 		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
-		if(D.welded)
+		if(D.welded || D.emagged)
 			continue // Alarm is toggled, but door stuck
+
 		if(D.operating)
 			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
 				continue
@@ -327,10 +345,9 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-			GLOB.firealarm_soundloop.start(F)
+		start_alarm_sounds()
+		if(!firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 4 MINUTES, TIMER_STOPPABLE | TIMER_UNIQUE)
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -341,6 +358,19 @@
 
 	START_PROCESSING(SSobj, src)
 
+/area/proc/start_alarm_sounds()
+	for(var/obj/machinery/firealarm/F in firealarms)
+		F.update_icon()
+		GLOB.firealarm_soundloop.start(F)
+	for(var/obj/machinery/alarm/A in air_alarms)
+		GLOB.firealarm_soundloop.start(A)
+
+/area/proc/stop_alarm_sounds()
+	for(var/obj/machinery/firealarm/F in firealarms)
+		F.update_icon()
+		GLOB.firealarm_soundloop.stop(F)
+	for(var/obj/machinery/alarm/A in air_alarms)
+		GLOB.firealarm_soundloop.stop(A)
 /**
   * Reset the firealarm alert for this area
   *
@@ -353,10 +383,10 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-			GLOB.firealarm_soundloop.stop(F, TRUE)
+		if(firealarm_sound_stop_timer)
+			deltimer(firealarm_sound_stop_timer)
+			firealarm_sound_stop_timer = null
+		stop_alarm_sounds()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)

@@ -28,6 +28,9 @@
 #define GLAND_HUD 			"23"//Gland indicators for abductors
 #define JANI_HUD			"24" // Sign overlay over cleanable decals
 #define PRESSURE_HUD		"25" // Pressure coloring for tiles
+#define MALF_AI_HUD			"26" // Malf status blips for borgs
+#define ANOMALOUS_HUD		"27" // Seeing anomalous particulate
+#define HERETIC_HUD			"28" // Seeing reality smashes and shit
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -44,22 +47,28 @@
 #define DATA_HUD_HYDROPONIC				7
 #define DATA_HUD_JANITOR				8
 #define DATA_HUD_PRESSURE				9
+#define DATA_HUD_MALF_AI				10
+#define DATA_HUD_ANOMALOUS				11
 //antag HUD defines
-#define ANTAG_HUD_CULT					10
-#define ANTAG_HUD_REV					11
-#define ANTAG_HUD_OPS					12
-#define ANTAG_HUD_WIZ					13
-#define ANTAG_HUD_SHADOW    			14
-#define ANTAG_HUD_TRAITOR 				15
-#define ANTAG_HUD_NINJA 				16
-#define ANTAG_HUD_CHANGELING 			17
-#define ANTAG_HUD_VAMPIRE 				18
-#define ANTAG_HUD_ABDUCTOR 				19
-#define DATA_HUD_ABDUCTOR				20
-#define ANTAG_HUD_EVENTMISC 			21
-#define ANTAG_HUD_BLOB 					22
-#define ANTAG_HUD_ZOMBIE 				23
-#define ANTAG_HUD_MIND_FLAYER 			24
+#define ANTAG_HUD_CULT					12
+#define ANTAG_HUD_REV					13
+#define ANTAG_HUD_OPS					14
+#define ANTAG_HUD_WIZ					15
+#define ANTAG_HUD_SHADOW    			16
+#define ANTAG_HUD_TRAITOR 				17
+#define ANTAG_HUD_NINJA 				18
+#define ANTAG_HUD_CHANGELING 			19
+#define ANTAG_HUD_VAMPIRE 				20
+#define ANTAG_HUD_ABDUCTOR 				21
+#define DATA_HUD_ABDUCTOR				22
+#define ANTAG_HUD_EVENTMISC 			23
+#define ANTAG_HUD_BLOB 					24
+#define ANTAG_HUD_ZOMBIE 				25
+#define ANTAG_HUD_MIND_FLAYER 			26
+#define DATA_HUD_HERETIC				27
+#define ANTAG_HUD_HERETIC	 			28
+#define ANTAG_HUD_HERETIC_BEAST			29
+#define ANTAG_HUD_UPLIFTED_TEAMLESS		30
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -75,9 +84,17 @@
 #define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
 
+// MALF Hud statuses
+#define EXAMINE_HUD_MALF_WRITE "malf_write"
+#define EXAMINE_HUD_MALF_READ "malf_read"
+#define MALF_STATUS_NONE "NULL"
+#define MALF_STATUS_GREEN "ASSIST"
+#define MALF_STATUS_RED "ELIMINATE"
+#define MALF_STATUS_AVOID "AVOID"
+
 /proc/ui_hand_position(i)
 	// values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
-	var/x_off = i % 2 ? 0 : -1
+	var/x_off = ISODD(i) ? 0 : -1
 	var/y_off = round((i-1) / 2)
 	return"CENTER+[x_off]:16,SOUTH+[y_off]:5"
 

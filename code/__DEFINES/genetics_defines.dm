@@ -18,6 +18,7 @@
 #define DISABILITY_FLAG_DIZZY       (1<<9)
 #define DISABILITY_FLAG_CHAV        (1<<10)
 #define DISABILITY_FLAG_DEAF        (1<<11)
+#define DISABILITY_FLAG_PARAPLEGIC	(1<<12)
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -56,7 +57,8 @@
 //Ventcrawling defines
 #define VENTCRAWLER_NONE   0
 #define VENTCRAWLER_NUDE   1
-#define VENTCRAWLER_ALWAYS 2
+#define VENTCRAWLER_SIGNAL 2
+#define VENTCRAWLER_ALWAYS 3
 
 //Used for calculations for negative effects of having genetics powers
 #define DEFAULT_GENE_STABILITY 100

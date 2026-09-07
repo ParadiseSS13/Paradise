@@ -4,8 +4,6 @@
 	var/allow_overlap = FALSE
 	var/auto_process = TRUE
 	var/qdel_in_time = 10
-	var/fadetype = "ion_fade"
-	var/fade = TRUE
 	var/nograv_required = FALSE
 
 /datum/effect_system/trail_follow/set_up(atom/atom)
@@ -42,9 +40,6 @@
 		if(!has_gravity(oldposition) || !nograv_required)
 			var/obj/effect/E = new effect_type(oldposition)
 			set_dir(E)
-			if(fade)
-				flick(fadetype, E)
-				E.icon_state = ""
 			if(qdel_in_time)
 				QDEL_IN(E, qdel_in_time)
 	oldposition = get_turf(holder)
@@ -97,10 +92,10 @@
 		do_sparks(2, 1, location)
 
 		for(var/mob/M in viewers(5, location))
-			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
+			to_chat(M, SPAN_WARNING("The solution violently explodes."))
 		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
-				to_chat(L, "<span class='warning'>The explosion knocks you down.</span>")
+				to_chat(L, SPAN_WARNING("The explosion knocks you down."))
 				L.Weaken(rand(2 SECONDS, 10 SECONDS))
 		return
 	else
@@ -123,9 +118,9 @@
 			flash += (round(amount/4) * flashing_factor)
 
 		for(var/mob/M in viewers(8, location))
-			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
+			to_chat(M, SPAN_WARNING("The solution violently explodes."))
 
-		explosion(location, devastation, heavy, light, flash)
+		explosion(location, devastation, heavy, light, flash, cause = "Reagents Explosion")
 
 /datum/effect_system/reagents_explosion/proc/holder_damage(atom/holder)
 	if(holder)

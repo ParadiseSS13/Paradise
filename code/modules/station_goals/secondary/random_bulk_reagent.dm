@@ -71,8 +71,8 @@
 	return copy
 
 /datum/secondary_goal_progress/random_bulk_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	// Not properly labeled for this goal? Ignore.
+	if(!check_goal_label(AM))
 		return
 
 	var/amount = AM.reagents?.get_reagent_amount(initial(reagent_type.id))

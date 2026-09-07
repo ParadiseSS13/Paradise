@@ -1,5 +1,5 @@
 .PoolController__Buttons {
   .Button:not(:last-child) {
-    margin-bottom: 8px;
+    margin-bottom: var(--space-ml);
   }
 }

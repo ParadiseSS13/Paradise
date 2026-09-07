@@ -1,10 +1,10 @@
 use dmmtools::dmm::{self, Coord3};
 use itertools::Itertools;
 
-use super::all_mapmanip_configs_execute_ffi;
+use super::all_mapmanip_configs_execute;
 
 fn print_diff(left: &str, right: &str) {
-    for (i, diff) in diff::lines(&left, &right).iter().enumerate() {
+    for (i, diff) in diff::lines(left, right).iter().enumerate() {
         match diff {
             diff::Result::Left(l) => println!("{} diff - : {}", i, l),
             diff::Result::Both(l, r) => {
@@ -16,7 +16,7 @@ fn print_diff(left: &str, right: &str) {
 }
 
 fn all_test_dmm() -> Vec<std::path::PathBuf> {
-    std::fs::read_dir("src/mapmanip/test-in")
+    std::fs::read_dir("src/mapmanip/test/")
         .unwrap()
         .map(|r| r.unwrap().path())
         .filter(|p| p.extension().unwrap() == "dmm")
@@ -36,25 +36,25 @@ fn to_grid_and_back() {
         let map_str_from_grid = crate::mapmanip::core::map_to_string(&dict_map_again).unwrap();
 
         dict_map_again
-            .to_file(&std::path::Path::new("src/mapmanip/test-out").join(path.file_name().unwrap()))
+            .to_file(&std::path::Path::new("src/mapmanip/test/").join(path.file_name().unwrap()))
             .unwrap();
 
         print_diff(&map_str_original, &map_str_from_grid);
 
         if map_str_original != map_str_from_grid {
-            assert!(false);
+            panic!("map from grid does not match original");
         }
     }
 }
 
 #[test]
 fn extract() {
-    let path_src = std::path::Path::new("src/mapmanip/test-in/_tiny_test_map.dmm");
-    let path_xtr = std::path::Path::new("src/mapmanip/test-in/extracted.dmm");
-    let path_xtr_out = std::path::Path::new("src/mapmanip/test-out/extracted_out.dmm");
+    let path_src = std::path::Path::new("src/mapmanip/test/_tiny_test_map.dmm");
+    let path_xtr = std::path::Path::new("src/mapmanip/test/extracted.dmm");
+    let path_xtr_out = std::path::Path::new("src/mapmanip/test/extracted_out.dmm");
 
-    let dict_map_src = dmmtools::dmm::Map::from_file(&path_src).unwrap();
-    let dict_map_xtr_expected = dmmtools::dmm::Map::from_file(&path_xtr).unwrap();
+    let dict_map_src = dmmtools::dmm::Map::from_file(path_src).unwrap();
+    let dict_map_xtr_expected = dmmtools::dmm::Map::from_file(path_xtr).unwrap();
 
     let grid_map_src = crate::mapmanip::core::to_grid_map(&dict_map_src);
     let grid_map_xtr = crate::mapmanip::tools::extract_submap(
@@ -82,14 +82,14 @@ fn extract() {
 
 #[test]
 fn insert() {
-    let path_xtr = std::path::Path::new("src/mapmanip/test-in/extracted.dmm");
-    let path_dst = std::path::Path::new("src/mapmanip/test-in/_tiny_test_map.dmm");
-    let path_dst_expected = std::path::Path::new("src/mapmanip/test-in/inserted.dmm");
+    let path_xtr = std::path::Path::new("src/mapmanip/test/extracted.dmm");
+    let path_dst = std::path::Path::new("src/mapmanip/test/_tiny_test_map.dmm");
+    let path_dst_expected = std::path::Path::new("src/mapmanip/test/inserted.dmm");
 
     let grid_map_dst_expected =
-        crate::mapmanip::core::GridMap::from_file(&path_dst_expected).unwrap();
-    let grid_map_xtr = crate::mapmanip::core::GridMap::from_file(&path_xtr).unwrap();
-    let mut grid_map_dst = crate::mapmanip::core::GridMap::from_file(&path_dst).unwrap();
+        crate::mapmanip::core::GridMap::from_file(path_dst_expected).unwrap();
+    let grid_map_xtr = crate::mapmanip::core::GridMap::from_file(path_xtr).unwrap();
+    let mut grid_map_dst = crate::mapmanip::core::GridMap::from_file(path_dst).unwrap();
     crate::mapmanip::tools::insert_submap(&grid_map_xtr, Coord3::new(6, 4, 1), &mut grid_map_dst)
         .unwrap();
 
@@ -110,8 +110,8 @@ fn keys_deduplicated() {
     // make sure that if multiple tiles have the same key_suggestion
     // they get assigned different keys
 
-    let path_src = std::path::Path::new("src/mapmanip/test-in/_tiny_test_map.dmm");
-    let dict_map_src = dmmtools::dmm::Map::from_file(&path_src).unwrap();
+    let path_src = std::path::Path::new("src/mapmanip/test/_tiny_test_map.dmm");
+    let dict_map_src = dmmtools::dmm::Map::from_file(path_src).unwrap();
     let grid_map_src = crate::mapmanip::core::to_grid_map(&dict_map_src);
 
     let mut grid_map_out = crate::mapmanip::core::to_grid_map(&dict_map_src);
@@ -143,7 +143,7 @@ fn mapmanip_configs_parse() {
     }];
     dbg!(serde_json::to_string(&foo).unwrap());
 
-    let mapmanip_configs = walkdir::WalkDir::new("../../maps")
+    let mapmanip_configs = walkdir::WalkDir::new("../_maps")
         .into_iter()
         .map(|d| d.unwrap().path().to_owned())
         .filter(|p| p.extension().is_some())
@@ -157,7 +157,5 @@ fn mapmanip_configs_parse() {
 
 #[test]
 fn mapmanip_configs_execute() {
-    // this is only "unsafe" cause that function is `extern "C"`
-    // it does not do anything actually unsafe
-    unsafe { all_mapmanip_configs_execute_ffi() }
+    all_mapmanip_configs_execute("../_maps".into());
 }

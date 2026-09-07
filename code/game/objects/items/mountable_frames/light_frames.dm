@@ -5,7 +5,6 @@
 	icon_state = "tube-construct-item"
 
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR
-	metal_sheets_refunded = 2
 	///specifies which type of light fixture this frame will build
 	var/fixture_type = "tube"
 
@@ -44,7 +43,6 @@
 /obj/item/mounted/frame/light_fixture/small
 	name = "small light fixture frame"
 	desc = "Used for building small lights."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-item"
 	fixture_type = "bulb"
 	metal_sheets_refunded = 1
@@ -52,7 +50,6 @@
 /obj/item/mounted/frame/light_fixture/floor
 	name = "floor light fixture frame"
 	desc = "Used for building floor lights."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floor-construct-item"
 	fixture_type = "floor"
 	metal_sheets_refunded = 3
@@ -70,19 +67,15 @@
 /obj/item/mounted/frame/light_fixture/clockwork/small
 	name = "brass small light fixture frame"
 	desc = "Used for building small brass lights."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "clockwork_bulb-construct-item"
 	fixture_type = "clockwork_bulb"
-	metal_sheets_refunded = 0
 	brass_sheets_refunded = 1
 
 /obj/item/mounted/frame/light_fixture/clockwork/floor
 	name = "brass floor light fixture frame"
 	desc = "Used for building brass floor lights."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "clockwork_floor-construct-item"
 	fixture_type = "clockwork_floor"
-	metal_sheets_refunded = 0
 	brass_sheets_refunded = 3
 	buildon_types = list(/turf/simulated/floor)
 	allow_floor_mounting = TRUE

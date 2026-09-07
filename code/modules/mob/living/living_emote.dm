@@ -24,6 +24,14 @@
 	message_param = "bows to %t."
 	message_postfix = "to %t."
 
+/datum/emote/living/sing_tune
+	key = "tunesing"
+	key_third_person = "sings a tune"
+	message = "sings a tune."
+	message_mime = "opens their mouth rather obnoxiously."
+	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("melodic")
+
 /datum/emote/living/burp
 	key = "burp"
 	key_third_person = "burps"
@@ -44,7 +52,6 @@
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses!"
-	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -56,11 +63,6 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily."
-
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps!"
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
@@ -74,7 +76,7 @@
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
-	message_robot = "shudders violently for a moment before falling still, its eyes slowly darkening."
+	message_robot = "shudders violently for a moment before falling still, their eyes slowly darkening."
 	message_AI = "screeches, its screen flickering as its systems slowly halt."
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor..."
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
@@ -186,8 +188,6 @@
 	message = "points."
 	message_param = "points at %t."
 	hands_use_check = TRUE
-	target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
-	emote_target_type = EMOTE_TARGET_ANY
 
 /datum/emote/living/point/act_on_target(mob/user, target)
 	if(!target)
@@ -202,11 +202,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.has_left_hand() && !H.has_right_hand())
-			if(H.get_num_legs() != 0)
+			if(H.get_num_legs() != 0 && !HAS_TRAIT(H, TRAIT_PARAPLEGIC))
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget
-				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
+				message_param = "[SPAN_USERDANGER("bumps [user.p_their()] head on the ground")] trying to motion towards %t."
 
 	return ..()
 
@@ -226,7 +226,8 @@
 	mob_type_blacklist_typecache = list(
 		// Humans and silicons get specialized scream.
 		/mob/living/carbon/human,
-		/mob/living/silicon
+		/mob/living/silicon,
+		/mob/living/brain
 	)
 	volume = 80
 
@@ -302,7 +303,6 @@
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "writhes in their sleep."
-	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
 	unintentional_stat_allowed = UNCONSCIOUS
@@ -400,7 +400,7 @@
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+		to_chat(user, SPAN_DANGER("Invalid emote."))
 		return TRUE
 	return FALSE
 
@@ -411,7 +411,7 @@
 	if(QDELETED(user))
 		return FALSE
 	else if(check_mute(user?.client?.ckey, MUTE_IC))
-		to_chat(user, "<span class='boldwarning'>You cannot send IC messages (muted).</span>")
+		to_chat(user, SPAN_BOLDWARNING("You cannot send IC messages (muted)."))
 		return FALSE
 	else if(!params)
 		custom_emote = tgui_input_text(user, "Choose an emote to display.", "Custom Emote")
@@ -423,7 +423,7 @@
 				if("Hearable")
 					custom_emote_type = EMOTE_AUDIBLE
 				else
-					to_chat(user,"<span class='warning'>Unable to use this emote, must be either hearable or visible.</span>")
+					to_chat(user,SPAN_WARNING("Unable to use this emote, must be either hearable or visible."))
 					return
 	else
 		custom_emote = params

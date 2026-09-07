@@ -1,10 +1,11 @@
 /obj/item/grenade
 	name = "grenade"
 	desc = "A hand held grenade with an adjustable timer."
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
-	item_state = "grenade"
+	worn_icon_state = "grenade"
+	inhand_icon_state = "grenade"
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 20
 	flags = CONDUCT
@@ -12,6 +13,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	flags_2 = RANDOM_BLOCKER_2
+	new_attack_chain = TRUE
 	/// Has the pin been pulled?
 	var/active = FALSE
 	/// Time between the pin being pulled and detonation.
@@ -20,6 +22,8 @@
 	var/display_timer = TRUE
 	/// Can the grenade's fuze time be changed?
 	var/modifiable_timer = TRUE
+	/// Allows the default `activate_self()` behavour to be fully overriden.
+	var/custom_activation = FALSE
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
@@ -27,24 +31,30 @@
 		return
 
 	if(det_time > 1)
-		. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
+		. += SPAN_NOTICE("The fuze is set to [det_time / 10] second\s.")
 	else
-		. += "<span class='warning'>[src] is set for instant detonation.</span>"
+		. += SPAN_WARNING("[src] is set for instant detonation.")
 
 	if(modifiable_timer)
-		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
+		. += SPAN_NOTICE("Use a screwdriver to modify the time on the fuze.")
 	else
-		. += "<span class='notice'>The fuze's time cannot be modified.</span>"
+		. += SPAN_NOTICE("The fuze's time cannot be modified.")
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
+		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
+		message_admins("Damage has caused [src] to be primed for detonation at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+		log_game("Damage has caused [src] has be primed for detonation at [A] ([bombturf.x],[bombturf.y],[bombturf.z])")
+		investigate_log("Damage has caused [src] has be primed for detonation at [A] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+		add_attack_logs(null, src, "has primed for detonation by damage.", ATKLOG_FEW)
 		prime()
 	if(!QDELETED(src))
 		qdel(src)
 
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
+		to_chat(user, SPAN_WARNING("Huh? How does this thing work?"))
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
@@ -55,13 +65,20 @@
 		return FALSE
 	return TRUE
 
-/obj/item/grenade/attack_self__legacy__attackchain(mob/user as mob)
-	if(active)
-		return
-	if(!clown_check(user))
-		return
+/obj/item/grenade/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='danger'>You prime [src]! [det_time / 10] seconds!</span>")
+	if(custom_activation)
+		return // Let the child proc cook.
+
+	if(active)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!clown_check(user))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_DANGER("You prime [src]! [det_time / 10] seconds!"))
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
 	add_fingerprint(user)
@@ -76,6 +93,7 @@
 		C.throw_mode_on()
 	spawn(det_time)
 		prime()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/proc/prime()
 	return
@@ -92,16 +110,16 @@
 	switch(det_time)
 		if(1 DECISECONDS)
 			det_time = 1 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
+			to_chat(user, SPAN_NOTICE("You set [src] for 1 second detonation time."))
 		if(1 SECONDS)
 			det_time = 3 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+			to_chat(user, SPAN_NOTICE("You set [src] for 3 second detonation time."))
 		if(3 SECONDS)
 			det_time = 5 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+			to_chat(user, SPAN_NOTICE("You set [src] for 5 second detonation time."))
 		if(5 SECONDS)
 			det_time = 1 DECISECONDS
-			to_chat(user, "<span class='warning'>You set [src] for instant detonation.</span>")
+			to_chat(user, SPAN_WARNING("You set [src] for instant detonation."))
 	add_fingerprint(user)
 	return TRUE
 
@@ -118,7 +136,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
-	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
+	to_chat(user, SPAN_WARNING("You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you..."))
 	AddComponent(/datum/component/boomerang, throw_range, TRUE)
 	return TRUE
 

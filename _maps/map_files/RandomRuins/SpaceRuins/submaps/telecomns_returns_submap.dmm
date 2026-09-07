@@ -9,16 +9,43 @@
 /obj/structure/table/glass/reinforced/plasma,
 /turf/simulated/floor/engine,
 /area/template_noop)
+"bC" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/indestructible/syndicate,
+/area/template_noop)
 "cl" = (
-/mob/living/simple_animal/hostile/alien/queen/large,
+/mob/living/basic/alien/queen/large,
 /turf/template_noop,
+/area/template_noop)
+"cC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
 /area/template_noop)
 "da" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/template_noop)
 "dD" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/template_noop,
+/area/template_noop)
+"dY" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
+"eK" = (
+/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/alarm/server/directional/south,
+/turf/simulated/floor/engine,
 /area/template_noop)
 "fm" = (
 /obj/machinery/light{
@@ -30,35 +57,39 @@
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms{
 	advanced_bullet_dodge_chance = 15
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "fK" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/kitchen/knife,
+/obj/structure/sign/poster/contraband/random/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "fM" = (
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
 /turf/template_noop,
 /area/template_noop)
+"gz" = (
+/obj/machinery/alarm/server/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
 "gY" = (
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/template_noop,
 /area/template_noop)
 "hf" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "ia" = (
-/mob/living/simple_animal/hostile/malf_drone,
+/mob/living/basic/malf_drone,
 /turf/template_noop,
 /area/template_noop)
 "ir" = (
@@ -69,7 +100,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -92,6 +122,10 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine,
 /area/template_noop)
+"kl" = (
+/obj/structure/sign/poster/contraband/random/directional/north,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
 "lq" = (
 /obj/machinery/light{
 	dir = 8
@@ -105,6 +139,17 @@
 /obj/structure/bed,
 /obj/item/bedsheet/green,
 /turf/template_noop,
+/area/template_noop)
+"mx" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	layer = 2.4;
+	on = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "mE" = (
 /obj/effect/spawner/random/telecomms_weldertank_maybe,
@@ -122,6 +167,12 @@
 /obj/structure/bed/nest,
 /turf/template_noop,
 /area/template_noop)
+"nC" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/template_noop,
+/area/template_noop)
 "ok" = (
 /obj/machinery/light{
 	dir = 1
@@ -130,7 +181,6 @@
 /area/template_noop)
 "oT" = (
 /obj/item/cigbutt,
-/obj/machinery/light,
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
@@ -138,7 +188,6 @@
 /area/template_noop)
 "oU" = (
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
@@ -154,10 +203,11 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
+	initial_eprojectile = /obj/projectile/beam/laser/ai_turret/heavylaser;
 	ailock = 1;
 	check_borgs = 1
 	},
+/obj/effect/turf_decal/trimline/department/security,
 /turf/template_noop,
 /area/template_noop)
 "qV" = (
@@ -173,6 +223,12 @@
 /obj/structure/alien/weeds/node,
 /turf/template_noop,
 /area/template_noop)
+"rU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
 "sl" = (
 /obj/machinery/economy/vending/wallmed/directional/south,
 /turf/template_noop,
@@ -187,10 +243,6 @@
 /obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/simulated/floor/engine,
 /area/template_noop)
-"wd" = (
-/obj/structure/sign/poster/contraband/smoke,
-/turf/template_noop,
-/area/template_noop)
 "wp" = (
 /obj/structure/marker_beacon/dock_marker/collision,
 /turf/template_noop,
@@ -203,6 +255,10 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
+"xa" = (
+/obj/effect/spawner/random/fungus/maybe,
+/turf/simulated/wall/indestructible/syndicate,
 /area/template_noop)
 "xI" = (
 /obj/structure/alien/resin/door,
@@ -232,6 +288,7 @@
 	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/trimline/department/security,
 /turf/template_noop,
 /area/template_noop)
 "zm" = (
@@ -249,7 +306,6 @@
 /area/template_noop)
 "Dm" = (
 /obj/machinery/status_display{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/spawner/random/telecomms_doomba_one_in_twenty,
@@ -257,14 +313,14 @@
 /area/template_noop)
 "DH" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/dvorak/vendor_room,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/template_noop)
 "Ep" = (
 /obj/effect/spawner/random/barrier/obstruction,
 /turf/template_noop,
 /area/template_noop)
 "EF" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -277,12 +333,19 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"Fj" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	layer = 2.4;
+	on = 1
+	},
+/turf/simulated/floor/engine,
+/area/template_noop)
 "FD" = (
 /obj/machinery/economy/vending/snack/trapped,
 /obj/item/radio/intercom{
-	name = "station intercom (General)";
 	pixel_x = -28;
-	pixel_y = 0;
 	broadcasting = 1
 	},
 /obj/structure/environmental_storytelling_holopad/vendor,
@@ -296,6 +359,11 @@
 "Gh" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
+/area/template_noop)
+"Gj" = (
+/obj/structure/sign/poster/contraband/smoke/directional/north,
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/engine,
 /area/template_noop)
 "Gx" = (
 /obj/machinery/computer/nonfunctional,
@@ -317,12 +385,19 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"Jo" = (
-/obj/machinery/light/small,
+"JI" = (
+/obj/machinery/camera/tracking_head/dvorak,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
+"Lg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
+"Lx" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/turf/template_noop,
+/turf/simulated/floor/engine,
 /area/template_noop)
 "LC" = (
 /obj/machinery/light{
@@ -334,12 +409,18 @@
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/template_noop,
 /area/template_noop)
+"NS" = (
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/template_noop)
 "NZ" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/template_noop,
 /area/template_noop)
 "OI" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -348,6 +429,12 @@
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms{
 	advanced_bullet_dodge_chance = 15
+	},
+/turf/simulated/floor/engine,
+/area/template_noop)
+"Ps" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/engine,
 /area/template_noop)
@@ -361,17 +448,13 @@
 /turf/template_noop,
 /area/template_noop)
 "RE" = (
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/template_noop,
 /area/template_noop)
 "RH" = (
 /obj/structure/table/glass/reinforced/plasma,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/engine,
-/area/template_noop)
-"SE" = (
-/obj/structure/sign/poster/contraband,
-/turf/simulated/wall/indestructible/syndicate,
 /area/template_noop)
 "SS" = (
 /obj/structure/window/plasmareinforced{
@@ -382,16 +465,30 @@
 "SX" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
+"Te" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/engine,
+/area/template_noop)
 "Ul" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/template_noop,
+/area/template_noop)
+"UP" = (
+/mob/living/basic/viscerator{
+	faction = list("malf_drone")
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "Vd" = (
 /obj/machinery/economy/vending/snack/trapped,
 /obj/item/radio/intercom{
-	name = "station intercom (General)";
 	pixel_x = -28;
-	pixel_y = 0;
 	broadcasting = 1
 	},
 /obj/structure/environmental_storytelling_holopad/vendor,
@@ -419,7 +516,7 @@
 /area/template_noop)
 "XT" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/storage/firstaid/ert,
 /turf/template_noop,
 /area/template_noop)
@@ -428,7 +525,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Ze" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -437,9 +534,6 @@
 /area/template_noop)
 "Zf" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /obj/item/grenade/frag,
 /obj/structure/table/glass/reinforced/plasma,
 /turf/simulated/floor/engine,
@@ -670,7 +764,7 @@ qr
 qr
 yI
 qr
-qr
+nC
 qr
 qr
 qr
@@ -712,7 +806,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -997,9 +1091,9 @@ yC
 SS
 wT
 Vd
-SS
+mx
 lq
-yC
+xa
 qr
 qr
 qr
@@ -1039,8 +1133,8 @@ yC
 fm
 SX
 SX
-SX
-SX
+rU
+NS
 yC
 qr
 qr
@@ -1081,8 +1175,8 @@ yC
 oU
 OI
 OI
-OI
-SX
+UP
+Lg
 qr
 qr
 qr
@@ -1090,7 +1184,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -1120,7 +1214,7 @@ qr
 (17,1,1) = {"
 qr
 yC
-SX
+JI
 OI
 OI
 OI
@@ -1132,7 +1226,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1161,12 +1255,12 @@ qr
 "}
 (18,1,1) = {"
 qr
-SE
-SX
+yC
+kl
 OI
 OI
 OI
-SX
+gz
 yC
 qr
 qr
@@ -1208,7 +1302,7 @@ iP
 Ze
 EF
 fK
-SX
+dY
 yC
 qr
 qr
@@ -1247,10 +1341,10 @@ qr
 qr
 da
 yC
+xa
 yC
 yC
-SE
-yC
+bC
 da
 qr
 qr
@@ -1552,7 +1646,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -1594,7 +1688,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -1753,7 +1847,7 @@ qr
 XJ
 OT
 qV
-jV
+Fj
 Bc
 qr
 qr
@@ -1795,8 +1889,8 @@ qr
 ok
 nb
 mE
-qV
-qV
+cC
+Lx
 qr
 qr
 qr
@@ -1837,7 +1931,7 @@ qr
 Dm
 qV
 XJ
-qV
+Ps
 fD
 qr
 qr
@@ -1875,8 +1969,8 @@ qr
 "}
 (35,1,1) = {"
 qr
-wd
-qV
+qr
+Gj
 jV
 qV
 qV
@@ -1922,7 +2016,7 @@ RH
 WK
 qV
 mE
-nb
+eK
 qr
 qr
 qr
@@ -1964,7 +2058,7 @@ bl
 nb
 HU
 uH
-qV
+Te
 qr
 qr
 qr
@@ -1972,7 +2066,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -2014,7 +2108,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr
@@ -2392,7 +2486,7 @@ qr
 qr
 qr
 qr
-qr
+nC
 qr
 qr
 qr
@@ -2434,7 +2528,7 @@ qr
 qr
 qr
 qr
-Jo
+mR
 qr
 qr
 qr

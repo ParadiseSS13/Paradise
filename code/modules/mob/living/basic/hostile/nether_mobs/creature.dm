@@ -1,0 +1,20 @@
+/mob/living/basic/creature
+	name = "creature"
+	desc = "A sanity-destroying otherthing."
+	speak_emote = list("gibbers")
+	icon_state = "otherthing"
+	icon_living = "otherthing"
+	icon_dead = "otherthing-dead"
+	health = 80
+	maxHealth = 80
+	obj_damage = 100
+	melee_damage_lower = 25
+	melee_damage_upper = 50
+	melee_attack_cooldown_min = 1.5 SECONDS
+	melee_attack_cooldown_max = 2.5 SECONDS
+	attack_verb_simple = "chomp"
+	attack_verb_continuous = "chomps"
+	attack_sound = 'sound/weapons/bite.ogg'
+	faction = list("creature")
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
+	gold_core_spawnable = HOSTILE_SPAWN

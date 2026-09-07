@@ -55,34 +55,34 @@
 	if(toggle)
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
-		armour_penetration_percentage = initial(armour_penetration_percentage)
+		armor_penetration_percentage = initial(armor_penetration_percentage)
 		obj_damage = initial(obj_damage)
 		environment_smash = initial(environment_smash)
 		alpha = initial(alpha)
 		if(!forced)
-			to_chat(src, "<span class='danger'>You exit stealth.</span>")
+			to_chat(src, SPAN_DANGER("You exit stealth."))
 		else
-			visible_message("<span class='danger'>[src] suddenly appears!</span>")
+			visible_message(SPAN_DANGER("[src] suddenly appears!"))
 			stealthcooldown = world.time + default_stealth_cooldown //we were forced out of stealth and go on cooldown
 			cooldown = world.time + 40 //can't recall for 4 seconds
 		updatestealthalert()
 		toggle = FALSE
 	else if(stealthcooldown <= world.time)
 		if(loc == summoner)
-			to_chat(src, "<span class='notice'>You automatically deploy stealthed!</span>")
+			to_chat(src, SPAN_NOTICE("You automatically deploy stealthed!"))
 			return
 		melee_damage_lower = 50
 		melee_damage_upper = 50
-		armour_penetration_percentage = 100
+		armor_penetration_percentage = 100
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE
 		alpha = 10
 		if(!forced)
-			to_chat(src, "<span class='danger'>You enter stealth, becoming mostly invisible, empowering your next attack.</span>")
+			to_chat(src, SPAN_DANGER("You enter stealth, becoming mostly invisible, empowering your next attack."))
 		updatestealthalert()
 		toggle = TRUE
 	else if(!forced)
-		to_chat(src, "<span class='danger'>You cannot yet enter stealth, wait another [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] seconds!</span>")
+		to_chat(src, SPAN_DANGER("You cannot yet enter stealth, wait another [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] seconds!"))
 
 /mob/living/simple_animal/hostile/guardian/assassin/proc/updatestealthalert()
 	if(stealthcooldown <= world.time)

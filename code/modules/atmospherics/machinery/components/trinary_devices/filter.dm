@@ -11,6 +11,10 @@
 #define FILTER_CO2 3
 /// Nitrous oxide only.
 #define FILTER_N2O 4
+/// Hydrogen only.
+#define FILTER_H2  5
+/// Water vapor only.
+#define FILTER_H2O 6
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
@@ -28,7 +32,9 @@
 		"O2" = FILTER_OXYGEN,
 		"N2" = FILTER_NITROGEN,
 		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O
+		"N2O" = FILTER_N2O,
+		"H2"  = FILTER_H2,
+		"H2O" = FILTER_H2O,
 	)
 
 // So we can CtrlClick without triggering the anchored message.
@@ -38,21 +44,21 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
@@ -94,7 +100,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
-	if(!on)
+	if((stat & (NOPOWER|BROKEN)) || !on)
 		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
@@ -144,6 +150,15 @@
 			if(FILTER_N2O)
 				filtered_out.set_sleeping_agent(removed.sleeping_agent())
 				removed.set_sleeping_agent(0)
+
+			if(FILTER_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
+
+			if(FILTER_H2O)
+				filtered_out.set_water_vapor(removed.water_vapor())
+				removed.set_water_vapor(0)
+
 			else
 				filtered_out = null
 
@@ -170,7 +185,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, SPAN_ALERT("Access denied."))
 		return
 
 	add_fingerprint(user)
@@ -205,12 +220,12 @@
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("set_filter")
 			filter_type = text2num(params["filter"])
-			investigate_log("was set to filter [filter_type] by [key_name(usr)]", "atmos")
+			investigate_log("was set to filter [filter_type] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("max_pressure")
@@ -225,14 +240,14 @@
 			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/filter/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else
-		return ..()
+/obj/machinery/atmospherics/trinary/filter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 #undef FILTER_NOTHING
 #undef FILTER_TOXINS
@@ -240,3 +255,5 @@
 #undef FILTER_NITROGEN
 #undef FILTER_CO2
 #undef FILTER_N2O
+#undef FILTER_H2
+#undef FILTER_H2O

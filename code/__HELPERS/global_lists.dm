@@ -17,7 +17,7 @@
 	//underwear
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f, GLOB.undershirt_full_list)
 	//socks
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list, GLOB.socks_m, GLOB.socks_f)
 	//alt heads
@@ -33,6 +33,8 @@
 	__init_body_accessory(/datum/body_accessory/tail)
 	// Different wings
 	__init_body_accessory(/datum/body_accessory/wing)
+	// Different spines
+	__init_body_accessory(/datum/body_accessory/spines)
 
 	// Setup species:accessory relations
 	initialize_body_accessory_by_species()
@@ -72,7 +74,7 @@
 		var/datum/pai_software/P = new type()
 		if(GLOB.pai_software_by_key[P.id])
 			var/datum/pai_software/O = GLOB.pai_software_by_key[P.id]
-			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
+			to_chat(world, SPAN_WARNING("pAI software module [P.name] has the same key as [O.name]!"))
 			continue
 		GLOB.pai_software_by_key[P.id] = P
 
@@ -118,13 +120,26 @@
 
 		GLOB.gear_datums[gear_type] = gear
 
+	for(var/quirk_path in subtypesof(/datum/quirk))
+		var/datum/quirk/quirk = quirk_path
+		if(!quirk || !quirk.name) // Filter out quirks without names so we don't show basetypes
+			continue
+		quirk = new quirk_path
+		var/list/data = list(
+			"name" = quirk.name,
+			"desc" = quirk.desc,
+			"cost" = quirk.cost,
+			"path" = quirk.type,
+			"conflicts" = quirk.conflicting_quirks,
+		)
+		GLOB.quirk_paths[quirk.name] = quirk.type // This will let us get the datum of a quirk with just the name later.
+		GLOB.quirk_tgui_info += list(data)
+
 	// Setup a list of robolimbs
 	GLOB.basic_robolimb = new()
 	for(var/limb_type in typesof(/datum/robolimb))
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
-		if(R.selectable)
-			GLOB.selectable_robolimbs[R.company] = R
 
 	// Setup world topic handlers
 	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
@@ -145,6 +160,11 @@
 	sortTim(GLOB.client_login_processors, GLOBAL_PROC_REF(cmp_login_processor_priority))
 
 	GLOB.emote_list = init_emote_list()
+
+	GLOB.chemical_reagents_list = init_reagent_list()
+
+	// Set up PCWJ recipes
+	initialize_cooking_recipes()
 
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
@@ -173,6 +193,8 @@
 	for(var/path in subtypesof(/datum/tech))
 		var/datum/tech/T = path
 		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
+
+	populate_global_drink_lists()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
@@ -225,3 +247,10 @@
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+/// Initialises all of /datum/reagent into a list indexed by reagent id.
+/proc/init_reagent_list()
+	. = list()
+	for(var/path in subtypesof(/datum/reagent))
+		var/datum/reagent/R = new path()
+		.[R.id] = R

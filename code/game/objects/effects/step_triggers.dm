@@ -43,7 +43,7 @@
 
 /obj/effect/step_trigger/message/Trigger(mob/M)
 	if(M.client)
-		to_chat(M, "<span class='notice'>[message]</span>")
+		to_chat(M, SPAN_NOTICE("[message]"))
 		if(once)
 			qdel(src)
 
@@ -190,3 +190,16 @@
 
 	if(happens_once)
 		qdel(src)
+
+/obj/effect/step_trigger/flicker_lights
+	mobs_only = TRUE // as funny as it'd be to have ghosts trigger this
+	name = "Flicker Lights"
+
+/obj/effect/step_trigger/flicker_lights/Trigger(mob/living/carbon/M, atom/movable/A)
+	var/turf/T = get_turf(A)
+	if(M)
+		for(var/obj/machinery/light/L in range(3, T))
+			if(!istype(get_area(L), /area/station/maintenance/fpmaint2))
+				continue
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, get_spooked))
+			qdel(src)

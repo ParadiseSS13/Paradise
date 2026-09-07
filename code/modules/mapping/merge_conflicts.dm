@@ -13,7 +13,7 @@
 /proc/announce_merge_conflict_marker(atom/origin)
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(origin)]! Please manually address all potential merge conflicts!!!"
 	warning(msg)
-	to_chat(world, "<span class='boldannounceooc'>[msg]</span>")
+	to_chat(world, SPAN_BOLDANNOUNCEOOC("[msg]"))
 
 /obj/merge_conflict_marker
 	name = MERGE_CONFLICT_MARKER_NAME

@@ -7,6 +7,8 @@
 		list("name" = "\[O2\]", "icon" = "blue"),
 		list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
 		list("name" = "\[CO2\]", "icon" = "black"),
+		list("name" = "\[H2\]", "icon" = "white"),
+		list("name" = "\[H2O\]", "icon" = "lightgrey"),
 		list("name" = "\[Air\]", "icon" = "grey"),
 		list("name" = "\[CAUTION\]", "icon" = "yellow"),
 		list("name" = "\[SPECIAL\]", "icon" = "whiters")
@@ -58,8 +60,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	density = TRUE
 	flags = CONDUCT
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
-	max_integrity = 250
 	integrity_failure = 100
+	cares_about_temperature = TRUE
 
 	var/valve_open = FALSE
 	var/release_pressure = ONE_ATMOSPHERE
@@ -75,7 +77,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
-	power_state = NO_POWER_USE
 	interact_offline = TRUE
 	var/release_log = ""
 	var/current_pressure_appearance
@@ -115,11 +116,11 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Connect a canister to a connector port using a wrench. To fill a tank, attach it to the caniser, increase the \
+	. += SPAN_NOTICE("Connect a canister to a connector port using a wrench. To fill a tank, attach it to the canister, increase the \
 			release pressure, and open the valve. Alt-click to eject the tank, or use another to hot-swap. A gas analyzer can be used to check \
-			the contents of the canister.</span>"
+			the contents of the canister.")
 	if(isAntag(user))
-		. += "<span class='notice'>Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open.</span>"
+		. += SPAN_NOTICE("Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open.")
 
 /obj/machinery/atmospherics/portable/canister/proc/pressure_to_appearance(tank_pressure)
 	if(tank_pressure < 10)
@@ -166,7 +167,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	else if(current_pressure_appearance == EXTREME_PRESSURE)
 		. += "can-o3"
 
-/obj/machinery/atmospherics/portable/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/atmospherics/portable/canister/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > temperature_resistance)
 		take_damage(5, BURN, 0)
@@ -200,6 +201,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		holding_tank = null
 
 	T.blind_release_air(expelled_gas)
+	if(attack_info)
+		investigate_log("canister destroyed, last attacked by [attack_info.last_attacker_html()][attack_info.last_weapon()]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/canister/proc/sync_pressure_appearance()
 	var/new_pressure_appearance = pressure_to_appearance(air_contents.return_pressure())
@@ -269,10 +272,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", "atmos")
+			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", INVESTIGATE_ATMOS)
 
 		else if(valve_open && holding_tank)
-			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", "atmos")
+			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/canister/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -332,7 +335,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 						name = "canister"
 					update_appearance(UPDATE_NAME)
 				else
-					to_chat(ui.user, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+					to_chat(ui.user, SPAN_WARNING("As you attempted to rename it the pressure rose!"))
 					. = FALSE
 
 		if("pressure")
@@ -351,7 +354,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				pressure = text2num(pressure)
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-				investigate_log("was set to [release_pressure] kPa by [key_name(ui.user)].", "atmos")
+				investigate_log("was set to [release_pressure] kPa by [key_name(ui.user)].", INVESTIGATE_ATMOS)
 
 		if("valve")
 			var/logmsg
@@ -372,10 +375,15 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 						log_admin("[key_name(ui.user)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 						ui.user.create_log(MISC_LOG, "has opened a canister of N2O")
 
+					if(air_contents.hydrogen() > 0)
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains Hydrogen in [get_area(src)]! (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						log_admin("[key_name(ui.user)] opened a canister that contains Hydrogen at [get_area(src)]: [x], [y], [z]")
+						ui.user.create_log(MISC_LOG, "has opened a canister of Hydrogen")
+
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(ui.user)], stopping the transfer into the [holding_tank || "air"].<br>"
 
-			investigate_log(logmsg, "atmos")
+			investigate_log(logmsg, INVESTIGATE_ATMOS)
 			release_log += logmsg
 
 		if("eject")
@@ -406,6 +414,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	. = ..()
 	update_icon()
 
+/obj/machinery/atmospherics/portable/canister/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
+	store_last_attacker(user, attacker)
+
+/obj/machinery/atmospherics/portable/canister/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	store_last_attacker(M)
+
 /obj/machinery/atmospherics/portable/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "orange" //See Initialize()
@@ -426,15 +442,24 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[CO2\]"
 	icon_state = "black" //See Initialize()
 	can_label = FALSE
+/obj/machinery/atmospherics/portable/canister/hydrogen
+	name = "Canister \[H2\]"
+	icon_state = "white" //See Initialize()
+	can_label = FALSE
+/obj/machinery/atmospherics/portable/canister/water_vapor
+	name = "Canister \[H2O\]"
+	icon_state = "lightgrey" //See Initialize()
+	can_label = FALSE
+
 /obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
 	can_label = FALSE
+
 /obj/machinery/atmospherics/portable/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "whiters" //See Initialize()
 	can_label = FALSE
-
 
 /obj/machinery/atmospherics/portable/canister/toxins/Initialize(mapload)
 	. = ..()
@@ -477,6 +502,22 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	update_icon()
 
+/obj/machinery/atmospherics/portable/canister/hydrogen/Initialize(mapload)
+	. = ..()
+
+	canister_color["prim"] = "white"
+	air_contents.set_hydrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
+	. = ..()
+
+	canister_color["prim"] = "lightgrey"
+	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+
+	update_icon()
+
 /obj/machinery/atmospherics/portable/canister/air/Initialize(mapload)
 	. = ..()
 
@@ -502,7 +543,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You salvage whats left of [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You salvage whats left of [src]!"))
 		new /obj/item/stack/sheet/metal(drop_location(), 3)
 		qdel(src)
 

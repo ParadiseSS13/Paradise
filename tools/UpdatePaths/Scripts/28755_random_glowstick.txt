@@ -1,0 +1,1 @@
+/obj/item/flashlight/flare/glowstick/random : /obj/effect/spawner/random/glowstick

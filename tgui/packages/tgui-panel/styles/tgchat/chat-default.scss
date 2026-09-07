@@ -8,13 +8,12 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
-  image-rendering: pixelated;
 }
 
 img.icon {
   height: 1em;
   min-height: 16px;
+  min-width: 16px;
   width: auto;
   vertical-align: bottom;
 }
@@ -91,6 +90,14 @@ h2.alert {
   font-family: 'OCR-A', monospace;
   font-size: 1.15em;
   font-weight: bold;
+}
+
+.robotemote {
+  font-family: 'OCR-A', monospace;
+  font-size: 1.15em;
+  font-weight: bold;
+  font-style: italic;
+  color: #6685f5;
 }
 
 .hidden {
@@ -178,12 +185,12 @@ h2.alert {
 }
 
 .mentor_channel {
-  color: #775bff;
+  color: #b4af13;
   font-weight: bold;
 }
 
 .mentor_channel_admin {
-  color: #a35cff;
+  color: #f1ec50;
   font-weight: bold;
 }
 
@@ -226,6 +233,16 @@ h2.alert {
 
 .dev_channel_admin {
   color: #9ef14f;
+  font-weight: bold;
+}
+
+.staff_channel {
+  color: #775bff;
+  font-weight: bold;
+}
+
+.staff_channel_admin {
+  color: #a35cff;
   font-weight: bold;
 }
 
@@ -349,6 +366,12 @@ h2.alert {
 .boldnotice {
   color: #6685f5;
   font-weight: bold;
+}
+
+.subtle {
+  color: #8a72c5;
+  font-style: italic;
+  font-size: 85%;
 }
 
 .suicide {
@@ -499,7 +522,7 @@ h2.alert {
 
 .mind_control {
   color: #a00d6f;
-  font-size: 3;
+  font-size: 120%;
   font-weight: bold;
   font-style: italic;
 }
@@ -544,16 +567,6 @@ h2.alert {
   font-style: italic;
 }
 
-.zombie {
-  color: #7c4848;
-}
-
-.zombielarge {
-  color: #7c4848;
-  font-weight: bold;
-  font-size: 120%;
-}
-
 // MARK: MEGAFAUNA
 .colossus {
   color: #7f282a;
@@ -568,7 +581,9 @@ h2.alert {
 
 .hierophant_warning {
   color: #660099;
+  font-weight: bold;
   font-style: italic;
+  font-size: 175%;
 }
 
 // MARK: Languages
@@ -584,12 +599,18 @@ h2.alert {
   color: #8282fb;
 }
 
-.com_zvezhan {
+.com_cygni {
   color: #7c4848;
 }
 
 .zombie {
-  color: #ff0000;
+  color: #7c4848;
+}
+
+.zombielarge {
+  color: #7c4848;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .soghun {
@@ -625,6 +646,10 @@ h2.alert {
 .moth {
   color: #869b29;
   font-family: 'Copperplate';
+}
+
+.skulk {
+  color: #b178b1;
 }
 
 .clown {
@@ -698,6 +723,11 @@ h2.alert {
   color: #cccccc;
 }
 
+.flocksay {
+  color: #6fbbac;
+  font-family: Verdana;
+}
+
 // MARK: Syndicate codewords
 span.body .codephrases {
   color: #5555ff;
@@ -730,6 +760,14 @@ span.body .coderesponses {
 
 .agent_b {
   color: teal;
+}
+
+.hydrogen {
+  color: #997379;
+}
+
+.water_vapor {
+  color: darkslateblue;
 }
 
 // MARK: Boxed messages

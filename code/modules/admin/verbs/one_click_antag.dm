@@ -1,15 +1,3 @@
-/client/proc/one_click_antag()
-	set name = "Create Antagonist"
-	set desc = "Auto-create an antagonist of your choice"
-	set category = "Event"
-
-	if(!check_rights(R_SERVER|R_EVENT))	return
-
-	if(holder)
-		holder.one_click_antag()
-	return
-
-
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
@@ -22,6 +10,7 @@
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
 		<a href='byond://?src=[UID()];makeAntag=9'>Make Event Characters</a><br>
+		<a href='byond://?src=[UID()];makeAntag=10'>Make Heretics</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -36,7 +25,7 @@
 		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.species_to_mindflayer))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
-		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
+		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.persistent.skip_antag && (!jobban_isbanned(M, role)))
 			return TRUE
 		else
 			return FALSE
@@ -69,9 +58,10 @@
 			H = pick(candidates)
 			H.mind.make_Traitor()
 			candidates.Remove(H)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Traitor with One-Click-Antag")
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/admins/proc/makeChangelings()
@@ -100,9 +90,10 @@
 			H = pick(candidates)
 			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Changeling with One-Click-Antag")
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeRevs()
 
@@ -130,14 +121,15 @@
 			H = pick(candidates)
 			H?.mind?.add_antag_datum(/datum/antagonist/rev/head)
 			candidates.Remove(H)
-		return 1
-	return 0
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Revolutionary with One-Click-Antag")
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeWizard()
 
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
-		return 0
+		return FALSE
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", "wizard", source = I)
 
@@ -151,6 +143,7 @@
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.add_antag_datum(/datum/antagonist/wizard)
 		new_character.forceMove(pick(GLOB.wizardstart))
+		message_admins("[key_name(owner)] made [key_name_admin(new_character)] a Wizard with One-Click-Antag")
 		dust_if_respawnable(selected)
 		return TRUE
 	return FALSE
@@ -184,6 +177,7 @@
 
 		var/datum/antagonist/cultist/cultist = H.mind.add_antag_datum(/datum/antagonist/cultist)
 		cultist.equip_roundstart_cultist(H)
+		message_admins("[key_name(owner)] made [key_name_admin(H)] a Cultist with One-Click-Antag")
 	return TRUE
 
 //Abductors
@@ -191,13 +185,13 @@
 
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
-		return 0
+		return FALSE
 	new /datum/event/abductor
 
 	log_admin("[key_name(owner)] tried making Abductors with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Abductors with One-Click-Antag")
 
-	return 1
+	return TRUE
 
 /datum/admins/proc/makeAliens()
 	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
@@ -284,10 +278,11 @@
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
 			H.mind.make_vampire()
+			message_admins("[key_name(owner)] made [key_name_admin(H)] a Vampire with One-Click-Antag")
 			candidates.Remove(H)
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeMindflayers()
 	var/datum/game_mode/vampire/temp = new()
@@ -309,8 +304,41 @@
 	for(var/i in 1 to num_mindflayers)
 		var/datum/mind/flayer = pick_n_take(possible_mindflayers)
 		flayer.make_mind_flayer()
+		message_admins("[key_name(owner)] made [key_name_admin(flayer)] a Mindflayer with One-Click-Antag")
 	qdel(temp)
 	return TRUE
+
+/datum/admins/proc/makeHeretics()
+	var/datum/game_mode/traitor/temp = new
+
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many Heretics you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	log_admin("[key_name(owner)] tried making [antnum] Heretics with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Heretics with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_HERETIC, applicant, temp))
+			candidates += applicant
+
+	if(length(candidates))
+		var/numHeretics = min(length(candidates), antnum)
+
+		for(var/i = 0, i<numHeretics, i++)
+			H = pick(candidates)
+			H.mind.make_heretic()
+			log_admin("[key_name(H)] was made a heretic with one-click antag.")
+			candidates.Remove(H)
+
+		return 1
+	return 0
+
 
 /datum/admins/proc/makeEventCharacters()
 	var/list/mob/living/carbon/human/candidates = list()
@@ -366,6 +394,7 @@
 				O.needs_target = FALSE
 				H.mind.add_mind_objective(O)
 			H.mind.add_antag_datum(/datum/antagonist/eventmisc)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] an Event Character with One-Click-Antag")
 			candidates.Remove(H)
 		return TRUE
 	return FALSE
@@ -389,7 +418,7 @@
 		thunderdome_candidates.Cut(max_thunderdome_players + 1)
 	if(ISODD(length(thunderdome_candidates))) // We want fair fights
 		var/surplus_candidate = pick_n_take(thunderdome_candidates)
-		to_chat(surplus_candidate, "<span class='warning'>You were not chosen due to an odd number of participants.</span>")
+		to_chat(surplus_candidate, SPAN_WARNING("You were not chosen due to an odd number of participants."))
 	for(var/mob/dead/observer/candidate_to_spawn in thunderdome_candidates)
 		if(!candidate_to_spawn || !candidate_to_spawn.key || !candidate_to_spawn.client)
 			continue

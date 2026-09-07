@@ -22,12 +22,11 @@
 	anchors += locate(x + 2, y - 2, z)
 
 	for(var/turf/T in anchors)
-		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
-		B.sleep_time = 10 //these shouldn't move, so let's slow down updates to 1 second (any slower and the deletion of the vines would be too slow)
+		Beam(T, "vine", time = INFINITY, maxdistance = 5, beam_type = /obj/effect/ebeam/vine)
 	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 
 /obj/structure/alien/resin/flower_bud_enemy/proc/bear_fruit()
-	visible_message("<span class='danger'>the plant has borne fruit!</span>")
+	visible_message(SPAN_DANGER("the plant has borne fruit!"))
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
 
@@ -43,7 +42,7 @@
 	var/mob/living/L = entered
 	if(!("vines" in L.faction))
 		L.adjustBruteLoss(5)
-		to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(L, SPAN_ALERT("You cut yourself on the thorny vines."))
 
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"
@@ -76,8 +75,7 @@
 		for(var/mob/living/L in grasping)
 			if(L.stat == DEAD)
 				var/datum/beam/B = grasping[L]
-				if(B)
-					B.End()
+				qdel(B)
 				grasping -= L
 
 			//Can attack+pull multiple times per cycle
@@ -100,7 +98,7 @@
 							if(A.density && A != L)
 								continue grasping
 					if(prob(grasp_chance))
-						to_chat(L, "<span class='userdanger'>\The [src] has you entangled!</span>")
+						to_chat(L, SPAN_USERDANGER("\The [src] has you entangled!"))
 						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
 
 						break //only take 1 new victim per cycle

@@ -34,10 +34,10 @@
 			var/pp = replacetext(replacetext("[merch.typepath]", "/obj/item/", ""), "/", "-")
 			imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 
-/obj/machinery/economy/merch/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(isspacecash(I))
-		insert_cash(I, user)
-		return TRUE
+/obj/machinery/economy/merch/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(isspacecash(used))
+		insert_cash(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -70,7 +70,7 @@
 		if(!C || !pay_with_card(C, merch.cost, "Purchase of [merch.name]", "NAS Trurl Merchandising", user, account_database.vendor_account))
 			return FALSE
 	else
-		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.</span>")
+		to_chat(user, SPAN_WARNING("Payment failure: you have no ID or other method of payment."))
 		return FALSE
 	return TRUE
 
@@ -135,7 +135,7 @@
 			for(var/datum/merch_item/merch in merchandise[params["category"]])
 				if(merch.name == params["name"])
 					if(do_purchase(merch, user)) //null checking done in proc
-						to_chat(user, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
+						to_chat(user, SPAN_NOTICE("You've successfully purchased the item. It should be in your hands or on the floor."))
 					break
 		if("change")
 			. = TRUE

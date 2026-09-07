@@ -4,7 +4,7 @@
 	name = "teleporter gun"
 	desc = "An extremely high-tech energy gun that utilizes jury-rigged bluespace technology to teleport away living targets."
 	icon_state = "telegun"
-	item_state = "telegun"
+	inhand_icon_state = "telegun"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
 	shaded_charge = TRUE
@@ -38,7 +38,7 @@
 	if(!desc)
 		return
 	teleport_target = L[desc]
-	to_chat(user, "<span class='notice'>The [src] is now set to [desc].</span>")
+	to_chat(user, SPAN_NOTICE("The [src] is now set to [desc]."))
 	//Process the shot without draining the cell
 	if(chambered)
 		if(chambered.BB)

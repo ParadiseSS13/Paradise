@@ -14,6 +14,7 @@
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
 	max_integrity = 100
+	cares_about_temperature = TRUE
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
@@ -82,7 +83,7 @@
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		return
-	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
+	to_chat(user, SPAN_NOTICEALIEN("We begin tearing down this resin structure."))
 	if(!do_after(user, 40, target = src) || QDELETED(src))
 		return
 	qdel(src)
@@ -90,9 +91,6 @@
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "resin_wall-0"
-	base_icon_state = "resin_wall"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
@@ -104,18 +102,14 @@
 */
 /obj/structure/alien/resin/door
 	name = "resin door"
-	density = TRUE
-	anchored = TRUE
-	opacity = TRUE
-
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
 	max_integrity = 60
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	rad_insulation = RAD_MEDIUM_INSULATION
+	rad_insulation_beta = RAD_MEDIUM_INSULATION
+	rad_insulation_gamma = RAD_LIGHT_INSULATION
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
@@ -166,7 +160,7 @@
 		if(!C.handcuffed)
 			operate(bumped_open)
 		return
-	to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
+	to_chat(user, SPAN_NOTICEALIEN("Your lack of connection to the hive prevents the resin door from opening"))
 /*
   * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or
   * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
@@ -192,7 +186,7 @@
 		playsound(loc, close_sound, 50, 1)
 		flick("[initial_state]closing", src)
 	density = !density
-	opacity = !opacity
+	set_opacity(!opacity)
 	state_open = !state_open
 	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
@@ -211,7 +205,7 @@
 	if(user.a_intent != INTENT_HARM)
 		try_to_operate(user)
 		return
-	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
+	to_chat(user, SPAN_NOTICEALIEN("We begin tearing down this resin structure."))
 	if(!do_after(user, 40, target = src) || QDELETED(src))
 		return
 	qdel(src)
@@ -232,7 +226,6 @@
 	name = "resin floor"
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
-	density = FALSE
 	plane = FLOOR_PLANE
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
 	icon_state = "weeds"
@@ -355,7 +348,7 @@
 		new /obj/structure/alien/weeds(T, linked_node)
 		check_surroundings()
 
-/obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/weeds/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
@@ -371,7 +364,6 @@
 	icon_state = null
 	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
-	plane = GAME_PLANE
 
 	max_integrity = 15
 	var/obj/structure/alien/weeds/weed
@@ -426,9 +418,6 @@
 /obj/structure/alien/weeds/node
 	name = "resin node"
 	desc = "A large bulbous node pumping resin into the surface bellow it."
-	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
-	icon_state = "weeds"
-	base_icon_state = "weeds"
 	light_range = 1
 	var/node_range = NODERANGE
 
@@ -457,9 +446,7 @@
 	name = "egg"
 	desc = "A large mottled egg."
 	icon_state = "egg_growing"
-	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	integrity_failure = 5
 	layer = MOB_LAYER
 	flags_2 = CRITICAL_ATOM_2
@@ -487,6 +474,7 @@
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	if(status == GROWN)
 		proximity_monitor = new(src)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -495,19 +483,19 @@
 	if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		switch(status)
 			if(BURST)
-				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
+				to_chat(user, SPAN_NOTICE("You clear the hatched egg."))
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 				qdel(src)
 				return
 			if(GROWING)
-				to_chat(user, "<span class='notice'>The child is not developed yet.</span>")
+				to_chat(user, SPAN_NOTICE("The child is not developed yet."))
 				return
 			if(GROWN)
-				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
+				to_chat(user, SPAN_NOTICE("You retrieve the child."))
 				burst(FALSE)
 				return
 	else
-		to_chat(user, "<span class='notice'>It feels slimy.</span>")
+		to_chat(user, SPAN_NOTICE("It feels slimy."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
 
@@ -545,7 +533,7 @@
 		if(status != BURST)
 			burst(kill = TRUE)
 
-/obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/alien/egg/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)

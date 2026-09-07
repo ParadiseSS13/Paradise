@@ -32,7 +32,7 @@
 		C.mob.drop_item_v()
 		return
 
-	to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
+	to_chat(C, SPAN_WARNING("You have nothing to drop in your hand!"))
 
 /datum/keybinding/mob/swap_hands
 	name = "Swap Hands"
@@ -104,7 +104,7 @@
 	if(C.mob.pulling)
 		C.mob.stop_pulling()
 	else
-		to_chat(C, "<span class='notice'>You are not pulling anything.</span>")
+		to_chat(C, SPAN_NOTICE("You are not pulling anything."))
 
 /datum/keybinding/mob/face_dir
 	/// The direction to face towards.

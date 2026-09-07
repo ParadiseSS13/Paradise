@@ -1,7 +1,7 @@
 /datum/species/grey
 	name = "Grey"
 	name_plural = "Greys"
-	icobase = 'icons/mob/human_races/r_grey.dmi'
+	icobase = 'icons/mob/human_races/grey/r_grey.dmi'
 	language = "Psionic Communication"
 
 	blurb = "The Grey, known for their psionic abilities and unique appearance, hail from beyond the Milky Way and have an undisclosed homeworld. \
@@ -12,6 +12,14 @@
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
+	icon_skin_tones = alist(
+		1 = "Default Grey",
+		2 = "Grey Green",
+		3 = "Grey Blue",
+		4 = "Grey Red"
+	)
+
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/grey,
 		"lungs" =    /obj/item/organ/internal/lungs/grey,
@@ -24,13 +32,28 @@
 
 	species_traits = list(LIPS, CAN_WINGDINGS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR | SHAVED | BALD
+	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR | SHAVED | BALD | HAS_ICON_SKIN_TONE
 	dietflags = DIET_HERB
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
 
 	plushie_type = /obj/item/toy/plushie/greyplushie
+
+/datum/species/grey/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the grey race.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/new_icobase = 'icons/mob/human_races/grey/r_grey.dmi' //Default grey.
+		switch(H.s_tone)
+			if(4) //red Grey.
+				new_icobase = 'icons/mob/human_races/grey/r_grey_red.dmi'
+			if(3) //blue grey.
+				new_icobase = 'icons/mob/human_races/grey/r_grey_blue.dmi'
+			if(2) //green grey.
+				new_icobase = 'icons/mob/human_races/grey/r_grey_green.dmi'
+			else  //Default.
+				new_icobase = 'icons/mob/human_races/grey/r_grey.dmi'
+
+		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -59,11 +82,11 @@
 		else
 			H.take_organ_damage(5, 10)
 	else
-		to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+		to_chat(H, SPAN_WARNING("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 		if(volume >= 10)
 			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 			H.emote("scream")
-			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			to_chat(H, SPAN_WARNING("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.active_character.speciesprefs
@@ -78,7 +101,7 @@
 		var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
 		implant.insert(H)
 		if(!translator_pref && istype(J))
-			to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
+			to_chat(H, SPAN_NOTICE("A speech translator implant has been installed due to your role on the station."))
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid" || R.id == "facid")
@@ -88,4 +111,3 @@
 		H.adjustFireLoss(1)
 		return TRUE
 	return ..()
-

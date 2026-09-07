@@ -6,7 +6,6 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(ACCESS_ENGINE)
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set
 	var/list/selected_accesses = list()
@@ -38,7 +37,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
+			to_chat(user, SPAN_WARNING("You forget how to use [src]."))
 			return
 	ui_interact(user)
 
@@ -105,6 +104,17 @@
 
 		if("clear_all")
 			selected_accesses = list()
+
+/obj/item/airlock_electronics/proc/apply_access_to(obj/target)
+	if(!istype(target))
+		return
+
+	if(one_access)
+		target.req_access = null
+		target.req_one_access = selected_accesses
+	else
+		target.req_one_access = null
+		target.req_access = selected_accesses
 
 /obj/item/airlock_electronics/destroyed
 	name = "burned-out airlock electronics"

@@ -197,3 +197,71 @@ const linkifyTextNode = replaceInTextNode(URL_REGEX, null, (text) => {
   node.textContent = text;
   return node;
 });
+
+// Blacklist
+// --------------------------------------------------------
+
+/**
+ * Censored text node replaces non-space characters with asterisks
+ */
+const createCensorNode = (text) => {
+  const node = document.createTextNode(text.replace(/[^\s]/g, '*'));
+  return node;
+};
+
+/**
+ * Check to see if blacklisted content is contained within a node
+ */
+const checkBlacklistMatch = (node, regex, words) => {
+  const childNodes = node.childNodes;
+  for (let i = 0; i < childNodes.length; i++) {
+    const childNode = childNodes[i];
+    // Is a text node
+    if (childNode.nodeType === 3) {
+      const text = childNode.textContent;
+      // Use regex if available
+      if (regex && regex.test(text)) {
+        return true;
+      }
+    } else {
+      // Recursively check child nodes
+      if (checkBlacklistMatch(childNode, regex, words)) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+/**
+ * Censor or detect blacklist content in a node
+ *
+ * @param {Node} node Node which you want to process
+ * @param {RegExp} regex Regular expression to blacklist
+ * @param {string[]} words Array of words to blacklist
+ * @param {boolean} censor If true, censor the content with asterisks; if false, just detect matches
+ * @returns {boolean} True if blacklisted content was found
+ */
+export const processBlacklistNode = (node, regex, words, censor = false) => {
+  if (!censor) {
+    return checkBlacklistMatch(node, regex, words);
+  }
+
+  // Use replacement
+  let matchCount = 0;
+  const childNodes = node.childNodes;
+  for (let i = 0; i < childNodes.length; i++) {
+    const childNode = childNodes[i];
+    // Is a text node
+    if (childNode.nodeType === 3) {
+      matchCount += replaceInTextNode(regex, words, createCensorNode)(childNode);
+    } else {
+      // Recursively process child nodes
+      if (processBlacklistNode(childNode, regex, words, censor)) {
+        matchCount++;
+      }
+    }
+  }
+
+  return matchCount > 0;
+};

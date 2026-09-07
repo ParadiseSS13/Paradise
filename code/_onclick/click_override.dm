@@ -24,22 +24,31 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book"
 	var/datum/middle_click_override/clickBehavior = new /datum/middle_click_override/badmin_clicker
+	new_attack_chain = TRUE
 
-/obj/item/badmin_book/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/badmin_book/activate_self(mob/living/user as mob)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.middleClickOverride)
-		to_chat(user, "<span class='warning'>You try to draw power from [src], but you cannot hold the power at this time!</span>")
-		return
+		to_chat(user, SPAN_WARNING("You try to draw power from [src], but you cannot hold the power at this time!"))
+		return ITEM_INTERACT_COMPLETE
+
+	add_fingerprint(user)
 	user.middleClickOverride = clickBehavior
-	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
+	to_chat(user, SPAN_NOTICE("You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!"))
+	return ITEM_INTERACT_COMPLETE
 
 /datum/middle_click_override/badmin_clicker
 	var/summon_path = /obj/item/food/cookie
 
-/datum/middle_click_override/badmin_clicker/onClick(atom/A, mob/living/user)
-	var/atom/movable/newObject = new summon_path
-	newObject.loc = get_turf(A)
-	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]!</span>")
-	usr.loc.visible_message("<span class='notice'>[user] waves [user.p_their()] hand and summons \a [newObject.name]!</span>")
+/datum/middle_click_override/badmin_clicker/onClick(atom/target, mob/living/user)
+	var/atom/movable/new_object = new summon_path(get_turf(target))
+	user.visible_message(
+		SPAN_NOTICE("[user] waves [user.p_their()] hand and summons \a [new_object]!"),
+		SPAN_NOTICE("You release the power you had stored up, summoning \a [new_object]!"),
+		SPAN_HEAR("You're not sure, but you think you hear \a [new_object] appear out of thin air!")
+	)
 	..()
 
 /datum/middle_click_override/shock_implant
@@ -51,17 +60,17 @@
 	if(!P)
 		return
 	if(!COOLDOWN_FINISHED(P, last_shocked))
-		to_chat(user, "<span class='warning'>The powerchip is still recharging.</span>")
+		to_chat(user, SPAN_WARNING("The powerchip is still recharging."))
 		return FALSE
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
-			to_chat(user, "<span class='warning'>There is no cable here to power the bio-chip.</span>")
+			to_chat(user, SPAN_WARNING("There is no cable here to power the bio-chip."))
 			return FALSE
 	var/turf/target_turf = get_turf(A)
 	if(get_dist(T, target_turf) > P.shock_range)
-		to_chat(user, "<span class='warning'>The target is too far away.</span>")
+		to_chat(user, SPAN_WARNING("The target is too far away."))
 		return FALSE
 	target_turf.hotspot_expose(2000, 1)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)

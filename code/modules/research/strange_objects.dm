@@ -12,6 +12,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "prox-radio1"  // it is immediately overriden in New, but setting it here makes it show in mapeditor
 	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
+	new_attack_chain = TRUE
 	/// The name this object will get when it is discovered
 	var/real_name = "defined object"
 	/// Has this object been discovered?
@@ -49,11 +50,11 @@
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/pet/cat,
 		/mob/living/simple_animal/pet/dog/fox,
-		/mob/living/simple_animal/mouse,
+		/mob/living/basic/mouse,
 		/mob/living/simple_animal/pet/dog/pug,
-		/mob/living/simple_animal/lizard,
-		/mob/living/simple_animal/diona,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/lizard,
+		/mob/living/basic/diona_nymph,
+		/mob/living/basic/butterfly,
 		/mob/living/carbon/human/monkey,
 	)
 
@@ -63,7 +64,7 @@
 
 
 /obj/item/relic/proc/reveal()
-	if(revealed) //Re-rolling your relics seems a bit overpowered, yes?
+	if(revealed) // Re-rolling your relics seems a bit overpowered, yes?
 		return
 
 	revealed = TRUE
@@ -84,111 +85,115 @@
 	origin_tech = null
 
 
-/obj/item/relic/attack_self__legacy__attackchain(mob/user)
-	if(revealed)
-		if((last_use_time + cooldown_duration) > world.time)
-			to_chat(user, "<span class='warning'>[src] does not react!</span>")
-			return
-		else if(loc == user)
-			last_use_time = world.time
+/obj/item/relic/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-			// Figure out our real function
-			switch(function_id)
-				if(STRANGEOBJECT_FUNCTION_TELEPORT)
-					to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
-					addtimer(CALLBACK(src, PROC_REF(teleport_callback), user), rand(10, 30))
+	if(!revealed)
+		to_chat(user, SPAN_NOTICE("You aren't quite sure what to do with this, yet."))
+		return ITEM_INTERACT_COMPLETE
 
-				if(STRANGEOBJECT_FUNCTION_EXPLODE)
-					to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
-					addtimer(CALLBACK(src, PROC_REF(explode_callback), user), rand(35, 100))
+	if((last_use_time + cooldown_duration) > world.time)
+		to_chat(user, SPAN_WARNING("[src] does not react!"))
+		return ITEM_INTERACT_COMPLETE
 
-				if(STRANGEOBJECT_FUNCTION_RAPID_DUPE)
-					audible_message("[src] emits a loud pop!")
-					for(var/i in 1 to rand(5, 10))
-						var/obj/item/relic/R = new type(get_turf(src))
-						R.name = name
-						R.desc = desc
-						R.function_id = function_id
-						R.revealed = TRUE
-						R.origin_tech = null
-						QDEL_IN(R, rand(10, 100))
-						INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
+	if(loc != user)
+		return ITEM_INTERACT_COMPLETE
+	last_use_time = world.time
+	add_fingerprint(user)
 
-					warn_admins(user, "Rapid duplicator", 0)
+	// Figure out our real function.
+	switch(function_id)
+		if(STRANGEOBJECT_FUNCTION_TELEPORT)
+			to_chat(user, SPAN_NOTICE("[src] begins to vibrate!"))
+			addtimer(CALLBACK(src, PROC_REF(teleport_callback), user), rand(10, 30))
 
-				if(STRANGEOBJECT_FUNCTION_MASS_SPAWN)
-					// This is the unlucky one
-					var/message = "<span class='danger'>[src] begins to shake, and in the distance the sound of rampaging animals arises!</span>"
-					visible_message(message)
-					to_chat(user, message)
-					var/animal_spawncount = rand(1,25)
+		if(STRANGEOBJECT_FUNCTION_EXPLODE)
+			to_chat(user, SPAN_DANGER("[src] begins to heat up!"))
+			addtimer(CALLBACK(src, PROC_REF(explode_callback), user), rand(35, 100))
 
-					var/list/valid_animals = list(
-						/mob/living/simple_animal/parrot,
-						/mob/living/simple_animal/butterfly,
-						/mob/living/simple_animal/pet/cat,
-						/mob/living/simple_animal/pet/dog/corgi,
-						/mob/living/simple_animal/crab,
-						/mob/living/simple_animal/pet/dog/fox,
-						/mob/living/simple_animal/lizard,
-						/mob/living/simple_animal/mouse,
-						/mob/living/simple_animal/pet/dog/pug,
-						/mob/living/simple_animal/hostile/bear/black,
-						/mob/living/simple_animal/hostile/bear/brown,
-						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
-					)
+		if(STRANGEOBJECT_FUNCTION_RAPID_DUPE)
+			audible_message("[src] emits a loud pop!")
+			for(var/i in 1 to rand(5, 10))
+				var/obj/item/relic/R = new type(get_turf(src))
+				R.name = name
+				R.desc = desc
+				R.function_id = function_id
+				R.revealed = TRUE
+				R.origin_tech = null
+				QDEL_IN(R, rand(10, 100))
+				INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 
-					for(var/counter in 1 to animal_spawncount)
-						var/mob_type = pick(valid_animals)
-						new mob_type(get_turf(src))
+			warn_admins(user, "Rapid duplicator", 0)
 
-					warn_admins(user, "Mass Mob Spawn")
-					if(prob(60))
-						to_chat(user, "<span class='warning'>[src] falls apart!</span>")
-						qdel(src)
+		if(STRANGEOBJECT_FUNCTION_MASS_SPAWN)
+			// This is the unlucky one
+			var/message = SPAN_DANGER("[src] begins to shake, and in the distance the sound of rampaging animals arises!")
+			visible_message(message)
+			to_chat(user, message)
+			var/animal_spawncount = rand(1, 25)
 
-				if(STRANGEOBJECT_FUNCTION_FLASH)
-					playsound(loc, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-					var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(get_turf(user))
-					CB.prime()
-					warn_admins(user, "Flash")
+			var/list/valid_animals = list(
+				/mob/living/simple_animal/parrot,
+				/mob/living/basic/butterfly,
+				/mob/living/simple_animal/pet/cat,
+				/mob/living/simple_animal/pet/dog/corgi,
+				/mob/living/basic/crab,
+				/mob/living/simple_animal/pet/dog/fox,
+				/mob/living/basic/lizard,
+				/mob/living/basic/mouse,
+				/mob/living/simple_animal/pet/dog/pug,
+				/mob/living/basic/bear/black,
+				/mob/living/basic/bear/brown,
+				/mob/living/basic/bee,
+				/mob/living/basic/carp
+			)
 
-				if(STRANGEOBJECT_FUNCTION_CLEAN)
-					playsound(loc, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-					var/obj/item/grenade/chem_grenade/cleaner/CL = new/obj/item/grenade/chem_grenade/cleaner(get_turf(user))
-					CL.prime()
-					warn_admins(user, "Clean", 0)
+			for(var/counter in 1 to animal_spawncount)
+				var/mob_type = pick(valid_animals)
+				new mob_type(get_turf(src))
 
-				if(STRANGEOBJECT_FUNCTION_PET_SPAWN)
-					playsound(loc, "sparks", rand(25, 50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-					var/mob/living/C = new petspawn_mob(get_turf(user))
-					C.throw_at(pick(oview(10,user)),10,rand(3,8))
-					throw_smoke(get_turf(C))
-					warn_admins(user, "Pet Spawn", 0)
+			warn_admins(user, "Mass Mob Spawn")
+			if(prob(60))
+				to_chat(user, SPAN_WARNING("[src] falls apart!"))
+				qdel(src)
 
-	else
-		to_chat(user, "<span class='notice'>You aren't quite sure what to do with this, yet.</span>")
+		if(STRANGEOBJECT_FUNCTION_FLASH)
+			playsound(loc, "sparks", rand(25, 50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(get_turf(user))
+			CB.prime()
+			warn_admins(user, "Flash")
 
+		if(STRANGEOBJECT_FUNCTION_CLEAN)
+			playsound(loc, "sparks", rand(25, 50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			var/obj/item/grenade/chem_grenade/cleaner/CL = new/obj/item/grenade/chem_grenade/cleaner(get_turf(user))
+			CL.prime()
+			warn_admins(user, "Clean", 0)
+
+		if(STRANGEOBJECT_FUNCTION_PET_SPAWN)
+			playsound(loc, "sparks", rand(25, 50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			var/mob/living/C = new petspawn_mob(get_turf(user))
+			C.throw_at(pick(oview(10,user)), 10, rand(3, 8))
+			throw_smoke(get_turf(C))
+			warn_admins(user, "Pet Spawn", 0)
+	return ITEM_INTERACT_COMPLETE
 
 // Callbacks for timers
 /obj/item/relic/proc/teleport_callback(mob/user)
 	var/turf/userturf = get_turf(user)
 	if(loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
-		visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
+		visible_message(SPAN_NOTICE("[src] twists and bends, relocating itself!"))
 		throw_smoke(userturf)
 		do_teleport(user, userturf, 8, sound_in = 'sound/effects/phasein.ogg')
 		throw_smoke(get_turf(user))
 		warn_admins(user, "Teleport", 0)
 
-
 /obj/item/relic/proc/explode_callback(mob/user)
 	if(loc == user)
-		visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
-		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
+		visible_message(SPAN_NOTICE("[src]'s top opens, releasing a powerful blast!"))
+		explosion(user.loc, -1, rand(1, 5), rand(1, 5), rand(1, 5), rand(1, 5), flame_range = 2, cause = "Exploding relic")
 		warn_admins(user, "Explosion")
 		qdel(src)
-
 
 // Admin Warning proc for relics
 /obj/item/relic/proc/warn_admins(mob/user, RelicType, alert_admins = TRUE)

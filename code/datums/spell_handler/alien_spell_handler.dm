@@ -14,7 +14,7 @@ This was also the case with the verb implementation, it's just much more obvious
 		return FALSE
 	if(vessel.stored_plasma < plasma_cost)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You require at least [plasma_cost] plasma to use this ability!</span>")
+			to_chat(user, SPAN_WARNING("You require at least [plasma_cost] plasma to use this ability!"))
 		return FALSE
 	return TRUE
 
@@ -22,12 +22,12 @@ This was also the case with the verb implementation, it's just much more obvious
 	user.use_plasma_spell(plasma_cost, user)
 
 /datum/spell_handler/alien/before_cast(list/targets, mob/living/carbon/user, datum/spell/spell)
-	to_chat(user, "<span class='boldnotice'>You have [user.get_plasma()] plasma left to use.</span>")
+	to_chat(user, SPAN_BOLDNOTICE("You have [user.get_plasma()] plasma left to use."))
 	user.update_plasma_display(user)
 
 /datum/spell_handler/alien/revert_cast(mob/living/carbon/user, datum/spell/spell)
 	user.add_plasma(plasma_cost, user)
-	to_chat(user, "<span class='boldnotice'>You have [user.get_plasma()] plasma left to use.</span>")
+	to_chat(user, SPAN_BOLDNOTICE("You have [user.get_plasma()] plasma left to use."))
 	user.update_plasma_display(user)
 
 /mob/living/carbon/proc/get_plasma()

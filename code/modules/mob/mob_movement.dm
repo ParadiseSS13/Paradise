@@ -20,8 +20,8 @@
 			return TRUE
 	return (!mover.density || !density || horizontal)
 
-/mob/proc/projectile_hit_check(obj/item/projectile/P)
-	return !(P.always_hit_living_nondense && (stat != DEAD)) && !density
+/mob/proc/projectile_hit_check(obj/projectile/P)
+	return !(P.always_hit_living_nondense && (stat != DEAD) && !isLivingSSD(src)) && !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
@@ -29,7 +29,7 @@
 		var/mob/living/carbon/C = mob
 		C.toggle_throw_mode()
 	else
-		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
+		to_chat(usr, SPAN_DANGER("This mob type cannot throw items."))
 
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
@@ -129,7 +129,7 @@
 		for(var/mob/M in orange(1, mob))
 			if(M.pulling == mob)
 				if(!M.incapacitated() && mob.Adjacent(M))
-					to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+					to_chat(src, SPAN_WARNING("You're restrained! You can't move!"))
 					move_delay = world.time + 10
 					return 0
 				else
@@ -142,8 +142,10 @@
 		if(!isalienhunter(mob)) // i hate grab code
 			add_delay += 7
 
-	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ((NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1))
-	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
+	var/diagonal_factor = 1
+	if(IS_DIR_DIAGONAL(direct))
+		diagonal_factor = sqrt(2)
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * diagonal_factor)) // set it now in case of pulled objects
 
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
@@ -157,6 +159,7 @@
 	//Basically an optional override for our glide size
 	//Sometimes you want to look like you're moving with a delay you don't actually have yet
 	visual_delay = 0
+	var/old_dir = mob.dir
 
 	if(istype(living_mob))
 		var/newdir = NONE
@@ -179,24 +182,24 @@
 
 	. = ..()
 
+	// Only adjust for diagonal movement if the move was *actually* diagonal
 	if(mob.loc == new_loc)
+		// Similar to the glide size calculation above, LONG_GLIDE mobs need to slow down and other mobs speed up.
+		// Unline before, we also want to calculate the new movement delay, which is increased for LONG_GLIDE mobs, and unchanged for other mobs.
 		mob.last_movement = world.time
 		if(IS_DIR_DIAGONAL(direct))
-			// only incur the extra delay if the move was *actually* diagonal
-			// There would be a bit of visual jank if we try to walk diagonally next to a wall
-			// and the move ends up being cardinal, rather than diagonal,
-			// but that's better than it being jank on every *successful* diagonal move.
 			add_delay *= sqrt(2)
 
-	var/after_glide = 0
+	var/new_glide_size = 0
 	if(visual_delay)
-		after_glide = visual_delay
+		new_glide_size = visual_delay
 	else
-		after_glide = DELAY_TO_GLIDE_SIZE(add_delay)
+		new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay)
 
-	mob.set_glide_size(after_glide)
+	mob.set_glide_size(new_glide_size)
 
 	move_delay += add_delay
+	SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, direct, old_dir)
 
 	if(mob.pulledby)
 		mob.pulledby.stop_pulling()
@@ -243,14 +246,14 @@
 					move_delay = world.time + 10
 					if(!prob(25))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
+					mob.visible_message(SPAN_DANGER("[mob] has broken free of [G.assailant]'s grip!"))
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
 						return TRUE
-					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
+					mob.visible_message(SPAN_DANGER("[mob] has broken free of [G.assailant]'s headlock!"))
 					qdel(G)
 	return FALSE
 
@@ -309,7 +312,7 @@
 		if(INCORPOREAL_MOVE_HOLY_BLOCK)
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & BLESSED_TILE)
-				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
+				to_chat(L, SPAN_WARNING("Holy energies block your path."))
 				L.notransform = TRUE
 				spawn(2)
 					L.notransform = FALSE
@@ -339,9 +342,10 @@
 	if(continuous_move || !istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
 
+	last_pushoff = world.time
 	var/opposite_dir = turn(movement_dir, 180)
 	if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
-		to_chat(src, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
+		to_chat(src, SPAN_NOTICE("You push off of [backup] to propel yourself."))
 	return TRUE
 
 /**
@@ -378,8 +382,12 @@
 			continue
 		if(continuous_move && !pass_allowed)
 			var/datum/move_loop/move/rebound_engine = GLOB.move_manager.processing_on(rebound, SSspacedrift)
-			// If you're moving toward it and you're both going the same direction, stop
-			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
+			// If us and the rebound object are both drifting in the same
+			// direction, we can't push off of it. We do not check
+			// get_dir(src, pushover) because two objects drifting in the same
+			// direction may potentially occupy the same turf at some point
+			// during processing.
+			if(rebound_engine && moving_direction == rebound_engine.direction)
 				continue
 		else if(!pass_allowed)
 			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into
@@ -561,7 +569,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
+			to_chat(C, SPAN_NOTICE("You are legcuffed! You cannot run until you get [C.legcuffed] removed!"))
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used.move_intent.icon_state = "walking"
 			return

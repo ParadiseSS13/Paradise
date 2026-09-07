@@ -78,15 +78,14 @@
 	singular_name = "prize ticket"
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "tickets_1"
-	force = 0
-	throwforce = 0
 	throw_speed = 1
 	throw_range = 1
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
-/obj/item/stack/tickets/attack_self__legacy__attackchain(mob/user as mob)
-	return
+/obj/item/stack/tickets/activate_self(mob/user)
+	. = ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/tickets/update_icon_state()
 	switch(get_amount())

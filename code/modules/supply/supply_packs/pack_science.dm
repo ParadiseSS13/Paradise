@@ -91,7 +91,6 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasma assembly crate"
 	access = ACCESS_TOX_STORAGE
-	group = SUPPLY_SCIENCE
 
 /datum/supply_packs/science/shieldwalls
 	name = "Shield Generators Crate"
@@ -120,6 +119,14 @@
 	cost = 800
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "machine prototype crate"
+	access = ACCESS_RESEARCH
+
+/datum/supply_packs/science/raw_anomaly_core
+	name = "Raw Anomaly Core Crate"
+	contains = list(/obj/item/raw_anomaly_core)
+	cost = 2000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "raw anomaly core crate"
 	access = ACCESS_RESEARCH
 
 /datum/supply_packs/science/oil

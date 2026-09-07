@@ -22,12 +22,9 @@ start with our [practical tutorial](docs/tutorial-and-examples.md).
 
 ### Guides
 
-This project uses **Inferno** - a very fast UI rendering engine with a similar
-API to React. Take your time to read these guides:
+This project uses React. Take your time to read the guide:
 
 - [React guide](https://react.dev/learn)
-- [Inferno documentation](https://infernojs.org/docs/guides/components) -
-highlights differences with React.
 
 If you were already familiar with an older, Ractive-based tgui, and want
 to translate concepts between old and new tgui, read this
@@ -37,12 +34,13 @@ to translate concepts between old and new tgui, read this
 
 You will need these programs to start developing in tgui:
 
-- [Node v20](https://nodejs.org/en/download/)
-- [Yarn v1.19+](https://yarnpkg.com/en/docs/install) (optional)
+- [Node v22.11+](https://nodejs.org/en/download/)
+  - **LTS** release is recommended instead of latest
+  - **DO NOT install Chocolatey if Node installer asks you to!**
+- [Yarn v4.8.1+](https://yarnpkg.com/getting-started/install)
+  - Yarn is normally installed with corepack.
 - [Git Bash](https://git-scm.com/downloads)
   or [MSys2](https://www.msys2.org/) (optional)
-
-**DO NOT install Chocolatey if Node installer asks you to!**
 
 ## Usage
 
@@ -152,34 +150,24 @@ together, and can reveal certain layout bugs which are not normally visible.
 ## Project Structure
 
 - `/packages` - Each folder here represents a self-contained Node module.
-- `/packages/common` - Helper functions
-- `/packages/tgui/index.js` - Application entry point.
-- `/packages/tgui/components` - Basic UI building blocks.
+- `/packages/common` - Helper functions that are used throughout all packages.
+- `/packages/tgui/index.ts` - Application entry point.
 - `/packages/tgui/interfaces` - Actual in-game interfaces.
-Interface takes data via the `state` prop and outputs an html-like stucture,
-which you can build using existing UI components.
 - `/packages/tgui/layouts` - Root level UI components, that affect the final
-look and feel of the browser window. They usually hold various window
-elements, like the titlebar and resize handlers, and control the UI theme.
-- `/packages/tgui/routes.js` - This is where tgui decides which interface to
-pull and render.
-- `/packages/tgui/layout.js` - A root-level component, holding the
-window elements, like the titlebar, buttons, resize handlers. Calls
-`routes.js` to decide which component to render.
+  look and feel of the browser window. These hold various window elements, like
+  the titlebar and resize handlers, and control the UI theme.
+- `/packages/tgui/routes.ts` - This is where tgui decides which interface to
+  pull and render.
 - `/packages/tgui/styles/main.scss` - CSS entry point.
 - `/packages/tgui/styles/functions.scss` - Useful SASS functions.
-Stuff like `lighten`, `darken`, `luminance` are defined here.
-- `/packages/tgui/styles/atomic` - Atomic CSS classes.
-These are very simple, tiny, reusable CSS classes which you can use and
-combine to change appearance of your elements. Keep them small.
-- `/packages/tgui/styles/components` - CSS classes which are used
-in UI components. These stylesheets closely follow the
-[BEM](https://en.bem.info/methodology/) methodology.
+- `/packages/tgui/styles/atomic` - Atomic CSS classes. These are very simple,
+  tiny, reusable CSS classes which you can use and combine to change appearance
+  of your elements. Keep them small.
 - `/packages/tgui/styles/interfaces` - Custom stylesheets for your interfaces.
-Add stylesheets here if you really need a fine control over your UI styles.
+  Add stylesheets here if you really need a fine control over your UI styles.
 - `/packages/tgui/styles/layouts` - Layout-related styles.
-- `/packages/tgui/styles/themes` - Contains all the various themes you can
-use in tgui. Each theme must be registered in `webpack.config.js` file.
+- `/packages/tgui/styles/themes` - Contains themes that you can use in tgui.
+  Each theme must be registered in `/packages/tgui/index.ts` file.
 
 ## Component Reference
 

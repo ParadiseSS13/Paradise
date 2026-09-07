@@ -1,6 +1,5 @@
 /obj/structure/blob/core
 	name = "blob core"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 400
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 90)
@@ -35,6 +34,10 @@
 	var/image/C = new('icons/mob/blob.dmi', "blob_core_overlay")
 	overlays += C
 
+/obj/structure/blob/core/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 15, ASSIGNMENT_MEDICAL = 2)
 
 /obj/structure/blob/core/Destroy()
 	if(overmind)

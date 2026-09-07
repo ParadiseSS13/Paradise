@@ -4,7 +4,6 @@
   * A generic hallucination that causes the target to trip if they cross it.
   */
 /obj/effect/hallucination/tripper
-	anchored = TRUE
 	/// Chance to trip when crossing.
 	var/trip_chance = 100
 	/// Stun to add when crossed.
@@ -101,7 +100,7 @@
 	if(was_weakened && !should_attack_weakened)
 		return
 
-	attack__legacy__attackchain(was_weakened)
+	attacker_attack(was_weakened)
 
 /**
   * Called every Think when we are attacking the target.
@@ -109,7 +108,7 @@
   * Arguments:
   * * was_weakened - Whether the target was already knocked down prior to this attack.
   */
-/obj/effect/hallucination/chaser/attacker/proc/attack__legacy__attackchain(was_weakened)
+/obj/effect/hallucination/chaser/attacker/proc/attacker_attack(was_weakened)
 	dir = get_dir(src, target)
 	attack_effects()
 	target.apply_damage(damage, STAMINA)
@@ -122,11 +121,11 @@
 /obj/effect/hallucination/chaser/attacker/proc/attack_effects()
 	do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	target.playsound_local(get_turf(src), get_sfx("punch"), 25, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] has punched [target]!</span>")
+	to_chat(target, SPAN_USERDANGER("[name] has punched [target]!"))
 
 /**
   * Called when one of our attacks put the target in stamina crit.
   */
 /obj/effect/hallucination/chaser/attacker/proc/on_knockdown()
-	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						"<span class='userdanger'>[src]'s blow was too much for you, causing you to collapse!</span>")
+	target.visible_message(SPAN_WARNING("[target] recoils as if hit by something, before suddenly collapsing!"),
+						SPAN_USERDANGER("[src]'s blow was too much for you, causing you to collapse!"))

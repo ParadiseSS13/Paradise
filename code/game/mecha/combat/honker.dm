@@ -8,12 +8,10 @@
 	deflect_chance = 60
 	internal_damage_threshold = 60
 	armor = list(MELEE = -20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
-	max_temperature = 25000
 	infra_luminosity = 5
 	operation_req_access = list(ACCESS_CLOWN)
 	wreckage = /obj/structure/mecha_wreckage/honker
 	add_req_access = 0
-	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 
 /obj/mecha/combat/honker/Initialize(mapload)

@@ -201,10 +201,10 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 				return
 
 			if(name_check(new_name))
-				to_chat(usr, "<span class='warning'>Error, network name <code>[new_name]</code> already in use.</span>")
+				to_chat(usr, SPAN_WARNING("Error, network name <code>[new_name]</code> already in use."))
 				return
 
-			to_chat(usr, "<span class='notice'>Network name changed from <code>[network_name]</code> to <code>[new_name]</code>.</span>")
+			to_chat(usr, SPAN_NOTICE("Network name changed from <code>[network_name]</code> to <code>[new_name]</code>."))
 			network_name = new_name
 
 		if("blacklist_design")
@@ -248,7 +248,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 			var/new_password = tgui_input_text(usr, "Please enter a new network ID", "Network ID", network_password)
 			if(!Adjacent(usr))
 				return
-			to_chat(usr, "<span class='notice'>Network password changed from <code>[network_password]</code> to <code>[new_password]</code>.</span>")
+			to_chat(usr, SPAN_NOTICE("Network password changed from <code>[network_password]</code> to <code>[new_password]</code>."))
 			network_password = new_password
 
 		// Remove a device
@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					servers -= params["uid"]
 					if(S)
 						S.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[S.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[S.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 				if("RDC")
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					consoles -= params["uid"]
 					if(RDC)
 						RDC.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[RDC.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[RDC.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 				if("MFB")
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					mechfabs -= params["uid"]
 					if(MPF)
 						MPF.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[MPF.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[MPF.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 				if("BCK")
@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					backupconsoles -= params["uid"]
 					if(RB)
 						RB.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[RB.name]</code> from the network <code>[network_name]</code></span>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[RB.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 

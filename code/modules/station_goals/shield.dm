@@ -23,11 +23,11 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/shield_sat]"]
+	P.cost = 100
 
-	P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
-	P.special_enabled = TRUE
+	P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/shield_sat_control]"]
+	P.cost = 750
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())
@@ -109,8 +109,10 @@
 	var/list/data = list()
 
 	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		var/turf/T = get_turf(S)
+		if(T.z != z) // This satellite isn't on the station level, don't show it on the station level map.
+			continue
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,
@@ -173,7 +175,7 @@
 			offset_y = new_offset_y
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		if(S.id == id && atoms_share_level(src, S))
 			if(!S.toggle())
 				notice = "You can only activate satellites which are in space"
@@ -191,7 +193,7 @@
 		notice = "Throwing simulated meteors ([G.thrown]/100)..."
 		notice_color = "white"
 		return
-	
+
 	var/total_meteors = length(G.defended) + length(G.collisions)
 	if(total_meteors == 0)
 		notice = "No simulation yet."
@@ -233,10 +235,10 @@
 /obj/machinery/satellite/proc/toggle(mob/user)
 	if(!active && !isinspace())
 		if(user)
-			to_chat(user, "<span class='warning'>You can only activate satellites which are in space.</span>")
+			to_chat(user, SPAN_WARNING("You can only activate satellites which are in space."))
 		return FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src]</span>")
+		to_chat(user, SPAN_NOTICE("You [active ? "deactivate": "activate"] [src]"))
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
@@ -250,11 +252,8 @@
 /obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
-/obj/machinery/satellite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
-	else
-		return ..()
+/obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
+	to_chat(user, SPAN_NOTICE("// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]"))
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"
@@ -297,7 +296,7 @@
 /obj/machinery/satellite/meteor_shield/proc/change_meteor_chance(mod)
 	for(var/datum/event_container/container in SSevents.event_containers)
 		for(var/datum/event_meta/M in container.available_events)
-			if(M.event_type == /datum/event/meteor_wave)
+			if(M.skeleton.type == /datum/event/meteor_wave)
 				M.weight_mod *= mod
 
 /obj/machinery/satellite/meteor_shield/Destroy()
@@ -307,7 +306,7 @@
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You override the shield's circuits, causing it to attract meteors instead of destroying them.</span>")
+		to_chat(user, SPAN_DANGER("You override the shield's circuits, causing it to attract meteors instead of destroying them."))
 		emagged = TRUE
 		if(active)
 			change_meteor_chance(2)

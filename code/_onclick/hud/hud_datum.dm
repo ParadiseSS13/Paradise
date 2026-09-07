@@ -211,7 +211,7 @@
 				screenmob.client.screen += inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_HAND)]	//we want the hands to be visible
 			if(action_intent)
 				screenmob.client.screen += action_intent		//we want the intent switcher visible
-				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
+				action_intent.screen_loc = UI_ACTI_ALT	//move this to the alternative position, where zone_select usually is.
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
@@ -278,13 +278,13 @@
 
 /mob/proc/hide_hud()
 	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) && isliving(src))
-		to_chat(src, "<span class='warning'>You can not change huds while asleep!</span>")
+		to_chat(src, SPAN_WARNING("You can not change huds while asleep!"))
 		return
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(src, "<span class='notice'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
+		to_chat(src, SPAN_NOTICE("Switched HUD mode. Press the key you just pressed to toggle the HUD mode again."))
 	else
-		to_chat(src, "<span class='warning'>This mob type does not use a HUD.</span>")
+		to_chat(src, SPAN_WARNING("This mob type does not use a HUD."))
 
 /datum/hud/proc/update_locked_slots()
 	return

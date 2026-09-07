@@ -289,7 +289,7 @@
 "aX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "aZ" = (
@@ -411,7 +411,7 @@
 /area/ruin/unpowered/althland_excavation)
 "bE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -463,7 +463,7 @@
 /area/ruin/unpowered/althland_excavation)
 "bL" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -622,6 +622,16 @@
 	nitrogen = 0
 	},
 /area/lavaland/surface/outdoors)
+"fE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation)
 "fH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -688,7 +698,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "je" = (
@@ -697,7 +707,7 @@
 /area/ruin/unpowered/althland_excavation)
 "jj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "js" = (
@@ -832,7 +842,7 @@
 /area/ruin/unpowered/althland_excavation)
 "qp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "qw" = (
@@ -1076,7 +1086,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "Cs" = (
@@ -1140,7 +1150,7 @@
 "EG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1175,7 +1185,7 @@
 "Gp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/white/hollow,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1196,7 +1206,7 @@
 "HC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "In" = (
@@ -1248,14 +1258,6 @@
 	nitrogen = 0
 	},
 /area/lavaland/surface/outdoors)
-"Lt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
-/area/ruin/unpowered/althland_excavation)
 "Lz" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -1318,9 +1320,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Pe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
@@ -1349,7 +1349,7 @@
 /area/lavaland/surface/outdoors)
 "Qk" = (
 /obj/effect/decal/cleanable/glass,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -1498,7 +1498,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "WH" = (
-/obj/machinery/door/poddoor/multi_tile/three_tile_hor,
+/obj/machinery/door/poddoor/multi_tile/triple,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/althland_excavation)
 "Xl" = (
@@ -1704,7 +1704,7 @@ sj
 TN
 TN
 aU
-Lt
+fE
 am
 iW
 OX

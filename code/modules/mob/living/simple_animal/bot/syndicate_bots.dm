@@ -51,7 +51,7 @@
 	return GLOB.default_state
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
-	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
+	to_chat(user, SPAN_WARNING("[src] has no accessible control panel!"))
 	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_data(mob/user)
@@ -67,10 +67,10 @@
 	if(!H)
 		return
 	target = H
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
+	to_chat(user, SPAN_WARNING("[src] has no card reader slot!"))
 
 /mob/living/simple_animal/bot/ed209/syndicate/try_chasing_target()
 	. = ..()
@@ -94,7 +94,7 @@
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
-				mode = BOT_START_PATROL
+				set_mode(BOT_START_PATROL)
 
 		if(BOT_HUNT)
 			if(frustration >= 8)
@@ -140,7 +140,7 @@
 			continue
 		target = M
 		oldtarget_name = M.name
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -150,7 +150,7 @@
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
-	var/obj/item/projectile/P = new projectile(loc)
+	var/obj/projectile/P = new projectile(loc)
 	playsound(loc, shoot_sound, 100, 1)
 	P.current = loc
 	P.starting = loc
@@ -166,7 +166,7 @@
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		GLOB.move_manager.stop_looping(src)
-		visible_message("<span class='userdanger'>[src] blows apart!</span>")
+		visible_message(SPAN_USERDANGER("[src] blows apart!"))
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
@@ -176,7 +176,7 @@
 		qdel(src)
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
-	projectile = /obj/item/projectile/bullet/a40mm
+	projectile = /obj/projectile/bullet/a40mm
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return

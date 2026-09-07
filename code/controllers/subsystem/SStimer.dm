@@ -134,6 +134,8 @@ SUBSYSTEM_DEF(timer)
 		callBack.InvokeAsync()
 
 		if(ctime_timer.flags & TIMER_LOOP)
+			if(QDELETED(ctime_timer))
+				continue
 			ctime_timer.spent = 0
 			ctime_timer.timeToRun = REALTIMEOFDAY + ctime_timer.wait
 			BINARY_INSERT_TG(ctime_timer, clienttime_timers, /datum/timedevent, ctime_timer, timeToRun, COMPARE_KEY)
@@ -180,6 +182,8 @@ SUBSYSTEM_DEF(timer)
 				last_invoke_tick = world.time
 
 			if(timer.flags & TIMER_LOOP) // Prepare looping timers to re-enter the queue
+				if(QDELETED(timer))
+					continue
 				timer.spent = 0
 				timer.timeToRun = world.time + timer.wait
 				timer.bucketJoin()
@@ -586,30 +590,16 @@ GLOBAL_LIST_EMPTY(timers_by_proc)
   *
   * In-round ability to view what has created a timer, and how many times a timer for that path has been created
   */
-/client/proc/timer_log()
-	set name = "View Timer Log"
-	set category = "Debug"
-	set desc = "Shows the log of what types created timers this round"
-
-	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
-		return
-
+USER_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of what types created timers this round", VERB_CATEGORY_DEBUG)
 	var/list/sorted = sortTim(GLOB.timers_by_proc, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=timerlog")
+	client << browse(text.Join(), "window=timerlog")
 
-/client/proc/debug_timers()
-	set name = "Debug Timers"
-	set category = "Debug"
-	set desc = "Shows currently active timers, grouped by callback"
-
-	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
-		return
-
+USER_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently active timers, grouped by callback", VERB_CATEGORY_DEBUG)
 	var/list/timers = list()
 	for(var/id in SStimer.timer_id_dict)
 		var/datum/timedevent/T = SStimer.timer_id_dict[id]
@@ -642,7 +632,7 @@ GLOBAL_LIST_EMPTY(timers_by_proc)
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=timerdebug")
+	client << browse(text.Join(), "window=timerdebug")
 
 
 /**

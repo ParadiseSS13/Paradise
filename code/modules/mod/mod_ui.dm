@@ -13,6 +13,9 @@
 	data["malfunctioning"] = malfunctioning
 	data["open"] = open
 	data["active"] = active
+	data["link_id"] = mod_link.id
+	data["link_freq"] = mod_link.frequency
+	data["link_call"] = mod_link.get_other()?.id
 	data["locked"] = locked
 	data["complexity"] = complexity
 	data["selected_module"] = selected_module?.name
@@ -27,7 +30,7 @@
 			"description" = module.desc,
 			"module_type" = module.module_type,
 			"module_active" = module.active,
-			"pinned" = module.pinned_to[UID(user)], //might just want user here
+			"pinned" = module.pinned_to[user.UID()], //might just want user here
 			"idle_power" = module.idle_power_cost,
 			"active_power" = module.active_power_cost,
 			"use_power" = module.use_power_cost,
@@ -58,16 +61,21 @@
 	if(.)
 		return
 	if(locked && !allowed(usr))
-		to_chat(usr, "<span class='warning'>Insufficient access!</span>")
+		to_chat(usr, SPAN_WARNING("Insufficient access!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(malfunctioning && prob(75))
-		to_chat(usr, "<span class='warning'>ERROR!</span>")
+		to_chat(usr, SPAN_WARNING("ERROR!"))
 		return
 	switch(action)
+		if("call")
+			if(!mod_link.link_call)
+				call_link(ui.user, mod_link)
+			else
+				mod_link.end_call()
 		if("lock")
 			locked = !locked
-			to_chat(usr, "<span class='notice'>ID [locked ? "locked" : "unlocked"].</span>")
+			to_chat(usr, SPAN_NOTICE("ID [locked ? "locked" : "unlocked"]."))
 		if("activate")
 			toggle_activate(usr)
 		if("select")

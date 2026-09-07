@@ -5,7 +5,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	desc = "A machine used for recycling dead monkeys into monkey cubes."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -38,7 +37,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 /obj/machinery/monkey_recycler/proc/locate_camera_console()
 	if(length(connected))
 		return // we're already connected!
-	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in GLOB.machines)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in SSmachines.get_by_type(/obj/machinery/computer/camera_advanced/xenobio))
 		if(get_area(xeno_camera) == get_area(loc))
 			xeno_camera.connected_recycler = src
 			connected |= xeno_camera
@@ -54,21 +53,21 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	cube_production = cubes_made
 	required_grind = req_grind
 
-/obj/machinery/monkey_recycler/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
-		return
+/obj/machinery/monkey_recycler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/part_replacer))
+	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
+	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
 		power_change()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, O))
-		return
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/multitool))
+	if(istype(used, /obj/item/multitool))
 		if(!panel_open)
 			cycle_through++
 			switch(cycle_through)
@@ -85,51 +84,51 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				if(6)
 					cube_type = /obj/item/food/monkeycube
 					cycle_through = 0
-			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
+			to_chat(user, SPAN_NOTICE("You change the monkeycube type to [initial(cube_type.name)]."))
 		else
-			var/obj/item/multitool/M = O
+			var/obj/item/multitool/M = used
 			M.buffer = src
-			to_chat(user, "<span class='notice'>You log [src] in [M]'s buffer.</span>")
-		return
+			to_chat(user, SPAN_NOTICE("You log [src] in [M]'s buffer."))
+		return ITEM_INTERACT_COMPLETE
 	if(stat != 0) //NOPOWER etc
-		return
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/grab))
+		var/obj/item/grab/G = used
 		var/grabbed = G.affecting
 		if(ishuman(grabbed))
 			var/mob/living/carbon/human/target = grabbed
 			if(issmall(target))
 				if(target.stat == CONSCIOUS)
-					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
+					to_chat(user, SPAN_WARNING("The monkey is struggling far too much to put it in the recycler."))
 				else
 					user.drop_item()
 					qdel(target)
 					target = null //we sleep in this proc, clear reference NOW
-					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
+					to_chat(user, SPAN_NOTICE("You stuff the monkey in the machine."))
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2
 					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 					use_power(500)
 					grinded++
-					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
+					to_chat(user, SPAN_NOTICE("The machine now has [grinded] monkey\s worth of material stored."))
 					addtimer(VARSET_CALLBACK(src, pixel_x, initial(pixel_x)), 5 SECONDS)
 			else
-				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
+				to_chat(user, SPAN_WARNING("The machine only accepts monkeys!"))
 		else
-			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		return
+			to_chat(user, SPAN_WARNING("The machine only accepts monkeys!"))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc
 		return
 	if(grinded >= required_grind)
-		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
+		to_chat(user, SPAN_NOTICE("The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube."))
 		playsound(loc, 'sound/machines/hiss.ogg', 50, 1)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
-		to_chat(user, "<span class='notice'>The machine's display flashes that it has [grinded] monkey\s worth of material left.</span>")
+		to_chat(user, SPAN_NOTICE("The machine's display flashes that it has [grinded] monkey\s worth of material left."))
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>")
+		to_chat(user, SPAN_WARNING("The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded]."))
 	return

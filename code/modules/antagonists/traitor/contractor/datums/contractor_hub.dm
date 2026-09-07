@@ -11,7 +11,7 @@
 	var/rep_per_completion = 2
 	/// Completing every contract at a given difficulty will always result in a sum of TC greater or equal than the difficulty's threshold.
 	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => number
-	var/difficulty_tc_thresholds = list(
+	var/difficulty_tc_thresholds = alist(
 		EXTRACTION_DIFFICULTY_EASY = 100,
 		EXTRACTION_DIFFICULTY_MEDIUM = 150,
 		EXTRACTION_DIFFICULTY_HARD = 200,
@@ -171,9 +171,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.put_in_hands(TC))
-			to_chat(H, "<span class='notice'>Your payment materializes into your hands!</span>")
+			to_chat(H, SPAN_NOTICE("Your payment materializes into your hands!"))
 		else
-			to_chat(M, "<span class='notice'>Your payment materializes on the floor.</span>")
+			to_chat(M, SPAN_NOTICE("Your payment materializes on the floor."))
 	// Update info
 	reward_tc_paid_out += reward_tc_available
 	reward_tc_available = 0

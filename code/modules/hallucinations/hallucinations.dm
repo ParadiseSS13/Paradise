@@ -1,8 +1,9 @@
-GLOBAL_LIST_INIT(hallucinations, list(
+GLOBAL_LIST_INIT(hallucinations, alist(
 	HALLUCINATE_MINOR = list(
 		/obj/effect/hallucination/bolts = 10,
 		/obj/effect/hallucination/fake_danger = 10,
-		/obj/effect/hallucination/fake_health = 15,
+		/obj/effect/hallucination/fake_health = 10,
+		/obj/effect/hallucination/fake_nutrition = 10,
 		/obj/effect/hallucination/speech = 15,
 		/obj/effect/hallucination/audio/localized = 25,
 		/obj/effect/hallucination/trait_applier/medical_machinery = 25,
@@ -32,6 +33,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/datum/hallucination_manager/blind_rush = 1,
 		/datum/hallucination_manager/waves = 2,
 		/obj/effect/hallucination/blob = 10,
+		/obj/effect/hallucination/sniper = 10
 	)
 ))
 
@@ -41,8 +43,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
   * Base object for hallucinations. Contains basic behaviour to display an icon only to the target.
   */
 /obj/effect/hallucination
-	density = FALSE
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_HIGH
 	/// Duration in deciseconds. Can also be a list with the form [lower bound, upper bound] for a random duration.
 	var/duration = 15 SECONDS
 	/// Hallucination icon.
@@ -51,6 +52,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	var/hallucination_icon_state
 	/// Hallucination override.
 	var/hallucination_override = FALSE
+	/// Hallucination color
+	var/hallucination_color
 	/// Hallucination layer.
 	var/hallucination_layer = MOB_LAYER
 	///Hallucination plane.
@@ -70,6 +73,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	target = hallucination_target
 	if(hallucination_icon && hallucination_icon_state)
 		var/image/I = image(hallucination_icon, hallucination_override ? src : get_turf(src), hallucination_icon_state)
+		if(hallucination_color)
+			I.color = hallucination_color
 		I.override = hallucination_override
 		I.layer = hallucination_layer
 		I.plane = hallucination_plane
@@ -91,7 +96,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	// Overriding to not include call to [/proc/bicon] as it lags the client due to invalid image.
 	. = list(
 		"That's \a [name].",
-		"<span class='whisper'>Something seems odd about this...</span>"
+		SPAN_WHISPER("Something seems odd about this...")
 	)
 
 /obj/effect/hallucination/singularity_pull()

@@ -5,7 +5,6 @@
 	desc = "A Nuclear Warhead tangled in blob tendrils pulsating with a horrific green glow."
 	max_integrity = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 65, ACID = 90)
-	point_return = 0
 
 /obj/structure/blob/captured_nuke/Initialize(mapload, obj/machinery/nuclearbomb/N)
 	. = ..()

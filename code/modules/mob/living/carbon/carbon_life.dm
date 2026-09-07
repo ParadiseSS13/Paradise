@@ -46,7 +46,7 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
-	if(times_fired % 2 == 1)
+	if(ISODD(times_fired))
 		var/datum/milla_safe/carbon_breathe/milla = new()
 		milla.invoke_async(src)
 	else
@@ -67,6 +67,9 @@
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(datum/gas_mixture/environment)
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return
+
+	if(istype(loc, /obj/machinery/cryopod)) // Do not suffocate in cryogenic storage. What the hell.
 		return
 
 	var/datum/gas_mixture/breath
@@ -256,6 +259,9 @@
 			continue
 		if(stat != DEAD)
 			if(M.stat == DEAD && !iscarbon(M))
+				if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+					apply_effect(20000, IRRADIATE) // You willingly ate the green mouse that is clearly making everyone sick, this is on you.
+
 				LAZYREMOVE(stomach_contents, M)
 				qdel(M)
 				continue

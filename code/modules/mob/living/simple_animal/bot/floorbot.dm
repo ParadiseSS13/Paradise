@@ -2,19 +2,16 @@
 /mob/living/simple_animal/bot/floorbot
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 
 	radio_channel = "Engineering"
 	bot_type = FLOOR_BOT
-	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"
 	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
-	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINEERING_GENERAL, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
 	/// Determines what to do when process_scan() receives a target. See process_scan() for details.
@@ -60,7 +57,7 @@
 	..()
 	target = null
 	oldloc = null
-	ignore_list.Cut()
+	clear_ignore_list()
 	nagged = 0
 	anchored = FALSE
 	update_icon()
@@ -99,7 +96,7 @@
 		return
 	var/mob/user = ui.user
 	if(topic_denied(user))
-		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(user)
 	. = TRUE
@@ -133,28 +130,30 @@
 		if("ejectpai")
 			ejectpai()
 
-/mob/living/simple_animal/bot/floorbot/attackby__legacy__attackchain(obj/item/W , mob/user, params)
+/mob/living/simple_animal/bot/floorbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
 		if(amount >= MAX_AMOUNT)
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/loaded = min(MAX_AMOUNT - amount, T.amount)
 		T.use(loaded)
 		amount += loaded
 		if(loaded > 0)
-			to_chat(user, "<span class='notice'>You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles.</span>")
+			to_chat(user, SPAN_NOTICE("You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
 			nagged = 0
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least one floor tile to put into [src]!</span>")
-	else
-		..()
+			to_chat(user, SPAN_WARNING("You need at least one floor tile to put into [src]!"))
+
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			to_chat(user, SPAN_DANGER("[src] buzzes and beeps."))
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	. = ..()
@@ -222,16 +221,18 @@
 			if(emagged && isfloorturf(target))
 				var/turf/simulated/floor/F = target
 				anchored = TRUE
-				mode = BOT_REPAIRING
+				set_mode(BOT_REPAIRING)
 				if(prob(90))
 					F.break_tile_to_plating()
 				else
 					F.ReplaceWithLattice()
-				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
+				audible_message(SPAN_DANGER("[src] makes an excited booping sound."))
 				addtimer(CALLBACK(src, PROC_REF(inc_amount_callback)), 5 SECONDS)
 
 			path = list()
 			return
+
+		var/target_uid = target.UID() // target can become null while path is calculated, so we need to store UID
 		if(!length(path)) // No path, need a new one
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
@@ -241,14 +242,14 @@
 
 			if(!bot_move(target))
 				add_to_ignore(target)
-				ignore_job -= target.UID()
+				ignore_job -= target_uid
 				target = null
-				mode = BOT_IDLE
+				set_mode(BOT_IDLE)
 				return
 		else if(!bot_move(target))
-			ignore_job -= target.UID()
+			ignore_job -= target_uid
 			target = null
-			mode = BOT_IDLE
+			set_mode(BOT_IDLE)
 			return
 
 	oldloc = loc
@@ -256,7 +257,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/inc_amount_callback()
 	amount ++
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	ignore_job -= target.UID()
 	target = null
 
@@ -308,7 +309,7 @@
 		return
 
 	if(amount <= 0)
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		ignore_job -= target.UID()
 		target = null
 		return
@@ -316,16 +317,16 @@
 	anchored = TRUE
 
 	if(isspaceturf(target_turf)) // If we are fixing an area not part of pure space, it is
-		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
-		mode = BOT_REPAIRING
+		visible_message(SPAN_NOTICE("[src] begins to repair the hole."))
+		set_mode(BOT_REPAIRING)
 		update_icon(UPDATE_OVERLAYS)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
-		mode = BOT_REPAIRING
+		set_mode(BOT_REPAIRING)
 		update_icon(UPDATE_OVERLAYS)
-		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
+		visible_message(SPAN_NOTICE("[src] begins repairing the floor."))
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
 
@@ -343,7 +344,7 @@
 	else
 		target_turf.ChangeTurf(/turf/simulated/floor/plating)
 
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	amount--
 	update_icon(UPDATE_OVERLAYS)
 	anchored = FALSE
@@ -353,15 +354,15 @@
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	anchored = TRUE
-	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
-	mode = BOT_EAT_TILE
+	visible_message(SPAN_NOTICE("[src] begins to collect tiles."))
+	set_mode(BOT_EAT_TILE)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_eat_tile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eat_tile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
 		target = null
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 	if((amount + T.amount) > MAX_AMOUNT)
 		var/i = MAX_AMOUNT - amount
@@ -372,22 +373,22 @@
 		qdel(T)
 	anchored = FALSE
 	target = null
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/proc/start_make_tile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	anchored = TRUE
-	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
-	mode = BOT_MAKE_TILE
+	visible_message(SPAN_NOTICE("[src] begins to create tiles."))
+	set_mode(BOT_MAKE_TILE)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_make_tile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_make_tile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))
 		target = null
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 
 	if((amount + 4) > MAX_AMOUNT) // 1 metal = 4 tiles, hence + 4
@@ -404,7 +405,7 @@
 		qdel(M)
 	anchored = FALSE
 	target = null
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
@@ -422,7 +423,7 @@
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
 	N.contents = list()

@@ -1,0 +1,9 @@
+/obj/structure/closet/walllocker/emerglocker/north : /obj/structure/closet/walllocker/emerglocker/directional/north
+/obj/structure/closet/walllocker/emerglocker/east : /obj/structure/closet/walllocker/emerglocker/directional/east
+/obj/structure/closet/walllocker/emerglocker/west : /obj/structure/closet/walllocker/emerglocker/directional/west
+/obj/structure/closet/walllocker/emerglocker/south : /obj/structure/closet/walllocker/emerglocker/directional/south
+/obj/structure/closet/walllocker/emerglocker{pixel_x=-28} : /obj/structure/closet/walllocker/emerglocker/directional/west
+/obj/structure/closet/walllocker/emerglocker{pixel_x=-32} : /obj/structure/closet/walllocker/emerglocker/directional/west
+/obj/structure/closet/walllocker/emerglocker{pixel_x=28} : /obj/structure/closet/walllocker/emerglocker/directional/east
+/obj/structure/closet/walllocker/emerglocker{pixel_x=32} : /obj/structure/closet/walllocker/emerglocker/directional/east
+/obj/structure/closet/walllocker/emerglocker{pixel_y=32} : /obj/structure/closet/walllocker/emerglocker/directional/north

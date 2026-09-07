@@ -38,20 +38,18 @@
 	SStgui.update_uis(src)
 
 
-/obj/machinery/computer/rnd_backup/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
+/obj/machinery/computer/rnd_backup/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/rnd_backup_disk) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!H.drop_item_to_ground(O))
-			return TRUE
+		if(!H.transfer_item_to(used, src))
+			return ITEM_INTERACT_COMPLETE
 
-		O.forceMove(src)
-		inserted_disk = O
-		to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
+		inserted_disk = used
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 		SStgui.update_uis(src)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
-
 
 /obj/machinery/computer/rnd_backup/proc/eject_disk()
 	if(!inserted_disk)
@@ -241,13 +239,13 @@
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 
 /obj/machinery/computer/rnd_backup/ui_interact(mob/user, datum/tgui/ui = null)

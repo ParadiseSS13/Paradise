@@ -46,7 +46,7 @@
 	return ..()
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.team == team_number)
 			return C
 
@@ -65,23 +65,23 @@
 	for(var/datum/team/abductor/team in actual_abductor_teams)
 		var/obj/machinery/abductor/console/console = get_team_console(team.team_number)
 		if(console.experiment.points >= team.experiment_objective.target_amount)
-			to_chat(world, "<span class='greenannounce'>[team.name] team fulfilled its mission!</span>")
+			to_chat(world, SPAN_GREENANNOUNCE("[team.name] team fulfilled its mission!"))
 		else
-			to_chat(world, "<span class='boldannounceic'>[team.name] team failed its mission.</span>")
+			to_chat(world, SPAN_BOLDANNOUNCEIC("[team.name] team failed its mission."))
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_abduction()
 	var/list/text = list()
 	if(length(abductors))
-		text += "<br><span class='big'><b>The abductors were:</b></span><br>"
+		text += "<br>[SPAN_BIG("<b>The abductors were:</b>")]<br>"
 		for(var/datum/mind/abductor_mind in abductors)
 			text += printplayer(abductor_mind)
 			text += "<br>"
 			text += printobjectives(abductor_mind)
 			text += "<br>"
 		if(length(abductees))
-			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
+			text += "<br>[SPAN_BIG("<b>The abductees were:</b>")]<br>"
 			for(var/datum/mind/abductee_mind in abductees)
 				text += printplayer(abductee_mind)
 				text += "<br>"
@@ -108,7 +108,7 @@
 	needs_target = FALSE
 
 /datum/objective/experiment
-	explanation_text = "Experiment on some humans."
+	explanation_text = "Experiment on some test subjects."
 	target_amount = 6
 	needs_target = FALSE
 	/// Which abductor team number does this belong to.
@@ -116,7 +116,7 @@
 
 /datum/objective/experiment/New()
 	..()
-	explanation_text = "Experiment on [target_amount] humans."
+	explanation_text = "Experiment on [target_amount] test subjects."
 
 /datum/objective/experiment/check_completion()
 	var/ab_team = abductor_team_number
@@ -127,7 +127,7 @@
 		var/mob/living/carbon/human/H = M.current
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/E in SSmachines.get_by_type(/obj/machinery/abductor/experiment))
 		if(E.team == ab_team)
 			if(E.points >= target_amount)
 				return TRUE

@@ -2,8 +2,6 @@
 	name = "Banana Grenade"
 	desc = "HONK! brand Bananas. In a special applicator for rapid slipping of wide areas."
 	icon_state = "banana"
-	item_state = "grenade"
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2.0
 	var/stage = 0
 	var/state = 0
@@ -34,7 +32,7 @@
 	AddComponent(/datum/component/slippery, src, 14 SECONDS, 100, 4, FALSE)
 
 /obj/item/grown/bananapeel/traitorpeel/after_slip(mob/living/carbon/human/H)
-	to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
+	to_chat(H, SPAN_WARNING("Your feet feel like they're on fire!"))
 	H.take_overall_damage(0, rand(2,8))
 	H.take_organ_damage(2)
 	return ..()

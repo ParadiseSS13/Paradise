@@ -12,7 +12,6 @@
 	icon = 'icons/obj/pipes/transit_tube_station.dmi'
 	icon_state = "closed_station0"
 	base_icon_state = "station0"
-	exit_delay = 1
 	enter_delay = 2
 	density = TRUE
 	uninstalled_type = /obj/structure/transit_tube_construction/station
@@ -35,8 +34,8 @@
 
 /obj/structure/transit_tube/station/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>While in transit, hold the directional key matching the pod's direction to skip a station.</span>"
-	. += "<span class='notice'>While at a station, press a directional key to quickly leave the station in that direction.</span>"
+	. += SPAN_NOTICE("While in transit, hold the directional key matching the pod's direction to skip a station.")
+	. += SPAN_NOTICE("While at a station, press a directional key to quickly leave the station in that direction.")
 
 /obj/structure/transit_tube/station/init_tube_dirs()
 	// Tube station directions are simply 90 to either side of
@@ -71,7 +70,7 @@
 	if(!pod_moving && L.dir == boarding_dir && hatch_state == TRANSIT_TUBE_OPEN && isliving(L) && !is_type_in_list(L, disallowed_mobs))
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(length(pod.contents))
-				to_chat(L, "<span class='warning'>The pod is already occupied.</span>")
+				to_chat(L, SPAN_WARNING("The pod is already occupied."))
 				return
 			if(!pod.moving && ((pod.dir in directions()) || (reverse_launch && (turn(pod.dir, 180) in directions()))))
 				pod.move_into(L)
@@ -93,8 +92,8 @@
 	// Can't empty it when inside or when there is nothing inside
 	if(!length(pod.contents) || user.loc == pod)
 		return
-	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
-		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+	user.visible_message(SPAN_WARNING("[user] starts emptying [pod]'s contents onto the floor!"), \
+		SPAN_NOTICE("You start emptying [pod]'s contents onto the floor."), SPAN_WARNING("You hear a loud noise! As if somebody is throwing stuff on the floor!"))
 	if(!do_after(user, 20, target = pod))
 		return
 	for(var/atom/movable/AM in pod)
@@ -104,18 +103,19 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/station/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
 			var/mob/living/GM = G.affecting
 			for(var/obj/structure/transit_tube_pod/pod in loc)
-				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
+				pod.visible_message(SPAN_WARNING("[user] starts putting [GM] into [pod]!"))
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
 					GM.Weaken(10 SECONDS)
 					Bumped(GM)
 					qdel(G)
 				break
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)
@@ -232,8 +232,8 @@
 
 /obj/structure/transit_tube/station/dispenser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This station will create a pod for you to ride, no need to wait for one.</span>"
-	. += "<span class='notice'>Any pods arriving at this station will be reclaimed.</span>"
+	. += SPAN_NOTICE("This station will create a pod for you to ride, no need to wait for one.")
+	. += SPAN_NOTICE("Any pods arriving at this station will be reclaimed.")
 
 /obj/structure/transit_tube/station/dispenser/close_hatch()
 	. = ..()
@@ -254,7 +254,7 @@
 
 	if(isliving(L) && !is_type_in_list(L, disallowed_mobs))
 		var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
-		L.visible_message("<span class='notice'>[pod] forms around [L].</span>", "<span class='notice'>[pod] materializes around you.</span>")
+		L.visible_message(SPAN_NOTICE("[pod] forms around [L]."), SPAN_NOTICE("[pod] materializes around you."))
 		playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
 		pod.dir = turn(dir, -90)
 		pod.move_into(L)

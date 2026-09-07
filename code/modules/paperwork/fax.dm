@@ -20,14 +20,10 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 /datum/fax/admin/New()
 	return
 
-// Fax panel - lets admins check all faxes sent during the round
-/client/proc/fax_panel()
-	set name = "Fax Panel"
-	set category = "Event"
-	if(holder)
-		holder.fax_panel(usr)
+USER_VERB(fax_panel, R_ADMIN, "Fax Panel", "Lets admins check all faxes sent during the round.", VERB_CATEGORY_EVENT)
+	if(client.holder)
+		client.holder.fax_panel(client.mob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
 
 /datum/admins/proc/fax_panel(mob/living/user)
 	var/html = "<A align='right' href='byond://?src=[UID()];refreshfaxpanel=1'>Refresh</A>"

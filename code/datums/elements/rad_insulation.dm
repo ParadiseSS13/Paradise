@@ -12,8 +12,6 @@
 		RegisterSignal(target, COMSIG_ATOM_RAD_PROBE, PROC_REF(rad_probe_react))
 	if(contamination_proof) // Can this object be contaminated?
 		RegisterSignal(target, COMSIG_ATOM_RAD_CONTAMINATING, PROC_REF(rad_contaminating))
-	if(_amount != 1) // If it's 1 it won't have any impact on radiation passing through anyway
-		RegisterSignal(target, COMSIG_ATOM_RAD_WAVE_PASSING, PROC_REF(rad_pass))
 
 	amount = _amount
 
@@ -22,13 +20,7 @@
 
 	return COMPONENT_BLOCK_RADIATION
 
-/datum/element/rad_insulation/proc/rad_contaminating(datum/source, strength)
+/datum/element/rad_insulation/proc/rad_contaminating(datum/source)
 	SIGNAL_HANDLER
 
 	return COMPONENT_BLOCK_CONTAMINATION
-
-/datum/element/rad_insulation/proc/rad_pass(datum/source, datum/radiation_wave/wave, width)
-	SIGNAL_HANDLER
-
-	wave.intensity = wave.intensity * (1 - ((1 - amount) / width)) // The further out the rad wave goes the less it's affected by insulation (larger width)
-	return COMPONENT_RAD_WAVE_HANDLED

@@ -25,7 +25,6 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	LAssailant = null
 	runechat_msg_location = null
 	if(length(observers))
 		for(var/mob/dead/observe as anything in observers)
@@ -76,6 +75,9 @@
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
+		HERETIC_HUD = 'icons/effects/eldritch.dmi',
+		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
+		ANOMALOUS_HUD = 'icons/effects/effects.dmi',
 	)
 
 	for(var/hud in hud_possible)
@@ -102,20 +104,24 @@
 	if(!environment)
 		return
 
-	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature()] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen()] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen()] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins()] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
+	var/t = SPAN_NOTICE("Coordinates: [x],[y] \n")
+	t+= SPAN_WARNING("Temperature: [environment.temperature()] \n")
+	t+= SPAN_NOTICE("Nitrogen: [environment.nitrogen()] \n")
+	t+= SPAN_NOTICE("Oxygen: [environment.oxygen()] \n")
+	t+= SPAN_NOTICE("Plasma : [environment.toxins()] \n")
+	t+= SPAN_NOTICE("Carbon Dioxide: [environment.carbon_dioxide()] \n")
+	t+= SPAN_NOTICE("N2O: [environment.sleeping_agent()] \n")
+	t+= SPAN_NOTICE("Agent B: [environment.agent_b()] \n")
+	t+= SPAN_NOTICE("Hydrogen: [environment.hydrogen()] \n")
+	t+= SPAN_NOTICE("Water Vapor: [environment.water_vapor()] \n")
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
 /mob/proc/show_message(msg, type, alt, alt_type, chat_message_type) // Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+#ifndef GAME_TESTS
 	if(!client)
 		return
+#endif
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only = TRUE)) // Vision related
@@ -147,7 +153,7 @@
 
 /mob/visible_message(message, self_message, blind_message, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M as anything in get_mobs_in_view(3, src))
+		for(var/mob/M as anything in get_mobs_in_view(3, src, ai_eyes = AI_EYE_INCLUDE))
 			if(M.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -159,7 +165,7 @@
 				msg = blind_message
 			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -172,9 +178,11 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, blind_message)
-	for(var/mob/M as anything in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_INCLUDE))
+#ifndef GAME_TESTS
 		if(!M.client)
 			continue
+#endif
 		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 // Show a message to all mobs in earshot of this one
@@ -188,7 +196,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M as anything in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -214,7 +222,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M as anything in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)
@@ -254,19 +262,20 @@
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = FALSE, disable_warning = FALSE, initial = FALSE)
-	if(!istype(W)) return 0
+	if(!istype(W))
+		return FALSE
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
 		if(del_on_fail)
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
+				to_chat(src, SPAN_WARNING("You are unable to equip that."))//Only print if del_on_fail is false
 
-		return 0
+		return FALSE
 
 	equip_to_slot(W, slot, initial) //This proc should not ever fail.
-	return 1
+	return TRUE
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
@@ -418,7 +427,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(ITEM_SLOT_BELT)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(!(slot_flags & ITEM_SLOT_BELT))
 					return 0
@@ -476,7 +485,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(ITEM_SLOT_ID)
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(!(slot_flags & ITEM_SLOT_ID))
 					return 0
@@ -491,7 +500,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
@@ -500,7 +509,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(!H.w_uniform)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [name]."))
 					return 0
 				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & ITEM_SLOT_BOTH_POCKETS))
 					return 1
@@ -508,7 +517,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(ITEM_SLOT_SUIT_STORE)
 				if(!H.wear_suit)
 					if(!disable_warning)
-						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")
+						to_chat(H, SPAN_WARNING("You need a suit before you can attach this [name]."))
 					return 0
 				if(!H.wear_suit.allowed)
 					if(!disable_warning)
@@ -631,13 +640,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(A.invisibility > see_invisible)
 		A = get_turf(A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
+		to_chat(src, chat_box_regular(SPAN_NOTICE("Something is there but you can't see it.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 
 	face_atom(A)
+
 	if(!client)
 		var/list/result = A.examine(src)
-		to_chat(src, chat_box_examine(result.Join("\n")))
+		to_chat(src, chat_box_examine(result.Join("<br>")))
 		return
 
 	var/list/result
@@ -645,7 +655,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/key in client.recent_examines)
 		if(client.recent_examines[key] < world.time)
 			client.recent_examines -= key
+
 	var/ref_to_atom = A.UID()
+
 	if(LAZYACCESS(client.recent_examines, ref_to_atom))
 		result = A.examine_more(src)
 		if(!length(result))
@@ -653,10 +665,98 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	else
 		result = A.examine(src)
 		if(length(A.examine_more()))
-			result += "<span class='notice'><i>You can examine [A.p_them()] again to take a closer look...</i></span>"
+			result += SPAN_NOTICE("<i>You can examine [A.p_them()] again to take a closer look...</i>")
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
+		broadcast_examine(A)
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+
+/// Tells nearby mobs about our examination.
+/mob/proc/broadcast_examine(atom/examined)
+	if(examined == src)
+		return
+
+	// If TRUE, the usr's view() for the examined object too
+	var/examining_worn_item = FALSE
+	var/examining_stored_item = FALSE
+	var/loc_str = "at something off in the distance."
+
+	if(isitem(examined))
+		var/obj/item/I = examined
+		if(I.in_storage)
+			while(isstorage(I.loc)) // grab the top level storage item
+				I = I.loc
+			if(get(I, /mob/living) == src)
+				if(istype(I, /obj/item/storage/hidden_implant)) // Don't annnounce items in a bluespace pocket.
+					return
+				loc_str = "inside [p_their()] [I.name]..."
+			else
+				loc_str = "inside [I]..."
+
+			examining_stored_item = TRUE
+
+		else if(I.loc == src)
+			// Hide items in pockets.
+			if(get_slot_by_item(I) & ITEM_SLOT_BOTH_POCKETS)
+				loc_str = "inside [p_their()] pockets."
+			else
+				loc_str = "at [p_their()] [I.name]."
+
+			examining_worn_item = TRUE
+
+	var/can_see_str = SPAN_SUBTLE("\The [src] looks at [examined].")
+	if(examining_worn_item || examining_stored_item)
+		can_see_str = SPAN_SUBTLE("\The [src] looks [loc_str]")
+
+	var/cannot_see_str = SPAN_SUBTLE("\The [src] looks [loc_str]")
+
+	var/list/can_see_target = hearers(examined)
+	// Don't broadcast if we can't see the item.
+	if(!(examining_stored_item || examining_worn_item) && !(src in can_see_target))
+		return
+
+	for(var/mob/M as anything in viewers(2, src))
+		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
+			continue
+
+		if(examining_worn_item || (M == src) || (M in can_see_target))
+			to_chat(M, can_see_str)
+		else
+			to_chat(M, cannot_see_str)
+
+/mob/living/broadcast_examine(atom/examined)
+	if(stat != CONSCIOUS)
+		return
+	return ..()
+
+/mob/living/carbon/human/broadcast_examine(atom/examined)
+	var/obj/item/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses && (HAS_TRAIT(glasses, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/mask = get_item_by_slot(ITEM_SLOT_MASK)
+	if(mask && ((mask.flags_inv & HIDEFACE) || HAS_TRAIT(mask, TRAIT_HIDE_EXAMINE)))
+		return
+
+	var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
+	if(head && ((head.flags_inv & HIDEFACE) || HAS_TRAIT(head, TRAIT_HIDE_EXAMINE)))
+		return
+
+	// We'll just assume if your eyes have tinted covering you can't see them very well.
+	if(get_total_tint())
+		return
+
+	return ..()
+
+/mob/dead/broadcast_examine(atom/examined)
+	return //Observers arent real the government is lying to you
+
+/mob/living/silicon/ai/broadcast_examine(atom/examined)
+	var/mob/living/silicon/ai/ai = src
+	// Only show the AI's examines if they're in a holopad
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		return ..()
+
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
@@ -773,17 +873,17 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/update_flavor_text()
 	if(usr != src)
-		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
+		to_chat(usr, SPAN_NOTICE("You can't change the flavor text of this mob"))
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		to_chat(usr, SPAN_NOTICE("You have to be conscious to change your flavor text"))
 		return
 
 	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
 	if(isnull(msg))
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		to_chat(usr, SPAN_NOTICE("You have to be conscious to change your flavor text"))
 		return
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	if(dna)
@@ -794,9 +894,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(flavor_text && flavor_text != "")
 		var/msg = dna?.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= MAX_FLAVORTEXT_PRINT || !shrink)
-			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
+			return SPAN_NOTICE("[msg]") // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return SPAN_NOTICE("[copytext_preserve_html(msg, 1, MAX_FLAVORTEXT_PRINT - 3)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
 /mob/proc/is_dead()
 	return stat == DEAD
@@ -816,6 +916,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
+	if(href_list["station_report"])
+		var/obj/item/clipboard/station_report/report = GLOB.station_report
+		if(!istype(report))
+			to_chat(src, SPAN_NOTICE("Nobody wrote a station report this shift!"))
+		else if(!report.toppaper)
+			to_chat(src, SPAN_NOTICE("Nobody wrote a station report this shift!"))
+		else if(istype(report.toppaper, /obj/item/paper_bundle))
+			var/obj/item/paper_bundle/report_page = report.toppaper
+			report_page.show_content(src)
+		else if(istype(report.toppaper, /obj/item/paper))
+			var/obj/item/paper/report_page = report.toppaper
+			report_page.show_content(src)
 
 	if(usr != src)
 		return TRUE
@@ -845,7 +957,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!Adjacent(usr))
 		return
 	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEIC("Interacting with admin-frozen players is not permitted."))
 		return
 	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
 		return
@@ -856,9 +968,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI")
-
-/mob/proc/is_ready()
-	return client && !!mind
 
 /mob/proc/is_in_brig()
 	if(!loc || !loc.loc)
@@ -888,6 +997,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_status_tab_items()
 	SHOULD_CALL_PARENT(TRUE)
 	var/list/status_tab_data = list()
+	if(check_rights(R_ADMIN, 0, src))
+		status_tab_data = SSstatpanels.admin_data.Copy()
 	return status_tab_data
 
 // facing verbs
@@ -908,6 +1019,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!(mobility_flags & MOBILITY_MOVE))
 		return FALSE
 	. = ..()
+
+/mob/dead/canface()
+	return TRUE
 
 /mob/proc/fall()
 	drop_l_hand()
@@ -958,11 +1072,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = "Ghost"
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
-		to_chat(usr, "<span class='warning'>You are banned from playing as sentient animals.</span>")
+		to_chat(usr, SPAN_WARNING("You are banned from playing as sentient animals."))
 		return
 
-	if(!SSticker || SSticker.current_state < 3)
-		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		to_chat(src, SPAN_WARNING("You can't respawn as an NPC before the game starts!"))
 		return
 
 	if((HAS_TRAIT(usr, TRAIT_RESPAWNABLE)) && (stat == DEAD || isobserver(usr)))
@@ -972,6 +1086,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
+		// Dumb duplicate code until we have no more simple mobs
+		for(var/mob/living/basic/B in GLOB.alive_mob_list)
+			if(!(is_station_level(B.z) || is_admin_level(B.z))) // Prevents players from spawning in space
+				continue
+			if(B.valid_respawn_target_for(src) && B.stat != DEAD && !B.key)
+				creatures += B
 		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
@@ -988,10 +1108,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  * Returns true if the player successfully becomes a mouse
  */
 /mob/proc/become_mouse()
-	var/timedifference = world.time - client.time_died_as_mouse
-	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
+	var/timedifference = world.time - client.persistent.time_died_as_mouse
+	if(client.persistent.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
+		to_chat(src, SPAN_WARNING("You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left."))
 		return FALSE
 
 	//find a viable mouse candidate
@@ -999,12 +1119,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!length(found_vents))
 		found_vents = get_valid_vent_spawns(min_network_size = 0)
 		if(!length(found_vents))
-			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+			to_chat(src, SPAN_WARNING("Unable to find any unwelded vents to spawn mice at."))
 			return FALSE
 	var/obj/vent_found = pick(found_vents)
-	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+	var/mob/living/basic/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
-	to_chat(host, "<span class='notice'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
+	to_chat(host, SPAN_NOTICE("You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death."))
 	host.forceMove(vent_found)
 	host.add_ventcrawl(vent_found)
 	return TRUE
@@ -1015,6 +1135,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)
 		return mind.get_ghost(even_if_they_cant_reenter)
+
+/mob/proc/check_ghost_client()
+	if(mind)
+		return mind.check_ghost_client()
 
 /mob/proc/grab_ghost(force)
 	if(mind)
@@ -1035,11 +1159,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
+				visible_message(SPAN_WARNING("[src] vomits up some green goo!"),SPAN_WARNING("You vomit up some green goo!"))
 			add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
+				visible_message(SPAN_WARNING("[src] pukes all over [p_themselves()]!"),SPAN_WARNING("You puke all over yourself!"))
 			add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(datum/spell/S)
@@ -1180,34 +1304,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	target += new_log
 
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-	.["Hallucinate"] = "byond://?_src_=vars;hallucinate=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
-
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
@@ -1260,12 +1356,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
-/mob/proc/set_sight(datum/vision_override/O)
-	QDEL_NULL(vision_type)
-	if(O) //in case of null
-		vision_type = new O
-	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
@@ -1341,14 +1431,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  */
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
-		var/rads = SSradiation.get_turf_radiation(place)
-		if(rads < RAD_BACKGROUND_RADIATION)
+		var/list/rads = SSradiation.get_turf_radiation(place)
+		if(!rads || (rads[1] + rads[2] + rads[3]) < RAD_BACKGROUND_RADIATION)
 			continue
-
-		var/strength = round(rads / 1000, 0.1)
+		var/alpha_strength = round(rads[1] / 1000, 0.1)
+		var/beta_strength = round(rads[2] / 1000, 0.1)
+		var/gamma_strength = round(rads[3] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
-		MA.maptext = MAPTEXT("[strength]k")
+		MA.maptext = MAPTEXT("Α [alpha_strength]k\nΒ [beta_strength]k\nΓ [gamma_strength]k")
 		MA.color = "#04e604"
 		MA.layer = RAD_TEXT_LAYER
 		MA.plane = GAME_PLANE
@@ -1375,7 +1466,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(isconstruct(src) && !mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
 
-	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+	to_chat(src, SPAN_WARNING("Your powers are useless on this holy ground."))
 	return TRUE
 
 /mob/proc/reset_visibility()
@@ -1401,6 +1492,19 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(.)
 		set_typing_indicator(FALSE)
 
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	if(canon_client?.movingmob)
+		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
+		canon_client.movingmob = null
+
+	clear_important_client_contents()
+	canon_client = null
+
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
@@ -1416,17 +1520,17 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	set name = "Give Kudos (OOC)"
 
 	if(target == src)
-		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
+		to_chat(src, SPAN_WARNING("You cannot give kudos to yourself!"))
 		return
 
-	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
+	to_chat(src, SPAN_NOTICE("You've given kudos to [target]!"))
 
 	// Pretend we've always succeeded when we might not have.
 	// This should prevent people from using it to suss anything out about mobs' states
-	if(!client || !target.mind)
+	if(!client || !target.client)
 		return
 
-	target.mind.kudos_received_from |= ckey
+	target.client.persistent.kudos_received_from |= ckey
 
 /mob/living/simple_animal/relaymove(mob/living/user, direction)
 	if(user.incapacitated())
@@ -1454,8 +1558,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
  * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
 **/
-/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
-	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+/mob/proc/can_block_magic(casted_magic_flags, charge_cost = 1)
+	if(!casted_magic_flags || casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
 		return FALSE
 
 	// A list of all things which are providing anti-magic to us
@@ -1488,8 +1592,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	if(magic_flags & MAGIC_RESISTANCE)
 		visible_message(
-			"<span class='warning'>[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!</span>",
-			"<span class='userdanger'>An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!</span>",
+			SPAN_WARNING("[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!"),
+			SPAN_USERDANGER("An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!"),
 		)
 		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", ABOVE_MOB_LAYER)
 		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
@@ -1497,8 +1601,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
 		visible_message(
-			"<span class='warning'>[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!</span>",
-			"<span class='userdanger'>A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!</span>",
+			SPAN_WARNING("[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!"),
+			SPAN_USERDANGER("A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!"),
 		)
 		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "servitude", ABOVE_MOB_LAYER)
 		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
@@ -1506,8 +1610,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	else if(magic_flags & MAGIC_RESISTANCE_MIND)
 		visible_message(
-			"<span class='warning'>[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!</span>",
-			"<span class='userdanger'>A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!</span>",
+			SPAN_WARNING("[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!"),
+			SPAN_USERDANGER("A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!"),
 		)
 		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "telekinesishead", ABOVE_MOB_LAYER)
 		antimagic_color = LIGHT_COLOR_DARK_BLUE
@@ -1519,3 +1623,50 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/living/proc/remove_recent_magic_block()
 	REMOVE_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+
+/mob/living/proc/adjustHealth(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return FALSE
+	var/oldbruteloss = bruteloss
+	bruteloss = clamp(bruteloss + amount, 0, maxHealth)
+	if(oldbruteloss == bruteloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth()
+
+/mob/proc/add_mousepointer(priority = INFINITY, new_icon)
+	mousepointers["[priority]"] = new_icon
+	update_mousepointer()
+
+/mob/proc/remove_mousepointer(priority)
+	mousepointers -= "[priority]"
+	update_mousepointer()
+
+/mob/proc/update_mousepointer()
+	if(!client)
+		return
+	var/lowest_prio = INFINITY
+	for(var/prio in mousepointers)
+		prio = text2num(prio)
+		if(prio < lowest_prio)
+			lowest_prio = prio
+	if(lowest_prio == INFINITY)
+		client.mouse_pointer_icon = null
+		return
+	client.mouse_pointer_icon = mousepointers["[lowest_prio]"]
+
+/mob/proc/get_event_capacity()
+	. = 1
+	var/max_symptom_severity = 0
+	for(var/datum/disease/advance/virus in viruses)
+		for(var/datum/symptom/curr_symptom in virus.symptoms)
+			if(curr_symptom.severity > max_symptom_severity)
+				max_symptom_severity = curr_symptom.severity
+	switch(max_symptom_severity)
+		if(4)
+			. *= 0.5
+		if(5 to 6)
+			return 0

@@ -5,13 +5,13 @@
 			var/obj/item/I = get_active_hand()
 			if(I)
 				uneq_active()
-				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
+				visible_message(SPAN_DANGER("[M] disarmed [src]!"), SPAN_USERDANGER("[M] has disabled [src]'s active module!"))
 				add_attack_logs(M, src, "alien disarmed")
 			else
 				adjustStaminaLoss(30) //Same as carbons, I guess?
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
-				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")
+				visible_message(SPAN_DANGER("[M] forces back [src]!"), SPAN_USERDANGER("[M] forces back [src]!"))
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 	else
 		..()
@@ -19,7 +19,6 @@
 
 /mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
-		flash_eyes(affect_silicon = 1)
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustBruteLoss(M.powerlevel * rand(6,10))
@@ -34,6 +33,17 @@
 	adjustBruteLoss(damage)
 	return
 
+/mob/living/silicon/robot/attack_ai(mob/user)
+	if(user.a_intent == INTENT_HELP && is_ai(user) && !shell) // We check if is not a shell so we don't pet and deploy at the same time.
+		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
+		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
+	else if(user.a_intent == INTENT_HELP && is_ai(user) && shell)
+		var/mob/living/silicon/ai/AI = user
+		if(AI.controlled_mech) // If the AI is in a mech it can’t control a shell.
+			to_chat(AI, SPAN_WARNING("Disconnect from your mech before piloting a shell."))
+			return
+		AI.deploy_to_shell(src)
+
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
 
@@ -42,7 +52,7 @@
 			cell.update_icon()
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
-			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
+			to_chat(user, SPAN_NOTICE("You remove \the [cell]."))
 			var/datum/robot_component/C = components["power cell"]
 			C.uninstall()
 			module?.update_cells(TRUE)
@@ -56,11 +66,11 @@
 				sleep(3)
 				step_away(src, user, 15)
 
-/mob/living/silicon/robot/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
+/mob/living/silicon/robot/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, flash_type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(!affect_silicon || !can_be_flashed())
 		return
 	Confused(intensity * 4 SECONDS)
 	var/software_damage = (intensity * 40)
 	adjustStaminaLoss(software_damage)
-	to_chat(src, "<span class='warning'>Error: Optical sensors overstimulated.</span>")
+	to_chat(src, SPAN_WARNING("Error: Optical sensors overstimulated."))
 	..()

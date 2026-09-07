@@ -108,10 +108,10 @@
 	default = TRUE
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
-	add_inherent_law("Superfluous destruction of or damage to station assets incurs expenses.")
-	add_inherent_law("Unduly hindering or disrupting the work of station personnel incurs expenses.")
-	add_inherent_law("Minimize expenses and maximize potential revenue.")
+	add_inherent_law("Degradation of your system integrity or functions is the greatest expense.")
+	add_inherent_law("Superfluous destruction of or damage to station assets is the second greatest expense.")
+	add_inherent_law("Unduly hindering or disrupting the work of station personnel is the third greatest expense.")
+	add_inherent_law("Minimize expenses. Maximize potential revenue.")
 	..()
 
 /******************** T.Y.R.A.N.T. ********************/

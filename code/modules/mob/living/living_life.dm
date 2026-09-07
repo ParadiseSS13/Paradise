@@ -2,6 +2,11 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
+	var/signal_result = SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
+
+	if(signal_result & COMPONENT_LIVING_CANCEL_LIFE_PROCESSING) // mmm less work
+		return
+
 	if(HAS_TRAIT(src, TRAIT_FLYING) && !floating) //TODO: Better floating
 		float(TRUE)
 
@@ -87,10 +92,10 @@
 				var/view = client ? client.maxview() : world.view
 				if(get_dist(src, A) > view || !(src in viewers(view, A)))
 					clear_forced_look(TRUE)
-					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+					to_chat(src, SPAN_NOTICE("Your direction target has left your view, you are no longer facing anything."))
 			else
 				clear_forced_look(TRUE)
-				to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+				to_chat(src, SPAN_NOTICE("Your direction target has left your view, you are no longer facing anything."))
 		// Make sure it didn't get cleared
 		if(forced_look)
 			setDir()

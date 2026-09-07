@@ -1,4 +1,4 @@
-#define DRYING_TIME 5 MINUTES //for 1 unit of depth in puddle (amount var)
+#define DRYING_TIME 5 MINUTES //for 1 unit of depth in puddle (cleanable_amount var)
 #define ALWAYS_IN_GRAVITY 2
 
 /obj/effect/decal/cleanable/blood
@@ -7,7 +7,6 @@
 	desc = "It's thick and gooey. Perhaps it's the chef's cooking?"
 	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
@@ -18,12 +17,11 @@
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
-	var/amount = 5
+	cleanable_amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
 	var/weightless_icon = 'icons/effects/blood_weightless.dmi'
-	inertia_move_delay = 5 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C == src)
@@ -52,12 +50,12 @@
 
 	if(gravity_check)
 		if(!. && !QDELETED(src))
-			dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+			dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (cleanable_amount + 1), TIMER_STOPPABLE)
 	else
 		if(prob(50))
-			animate_float(src, -1, rand(30,120))
+			animate_float(src, -1, rand(30, 120))
 		else
-			animate_levitate(src, -1, rand(30,120))
+			animate_levitate(src, -1, rand(30, 120))
 		//weightless blood cannot dry
 		return
 
@@ -108,7 +106,7 @@
 	name = dryname
 	desc = drydesc
 	color = adjust_brightness(color, -50)
-	amount = 0
+	cleanable_amount = 0
 	gravity_check = ALWAYS_IN_GRAVITY
 	animate(src)
 
@@ -164,7 +162,7 @@
 	// they were going in.
 
 	var/list/obj/item/things_to_potentially_bloody = list()
-	var/count = amount + 1
+	var/count = cleanable_amount + 1
 
 	for(var/obj/item/i in H.contents)
 		things_to_potentially_bloody += i
@@ -179,13 +177,13 @@
 
 /obj/effect/decal/cleanable/blood/attack_hand(mob/living/carbon/human/user)
 	..()
-	if(amount && istype(user))
+	if(cleanable_amount && istype(user))
 		add_fingerprint(user)
 		if(user.gloves)
 			return
-		var/taken = rand(1,amount)
-		amount -= taken
-		to_chat(user, "<span class='notice'>You get some of \the [src] on your hands.</span>")
+		var/taken = rand(1,cleanable_amount)
+		cleanable_amount -= taken
+		to_chat(user, SPAN_NOTICE("You get some of \the [src] on your hands."))
 		if(!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
@@ -202,16 +200,15 @@
 
 /obj/effect/decal/cleanable/blood/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-	amount = 2
+	cleanable_amount = 2
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
 	desc = "A drop of blood in an ocean of mess."
-	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
 	random_icon_states = list("1", "2", "3", "4", "5")
-	amount = 0
+	cleanable_amount = 0
 	bloodiness = 0
 	var/drips = 1
 
@@ -221,11 +218,9 @@
 /// not a child of blood on purpose
 /obj/effect/decal/cleanable/trail_holder
 	name = "blood"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	desc = "Your instincts say you shouldn't be following these."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	random_icon_states = null
 	blood_DNA = list()
@@ -239,7 +234,7 @@
 	desc = "It looks like a writing in blood."
 	gender = NEUTER
 	random_icon_states = list("writing1", "writing2", "writing3", "writing4", "writing5")
-	amount = 0
+	cleanable_amount = 0
 	var/message
 
 /obj/effect/decal/cleanable/blood/writing/Initialize(mapload)
@@ -253,15 +248,11 @@
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
+	. += SPAN_NOTICE("It reads: <font color='[basecolor]'>\"[message]\"<font>")
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "They look bloody and gruesome."
-	gender = PLURAL
-	density = FALSE
-	layer = TURF_LAYER
-	icon = 'icons/effects/blood.dmi'
 	icon_state = "mgibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE

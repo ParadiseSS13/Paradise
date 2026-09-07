@@ -30,8 +30,11 @@
 	tastes = list("grass" = 1)
 	wine_power = 0.15
 
-/obj/item/food/grown/grass/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "<span class='notice'>You prepare the astroturf.</span>")
+/obj/item/food/grown/grass/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You prepare the astroturf."))
 	var/grassAmt = 1 + round(seed.potency * tile_coefficient) // The grass we're holding
 	for(var/obj/item/food/grown/grass/G in user.loc) // The grass on the floor
 		if(G.type != type)
@@ -40,6 +43,7 @@
 		qdel(G)
 	new stacktype(user.drop_location(), grassAmt)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // Carpet
 /obj/item/seeds/grass/carpet

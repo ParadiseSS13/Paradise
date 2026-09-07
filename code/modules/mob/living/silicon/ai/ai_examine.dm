@@ -2,7 +2,7 @@
 	. = ..()
 	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
-		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
+		msg += "[SPAN_DEADSAY("It appears to be powered-down.")]\n"
 	else
 		msg += "<span class='warning'>"
 		if(src.getBruteLoss())
@@ -17,7 +17,9 @@
 				msg += "<B>Its casing is melted and heat-warped!</B>\n"
 		if(src.stat == UNCONSCIOUS)
 			msg += "It is non-responsive and displaying the text: \"RUNTIME: Sensory Overload, stack 26/3\".\n"
-		if(!shunted && !client)
+		if(deployed_shell)
+			msg += "The wireless networking light is blinking.\n"
+		if(!shunted && !client && !deployed_shell) // An AI deployed to a shell will always lack a client, but also have a client just in another body.
 			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
 		msg += "</span>"
 	msg += "</span>"

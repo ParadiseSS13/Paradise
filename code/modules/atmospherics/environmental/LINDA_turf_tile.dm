@@ -12,6 +12,8 @@
 		air.set_toxins(toxins)
 		air.set_sleeping_agent(sleeping_agent)
 		air.set_agent_b(agent_b)
+		air.set_hydrogen(hydrogen)
+		air.set_water_vapor(water_vapor)
 		air.set_temperature(temperature)
 	else
 		air.set_oxygen(0)
@@ -20,6 +22,8 @@
 		air.set_toxins(0)
 		air.set_sleeping_agent(0)
 		air.set_agent_b(0)
+		air.set_hydrogen(0)
+		air.set_water_vapor(0)
 		air.set_temperature(0)
 	return air
 
@@ -47,8 +51,12 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-/turf/simulated/proc/update_visuals()
-	var/datum/gas_mixture/air = get_readonly_air()
+/turf/simulated/proc/update_visuals(use_initial_air = FALSE)
+	var/datum/gas_mixture/air
+	if(use_initial_air)
+		air = get_initial_air()
+	else
+		air = get_readonly_air()
 	var/new_overlay_type = tile_graphic(air)
 	if(new_overlay_type == atmos_overlay_type)
 		return
@@ -68,6 +76,8 @@
 			return GLOB.plmaster
 		if("sleeping_agent")
 			return GLOB.slmaster
+		if("water_vapor")
+			return GLOB.wvmaster
 	return null
 
 /turf/simulated/proc/tile_graphic(datum/gas_mixture/air)
@@ -80,6 +90,9 @@
 
 	if(air.sleeping_agent() > 1)
 		return "sleeping_agent"
+
+	if(air.water_vapor() > MOLES_WATER_VAPOR_VISIBLE)
+		return "water_vapor"
 	return null
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
@@ -174,8 +187,12 @@
 /turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
-	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, temperature)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
+
+/turf/simulated/Initialize_Atmos(milla_tick)
+	..()
+	update_visuals(TRUE)
 
 /turf/proc/recalculate_atmos_connectivity()
 	var/datum/milla_safe/recalculate_atmos_connectivity/milla = new()
@@ -233,12 +250,19 @@
 	return list(milla_atmos_airtight, milla_superconductivity)
 
 /obj/effect/wind
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/tile_effects.dmi'
 	icon_state = "wind"
 	layer = MASSIVE_OBJ_LAYER
 	blend_mode = BLEND_OVERLAY
+
+	// See comment on attempt_init.
+	initialized = TRUE
+
+// Wind has nothing it needs to initialize, and it's not surprising if it gets both created and qdeleted during an init freeze. Prevent that from causing an init sanity error.
+/obj/effect/wind/attempt_init(...)
+	initialized = TRUE
+	return
 
 #undef INDEX_NORTH
 #undef INDEX_EAST

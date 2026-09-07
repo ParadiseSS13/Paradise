@@ -12,20 +12,13 @@ GLOBAL_PROTECT(investigate_log_wrapper)
 
 	GLOB.investigate_log_wrapper[subject] += "<small>[time_stamp()] [UID()] [ADMIN_COORDJMP(src)] </small> || [src] [message]"
 
-//ADMINVERBS
-/client/proc/investigate_show(subject in GLOB.investigate_log_wrapper)
-	set name = "Investigate Round Objects"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
+USER_VERB(investigate_show, R_ADMIN, "Investigate Round Objects", "View Investigation panel.", VERB_CATEGORY_ADMIN, subject in GLOB.investigate_log_wrapper)
 	// Should never happen
 	if(!(subject in GLOB.investigate_log_wrapper))
 		return
 
 	var/list/entries = GLOB.investigate_log_wrapper[subject]
 
-	var/datum/browser/B = new(usr, "investigatelog", "Investigate ([subject])", 800, 400)
+	var/datum/browser/B = new(client, "investigatelog", "Investigate ([subject])", 800, 400)
 	B.set_content(entries.Join("<br>"))
 	B.open()

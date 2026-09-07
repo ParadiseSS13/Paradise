@@ -1,4 +1,5 @@
 /mob/Logout()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGOUT)
 	set_typing_indicator(FALSE)
 	SStgui.on_logout(src) // Cleanup any TGUIs the user has open
 	unset_machine()
@@ -21,5 +22,6 @@
 				GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_MENTOR, "[key_name(src)] logged out - 0 active mentors, [mentorcounter[2]] non-mentor staff, [mentorcounter[3]] inactive mentors.")
 
 	..()
+	become_uncliented()
 	update_morgue()
 	return 1

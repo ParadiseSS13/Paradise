@@ -16,13 +16,13 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/station_goal/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/engineering/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/bsa]"]
+	P.cost = 1500
 
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B in GLOB.machines)
+	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -38,7 +38,7 @@
 
 /obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
 	M.buffer = src
-	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
+	to_chat(user, SPAN_NOTICE("You store linkage information in [M]'s buffer."))
 	return TRUE
 
 /obj/machinery/bsa/back
@@ -61,16 +61,16 @@
 /obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
 	. = TRUE
 	if(!M.buffer)
-		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")
+		to_chat(user, SPAN_WARNING("[M]'s buffer is empty!"))
 		return
 	if(istype(M.buffer,/obj/machinery/bsa/back))
 		back = M.buffer
 		M.buffer = null
-		to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+		to_chat(user, SPAN_NOTICE("You link [src] with [back]."))
 	else if(istype(M.buffer,/obj/machinery/bsa/front))
 		front = M.buffer
 		M.buffer = null
-		to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
+		to_chat(user, SPAN_NOTICE("You link [src] with [front]."))
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -219,7 +219,7 @@
 		message_admins("[key_name_admin(user)] has launched an artillery strike.")//Admin BSA firing, just targets a room, which the explosion says
 
 	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
-	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
+	explosion(bullseye,ex_power,ex_power*2,ex_power*4, cause = "BSA strike")
 
 	reload()
 
@@ -273,7 +273,7 @@
 	name = "Bluespace Artillery Control"
 	var/obj/machinery/bsa/full/cannon
 	var/notice
-	var/target
+	var/atom/target
 	power_state = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
@@ -395,6 +395,7 @@
 		notice = "Cannon unpowered!"
 		return
 	notice = null
+	investigate_log("[key_name(user)] has fired the BSA at [ADMIN_VERBOSEJMP(cannon)] at the target [ADMIN_VERBOSEJMP(target)].", INVESTIGATE_BOMB)
 	cannon.fire(user, get_impact_turf(), target)
 
 /obj/machinery/computer/bsa_control/proc/deploy()

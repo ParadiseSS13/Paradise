@@ -27,13 +27,11 @@
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "The parrot squawks, \"It's a parrot! BAWWK!\""
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
 	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
-	can_collar = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	faction = list("neutral", "jungle")
 
@@ -120,19 +118,24 @@
 		/obj/structure/computerframe,
 		/obj/structure/displaycase,
 		/obj/structure/rack,
-		/obj/structure/closet/crate
+		/obj/structure/closet/crate,
+		/obj/machinery/atmospherics/fission_reactor,
+		/obj/machinery/atmospherics/fission_reactor/roundstart,
+		/obj/machinery/atmospherics/reactor_chamber
 	)) - typecacheof(list(
 		/obj/machinery/computer/security/telescreen,
 		/obj/machinery/computer/cryopod,
 		/obj/machinery/computer/guestpass
 	))
 
-/mob/living/simple_animal/parrot/add_strippable_element()
-	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/parrot/Destroy()
 	GLOB.hear_radio_list -= src
 	return ..()
+
+/mob/living/simple_animal/parrot/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_parrot_items
 
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(can_die())
@@ -177,22 +180,22 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	..()
-	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
-		if(O.force)
-			if(parrot_state == PARROT_PERCH)
-				parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+/mob/living/simple_animal/parrot/attacked_by(obj/item/O, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 
-			parrot_interest = user
-			parrot_state = PARROT_SWOOP|PARROT_FLEE
-			icon_state = "parrot_fly"
-			ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
-			drop_held_item(FALSE)
-	return
+	if(O.force && stat == CONSCIOUS)
+		if(parrot_state == PARROT_PERCH)
+			parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+
+		parrot_interest = user
+		parrot_state = PARROT_SWOOP|PARROT_FLEE
+		icon_state = "parrot_fly"
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+		drop_held_item(FALSE)
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/parrot/bullet_act(obj/projectile/P)
 	..()
 	if(stat == CONSCIOUS && !client)
 		if(parrot_state == PARROT_PERCH)
@@ -244,10 +247,12 @@
 				available_channels.Add(":n")
 			if("Medical")
 				available_channels.Add(":m")
-			if("Mining")
-				available_channels.Add(":d")
-			if("Cargo")
-				available_channels.Add(":q")
+			if("Supply")
+				available_channels.Add(":u")
+			if("Service")
+				available_channels.Add(":z")
+			if("Procedure")
+				available_channels.Add(":x")
 
 	if(ears.translate_binary)
 		available_channels.Add(":b")
@@ -372,7 +377,7 @@
 			else //This should ensure that we only grab the item we want, and make sure it's not already collected on our perch
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					try_grab_item(parrot_interest)
-					visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
+					visible_message(SPAN_NOTICE("[src] grabs [held_item]!"), SPAN_NOTICE("You grab [held_item]!"), "You hear the sounds of wings flapping furiously.")
 
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -532,15 +537,15 @@
 		return FALSE
 
 	if(length(grabbed_by))
-		to_chat(src, "<span class='warning'>You are being grabbed!</span>")
+		to_chat(src, SPAN_WARNING("You are being grabbed!"))
 		return FALSE
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
+		to_chat(src, SPAN_WARNING("You are already holding [held_item]"))
 		return TRUE
 
 	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
-		to_chat(src, "<span class='warning'>You are inside a disposal chute!</span>")
+		to_chat(src, SPAN_WARNING("You are inside a disposal chute!"))
 		return TRUE
 
 	for(var/obj/item/I in view(1, src))
@@ -551,7 +556,7 @@
 				continue
 
 			try_grab_item(I)
-			visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
+			visible_message(SPAN_NOTICE("[src] grabs [held_item]!"), SPAN_NOTICE("You grab [held_item]!"), "You hear the sounds of wings flapping furiously.")
 			return held_item
 
 	to_chat(src, "<span class = 'warning'>There is nothing of interest to take.</span>")
@@ -566,11 +571,11 @@
 		return FALSE
 
 	if(length(grabbed_by))
-		to_chat(src, "<span class='warning'>You are being grabbed!</span>")
+		to_chat(src, SPAN_WARNING("You are being grabbed!"))
 		return FALSE
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
+		to_chat(src, SPAN_WARNING("You are already holding [held_item]"))
 		return TRUE
 
 	var/obj/item/stolen_item = null
@@ -584,10 +589,10 @@
 
 		if(stolen_item && C.drop_item_to_ground(stolen_item))
 			try_grab_item(stolen_item)
-			visible_message("<span class='notice'>[src] grabs [held_item] out of [C]'s hand!</span>", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
+			visible_message(SPAN_NOTICE("[src] grabs [held_item] out of [C]'s hand!"), SPAN_NOTICE("You snag [held_item] out of [C]'s hand!"), "You hear the sounds of wings flapping furiously.")
 			return held_item
 
-	to_chat(src, "<span class='warning'>There is nothing of interest to take.</span>")
+	to_chat(src, SPAN_WARNING("There is nothing of interest to take."))
 	return FALSE
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
@@ -610,7 +615,7 @@
 		return FALSE
 
 	if(!held_item)
-		to_chat(src, "<span class='warning'>You have nothing to drop!</span>")
+		to_chat(src, SPAN_WARNING("You have nothing to drop!"))
 		return FALSE
 
 	if(!drop_gently)
@@ -645,7 +650,7 @@
 				icon_state = "parrot_sit"
 				REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 				return
-	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
+	to_chat(src, SPAN_WARNING("There is no perch nearby to sit on."))
 	return
 
 /**
@@ -682,6 +687,7 @@
 		"Check the crystal, you chucklefucks!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
+		"WHO TOOK THE DAMN MODSUITS?",
 		"WHO TOOK THE DAMN HARDSUITS?",
 		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
@@ -699,13 +705,68 @@
 		"Chief Engineers are the SM's natural diet.",
 		"Don't eat the forbidden nacho!",
 		"Is the engine meant to be making that noise?",
+		"THE TESLA IS LOOSE CALL THE SHUTTLE",
+		"Go fix the chewed wires, you lazy bums!",
+		"Go fix that breach, or we'll all suffocate!",
+		"Why is the engine failing?",
+		"Checked that everything is connected as it should be?",
+		"If you push the SM too far we'll have to abandon station!",
+		"SOS, save our supermatter!",
+		"Is that a spider in the SM?",
+		"Remember those mesons, or you'll be seeing spiders in the SM!",
+		"Check the air alarm is set properly!",
+		"Is the station goal done yet?",
+		"WHO TOOK THE DAMN MODSUITS?",
+		"Don't wire the Bluespace Harvester to the Grid, or the station will be powerless!",
+		"THE BSH IS SPAWNING HORRIFIC THINGS, YOU PUT IT TOO HIGH!",
+		"It's an excellent idea to aim the BSA at the shuttle.",
+		"Nitrogen is an awful gas if you need to power a BSH!",
+		"There's a hole in the shield coverage!",
+		"The shields aren't up and meteors are inbound!",
+		"The leading cause of death among engineers is due to deactivated magboots, whether that's due to unwrenching a pressurized pipe or being pulled into the embrace of the SM, it means turn on your magboots!",
+		"BORGS BAD",
+		"You're telling me a Kentucky fried this vox?",
+		"AI OPEN",
+		"BLUESHIELD TO ME!",
+		"ITS LOOSE",
+		"TESLA IN THE HALLS",
+		"I deep fried the nuke disc",
+		"SQUAWK!",
+		"Honk.",
+		"Bridge gone",
+		"Someone set up telecomms",
+		"TOXINS!",
+		"ONI SOMA!",
+		"GOLDEN BLAST",
+		"Is there supposed to be this much plasma in the chamber??",
+		"Why are there so many borgs?",
+		"Why're your eyes glowing red?",
+		"Opening the reactor vent is how it gets gas, right?",
+		"Let's fill the reactor with supermatter rods!",
+		"Think we could weaponize ejected coolant rods?",
+		"WHO KEEPS LEAVING THE FUEL RODS OUT",
+		"Why do we need coolant rods if we use gas?",
+		"Wait, why isn't the reactor integrity going up?",
+		"When did engineering get a pool!?",
+		"Does anyone else taste copper?",
+		"10 sieverts isn't a harmful amount of radiation, is it?",
+		"HELP! THE CHEF IS GRILLING ME ON THE NGCR!",
+		"Replace the spent fuel rods you lazy bums!",
+		"There is a xenomorph nesting on the reactor!",
+		"Why is there a Ripley pulling out the coolant rods?",
+		"Atmospheric Technicians are the NGCR's favorite moderators",
+		"Who let the clown touch the control rods?",
+		"Which of you chucklefucks brought a fuel rod to medbay?",
+		"A coolant rod just flew into the captain!",
+		"The reactor is going supercritical!",
+		"Danger! Reactor core chamber meltdown in progress! Integrity: 79.47%"
 		)
-	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	available_channels = list(":e")
 
 /mob/living/simple_animal/parrot/poly/Initialize(mapload)
 	. = ..()
+	GLOB.station_pets += src
 
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.

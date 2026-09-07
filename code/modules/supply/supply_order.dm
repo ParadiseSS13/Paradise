@@ -27,10 +27,9 @@
 	orderedbyaccount = account
 	RegisterSignal(orderedbyaccount, COMSIG_PARENT_QDELETING, PROC_REF(clear_request))
 
-/// Clear the request from the request list and delete it
+/// Clear the request from the request list so it's not permanently stuck in the console
 /datum/supply_order/proc/clear_request()
 	SSeconomy.request_list -= src
-	qdel(src)
 
 /datum/supply_order/proc/createObject(atom/_loc, errors = 0)
 	if(!object)
@@ -78,6 +77,7 @@
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
+	slip.update_icon()
 	slip.loc = crate
 	if(istype(crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = crate

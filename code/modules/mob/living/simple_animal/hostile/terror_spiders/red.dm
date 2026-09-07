@@ -17,13 +17,8 @@
 	Your brute strength also allows you to force open powered doors and your webs are stronger and take longer for the crew to destroy. \
 	However, you move much slower than most other spiders."
 	ai_target_method = TS_DAMAGE_BRUTE
-	icon_state = "terror_red"
-	icon_living = "terror_red"
-	icon_dead = "terror_red_dead"
 	maxHealth = 200
 	health = 200
-	melee_damage_lower = 15
-	melee_damage_upper = 20
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 2 // movement_delay() gives 4.5, or 0.45s between steps, which = about 2.2 tiles/second. Player is slightly faster than AI, but cannot move on diagonals.
 	spider_opens_doors = 2
@@ -41,24 +36,24 @@
 	if(enrage == 0)
 		if(health < maxHealth)
 			enrage = 1
-			visible_message("<span class='danger'>[src] growls, flexing its fangs!</span>")
+			visible_message(SPAN_DANGER("[src] growls, flexing its fangs!"))
 			melee_damage_lower = melee_damage_lower_rage1
 			melee_damage_upper = melee_damage_upper_rage1
 	else if(enrage == 1)
 		if(health == maxHealth)
 			enrage = 0
-			visible_message("<span class='notice'>[src] retracts its fangs a little.</span>")
+			visible_message(SPAN_NOTICE("[src] retracts its fangs a little."))
 			melee_damage_lower = melee_damage_lower_rage0
 			melee_damage_upper = melee_damage_upper_rage0
 		else if(health < (maxHealth/2))
 			enrage = 2
-			visible_message("<span class='danger'>[src] growls, spreading its fangs wide!</span>")
+			visible_message(SPAN_DANGER("[src] growls, spreading its fangs wide!"))
 			melee_damage_lower = melee_damage_lower_rage2
 			melee_damage_upper = melee_damage_upper_rage2
 	else if(enrage == 2)
 		if(health > (maxHealth/2))
 			enrage = 1
-			visible_message("<span class='notice'>[src] retracts its fangs a little.</span>")
+			visible_message(SPAN_NOTICE("[src] retracts its fangs a little."))
 			melee_damage_lower = melee_damage_lower_rage1
 			melee_damage_upper = melee_damage_upper_rage1
 	return ..()

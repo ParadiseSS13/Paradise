@@ -204,7 +204,7 @@
 	flick("grinder-b0",src)
 	playsound(loc, 'sound/effects/alert.ogg', 50, 0)
 	sleep(5)
-	H.rad_act(rand(150, 200))
+	H.base_rad_act(src ,rand(150, 200), GAMMA_RAD)
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
@@ -248,7 +248,7 @@
 	if(!istype(H))
 		return
 	if(!ispath(selected_outfit, /datum/outfit))
-		to_chat(H, "<span class='warning'>This equipper is not properly configured! 'selected_outfit': '[selected_outfit]'</span>")
+		to_chat(H, SPAN_WARNING("This equipper is not properly configured! 'selected_outfit': '[selected_outfit]'"))
 		return
 
 	if(prestrip)
@@ -270,7 +270,7 @@
 	if(!istype(H))
 		return
 	if(!ispath(target_species))
-		to_chat(H, "<span class='warning'>'[target_species]' is not a valid species!</span>")
+		to_chat(H, SPAN_WARNING("'[target_species]' is not a valid species!"))
 		return
 	H.set_species(target_species)
 
@@ -302,7 +302,7 @@
 	if(!istype(H))
 		return
 	if(!istype(template))
-		to_chat(H, "<span class='warning'>No genetic template configured!</span>")
+		to_chat(H, SPAN_WARNING("No genetic template configured!"))
 		return
 	var/prev_ue = H.dna.unique_enzymes
 	H.set_species(template.species.type)
@@ -313,17 +313,17 @@
 	domutcheck(H, MUTCHK_FORCED)
 	H.update_mutations()
 
-/obj/machinery/transformer/gene_applier/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/disk/data))
+/obj/machinery/transformer/gene_applier/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/data))
 		if(locked)
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
-			return FALSE
-		var/obj/item/disk/data/D = I
+			to_chat(user, SPAN_WARNING("Access Denied."))
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/disk/data/D = used
 		if(!D.buf)
-			to_chat(user, "<span class='warning'>Error: No data found.</span>")
-			return FALSE
+			to_chat(user, SPAN_WARNING("Error: No data found."))
+			return ITEM_INTERACT_COMPLETE
 		template = D.buf.dna.Clone()
-		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
-		return TRUE
-	else
-		return ..()
+		to_chat(user, SPAN_NOTICE("Upload of gene template for '[template.real_name]' complete!"))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()

@@ -35,9 +35,18 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	view_core()
 	// Ghost the current player and disallow them to return to the body
 	if(TOO_EARLY_TO_GHOST)
-		ghostize(FALSE)
+		ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 	else
-		ghostize(TRUE)
+		ghostize()
+
+	in_storage = TRUE
+	// Clean up AI programs, reassign nodes
+	for(var/obj/machinery/ai_node/node as anything in GLOB.ai_nodes)
+		if(!istype(node))
+			continue
+		if(node.assigned_ai != src)
+			continue
+		node.refresh_ai()
 	// Delete the old AI shell
 	qdel(src)
 

@@ -2,6 +2,13 @@
 // These procs are named EXACTLY as they are since the debugger itself will hook into these procs internally
 // Do not change these names. Please. -aa
 
+#ifndef PARADISE_PRODUCTION_HARDWARE
+// Use GLOB.debugger_enabled for debugger-specific behaviour like not delaying MC subsystems for delays
+// This is gated behind PARADISE_PRODUCTION_HARDWARE not being set so we dont have the check overhead in the MC loop on prod
+// By gating it we can ensure in CI that nothing has slipped in
+GLOBAL_VAR_INIT(debugger_enabled, FALSE)
+#endif
+
 /proc/auxtools_stack_trace(msg)
 	CRASH(msg)
 
@@ -22,3 +29,6 @@
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
+		#ifndef PARADISE_PRODUCTION_HARDWARE
+		GLOB.debugger_enabled = TRUE
+		#endif

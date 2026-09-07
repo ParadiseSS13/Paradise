@@ -8,7 +8,6 @@
 	desc = "A pneumatic tube that brings you from here to there."
 	icon = 'icons/obj/pipes/transit_tube.dmi'
 	icon_state = "straight"
-	density = FALSE
 	layer = 3.1
 	anchored = TRUE
 	var/list/tube_dirs = null
@@ -36,6 +35,8 @@
 /obj/structure/transit_tube/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
+	if(anchored && has_gravity(src))
+		return FALSE
 	return !density
 
 // When destroyed by explosions, properly handle contents.
@@ -149,7 +150,7 @@
 
 /obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
+	to_chat(user, SPAN_NOTICE("You must uninstall [src] before disassembling it!"))
 
 /obj/structure/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
 	var/obj/structure/transit_tube_construction/construction = new uninstalled_type(get_turf(src))
@@ -162,7 +163,7 @@
 	if(leaf == "flipped")
 		construction.flip()
 
-	user.visible_message("<span class='notice'>[user] uninstalls [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] uninstalls [src]."))
 	qdel(src)
 
 /obj/structure/transit_tube/deconstruct(disassembled = TRUE)

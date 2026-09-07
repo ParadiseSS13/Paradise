@@ -14,7 +14,7 @@
 	/// An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
 	/// Outdoor or invalid areas are filtered out.
 	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => list(<area name>)
-	var/static/list/possible_zone_names = list(
+	var/static/alist/possible_zone_names = alist(
 		EXTRACTION_DIFFICULTY_EASY = list(
 			// Rooms
 			"Alternate Construction Area",
@@ -242,5 +242,5 @@
   * Arguments:
   * * caller - The person trying to call the extraction.
   */
-/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/caller)
-	return get_area(caller) == extraction_zone && get_area(target.current) == extraction_zone
+/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/extraction_caller)
+	return get_area(extraction_caller) == extraction_zone && get_area(target.current) == extraction_zone

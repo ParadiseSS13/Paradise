@@ -107,7 +107,7 @@
 		var/turf/T = get_turf(c)
 		if(get_dist(point, T) > CAMERA_VIEW_DISTANCE + (CAMERA_CHUNK_SIZE / 2))
 			// Still needed for Ais who get created on Z level 1 on the spot of the new player
-			continue 
+			continue
 
 		for(var/turf/t in c.can_see())
 			if(turfs[t])
@@ -128,6 +128,7 @@
 	for(var/turf/t as anything in vis_removed)
 		if(!t.obscured)
 			t.obscured = image('icons/effects/cameravis.dmi', t, null, BYOND_LIGHTING_LAYER + 0.1)
+			t.obscured.appearance_flags = RESET_TRANSFORM
 			t.obscured.plane = BYOND_LIGHTING_PLANE + 1
 		obscured += t.obscured
 		images_to_add += t.obscured
@@ -167,5 +168,6 @@
 	for(var/turf/t as anything in obscured_turfs)
 		if(!t.obscured)
 			t.obscured = image('icons/effects/cameravis.dmi', t, "black", BYOND_LIGHTING_LAYER + 0.1)
+			t.obscured.appearance_flags = RESET_TRANSFORM
 			t.obscured.plane = BYOND_LIGHTING_PLANE + 1
 		obscured += t.obscured

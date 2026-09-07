@@ -65,6 +65,7 @@
 #define TINT_CONTROL_GROUP_NONE 0
 
 /// Material defines, for determining how much of a given material an item contains
+#define MAT_WOOD			"wood"
 #define MAT_METAL			"metal"
 #define MAT_GLASS			"glass"
 #define MAT_SILVER			"silver"
@@ -78,6 +79,14 @@
 #define MAT_TITANIUM		"titanium"
 #define MAT_BIOMASS			"biomass"
 #define MAT_PLASTIC			"plastic"
+#define MAT_BRASS			"brass"
+#define MAT_PALLADIUM		"palladium"
+#define MAT_PLATINUM		"platinum"
+#define MAT_IRIDIUM			"iridium"
+#define MAT_SILK			"silk"
+#define MAT_CARDBOARD		"cardboard"
+#define MAT_GNESIS			"gnesis"
+#define MAT_GNESIS_GLASS	"gnesisglass"
 
 /// The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 #define MINERAL_MATERIAL_AMOUNT 2000
@@ -85,3 +94,5 @@
 #define MAX_STACK_SIZE 50
 /// maximum amount of cable in a coil
 #define MAXCOIL 30
+/// maximum amount of cable in a RCL spool
+#define RCL_MAX_SPOOL_SIZE 90

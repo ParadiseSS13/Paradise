@@ -117,16 +117,19 @@
 	tastes = list("rice" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/boiledrice/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stack/seaweed))
-		return ..()
-	var/obj/item/stack/seaweed/S = I
+/obj/item/food/boiledrice/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/seaweed))
+		return NONE
+
+	var/obj/item/stack/seaweed/S = used
 	if(!S.use(1))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/food/onigiri/O = new(get_turf(user))
 	reagents.trans_to(O, reagents.total_volume)
 	qdel(src)
 	user.put_in_active_hand(O)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/roastparsnip
 	name = "roast parsnip"

@@ -103,7 +103,7 @@
 /// This proc is called when the rider attempts to grab something, preventing them from doing so.
 /datum/component/riding/proc/on_rider_try_pull(mob/living/rider_pulling, atom/movable/target, force)
 	SIGNAL_HANDLER // COMSIG_LIVING_TRY_PULL
-	to_chat(rider_pulling, "<span class='warning'>You can't pull [target]!</span>")
+	to_chat(rider_pulling, SPAN_WARNING("You can't pull [target]!"))
 	return COMSIG_LIVING_CANCEL_PULL
 
 /// Some ridable atoms may want to only show on top of the rider in certain directions, like wheelchairs

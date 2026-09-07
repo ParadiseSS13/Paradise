@@ -43,15 +43,15 @@ Difficulty: Medium
 	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("roars")
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	speed = 5
 	move_to_delay = 5
 	ranged = TRUE
 	pixel_x = -32
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/dragon)
+	difficulty_ore_modifier = 2
+	crusher_loot = list(/obj/item/crusher_trophy/tail_spike)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
@@ -62,6 +62,10 @@ Difficulty: Medium
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/ash_drake
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/drake
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							/datum/action/innate/megafauna_attack/fire_cone_meteors,
 							/datum/action/innate/megafauna_attack/mass_fire,
@@ -69,37 +73,43 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
-	button_overlay_icon = 'icons/obj/wizard.dmi'
-	button_overlay_icon_state = "fireball"
-	chosen_message = "<span class='colossus'>You are now shooting fire at your target.</span>"
+	button_icon = 'icons/obj/wizard.dmi'
+	button_icon_state = "fireball"
+	chosen_message = SPAN_COLOSSUS("You are now shooting fire at your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/fire_cone_meteors
 	name = "Fire Cone With Meteors"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now shooting fire at your target and raining fire around you.</span>"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
+	chosen_message = SPAN_COLOSSUS("You are now shooting fire at your target and raining fire around you.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
-	button_overlay_icon = 'icons/effects/fire.dmi'
-	button_overlay_icon_state = "1"
-	chosen_message = "<span class='colossus'>You are now shooting mass fire at your target.</span>"
+	button_icon = 'icons/effects/fire.dmi'
+	button_icon_state = "1"
+	chosen_message = SPAN_COLOSSUS("You are now shooting mass fire at your target.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/lava_swoop
 	name = "Lava Swoop"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "lavastaff_warn"
-	chosen_message = "<span class='colossus'>You are now swooping and raining lava at your target.</span>"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "lavastaff_warn"
+	chosen_message = SPAN_COLOSSUS("You are now swooping and raining lava at your target.")
 	chosen_attack_num = 4
 
 /obj/item/gps/internal/dragon
 	icon_state = null
 	gpstag = "Fiery Signal"
 	desc = "Here there be dragons."
-	invisibility = 100
+
+/mob/living/simple_animal/hostile/megafauna/dragon/death(gibbed)
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	mob_size = MOB_SIZE_LARGE
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)
@@ -139,7 +149,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_rain()
 	if(!target)
 		return
-	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
+	target.visible_message(SPAN_BOLDWARNING("Fire rains from the sky!"))
 	for(var/turf/turf in range(9,get_turf(target)))
 		if(prob(enraged ? 44 : 11))
 			new /obj/effect/temp_visual/target(turf)
@@ -147,7 +157,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
 	if(!target)
 		return
-	target.visible_message("<span class='boldwarning'>Lava starts to pool up around you!</span>")
+	target.visible_message(SPAN_BOLDWARNING("Lava starts to pool up around you!"))
 	while(amount > 0)
 		if(QDELETED(target))
 			break
@@ -187,7 +197,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_arena()
 	if(!target)
 		return
-	target.visible_message("<span class='boldwarning'>[src] encases you in an arena of fire!</span>")
+	target.visible_message(SPAN_BOLDWARNING("[src] encases you in an arena of fire!"))
 	var/amount = 3
 	var/turf/center = get_turf(target)
 	var/list/walled = RANGE_TURFS(enraged ? 4 : 3, center) - RANGE_TURFS(enraged ? 3 : 2, center)
@@ -232,7 +242,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/arena_escape_enrage() // you ran somehow / teleported away from my arena attack now i'm mad fucker
 	SLEEP_CHECK_DEATH(0)
 	SetRecoveryTime(80)
-	visible_message("<span class='boldwarning'>[src] starts to glow vibrantly as its wounds close up!</span>")
+	visible_message(SPAN_BOLDWARNING("[src] starts to glow vibrantly as its wounds close up!"))
 	adjustBruteLoss(-250) // yeah you're gonna pay for that, don't run nerd
 	add_atom_colour(rgb(255, 255, 0), TEMPORARY_COLOUR_PRIORITY)
 	move_to_delay = move_to_delay / 2
@@ -288,7 +298,7 @@ Difficulty: Medium
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
-			to_chat(L, "<span class='userdanger'>You're hit by [source]'s fire breath!</span>")
+			to_chat(L, SPAN_USERDANGER("You're hit by [source]'s fire breath!"))
 
 		// deals damage to mechs
 		for(var/obj/mecha/M in T.contents)
@@ -309,7 +319,7 @@ Difficulty: Medium
 	swooping |= SWOOP_DAMAGEABLE
 	density = FALSE
 	icon_state = "shadow"
-	visible_message("<span class='boldwarning'>[src] swoops up high!</span>")
+	visible_message(SPAN_BOLDWARNING("[src] swoops up high!"))
 
 	var/negative
 	var/initial_x = x
@@ -367,7 +377,7 @@ Difficulty: Medium
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, TRUE)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message("<span class='warning'>[src] slams down on [L], crushing [L.p_them()]!</span>")
+			visible_message(SPAN_WARNING("[src] slams down on [L], crushing [L.p_them()]!"))
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
@@ -377,7 +387,7 @@ Difficulty: Medium
 					throw_dir = pick(GLOB.alldirs)
 				var/throwtarget = get_edge_target_turf(src, throw_dir)
 				L.throw_at(throwtarget, 3)
-				visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
+				visible_message(SPAN_WARNING("[L] is thrown clear of [src]!"))
 	for(var/obj/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, MELEE, 1)
 
@@ -425,6 +435,13 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
+/mob/living/simple_animal/hostile/megafauna/dragon/generate_random_loot()
+	var/list/choices = list(/obj/item/melee/ghost_sword,
+							/obj/item/lava_staff,
+							/obj/item/dragons_blood,
+							list(/obj/item/spellbook/oneuse/sacredflame, /obj/item/gun/magic/wand/fireball))
+	loot += pick(choices)
+
 /obj/effect/temp_visual/lava_warning
 	icon_state = "lavastaff_warn"
 	layer = BELOW_MOB_LAYER
@@ -450,7 +467,7 @@ Difficulty: Medium
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
 		L.adjustFireLoss(10)
-		to_chat(L, "<span class='userdanger'>You fall directly into the pool of lava!</span>")
+		to_chat(L, SPAN_USERDANGER("You fall directly into the pool of lava!"))
 
 	// deals damage to mechs
 	for(var/obj/mecha/M in T.contents)
@@ -469,8 +486,6 @@ Difficulty: Medium
 	name = "Fire Barrier"
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
-	anchored = TRUE
-	opacity = FALSE
 	density = TRUE
 	duration = 82
 	color = COLOR_DARK_ORANGE
@@ -494,14 +509,12 @@ Difficulty: Medium
 	pixel_x = -32
 	pixel_y = -32
 	color = "#FF0000"
-	duration = 10
 
 /obj/effect/temp_visual/dragon_flight
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	icon_state = "dragon"
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_x = -32
-	duration = 10
 	randomdir = FALSE
 
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
@@ -523,7 +536,6 @@ Difficulty: Medium
 /obj/effect/temp_visual/dragon_flight/end
 	pixel_x = DRAKE_SWOOP_HEIGHT
 	pixel_z = DRAKE_SWOOP_HEIGHT
-	duration = 10
 
 /obj/effect/temp_visual/dragon_flight/end/flight(negative)
 	if(negative)
@@ -578,7 +590,7 @@ Difficulty: Medium
 			continue
 		if(islist(flame_hit) && !flame_hit[L])
 			L.adjustFireLoss(40)
-			to_chat(L, "<span class='userdanger'>You're hit by the drake's fire breath!</span>")
+			to_chat(L, SPAN_USERDANGER("You're hit by the drake's fire breath!"))
 			flame_hit[L] = TRUE
 		else
 			L.adjustFireLoss(10) //if we've already hit them, do way less damage
@@ -591,12 +603,15 @@ Difficulty: Medium
 	obj_damage = 80
 	melee_damage_upper = 30
 	melee_damage_lower = 30
-	mouse_opacity = MOUSE_OPACITY_ICON
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	loot = list()
 	crusher_loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
+	contains_xeno_organ = FALSE
+
+/mob/living/simple_animal/hostile/megafauna/dragon/lesser/generate_random_loot()
+	return
+
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
@@ -612,11 +627,10 @@ Difficulty: Medium
 	melee_damage_upper = 35
 	melee_damage_lower = 35
 	speed = 0
-	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 3
 	rapid = 2
 	crusher_loot = list()
-	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/gun/energy/kinetic_accelerator/experimental, /obj/effect/temp_visual/cult/portal)
+	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/effect/temp_visual/cult/portal)
 	butcher_results = list(/obj/item/stack/ore/diamond = 10, /obj/item/stack/sheet/bone = 30)
 	move_force = MOVE_FORCE_NORMAL
 	move_resist = MOVE_FORCE_NORMAL
@@ -646,13 +660,16 @@ Difficulty: Medium
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
 
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/generate_random_loot()
+	return
+
+
 /datum/spell/aoe/repulse/spacedragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/magic/tail_swing.ogg'
 	base_cooldown = 150
 	clothes_req = FALSE
-	cooldown_min = 150
 	invocation_type = "none"
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 	action_icon_state = "tailsweep"
@@ -673,7 +690,6 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Corrupted Signal"
 	desc = "Fish and chips."
-	invisibility = 100
 
 #undef DRAKE_SWOOP_HEIGHT
 #undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE

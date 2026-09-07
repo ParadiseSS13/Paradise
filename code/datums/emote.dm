@@ -174,7 +174,7 @@
 			return TRUE
 
 		if(isnull(msg))
-			to_chat(user, "<span class='warning'>'[emote_arg]' isn't a valid parameter for [key].</span>")
+			to_chat(user, SPAN_WARNING("'[emote_arg]' isn't a valid parameter for [key]."))
 			return TRUE
 
 	msg = replace_pronoun(user, msg)
@@ -209,16 +209,16 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message("<span class='emote'>[user] ([ghost_follow_link(user, ghost)]) [msg]</span>", chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+					ghost.show_message(SPAN_EMOTE("[user] ([ghost_follow_link(user, ghost)]) [msg]"), chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message("<span class='deadsay'>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+				ghost.show_message(SPAN_DEADSAY("[displayed_msg]"), EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
-			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
+			user.audible_message(displayed_msg, deaf_message = SPAN_EMOTE("You see how <b>[user]</b> [msg]"))
 		else
-			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
+			user.visible_message(displayed_msg, blind_message = SPAN_EMOTE("You hear how someone [msg]"))
 
 		if(!((emote_type & EMOTE_FORCE_NO_RUNECHAT) || suppressed) && !isobserver(user))
 			runechat_emote(user, msg)
@@ -292,7 +292,7 @@
 	var/runechat_text = text
 	if(length(text) > 100)
 		runechat_text = "[copytext(text, 1, 101)]..."
-	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_mobs_in_view(1, user, ai_eyes=AI_EYE_INCLUDE)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/O as anything in can_see)
 		if(O.status_flags & PASSEMOTES)
@@ -304,6 +304,10 @@
 
 		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
+		if(is_ai_eye(O))
+			var/mob/camera/eye/ai/eye = O
+			if(!(eye.ai in can_see) && eye.ai?.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				eye.ai.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 /**
  * Check whether or not an emote can be used due to a cooldown.
@@ -409,7 +413,7 @@
 		. = message_AI
 	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey
-	else if(isanimal(user) && message_simple)
+	else if(isanimal_or_basicmob(user) && message_simple)
 		. = message_simple
 	else if(isobserver(user) && message_observer)
 		. = message_observer
@@ -511,7 +515,7 @@
 		return FALSE
 
 	if(check_mute(user.client?.ckey, MUTE_EMOTE))
-		to_chat(user, "<span class='warning'>You cannot send emotes (muted).</span>")
+		to_chat(user, SPAN_WARNING("You cannot send emotes (muted)."))
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
@@ -523,15 +527,20 @@
 				return FALSE
 
 			if(stat)
-				to_chat(user, "<span class='warning'>You cannot [key] while [stat]!</span>")
+				to_chat(user, SPAN_WARNING("You cannot [key] while [stat]!"))
 			return FALSE
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
-			// Don't let people blow their cover by mistake
-			return FALSE
+			if(istype(user, /mob/living))
+				var/mob/living/L = user
+				if(!L.has_status_effect(/datum/status_effect/ghoul))
+					return FALSE
+			else
+				// Don't let people blow their cover by mistake
+				return FALSE
 		if(hands_use_check && !user.can_use_hands() && (iscarbon(user)))
 			if(!intentional)
 				return FALSE
-			to_chat(user, "<span class='warning'>You cannot use your hands to [key] right now!</span>")
+			to_chat(user, SPAN_WARNING("You cannot use your hands to [key] right now!"))
 			return FALSE
 
 	if(isliving(user))
@@ -546,14 +555,14 @@
 	else
 		// deadchat handling
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
-			to_chat(user, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
+			to_chat(user, SPAN_WARNING("You cannot send deadchat emotes (muted)."))
 			return FALSE
 		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(user, "<span class='warning'>You have deadchat muted.</span>")
+			to_chat(user, SPAN_WARNING("You have deadchat muted."))
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user))
 			if(!GLOB.dsay_enabled)
-				to_chat(user, "<span class='warning'>Deadchat is globally muted.</span>")
+				to_chat(user, SPAN_WARNING("Deadchat is globally muted."))
 				return FALSE
 
 /**

@@ -3,11 +3,12 @@
 	desc = "A kit to modify your mech. This one doesn't do anything."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "harddisk_mini"
+	materials = list(MAT_METAL = 500)
 	var/install_time = 15
 
 /obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>You install [src] into [mech].</span>")
+		to_chat(user, SPAN_NOTICE("You install [src] into [mech]."))
 	return TRUE
 
 /obj/item/mecha_modkit/voice
@@ -22,10 +23,10 @@
 
 /obj/item/mecha_modkit/voice/install(obj/mecha/mech, mob/living/carbon/user)
 	if(istype(mech, /obj/mecha/combat/reticence) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!</span>")
+		to_chat(user, SPAN_WARNING("You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!"))
 		return FALSE
 	if(istype(mech, /obj/mecha/combat/honker) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but you somehow trip before you get it in!</span>")
+		to_chat(user, SPAN_WARNING("You attempt to install [src] into [mech], but you somehow trip before you get it in!"))
 		user.slip("your own foot", 16 SECONDS, 0, 0, 1, "trip")
 		return FALSE
 	mech.nominalsound = nominalsound
@@ -39,6 +40,7 @@
 /obj/item/mecha_modkit/voice/nanotrasen
 	name = "mecha voice modification kit : Nanotrasen"
 	desc = "This modification kit updates a mech's onboard voice to Nanotrasen."
+	icon_state = "harddisk_mini_nt"
 	nominalsound = 'sound/mecha/nominalnano.ogg'
 	zoomsound = 'sound/mecha/imag_enhnano.ogg'
 	critdestrsound = 'sound/mecha/critdestrnano.ogg'
@@ -49,6 +51,7 @@
 /obj/item/mecha_modkit/voice/syndicate
 	name = "mecha voice modification kit : Syndicate"
 	desc = "This suspicious modification kit updates a mech's onboard voice to Syndicate."
+	icon_state = "harddisk_mini_syndi"
 	origin_tech = "syndicate=1"
 	nominalsound = 'sound/mecha/nominalsyndi.ogg'
 	zoomsound = 'sound/mecha/imag_enhsyndi.ogg'
@@ -56,20 +59,24 @@
 	weapdestrsound = 'sound/mecha/weapdestrsyndi.ogg'
 	lowpowersound = 'sound/mecha/lowpowersyndi.ogg'
 	longactivationsound = 'sound/mecha/LongSyndiActivation.ogg'
+	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
 
 /obj/item/mecha_modkit/voice/honk
 	name = "mecha voice modification kit : Honk"
 	desc = "This modification kit updates a mech's onboard voice to Honk. Why?"
+	icon_state = "harddisk_mini_clown"
 	nominalsound = 'sound/items/bikehorn.ogg'
 	zoomsound = 'sound/items/bikehorn.ogg'
 	critdestrsound = 'sound/items/Airhorn2.ogg'
 	weapdestrsound = 'sound/items/Airhorn2.ogg'
 	lowpowersound = 'sound/items/Airhorn2.ogg'
 	longactivationsound = 'sound/items/bikehorn.ogg'
+	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
 
 /obj/item/mecha_modkit/voice/silent
 	name = "mecha voice modification kit : Silent"
 	desc = "This modification kit silences a mech's onboard voice."
+	icon_state = "harddisk_mini_mime"
 	nominalsound = null
 	zoomsound = null
 	critdestrsound = null

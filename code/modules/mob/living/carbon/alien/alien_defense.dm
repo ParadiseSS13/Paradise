@@ -18,7 +18,7 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 			AdjustWeakened(-6 SECONDS)
 			AdjustKnockDown(-6 SECONDS)
 			stand_up()
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
+			visible_message(SPAN_NOTICE("[M.name] nuzzles [src] trying to wake it up!"))
 
 		if(INTENT_GRAB)
 			grabbedby(M)
@@ -27,12 +27,12 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 			if(health > 0)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
+				visible_message(SPAN_DANGER("[M.name] bites [src]!"), \
+						SPAN_USERDANGER("[M.name] bites [src]!"))
 				adjustBruteLoss(1)
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+				to_chat(M, SPAN_WARNING("[name] is too injured for that."))
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
@@ -57,6 +57,24 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 	return FALSE
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(.)
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
+
+/mob/living/carbon/alien/attack_basic_mob(mob/living/basic/M, list/modifiers)
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)

@@ -36,19 +36,22 @@
 /datum/strippable_item/mob_item_slot/mask/alternate_action(atom/source, mob/user, action_key)
 	if(!..())
 		return
+
+	var/thief_mode = in_thief_mode(user)
+
 	// Headpocket dislodging
 	if(action_key == "dislodge_headpocket")
 		var/mob/living/carbon/human/H = source
 		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
 		if(!pocket.held_item)
 			return
-		if(!in_thief_mode(user))
-			user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
-								"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
-		if(do_mob(user, source, POCKET_STRIP_DELAY))
-			if(!in_thief_mode(user))
-				user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
-									"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
+		if(!thief_mode)
+			user.visible_message(SPAN_DANGER("[user] is trying to remove something from [source]'s head!"),
+								SPAN_DANGER("You start to dislodge whatever's inside [source]'s headpocket!"))
+		if(do_mob(user, source, POCKET_STRIP_DELAY, hidden = thief_mode))
+			if(!thief_mode)
+				user.visible_message(SPAN_DANGER("[user] has dislodged something from [source]'s head!"),
+									SPAN_DANGER("You have dislodged everything from [source]'s headpocket!"))
 			pocket.empty_contents()
 			add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
 		return
@@ -63,10 +66,10 @@
 		to_chat(user, "You lack the ability to manipulate the lock.")
 		return
 
-	if(!in_thief_mode(user))
-		muzzle.visible_message("<span class='danger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>", \
-						"<span class='userdanger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>")
-	if(!do_mob(user, source, POCKET_STRIP_DELAY))
+	if(!thief_mode)
+		muzzle.visible_message(SPAN_DANGER("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."), \
+						SPAN_USERDANGER("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."))
+	if(!do_mob(user, source, POCKET_STRIP_DELAY, hidden = thief_mode))
 		return
 
 	var/success = FALSE
@@ -77,9 +80,9 @@
 
 	if(!success)
 		return
-	if(!in_thief_mode(user))
-		muzzle.visible_message("<span class='danger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>", \
-						"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
+	if(!thief_mode)
+		muzzle.visible_message(SPAN_DANGER("[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name]."), \
+						SPAN_USERDANGER("[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name]."))
 
 
 /datum/strippable_item/mob_item_slot/neck
@@ -139,7 +142,7 @@
 
 	var/mob/mob_source = source
 	if(!equipping.mob_can_equip(mob_source, which_hand, TRUE))
-		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
+		to_chat(user, SPAN_WARNING("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
 	return TRUE

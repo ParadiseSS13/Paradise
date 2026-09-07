@@ -1,0 +1,8961 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ae" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"af" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"al" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"am" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"ap" = (
+/obj/effect/turf_decal/woodsiding,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"at" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/engine)
+"ax" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"aH" = (
+/obj/effect/turf_decal/woodsiding,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"aI" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"aN" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"aT" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"aU" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"aY" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"bk" = (
+/mob/living/basic/kidan_servant/ruin,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"bt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"by" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "field";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"bB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"bE" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"bV" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"ce" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/drinks/drinkingglass/diona_smash,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"ck" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"cl" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"co" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"cp" = (
+/obj/structure/table,
+/obj/item/food/caviar,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"cs" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/kitchen/utensil/fork,
+/obj/machinery/light/floor,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"cx" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"cH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"cP" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/clothing/gloves/ring/white_diamond,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"cX" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/kitchen/utensil/fork,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"cZ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"dg" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/bakery)
+"dq" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"dr" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"du" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"dz" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"dP" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/bridge)
+"dV" = (
+/obj/effect/turf_decal/woodsiding,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"ed" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"ee" = (
+/obj/machinery/light,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"em" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"en" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/foyer)
+"eu" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/space/powered/ragnarok/bathhouse)
+"eD" = (
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"eF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"eK" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"eL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"eM" = (
+/obj/machinery/cooking/oven/loaded,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"eP" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "KIDAN_BOSS_STORAGE";
+	name = "engine room"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"eQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"eR" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"eS" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"eU" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"eV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"fb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"ff" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/toy/plushie/carpplushie/gold,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"fg" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"fi" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"fm" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"fq" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"fs" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"fv" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/foyer)
+"fw" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/yellow_siding,
+/obj/item/flag/species/kidan,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"fy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"fE" = (
+/obj/machinery/door/airlock/gold{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"fJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light/floor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"fL" = (
+/obj/structure/shelf/service,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/kitchen/rollingpin,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"fP" = (
+/mob/living/basic/kidan_warrior/ruin,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"fT" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"fY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"gg" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"gl" = (
+/obj/machinery/light,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/space/powered/ragnarok/bathhouse)
+"gp" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding{
+	dir = 1
+	},
+/obj/machinery/firealarm/no_alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"gy" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"gK" = (
+/mob/living/basic/kidan_warrior/ruin,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"gL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"gM" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"gQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"gS" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"hd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"hf" = (
+/obj/structure/fluff/drake_statue,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"hk" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/structure/rack,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"hv" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding{
+	dir = 1
+	},
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"hw" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"hC" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"hE" = (
+/obj/structure/flora/tree/jungle,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"hG" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/machinery/light/floor,
+/turf/simulated/floor/vault,
+/area/ruin/space/powered/ragnarok/vault)
+"hI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"hV" = (
+/obj/machinery/computer/nonfunctional{
+	name = "Ragnarok bridge computer";
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"hZ" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/machinery/firealarm/no_alarm/directional/north,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"ia" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"ic" = (
+/turf/space,
+/area/space)
+"id" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"im" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/structure/rack,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"ip" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/engine{
+	icon_state = "rampbottom";
+	name = "reinforced stairs"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"iu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"iy" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"iG" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"iJ" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/food/filetmignon,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"iK" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"iL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"iP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"iS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"iW" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/food/filetmignon,
+/obj/item/kitchen/utensil/fork,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"jc" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"jf" = (
+/turf/simulated/wall/mineral/gold,
+/area/ruin/space/powered/ragnarok/throne)
+"jo" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"jp" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/bakery)
+"jB" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"jE" = (
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/space/powered/ragnarok/bathhouse)
+"jH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"jJ" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"jR" = (
+/obj/machinery/atmospherics/trinary/mixer{
+	name = "Gas mixer (N2/O2)";
+	node1_concentration = 0.8;
+	node2_concentration = 0.2;
+	on = 1;
+	target_pressure = 4500
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"kd" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"kj" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"km" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"kn" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"kq" = (
+/obj/machinery/door/airlock/hatch{
+	name = "royal butcher"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"ku" = (
+/obj/structure/shuttle/engine/large{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/atmos)
+"kA" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "royal butcher"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"kC" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"kE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/atmos)
+"kF" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"kJ" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/food/honey_pie,
+/obj/machinery/light/floor,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"kY" = (
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"la" = (
+/mob/living/basic/isopod,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"ld" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"lj" = (
+/obj/machinery/door/airlock/hatch{
+	name = "royal bakery"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"lp" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"lq" = (
+/mob/living/basic/kidan_warrior/ruin,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"lx" = (
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"lE" = (
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"lQ" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"mb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"mh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"mi" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/light/floor,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"mj" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"mk" = (
+/mob/living/basic/kidan_warrior/ruin,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"ml" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light/floor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"mq" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"mr" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/yellow_siding,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"ms" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"mA" = (
+/mob/living/basic/kidan_warrior/throneguard,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"mL" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/kidanglobe,
+/obj/item/reagent_containers/drinks/everfull,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/diamond,
+/area/ruin/space/powered/ragnarok/throne)
+"mR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"mW" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "royal butcher"
+	},
+/obj/item/food/caviar,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"na" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"ne" = (
+/obj/structure/table,
+/obj/item/food/applepie,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"nf" = (
+/obj/structure/flora/ausbushes/reedbush,
+/obj/machinery/light/floor,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"nh" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"nm" = (
+/turf/simulated/wall/mineral/gold,
+/area/ruin/space/powered/ragnarok/vault)
+"nn" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"np" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"ny" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"nA" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"nC" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"nI" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"nR" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"nT" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/mob/living/basic/kidan_warrior/ruin,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"ob" = (
+/obj/structure/environmental_storytelling_holopad/ragnarok_ship/baths,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"oe" = (
+/obj/structure/table,
+/obj/item/food/cherrypie,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"of" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"or" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"ow" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"oz" = (
+/obj/structure/gunrack,
+/obj/item/kidan_spear,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"oM" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"oN" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/diamond,
+/area/ruin/space/powered/ragnarok/throne)
+"oO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"oS" = (
+/obj/machinery/alarm/ruin/directional/west,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"pc" = (
+/obj/effect/turf_decal/woodsiding,
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"pi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine{
+	icon_state = "rampbottom";
+	name = "reinforced stairs"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"pj" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"pv" = (
+/obj/machinery/firealarm/no_alarm/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"pw" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"py" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/garden)
+"pz" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"pA" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"pG" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/atmos)
+"pH" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/vault,
+/area/ruin/space/powered/ragnarok/vault)
+"pL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"pM" = (
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"pP" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"pU" = (
+/mob/living/basic/kidan_warrior/throneguard,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"pY" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"qb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"qd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"qr" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/firealarm/no_alarm/directional/west,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"qu" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/yellow_siding{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"qz" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"qA" = (
+/obj/machinery/firealarm/no_alarm/directional/east,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"qC" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"qM" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"qU" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/bridge)
+"qX" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"qZ" = (
+/mob/living/basic/cow,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"ra" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/clothing/gloves/ring/gold,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"rb" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"rf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"rn" = (
+/obj/machinery/firealarm/no_alarm/directional/west,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"rq" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/alarm/ruin/directional/west,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"rt" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"rw" = (
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"ry" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"rB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"rF" = (
+/obj/effect/turf_decal/yellow_siding/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"rK" = (
+/obj/machinery/computer/nonfunctional{
+	name = "Ragnarok bridge computer";
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"rL" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding{
+	dir = 1
+	},
+/obj/item/flag/species/kidan,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"rN" = (
+/obj/structure/table,
+/obj/machinery/cooking/stovetop/loaded,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"rO" = (
+/obj/machinery/door/airlock/gold,
+/obj/effect/mapping_helpers/airlock/access/any/command/captain,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"rU" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"sg" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"sh" = (
+/obj/structure/flora/ausbushes/brflowers,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"sl" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "KIDAN_BOSS_STORAGE";
+	name = "engine room"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"sm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"sr" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"ss" = (
+/obj/machinery/alarm/ruin/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"sw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"sB" = (
+/obj/machinery/firealarm/no_alarm/directional/south,
+/turf/simulated/floor/chasm/straight_down{
+	name = "engine pit"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"sJ" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"sX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"te" = (
+/mob/living/basic/kidan_warrior/ruin,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/space/powered/ragnarok/bathhouse)
+"tj" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"to" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"tq" = (
+/obj/effect/turf_decal/woodsiding,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"tx" = (
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"tA" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"tK" = (
+/obj/structure/bed/dogbed,
+/mob/living/basic/isopod/small{
+	name = "Klakk"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"tM" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"tO" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/light/floor,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"tQ" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"tX" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"tZ" = (
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"ua" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"ue" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"uj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"uo" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/garden)
+"us" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"uD" = (
+/obj/structure/sink/kitchen/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"uE" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"uH" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"uI" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"uJ" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"uN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"uS" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"uV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"uY" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"vk" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/engine)
+"vl" = (
+/obj/machinery/light,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"vv" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"vz" = (
+/obj/structure/shelf/service,
+/obj/item/kitchen/knife,
+/obj/item/kitchen/knife,
+/obj/item/reagent_containers/condiment/enzyme{
+	layer = 5;
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/drinks/bottle/cream{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"vB" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/enginepicker,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"vO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"vP" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"vR" = (
+/obj/structure/environmental_storytelling_holopad/ragnarok_ship/gardens,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"vS" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"vX" = (
+/obj/structure/showcase/machinery/server_broken{
+	name = "inactive server"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"wb" = (
+/obj/structure/shelf/security,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/gun/projectile/automatic/speargun,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"wg" = (
+/obj/structure/closet/athletic_mixed,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"wh" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"wj" = (
+/obj/machinery/economy/vending/hydroseeds,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"wm" = (
+/obj/item/flag/species/kidan,
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"ws" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"wt" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/pen/multi/gold,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"wu" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"wv" = (
+/obj/machinery/cooking/stovetop/loaded,
+/obj/structure/table,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"wx" = (
+/obj/structure/showcase/machinery/server_broken{
+	name = "inactive server"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"wy" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"wz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"wB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"wG" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"wI" = (
+/obj/structure/gunrack,
+/obj/item/kidan_spear,
+/obj/machinery/light,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"wT" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"wZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"xf" = (
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"xl" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"xm" = (
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"xn" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"xv" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"xy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"xD" = (
+/obj/machinery/computer/nonfunctional{
+	name = "Ragnarok bridge computer";
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"xJ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"xN" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"xS" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"xU" = (
+/obj/structure/table,
+/obj/item/food/filetmignon,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"yc" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/yellow_siding,
+/obj/machinery/alarm/ruin/directional/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"yd" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 4;
+	name = "royal bakery"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"yg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/alarm/ruin/directional/east,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"yh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"yl" = (
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"yv" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"yx" = (
+/obj/machinery/economy/vending/hydronutrients,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"yy" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"yz" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"yB" = (
+/obj/structure/table,
+/obj/item/food/filetmignon,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"yD" = (
+/obj/machinery/door/airlock/gold{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"yO" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/machinery/alarm/ruin/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"yP" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"yQ" = (
+/obj/machinery/atmospherics/trinary/mixer{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"yS" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/teleporter)
+"yV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"yW" = (
+/mob/living/basic/kidan_warrior/throneguard,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"zb" = (
+/obj/structure/chair/brass,
+/mob/living/basic/megafauna/kidan_princess/ruin,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/diamond,
+/area/ruin/space/powered/ragnarok/throne)
+"zc" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"zo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"zw" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"zx" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"zB" = (
+/obj/structure/shelf/service,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/kitchen/rollingpin,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/cooking/bowl,
+/obj/item/reagent_containers/cooking/bowl,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"zK" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"zL" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"zM" = (
+/mob/living/basic/chicken,
+/obj/machinery/light,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"zW" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Aa" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"An" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Aq" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"At" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"Au" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/foyer)
+"AE" = (
+/obj/machinery/cooking/oven/loaded,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"AO" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"AW" = (
+/obj/structure/flora/tree/jungle,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"AY" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Bh" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/machinery/light,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Bl" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/atmos)
+"Bp" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 4;
+	name = "royal bakery"
+	},
+/obj/item/food/applepie,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"BE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"BG" = (
+/obj/machinery/door/airlock/multi_tile{
+	name = "royal baths"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"BO" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"BQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"BW" = (
+/obj/machinery/door/airlock/gold,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"Cl" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"Cq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/firealarm/no_alarm/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Cy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"CD" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"CE" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"CG" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/throne)
+"CJ" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"CN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"CP" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Da" = (
+/obj/machinery/door/airlock/command{
+	name = "Bridge";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/bridge)
+"Db" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/foyer)
+"Df" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"Dk" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"Dm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Dn" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/mob/living/basic/kidan_servant/ruin,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"Dp" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/structure/rack,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"Dq" = (
+/obj/structure/gunrack,
+/obj/item/kidan_spear,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"Dw" = (
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"Dx" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"Dy" = (
+/obj/machinery/atmospherics/unary/tank/oxygen{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"DB" = (
+/obj/structure/table,
+/obj/item/food/applepie,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"DC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"DF" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"DM" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"DP" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/engine{
+	icon_state = "rampbottom";
+	name = "reinforced stairs"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"DR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"DS" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "field";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"DU" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"DX" = (
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"DY" = (
+/obj/structure/shuttle/engine/large{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/engine)
+"Ek" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"En" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"EE" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"EG" = (
+/mob/living/basic/kidan_warrior/ruin,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"EH" = (
+/obj/structure/chair/comfy/black,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"EI" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"EM" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"EO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"EQ" = (
+/obj/machinery/cooking/deepfryer/loaded,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"ET" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"Fk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Fn" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/environmental_storytelling_holopad/ragnarok_ship/bridge,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"Fq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"Fs" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/structure/rack,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"Ft" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/yellow_siding,
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"Fu" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Fw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"Fx" = (
+/mob/living/basic/isopod,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"FE" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"FQ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"FS" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"FV" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"Gg" = (
+/obj/machinery/firealarm/no_alarm/directional/north,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"Gw" = (
+/obj/effect/turf_decal/yellow_siding/corner{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"Gz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"GB" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"GE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"GH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"GI" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"GK" = (
+/obj/structure/table,
+/obj/item/food/honey_pie,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"GL" = (
+/obj/machinery/door/airlock/command{
+	name = "Bridge";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/bridge)
+"GN" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"GY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Hm" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"HB" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"HD" = (
+/obj/item/flag/species/kidan,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"HO" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/foyer)
+"HP" = (
+/obj/structure/shelf/security,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/ammo_casing/caseless/magspear,
+/obj/item/ammo_casing/caseless/magspear,
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"HR" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"HZ" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"Ic" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/bridge)
+"Ii" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Io" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"Iq" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/engine)
+"IA" = (
+/obj/machinery/hydroponics/soil,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"IC" = (
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/manual_rotation{
+	name = "Princess's Hold";
+	id_tag = "KIDAN_BOSS_STORAGE"
+	},
+/obj/machinery/door/airlock/gold{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"IG" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"IH" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"IN" = (
+/obj/structure/table,
+/obj/item/food/cherrypie,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"IS" = (
+/obj/structure/environmental_storytelling_holopad/ragnarok_ship/vault,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"IT" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"IU" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"Jb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Jd" = (
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Jf" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"Jk" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"Jx" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"JE" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"JH" = (
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"JI" = (
+/obj/machinery/alarm/ruin/directional/west,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"JJ" = (
+/obj/machinery/cooking/deepfryer/loaded,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"JV" = (
+/obj/item/flag/species/kidan,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"JY" = (
+/turf/simulated/floor/engine{
+	icon_state = "rampbottom";
+	name = "reinforced stairs"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"Kg" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Kp" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Ks" = (
+/mob/living/basic/kidan_warrior/ruin,
+/obj/machinery/light/floor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Ku" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"Ky" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"KC" = (
+/obj/machinery/atmospherics/pipe/cap,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/engine)
+"KG" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"KH" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/kitchen)
+"KM" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"KP" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"KW" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Le" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Lh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Lp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"Ls" = (
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
+	},
+/area/ruin/space/powered/ragnarok/bathhouse)
+"Lw" = (
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"Lx" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"LH" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"LP" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"LR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/firealarm/no_alarm/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"LW" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"Mc" = (
+/obj/structure/table,
+/obj/item/food/filetmignon,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Mi" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Mj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"Mn" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/light,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Mx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"MA" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"MD" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"ME" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"MG" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	name = "Air To Distro"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"MK" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"MP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"MU" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Na" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Nd" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/garden)
+"Ng" = (
+/mob/living/basic/kidan_servant,
+/turf/simulated/floor/mineral/diamond,
+/area/ruin/space/powered/ragnarok/throne)
+"Nl" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Nr" = (
+/mob/living/basic/kidan_servant/ruin,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Nt" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/drinks/trophy/gold_cup,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"NJ" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/vault)
+"Oh" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/engine)
+"Or" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Os" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Ot" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Ou" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Ow" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/bridge)
+"Oz" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"OB" = (
+/mob/living/basic/kidan_warrior/throneguard,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"OE" = (
+/obj/machinery/alarm/ruin/directional/south,
+/turf/simulated/floor/chasm/straight_down{
+	name = "engine pit"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"OF" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"OQ" = (
+/turf/simulated/floor/mineral/diamond,
+/area/ruin/space/powered/ragnarok/throne)
+"Pg" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"PB" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"PC" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"PE" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"PG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"PH" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"PQ" = (
+/mob/living/basic/kidan_warrior/ruin,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"PZ" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/throne)
+"Qk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"Qm" = (
+/mob/living/basic/chicken,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Qp" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/atmos)
+"Qs" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/engine)
+"Qu" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"QH" = (
+/obj/machinery/door/airlock/gold{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"QJ" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"QK" = (
+/obj/structure/flora/tree/jungle,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"QL" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/pen/multi/gold,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"QM" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"QS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"QU" = (
+/obj/structure/flora/tree/jungle/small,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"QX" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"QZ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 4;
+	name = "royal bakery"
+	},
+/obj/item/food/honey_pie,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"Rb" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/machinery/firealarm/no_alarm/directional/south,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Ri" = (
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/manual_rotation{
+	name = "Throneroom";
+	id_tag = "KIDAN_THRONEROOM"
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"Rr" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Rw" = (
+/obj/machinery/biogenerator/loaded,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"RB" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/machinery/alarm/ruin/directional/south,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"RH" = (
+/obj/machinery/teleport/station,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"RM" = (
+/obj/machinery/teleport/hub,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"RS" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"RU" = (
+/obj/structure/environmental_storytelling_holopad/ragnarok_ship/dining_hall,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"RZ" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"Si" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/costume/psyjump,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"Sl" = (
+/obj/machinery/alarm/ruin/directional/east,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"SB" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/yellow_siding/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"SH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"SI" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"SJ" = (
+/obj/effect/turf_decal/yellow_siding/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"SR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"SU" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"Tb" = (
+/obj/structure/showcase/machinery/server_broken{
+	name = "inactive server"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Tc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Td" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"Tg" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/costume/psyjump,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"Th" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"Tk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"Tn" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"TG" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/powered/ragnarok/bridge)
+"TI" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/garden)
+"TL" = (
+/turf/simulated/floor/chasm/straight_down{
+	name = "engine pit"
+	},
+/area/ruin/space/powered/ragnarok/vault)
+"TO" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/atmos)
+"TQ" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/light,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"Ub" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Ud" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Uk" = (
+/obj/structure/dresser/wardrobe,
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"Up" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"Ur" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"UA" = (
+/obj/machinery/porta_turret/syndicate/interior{
+	faction = "kidan_royalty"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"UD" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/yellow_siding/corner{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"UG" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"UO" = (
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 8
+	},
+/area/ruin/space/powered/ragnarok/bathhouse)
+"UP" = (
+/obj/structure/dresser/wardrobe,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"UT" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/machinery/alarm/ruin/directional/north,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"UW" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"Vb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"Ve" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/instrument/violin/golden,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"Vf" = (
+/obj/machinery/computer/teleporter{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Vg" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/powered/ragnarok/atmos)
+"Vy" = (
+/obj/structure/table,
+/obj/item/food/filetmignon,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"VB" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"VH" = (
+/mob/living/basic/kidan_servant/ruin,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"VL" = (
+/obj/machinery/door/airlock/gold{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"VN" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"VR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"VY" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"We" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"Wg" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Wh" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Wp" = (
+/obj/machinery/door/airlock/multi_tile{
+	name = "royal gardens"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/garden)
+"Wr" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"Ww" = (
+/turf/simulated/floor/plasteel/fakestairs,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"WB" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/ragnarok/maints)
+"WD" = (
+/obj/structure/railing,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"WF" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/maints)
+"WJ" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bridge)
+"WT" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/throne)
+"WU" = (
+/obj/structure/bed/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/ruin/space/powered/ragnarok/throne)
+"Xd" = (
+/obj/structure/sink/kitchen/directional/north,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/bakery)
+"Xm" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Xo" = (
+/mob/living/basic/kidan_servant/ruin,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/teleporter)
+"Xs" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"Xw" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/maints)
+"XC" = (
+/turf/simulated/floor/plating/airless,
+/area/space)
+"XE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"XK" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stack/sheet/mineral/diamond/ten,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"XM" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/powered/ragnarok/throne)
+"XT" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Yc" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/food/honey_pie,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Yi" = (
+/obj/structure/shelf/service,
+/obj/item/kitchen/knife,
+/obj/item/kitchen/knife,
+/obj/item/kitchen/knife/butcher,
+/obj/item/kitchen/knife/butcher,
+/obj/item/kitchen/knife/butcher,
+/obj/item/kitchen/knife/pizza_cutter,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"Yj" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/foyer)
+"Yn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"Yp" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"Yt" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
+"Yw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+"Yx" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/teleporter)
+"YA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"YF" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"YG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"YJ" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/grass,
+/area/ruin/space/powered/ragnarok/bakery)
+"YP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/vault)
+"YQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/grass/jungle,
+/area/ruin/space/powered/ragnarok/garden)
+"Za" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/foyer)
+"Zc" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"Zf" = (
+/obj/machinery/alarm/ruin/directional/north,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/powered/ragnarok/throne)
+"Zl" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/engine)
+"Zv" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/powered/ragnarok/atmos)
+"Zx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
+"Zy" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/ragnarok/bathhouse)
+"ZB" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered/ragnarok/atmos)
+"ZI" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
+"ZL" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/space/powered/ragnarok/throne)
+"ZN" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "royal butcher"
+	},
+/obj/item/food/filetmignon,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/kitchen)
+"ZS" = (
+/obj/machinery/atmospherics/unary/tank/oxygen{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/engine)
+"ZZ" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/carpet/royalblack,
+/area/ruin/space/powered/ragnarok/throne)
+
+(1,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Qs
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+yz
+eK
+eK
+wh
+wh
+wh
+wh
+eK
+eK
+eK
+eK
+wh
+wh
+wh
+wh
+wh
+wh
+eK
+eK
+eK
+eK
+wh
+wh
+wh
+wh
+eK
+eK
+eK
+KH
+KH
+KH
+KH
+KH
+KH
+KH
+KH
+KH
+AY
+AY
+AY
+KH
+KH
+WF
+WF
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(2,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Zl
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+Qs
+CG
+CG
+CG
+CG
+CG
+CG
+CG
+CG
+CG
+CG
+CG
+CG
+yz
+Ft
+jE
+jE
+jE
+jE
+jE
+jE
+rL
+Ft
+jE
+jE
+jE
+jE
+jE
+jE
+jE
+jE
+hv
+fw
+jE
+jE
+jE
+jE
+jE
+jE
+hv
+eK
+zB
+Yi
+EE
+Ur
+EE
+EE
+JI
+KH
+Jd
+Jd
+Jd
+Jd
+Fx
+KH
+CD
+MD
+MD
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(3,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Zl
+Qs
+Qs
+at
+GN
+kd
+GN
+GN
+GN
+GN
+GN
+GN
+GN
+GN
+kd
+GN
+at
+EI
+oS
+DU
+DU
+DU
+EI
+Qs
+CG
+WU
+WU
+WU
+WU
+WU
+WU
+WU
+WU
+WU
+WU
+CG
+yz
+mr
+jE
+jE
+jE
+jE
+jE
+jE
+SU
+mr
+jE
+jE
+jE
+jE
+jE
+jE
+jE
+jE
+SU
+mr
+jE
+jE
+jE
+jE
+jE
+jE
+SU
+eK
+uD
+Mi
+Mi
+Mi
+Mi
+Mi
+Mi
+pP
+nC
+Fx
+Fx
+Jd
+Jd
+KH
+WF
+WF
+Hm
+MD
+WF
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(4,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Zl
+Qs
+Qs
+DU
+at
+nI
+ae
+iy
+iy
+iy
+iy
+iy
+iy
+iy
+iy
+iy
+ow
+at
+EI
+DU
+DU
+DU
+DU
+EI
+Qs
+CG
+yl
+mk
+yl
+yl
+yW
+yl
+yl
+yl
+yl
+yl
+CG
+yz
+mr
+jE
+jE
+UO
+jE
+jE
+jE
+SU
+mr
+jE
+jE
+jE
+jE
+jE
+jE
+jE
+jE
+SU
+mr
+jE
+jE
+jE
+UO
+jE
+jE
+SU
+eK
+AE
+Mi
+Mi
+yP
+cZ
+Mi
+Mi
+pP
+nC
+Jd
+la
+Jd
+vl
+KH
+Xw
+MD
+MD
+MD
+MD
+WB
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(5,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Iq
+Oh
+KC
+vk
+bE
+bE
+Zc
+yQ
+ow
+DU
+DU
+DU
+DU
+DU
+DU
+DU
+DU
+DU
+DU
+gg
+DU
+DU
+DU
+DU
+DU
+EI
+Qs
+CG
+oz
+yl
+yl
+yl
+pw
+We
+yl
+yl
+yl
+Dq
+CG
+yz
+Gw
+pj
+pj
+pj
+pj
+pj
+pj
+uY
+mr
+jE
+jE
+jE
+te
+jE
+jE
+jE
+jE
+SU
+SJ
+pj
+pj
+pj
+pj
+pj
+pj
+UD
+eK
+EQ
+xy
+Vy
+yB
+Mc
+Vy
+xy
+DS
+mR
+mR
+An
+Jd
+Jd
+KH
+WF
+WF
+UA
+MD
+MD
+MD
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(6,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Iq
+Iq
+Qs
+DU
+DU
+DU
+at
+DM
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+jB
+GB
+at
+EI
+am
+Ek
+DU
+DU
+EI
+Qs
+CG
+Dq
+yl
+mk
+yl
+ms
+eL
+yl
+mk
+yl
+wI
+CG
+yz
+fq
+dr
+dr
+dr
+dr
+dr
+dr
+lq
+mr
+jE
+jE
+jE
+UO
+UO
+jE
+jE
+jE
+SU
+dr
+lq
+dr
+dr
+dr
+dr
+dr
+fq
+eK
+wv
+Mi
+cp
+cp
+xU
+xU
+Mi
+pP
+nC
+Qm
+ry
+Qm
+Jd
+Nl
+MD
+MD
+MD
+MD
+WF
+MD
+Xw
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(7,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Iq
+Iq
+Qs
+DU
+DU
+DU
+at
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+ZS
+at
+EI
+Mx
+dq
+DU
+DU
+EI
+Qs
+CG
+yl
+yl
+yl
+yl
+Vb
+yl
+yl
+yl
+yl
+yl
+CG
+yz
+wg
+wG
+wG
+wG
+wG
+wG
+wG
+dr
+SJ
+pj
+pj
+pj
+pj
+pj
+pj
+pj
+pj
+uY
+dr
+wG
+wG
+wG
+wG
+wG
+wG
+wg
+eK
+lx
+Mi
+Mi
+Mi
+Mi
+Mi
+Mi
+pP
+nC
+Jd
+Jd
+Jd
+Jd
+KH
+WF
+WF
+MD
+MD
+WF
+MD
+MD
+WF
+WF
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(8,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+DY
+Qs
+Qs
+DU
+DU
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+ny
+DU
+DU
+DU
+EI
+Qs
+CG
+HP
+wb
+HP
+HP
+Vb
+HP
+HP
+HP
+wb
+HP
+CG
+yz
+wg
+wG
+tj
+wG
+wG
+vS
+bB
+PG
+of
+XE
+XE
+XE
+XE
+Zy
+XE
+XE
+XE
+km
+PG
+bB
+ua
+wG
+wG
+tj
+wG
+wg
+eK
+Cq
+Mi
+Mi
+Mi
+Mi
+Mi
+Mi
+KH
+Qm
+Jd
+Qm
+qZ
+Jd
+KH
+Xw
+WF
+MD
+oM
+WF
+UA
+MD
+WF
+Xw
+WB
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(9,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Iq
+Qs
+DU
+DU
+DU
+at
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+at
+ny
+DU
+DU
+DU
+EI
+Qs
+jf
+jf
+jf
+jf
+jf
+BW
+jf
+jf
+jf
+jf
+jf
+jf
+yz
+yz
+wg
+wG
+dr
+dr
+dr
+dr
+dr
+Th
+dr
+dr
+dr
+dr
+VH
+dr
+dr
+dr
+Th
+dr
+dr
+dr
+dr
+lq
+wG
+wg
+eK
+eK
+mW
+kA
+ZN
+ZN
+ZN
+KH
+kq
+KH
+qZ
+Jd
+qZ
+Jd
+Jd
+KH
+MD
+WF
+MD
+MD
+WF
+MD
+MD
+MD
+MD
+MD
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(10,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+Zl
+Qs
+Qs
+DU
+DU
+DU
+at
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+at
+ny
+DU
+DU
+uJ
+Qs
+Qs
+jf
+rw
+PH
+Qk
+YA
+zo
+Lw
+rw
+rw
+Lx
+Lx
+jf
+jf
+yz
+yz
+wg
+dr
+SB
+qu
+qu
+qu
+qu
+qu
+rF
+dr
+dr
+uj
+dr
+SB
+qu
+qu
+qu
+qu
+qu
+rF
+dr
+wg
+eK
+ue
+tX
+Tc
+eS
+eS
+eS
+eS
+tX
+eS
+ue
+ue
+qZ
+qZ
+Jd
+zM
+KH
+MD
+WF
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+Xw
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(11,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+Qs
+Qs
+DU
+DU
+DU
+DU
+at
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+at
+ny
+DU
+DU
+Qs
+PZ
+jf
+jf
+rw
+Lw
+mh
+Lw
+Lw
+Lw
+rw
+rw
+Lx
+Lx
+Lx
+jf
+jf
+yz
+yz
+dr
+mr
+jE
+jE
+jE
+jE
+jE
+SU
+dr
+dr
+uj
+dr
+mr
+jE
+jE
+jE
+jE
+jE
+SU
+dr
+eK
+ue
+GY
+ed
+sr
+ed
+ed
+ed
+ed
+ed
+ed
+wB
+ue
+ue
+Jd
+Jd
+Jd
+KH
+MD
+WF
+WF
+WF
+UA
+MD
+MD
+oM
+WF
+WF
+WF
+WF
+dP
+dP
+Ow
+Ow
+Ow
+dP
+dP
+dP
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(12,1,1) = {"
+ic
+at
+Qs
+Qs
+Qs
+Qs
+Qs
+DU
+Dp
+Dp
+im
+Dp
+at
+nm
+pH
+pH
+hG
+pH
+pH
+pH
+pH
+pH
+pH
+hG
+pH
+pH
+nm
+at
+ny
+qA
+Qs
+Qs
+jf
+jf
+rw
+rw
+Lw
+mh
+Lw
+Lw
+Lw
+rw
+rw
+Lx
+Lx
+Lx
+Lx
+jf
+jf
+yz
+yz
+mr
+jE
+jE
+jE
+jE
+jE
+SU
+dr
+ob
+Aa
+dr
+mr
+jE
+jE
+jE
+jE
+jE
+SU
+eK
+ue
+eS
+qd
+EO
+EO
+EO
+EO
+EO
+EO
+EO
+EO
+qd
+eS
+ue
+ue
+rt
+Jd
+KH
+Hm
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+UA
+dP
+qU
+KM
+KM
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(13,1,1) = {"
+XC
+Oh
+Qs
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+at
+ny
+Qs
+Qs
+jf
+jf
+pM
+rw
+rw
+Lw
+mh
+rw
+rw
+iK
+rw
+rw
+Lx
+Lx
+Lx
+aU
+Lx
+jf
+jf
+yz
+yz
+jE
+jE
+jE
+jE
+Ls
+SU
+dr
+dr
+uj
+dr
+mr
+Ww
+jE
+jE
+jE
+jE
+eK
+ue
+GY
+SH
+EM
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+lQ
+SH
+wB
+ue
+ue
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+Xw
+MD
+MD
+MD
+MD
+MD
+MD
+dP
+KM
+KM
+KM
+bk
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(14,1,1) = {"
+XC
+Iq
+Qs
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+at
+ny
+Qs
+jf
+jf
+pM
+Lx
+rw
+rw
+Lw
+mh
+rw
+rw
+jf
+rw
+rw
+Lx
+Lx
+Lx
+Lx
+Lx
+Lx
+jf
+jf
+yz
+eu
+jE
+jE
+jE
+jE
+SU
+dr
+dr
+uj
+dr
+mr
+jE
+jE
+jE
+jE
+gl
+ue
+eS
+qd
+kF
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+co
+qd
+DX
+ue
+vX
+vX
+Oz
+Oz
+vX
+vX
+yS
+WF
+WF
+WF
+MD
+MD
+uH
+MD
+dP
+fP
+KM
+KM
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(15,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+PZ
+sl
+PZ
+jf
+pM
+QX
+jc
+rw
+rw
+Lw
+mh
+ee
+jf
+jf
+jf
+pA
+Lx
+Lx
+Lx
+Lx
+Lx
+Lx
+Lx
+jf
+yz
+jE
+jE
+jE
+jE
+jE
+gp
+fq
+dr
+uj
+fq
+yc
+jE
+jE
+jE
+jE
+jE
+ue
+xS
+dV
+HB
+HB
+Ks
+tx
+tx
+tx
+Nr
+tx
+tx
+Ks
+HB
+HB
+OF
+wm
+ue
+vX
+Oz
+Oz
+Oz
+Oz
+vX
+yS
+Xw
+MD
+MD
+MD
+MD
+WF
+MD
+dP
+ax
+KM
+KM
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(16,1,1) = {"
+XC
+Oh
+Qs
+nm
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+Zf
+cH
+id
+rw
+rw
+eV
+VR
+rw
+rw
+Lw
+mh
+rw
+pU
+jf
+pU
+rw
+Lx
+QX
+Lx
+jc
+Lx
+Lx
+WT
+jf
+yz
+eK
+eK
+eK
+eK
+eK
+eK
+eK
+ia
+BG
+eK
+eK
+eK
+eK
+eK
+eK
+eK
+ue
+XT
+tq
+HB
+HB
+tx
+tx
+Xm
+Yt
+Yt
+zW
+tx
+tx
+HB
+HB
+FS
+JV
+ue
+wx
+Oz
+QM
+Yx
+Oz
+Tb
+yS
+CD
+MD
+MD
+MD
+MD
+WF
+Xw
+dP
+KM
+WJ
+kn
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(17,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+Lx
+Lx
+eQ
+rw
+rw
+eV
+VR
+rw
+rw
+Lw
+mh
+rw
+rw
+PH
+rw
+rw
+Lx
+jH
+Lx
+to
+Lx
+Lx
+Lx
+jf
+fv
+DF
+jo
+DF
+DF
+HD
+xm
+nn
+nn
+Tk
+nn
+At
+HD
+DF
+DF
+jo
+DF
+ue
+hC
+dV
+HB
+HB
+tx
+tx
+Xm
+iJ
+cX
+zW
+tx
+tx
+HB
+HB
+OF
+hC
+ue
+vX
+Oz
+BE
+Ot
+Oz
+vX
+yS
+yS
+yS
+yS
+lE
+yS
+yS
+yS
+dP
+KM
+em
+DC
+KM
+KM
+eD
+dP
+Ow
+Ow
+Ow
+Ow
+Ow
+dP
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(18,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+Nt
+ra
+Ve
+MA
+MA
+MA
+LH
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+Lx
+hf
+Wr
+YA
+YA
+MP
+zx
+YA
+YA
+Tn
+zo
+Lw
+Lw
+Lw
+rw
+rw
+rw
+eV
+rw
+Yn
+rw
+rw
+rw
+jf
+fv
+yO
+mq
+mq
+mq
+fm
+xm
+PQ
+nn
+Tk
+nn
+At
+fm
+mq
+mq
+mq
+mq
+ue
+hZ
+dV
+HB
+HB
+tx
+Nr
+Xm
+cs
+cs
+zW
+tx
+tx
+HB
+HB
+OF
+hC
+ue
+vX
+vX
+BE
+Ot
+vX
+vX
+yS
+Ou
+Os
+Os
+sg
+Os
+Os
+Bh
+dP
+pv
+iS
+KM
+KM
+KM
+fP
+eD
+rK
+rK
+rK
+rK
+rK
+dP
+dP
+dP
+ic
+ic
+ic
+ic
+"}
+(19,1,1) = {"
+ic
+at
+Qs
+nm
+TL
+TL
+TL
+xv
+PC
+PC
+PC
+PC
+PC
+WD
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+OE
+NJ
+Lx
+Lx
+mh
+Lw
+Lw
+Lw
+Lw
+Lw
+mA
+pL
+Lw
+Lw
+Lw
+Lw
+rw
+rw
+rw
+eV
+rw
+Yn
+rw
+rw
+rw
+jf
+fv
+Yj
+IT
+Yj
+Yj
+Yj
+HO
+nn
+nn
+Tk
+nn
+en
+Yj
+Yj
+Yj
+UW
+Yj
+ue
+ws
+gS
+HB
+HB
+tx
+tx
+Xm
+cX
+Yc
+zW
+tx
+tx
+HB
+HB
+Rr
+ws
+ue
+yS
+uI
+ck
+qX
+uI
+yS
+yS
+Qu
+Qu
+Qu
+Wh
+Qu
+Qu
+RB
+dP
+KM
+iS
+oO
+FV
+TG
+KM
+KM
+Dk
+Dk
+Dk
+Dk
+Dk
+xn
+IH
+dP
+dP
+ic
+ic
+ic
+"}
+(20,1,1) = {"
+XC
+Oh
+Qs
+nm
+TL
+TL
+TL
+cP
+PC
+PC
+PC
+PC
+PC
+wu
+DP
+MA
+cx
+MA
+DP
+MA
+MA
+MA
+DP
+MA
+MA
+MA
+IC
+Lw
+Lw
+mh
+Lw
+rw
+rw
+rw
+jf
+jf
+oN
+OQ
+Ng
+Lw
+Lw
+Lw
+Lw
+Lw
+Lp
+Lw
+uN
+Lw
+Lw
+Lw
+VL
+Ri
+nn
+ld
+nn
+nn
+nn
+nn
+nn
+nn
+Tk
+nn
+nn
+nn
+nn
+nn
+Cy
+nn
+dz
+HB
+yh
+HB
+HB
+tx
+tx
+Xm
+iJ
+cX
+zW
+tx
+tx
+HB
+HB
+yh
+HB
+dz
+uS
+uS
+ck
+fb
+uS
+uS
+UG
+Xo
+uS
+uS
+fb
+uS
+uS
+uS
+Da
+KM
+iS
+qM
+tO
+aH
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+fP
+KM
+qU
+dP
+dP
+dP
+ic
+"}
+(21,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+XK
+PC
+PC
+vB
+LW
+PC
+PC
+JY
+PC
+uV
+YP
+pi
+YP
+IS
+YP
+pi
+YP
+DR
+YP
+QH
+YA
+YA
+GE
+Lw
+rw
+ee
+jf
+jf
+jf
+zb
+ZL
+Lw
+Lw
+sm
+YA
+fJ
+YA
+QS
+YA
+al
+fJ
+YA
+YA
+fE
+YA
+sw
+YF
+EG
+sw
+sw
+ml
+sw
+sw
+Cl
+sw
+ml
+sw
+sw
+EG
+Za
+sw
+Le
+Or
+CP
+HB
+HB
+aT
+tx
+Xm
+cX
+iW
+zW
+tx
+aT
+HB
+RU
+RS
+Or
+Le
+hI
+hI
+Ub
+Fu
+hI
+hI
+hI
+hI
+hI
+hI
+uE
+hI
+hI
+hI
+GL
+gQ
+np
+Jx
+Fn
+ap
+Td
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+dP
+dP
+"}
+(22,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+XK
+PC
+PC
+PC
+PC
+PC
+ME
+ip
+bV
+AO
+bV
+ip
+bV
+bV
+bV
+ip
+bV
+bV
+bV
+yD
+Lw
+Lw
+Lw
+Lw
+rw
+rw
+rw
+jf
+jf
+mL
+OQ
+Ng
+Lw
+pL
+Lw
+Lw
+Lw
+Lp
+Lw
+uN
+Lw
+Lw
+Lw
+VL
+Lw
+nn
+Cy
+nn
+nn
+nn
+nn
+nn
+nn
+Tk
+nn
+nn
+nn
+nn
+nn
+ld
+nn
+dz
+HB
+yh
+HB
+HB
+tx
+tx
+Xm
+Yc
+Yt
+zW
+tx
+tx
+HB
+HB
+yh
+HB
+dz
+uS
+uS
+ck
+fb
+uS
+uS
+uS
+Xo
+uS
+uS
+ck
+uS
+uS
+uS
+Da
+KM
+iS
+nA
+nf
+pc
+KM
+KM
+KM
+KM
+KM
+KM
+KM
+fP
+KM
+qU
+dP
+dP
+dP
+ic
+"}
+(23,1,1) = {"
+ic
+at
+Qs
+nm
+TL
+TL
+TL
+QL
+PC
+PC
+PC
+PC
+PC
+WD
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+sB
+NJ
+Lx
+Lx
+Lw
+Lw
+Lw
+Lw
+Lw
+Lw
+OB
+zo
+Lw
+Lw
+Lw
+pL
+rw
+rw
+rw
+eV
+rw
+Yn
+rw
+rw
+rw
+jf
+fv
+SI
+zw
+SI
+SI
+SI
+Au
+nn
+nn
+Tk
+nn
+Db
+SI
+SI
+SI
+eR
+SI
+ue
+IG
+yy
+HB
+HB
+tx
+Nr
+Xm
+cX
+cX
+zW
+tx
+tx
+HB
+HB
+Kp
+IG
+ue
+yS
+uI
+ck
+qX
+uI
+yS
+yS
+Na
+Na
+Na
+rU
+Na
+Na
+Rb
+dP
+KM
+iS
+vO
+tQ
+pz
+KM
+KM
+Dx
+Dx
+Dx
+Dx
+Dx
+HR
+IH
+dP
+dP
+ic
+ic
+ic
+"}
+(24,1,1) = {"
+XC
+Oh
+Qs
+nm
+TL
+TL
+TL
+wt
+iG
+ff
+bV
+bV
+bV
+ET
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+Lx
+hf
+Lw
+Lw
+Lw
+Lw
+Lw
+Lw
+Wr
+YA
+Tn
+YA
+YA
+zo
+rw
+rw
+rw
+eV
+rw
+Yn
+rw
+rw
+rw
+jf
+fv
+GI
+GI
+GI
+GI
+fm
+xm
+nn
+nn
+Tk
+nn
+At
+fm
+GI
+GI
+GI
+GI
+ue
+UT
+dV
+HB
+HB
+tx
+tx
+Xm
+mi
+kJ
+zW
+tx
+tx
+HB
+HB
+OF
+hC
+ue
+kY
+Os
+BE
+Ot
+Os
+kY
+yS
+Ou
+Os
+Os
+lp
+Os
+Os
+Bh
+dP
+ss
+iS
+KM
+KM
+KM
+fP
+eD
+hV
+hV
+hV
+hV
+hV
+dP
+dP
+dP
+ic
+ic
+ic
+ic
+"}
+(25,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+Lx
+Lx
+rw
+rw
+rw
+rw
+rw
+rw
+eQ
+Lw
+mh
+rw
+rw
+iK
+rw
+rw
+Lx
+jH
+Lx
+to
+Lx
+Lx
+Lx
+jf
+fv
+DF
+eU
+DF
+DF
+HD
+xm
+nn
+nn
+gK
+nn
+At
+HD
+DF
+DF
+eU
+DF
+ue
+hC
+dV
+HB
+HB
+tx
+tx
+Xm
+iW
+Yt
+zW
+tx
+tx
+HB
+HB
+OF
+hC
+ue
+Os
+Oz
+BE
+Ot
+Oz
+Os
+yS
+yS
+yS
+yS
+lE
+yS
+yS
+yS
+dP
+KM
+wz
+bt
+KM
+KM
+eD
+dP
+Ow
+Ow
+Ow
+Ow
+Ow
+dP
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(26,1,1) = {"
+XC
+Iq
+Qs
+nm
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+Gg
+Qk
+fY
+fY
+fY
+CN
+xl
+fY
+iL
+Lw
+mh
+rw
+pU
+jf
+pU
+rw
+Lx
+MK
+Lx
+CJ
+Lx
+Lx
+WT
+jf
+uo
+py
+py
+py
+py
+py
+py
+py
+TI
+Wp
+py
+py
+py
+py
+py
+py
+py
+ue
+XT
+tq
+HB
+HB
+tx
+tx
+Xm
+cX
+cX
+zW
+tx
+tx
+HB
+HB
+FS
+JV
+ue
+tA
+Oz
+MU
+FE
+Oz
+En
+yS
+Xw
+MD
+MD
+MD
+MD
+MD
+MD
+dP
+KM
+kC
+Jf
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(27,1,1) = {"
+XC
+Oh
+Qs
+nm
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+TL
+NJ
+PZ
+eP
+PZ
+jf
+pM
+MK
+CJ
+rw
+rw
+Lw
+mh
+ee
+jf
+jf
+jf
+pA
+Lx
+Lx
+Lx
+Lx
+Lx
+Lx
+Lx
+jf
+uo
+JH
+zK
+JH
+LP
+JH
+qr
+fs
+nh
+Mj
+fs
+rq
+zK
+LP
+JH
+zL
+JH
+ue
+xS
+dV
+HB
+HB
+Ks
+tx
+tx
+tx
+Nr
+tx
+tx
+Ks
+HB
+HB
+OF
+wm
+ue
+Os
+Oz
+Oz
+Oz
+Oz
+Os
+yS
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+dP
+ax
+KM
+KM
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(28,1,1) = {"
+XC
+Iq
+Qs
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+Zv
+SR
+Vg
+jf
+jf
+pM
+Lx
+rw
+rw
+Lw
+mh
+rw
+rw
+jf
+rw
+rw
+Lx
+Lx
+Lx
+Lx
+Lx
+Lx
+jf
+jf
+uo
+zK
+zK
+JH
+JH
+aI
+JH
+Zx
+iu
+IU
+rf
+zL
+JH
+JH
+aI
+zK
+zK
+ue
+eS
+qd
+wT
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+jJ
+qd
+DX
+ue
+Os
+Vf
+RH
+RM
+ZI
+Os
+yS
+MD
+oM
+WF
+WF
+WF
+MD
+MD
+dP
+fP
+KM
+KM
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(29,1,1) = {"
+XC
+Iq
+Qs
+at
+at
+at
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+Zv
+SR
+Vg
+Vg
+jf
+jf
+pM
+rw
+rw
+Lw
+mh
+rw
+rw
+PH
+rw
+rw
+Lx
+Lx
+Lx
+aU
+Lx
+jf
+jf
+uo
+uo
+zK
+JH
+Kg
+JH
+zL
+nh
+Fw
+nh
+nh
+Mj
+nh
+JH
+JH
+JH
+hE
+zK
+py
+ue
+gL
+GH
+aY
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+HB
+na
+GH
+wZ
+ue
+ue
+yS
+yS
+yS
+yS
+yS
+yS
+yS
+MD
+MD
+MD
+UA
+WF
+MD
+MD
+dP
+KM
+KM
+KM
+bk
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(30,1,1) = {"
+ic
+at
+Qs
+Qs
+Qs
+Qs
+Vg
+CE
+hk
+hk
+Fs
+hk
+Zv
+nm
+pH
+pH
+hG
+pH
+pH
+pH
+pH
+pH
+pH
+hG
+pH
+pH
+nm
+Zv
+SR
+rn
+Vg
+Vg
+jf
+jf
+rw
+rw
+Lw
+mh
+Lw
+Lw
+Lw
+rw
+rw
+Lx
+Lx
+Lx
+Lx
+jf
+jf
+uo
+uo
+zK
+zK
+JH
+JH
+zL
+nh
+nh
+Fw
+zK
+vR
+Mj
+nh
+nh
+JH
+JH
+JH
+zK
+zK
+py
+ue
+eS
+qd
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+qd
+eS
+ue
+ue
+JE
+IA
+dg
+Xw
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+MD
+WF
+MD
+oM
+dP
+qU
+KM
+KM
+KM
+EH
+xD
+Ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(31,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+Vg
+Vg
+CE
+CE
+CE
+CE
+Zv
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+Zv
+SR
+CE
+fg
+Vg
+Vg
+jf
+jf
+rw
+Lw
+mh
+Lw
+Lw
+Lw
+rw
+rw
+Lx
+Lx
+Lx
+jf
+jf
+uo
+uo
+JH
+zK
+JH
+JH
+zK
+nh
+nh
+nh
+Dm
+zK
+zK
+Fk
+nh
+nh
+nh
+zL
+JH
+xN
+zK
+JH
+py
+ue
+gL
+ed
+QJ
+ed
+ed
+ed
+ed
+ed
+ed
+wZ
+ue
+ue
+yx
+Dw
+IA
+dg
+MD
+MD
+WF
+UA
+MD
+MD
+WF
+Xw
+MD
+WF
+UA
+Xw
+dP
+dP
+Ow
+Ow
+Ow
+dP
+dP
+dP
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(32,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ZB
+Vg
+Vg
+CE
+CE
+CE
+Zv
+nm
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+pH
+nm
+Zv
+SR
+CE
+CE
+CE
+Vg
+Vg
+jf
+rw
+iK
+cH
+YA
+YG
+Lw
+rw
+rw
+Lx
+Lx
+jf
+jf
+uo
+uo
+JH
+zK
+Kg
+JH
+aI
+nh
+nh
+VB
+fy
+sX
+Kg
+JH
+qC
+fy
+Xs
+nh
+nh
+JH
+JH
+JH
+JH
+zK
+py
+ue
+Lh
+Tc
+eS
+eS
+eS
+eS
+Lh
+eS
+ue
+ue
+wj
+Dw
+Dw
+TQ
+dg
+MD
+MD
+WF
+WF
+WF
+CD
+MD
+MD
+MD
+WF
+WF
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(33,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ku
+Vg
+CE
+CE
+CE
+Zv
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+nm
+Zv
+SR
+CE
+CE
+CE
+af
+Vg
+jf
+jf
+jf
+jf
+jf
+rO
+jf
+jf
+jf
+jf
+jf
+jf
+uo
+uo
+JH
+JH
+JH
+zK
+JH
+nh
+nh
+VN
+KW
+JH
+Jb
+JH
+aI
+Ud
+pY
+JH
+VN
+nh
+nh
+JH
+Kg
+JH
+zK
+JH
+py
+py
+yd
+Bp
+QZ
+QZ
+QZ
+dg
+lj
+dg
+Rw
+Dw
+Dw
+Dw
+Dw
+dg
+MD
+MD
+WF
+Xw
+MD
+MD
+MD
+MD
+MD
+MD
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(34,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Bl
+Vg
+Vg
+CE
+CE
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+Zv
+SR
+CE
+CE
+CE
+af
+Vg
+jf
+Si
+tZ
+yv
+tZ
+iP
+Ky
+yv
+tZ
+yv
+tZ
+jf
+uo
+JH
+JH
+JH
+Kg
+JH
+nh
+nh
+nh
+zK
+KW
+JH
+Jb
+pY
+JH
+Ii
+JH
+JH
+JH
+nh
+nh
+nh
+zL
+JH
+JH
+zK
+zK
+py
+LR
+Up
+Up
+Up
+Up
+Up
+Up
+dg
+Dw
+Dw
+IA
+IA
+IA
+dg
+UA
+MD
+WF
+MD
+MD
+MD
+oM
+WF
+WF
+WB
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(35,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Bl
+Qp
+Vg
+CE
+CE
+CE
+Zv
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Dy
+Zv
+af
+SR
+us
+CE
+CE
+af
+Vg
+jf
+Uk
+yv
+tZ
+yv
+yV
+yv
+tZ
+yv
+tZ
+yv
+jf
+uo
+JH
+JH
+zK
+JH
+nh
+nh
+nh
+KW
+JH
+JH
+JH
+AW
+pY
+zK
+eF
+aI
+JH
+Kg
+JH
+nh
+nh
+nh
+JH
+aI
+zK
+zK
+py
+xf
+Up
+Up
+Up
+Up
+Up
+Up
+RZ
+Dw
+IA
+IA
+IA
+IA
+dg
+MD
+MD
+MD
+MD
+WF
+WF
+MD
+Xw
+WF
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(36,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Bl
+Bl
+Vg
+CE
+CE
+CE
+Zv
+vv
+kj
+kj
+kj
+kj
+kj
+kj
+TO
+kj
+kj
+kj
+vP
+Zv
+af
+tM
+Jk
+CE
+CE
+af
+Vg
+jf
+or
+tZ
+yv
+tZ
+Yw
+qb
+yv
+tZ
+yv
+tZ
+jf
+uo
+JH
+JH
+zK
+nh
+nh
+nh
+JH
+qz
+zK
+JH
+aI
+Jb
+JH
+zL
+eF
+JH
+zK
+zK
+JH
+pY
+nh
+nh
+nh
+JH
+zK
+zK
+py
+rN
+Up
+GK
+GK
+GK
+GK
+Up
+RZ
+Dw
+Dw
+Io
+Dw
+Dw
+fT
+MD
+uH
+MD
+MD
+MD
+MD
+Xw
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(37,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+Bl
+Bl
+Vg
+Vg
+CE
+CE
+KG
+CE
+CE
+CE
+CE
+CE
+CE
+cl
+jR
+MG
+FQ
+hd
+hd
+gy
+hd
+Fq
+CE
+CE
+CE
+af
+Vg
+jf
+zc
+yv
+tZ
+yv
+XM
+xJ
+tZ
+yv
+tZ
+yv
+jf
+uo
+Kg
+aI
+KW
+nh
+nh
+gM
+QK
+Wg
+Pg
+du
+QU
+Gz
+Kg
+JH
+Aq
+Wg
+Wg
+du
+Wg
+du
+hw
+nh
+nh
+JH
+Kg
+zK
+py
+JJ
+BQ
+IN
+oe
+DB
+ne
+BQ
+by
+rB
+YJ
+Yp
+IA
+IA
+dg
+MD
+WF
+WF
+WF
+MD
+MD
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(38,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ZB
+Vg
+Vg
+CE
+Zv
+cl
+aN
+aN
+aN
+aN
+aN
+TO
+aN
+aN
+aN
+aN
+mj
+Zv
+af
+mb
+CE
+CE
+CE
+af
+Vg
+jf
+UP
+tZ
+yv
+tZ
+yv
+tZ
+yv
+tZ
+yv
+tZ
+jf
+uo
+JH
+JH
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+nh
+JH
+zK
+py
+eM
+Up
+Up
+BO
+KP
+Up
+Up
+RZ
+Dw
+IA
+PB
+IA
+TQ
+dg
+MD
+MD
+MD
+MD
+MD
+WB
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(39,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ZB
+Vg
+Vg
+Zv
+Ku
+HZ
+Ku
+Ku
+Ku
+Ku
+Ku
+Ku
+Ku
+Ku
+HZ
+Ku
+Zv
+af
+yg
+CE
+CE
+CE
+af
+Vg
+jf
+Tg
+yv
+tZ
+Df
+sJ
+ZZ
+tZ
+yv
+tZ
+tK
+jf
+uo
+YQ
+zK
+ce
+nR
+nT
+ce
+nh
+nh
+nh
+nh
+nh
+ce
+nT
+Dn
+ce
+nh
+nh
+nh
+nh
+nh
+ce
+nT
+nR
+ce
+JH
+Mn
+py
+Xd
+Up
+Up
+Up
+Up
+Up
+Up
+RZ
+Dw
+Dw
+VY
+Dw
+Dw
+dg
+WF
+WF
+MD
+MD
+WF
+WB
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(40,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ZB
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+Vg
+kE
+Vg
+Vg
+Vg
+Vg
+Vg
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+uo
+zK
+zK
+nh
+nh
+nh
+nh
+zK
+PE
+fs
+zK
+zK
+nh
+nh
+nh
+nh
+zK
+pY
+fs
+sh
+zK
+nh
+nh
+nh
+nh
+JH
+JH
+py
+fL
+vz
+rb
+wy
+rb
+rb
+Sl
+dg
+IA
+IA
+IA
+IA
+IA
+dg
+CD
+MD
+uH
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(41,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+pG
+ic
+ic
+ic
+ic
+Vg
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+PZ
+uo
+py
+py
+Nd
+Nd
+Nd
+Nd
+py
+py
+py
+py
+Nd
+Nd
+Nd
+Nd
+Nd
+Nd
+py
+py
+py
+py
+Nd
+Nd
+Nd
+Nd
+py
+py
+py
+dg
+dg
+dg
+dg
+dg
+dg
+dg
+dg
+dg
+jp
+jp
+jp
+dg
+dg
+WF
+WF
+WF
+WF
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}
+(42,1,1) = {"
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+"}

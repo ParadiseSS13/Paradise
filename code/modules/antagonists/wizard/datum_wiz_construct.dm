@@ -11,7 +11,7 @@
 
 /datum/antagonist/wizard/construct/greet()
 	. = ..()
-	. += "<span class='danger'>You are [my_creator.real_name]'s construct! You are bound by magic to follow [my_creator.p_their()] orders and help [my_creator.p_them()] in accomplishing [my_creator.p_their()] goals.</span>"
+	. += SPAN_DANGER("You are [my_creator.real_name]'s construct! You are bound by magic to follow [my_creator.p_their()] orders and help [my_creator.p_them()] in accomplishing [my_creator.p_their()] goals.")
 
 /datum/antagonist/wizard/construct/give_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect

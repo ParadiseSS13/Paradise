@@ -1,0 +1,3 @@
+/obj/item/storage/backpack/satchel/lizard/@SUBTYPES : /obj/item/storage/backpack/satchel_lizard/@SUBTYPES{@OLD}
+/obj/item/storage/backpack/satchel/explorer/@SUBTYPES : /obj/item/storage/backpack/satchel_explorer/@SUBTYPES{@OLD}
+/obj/item/storage/backpack/satchel/clown/@SUBTYPES : /obj/item/storage/backpack/satchel_clown/@SUBTYPES{@OLD}

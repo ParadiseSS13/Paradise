@@ -10,6 +10,8 @@
 	var/list/pai_holoform_ckeys = list()
 	/// Assoc of ckeys that have custom pAI screens. Key: ckey | value: list of icon states
 	var/list/ipc_screen_map = list()
+	/// A list of ckeys to available undershirt fluff accessories
+	var/list/fluff_undershirts = list()
 
 /datum/configuration_section/custom_sprites_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -17,6 +19,7 @@
 	CONFIG_LOAD_LIST(ai_core_ckeys, data["ai_core"])
 	CONFIG_LOAD_LIST(ai_hologram_ckeys, data["ai_hologram"])
 	CONFIG_LOAD_LIST(pai_holoform_ckeys, data["pai_holoform"])
+	CONFIG_LOAD_LIST(fluff_undershirts, data["fluff_undershirts"])
 
 	// Load the ipc screens
 	if(islist(data["ipc_screens"]))

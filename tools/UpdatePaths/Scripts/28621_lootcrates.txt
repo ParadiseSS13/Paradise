@@ -1,0 +1,2 @@
+/obj/effect/spawner/random/loot/crate : /obj/effect/spawner/random/loot_crate/rarely
+/obj/structure/closet/crate/secure/loot : /obj/effect/spawner/random/loot_crate

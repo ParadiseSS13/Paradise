@@ -15,7 +15,10 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
-	if(control_disabled || stat) return
+	if(control_disabled || stat)
+		return
+	if(ismecha(loc))
+		return
 
 	if(ismob(A))
 		ai_actual_track(A, TRUE)
@@ -54,6 +57,12 @@
 			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
+		if(isturf(A))
+			var/turf/clicked_turf = A
+			var/obj/machinery/door/AL = locate() in clicked_turf.contents
+			if(AL)
+				AL.try_to_activate_door(src)
+				return
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
@@ -193,7 +202,7 @@
 	if(stat & BROKEN)
 		return
 	if(!user.can_remote_apc_interface(src))
-		to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
+		to_chat(user, SPAN_WARNING("Unable to interface: Connection refused."))
 		return
 	toggle_breaker(user)
 
@@ -224,7 +233,7 @@
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
 		return
-	if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
+	if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt", hidden = TRUE))
 		toggle_bolt(user)
 
 
@@ -232,11 +241,11 @@
 	if(!ai_control_check(user))
 		return
 	if(wires.is_cut(WIRE_ELECTRIFY))
-		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
+		to_chat(user, SPAN_WARNING("The electrification wire is cut - Cannot electrify the door."))
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
-		if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Shocking [src] cancelled.", special_identifier = "Shock"))
+		if(ispulsedemon(user) || user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Shocking [src] cancelled.", special_identifier = "Shock", hidden = TRUE))
 			electrify(-1, user, TRUE) // permanent shock + audio cue
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

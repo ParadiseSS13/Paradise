@@ -26,7 +26,6 @@
 	name = "Potassium"
 	id = "potassium"
 	description = "A soft, low-melting solid that can easily be cut with a knife. Reacts violently with water."
-	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
 	taste_description = "bad ideas"
 
@@ -34,7 +33,6 @@
 	name = "Sulfur"
 	id = "sulfur"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
 	taste_description = "impulsive decisions"
 
@@ -42,7 +40,6 @@
 	name = "Sodium"
 	id = "sodium"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "horrible misjudgement"
 
@@ -50,7 +47,6 @@
 	name = "Phosphorus"
 	id = "phosphorus"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "misguided choices"
 
@@ -58,9 +54,9 @@
 	name = "Carbon"
 	id = "carbon"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "like a pencil or something"
+	yuck_description = "powder coating"
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
 	if(!(locate(/obj/effect/decal/cleanable/dirt) in T) && !isspaceturf(T)) // Only add one dirt per turf.  Was causing people to crash.
@@ -70,24 +66,23 @@
 	name = "Gold"
 	id = "gold"
 	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
-	reagent_state = SOLID
 	color = "#F7C430" // rgb: 247, 196, 48
 	taste_description = "bling"
+	yuck_description = "connectivity"
 
 
 /datum/reagent/silver
 	name = "Silver"
 	id = "silver"
 	description = "A lustrous metallic element regarded as one of the precious metals."
-	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
+	yuck_description = "connectivity"
 
 /datum/reagent/aluminum
 	name = "Aluminum"
 	id = "aluminum"
 	description = "A silvery white and ductile member of the boron group of chemical elements."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "metal"
 
@@ -95,9 +90,9 @@
 	name = "Silicon"
 	id = "silicon"
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
+	yuck_description = "superior connectivity"
 
 /datum/reagent/copper
 	name = "Copper"
@@ -105,6 +100,7 @@
 	description = "A highly ductile metal."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "copper"
+	yuck_description = "connectivity"
 
 /datum/reagent/copper/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/stack/sheet/metal))
@@ -124,9 +120,9 @@
 	name = "Iron"
 	id = "iron"
 	description = "Pure iron is a metal."
-	reagent_state = SOLID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
+	yuck_description = "connectivity"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -144,6 +140,7 @@
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
 	taste_description = "extreme discomfort"
+	taste_flag = ORGANIC | SYNTHETIC
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -154,6 +151,7 @@
 	reagent_state = GAS
 	color = "#404030" // rgb: 64, 64, 48
 	taste_description = "floor cleaner"
+	yuck_description = "clean components"
 
 /datum/reagent/diethylamine
 	name = "Diethylamine"
@@ -169,8 +167,13 @@
 	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
 	color = "#3C3C3C"
-	taste_description = "motor oil"
-	process_flags = ORGANIC | SYNTHETIC
+	shock_reduction = 25
+	view_true_health = TRUE
+	metabolization_rate = 0.1
+	taste_description = "smooth joints and quiet servos"
+	yuck_description = "motor oil"
+	taste_flag = SYNTHETIC
+	process_flags = SYNTHETIC
 	/// What this becomes after burning.
 	var/reagent_after_burning = "ash"
 
@@ -185,7 +188,7 @@
 	var/smoke_type = /datum/effect_system/smoke_spread
 
 	if(boil_overflow > 0)
-		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils out and burns violently!</span>")
+		holder.my_atom.visible_message(SPAN_BOLDWARNING("The oil boils out and burns violently!"))
 		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
 		holder.del_reagent(id)
@@ -193,7 +196,7 @@
 
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
-		holder.my_atom.visible_message("<span class='notice'>The oil sizzles and burns down into residue.</span>")
+		holder.my_atom.visible_message(SPAN_NOTICE("The oil sizzles and burns down into residue."))
 		var/datum/reagents/old_holder = holder // We might not have space if we add first, so cache this and add after deleting
 		holder.del_reagent(id)
 		old_holder.add_reagent(reagent_after_burning, volume * 0.6)
@@ -214,6 +217,7 @@
 	description = "You should probably pour this down the sink, where it belongs."
 	color = "#fbba16"
 	taste_description = "old french fries"
+	yuck_description = "lubricant"
 	reagent_after_burning = "cooking_oil_inert"
 
 /datum/reagent/oil/cooking/reaction_turf(turf/T, volume)
@@ -224,6 +228,7 @@
 	name = "Burned Cooking Oil"
 	description = "It's full of char and mixed with so much crud it's probably useless."
 	id = "cooking_oil_inert"
+	yuck_description = "gritty lubricant"
 
 /datum/reagent/oil/cooking/inert/reaction_temperature(exposed_temperature, exposed_volume)
 	// don't do anything
@@ -274,6 +279,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	taste_description = "ash"
+	yuck_description = "powder coating"
 
 /datum/reagent/acetone
 	name = "Acetone"
@@ -282,6 +288,7 @@
 	reagent_state = LIQUID
 	color = "#474747"
 	taste_description = "nail polish remover"
+	yuck_description = "cosmetic component damage"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -295,6 +302,7 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "one third of an explosion"
+	yuck_description = "powder coating"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -359,8 +367,8 @@
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!istype(head_organ))
 			return ..()
-		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
+		head_organ.h_style = random_hair_style(head_organ.dna.species.name)
+		head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -386,11 +394,11 @@
 		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+			head_organ.h_style = random_hair_style(head_organ.dna.species.name)
 		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.
-			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
+			head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
@@ -398,7 +406,7 @@
 				H.drop_item_to_ground(H.wear_mask)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
-			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
+			to_chat(H, SPAN_NOTICE("Hair bursts forth from your every follicle!"))
 	..()
 
 /datum/reagent/hugs
@@ -408,6 +416,7 @@
 	reagent_state = LIQUID
 	color = "#FF97B9"
 	taste_description = "<font color='pink'><b>hugs</b></font>"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/love
 	name = "Pure love"
@@ -417,6 +426,7 @@
 	color = "#FF83A5"
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 	taste_description = "<font color='pink'><b>love</b></font>"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/love/on_mob_add(mob/living/L)
 	..()
@@ -427,7 +437,7 @@
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
-		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
+		to_chat(M, SPAN_NOTICE("You feel [lovely_phrase]."))
 
 	else if(!M.restrained())
 		for(var/mob/living/carbon/C in orange(1, M))
@@ -435,7 +445,7 @@
 				if(C == M)
 					continue
 				if(!C.stat)
-					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
+					M.visible_message(SPAN_NOTICE("[M] gives [C] a [pick("hug","warm embrace")]."))
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 					break
 	return ..()
@@ -445,7 +455,7 @@
 	..()
 
 /datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	to_chat(M, "<span class='notice'>You feel loved!</span>")
+	to_chat(M, SPAN_NOTICE("You feel loved!"))
 
 /// Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
 /datum/reagent/jestosterone
@@ -454,7 +464,8 @@
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "a funny flavour"
+	taste_description = "a funny flavor"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/jestosterone/on_new()
 	..()
@@ -463,14 +474,14 @@
 		return
 	if(C.mind)
 		if(C.mind.assigned_role == "Clown")
-			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+			to_chat(C, SPAN_NOTICE("Whatever that was, it feels great!"))
 		else if(C.mind.assigned_role == "Mime")
-			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			to_chat(C, SPAN_WARNING("You feel nauseous."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 			C.AddElement(/datum/element/waddling)
 		else
-			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			to_chat(C, SPAN_WARNING("Something doesn't feel right..."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 			C.AddElement(/datum/element/waddling)
@@ -501,7 +512,7 @@
 			"Sinister laughter echoes in your ears.",
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
-			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+			to_chat(M, SPAN_WARNING("[pick(clown_message)]"))
 		if(M.mind.assigned_role == "Mime")
 			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
@@ -523,7 +534,8 @@
 	color = "#353535" // Should be dark grey, there are already a fair number of white chemicals
 	process_flags = ORGANIC | SYNTHETIC
 	drink_desc = "The color of the glass' surroundings seem to drain as you look at it."
-	taste_description = "an entertaining flavour"
+	taste_description = "an entertaining flavor"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/mimestrogen/on_new()
 	..()
@@ -532,14 +544,14 @@
 		return
 	if(C.mind)
 		if(C.mind.assigned_role == "Mime")
-			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+			to_chat(C, SPAN_NOTICE("Whatever that was, it feels great!"))
 		else if(C.mind.assigned_role == "Clown")
-			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			to_chat(C, SPAN_WARNING("You feel nauseous."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			C.mind.miming = TRUE
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 		else
-			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			to_chat(C, SPAN_WARNING("Something doesn't feel right..."))
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			C.mind.miming = TRUE // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing, minus Mimestrogen.
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
@@ -571,7 +583,7 @@
 				"Silence permeates your ears.",
 				"...",
 				"You feel like miming a performance.")
-			to_chat(M, "<span class='warning'>[pick(mime_message)]</span>")
+			to_chat(M, SPAN_WARNING("[pick(mime_message)]"))
 		if(M.mind.assigned_role == "Clown")
 			if(M.dna.species.tox_mod <= 0) // If they can't take tox damage, make them take burn damage
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
@@ -596,6 +608,7 @@
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
 	taste_description = "sweetness"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
 	if(prob(2))
@@ -657,6 +670,7 @@
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
 	taste_description = "waste"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -665,6 +679,7 @@
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
 	taste_description = "the future"
+	yuck_description = "grit in your tubes"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -672,7 +687,6 @@
 	name = "Generic nutrient"
 	id = "plantnutrient"
 	description = "Some kind of nutrient. You can't really tell what it is. You should probably report it, along with how you obtained it."
-	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
 	var/mutation_level = 0
 	taste_description = "puke"
@@ -775,7 +789,7 @@
 
 		if(method == REAGENT_INGEST)
 			if(show_message)
-				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+				to_chat(M, SPAN_NOTICE("That tasted horrible."))
 	..()
 
 /datum/reagent/spraytan/overdose_process(mob/living/M)
@@ -800,9 +814,18 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(max(H.s_tone - 10, -195))
-
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		H.change_skin_tone(min(-H.s_tone + 45, 220)) // adjusts our skin tone by 10 - makes it darker
+	else if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		switch(H.dna.species.name)
+			if("Human")
+				H.change_skin_tone(max(H.s_tone, 10)) // bronze - `icons/mob/human_races/human_skintones/r_human_bronzed.dmi`
+			if("Vox")
+				H.change_skin_tone(3) // brown - `icons/mob/human_races/vox/r_voxbrn.dmi`
+			if("Nian")
+				H.change_skin_tone(1) // default - `icons/mob/human_races/nian/r_moth.dmi`
+			if("Grey")
+				H.change_skin_tone(4) // red - `icons/mob/human_races/grey/r_grey_red.dmi`
+	else if(H.dna.species.bodyflags & HAS_SKIN_COLOR) // take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
 
 /datum/reagent/admin_cleaner
@@ -855,5 +878,57 @@
 	if(method == REAGENT_TOUCH)
 		M.dust()
 
+/datum/reagent/molten_plastic
+	name = "Molten Plastic"
+	id = "molten_plastic"
+	description = "A slurry of molten plastics, ready to be processed further into useful materials."
+	color = "#c3c3c3"
 
+/datum/reagent/molten_plastic/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C)
+		return
 
+	var/original_volume = volume
+	var/sheets = floor(original_volume / 5)
+	if(sheets > 0)
+		new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
+
+	holder.my_atom.visible_message(SPAN_NOTICE("The molten plastic solidifies."))
+	holder.del_reagent(id)
+	holder.add_reagent("plastic_dust", original_volume - sheets * 5, reagtemp = T0C + 119)
+
+/datum/reagent/plastic_dust
+	name = "Plastic Dust"
+	id = "plastic_dust"
+	description = "A fine dust produced by grinding plastics."
+	color = "#c3c3c3"
+
+/datum/reagent/plastic_dust/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature < T0C + 120)
+		return
+
+	var/original_volume = volume
+	holder.del_reagent(id)
+	holder.add_reagent("molten_plastic", original_volume, reagtemp = T0C + 120)
+/datum/reagent/bluespace
+	name = "Bluespace Dust"
+	id = "bluespace_dust"
+	description = "A dust composed of microscopic bluespace crystals, with minor space-warping properties."
+	color = "#0000CC"
+	taste_description = "fizzling blue"
+
+/datum/reagent/bluespace/reaction_mob(mob/living/M, method, volume, show_message) //Qwertodo after heretic: I wanted to do more with this
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		do_teleport(M, get_turf(M), (volume / 5), sound_in = 'sound/effects/phasein.ogg') //4 tiles per crystal
+
+/datum/reagent/bluespace/on_mob_life(mob/living/M)
+	if(current_cycle > 10 && prob(10))
+		to_chat(M, SPAN_WARNING("You feel unstable..."))
+		M.Jitter(2 SECONDS)
+		current_cycle = 1
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 3 SECONDS)
+	return ..()
+
+/mob/living/proc/bluespace_shuffle()
+	do_teleport(src, get_turf(src), 5, sound_in = 'sound/effects/phasein.ogg')

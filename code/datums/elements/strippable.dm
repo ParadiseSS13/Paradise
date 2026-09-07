@@ -16,7 +16,9 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
+	// TODO: override = TRUE because strippable can get reattached to dead mobs after
+	// revival. Will fix for basic mobs probably maybe.
+	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto), override = TRUE)
 
 	src.items = items
 
@@ -62,7 +64,7 @@
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
 	if(equipping.flags & NODROP)
-		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
 
 	if(equipping.flags & ABSTRACT)
@@ -73,17 +75,18 @@
 /// Start the equipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
-	if(!in_thief_mode(user))
+	var/thief_mode = in_thief_mode(user)
+	if(!thief_mode)
 		source.visible_message(
-			"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
-			"<span class='notice'>[user] tries to put [equipping] on you.</span>",
+			SPAN_NOTICE("[user] tries to put [equipping] on [source]."),
+			SPAN_NOTICE("[user] tries to put [equipping] on you."),
 		)
 		if(ishuman(source))
 			var/mob/living/carbon/human/victim_human = source
 			if(!victim_human.has_vision())
-				to_chat(victim_human, "<span class='userdanger'>You feel someone trying to put something on you.</span>")
+				to_chat(victim_human, SPAN_USERDANGER("You feel someone trying to put something on you."))
 
-	if(!do_mob(user, source, equipping.put_on_delay))
+	if(!do_mob(user, source, equipping.put_on_delay, hidden = thief_mode))
 		return FALSE
 
 	if(QDELETED(equipping) || !user.Adjacent(source) || (equipping.flags & NODROP))
@@ -121,22 +124,23 @@
 	if(isnull(item))
 		return FALSE
 
-	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
+	to_chat(user, SPAN_DANGER("You try to remove [source]'s [item.name]..."))
 	add_attack_logs(user, source, "Attempting stripping of [item]")
 	item.add_fingerprint(user)
 
-	if(!in_thief_mode(user))
+	var/thief_mode = in_thief_mode(user)
+	if(!thief_mode)
 		source.visible_message(
-			"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
-			"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
+			SPAN_WARNING("[user] tries to remove [source]'s [item.name]."),
+			SPAN_USERDANGER("[user] tries to remove your [item.name]."),
 			"You hear rustling."
 		)
 		if(ishuman(source))
 			var/mob/living/carbon/human/victim_human = source
 			if(!victim_human.has_vision())
-				to_chat(source, "<span class='userdanger'>You feel someone fumble with your belongings.</span>")
+				to_chat(source, SPAN_USERDANGER("You feel someone fumble with your belongings."))
 
-	return start_unequip_mob(get_item(source), source, user)
+	return start_unequip_mob(get_item(source), source, user, hidden = thief_mode)
 
 /// The proc that unequips the item from the source. This should not yield.
 /datum/strippable_item/proc/finish_unequip(atom/source, mob/user)
@@ -200,7 +204,7 @@
 		return FALSE
 
 	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE))
-		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
+		to_chat(user, SPAN_WARNING("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
 	return TRUE
@@ -253,10 +257,10 @@
 	return equipping.put_on_delay
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
-/proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
+/proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay, hidden = FALSE)
 	if(!strip_delay)
 		strip_delay = item.strip_delay
-	if(!do_mob(user, source, strip_delay))
+	if(!do_mob(user, source, strip_delay, hidden = hidden))
 		return FALSE
 
 	return TRUE
@@ -309,8 +313,11 @@
 
 	var/list/items = list()
 
-	for(var/strippable_key in strippable.items)
-		var/datum/strippable_item/item_data = strippable.items[strippable_key]
+	var/list/unfiltered_items = strippable.items.Copy()
+	SEND_SIGNAL(owner, COMSIG_STRIPPABLE_REQUEST_ITEMS, unfiltered_items)
+
+	for(var/strippable_key in unfiltered_items)
+		var/datum/strippable_item/item_data = unfiltered_items[strippable_key]
 
 		if(!item_data.should_show(owner, user))
 			continue
@@ -318,7 +325,7 @@
 		var/list/result
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(item && (item.flags & ABSTRACT || HAS_TRAIT(item, TRAIT_NO_STRIP) || HAS_TRAIT(item, TRAIT_SKIP_EXAMINE)))
+		if(item && (item.flags & ABSTRACT || HAS_TRAIT(item, TRAIT_NO_STRIP)))
 			items[strippable_key] = result
 			continue
 
@@ -385,11 +392,14 @@
 	if(!isliving(ui.user) || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return
 
+	var/list/unfiltered_items = strippable.items.Copy()
+	SEND_SIGNAL(owner, COMSIG_STRIPPABLE_REQUEST_ITEMS, unfiltered_items)
+
 	. = TRUE
 	switch(action)
 		if("use")
 			var/key = params["key"]
-			var/datum/strippable_item/strippable_item = strippable.items[key]
+			var/datum/strippable_item/strippable_item = unfiltered_items[key]
 
 			if(isnull(strippable_item))
 				return
@@ -457,7 +467,7 @@
 				strippable_item.finish_unequip(owner, user)
 		if("alt")
 			var/key = params["key"]
-			var/datum/strippable_item/strippable_item = strippable.items[key]
+			var/datum/strippable_item/strippable_item = unfiltered_items[key]
 
 			if(isnull(strippable_item))
 				return

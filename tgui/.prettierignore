@@ -1,4 +1,20 @@
-# Ignore built packages:
-public
-**.cjs
-packages/tgui-dev-server
+## NPM
+/**/node_modules
+
+## Yarn
+/.yarn
+/yarn.lock
+/.pnp.*
+
+.swcrc
+/docs
+/packages/tgui-polyfill
+/packages/tgfont/static
+**/*.json
+**/*.yml
+**/*.md
+
+# Avoid running on any bundles.
+/public/**/*
+# Running it on tgui.html is fine, however.
+!/public/tgui.html

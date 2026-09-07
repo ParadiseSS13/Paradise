@@ -3,8 +3,6 @@
 /// tracks the damage dealt to this mob by kinetic crushers
 /datum/status_effect/crusher_damage
 	id = "crusher_damage"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
 
@@ -72,7 +70,7 @@
 /datum/status_effect/high_five/proc/wiz_effect(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags |= GODMODE
 	highfived.status_flags |= GODMODE
-	explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+	explosion(get_turf(user), 5, 2, 1, 3, cause = "Wizard high-five")
 	// explosions have a spawn so this makes sure that we don't get gibbed
 	addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, highfived), 0.3 SECONDS) // I want to be sure this lasts long enough, with lag.
 	add_attack_logs(user, highfived, "caused a wizard [id] explosion")
@@ -81,7 +79,7 @@
 	return
 
 /datum/status_effect/high_five/proc/regular_effect(mob/living/carbon/user, mob/living/carbon/highfived)
-	user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[highfived.name]</b> [success]</span>")
+	user.visible_message(SPAN_NOTICE("<b>[user.name]</b> and <b>[highfived.name]</b> [success]"))
 
 /datum/status_effect/high_five/on_apply()
 	if(!iscarbon(owner))
@@ -95,7 +93,7 @@
 		if(!C.has_status_effect(type) || C == user)
 			continue
 		if(is_wiz && iswizard(C))
-			user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[C.name]</b> [critical_success]</span>")
+			user.visible_message(SPAN_BIGGERDANGER("<b>[user.name]</b> and <b>[C.name]</b> [critical_success]"))
 			wiz_effect(user, C)
 			both_wiz = TRUE
 		user.do_attack_animation(C, no_effect = TRUE)
@@ -160,7 +158,7 @@
 /datum/status_effect/high_five/offering_eftpos/proc/on_ranged_attack(mob/living/me, mob/living/carbon/human/attacker)
 	SIGNAL_HANDLER  // COMSIG_ATOM_RANGED_ATTACKED
 	if(get_dist(me, attacker) <= 2)
-		to_chat(attacker, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		to_chat(attacker, SPAN_WARNING("You need to have your ID in hand to scan it!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/status_effect/high_five/handshake
@@ -229,14 +227,14 @@
 			outcome_msg = "[highfived] wins!"
 
 	user.visible_message(
-		"<span class='notice'>[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>.</span>",
-		"<span class='notice'>[highfived] plays <b>[their_status_effect.move]</b>.</span>",
-		"<span class='notice'>It sounds like rock-paper-scissors.</span>"
+		SPAN_NOTICE("[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>."),
+		SPAN_NOTICE("[highfived] plays <b>[their_status_effect.move]</b>."),
+		SPAN_NOTICE("It sounds like rock-paper-scissors.")
 	)
 
 	user.visible_message(
-		"<span class='warning'>[outcome_msg]</span>",
-		blind_message = "<span class='notice'>It sounds like [pick(user, highfived)] won!</span>"  // you're blind how are you supposed to know
+		SPAN_WARNING("[outcome_msg]"),
+		blind_message = SPAN_NOTICE("It sounds like [pick(user, highfived)] won!")  // you're blind how are you supposed to know
 	)
 
 /datum/status_effect/high_five/rps/on_creation(mob/living/new_owner, made_move)
@@ -250,14 +248,14 @@
 
 /datum/status_effect/high_five/rps/on_apply()
 	if(!isnull(move))
-		to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.</span>")
+		to_chat(owner, SPAN_NOTICE("You prepare to play <b>[move]</b>."))
 		return ..()  // we already have the move, probably from the emote passing it in
 
 	move = get_rock_paper_scissors_move(owner)
 	if(move == null)
 		return FALSE  // make it auto-remove itself
 
-	to_chat(owner, "<span class='notice'>You prepare to play <b>[move]</b>.</span>")
+	to_chat(owner, SPAN_NOTICE("You prepare to play <b>[move]</b>."))
 	return ..()
 
 
@@ -268,6 +266,22 @@
 		RPS_EMOTE_ROCK = image(icon = 'icons/obj/toy.dmi', icon_state = "pet_rock")
 	)
 	return show_radial_menu(user, user, move_icons)
+
+/datum/status_effect/high_five/fistbump
+	id = "fistbump"
+	critical_success = "give each other an AWESOME fistbump!"
+	success = "give each other a fistbump!"
+	request = "requests a fistbump!"
+	sound_effect = "sound/weapons/thudswoosh.ogg"
+
+/datum/status_effect/high_five/fistbump/get_missed_message()
+	var/list/missed_messages = list(
+		"drops [owner.p_their()] fist.",
+		"taps [owner.p_their()] outstretched fist with [owner.p_their()] other hand and gives [owner.p_themselves()] a fistbump.",
+		"fistbumps [owner.p_themselves()] shamefully."
+	)
+
+	return pick(missed_messages)
 
 /// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
 /// although there is a maximum amount of bonus time that can be active at any given time.
@@ -294,7 +308,6 @@
 /datum/status_effect/limited_bonus/revivable
 	id = "revivable"
 	alert_type = null
-	status_type = STATUS_EFFECT_UNIQUE
 	duration = BASE_DEFIB_TIME_LIMIT
 
 /datum/status_effect/limited_bonus/revivable/on_apply()
@@ -340,7 +353,6 @@
 /datum/status_effect/lwap_scope
 	id = "lwap_scope"
 	alert_type = null
-	duration = -1
 	tick_interval = 4
 	/// The number of people the gun has locked on to. Caps at 10 for sanity.
 	var/locks = 0
@@ -351,12 +363,19 @@
 		for(var/mob/living/L in range(10, our_scope.given_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
-			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L) || L.invisibility > owner.see_invisible) //xenobio moment
+			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L) || L.invisibility > owner.see_invisible || isLivingSSD(L)) //xenobio moment
 				continue
 			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++
 
 #undef LWAP_LOCK_CAP
+
+/datum/status_effect/hivelord_tracking
+	id = "hivelord_tracking"
+	alert_type = null
+	duration = 10 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	var/list/list_of_uids = list()
 
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
@@ -406,3 +425,11 @@
 
 /datum/status_effect/action_status_effect/unbuckle
 	id = "unbuckle"
+
+/datum/status_effect/action_status_effect/exit_cryocell
+	id = "exit_cryocell"
+
+/datum/status_effect/revive_notice_delay
+	id = "revive_notice_delay"
+	alert_type = null
+	duration = 15 SECONDS

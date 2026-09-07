@@ -66,10 +66,12 @@ h2.alert {
 
 .mentor_channel {
   color: #775bff;
+  color: #5e6812;
 }
 
 .mentor_channel_admin {
   color: #a35cff;
+  color: #94a419;
 }
 
 .adminhelp {
@@ -98,6 +100,14 @@ h2.alert {
 
 .dev_channel_admin {
   color: #26a419;
+}
+
+.staff_channel {
+  color: #775bff;
+}
+
+.staff_channel_admin {
+  color: #a35cff;
 }
 
 // MARK: Radio
@@ -195,6 +205,12 @@ h2.alert {
   color: #000099;
 }
 
+.subtle {
+  color: #000099;
+  font-size: 85%;
+  font-style: italic;
+}
+
 // MARK: Announcements
 .announcement h1,
 .announcement h2 {
@@ -266,6 +282,10 @@ h2.alert {
   color: #960000;
 }
 
+.flocksay {
+  color: #6fbbac;
+}
+
 // MARK: Other colors
 .rose {
   color: #ff5050;
@@ -327,6 +347,14 @@ span.body .coderesponses {
 
 .agent_b {
   color: #004d4d;
+}
+
+.hydrogen {
+  color: #997379;
+}
+
+.water_vapor {
+  color: #004080;
 }
 
 // MARK: Boxed messages

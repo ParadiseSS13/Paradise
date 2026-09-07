@@ -1,0 +1,1 @@
+/obj/item/@SUBTYPES{item_state=@ANY;icon_override=@ANY} : /obj/item/@SUBTYPES{@OLD;item_state=@SKIP;icon_override=@SKIP;worn_icon=@OLD:icon_override;worn_icon_state=@OLD:item_state;inhand_icon_state=@OLD:item_state}

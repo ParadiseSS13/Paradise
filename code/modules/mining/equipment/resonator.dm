@@ -3,10 +3,8 @@
 	name = "resonator"
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "resonator"
-	item_state = "resonator"
 	origin_tech = "magnets=3;engineering=3"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
 
@@ -23,10 +21,10 @@
 
 /obj/item/resonator/attack_self__legacy__attackchain(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='notice'>You set the [name]'s fields to detonate only after you hit it with [src].</span>")
+		to_chat(user, SPAN_NOTICE("You set the [name]'s fields to detonate only after you hit it with [src]."))
 		mode = RESONATOR_MODE_MANUAL
 	else
-		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate after 2 seconds.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate after 2 seconds."))
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/upgraded
@@ -34,18 +32,19 @@
 	desc = "An upgraded version of the resonator that can produce more fields at once, as well as having no damage penalty for bursting a resonance field early. It also allows you to set 'Resonance matrixes', that detonate after someone (or something) walks over it."
 	icon_state = "resonator_u"
 	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_URANIUM = 1000)
 	fieldlimit = 6
 	quick_burst_mod = 1
 
 /obj/item/resonator/upgraded/attack_self__legacy__attackchain(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate only after being attacked by [src].</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate only after being attacked by [src]."))
 		mode = RESONATOR_MODE_MANUAL
 	else if(mode == RESONATOR_MODE_MANUAL)
-		to_chat(user, "<span class='notice'>You set [src]'s fields to work as matrix traps.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to work as matrix traps."))
 		mode = RESONATOR_MODE_MATRIX
 	else
-		to_chat(user, "<span class='notice'>You set [src]'s fields to detonate automatically after 2 seconds.</span>")
+		to_chat(user, SPAN_NOTICE("You set [src]'s fields to detonate automatically after 2 seconds."))
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/proc/create_resonance(target, mob/user)
@@ -68,7 +67,6 @@
 /obj/effect/temp_visual/resonance
 	name = "resonance field"
 	desc = "A resonating field that significantly damages anything inside of it when the field eventually ruptures. More damaging in low pressure environments."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 60 SECONDS
@@ -138,13 +136,17 @@
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
 		var/turf/simulated/mineral/mineral_turf = src_turf
-		mineral_turf.gets_drilled(creator)
+		if(is_ancient_rock(mineral_turf))
+			failure_prob = 100 // rock too strong for resonance field
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
+		else
+			mineral_turf.gets_drilled(creator)
 	check_pressure(src_turf)
 	playsound(src_turf, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
 	for(var/mob/living/attacked_living in src_turf)
 		if(creator)
 			log_attack(creator, attacked_living, "used a resonator field on", "resonator")
-		to_chat(attacked_living, "<span class='danger'>[src] ruptured with you in it!</span>")
+		to_chat(attacked_living, SPAN_DANGER("[src] ruptured with you in it!"))
 		attacked_living.apply_damage(resonance_damage, BRUTE)
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
 		if(field.rupturing)

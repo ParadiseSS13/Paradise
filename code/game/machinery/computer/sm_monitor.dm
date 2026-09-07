@@ -52,6 +52,7 @@
 		data["active"] = TRUE
 		data["SM_integrity"] = active.get_integrity()
 		data["SM_power"] = active.power
+		data["SM_pre_reduction_power"] = active.pre_reduction_power
 		data["SM_ambienttemp"] = air.temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
 		data["SM_moles"] = air.total_moles()
@@ -66,6 +67,8 @@
 			gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
 			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
 			gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Hydrogen", "amount" = air.hydrogen(), "portion" = round(100 * air.hydrogen() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Water Vapor", "amount" = air.water_vapor(), "portion" = round(100 * air.water_vapor() / TM, 0.01))))
 		else
 			gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
 			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
@@ -73,6 +76,8 @@
 			gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
 			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
 			gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Hydrogen", "amount" = 0,"portion" = 0)))
+			gasdata.Add(list(list("name"= "Water Vapor", "amount" = 0,"portion" = 0)))
 		data["gases"] = gasdata
 	else
 		var/list/SMS = list()

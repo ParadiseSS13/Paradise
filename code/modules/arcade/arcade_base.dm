@@ -56,18 +56,18 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/economy/arcade/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/machinery/economy/arcade/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!freeplay)
-		if(isspacecash(O))
-			insert_cash(O, user, token_price)
+		if(isspacecash(used))
+			insert_cash(used, user, token_price)
 			if(pay_with_cash(token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		if(istype(O, /obj/item/card/id))
-			if(pay_with_card(O, token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
+		if(istype(used, /obj/item/card/id))
+			if(pay_with_card(used, token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

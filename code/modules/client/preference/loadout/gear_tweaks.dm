@@ -47,13 +47,13 @@
 /datum/gear_tweak/rename
 	display_type = "Name"
 	fa_icon = "edit"
-	info = "Renameable"
+	info = "Customizable name"
 
 /datum/gear_tweak/rename/get_default()
 	return ""
 
 /datum/gear_tweak/rename/get_metadata(user, metadata)
-	var/new_name = tgui_input_text(user, "Rename an object. Enter empty line for stock name", "Rename Gear", metadata, MAX_NAME_LEN)
+	var/new_name = tgui_input_text(user, "Rename an object. Enter empty line for stock name.", "Rename Gear", metadata, MAX_TWEAKNAME_LEN, TRUE)
 	if(isnull(new_name))
 		return metadata
 	return new_name
@@ -63,3 +63,24 @@
 		return
 
 	gear.name = metadata
+
+// MARK: Redesc
+/datum/gear_tweak/redesc
+	display_type = "Description"
+	fa_icon = "edit"
+	info = "Customizable description"
+
+/datum/gear_tweak/redesc/get_default()
+	return ""
+
+/datum/gear_tweak/redesc/get_metadata(user, metadata)
+	var/new_desc = tgui_input_text(user, "Edit an object's description. Enter empty line for stock description.", "Edit Gear Description", metadata, MAX_TWEAKDESC_LEN, TRUE)
+	if(isnull(new_desc))
+		return metadata
+	return new_desc
+
+/datum/gear_tweak/redesc/tweak_item(obj/item/gear, metadata)
+	if(!metadata)
+		return
+
+	gear.desc = metadata

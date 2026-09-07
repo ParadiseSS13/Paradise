@@ -21,7 +21,7 @@
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/fountain_hall)
 "g" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/fountain_hall)
 "h" = (

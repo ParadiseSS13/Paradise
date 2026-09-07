@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(isliving(entered))
 		if(!damage_mob(entered))
 			return
-		to_chat(entered, "<span class='warning'>[src] burns you!</span>")
+		to_chat(entered, SPAN_WARNING("[src] burns you!"))
 		return
 
 	if(isitem(entered))
@@ -115,8 +115,9 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	merging_flame.fizzle()
 
 /obj/effect/fire/proc/damage_mob(mob/living/mob_to_burn)
-	if(!istype(mob_to_burn))
+	if(!istype(mob_to_burn) || HAS_TRAIT(mob_to_burn, TRAIT_RESISTHEAT))
 		return
+
 	var/fire_damage = temperature / 100
 	if(ishuman(mob_to_burn))
 		var/mob/living/carbon/human/human_to_burn = mob_to_burn
@@ -130,5 +131,17 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	mob_to_burn.adjustFireLoss(fire_damage)
 	mob_to_burn.adjust_fire_stacks(application_stacks)
 	mob_to_burn.IgniteMob()
+
+/obj/effect/fire/mapping
+
+/obj/effect/fire/mapping/Initialize(mapload)
+	. = ..(mapload, T0C + 300, 4 HOURS, 1)
+	set_light(3, 3, LIGHT_COLOR_LAVA)
+
+/obj/effect/fire/mapping/water_act(volume, temperature, source, method)
+	. = ..()
+	duration -= 30 MINUTES
+	if(duration <= 0)
+		fizzle()
 
 #undef MAX_FIRE_EXIST_TIME

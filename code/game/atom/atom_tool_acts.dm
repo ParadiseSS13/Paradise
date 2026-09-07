@@ -84,11 +84,13 @@
 			act_result = wirecutter_act(user, tool)
 		if(TOOL_WELDER)
 			act_result = welder_act(user, tool)
+		if(TOOL_HAMMER)
+			act_result = hammer_act(user, tool)
 
 	if(!act_result)
 		return NONE
 
-	return act_result
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Called when this atom has an item used on it.
@@ -121,9 +123,11 @@
  * *While this intuitively sounds combat related, it is not,
  * because a "combat use" of a gun is gun-butting.
  */
-/atom/proc/base_ranged_item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+/atom/proc/base_ranged_item_interaction(mob/living/user, obj/item/tool, params)
 	SHOULD_CALL_PARENT(TRUE)
 	PROTECTED_PROC(TRUE)
+
+	var/list/modifiers = params2list(params)
 
 	// See [base_item_interaction] for defails on why this is using `||` (TL;DR it's short circuiting)
 	var/early_sig_return = SEND_SIGNAL(src, COMSIG_INTERACT_RANGED, user, tool, modifiers) \

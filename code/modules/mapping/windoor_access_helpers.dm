@@ -1,5 +1,4 @@
 /obj/effect/mapping_helpers/airlock/windoor/access
-	layer = DOOR_HELPER_LAYER
 	icon_state = "access_windoor"
 	var/access
 
@@ -69,10 +68,10 @@
 	icon_state = "access_windoor_eng"
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEERING_GENERAL
 
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction
-	access = ACCESS_CONSTRUCTION
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/station_engineer
+	access = ACCESS_STATION_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
@@ -176,6 +175,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
 
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/evidence
+	access = ACCESS_EVIDENCE
+
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service
 	icon_state = "access_windoor_serv"
@@ -229,6 +231,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mineral_storage
 	access = ACCESS_MINERAL_STOREROOM
 
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/smith
+	access = ACCESS_SMITH
+
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/qm
 	access = ACCESS_QM
 
@@ -281,7 +286,7 @@
 	access = ACCESS_ENGINE
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction
-	access = ACCESS_CONSTRUCTION
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
@@ -384,6 +389,9 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/iaa
 	access = ACCESS_INTERNAL_AFFAIRS
+
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/evidence
+	access = ACCESS_EVIDENCE
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service

@@ -7,23 +7,27 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. \
 		The wormholes it creates are unpleasant to travel through, to say the least. If attached to your belt, it'll automatically activate should you fall into a chasm."
 	icon_state = "Jaunter"
-	item_state = "electronic"
-	throwforce = 0
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
 	slot_flags = ITEM_SLOT_BELT
+	new_attack_chain = TRUE
 
-/obj/item/wormhole_jaunter/attack_self__legacy__attackchain(mob/user)
-	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
+/obj/item/wormhole_jaunter/activate_self(mob/user)
+	if(!user)
+		return ..()
+	user.visible_message(SPAN_NOTICE("[user] activates [src]!"))
 	activate(user, TRUE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
 	var/area/our_area = get_area(device_turf)
 	if(!device_turf || !is_teleport_allowed(device_turf.z) || our_area.tele_proof)
-		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
+		to_chat(user, SPAN_NOTICE("You're having difficulties getting the [name] to work."))
 		return FALSE
 	return TRUE
 
@@ -43,7 +47,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 	var/list/L = get_destinations(user)
 	if(!length(L))
-		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
+		to_chat(user, SPAN_NOTICE("[src] found no beacons in the world to anchor a wormhole to."))
 		return
 	var/chosen_beacon = pick(L)
 	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), chosen_beacon, src, 100, user)
@@ -65,7 +69,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You emag [src].</span>")
+		to_chat(user, SPAN_NOTICE("You emag [src]."))
 		var/turf/T = get_turf(src)
 		do_sparks(5, FALSE, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -76,7 +80,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
-	failchance = 0
 
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M)
 	if(!emagged && ismegafauna(M))
@@ -100,12 +103,12 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A single-use extraction flare that will let you create a portal to any beacon on the station. You must choose the destination beforehand, else it will target a random beacon. The portal is generated 5 seconds after activation, and has 1 use."
 	icon_state = "flare-contractor"
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	var/destination
 
 /obj/item/wormhole_jaunter/contractor/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to change its destination!</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to change its destination!")
 
 /obj/item/wormhole_jaunter/contractor/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -132,24 +135,26 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		return
 	destination = L[desc]
 
-/obj/item/wormhole_jaunter/contractor/attack_self__legacy__attackchain(mob/user) // message is later down
+/obj/item/wormhole_jaunter/contractor/activate_self(mob/user) // Message is later down.
+	if(!user)
+		return ..()
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
 	if(!turf_check(user))
 		return
 	if(istype(get_area(src), /area/ruin/space/telecomms)) //It should work in the depot, because it's syndicate, but I don't want someone lighting the flare in the middle of telecomms and calling it a day.
-		to_chat(user, "<span class='warning'>Error! Unknown jamming system blocking teleportation in this area!</span>")
+		to_chat(user, SPAN_WARNING("Error! Unknown jamming system blocking teleportation in this area!"))
 		return
 	if(!destination)
 		var/list/L = get_destinations(user)
 		if(!length(L))
-			to_chat(user, "<span class='warning'>[src] found no beacons in the sector to target.</span>")
+			to_chat(user, SPAN_WARNING("[src] found no beacons in the sector to target."))
 			return
 		destination = pick(L)
 	var/obj/effect/temp_visual/getaway_flare/F = new(get_turf(src))
-	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",\
-						"<span class='notice'>You light an emergency extraction flare, initiating the extraction process.</span>")
+	user.visible_message(SPAN_NOTICE("[user] pulls out a black and gold flare and lights it."),\
+						SPAN_NOTICE("You light an emergency extraction flare, initiating the extraction process."))
 	user.drop_item()
 	forceMove(F)
 	addtimer(CALLBACK(src, PROC_REF(create_portal), destination), 5 SECONDS)
@@ -160,7 +165,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/contractor/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>Emagging [src] has no effect.</span>")
+	to_chat(user, SPAN_WARNING("Emagging [src] has no effect."))
 
 /obj/item/wormhole_jaunter/contractor/chasm_react(mob/user)
 	return //This is not an instant getaway portal like the jaunter
@@ -198,9 +203,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	thrower = null
 	return ..()
 
-/obj/item/grenade/jaunter_grenade/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/jaunter_grenade/activate_self(mob/user)
 	thrower = user
+	return ..()
 
 /obj/item/grenade/jaunter_grenade/prime()
 	var/area/our_area = get_area(src)
@@ -242,7 +247,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	name = "wormhole weaver"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "wormhole_weaver"
-	item_state = "electronic"
 	desc = "This peculiar device is a prototype from a discontinued project. It was designed as an alternative to jaunters, offering more precise teleportation. However, as a prototype, it drains its entire battery with a single wormhole and can only target the beacons included in the kit."
 	/// Where are we teleporting to?
 	var/destination
@@ -262,14 +266,16 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	/// The turf where we activated the wormwhole.
 	var/wormhole_loc
 
-/obj/item/wormhole_jaunter/wormhole_weaver/attack_self__legacy__attackchain(mob/user)
+/obj/item/wormhole_jaunter/wormhole_weaver/activate_self(mob/user)
+	if(!user)
+		return ..()
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/emp_act(severity)
 
 	if(!emp_inflicted)
 		playsound(loc, 'sound/machines/shut_down.ogg', 50, TRUE)
-		visible_message("<span class='warning'>A malfunction detected in the weaver's subsystems. Initiating safety protocols.</span>")
+		visible_message(SPAN_WARNING("A malfunction detected in the weaver's subsystems. Initiating safety protocols."))
 	emp_inflicted = TRUE
 	inactive = TRUE
 	icon_state = icon_state_inactive
@@ -278,13 +284,13 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	for(var/obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver/E in GLOB.wormhole_effect)
 		if(E)
 			qdel(E)
-			visible_message("<span class='warning'>Wormhole marker disappears!</span>")
+			visible_message(SPAN_WARNING("Wormhole marker disappears!"))
 			do_sparks(5, FALSE, wormhole_loc)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/proc/prepare_foractivation(mob/user)
 	if(do_after(user, 3 SECONDS, target = src))
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
-		to_chat(user, "<span class='notice'>The weaver is now ready for use.</span>")
+		to_chat(user, SPAN_NOTICE("The weaver is now ready for use."))
 		inactive = FALSE
 		emp_inflicted = FALSE
 		currently_reactivating = FALSE
@@ -303,12 +309,12 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/activate(mob/user)
 	if(wcell.charge < chargecost)
-		to_chat(user, "<span class='warning'>Device isn't charged enough to be used at this time.</span>")
+		to_chat(user, SPAN_WARNING("Device isn't charged enough to be used at this time."))
 		return
 
 	if(inactive || emp_inflicted)
 		if(currently_reactivating)
-			to_chat(user, "<span class='warning'>You are already reactivating the device!</span>")
+			to_chat(user, SPAN_WARNING("You are already reactivating the device!"))
 			return
 		currently_reactivating = TRUE
 		prepare_foractivation(user)
@@ -316,7 +322,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 	var/list/C = get_destinations(user)
 	if(!length(C))
-		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
+		to_chat(user, SPAN_NOTICE("[src] found no beacons in the world to anchor a wormhole to."))
 		return
 
 	if(menu_open)
@@ -352,15 +358,17 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	new /obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver(wormhole_loc)
 	destination = L[desc]
 	user.visible_message(
-			"<span class='notice'>[user] pulls out a black colored device and points it to the floor.</span>",
-			"<span class='notice'>You activate the wormhole weaver, it will take some time until device assembles a wormhole link.</span>"
+			SPAN_NOTICE("[user] pulls out a black colored device and points it to the floor."),
+			SPAN_NOTICE("You activate the wormhole weaver, it will take some time until device assembles a wormhole link.")
 	)
 	wcell.use(chargecost)
 	icon_state = icon_state_inactive
 	inactive = TRUE
 	menu_open = FALSE
 
-	sleep(5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(post_activate)), 5 SECONDS)
+
+/obj/item/wormhole_jaunter/wormhole_weaver/proc/post_activate()
 	if(emp_inflicted)
 		return
 
@@ -375,7 +383,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	return
 
 /obj/item/wormhole_jaunter/wormhole_weaver/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>Emagging [src] has no effect.</span>")
+	to_chat(user, SPAN_WARNING("Emagging [src] has no effect."))
 
 /obj/effect/temp_visual/thunderbolt_targeting/wormhole_weaver
 	duration = 5 SECONDS
@@ -394,13 +402,13 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /obj/item/wormhole_jaunter/wormhole_weaver/get_cell()
 	return wcell
 
-/obj/item/wormhole_jaunter/wormhole_weaver/New()
-	..()
+/obj/item/wormhole_jaunter/wormhole_weaver/Initialize(mapload)
+	. = ..()
 	wcell = new(src)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Device currently has [chargecost > wcell.charge ? "insufficient" : "sufficient"] power. You can recharge it with a recharger.</span>"
+	. += SPAN_NOTICE("Device currently has [chargecost > wcell.charge ? "insufficient" : "sufficient"] power. You can recharge it with a recharger.")
 
 /obj/item/wormhole_jaunter/wormhole_weaver/Destroy()
 	QDEL_NULL(wcell)

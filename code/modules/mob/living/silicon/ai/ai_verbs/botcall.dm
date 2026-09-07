@@ -38,4 +38,4 @@
 		if("call")
 			AI.Bot = bot
 			AI.waypoint_mode = TRUE
-			to_chat(AI, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
+			to_chat(AI, SPAN_NOTICE("Set your waypoint by clicking on a valid location free of obstructions."))

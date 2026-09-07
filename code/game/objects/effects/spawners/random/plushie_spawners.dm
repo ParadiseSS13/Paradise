@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/plushies
 	name = "plushie spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "plushie"
 	loot = list(
 		list(

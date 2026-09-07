@@ -1,0 +1,617 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aE" = (
+/obj/machinery/doppler_array,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"aZ" = (
+/obj/machinery/chem_heater,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"cT" = (
+/obj/machinery/biogenerator,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"dW" = (
+/obj/machinery/fishtank,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"fc" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"fj" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"fU" = (
+/obj/machinery/economy/vending/wallmed/directional/north,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"gG" = (
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/game_test)
+"ht" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/blue{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"hL" = (
+/obj/machinery/bookbinder,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"hU" = (
+/obj/machinery/economy/vending/atmosdrobe,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ic" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"iC" = (
+/obj/machinery/bottler,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ja" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"jW" = (
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"kV" = (
+/obj/machinery/computer/emergency_shuttle,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"lr" = (
+/obj/machinery/computer/aiupload,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"lM" = (
+/obj/machinery/computer/guestpass{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"lO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/blue{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"mz" = (
+/obj/machinery/computer/med_data/laptop,
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"nt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/blue{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"oh" = (
+/obj/machinery/atmospherics/unary/tank/oxygen,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"px" = (
+/obj/machinery/atmospherics/portable/scrubber,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"qc" = (
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"qN" = (
+/obj/machinery/cryopod{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"sj" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"so" = (
+/obj/machinery/dna_scannernew,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"tn" = (
+/obj/machinery/computer/security/telescreen/rd{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"to" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"tL" = (
+/obj/machinery/economy/slot_machine,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ud" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"vi" = (
+/obj/effect/landmark/game_test/top_right_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"vL" = (
+/obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "spooky";
+	name = "Observer-Start"
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/effect/landmark/game_test/bottom_left_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ws" = (
+/obj/machinery/computer/library,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ye" = (
+/obj/machinery/computer/card,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"zA" = (
+/obj/machinery/computer/communications,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Au" = (
+/turf/simulated/wall/r_wall,
+/area/game_test)
+"AM" = (
+/obj/machinery/conveyor_switch,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Bi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/blue{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Bn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/blue{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Bo" = (
+/obj/machinery/r_n_d/circuit_imprinter,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"CH" = (
+/obj/machinery/clonepod,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"EK" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Fl" = (
+/obj/machinery/compost_bin,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Ge" = (
+/obj/machinery/mecha_part_fabricator,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"KW" = (
+/obj/machinery/nuclearbomb/undeployed,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"KY" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Lb" = (
+/obj/machinery/atmospherics/portable/pump,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"LT" = (
+/obj/machinery/computer/cloning,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Mh" = (
+/obj/machinery/economy/atm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Mr" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Ng" = (
+/obj/machinery/abductor/console,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"NE" = (
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"OG" = (
+/obj/machinery/cryopod/robot,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Qx" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"RD" = (
+/obj/machinery/r_n_d/protolathe,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"RO" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"RP" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"SZ" = (
+/obj/machinery/button/windowtint,
+/turf/simulated/wall/r_wall,
+/area/game_test)
+"TH" = (
+/obj/machinery/computer/scan_consolenew,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Ua" = (
+/obj/machinery/conveyor{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Uk" = (
+/obj/machinery/clonescanner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"VL" = (
+/obj/machinery/chem_master,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"WF" = (
+/obj/machinery/camera,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Xs" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"YO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/blue,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Zk" = (
+/obj/machinery/door/firedoor/closed,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+
+(1,1,1) = {"
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+"}
+(2,1,1) = {"
+Au
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+Au
+"}
+(3,1,1) = {"
+Au
+qc
+qc
+qc
+oh
+qc
+SZ
+qc
+hL
+qc
+AM
+qc
+Qx
+qc
+dW
+vL
+qc
+Au
+"}
+(4,1,1) = {"
+Au
+qc
+qc
+qc
+iC
+qc
+Au
+NE
+ws
+qc
+Ua
+qc
+Fl
+qc
+Mr
+qc
+qc
+Au
+"}
+(5,1,1) = {"
+Au
+qc
+qc
+mz
+qc
+qc
+Au
+tn
+fj
+qc
+Ua
+qc
+aE
+qc
+tL
+qc
+qc
+Au
+"}
+(6,1,1) = {"
+Au
+qc
+qc
+ja
+qc
+qc
+Au
+Mh
+aZ
+qc
+lr
+qc
+hU
+qc
+qN
+qc
+qc
+Au
+"}
+(7,1,1) = {"
+Au
+qc
+qc
+qc
+qc
+qc
+Au
+fU
+CH
+qc
+to
+qc
+Zk
+qc
+Xs
+qc
+qc
+Au
+"}
+(8,1,1) = {"
+Au
+qc
+qc
+qc
+qc
+qc
+Au
+lM
+VL
+qc
+ic
+qc
+fc
+qc
+qc
+qc
+qc
+Au
+"}
+(9,1,1) = {"
+Au
+qc
+qc
+qc
+qc
+qc
+Au
+qc
+RO
+qc
+RD
+qc
+OG
+qc
+sj
+qc
+qc
+Au
+"}
+(10,1,1) = {"
+Au
+qc
+lO
+YO
+ht
+qc
+Au
+WF
+jW
+qc
+px
+qc
+Ge
+qc
+Ng
+qc
+qc
+Au
+"}
+(11,1,1) = {"
+Au
+qc
+Bn
+qc
+Bn
+qc
+cT
+qc
+Uk
+qc
+Lb
+qc
+KW
+qc
+ud
+qc
+qc
+Au
+"}
+(12,1,1) = {"
+Au
+qc
+nt
+YO
+Bi
+qc
+qc
+qc
+LT
+qc
+so
+qc
+EK
+qc
+ye
+qc
+qc
+Au
+"}
+(13,1,1) = {"
+Au
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+RP
+qc
+TH
+qc
+gG
+qc
+zA
+qc
+qc
+Au
+"}
+(14,1,1) = {"
+Au
+qc
+vi
+qc
+qc
+qc
+qc
+qc
+Bo
+qc
+qc
+qc
+KY
+qc
+kV
+qc
+qc
+Au
+"}
+(15,1,1) = {"
+Au
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+qc
+Au
+"}
+(16,1,1) = {"
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+Au
+"}

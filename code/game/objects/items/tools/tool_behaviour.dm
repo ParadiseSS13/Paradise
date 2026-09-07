@@ -2,7 +2,7 @@
  * Called when a mob tries to use the item as a tool.
  * Handles most checks.
 */
-/obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks)
+/obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks, do_after_once = FALSE)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
 	target.add_fingerprint(user)
@@ -21,9 +21,13 @@
 			if(!do_mob(user, target, delay, extra_checks = list(tool_check)))
 				return
 
-		else
+		else if(!do_after_once)
 			if(!do_after(user, delay, target=target, extra_checks = list(tool_check)))
 				return
+		else
+			if(!do_after_once(user, delay, target=target, extra_checks = list(tool_check)))
+				return
+
 	else
 		// Invoke the extra checks once, just in case.
 		if(extra_checks && !extra_checks.Invoke())
@@ -37,6 +41,17 @@
 	// but only if the delay between the beginning and the end is not too small
 	if(delay >= MIN_TOOL_SOUND_DELAY)
 		play_tool_sound(target, volume)
+
+	// If it has a bit, wear and tear
+	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
+		bit.damage_bit()
+
+	// If it has a chance to fail, see if it failed
+	if(bit_failure_rate)
+		if(prob(bit_failure_rate))
+			return
+
+
 	return TRUE
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.

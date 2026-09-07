@@ -1,0 +1,5 @@
+/obj/effect/spawner/random/book : /obj/effect/spawner/random/reference_book
+/obj/item/book/random : /obj/effect/spawner/random/library_book
+/obj/item/book/random/triple : /obj/effect/spawner/random/library_book/triple
+/obj/item/book/manual/random : /obj/effect/spawner/random/manual
+/obj/item/storage/fancy/cigarettes : /obj/item/storage/fancy/cigarettes/cigpack_robust{@OLD}

@@ -26,7 +26,7 @@
 
 /datum/keybinding/admin/aghost/down(client/C)
 	. = ..()
-	C.admin_ghost()
+	SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_ghost)
 
 /datum/keybinding/admin/player_panel
 	name = "Player Panel"
@@ -43,7 +43,7 @@
 
 /datum/keybinding/admin/apm/down(client/C)
 	. = ..()
-	C.cmd_admin_pm_panel()
+	SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_pm_panel)
 
 /datum/keybinding/admin/invisimin
 	name = "Invisimin"
@@ -51,4 +51,4 @@
 
 /datum/keybinding/admin/invisimin/down(client/C)
 	. = ..()
-	C.invisimin()
+	SSuser_verbs.invoke_verb(C, /datum/user_verb/invisimin)

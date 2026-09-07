@@ -1,53 +1,44 @@
-/proc/possess(obj/O as obj in world)
-	set name = "\[Admin\] Possess Obj"
-
-	if(!check_rights(R_POSSESS))
-		return
-
+USER_CONTEXT_MENU(possess_object, R_POSSESS, "\[Admin\] Possess Obj", obj/O as obj in world)
 	if(istype(O,/obj/singularity))
 		if(GLOB.configuration.general.forbid_singulo_possession) // I love how this needs to exist
-			to_chat(usr, "It is forbidden to possess singularities.")
+			to_chat(client, "It is forbidden to possess singularities.")
 			return
 
 	var/turf/T = get_turf(O)
 
-	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm possession", "Yes", "No")
+	var/confirm = alert(client, "Are you sure you want to possess [O]?", "Confirm possession", "Yes", "No")
 
 	if(confirm != "Yes")
 		return
 	if(T)
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])", 1)
+		log_admin("[key_name(client)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])")
+		message_admins("[key_name_admin(client)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])", 1)
 	else
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at an unknown location")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at an unknown location", 1)
+		log_admin("[key_name(client)] has possessed [O] ([O.type]) at an unknown location")
+		message_admins("[key_name_admin(client)] has possessed [O] ([O.type]) at an unknown location", 1)
 
-	if(!usr.control_object) //If you're not already possessing something...
-		usr.name_archive = usr.real_name
+	var/mob/client_mob = client.mob
 
-	usr.loc = O
-	usr.real_name = O.name
-	usr.name = O.name
-	usr.client.eye = O
-	usr.control_object = O
+	if(!client_mob.control_object) //If you're not already possessing something...
+		client_mob.name_archive = client_mob.real_name
+
+	client_mob.loc = O
+	client_mob.real_name = O.name
+	client_mob.name = O.name
+	client_mob.client.eye = O
+	client_mob.control_object = O
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/proc/release(obj/O as obj in world)
-	set name = "\[Admin\] Release Obj"
-	//usr.loc = get_turf(usr)
-
-	if(!check_rights(R_POSSESS))
-		return
-
-	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object
-		usr.real_name = usr.name_archive
-		usr.name = usr.real_name
-		if(ishuman(usr))
-			var/mob/living/carbon/human/H = usr
+USER_CONTEXT_MENU(release_object, R_POSSESS, "\[Admin\] Release Obj", obj/O as obj in world)
+	var/mob/client_mob = client.mob
+	if(client_mob.control_object && client_mob.name_archive) //if you have a name archived and if you are actually relassing an object
+		client_mob.real_name = client_mob.name_archive
+		client_mob.name = client_mob.real_name
+		if(ishuman(client_mob))
+			var/mob/living/carbon/human/H = client_mob
 			H.name = H.get_visible_name()
-//		usr.regenerate_icons() //So the name is updated properly
 
-	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
-	usr.client.eye = usr
-	usr.control_object = null
+	client_mob.loc = O.loc // Appear where the object you were controlling is -- TLE
+	client_mob.client.eye = client_mob
+	client_mob.control_object = null
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

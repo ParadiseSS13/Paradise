@@ -1,9 +1,9 @@
 /mob/living/silicon/ai/proc/InvalidTurf(turf/T as turf)
 	if(!T)
-		return 1
+		return TRUE
 	if(!is_level_reachable(T.z))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/silicon/ai/proc/get_camera_list()
 
@@ -38,7 +38,7 @@
 		return
 
 	if(!camera || camera == "Cancel")
-		return 0
+		return FALSE
 
 	var/obj/machinery/camera/C = track.cameras[camera]
 	src.eyeobj.set_loc(C)
@@ -67,11 +67,6 @@
 		if(!M.can_track(usr))
 			continue
 
-		// Human check
-		var/human = 0
-		if(ishuman(M))
-			human = 1
-
 		var/name = M.name
 		if(name in track.names)
 			track.namecounts[name]++
@@ -79,7 +74,7 @@
 		else
 			track.names.Add(name)
 			track.namecounts[name] = 1
-		if(human)
+		if(ishuman(M))
 			track.humans[name] = M
 		else
 			track.others[name] = M
@@ -118,23 +113,23 @@
 	U.camera_follow = target
 	U.tracking = TRUE
 
-	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
+	to_chat(U, SPAN_NOTICE("Attempting to track [target.get_visible_name()]..."))
 	if(!doubleclick)
 		sleep(1.5 SECONDS) // Gives antags a brief window to get out of dodge before the eye of sauron decends upon them when someone yells ;HALP
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
 	if(target.is_jammed())
-		to_chat(U, "<span class='warning'>Unable to track [target.get_visible_name()]...</span>")
+		to_chat(U, SPAN_WARNING("Unable to track [target.get_visible_name()]..."))
 		U.camera_follow = null
 		return
 
 	if(!target || !target.can_track(usr))
-		to_chat(U, "<span class='warning'>Target is not near any active cameras.</span>")
+		to_chat(U, SPAN_WARNING("Target is not near any active cameras."))
 		U.camera_follow = null
 		return
 
-	to_chat(U, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
+	to_chat(U, SPAN_NOTICE("Now tracking [target.get_visible_name()] on camera."))
 
 	var/cameraticks = 0
 	spawn(0)
@@ -145,11 +140,11 @@
 			if(!target.can_track(usr))
 				U.tracking = TRUE
 				if(!cameraticks)
-					to_chat(U, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
+					to_chat(U, SPAN_WARNING("Target is not near any active cameras. Attempting to reacquire..."))
 				cameraticks++
 				if(cameraticks > 9)
 					U.camera_follow = null
-					to_chat(U, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
+					to_chat(U, SPAN_WARNING("Unable to reacquire, cancelling track..."))
 					U.tracking = FALSE
 					return
 				else
@@ -172,14 +167,14 @@
 
 /proc/near_camera(mob/living/M)
 	if(!isturf(M.loc))
-		return 0
+		return FALSE
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(!(R.camera && R.camera.can_use()) && !GLOB.cameranet.check_camera_vis(M))
-			return 0
+			return FALSE
 	else if(!GLOB.cameranet.check_camera_vis(M))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/machinery/camera/attack_ai(mob/living/silicon/ai/user)
 	if(!istype(user))

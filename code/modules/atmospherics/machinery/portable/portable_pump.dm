@@ -26,12 +26,19 @@
 	air_contents.set_oxygen(MAX_TARGET_PRESSURE * O2STANDARD * volume / (T20C * R_IDEAL_GAS_EQUATION))
 	air_contents.set_nitrogen(MAX_TARGET_PRESSURE * N2STANDARD * volume / (T20C * R_IDEAL_GAS_EQUATION))
 
+/obj/machinery/atmospherics/portable/pump/empty
+
+/obj/machinery/atmospherics/portable/pump/empty/Initialize(mapload)
+	. = ..()
+	air_contents.set_oxygen(0)
+	air_contents.set_nitrogen(0)
+
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Invaluable for filling air in a room rapidly after a breach repair. The internal gas container can be filled by \
+	. += SPAN_NOTICE("Invaluable for filling air in a room rapidly after a breach repair. The internal gas container can be filled by \
 			connecting it to a connector port, you're unable to have it both connected, and on at the same time. \
 			[src] can pump the air in (sucking) or out (blowing), at a specific target pressure. \
-			A tank of gas can also be attached to the air pump, allowing you to fill or empty the tank, via the internal one.</span>"
+			A tank of gas can also be attached to the air pump, allowing you to fill or empty the tank, via the internal one.")
 
 /obj/machinery/atmospherics/portable/pump/update_icon_state()
 	icon_state = "[base_icon_state]:[on]"
@@ -112,7 +119,7 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding_tank && direction == DIRECTION_OUT)
-			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", "atmos")
+			investigate_log("[key_name(user)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/pump/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -159,11 +166,11 @@
 	switch(action)
 		if("power")
 			if(connected_port)
-				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				to_chat(ui.user, SPAN_WARNING("[src] fails to turn on, the port is covered!"))
 				return
 			on = !on
 			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -173,7 +180,7 @@
 			else
 				direction = DIRECTION_OUT
 			if(on && holding_tank)
-				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
+				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -197,7 +204,7 @@
 
 /obj/machinery/atmospherics/portable/pump/big/examine(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>This one is quite large, enabling it to hold more air.</span>"
+	. += "<br>[SPAN_NOTICE("This one is quite large, enabling it to hold more air.")]"
 
 /obj/machinery/atmospherics/portable/pump/bluespace
 	name = "bluespace portable air pump"
@@ -208,13 +215,19 @@
 
 /obj/machinery/atmospherics/portable/pump/bluespace/examine(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>This one is not only large, but made of exotic materials, and uses bluespace technology to hold even more air.</span>"
+	. += "<br>[SPAN_NOTICE("This one is not only large, but made of exotic materials, and uses bluespace technology to hold even more air.")]"
 
 /obj/machinery/atmospherics/portable/pump/bluespace/update_icon_state()
 	if(on && direction == DIRECTION_IN)
 		icon_state = "[base_icon_state]:[on]-r"
 	else
 		icon_state = "[base_icon_state]:[on]"
+
+/obj/machinery/atmospherics/portable/pump/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 #undef MAX_TARGET_PRESSURE
 #undef DIRECTION_IN

@@ -69,7 +69,7 @@
 		var/mob/living/carbon/C = A
 		sword_attack(C)
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
@@ -115,7 +115,7 @@
 			if(find_new_target())
 				return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
-				mode = BOT_START_PATROL	// switch to patrol mode
+				set_mode(BOT_START_PATROL)	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
 			icon_state = spin_icon
 			playsound(loc,'sound/effects/spinsabre.ogg',50, TRUE,-1)
@@ -176,14 +176,14 @@
 		visible_message("[src] ignites his energy swords!")
 		icon_state = "griefsky-c"
 		visible_message("<b>[src]</b> points at [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message("<span class='boldannounceic'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message(SPAN_BOLDANNOUNCEIC("[src] lets out a huge cough as it blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
@@ -221,14 +221,15 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/griefsky/attackby__legacy__attackchain(obj/item/W, mob/user, params) //cant touch or attack him while spinning
+// cant touch or attack him while spinning
+/mob/living/simple_animal/bot/secbot/griefsky/attack_by(obj/item/W, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(src.icon_state == spin_icon)
 		if(prob(block_chance_melee))
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			visible_message("[src] deflects [user]'s move with his energy swords!")
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
-		else
-			return ..()
-	else
-		return ..()
+			return FINISH_ATTACK

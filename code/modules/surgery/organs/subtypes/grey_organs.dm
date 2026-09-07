@@ -7,9 +7,7 @@
 /obj/item/organ/internal/brain/grey
 	desc = "A large brain."
 	icon = 'icons/obj/species_organs/grey.dmi'
-	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = 0)
 	..()

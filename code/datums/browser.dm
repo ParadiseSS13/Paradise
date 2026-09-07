@@ -22,7 +22,15 @@
 
 
 /datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, atom/atom = null)
-	user = nuser
+	if(ismob(nuser))
+		user = nuser
+	else if(isclient(nuser))
+		var/client/user_client = nuser
+		user = user_client.mob
+
+	if(!ismob(user))
+		user = null
+
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(user_deleted))
 	window_id = nwindow_id
 	if(ntitle)
@@ -86,6 +94,15 @@
 	for(var/file in scripts)
 		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
 
+	if(user.client.window_scaling && user.client.window_scaling != 1)
+		head_content += {"
+			<style>
+				body {
+					zoom: [100 / user.client.window_scaling]%;
+				}
+			</style>
+			"}
+
 	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -116,12 +133,16 @@
 /datum/browser/proc/open(use_onclose = TRUE)
 	if(isnull(window_id)) //null check because this can potentially nuke goonchat
 		WARNING("Browser [title] tried to open with a null ID")
-		to_chat(user, "<span class='userdanger'>The [title] browser you tried to open failed a sanity check! Please report this on github!</span>")
+		to_chat(user, SPAN_USERDANGER("The [title] browser you tried to open failed a sanity check! Please report this on github!"))
 		return
 
 	var/window_size = ""
 	if(width && height)
 		window_size = "size=[width]x[height];"
+		if(user?.client?.window_scaling)
+			window_size = "size=[width * user.client.window_scaling]x[height * user.client.window_scaling];"
+		else
+			window_size = "size=[width]x[height];"
 	if(include_default_stylesheet)
 		var/datum/asset/simple/common/common_asset = get_asset_datum(/datum/asset/simple/common)
 		common_asset.send(user)

@@ -45,7 +45,7 @@
 /datum/outfit/job/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
-	H.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
+	H.rename_character(H.real_name, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
 	H.age = rand(35, 45)
 
 /datum/outfit/job/response_team/commander/amber
@@ -60,7 +60,8 @@
 		/obj/item/clothing/head/helmet/ert/command = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/box/mindshield = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/job/response_team/commander/red
@@ -76,7 +77,8 @@
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots = 1,
-		/obj/item/storage/box/mindshield = 1
+		/obj/item/storage/box/mindshield = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -104,7 +106,8 @@
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 2,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
+		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -145,7 +148,8 @@
 		/obj/item/clothing/head/helmet/ert/security = 1,
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/storage/box/teargas = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/job/response_team/security/red
@@ -161,7 +165,8 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
-		/obj/item/ammo_box/magazine/laser/ert = 2
+		/obj/item/ammo_box/magazine/laser/ert = 2,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -191,7 +196,8 @@
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/storage/box/breaching = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
+		/obj/item/gun/energy/gun/nuclear = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -236,7 +242,8 @@
 		/obj/item/stack/sheet/metal/fifty = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/rpd = 1,
-		/obj/item/storage/bag/construction = 1
+		/obj/item/storage/bag/construction = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -259,7 +266,8 @@
 		/obj/item/rcd_ammo = 3,
 		/obj/item/gun/energy/gun = 1,
 		/obj/item/rpd/bluespace = 1,
-		/obj/item/storage/bag/construction = 1
+		/obj/item/storage/bag/construction = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -288,7 +296,8 @@
 		/obj/item/rcd_ammo/large = 3,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
 		/obj/item/rpd/bluespace = 1,
-		/obj/item/storage/bag/construction = 1
+		/obj/item/storage/bag/construction = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -335,12 +344,12 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/soap/nanotrasen = 1
+		/obj/item/soap/nanotrasen = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/job/response_team/medic/red
 	name = "RT Medic (Red)"
-	rt_mob_job = "ERT Medical"
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
@@ -358,7 +367,8 @@
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/storage/pill_bottle/ert_red = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert = 1,
-		/obj/item/soap/nanotrasen = 1
+		/obj/item/soap/nanotrasen = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -390,7 +400,8 @@
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/storage/pill_bottle/ert_gamma = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
+		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -416,7 +427,6 @@
 	uniform = /obj/item/clothing/under/rank/centcom/ert/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/security/response_team
@@ -426,7 +436,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/storage/bible = 1
+		/obj/item/storage/bible = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/job/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -452,7 +463,8 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/storage/bible = 1
+		/obj/item/storage/bible = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -477,7 +489,9 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/gun/energy/gun/nuclear = 1,
-		/obj/item/storage/bible = 1
+		/obj/item/storage/bible = 1,
+		/obj/item/grenade/frag/holy = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -502,7 +516,6 @@
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
 	shoes = /obj/item/clothing/shoes/galoshes/dry
-	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/ert/janitorial
 	pda = /obj/item/pda/heads/ert/janitor
 	l_pocket = /obj/item/melee/classic_baton/telescopic
@@ -511,7 +524,8 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/push_broom = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/melee/flyswatter = 1
+		/obj/item/melee/flyswatter = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/job/response_team/janitorial/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -563,7 +577,8 @@
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/push_broom = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
+		/obj/item/gun/energy/gun/nuclear = 1,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(

@@ -71,7 +71,7 @@
 /mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
 	if(can_be_seen(NewLoc))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+			to_chat(src, SPAN_WARNING("You cannot move, there are eyes on you!"))
 		return 0
 	return ..()
 
@@ -90,7 +90,7 @@
 /mob/living/simple_animal/hostile/statue/AttackingTarget()
 	if(can_be_seen(get_turf(loc)))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+			to_chat(src, SPAN_WARNING("You cannot attack, there are eyes on you!"))
 		return FALSE
 	else
 		return ..()
@@ -122,7 +122,7 @@
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(world.view + 1, check) - src)
-			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
+			if(M.client && CanAttack(M) && !is_ai(M)) // AI cannot use their infinite view to stop us.
 				if(M.has_vision())
 					return M
 		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
@@ -167,6 +167,8 @@
 	base_cooldown = 300
 	clothes_req = FALSE
 	aoe_range = 14
+	/// Is this ability granted from a xenobiology organ? Causes user to spark.
+	var/from_organ = FALSE
 
 /datum/spell/aoe/flicker_lights/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
@@ -177,13 +179,15 @@
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
 			L.forced_flicker()
+	if(from_organ)
+		do_sparks(3, FALSE, user)
 
 //Blind AOE
 /datum/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = "<span class='notice'>You glare your eyes.</span>"
+	message = SPAN_NOTICE("You glare your eyes.")
 	base_cooldown = 600
 	clothes_req = FALSE
 	aoe_range = 10

@@ -20,7 +20,6 @@
 	icon = 'icons/obj/species_organs/vox.dmi'
 	icon_state = "cortical-stack"
 	mmi_icon = 'icons/obj/species_organs/vox.dmi'
-	mmi_icon_state = "mmi_full"
 	sterile = TRUE
 
 /obj/item/organ/internal/kidneys/vox

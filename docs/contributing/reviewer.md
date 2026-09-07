@@ -191,7 +191,7 @@ called. However, we know that `mob/user` will always be the user we need here
 (unless someone screwed up elsewhere) and will use that instead of `usr.
 
 Next, our first `to_chat` call is miss a span class definition. We will add that
-in `<span class='notice'>` and close it with `</span>` within the parentheses.
+in `[SPAN_NOTICE("` and close it with `")]` within the parentheses.
 With that in mind, we also notice that the second `to_chat` forgot to close
 their span, so we will do that as well.
 
@@ -199,10 +199,10 @@ their span, so we will do that as well.
 /obj/item/omega/attack_self(mob/user)
 	if(user)
 		if(is_user_cool(user) && istype(user, /mob/living/carbon/human))
-			to_chat(user, "<span class='notice'>[user] is very [pick(announce_verbs)]</span>")
+			to_chat(user, SPAN_NOTICE("[user] is very [pick(announce_verbs)]"))
 			is_cool = TRUE
 			return
-		to_chat(user, "<span class='notice'>[user] is not very [pick(announce_verbs)]</span>")
+		to_chat(user, SPAN_NOTICE("[user] is not very [pick(announce_verbs)]"))
 		is_cool = FALSE
 		return
 ```
@@ -263,10 +263,10 @@ Lets put all of our suggested changes together!
 /obj/item/omega/attack_self(mob/user)
 	if(user)
 		if(is_user_cool(user))
-			to_chat(user, "<span class='notice'>[user] is very [pick(announce_verbs)]</span>")
+			to_chat(user, SPAN_NOTICE("[user] is very [pick(announce_verbs)]"))
 			is_cool = TRUE
 			return
-		to_chat(user, "<span class='notice'>[user] is not very [pick(announce_verbs)]</span>")
+		to_chat(user, SPAN_NOTICE("[user] is not very [pick(announce_verbs)]"))
 		is_cool = FALSE
 		return
 

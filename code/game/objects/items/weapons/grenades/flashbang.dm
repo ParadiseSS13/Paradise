@@ -2,7 +2,7 @@
 	name = "flashbang"
 	desc = "A less-than-lethal grenade designed for crowd control. Blinds all unprotected targets in range and disrupts their balance, sending them falling to the floor."
 	icon_state = "flashbang"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
@@ -34,13 +34,13 @@
 	switch(det_time)
 		if(0.1 SECONDS)
 			det_time = 3 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+			to_chat(user, SPAN_NOTICE("You set [src] for 3 second detonation time."))
 		if(3 SECONDS)
 			det_time = 5 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+			to_chat(user, SPAN_NOTICE("You set [src] for 5 second detonation time."))
 		if(5 SECONDS)
 			det_time = 0.1 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
+			to_chat(user, SPAN_NOTICE("You set [src] for instant detonation."))
 	add_fingerprint(user)
 	return TRUE
 
@@ -61,7 +61,7 @@
 	for(var/mob/living/M in hearers(range, T))
 		if(M.stat == DEAD)
 			continue
-		M.show_message("<span class='warning'>BANG</span>", 2)
+		M.show_message(SPAN_WARNING("BANG"), 2)
 		var/mobturf = get_turf(M)
 
 		var/distance = max(1, get_dist(source_turf, mobturf))
@@ -105,8 +105,8 @@
 		if(istype(ears))
 			ears.receive_damage(5 * pressure_factor)
 			if(ears.damage >= 15)
-				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+				to_chat(M, SPAN_WARNING("Your ears start to ring badly!"))
 				if(prob(ears.damage - 5))
-					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+					to_chat(M, SPAN_WARNING("You can't hear anything!"))
 			else if(ears.damage >= 5)
-				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+				to_chat(M, SPAN_WARNING("Your ears start to ring!"))

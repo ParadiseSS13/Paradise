@@ -31,7 +31,7 @@ $BapiDllFunction = "all_mapmanip_configs_execute_ffi"
 $BapiExecutionTime = Measure-Command {
 	# `rundll` runs a function from a dll
 	# the very sad limitation is that it does not give any output from that function
-	rundll32.exe $BapiPath, $BapiDllFunction
+	rundll32.exe $BapiPath $BapiDllFunction
 }
 
 # done

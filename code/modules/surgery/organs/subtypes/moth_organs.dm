@@ -14,9 +14,7 @@
 
 /obj/item/organ/internal/brain/nian
 	icon = 'icons/obj/species_organs/nian.dmi'
-	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/nian.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/nian
 	name = "nian lungs"

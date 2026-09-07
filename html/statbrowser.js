@@ -381,7 +381,12 @@ function listedturf_add_row(table, table_index, true_index) {
 	turf_incomplete_rows[true_index] = true_index + 1;
 }
 
-function listedturf_fill_row(row, item_index) {
+function listedturf_render_row(row, item_index) {
+	// Clear any previous contents so we don't mess up list indices
+	while (row.firstChild) {
+		row.removeChild(row.firstChild);
+	}
+
 	let object_info = turfcontents['' + item_index];
 	if (!object_info) {
 		return false;
@@ -428,32 +433,46 @@ function listedturf_fill_row(row, item_index) {
 	cell.appendChild(button);
 
 	let img = document.createElement('img');
-	img.id = object_info[1];
-	img.src = object_info[2];
-	img.style.verticalAlign = 'middle';
-	img.style.width = turf_row_inner_height + 'em';
-	img.style.height = turf_row_inner_height + 'em';
-	img.onerror = (function (object_info) {
-		return function () {
-			let delay = imageRetryDelay;
-			if (!turf_image_errors[object_info[3]]) {
-				turf_image_errors[object_info[3]] = 0;
-				delay = imageFirstRetryDelay;
-			}
-			turf_image_errors[object_info[3]]++;
-			if (turf_image_errors[object_info[3]] > imageRetryLimit) {
-				return;
-			}
+	if (object_info[2]) {
+		img.id = object_info[1];
+		img.src = object_info[2];
+		img.style.verticalAlign = 'middle';
+		img.style.width = turf_row_inner_height + 'em';
+		img.style.height = turf_row_inner_height + 'em';
+		// Only retry if we got an asset key
+		if (object_info[3]) {
+			img.onerror = (function (object_info) {
+				return function () {
+					let delay = imageRetryDelay;
+					if (!turf_image_errors[object_info[3]]) {
+						turf_image_errors[object_info[3]] = 0;
+						delay = imageFirstRetryDelay;
+					}
+					turf_image_errors[object_info[3]]++;
+					if (turf_image_errors[object_info[3]] > imageRetryLimit) {
+						return;
+					}
 
-			Byond.sendMessage('Resend-Asset', object_info[3]);
-			setTimeout(function () {
-				// Use the failure count as a cachebreaker to force-reload.
-				let img = document.getElementById(object_info[1]);
-				img.src = object_info[2] + '?' + turf_image_errors[object_info[3]];
-			}, imageRetryDelay);
-		};
-	})(object_info);
-	button.appendChild(img);
+					Byond.sendMessage('Resend-Asset', object_info[3]);
+					setTimeout(function () {
+						// Use the failure count as a cachebreaker to force-reload.
+						let img = document.getElementById(object_info[1]);
+						if (img) {
+							img.src = object_info[2] + '?' + turf_image_errors[object_info[3]];
+						}
+					}, delay);
+				};
+			})(object_info);
+		}
+		button.appendChild(img);
+	} else {
+		// If we're missing an image URL just space out the same amount that the image would take up
+		let spacer = document.createElement('span');
+		spacer.style.display = 'inline-block';
+		spacer.style.width = turf_row_inner_height + 'em';
+		spacer.style.height = turf_row_inner_height + 'em';
+		button.appendChild(spacer);
+	}
 
 	var label = document.createElement('span');
 	label.style.marginLeft = '0.5em';
@@ -461,6 +480,22 @@ function listedturf_fill_row(row, item_index) {
 	button.appendChild(label);
 
 	return true;
+}
+
+function listedturf_fill_row(row, item_index) {
+	return listedturf_render_row(row, item_index);
+}
+
+function listedturf_refresh_visible_rows() {
+	if (!turf_rows || !turf_rows.initialized) {
+		return;
+	}
+	for (let i = turf_rows.min_row; i < turf_rows.max_row; i++) {
+		if (turf_rows[i]) {
+			listedturf_render_row(turf_rows[i], i + 1);
+			delete turf_incomplete_rows[i];
+		}
+	}
 }
 
 function listedturf_fill_all() {
@@ -915,6 +950,7 @@ Byond.subscribeTo('update_listedturf', function (TC) {
 	turf_size = TC['total'];
 	if (current_tab == turfname) {
 		draw_listedturf();
+		listedturf_refresh_visible_rows();
 	}
 });
 

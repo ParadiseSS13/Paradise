@@ -1,8 +1,8 @@
-import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
-import { filter } from 'common/collections';
-import { useBackend, useLocalState } from '../backend';
-import { Section, Stack, ImageButton, Input } from '../components';
+import { useState } from 'react';
+import { ImageButton, Input, Section, Stack } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {
@@ -18,9 +18,9 @@ type ChameleonSkin = {
   icon_state: string;
 };
 
-export const Chameleon = (props, context) => {
+export const Chameleon = (props) => {
   return (
-    <Window width={431} height={500} theme="syndicate">
+    <Window width={440} height={500} theme="syndicate">
       <Window.Content>
         <ChameleonAppearances />
       </Window.Content>
@@ -30,23 +30,18 @@ export const Chameleon = (props, context) => {
 
 const selectSkins = (skins, searchText = '') => {
   const testSearch = createSearch(searchText, (skin: ChameleonSkin) => skin.name);
-  return flow([
-    // Null filter
-    filter((skin) => skin?.name),
-    // Optional search term
-    searchText && filter(testSearch),
-  ])(skins);
+  return skins.filter(testSearch);
 };
 
-export const ChameleonAppearances = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+export const ChameleonAppearances = (props) => {
+  const { act, data } = useBackend<Data>();
+  const [searchText, setSearchText] = useState('');
   const chameleon_skins = selectSkins(data.chameleon_skins, searchText);
   const { selected_appearance } = data;
   return (
     <Stack fill vertical>
       <Stack.Item>
-        <Input fluid placeholder="Search for an appearance" onInput={(e, value) => setSearchText(value)} />
+        <Input fluid placeholder="Search for an appearance" onChange={(value) => setSearchText(value)} />
       </Stack.Item>
       <Stack.Item grow>
         <Section fill scrollable title={'Item Appearance'}>
@@ -58,7 +53,6 @@ export const ChameleonAppearances = (props, context) => {
                 dmIconState={chameleon_skin.icon_state}
                 imageSize={64}
                 m={0.5}
-                compact
                 key={skin_name}
                 selected={skin_name === selected_appearance}
                 tooltip={chameleon_skin.name}

@@ -1,7 +1,6 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I better stay away from that thing."
-	density = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = FALSE
@@ -15,7 +14,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
-	to_chat(victim, "<span class='danger'>*click*</span>")
+	to_chat(victim, SPAN_DANGER("*click*"))
 
 /obj/effect/mine/proc/on_atom_entered(datum/source, atom/movable/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
@@ -32,7 +31,7 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
+	visible_message(SPAN_DANGER("[victim] sets off [bicon(src)] [src]!"))
 	do_sparks(3, 1, src)
 	mineEffect(victim)
 	triggered = TRUE
@@ -51,7 +50,7 @@
 	var/range_flash = 3
 
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash, cause = name)
 
 /obj/effect/mine/stun
 	name = "stun mine"
@@ -68,14 +67,14 @@
 	var/area/syndicate_depot/core/depotarea = get_area(src)
 	if(istype(depotarea))
 		if(depotarea.mine_triggered(victim))
-			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
+			explosion(loc, 1, 0, 0, 1, cause = "depot sentry mine") // devastate the tile you are on, but leave everything else untouched
 
 /obj/effect/mine/dnascramble
 	name = "Radiation Mine"
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.rad_act(radiation_amount)
+	victim.base_rad_act(src, radiation_amount, BETA_RAD)
 	if(!victim.dna || HAS_TRAIT(victim, TRAIT_GENELESS))
 		return
 	randmutb(victim)
@@ -113,7 +112,6 @@
 	desc = "pick me up."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()
@@ -144,17 +142,19 @@
 	new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/mob/mob.dmi', "daemon")
 
 	var/obj/item/chainsaw/doomslayer/chainsaw = new(victim.loc)
-	chainsaw.flags |= NODROP | DROPDEL
+	chainsaw.flags |= DROPDEL
+	chainsaw.set_nodrop(TRUE, victim)
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)
-	chainsaw.attack_self__legacy__attackchain(victim)
+	chainsaw.activate_self(victim)
+	victim.regenerate_icons()
 	victim.reagents.add_reagent("adminordrazine", 25)
 
 	victim.flash_screen_color(red_splash, 10)
 
 	spawn(duration)
-		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
+		to_chat(victim, SPAN_NOTICE("Your bloodlust seeps back into the bog of your subconscious and you regain self control."))
 		qdel(chainsaw)
 		qdel(src)
 
@@ -166,7 +166,7 @@
 /obj/effect/mine/pickup/healing/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel great!</span>")
+	to_chat(victim, SPAN_NOTICE("You feel great!"))
 	victim.revive()
 
 /obj/effect/mine/pickup/speed
@@ -178,8 +178,8 @@
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel fast!</span>")
+	to_chat(victim, SPAN_NOTICE("You feel fast!"))
 	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 	spawn(duration)
 		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+		to_chat(victim, SPAN_NOTICE("You slow down."))

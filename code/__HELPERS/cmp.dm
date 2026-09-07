@@ -22,6 +22,9 @@
 /proc/cmp_ckey_dsc(client/a, client/b)
 	return sorttext(a.ckey, b.ckey)
 
+/proc/cmp_typepaths_asc(a, b)
+	return sorttext("[b]", "[a]")
+
 /proc/cmp_subsystem_init(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return initial(b.init_order) - initial(a.init_order)	//uses initial() so it can be used on types
 
@@ -46,8 +49,8 @@
 	if(!.)
 		. = B.qdels - A.qdels
 
-/proc/cmp_atom_layer_asc(atom/A,atom/B)
-	if(A.plane != B.plane)
+/proc/cmp_atom_layer_asc(atom/A, atom/B)
+	if(!istype(A) && !istype(B) && A.plane != B.plane)
 		return A.plane - B.plane
 	else
 		return A.layer - B.layer
@@ -57,3 +60,11 @@
 
 /proc/cmp_changeling_power_category_asc(datum/changeling_power_category/a, datum/changeling_power_category/b)
 	return initial(a.priority) - initial(b.priority)
+
+/proc/cmp_ruin_placement_cost(datum/map_template/ruin/A, datum/map_template/ruin/B)
+	return A.get_cost() - B.get_cost()
+
+
+/// Orders heretic knowledge by priority
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

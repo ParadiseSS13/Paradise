@@ -1,17 +1,14 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "honkbot"
 	desc = "A little robot. It looks happy with its bike horn."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB
 	radio_channel = "Service" //Service
 	bot_type = HONK_BOT
-	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"
 	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	window_id = "autohonk"
@@ -87,7 +84,7 @@
 		return
 	var/mob/user = ui.user
 	if(topic_denied(user))
-		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(user)
 	. = TRUE
@@ -108,7 +105,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = 6
 	target = H
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
@@ -116,21 +113,22 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
-		return
-	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
+/mob/living/simple_animal/bot/honkbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	// If the target is locked, they are recieving damage from the screwdriver
+	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))
 		retaliate(user)
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
+			to_chat(user, SPAN_WARNING("You short out [src]'s target assessment circuits. It gives out an evil laugh!!"))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
+		audible_message(SPAN_DANGER("[src] gives out an evil laugh!"))
 		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 		update_icon()
 
@@ -138,7 +136,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	if(locked || !open)
-		to_chat(user, "<span class='warning'>Unlock and open it with a screwdriver first!</span>")
+		to_chat(user, SPAN_WARNING("Unlock and open it with a screwdriver first!"))
 		return FALSE
 
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -148,7 +146,7 @@
 	bot_reset()
 	turn_on()
 	if(user)
-		to_chat(user, "<span class='notice'>You smear bananium ooze all over [src]'s circuitry!</span>")
+		to_chat(user, SPAN_NOTICE("You smear bananium ooze all over [src]'s circuitry!"))
 		add_attack_logs(user, src, "Cmagged")
 	show_laws()
 	return TRUE
@@ -156,10 +154,10 @@
 /mob/living/simple_animal/bot/honkbot/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		. += "<span class='warning'>Yellow ooze seems to be seeping from the case...</span>"
+		. += SPAN_WARNING("Yellow ooze seems to be seeping from the case...")
 
-/mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
-	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+/mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
+	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
 	..()
 
@@ -209,20 +207,20 @@
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/cuff_callback(mob/living/carbon/C)
-	mode = BOT_ARREST
+	set_mode(BOT_ARREST)
 	sleep(1 SECONDS)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(SPAN_DANGER("[src] is trying to put zipties on [C]!"),
+						SPAN_USERDANGER("[src] is trying to put zipties on you!"))
 	if(!do_after(src, 6 SECONDS, target = C) || !on)
-		mode = BOT_IDLE
+		set_mode(BOT_IDLE)
 		return
 	if(!C.handcuffed)
 		C.handcuffed = new /obj/item/restraints/handcuffs/twimsts(C)
 		C.update_handcuffed()
 	C.SetDeaf(0)
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(spam_flag)
@@ -255,8 +253,8 @@
 		threatlevel = 6 // will never let you go
 	addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	add_attack_logs(src, C, "honked by [src]")
-	C.visible_message("<span class='danger'>[src] has honked [C]!</span>",
-			"<span class='userdanger'>[src] has honked you!</span>")
+	C.visible_message(SPAN_DANGER("[src] has honked [C]!"),
+			SPAN_USERDANGER("[src] has honked you!"))
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
@@ -270,7 +268,7 @@
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
-				mode = BOT_START_PATROL
+				set_mode(BOT_START_PATROL)
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
@@ -308,7 +306,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
 	anchored = FALSE
-	mode = BOT_IDLE
+	set_mode(BOT_IDLE)
 	target = null
 	last_found = world.time
 	frustration = 0
@@ -317,7 +315,7 @@
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/find_new_target()
@@ -352,14 +350,14 @@
 		else
 			speak("Honk!")
 			visible_message("<b>[src]</b> starts chasing [C.name]!")
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	GLOB.move_manager.stop_looping(src)
-	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
+	visible_message(SPAN_BOLDANNOUNCEIC("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -375,7 +373,7 @@
 	..()
 	if(!isalien(target))
 		target = user
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/honkbot/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(ismob(entered) && on) //only if its online
@@ -383,13 +381,15 @@
 			var/mob/living/carbon/C = entered
 			if(!istype(C) || !C || in_range(src, target))
 				return
-			C.visible_message("<span class='warning'>[pick( \
-							"[C] dives out of [src]'s way!", \
-							"[C] stumbles over [src]!", \
-							"[C] jumps out of [src]'s path!", \
-							"[C] trips over [src] and falls!", \
-							"[C] topples over [src]!", \
-							"[C] leaps out of [src]'s way!")]</span>")
+			var/trip_messages = list(
+				"[C] dives out of [src]'s way!",
+				"[C] stumbles over [src]!",
+				"[C] jumps out of [src]'s path!",
+				"[C] trips over [src] and falls!",
+				"[C] topples over [src]!",
+				"[C] leaps out of [src]'s way!"
+			)
+			C.visible_message(SPAN_WARNING(pick(trip_messages)))
 			C.KnockDown(10 SECONDS)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
 			if(!client)

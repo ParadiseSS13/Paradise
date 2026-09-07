@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	spawn_loot_count = 1
 
 // Common clothing pool
 /obj/effect/spawner/random/bluespace_tap/clothes_common
@@ -209,7 +208,6 @@
 // Common food pool
 /obj/effect/spawner/random/bluespace_tap/food_common
 	name = "common fancy food"
-	spawn_loot_count = 1
 	loot = list(
 		/obj/item/food/wingfangchu,
 		/obj/item/food/hotdog,
@@ -245,7 +243,6 @@
 // Uncommon food pool
 /obj/effect/spawner/random/bluespace_tap/food_uncommon
 	name = "uncommon fancy food"
-	spawn_loot_count = 1
 	loot = list(
 		/obj/item/food/sliceable/cheesecake,
 		/obj/item/food/sliceable/bananacake,
@@ -272,19 +269,19 @@
 		/obj/item/food/burger/ppatty/blue,
 		/obj/item/food/burger/ppatty/purple,
 		/obj/item/food/baguette,
-		/obj/item/food/rofflewaffles
+		/obj/item/food/rofflewaffles,
+		/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker,
 	)
 
 // Rare food pool
 /obj/effect/spawner/random/bluespace_tap/food_rare
 	name = "rare fancy food"
-	spawn_loot_count = 1
 	loot = list(
 		/obj/item/food/monkeysdelight,
 		/obj/item/food/dionaroast,
 		/obj/item/food/boiledslimecore,
 		/obj/item/food/burger/brain,
-		/obj/item/food/liquidfood,
+		/obj/item/food/rations/liquidfood,
 		/obj/item/food/burger/ghost,
 		/obj/item/food/burger/hamborger,
 		/obj/item/food/burger/ppatty/rainbow,

@@ -27,6 +27,7 @@
 	var/datum/painter/selected_module = null
 	/// List of any instanced [/datum/painter]'s, to avoid spawning more than one of each.
 	var/list/module_list = list()
+	new_attack_chain = TRUE
 
 /obj/item/painter/Initialize(mapload, datum/painter/default_module = /datum/painter/floor) // Defaults to a floor painter
 	. = ..()
@@ -42,7 +43,7 @@
 
 /obj/item/painter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl+click it in your hand to change the type!</span>"
+	. += SPAN_NOTICE("Ctrl+click it in your hand to change the type!")
 
 
 /**
@@ -74,7 +75,7 @@
 	name = selected_module.module_name
 	desc = selected_module.module_desc
 	icon_state = selected_module.module_state
-	item_state = selected_module.module_state
+	inhand_icon_state = selected_module.module_state
 	if(user)
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()
@@ -82,17 +83,23 @@
 /**
   * Calls `pick_color()` on the `selected_module`.
   */
-/obj/item/painter/attack_self__legacy__attackchain(mob/user)
+/obj/item/painter/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	selected_module.pick_color(user)
+	return ITEM_INTERACT_COMPLETE
 
 /**
   * If adjacent, calls `paint_atom()` on the `selected_module`, then plays the `usesound`.
   */
-/obj/item/painter/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
+/obj/item/painter/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target) || is_surface(target))
+		return NONE
+
 	if(selected_module.paint_atom(target, user))
+		target.add_hiddenprint(user)
 		playsound(src, usesound, 30, TRUE)
+		return ITEM_INTERACT_COMPLETE
 
 /**
   * Displays a radial menu for choosing a new painter module.
@@ -114,7 +121,7 @@
 
 
 /obj/item/painter/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src, usesound, 50, TRUE)
 	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs") // not going to use an organ datum here, would be too easy for slime people to throw up their brains
 	var/turf/T = get_turf(user)
@@ -131,7 +138,7 @@
 	L.forceMove(T)
 
 	user.emote("scream")
-	user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [L.name]!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] vomits out [user.p_their()] [L.name]!"))
 	playsound(T, 'sound/effects/splat.ogg', 50, TRUE)
 
 	// make some vomit under the player, and apply colorful reagent

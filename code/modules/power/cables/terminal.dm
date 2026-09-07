@@ -59,12 +59,12 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		if(T.intact)
-			to_chat(user, "<span class='warning'>You must first expose the power terminal!</span>")
+			to_chat(user, SPAN_WARNING("You must first expose the power terminal!"))
 			return
 
 		if(!master || master.can_terminal_dismantle())
 			user.visible_message("[user.name] dismantles the power terminal from [master].", \
-								"<span class='notice'>You begin to cut the cables...</span>")
+								SPAN_NOTICE("You begin to cut the cables..."))
 
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 			if(do_after(user, 50*W.toolspeed, target = src))
@@ -73,12 +73,13 @@
 						do_sparks(5, TRUE, master)
 						return
 					new /obj/item/stack/cable_coil(loc, 10)
-					to_chat(user, "<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+					to_chat(user, SPAN_NOTICE("You cut the cables and dismantle the power terminal."))
 					qdel(src)
 
 
-/obj/machinery/power/terminal/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/wirecutters))
-		dismantle(user, W)
+/obj/machinery/power/terminal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/wirecutters))
+		dismantle(user, used)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()

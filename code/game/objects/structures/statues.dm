@@ -4,27 +4,26 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
-/obj/structure/statue/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
+/obj/structure/statue/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	add_fingerprint(user)
 	if(!(flags & NODECONSTRUCT))
 		if(default_unfasten_wrench(user, W))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
-								"<span class='notice'>You are slicing apart the [name]...</span>")
+								SPAN_NOTICE("You are slicing apart the [name]..."))
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
-									"<span class='notice'>You slice apart the [name].</span>")
+									SPAN_NOTICE("You slice apart the [name]."))
 				deconstruct(TRUE)
-			return
+			return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/statue/welder_act(mob/user, obj/item/I)
@@ -42,7 +41,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
-						"<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
+						SPAN_NOTICE("You rub some dust off from the [name]'s surface."))
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -71,30 +70,16 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	radiate()
-	return ..()
-
-/obj/structure/statue/uranium/Bumped(atom/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/attack_hand(mob/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event + 1.5 SECONDS)
-			active = TRUE
-			radiation_pulse(src, 30)
-			last_event = world.time
-			active = FALSE
+/obj/statue/uranium/Initialize(mapload)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 150, 0, 0, 1.5)
+	START_PROCESSING(SSradiation, radioactivity)
 
 /obj/structure/statue/plasma
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
+	cares_about_temperature = TRUE
 
 /obj/structure/statue/plasma/scientist
 	name = "statue of a scientist"
@@ -104,43 +89,43 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/obj/structure/statue/plasma/bullet_act(obj/item/projectile/P)
+/obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
 				message_admins("[key_name_admin(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
 				log_game("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
-				investigate_log("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]", "atmos")
+				investigate_log("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]", INVESTIGATE_ATMOS)
 			else
 				message_admins("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
 				log_game("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
 			PlasmaBurn()
 	..()
 
-/obj/structure/statue/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/statue/plasma/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(W.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
-		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", INVESTIGATE_ATMOS)
 		ignite(W.get_heat())
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+	user.visible_message(SPAN_DANGER("[user] sets [src] on fire!"),\
+						SPAN_DANGER("[src] disintegrates into a cloud of plasma!"),\
+						SPAN_WARNING("You hear a 'whoompf' and a roar."))
 	message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 	log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
-	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", INVESTIGATE_ATMOS)
 	ignite(2500)
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
@@ -240,7 +225,7 @@
 	honk()
 	..()
 
-/obj/structure/statue/bananium/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/statue/bananium/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	honk()
 	return ..()
 
@@ -283,7 +268,7 @@
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
@@ -336,11 +321,12 @@
 	new /obj/item/grown/log(drop_location())
 	return ..()
 
-/obj/structure/snowman/built/attackby__legacy__attackchain(obj/item/I, mob/user)
+/obj/structure/snowman/built/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
-		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		to_chat(user, SPAN_NOTICE("You patch some of the damage on [src] with [I]."))
 		obj_integrity = max_integrity
 		qdel(I)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -392,7 +378,6 @@
 	return ..()
 
 /obj/structure/statue/cyberiad/center
-	icon_state = "center"
 	density = FALSE
 	layer = ABOVE_ALL_MOB_LAYER
 

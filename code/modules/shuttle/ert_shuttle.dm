@@ -16,13 +16,9 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert
 	name = "specops navigation computer"
 	desc = "Used to designate a precise transit location for the specops shuttle."
-	icon_screen = "navigation"
-	icon_keyboard = "med_key"
 	shuttleId = "specops"
 	shuttlePortId = "specops_custom"
 	view_range = 13
-	x_offset = 0
-	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
 	access_mining = FALSE

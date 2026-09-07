@@ -11,7 +11,7 @@
 		var/datum/pai_software/door_jack/DJ = installed_software["doorjack"]
 		if(DJ.cable)
 			if(get_dist(src, DJ.cable) > 1)
-				visible_message("<span class='warning'>The data cable connected to [src] rapidly retracts back into its spool!</span>")
+				visible_message(SPAN_WARNING("The data cable connected to [src] rapidly retracts back into its spool!"))
 				QDEL_NULL(DJ.cable)
 
 /mob/living/silicon/pai/updatehealth(reason = "none given")

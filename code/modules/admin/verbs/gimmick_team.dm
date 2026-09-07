@@ -7,7 +7,7 @@
 	set desc = "Spawns a group of players in the specified outfit."
 	if(!check_rights(R_EVENT))
 		return
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("The game hasn't started yet!")
 		return
 	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?", null,"Yes","No")=="No")
@@ -79,7 +79,7 @@
 
 		H.equipOutfit(O, FALSE)
 
-		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
+		to_chat(H, "<BR>[SPAN_DANGER("<B>[themission]</B>")]")
 		H.mind.store_memory("<B>[themission]</B><BR><BR>")
 
 		if(is_syndicate)

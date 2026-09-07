@@ -42,6 +42,7 @@
 	overlay_state_active = "module_defibrillator_active"
 	incompatible_modules = list(/obj/item/mod/module/defibrillator)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
 	. = ..()
@@ -57,9 +58,7 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
 	flags = NODROP
-	force = 0
 	w_class = WEIGHT_CLASS_BULKY
-	toolspeed = 1
 	var/defib_cooldown = 5 SECONDS
 	var/safety = TRUE
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
@@ -81,7 +80,7 @@
 /obj/item/mod_defib/proc/on_cooldown_expire(obj/item/defib)
 	SIGNAL_HANDLER // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
-	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
+	visible_message(SPAN_NOTICE("[src] beeps: Defibrillation unit ready."))
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -103,7 +102,6 @@
 		straight to a victims heart to disable them, or maybe even outright stop their heart with enough power."
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
-	module_type = MODULE_ACTIVE
 	overlay_state_inactive = "module_defibrillator_combat"
 	overlay_state_active = "module_defibrillator_combat_active"
 	device = /obj/item/mod_defib/syndicate
@@ -115,19 +113,82 @@
 	toolspeed = 2
 	defib_cooldown = 2.5 SECONDS
 
-///Crew Monitor - Deploys or retracts a built-in handheld crew monitor
 /obj/item/mod/module/monitor
 	name = "MOD crew monitor module"
 	desc = "A module installed into the wrist of the suit, this presents a display of crew sensor data."
-	icon_state = "scanner"
-	module_type = MODULE_ACTIVE
+	icon_state = "monitor"
+	module_type = MODULE_USABLE
 	complexity = 1
-	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
-	device = /obj/item/sensor_device/mod
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/monitor)
 	cooldown_time = 0.5 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
+	var/datum/ui_module/crew_monitor/mod/crew_monitor
 
-/obj/item/sensor_device/mod
-	name = "MOD crew monitor"
-	desc = "A miniature machine built into a modsuit that tracks suit sensors across the station."
+
+/obj/item/mod/module/monitor/Initialize(mapload)
+	. = ..()
+	crew_monitor = new(src)
+
+/obj/item/mod/module/monitor/on_use()
+	crew_monitor.ui_interact(mod.wearer)
+
+/// Health Analyzer - Gives the suit an extendable health analyzer, able to be upgraded
+/obj/item/mod/module/analyzer
+	name = "MOD health analyzer"
+	desc = "A module installed into the palm of the suit, allows the deployment of a typical upgradable health analyzer."
+	icon_state = "health"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN
+	device = /obj/item/healthanalyzer/mod
+	incompatible_modules = list(/obj/item/mod/module/analyzer)
+	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
+
+/obj/item/healthanalyzer/mod
+	name = "MOD health analyzer"
+	desc = "A integrated body scanner that allows the user to scan vital signs of a patient."
 	flags = NODROP
+
+/obj/item/mod/module/cbrn
+	name = "CBRN Protection System"
+	desc = "An active protection system that forms a complete biological shield around the wearer when active, \
+		greatly limiting movement and spiking power usage to completely protect against chemical, biological, radiological, and nuclear hazards."
+	icon_state = "cbrn"
+	module_type = MODULE_TOGGLE
+	cooldown_time = 0.5 SECONDS
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 6 // Eats power for its protection
+	incompatible_modules = list(/obj/item/mod/module/cbrn)
+	removable = FALSE // Exclusive to the CMO suit
+	materials = list(MAT_METAL = 15000, MAT_TITANIUM = 5000, MAT_URANIUM = 5000)
+	/// Speed lowered to the control unit.
+	var/speed_lowered = 0.15
+	/// Original armor of the suit, simpler solution to resolve subtracting infinities
+	var/original_armor = null
+
+/obj/item/mod/module/cbrn/on_activation()
+	. = ..()
+	if(!.)
+		return
+	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(mod.wearer, SPAN_NOTICE("Environmental protection enabled, biological shield raised, mobility decreased."))
+	var/list/parts = mod.mod_parts + mod
+	for(var/obj/item/part as anything in parts)
+		original_armor = part.armor
+		part.armor = part.armor.modifyRating(0, 0, 0, 0, 10, INFINITY, 0, INFINITY, 0) // due to infinities and non-zeros, attach and detach wont work, there is probably a much better solution
+		part.slowdown += (speed_lowered)
+
+/obj/item/mod/module/cbrn/on_deactivation(display_message = TRUE, deleting = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(!deleting)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(mod.wearer, SPAN_NOTICE("Environmental protection disabled, biological shield lowered, mobility increased."))
+	var/list/parts = mod.mod_parts + mod
+	for(var/obj/item/part as anything in parts)
+		part.armor = original_armor
+		part.slowdown -= (speed_lowered)
+

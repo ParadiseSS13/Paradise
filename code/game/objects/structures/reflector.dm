@@ -2,30 +2,34 @@
 	name = "reflector frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
-	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
-	anchored = FALSE
+	desc = "A frame to create a reflector."
 	density = TRUE
 	max_integrity = 50
-	layer = 3
 	var/finished = FALSE
 	var/obj/item/stack/sheet/build_stack_type
 	var/build_stack_amount
+
+/obj/structure/reflector/examine()
+	. = ..()
+	. += SPAN_NOTICE("Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.")
+	. += SPAN_NOTICE("Use <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.")
+	. += SPAN_NOTICE("Use <b>1 diamond</b> to create a reflector cube.")
 
 /obj/structure/reflector/Initialize(mapload)
 	. = ..()
 	if(mapload)
 		anchored = TRUE
 
-/obj/structure/reflector/bullet_act(obj/item/projectile/P)
+/obj/structure/reflector/bullet_act(obj/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	if(!istype(P, /obj/item/projectile/beam))
+	if(!istype(P, /obj/projectile/beam))
 		return ..()
 	var/new_dir = get_reflection(dir, P.dir)
 	if(new_dir && anchored)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
+		visible_message(SPAN_NOTICE("[src] is hit by [P]!"))
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
@@ -41,8 +45,8 @@
 	new_dir = 0
 	return -1
 
-
-/obj/structure/reflector/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/reflector/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -50,7 +54,7 @@
 		var/obj/item/stack/sheet/S = W
 		if(istype(W, /obj/item/stack/sheet/glass))
 			if(S.get_amount() < 5)
-				to_chat(user, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
+				to_chat(user, SPAN_WARNING("You need five sheets of glass to create a reflector!"))
 				return
 			else
 				S.use(5)
@@ -58,7 +62,7 @@
 				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
-				to_chat(user, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
+				to_chat(user, SPAN_WARNING("You need ten sheets of reinforced glass to create a double reflector!"))
 				return
 			else
 				S.use(10)
@@ -114,7 +118,7 @@
 		return
 
 	if(anchored)
-		to_chat(user, "<span class='warning'>You cannot rotate [src] right now. It is fastened to the floor!</span>")
+		to_chat(user, SPAN_WARNING("You cannot rotate [src] right now. It is fastened to the floor!"))
 		return
 	dir = turn(dir, 90)
 

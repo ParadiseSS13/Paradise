@@ -52,6 +52,7 @@
 	blood_color = "#a3d4eb"
 	butt_sprite = "drask"
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =      				/obj/item/organ/internal/heart/drask,
 		"lungs" =     				/obj/item/organ/internal/lungs/drask,
@@ -68,3 +69,5 @@
 		)
 	autohiss_exempt = list("Orluum")
 
+/datum/species/drask/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/soap(H.loc)

@@ -2,7 +2,6 @@
 
 /obj/machinery/computer/prisoner
 	name = "labor camp points manager"
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
 	req_access = list(ACCESS_BRIG)
@@ -21,16 +20,17 @@
 	GLOB.prisoncomputer_list -= src
 	return ..()
 
-/obj/machinery/computer/prisoner/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/machinery/computer/prisoner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/datum/ui_login/state = ui_login_get()
 	if(state.logged_in)
-		var/obj/item/card/id/prisoner/I = O
+		var/obj/item/card/id/prisoner/I = used
 		if(istype(I) && user.drop_item())
 			I.forceMove(src)
 			inserted_id_uid = I.UID()
-			return
-	if(ui_login_attackby(O, user))
-		return
+			return ITEM_INTERACT_COMPLETE
+	if(ui_login_attackby(used, user))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/prisoner/attack_ai(mob/user)
@@ -133,7 +133,7 @@
 				I.forceMove(src)
 				inserted_id_uid = I.UID()
 			else
-				to_chat(user, "<span class='warning'>No valid ID.</span>")
+				to_chat(user, SPAN_WARNING("No valid ID."))
 		if("inject")
 			var/obj/item/bio_chip/chem/implant = locateUID(params["uid"])
 			if(!implant)
@@ -169,13 +169,13 @@
 					if(!implant)
 						return
 					if(implant.warn_cooldown >= world.time)
-						to_chat(user, "<span class='warning'>The warning system for that bio-chip is still cooling down.</span>")
+						to_chat(user, SPAN_WARNING("The warning system for that bio-chip is still cooling down."))
 						return
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
 						var/warning = copytext(sanitize(answer), 1, MAX_MESSAGE_LEN)
-						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
+						to_chat(implantee, SPAN_BOLDNOTICE("Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'"))
 
 				if("set_points")
 					if(isnull(text2num(answer)))

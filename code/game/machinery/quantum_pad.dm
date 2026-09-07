@@ -12,44 +12,14 @@
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
-	var/teleporting = FALSE //if it's in the process of teleporting
+	// Is the pad currently doing a teleportation?
+	var/teleporting = FALSE
+	// Power consumption multiplier.
 	var/power_efficiency = 1
+	// The pad this quantum pad will teleport to.
 	var/obj/machinery/quantumpad/linked_pad = null
+	// Pre-linked pad target, for mapped-in quantum pads.
 	var/preset_target = null
-
-/obj/machinery/quantumpad/cere/cargo_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_cargo
-/obj/machinery/quantumpad/cere/cargo_security
-	preset_target = /obj/machinery/quantumpad/cere/security_cargo
-/obj/machinery/quantumpad/cere/security_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_security
-/obj/machinery/quantumpad/cere/security_science
-	preset_target = /obj/machinery/quantumpad/cere/science_security
-/obj/machinery/quantumpad/cere/science_security
-	preset_target = /obj/machinery/quantumpad/cere/security_science
-/obj/machinery/quantumpad/cere/science_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
-/obj/machinery/quantumpad/cere/arrivals_science
-	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
-/obj/machinery/quantumpad/cere/arrivals_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals
-/obj/machinery/quantumpad/cere/security_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_security
-/obj/machinery/quantumpad/cere/medbay_security
-	preset_target = /obj/machinery/quantumpad/cere/security_medbay
-/obj/machinery/quantumpad/cere/medbay_science
-	preset_target = /obj/machinery/quantumpad/cere/science_medbay
-/obj/machinery/quantumpad/cere/science_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_science
-/obj/machinery/quantumpad/cere/arrivals_service
-	preset_target = /obj/machinery/quantumpad/cere/service_arrivals
-/obj/machinery/quantumpad/cere/service_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_service
-/obj/machinery/quantumpad/cere/cargo_service
-	preset_target = /obj/machinery/quantumpad/cere/service_cargo
-/obj/machinery/quantumpad/cere/service_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_service
-
 
 /obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
@@ -63,16 +33,6 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-
-/obj/machinery/quantumpad/cere/Initialize(mapload)
-	. = ..()
-	linked_pad = locate(preset_target)
-
-/obj/machinery/quantumpad/cere/PopulateParts()
-	// No parts in Cere telepads, just hardcode the efficiencies
-	power_efficiency = 4
-	teleport_speed = 10
-	teleport_cooldown = 0
 
 /obj/machinery/quantumpad/Destroy()
 	linked_pad = null
@@ -109,9 +69,9 @@
 			M.set_multitool_buffer(user, src)
 		else
 			linked_pad = M.buffer
-			to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
+			to_chat(user, SPAN_NOTICE("You link [src] to the one in [I]'s buffer."))
 	else
-		to_chat(user, "<span class='notice'>[src]'s target cannot be modified!</span>")
+		to_chat(user, SPAN_NOTICE("[src]'s target cannot be modified!"))
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -122,27 +82,27 @@
 /obj/machinery/quantumpad/proc/check_usable(mob/user)
 	. = FALSE
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
+		to_chat(user, SPAN_WARNING("The panel must be closed before operating this machine!"))
 		return
 
 	if(!linked_pad || QDELETED(linked_pad))
-		to_chat(user, "<span class='warning'>There is no linked pad!</span>")
+		to_chat(user, SPAN_WARNING("There is no linked pad!"))
 		return
 
 	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds.</span>")
+		to_chat(user, SPAN_WARNING("[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds."))
 		return
 
 	if(teleporting)
-		to_chat(user, "<span class='warning'>[src] is charging up. Please wait.</span>")
+		to_chat(user, SPAN_WARNING("[src] is charging up. Please wait."))
 		return
 
 	if(linked_pad.teleporting)
-		to_chat(user, "<span class='warning'>Linked pad is busy. Please wait.</span>")
+		to_chat(user, SPAN_WARNING("Linked pad is busy. Please wait."))
 		return
 
 	if(linked_pad.stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Linked pad is not responding to ping.</span>")
+		to_chat(user, SPAN_WARNING("Linked pad is not responding to ping."))
 		return
 	return TRUE
 
@@ -169,7 +129,7 @@
 	if(GLOB.cameranet && GLOB.cameranet.check_turf_vis(T))
 		AI.eyeobj.set_loc(T)
 	else
-		to_chat(user, "<span class='warning'>Linked pad is not on or near any active cameras on the station.</span>")
+		to_chat(user, SPAN_WARNING("Linked pad is not on or near any active cameras on the station."))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
 	if(!QDELETED(linked_pad))
@@ -201,11 +161,11 @@
 		teleporting = FALSE
 		return
 	if(stat & NOPOWER)
-		to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+		to_chat(user, SPAN_WARNING("[src] is unpowered!"))
 		teleporting = FALSE
 		return
 	if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+		to_chat(user, SPAN_WARNING("Linked pad is not responding to ping. Teleport aborted."))
 		teleporting = FALSE
 		return
 
@@ -232,7 +192,7 @@
 				continue
 		tele_success = do_teleport(ROI, get_turf(linked_pad), do_effect = FALSE)
 	if(!tele_success)
-		to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")
+		to_chat(user, SPAN_WARNING("Teleport failed due to bluespace interference."))
 	src.icon_state = "qpad-idle"
 	linked_pad.icon_state = "qpad-idle"
 

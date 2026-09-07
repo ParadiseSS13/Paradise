@@ -83,3 +83,4 @@
 #define WIRE_DISABLE "Disable"
 #define WIRE_INTERFACE "Interface"
 
+#define ZLVL_BASED_WIRES "Zlvl_based_wires"

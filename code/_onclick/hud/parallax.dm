@@ -288,7 +288,6 @@
 
 /atom/movable/screen/parallax_layer/layer_2
 	icon_state = "layer2"
-	speed = 1
 	layer = 2
 
 /atom/movable/screen/parallax_layer/layer_3

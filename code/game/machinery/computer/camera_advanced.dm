@@ -80,7 +80,7 @@
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	button_overlay_icon_state = "camera_off"
+	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/Activate()
 	if(!target || !iscarbon(target))
@@ -92,7 +92,7 @@
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	button_overlay_icon_state = "camera_jump"
+	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/Activate()
 	if(!target || !iscarbon(target))

@@ -3,6 +3,9 @@
 // M: Mob to mess with
 // flags: See below, bitfield.
 /proc/domutcheck(mob/living/M, flags = 0)
+	if(HAS_TRAIT(M, TRAIT_GENELESS))
+		return
+
 	for(var/mutation_type in GLOB.dna_mutations)
 		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 		if(!M || !M.dna)

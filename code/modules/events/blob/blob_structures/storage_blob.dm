@@ -1,8 +1,6 @@
 /obj/structure/blob/storage
 	name = "storage blob"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
-	max_integrity = 30
 	fire_resist = 2
 	point_return = 12
 

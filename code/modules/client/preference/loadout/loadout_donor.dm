@@ -80,14 +80,12 @@
 	display_name = "Blue flame decal welding helmet"
 	path = /obj/item/clothing/head/welding/flamedecal/blue
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist", "Roboticist")
-	donator_tier = 2
 	cost = 2
 
 /datum/gear/donor/welding_white
 	display_name = "White decal welding helmet"
 	path = /obj/item/clothing/head/welding/white
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist", "Roboticist")
-	donator_tier = 2
 	cost = 2
 
 /datum/gear/donor/fawkes

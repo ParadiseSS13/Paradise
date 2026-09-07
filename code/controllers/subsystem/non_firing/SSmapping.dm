@@ -1,21 +1,35 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING // 9
-	flags = SS_NO_FIRE
+
 	/// What map datum are we using
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
 	/// What map was used last round?
 	var/datum/map/last_map
+	/// The trader shuttle to load at Centcom in late_mapping.
+	var/datum/map_template/shuttle/trader_shuttle_id = /datum/map_template/shuttle/trader/synthetic
+	/// The Gamma Armory shuttle to load at Centcom in late_mapping.
+	var/gamma_armory_shuttle_id = "gamma_armory_base"
+	/// The emergency shuttle to load at Centcom in late_mapping
+	var/emergency_shuttle_id = "emergency_cyb"
 	/// List of all areas that can be accessed via IC means
 	var/list/teleportlocs
 	/// List of all areas that can be accessed via IC and OOC means
 	var/list/ghostteleportlocs
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
-	///What do we have as the lavaland theme today?
+	/// Types of areas that exist on the station this shift
+	var/list/existing_station_areas_types
+
+	/// The type of the Lavaland theme for the next round, if selected.
+	var/next_lavaland_theme
+	/// The type of the current Lavaland theme.
+	var/current_lavaland_theme
+	/// The [/datum/lavaland_theme] instantiated for the current round.
 	var/datum/lavaland_theme/lavaland_theme
+
 	///What primary cave theme we have picked for cave generation today.
 	var/datum/caves_theme/caves_theme
 	// Tells if all maintenance airlocks have emergency access enabled
@@ -30,6 +44,15 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/ruin_placer/space/space_ruins_placer
 	/// Ruin placement manager for lavaland levels.
 	var/datum/ruin_placer/lavaland/lavaland_ruins_placer
+
+	var/num_of_res_levels = 0
+	var/clearing_reserved_turfs = FALSE
+	var/list/datum/turf_reservations //list of turf reservations
+
+	var/list/turf/unused_turfs = list() //Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
+	var/list/used_turfs = list() //list of turf = datum/turf_reservation
+	/// List of lists of turfs to reserve
+	var/list/lists_to_reserve = list()
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -58,6 +81,13 @@ SUBSYSTEM_DEF(mapping)
 		fdel("data/last_map.txt") // Remove to avoid the same map existing forever
 	else
 		last_map = new /datum/map/cerestation // Assume cerestation if non-existent
+	if(fexists("data/next_lavaland_theme.txt"))
+		var/list/lines = file2list("data/next_lavaland_theme.txt")
+		try
+			current_lavaland_theme = text2path(lines[1])
+		catch
+			log_startup_progress("invalid data/next_lavaland_theme.txt, choosing randomly on init")
+		fdel("data/next_lavaland_theme.txt")
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -66,7 +96,9 @@ SUBSYSTEM_DEF(mapping)
 	if(map_datum) // Save which map was this round as the last map
 		var/F = file("data/last_map.txt")
 		F << map_datum.type
-
+	if(next_lavaland_theme)
+		var/F = file("data/next_lavaland_theme.txt")
+		F << "[next_lavaland_theme]"
 
 /datum/controller/subsystem/mapping/Initialize()
 	environments = list()
@@ -74,11 +106,13 @@ SUBSYSTEM_DEF(mapping)
 	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
 	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
 
-	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
-	ASSERT(lavaland_theme_type)
-	lavaland_theme = new lavaland_theme_type
+	if(!current_lavaland_theme)
+		current_lavaland_theme = pick(subtypesof(/datum/lavaland_theme))
+
+	ASSERT(current_lavaland_theme)
+	lavaland_theme = new current_lavaland_theme
 	log_startup_progress("We're in the mood for [lavaland_theme.name] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
-	SSblackbox.record_feedback("text", "procgen_settings", 1, "[lavaland_theme_type]")
+	SSblackbox.record_feedback("text", "procgen_settings", 1, "[current_lavaland_theme]")
 
 	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
 	ASSERT(caves_theme_type)
@@ -92,14 +126,7 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	// Load lavaland
-	loadLavaland()
-
-	// Seed space ruins
-	if(GLOB.configuration.ruins.enable_space_ruins)
-		handleRuins()
-	else
-		log_startup_progress("Skipping space ruins...")
+	generate_zlevels()
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
 #ifdef GAME_TESTS
@@ -109,24 +136,8 @@ SUBSYSTEM_DEF(mapping)
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = empty_z_traits)
-
-	// Setup the Z-level linkage
-	GLOB.space_manager.do_transition_setup()
-
-	if(GLOB.configuration.ruins.enable_lavaland)
-		// Spawn Lavaland ruins and rivers.
-		log_startup_progress("Populating lavaland...")
-		var/lavaland_setup_timer = start_watch()
-		lavaland_ruins_placer = new()
-		lavaland_ruins_placer.place_ruins(list(level_name_to_num(MINING)))
-		if(lavaland_theme)
-			lavaland_theme.setup()
-		if(caves_theme)
-			caves_theme.setup()
-		var/time_spent = stop_watch(lavaland_setup_timer)
-		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
-	else
-		log_startup_progress("Skipping lavaland ruins...")
+	// Add a reserved z-level for shuttle transit
+	add_reservation_zlevel(required_traits = list(TCOMM_RELAY_ALWAYS))
 
 	// Now we make a list of areas for teleport locs
 	// Located below is some of the worst code I've ever seen
@@ -169,6 +180,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
+	existing_station_areas_types = list()
 	for(var/area/AR as anything in all_areas)
 		var/list/pickable_turfs = list()
 		for(var/turf/turfs in AR)
@@ -177,6 +189,7 @@ SUBSYSTEM_DEF(mapping)
 		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR
+			existing_station_areas_types += AR.type
 		CHECK_TICK
 
 	// World name
@@ -189,6 +202,24 @@ SUBSYSTEM_DEF(mapping)
 		generate_themed_messes(subtypesof(/obj/effect/spawner/themed_mess) - /obj/effect/spawner/themed_mess/party)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		generate_themed_messes(list(/obj/effect/spawner/themed_mess/party))
+
+/datum/controller/subsystem/mapping/proc/generate_zlevels()
+	generate_space_zlevels()
+	generate_lavaland_zlevels()
+
+	// Setup the Z-level linkage
+	GLOB.space_manager.do_transition_setup()
+
+	// Seed ruins
+	if(GLOB.configuration.ruins.enable_ruins)
+		place_lavaland_ruins()
+		place_space_ruins()
+	else
+		log_startup_progress("Skipping z-level content...")
+
+	// Perform procedural generation for lavaland rivers and caves, which
+	// happens after ruin placement.
+	procgen_lavaland()
 
 /datum/controller/subsystem/mapping/proc/seed_space_salvage(space_z_levels)
 	log_startup_progress("Seeding space salvage...")
@@ -243,26 +274,58 @@ SUBSYSTEM_DEF(mapping)
 
 	log_startup_progress("Successfully seeded space salvage in [stop_watch(space_salvage_timer)]s.")
 
-// Do not confuse with seedRuins()
-/datum/controller/subsystem/mapping/proc/handleRuins()
-	// load in extra levels of space ruins
-	var/load_zlevels_timer = start_watch()
-	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
-	for(var/i in 1 to num_extra_space)
-		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
+/datum/controller/subsystem/mapping/proc/generate_space_zlevels()
+	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_space_zlevels, GLOB.configuration.ruins.maximum_space_zlevels)
+	if(!GLOB.configuration.ruins.enable_space || zlevel_count == 0)
+		log_startup_progress("Skipping space levels...")
+		return
+
+	var/watch = start_watch()
+	log_startup_progress("Adding space levels...")
+	for(var/i in 1 to zlevel_count)
+		GLOB.space_manager.add_new_zlevel(
+			"Ruin Area #[i]",
+			linkage = CROSSLINKED,
+			traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY),
+			transition_tag = TRANSITION_TAG_SPACE
+		)
 		CHECK_TICK
 
-	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
+	log_startup_progress("Added [zlevel_count] space levels in [stop_watch(watch)]s.")
 
-	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
-	// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
-	// Note that this budget is not split evenly accross all zlevels
-	log_startup_progress("Seeding ruins...")
-	var/seed_ruins_timer = start_watch()
+/datum/controller/subsystem/mapping/proc/generate_lavaland_zlevels()
+	var/zlevel_count = rand(GLOB.configuration.ruins.minimum_lavaland_zlevels, GLOB.configuration.ruins.maximum_lavaland_zlevels)
+	if(!GLOB.configuration.ruins.enable_lavaland || zlevel_count == 0)
+		log_startup_progress("Skipping lavaland levels...")
+		return
+
+	log_startup_progress("Loading lavaland...")
+	var/watch = start_watch()
+	for(var/i in 1 to zlevel_count)
+		var/lavaland_zlevel = GLOB.space_manager.add_new_zlevel(
+			"LAVALAND[i]",
+			linkage = CROSSLINKED,
+			traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK),
+			transition_tag = TRANSITION_TAG_LAVALAND,
+			level_type = /datum/space_level/lavaland
+		)
+		GLOB.maploader.load_map(file("_maps/map_files/generic/lavaland_baselayer.dmm"), z_offset = lavaland_zlevel)
+		CHECK_TICK
+	log_startup_progress("Added [zlevel_count] lavaland levels in [stop_watch(watch)]s")
+
+/datum/controller/subsystem/mapping/proc/place_lavaland_ruins()
+	log_startup_progress("Placing lavaland ruins...")
+	var/watch = start_watch()
+	lavaland_ruins_placer = new()
+	lavaland_ruins_placer.place_ruins(levels_by_trait(ORE_LEVEL))
+	log_startup_progress("Placed lavaland ruins in [stop_watch(watch)]s.")
+
+/datum/controller/subsystem/mapping/proc/place_space_ruins()
+	log_startup_progress("Placing space ruins...")
+	var/watch = start_watch()
 	space_ruins_placer = new()
 	space_ruins_placer.place_ruins(levels_by_trait(SPAWN_RUINS))
-	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+	log_startup_progress("Placed space ruins in [stop_watch(watch)]s.")
 	seed_space_salvage(levels_by_trait(SPAWN_RUINS))
 
 // Loads in the station
@@ -273,18 +336,23 @@ SUBSYSTEM_DEF(mapping)
 		if(map_datum_path)
 			map_datum = new map_datum_path
 		else
-			to_chat(world, "<span class='narsie'>ERROR: The map datum specified to load is invalid. Falling back to... cyberiad probably?</span>")
+			to_chat(world, SPAN_NARSIE("ERROR: The map datum specified to load is invalid. Falling back to... cyberiad probably?"))
 
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
 		// Make a VERY OBVIOUS error
-		to_chat(world, "<span class='narsie'>ERROR: The path specified for the map to load is invalid. No station has been loaded!</span>")
+		to_chat(world, SPAN_NARSIE("ERROR: The path specified for the map to load is invalid. No station has been loaded!"))
 		return
 
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK))
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(
+		MAIN_STATION,
+		linkage = CROSSLINKED,
+		traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
+		transition_tag = TRANSITION_TAG_SPACE
+	)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
@@ -298,16 +366,14 @@ SUBSYSTEM_DEF(mapping)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
 
-// Loads in lavaland
-/datum/controller/subsystem/mapping/proc/loadLavaland()
-	if(!GLOB.configuration.ruins.enable_lavaland)
-		log_startup_progress("Skipping Lavaland...")
-		return
-	var/watch = start_watch()
-	log_startup_progress("Loading Lavaland...")
-	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
-	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
-	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
+/datum/controller/subsystem/mapping/proc/procgen_lavaland()
+	var/theme_watch = start_watch()
+	log_startup_progress("Loading lavaland themes...")
+	if(lavaland_theme)
+		lavaland_theme.setup()
+	if(caves_theme)
+		caves_theme.setup()
+	log_startup_progress("Loaded lavaland themes in [stop_watch(theme_watch)]s")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
 	for(var/area/station/maintenance/A in existing_station_areas)
@@ -346,4 +412,127 @@ SUBSYSTEM_DEF(mapping)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))
 
 /datum/controller/subsystem/mapping/Recover()
-	flags |= SS_NO_INIT
+	num_of_res_levels = SSmapping.num_of_res_levels
+	clearing_reserved_turfs = SSmapping.clearing_reserved_turfs
+	turf_reservations = SSmapping.turf_reservations
+	unused_turfs = SSmapping.unused_turfs
+	used_turfs = SSmapping.used_turfs
+	lists_to_reserve = SSmapping.lists_to_reserve
+
+/datum/controller/subsystem/mapping/proc/get_reservation_from_turf(turf/T)
+	RETURN_TYPE(/datum/turf_reservation)
+	return used_turfs[T]
+
+/// Requests a /datum/turf_reservation based on the given width, height.
+/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(width, height, reservation_type = /datum/turf_reservation, turf_type_override)
+	UNTIL(!clearing_reserved_turfs)
+	log_debug("Reserving [width]x[height] turf reservation")
+	var/datum/turf_reservation/reserve = new reservation_type
+	if(!isnull(turf_type_override))
+		reserve.turf_type = turf_type_override
+	var/list/required_traits = reserve.required_traits | Z_FLAG_RESERVED
+	for(var/z in GLOB.space_manager.z_list)
+		var/datum/space_level/level = GLOB.space_manager.z_list[z]
+		if(!level.has_all_traits(required_traits))
+			continue
+		if(reserve.reserve(width, height, z))
+			return reserve
+	//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
+	var/z_level_num = add_reservation_zlevel(required_traits)
+	if(reserve.reserve(width, height, z_level_num))
+		return reserve
+	qdel(reserve)
+
+/datum/controller/subsystem/mapping/proc/add_reservation_zlevel(list/required_traits = list())
+	required_traits |= list(Z_FLAG_RESERVED, BLOCK_TELEPORT, IMPEDES_MAGIC)
+	num_of_res_levels++
+	// . here is the z of the just added z-level
+	. = GLOB.space_manager.add_new_zlevel("Transit/Reserved #[num_of_res_levels]", traits = required_traits)
+	initialize_reserved_level(.)
+	if(!initialized)
+		return
+	if(length(SSidlenpcpool.idle_mobs_by_zlevel) == . || !islist(SSidlenpcpool.idle_mobs_by_zlevel)) // arbitrary chosen from these lists that require the length of the z-levels
+		return
+	LISTASSERTLEN(SSidlenpcpool.idle_mobs_by_zlevel, ., list())
+	LISTASSERTLEN(SSmobs.clients_by_zlevel, ., list())
+	LISTASSERTLEN(SSmobs.dead_players_by_zlevel, ., list())
+
+///Sets up a z level as reserved
+///This is not for wiping reserved levels, use wipe_reservations() for that.
+///If this is called after SSatom init, it will call Initialize on all turfs on the passed z, as its name promises
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
+	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
+	log_debug("Initializing new reserved Z-level")
+	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
+	if(!check_level_trait(z, Z_FLAG_RESERVED))
+		clearing_reserved_turfs = FALSE
+		CRASH("Invalid z level prepared for reservations.")
+	var/block = block(SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, z, world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER)
+	for(var/turf/T as anything in block)
+		// No need to empty() these, because they just got created and are already /turf/space.
+		T.turf_flags |= UNUSED_RESERVATION_TURF
+		CHECK_TICK
+
+	// Gotta create these suckers if we've not done so already
+	if(SSatoms.initialized)
+		SSatoms.InitializeAtoms(block(1, 1, world.maxx, world.maxy, z), FALSE)
+
+	unused_turfs["[z]"] = block
+	clearing_reserved_turfs = FALSE
+
+// TODO: Firing in a non-fire folder... Someone needs to move this file someday.
+/datum/controller/subsystem/mapping/fire(resumed)
+	// Cache for sonic speed
+	var/list/list/turf/unused_turfs = src.unused_turfs
+	var/list/world_contents = GLOB.all_unique_areas[world.area].contents
+	// var/list/world_turf_contents_by_z = GLOB.all_unique_areas[world.area].turfs_by_zlevel
+	var/list/lists_to_reserve = src.lists_to_reserve
+	var/index = 0
+	while(index < length(lists_to_reserve))
+		var/list/packet = lists_to_reserve[index + 1]
+		var/packetlen = length(packet)
+		while(packetlen)
+			if(MC_TICK_CHECK)
+				if(index)
+					lists_to_reserve.Cut(1, index)
+				return
+			var/turf/reserving_turf = packet[packetlen]
+			reserving_turf.empty(/turf/space)
+			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
+			if(!(reserving_turf in unused_turfs["[reserving_turf.z]"]))
+				unused_turfs["[reserving_turf.z]"].Insert(1, reserving_turf)
+			reserving_turf.turf_flags = UNUSED_RESERVATION_TURF
+
+			world_contents += reserving_turf
+			packet.len--
+			packetlen = length(packet)
+
+		index++
+	lists_to_reserve.Cut(1, index)
+
+/**
+ * Lazy loads a template on a lazy-loaded z-level.
+ */
+/datum/controller/subsystem/mapping/proc/lazy_load_template(datum/map_template/template)
+	RETURN_TYPE(/datum/turf_reservation)
+
+	UNTIL(initialized)
+	var/static/lazy_loading = FALSE
+	UNTIL(!lazy_loading)
+
+	lazy_loading = TRUE
+	. = _lazy_load_template(template)
+	lazy_loading = FALSE
+
+/datum/controller/subsystem/mapping/proc/_lazy_load_template(datum/map_template/template)
+	PRIVATE_PROC(TRUE)
+	var/datum/turf_reservation/reservation = request_turf_block_reservation(template.width, template.height)
+	if(!istype(reservation))
+		return
+
+	template.load(reservation.bottom_left_turf)
+	return reservation
+
+/// Schedules a group of turfs to be handed back to the reservation system's control
+/datum/controller/subsystem/mapping/proc/unreserve_turfs(list/turfs)
+	lists_to_reserve += list(turfs)

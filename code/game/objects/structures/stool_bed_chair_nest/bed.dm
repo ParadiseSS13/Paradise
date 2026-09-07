@@ -14,7 +14,6 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
-	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -28,7 +27,7 @@
 
 /obj/structure/bed/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.</span>"
+	. += SPAN_NOTICE("Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.")
 
 /obj/structure/bed/attack_hand(mob/user)
 	if(user.Move_Pulled(src))
@@ -53,7 +52,7 @@
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -104,15 +103,15 @@
 
 	// nighty night
 	target.visible_message(
-		"<span class='danger'>[attacker] puts [target] to bed!</span>",
-		"<span class='userdanger'>[attacker] shoves you under the covers, and you're out like a light!</span>",
-		"<span class='notice'>You hear someone getting into bed.</span>"
+		SPAN_DANGER("[attacker] puts [target] to bed!"),
+		SPAN_USERDANGER("[attacker] shoves you under the covers, and you're out like a light!"),
+		SPAN_NOTICE("You hear someone getting into bed.")
 	)
 
 	if(sleep_ratio > 1)
 		target.visible_message(
-			"<span class='notice'>[target] seems especially cozy...[target.p_they()] probably won't be up for a while.</span>",
-			"<span class='notice'>You feel so cozy, you could probably stay here for a while...</span>"
+			SPAN_NOTICE("[target] seems especially cozy...[target.p_they()] probably won't be up for a while."),
+			SPAN_NOTICE("You feel so cozy, you could probably stay here for a while...")
 		)
 
 	target.forceMove(loc)
@@ -127,6 +126,26 @@
 			viewer.emote("yawn")
 
 	return TRUE
+
+/obj/structure/bed/wood
+	name = "wooden slab"
+	desc = "It looks even less comfortable than the floor it's built on..."
+	icon_state = "bed_wood"
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
+
+/obj/structure/bed/dirty
+	name = "dirty mattress"
+	desc = "An old, filthy mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress"
+	comfort = 0.5
+	buildstackamount = 5
+
+/obj/structure/bed/dirty/double
+	name = "large dirty mattress"
+	desc = "An old, filthy king-sized mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress_large"
+	buildstackamount = 10
 
 /*
  * Roller beds
@@ -145,20 +164,28 @@
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
-/obj/structure/bed/roller/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
 				unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
+				user.visible_message(SPAN_NOTICE("[user] unbuckles all creatures from [src]."))
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
 		else
-			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+			user.visible_message(SPAN_NOTICE("[user] collapses \the [name]."), SPAN_NOTICE("You collapse \the [name]."))
 			new folded(get_turf(src))
 			qdel(src)
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
+
+/obj/structure/bed/roller/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
@@ -183,30 +210,28 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 5000)
+	new_attack_chain = TRUE
 	var/extended = /obj/structure/bed/roller
 
-/obj/item/roller/attack_self__legacy__attackchain(mob/user)
+/obj/item/roller/activate_self(mob/user)
+	if(..())
+		return
+
 	var/obj/structure/bed/roller/R = new extended(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/item/roller/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
-	if(isturf(target))
-		var/turf/T = target
-		if(!T.density)
-			var/obj/structure/bed/roller/R = new extended(T)
-			R.add_fingerprint(user)
-			qdel(src)
+/obj/item/roller/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isturf(target))
+		return ..()
 
-/obj/item/roller/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/roller_holder))
-		var/obj/item/roller_holder/RH = W
-		if(!RH.held)
-			user.visible_message("<span class='notice'>[user] collects \the [name].</span>", "<span class='notice'>You collect \the [name].</span>")
-			forceMove(RH)
-			RH.held = src
+	var/turf/T = target
+	if(!T.density)
+		var/obj/structure/bed/roller/R = new extended(T)
+		R.add_fingerprint(user)
+		qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/roller/holo
 	name = "holo stretcher"
@@ -214,10 +239,8 @@
 	icon_state = "holo_retracted"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	extended = /obj/structure/bed/roller/holo
-
-/obj/item/roller/holo/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	return
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
@@ -225,7 +248,7 @@
 			return
 		if(has_buckled_mobs())
 			return 0
-		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+		usr.visible_message(SPAN_NOTICE("[usr] collapses \the [name]."), SPAN_NOTICE("You collapse \the [name]."))
 		new folded(get_turf(src))
 		qdel(src)
 		return
@@ -236,21 +259,58 @@
 	desc = "A rack for carrying a collapsed roller bed."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
+	new_attack_chain = TRUE
 	var/obj/item/roller/held
+	var/obj/carry_holo = FALSE
 
-/obj/item/roller_holder/New()
-	..()
-	held = new /obj/item/roller(src)
+/obj/item/roller_holder/Initialize(mapload)
+	. = ..()
+	create_roller()
 
-/obj/item/roller_holder/attack_self__legacy__attackchain(mob/user as mob)
-	if(!held)
-		to_chat(user, "<span class='notice'>The rack is empty.</span>")
+/obj/item/roller_holder/proc/create_roller()
+	held = new(src)
+
+/obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/roller))
+		return ..()
+
+	if(istype(target, /obj/item/roller/holo) && !carry_holo)
+		return ITEM_INTERACT_COMPLETE
+
+	if(held)
+		to_chat(user, SPAN_WARNING("[src] is already full!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/roller/bed = target
+	user.visible_message(
+		SPAN_NOTICE("[user] collects [target]."),
+		SPAN_NOTICE("You collect [target].")
+	)
+	bed.forceMove(src)
+	held = target
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/roller_holder/activate_self(mob/user)
+	if(..())
 		return
 
-	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
+	if(!held)
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You deploy [held]."))
+	var/obj/structure/bed/roller/R = new held.extended(user.loc)
 	R.add_fingerprint(user)
 	QDEL_NULL(held)
+
+/obj/item/roller_holder/holo
+	name = "holo stretcher rack"
+	desc = "A rack for carrying an undeployed holo stretcher. It can also support a basic roller bed in a pinch."
+	icon_state = "holo_retracted"
+	carry_holo = TRUE
+
+/obj/item/roller_holder/holo/create_roller()
+	held = new /obj/item/roller/holo(src)
 
 /*
  * Dog beds
