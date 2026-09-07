@@ -24,6 +24,14 @@
 		return FALSE
 	if(!ishuman(the_target) || LAZYACCESS(my_controller.blackboard[BB_TEMPORARY_IGNORE_LIST], the_target))
 		return FALSE
+	if(!can_see(living_mob, the_target, vision_range)) // We can't see em, so quit it
+		return FALSE
+	if(living_mob.see_invisible < the_target.invisibility) //Target's invisible to us, forget it
+		return FALSE
+	if(!isturf(living_mob.loc)) // Not on a turf
+		return FALSE
+	if(isturf(the_target.loc) && living_mob.z != the_target.z || iseffect(the_target.loc)) // Handles mechs and the like
+		return FALSE
 	var/mob/living/carbon/human/human_target = the_target
 	if(human_target.handcuffed || human_target.stat != CONSCIOUS)
 		return FALSE
