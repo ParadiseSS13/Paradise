@@ -1770,7 +1770,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Kidnap Pet"
 	martyr_compatible = TRUE
 	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
-	needed_item = /obj/item/wormhole_jaunter/kidnap
+	needed_item = /obj/item/storage/box/syndie_kit/arc_kidnap_kit
 
 /datum/objective/unique_objective/kidnap_pet/update_explanation_text()
 	if(target)

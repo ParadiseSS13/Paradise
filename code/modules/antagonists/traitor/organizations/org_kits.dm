@@ -52,3 +52,20 @@
 		3. Stand back and watch!<br> \
 		The chemicals are highly experimental, so it's likely to have some side effects. <br> \
 		Feel free to take notes!"
+
+/obj/item/storage/box/syndie_kit/arc_kidnap_kit
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/arc_kidnap_kit/populate_contents()
+	new /obj/item/wormhole_jaunter/kidnap
+
+/obj/item/paper/guides/antag/pet_kidnapping
+	info = "<b>Freeing Station Pets</b><hr /> \
+		Congratulations, agent! You've been chosen to free one of the station's pets from Nanotrasen's cruel ownership. Here's how to do it:<br> \
+		1. Acquire your target.<br> \
+		2. Proceed to one of the extraction locations inscribed on the flare included in this box.<br>\
+		3. Light the flare. The portal will take 30 seconds to calibrate.<br> \
+		4. Place the target into the portal.<br> \
+		The pet will be taken care of.<br> \
+		WARNING: The portal will only remain for 30 seconds. Do not lose the flare, and do not take too long."
