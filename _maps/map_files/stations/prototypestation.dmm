@@ -2672,6 +2672,10 @@
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
+"xi" = (
+/obj/effect/spawner/random/avernus_monsters,
+/turf/simulated/floor/iceplanet/snow,
+/area/iceplanet/surface)
 "xk" = (
 /obj/structure/table/reinforced,
 /obj/machinery/camera{
@@ -4150,6 +4154,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
+"Jf" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/avernus_topside,
+/turf/simulated/floor/iceplanet/snow,
+/area/iceplanet/surface)
 "Jn" = (
 /turf/simulated/wall,
 /area/station/service/clown)
@@ -74885,6 +74893,7 @@ Xb
 Xb
 Xb
 Xb
+xi
 Xb
 Xb
 Xb
@@ -75093,8 +75102,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -77194,7 +77202,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -77670,7 +77678,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -78729,7 +78737,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -80246,7 +80254,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -80994,7 +81002,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+Jf
 Xb
 Xb
 Xb
@@ -102630,7 +102638,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -103624,7 +103632,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+Jf
 Xb
 Xb
 Xb
@@ -104175,7 +104183,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -106228,7 +106236,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -113398,7 +113406,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -116221,7 +116229,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -117508,7 +117516,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -124424,7 +124432,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+Jf
 Xb
 Xb
 Xb
@@ -125790,7 +125798,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+Jf
 Xb
 Xb
 Xb
@@ -128525,7 +128533,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -130073,7 +130081,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
@@ -130837,7 +130845,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
+xi
 Xb
 Xb
 Xb
