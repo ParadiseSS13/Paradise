@@ -38,7 +38,7 @@
 /// Amount to repair a flock construct.
 #define FLOCK_SUBSTRATE_COST_REPAIR 10
 /// BASE amount to lay an egg.
-#define FLOCK_SUBSTRATE_COST_LAY_EGG 100
+#define FLOCK_SUBSTRATE_COST_LAY_EGG 150
 
 /// Egg cost does not start scaling until there are this many drones.
 #define FLOCK_MIN_DESIRED_POP 6
