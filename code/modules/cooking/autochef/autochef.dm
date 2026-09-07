@@ -248,3 +248,19 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	var/datum/autochef_task/current_task = task_queue[1]
 	current_task.current_state = AUTOCHEF_ACT_INTERRUPTED
 	set_display("screen-error")
+
+/obj/machinery/autochef/upgraded
+
+/obj/machinery/autochef/upgraded/Initialize(mapload)
+	. = ..()
+
+	makeSpeedProcess()
+
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/autochef(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+
+	RefreshParts()
