@@ -83,7 +83,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id = deepmaintsrobolab
+	id = "deepmaintsrobolab"
 	},
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
@@ -135,7 +135,7 @@
 /area/template_noop)
 "er" = (
 /obj/machinery/conveyor{
-	id = deepmaintsprocessing;
+	id = "deepmaintsprocessing";
 	dir = 8
 	},
 /obj/effect/spawner/random/dirt/frequent,
@@ -297,7 +297,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id = deepmaintsrobolab
+	id = "deepmaintsrobolab"
 	},
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
@@ -402,7 +402,7 @@
 /area/template_noop)
 "mt" = (
 /obj/machinery/conveyor{
-	id = deepmaintsprocessing;
+	id = "deepmaintsprocessing";
 	dir = 8
 	},
 /obj/machinery/mineral/processing_unit{
@@ -414,7 +414,7 @@
 "na" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id = deepmaintsrobolab
+	id = "deepmaintsrobolab"
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/catwalk/black,
@@ -628,7 +628,7 @@
 /area/template_noop)
 "sz" = (
 /obj/machinery/conveyor{
-	id = deepmaintsprocessing
+	id = "deepmaintsprocessing"
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
@@ -838,7 +838,7 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id = deepmaintsrobolab
+	id = "deepmaintsrobolab"
 	},
 /turf/simulated/floor/catwalk/black,
 /area/template_noop)
@@ -1028,7 +1028,7 @@
 /area/template_noop)
 "FH" = (
 /obj/machinery/conveyor{
-	id = deepmaintsprocessing;
+	id = "deepmaintsprocessing";
 	dir = 10
 	},
 /obj/effect/spawner/random/dirt/frequent,
