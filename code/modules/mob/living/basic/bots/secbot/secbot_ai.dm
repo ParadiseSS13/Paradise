@@ -26,7 +26,7 @@
 		return FALSE
 	if(!can_see(living_mob, the_target, vision_range)) // We can't see em, so quit it
 		return FALSE
-	if(living_mob.see_invisible < the_target.invisibility) //Target's invisible to us, forget it
+	if(living_mob.see_invisible < the_target.invisibility) // Target's invisible to us, forget it
 		return FALSE
 	if(!isturf(living_mob.loc)) // Not on a turf
 		return FALSE

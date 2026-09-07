@@ -146,7 +146,6 @@
 	var/static/list/hat_offsets = list(4,-9)
 	var/static/list/remove_hat = list(SIGNAL_ADDTRAIT(TRAIT_MOB_TIPPED))
 	var/static/list/prevent_checks = list(TRAIT_MOB_TIPPED)
-	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack), TRUE)
 
 	update_appearance()
 	if(prob(50))
@@ -274,9 +273,7 @@
 		return
 	speak(pick(untipped_announcements))
 
-/mob/living/basic/bot/medbot/proc/pre_attack(mob/living/puncher, atom/target)
-	SIGNAL_HANDLER
-
+/mob/living/basic/bot/medbot/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(!iscarbon(target))
