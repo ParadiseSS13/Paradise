@@ -1575,6 +1575,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(is_station_level((get_turf(src)).z))
 		return list(ASSIGNMENT_CREW = 1)
 
+/atom/MouseEntered(location, control, params)
+	SSmouse_entered.hovers[usr.client] = src
+
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.
 /// Especially because this is deferred over a tick, do not trust that `client` is not null.
@@ -1592,7 +1595,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
 	var/screentip_mode = user.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS) || isturf(src))
 		active_hud.screentip_text.maptext = ""
 		return
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
