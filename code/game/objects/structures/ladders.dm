@@ -2,11 +2,9 @@
 /obj/structure/ladder
 	name = "ladder"
 	desc = "A sturdy metal ladder."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "ladder11"
 	base_icon_state = "ladder"
 	anchored = TRUE
-	can_be_hit = TRUE
 	///the ladder below this one
 	VAR_FINAL/obj/structure/ladder/down
 	///the ladder above this one

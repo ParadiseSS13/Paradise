@@ -20,7 +20,6 @@ GLOBAL_LIST_EMPTY(avernus_shieldgens)
 	name = ""
 	icon = 'icons/obj/structures/streetbulb.dmi'
 	icon_state = "bulb_on"
-	light_power = 1
 	light_color = "#6a8edd"
 	light_range = 6
 

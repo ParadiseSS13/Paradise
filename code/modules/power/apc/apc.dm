@@ -1170,8 +1170,6 @@
 	. = ..()
 
 /obj/machinery/power/apc/autoattach/deepmaints
-	emergency_power = TRUE
-	operating = TRUE
 	emergency_power_off_duration = 3 HOURS
 	cell_type = 0
 

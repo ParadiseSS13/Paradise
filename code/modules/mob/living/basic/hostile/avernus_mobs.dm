@@ -15,7 +15,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
 	faction = list("avernus")
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/basic/diyaab
 	name = "diyaab"
@@ -34,7 +33,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
 	faction = list("avernus")
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/basic/shantak
 	name = "shantak"
@@ -53,7 +51,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
 	faction = list("avernus")
-	gold_core_spawnable = NO_SPAWN
 
 /obj/effect/spawner/random/avernus_monsters
 	spawn_loot_chance = 50

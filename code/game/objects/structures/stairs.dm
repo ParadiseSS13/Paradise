@@ -33,7 +33,7 @@
 	dir = NORTH
 
 /obj/structure/stairs/south
-	dir = SOUTH
+	// direction set on parent
 
 /obj/structure/stairs/east
 	dir = EAST
