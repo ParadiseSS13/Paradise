@@ -117,7 +117,7 @@
 	var/drained_energy = drained_hp*20
 
 	if(source_area)
-		source_area.powernet.use_active_power(drained_energy / GLOB.CELLRATE)
+		source_area.powernet.use_active_power(PW_CHANNEL_EQUIPMENT, drained_energy / GLOB.CELLRATE)
 	else if(istype(power_source, /datum/regional_powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.queued_power_demand += (min(drained_power, max(PN.queued_power_production - PN.queued_power_demand, 0)))

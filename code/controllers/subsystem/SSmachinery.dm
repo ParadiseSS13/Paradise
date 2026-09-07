@@ -94,6 +94,10 @@ SUBSYSTEM_DEF(machines)
 		if(MC_TICK_CHECK)
 			return
 
+USER_VERB(powernet_debugger, R_DEBUG|R_VAREDIT, "Powernet Debugger", "Get Debug Information about Local/Regional Powernets in the World", VERB_CATEGORY_DEBUG)
+	var/datum/ui_module/powernet_debugger/P = new()
+	P.ui_interact(client.mob)
+
 /datum/controller/subsystem/machines/proc/process_powernets(resumed = 0)
 	if(!resumed)
 		src.currentrun = powernets.Copy()

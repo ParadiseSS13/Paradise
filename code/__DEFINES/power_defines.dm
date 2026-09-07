@@ -10,6 +10,9 @@
 /// Local powernet in this area will always have power even if its not recieving power
 #define PW_ALWAYS_POWERED         (1 << 1)
 
+/// Max number of entries kept in a local powernet's debug log before the oldest are trimmed (see /datum/local_powernet/proc/log_powernet)
+#define POWERNET_LOG_MAX_ENTRIES 200
+
 /// roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
 #define MACHINE_FLICKER_CHANCE 0.05
 
