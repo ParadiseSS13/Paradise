@@ -402,7 +402,7 @@
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)
 		safety = 0
-		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+		to_chat(user, SPAN_WARNING("You silently fry [src]'s vocal circuit with the cryptographic sequencer."))
 		return TRUE
 	else
 		return
