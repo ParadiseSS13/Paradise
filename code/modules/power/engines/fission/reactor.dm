@@ -370,7 +370,7 @@
 
 		user.visible_message(
 			SPAN_NOTICE("[user] repairs some damage on [src]."),
-			SPAN_NOTICE("You repair some some damage on [src].")		
+			SPAN_NOTICE("You repair some damage on [src].")		
 		)		
 		plastitanium.use(5)
 		adjust_damage((-MELTDOWN_POINT * 0.1))
@@ -502,7 +502,7 @@
 		to_chat(user, SPAN_WARNING("You don't need to re-secure any of the control rods right now."))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You don't see anything that you that you can wrench right now."))
+	to_chat(user, SPAN_WARNING("You don't see anything that you can wrench right now."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
@@ -513,7 +513,7 @@
 			set_fixed()
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You don't see anything that you that you can screw right now."))
+	to_chat(user, SPAN_WARNING("You don't see anything that you can screw right now."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/welder_act(mob/living/user, obj/item/I)
