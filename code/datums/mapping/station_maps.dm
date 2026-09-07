@@ -66,6 +66,13 @@
 		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, AI_OK, ZTRAIT_UPPER_LEVEL),
 	)
 
+/datum/map/omegastation
+	fluff_name = "NSS Legaria"
+	technical_name = "OmegaStation"
+	map_path = "_maps/map_files/stations/omegastation.dmm"
+	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/omegastation/"
+	max_players_random = 25
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"
