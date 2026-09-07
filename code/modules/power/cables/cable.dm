@@ -544,7 +544,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/datum/space_level/opposing
 	if(ZTRAIT_LOWER_LEVEL in current.flags)
 		opposing = GLOB.space_manager.get_zlev_by_trait(ZTRAIT_UPPER_LEVEL)
-	else if (ZTRAIT_UPPER_LEVEL in current.flags)
+	else if(ZTRAIT_UPPER_LEVEL in current.flags)
 		opposing = GLOB.space_manager.get_zlev_by_trait(ZTRAIT_LOWER_LEVEL)
 	if(!istype(opposing))
 		return
