@@ -1,3 +1,14 @@
+#define VULP "vulpkanin"
+#define UNATHI "unathi"
+#define TAJARAN "tajaran"
+#define SKRELL "skrell"
+#define DIONA "diona"
+#define NIAN "nian"
+#define DRASK "drask"
+#define GREY "grey"
+#define KIDAN "kidan"
+#define HUMAN "human"
+
 /obj/item/epidermal_applicator
 	name = "epidermal applicator"
 	desc = "A pen-shaped device developed by Zeng-Hu Pharmaceuticals and used to apply synthetic skin to prosthetic limbs."
@@ -15,9 +26,9 @@
 
 	var/applying = FALSE
 	/// The species the body part will look like, default is human
-	var/datum/species/chosen_species = "human" // Default species
+	var/datum/species/chosen_species // Default species
 	/// List of species to choose a body part to look like
-	var/list/available_species_datums = list(
+	var/list/available_species = list(
 		"human" = /datum/species/human,
 		"unathi" = /datum/species/unathi,
 		"vulpkanin" = /datum/species/vulpkanin,
@@ -30,20 +41,12 @@
 		"kidan" = /datum/species/kidan,
 	) // Species not included are special
 
-	var/list/available_species_carbons = list(
-
-
-
-		
-	)
-
 	//MARK: JOHN DEBUG HERE TO LET YOU KNOW
 	/*
 	to_chat(YOU, SPAN_BOLDANNOUNCEIC("John debug here to let you know the following:[var1], [var2]"))
 	*/
-	var/list/human_skin_tones = list() //FOR DEBUG PURPOSES
+
 	var/chosen_skin_tone = null //FOR DEBUG PURPOSES
-	var/datum/species/human/H = null //FOR DEBUG PURPOSES
 
 /obj/item/epidermal_applicator/Initialize(mapload)
 	. = ..()
@@ -82,12 +85,16 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/epidermal_applicator/AltClick(mob/user, modifiers)
-	chosen_species = tgui_input_list(user, "Select a species to look like:", "Species Selection", available_species)
-	if(chosen_species.dna.species.bodyflags & HAS_SKIN_TONE)
-		if(chosen_species == "human")
-			var/datum/species/human/H = chosen_species
-		human_skin_tones = H.icon_skin_tones
-		chosen_skin_tone = tgui_input_list(user, "Select a skin tone:", "Skin Tone Selection", H.icon_skin_tones)
+	chosen_species = tgui_input_list(user, "Select a species to look like:", "Species Selection", available_species, HUMAN)
+	if(chosen_species.bodyflags & HAS_ICON_SKIN_TONE) // HAS_ICON_SKIN_TONE = human, moth, gray.
+		var/skin_tone_max = length(chosen_species.icon_skin_tones)
+		chosen_skin_tone = tgui_input_number(user, "Select a skin tone: 1-[skin_tone_max] [chosen_species == HUMAN ? "(light to dark)" : ""] ", "Skin Tone Selection", 1, skin_tone_max, 1) // I FUCKING LOVE TURNARY OPERATORS.
+	if(chosen_species.bodyflags & HAS_SKIN_TONE) // HAS_SKIN_TONE = drask.
+		chosen_skin_tone = tgui_input_number(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference", 1, 220, 1)
+
+
+
+
 
 /obj/item/epidermal_applicator/activate_self(mob/user)
 	. = ..()
@@ -246,3 +253,13 @@
 			to_chat(target, SPAN_NOTICE("You feel a thin layer of synthetic skin form over your [affected.name]."))
 
 	applying = FALSE
+
+#undef VULP
+#undef UNATHI
+#undef TAJARAN
+#undef SKRELL
+#undef DIONA
+#undef NIAN
+#undef DRASK
+#undef GREY
+#undef KIDAN
