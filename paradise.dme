@@ -2018,6 +2018,7 @@
 #include "code\modules\antagonists\traitor\contractor\items\contractor_pinpointer.dm"
 #include "code\modules\antagonists\traitor\contractor\items\contractor_uplink.dm"
 #include "code\modules\antagonists\traitor\contractor\items\extraction_items.dm"
+#include "code\modules\antagonists\traitor\organizations\kidnap_flare.dm"
 #include "code\modules\antagonists\traitor\organizations\malware_injector.dm"
 #include "code\modules\antagonists\traitor\organizations\org_kits.dm"
 #include "code\modules\antagonists\traitor\organizations\sus_chems.dm"
