@@ -405,6 +405,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	var/mob/new_player/NP = new()
+	NP.verbs.Add(/mob/new_player/verb/latejoin_fallback)
 	GLOB.non_respawnable_keys -= O.ckey
 	NP.ckey = O.ckey
 	qdel(O)
