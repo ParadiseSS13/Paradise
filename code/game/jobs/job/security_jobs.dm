@@ -284,3 +284,49 @@
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
 	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
+/datum/job/brig_pilot
+	title = "Brig Pilot"
+	flag = JOB_SEC_POD_PILOT
+	department_flag = JOBCAT_ENGSEC
+	description = "Uses space pods to patrol the station sector."
+	department_head = list("Head of Security")
+	total_positions = 1
+	spawn_positions = 1
+	selection_color = "#ffeeee"
+	supervisors = "the head of security"
+	minimal_player_age = 14
+	access = list(
+		ACCESS_BRIG_PILOT,
+		ACCESS_SEC_DOORS,
+		ACCESS_SECURITY,
+	)
+	exp_map = list(EXP_TYPE_CREW = 600)
+	outfit = /datum/outfit/job/brig_pilot
+	difficulty = MEDIUM_DIFFICULTY
+	alt_titles = list("Red Hawk Pilot", "Security Pilot", "Space Guard")
+
+/datum/outfit/job/brig_pilot
+	name = "Brig Pilot"
+	jobtype = /datum/job/brig_pilot
+	uniform = /obj/item/clothing/under/rank/security/officer
+	suit = /obj/item/clothing/suit/armor/vest/security
+	suit_store = /obj/item/gun/energy/disabler
+	backpack_contents = list(
+		/obj/item/evidencebag = 1,
+	)
+	id = /obj/item/card/id/brig_pilot
+	pda = /obj/item/pda/security
+	l_ear = /obj/item/radio/headset/headset_sec
+	gloves = /obj/item/clothing/gloves/color/black
+	head = /obj/item/clothing/head/helmet
+	shoes = /obj/item/clothing/shoes/jackboots
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
+	chameleon_extras = list(
+		/obj/item/clothing/glasses/hud/security/sunglasses,
+		/obj/item/clothing/head/helmet,
+		/obj/item/gun/energy/disabler,
+	)
+	bio_chips = list(/obj/item/bio_chip/mindshield)

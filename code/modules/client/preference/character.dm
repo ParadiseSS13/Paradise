@@ -588,7 +588,7 @@
 	job_medsci_high = sanitize_integer(job_medsci_high, 0, 65535, initial(job_medsci_high))
 	job_medsci_med = sanitize_integer(job_medsci_med, 0, 65535, initial(job_medsci_med))
 	job_medsci_low = sanitize_integer(job_medsci_low, 0, 65535, initial(job_medsci_low))
-	job_engsec_high = sanitize_integer(job_engsec_high, 0, 65535, initial(job_engsec_high))
+	job_engsec_high = sanitize_integer(job_engsec_high, 0, 131071, initial(job_engsec_high))
 	job_engsec_med = sanitize_integer(job_engsec_med, 0, 65535, initial(job_engsec_med))
 	job_engsec_low = sanitize_integer(job_engsec_low, 0, 65535, initial(job_engsec_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
@@ -1489,7 +1489,7 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_OFFICER)
+			if(JOB_OFFICER, JOB_SEC_POD_PILOT)
 				clothes_s = new /icon('icons/mob/clothing/under/security.dmi', "security")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				if(prob(1))
@@ -1517,7 +1517,7 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-eng"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_ENGINEER)
+			if(JOB_ENGINEER, JOB_SHIPWRIGHT)
 				clothes_s = new /icon('icons/mob/clothing/under/engineering.dmi', "engineer")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "workboots"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
@@ -2088,7 +2088,7 @@
 /// height - Screen's height.
 /// 1366x768 is a common screen resolution, and increasing widthPerColumn or height to above 400 and 700,
 /// will result in the window being placed outside the screen for these users. If we get more jobs than limit x 3, increase limit.
-/datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 400, height = 700)
+/datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Quartermaster"), widthPerColumn = 425, height = 750)
 	if(!SSjobs)
 		return
 

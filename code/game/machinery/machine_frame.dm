@@ -826,6 +826,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
 
+/obj/item/circuitboard/podfabricator
+	name = "\improper Space Pod Fabricator - Engineering"
+	board_type = "machine"
+	origin_tech = "engineering=2;programming=2"
+	build_path = /obj/machinery/r_n_d/protolathe/pod_fabricator
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1
+	)
+
 /obj/item/circuitboard/dish_drive
 	board_name = "Dish Drive"
 	icon_state = "service"
@@ -875,6 +887,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/reagent_containers/glass/beaker = 2)
+
+/obj/item/circuitboard/pod_imprinter
+	board_name = "Pod Circuit Etcher"
+	icon_state = "science"
+	build_path = /obj/machinery/r_n_d/circuit_imprinter/pod_board_etcher
+	board_type = "machine"
+	origin_tech = "engineering=2;programming=2"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/reagent_containers/glass/beaker = 2,
+	)
 
 /obj/item/circuitboard/pacman
 	board_name = "PACMAN-type Generator"
