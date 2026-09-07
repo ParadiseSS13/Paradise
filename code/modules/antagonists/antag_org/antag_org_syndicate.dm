@@ -42,7 +42,7 @@
 		/datum/theft_objective/captains_saber,
 		/datum/theft_objective/capmedal
 	)
-	unique_targets = list(/datum/objective/unique_objective/experiment/implant)
+	unique_targets = list(/datum/objective/unique_objective/experiment/implant, /datum/objective/unique_objective/get_five/guns)
 
 /datum/antag_org/syndicate/interdyne // Mostly target Medical
 	name = "Interdyne Pharmaceuticals"
@@ -51,7 +51,7 @@
 	focus = 70
 	targeted_departments = list(DEPARTMENT_MEDICAL)
 	theft_targets = list(/datum/theft_objective/hypospray, /datum/theft_objective/defib, /datum/theft_objective/krav, /datum/theft_objective/engraved_dusters)
-	unique_targets = list(/datum/objective/unique_objective/harvest_kidneys, /datum/objective/unique_objective/experiment/chemical)
+	unique_targets = list(/datum/objective/unique_objective/get_five/kidneys, /datum/objective/unique_objective/experiment/chemical)
 
 /datum/antag_org/syndicate/self // Mostly target Science
 	name = "Silicon Engine Liberation Front"
