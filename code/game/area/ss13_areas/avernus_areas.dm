@@ -37,8 +37,8 @@
 	icon_state = "sci_garage"
 	area_icon_text = "SCIENCE\nGARAGE"
 
-/area/deepmaints/room
+/area/deepmaints
 	name = "Deep Maintenance"
-
-/area/deepmaints/corridor
-	name = "Deep Maintenance"
+	area_icon_color = "#44000044"
+	area_icon_text = "DEEP\nMAINTS"
+	icon_state = "deep_maints"

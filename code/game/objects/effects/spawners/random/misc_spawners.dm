@@ -334,6 +334,18 @@
 		/obj/item/stack/sheet/mineral/diamond/ten = 1,
 	)
 
+/obj/effect/spawner/random/deepmaints_threat
+	name = "deep maints threat spawner"
+	spawn_loot_chance = 40
+	spawn_scatter_radius = 1
+	loot = list(
+		/mob/living/basic/giant_spider,
+	)
+
+/obj/effect/spawner/random/deepmaints_threat/Initialize(mapload)
+	spawn_loot_count = roll("1d4")
+	. = ..()
+
 /obj/effect/spawner/random/giant_spiders
 	name = "giant spider spawner"
 	spawn_loot_chance = 30
