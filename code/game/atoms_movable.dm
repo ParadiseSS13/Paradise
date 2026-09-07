@@ -1002,6 +1002,9 @@
 /atom/movable/proc/stop_deadchat_plays()
 	DeleteComponent(/datum/component/deadchat_control)
 
+/atom/movable/MouseEntered(location, control, params)
+	SSmouse_entered.hovers[usr.client] = src
+
 /atom/movable/proc/choose_crush_crit(mob/living/carbon/victim)
 	if(!length(GLOB.tilt_crits))
 		return
