@@ -376,7 +376,7 @@
 
 /// Deducts the substrate tax for flockphasing, ending flockphase if the drone ran out of points.
 /mob/living/basic/flock/drone/proc/flockphase_tax()
-	substrate.remove_points(1)
+	substrate.remove_points(20)
 	if(!substrate.has_points())
 		stop_flockphase(TRUE)
 		return FALSE
