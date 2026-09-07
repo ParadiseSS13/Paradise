@@ -147,7 +147,6 @@
 		if(kidnap_obj.completed)
 			continue
 		P.target_mob = kidnap_obj.target
-		log_debug(P.target_mob)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/kidnap/emag_act(mob/user)
@@ -224,7 +223,6 @@
 	return ..()
 
 /obj/effect/portal/advanced/kidnap/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
-	var/mob/living/M = victim
 	if(teleports_this_cycle >= MAX_ALLOWED_TELEPORTS_PER_PROCESS)
 		return
 	var/use_effects = world.time >= effect_cooldown
@@ -232,12 +230,67 @@
 	if(!use_effects)
 		effect = NONE // No effect
 
-	pass_extraction(M)
+	// Filter out non-antags
+	var/mob/living/user = victim
+	if(!istype(user))
+		return FALSE
+
+	// For the antag
+	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting))
+		invalid_teleport()
+		return FALSE
+	pass_extraction(user)
 	return TRUE
 
 /obj/effect/portal/advanced/kidnap/proc/pass_extraction(mob/living/M)
+	// Handle syndicate barification
+	kidnap_success = TRUE
 	prepare_ghosting(M)
 
 /obj/effect/portal/advanced/kidnap/proc/prepare_ghosting(mob/living/carbon/human/extractor)
 	if(!istype(extractor))
 		return
+	// Remove all clothing and bio chips
+	for(var/obj/item/I in extractor)
+		qdel(I)
+
+	// Remove cybernetic implants
+	for(var/obj/item/organ/internal/cyberimp/I in extractor.internal_organs)
+		// Greys get to keep their implant
+		if(isgrey(extractor) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+			continue
+		// IPCs keep their implant
+		if(ismachineperson(extractor) && istype(I, /obj/item/organ/internal/cyberimp/arm/power_cord))
+			continue
+		// Try removing it
+		I = I.remove(extractor)
+
+	// Remove martial arts
+	for(var/datum/martial_art/MA in extractor.mind.known_martial_arts)
+		MA.remove(extractor)
+
+	// Kill guardians
+	SEND_SIGNAL(extractor, COMSIG_SUMMONER_EXTRACTED)
+
+	// Equip outfits and remove spells
+	var/datum/mind/extractor_mind = extractor.mind
+	for(var/datum/antagonist/antag in extractor_mind.antag_datums)
+		antag.exfiltrate(extractor, radio)
+	if(isvox(extractor))
+		extractor.dna.species.after_equip_job(null, extractor) // Nitrogen tanks
+	if(isplasmaman(extractor))
+		extractor.dna.species.after_equip_job(null, extractor) // Plasma tanks
+	// Apply traits
+	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
+	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)
+	var/obj/item/bio_chip/dust/I = new
+	I.implant(extractor, null)
+
+	if(extractor.mind)
+		if(extractor.mind.initial_account)
+			GLOB.station_money_database.delete_user_account(extractor.mind.initial_account.account_number, "NAS Trurl Financial Services", FALSE)
+	if(extractor.mind && extractor.mind.assigned_role)
+		// Handle job slot
+		var/job = extractor.mind.assigned_role
+
+		SSjobs.FreeRole(job)
