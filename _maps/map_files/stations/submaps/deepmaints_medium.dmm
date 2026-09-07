@@ -899,7 +899,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id = deepmaintsfactory1
+	id = "deepmaintsfactory1"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -1157,7 +1157,7 @@
 /obj/effect/turf_decal/trimline/department/engineering/filled/warning,
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/machinery/door/poddoor/shutters{
-	id = deepmaintswarehouse;
+	id = "deepmaintswarehouse";
 	dir = 2
 	},
 /obj/effect/spawner/random/cobweb/left/frequent,
@@ -1254,13 +1254,13 @@
 	},
 /obj/effect/turf_decal/trimline/department/engineering/filled/warning,
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/shutters{
-	id = deepmaintswarehouse;
-	dir = 2
-	},
 /obj/effect/spawner/random/cobweb/right/frequent,
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/barricade/wooden,
+/obj/machinery/door/poddoor/shutters{
+	id = "deepmaintswarehouse";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Du" = (
@@ -1307,7 +1307,7 @@
 /obj/structure/railing,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/conveyor_switch/oneway{
-	id = s
+	id = "deepmaintsfactory"
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
@@ -1380,12 +1380,12 @@
 	},
 /obj/effect/turf_decal/trimline/department/engineering/filled/warning,
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/shutters{
-	id = deepmaintswarehouse;
-	dir = 2
-	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/barricade/wooden,
+/obj/machinery/door/poddoor/shutters{
+	id = "deepmaintswarehouse";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Hp" = (
@@ -1690,7 +1690,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id = deepmaintsfactory1
+	id = "deepmaintsfactory1"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -1968,7 +1968,7 @@
 /obj/effect/spawner/random/cobweb/right/rare,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id = deepmaintsfactory1
+	id = "deepmaintsfactory1"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -2026,7 +2026,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	id = deepmaintsfactory1
+	id = "deepmaintsfactory1"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
