@@ -1595,7 +1595,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
 	var/screentip_mode = user.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS) || isturf(src))
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS) || isfloorturf(src))
 		active_hud.screentip_text.maptext = ""
 		return
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
