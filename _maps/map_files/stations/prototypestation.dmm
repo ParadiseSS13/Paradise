@@ -1236,11 +1236,11 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/rnd)
 "kb" = (
-/obj/machinery/mecha_part_fabricator/station{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
+	},
+/obj/machinery/mecha_part_fabricator/loaded/station{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
@@ -4909,11 +4909,11 @@
 /turf/simulated/floor/plating,
 /area/station/medical/medbay)
 "PC" = (
-/obj/machinery/mecha_part_fabricator/station{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
+	},
+/obj/machinery/mecha_part_fabricator/loaded/station{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
