@@ -103,6 +103,8 @@
 			flockphase_tax()
 		else
 			stop_flockphase()
+	if(isspaceturf(get_turf(src)))
+		substrate.remove_points(20)
 
 /mob/living/basic/flock/drone/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
