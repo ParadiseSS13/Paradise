@@ -46,7 +46,8 @@
 			flockphase_tax()
 		else
 			stop_flockphase()
-
+	if(isspaceturf(get_turf(src)))
+		substrate.remove_points(20)
 
 /mob/living/basic/flock/drone/Destroy()
 	release_control()
@@ -95,16 +96,6 @@
 	var/datum/flockdrone_part/absorber/absorber = locate() in parts
 	absorber.try_drop_item()
 	return ..()
-
-/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
-		if(avoid_stop_flockphase())
-			flockphase_tax()
-		else
-			stop_flockphase()
-	if(isspaceturf(get_turf(src)))
-		substrate.remove_points(20)
 
 /mob/living/basic/flock/drone/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
