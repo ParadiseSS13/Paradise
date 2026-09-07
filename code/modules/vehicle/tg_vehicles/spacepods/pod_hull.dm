@@ -9,6 +9,16 @@
 	var/state = POD_MAIN_BOARD
 	var/obj/tgvehicle/sealed/vectorcraft/spacepod/pod_type
 
+/obj/item/spacepod_hull/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_ATTACK_HAND, PROC_REF(prevent_pickup))
+
+// Trying to pick up these parts, which are 96x96 sprites, is goofy and
+// unrealistic. Just prevent it happening at all.
+/obj/item/spacepod_hull/proc/prevent_pickup(datum/source)
+	SIGNAL_HANDLER // COMSIG_ATOM_ATTACK_HAND
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
 /obj/item/spacepod_hull/examine(mob/user)
 	. = ..()
 
@@ -63,13 +73,13 @@
 		if(POD_HULL_WINDOW)
 			if(istype(tool, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/glass = tool
-				if(glass.get_amount() < 15)
-					to_chat(user, SPAN_WARNING("You need at least 15 glass sheets!"))
+				if(glass.get_amount() < 10)
+					to_chat(user, SPAN_WARNING("You need at least 10 glass sheets!"))
 				else
 					user.visible_message(
 						SPAN_NOTICE("[user] starts installing glass into the cockpit..."),
 						SPAN_NOTICE("You start installing glass into the cockpit..."))
-					glass.use(15)
+					glass.use(10)
 					icon_state = "raptor4"
 					update_icon(UPDATE_ICON_STATE)
 					state = POD_WINDOW_WRENCH

@@ -29,6 +29,8 @@ other types of metals and chemistry for reagents).
 
 */
 
+GLOBAL_LIST_INIT(designs_by_type, generate_designs_by_type())
+
 /// Datum for object designs, used in construction
 /datum/design
 	var/name = "Name"					//Name of the created object.
@@ -48,3 +50,11 @@ other types of metals and chemistry for reagents).
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
 	/// Determines whether or not we get to get a design blueprint from a disk
 	var/requires_whitelist = FALSE
+
+/proc/generate_designs_by_type()
+	var/list/designs = list()
+
+	for(var/design_type in subtypesof(/datum/design))
+		designs[design_type] = new design_type
+
+	return designs

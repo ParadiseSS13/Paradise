@@ -1532,8 +1532,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/firealarm/directional/east,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "als" = (
@@ -31343,8 +31343,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "cur" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/disposalpipe/segment/corner,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "cus" = (
@@ -44672,10 +44672,10 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "dAX" = (
@@ -50367,7 +50367,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "eHU" = (
-/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "eHZ" = (
@@ -57379,10 +57379,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/east)
 "hsN" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "hsQ" = (
@@ -59346,10 +59346,8 @@
 /area/station/hallway/secondary/exit)
 "ikF" = (
 /obj/structure/shelf/engineering,
-/obj/item/stack/sheet/mineral/gold/twenty,
-/obj/item/stack/sheet/mineral/silver/twenty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
+/obj/effect/spawner/random/engineering/design_materials/pod_materials,
+/obj/item/stack/sheet/glass/ten,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "ila" = (
@@ -60137,8 +60135,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "iyT" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "izj" = (
@@ -60339,11 +60337,11 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "iDB" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "iDE" = (
@@ -60698,6 +60696,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "iMz" = (
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "iMB" = (
@@ -64393,6 +64392,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "kkV" = (
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "kkY" = (
@@ -65057,6 +65057,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "kzv" = (
@@ -65768,6 +65769,7 @@
 	req_access = list(82);
 	pixel_x = 24
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "kPl" = (
@@ -71594,6 +71596,7 @@
 	dir = 2;
 	id_tag = "pod_hangar_inner"
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "ncZ" = (
@@ -79418,6 +79421,7 @@
 	dir = 2;
 	id_tag = "pod_hangar_outer"
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "qjx" = (
@@ -79954,8 +79958,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "qwv" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "qwH" = (
@@ -80169,7 +80173,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "qAz" = (
@@ -80833,6 +80837,7 @@
 /area/station/hallway/primary/central/north)
 "qOD" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "qOS" = (
@@ -86453,9 +86458,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "sOI" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/effect/landmark/start/shipwright,
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "sOO" = (
@@ -88922,12 +88927,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "tKr" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "tKG" = (
 /obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "tKH" = (
@@ -91737,7 +91743,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
 "uKU" = (
-/obj/effect/spawner/random/dirt/maybe,
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-4"
 	},
@@ -91745,6 +91750,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "uKV" = (
@@ -98652,6 +98658,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "xoT" = (
@@ -99800,6 +99807,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "xMm" = (
@@ -99998,13 +100006,13 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/door_control{
 	id = "pod_hangar_inner";
 	name = "Hangar Inner Door Control";
 	pixel_y = 24;
 	req_access = list(82)
 	},
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "xPU" = (
@@ -100698,6 +100706,8 @@
 /obj/machinery/fuel_pump{
 	pixel_x = -32
 	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "yfO" = (
