@@ -1590,14 +1590,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	SEND_SIGNAL(user, COMSIG_ATOM_MOUSE_ENTERED, src)
 
-	// Update the screentip to reflect what we're hovering over
+	// Update the screentip to reflect what we're hovering over.
 	if(invisibility > user.see_invisible)
 		return
-	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks.
 	var/screentip_mode = user.client.prefs.screentip_mode
 	if(screentip_mode == 0 || (flags & NO_SCREENTIPS) || isfloorturf(src))
 		active_hud.screentip_text.maptext = ""
 		return
-	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this.
 	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [client.prefs.screentip_color]'>[name]</span>"
 	user.client.moused_over = UID()
