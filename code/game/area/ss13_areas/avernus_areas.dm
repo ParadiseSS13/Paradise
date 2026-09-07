@@ -42,3 +42,5 @@
 	area_icon_color = "#44000044"
 	area_icon_text = "DEEP\nMAINTS"
 	icon_state = "deep_maints"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambientsounds = list('sound/ambience/ambigen5.ogg')

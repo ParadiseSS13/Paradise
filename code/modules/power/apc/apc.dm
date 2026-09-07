@@ -100,6 +100,8 @@
 	var/emergency_power = TRUE
 	var/emergency_power_timer
 	var/emergency_lights = FALSE
+	/// How long before the emergency lights are turned off when the powernet is in emergency power mode.
+	var/emergency_power_off_duration = 2 MINUTES
 
 	/// settings variable for having the APC auto use certain power channel settings
 	var/autoflag = APC_AUTOFLAG_ALL_OFF		// 0 = off, 1= eqp and lights off, 2 = eqp off, 3 = all on.
@@ -178,13 +180,6 @@
 /obj/machinery/power/apc/proc/preliminary_setup(direction, building = FALSE)
 	var/area/A = get_area(src)
 
-	electronics_state = APC_ELECTRONICS_INSTALLED
-	// is starting with a power cell installed, create it and set its charge level
-	if(cell_type)
-		cell = new /obj/item/stock_parts/cell(src)
-		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
-
 	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
@@ -215,8 +210,9 @@
 		make_terminal()
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
-	//if area isn't specified use current
+	// if area isn't specified use current
 	apc_area.apc |= src
+
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
@@ -570,13 +566,13 @@
 				emergency_power_timer = null
 		else
 			if(!emergency_power_timer)
-				emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 2 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+				emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), emergency_power_off_duration, TIMER_UNIQUE|TIMER_STOPPABLE)
 	else
 		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
 		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, FALSE)
 		if(!emergency_power_timer)
-			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 2 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), emergency_power_off_duration, TIMER_UNIQUE|TIMER_STOPPABLE)
 	machine_powernet.power_change()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
@@ -1176,6 +1172,7 @@
 /obj/machinery/power/apc/autoattach/deepmaints
 	emergency_power = TRUE
 	operating = TRUE
+	emergency_power_off_duration = 3 HOURS
 	cell_type = 0
 
 /obj/machinery/power/apc/autoattach/deepmaints/Initialize(mapload)
