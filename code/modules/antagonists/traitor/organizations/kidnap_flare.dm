@@ -138,8 +138,16 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	var/obj/effect/portal/advanced/kidnap/P = new portal_type(get_turf(src), pick(GLOB.antagextractwarp), src, 30 SECONDS, user)
 	P.antag_mind = user.mind
-	P.target_mob = user.mind.objective_holder.get_targets()
-	log_debug(user.mind.objective_holder.get_targets())
+
+	var/list/obj_list = user.mind.get_all_objectives()
+	if(!length(obj_list))
+		to_chat(user, SPAN_WARNING("You have no objectives!"))
+		return TRUE
+	for(var/datum/objective/unique_objective/kidnap_obj in obj_list)
+		if(kidnap_obj.completed)
+			continue
+		P.target_mob = kidnap_obj.target
+		log_debug(P.target_mob)
 	qdel(src)
 
 /obj/item/wormhole_jaunter/kidnap/emag_act(mob/user)
