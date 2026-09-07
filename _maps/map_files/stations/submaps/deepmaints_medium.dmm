@@ -766,7 +766,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters{
-	id = deepmaintsfactory2
+	id = "deepmaintsfactory2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -940,7 +940,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/cobweb/left/rare,
 /obj/machinery/door/poddoor/shutters{
-	id = deepmaintsfactory2
+	id = "deepmaintsfactory2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -1363,7 +1363,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters{
-	id = deepmaintsfactory2
+	id = "deepmaintsfactory2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -1807,7 +1807,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/door/poddoor/shutters{
-	id = deepmaintsfactory2
+	id = "deepmaintsfactory2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
