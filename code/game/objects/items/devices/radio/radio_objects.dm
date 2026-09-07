@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	suffix = "\[3\]"
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	/// boolean for radio enabled or not
-	var/on = TRUE
+	VAR_PRIVATE/on = TRUE
 	var/last_transmission
 	var/frequency = PUB_FREQ
 	/// tune to frequency to unlock traitor supplies
@@ -42,9 +42,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/b_stat = 0
 
 	/// Whether the radio will broadcast stuff it hears, out over the radio
-	var/broadcasting = FALSE
+	VAR_PRIVATE/broadcasting = FALSE
 	/// Whether the radio is currently receiving
-	var/listening = TRUE
+	VAR_PRIVATE/listening = TRUE
+
+	/// Used for tracking what broadcasting should be in the absence of things
+	/// forcing it off, eg its set to broadcast but gets emp'd temporarily
+	var/should_be_broadcasting = FALSE
+	/// Used for tracking what listening should be in the absence of things
+	/// forcing it off, eg its set to listen but gets emp'd temporarily
+	var/should_be_listening = TRUE
+
 	/// Whether the radio can be re-tuned to restricted channels it has no key for
 	var/freerange = FALSE
 	/// Whether the radio is able to have its primary frequency changed. Used for radios with weird primary frequencies, like DS, syndi, etc
@@ -108,6 +116,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/Initialize(mapload)
 	. = ..()
 	wires = new(src)
+	set_listening(listening)
+	set_broadcasting(broadcasting)
+	set_on(on)
 	internal_channels = GLOB.default_internal_channels.Copy()
 	GLOB.global_radios |= src
 
@@ -117,6 +128,58 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
+
+/// Simple getter for the on variable. necessary due to VAR_PROTECTED
+/obj/item/radio/proc/is_on()
+	return on
+
+/// Simple getter for the broadcasting variable. necessary due to VAR_PROTECTED
+/obj/item/radio/proc/get_broadcasting()
+	return broadcasting
+
+/// Simple getter for the listening variable. necessary due to VAR_PROTECTED
+/obj/item/radio/proc/get_listening()
+	return listening
+
+/obj/item/radio/proc/set_on(new_on)
+	on = new_on
+
+	if(on)
+		// set them to whatever they're supposed to be
+		set_broadcasting(should_be_broadcasting)
+		set_listening(should_be_listening)
+	else
+		// fake set them to off
+		set_broadcasting(FALSE, actual_setting = FALSE)
+		set_listening(FALSE, actual_setting = FALSE)
+
+/**
+ * setter for broadcasting that makes us not hearing sensitive if not broadcasting and hearing sensitive if broadcasting
+ * hearing sensitive in this case only matters for the purposes of listening for words said in nearby tiles, talking into us directly bypasses hearing
+ *
+ * * new_broadcasting- the new value we want to set broadcasting to
+ * * actual_setting - whether or not the radio is supposed to be broadcasting, sets should_be_broadcasting to the new value if true, otherwise just changes broadcasting
+ */
+/obj/item/radio/proc/set_broadcasting(new_broadcasting, actual_setting = TRUE)
+	broadcasting = new_broadcasting
+	if(actual_setting)
+		should_be_broadcasting = broadcasting
+
+	if(broadcasting && on) //we don't need hearing sensitivity if we aren't broadcasting, because talk_into doesn't care about hearing
+		become_hearing_sensitive(INNATE_TRAIT)
+	else if(!broadcasting)
+		lose_hearing_sensitivity(INNATE_TRAIT)
+
+/**
+ * setter for the listener var
+ *
+ * * new_listening - the new value we want to set listening to
+ * * actual_setting - whether or not the radio is supposed to be listening, sets should_be_listening to the new listening value if true, otherwise just changes listening
+ */
+/obj/item/radio/proc/set_listening(new_listening, actual_setting = TRUE)
+	listening = new_listening
+	if(actual_setting)
+		should_be_listening = listening
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
@@ -765,7 +828,10 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	return
 
 /obj/item/radio/off
-	listening = FALSE
+
+/obj/item/radio/off/Initialize(mapload)
+	. = ..()
+	set_listening(FALSE)
 
 /obj/item/radio/phone
 	icon = 'icons/obj/items.dmi'
