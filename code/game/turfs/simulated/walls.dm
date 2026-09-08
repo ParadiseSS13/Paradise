@@ -312,17 +312,35 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(rotting)
 		if(hardness <= 10)
-			to_chat(user, SPAN_NOTICE("This wall feels rather unstable."))
+			user.visible_message(
+				SPAN_WARNING("[user] pushes the wall, cusing it to let out a concerning metallic groan!"),
+				SPAN_WARNING("You push the wall, it feels rather unstable and lets out a concerning metallic groan!"),
+				SPAN_WARNING("You hear a pushing sound and a concerning metallic groan!")
+			)
 			return
 		else
-			to_chat(user, SPAN_NOTICE("The wall crumbles under your touch."))
+			user.visible_message(
+				SPAN_WARNING("[user] pushes the wall, and it crumbles under [user.p_their()] touch!"),
+				SPAN_WARNING("You push the wall, and it crumbles under your touch!"),
+				SPAN_WARNING("You hear a pushing sound and something crumbling!")
+			)
 			dismantle_wall()
 			return
 
-	to_chat(user, SPAN_NOTICE("You push the wall but nothing happens!"))
+	user.visible_message(
+		SPAN_NOTICE("[user] pushes the wall, but nothing happens."),
+		SPAN_NOTICE("You push the wall, but nothing happens."),
+		SPAN_HEAR("You hear a pushing sound.")
+	)
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
+
+/turf/simulated/wall/attack_robot(mob/user)
+	if(!Adjacent(user) || isdrone(user))
+		return ..()
+	
+	attack_hand(user)
 
 /turf/simulated/wall/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
