@@ -110,7 +110,7 @@
 
 	empty_bin(usr)
 
-/obj/machinery/papershredder/proc/empty_bin(var/mob/living/user, var/obj/item/storage/empty_into)
+/obj/machinery/papershredder/proc/empty_bin(mob/living/user, obj/item/storage/empty_into)
 
 	// Sanity.
 	if(empty_into && !istype(empty_into))
