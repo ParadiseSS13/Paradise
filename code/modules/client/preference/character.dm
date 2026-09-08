@@ -1954,10 +1954,7 @@
 	character.sec_record = sec_record
 	character.gen_record = gen_record
 
-	character.blooper_id = blooper_id
-	character.blooper_speed = blooper_speed
-	character.blooper_pitch = blooper_pitch
-	character.blooper_pitch_range = blooper_pitch_range
+	character.change_blooper_data(blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
 
 	character.change_gender(gender)
 	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here
