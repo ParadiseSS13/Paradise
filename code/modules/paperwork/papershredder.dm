@@ -27,6 +27,7 @@
 	RefreshParts()
 
 /obj/machinery/papershredder/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	if(!anchored)
@@ -162,11 +163,11 @@
 	desc = "The remains of a private, confidential, or otherwise sensitive document."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredp"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 3
 	throw_speed = 1
 	resistance_flags = FLAMMABLE
+	new_attack_chain = TRUE
 
 /obj/item/shreddedp/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(resistance_flags & ON_FIRE)
