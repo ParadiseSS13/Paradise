@@ -22,8 +22,14 @@ SUBSYSTEM_DEF(mapping)
 	var/list/existing_station_areas
 	/// Types of areas that exist on the station this shift
 	var/list/existing_station_areas_types
-	///What do we have as the lavaland theme today?
+
+	/// The type of the Lavaland theme for the next round, if selected.
+	var/next_lavaland_theme
+	/// The type of the current Lavaland theme.
+	var/current_lavaland_theme
+	/// The [/datum/lavaland_theme] instantiated for the current round.
 	var/datum/lavaland_theme/lavaland_theme
+
 	///What primary cave theme we have picked for cave generation today.
 	var/datum/caves_theme/caves_theme
 	// Tells if all maintenance airlocks have emergency access enabled
@@ -75,6 +81,13 @@ SUBSYSTEM_DEF(mapping)
 		fdel("data/last_map.txt") // Remove to avoid the same map existing forever
 	else
 		last_map = new /datum/map/cerestation // Assume cerestation if non-existent
+	if(fexists("data/next_lavaland_theme.txt"))
+		var/list/lines = file2list("data/next_lavaland_theme.txt")
+		try
+			current_lavaland_theme = text2path(lines[1])
+		catch
+			log_startup_progress("invalid data/next_lavaland_theme.txt, choosing randomly on init")
+		fdel("data/next_lavaland_theme.txt")
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -83,7 +96,9 @@ SUBSYSTEM_DEF(mapping)
 	if(map_datum) // Save which map was this round as the last map
 		var/F = file("data/last_map.txt")
 		F << map_datum.type
-
+	if(next_lavaland_theme)
+		var/F = file("data/next_lavaland_theme.txt")
+		F << "[next_lavaland_theme]"
 
 /datum/controller/subsystem/mapping/Initialize()
 	environments = list()
@@ -91,11 +106,13 @@ SUBSYSTEM_DEF(mapping)
 	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
 	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
 
-	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
-	ASSERT(lavaland_theme_type)
-	lavaland_theme = new lavaland_theme_type
+	if(!current_lavaland_theme)
+		current_lavaland_theme = pick(subtypesof(/datum/lavaland_theme))
+
+	ASSERT(current_lavaland_theme)
+	lavaland_theme = new current_lavaland_theme
 	log_startup_progress("We're in the mood for [lavaland_theme.name] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
-	SSblackbox.record_feedback("text", "procgen_settings", 1, "[lavaland_theme_type]")
+	SSblackbox.record_feedback("text", "procgen_settings", 1, "[current_lavaland_theme]")
 
 	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
 	ASSERT(caves_theme_type)

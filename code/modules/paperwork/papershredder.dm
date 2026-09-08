@@ -19,7 +19,7 @@
 /obj/machinery/papershredder/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/electrolyzer(src)
+	component_parts += new /obj/item/circuitboard/papershredder(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
@@ -30,9 +30,9 @@
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	if(!anchored)
-		to_chat(user, SPAN_NOTICE("You secure the [src] to the floor."))
+		WRENCH_ANCHOR_MESSAGE
 	else
-		to_chat(user, SPAN_NOTICE("You unsecure the [src] from the floor."))
+		WRENCH_UNANCHOR_MESSAGE
 	anchored = !anchored
 
 /obj/machinery/papershredder/screwdriver_act(mob/living/user, obj/item/I)
@@ -46,7 +46,8 @@
 		var/cut_hand = pick("l_hand", "r_hand")
 		user.visible_message(
 			SPAN_WARNING("[user] accidentally slides their fingers into [src]!"),
-			SPAN_USERDANGER("Your fingers slip and jam them into [src]!")
+			SPAN_USERDANGER("Your fingers slip and jam them into [src]!"),
+			SPAN_WARNING("You hear mechanical grinding!")
 		)
 		user.apply_damage(5, BRUTE, cut_hand)
 		user.drop_item(used)
@@ -66,10 +67,10 @@
 		return ..()
 
 	if(!anchored)
-		to_chat(user, SPAN_WARNING("\The [src] must be anchored to the ground to operate!"))
+		to_chat(user, SPAN_WARNING("[src] must be anchored to the ground to operate!"))
 		return ITEM_INTERACT_COMPLETE
 	if(paperamount == max_paper)
-		to_chat(user, SPAN_WARNING("\The [src] is full, please empty it before you continue."))
+		to_chat(user, SPAN_WARNING("[src] is full, please empty it before you continue."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(paper_result > 0)
@@ -89,7 +90,7 @@
 	to_chat(user, SPAN_NOTICE("You shred the paper."))
 
 	if(paperamount > max_paper)
-		to_chat(user, SPAN_DANGER("\The [src] was too full, and shredded paper goes everywhere!"))
+		to_chat(user, SPAN_DANGER("[src] was too full, and shredded paper goes everywhere!"))
 		for(var/i=(paperamount-max_paper);i>0;i--)
 			var/obj/item/shreddedp/SP = get_shredded_paper()
 			SP.forceMove(get_turf(src))
@@ -104,11 +105,7 @@
 		return
 
 	if(!paperamount)
-		to_chat(user, SPAN_NOTICE("\The [src] is empty."))
-		return
-
-	if(!paperamount)
-		to_chat(usr, SPAN_NOTICE("\The [src] is empty."))
+		to_chat(usr, SPAN_NOTICE("[src] is empty."))
 		return
 
 	empty_bin(usr)
@@ -120,7 +117,7 @@
 		empty_into = null
 
 	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
-		to_chat(user,  SPAN_NOTICE("\The [empty_into] is full."))
+		to_chat(user,  SPAN_NOTICE("[empty_into] is full."))
 		return
 
 	while(paperamount)
@@ -132,12 +129,12 @@
 				break
 	if(empty_into)
 		if(paperamount)
-			to_chat(user,  SPAN_NOTICE("You fill \the [empty_into] with as much shredded paper as it will carry."))
+			to_chat(user,  SPAN_NOTICE("You fill [empty_into] with as much shredded paper as it will carry."))
 		else
-			to_chat(user,  SPAN_NOTICE("You empty \the [src] into \the [empty_into]."))
+			to_chat(user,  SPAN_NOTICE("You empty [src] into [empty_into]."))
 
 	else
-		to_chat(user,  SPAN_NOTICE("You empty \the [src]."))
+		to_chat(user,  SPAN_NOTICE("You empty [src]."))
 	update_icon()
 
 /obj/machinery/papershredder/proc/get_shredded_paper()
@@ -169,6 +166,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 3
 	throw_speed = 1
+	resistance_flags = FLAMMABLE
 
 /obj/item/shreddedp/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(resistance_flags & ON_FIRE)
@@ -180,7 +178,8 @@
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
 				SPAN_WARNING("[user] accidentally ignites [user.p_themselves()]!"),
-				SPAN_USERDANGER("You miss the [src] and accidentally light yourself on fire!")
+				SPAN_USERDANGER("You miss the [src] and accidentally light yourself on fire!"),
+				SPAN_WARNING("You hear something suddenly bursting into flames!")
 			)
 			user.drop_item_to_ground(used)
 			user.adjust_fire_stacks(1)
@@ -193,7 +192,8 @@
 		user.drop_item_to_ground(src)
 		user.visible_message(
 			SPAN_DANGER("[user] lights [src] ablaze with [used]!"),
-			SPAN_DANGER("You light [src] on fire!")
+			SPAN_DANGER("You light [src] on fire!"),
+			SPAN_WARNING("You hear something suddenly bursting into flames!")
 		)
 		fire_act()
 		return ITEM_INTERACT_COMPLETE
