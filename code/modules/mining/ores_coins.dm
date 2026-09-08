@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 	if(wires)
 		wires.Interact(user)
-		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gibtonite/bullet_act(obj/projectile/P)
 	GibtoniteReaction(P.firer)
