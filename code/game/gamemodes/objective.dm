@@ -1807,9 +1807,3 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
 	completed = TRUE
 	needs_target = FALSE
-
-/datum/objective/unique_objective/steal_generator
-	name = "Steal Generator"
-	explanation_text = "Steal a PACMAN-series generator, the more powerful the better. One can be found in Engineering."
-	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
-	needs_target = FALSE
