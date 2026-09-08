@@ -1010,7 +1010,7 @@
 	if(user.can_dominate_mechs)
 		examine(user) //Get diagnostic information!
 		for(var/obj/item/mecha_parts/mecha_tracking/B in trackers)
-			to_chat(user, "<span class='danger'>Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:")
+			to_chat(user, SPAN_DANGER("Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:"))
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
@@ -1063,7 +1063,7 @@
 			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
-					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
+					to_chat(AI, SPAN_WARNING("Pilot detected! Forced ejection initiated!"))
 					to_chat(occupant, SPAN_DANGER("You have been forcibly ejected!"))
 					go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
 			ai_enter_mech(AI, interaction)
@@ -1077,7 +1077,7 @@
 				to_chat(user, SPAN_WARNING("[AI.name] is currently unresponsive, and cannot be uploaded."))
 				return
 			else if(occupant || dna) //Normal AIs cannot steal mechs!
-				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].")
+				to_chat(user, SPAN_WARNING("Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"]."))
 				return
 			AI.control_disabled = FALSE
 			AI.aiRadio.disabledAi = FALSE
@@ -1104,7 +1104,7 @@
 	AI.reset_perspective(src)
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? SPAN_BOLDNOTICE("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
-	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
+	: SPAN_NOTICE("You have been uploaded to a mech's onboard computer.")]")
 	to_chat(AI, SPAN_BOLDNOTICE("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
 	if(interaction == AI_TRANS_FROM_CARD)
 		GrantActions(AI, FALSE)
@@ -1213,7 +1213,7 @@
 		to_chat(user, SPAN_WARNING("You can't enter the exosuit with other creatures attached to you!"))
 		return TRUE
 
-	visible_message("<span class='notice'>[user] starts to climb into [src]")
+	visible_message(SPAN_NOTICE("[user] starts to climb into [src]"))
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
 	return TRUE
 
@@ -1364,6 +1364,8 @@
 				to_chat(AI, SPAN_USERDANGER("Inactive core destroyed. Unable to return."))
 				AI.linked_core = null
 				return
+			AI.deploy_action.Grant(AI)
+			AI.redeploy_action.Grant(AI)
 			to_chat(AI, SPAN_NOTICE("Returning to core..."))
 			AI.controlled_mech = null
 			if(istype(AI.eyeobj))

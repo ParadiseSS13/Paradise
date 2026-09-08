@@ -89,22 +89,22 @@
 
 /obj/item/clothing/under/misc/redhawaiianshirt
 	name = "red hawaiian shirt"
-	desc = "a floral shirt worn to most vacation destinations."
+	desc = "A floral shirt worn to most vacation destinations."
 	icon_state = "hawaiianred"
 
 /obj/item/clothing/under/misc/pinkhawaiianshirt
 	name = "pink hawaiian shirt"
-	desc = "a pink floral shirt the material feels cool and comfy."
+	desc = "A pink floral shirt. The material feels cool and comfy."
 	icon_state = "hawaiianpink"
 
 /obj/item/clothing/under/misc/orangehawaiianshirt
 	name = "orange hawaiian shirt"
-	desc = "a orange floral shirt for a relaxing day in space."
+	desc = "An orange floral shirt for a relaxing day in space."
 	icon_state = "hawaiianorange"
 
 /obj/item/clothing/under/misc/bluehawaiianshirt
 	name = "blue hawaiian shirt"
-	desc = "a blue floral shirt it has a oddly colored pink flower on it."
+	desc = "A blue floral shirt. It has an oddly colored pink flower on it."
 	icon_state = "hawaiianblue"
 
 /obj/item/clothing/under/misc/durathread

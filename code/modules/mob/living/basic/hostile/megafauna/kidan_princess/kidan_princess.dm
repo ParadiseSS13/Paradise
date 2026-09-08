@@ -112,8 +112,8 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		"<span class='danger'>[src] brings down her halberd, obliterating [L] with a heavy blow!</span>",
-		"<span class='userdanger'>You bring down your halberd, obliterating [L] with a heavy blow!</span>")
+		SPAN_DANGER("[src] brings down her halberd, obliterating [L] with a heavy blow!"),
+		SPAN_USERDANGER("You bring down your halberd, obliterating [L] with a heavy blow!"))
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 	L.dust()
 	return TRUE

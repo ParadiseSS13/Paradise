@@ -14,10 +14,14 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	throw_range = 5
 	origin_tech = "bluespace=2"
 	slot_flags = ITEM_SLOT_BELT
+	new_attack_chain = TRUE
 
-/obj/item/wormhole_jaunter/attack_self__legacy__attackchain(mob/user)
-	user.visible_message(SPAN_NOTICE("[user.name] activates the [name]!"))
+/obj/item/wormhole_jaunter/activate_self(mob/user)
+	if(!user)
+		return ..()
+	user.visible_message(SPAN_NOTICE("[user] activates [src]!"))
 	activate(user, TRUE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
@@ -131,7 +135,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		return
 	destination = L[desc]
 
-/obj/item/wormhole_jaunter/contractor/attack_self__legacy__attackchain(mob/user) // message is later down
+/obj/item/wormhole_jaunter/contractor/activate_self(mob/user) // Message is later down.
+	if(!user)
+		return ..()
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
@@ -260,7 +266,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	/// The turf where we activated the wormwhole.
 	var/wormhole_loc
 
-/obj/item/wormhole_jaunter/wormhole_weaver/attack_self__legacy__attackchain(mob/user)
+/obj/item/wormhole_jaunter/wormhole_weaver/activate_self(mob/user)
+	if(!user)
+		return ..()
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/emp_act(severity)

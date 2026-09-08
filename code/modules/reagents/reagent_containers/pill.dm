@@ -154,7 +154,7 @@
 	list_reagents = list("epinephrine" = 50)
 
 /obj/item/reagent_containers/pill/salicylic
-	name = "\improper Salicylic Acid pill"
+	name = "\improper Acetylsalicylic Acid pill"
 	desc = "Commonly used to treat moderate pain and fevers."
 	icon_state = "pill4"
 	list_reagents = list("sal_acid" = 20)

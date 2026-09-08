@@ -15,10 +15,10 @@
 
 /obj/machinery/atmospherics/portable/scrubber/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Filters the air, placing harmful gases into the internal gas container. The container can be emptied by \
+	. += SPAN_NOTICE("Filters the air, placing harmful gases into the internal gas container. The container can be emptied by \
 			connecting it to a connector port, you're unable to have [src] both connected, and on at the same time. \
 			Changing the target pressure will result in faster or slower filter speeds, higher pressure is faster. \
-			A tank of gas can also be attached, allowing you to remove harmful gases from the attached tank.</span>"
+			A tank of gas can also be attached, allowing you to remove harmful gases from the attached tank.")
 
 /obj/machinery/atmospherics/portable/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

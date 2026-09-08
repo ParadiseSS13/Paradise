@@ -53,13 +53,13 @@
 	sneaking = !sneaking
 	update_action_name()
 	if(sneaking)
-		to_chat(H, "<span class='notice'>You are now sneaking around. Stick to the darkness to conceal yourself better.</span>")
+		to_chat(H, SPAN_NOTICE("You are now sneaking around. Stick to the darkness to conceal yourself better."))
 		START_PROCESSING(SSobj, src)
 		RegisterSignal(owner, COMSIG_ATTACK, PROC_REF(stop_sneaking))
 		RegisterSignal(owner, COMSIG_ATTACK_BY, PROC_REF(stop_sneaking))
 		ADD_TRAIT(owner, TRAIT_GOTTAGOSLOW, src)
 	else
-		to_chat(H, "<span class='notice'>You are no longer sneaking around.</span>")
+		to_chat(H, SPAN_NOTICE("You are no longer sneaking around."))
 		stop_sneaking()
 	StartCooldown()
 
