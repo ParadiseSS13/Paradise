@@ -257,17 +257,17 @@
 		if(1 to 45)
 			audible_message(SPAN_NOTICE("The [src] makes a crashing sound as its salvaged."))
 
-		if(46 to 89)
-			playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, FALSE)
-			audible_message(SPAN_DANGER("You hear a buzz from the [src] and a voice,"))
-
-			new /mob/living/simple_animal/bot/medbot/syndicate/emagged/(get_turf(src))
-
-		if(90 to 100)
+		if(46 to 94)
 			playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, FALSE)
 			audible_message(SPAN_DANGER("You hear a buzz from the [src] and a voice,"))
 
 			new /mob/living/simple_animal/bot/cleanbot/(get_turf(src))
+
+		if(95 to 100)
+			playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, FALSE)
+			audible_message(SPAN_DANGER("You hear a buzz from the [src] and a voice,"))
+
+			new /mob/living/simple_animal/bot/medbot/syndicate/emagged/(get_turf(src))
 
 /obj/structure/salvageable/safe_server //i am evil and horrible and i don't deserve to touch code
 	name = "broken server"
