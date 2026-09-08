@@ -320,7 +320,7 @@
 	disable_message = "You will no longer see post-round credits."
 	blackbox_message = "Toggle Post-Round Credits"
 
-	/datum/preference_toggle/toggle_bloopers
+/datum/preference_toggle/toggle_bloopers
 	name = "Toggle Bloopers (Chat Sounds)"
 	description = "Toggle hearing chat sounds."
 	preftoggle_bitflag = PREFTOGGLE_3_HEAR_BLOOPERS
