@@ -426,7 +426,7 @@
 		turf_type = initial(turf_type)
 	else
 		turf_type = "/turf/simulated/floor/catwalk/[mode]"
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tile/catwalk/cyborg/update_icon_state()
 	icon_state = "tile_catwalk_borg_[mode]"
