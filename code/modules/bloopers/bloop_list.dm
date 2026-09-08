@@ -199,7 +199,6 @@
 	name = "Generic Monster 2"
 	id = "gen_monster_2"
 	soundpath = 'sound/bloops/voice/undertale/voice_monster2.ogg'
-	allow_random = TRUE
 
 /datum/blooper/dwoop
 	name = "Dwoop"
