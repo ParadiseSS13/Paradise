@@ -53243,7 +53243,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "kDr" = (
-/obj/structure/table/wood,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "kDs" = (

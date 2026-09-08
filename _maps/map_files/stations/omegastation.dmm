@@ -9296,9 +9296,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "aNz" = (
-/obj/structure/filingcabinet,
 /obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/tiles/department/command/checker,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "aNC" = (
@@ -53295,9 +53295,7 @@
 	dir = 9
 	},
 /obj/machinery/light,
-/obj/item/flag/nt{
-	layer = 3.4
-	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "wEw" = (

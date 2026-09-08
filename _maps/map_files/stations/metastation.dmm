@@ -13512,6 +13512,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "bDE" = (

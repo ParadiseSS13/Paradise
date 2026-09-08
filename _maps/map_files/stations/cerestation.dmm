@@ -5299,10 +5299,10 @@
 /area/station/public/toilet/lockerroom)
 "aSf" = (
 /obj/machinery/light,
-/obj/item/kirbyplants/large/plant4,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "aSo" = (
