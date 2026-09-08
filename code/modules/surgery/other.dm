@@ -258,12 +258,12 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
-		to_chat(user, "<span class='warning'>The [affected] seems to already be in fine condition!")
+		to_chat(user, SPAN_WARNING("The [affected] seems to already be in fine condition!"))
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
+		SPAN_NOTICE("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."),
+		SPAN_NOTICE("You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("Something in your [affected.name] is causing you a lot of pain!")

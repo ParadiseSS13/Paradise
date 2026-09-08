@@ -30,31 +30,28 @@
 /obj/mecha/nkarrdem/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(. && ishuman(H))
-		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message(SPAN_WARNING("[H.glasses] prevent you from using [src]'s built-in janitorial HUD."))
-		else
-			var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-			jani_hud.add_hud_to(H)
-			builtin_hud_user = TRUE
+		var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
+		jani_hud.add_hud_to(H, src)
+		builtin_hud_user = TRUE
 
 /obj/mecha/nkarrdem/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
 	if(.)
 		if(occupant.client)
 			var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-			jani_hud.add_hud_to(occupant)
+			jani_hud.add_hud_to(occupant, src)
 			builtin_hud_user = TRUE
 
 /obj/mecha/nkarrdem/go_out()
 	if(ishuman(occupant) && builtin_hud_user)
 		var/mob/living/carbon/human/H = occupant
 		var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-		jani_hud.remove_hud_from(H)
+		jani_hud.remove_hud_from(H, src)
 		builtin_hud_user = FALSE
 	else if((isbrain(occupant) || pilot_is_mmi()) && builtin_hud_user)
 		var/mob/living/brain/H = occupant
 		var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
-		jani_hud.remove_hud_from(H)
+		jani_hud.remove_hud_from(H, src)
 		builtin_hud_user = FALSE
 	return ..()
 

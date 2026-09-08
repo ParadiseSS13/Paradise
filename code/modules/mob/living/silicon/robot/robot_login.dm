@@ -4,7 +4,7 @@
 	..()
 
 	show_laws(0)
-	if(connected_ai)
+	if(connected_ai && connected_ai.mind)
 		if(connected_ai.mind.special_role == SPECIAL_ROLE_TRAITOR && connected_ai.malf_picker)
 			make_malf_robot()
 	regenerate_icons()

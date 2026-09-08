@@ -126,3 +126,4 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
+	dog_fashion = null

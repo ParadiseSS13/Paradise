@@ -564,7 +564,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 	if(cooldown < world.time - 15)
 		if(string_attached) //does the coin have a wire attached
-			to_chat(user, "<span class='warning'>The coin won't flip very well with something attached!</span>" )
+			to_chat(user, SPAN_WARNING("The coin won't flip very well with something attached!"))
 			return FALSE//do not flip the coin
 		var/coinflip = pick(sideslist)
 		cooldown = world.time
