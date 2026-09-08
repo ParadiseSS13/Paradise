@@ -18,6 +18,18 @@
 	var/ignore = FALSE // If TRUE - only for admins
 	var/allow_random = FALSE
 
+/datum/bloop_queue_entry
+	var/start_time
+	var/volume
+	var/pitch
+	var/stamp
+
+/datum/bloop_queue_entry/New(start_time_, volume_, pitch_, stamp_)
+	start_time = start_time_
+	volume = volume_
+	pitch = pitch_
+	stamp = stamp_
+
 /proc/init_blooper_sounds()
 	for(var/sound_blooper_path in subtypesof(/datum/blooper))
 		var/datum/blooper/B = new sound_blooper_path()
@@ -55,10 +67,9 @@
 
 /mob/living/proc/process_bloopers(mob/living/char)
 	var/now = world.time
-	while(LAZYLEN(char.blooper_queue))
-		var/list/entry = char.blooper_queue[length(char.blooper_queue)]
-		if(entry["start_time"] > now)
+	for(var/datum/bloop_queue_entry/entry in char.blooper_queue)
+		if(entry.start_time > now)
 			continue
-		do_blooper(entry["volume"], entry["pitch"], entry["stamp"])
-		char.blooper_queue.len--
+		do_blooper(entry.volume, entry.pitch, entry.stamp)
+		char.blooper_queue -= entry
 

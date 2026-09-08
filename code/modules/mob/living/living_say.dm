@@ -329,12 +329,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				for(var/i in 1 to blooper_count)
 					if(total_delay > BLOOPER_MAX_TIME)
 						break
-					blooper_queue += list(list(
-						"start_time" = world.time + total_delay,
-						"volume" = max(blooper_volume, 100),
-						"pitch" = BLOOPER_DO_VARY(blooper_pitch, blooper_pitch_range),
-						"stamp" = blooper_current_blooper,
-					))
+					blooper_queue += new /datum/bloop_queue_entry(
+						world.time + total_delay,
+						max(blooper_volume, 100),
+						BLOOPER_DO_VARY(blooper_pitch, blooper_pitch_range),
+						blooper_current_blooper,
+					)
 					total_delay += rand(DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
 				SSbloopers.queue(src)
 

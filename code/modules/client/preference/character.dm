@@ -218,8 +218,6 @@
 					nanotrasen_relation=:nanotrasen_relation,
 					physique=:physique,
 					height=:height,
-					blooper_id=:blooper_id
-					blooper_speed=:blooper_speed
 					speciesprefs=:speciesprefs,
 					socks=:socks,
 					body_accessory=:body_accessory,
@@ -234,7 +232,11 @@
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
 					pda_ringtone=:pda_ringtone,
-					quirks=:quirks
+					quirks=:quirks,
+					blooper_id=:blooper_id,
+					blooper_speed=:blooper_speed,
+					blooper_pitch=:blooper_pitch,
+					blooper_pitch_range=:blooper_pitch_range
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -300,7 +302,11 @@
 						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
 						"slot" = slot_number,
-						"quirks" = quirks
+						"quirks" = quirks,
+						"blooperid" = blooper_id,
+						"blooper_speed" = blooper_speed,
+						"blooper_pitch" = blooper_pitch,
+						"blooper_pitch_range" = blooper_pitch_range
 					))
 
 			if(!query.warn_execute())
@@ -339,7 +345,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks, blooperid, blooper_speed, blooper_pitch, blooper_pitch_range)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -366,7 +372,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks, :blooper_id, :blooper_speed, :blooper_pitch, :blooper_pitch_range)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -418,9 +424,6 @@
 		"nanotrasen_relation" = nanotrasen_relation,
 		"physique" = physique,
 		"height" = height,
-		"blooper_id" = blooper_id,
-		"blooper_speed" = blooper_speed,
-		"blooper_pitch" = blooper_pitch,
 		"speciesprefs" = speciesprefs,
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
@@ -434,7 +437,11 @@
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
 		"pda_ringtone" = pda_ringtone,
-		"quirks" = quirks
+		"quirks" = quirks,
+		"blooper_id" = blooper_id,
+		"blooper_speed" = blooper_speed,
+		"blooper_pitch" = blooper_pitch,
+		"blooper_pitch_range" = blooper_pitch_range
 	))
 
 	if(!query.warn_execute())
@@ -529,11 +536,12 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
-	blooper_id = query.item[62]
-	blooper_speed = query.item[63]
-	blooper_pitch = query.item[64]
-
 	quirks = query.item[62]
+	blooper_id = query.item[63]
+	blooper_speed = query.item[64]
+	blooper_pitch = query.item[65]
+	blooper_pitch_range = query.item[66]
+
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
