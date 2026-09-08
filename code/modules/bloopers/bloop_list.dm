@@ -236,9 +236,3 @@
 	id = "tree"
 	soundpath = 'sound/bloops/voice/chulip/tree.ogg'
 	allow_random = TRUE
-
-/datum/blooper/
-	name = "Banjo (Medium)"
-	id = "banjoc3"
-	soundpath = 'sound/instruments/banjo/Cn3.ogg'
-	allow_random = TRUE
