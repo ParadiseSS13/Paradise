@@ -56,6 +56,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/flavor_text
 	/// The chat color to load for when a character is cloned, a changeling transforms, or when a character is created
 	var/chat_color
+	/// The blooper data to load for when a character is cloned, a changeling transforms, or when a character is created
+	var/blooper_id
+	var/blooper_speed
+	var/blooper_pitch
+	var/blooper_pitch_range
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -69,6 +74,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.species = new species.type
 	new_dna.flavor_text = flavor_text
 	new_dna.chat_color = chat_color
+	new_dna.blooper_id = blooper_id
+	new_dna.blooper_speed = blooper_speed
+	new_dna.blooper_pitch = blooper_pitch
+	new_dna.blooper_pitch_range = blooper_pitch_range
 
 	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]

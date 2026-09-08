@@ -577,6 +577,9 @@
 	if(isnull(blooper_pitch))
 		blooper_pitch = initial(blooper_pitch)
 
+	if(isnull(blooper_pitch_range))
+		blooper_pitch = initial(blooper_pitch)
+
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
 
@@ -640,6 +643,10 @@
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
+	blooper_id = sanitize_inlist(blooper_id, GLOB.blooper_list, initial(blooper_id))
+	blooper_speed = sanitize_float(blooper_speed, BLOOPER_DEFAULT_MINSPEED, BLOOPER_DEFAULT_MAXSPEED, initial(blooper_speed))
+	blooper_pitch = sanitize_float(blooper_pitch, BLOOPER_DEFAULT_MINPITCH, BLOOPER_DEFAULT_MAXPITCH, initial(blooper_pitch))
+	blooper_pitch_range = sanitize_float(blooper_pitch_range, BLOOPER_DEFAULT_MINVARY, BLOOPER_DEFAULT_MAXVARY, initial(blooper_pitch_range))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
@@ -1950,6 +1957,7 @@
 	character.blooper_id = blooper_id
 	character.blooper_speed = blooper_speed
 	character.blooper_pitch = blooper_pitch
+	character.blooper_pitch_range = blooper_pitch_range
 
 	character.change_gender(gender)
 	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here

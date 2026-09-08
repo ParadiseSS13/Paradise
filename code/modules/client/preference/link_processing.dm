@@ -625,12 +625,12 @@
 						active_character.blooper_id = new_blooperid
 
 				if("blooper_speed")
-					var/new_blooperspeed = tgui_input_number(user, "Set your voice speed.", "Voice Speed", active_character.blooper_speed, BLOOPER_DEFAULT_MAXSPEED, BLOOPER_DEFAULT_MINSPEED, round_value: FALSE)
+					var/new_blooperspeed = tgui_input_number(user, "Set your voice speed.", "Voice Speed", active_character.blooper_speed, BLOOPER_DEFAULT_MAXSPEED, BLOOPER_DEFAULT_MINSPEED, round_value = FALSE)
 					if(new_blooperspeed)
 						active_character.blooper_speed = new_blooperspeed
 
 				if("blooper_pitch")
-					var/new_blooperpitch = tgui_input_number(user, "Set your voice pitch.", "Voice Pitch", active_character.blooper_pitch, BLOOPER_DEFAULT_MAXPITCH, BLOOPER_DEFAULT_MINPITCH, round_value: FALSE)
+					var/new_blooperpitch = tgui_input_number(user, "Set your voice pitch.", "Voice Pitch", active_character.blooper_pitch, BLOOPER_DEFAULT_MAXPITCH, BLOOPER_DEFAULT_MINPITCH, round_value = FALSE)
 					if(new_blooperpitch)
 						active_character.blooper_pitch = new_blooperpitch
 
