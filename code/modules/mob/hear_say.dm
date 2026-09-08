@@ -23,10 +23,6 @@
 						piece = pick(S.speak)
 					else
 						piece = stars(piece)
-				else if(isbasicmob(speaker))
-					var/mob/living/basic/B = speaker
-					if(LAZYLEN(B.unintelligble_phrases))
-						piece = pick(B.unintelligble_phrases)
 				else
 					piece = SP.speaking.scramble(piece)
 			if(always_stars)
@@ -34,19 +30,14 @@
 			piece = SP.speaking.format_message(piece)
 		else
 			if(!say_understands(speaker, null))
+				piece = stars(piece)
 				if(isanimal(speaker))
 					var/mob/living/simple_animal/S = speaker
 					if(LAZYLEN(S.speak))
 						piece = pick(S.speak)
-				else if(isbasicmob(speaker))
-					var/mob/living/basic/B = speaker
-					if(LAZYLEN(B.unintelligble_phrases))
-						piece = pick(B.unintelligble_phrases)
-					else
-						piece = stars(piece)
 				if(always_stars)
 					piece = stars(piece)
-			piece = SPAN_MESSAGE(SPAN_BODY("[piece]") )
+			piece = "<span class='message'><span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
 	if(msg == "")
 		// There is literally no content left in this message, we need to shut this shit down
@@ -118,40 +109,17 @@
 			if(SP.speaking && SP.speaking.flags & INNATE)
 				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
-	// if(client.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS)
-	// 	if(ishuman(speaker))
-	// 		var/mob/living/carbon/human/bloop_source = speaker
-	// 		if(bloop_source.blooper_id || bloop_source.blooper)
-	// 			var/datum/multilingual_say_piece/message_inst = message_pieces[1]
-	// 			var/bloopers = min(round((length_char(message_inst.message) / bloop_source.blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS)
-	// 			var/total_delay
-	// 			bloop_source.blooper_current_blooper = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
-	// 			for(var/i in 1 to bloopers)
-	// 				if(total_delay > BLOOPER_MAX_TIME)
-	// 					break
-	// 				addtimer(CALLBACK(src, PROC_REF(do_blooper), speaker, 7, max(bloop_source.blooper_volume,100), BLOOPER_DO_VARY(bloop_source.blooper_pitch, bloop_source.blooper_pitch_range), blooper_current_blooper),total_delay)
-	// 				total_delay += rand(DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(bloop_source.blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
 
-
-
-	// horrid horrid horrid
-	// better handling for basicmob interpretation is needed everywhere
-	// but it doesn't help that all the animal interpretation is snowflaked
-	// into core /mob procs
-	if(isbasicmob(speaker) && !say_understands(speaker, null))
-		var/mob/living/basic/B = speaker
-		if(LAZYLEN(B.unintelligble_speak_verbs))
-			verb = pick(B.unintelligble_speak_verbs)
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
-			to_chat(src, SPAN_WARNING("You cannot hear yourself speak!"))
+			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "[SPAN_NAME("[speaker.name]")] talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'>[SPAN_NAME("[speaker_name]")][speaker.GetAltName()] [track][verb], \"[message]\"</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], \"[message]\"</span>")
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
@@ -184,7 +152,7 @@
 
 	if(!can_hear())
 		if(prob(20))
-			to_chat(src, SPAN_WARNING("You feel your headset vibrate but can hear nothing from it!"))
+			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 	else
@@ -246,49 +214,7 @@
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed)
 
-	var/rendered = "<span class='game say'>[SPAN_NAME("[name]")] [message]</span>"
+	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)
 
-// Bloopers
-/mob/living/proc/bp_bloop(bloopsound)
-	blooper = sound(bloopsound)
 
-/mob/living/proc/set_blooper_id(id)
-	if(!id)
-		return FALSE
-	var/datum/blooper/B = GLOB.blooper_list[id]
-	if(!B)
-		return FALSE
-	blooper = sound(initial(B.soundpath))
-	blooper_id = id
-	return blooper
-
-/mob/living/proc/do_blooper(blooper_count, list/listening, mob/living/source, distance, volume, pitch, queue_time)
-	if(!GLOB.blooper_allowed)
-		return
-	if(queue_time && blooper_current_blooper != queue_time)
-		return
-	if(!source.blooper)
-		if(!source.blooper_id || !source.set_blooper_id("mutedc4")) // jit bloopers
-			return
-	if(!ishuman(source))
-		return
-	if(!istype(source, /mob/living)) // only living can hear this
-		return
-	var/mob/living/sourcemob = source
-	volume = min(volume, 100)
-	var/turf/T = get_turf(src)
-	for(var/mob/M in listening)
-		if(source.blooper_timing_delay > BLOOPER_MAX_TIME)
-			source.blooper_timing_delay = 0
-			src.playsound_local(T, vol=volume, vary = TRUE, frequency = pitch, max_distance = distance, falloff_distance = 0, falloff_exponent = BLOOPER_SOUND_FALLOFF_EXPONENT,S = source.blooper, distance_multiplier = 1, soundin = source.blooper)
-			source.blooper_tick += 1
-			if(source.blooper_tick > blooper_count)
-				deltimer(source.blooper_timer_ref)
-			break
-
-		source.blooper_timing_delay += rand(DS2TICKS(source.blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(source.blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(source.blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
-
-
-
-	//src.playsound_local(T, source.blooper, volume, TRUE, pitch, BLOOPER_SOUND_FALLOFF_EXPONENT, max_distance = distance, falloff_distance =)

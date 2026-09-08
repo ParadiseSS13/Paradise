@@ -316,16 +316,27 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 
 
-	//if(client.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS)
-	if(ishuman(src))
+	if(client?.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS)
 		if(ishuman(src))
 			var/mob/living/carbon/human/bloop_source = src
 			if(bloop_source.blooper_id || bloop_source.blooper)
 				var/datum/multilingual_say_piece/message_inst = message_pieces[1]
 				var/blooper_count = min(round((length_char(message_inst.message) / bloop_source.blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS)
+				var/total_delay = 0
 				bloop_source.blooper_tick = 0
 				bloop_source.blooper_current_blooper = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
-				bloop_source.blooper_timer_ref = addtimer(CALLBACK(src, PROC_REF(do_blooper), blooper_count, listening, src, 7, max(bloop_source.blooper_volume,100), BLOOPER_DO_VARY(bloop_source.blooper_pitch, bloop_source.blooper_pitch_range), blooper_current_blooper),0, TIMER_STOPPABLE | TIMER_LOOP)
+				LAZYINITLIST(blooper_queue)
+				for(var/i in 1 to blooper_count)
+					if(total_delay > BLOOPER_MAX_TIME)
+						break
+					blooper_queue += list(list(
+						"start_time" = world.time + total_delay,
+						"volume" = max(blooper_volume, 100),
+						"pitch" = BLOOPER_DO_VARY(blooper_pitch, blooper_pitch_range),
+						"stamp" = blooper_current_blooper,
+					))
+					total_delay += rand(DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
+				SSbloopers.queue(src)
 
 	return TRUE
 

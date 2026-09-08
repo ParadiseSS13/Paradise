@@ -24,3 +24,41 @@
 		GLOB.blooper_list[B.id] = sound_blooper_path
 		if(B.allow_random)
 			GLOB.blooper_random_list[B.id] = sound_blooper_path
+
+/mob/living/proc/do_blooper(volume, pitch, queue_time)
+	if(!GLOB.blooper_allowed)
+		return
+	if(queue_time && blooper_current_blooper != queue_time)
+		return
+	if(!blooper)
+		if(!blooper_id || !set_blooper_id(blooper_id))
+			if(!set_blooper_id("mutedc4"))
+				return
+	if(!ishuman(src))
+		return
+	volume = min(volume, 100)
+	playsound(src, blooper, volume, TRUE, frequency = pitch, ignore_walls = FALSE)
+
+// Bloopers
+/mob/living/proc/bp_bloop(bloopsound)
+	blooper = sound(bloopsound)
+
+/mob/living/proc/set_blooper_id(id)
+	if(!id)
+		return FALSE
+	var/datum/blooper/B = GLOB.blooper_list[id]
+	if(!B)
+		return FALSE
+	blooper = sound(initial(B.soundpath))
+	blooper_id = id
+	return blooper
+
+/mob/living/proc/process_bloopers(mob/living/char)
+	var/now = world.time
+	while(LAZYLEN(char.blooper_queue))
+		var/list/entry = char.blooper_queue[length(char.blooper_queue)]
+		if(entry["start_time"] > now)
+			continue
+		do_blooper(entry["volume"], entry["pitch"], entry["stamp"])
+		char.blooper_queue.len--
+

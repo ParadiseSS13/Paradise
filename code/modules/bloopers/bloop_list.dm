@@ -21,3 +21,9 @@
 	id = "banjoc3"
 	soundpath = 'sound/instruments/banjo/Cn3.ogg'
 	allow_random = TRUE
+
+/datum/blooper/brokenbad
+	name = "The Danger"
+	id = "brokenbad"
+	soundpath = 'sound/bloops/breakingBlooper.ogg'
+	allow_random = TRUE
