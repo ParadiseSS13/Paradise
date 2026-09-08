@@ -43,7 +43,7 @@
 	if(queue_time && blooper_current_blooper != queue_time)
 		return
 	if(!blooper)
-		if(!blooper_id || !set_blooper_id(blooper_id))
+		if(!dna.blooper_id || !set_blooper_id(dna.blooper_id))
 			if(!set_blooper_id("mutedc4"))
 				return
 	if(!ishuman(src))

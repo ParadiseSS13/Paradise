@@ -58,9 +58,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/chat_color
 	/// The blooper data to load for when a character is cloned, a changeling transforms, or when a character is created
 	var/blooper_id
-	var/blooper_speed
-	var/blooper_pitch
-	var/blooper_pitch_range
+	var/blooper_speed = BLOOPER_SPEED_BASELINE
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.5
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -154,7 +154,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), TRUE)
 	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), TRUE)
 
-	SetUIValueRange(DNA_UI_BLOOPER_ID, GLOB.character_physiques.Find(character.blooper_id),	length(GLOB.blooper_list), 1)
+
+	SetUIValueRange(DNA_UI_BLOOPER_ID, GLOB.blooper_list.Find(character.blooper_id),	length(GLOB.blooper_list), 1)
+	SetUIValueRange(DNA_UI_BLOOPER_SPEED, character.blooper_speed,	BLOOPER_DEFAULT_MAXSPEED, 1)
+	SetUIValueRange(DNA_UI_BLOOPER_PITCH, character.blooper_pitch,	BLOOPER_DEFAULT_MAXPITCH, 1)
+	SetUIValueRange(DNA_UI_BLOOPER_PITCH_RANGE, character.blooper_pitch_range,	BLOOPER_DEFAULT_MAXVARY, 1)
 
 
 	var/list/bodyacc = GLOB.body_accessory_by_name.Find(character.body_accessory?.name || "None")
