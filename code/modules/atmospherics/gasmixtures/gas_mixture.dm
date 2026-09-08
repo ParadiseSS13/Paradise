@@ -601,7 +601,7 @@ What are the archived variables for?
 			var/heat = conduction_coefficient * delta_temperature * \
 				(self_heat_capacity * model.heat_capacity / (self_heat_capacity + model.heat_capacity))
 
-			set_temperature(private_temperature - heat / self_heat_capacity)
+			set_temperature(private_temperature - (heat / self_heat_capacity))
 
 	///Performs temperature sharing calculations (via conduction) between two gas_mixtures assuming only 1 boundary length
 	///Returns: new temperature of the sharer
@@ -617,8 +617,8 @@ What are the archived variables for?
 			var/heat = conduction_coefficient*delta_temperature * \
 				(self_heat_capacity * sharer_heat_capacity / (self_heat_capacity + sharer_heat_capacity))
 
-			set_temperature(private_temperature - heat / self_heat_capacity)
-			sharer.set_temperature(sharer.private_temperature + heat / sharer_heat_capacity)
+			set_temperature(private_temperature - (heat / self_heat_capacity))
+			sharer.set_temperature(sharer.private_temperature + (heat / sharer_heat_capacity))
 
 /datum/gas_mixture/proc/temperature_turf_share(turf/simulated/sharer, conduction_coefficient) //I want this proc to die a painful death
 	var/delta_temperature = (private_temperature_archived - sharer.temperature)
@@ -630,7 +630,7 @@ What are the archived variables for?
 			var/heat = conduction_coefficient * delta_temperature * \
 				(self_heat_capacity * sharer.heat_capacity / (self_heat_capacity + sharer.heat_capacity))
 
-			set_temperature(private_temperature - heat / self_heat_capacity)
+			set_temperature(private_temperature - (heat / self_heat_capacity))
 			sharer.temperature += heat / sharer.heat_capacity
 
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
