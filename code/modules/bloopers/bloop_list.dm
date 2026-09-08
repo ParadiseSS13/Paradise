@@ -34,16 +34,10 @@
 	soundpath = 'sound/voice/drasktalk.ogg'
 	allow_random = TRUE
 
-/datum/blooper/dionaRoot
+/datum/blooper/dionaroot
 	name = "Diona Root"
 	id = "dionaroot"
 	soundpath = 'sound/voice/dionatalk1.ogg' //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
-	allow_random = TRUE
-
-/datum/blooper/
-	name = "Banjo (Medium)"
-	id = "banjoc3"
-	soundpath = 'sound/instruments/banjo/Cn3.ogg'
 	allow_random = TRUE
 
 /datum/blooper/ehh
@@ -241,4 +235,10 @@
 	name = "Sophisticated Tree"
 	id = "tree"
 	soundpath = 'sound/bloops/voice/chulip/tree.ogg'
+	allow_random = TRUE
+
+/datum/blooper/
+	name = "Banjo (Medium)"
+	id = "banjoc3"
+	soundpath = 'sound/instruments/banjo/Cn3.ogg'
 	allow_random = TRUE
