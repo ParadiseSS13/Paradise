@@ -21,12 +21,9 @@ The currently supporting non-reagent materials:
 Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from metal). Only add raw materials.
 
 Design Guidlines
-- When adding new designs, check rdreadme.dm to see what kind of things have already been made and where new stuff is needed.
+- If a design ID is not listed in a technode, then it will be unlocked by default UNLESS it's `requires_whitelist` is set to TRUE, this means it must be transfered via disk.
 - A single sheet of anything is 2000 units of material. Materials besides metal/glass require help from other jobs (mining for
 other types of metals and chemistry for reagents).
-- Add the AUTOLATHE tag to
-
-
 */
 
 /// Datum for object designs, used in construction
