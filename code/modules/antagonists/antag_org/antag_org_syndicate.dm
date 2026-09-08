@@ -69,7 +69,8 @@
 	focus = 70
 	targeted_departments = list(DEPARTMENT_ENGINEERING)
 	theft_targets = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit, /datum/theft_objective/magboots, /datum/theft_objective/anomalous_particulate)
-	unique_targets = list(/datum/objective/unique_objective/sabotage_power)
+	unique_targets = list(/datum/objective/unique_objective/sabotage_power/security, /datum/objective/unique_objective/sabotage_power/medical, /datum/objective/unique_objective/sabotage_power/science,
+		/datum/objective/unique_objective/sabotage_power/cargo, /datum/objective/unique_objective/sabotage_power/service)
 
 /datum/antag_org/syndicate/spiderclan // Targets one syndicate agent and one non-mindshielded crewmember.
 	name = "Spider Clan"

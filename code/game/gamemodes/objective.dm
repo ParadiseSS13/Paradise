@@ -1807,3 +1807,23 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
 	completed = TRUE
 	needs_target = FALSE
+
+/datum/objective/unique_objective/sabotage_power/security
+	name = "Sabotage Security"
+	explanation_text = "Ensure that Security's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/medical
+	name = "Sabotage Medical"
+	explanation_text = "Ensure that Medical's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/science
+	name = "Sabotage Science"
+	explanation_text = "Ensure that Science's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/cargo
+	name = "Sabotage Cargo"
+	explanation_text = "Ensure that Cargo's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/service
+	name = "Sabotage Service"
+	explanation_text = "Ensure that Service's powernet is as empty as possible. Do not destroy the reactor."
