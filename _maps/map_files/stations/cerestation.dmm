@@ -55012,7 +55012,7 @@
 	},
 /area/station/medical/surgery)
 "kDi" = (
-/obj/machinery/alarm/directional/west,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "kDn" = (
@@ -96488,6 +96488,10 @@
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/command/starboard)
+"tGV" = (
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "tHg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -155356,7 +155360,7 @@ hZq
 lZX
 jHz
 gch
-kuj
+tGV
 olx
 ega
 fcK

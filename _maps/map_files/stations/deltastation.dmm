@@ -47375,6 +47375,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"dTa" = (
+/obj/machinery/papershredder,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "dTc" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
@@ -139674,7 +139678,7 @@ bOZ
 dne
 dnf
 cfK
-cfK
+dTa
 bYv
 mTf
 bYv

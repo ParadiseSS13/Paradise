@@ -35,7 +35,7 @@
 		to_chat(user, SPAN_NOTICE("You unsecure the [src] from the floor."))
 	anchored = !anchored
 
-/obj/machinery/papershreader/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/papershredder/screwdriver_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	if(!.)
 		return

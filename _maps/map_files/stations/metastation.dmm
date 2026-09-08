@@ -16688,6 +16688,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bTU" = (
