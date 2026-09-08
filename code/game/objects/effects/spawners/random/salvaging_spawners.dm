@@ -3,37 +3,37 @@
 
 /obj/effect/spawner/random/salvage/part/capacitor
 	loot = list(
-			/obj/item/stock_parts/capacitor = 120,
-			/obj/item/stock_parts/capacitor/adv = 20,
-			/obj/item/stock_parts/capacitor/super = 5,
+			/obj/item/stock_parts/capacitor = 24,
+			/obj/item/stock_parts/capacitor/adv = 4,
+			/obj/item/stock_parts/capacitor/super = 1,
 		)
 
 /obj/effect/spawner/random/salvage/part/scanning
 	loot = list(
-			/obj/item/stock_parts/scanning_module = 120,
-			/obj/item/stock_parts/scanning_module/adv = 20,
-			/obj/item/stock_parts/scanning_module/phasic = 5,
+			/obj/item/stock_parts/scanning_module = 24,
+			/obj/item/stock_parts/scanning_module/adv = 4,
+			/obj/item/stock_parts/scanning_module/phasic = 1,
 		)
 
 /obj/effect/spawner/random/salvage/part/manipulator
 	loot = list(
-			/obj/item/stock_parts/manipulator = 120,
-			/obj/item/stock_parts/manipulator/nano = 20,
-			/obj/item/stock_parts/manipulator/pico = 5,
+			/obj/item/stock_parts/manipulator = 24,
+			/obj/item/stock_parts/manipulator/nano = 4,
+			/obj/item/stock_parts/manipulator/pico = 1,
 		)
 
 /obj/effect/spawner/random/salvage/part/matter_bin
 	loot = list(
-			/obj/item/stock_parts/matter_bin = 120,
-			/obj/item/stock_parts/matter_bin/adv = 20,
-			/obj/item/stock_parts/matter_bin/super = 5,
+			/obj/item/stock_parts/matter_bin = 24,
+			/obj/item/stock_parts/matter_bin/adv = 4,
+			/obj/item/stock_parts/matter_bin/super = 1,
 		)
 
 /obj/effect/spawner/random/salvage_laser
 	loot = list(
-			/obj/item/stock_parts/micro_laser = 120,
-			/obj/item/stock_parts/micro_laser/high = 20,
-			/obj/item/stock_parts/micro_laser/ultra = 5,
+			/obj/item/stock_parts/micro_laser = 24,
+			/obj/item/stock_parts/micro_laser/high = 4,
+			/obj/item/stock_parts/micro_laser/ultra = 1,
 		)
 
 //PROTOLATHE
@@ -54,21 +54,21 @@
 
 /obj/effect/spawner/random/salvage/destructive_analyzer
 	loot = list(
-			/obj/item/storage/toolbox/syndicate/empty = 650,
-			/obj/item/gun/energy/kinetic_accelerator = 500,
-			/obj/item/gun/energy/kinetic_accelerator/pistol = 500,
-			/obj/item/camera_bug = 300,
-			/obj/item/clothing/gloves/combat = 200,
-			/obj/item/clothing/head/chameleon = 200,
-			/obj/item/reagent_containers/hypospray/safety = 100,
-			/obj/item/grenade/chem_grenade/metalfoam = 100,
+			/obj/item/storage/toolbox/syndicate/empty = 65,
+			/obj/item/gun/energy/kinetic_accelerator = 50,
+			/obj/item/gun/energy/kinetic_accelerator/pistol = 50,
+			/obj/item/camera_bug = 30,
+			/obj/item/clothing/gloves/combat = 20,
+			/obj/item/clothing/head/chameleon = 20,
+			/obj/item/reagent_containers/hypospray/safety = 10,
+			/obj/item/grenade/chem_grenade/metalfoam = 10,
 
-			/obj/item/wrench/ = 30,
-			/obj/item/screwdriver/nuke = 30,
-			/obj/item/crowbar/small = 30,
-			/obj/item/wirecutters = 30,
-			/obj/item/multitool/red = 30,
-			/obj/item/multitool/ai_detect = 30,
+			/obj/item/wrench = 3,
+			/obj/item/screwdriver/nuke = 3,
+			/obj/item/crowbar/small = 3,
+			/obj/item/wirecutters = 3,
+			/obj/item/multitool/red = 3,
+			/obj/item/multitool/ai_detect = 3,
 		)
 
 /obj/effect/spawner/random/salvage/machine
@@ -95,12 +95,7 @@
 	)
 
 /obj/effect/spawner/random/salvage/ore/Initialize(mapload)
-	spawn_loot_count = pick(list(
-		1,
-		2,
-		3,
-		4
-	))
+	spawn_loot_count = rand(1, 4)
 	return ..()
 
 /obj/effect/spawner/random/salvage/ore/metal

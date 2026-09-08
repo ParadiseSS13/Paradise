@@ -25,8 +25,8 @@
 
 /obj/effect/spawner/random/medical/surgery_tool
 	loot = list(
-		/obj/effect/spawner/random/medical/surgery_tool/common = 120,
-		/obj/effect/spawner/random/medical/surgery_tool/adv = 10,
+		/obj/effect/spawner/random/medical/surgery_tool/common = 12,
+		/obj/effect/spawner/random/medical/surgery_tool/adv = 1,
 	)
 
 /obj/effect/spawner/random/medical/beaker
@@ -39,10 +39,10 @@
 
 /obj/effect/spawner/random/medical/prosthetic
 	loot = list(
-		/obj/item/robot_parts/chest = 1,
-		/obj/item/robot_parts/head = 1,
-		/obj/item/robot_parts/l_arm = 1,
-		/obj/item/robot_parts/l_leg = 1,
-		/obj/item/robot_parts/r_arm = 1,
-		/obj/item/robot_parts/r_leg = 1,
+		/obj/item/robot_parts/chest,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/r_leg,
 	)
