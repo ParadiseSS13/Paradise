@@ -287,6 +287,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
+"X" = (
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/unpowered)
 "Y" = (
 /obj/structure/railing{
 	dir = 9
@@ -405,7 +411,7 @@ B
 (10,1,1) = {"
 B
 q
-q
+X
 s
 w
 n

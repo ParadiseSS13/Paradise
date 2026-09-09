@@ -39603,9 +39603,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "dan" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "dap" = (
@@ -91234,6 +91232,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
+"uIM" = (
+/obj/item/kirbyplants/large,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedbar)
 "uJk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
@@ -125556,7 +125562,7 @@ cIx
 cWn
 sYY
 cLz
-rlI
+uIM
 dbJ
 dcX
 deG

@@ -1013,8 +1013,8 @@
 /obj/item/toy/plushie/borgplushie
 	name = "borg plushie"
 	desc = "The synthetic backbone of the station, rendered in plush form. Features a built-in flashlight and polychromic fabric."
+	base_icon_state = "plushie_borg"
 	icon_state = "plushie_borg"
-	var/borg_plushie_overlay = "plushie_borgassist"
 	var/plushie_module_selected = FALSE
 	var/on = FALSE
 
@@ -1047,13 +1047,13 @@
 		"Medical"		= image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor"		= image('icons/mob/robots.dmi', "jan-radial")
 	)
-	var/static/list/plushie_module_overlays = list(
-		"Security"		= "plushie_borgsec",
-		"Engineering"	= "plushie_borgengi",
-		"Mining"		= "plushie_borgmine",
-		"Service"		= "plushie_borgserv",
-		"Medical"		= "plushie_borgmed",
-		"Janitor"		= "plushie_borgjan"
+	var/static/list/plushie_module_icons = list(
+		"Security"		= "plushie_borg_security",
+		"Engineering"	= "plushie_borg_engineering",
+		"Mining"		= "plushie_borg_mining",
+		"Service"		= "plushie_borg_service",
+		"Medical"		= "plushie_borg_medical",
+		"Janitor"		= "plushie_borg_janitor"
 	)
 	playsound(src, 'sound/effects/pop.ogg', 50, TRUE)
 	var/user_selection = show_radial_menu(user, src, menu_options, require_near = TRUE, radius = 42)
@@ -1061,10 +1061,10 @@
 	if(!user_selection)
 		return
 
-	borg_plushie_overlay = plushie_module_overlays[user_selection]
 	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!"))
-	update_icon()
+	icon_state = plushie_module_icons[user_selection]
 	plushie_module_selected = TRUE
+	update_icon()
 
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
@@ -1074,18 +1074,20 @@
 		to_chat(user, SPAN_WARNING("[src] is already in standard mode!"))
 		return ITEM_INTERACT_COMPLETE
 
-	borg_plushie_overlay = "plushie_borgassist"
-	update_icon()
-	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, reverting it back to standard mode."))
 	plushie_module_selected = FALSE
+	icon_state = base_icon_state
+	update_appearance(UPDATE_ICON)
+	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, reverting it back to standard mode."))
 	qdel(used)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/activate_self(mob/user)
 	if(..())
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	on = !on
 	update_brightness()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/proc/update_brightness()
 	if(on)
@@ -1096,7 +1098,6 @@
 
 /obj/item/toy/plushie/borgplushie/update_overlays()
 	. = ..()
-	add_overlay(borg_plushie_overlay)
 	if(on)
 		add_overlay("borglights")
 	else
@@ -1123,10 +1124,34 @@
 
 /obj/item/toy/plushie/borgplushie/random/Initialize(mapload)
 	. = ..()
-	borg_plushie_overlay = pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi")
-	if(borg_plushie_overlay != "plushie_borgassist")
+	icon_state = pick("plushie_borg", "plushie_borg_security", "plushie_borg_mining", "plushie_borg_engineering", "plushie_borg_service", "plushie_borg_medical", "plushie_borg_janitor")
+	if(icon_state != base_icon_state)
 		plushie_module_selected = TRUE
 	update_icon()
+
+/obj/item/toy/plushie/borgplushie/security
+	icon_state = "plushie_borg_security"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/miner
+	icon_state = "plushie_borg_mining"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/engineering
+	icon_state = "plushie_borg_engineering"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/service
+	icon_state = "plushie_borg_service"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/medical
+	icon_state = "plushie_borg_medical"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/janitor
+	icon_state = "plushie_borg_janitor"
+	plushie_module_selected = TRUE
 
 /obj/item/toy/plushie/dionaplushie
 	name = "diona plushie"
