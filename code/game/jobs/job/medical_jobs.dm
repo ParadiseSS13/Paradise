@@ -51,7 +51,7 @@
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/regular/doctor
+	l_hand = /obj/item/storage/firstaid/regular/doctor/cmo
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
