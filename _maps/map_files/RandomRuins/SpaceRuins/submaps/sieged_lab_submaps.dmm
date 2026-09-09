@@ -85,7 +85,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "bD" = (
-/obj/machinery/r_n_d/circuit_imprinter,
+/obj/structure/salvageable/circuit_imprinter,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "bL" = (
@@ -184,7 +184,7 @@
 "fl" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/cobweb/left/frequent,
-/obj/machinery/computer/nonfunctional{
+/obj/structure/salvageable/computer{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -323,6 +323,13 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"iK" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/obj/structure/salvageable/machine,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "jc" = (
@@ -1068,8 +1075,8 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "xV" = (
-/obj/structure/machine_frame,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
+/obj/structure/salvageable/machine,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "yb" = (
@@ -2106,10 +2113,10 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Wh" = (
-/obj/structure/machine_frame,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/structure/salvageable/autolathe,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "WK" = (
@@ -4415,7 +4422,7 @@ DO
 nK
 nK
 nK
-Ec
+iK
 BM
 Vl
 zv
