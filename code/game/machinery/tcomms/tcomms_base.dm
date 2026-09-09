@@ -330,6 +330,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
 	for(var/M in receive)
+		if(isnull(M))
+			log_debug("null found in list of radio hearers")
+			continue
+
 		var/mob/R = M
 
 		/* --- Loop through the receivers and categorize them --- */
