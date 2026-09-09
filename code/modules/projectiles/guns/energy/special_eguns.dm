@@ -269,7 +269,7 @@
 /obj/item/gun/energy/plasmacutter/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			to_chat(user, SPAN_NOTICE("[src] is already fully charged."))
 			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
@@ -278,7 +278,7 @@
 		to_chat(user, SPAN_NOTICE("You insert [A] in [src], recharging it."))
 	else if(istype(A, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			to_chat(user, SPAN_NOTICE("[src] is already fully charged."))
 			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
@@ -1247,7 +1247,7 @@
 
 /obj/item/gun/energy/laser/lever_action/attack_self__legacy__attackchain(mob/living/user as mob)
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && user.get_inactive_hand())
-		to_chat(user, "<span class='warning'>You need both hands to cycle the action!")
+		to_chat(user, SPAN_WARNING("You need both hands to cycle the action!"))
 		return
 	cycle_action(user)
 	if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))

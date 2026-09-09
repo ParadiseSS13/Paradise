@@ -6,12 +6,14 @@
 /area/station/hallway
 	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	area_icon_color = AREA_COLOR_PUBLIC
 	area_light_color = LIGHT_COLOR_STATION_HALL
 	area_nightlight_color = LIGHT_COLOR_STATION_HALL
 
 /area/station/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
 	icon_state = "hallF"
+	area_icon_text = "FORE\nHALL"
 
 /area/station/hallway/primary/fore/west
 	name = "\improper Fore West Hallway"
@@ -28,6 +30,7 @@
 /area/station/hallway/primary/starboard
 	name = "\improper Starboard Primary Hallway"
 	icon_state = "hallS"
+	area_icon_text = "STBD\nHALL"
 
 /area/station/hallway/primary/starboard/west
 	name = "\improper Starboard West Hallway"
@@ -44,6 +47,7 @@
 /area/station/hallway/primary/aft
 	name = "\improper Aft Primary Hallway"
 	icon_state = "hallA"
+	area_icon_text = "AFT\nHALL"
 
 /area/station/hallway/primary/aft/west
 	name = "\improper Aft West Hallway"
@@ -61,6 +65,7 @@
 /area/station/hallway/primary/port
 	name = "\improper Port Primary Hallway"
 	icon_state = "hallP"
+	area_icon_text = "PORT\nHALL"
 
 /area/station/hallway/primary/port/west
 	name = "\improper Port West Hallway"
@@ -77,6 +82,7 @@
 /area/station/hallway/primary/central
 	name = "\improper Central Primary Hallway"
 	icon_state = "hallC"
+	area_icon_text = "CENT\nHALL"
 
 /area/station/hallway/primary/central/north
 /area/station/hallway/primary/central/south
@@ -89,6 +95,8 @@
 
 /area/station/hallway/spacebridge
 	icon_state = "hall_space"
+	area_icon_text = "SPACE\nHALL"
+	area_icon_color = AREA_COLOR_PUBLIC_SPACE2
 
 /area/station/hallway/spacebridge/security
 	name = "\improper Security Space Bridge"
@@ -129,14 +137,19 @@
 /area/station/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
 	icon_state = "escape"
+	area_icon_text = "ESCAPE"
 
 /area/station/hallway/secondary/garden
 	name = "\improper Garden"
 	icon_state = "garden"
+	area_icon_text = "GARDEN"
+	area_icon_color = AREA_COLOR_SERVICE
 
 /area/station/hallway/secondary/entry
 	name = "\improper Arrival Shuttle Hallway"
 	icon_state = "entry"
+	area_icon_text = "ARRIVE"
+	area_icon_color = AREA_COLOR_PUBLIC_SPACE2
 
 /area/station/hallway/secondary/entry/north
 
@@ -158,6 +171,8 @@
 /area/station/hallway/supply
 	name = "\improper Cargo Hallway"
 	icon_state = "cargo_hallway"
+	area_icon_text = "CARGO\nHALL"
+	area_icon_color = AREA_COLOR_SUPPLY
 
 /area/station/hallway/supply/fore
 	name = "\improper Fore Cargo Hallway"
@@ -175,18 +190,21 @@
 // Other public areas
 
 /area/station/public
+	area_icon_color = AREA_COLOR_PUBLIC
 	area_light_color = LIGHT_COLOR_STATION_HALL
 	area_nightlight_color = LIGHT_COLOR_STATION_HALL_NIGHT
 
 /area/station/public/dorms
 	name = "\improper Dormitories"
 	icon_state = "dorms"
+	area_icon_text = "DORMS"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_name = "Crew Quarters"
 
 /area/station/public/sleep
 	name = "\improper Primary Cryogenic Dormitories"
 	icon_state = "Sleep"
+	area_icon_text = "SLEEP\nROOM"
 	valid_territory = FALSE
 
 /area/station/public/sleep/secondary
@@ -195,11 +213,13 @@
 /area/station/public/locker
 	name = "\improper Locker Room"
 	icon_state = "locker"
+	area_icon_text = "LOCKER\nROOM"
 	request_console_name = "Crew Quarters"
 
 /area/station/public/toilet
 	name = "\improper Dormitory Toilets"
 	icon_state = "toilet"
+	area_icon_text = "TOILET"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/station/public/toilet/unisex
@@ -211,27 +231,33 @@
 /area/station/public/fitness
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
+	area_icon_text = "FITNESS"
 	request_console_name = "Crew Quarters"
 
 /area/station/public/arcade
 	name = "\improper Arcade"
 	icon_state = "arcade"
+	area_icon_text = "ARCADE"
 
 /area/station/public/mrchangs
 	name = "\improper Mr Chang's"
 	icon_state = "changs"
+	area_icon_text = "CHANGS"
 
 /area/station/public/pet_store
 	name = "\improper Pet Store"
 	icon_state = "pet_store"
+	area_icon_text = "PET\nSTORE"
 
 /area/station/public/vacant_office
 	name = "\improper Vacant Office"
 	icon_state = "vacantoffice"
+	area_icon_text = "VACANT\nOFFICE"
 
 /area/station/public/storefront
 	name = "\improper Storefront"
 	icon_state = "vacantoffice"
+	area_icon_text = "VACANT\nOFFICE"
 
 //Storage
 /area/station/public/storage
@@ -240,19 +266,23 @@
 /area/station/public/storage/tools/auxiliary
 	name = "Auxiliary Tool Storage"
 	icon_state = "auxstorage"
+	area_icon_text = "AUX\nSTORE"
 
 /area/station/public/storage/tools
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
+	area_icon_text = "PRIME\nSTORE"
 	request_console_name = "Tool Storage"
 
 /area/station/public/storage/art
 	name = "Art Supply Storage"
 	icon_state = "storage"
+	area_icon_text = "STORE"
 
 /area/station/public/storage/emergency
 	name = "Starboard Emergency Storage"
 	icon_state = "emergencystorage"
+	area_icon_text = "EMERG.\nSTORE"
 
 /area/station/public/storage/emergency/port
 	name = "Port Emergency Storage"
@@ -260,10 +290,12 @@
 /area/station/public/storage/office
 	name = "Office Supplies"
 	icon_state = "office_supplies"
+	area_icon_text = "OFFICE\nSUPPLY"
 
 /area/station/public/construction
 	name = "\improper Construction Area"
 	icon_state = "construction"
+	area_icon_text = "CONSTR."
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
@@ -291,7 +323,11 @@
 /area/station/public/park
 	name = "Public Nature Reserve"
 	icon_state = "park"
+	area_icon_text = "PARK"
+	area_icon_color = AREA_COLOR_SERVICE
 
 /area/station/public/shops
 	name = "Dorms Public Storefront"
 	icon_state = "shop"
+	area_icon_text = "SHOP"
+	area_icon_color = AREA_COLOR_PUBLIC_SPACE2

@@ -457,6 +457,10 @@
 	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
 
+/datum/keybinding/emote/carbon/human/fistbump
+	linked_emote = /datum/emote/living/carbon/human/highfive/fistbump
+	name = "Fistbump"
+
 /datum/keybinding/emote/carbon/human/snap
 	linked_emote = /datum/emote/living/carbon/human/snap
 	name = "Snap"

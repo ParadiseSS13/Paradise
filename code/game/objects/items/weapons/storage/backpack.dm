@@ -684,19 +684,19 @@
 	//Summon
 	switch(rand(1, 8))
 		if(1)
-			new /obj/item/antag_spawner/slaughter_demon(src)
+			new /obj/item/antag_spawner/monster/slaughter_demon(src)
 			value += 2
 		if(2)
-			new /obj/item/antag_spawner/morph(src)
+			new /obj/item/antag_spawner/monster/morph(src)
 			value += 1
 		if(3)
-			new /obj/item/antag_spawner/slaughter_demon/laughter(src)
+			new /obj/item/antag_spawner/monster/slaughter_demon/laughter(src)
 			value += 1
 		if(4)
-			new /obj/item/antag_spawner/slaughter_demon/shadow(src)
+			new /obj/item/antag_spawner/monster/slaughter_demon/shadow(src)
 			value += 1
 		if(5)
-			new /obj/item/antag_spawner/revenant(src)
+			new /obj/item/antag_spawner/monster/revenant(src)
 			value += 1
 		if(6)
 			new /obj/item/contract(src)
