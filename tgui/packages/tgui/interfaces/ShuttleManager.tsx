@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, LabeledList, Section, Stack, Table, Tabs } from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import TabsContext from './common/TabsContext';
+import TabsContext, { useTabs } from './common/TabsContext';
 
 type JumpToCoordsProps = {
   coords: Coord3;
@@ -130,7 +130,7 @@ type ManagerData = {
 };
 
 const Navigation = () => {
-  const { tabIndex, setTabIndex } = useContext(TabsContext);
+  const { tabIndex, setTabIndex } = useTabs();
 
   return (
     <Tabs>
@@ -416,7 +416,7 @@ const StationaryPorts = (props: { ports: StationaryDockingPort[] }) => {
 };
 
 const Content = (props: ManagerData) => {
-  const { tabIndex } = useContext(TabsContext);
+  const { tabIndex } = useTabs();
 
   let { mobile_docking_ports, emergency, sec_level, stationary_docking_ports } = props;
 
@@ -433,7 +433,7 @@ const Content = (props: ManagerData) => {
 };
 
 export const ShuttleManager = () => {
-  const { tabIndex } = useContext(TabsContext);
+  const { tabIndex } = useTabs();
   const { data } = useBackend<ManagerData>();
 
   return (
