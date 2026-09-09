@@ -954,11 +954,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					continue
 				var/obj/O = D.build_path
 				var/list/temp_unlocks = list()
-				temp_unlocks["unlock_id"] = D.id
-				temp_unlocks["unlock_name"] = O.name
-				temp_unlocks["unlock_desc"] = O.desc
-				temp_unlocks["unlock_icon"] = O.icon
-				temp_unlocks["unlock_icon_state"] = O.icon_state
+				temp_unlocks["id"] = D.id
+				if(ispath(O, /obj/item/circuitboard))
+					var/obj/item/circuitboard/C = O
+					temp_unlocks["unlock_name"] = C.board_name
+					if(ispath(C.build_path, /obj/machinery))
+						var/obj/machinery/M = C.build_path
+						temp_unlocks["unlock_desc"] = M.desc
+						temp_unlocks["unlock_icon"] = M.icon
+						temp_unlocks["unlock_icon_state"] = M.icon_state
+					else
+						temp_unlocks["unlock_desc"] = C.desc
+						temp_unlocks["unlock_icon"] = C.icon
+						temp_unlocks["unlock_icon_state"] = C.icon_state
+				else
+					temp_unlocks["unlock_name"] = O.name
+					temp_unlocks["unlock_desc"] = O.desc
+					temp_unlocks["unlock_icon"] = O.icon
+					temp_unlocks["unlock_icon_state"] = O.icon_state
 				vis_node_data["unlocks"] += list(temp_unlocks)
 
 			data["visible_nodes"] += list(vis_node_data)
@@ -1001,10 +1014,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/obj/O = D.build_path
 				var/list/temp_unlocks = list()
 				temp_unlocks["id"] = D.id
-				temp_unlocks["unlock_name"] = O.name
-				temp_unlocks["unlock_desc"] = O.desc
-				temp_unlocks["unlock_icon"] = O.icon
-				temp_unlocks["unlock_icon_state"] = O.icon_state
+				if(ispath(O, /obj/item/circuitboard))
+					var/obj/item/circuitboard/C = O
+					temp_unlocks["unlock_name"] = C.board_name
+					if(ispath(C.build_path, /obj/machinery))
+						var/obj/machinery/M = C.build_path
+						temp_unlocks["unlock_desc"] = M.desc
+						temp_unlocks["unlock_icon"] = M.icon
+						temp_unlocks["unlock_icon_state"] = M.icon_state
+					else
+						temp_unlocks["unlock_desc"] = C.desc
+						temp_unlocks["unlock_icon"] = C.icon
+						temp_unlocks["unlock_icon_state"] = C.icon_state
+				else
+					temp_unlocks["unlock_name"] = O.name
+					temp_unlocks["unlock_desc"] = O.desc
+					temp_unlocks["unlock_icon"] = O.icon
+					temp_unlocks["unlock_icon_state"] = O.icon_state
 				known_node_data["unlocks"] += list(temp_unlocks)
 			data["known_nodes"] += list(known_node_data)
 
