@@ -669,7 +669,11 @@
 		. += SPAN_NOTICE("Use an empty hand on [src] on grab mode to remove [silicon_hat].")
 
 /mob/living/silicon/plushify(plushie_override, curse_time)
-	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+	// So this doesn't override borg plushify.
+	if(!isrobot(src))
+		. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+	
+	return ..(plushie_override, curse_time)
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(75)
