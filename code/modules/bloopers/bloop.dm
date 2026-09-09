@@ -51,7 +51,7 @@
 	if(!ishuman(src))
 		return
 	volume = min(volume, 100)
-	playsound(src, blooper, volume, TRUE, frequency = pitch, ignore_walls = FALSE)
+	playsound(src, blooper, volume, TRUE, frequency = pitch, ignore_walls = FALSE, channel = CHANNEL_BLOOPERS)
 
 // Bloopers
 /mob/living/proc/bp_bloop(bloopsound)
@@ -103,4 +103,5 @@
 		return
 	var/sound/bloop_sound =  sound(soundpath, volume = volume)
 	bloop_sound.frequency = pitch
+	bloop_sound.volume =  volume * user.client.prefs.get_channel_volume(CHANNEL_BLOOPERS)
 	SEND_SOUND(user, bloop_sound)
