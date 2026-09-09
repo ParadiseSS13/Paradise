@@ -327,7 +327,6 @@
 	var/turns_since_scan = 0
 	var/obj/movement_target
 	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 	var/age = 0
 	var/record_age = 1
 	var/saved_head //path
@@ -486,7 +485,6 @@
 	faction = list("neutral", "cult")
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
-	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -544,7 +542,6 @@
 	gender = FEMALE
 	desc = "It's a corgi with a cute pink bow."
 	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 	icon_state = "lisa"
 	icon_living = "lisa"
 	icon_dead = "lisa_dead"

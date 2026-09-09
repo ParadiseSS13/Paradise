@@ -41,7 +41,7 @@
 /obj/item/gun/throw/crossbow/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
+		. += SPAN_NOTICE("\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]")
 	else
 		. += SPAN_NOTICE("It has an empty mount for a battery cell.")
 	. += SPAN_NOTICE("<b>Alt-Click</b> [src] to adjust it's tension.")

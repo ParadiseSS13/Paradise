@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/items_generated = FALSE
 
 	var/datum/data/record/selected_record
+	new_attack_chain = TRUE
 
 /obj/item/uplink/ui_host()
 	return loc
@@ -445,9 +446,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/show_examine_hotkeys()
 	return list()
 
-/obj/item/radio/uplink/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/radio/uplink/activate_self(mob/user)
+	if(!user)
+		return ..()
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/uplink/nuclear/Initialize(mapload)
 	. = ..()

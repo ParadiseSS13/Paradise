@@ -682,6 +682,23 @@
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
+/datum/cooking/recipe/spidermeatbread
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/spidermeatbread
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spidermeat),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spidermeat),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spidermeat),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
+
 /datum/cooking/recipe/meatpie
 	container_type = /obj/item/reagent_containers/cooking/oven
 	product_type = /obj/item/food/meatpie

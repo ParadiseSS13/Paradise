@@ -279,24 +279,34 @@
 //CONSTRUCTION
 /obj/item/scooter_frame
 	name = "scooter frame"
-	desc = "A metal frame for building a scooter. Looks like you'll need to add some iron to make wheels."
+	desc = "A metal frame for building a scooter. Looks like you'll need to add some metal to make wheels."
 	icon = 'icons/obj/tgvehicles.dmi'
 	icon_state = "scooter_frame"
+	new_attack_chain = TRUE
 
-/obj/item/scooter_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stack/sheet/metal))
+/obj/item/scooter_frame/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/sheet/metal))
 		return ..()
-	var/obj/item/stack/S = I
-	if(S.get_amount() < 5)
-		return
+
+	var/obj/item/stack/metal_stack = used
+	if(metal_stack.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least 2 sheets of metal to build a skateboard!"))
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, SPAN_NOTICE("You begin to add wheels to [src]."))
-	if(do_after(user, 5 SECONDS, target = src))
-		if(!loc || !S || S.get_amount() < 2)
-			return
-	S.use(2)
+	if(!do_after_once(user, 5 SECONDS, target = src))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!loc || !metal_stack || metal_stack.get_amount() < 2)
+		return ITEM_INTERACT_COMPLETE
+
+	metal_stack.use(2)
 	to_chat(user, SPAN_NOTICE("You finish making wheels for [src]."))
-	new /obj/tgvehicle/scooter/skateboard/improvised(user.loc)
+	var/obj/tgvehicle/scooter/skateboard/improvised/new_skateboard = new(user.loc)
+	transfer_fingerprints_to(new_skateboard)
+	new_skateboard.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/scooter_frame/wrench_act(mob/living/user, obj/item/I)
 	..()
@@ -325,7 +335,10 @@
 		var/mob/living/carbon/skaterboy = buckled_mobs[1]
 		unbuckle_mob(skaterboy)
 		skaterskoot.buckle_mob(skaterboy)
+	transfer_fingerprints_to(skaterskoot)
+	skaterskoot.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/tgvehicle/scooter/skateboard/improvised/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

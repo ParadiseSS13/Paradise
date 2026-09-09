@@ -149,9 +149,6 @@
 	if(is_ai(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.sensor_mode()
-	else if(isrobot(usr))
-		var/mob/living/silicon/robot/borg = usr
-		borg.sensor_mode()
 
 /datum/hud/ai/New(mob/owner)
 	..()

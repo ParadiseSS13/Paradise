@@ -3,7 +3,6 @@
 //This file is for effects that are less than 20 lines and don't fit very well in any other category.
 
 /*CURRENT CONTENTS
-	Strange Present
 	Mark
 	Beam
 	Laser
@@ -15,15 +14,6 @@
 	Spawner
 	List_container
 */
-
-//The effect when you wrap a dead body in gift wrap
-/obj/effect/spresent
-	name = "strange present"
-	desc = "It's a ... present?"
-	icon = 'icons/obj/items.dmi'
-	icon_state = "strangepresent"
-	density = TRUE
-	anchored = FALSE
 
 /obj/effect/mark
 		var/mark = ""

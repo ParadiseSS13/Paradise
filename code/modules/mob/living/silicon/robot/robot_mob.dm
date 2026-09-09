@@ -1,6 +1,7 @@
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
+GLOBAL_LIST_EMPTY(available_ai_shells)
 
 /mob/living/silicon/robot
 	name = "Cyborg"
@@ -19,6 +20,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/custom_name = ""
 	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
+	/// Is this borg a shell?
+	var/shell = FALSE
+	/// Is this shell currently deployed?
+	var/deployed = FALSE
+	/// The AI deployed to a shell.
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
 	var/list/inventory_screens = list()
@@ -142,7 +150,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// When the camera moved signal was sent last. Avoid overdoing it.
 	var/last_camera_update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
 	/// Does the robot have ion thrusters installed?
@@ -169,7 +177,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/Initialize(mapload, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+	. = ..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -192,8 +201,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.turn_off(src, FALSE)
 
-	if(mmi == null)
-		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
+	if(shell)
+		var/obj/item/borg/upgrade/ai/board = new(src)
+		make_shell(board)
+
+	else if(mmi == null)
+		mmi = new /obj/item/mmi/robotic_brain(src)	// Give the borg an MMI if they spawn without for some reason (probably not the correct way to spawn a robotic brain, but it works).
 		mmi.icon_state = "boris"
 
 	initialize_components()
@@ -202,8 +215,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/V in components) if(V != "power cell")
 		var/datum/robot_component/C = components[V]
 		C.install(new C.external_type, FALSE)
-
-	..()
 
 	add_robot_verbs()
 
@@ -216,7 +227,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/stock_parts/cell/C = cell || new default_cell_type(src)
 	cell_component.install(C)
 
-	init(alien, connect_to_AI, ai_to_sync_to)
+	init(connect_to_AI, ai_to_sync_to)
 
 	diag_hud_set_borgcell()
 	scanner = new(src)
@@ -234,7 +245,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!has_gravity(T))
 			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
-/mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/proc/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = ":b "
@@ -252,11 +263,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
+	if(shell)
+		return
 	if(!..(oldname, newname))
 		return FALSE
 
 	if(oldname != real_name)
-		notify_ai(3, oldname, newname)
+		notify_ai(RENAME, oldname, newname)
 		custom_name = (newname != get_default_name()) ? newname : null
 		setup_PDA()
 
@@ -348,6 +361,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/Destroy()
 	remove_robot_mindslave() // You cannot be connected to the malf AI if you are a pile of debris.
 	SStgui.close_uis(wires)
+	if(shell)
+		undeploy()
+		revert_shell()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)
@@ -589,73 +605,81 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
 			can_wear_restricted_hats = TRUE
-		if("Rover")
-			can_be_hatted = FALSE
-			hat_offset_y = -1
+		if("Rover") // bit of an oddball with different shapes per department
+			can_be_hatted = TRUE
+			switch(module.module_type)
+				if("Engineer")
+					hat_offsets = alist(SOUTH = list(0, -2), NORTH = list(0, 1), EAST = list(-8, -1), WEST = list(9, -1))
+				if("Medical")
+					hat_offsets = alist(SOUTH = list(0, -9), NORTH = list(0, -2), EAST = list(-8, -6), WEST = list(9, -6))
+				if("Service")
+					hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, 1), EAST = list(-8, -4), WEST = list(9, -4))
+				if("Janitor")
+					hat_offsets = alist(SOUTH = list(0, -5), NORTH = list(0, -1), EAST = list(-8, -4), WEST = list(9, -4))
 		if("Noble")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = 4
+			hat_offsets = alist(SOUTH = list(0, 4), NORTH = list(0, 4), EAST = list(0, 4), WEST = list(0, 4))
 		if("Droid_Medical")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = 4
+			hat_offsets = alist(SOUTH = list(0, 4), NORTH = list(0, 4), EAST = list(0, 4), WEST = list(0, 4))
 		if("Droid_Mining", "mk2", "mk3")
 			can_be_hatted = TRUE
 			is_centered = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Bloodhound", "Bloodhound_Deathsquad", "syndie_bloodhound", "Bloodhound_Combat")
 			can_be_hatted = TRUE
-			hat_offset_y = 1
+			hat_offsets = alist(SOUTH = list(0, 1), NORTH = list(0, 1), EAST = list(0, 1), WEST = list(0, 1))
 		if("Cricket")
 			can_be_hatted = TRUE
-			hat_offset_y = 2
+			hat_offsets = alist(SOUTH = list(0, 2), NORTH = list(0, 2), EAST = list(0, 2), WEST = list(0, 2))
 		if("Droid_Combat")
 			can_be_hatted = TRUE
 			hat_alpha = 255
-			hat_offset_y = 2
+			hat_offsets = alist(SOUTH = list(0, 2), NORTH = list(0, 2), EAST = list(0, 2), WEST = list(0, 2))
 		if("Droid_Combat_Roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
 		if("syndi_medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
 			is_centered = TRUE
-			hat_offset_y = 1
+			hat_offsets = alist(SOUTH = list(0, 1), NORTH = list(0, 1), EAST = list(0, 1), WEST = list(0, 1))
 		if("Security", "janitorrobot", "medicalrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Brobot", "Service", "Service2", "robot_old", "securityrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Miner", "lavaland")
 			can_be_hatted = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Standard")
 			can_be_hatted = TRUE
-			hat_offset_y = -3
+			hat_offsets = alist(SOUTH = list(0, -3), NORTH = list(0, -3), EAST = list(0, -3), WEST = list(0, -3))
 		if("Droid")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -4
+			hat_offsets = alist(SOUTH = list(0, -4), NORTH = list(0, -4), EAST = list(0, -4), WEST = list(0, -4))
 		if("Landmate", "syndi_engi")
 			can_be_hatted = TRUE
-			hat_offset_y = -7
+			hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, -7), EAST = list(0, -7), WEST = list(0, -7))
 		if("Mop_Gear_Rex")
 			can_be_hatted = TRUE
-			hat_offset_y = -6
+			hat_offsets = alist(SOUTH = list(0, -6), NORTH = list(0, -6), EAST = list(0, -6), WEST = list(0, -6))
 		if("Qualified_Doctor")
 			can_be_hatted = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Squat_Miner")
 			can_be_hatted = TRUE
 		if("Coffin_Miner")
 			can_be_hatted = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Heavy_Sec")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
@@ -680,27 +704,33 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(selected_module)
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
+			// AI shells have the same channels as the AI itself so we skip it.
+			if(!shell)
+				module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Engineering"
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
-			module.channels = list("Service" = 1)
+			if(!shell)
+				module.channels = list("Service" = 1)
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
-			module.channels = list("Medical" = 1)
+			if(!shell)
+				module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Medical"
 			status_flags &= ~CANPUSH
 			has_advanced_reagent_vision = TRUE
 		if("Mining")
 			module = new /obj/item/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
+			if(!shell)
+				module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Mining Outpost"
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
-			module.channels = list("Service" = 1)
+			if(!shell)
+				module.channels = list("Service" = 1)
 			has_advanced_reagent_vision = TRUE
 			if(selected_sprite == "Bro")
 				module.module_type = "Brobot"
@@ -717,19 +747,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 	modtype = selected_module
 	designation = selected_module
+	if(shell) // Update the shell name right after choosing a module.
+		real_name = "[real_name] -[designation]"
+		name = real_name
 	module.add_languages(src)
 	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
 	if(emagged)
 		module.emag_act(src)
-	if(!static_radio_channels)
+	if(!static_radio_channels && !shell) // Shells have the same channels as the AI and we dont want to reset them.
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())
 	initialize_sprites(selected_sprite, module_sprites)
 	if(client.stat_tab == "Status")
 		SSstatpanels.set_status_tab(client)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 
 /mob/living/silicon/robot/proc/initialize_sprites(selected_sprite, list/module_sprites)
 	var/image/sprite_image = module_sprites[selected_sprite]
@@ -743,10 +776,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/obj/item/borg/upgrade/U in contents)
 		if(istype(U, /obj/item/borg/upgrade/reset)) // The reset module is supposed to be consumed on use, this stops it from dropping on the floor if used
 			QDEL_NULL(U)
+		if(istype(U, /obj/item/borg/upgrade/ai)) // So you can change the shell module but not drop the BORIS module.
+			continue
 		U.forceMove(get_turf(src))
 
 /mob/living/silicon/robot/proc/reset_module()
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 	client?.screen -= hud_used.module_store_icon
 	uneq_all()
 	SStgui.close_user_uis(src)
@@ -1065,11 +1100,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		module?.update_cells()
 		diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
-
-	if(istype(used, /obj/item/encryptionkey) && opened)
+	if(istype(used, /obj/item/encryptionkey/) && opened)
 		if(radio)
 			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
-			radio.attackby__legacy__attackchain(used, user)
+			radio.item_interaction(user, used)
 		else
 			to_chat(user, SPAN_WARNING("[src] has no radio!"))
 		return ITEM_INTERACT_COMPLETE
@@ -1090,7 +1124,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(user, SPAN_WARNING("Access denied!"))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	if(istype(used, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = used
 		if(!opened)
@@ -1160,8 +1194,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
+		if(shell) // Prevents AI shell key theft.
+			to_chat(user, SPAN_NOTICE("The shell appears to not have an encryption key."))
+			return
 		if(radio)
-			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
+			radio.screwdriver_act(user, I) // Push it to the radio to let it handle everything.
 		else
 			to_chat(user, "Unable to locate a radio.")
 		update_icons()
@@ -1250,7 +1287,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	clear_supplied_laws()
 	laws = new /datum/ai_laws/crewsimov
 	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
-	A.remove_hud_from(user)
+
+	A.remove_hud_from(user, "emag")
 
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -1267,10 +1305,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		to_chat(user, SPAN_NOTICE("You emag the cover lock."))
 		locked = FALSE
+		// A warning to Traitors who may not know that emagging AI shells does not slave them.
+		if(shell)
+			to_chat(user, SPAN_BOLDWARNING("[src] seems to be controlled remotely! Emagging the interface may not work as expected."))
 		log_game("[user]([user.key]) emagged [src]'s cover.")
 		return TRUE
 
 	if(opened)
+		if(shell) // AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
+			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable AI control!"))
+			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
+			undeploy()
+			reset_module()
+			revert_shell()
+			return
 		if(emagged)
 			to_chat(user, SPAN_WARNING("The emag sparks, and flashes red. [src] has already been emagged!"))
 			return
@@ -1374,7 +1422,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
-			O.attack_self__legacy__attackchain(src)
+			if(O.new_attack_chain)
+				O.activate_self(src)
+			else
+				O.attack_self__legacy__attackchain(src)
 		return TRUE
 
 	if(href_list["act"])
@@ -1433,6 +1484,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
+	if(shell)
+		undeploy()
 	if(robot_suit)
 		robot_suit.forceMove(T)
 		robot_suit.l_leg.forceMove(T)
@@ -1544,16 +1597,35 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		for(var/datum/action/innate/robot_override_lock/override in actions)
 			override.Remove(src)
 
+/**
+ * Notifies the AI of a certain event related to borgs and shells.
+ *
+ * Arguments:
+ * * notifytype - The type of notification to send.
+ * * oldname - The old name of the cyborg.
+ * * newname - The new name of the cyborg.
+ *
+ * Notify Types:
+ * - NEW_BORG: A new cyborg has connected.
+ * - NEW_MODULE: A cyborg has loaded a new module.
+ * - RENAME: A cyborg has been renamed.(This one needs the old and new name arguments.)
+ * - AI_SHELL: A new AI shell has been detected.
+ * - DISCONNECT: A cyborg has disconnected.
+ */
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(1) //New Cyborg
+		if(NEW_BORG) // New Cyborg.
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
-		if(2) //New Module
+		if(NEW_MODULE) // New Module.
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
-		if(3) //New Name
+		if(RENAME) // New Name.
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+		if(AI_SHELL) // New Shell.
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+		if(DISCONNECT) // Disconnect.
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with [name].")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1567,7 +1639,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
-		notify_ai(1)
+		// Shells get notifications already, so we don't want to duplicate the message for them.
+		if(!shell)
+			notify_ai(NEW_BORG)
 		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
 			make_malf_robot(AI)
 		if(module)
@@ -1636,7 +1710,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 	emagged = TRUE
 	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
-	A.add_hud_to(src)
+	A.add_hud_to(src, "emag")
 	SetLockdown(FALSE)
 
 /mob/living/silicon/robot/proc/make_mindflayer_robot(mob/living/flayer)
@@ -1710,7 +1784,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emp_protection)
 		return
 	..()
-	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
+	if(shell)
+		undeploy()
+	adjustStaminaLoss((30 / severity)) // They also get flashed for an additional 30.
 	switch(severity)
 		if(EMP_HEAVY)
 			disable_random_component(2, 20 SECONDS)
@@ -1738,7 +1814,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	has_advanced_reagent_vision = TRUE
 
-/mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/deathsquad/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
 	module.add_languages(src)
@@ -1772,14 +1848,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	has_advanced_reagent_vision = TRUE
 
 
-/mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/ert/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc)
-	..(loc)
+/mob/living/silicon/robot/ert/Initialize(mapload, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+	. = ..()
 	var/rnum = rand(1,1000)
 	var/borgname = "[eprefix] ERT [rnum]"
 	name = borgname
@@ -1826,7 +1902,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	has_advanced_reagent_vision = TRUE
 
-/mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/destroyer/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	additional_law_channels["Binary"] = ":b "
 	laws = new /datum/ai_laws/deathsquad
@@ -2013,4 +2089,116 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/plushify(plushie_override, curse_time)
 	if(curse_time == -1)
 		QDEL_NULL(mmi)
-	return ..()
+
+	if(!module || module.name == "alien hunter module")
+		return ..(/obj/item/toy/plushie/borgplushie, curse_time)
+
+	if(module.name in list("security robot module", "combat robot module", "syndicate assault robot module", "NT advanced combat module", "destroyer robot module"))
+		return ..(/obj/item/toy/plushie/borgplushie/security, curse_time)
+
+	if(module.name in list("engineering robot module", "saboteur robot module", "drone module")) // Maybe we get drone plushie some day...
+		return ..(/obj/item/toy/plushie/borgplushie/engineering, curse_time)
+
+	if(module.name == "miner robot module")
+		return ..(/obj/item/toy/plushie/borgplushie/miner, curse_time)
+
+	if(module.name in list("medical robot module", "syndicate medical robot module"))
+		return ..(/obj/item/toy/plushie/borgplushie/medical, curse_time)
+
+	if(module.name == "janitorial robot module")
+		return ..(/obj/item/toy/plushie/borgplushie/janitor, curse_time)
+
+	if(module.name == "service robot module")
+		return ..(/obj/item/toy/plushie/borgplushie/service, curse_time)
+
+	return ..(/obj/item/toy/plushie/borgplushie, curse_time)
+
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
+	if(isnull(board))
+		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
+		return FALSE
+	shell = TRUE
+	mmi = board // This is to drop the BORIS module when we deconstruct a shell.
+	braintype = "AI Shell"
+	name = "AI Shell [rand(100,999)]"
+	real_name = name
+	GLOB.available_ai_shells |= src
+	if(camera)
+		camera.c_tag = real_name // Update the camera name too.
+
+/// Reverts a shell back to a unformatted cyborg also drops the BORIS module.
+/mob/living/silicon/robot/proc/revert_shell()
+	if(!shell)
+		return
+	notify_ai(DISCONNECT)
+	shell = FALSE
+	GLOB.available_ai_shells -= src
+	name = "Unformatted Cyborg [rand(100,999)]"
+	real_name = name
+	for(var/obj/item/borg/upgrade/ai/U in src.contents)
+		if(U)
+			U.forceMove(src.loc)
+	if(camera)
+		camera.c_tag = real_name
+	diag_hud_set_aishell()
+
+/mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
+	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : ""]"	// Randomizing the name so it shows up seperately in the shells list.
+	name = real_name
+	setup_PDA()
+	if(camera)
+		camera.c_tag = real_name // Update the camera name too.
+	mainframe = AI
+	deployed = TRUE
+	connected_ai = mainframe
+	mainframe.connected_robots |= src
+	lawupdate = TRUE
+	lawsync()
+	if(radio && AI.aiRadio) // AI keeps all channels, including Syndie if it is a Traitor.
+		if(AI.aiRadio.syndie)
+			radio.make_syndie()
+		radio.channels = AI.aiRadio.channels
+		for(var/chan in radio.channels)
+			radio.secure_radio_connections[chan] = SSradio.add_object(radio, SSradio.radiochannels[chan], RADIO_CHAT)
+
+	diag_hud_set_aishell()
+	undeployment_action.Grant(src)
+
+/datum/action/innate/undeployment
+	name = "Disconnect from shell"
+	desc = "Stop controlling your shell and resume normal core operations."
+	button_icon_state = "ai_core"
+
+/datum/action/innate/undeployment/Trigger()
+	if(!..())
+		return FALSE
+	var/mob/living/silicon/robot/R = owner
+
+	R.undeploy()
+	return TRUE
+
+/// Undeploys the AI from its shell.
+/mob/living/silicon/robot/proc/undeploy()
+	if(!deployed || !mind || !mainframe)
+		return
+	mainframe.redeploy_action.Grant(mainframe)
+	mainframe.redeploy_action.last_used_shell = src
+	mind.transfer_to(mainframe)
+	deployed = FALSE
+	mainframe.deployed_shell = null
+	undeployment_action.Remove(src)
+	if(radio) // Return radio to normal.
+		radio.recalculateChannels()
+	if(camera)
+		camera.c_tag = real_name // Update the camera name too.
+	diag_hud_set_aishell()
+	mainframe.diag_hud_set_deployed()
+	if(mainframe.laws)
+		mainframe.laws.show_laws(mainframe) // Always remind the AI when switching.
+	if(mainframe.eyeobj)// Makes it so that when an AI undeploys its view isn’t moved to its core.
+		mainframe.eyeobj.set_loc(loc)
+	mainframe = null
+
+/mob/living/silicon/robot/shell
+	shell = TRUE
+	allow_rename = FALSE // This is to prevent someone renaming the shell and causing confusion with it.

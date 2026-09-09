@@ -67,7 +67,7 @@
 		. += SPAN_NOTICE("It seems to be sealed shut, there's no way you're getting that open.")
 	else
 		if(!open)
-			. += SPAN_NOTICE("The ID lock is active, you need to swipe an ID to open it.")
+			. += SPAN_NOTICE("The ID lock is active, you need to swipe an ID to open it (Shortcut: <b>Alt-Click</b>).")
 		else if((broken || open) && showpiece)
 			. += SPAN_NOTICE("[showpiece] is held in a loose low gravity suspension field. You can take [showpiece] out[broken ? "." : ", or lock [src] with an ID"].")
 
@@ -142,19 +142,30 @@
 	if(!open && !broken)
 		. += "glassbox_closed"
 
+/obj/structure/displaycase/proc/id_act(mob/living/user, obj/item/card/id/id_card = null)
+	if(!istype(id_card))
+		id_card = user.get_id_card()
+	if(!openable)
+		to_chat(user, SPAN_WARNING("There is no ID scanner, looks like this one is sealed shut."))
+		return
+	if(broken)
+		to_chat(user, SPAN_WARNING("[src] is broken, the ID lock won't do anything."))
+		return
+	if(allowed(user) || emagged)
+		to_chat(user, SPAN_NOTICE("You use [id_card] to [open ? "close" : "open"] [src]."))
+		toggle_lock()
+		return TRUE
+	else
+		to_chat(user, SPAN_WARNING("Access denied."))
+		return
+
+/obj/structure/displaycase/AltClick(mob/living/user)
+	if(Adjacent(user))
+		id_act(user, user.get_id_card())
+
 /obj/structure/displaycase/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(I.GetID())
-		if(!openable)
-			to_chat(user, SPAN_WARNING("There is no ID scanner, looks like this one is sealed shut."))
-			return ITEM_INTERACT_COMPLETE
-		if(broken)
-			to_chat(user, SPAN_WARNING("[src] is broken, the ID lock won't do anything."))
-			return ITEM_INTERACT_COMPLETE
-		if(allowed(user) || emagged)
-			to_chat(user, SPAN_NOTICE("You use [I] to [open ? "close" : "open"] [src]."))
-			toggle_lock()
-		else
-			to_chat(user, SPAN_WARNING("Access denied."))
+		id_act(user, I)
 		return ITEM_INTERACT_COMPLETE
 	else if(open && !showpiece)
 		if(!(I.flags & (ABSTRACT | DROPDEL)) && user.drop_item())

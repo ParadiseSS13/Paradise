@@ -73,18 +73,18 @@
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	name = "shaft miner's harshsuit"
-	desc = "It's an brown uniform with some padded armour for operating in hazardous environments."
+	desc = "It's a brown uniform with some padded armour for operating in hazardous environments."
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "explorer"
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland/skirt
 	name = "shaft miner's harshskirt"
-	desc = "It's an brown uniform with some padded armour for operating in hazardous environments while remaining pretty."
+	desc = "It's a brown uniform with some padded armour for operating in hazardous environments while remaining pretty."
 	icon_state = "explorer_skirt"
 
 /obj/item/clothing/under/rank/cargo/miner/lavaland/overalls
 	name = "shaft miner's overalls"
-	desc = "It's an dark purple turtleneck with a sturdy set of overalls. Sadly, doesn't have any extra pockets to carry some sandwiches. It is very dirty."
+	desc = "It's a dark purple turtleneck with a sturdy set of overalls. Sadly, doesn't have any extra pockets to carry some sandwiches. It is very dirty."
 	icon_state = "explorer_overalls"
 
 /obj/item/clothing/under/rank/cargo/expedition

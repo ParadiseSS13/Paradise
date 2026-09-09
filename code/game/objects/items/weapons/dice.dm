@@ -47,6 +47,7 @@
 
 	var/rigged = DICE_NOT_RIGGED
 	var/rigged_value
+	new_attack_chain = TRUE
 
 /obj/item/dice/Initialize(mapload)
 	. = ..()
@@ -148,18 +149,20 @@
 
 /obj/item/dice/d20/fate/diceroll(mob/user)
 	. = ..()
-	if(!used)
-		if(!ishuman(user) || !user.mind || iswizard(user))
-			to_chat(user, SPAN_WARNING("You feel the magic of the dice is restricted to ordinary humans!"))
-			return
+	if(used)
+		return
 
-		if(!reusable)
-			used = TRUE
+	if(!ishuman(user) || !user.mind || iswizard(user))
+		to_chat(user, SPAN_WARNING("You feel the magic of the dice is restricted to ordinary humans!"))
+		return
 
-		var/turf/T = get_turf(src)
-		T.visible_message(SPAN_USERDANGER("[src] flares briefly."))
+	if(!reusable)
+		used = TRUE
 
-		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
+	var/turf/T = get_turf(src)
+	T.visible_message(SPAN_USERDANGER("[src] flares briefly."))
+
+	addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || iswizard(user))
@@ -175,27 +178,27 @@
 	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
-			//Dust
+			// Dust.
 			T.visible_message(SPAN_USERDANGER("[user] turns to dust!"))
 			user.dust()
 		if(2)
-			//Death
+			// Death.
 			T.visible_message(SPAN_USERDANGER("[user] suddenly dies!"))
 			user.death()
 		if(3)
-			//Swarm of creatures
+			// Swarm of creatures.
 			T.visible_message(SPAN_USERDANGER("A swarm of creatures surround [user]!"))
 			for(var/direction in GLOB.alldirs)
 				new /mob/living/basic/netherworld(get_step(get_turf(user), direction))
 		if(4)
-			//Destroy Equipment
+			// Destroy Equipment.
 			T.visible_message(SPAN_USERDANGER("Everything [user] is holding and wearing disappears!"))
 			for(var/obj/item/I in user)
 				if(istype(I, /obj/item/bio_chip))
 					continue
 				qdel(I)
 		if(5)
-			//Monkeying
+			// Monkeying.
 			if(ismachineperson(user))
 				playsound(get_turf(user), 'sound/machines/ding.ogg', 100, 1)
 				var/obj/fresh_toast = new /obj/item/food/toast(get_turf(user))
@@ -206,41 +209,41 @@
 			T.visible_message(SPAN_USERDANGER("[user] transforms into a monkey!"))
 			user.monkeyize()
 		if(6)
-			//Cut speed
+			// Cut speed.
 			T.visible_message(SPAN_USERDANGER("[user] starts moving slower!"))
 			var/datum/species/S = user.dna.species
 			S.speed_mod += 1
 		if(7)
-			//Throw
+			// Throw.
 			T.visible_message(SPAN_USERDANGER("Unseen forces throw [user]!"))
 			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
 			var/atom/throw_target = get_edge_target_turf(user, pick(GLOB.cardinal))
 			user.throw_at(throw_target, 200, 4)
 		if(8)
-			//Fueltank Explosion
+			// Fueltank Explosion.
 			T.visible_message(SPAN_USERDANGER("An explosion bursts into existence around [user]!"))
 			explosion(get_turf(user), -1, 0, 2, flame_range = 2, cause = "Die of fate: fuel tank explosion")
 		if(9)
-			//Cold
+			// Cold.
 			var/datum/disease/D = new /datum/disease/cold()
 			T.visible_message(SPAN_USERDANGER("[user] looks a little under the weather!"))
 			user.ForceContractDisease(D)
 		if(10)
-			//Nothing
+			// Nothing.
 			T.visible_message(SPAN_USERDANGER("Nothing seems to happen."))
 		if(11)
-			//Cookie
+			// Cookie.
 			T.visible_message(SPAN_USERDANGER("A cookie appears out of thin air!"))
 			var/obj/item/food/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
-			//Healing
+			// Healing.
 			T.visible_message(SPAN_USERDANGER("[user] looks very healthy!"))
 			user.revive()
 		if(13)
-			//Mad Dosh
+			// Mad Dosh.
 			T.visible_message(SPAN_USERDANGER("Mad dosh shoots out of [src]!"))
 			var/turf/Start = get_turf(src)
 			for(var/direction in GLOB.alldirs)
@@ -252,7 +255,7 @@
 					for(var/i in 1 to rand(5, 50))
 						new /obj/item/coin/gold(M)
 		if(14)
-			//Tator Item
+			// Tator Item.
 			var/list/traitor_items = list(/obj/item/chameleon,
 				/obj/item/chameleon_counterfeiter,
 				/obj/item/clothing/shoes/chameleon/noslip,
@@ -275,7 +278,7 @@
 			new selected_item(drop_location())
 			create_smoke(2)
 		if(15)
-			//Random One-use spellbook
+			// Random One-use spellbook.
 			var/list/oneuse_spellbook = list(/obj/item/spellbook/oneuse/smoke,
 				/obj/item/spellbook/oneuse/blind,
 				/obj/item/spellbook/oneuse/knock,
@@ -285,7 +288,7 @@
 			create_smoke(2)
 			new selected_spellbook(drop_location())
 		if(16)
-			//Servant & Servant Summon
+			// Servant & Servant Summon.
 			T.visible_message(SPAN_USERDANGER("A Dice Servant appears in a cloud of smoke!"))
 			var/mob/living/carbon/human/H = new(drop_location())
 			create_smoke(2)
@@ -312,22 +315,22 @@
 			S.target_mob = H
 			user.mind.AddSpell(S)
 		if(17)
-			//Free Gun
+			// Free Gun.
 			T.visible_message(SPAN_USERDANGER("An impressive gun appears!"))
 			create_smoke(2)
 			new /obj/item/gun/energy/kinetic_accelerator/experimental(drop_location())
 		if(18)
-			//Captain ID
+			// Captain ID.
 			T.visible_message(SPAN_USERDANGER("A golden identification card appears!"))
 			new /obj/item/card/id/captains_spare(drop_location())
 			create_smoke(2)
 		if(19)
-			//Instrinct Resistance
+			// Instrinct Resistance.
 			T.visible_message(SPAN_USERDANGER("[user] looks very robust!"))
 			user.physiology.brute_mod *= 0.5
 			user.physiology.burn_mod *= 0.5
 		if(20)
-			//Three free good dice rolls!
+			// Three free good dice rolls!
 			T.visible_message(SPAN_USERDANGER("Critical number! [src] is rolling three times all by himself!"))
 			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 2 SECONDS)
@@ -345,7 +348,9 @@
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
 
-/obj/item/dice/attack_self__legacy__attackchain(mob/user)
+/obj/item/dice/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)
@@ -374,9 +379,11 @@
 	if(length(special_faces) == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]",
+		user.visible_message(
+			SPAN_NOTICE("[user] has thrown [src]. It lands on [result]. [comment]"),
 							SPAN_NOTICE("You throw [src]. It lands on [result]. [comment]"),
-							SPAN_ITALICS("You hear [src] rolling, it sounds like a [fake_result]."))
+							SPAN_ITALICS("You hear [src] rolling, it sounds like a [fake_result].")
+			)
 	else if(!throwing) //Dice was thrown and is coming to rest
 		visible_message(SPAN_NOTICE("[src] rolls to a stop, landing on [result]. [comment]"))
 

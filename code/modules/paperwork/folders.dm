@@ -7,6 +7,7 @@
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
 	materials = list(MAT_CARDBOARD = 2000)
+	new_attack_chain = TRUE
 
 /obj/item/folder/emp_act(severity)
 	..()
@@ -35,18 +36,24 @@
 	if(length(contents))
 		. += "folder_paper"
 
-/obj/item/folder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
+/obj/item/folder/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo) || istype(used, /obj/item/paper_bundle) || istype(used, /obj/item/documents))
 		user.drop_item()
-		W.loc = src
-		to_chat(user, SPAN_NOTICE("You put [W] into [src]."))
+		used.forceMove(src)
+		to_chat(user, SPAN_NOTICE("You put [used] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
-	else if(is_pen(W))
-		rename_interactive(user, W)
-	else
-		return ..()
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/folder/attack_self__legacy__attackchain(mob/user as mob)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/folder/activate_self(mob/user)
+	if(!user)
+		return ..()
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
@@ -60,7 +67,7 @@
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/folder/Topic(href, href_list)
 	..()
@@ -90,7 +97,7 @@
 				onclose(usr, "[P.name]")
 
 		//Update everything
-		attack_self__legacy__attackchain(usr)
+		activate_self(usr)
 		update_icon(UPDATE_OVERLAYS)
 	return
 

@@ -24,27 +24,34 @@
 
 /obj/item/soap/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ismob(target))
+		// if it's a storage item and it isn't dirty, just put the soap in the storage
+		if((isstorage(target) || is_surface(target)) && !target.is_dirty())
+			return ..()
 		target.cleaning_act(user, src, cleanspeed)
 		return ITEM_INTERACT_COMPLETE
 
 	if(!ishuman(target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		return ..() // Cleaning mobs is done on attack() so they get visibly bonked by the soap.
 
+	var/mob/living/carbon/human/human_target = target
 	// Mmm, delicious soap!
 	if(isdrask(target) && user == target && user.a_intent == INTENT_GRAB)
-		var/mob/living/carbon/human/muncher = target
-		eat_soap(muncher)
+		eat_soap(human_target)
 		user.changeNext_move(CLICK_CD_MELEE)
 		return ITEM_INTERACT_COMPLETE
 
+	var/mouth_term = "mouth out"
+	if(!human_target.check_has_mouth())
+		mouth_term = "speaker grille"
+
 	user.visible_message(
-		SPAN_WARNING("[user] starts washing [target == user ? "[target.p_their()] own" : "[target]'s"] mouth out with [src]!"),
-		SPAN_NOTICE("You start washing [target == user ? "your own" : "[target]'s"] mouth out with [src]!")
+		SPAN_WARNING("[user] starts washing [target == user ? "[target.p_their()] own" : "[target]'s"] [mouth_term] with [src]!"),
+		SPAN_NOTICE("You start washing [target == user ? "your own" : "[target]'s"] [mouth_term] with [src]!")
 	)
 	if(do_after_once(user, cleanspeed, target = target))
 		user.visible_message(
-			SPAN_WARNING("[user] washes [target == user ? "[target.p_their()] own" : "[target]'s"] mouth out with [src]!"),
-			SPAN_WARNING("You wash [target == user ? "your own" : "[target]'s"] mouth out with [src]!")
+			SPAN_WARNING("[user] washes [target == user ? "[target.p_their()] own" : "[target]'s"] [mouth_term] with [src]!"),
+			SPAN_WARNING("You wash [target == user ? "your own" : "[target]'s"] [mouth_term] with [src]!")
 		)
 		target.reagents.add_reagent("soapreagent", 6)
 	return ITEM_INTERACT_COMPLETE

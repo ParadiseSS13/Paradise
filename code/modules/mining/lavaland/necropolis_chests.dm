@@ -325,46 +325,45 @@
 	var/activated = FALSE
 	var/usedHand
 	var/mob/living/carbon/owner
+	new_attack_chain = TRUE
 
-/obj/item/rod_of_asclepius/attack_self__legacy__attackchain(mob/user)
+/obj/item/rod_of_asclepius/activate_self(mob/user)
 	if(activated)
-		return
+		return ..()
 	if(!iscarbon(user))
 		to_chat(user, SPAN_WARNING("The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/mob/living/carbon/itemUser = user
-	if(itemUser.l_hand == src)
-		usedHand = LEFT_HAND
-	if(itemUser.r_hand == src)
-		usedHand = RIGHT_HAND
+	usedHand = itemUser.l_hand == src ? LEFT_HAND : RIGHT_HAND
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
 		to_chat(user, SPAN_WARNING("You can't possibly handle the responsibility of more than one rod!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/failText = SPAN_WARNING("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
 	to_chat(itemUser, SPAN_NOTICE("The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong..."))
 	if(do_after_once(itemUser, 40, target = itemUser))
 		itemUser.say("I swear to fulfill, to the best of my ability and judgment, this covenant:")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(do_after(itemUser, 20, target = itemUser))
 		itemUser.say("I will apply, for the benefit of the sick, all measures that are required, avoiding those twin traps of overtreatment and therapeutic nihilism.")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(do_after(itemUser, 30, target = itemUser))
 		itemUser.say("I will remember that I remain a member of society, with special obligations to all my fellow human beings, those sound of mind and body as well as the infirm.")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(do_after(itemUser, 30, target = itemUser))
 		itemUser.say("If I do not violate this oath, may I enjoy life and art, respected while I live and remembered with affection thereafter. May I always act so as to preserve the finest traditions of my calling and may I long experience the joy of healing those who seek my help.")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	to_chat(itemUser, SPAN_NOTICE("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
 
 	activated(itemUser)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rod_of_asclepius/Destroy()
 	owner = null
@@ -449,14 +448,16 @@
 	return // It's a shard
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
-	. = ..()
+/obj/item/organ/internal/cyberimp/arm/katana/activate_self(mob/living/carbon/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	to_chat(user,SPAN_USERDANGER("The mass goes up your arm and inside it!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
 
 	user.drop_item()
 	insert(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
 	return

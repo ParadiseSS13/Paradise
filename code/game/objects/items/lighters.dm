@@ -19,6 +19,7 @@
 	/// Our lighter color suffix. => `[base_icon_state]-[lightercolor]` => `lighter-r`
 	var/lighter_color
 	var/is_a_zippo = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/lighter/random
 	base_icon_state = "lighter"
@@ -28,12 +29,15 @@
 	lighter_color = pick("r","c","y","g")
 	update_icon()
 
-/obj/item/lighter/attack_self__legacy__attackchain(mob/living/user)
-	. = ..()
+/obj/item/lighter/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!lit)
 		turn_on_lighter(user)
 	else
 		turn_off_lighter(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -59,13 +63,21 @@
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
 		to_chat(user, SPAN_NOTICE("You light [src]."))
 	else if(HAS_TRAIT(user, TRAIT_BADASS) || HAS_TRAIT(user, TRAIT_COOL))
-		to_chat(user, SPAN_NOTICE("[src]'s flames lick your hand as you light it, but you don't flinch."))
+		user.visible_message(
+			SPAN_NOTICE("[src]'s flames lick [user]'s hand as [user.p_they()] light it, but [user.p_they()] don't flinch."),
+			SPAN_NOTICE("[src]'s flames lick your hand as you light it, but you don't flinch."),
+			SPAN_HEAR("You hear the click of a lighter.")
+		)
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.receive_damage(0, 5))		//INFERNO
 			H.UpdateDamageIcon()
-		to_chat(user,SPAN_NOTICE("You light [src], but you burn your hand in the process."))
+		user.visible_message(
+			SPAN_WARNING("[user] burns [user.p_their()] hand with [src] while lighting it!"),
+			SPAN_WARNING("You light [src], but you burn your hand in the process!"),
+			SPAN_HEAR("You hear the click of a lighter and a small hiss of pain.")
+		)
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
@@ -75,7 +87,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	hitsound = "swing_hit"
 	force = 0
-	attack_verb = null //human_defense.dm takes care of it
+	attack_verb = null // human_defense.dm takes care of it.
 	damtype = initial(damtype)
 	update_icon()
 	if(user)
@@ -89,18 +101,21 @@
 	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
-	to_chat(user, "<span class='notice'>You shut off [src].")
+	to_chat(user, SPAN_NOTICE("You shut off [src]."))
 	if(world.time > next_off_message)
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/lighter/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
-		return
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/lighter/attack(mob/living/target, mob/living/carbon/human/user)
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
+		add_fingerprint(user)
 
 	return ..()
 
@@ -120,7 +135,7 @@
 	if(target == user)
 		user.visible_message(
 			SPAN_NOTICE("After some fiddling, [user] manages to light [user.p_their()] [cig] with [src]."),
-			"[SPAN_NOTICE("After some fiddling, you manage to light [cig] with [src].")],"
+			SPAN_NOTICE("After some fiddling, you manage to light [cig] with [src].")
 		)
 	else
 		user.visible_message(
@@ -128,6 +143,7 @@
 			SPAN_NOTICE("After some fiddling, you manage to light [cig] for [target] with [src].")
 		)
 	cig.light(user, target)
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/lighter/process()
@@ -204,6 +220,7 @@
 			SPAN_ROSE("You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [cig] with.")
 		)
 	cig.light(user, target)
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
@@ -256,6 +273,7 @@
 	attack_verb = null
 	var/is_unathi_fire = FALSE
 	scatter_distance = 10
+	new_attack_chain = TRUE
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
@@ -311,16 +329,17 @@
 	. = ..()
 
 /obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
-	if(lit)
-		to_chat(user, SPAN_WARNING("[S] can't hold [initial(name)] while it's lit!")) // initial(name) so it doesn't say "lit" twice in a row
+	if(!lit)
 		return FALSE
-	else
-		return TRUE
+	// Uses initial(name) so it doesn't say "lit" twice in a row.
+	to_chat(user, SPAN_WARNING("[S] can't hold [initial(name)] while it's lit!"))
+	return TRUE
 
-/obj/item/match/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/match/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
-		return
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/match/attack(mob/living/target, mob/living/carbon/human/user)
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")

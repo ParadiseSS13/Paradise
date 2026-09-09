@@ -52,6 +52,15 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
+/obj/projectile/bullet/huntsman32
+	damage = 20
+
+/obj/projectile/bullet/huntsman32/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked) && isliving(target))
+		var/mob/living/L = target
+		if(L.mob_size >= MOB_SIZE_LARGE)
+			L.apply_damage(80, BRUTE)
+
 /obj/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX

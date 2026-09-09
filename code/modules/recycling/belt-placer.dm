@@ -44,4 +44,4 @@
 	if(!C)
 		to_chat(user, SPAN_NOTICE("There are no belts in [src]."))
 	else
-		C.afterattack__legacy__attackchain(A, user, proximity)
+		C.interact_with_atom(A, user)

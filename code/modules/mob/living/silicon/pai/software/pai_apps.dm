@@ -427,3 +427,31 @@
 		data["burn"] = held.getFireLoss()
 
 	return data
+
+/obj/item/pai_cable
+	name = "data cable"
+	desc = "A flexible coated cable with a universal jack on one end."
+	icon = 'icons/obj/power.dmi'
+	icon_state = "wire1"
+	var/obj/machinery/machine
+	new_attack_chain = TRUE
+
+/obj/item/pai_cable/proc/plugin(obj/machinery/target, mob/user)
+	if(!(isairlock(target) || istype(target, /obj/machinery/camera)))
+		user.visible_message(
+			SPAN_WARNING("[user] dumbly fumbles to find a place on [target] to plug in [src]."),
+			SPAN_WARNING("There aren't any ports on [target] that match the jack belonging to [src].")
+		)
+		return
+	user.visible_message(
+		SPAN_WARNING("[user] inserts [src] into a data port on [target]!"),
+		SPAN_NOTICE("You insert [src] into a data port on [target]."),
+		SPAN_HEAR("You hear the satisfying click of a wire jack fastening into place.")
+	)
+	user.drop_item()
+	src.loc = target
+	src.machine = target
+
+/obj/item/pai_cable/interact_with_atom(obj/machinery/target, mob/living/user, list/modifiers)
+	src.plugin(target, user)
+	return ITEM_INTERACT_COMPLETE

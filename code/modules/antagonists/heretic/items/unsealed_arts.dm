@@ -47,8 +47,8 @@
 		return FINISH_ATTACK
 
 /obj/structure/unsealed_art/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
 	default_unfasten_wrench(user, I, 3 SECONDS)
+	return TRUE
 
 /// This proc triggers when the art has been covered by sheets, going inert
 /obj/structure/unsealed_art/proc/on_cover()
@@ -74,7 +74,7 @@
 
 /obj/structure/unsealed_art/beauty/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>This unsealed art will bewitch any non-heretic that lays their eyes on it, forcing them to stare deeply upon its beauty. They cannot look away.</span"
+	. += SPAN_NOTICE("This unsealed art will bewitch any non-heretic that lays their eyes on it, forcing them to stare deeply upon its beauty. They cannot look away.")
 
 /obj/structure/unsealed_art/beauty/Destroy()
 	QDEL_NULL(eyeobj)

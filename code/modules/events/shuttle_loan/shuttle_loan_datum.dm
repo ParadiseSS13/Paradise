@@ -167,7 +167,7 @@
 		/datum/supply_packs/materials/glass50,
 		/datum/supply_packs/materials/sandstone30,
 	)
-	for(var/datum/supply_packs/crate in crate_types)
+	for(var/crate in crate_types)
 		var/datum/supply_packs/new_crate = new crate()
 		new_crate.create_package(pick_n_take(empty_shuttle_turfs))
 
@@ -185,9 +185,7 @@
 	)
 	for(var/i in 1 to 5)
 		var/mineral_type = pick(mineral_types)
-		var/obj/item/stack/sheet/mineral/new_mineral = new mineral_type()
-		new_mineral.amount = 10
-		new new_mineral(pick_n_take(empty_shuttle_turfs))
+		new mineral_type(pick_n_take(empty_shuttle_turfs), 10)
 
 /datum/shuttle_loan_situation/honk
 	sender = "Central Command Entertainment Division"

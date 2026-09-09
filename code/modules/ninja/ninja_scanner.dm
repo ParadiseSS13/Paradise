@@ -81,7 +81,7 @@
 								SPAN_NOTICE("You begin to upload [AI]!"))
 			if(!do_after_once(user, 8 SECONDS, target = AI, allow_moving = FALSE, attempt_cancel_message = "You stop uploading [AI] before completing the upload."))
 				return TRUE
-			var/obj/item/aicard/card = new()
+			var/obj/item/aicard/card = new(get_turf(AI))
 			AI.take_overall_damage(50)
 			AI.transfer_ai(AI_TRANS_TO_CARD, user, null, card)
 			var/list/possible_spawns = GLOB.maints_loot_spawns
@@ -123,6 +123,9 @@
 			rnd.research_files.known_tech = list()
 			ninja_obj.completed = TRUE
 			ninja_obj.complete_objective()
+			return TRUE
+		if(istype(ninja_obj, /datum/objective/ninja/hack_rnd) && istype(attacked_obj, /obj/machinery/computer/rdconsole))
+			to_chat(user, SPAN_WARNING("The client wants access to the R&D Server controller itself, not this workstation console!"))
 			return TRUE
 		if(istype(ninja_obj, /datum/objective/ninja/insert_spider_rod) && istype(attacked_obj, /obj/machinery/atmospherics/reactor_chamber))
 			var/obj/machinery/atmospherics/reactor_chamber/r_chamber = attacked_obj

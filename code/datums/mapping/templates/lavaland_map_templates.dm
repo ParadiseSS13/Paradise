@@ -285,6 +285,13 @@
 	description = "A small wooden cabin that was once lived in by a hermit who is now nowhere to be found."
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/providence_crash
+	id = "providence crash"
+	suffix = "lavaland_surface_providence_crash.dmm"
+	name = "Crash of the Providence"
+	description = "A wrecked vulpkanin mercenary vessel. There may still be some treasures hidden behind the locked door."
+	allow_duplicates = FALSE
+
 // MARK: Bridges
 
 /datum/map_template/ruin/lavaland/zlvl_bridge

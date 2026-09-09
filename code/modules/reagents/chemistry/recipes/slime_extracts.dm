@@ -85,6 +85,18 @@
 	new /obj/item/stack/sheet/rglass (location, 5)
 	new /obj/item/stack/sheet/glass (location, 15)
 
+/datum/chemical_reaction/slimesmartmetal
+	name = "Slime Smart Metal"
+	id = "m_smetal"
+	result = "synthetic_omnizine"
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/metal
+	required_other = TRUE
+
+/datum/chemical_reaction/slimesmartmetal/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+
 //Gold
 /datum/chemical_reaction/slimemobspawn
 	name = "Slime Crit"
@@ -169,6 +181,7 @@
 		/obj/item/food/meat,
 		/obj/item/food/meat/slab,
 		/obj/item/food/grown,
+		/obj/item/food/grown/citrus,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/chinese,
@@ -177,6 +190,7 @@
 		/obj/item/food/meatsteak/stimulating,
 		/obj/item/food/egg/watcher,
 		/obj/item/food/supermatter_sandwich,
+		/obj/item/food/rations,
 		)
 	blocked |= typesof(/obj/item/food/customizable)
 
@@ -500,6 +514,17 @@
 	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
 	P.forceMove(get_turf(holder.my_atom))
 
+/datum/chemical_reaction/slimeomnizine
+	name = "Slime Omnizine"
+	id = "m_omni"
+	result = "omnizine"
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/pink
+
+/datum/chemical_reaction/slimeomnizine/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 //Black
 /datum/chemical_reaction/slimemutate2

@@ -16,7 +16,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
-	hat_offset_y = -15
+	hat_offsets = alist(SOUTH = list(0, -15), NORTH = list(0, -15), EAST = list(0, -15), WEST = list(0, -15))
 	is_centered = TRUE
 	can_be_hatted = TRUE
 	can_wear_restricted_hats = TRUE
@@ -57,8 +57,8 @@
 		/mob/living/silicon/proc/subsystem_power_monitor)
 
 
-/mob/living/silicon/robot/drone/New()
-	..()
+/mob/living/silicon/robot/drone/Initialize(mapload, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+	. = ..()
 
 	remove_language("Robot Talk")
 	remove_language("Galactic Common")
@@ -112,7 +112,7 @@
 	// Drones have laws to not attack people
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 
-/mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/drone/init(mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
 	set_connected_ai(null)
 

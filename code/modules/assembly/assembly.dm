@@ -13,6 +13,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 	pickup_sound =  'sound/items/handling/component_pickup.ogg'
+	new_attack_chain = TRUE
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -34,8 +35,9 @@
 /obj/item/assembly/proc/holder_movement()
 	return
 
-/// Called when attack_self is called
+/// Called when activate_self is called
 /obj/item/assembly/interact(mob/user)
+	add_fingerprint(user)
 	return
 
 /obj/item/assembly/proc/on_atom_entered(datum/source, atom/movable/entered)
@@ -130,23 +132,22 @@
 		return TRUE
 	return FALSE
 
-/obj/item/assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isassembly(W))
-		var/obj/item/assembly/A = W
-		if(!A.secured && !secured)
-			attach_assembly(A, user)
-		return
-
-	return ..()
+/obj/item/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!isassembly(used))
+		return ..()
+	var/obj/item/assembly/A = used
+	if(!A.secured && !secured)
+		attach_assembly(A, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(toggle_secure())
-		to_chat(user, SPAN_NOTICE("[src] is ready!"))
+		to_chat(user, SPAN_NOTICE("You ready and secure [src]!"))
 	else
-		to_chat(user, SPAN_NOTICE("[src] can now be attached!"))
+		to_chat(user, SPAN_NOTICE("You unsecure [src] with [I] so it can be attached!"))
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)
@@ -155,13 +156,13 @@
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			. += "[src] is ready!"
+			. += "[src] is ready and secured!"
 		else
-			. += "[src] can be attached!"
+			. += "[src] unsecured and can be attached!"
 
-/obj/item/assembly/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/activate_self(mob/user)
 	if(!user)
-		return
+		return ..()
 	user.set_machine(src)
 	interact(user)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE

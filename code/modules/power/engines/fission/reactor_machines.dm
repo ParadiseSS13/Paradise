@@ -29,14 +29,25 @@
 /obj/machinery/nuclear_centrifuge/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), FALSE)
+	initialize_parts()
+	RefreshParts()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/nuclear_centrifuge/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/nuclear_centrifuge(src)
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 	component_parts += new /obj/item/stock_parts/manipulator(src)
-	RefreshParts()
-	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/nuclear_centrifuge/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/nuclear_centrifuge(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
 
 /obj/machinery/nuclear_centrifuge/examine(mob/user)
 	. = ..()
@@ -65,6 +76,9 @@
 		return ITEM_INTERACT_COMPLETE
 	if(power_state == ACTIVE_POWER_USE) // dont start a new cycle when on
 		to_chat(user, SPAN_WARNING("There is already a fuel rod being processed!"))
+		return ITEM_INTERACT_COMPLETE
+	if(held_rod)
+		to_chat(user, SPAN_WARNING("There is already a rod inside [src]!"))
 		return ITEM_INTERACT_COMPLETE
 	var/obj/item/nuclear_rod/fuel/rod = used
 	var/list/enrichment_to_name = list()
@@ -173,13 +187,15 @@
 
 	COOLDOWN_DECLARE(fabrication_timer)
 
-/obj/machinery/nuclear_rod_fabricator/upgraded
-	upgraded = TRUE
-
 /obj/machinery/nuclear_rod_fabricator/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
+	initialize_parts()
+	RefreshParts()
+	create_designs()
+
+/obj/machinery/nuclear_rod_fabricator/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/nuclear_rod_fabricator(src)
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
@@ -187,8 +203,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 
-	RefreshParts()
-	create_designs()
+/obj/machinery/nuclear_rod_fabricator/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/nuclear_rod_fabricator(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+	upgraded = TRUE
 
 /obj/machinery/nuclear_rod_fabricator/RefreshParts()
 	var/temp_coeff = 12

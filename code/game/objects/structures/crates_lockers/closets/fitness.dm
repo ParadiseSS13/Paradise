@@ -14,7 +14,13 @@
 	new /obj/item/clothing/under/misc/swimsuit/blue(src)
 	new /obj/item/clothing/under/misc/swimsuit/green(src)
 	new /obj/item/clothing/under/misc/swimsuit/purple(src)
-
+	new /obj/item/clothing/under/misc/wetsuit/green(src)
+	new /obj/item/clothing/under/misc/wetsuit/gold(src)
+	new /obj/item/clothing/under/misc/wetsuit/pink(src)
+	new /obj/item/clothing/under/misc/wetsuit/purple(src)
+	new /obj/item/clothing/under/misc/wetsuit/orange(src)
+	new /obj/item/clothing/neck/towel(src)
+	new /obj/item/clothing/neck/towel(src)
 
 /obj/structure/closet/boxinggloves
 	name = "boxing gloves"

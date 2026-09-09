@@ -1,6 +1,6 @@
 /turf/simulated/floor/transparent/glass
 	name = "glass floor"
-	desc = "Don't jump on it... Or do, I'm not your mom."
+	desc = "Transparent flooring made out of regular glass. Don't jump on it... Or do, I'm not your mom."
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
@@ -144,7 +144,7 @@
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"
-	desc = "Jump on it, it can cope. Promise..."
+	desc = "Transparent flooring made of glass reinforced with metal rods. Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
 	icon_state = "reinf_glass-0"
 	base_icon_state = "reinf_glass"
@@ -157,7 +157,7 @@
 
 /turf/simulated/floor/transparent/glass/plasma
 	name = "plasma glass floor"
-	desc = "Wait, was space always that color?"
+	desc = "Transparent flooring made of plasma glass. It gives everything a pretty purple tinge."
 	icon = 'icons/turf/floors/plasmaglass.dmi'
 	icon_state = "plasmaglass-0"
 	base_icon_state = "plasmaglass"
@@ -166,7 +166,7 @@
 
 /turf/simulated/floor/transparent/glass/reinforced/plasma
 	name = "reinforced plasma glass floor"
-	desc = "For when you REALLY don't want your floor choice to suffocate everyone."
+	desc = "Transparent flooring made of plasma glass reinforced with metal rods. It's actually stronger than regular flooring, so don't worry about it."
 	icon = 'icons/turf/floors/reinf_plasmaglass.dmi'
 	icon_state = "reinf_plasmaglass-0"
 	base_icon_state = "reinf_plasmaglass"
@@ -175,7 +175,7 @@
 
 /turf/simulated/floor/transparent/glass/titanium
 	name = "titanium glass floor"
-	desc = "Stylish AND strong!"
+	desc = "Transparent flooring made of lightweight titanium glass. It's ideal for seeing through the floor of your shuttle."
 	icon = 'icons/turf/floors/titaniumglass.dmi'
 	icon_state = "titaniumglass-0"
 	base_icon_state = "titaniumglass"
@@ -186,6 +186,7 @@
 
 /turf/simulated/floor/transparent/glass/titanium/plasma
 	name = "plastitanium glass floor"
+	desc = "Military-grade transparent flooring made from plastitanium glass. Perfect for when you want an evil window that doubles as a floor."
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'
 	icon_state = "plastitaniumglass-0"
 	base_icon_state = "plastitaniumglass"

@@ -10,9 +10,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	butcher_results = list(/obj/item/food/meat = 1)
-	minimum_survivable_temperature = 0
 
 	blood_color = "#b9ae9c"
 
@@ -70,6 +68,14 @@
 	grant_actions_by_list(innate_actions)
 	RegisterSignal(src, COMSIG_MOB_PRE_EAT, PROC_REF(check_full))
 	RegisterSignal(src, COMSIG_MOB_ATE, PROC_REF(consume))
+	make_variety()
+
+/mob/living/basic/nian_caterpillar/proc/make_variety()
+	if(prob(50))
+		icon_state = "mothroach_classic"
+		icon_living = "mothroach_classic"
+		icon_dead = "mothroach_classic_dead"
+		icon_resting = "mothroach_classic_sleep"
 
 /mob/living/basic/nian_caterpillar/proc/evolve(obj/structure/moth_cocoon/C, datum/mind/M)
 	if(stat != CONSCIOUS)

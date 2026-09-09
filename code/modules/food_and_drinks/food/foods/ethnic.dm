@@ -145,6 +145,50 @@
 //	Middle Eastern	//
 //////////////////////
 
+/obj/item/food/meat/raw_ash_kebab
+	name = "Uncooked Ash Kebab"
+	desc = "A kebab of edible fauna and flora from an ashy wasteland, the meat is still raw."
+	icon_state = "ash_kebab_raw"
+	trash = /obj/item/stack/rods
+	list_reagents = list("vitamin" = 1, "plantmatter" = 1, "vitfro" = 1)
+
+/obj/item/food/meat/raw_ash_kebab/burn()
+	visible_message(SPAN_NOTICE("[src] finishes cooking!"))
+	new /obj/item/food/meat/ash_kebab(loc)
+	qdel(src)
+
+/obj/item/food/meat/raw_ash_kebab/bone
+	icon_state = "ash_kebab_raw_bone"
+	trash = /obj/item/stack/bone_rods
+
+/obj/item/food/meat/raw_ash_kebab/bone/burn()
+	visible_message(SPAN_NOTICE("[src] finishes cooking!"))
+	new /obj/item/food/meat/ash_kebab/bone(loc)
+	qdel(src)
+
+/obj/item/food/meat/ash_kebab
+	name = "Ash Kebab"
+	desc = "A kebab of edible fauna and flora from an ashy wasteland."
+	resistance_flags = FIRE_PROOF
+	icon_state = "ash_kebab"
+	trash = /obj/item/stack/rods
+	list_reagents = list("protein" = 2, "vitamin" = 2, "plantmatter" = 2, "vitfro" = 2) // Nutritious, and addictive from the leaf shroom ingredient
+	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
+
+/obj/item/food/meat/ash_kebab/burn()
+	visible_message(SPAN_NOTICE("[src] burns, leaving only the Goliath Steak!")) // The steak is lavaproof, the rest is only fireproof
+	new /obj/item/food/goliath_steak(loc)
+	qdel(src)
+
+/obj/item/food/meat/ash_kebab/bone
+	icon_state = "ash_kebab_bone"
+	trash = /obj/item/stack/bone_rods
+
+/obj/item/food/meat/ash_kebab/bone/burn()
+	visible_message(SPAN_NOTICE("[src] burns, leaving only the Goliath Steak!"))
+	new /obj/item/food/goliath_steak(loc)
+	qdel(src)
+
 /obj/item/food/meatkebab
 	name = "meat-kebab"
 	desc = "Delicious meat, on a stick."

@@ -202,7 +202,7 @@
 	if(istype(used, /obj/item/kitchen/utensil))
 		var/obj/item/kitchen/utensil/U = used
 		if(length(U.contents) >= U.max_contents)
-			to_chat(user, "<span class='warning'>You cannot fit anything else on your [U].")
+			to_chat(user, SPAN_WARNING("You cannot fit anything else on your [U]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message(
@@ -214,9 +214,8 @@
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = filling_color
 		U.overlays += I
-		var/obj/item/food/collected = new type
+		var/obj/item/food/collected = new type(U)
 		collected.name = name
-		collected.loc = U
 		collected.reagents.remove_any(collected.reagents.total_volume)
 		collected.trash = null
 		if(reagents.total_volume > bitesize)

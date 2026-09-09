@@ -10,6 +10,7 @@
 	var/syndie = FALSE
 	var/change_voice = FALSE
 	var/list/channels = list()
+	new_attack_chain = TRUE
 
 /obj/item/encryptionkey/syndicate
 	name = "syndicate encryption key"

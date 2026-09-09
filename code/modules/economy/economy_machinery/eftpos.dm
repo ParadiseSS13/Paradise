@@ -26,6 +26,7 @@
 	var/datum/money_account/linked_account
 	///Is this a portable unit that you can offer with *payme?
 	var/can_offer = TRUE
+	new_attack_chain = TRUE
 
 	///The vendors that are linked to this EFTPOS.
 	var/list/linked_vendors = list()
@@ -52,24 +53,34 @@
 /obj/item/eftpos/proc/reconnect_database()
 	account_database = GLOB.station_money_database
 
-/obj/item/eftpos/attack_self__legacy__attackchain(mob/user)
-	ui_interact(user)
+/obj/item/eftpos/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/eftpos/attackby__legacy__attackchain(obj/O, mob/user, params)
-	if(istype(O, /obj/item/card/id))
-		//attempt to connect to a new db, and if that doesn't work then fail
-		if(!account_database)
-			reconnect_database()
-		if(account_database)
-			if(linked_account)
-				scan_card(O, user)
-				SStgui.update_uis(src)
-			else
-				to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to linked account.")]")
-		else
-			to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to accounts database.")]")
-	else
+	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/eftpos/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/card/id))
 		return ..()
+
+	// Attempt to connect to a new db, and if that doesn't work then fail.
+	if(!account_database)
+		reconnect_database()
+	if(!account_database)
+		to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to accounts database!")]")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!linked_account)
+		to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to linked account!")]")
+		return ITEM_INTERACT_COMPLETE
+
+	scan_card(used, user)
+	SStgui.update_uis(src)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
 
 /obj/item/eftpos/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -214,7 +225,7 @@
 	transaction_paid = TRUE
 	addtimer(VARSET_CALLBACK(src, transaction_paid, FALSE), 5 SECONDS)
 
-///creates and builds paper with info about the EFTPOS
+/// Creates and builds paper with info about the EFTPOS.
 /obj/item/eftpos/proc/print_reference()
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/R = new(loc)
@@ -291,8 +302,12 @@
 /obj/item/eftpos/register/ui_state(mob/user)
 	return GLOB.human_adjacent_state
 
-/obj/item/eftpos/register/attack_self__legacy__attackchain(mob/user)
+/obj/item/eftpos/register/activate_self(mob/user)
+	if(!user)
+		return ..()
+
 	to_chat(user, SPAN_NOTICE("[src] has to be set down and secured to be used."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/eftpos/register/check_user_position(mob/user)
 	if(!..())

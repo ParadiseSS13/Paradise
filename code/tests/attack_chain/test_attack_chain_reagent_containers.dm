@@ -286,7 +286,7 @@
 	player.put_away(beaker)
 	target.puppet.forceMove(get_turf(iv_drip))
 	iv_drip.drag_drop_onto(target.puppet, player.puppet)
-	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] inserts [blood_bag]'s needle into [target.puppet]'s arm")
+	TEST_ASSERT_LAST_CHATLOG(player, SPAN_DANGER("[player.puppet] inserts [blood_bag]'s needle into [target.puppet]'s body!"))
 
 	blood_bag = player.spawn_obj_in_hand(/obj/item/reagent_containers/iv_bag)
 	player.puppet.swap_hand()
@@ -326,7 +326,7 @@
 	var/obj/item/reagent_containers/glass/rag/rag = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/rag)
 	rag.wipespeed = 0
 	player.click_on(floor)
-	TEST_ASSERT_LAST_CHATLOG(player, "You clean the floor with the damp rag.")
+	TEST_ASSERT_LAST_CHATLOG(player, "You clean the steel floor with the damp rag.")
 
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 	rag.reagents.add_reagent("omnizine", 10)

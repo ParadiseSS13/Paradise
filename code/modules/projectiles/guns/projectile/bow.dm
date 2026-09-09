@@ -38,7 +38,7 @@
 		update_icon()
 
 /obj/item/gun/projectile/bow/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
+	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
 	if(num_loaded)
 		to_chat(user, SPAN_NOTICE("You ready \the [A] into \the [src]."))
 		update_icon()

@@ -203,26 +203,47 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/saved_maptext = null
-	var/owner //soft ref of the ticket owner's UID()
+	/// Soft ref of the ticket owner's `UID()`.
+	var/owner
+	/// Ticket machine that spawned this ticket.
 	var/obj/machinery/ticket_machine/source
+	/// The number that determines when the HoP will see you.
 	var/ticket_number
+	new_attack_chain = TRUE
 
 /obj/item/ticket_machine_ticket/attack_hand(mob/user)
 	. = ..()
-	maptext = saved_maptext //For some reason, storage code removes all maptext off objs, this stops its number from being wiped off when taken out of storage.
+	maptext = saved_maptext // For some reason, storage code removes all maptext off objs, this stops its number from being wiped off when taken out of storage.
 
-/obj/item/ticket_machine_ticket/attackby__legacy__attackchain(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
-	..()
-	if(P.get_heat())
-		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message(SPAN_WARNING("[user] accidentally ignites [user.p_themselves()]!"), \
-								SPAN_USERDANGER("You miss the paper and accidentally light yourself on fire!"))
-			user.drop_item()
-			user.adjust_fire_stacks(1)
-			user.IgniteMob()
-			return
-		user.visible_message(SPAN_DANGER("[user] lights [src] ablaze with [P]!"), SPAN_DANGER("You light [src] on fire!"))
-		fire_act()
+/obj/item/ticket_machine_ticket/item_interaction(mob/living/user, obj/item/used, list/modifiers) // Stolen from paper code.
+	. = ..()
+	if(resistance_flags & ON_FIRE)
+		to_chat(user, SPAN_WARNING("[src] is on fire!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!used.get_heat())
+		return
+
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+		user.visible_message(
+			SPAN_WARNING("[user] accidentally ignites [user.p_themselves()]!"),
+			SPAN_USERDANGER("You miss [src] and accidentally light yourself on fire!")
+		)
+		user.drop_item_to_ground(used)
+		user.adjust_fire_stacks(1)
+		user.IgniteMob()
+		return ITEM_INTERACT_COMPLETE
+
+	if(!Adjacent(user)) // To prevent issues as a result of telepathically lighting a ticket.
+		return ITEM_INTERACT_COMPLETE
+
+	user.drop_item_to_ground(src)
+	user.visible_message(
+		SPAN_DANGER("[user] lights [src] ablaze with [used]!"),
+		SPAN_DANGER("You light [src] on fire!")
+	)
+	fire_act()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paper/extinguish()
 	..()

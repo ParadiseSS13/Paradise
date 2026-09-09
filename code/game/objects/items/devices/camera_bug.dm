@@ -11,6 +11,7 @@
 	/// Integrated camera console to serve UI data
 	var/obj/machinery/computer/security/camera_bug/integrated_console
 	var/connections = 0
+	new_attack_chain = TRUE
 
 /obj/machinery/computer/security/camera_bug
 	name = "invasive camera utility"
@@ -30,15 +31,18 @@
 	QDEL_NULL(integrated_console)
 	return ..()
 
-/obj/item/camera_bug/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/camera_bug/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/camera_bug/ui_state(mob/user)
 	return GLOB.inventory_state
 
 /obj/item/camera_bug/ui_interact(mob/user, datum/tgui/ui = null)
 	integrated_console.ui_interact(user, ui)
-
 
 /obj/item/camera_bug/ert
 	name = "\improper ERT Camera Monitor"

@@ -4,11 +4,12 @@
 	inhand_icon_state = "assembly"
 	throwforce = 5
 	throw_range = 4
-	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
-	var/status = FALSE   //FALSE - not readied //TRUE - bomb finished with welder
-	var/obj/item/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
-	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
+	flags = CONDUCT // Copied this from old code, so this may or may not be necessary.
+	var/status = FALSE   // FALSE - not readied. TRUE - bomb finished with welder.
+	var/obj/item/assembly_holder/bombassembly = null   // The first part of the bomb is an assembly holder, holding an igniter+some device.
+	var/obj/item/tank/bombtank = null // The second part of the bomb is a plasma tank.
 	origin_tech = "materials=1;engineering=1"
+	new_attack_chain = TRUE
 
 /obj/item/onetankbomb/Initialize(mapload)
 	. = ..()
@@ -32,13 +33,14 @@
 		. += bombassembly.overlays
 		. += "bomb_assembly"
 
-/obj/item/onetankbomb/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		bombtank.item_interaction(user, W)
-		return
-	return ..()
+/obj/item/onetankbomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/analyzer))
+		return ..()
 
-/obj/item/onetankbomb/wrench_act(mob/user, obj/item/I)	//This is basically bomb assembly code inverted. apparently it works.
+	used.afterattack__legacy__attackchain(bombtank, user, TRUE, list2params(modifiers))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/onetankbomb/wrench_act(mob/user, obj/item/I)	// This is basically bomb assembly code inverted. Apparently it works.
 	if(status)
 		return
 	. = TRUE
@@ -57,33 +59,37 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
+
 	if(!status)
 		status = TRUE
 		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
 		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]")
 		to_chat(user, SPAN_NOTICE("A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited."))
 		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_FEW)
-	else
-		status = FALSE
-		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
-		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_ALMOSTALL)
-		to_chat(user, SPAN_NOTICE("The hole has been closed."))
+		return
+
+	status = FALSE
+	investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
+	add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_ALMOSTALL)
+	to_chat(user, SPAN_NOTICE("The hole has been closed."))
 
 
-/obj/item/onetankbomb/attack_self__legacy__attackchain(mob/user) //pressing the bomb accesses its assembly
-	bombassembly.attack_self__legacy__attackchain(user, 1)
+/obj/item/onetankbomb/activate_self(mob/user) // Pressing the bomb accesses its assembly.
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	bombassembly.activate_self(user)
 	add_fingerprint(user)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
 	if(bombassembly)
 		bombassembly.HasProximity(AM)
 
-/obj/item/onetankbomb/proc/on_atom_entered(datum/source, atom/movable/entered) //for mousetraps
+/obj/item/onetankbomb/proc/on_atom_entered(datum/source, atom/movable/entered) // For mousetraps.
 	if(bombassembly)
 		bombassembly.on_atom_entered(source, entered)
 
-/obj/item/onetankbomb/on_found(mob/finder) //for mousetraps
+/obj/item/onetankbomb/on_found(mob/finder) // For mousetraps.
 	if(bombassembly)
 		bombassembly.on_found(finder)
 
@@ -97,31 +103,31 @@
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
-/obj/item/tank/proc/bomb_assemble(W, user)	//Bomb assembly proc. This turns assembly+tank into a bomb
+/obj/item/tank/proc/bomb_assemble(W, user)	// Bomb assembly proc. This turns assembly+tank into a bomb.
 	var/obj/item/assembly_holder/S = W
 	var/mob/M = user
-	if(!S.secured)										//Check if the assembly is secured
+	if(!S.secured)										// Check if the assembly is secured.
 		return
-	if(isigniter(S.a_left) == isigniter(S.a_right))		//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
+	if(isigniter(S.a_left) == isigniter(S.a_right))		// Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it.
 		return
 
 	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(loc)
 
-	M.drop_item()			//Remove the assembly from your hands
-	M.unequip(src)	//Remove the tank from your character,in case you were holding it
-	M.put_in_hands(R)		//Equips the bomb if possible, or puts it on the floor.
+	M.drop_item()			// Remove the assembly from your hands.
+	M.unequip(src)	// Remove the tank from your character,in case you were holding it.
+	M.put_in_hands(R)		// Equips the bomb if possible, or puts it on the floor.
 
-	R.bombassembly = S	//Tell the bomb about its assembly part
-	S.master = R		//Tell the assembly about its new owner
-	S.forceMove(R)			//Move the assembly out of the fucking way
+	R.bombassembly = S	// Tell the bomb about its assembly part.
+	S.master = R		// Tell the assembly about its new owner.
+	S.forceMove(R)			// Move the assembly out of the fucking way.
 
-	R.bombtank = src	//Same for tank
+	R.bombtank = src	// Same for tank.
 	master = R
 	forceMove(R)
 	R.update_icon()
 	return
 
-/obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode
+/obj/item/tank/proc/detonate()	// This happens when a bomb is told to explode.
 	var/fuel_moles = air_contents.toxins() + air_contents.oxygen() / 6
 	var/strength = 1
 
@@ -169,7 +175,7 @@
 		qdel(master)
 	qdel(src)
 
-/obj/item/tank/proc/release()	//This happens when the bomb is not welded. Tank contents are just spat out.
+/obj/item/tank/proc/release()	// This happens when the bomb is not welded. Tank contents are just spat out.
 	var/datum/gas_mixture/removed = air_contents.remove(air_contents.total_moles())
 	var/turf/simulated/T = get_turf(src)
 	if(!T)

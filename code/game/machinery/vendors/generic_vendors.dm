@@ -35,7 +35,7 @@
 /obj/machinery/economy/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	icon_state = "boozeomat"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	icon_state = "boozeomat"        //////////////22 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat_deny"
 	icon_lightmask = "smartfridge"
 	icon_panel = "smartfridge"
@@ -48,6 +48,8 @@
 					/obj/item/reagent_containers/drinks/bottle/vermouth = 5,
 					/obj/item/reagent_containers/drinks/bottle/rum = 5,
 					/obj/item/reagent_containers/drinks/bottle/wine = 5,
+					/obj/item/reagent_containers/drinks/bottle/white_wine = 5,
+					/obj/item/reagent_containers/drinks/bottle/mezcal = 5,
 					/obj/item/reagent_containers/drinks/bag/goonbag = 3,
 					/obj/item/reagent_containers/drinks/bottle/cognac = 5,
 					/obj/item/reagent_containers/drinks/bottle/kahlua = 5,
@@ -68,7 +70,8 @@
 					/obj/item/reagent_containers/drinks/ice = 9)
 
 	contraband = list(/obj/item/reagent_containers/drinks/tea = 10,
-					/obj/item/reagent_containers/drinks/bottle/fernet = 5)
+					/obj/item/reagent_containers/drinks/bottle/fernet = 5,
+					/obj/item/reagent_containers/drinks/bottle/vampire_bestfriend = 5,)
 
 	vend_delay = 15
 	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...",
@@ -126,6 +129,7 @@
 					/obj/item/reagent_containers/drinks/tea = 25,
 					/obj/item/reagent_containers/drinks/h_chocolate = 25,
 					/obj/item/reagent_containers/drinks/chocolate = 10,
+					/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 10,
 					/obj/item/reagent_containers/drinks/chicken_soup = 10,
 					/obj/item/reagent_containers/drinks/weightloss = 10,
 					/obj/item/reagent_containers/drinks/mug = 15,
@@ -137,6 +141,7 @@
 				/obj/item/reagent_containers/drinks/tea = 80,
 				/obj/item/reagent_containers/drinks/h_chocolate = 64,
 				/obj/item/reagent_containers/drinks/chocolate = 120,
+				/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 64,
 				/obj/item/reagent_containers/drinks/chicken_soup = 100,
 				/obj/item/reagent_containers/drinks/weightloss = 50,
 				/obj/item/reagent_containers/drinks/mug = 75,
@@ -753,6 +758,12 @@
 					/obj/item/clothing/under/misc/pinkhawaiianshirt = 1,
 					/obj/item/clothing/under/misc/bluehawaiianshirt = 1,
 					/obj/item/clothing/under/misc/orangehawaiianshirt = 1,
+					/obj/item/clothing/under/misc/baseball = 1,
+					/obj/item/clothing/under/misc/baseball/solgov = 1,
+					/obj/item/clothing/under/misc/baseball/nanotrasen = 1,
+					/obj/item/clothing/head/soft/black = 1,
+					/obj/item/clothing/head/soft/baseball_tsf = 1,
+					/obj/item/clothing/head/soft/baseball_nt = 1,
 					/obj/item/clothing/suit/jacket/varsity = 1,
 					/obj/item/clothing/suit/jacket/varsity_sport = 1,
 					/obj/item/clothing/suit/jacket/varsity_blood = 1,
@@ -892,6 +903,12 @@
 				/obj/item/clothing/under/misc/pinkhawaiianshirt = 75,
 				/obj/item/clothing/under/misc/bluehawaiianshirt = 75,
 				/obj/item/clothing/under/misc/orangehawaiianshirt = 75,
+				/obj/item/clothing/under/misc/baseball = 75,
+				/obj/item/clothing/under/misc/baseball/solgov = 75,
+				/obj/item/clothing/under/misc/baseball/nanotrasen = 75,
+				/obj/item/clothing/head/soft/black = 50,
+				/obj/item/clothing/head/soft/baseball_tsf = 50,
+				/obj/item/clothing/head/soft/baseball_nt = 50,
 				/obj/item/clothing/suit/jacket/varsity = 200,
 				/obj/item/clothing/suit/jacket/varsity_sport = 200,
 				/obj/item/clothing/suit/jacket/varsity_blood = 200,
@@ -1070,49 +1087,6 @@
 /obj/machinery/economy/vending/chinese/free
 	prices = list()
 
-/obj/machinery/economy/vending/cola
-	name = "\improper Robust Softdrinks"
-	desc = "A soft drink vendor provided by Robust Industries, LLC."
-	icon_state = "Cola_Machine"
-	icon_lightmask = "Cola_Machine"
-	icon_panel = "thin_vendor"
-	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
-	ads_list = list("Refreshing!",
-					"Hope you're thirsty!",
-					"Over 1 million drinks sold!",
-					"Thirsty? Why not cola?",
-					"Please, have a drink!",
-					"Drink up!",
-					"The best drinks in space.")
-
-	category = VENDOR_TYPE_DRINK
-	products = list(/obj/item/reagent_containers/drinks/cans/cola = 10,
-					/obj/item/reagent_containers/drinks/cans/space_mountain_wind = 10,
-					/obj/item/reagent_containers/drinks/cans/dr_gibb = 10,
-					/obj/item/reagent_containers/drinks/cans/starkist = 10,
-					/obj/item/reagent_containers/drinks/cans/space_up = 10,
-					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
-					/obj/item/reagent_containers/drinks/cans/ginger_ale = 10,
-					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
-					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
-
-	contraband = list(/obj/item/reagent_containers/drinks/cans/thirteenloko = 5)
-
-	prices = list(/obj/item/reagent_containers/drinks/cans/cola = 45,
-				/obj/item/reagent_containers/drinks/cans/space_mountain_wind = 50,
-				/obj/item/reagent_containers/drinks/cans/dr_gibb = 50,
-				/obj/item/reagent_containers/drinks/cans/starkist = 50,
-				/obj/item/reagent_containers/drinks/cans/space_up = 50,
-				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
-				/obj/item/reagent_containers/drinks/cans/ginger_ale = 50,
-				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
-				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
-
-	refill_canister = /obj/item/vending_refill/cola
-
-/obj/machinery/economy/vending/cola/free
-	prices = list()
-
 ///General miscellanious vendors
 /obj/machinery/economy/vending/artvend
 	name = "\improper ArtVend"
@@ -1179,6 +1153,7 @@
 					/obj/item/analyzer = 5,
 					/obj/item/t_scanner = 5,
 					/obj/item/stack/cable_coil/random = 10,
+					/obj/item/stack/cable_coil/extra_insulated = 10,
 					/obj/item/clothing/gloves/color/yellow = 1,
 					/obj/item/crowbar/large = 1)
 

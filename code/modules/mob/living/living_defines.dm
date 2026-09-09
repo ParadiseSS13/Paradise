@@ -99,8 +99,6 @@
 	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/forced_look = null
 
-	var/datum/language/default_language
-
 	var/datum/middle_click_override/middleClickOverride = null
 
 	/// Famous last words -- if succumbing, what the user's last words were
@@ -144,3 +142,8 @@
 
 	/// How long does it take to harvest a mob?
 	var/butcher_time = 8 SECONDS
+
+	/// Soul links we are the owner of.
+	var/list/ownedSoullinks
+	/// Soul links we are the sharer of.
+	var/list/sharedSoullinks

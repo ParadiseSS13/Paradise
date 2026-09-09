@@ -188,8 +188,8 @@
 					icon_state = "purified_soulstone2"
 					if(IS_CULTIST(M))
 						M.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
-									and the memories of your time as their servant with it.</span>")
+						to_chat(M, SPAN_USERDANGER("An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
+									and the memories of your time as their servant with it."))
 						to_chat(M, SPAN_DANGER("Assist [user], your saviour, and get vengeance on those who enslaved you!"))
 					else
 						to_chat(M, SPAN_DANGER("Your soulstone has been exorcised, and you are now bound to obey [user]."))

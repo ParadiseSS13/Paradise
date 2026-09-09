@@ -52,7 +52,7 @@
 	)
 
 	var/obj/item/silicon_hat
-	var/hat_offset_y = -3
+	var/hat_offsets = alist(SOUTH = list(0, -3), NORTH = list(0, -3), EAST = list(0, -3), WEST = list(0, -3))
 	/// For cyborgs with wide "heads", when false causes the hat icon to be stretched.
 	var/is_centered = FALSE
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
@@ -65,7 +65,7 @@
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
@@ -83,16 +83,9 @@
 	/// The delay used when toggling door bolts or electrification
 	var/door_bolt_delay = 3 SECONDS
 
-/mob/living/silicon/New()
-	GLOB.silicon_mob_list |= src
-	..()
-	add_language("Galactic Common")
-	init_subsystems()
-	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
-
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
+	GLOB.silicon_mob_list |= src
 	for(var/hud_key, hud in GLOB.huds)
 		var/datum/atom_hud/data/diagnostic/diag_hud = hud
 		if(!istype(diag_hud))
@@ -108,6 +101,10 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	regenerate_icons()
 
+	add_language("Galactic Common")
+	init_subsystems()
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -298,9 +295,9 @@
 
 	return 2
 
-/mob/living/silicon/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
-		place_on_head(user.get_active_hand(), user)
+/mob/living/silicon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
+		place_on_head(used, user)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -395,7 +392,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
+	pose = tgui_input_text(usr, "This is [src]. [p_they()]...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -412,27 +409,27 @@
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
 	var/datum/atom_hud/janisensor = GLOB.huds[jani_hud]
-	secsensor.remove_hud_from(src)
-	medsensor.remove_hud_from(src)
-	diagsensor.remove_hud_from(src)
-	janisensor.remove_hud_from(src)
+	secsensor.remove_hud_from(src, "silicon")
+	medsensor.remove_hud_from(src, "silicon")
+	diagsensor.remove_hud_from(src, "silicon")
+	janisensor.remove_hud_from(src, "silicon")
 
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	secsensor.add_hud_to(src)
+	secsensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/add_med_hud()
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	medsensor.add_hud_to(src)
+	medsensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/add_diag_hud()
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
-	diagsensor.add_hud_to(src)
+	diagsensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/add_jani_hud()
 	var/datum/atom_hud/janisensor = GLOB.huds[jani_hud]
-	janisensor.add_hud_to(src)
+	janisensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	to_chat(src, SPAN_NOTICE("Please select sensor type."))
@@ -520,9 +517,20 @@
 	if(!(hat_icon_file || hat_icon_state))
 		return
 	var/image/borgI = image(hat_icon_file, hat_icon_state)
+	if(hat_offsets[SOUTH][1] == hat_offsets[NORTH][1] && hat_offsets[SOUTH][1] == hat_offsets[EAST][1] && hat_offsets[SOUTH][1] == hat_offsets[WEST][1] && \
+			hat_offsets[SOUTH][2] == hat_offsets[NORTH][2] && hat_offsets[SOUTH][2] == hat_offsets[EAST][2] && hat_offsets[SOUTH][2] == hat_offsets[WEST][2])
+		borgI.pixel_x = hat_offsets[SOUTH][1]
+		borgI.pixel_y = hat_offsets[SOUTH][2]
+	else
+		var/icon/temp_icon = icon(borgI.icon, borgI.icon_state)
+		for(var/dir in GLOB.cardinal)
+			var/icon/dir_image = icon(borgI.icon, borgI.icon_state)
+			dir_image.Shift(WEST, hat_offsets[dir][1])
+			dir_image.Shift(NORTH, hat_offsets[dir][2])
+			temp_icon.Insert(dir_image, dir = dir)
+		borgI = image(temp_icon)
 	borgI.alpha = hat_alpha
 	borgI.color = hat_color
-	borgI.pixel_y = hat_offset_y
 	if(!is_centered)
 		borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 	return borgI
@@ -657,11 +665,15 @@
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)
-		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
-		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
+		. += SPAN_NOTICE("[p_they(TRUE)] [p_are()] wearing a [bicon(silicon_hat)] [silicon_hat.name].")
+		. += SPAN_NOTICE("Use an empty hand on [src] on grab mode to remove [silicon_hat].")
 
 /mob/living/silicon/plushify(plushie_override, curse_time)
-	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+	// So this doesn't override borg plushify.
+	if(!isrobot(src))
+		. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+	
+	return ..(plushie_override, curse_time)
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(75)

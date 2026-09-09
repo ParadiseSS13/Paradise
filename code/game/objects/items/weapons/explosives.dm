@@ -81,7 +81,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(nadeassembly)
-		nadeassembly.attack_self__legacy__attackchain(user)
+		nadeassembly.activate_self(user)
 		return ITEM_INTERACT_COMPLETE
 
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num

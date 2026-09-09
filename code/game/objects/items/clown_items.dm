@@ -20,6 +20,7 @@
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")
+	new_attack_chain = TRUE
 
 /obj/item/bikehorn/Initialize(mapload)
 	. = ..()
@@ -40,13 +41,15 @@
 	inhand_icon_state = "gold_horn"
 	var/cooldown = 0
 
-/obj/item/bikehorn/golden/attack__legacy__attackchain(mob/M, mob/user)
+/obj/item/bikehorn/golden/attack(mob/living/target, mob/living/carbon/human/user)
 	flip_mobs(user)
+	add_fingerprint(user)
 	return ..()
 
-/obj/item/bikehorn/golden/attack_self__legacy__attackchain(mob/user)
+/obj/item/bikehorn/golden/activate_self(mob/user)
 	flip_mobs(user)
-	..()
+	add_fingerprint(user)
+	return ..()
 
 /obj/item/bikehorn/golden/proc/flip_mobs(mob/user)
 	if(cooldown >= world.time)
@@ -78,23 +81,25 @@
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	actions_types = list(/datum/action/item_action/laugh_track)
 	var/cooldown = 0
+	new_attack_chain = TRUE
 
-/obj/item/clown_recorder/attack_self__legacy__attackchain(mob/user)
+/obj/item/clown_recorder/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(cooldown > world.time)
-		to_chat(user, SPAN_NOTICE("The tape is still winding back."))
-		return
+		to_chat(user, SPAN_WARNING("The tape is still winding back!"))
+		return ITEM_INTERACT_COMPLETE
 	playsound(src, pick('sound/voice/sitcom_laugh.ogg', 'sound/voice/sitcom_laugh2.ogg'), 50, FALSE)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		cooldown = world.time + LAUGH_COOLDOWN
-	else
-		cooldown = world.time + LAUGH_COOLDOWN_CMAG
+	cooldown = HAS_TRAIT(src, TRAIT_CMAGGED) ? world.time + LAUGH_COOLDOWN_CMAG : world.time + LAUGH_COOLDOWN
+	add_fingerprint(user)
 
 /obj/item/clown_recorder/cmag_act(mob/user)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, SPAN_NOTICE("Winding back speed has been improved by the bananium ooze!"))
-		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-		return TRUE
-	return FALSE
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return FALSE
+	to_chat(user, SPAN_NOTICE("Winding back speed has been improved by the bananium ooze!"))
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	add_fingerprint(user)
+	return TRUE
 
 #undef LAUGH_COOLDOWN
 #undef LAUGH_COOLDOWN_CMAG

@@ -1,4 +1,6 @@
 /turf/simulated/floor/plasteel
+	name = "steel floor"
+	desc = "Mass-produced steel flooring. Cheap, robust, easy to clean, and it can be found all across the Orion arm in one form or another."
 	icon_state = "tile_standard"
 	floor_tile = /obj/item/stack/tile/plasteel
 	rust_resistance = RUST_RESISTANCE_BASIC
@@ -30,7 +32,6 @@
 	color = rgb(255 * (1 - ratio), 0, 255 * ratio)
 
 /turf/simulated/floor/plasteel/airless
-	name = "airless floor"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB

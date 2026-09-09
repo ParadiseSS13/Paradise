@@ -74,6 +74,7 @@
 	name = "spectral trumpet"
 	desc = "Things are about to get spooky!"
 	icon_state = "spectral_trumpet"
+	hitsound = 'sound/instruments/trombone/En4.mid'
 	force = 0
 	attack_verb = list("played", "jazzed", "trumpeted", "mourned", "dooted", "spooked")
 
@@ -81,9 +82,8 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trumpet/spectral/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	playsound(src, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
-	..()
+/obj/item/instrument/trumpet/spectral/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/instrument/saxophone
 	name = "saxophone"
@@ -94,6 +94,7 @@
 /obj/item/instrument/saxophone/spectral
 	name = "spectral saxophone"
 	desc = "This spooky sound will be sure to leave mortals in bones."
+	hitsound = 'sound/instruments/saxophone/En4.mid'
 	force = 0
 	attack_verb = list("played", "jazzed", "saxxed", "mourned", "dooted", "spooked")
 
@@ -101,9 +102,8 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/saxophone/spectral/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	playsound(src, 'sound/instruments/saxophone/En4.mid', 100, TRUE,-1)
-	..()
+/obj/item/instrument/saxophone/spectral/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/instrument/trombone
 	name = "trombone"
@@ -115,6 +115,7 @@
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
+	hitsound = 'sound/instruments/trombone/Cn4.mid'
 	force = 0
 	attack_verb = list("played", "jazzed", "tromboned", "mourned", "dooted", "spooked")
 
@@ -122,19 +123,18 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trombone/spectral/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	playsound (src, 'sound/instruments/trombone/Cn4.mid', 100,1,-1)
-	..()
+/obj/item/instrument/trombone/spectral/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/instrument/trombone/sad
 	name = "sad trombone"
 	desc = "Wah. Waah. Waaah. Waaaaaaah."
+	hitsound = 'sound/misc/sadtrombone.ogg'
 	force = 0
 	attack_verb = list("Wahed", "Waahed", "Waaahed", "Honked")
 
-/obj/item/instrument/trombone/sad/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
-	..()
+/obj/item/instrument/trombone/sad/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/instrument/recorder
 	name = "recorder"

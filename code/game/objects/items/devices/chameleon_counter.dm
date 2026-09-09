@@ -7,7 +7,7 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "syndicate=1;magnets=3"
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/can_use = TRUE
 	var/saved_name
 	var/saved_desc

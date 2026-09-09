@@ -168,6 +168,10 @@
 	can_grasp = 1
 	fragile = TRUE
 
+/obj/item/organ/external/hand/unmutate()
+	..()
+	owner.update_hands_hud()
+
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.

@@ -136,10 +136,17 @@ USER_VERB(play_sound_tgchat, R_SOUNDS, "Play Global Sound", "Play a sound to be 
 
 		// Prepare the body
 		var/list/request_body = list("url" = web_sound_input)
+		// Patch around the YTDLP server breaking in its current form
+		// Making these empty dicts overrides the default on the YTDLP server where it tries to parse with invalid args
+		request_body["opts"] = alist()
+		request_body["opts"]["extractor_args"] = alist()
+		// Needs to be application/json for flask to understand that this is infact, JSON
+		var/list/req_headers = list("Content-Type" = "application/json")
+
 		// Send the request off
 		var/datum/http_request/media_poll_request = new()
 		// The fact we are using GET with a body offends me
-		media_poll_request.prepare(RUSTLIBS_HTTP_METHOD_GET, GLOB.configuration.system.ytdlp_url, json_encode(request_body))
+		media_poll_request.prepare(RUSTLIBS_HTTP_METHOD_GET, GLOB.configuration.system.ytdlp_url, json_encode(request_body), req_headers)
 		// Start it off and wait
 		media_poll_request.begin_async()
 		UNTIL(media_poll_request.is_complete())

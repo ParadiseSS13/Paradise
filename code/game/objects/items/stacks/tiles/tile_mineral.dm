@@ -1,7 +1,7 @@
 /obj/item/stack/tile/mineral/plasma
 	name = "plasma tile"
 	singular_name = "plasma floor tile"
-	desc = "A tile made out of highly flammable plasma. This can only end well."
+	desc = "Flooring constructed from pure plasma crystal. There is absolutely nothing that can go wrong."
 	icon_state = "tile_plasma"
 	origin_tech = "plasmatech=1"
 	turf_type = /turf/simulated/floor/mineral/plasma
@@ -21,7 +21,7 @@
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
 	singular_name = "uranium floor tile"
-	desc = "A tile made out of uranium. You feel a bit woozy."
+	desc = "Flooring made from uranium. It's radioactive, IT'S RADIOACTIVE!"
 	icon_state = "tile_uranium"
 	turf_type = /turf/simulated/floor/mineral/uranium
 	mineralType = "uranium"
@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(gold_tile_recipes, list ( \
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
 	singular_name = "gold floor tile"
-	desc = "A tile made out of gold, the swag seems strong here."
+	desc = "Flooring made of solid gold. It's only a matter of time before someone tries to steal it."
 	icon_state = "tile_gold"
 	turf_type = /turf/simulated/floor/mineral/gold
 	mineralType = "gold"
@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(silver_tile_recipes, list ( \
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
 	singular_name = "silver floor tile"
-	desc = "A tile made out of silver, the light shining from it is blinding."
+	desc = "Flooring made of solid silver. Not quite as valuable as gold, but still very snobby to use."
 	icon_state = "tile_silver"
 	turf_type = /turf/simulated/floor/mineral/silver
 	mineralType = "silver"
@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"
 	singular_name = "diamond floor tile"
-	desc = "A tile made out of diamond. Wow, just, wow."
+	desc = "Flooring made out of pure diamond. Considering the large variety of industrial and scientific uses for diamond, this seems extremely wasteful."
 	icon_state = "tile_diamond"
 	origin_tech = "materials=2"
 	turf_type = /turf/simulated/floor/mineral/diamond
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 /obj/item/stack/tile/mineral/bananium
 	name = "bananium tile"
 	singular_name = "bananium floor tile"
-	desc = "A tile made out of bananium, HOOOOOOOOONK!"
+	desc = "Flooring constructed from pure bananium crystal. It squeaks with every step taken on it. Pressing into it causes it to HONK!"
 	icon_state = "tile_bananium"
 	turf_type = /turf/simulated/floor/mineral/bananium
 	mineralType = "bananium"
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 /obj/item/stack/tile/mineral/tranquillite
 	name = "silent tile"
 	singular_name = "silent floor tile"
-	desc = "A tile made out of tranquillite, SHHHHHHHHH!"
+	desc = "Flooring constructed from pure tranquilite crystal. No matter how hard it is stamped on, no sound is produced."
 	icon_state = "tile_tranquillite"
 	turf_type = /turf/simulated/floor/mineral/tranquillite
 	mineralType = "tranquillite"
@@ -115,8 +115,8 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/abductor
 	name = "alien floor tile"
+	desc = "Did we learn the secrets of building floors from an advanced alien civilization like this one?"
 	singular_name = "alien floor tile"
-	desc = "A tile made out of alien alloy."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "tile_abductor"
 	origin_tech = "materials=6;abductor=1"
@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 /obj/item/stack/tile/mineral/titanium
 	name = "titanium tile"
 	singular_name = "titanium floor tile"
-	desc = "A tile made of titanium, used for shuttles."
+	desc = "Lightweight flooring made out of titanium, often used in spacecraft construction."
 	icon_state = "tile_shuttle"
 	turf_type = /turf/simulated/floor/mineral/titanium
 	mineralType = "titanium"
@@ -137,9 +137,9 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	icon_state = "tile_plasma"
 
 /obj/item/stack/tile/mineral/plastitanium
-	name = "plas-titanium tile"
-	singular_name = "plas-titanium floor tile"
-	desc = "A tile made of plas-titanium, used for very evil shuttles."
+	name = "plastitanium tile"
+	singular_name = "plastitanium floor tile"
+	desc = "Evil-looking flooring made out of plastitanium. Often used for constructing military-grade spacecraft."
 	icon_state = "tile_darkshuttle"
 	turf_type = /turf/simulated/floor/mineral/plastitanium
 	mineralType = "plastitanium"

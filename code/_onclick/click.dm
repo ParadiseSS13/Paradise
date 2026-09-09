@@ -111,7 +111,7 @@
 		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
 		return cc.fire_cannon_at(A, src, params)
 
-	if(restrained())
+	if(restrained() | istype(loc, /obj/structure/flock/cage))
 		RestrainedClickOn(A)
 		return
 

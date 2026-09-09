@@ -9,13 +9,13 @@
 	var/shell_type = /obj/effect/mob_spawn/human/alive/golem
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 40000)
+	new_attack_chain = TRUE
 
 /obj/item/golem_shell/servant
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/alive/golem/servant
 
-/obj/item/golem_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	..()
+/obj/item/golem_shell/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/static/list/golem_shell_species_types = list(
 		/obj/item/stack/sheet/metal						= /datum/species/golem,
 		/obj/item/stack/sheet/glass						= /datum/species/golem/glass,
@@ -40,22 +40,27 @@
 		/obj/item/stack/sheet/mineral/adamantine		= /datum/species/golem/adamantine,
 		/obj/item/stack/sheet/plastic					= /datum/species/golem/plastic)
 
-	if(istype(I, /obj/item/stack))
-		if(!ishuman(user))
-			to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
-			return
+	if(!istype(used, /obj/item/stack))
+		return ..()
+	if(!ishuman(user))
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
+		return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/stack/O = I
-		var/species = golem_shell_species_types[O.merge_type]
-		if(species)
-			if(O.use(10))
-				to_chat(user, "You finish up the golem shell with ten sheets of [O].")
-				new shell_type(get_turf(src), species, user)
-				qdel(src)
-			else
-				to_chat(user, "You need at least ten sheets to finish a golem.")
-		else
-			to_chat(user, "You can't build a golem out of this kind of material.")
+	var/obj/item/stack/mineral_stack = used
+	var/species = golem_shell_species_types[mineral_stack.merge_type]
+	if(!species)
+		to_chat(user, "You can't build a golem out of this kind of material.")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!mineral_stack.use(10))
+		to_chat(user, "You need at least ten sheets to finish a golem.")
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "You finish up the golem shell with ten sheets of [mineral_stack].")
+	new shell_type(get_turf(src), species, user)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
 
 /obj/effect/mob_spawn/human/alive/golem
 	name = "inert free golem shell"
@@ -104,11 +109,11 @@
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
 		to_chat(new_spawn, "<big>[SPAN_WARNING("You are not an antagonist, do not build an AI without explicit admin permission. Do not board the station without explicit admin permission.")]<big>")
-		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
-		Adamantine golems are the only golems that can resonate to all golems.</span>")
+		to_chat(new_spawn, SPAN_NOTICE("It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
+			Adamantine golems are the only golems that can resonate to all golems."))
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
-		to_chat(new_spawn, "<span class='warning'>You may interact or trade with crew you come across, aswell as defend yourself and your ship \
-		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
+		to_chat(new_spawn, SPAN_WARNING("You may interact or trade with crew you come across, aswell as defend yourself and your ship \
+		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station."))
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		if(owner.mind.special_role)

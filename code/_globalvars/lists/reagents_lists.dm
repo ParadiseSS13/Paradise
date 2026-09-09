@@ -9,25 +9,28 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 // Rare medicines
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
-GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
-					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana", "bungojuice",
-					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
-					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
-					"space_up","lemon_lime","triple_citrus","beer","whiskey","gin","rum","vodka","holywater",
-					"tequila","vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
-					"ice","bilk","atomicbomb","threemileisland","goldschlager","patron","gintonic",
-					"cubalibre","whiskeycola","martini","vodkamartini","whiterussian","screwdrivercocktail",
-					"booger","bloodymary","gargleblaster","bravebull","tequilasunrise","toxinsspecial",
-					"beepskysmash","salglu_solution","irishcream","manlydorf","longislandicedtea",
-					"moonshine","b52","irishcoffee","margarita","blackrussian","manhattan",
-					"manhattan_proj","whiskeysoda","adminfreeze","antifreeze","barefoot","snowwhite","demonsblood",
-					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
-					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
-					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
-					"silencer","changelingsting","dublindrop","syndicatebomb","erikasurprise","driestmartini", "flamingmoe",
-					"arnold_palmer","gimlet","sidecar","whiskeysour","mintjulep","pinacolada","sontse","ahdomaieclipse",
-					"beachfeast","fyrsskartears","junglevox","slimemold","dieseife","aciddreams","islaywhiskey","ultramatter",
-					"durkehiet", "dionasmash"))
+GLOBAL_LIST_EMPTY(alcoholic_drinks)
+GLOBAL_LIST_EMPTY(soft_drinks)
+GLOBAL_LIST_EMPTY(synthanolic_drinks)
+GLOBAL_LIST_EMPTY(synthetic_soft_drinks)
+
+/proc/populate_global_drink_lists()
+	for(var/path in subtypesof(/datum/reagent/consumable))
+		var/datum/reagent/consumable/beverage = path
+		if(beverage.description == ABSTRACT_TYPE_DESC || beverage.id == "bacchus_blessing")
+			// Skip abstract drinks that we shouldn't be spawning
+			continue
+		if(ispath(beverage, /datum/reagent/consumable/ethanol/synthanol))
+			GLOB.synthanolic_drinks += beverage.id
+			continue
+		if(ispath(beverage, /datum/reagent/consumable/ethanol))
+			GLOB.alcoholic_drinks += beverage.id
+			continue
+		if(beverage.taste_flag == SYNTHETIC)
+			GLOB.synthetic_soft_drinks += beverage.id
+			continue
+		if(ispath(beverage, /datum/reagent/consumable/drink))
+			GLOB.soft_drinks += beverage.id
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

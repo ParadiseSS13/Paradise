@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	materials = list(MAT_PLASTIC = 4000)
+	new_attack_chain = TRUE
 
 /obj/item/caution/proximity_sign
 	var/timing = FALSE
@@ -23,22 +24,26 @@
 	. = ..()
 	proximity_monitor = new(src, 1)
 
-/obj/item/caution/proximity_sign/attack_self__legacy__attackchain(mob/user as mob)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H.mind.has_antag_datum(/datum/antagonist/traitor) && !IS_MINDSLAVE(H))
-			return
-		if(armed)
-			armed = FALSE
-			to_chat(user, SPAN_NOTICE("You disarm \the [src]."))
-			return
-		timing = !timing
-		if(timing)
-			START_PROCESSING(SSobj, src)
-		else
-			armed = FALSE
-			timepassed = 0
-		to_chat(H, SPAN_NOTICE("You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]"))
+/obj/item/caution/proximity_sign/activate_self(mob/user)
+	if(!ishuman(user))
+		return ..()
+	var/mob/living/carbon/human/human_user = user
+	if(!human_user.mind.has_antag_datum(/datum/antagonist/traitor) && !IS_MINDSLAVE(human_user))
+		return ITEM_INTERACT_COMPLETE
+	if(armed)
+		armed = FALSE
+		to_chat(user, SPAN_NOTICE("You disarm \the [src]."))
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+	timing = !timing
+	if(timing)
+		START_PROCESSING(SSobj, src)
+	else
+		armed = FALSE
+		timepassed = 0
+	to_chat(human_user, SPAN_NOTICE("You [timing ? "activate [src]'s timer, you have 15 seconds." : "de-activate [src]'s timer."]"))
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/caution/proximity_sign/process()
 	if(!timing)
@@ -49,17 +54,20 @@
 		timing = FALSE
 
 /obj/item/caution/proximity_sign/HasProximity(atom/movable/AM)
-	if(armed)
-		if(iscarbon(AM) && !isbrain(AM))
-			var/mob/living/carbon/C = AM
-			if(C.m_intent != MOVE_INTENT_WALK)
-				visible_message("[src] beeps, \"Sign says walk, asshole.\"")
-				playsound(src, 'sound/misc/sign_says_walk.ogg', 40)
-				explosion(src.loc,-1,0,2, cause = "Exploding wet floor sign")
-				if(ishuman(C))
-					dead_legs(C)
-				if(src)
-					qdel(src)
+	if(!armed)
+		return
+	if(!(iscarbon(AM) && !isbrain(AM)))
+		return
+	var/mob/living/carbon/C = AM
+	if(C.m_intent != MOVE_INTENT_WALK)
+		audible_message(SPAN_USERDANGER("[src] beeps, \"Sign says walk, asshole.\""),
+			SPAN_USERDANGER("\"Sign says walk, asshole.\""))
+		playsound(src, 'sound/misc/sign_says_walk.ogg', 40)
+		explosion(src.loc, -1,0,2, cause = "Exploding wet floor sign")
+		if(ishuman(C))
+			dead_legs(C)
+		if(src)
+			qdel(src)
 
 /obj/item/caution/proximity_sign/proc/dead_legs(mob/living/carbon/human/H as mob)
 	var/obj/item/organ/external/l = H.get_organ("l_leg")
@@ -69,7 +77,7 @@
 	if(r)
 		r.droplimb(0, DROPLIMB_SHARP)
 
-/obj/item/stack/caution/proximity_sign/malf //Malf module
+/obj/item/stack/caution/proximity_sign/malf // Malf module.
 	name = "proximity mine dispenser"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
@@ -81,12 +89,12 @@
 		return ITEM_INTERACT_COMPLETE
 
 	var/turf/T = get_turf(target)
-	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put mines on a tile that has dense stuff
-		to_chat(user, SPAN_NOTICE("The space is occupied! You cannot place a mine there!"))
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) // Can't put mines on a tile that has dense stuff.
+		to_chat(user, SPAN_WARNING("The space is occupied! You cannot place a mine there!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(!use(1)) //Can't place a landmine if you don't have a landmine
-		to_chat(user, SPAN_NOTICE("[src] is out of landmines! It can be refilled at a cyborg charger."))
+	if(!use(1)) // Can't place a landmine if you don't have a landmine.
+		to_chat(user, SPAN_WARNING("[src] is out of landmines! It can be refilled at a cyborg charger."))
 		return ITEM_INTERACT_COMPLETE
 
 	playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)

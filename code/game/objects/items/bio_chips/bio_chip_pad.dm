@@ -11,6 +11,7 @@
 
 	var/obj/item/bio_chip_case/case
 	var/static/list/cached_base64_icons = list()
+	new_attack_chain = TRUE
 
 /obj/item/bio_chip_pad/Destroy()
 	if(case)
@@ -27,14 +28,20 @@
 	else
 		icon_state = "implantpad-off"
 
-/obj/item/bio_chip_pad/attack_self__legacy__attackchain(mob/user)
-	ui_interact(user)
+/obj/item/bio_chip_pad/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/bio_chip_pad/attackby__legacy__attackchain(obj/item/bio_chip_case/C, mob/user)
-	if(istype(C))
-		addcase(user, C)
-	else
+	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/bio_chip_pad/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/bio_chip_case))
 		return ..()
+
+	addcase(user, used)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/bio_chip_pad/proc/addcase(mob/user, obj/item/bio_chip_case/C)
 	if(!user || !C)
@@ -45,6 +52,7 @@
 	user.unequip(C)
 	C.forceMove(src)
 	case = C
+	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 

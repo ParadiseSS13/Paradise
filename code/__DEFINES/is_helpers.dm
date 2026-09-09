@@ -31,6 +31,22 @@
 
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
 
+#define isaicamera(A) (istype(A, /mob/camera/ai_eye))
+
+#define isflockmob(A) (istype(A, /mob/camera/flock) || istype(A, /mob/living/basic/flock))
+
+#define isflockdrone(A) (istype(A, /mob/living/basic/flock/drone))
+
+#define isflockbit(A) (istype(A, /mob/living/basic/flock/bit))
+
+#define isflocktrace(A) (istype(A, /mob/camera/flock/trace))
+
+#define isflockmind(A) (istype(A, /mob/camera/flock/overmind))
+
+#define isflockcontroller(A) (isflockmind(A) || isflocktrace(A))
+
+#define isflockworker(A) (isflockdrone(A) || isflockbit(A))
+
 // Simple animals
 
 #define isanimal(A) (istype(A, /mob/living/simple_animal))
@@ -92,6 +108,13 @@
 
 #define istable(S) (istype(S, /obj/structure/table))
 
+GLOBAL_LIST_INIT(placeable_surface_types, typecacheof(list(
+	/obj/structure/table,
+	/obj/structure/rack,
+	/obj/structure/shelf,)))
+
+#define is_surface(W) (is_type_in_typecache(W, GLOB.placeable_surface_types))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -134,6 +157,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_ancient_rock(A) (istype(A, /turf/simulated/mineral/ancient))
 
+#define isflockturf(A) (istype(A, /turf/simulated/floor/flock) || istype(A, /turf/simulated/wall/flock))
+
 // Areas
 //#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas
 
@@ -153,6 +178,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
 #define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
+#define is_color_rgb(thing) (islist(thing) && length(thing) < 5 && length(thing) > 2 && isnum(thing[1]) && isnum(thing[2]) && isnum(thing[3]))
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)

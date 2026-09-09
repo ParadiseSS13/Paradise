@@ -59,10 +59,11 @@
 	if(modifiers["shift"])
 		if(isturf(A))
 			var/turf/clicked_turf = A
-			for(var/obj/machinery/door/AL in clicked_turf.contents)
+			var/obj/machinery/door/AL = locate() in clicked_turf.contents
+			if(AL)
 				AL.try_to_activate_door(src)
-		else
-			ShiftClickOn(A)
+				return
+		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
 		AltClickOn(A)

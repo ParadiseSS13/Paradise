@@ -84,7 +84,7 @@ fn submit_request(prep: RequestPrep) -> Result<String> {
     // TODO: this is a sinful hack, rewrite this as soon as the module is stable on live
     let response = match prep.req.send_bytes(&prep.body) {
         Ok(r) => r,
-        Err(ureq::Error::Status(code, r)) => r,
+        Err(ureq::Error::Status(_code, r)) => r,
         Err(ureq::Error::Transport(t)) => {
             let mut resp = Response {
                 status_code: 0,

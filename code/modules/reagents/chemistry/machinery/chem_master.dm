@@ -1,4 +1,4 @@
-#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
+#define MAX_PILL_SPRITE 28 //max icon state of the pill sprites
 #define MAX_PATCH_SPRITE 21 //max icon state of the patch sprites
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
@@ -581,7 +581,7 @@
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
 	if(amount_per_item < 0.1)
-		to_chat(user, "<span class='warning'>Cannot create pills smaller than 0.1u!</span>")
+		to_chat(user, SPAN_WARNING("Cannot create pills smaller than 0.1u!"))
 		return
 
 	var/data = list()

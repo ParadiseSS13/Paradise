@@ -468,9 +468,9 @@
 		to_chat(M, SPAN_WARNING("Your head pounds..."))
 
 		sleep(10 SECONDS)
-		to_chat(M, "<span class='specialnotice'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
+		to_chat(M, SPAN_SPECIALNOTICE("A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
-					so it's only a matter of time before we send you back...\"</i></span>")
+					so it's only a matter of time before we send you back...\"</i>"))
 
 		to_chat(M, SPAN_DANGER("<font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font>"))
 

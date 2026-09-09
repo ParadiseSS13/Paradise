@@ -260,6 +260,11 @@
 	icon_state = "agentbox"
 	alpha = 128
 
+/atom/movable/screen/fullscreen/flock_convert
+	icon = 'icons/goonstation/hud/flockmindcircuit.dmi'
+	icon_state = "flockmindcircuit"
+	layer = BLIND_LAYER
+
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER

@@ -9,5 +9,17 @@
 		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/engine",
 		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine",
 		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	},
+
+	{
+		// Randomly picks loot for the hidey hole in East Mining Maints
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 3,
+		"submap_size_y": 1,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/boxstation.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/hiding_spot",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
 	}
 ]

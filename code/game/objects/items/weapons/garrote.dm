@@ -14,6 +14,7 @@
 	var/mob/living/carbon/human/strangling
 	var/improvised = FALSE
 	var/garrote_time
+	new_attack_chain = TRUE
 
 /obj/item/garrote/Initialize(mapload)
 	. = ..()
@@ -40,78 +41,85 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, wield_callback = CALLBACK(src, PROC_REF(wield)))
 
-
 /obj/item/garrote/proc/wield(obj/item/source, mob/living/carbon/user)
 	if(!strangling)
 		return
-	user.visible_message(SPAN_NOTICE("[user] removes [src] from [strangling]'s neck."),
-			SPAN_WARNING("You remove [src] from [strangling]'s neck."))
+	user.visible_message(
+		SPAN_NOTICE("[user] removes [src] from [strangling]'s neck."),
+		SPAN_WARNING("You remove [src] from [strangling]'s neck."),
+		SPAN_HEAR("You hear the wire slip free!")
+	)
 
 	strangling = null
 	update_icon(UPDATE_ICON_STATE)
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/garrote/interact_with_atom(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers)
+	if(!ismob(target))
+		return NONE
 
-/obj/item/garrote/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
-	if(garrote_time > world.time) // Cooldown
-		return
+	if(garrote_time > world.time) // Cooldown.
+		return ITEM_INTERACT_COMPLETE
 
-	if(!ishuman(user)) // spap_hand is a proc of /mob/living, user is simply /mob
-		return
-
-	var/mob/living/carbon/human/U = user
+	if(!ishuman(user))
+		to_chat(user, SPAN_WARNING("You lack the dexterity to use this!"))
+		return ITEM_INTERACT_COMPLETE
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class = 'warning'>You must use both hands to garrote [M]!</span>")
-		return
+		to_chat(user, SPAN_WARNING("You must use both hands to garrote [target]!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(!ishuman(M))
-		to_chat(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
-		return
+	if(!ishuman(target))
+		to_chat(user, SPAN_WARNING("You don't think that garroting [target] would be very effective...!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(M == U)
-		U.suicide() // This will display a prompt for confirmation first.
-		return
+	if(target == user)
+		user.suicide() // This will display a prompt for confirmation first.
+		return ITEM_INTERACT_COMPLETE
 
-	if(M.dir != U.dir && !M.incapacitated())
-		to_chat(user, SPAN_WARNING("You cannot use [src] on [M] from that angle!"))
-		return
+	if(target.dir != user.dir && !target.incapacitated())
+		to_chat(user, SPAN_WARNING("You cannot use [src] on [target] from that angle!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
-		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something [M.p_theyre()] wearing!</span>")
+	if(improvised && ((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
+		to_chat(user, SPAN_WARNING("[target]'s neck is blocked by something [target.p_theyre()] wearing!"))
+		return ITEM_INTERACT_COMPLETE
 
 	if(strangling)
-		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
-		return
+		to_chat(user, SPAN_WARNING("You cannot use [src] on two people at once!"))
+		return ITEM_INTERACT_COMPLETE
 
-	attack_self__legacy__attackchain(user)
+	activate_self(user)
 
-	U.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
-	var/obj/item/grab/G = M.grabbedby(U, 1)
-	U.swap_hand()
+	user.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
+	var/obj/item/grab/grab = target.grabbedby(user, TRUE)
+	user.swap_hand()
 
-	if(G && istype(G))
+	if(grab && istype(grab))
 		if(improvised) // Improvised garrotes start you off with a passive grab, but will lock you in place. A quick stun to drop items but not to make it unescapable
-			M.Stun(1 SECONDS)
-			M.Immobilize(2 SECONDS)
+			target.Stun(1 SECONDS)
+			target.Immobilize(2 SECONDS)
 		else
-			G.state = GRAB_NECK
-			G.hud.icon_state = "kill"
-			G.hud.name = "kill"
-			M.AdjustSilence(2 SECONDS)
+			grab.state = GRAB_NECK
+			grab.hud.icon_state = "kill"
+			grab.hud.name = "kill"
+			target.AdjustSilence(2 SECONDS)
 
-	garrote_time = world.time + 10
+	garrote_time = world.time + 1 SECONDS
 	START_PROCESSING(SSobj, src)
-	strangling = M
+	strangling = target
+	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, TRUE, -10, ignore_walls = FALSE)
 
-	M.visible_message(SPAN_DANGER("[U] comes from behind and begins garroting [M] with [src]!"), \
-				SPAN_USERDANGER("[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]"), \
-				"You hear struggling and wire strain against flesh!")
+	target.visible_message(
+		SPAN_DANGER("[user] comes from behind and begins garroting [target] with [src]!"),
+		SPAN_USERDANGER("[user] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]"),
+		SPAN_HEAR("You hear struggling and wire strain against flesh!")
+		)
 
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/garrote/process()
 	if(!strangling)
@@ -119,7 +127,6 @@
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
-
 
 	if(!ishuman(loc))
 		strangling = null
@@ -137,8 +144,11 @@
 		G = user.r_hand
 
 	else
-		user.visible_message(SPAN_WARNING("[user] loses [user.p_their()] grip on [strangling]'s neck."), \
-				SPAN_WARNING("You lose your grip on [strangling]'s neck."))
+		user.visible_message(
+			SPAN_WARNING("[user] loses [user.p_their()] grip on [strangling]'s neck!"),
+			SPAN_WARNING("You lose your grip on [strangling]'s neck!"),
+			SPAN_HEAR("You hear the wire slip free!")
+		)
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
@@ -147,8 +157,11 @@
 		return
 
 	if(!G.affecting)
-		user.visible_message(SPAN_WARNING("[user] loses [user.p_their()] grip on [strangling]'s neck."), \
-				SPAN_WARNING("You lose your grip on [strangling]'s neck."))
+		user.visible_message(
+			SPAN_WARNING("[user] loses [user.p_their()] grip on [strangling]'s neck!"),
+			SPAN_WARNING("You lose your grip on [strangling]'s neck!"),
+			SPAN_HEAR("You hear the wire slip free!")
+		)
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
@@ -164,13 +177,11 @@
 		strangling.apply_damage(2, OXY, "head")
 		return
 
-
 	strangling.AbsoluteSilence(6 SECONDS) // Non-improvised effects
 	if(G.state == GRAB_KILL)
 		strangling.PreventOxyHeal(6 SECONDS)
 		strangling.AdjustLoseBreath(6 SECONDS)
 		strangling.apply_damage(4, OXY, "head")
-
 
 /obj/item/garrote/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!"))

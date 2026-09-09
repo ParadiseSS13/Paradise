@@ -7,8 +7,8 @@
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_ROCK_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ROCK_WALLS)
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
 	opacity = TRUE
 	density = TRUE
@@ -210,8 +210,8 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	smoothing_groups = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_ROCK_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ROCK_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER

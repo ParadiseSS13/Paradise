@@ -209,3 +209,85 @@
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"
 	can_be_reinhabited = FALSE
+
+/obj/item/mmi/robotic_brain/positronic/proc/notify_original_player()
+	var/area/our_area = get_area(src)
+	var/mob/dead/observer/original_player
+	for(var/mob/observer in GLOB.player_list)
+		if(observer.client && brainmob && observer.key == brainmob.last_known_ckey)
+			original_player = observer
+			break
+	if(!original_player)
+		return
+	to_chat(original_player, SPAN_GHOSTALERT("Someone is trying to activate your brain in [our_area]!"), MESSAGE_TYPE_DEADCHAT)
+	SEND_SOUND(original_player, sound('sound/effects/genetics.ogg'))
+	var/atom/movable/screen/alert/notify_action/A = original_player.throw_alert("\ref[src]_notify_action", /atom/movable/screen/alert/notify_action)
+	if(A)
+		if(original_player.client.prefs && original_player.client.prefs.UI_style)
+			A.icon = ui_style2icon(original_player.client.prefs.UI_style)
+		A.name = "Return to your brain?"
+		A.desc = "Someone is calling you to your brain."
+		A.action = NOTIFY_ATTACK
+		A.target = src
+		var/image/appearance = image(src)
+		appearance.layer = FLOAT_LAYER
+		appearance.plane = FLOAT_PLANE
+		A.overlays += appearance
+
+/obj/item/mmi/robotic_brain/positronic/request_player()
+	if(!brainmob) // This is only to help people get back into their own brain, not to offer it to new people.
+		return
+	if(brainmob && brainmob.key && length(client_mobs_in_contents)) // They're already in their brain. Do nothing.
+		return
+	icon_state = searching_icon
+	searching = TRUE
+	notify_original_player()
+	addtimer(CALLBACK(src, PROC_REF(reset_search)), 60 SECONDS)
+
+/obj/item/mmi/robotic_brain/positronic/attack_ghost(mob/dead/observer/O)
+	if(!brainmob) // Again, this is only to help people get back into their own brain.
+		return
+	if(searching)
+		volunteer(O)
+	if(O.key == brainmob.last_known_ckey && (world.time >= next_ping_at))
+		next_ping_at = world.time + (20 SECONDS)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
+		visible_message(SPAN_NOTICE("[src] pings softly."))
+
+/obj/item/mmi/robotic_brain/positronic/validity_checks(mob/dead/observer/O)
+	if(istype(O))
+		if(!O.check_ahud_rejoin_eligibility())
+			return FALSE
+	if(O.client)
+		return TRUE
+	return FALSE
+
+/obj/item/mmi/robotic_brain/positronic/volunteer(mob/dead/observer/user)
+	if(!searching)
+		return
+	if(!brainmob)
+		return // Again again, this is only to help people get back into their own brain.
+	if(user.key != brainmob.last_known_ckey)
+		return
+	if(!validity_checks(user))
+		to_chat(user, SPAN_WARNING("You cannot return to your brain."))
+		return
+
+	transfer_personality(user)
+
+/obj/item/mmi/robotic_brain/positronic/transfer_personality(mob/candidate)
+	searching = FALSE
+	brainmob.key = candidate.key
+
+	if(brainmob.has_ahudded())
+		log_admin("[key_name(brainmob)] has re-entered their brain after having toggled antag hud.")
+		message_admins("[key_name(brainmob)] has re-entered their brain after having toggled antag hud.")
+
+	visible_message(SPAN_NOTICE("[src] chimes quietly."))
+	become_occupied(occupied_icon)
+
+USER_CONTEXT_MENU(request_player_return_to_brain, R_ADMIN, "\[Admin\] Offer Restore Player", obj/item/mmi/robotic_brain/positronic/brain)
+	if(!istype(brain))
+		to_chat(client, SPAN_WARNING("You can only offer to restore a player to a positronic brain. This is \a [brain]."))
+		return
+	brain.request_player()

@@ -351,8 +351,8 @@
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
-	// If our target is dead, try to revive them. We will restore their organs because they get ripped out alot.
-	// and if we fail to revive them, don't proceede the chain
+	// If our target is dead, try to revive them. We will restore their organs because they get ripped out a lot.
+	// and if we fail to revive them, don't proceed the chain.
 	sac_target.check_and_regenerate_organs()
 	if(sac_target.stat & DEAD)
 		sac_target.adjustOxyLoss(-100, FALSE)
@@ -549,9 +549,9 @@
 		var/composed_return_message = ""
 		composed_return_message += SPAN_NOTICE("Your victim, [sac_target], was returned to the station - ")
 		if(sac_target.stat == DEAD)
-			composed_return_message += "<span class='red'>dead. </span>"
+			composed_return_message += SPAN_RED("dead. ")
 		else
-			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
+			composed_return_message += SPAN_GREEN("alive, but with a shattered mind. ")
 
 		composed_return_message += SPAN_NOTICE("You hear a whisper... ")
 		composed_return_message += SPAN_HIEROPHANT_WARNING("[get_area_name(safe_turf, TRUE)]")

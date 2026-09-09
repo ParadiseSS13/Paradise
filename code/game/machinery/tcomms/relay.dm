@@ -235,4 +235,6 @@
 			else
 				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Core not found. Please file an issue report."))
 
-
+/obj/machinery/tcomms/relay/start_off/Initialize(mapload) // always starts off
+	. = ..()
+	active = FALSE

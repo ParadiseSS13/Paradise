@@ -145,6 +145,10 @@
 /datum/job/proc/barred_by_quirk(client/C)
 	if(!C || !length(blacklisted_disabilities)) // If there's no disability locks, there won't be a quirk lock either.
 		return FALSE
+	if(!length(C.prefs.active_character.quirks)) // If there's no quirks, don't bother
+		return FALSE
+	if(istext(C.prefs.active_character.quirks[1])) // These quirks were not properly built after loading from database.
+		C.prefs.active_character.rebuild_quirks()
 	for(var/datum/quirk/quirk in C.prefs.active_character.quirks)
 		if(quirk.blacklisted)
 			return TRUE

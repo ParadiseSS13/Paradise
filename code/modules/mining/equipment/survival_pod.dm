@@ -154,9 +154,15 @@
 	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
 
+/obj/machinery/door/airlock/survival_pod/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/survival_pod/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
@@ -251,7 +257,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self__legacy__attackchain(user)
+	ui_interact(user)
 
 //Bed
 /obj/structure/bed/pod

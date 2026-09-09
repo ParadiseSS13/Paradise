@@ -18,7 +18,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
@@ -37,7 +37,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "ce" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/loaded/upgraded{
 	hacked = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -217,12 +217,6 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "qQ" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 25
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 35
-	},
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -231,6 +225,12 @@
 	name = "Bridge Privacy Shutters";
 	pixel_x = 25;
 	req_access = list(19)
+	},
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_y = 35
+	},
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_y = 25
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -321,8 +321,7 @@
 /area/shuttle/administration)
 "vy" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "vA" = (
@@ -398,12 +397,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"xU" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "xZ" = (
 /turf/space,
 /area/shuttle/administration)
@@ -423,16 +416,6 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "adminarmoryshutters"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"yu" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_x = -5
-	},
-/obj/machinery/recharger{
-	pixel_x = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -515,7 +498,6 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Du" = (
@@ -668,7 +650,7 @@
 /area/shuttle/administration)
 "Mi" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Mj" = (
@@ -705,7 +687,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ns" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_y = 25
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -720,7 +702,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ou" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/loaded/upgraded{
 	hacked = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -1247,10 +1229,10 @@ Kh
 Kh
 fF
 iz
-yu
+Mi
 sq
 WV
-xU
+Mi
 ce
 jB
 jU

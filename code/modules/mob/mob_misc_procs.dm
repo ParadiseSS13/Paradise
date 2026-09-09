@@ -469,7 +469,7 @@
 	set hidden = 1
 
 	if(can_change_intents)
-		if(ishuman(src) || isalienadult(src) || isbrain(src))
+		if(ishuman(src) || isalienadult(src) || isbrain(src) || isflockmob(src))
 			switch(input)
 				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					a_intent = input

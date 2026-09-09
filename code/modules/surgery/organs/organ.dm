@@ -46,6 +46,7 @@
 
 	/// A list of all wounds currently on this organ
 	var/list/wound_list = list()
+	new_attack_chain = TRUE
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -75,9 +76,9 @@
 		if(species_override)
 			dna.species = new species_override
 
-/obj/item/organ/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nano = I
+/obj/item/organ/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_robotic() && istype(used, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nano = used
 		nano.use(1)
 		rejuvenate()
 		to_chat(user, SPAN_NOTICE("You repair the damage on [src]."))

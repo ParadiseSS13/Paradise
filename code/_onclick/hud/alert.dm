@@ -140,7 +140,7 @@
 		return FALSE
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, SPAN_BOLDNOTICE("[name]</span> - <span class='notice'>[desc]"))
+		to_chat(usr, "[SPAN_BOLDNOTICE(name)] - [SPAN_NOTICE(desc)]")
 		return FALSE
 	if(master)
 		usr.client.Click(master, location, control, params)
@@ -657,6 +657,18 @@ so as to remain in compliance with the most up-to-date laws."
 		infected_user.clear_alert("ghost_nest")
 		return
 	infected_user.ghostize()
+
+/atom/movable/screen/alert/ghost/flock
+	desc = "Would you like to ghost? You will be notified when your body is removed from the cage."
+
+/atom/movable/screen/alert/ghost/flock/Click()
+	if(!..())
+		return
+	var/mob/living/carbon/human/caged_user = usr
+	if(!istype(caged_user) || caged_user.stat == DEAD)
+		caged_user.clear_alert("ghost_cage")
+		return
+	caged_user.ghostize()
 
 /atom/movable/screen/alert/notify_action
 	name = "Body created"

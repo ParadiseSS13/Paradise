@@ -11,6 +11,7 @@
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
 	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
+	new_attack_chain = TRUE
 
 /obj/item/robotanalyzer/proc/handle_clumsy(mob/living/user)
 	var/list/msgs = list()
@@ -21,15 +22,28 @@
 	msgs += SPAN_NOTICE("Chassis Temperature: ???")
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/robotanalyzer/attack_obj__legacy__attackchain(obj/machinery/M, mob/living/user) // Scanning a machine object
-	if(!ismachinery(M))
-		return
+/obj/item/robotanalyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers) // Scanning a machine object.
+	if(!ismachinery(target) && !ismob(target))
+		return ..()
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		handle_clumsy(user)
-		return
-	user.visible_message(SPAN_NOTICE("[user] has analyzed [M]'s components with [src]."), SPAN_NOTICE("You analyze [M]'s components with [src]."))
-	machine_scan(user, M)
+		return ITEM_INTERACT_COMPLETE
+	if(ismachinery(target))
+		user.visible_message(
+			SPAN_NOTICE("[user] has analyzed [target]'s components with [src]."),
+			SPAN_NOTICE("You analyze [target]'s components with [src].")
+		)
+		machine_scan(user, target)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(
+		SPAN_NOTICE("[user] has analyzed [target]'s components with [src]."),
+		SPAN_NOTICE("You analyze [target]'s components with [src].")
+	)
+	robot_healthscan(user, target)
 	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/robotanalyzer/proc/machine_scan(mob/user, obj/machinery/M)
 	if(M.obj_integrity == M.max_integrity)
@@ -38,14 +52,6 @@
 	to_chat(user, SPAN_NOTICE("Structural damage detected! [M]'s overall estimated integrity is [round((M.obj_integrity / M.max_integrity) * 100)]%."))
 	if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
 		to_chat(user, SPAN_WARNING("Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair."))
-
-/obj/item/robotanalyzer/attack__legacy__attackchain(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs
-	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
-		handle_clumsy(user)
-		return
-	user.visible_message(SPAN_NOTICE("[user] has analyzed [M]'s components with [src]."), SPAN_NOTICE("You analyze [M]'s components with [src]."))
-	robot_healthscan(user, M)
-	add_fingerprint(user)
 
 /proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type

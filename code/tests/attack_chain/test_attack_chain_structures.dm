@@ -263,7 +263,7 @@
 
 	var/obj/structure/big_delivery/delivery = teleport_to_first(player, /obj/structure/big_delivery)
 	var/obj/item/dest_tagger/tagger = player.spawn_obj_in_hand(/obj/item/dest_tagger)
-	tagger.currTag = 2
+	tagger.current_tag = 2
 	player.click_on(delivery)
 	TEST_ASSERT_LAST_CHATLOG(player, "*CARGO BAY*")
 	player.drop_held_item()
