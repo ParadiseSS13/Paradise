@@ -34,7 +34,7 @@
 	desc = "Artifical synthesis of extremely fragile bluespace crystals and experimental space compression technology."
 	id = "arti_bs"
 	prereqs = list()
-	unlocks = list("bluespace_crystal", "minerbag_holding", "bluespace_belt_holder", "brpd", "bluespaceshotglass")
+	unlocks = list("bluespace_crystal", "minerbag_holding", "bluespace_belt_holder", "brpd", "bluespaceshotglass", "light_replacer_bluespace")
 
 /datum/technode/rnd/bs_storage
 	name = "Bluespace Storage"
@@ -142,7 +142,7 @@
 	desc = "Advanced tools that are much faster then their standard counterparts."
 	id = "power_tools"
 	prereqs = list()
-	unlocks = list("exwelder", "handdrill", "jawsoflife", "bolter_wrench") // MIXTODO - might be ideal to move jaws to some later rescue tech or something.
+	unlocks = list("exwelder", "handdrill", "bolter_wrench") // Jaws are in emergency medicine as that is their ""intended"" purpose.
 
 /datum/technode/rnd/porta_power
 	name = "Portable Power"
@@ -200,3 +200,102 @@
 	prereqs = list("atmospherics")
 	unlocks = list("doubleoxygen") // MIXTODO - maybe make this a prototype.
 
+// MARK: Service
+/datum/technode/rnd/adv_sani
+	name = "Advanced Sanitation"
+	desc = "Improved janitorial tools to keep the station as clean as ever!"
+	id = "adv_sani"
+	prereqs = list()
+	unlocks = list("advmop", "blutrash", "holosign", "light_replacer")
+
+// MARK: Medical
+/datum/technode/rnd/med_analysis
+	name = "Medical Analysis"
+	desc = "Body and reagent analysis equipment for diagnosis and reagent synthesis."
+	id = "med_analysis"
+	prereqs = list()
+	unlocks = list("adv_reagent_scanner", "healthanalyzer_upgrade", "sleeper", "bodyscanner")
+
+/datum/technode/rnd/cloning
+	name = "Cellular Replication"
+	desc = "Cloning technology able to completely replicate most biological humanoids from DNA."
+	id = "cloning"
+	prereqs = list()
+	unlocks = list("clonepod", "clonescanner", "clonecontrol", "dissection_manager_upgraded")
+
+/datum/technode/rnd/chem
+	name = "Chemical Synthesis"
+	desc = "Machines able to synthesise chemicals from energy and press them into approprate form."
+	id = "chem"
+	prereqs = list()
+	unlocks = list("splitbeaker", "chem_dispenser", "chem_master", "chem_heater", "reagentgrinder")
+
+/datum/technode/rnd/em_medicine
+	name = "Emergency Medicine"
+	desc = "Legal breaking and entering that sometimes saves a life!"
+	id = "em_medicine"
+	prereqs = list()
+	unlocks = list("jawsoflife", "automender", "holo_stretcher", "compact_defib") // MIXTODO - Maybe make automender a prototype
+
+/datum/technode/rnd/biochip
+	name = "Biochips"
+	desc = "Small sterile chips with various purposes that can be implanted in humanoids, machines included."
+	id = "biochips"
+	prereqs = list()
+	unlocks = list("biochip_pad", "implanter", "implantcase", "implant_chem", "implant_tracking", "implant_trombone")
+
+/datum/technode/rnd/organ_replacements
+	name = "Organ Replacements"
+	desc = "Cybernetic organs that are functionally identical to their organic counterpart, keep away from magnets."
+	id = "organ_replacements"
+	prereqs = list()
+	unlocks = list("cybernetic_eyes", "cybernetic_ears", "cybernetic_liver", "cybernetic_kidneys", "cybernetic_heart", "cybernetic_lungs", "ci-nutriment")
+
+/datum/technode/rnd/advanced_organs
+	name = "Advanced Organ Replacements"
+	desc = "Advanced cybernetic organs that offer superior functionality to their organic counterpart, keep away from magnets."
+	id = "advanced_organs"
+	prereqs = list("organ_replacements")
+	unlocks = list("cybernetic_liver_u", "cybernetic_kidneys_u", "cybernetic_heart_u", "cybernetic_lungs_u")
+
+/datum/technode/rnd/eye_imp
+	name = "Eye Implants"
+	desc = "Improved cybernetic eyes capable of preventing flashes, displaying information and identifying structures through walls."
+	id = "eye_imp"
+	prereqs = list()
+	unlocks = list("ci-mesonhud", "ci-welding", "ci-janihud", "ci-diaghud", "ci-skillhud", "ci-medhud", "ci-hydrohud", "ci-sechud")
+
+/datum/technode/rnd/wide_spectrum
+	name = "Wide Spectrum Replacements"
+	desc = "Cybernetic eyes capable of identifying thermal signatures and enhancing distant objects."
+	id = "wide_spectrum"
+	prereqs = list("eye_imp")
+	unlocks = list("ci-thermals", "ci-scope")
+
+/datum/technode/rnd/ultrawide_spectrum
+	name = "Ultra-wide Spectrum Replacements"
+	desc = "Enhanced cybernetic eyes capable of seeing through walls."
+	id = "ultrawide_spectrum"
+	prereqs = list("wide_spectrum")
+	unlocks = list("ci-xray") // MIXTODO - Probably make this a prototype
+
+/datum/technode/rnd/chest_imp
+	name = "Chest Implants"
+	desc = "Cybernetic implants that fit into the chest cavity."
+	id = "chest_imp"
+	prereqs = list()
+	unlocks = list("ci-nutrimentplus", "ci-reviver", "bluespace_anchor_implant")
+
+/datum/technode/rnd/brain_imp
+	name = "Brain Implants"
+	desc = "Cybernetic implants that attach directly to the brain, keep away from magnets."
+	id = "brain_imp"
+	prereqs = list()
+	unlocks = list("ci-wire_interface", "ci-clownvoice", "ci-antisleep", "ci-antistun", "ci-antidrop")
+
+/datum/technode/rnd/arm_imp
+	name = "Arm-mounted Implants"
+	desc = "Cybernetic implants stuffed neatly inside the arm containing a variety of useful tools."
+	id = "arm_imp"
+	prereqs = list()
+	unlocks = list("ci-botanical", "ci-janitorial", "ci-cargo", "ci-toolset", "ci-surgey")
