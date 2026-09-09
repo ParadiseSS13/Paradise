@@ -61,7 +61,7 @@
 
 /obj/structure/falsewall/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		toggle(user, TRUE)
+		toggle(user, silent = TRUE)
 
 /obj/structure/falsewall/attack_hand(mob/user)
 	. = ..()
