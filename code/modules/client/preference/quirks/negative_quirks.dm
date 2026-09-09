@@ -165,3 +165,28 @@
 	cost = -1
 	trait_to_apply = TRAIT_WORK_HARD_PARTY_HARDER
 	conflicting_quirks = list(/datum/quirk/temperate_partier)
+
+
+
+/datum/quirk/traditional_thinker
+	name = "Traditional Thinker"
+	desc = "You are closer to your creators, in that your brain is located in your head."
+	cost = -1
+	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
+
+/datum/quirk/traditional_thinker/apply_quirk_effects(mob/living/carbon/human/target, character)
+	. = ..(target, character)
+	// if it works for lifelike, it should work here? right? :clueless:
+	RegisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED, PROC_REF(move_brain))
+
+/datum/quirk/traditional_thinker/proc/move_brain(mob/living/carbon/human/target)
+	SIGNAL_HANDLER // COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED
+
+	var/obj/item/organ/internal/brain/brain = target.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(brain)
+		brain.remove(target, special = TRUE)
+		brain.parent_organ = "head"
+		brain.insert(target, special = TRUE)
+
+	// Unregister the signal since we're done with it
+	UnregisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
