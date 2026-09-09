@@ -466,6 +466,9 @@
 	return stackmaterial
 
 /obj/item/stack/medical/adv/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(isstorage(used))
+		return FALSE
+
 	if(!can_merge(used, TRUE))
 		return ..()
 
