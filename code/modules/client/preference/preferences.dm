@@ -330,6 +330,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Character Voice:</b> <a href='byond://?_src_=prefs;preference=blooper_id;task=input'>[active_character.blooper_id]</a><br>"
 			dat += "<b>Character Voice Speed:</b> <a href='byond://?_src_=prefs;preference=blooper_speed;task=input'>[active_character.blooper_speed]</a><br>"
 			dat += "<b>Character Voice Pitch:</b> <a href='byond://?_src_=prefs;preference=blooper_pitch;task=input'>[active_character.blooper_pitch]</a><br>"
+			dat += "<b>Character Voice Pitch Range:</b> <a href='byond://?_src_=prefs;preference=blooper_pitch_range;task=input'>[active_character.blooper_pitch_range]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=blooper_preview;task=input'>Preview Voice</a><br>"
 
 			dat += "<h2>Limbs</h2>"

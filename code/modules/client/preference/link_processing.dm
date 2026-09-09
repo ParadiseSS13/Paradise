@@ -589,6 +589,11 @@
 					if(new_blooperpitch)
 						active_character.blooper_pitch = new_blooperpitch
 
+				if("blooper_pitch_range")
+					var/new_blooperpitchrange = tgui_input_number(user, "Set your voice pitch range. 0 is no variation, 1 is too much variation.", "Voice Pitch", active_character.blooper_pitch_range, BLOOPER_DEFAULT_MAXVARY, BLOOPER_DEFAULT_MINVARY, round_value = FALSE)
+					if(new_blooperpitchrange)
+						active_character.blooper_pitch_range = new_blooperpitchrange
+
 				if("blooper_preview")
 					var/preview_text = tgui_input_text(user, "Enter a test message to preview your character's voice.", "Voice Preview", "The captain may be a traitor! I am SO startled right now...", max_length = 200, multiline = FALSE)
 					if(isnull(preview_text))
