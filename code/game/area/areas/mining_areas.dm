@@ -2,11 +2,14 @@
 
 /area/mine
 	icon_state = "mining"
+	area_icon_text = "MINING"
+	area_icon_color = AREA_COLOR_MINING
 	airlock_wires = ZLVL_BASED_WIRES
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
+	area_icon_text = "MINING\nUNEXPL"
 	always_unpowered = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
@@ -70,10 +73,12 @@
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
 	icon_state = "mining_eva"
+	area_icon_text = "MINING\nEVA"
 
 /area/mine/outpost/cafeteria
 	name = "Mining Station Cafeteria"
 	icon_state = "mining_living"
+	area_icon_text = "MINING\nLIVING"
 
 /// subtype of /surface so storms hit there
 /area/lavaland/surface/outdoors/outpost/catwalk
@@ -120,6 +125,7 @@
 /area/mine/outpost/smith_workshop
 	name = "Smith's Workshop"
 	icon_state = "smith"
+	area_icon_text = "SMITH"
 
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
@@ -145,6 +151,7 @@
 /area/mine/outpost/production
 	name = "Mining Station Production Room"
 	icon_state = "mining_production"
+	area_icon_text = "MINING\nPROD."
 
 /area/mine/outpost/quartermaster
 	name = "Mining Station Quartermaster's Office"
@@ -174,6 +181,8 @@
 /area/lavaland/surface
 	name = "Lavaland"
 	icon_state = "explored"
+	area_icon_text = "MINING\nEXPL"
+	area_icon_color = AREA_COLOR_LAVALAND
 	always_unpowered = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE

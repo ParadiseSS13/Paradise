@@ -153,7 +153,7 @@
 			to_chat(user, SPAN_NOTICE("Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font>"))
 			return
 
-		to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
+		to_chat(user, SPAN_NOTICE("Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy"))
 		to_chat(user, "\t Damage Specifics: <font color='red'>[M.maxHealth - M.health]</font>")
 		return
 
@@ -233,11 +233,11 @@
 	if(H.undergoing_cardiac_arrest())
 		var/datum/organ/heart/heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(heart && !(heart.linked_organ.status & ORGAN_DEAD))
-			msgs += "<span class='notice'><font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>"
+			msgs += SPAN_NOTICE("<font color='red'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</font>")
 		else if(heart && (heart.linked_organ.status & ORGAN_DEAD))
-			msgs += "<span class='notice'><font color='red'><b>Subject's heart is necrotic.</b></font>"
+			msgs += SPAN_NOTICE("<font color='red'><b>Subject's heart is necrotic.</b></font>")
 		else if(!heart)
-			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
+			msgs += SPAN_NOTICE("<font color='red'><b>Subject has no heart.</b></font>")
 
 	if(H.getStaminaLoss() || HAS_TRAIT(user, TRAIT_MED_MACHINE_HALLUCINATING) && prob(5))
 		msgs += SPAN_NOTICE("Subject appears to be suffering from fatigue.")

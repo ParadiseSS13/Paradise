@@ -63,8 +63,10 @@
 	if(istype(used, /obj/item/lighter/zippo))
 		class = "rose"
 
-	user.visible_message("<span class='[class]'>[user] holds [used] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-	"<span class='[class]'>You hold [used] up to [src], burning it slowly.</span>")
+	user.visible_message(
+		"<span class='[class]'>[user] holds [used] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>",
+		"<span class='[class]'>You hold [used] up to [src], burning it slowly.</span>"
+	)
 
 	if(!do_after(user, 5 SECONDS, target = src))
 		return
@@ -73,8 +75,10 @@
 		to_chat(user, SPAN_WARNING("You must hold [used] steady to burn [src]."))
 		return
 
-	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+	user.visible_message(
+		"<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>",
+		"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>"
+	)
 
 	if(user.is_in_inactive_hand(src))
 		user.unequip(src)

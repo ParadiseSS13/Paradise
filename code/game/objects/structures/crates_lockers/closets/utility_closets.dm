@@ -52,6 +52,11 @@
 	new /obj/item/tank/internals/oxygen(src)
 	new /obj/item/clothing/mask/gas(src)
 
+/obj/structure/closet/emcloset/empty
+
+/obj/structure/closet/emcloset/empty/populate_contents()
+	return
+
 /*
  * Fire Closet
  */
@@ -77,6 +82,10 @@
 	new /obj/item/clothing/head/hardhat/red(src)
 	new /obj/item/crowbar/red(src)
 
+/obj/structure/closet/firecloset/empty
+
+/obj/structure/closet/firecloset/empty/populate_contents()
+	return
 
 /*
  * Tool Closet
@@ -119,6 +128,11 @@
 	if(prob(40))
 		new /obj/item/clothing/head/hardhat(src)
 
+/obj/structure/closet/toolcloset/empty
+
+/obj/structure/closet/toolcloset/empty/populate_contents()
+	return
+
 
 /*
  * Radiation Closet
@@ -133,6 +147,11 @@
 	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
+
+/obj/structure/closet/radiation/empty
+
+/obj/structure/closet/radiation/empty/populate_contents()
+	return
 
 /*
  * Bombsuit closet

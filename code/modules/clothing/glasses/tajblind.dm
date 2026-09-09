@@ -4,8 +4,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind
 	name = "\improper Tajaran veil"
-	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality.<br>\
-			<span class='notice'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
+	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality."
 	icon_state = "tajblind"
 	inhand_icon_state = "blindfold"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -23,6 +22,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind/examine()
 	. = ..()
+	. += SPAN_NOTICE("Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.")
 	. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> [src] to toggle its electronics if present.")
 	. += SPAN_NOTICE("You could easily craft a HUD into it.")
 

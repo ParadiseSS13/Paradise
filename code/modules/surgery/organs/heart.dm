@@ -105,7 +105,7 @@
 
 	if(times_shocked >= max_shocks_allowed)
 		shocker.visible_message(
-			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
+			SPAN_USERDANGER("Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!"),
 			blind_message = SPAN_DANGER("You hear a loud shock.")
 		)
 		tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)

@@ -154,7 +154,7 @@
 	. = ..()
 	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot, [SPAN_NOTICE("alt-click to change it.")]"
 	if(chambered?.BB)
-		. += "<span class='notice'>The chambered syringe contains [round(chambered.BB.reagents.total_volume)] units."
+		. += SPAN_NOTICE("The chambered syringe contains [round(chambered.BB.reagents.total_volume)] units.")
 
 /// If user is null in this proc, messages will just be ignored
 /obj/item/gun/syringe/rapidsyringe/proc/insert_single_syringe(obj/item/reagent_containers/syringe/new_syringe, mob/user)
@@ -206,7 +206,7 @@
 
 		if(total_inserted)
 			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-			to_chat(user, "<span class='notice'>You load [total_inserted] empty syringes into [src].")
+			to_chat(user, SPAN_NOTICE("You load [total_inserted] empty syringes into [src]."))
 			// Chamber a syringe.
 			process_chamber()
 
