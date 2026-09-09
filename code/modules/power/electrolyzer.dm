@@ -1,6 +1,6 @@
 /obj/machinery/power/electrolyzer
 	name = "gas electrolyzer"
-	desc = "A nifty little machine that is able to produce hydrogen when supplied with water vapor and enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that may occur from sudden hydrogen combustion or explosions. It seems it needs around 350 kW of power to function properly."
+	desc = "A nifty little machine that is able to produce hydrogen when supplied with water vapor and enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that may occur from sudden hydrogen combustion or explosions."
 	anchored = FALSE
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
@@ -32,6 +32,16 @@
 
 	RefreshParts()
 
+/obj/machinery/power/electrolyzer/RefreshParts()
+	var/laser_rating = 0
+	var/bin_rating = 0
+	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
+		laser_rating += laser.rating
+	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
+		bin_rating += bin.rating
+	active_power_consumption = initial(active_power_consumption) * 2 / max(laser_rating, 2)
+	extraction_rate = initial(extraction_rate) * max(bin_rating, 2) / 2
+
 /obj/machinery/power/electrolyzer/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -50,6 +60,10 @@
 
 	RefreshParts()
 
+/obj/machinery/power/electrolyzer/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("[src] needs <b>[active_power_consumption / 1000]kW</b> of power to operate.")
+
 /obj/machinery/power/electrolyzer/wrench_act(mob/living/user, obj/item/I)
 	if(on)
 		return
@@ -58,10 +72,10 @@
 		return
 	if(!anchored)
 		connect_to_network()
-		to_chat(user, SPAN_NOTICE("You secure the generator to the floor."))
+		WRENCH_ANCHOR_MESSAGE
 	else
 		disconnect_from_network()
-		to_chat(user, SPAN_NOTICE("You unsecure the generator from the floor."))
+		WRENCH_UNANCHOR_MESSAGE
 	anchored = !anchored
 
 /obj/machinery/power/electrolyzer/screwdriver_act(mob/user, obj/item/I)
@@ -148,13 +162,10 @@
 	var/datum/gas_mixture/removed = new()
 	var/water_vapor_to_remove = min(available_water_vapor, extraction_rate)
 	removed.set_water_vapor(water_vapor_to_remove)
+	// we need to make sure the temperature of the water vapor isn't just forgotten
+	removed.set_temperature(env.temperature())
 	env.set_water_vapor(available_water_vapor - water_vapor_to_remove)
 	return removed
-
-/obj/machinery/power/electrolyzer/proc/has_water_vapor(datum/gas_mixture/gas)
-	if(!gas)
-		return FALSE
-	return gas.water_vapor() > min_water_vapor
 
 /datum/milla_safe/electrolyzer_process/on_run(obj/machinery/power/electrolyzer/electrolyzer, datum/gas_mixture)
 	if(!electrolyzer.on)
@@ -169,11 +180,14 @@
 		return
 
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
-	if(!removed || !electrolyzer.has_water_vapor(removed))
+	if(!removed || removed.water_vapor() <= 0)
 		return
 
 	var/water_vapor_to_remove = removed.water_vapor()
 	var/hydrogen_produced = water_vapor_to_remove
 	var/oxygen_produced = water_vapor_to_remove / 2
-	env.set_hydrogen(env.hydrogen() + hydrogen_produced)
-	env.set_oxygen(env.oxygen() + oxygen_produced)
+	var/datum/gas_mixture/produced = new()
+	produced.set_temperature(env.temperature())
+	produced.set_hydrogen(hydrogen_produced)
+	produced.set_oxygen(oxygen_produced)
+	env.merge(produced)
