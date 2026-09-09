@@ -43,7 +43,13 @@
 					affected_mob.visible_message(SPAN_DANGER("[affected_mob]'s form contorts into something more feline!"), \
 													SPAN_USERDANGER("YOU TURN INTO A TAJARAN!"))
 					var/mob/living/carbon/human/catface = affected_mob
+					var/datum/species/old_species = catface.dna.species
+					var/old_body_color = catface.skin_colour
+					if(old_species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+						old_body_color = catface.s_tone
 					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+					catface.skin_colour = catface.dna.species.convert_skin(old_species, old_body_color)
+					catface.regenerate_icons()
 
 // Not a subtype of regular Kingstons as it would inherit its `stage_act()`
 /datum/disease/kingstons_advanced
@@ -59,7 +65,7 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will mutate to a different species."
 	severity = VIRUS_BIOHAZARD
-	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona,
+	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi, /datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona,
 		/datum/species/slime, /datum/species/kidan, /datum/species/drask, /datum/species/grey, /datum/species/moth, /datum/species/skulk) // No IPCs (not organic), or vox+plasmemes because of air requirements
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
@@ -97,7 +103,16 @@
 					SPAN_DANGER("[twisted]'s skin splits and form contorts!"),
 					SPAN_USERDANGER("Your body mutates into a [initial(chosentype.name)]!")
 				)
+				var/datum/species/old_species = twisted.dna.species
+				var/old_body_color = twisted.skin_colour
+				if(old_species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+					old_body_color = twisted.s_tone
 				twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+				if(twisted.dna.species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+					twisted.s_tone = twisted.dna.species.convert_skin(old_species, old_body_color)
+				else
+					twisted.skin_colour = twisted.dna.species.convert_skin(old_species, old_body_color)
+				twisted.regenerate_icons()
 				return
 
 			twisted.visible_message(
