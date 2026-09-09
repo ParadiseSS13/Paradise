@@ -84,7 +84,7 @@ If you want to add a new point type, look at SSResearch.
 
 /// Checks to see if technode has all the required pre-reqs. Output: TRUE/FALSE
 /datum/research/proc/technode_has_prereqs(datum/technode/T)
-	if(T.starting_node == TRUE)
+	if(T.starting_node)
 		return TRUE
 	var/prereqs_met = 0
 	for(var/i in T.prereqs)
