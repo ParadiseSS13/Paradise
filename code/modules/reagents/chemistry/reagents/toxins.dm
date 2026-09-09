@@ -96,7 +96,7 @@
 		if(!isshadowperson(human))
 			to_chat(M, SPAN_DANGER("Your flesh rapidly mutates!"))
 			to_chat(M, SPAN_DANGER("You are now a Shadow Person, a mutant race of darkness-dwelling humanoids."))
-			to_chat(M, SPAN_DANGER("Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness."))
+			to_chat(M, "[SPAN_DANGER("Your body reacts violently to light.")] [SPAN_NOTICE("However, it naturally heals in darkness.")]")
 			to_chat(M, SPAN_DANGER("Aside from your new traits, you are mentally unchanged and retain your prior obligations."))
 			human.set_species(/datum/species/shadow)
 	return ..()
@@ -363,8 +363,10 @@
 			limb.remove_synthetic_skin(TRUE)
 
 	if(was_skin_removed)
-		H.visible_message("<span class='warning'>The synthetic skin on [H]'s body bubbles and melts away.</span>", \
-						"<span class='warning'>The synthetic skin on your body bubbles and melts away.</span>")
+		H.visible_message(
+			SPAN_WARNING("The synthetic skin on [H]'s body bubbles and melts away."),
+			SPAN_DANGER("The synthetic skin on your body bubbles and melts away.")
+		)
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()

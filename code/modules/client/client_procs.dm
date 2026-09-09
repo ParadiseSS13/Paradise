@@ -141,10 +141,6 @@
 		to_chat(src, SPAN_NOTICE("SSD warning acknowledged."))
 		return
 
-	if(href_list["link_forum_account"])
-		link_forum_account()
-		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
-
 	if(href_list["withdraw_consent"])
 		var/choice = tgui_alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", list("Yes", "No"))
 		if(choice == "Yes")
@@ -679,7 +675,7 @@
 
 
 /client/proc/check_forum_link()
-	if(!GLOB.configuration.url.forum_link_url || !prefs || prefs.fuid)
+	if(!GLOB.configuration.system.is_production || !prefs || prefs.fuid)
 		return
 
 	if(GLOB.configuration.jobs.enable_exp_tracking)
@@ -687,84 +683,8 @@
 		if(living_hours < 20)
 			return
 
-	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
-
-/client/proc/create_oauth_token()
-	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
-		"ckey" = ckey
-	))
-
-	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
-	if(!query_find_token.warn_execute(log_error=FALSE))
-		qdel(query_find_token)
-		return
-
-	if(query_find_token.NextRow())
-		var/tkn = query_find_token.item[1]
-		qdel(query_find_token)
-		return tkn
-
-	qdel(query_find_token)
-
-	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
-
-	var/datum/db_query/query_insert_token = SSdbcore.NewQuery("INSERT INTO oauth_tokens (ckey, token) VALUES(:ckey, :tokenstr)", list(
-		"ckey" = ckey,
-		"tokenstr" = tokenstr,
-	))
-
-	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
-	if(!query_insert_token.warn_execute(log_error = FALSE))
-		qdel(query_insert_token)
-		return
-
-	qdel(query_insert_token)
-	return tokenstr
-
-/client/proc/link_forum_account(fromban)
-	if(!GLOB.configuration.url.forum_link_url)
-		return
-
-	if(IsGuestKey(key))
-		to_chat(src, "Guest keys cannot be linked.")
-		return
-
-	if(prefs && prefs.fuid)
-		if(!fromban)
-			to_chat(src, "Your forum account is already set.")
-		return
-
-	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM player WHERE ckey=:ckey LIMIT 1", list(
-		"ckey" = ckey
-	))
-
-	if(!query_find_link.warn_execute())
-		qdel(query_find_link)
-		return
-
-	if(query_find_link.NextRow())
-		if(query_find_link.item[1])
-			if(!fromban)
-				to_chat(src, "Your forum account is already set. ([query_find_link.item[1]])")
-			qdel(query_find_link)
-			return
-
-	qdel(query_find_link)
-	var/tokenid = create_oauth_token()
-	if(!tokenid)
-		to_chat(src, "link_forum_account: unable to create token")
-		return
-
-	var/url = "[GLOB.configuration.url.forum_link_url][tokenid]"
-	if(fromban)
-		url += "&fwd=appeal"
-		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
-		to_chat(src, SPAN_BOLDANNOUNCEOOC("If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link."))
-	else
-		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
-
-	src << link(url)
-	return
+	to_chat(src, "<b>You have not linked your BYOND account to your Paradise account. <a href='[GLOB.configuration.url.wiki_url]/Guide_to_account_linkage'>Click here for more information.</a></b>")
+	to_chat(src, SPAN_NOTICE("If you have linked your account in the past hour, please ignore the above. If you are still seeing this message with a linked account, please inform the server host."))
 
 #undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT

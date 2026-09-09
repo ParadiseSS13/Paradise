@@ -54,17 +54,11 @@
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
 
-	var/msg = ""
 	if(src.health < src.maxHealth)
-		msg += "<span class='warning'>"
 		if(src.health >= src.maxHealth/2)
-			msg += "It looks slightly dented.\n"
+			. += SPAN_WARNING("It looks slightly dented.")
 		else
-			msg += "<B>It looks severely dented!</B>\n"
-		msg += "</span>"
-	msg += "</span>"
-
-	. += msg
+			. += SPAN_WARNING("<B>It looks severely dented!</B>")
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
@@ -362,7 +356,7 @@
 		stamina_damage = 1.5,\
 		simple_damage = 1.2,\
 		immune_factions = list("heretic"),\
-		damage_message = "<span class='userdanger'>Your body wilts and withers as it comes near [src]'s aura.</span>",\
+		damage_message = SPAN_USERDANGER("Your body wilts and withers as it comes near [src]'s aura."),\
 		message_probability = 7,\
 		current_owner = src,\
 	)

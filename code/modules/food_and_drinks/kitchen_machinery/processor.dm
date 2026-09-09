@@ -225,8 +225,10 @@
 		to_chat(user, SPAN_WARNING("That probably won't blend."))
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(SPAN_NOTICE("\the [user] puts \the [what] into \the [src]."), \
-		"<span class='notice'>You put \the [what] into \the [src].")
+	user.visible_message(
+		SPAN_NOTICE("[user] puts [what] into [src]."),
+		SPAN_NOTICE("You put [what] into [src].")
+	)
 
 	user.drop_item()
 
