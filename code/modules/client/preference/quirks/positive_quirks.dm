@@ -207,13 +207,11 @@
 /datum/quirk/tiny
 	name = "Tiny"
 	desc = "You are smaller than the average person."
-	cost = 4
+	cost = 3
 	trait_to_apply = TRAIT_DWARF
-	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 
 /datum/quirk/tiny/apply_quirk_effects() // Just the pasted `activate()` proc from the dwarf mutation.
-	..()
-	owner.pass_flags |= PASSTABLE // I'M AT MY WITS END THIS IS THE ONLY WAY I KNOW TO MAKE THIS WORK.
+	..() // I'M AT MY WITS END THIS IS THE ONLY WAY I KNOW TO MAKE THIS WORK.
 	owner.resize = 0.8
 	owner.update_transform()
 
