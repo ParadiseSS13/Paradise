@@ -313,7 +313,7 @@
 	if(rotting)
 		if(hardness <= 10)
 			user.visible_message(
-				SPAN_WARNING("[user] pushes the wall, cusing it to let out a concerning metallic groan!"),
+				SPAN_WARNING("[user] pushes the wall, causing it to let out a concerning metallic groan!"),
 				SPAN_WARNING("You push the wall, it feels rather unstable and lets out a concerning metallic groan!"),
 				SPAN_WARNING("You hear a concerning metallic groan!")
 			)
