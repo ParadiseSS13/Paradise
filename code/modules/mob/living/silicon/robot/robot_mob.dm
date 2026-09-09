@@ -2089,7 +2089,29 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 /mob/living/silicon/robot/plushify(plushie_override, curse_time)
 	if(curse_time == -1)
 		QDEL_NULL(mmi)
-	return ..()
+
+	if(!module || module.name == "alien hunter module")
+		return ..(/obj/item/toy/plushie/borgplushie, curse_time)
+
+	if(module.name in list("security robot module", "combat robot module", "syndicate assault robot module", "NT advanced combat module", "destroyer robot module"))
+		return ..(/obj/item/toy/plushie/borgplushie/security, curse_time)
+
+	if(module.name in list("engineering robot module", "saboteur robot module", "drone module")) // Maybe we get drone plushie some day...
+		return ..(/obj/item/toy/plushie/borgplushie/engineering, curse_time)
+
+	if(module.name == "miner robot module")
+		return ..(/obj/item/toy/plushie/borgplushie/miner, curse_time)
+
+	if(module.name in list("medical robot module", "syndicate medical robot module"))
+		return ..(/obj/item/toy/plushie/borgplushie/medical, curse_time)
+
+	if(module.name == "janitorial robot module")
+		return ..(/obj/item/toy/plushie/borgplushie/janitor, curse_time)
+
+	if(module.name == "service robot module")
+		return ..(/obj/item/toy/plushie/borgplushie/service, curse_time)
+
+	return ..(/obj/item/toy/plushie/borgplushie, curse_time)
 
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	if(isnull(board))

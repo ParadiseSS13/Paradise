@@ -38,7 +38,15 @@
 		message_body += "</font>"
 	else if(isflockworker(speaker))
 		var/mob/speaking_mob = speaker
-		message_start = list("<i><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("Drone [speaking_mob.real_name]"))
+		var/flock_overmind = FALSE
+		if(isflockdrone(speaking_mob))
+			var/mob/living/basic/flock/drone/D = speaking_mob
+			if(D.controlled_by)
+				flock_overmind = TRUE
+				message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("[isflockmind(D.controlled_by) ? "" : "Flocktrace "][D.controlled_by.real_name]"))
+				message_body += "</font>"
+		if(!flock_overmind)
+			message_start = list("<i><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("Drone [speaking_mob.real_name]"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M) && speaker)
@@ -50,6 +58,8 @@
 		var/scrambled = SPAN_FLOCKSAY_GRADIENT(scramble(message))
 		var/living_msg = "[speaker.name] [get_spoken_verb(message)] \"[scrambled]\""
 		for(var/mob/M in hearers(5, get_turf(speaker)))
+			if(isflockmob(M))
+				continue
 			M.show_message(living_msg, 2)
 			if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT && ismob(speaker))
 				var/mob/speaking_mob = speaker
