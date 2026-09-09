@@ -13,6 +13,8 @@
 	var/minspeed = BLOOPER_DEFAULT_MINSPEED
 	var/maxspeed = BLOOPER_DEFAULT_MAXSPEED
 
+	var/bloop_count_multiplier = 1
+
 	// Visibility vars. Regardless of what's set below, these can still be obtained via adminbus and genetics. Rule of fun.
 	var/list/ckeys_allowed
 	var/ignore = FALSE // If TRUE - only for admins
@@ -73,3 +75,32 @@
 		do_blooper(entry.volume, entry.pitch, entry.stamp)
 		char.blooper_queue -= entry
 
+/datum/character_save/proc/preview_blooper_voice(mob/user, message)
+	if(!user?.client)
+		return
+	if(!message)
+		return
+
+	var/datum/blooper/voice_type = GLOB.blooper_list[blooper_id]
+	if(!voice_type)
+		to_chat(user, SPAN_WARNING("Select a voice first."))
+
+	var/soundpath = initial(voice_type.soundpath)
+
+	var/preview_volume = min(blooper_volume, 100)
+	var/blooper_count = min(round((length_char(message) / blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS / 4) // Limit this for performance. Less timers.
+	var/total_delay = 0
+	for(var/i in 1 to blooper_count)
+		if(total_delay > BLOOPER_MAX_TIME)
+			break
+		var/pitch = BLOOPER_DO_VARY(blooper_pitch, blooper_pitch_range)
+		addtimer(CALLBACK(src, PROC_REF(play_preview_blooper), user, soundpath, pitch, preview_volume), total_delay)
+		total_delay += rand(DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
+
+
+/datum/character_save/proc/play_preview_blooper(mob/user, soundpath, pitch, volume)
+	if(QDELETED(user) || !user.client)
+		return
+	var/sound/bloop_sound =  sound(soundpath, volume = volume)
+	bloop_sound.frequency = pitch
+	SEND_SOUND(user, bloop_sound)

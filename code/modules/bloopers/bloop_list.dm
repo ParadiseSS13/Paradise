@@ -27,18 +27,21 @@
 	id = "voxshriek"
 	soundpath = 'sound/voice/shriek1.ogg'
 	allow_random = TRUE
+	bloop_count_multiplier = 0.5
 
 /datum/blooper/draskdrone
 	name = "Drask Drone"
 	id = "draskdrone"
 	soundpath = 'sound/voice/drasktalk.ogg'
 	allow_random = TRUE
+	bloop_count_multiplier = 0.5
 
 /datum/blooper/dionaroot
 	name = "Diona Root"
 	id = "dionaroot"
 	soundpath = 'sound/voice/dionatalk1.ogg' //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	allow_random = TRUE
+	bloop_count_multiplier = 0.5
 
 /datum/blooper/ehh
 	name = "Ehh 1"

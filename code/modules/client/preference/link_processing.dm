@@ -589,6 +589,12 @@
 					if(new_blooperpitch)
 						active_character.blooper_pitch = new_blooperpitch
 
+				if("blooper_preview")
+					var/preview_text = tgui_input_text(user, "Enter a test message to preview your character's voice.", "Voice Preview", "The captain may be a traitor! I am SO startled right now...", max_length = 200, multiline = FALSE)
+					if(isnull(preview_text))
+						return
+					active_character.preview_blooper_voice(user, preview_text)
+
 				if("flavor_text")
 					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 					if(isnull(msg))

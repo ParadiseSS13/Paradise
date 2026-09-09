@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	/// The chat color to load for when a character is cloned, a changeling transforms, or when a character is created
 	var/chat_color
 	/// The blooper data to load for when a character is cloned, a changeling transforms, or when a character is created
-	var/blooper_id
+	var/datum/blooper/blooper_id
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
 	var/blooper_pitch = 1
 	var/blooper_pitch_range = 0.5
