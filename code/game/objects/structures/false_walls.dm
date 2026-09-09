@@ -97,7 +97,7 @@
 		user.visible_message(
 			SPAN_WARNING("[user] pushes the wall, and it begins to slide [density ? "closed" : "open"]!"),
 			SPAN_WARNING("You push the wall, and it begins to slide [density ? "closed" : "open"]!"),
-			SPAN_WARNING("You hear a pushing sound and metallic grinding!")
+			SPAN_WARNING("You hear metallic grinding!")
 		)
 	recalculate_atmos_connectivity()
 	opening = FALSE

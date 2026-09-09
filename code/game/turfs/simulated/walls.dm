@@ -315,14 +315,14 @@
 			user.visible_message(
 				SPAN_WARNING("[user] pushes the wall, cusing it to let out a concerning metallic groan!"),
 				SPAN_WARNING("You push the wall, it feels rather unstable and lets out a concerning metallic groan!"),
-				SPAN_WARNING("You hear a pushing sound and a concerning metallic groan!")
+				SPAN_WARNING("You hear a concerning metallic groan!")
 			)
 			return
 		else
 			user.visible_message(
 				SPAN_WARNING("[user] pushes the wall, and it crumbles under [user.p_their()] touch!"),
 				SPAN_WARNING("You push the wall, and it crumbles under your touch!"),
-				SPAN_WARNING("You hear a pushing sound and something crumbling!")
+				SPAN_WARNING("You hear something crumbling!")
 			)
 			dismantle_wall()
 			return
@@ -330,7 +330,7 @@
 	user.visible_message(
 		SPAN_NOTICE("[user] pushes the wall, but nothing happens."),
 		SPAN_NOTICE("You push the wall, but nothing happens."),
-		SPAN_HEAR("You hear a pushing sound.")
+		SPAN_HEAR("You hear a solid thud.")
 	)
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
