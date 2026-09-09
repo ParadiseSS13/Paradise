@@ -254,9 +254,10 @@
 			log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
 			message_admins(SPAN_NOTICE("[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!"))
 			R.emagged = TRUE
-			R.module.emag_act(usr)
-			R.module.module_type = "Malf"
-			R.update_module_icon()
-			R.module.rebuild_modules()
+			if(R.module)
+				R.module.emag_act(usr)
+				R.module.module_type = "Malf"
+				R.update_module_icon()
+				R.module.rebuild_modules()
 			to_chat(R, SPAN_NOTICE("Failsafe protocols overridden. New tools available."))
 			. = TRUE

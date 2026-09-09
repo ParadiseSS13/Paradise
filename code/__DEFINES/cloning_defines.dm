@@ -7,6 +7,7 @@
 #define SCANNER_POD_IN_PROGRESS "cloning in progress"
 #define SCANNER_MISC "miscellanious"
 #define SCANNER_SUCCESSFUL "successful"
+#define SCANNER_UNCLONABLE_TRAIT "unclonable_trait"
 
 //Defines used to make the return value of a get_cloning_cost() operation more readable
 #define BIOMASS_COST 1

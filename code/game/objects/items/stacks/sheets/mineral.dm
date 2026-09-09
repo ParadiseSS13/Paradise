@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 
 GLOBAL_LIST_INIT(gnesis_recipes, list (
 	new /datum/stack_recipe("flock chair", /obj/structure/chair/comfy/flock, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock table", /obj/structure/table/reinforced/flock, 2, time = 5.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock shelf", /obj/structure/shelf/flock, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("flock closet", /obj/structure/closet/flock, 2, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("flock grille", /obj/structure/grille/flock, 1, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("flock door", /obj/machinery/door/flock, 10, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -242,6 +244,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/five
+	amount = 5
+
 /obj/item/stack/sheet/mineral/diamond/ten
 	amount = 10
 
@@ -264,6 +269,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235."
 	. += ""
 	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+
+/obj/item/stack/sheet/mineral/uranium/five
+	amount = 5
 
 /obj/item/stack/sheet/mineral/uranium/ten
 	amount = 10
@@ -309,6 +317,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/five
+	amount = 5
 
 /obj/item/stack/sheet/mineral/plasma/ten
 	amount = 10
@@ -359,6 +370,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
 
+/obj/item/stack/sheet/mineral/gold/five
+	amount = 5
+
 /obj/item/stack/sheet/mineral/gold/twenty
 	amount = 20
 
@@ -379,6 +393,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/five
+	amount = 5
 
 /obj/item/stack/sheet/mineral/silver/twenty
 	amount = 20

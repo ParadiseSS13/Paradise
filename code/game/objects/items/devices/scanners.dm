@@ -96,6 +96,8 @@ SLIME SCANNER
 
 /obj/item/reagent_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
+	if(isstorage(target) || is_surface(target))
+		return NONE
 	do_scan(target, user)
 	return ITEM_INTERACT_COMPLETE
 
@@ -185,6 +187,8 @@ SLIME SCANNER
 /obj/item/slime_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.incapacitated() || user.AmountBlinded())
 		return ..()
+	if(isstorage(target) || is_surface(target))
+		return NONE
 	if(!isslime(target))
 		to_chat(user, SPAN_WARNING("This device can only scan slimes!"))
 		return ITEM_INTERACT_COMPLETE

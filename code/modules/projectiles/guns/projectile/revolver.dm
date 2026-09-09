@@ -39,7 +39,7 @@
 		return
 	if(.)
 		return
-	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
+	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
 	if(num_loaded)
 		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]."))
 		A.update_icon()

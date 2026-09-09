@@ -39,6 +39,12 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
+"ck" = (
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
 "cy" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -351,7 +357,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "zP" = (
-/obj/machinery/computer/nonfunctional{
+/obj/structure/salvageable/computer{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -1282,7 +1288,7 @@ Nv
 Gk
 NB
 OQ
-Nv
+ck
 vo
 MA
 St

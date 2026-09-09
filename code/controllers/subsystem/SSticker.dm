@@ -158,6 +158,8 @@ SUBSYSTEM_DEF(ticker)
 					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
 						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
+						if(length(GLOB.clients) > initial(M.max_players_random))
+							continue
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
@@ -676,7 +678,7 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
-			antag_hud.add_hud_to(M)
+			antag_hud.add_hud_to(M, "round end")
 
 	var/static/list/base_encouragement_messages = list(
 		"Keep on keeping on!",

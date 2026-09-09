@@ -3,8 +3,6 @@
 	hud_type = /datum/hud/flockdrone
 	ai_controller = /datum/ai_controller/flock/drone
 
-	move_force = MOVE_FORCE_WEAK
-
 	actions_to_grant = list(
 		/datum/action/cooldown/flock/release_control,
 		/datum/action/cooldown/flock/nest,
@@ -443,7 +441,6 @@
 		master_bird.key = key
 		master_bird.mind = mind
 
-	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)
 		to_chat(master_bird, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
 

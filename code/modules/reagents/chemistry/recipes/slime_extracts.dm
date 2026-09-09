@@ -181,6 +181,7 @@
 		/obj/item/food/meat,
 		/obj/item/food/meat/slab,
 		/obj/item/food/grown,
+		/obj/item/food/grown/citrus,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/chinese,
@@ -189,6 +190,7 @@
 		/obj/item/food/meatsteak/stimulating,
 		/obj/item/food/egg/watcher,
 		/obj/item/food/supermatter_sandwich,
+		/obj/item/food/rations,
 		)
 	blocked |= typesof(/obj/item/food/customizable)
 
