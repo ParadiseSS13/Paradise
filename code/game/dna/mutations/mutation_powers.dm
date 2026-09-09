@@ -96,9 +96,9 @@
 
 /datum/mutation/dwarf/activate(mob/M)
 	..()
+	M.pass_flags |= PASSTABLE
 	if(HAS_TRAIT(M, TRAIT_DWARF)) // So we don't becume super tiny.
 		return
-	M.pass_flags |= PASSTABLE
 	M.resize = 0.8
 	M.update_transform()
 
