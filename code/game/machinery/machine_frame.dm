@@ -601,7 +601,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
 
-obj/item/circuitboard/papershredder
+/obj/item/circuitboard/papershredder
 	board_name = "Paper Shredder"
 	icon_state = "service"
 	build_path = /obj/machinery/papershredder
