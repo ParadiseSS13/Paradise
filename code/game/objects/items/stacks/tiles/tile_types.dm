@@ -401,7 +401,7 @@
 
 	var/obj/item/stack/material = target
 	if(material.merge(src))
-		to_chat(user, SPAN_NOTICE("Your [src.name] stack now contains [get_amount()] [singular_name]\s."))
+		to_chat(user, SPAN_NOTICE("Your [src] stack now contains [get_amount()] [singular_name]\s."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/tile/catwalk/cyborg/proc/get_radial_menu(mob/user)
