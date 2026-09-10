@@ -209,6 +209,7 @@
 	radio.config(list("Security" = 0))
 
 /obj/effect/portal/advanced/kidnap/Destroy()
+	QDEL_NULL(radio)
 	if(kidnap_success)
 		return ..()
 	return ..()
