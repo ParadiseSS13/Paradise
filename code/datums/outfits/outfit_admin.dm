@@ -1824,7 +1824,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name, "patient")
-		// Checking if the person has an account already
+		// Checking if the person has an account already.
 		var/datum/money_account/account = H.mind.initial_account
 		if(!account)
 			// If they don't, we create a new one and get it's account number.
@@ -1834,7 +1834,7 @@
 		I.associated_account_number = account.account_number
 	H.sec_hud_set_ID()
 
-	// PDA setup
+	// PDA setup.
 	var/obj/item/pda/P = H.wear_pda
 	if(istype(P))
 		P.owner = H.real_name

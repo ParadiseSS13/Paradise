@@ -6,31 +6,31 @@
 	startWhen = 5 MINUTES
 	/// Maximum number of spawns, should scale with number of medical staff.
 	var/max_spawn = 0
-	/// If the event ran successfully
+	/// If the event ran successfully.
 	var/success_run
-	/// Number of tots spawned in
+	/// Number of traitors spawned in.
 	var/tot_number = 0
-	/// Number of players spawned in
+	/// Number of players spawned in.
 	var/spawned_in = 0
-	/// Number of medical staff
+	/// Number of medical staff.
 	var/med_count = 0
-	/// Number of antags
+	/// Number of antagonists.
 	var/antag_count = 0
 	/// This would be a very rare way for antagonists to visit the station. For obvious reasons.
 	var/max_antag = 1
-	/// Chance of being antag
+	/// Percentage chance of being an antagonist.
 	var/chance = 5
-	/// All possible patient hardships
+	/// All possible patient hardships.
 	var/valid_patient_types = list("explosion", "war", "fire", "disease", "radiation", "general")
-	/// What type of hardship these patients are suffering
+	/// What type of hardship these patients are suffering.
 	var/patient_type = null
-	/// Skeleton disease event to keep track of diseases
+	/// Skeleton disease event to keep track of diseases.
 	var/datum/event/disease_outbreak/disease_ref
-	/// What disease most patients will have, if disease is chosen
+	/// What disease most patients will have, if disease is chosen.
 	var/chosen_disease = null
-	/// Where the patients are from, used in several announcements
+	/// Where the patients are from, used in several announcements.
 	var/patient_origin = "a secret underground supermatter assembly plant"
-	/// The disaster description, used in several announcements
+	/// The disaster description, used in several announcements.
 	var/disaster_desc = "Something went really wrong in "
 
 /datum/event/patient_arrivals/New(mapload, event_type = null)
@@ -51,7 +51,7 @@
 	if(patient_type == "disease")
 		if(isemptylist(disease_ref.transmissable_symptoms))
 			disease_ref.populate_symptoms()
-		// Sometimes we have a known moderate/major disease, usually it's an advanced virus
+		// Sometimes we have a known moderate/major disease, usually it's an advanced virus.
 		if(prob(40))
 			var/datum/disease/virus = pick(disease_ref.diseases_moderate_major)
 			chosen_disease = new virus()
