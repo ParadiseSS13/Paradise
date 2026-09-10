@@ -1639,6 +1639,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Unique Objective"
 	explanation_text = "This objective should not be showing up. Please ahelp and file an issue report!"
 	delayed_objective_text = "This delayed objective should not be showing up. Please ahelp and file an issue report!"
+	// What item, if any, the antag needs in order to do this objective.
 	var/needed_item = null
 
 /datum/objective/unique_objective/New()
@@ -1688,6 +1689,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Get five items from the crew."
 	delayed_objective_text = "Your objective is unknown. You will recieve further information in a few minutes."
 	needs_target = FALSE
+	// What item the antag is trying to collect.
 	var/list/wanted_items = list()
 
 /datum/objective/unique_objective/get_five/New()
