@@ -172,7 +172,7 @@
 	desc = "A kit that contains supplies to repair IPCs on the go."
 	icon_state = "firstaid_machine"
 	inhand_icon_state = "firstaid_machine"
-	med_bot_skin = "machine"
+	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/machine/populate_contents()
 	new /obj/item/weldingtool/mini(src)
