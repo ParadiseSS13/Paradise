@@ -501,7 +501,7 @@
 	name = "drekseh laser"
 	icon_state = "xray"
 	range = 255
-	damage = 10
+	damage = 20
 	speed = 0.5
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	forced_accuracy = TRUE
