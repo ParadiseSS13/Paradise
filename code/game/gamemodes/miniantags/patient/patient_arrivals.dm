@@ -244,7 +244,7 @@
 				if("organ")
 					var/list/obj/item/organ/internal/organs = list()
 					for(var/i in rand(1, 5))
-						if(length(list(patient.internal_organs) - organs)) < 1)
+						if(!length(patient.internal_organs - organs))
 							break
 						organs |= pick(list(patient.internal_organs) - organs)
 					for(var/obj/item/organ/internal/organ in organs)
@@ -256,6 +256,16 @@
 			// This shouldn't happen but better a failsafe than nothing.
 			patient.apply_damage(100)
 	REMOVE_TRAIT(patient, TRAIT_MUTE, TRAIT_GENERIC)
+
+// Greets the player, announces objectives!
+/datum/event/patient_arrivals/proc/greeting(mob/living/carbon/human/patient)
+	var/list/greeting = list()
+	greeting.Add(SPAN_BOLDNOTICE("<font size=3>You are a patient!</font>"))
+	greeting.Add("<b>[disaster_desc], you're not doing so hot.</b>")
+	greeting.Add("<b>You definitely need some medical attention before you can think of doing anything else!</b>")
+	greeting.Add(SPAN_NOTICE("<br>But once you're feeling better, your objectives are:"))
+	greeting.Add(patient.mind.prepare_announce_objectives(FALSE))
+	to_chat(patient, chat_box_green(greeting.Join("<br>")))
 
 // Patient datum stuff, mostly being species and outfit.
 /datum/patient
