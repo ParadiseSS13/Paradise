@@ -372,8 +372,8 @@
 	ADD_TRAIT(user, TRAIT_SLIMEPERSON_INSUL, "subdermal_applicator")
 	var/mob/living/carbon/human/slime = user
 	var/datum/species/S = slime.dna.species
-	S.cold_level_1 = 120 //Default 260 - Lower is better
-	S.cold_level_2 = -1 //Default 200
+	S.cold_level_1 = 160 //Default 260 - Lower is better
+	S.cold_level_2 = 100 //Default 200
 	S.cold_level_3 = -1 //Default 120
 	S.coldmod = 1
 	S.heat_level_1 = 505 //Default 360 - Higher is better
