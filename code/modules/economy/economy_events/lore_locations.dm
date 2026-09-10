@@ -25,9 +25,10 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	name = "Epsilon Eridani"
 	description = "The core system of the Free Eridani Republic, and the most profitable of Nanotrasen's holdings by a considerable margin. Centuries ago during the initial colonization of the system by the TSF, \
 	the entire system disappeared in a massive bluespace translocation event and remained missing until a few years after the Cygni Crisis, when it reappeared hundreds of lightyears from its original location. \
-	The characteristics of star and its orbiting planets all perfectly matched old records, and the remains of the original colonies were located, all having been wiped out centuries prior. \
-	What did change was the sudden appearance of Epsilon Eridani II, colloqually known as \"Lavaland\". The bluespace phenomena and extreme mineral wealth of Lavaland prompted Nanotrasen to move in to \
-	secure it for themselves, despite the considerable risks of operating in and around the planet."
+	The characteristics of star and its orbiting planets all perfectly matched old records, and the remains of the original colonies on the moons of the gas giant AEgir were located, \
+	all having been wiped out centuries prior. What did change was the sudden appearance of Epsilon Eridani I, colloqually known as \"Lavaland\". \
+	The bluespace phenomena and extreme mineral wealth of Lavaland prompted Nanotrasen to move in to secure it for themselves, despite the considerable risks of operating in and around the planet. \
+	These risks were illustrated all too well by the disasterous expeditions launched by the Althland Mining Corporation prior to Nanotrasen's arrival."
 	viable_random_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
 	)
