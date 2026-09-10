@@ -844,7 +844,9 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cC" = (
 /obj/structure/cable,
-/obj/machinery/power/solar_control,
+/obj/machinery/power/solar_control{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "cD" = (
@@ -1106,6 +1108,12 @@
 /obj/machinery/power/apc/off_station/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
+"kl" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/onehalf/abandonedbridge)
 "kV" = (
 /obj/item/stack/rods,
 /mob/living/basic/carp,
@@ -1144,6 +1152,12 @@
 /obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
+"Pl" = (
+/obj/structure/computerframe{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/onehalf/abandonedbridge)
 "TO" = (
 /obj/machinery/door/airlock/external{
 	dir = 4
@@ -1153,6 +1167,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/onehalf/drone_bay)
+"US" = (
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/onehalf/abandonedbridge)
 "Yf" = (
 /obj/machinery/door/airlock/medical/glass{
 	dir = 4
@@ -1620,7 +1640,7 @@ cr
 Ab
 cr
 cW
-ch
+Pl
 dl
 ac
 aa
@@ -1642,7 +1662,7 @@ cr
 cr
 cr
 cr
-ch
+Pl
 dl
 ac
 aa
@@ -1683,8 +1703,8 @@ bT
 ci
 ct
 cC
-ch
-ch
+kl
+US
 cX
 de
 bT
