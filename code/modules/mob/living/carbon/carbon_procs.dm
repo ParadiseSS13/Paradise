@@ -1213,6 +1213,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return FALSE
 
 	consume(to_eat, bitesize_override)
+
 	SSticker.score.score_food_eaten++
 	return TRUE
 
@@ -1294,6 +1295,20 @@ so that different stomachs can handle things in different ways VB*/
 		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
 		to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
 		to_eat.reagents.trans_to(src, this_bite)
+
+	if(HAS_TRAIT(src, TRAIT_GLUTTONOUS_GLORY))
+		if(istype(to_eat, /obj/item/food/burger/superbite))
+			to_chat(src, SPAN_BLOB("Finally, some good fucking food."))
+			adjustFireLoss(-2)
+			adjustBruteLoss(-2)
+		else if(to_eat.slice_path) // Stuff your face with a whole pizza/cake
+			to_chat(src, SPAN_BLOB("Sharing is for chumps. All for me!"))
+			adjustFireLoss(-1)
+			adjustBruteLoss(-1)
+
+		// Dont let them eat enough to OD themself.
+		reagents.check_and_add("kelotane", 20, 1)
+		reagents.check_and_add("bicaridine", 20, 1)
 
 /mob/living/carbon/get_access()
 	. = ..()
