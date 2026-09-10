@@ -329,7 +329,6 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 		mechfabs -= uid
 		if(MPF)
 			MPF.unlink()
-	return
 
 // Presets
 /obj/machinery/computer/rnd_network_controller/station
