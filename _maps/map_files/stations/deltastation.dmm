@@ -34677,6 +34677,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/port)
+"cFQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/neutral/side,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/starboard)
 "cFR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -60872,6 +60880,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
+"iRH" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "iRU" = (
 /obj/structure/closet/crate{
 	name = "Gold Crate"
@@ -64244,6 +64258,9 @@
 "klS" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "kmt" = (
@@ -65246,7 +65263,6 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tiles/neutral/side,
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "kGA" = (
@@ -91951,6 +91967,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"uQp" = (
+/obj/effect/turf_decal/tiles/neutral/side,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/starboard)
 "uQW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -146279,7 +146302,7 @@ cAd
 cBF
 qTi
 bng
-cUM
+uQp
 buF
 ezR
 bng
@@ -148851,7 +148874,7 @@ yiS
 cFb
 bqB
 xFZ
-boG
+iRH
 ezR
 bng
 wiD
@@ -149365,7 +149388,7 @@ wTL
 bng
 cFh
 xFZ
-ezR
+cFQ
 ezR
 bng
 qxT
