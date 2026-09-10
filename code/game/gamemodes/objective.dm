@@ -1644,7 +1644,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/unique_objective/New()
 	..()
-	if(needed_item != null)
+	if(!isnull(needed_item))
 		addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/objective/unique_objective/proc/hand_out_equipment()
