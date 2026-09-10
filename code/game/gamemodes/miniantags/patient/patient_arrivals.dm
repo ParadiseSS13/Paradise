@@ -43,7 +43,8 @@
 	return ..()
 
 /datum/event/patient_arrivals/setup()
-	patient_type = pick(valid_patient_types)
+	if(!(patient_type in valid_patient_types))
+		patient_type = pick(valid_patient_types)
 	disease_ref = new disease_ref(skeleton = TRUE)
 	if(isemptylist(disease_ref.diseases_minor) || isemptylist(disease_ref.diseases_moderate_major))
 		disease_ref.populate_diseases()
@@ -100,9 +101,7 @@
 		patient_human.ckey = patient_mob.ckey
 		patient_human.dna.species.after_equip_job(null, patient_human)
 		patient_human.age = rand(21, patient_human.dna.species.max_age)
-		if(prob(50))
-			patient_human.change_gender(FEMALE)
-		set_appearance(patient_human)
+		patient_human.generate_random_appearance(prosthesis_prob = 5)
 		patient_human.equipOutfit(patient_picked.patient_outfit)
 		GLOB.data_core.manifest_inject(patient_human) // Proc checks if they have a special role before adding to the manifest, if they do, they aren't added. This needs to be done before adding the special role.
 		patient_human.mind.special_role = SPECIAL_ROLE_TOURIST
@@ -131,7 +130,7 @@
 			"They have zero medical professionals on staff",
 			"We suspect there's something greater at hand here than a simple accident, and we have dedicated all our resources to the investigation",
 			"Many of them can't afford treatment in our highly advanced facilities",
-			"They begged and begged us to provide them transport out of that disaster",
+			"They begged and begged us to provide transport out of that disaster",
 		)
 		GLOB.minor_announcement.Announce("[disaster_desc], we have been inundated with patients. [transport_reason], so we're sending them to you. We trust that you will care for them in their time of need and provide work to the able after their recovery.")
 
@@ -227,42 +226,36 @@
 			var/cause = pick("addict", "virus", "damage", "poisoned", "allergy", "organ")
 			switch(cause)
 				if("addict")
-					// give patient some intoxicant and one or more addictions?
+					var/datum/reagent/addiction = GLOB.chemical_reagents_list[pick(GLOB.addictive_chems)]
+					patient.reagents.addiction_list.Add(addiction)
+					patient.reagents.add_reagent(addiction.id, 5)
+					if(prob(20)) // An unfortunate someone with more than one addiction.
+						addiction = GLOB.chemical_reagents_list[pick(list(GLOB.addictive_chems) - addiction.id)]
+						patient.reagents.addiction_list.Add(addiction)
 				if("virus")
 					var/datum/disease/virus = pick(disease_ref.diseases_minor)
 					patient.ForceContractDisease(new virus(), TRUE, TRUE)
 				if("damage")
-					patient.apply_damage(rand(20,80), pick(BRUTE, BURN, TOX))
+					patient.apply_damage(rand(20, 80), pick(BRUTE, BURN, TOX))
 				if("poisoned")
-					// give patient one or more poisons
+					patient.reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), rand(30, 60))
 				if("allergy")
-					// load patient up with histamine
+					patient.reagents.add_reagent("histamine", rand(20, 80))
 				if("organ")
-					// deal random internal organ damage
+					var/list/obj/item/organ/internal/organs = list()
+					for(var/i in rand(1, 5))
+						if(length(list(patient.internal_organs) - organs)) < 1)
+							break
+						organs |= pick(list(patient.internal_organs) - organs)
+					for(var/obj/item/organ/internal/organ in organs)
+						if(prob(10))
+							organ.necrotize()
+						else
+							organ.receive_damage(rand(10, 70), silent = TRUE)
 		else
-			// this shouldn't happen but better a failsafe than nothing
+			// This shouldn't happen but better a failsafe than nothing.
 			patient.apply_damage(100)
 	REMOVE_TRAIT(patient, TRAIT_MUTE, TRAIT_GENERIC)
-
-// from tourist arrivals but it definitely doesn't feel adequate for the variety of alien species we've got
-/datum/event/patient_arrivals/proc/set_appearance(mob/living/carbon/human/patient)
-	var/obj/item/organ/external/head/head_organ = patient.get_organ("head")
-	var/hair_c = pick("#8B4513", "#000000", "#FF4500", "#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000", "#8B4513", "1E90FF") // Black, brown, blue
-	var/skin_tone = rand(-120, 20)
-
-	head_organ.facial_colour = hair_c
-	head_organ.sec_facial_colour = hair_c
-	head_organ.hair_colour = hair_c
-	head_organ.sec_hair_colour = hair_c
-	patient.change_eye_color(eye_c)
-	patient.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(patient.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(patient.gender, head_organ.dna.species.name)
-
-	patient.regenerate_icons()
-	patient.update_body()
-	patient.update_dna()
 
 // Patient datum stuff, mostly being species and outfit.
 /datum/patient
