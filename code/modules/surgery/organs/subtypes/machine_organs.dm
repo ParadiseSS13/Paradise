@@ -162,3 +162,13 @@
 	if(!special)
 		to_chat(owner, SPAN_USERDANGER("BZZZZZZZZZZZZZZT! Microphone error!"))
 	. = ..()
+
+
+/obj/item/organ/internal/brain/ipc
+	name = "Positronic Processor"
+	icon_state = "circuit-occupied"
+	dead_icon = "circuit"
+	status = ORGAN_ROBOT
+	requires_robotic_bodypart = TRUE
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500)
+	parent_organ = "chest"

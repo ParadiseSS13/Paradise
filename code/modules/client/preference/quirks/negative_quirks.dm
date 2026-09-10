@@ -182,11 +182,17 @@
 /datum/quirk/traditional_thinker/proc/move_brain(mob/living/carbon/human/target)
 	SIGNAL_HANDLER // COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED
 
-	var/obj/item/organ/internal/brain/brain = target.get_organ_slot(ORGAN_SLOT_BRAIN)
-	if(brain)
+	if(target.get_organ_slot(ORGAN_SLOT_BRAIN) = var/obj/item/organ/internal/brain/mmi_holder/posibrain/brain)
+		brain.destroy_on_removal = FALSE
 		brain.remove(target, special = TRUE)
 		brain.parent_organ = "head"
-		brain.desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. this one only fits in a skull"
+		brain.insert(target, special = TRUE)
+//		brain.stored_mmi.desc += "this one only fits in a skull"
+		brain.stored_mmi.install_location = "head"
+		brain.destroy_on_removal = TRUE
+	else if(target.get_organ_slot(ORGAN_SLOT_BRAIN) = var/obj/item/organ/internal/brain/ipc/brain)
+		brain.remove(target, special = TRUE)
+		brain.parent_organ = "head"
 		brain.insert(target, special = TRUE)
 
 	// Unregister the signal since we're done with it

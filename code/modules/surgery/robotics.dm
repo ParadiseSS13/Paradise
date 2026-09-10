@@ -93,7 +93,8 @@
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/mend)
 /datum/surgery/intermediate/robotics/manipulate_organs/install_mmi
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi)
-	possible_locs = list(BODY_ZONE_CHEST)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
+
 
 /datum/surgery_step/robotics
 
@@ -581,13 +582,15 @@
 	allowed_tools = list(/obj/item/mmi = 100)
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(target_zone != BODY_ZONE_CHEST)
-		to_chat(user, SPAN_NOTICE("You must target the chest cavity."))
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/obj/item/mmi/M = tool
+
+	if(target_zone != M.install_location)
+
+		to_chat(user, SPAN_NOTICE("You must target the [M.install_location] cavity."))
 
 		return SURGERY_BEGINSTEP_SKIP
 
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/obj/item/mmi/M = tool
 
 	if(!affected)
 		return SURGERY_BEGINSTEP_SKIP

@@ -34,6 +34,8 @@
 	The brain is submerged in a preservation fluid rich in mannitol, mitocholide, dissolved oxygen (or functional equivalent in other species) as well as a carefully tuned mixture of nutrients, hormones, peptides, and various other essential substances produced by a specialised chemical synthesiser. \
 	A non-invasive neural interface uses a combination of targeted magnetic pulses, micro-electric discharges, and a grid of highly sensitive EMF probes allow a two-way connection between the MMI and the brain. On-board microphones, cameras, and a speaker provide basic sensory input and a method of communication, which can be expanded with an optional radio upgrade. Any further functionality must be provided by whatever the MMI is installed into. \
 	Brains housed inside an MMI are effectively biologically immortal, provided the unit remains powered."
+	/// the place where the brain should install into for a carbon
+	var/install_location = "chest"
 
 /obj/item/mmi/examine_more(mob/user)
 	. = ..()
