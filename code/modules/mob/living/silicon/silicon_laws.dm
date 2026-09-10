@@ -8,10 +8,10 @@
 	return laws.zeroth_law != null
 
 /mob/living/silicon/proc/has_ion_law()
-	return laws.ion_laws != null
+	return length(laws.ion_laws) != 0
 
 /mob/living/silicon/proc/has_normal_laws()
-	if(laws.inherent_laws != null || laws.supplied_laws != null)
+	if(length(laws.inherent_laws) != 0 || length(laws.supplied_laws) != 0)
 		return TRUE
 	return FALSE
 
