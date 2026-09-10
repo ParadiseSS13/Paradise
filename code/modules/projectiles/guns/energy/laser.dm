@@ -463,13 +463,16 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/drekseh)
 	execution_speed = 8 SECONDS
 	inhand_charge_sections = 1
+	/// Tracks the number displayed when scoping
+	var/scope_ver
 
 /obj/item/gun/energy/drekseh/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 2 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
+	scope_ver = rand(1, 9999)
 
 /obj/item/gun/energy/drekseh/on_scope_success(mob/living/user)
-	to_chat(user, "<b>[SPAN_ROBOT("SCOPE_CREEPER_[rand(1, 9999)] Online.")]</b>")
+	to_chat(user, "<b>[SPAN_ROBOT("SCOPE_CREEPER_[scope_ver] Online.")]</b>")
 	select_fire(user)
 	user.apply_status_effect(STATUS_EFFECT_LWAPSCOPE)
 
