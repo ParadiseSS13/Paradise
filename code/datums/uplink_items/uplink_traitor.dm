@@ -440,6 +440,16 @@
 	species = list("Drask")
 	surplus = 0
 
+// Slime
+/datum/uplink_item/species_restricted/subdermal_applicator
+	name = "Insulated Protein Applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface tension to create a transparent, insulative barrier."
+	reference = "IPA"
+	item = /obj/item/subdermal_applicator
+	cost = 15
+	species = list("Slime People")
+	surplus = 0
+
 // Unathi
 /datum/uplink_item/species_restricted/breach_cleaver
 	name = "Breach Cleaver"
