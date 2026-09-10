@@ -1,10 +1,7 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/sus //Nutriment pump that gives the hunger hallucination
 	name = "suspicious implant"
 	desc = "This implant looks highly experimental. It probably has some nasty side effects."
-	icon_state = "sus_culinary"
 	implant_overlay = null
-	slot = "stomach"
-	origin_tech = "materials=2;powerstorage=2;biotech=2"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
 	augment_state = "nutripump"
 
@@ -30,7 +27,6 @@
 	name = "suspicious implant"
 	desc = "This implant looks highly experimental. It probably has some nasty side effects."
 	icon_state = "sus_laser"
-	origin_tech = "materials=4;combat=4;biotech=4;powerstorage=4;syndicate=3"
 	contents = newlist(/obj/item/gun/energy/laser/mounted/sus)
 
 /obj/item/organ/internal/cyberimp/arm/gun/laser/sus/l
@@ -46,9 +42,7 @@
 	icon_state = "sus_death"
 	implant_overlay = null
 	slot = "heartdrive"
-	origin_tech = "materials=2;powerstorage=2;biotech=2"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
-	augment_state = "nutripump"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/death_alarm/on_life()

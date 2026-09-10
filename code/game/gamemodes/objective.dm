@@ -1637,7 +1637,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/unique_objective
 	name = "Unique Objective"
-	martyr_compatible = FALSE
 	explanation_text = "This objective should not be showing up. Please ahelp and file an issue report!"
 	delayed_objective_text = "This delayed objective should not be showing up. Please ahelp and file an issue report!"
 	var/needed_item = null
@@ -1713,7 +1712,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/unique_objective/get_five/kidneys
 	name = "Harvest Kidneys"
 	explanation_text = "Harvest five kidneys from the crew."
-	needs_target = FALSE
 	wanted_items = list(/obj/item/organ/internal/kidneys)
 
 /datum/objective/unique_objective/get_five/guns
