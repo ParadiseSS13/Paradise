@@ -3,7 +3,6 @@
 	desc = "This implant looks highly experimental. It probably has some nasty side effects."
 	implant_overlay = null
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
-	augment_state = "nutripump"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/sus/on_life()
 	if(!owner)
