@@ -186,6 +186,7 @@
 	if(brain)
 		brain.remove(target, special = TRUE)
 		brain.parent_organ = "head"
+		brain.desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. this one only fits in a skull"
 		brain.insert(target, special = TRUE)
 
 	// Unregister the signal since we're done with it
