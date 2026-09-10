@@ -91,12 +91,20 @@
 		/area/station/telecomms/chamber,
 		/area/station/engineering/secure_storage
 	)
+	ASSERT(len(possible_areas) > 0)
+	var/potential_areas = len(possible_areas)
+	var/loop_count = 0
 	while(length(extractable_areas) < 3)
+		loop_count++
 		var/area/selected_area = pick_n_take(possible_areas)
 		for(var/area/potential in SSmapping.existing_station_areas)
 			if(potential.type != selected_area)
 				continue
 			extractable_areas += potential
+			break
+		// prevent infinite iterations
+		if(loop_count > potential_areas)
+			log_debug("[src] was unable to find atleast three extractable areas during Initialize()")
 			break
 
 /obj/item/wormhole_jaunter/kidnap/examine(mob/user)
