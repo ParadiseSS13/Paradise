@@ -338,6 +338,8 @@
 			if(isnull(retrieved) || !is_type_in_list(retrieved, retrievable_types))
 				return TRUE
 			var/mob/living/user = ui.user
+			if(!user.Adjacent(src))
+				return TRUE
 			user.put_in_hands(retrieved)
 	return TRUE
 
