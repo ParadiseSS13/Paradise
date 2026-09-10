@@ -165,9 +165,10 @@
 
 
 /obj/item/organ/internal/brain/ipc
-	name = "Positronic Processor"
+	name = "Compact Positronic Microprocessor"
 	icon_state = "circuit-occupied"
 	dead_icon = "circuit"
+	desc =
 	status = ORGAN_ROBOT
 	requires_robotic_bodypart = TRUE
 	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500)
