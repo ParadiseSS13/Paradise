@@ -91,8 +91,8 @@
 		/area/station/telecomms/chamber,
 		/area/station/engineering/secure_storage
 	)
-	ASSERT(len(possible_areas) > 0)
-	var/potential_areas = len(possible_areas)
+	ASSERT(length(possible_areas) > 0)
+	var/potential_areas = length(possible_areas)
 	var/loop_count = 0
 	while(length(extractable_areas) < 3)
 		loop_count++
