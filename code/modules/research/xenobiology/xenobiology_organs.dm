@@ -899,7 +899,7 @@
 /datum/spell/turf_teleport/organ_teleport
 	name = "Unstable Blink"
 	desc = "Touch someone to destabilize their location in bluespace for a moment."
-	base_cooldown = 2 MINUTES
+	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "spell_teleport"
 	sound = null
@@ -912,6 +912,13 @@
 	var/datum/spell_targeting/clicked_atom/external/C = new()
 	C.range = 20
 	return C
+
+/datum/spell/turf_teleport/organ_teleport/can_cast(mob/user, charge_check, show_message)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_BLIND))
+		to_chat(user, SPAN_WARNING("You can't cast upon what you cant see!"))
+		return FALSE
+	return TRUE
 
 /datum/spell/turf_teleport/organ_teleport/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
