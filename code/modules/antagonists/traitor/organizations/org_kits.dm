@@ -58,7 +58,8 @@
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/arc_kidnap_kit/populate_contents()
-	new /obj/item/wormhole_jaunter/kidnap
+	new /obj/item/wormhole_jaunter/kidnap(src)
+	new /obj/item/paper/guides/antag/pet_kidnapping(src)
 
 /obj/item/paper/guides/antag/pet_kidnapping
 	info = "<b>Freeing Station Pets</b><hr /> \
