@@ -480,9 +480,6 @@
 	select_fire(user)
 	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 
-/obj/item/gun/energy/drekseh/attack_self__legacy__attackchain()
-	return // no manual ammo changing.
-
 /obj/item/gun/energy/drekseh/update_overlays()
 	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
