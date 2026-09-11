@@ -190,10 +190,6 @@
 //		brain.stored_mmi.desc += "this one only fits in a skull"
 		brain.stored_mmi.install_location = "head"
 		brain.destroy_on_removal = TRUE
-	else if(target.get_organ_slot(ORGAN_SLOT_BRAIN) = var/obj/item/organ/internal/brain/ipc/brain)
-		brain.remove(target, special = TRUE)
-		brain.parent_organ = "head"
-		brain.insert(target, special = TRUE)
 
 	// Unregister the signal since we're done with it
 	UnregisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
