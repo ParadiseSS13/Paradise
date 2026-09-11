@@ -449,6 +449,7 @@
 	flags = RESTRICTED
 	syllables = list("ba","da","ka","ki","to","ta","sa","so","a","e","i","o","u","am","on","na","in",
 					"ko",)
+	english_names = 1
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
