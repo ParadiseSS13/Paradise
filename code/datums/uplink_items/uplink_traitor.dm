@@ -442,8 +442,8 @@
 
 // Slime
 /datum/uplink_item/species_restricted/subdermal_applicator
-	name = "Insulated Protein Applicator"
-	desc = "This device contains specially-formulated proteins that bond with a slime person's surface tension to create a transparent, insulative barrier."
+	name = "Thermal Protein Applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface membrane and inner organelles to provide insulation against the cold and greatly improved resistance to extreme temperatures."
 	reference = "IPA"
 	item = /obj/item/subdermal_applicator
 	cost = 15

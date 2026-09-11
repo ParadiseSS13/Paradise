@@ -341,8 +341,8 @@
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
 /obj/item/subdermal_applicator
-	name = "insulated protein applicator"
-	desc = "This device contains specially-formulated proteins that bond with a slime person's surface tension to create a transparent, insulative barrier."
+	name = "thermal protein applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface membrane and inner organelles to provide insulation against the cold and greatly improved resistance to extreme temperatures."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
 	new_attack_chain = TRUE
@@ -352,7 +352,7 @@
 	if(..())
 		return
 	if(HAS_TRAIT(user, TRAIT_SLIMEPERSON_INSUL))
-		to_chat(user, SPAN_WARNING("Your body is already covered in a layer of insulation!"))
+		to_chat(user, SPAN_WARNING("Your body is already augmented with thermal proteins!"))
 		return
 	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || !isslimeperson(user))
 		to_chat(user, SPAN_WARNING("The injector is not compatable with your biology!"))
