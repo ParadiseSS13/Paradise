@@ -469,8 +469,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
 	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 39, MAROON_OBJECTIVE = 202, ASS_ONCE_OBJECTIVE = 138, ASS_OBJECTIVE = 293, ASS_PET = 138, INFIL_SEC_OBJECTIVE = 190)
 
-	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
-	if(organization && length(organization.objectives) && prob(organization.focus))
+	// If our org has an objectives list or unique objective, give one to us if we pass a roll on the org's focus
+	if(organization.unique_targets && prob(organization.focus) && !(locate(/datum/objective/unique_objective/) in owner.get_all_objectives()))
+		objective_to_add = pick(organization.unique_targets)
+	else if(organization && length(organization.objectives) && prob(organization.focus))
 		objective_to_add = pick(organization.objectives)
 	else
 		var/objective_to_decide_further = pickweight(the_objective_list)
@@ -481,7 +483,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 				var/the_kill_objective = pickweight(the_nonstatic_kill_list)
 				switch(the_kill_objective)
 					if(DESTROY_OBJECTIVE)
-						objective_to_add = /datum/objective/destroy
+						// Prevent Destroy and Free AI from rolling simultaneously
+						if(locate(/datum/objective/unique_objective/free_ai) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						else
+							objective_to_add = /datum/objective/destroy
 
 					if(DEBRAIN_OBJECTIVE)
 						objective_to_add = /datum/objective/debrain
@@ -493,7 +499,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 						objective_to_add = /datum/objective/assassinateonce
 
 					if(ASS_PET)
-						objective_to_add = /datum/objective/kill_pet
+						// Prevent Kill and Kidnap Pet from rolling simultaneously
+						if(locate(/datum/objective/unique_objective/kidnap_pet) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						else
+							objective_to_add = /datum/objective/kill_pet
 
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate

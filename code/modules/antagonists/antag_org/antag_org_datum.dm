@@ -16,5 +16,7 @@
 	var/list/targeted_departments
 	/// List of theft targets favored by this organization if any
 	var/list/theft_targets
+	/// List of objectives unique to that organization, if any
+	var/list/unique_targets
 	/// Estimation of how much trouble this antag will be for security.
 	var/chaos_level
