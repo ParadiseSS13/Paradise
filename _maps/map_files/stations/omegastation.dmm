@@ -6335,7 +6335,6 @@
 	},
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
-/obj/item/gun/energy/ionrifle,
 /obj/item/shield/riot,
 /obj/item/shield/riot,
 /obj/item/shield/riot,
@@ -6492,6 +6491,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
+/obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "aBP" = (
@@ -41294,12 +41294,10 @@
 "qsg" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/surgical_tray{
-	pixel_x = 0;
 	pixel_y = -5
 	},
 /obj/effect/turf_decal/tiles/department/medical/side,
 /obj/machinery/autoclave{
-	pixel_x = 0;
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -54820,7 +54818,6 @@
 	dir = 1
 	},
 /obj/machinery/autoclave{
-	pixel_x = 0;
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel/dark,
