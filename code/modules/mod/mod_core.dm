@@ -99,8 +99,8 @@
 		on_wearer_unset(mod, mod.wearer)
 	return ..()
 
-/obj/item/mod/core/proc/on_attackby(obj/item/attacking_item, mob/user, params)
-	return
+/obj/item/mod/core/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return NONE
 
 /obj/item/mod/core/standard/charge_source()
 	return cell
@@ -204,23 +204,29 @@
 	user.put_in_hands(cell_to_move)
 	mod.update_charge_alert()
 
-/obj/item/mod/core/standard/on_attackby(obj/item/attacking_item, mob/user, params)
-	if(istype(attacking_item, /obj/item/stock_parts/cell))
-		if(!mod.open)
-			to_chat(user, SPAN_WARNING("Open the cover first!"))
-			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return NONE
-		if(cell)
-			to_chat(user, SPAN_WARNING("Cell already installed!"))
-			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return COMPONENT_SKIP_AFTERATTACK
-		user.drop_item()
-		install_cell(attacking_item)
-		to_chat(user, SPAN_NOTICE("You install the cell."))
-		playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-		mod.update_charge_alert()
-		return COMPONENT_SKIP_AFTERATTACK
-	return NONE
+/obj/item/mod/core/standard/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return NONE
+
+	if(!mod)
+		return NONE
+
+	if(!mod.open)
+		to_chat(user, SPAN_WARNING("Open the cover first!"))
+		playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return ITEM_INTERACT_COMPLETE
+
+	if(cell)
+		to_chat(user, SPAN_WARNING("Cell already installed!"))
+		playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return ITEM_INTERACT_COMPLETE
+
+	user.drop_item()
+	install_cell(used)
+	to_chat(user, SPAN_NOTICE("You install the cell."))
+	playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+	mod.update_charge_alert()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mod/core/standard/proc/on_wearer_set(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -291,8 +297,15 @@
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
 
-/obj/item/mod/core/plasma/on_attackby(obj/item/attacking_item, mob/user, params)
-	charge_plasma(attacking_item, user)
+/obj/item/mod/core/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack))
+		return NONE
+
+	if(!mod)
+		return NONE
+
+	charge_plasma(used, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
 	var/charge_given = is_type_in_list(plasma, charger_list)

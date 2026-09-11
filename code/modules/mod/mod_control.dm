@@ -489,7 +489,7 @@
 			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ITEM_INTERACT_COMPLETE
-		core.on_attackby(used, user, list2params(modifiers))
+		core.item_interaction(used, user, modifiers)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/ore/plasma) || istype(used, /obj/item/stack/sheet/mineral/plasma))
@@ -497,7 +497,7 @@
 			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
-		core.on_attackby(used, user, list2params(modifiers))
+		core.item_interaction(used, user, modifiers)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/mod/skin_applier))
