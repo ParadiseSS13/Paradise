@@ -68,6 +68,9 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	density = TRUE
+	light_power = 2
+	light_range = 4
+	light_color = LIGHT_COLOR_CYAN
 	pixel_z = -8
 	max_integrity = 5000 // Needs to be hard to destroy manually to incentivise swiping cards
 	/// List of bank accounts to take money from, determines in start_dumping()
@@ -259,7 +262,8 @@
 		var/amount_to_remove = rand(1, floor(held_credits / 8))
 		var/obj/item/stack/spacecash/money = new (get_turf(src), amount_to_remove)
 		held_credits -= amount_to_remove
-		money.throw_at(get_random_perimeter_turf(get_turf(src), 7), 10, 3)
+		if(!QDELETED(money))
+			money.throw_at(get_random_perimeter_turf(get_turf(src), 7), 10, 3)
 
 /obj/effect/dumpeet_fall // Falling pod
 	name = ""
