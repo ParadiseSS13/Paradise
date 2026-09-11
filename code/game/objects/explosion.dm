@@ -200,7 +200,7 @@
 
 			for(var/atom/AM as anything in S)
 				if(!QDELETED(AM) && AM.simulated && (AM.level >= affecting_level))
-					AM.ex_act(explosion_strength)
+					AM.ex_act(explosion_strength, epicenter, light_impact_range)
 				CHECK_TICK
 
 		var/took = stop_watch(watch)

@@ -164,6 +164,14 @@
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
 
+/atom/movable/ex_act(severity, turf/epicenter, ex_range)
+	..()
+	if(epicenter && !anchored && !(ispath(/mob/dead)))
+		var/ex_distance = abs(get_dist(locate(epicenter.x, epicenter.y, epicenter.z), loc))
+		var/throw_dist = max(0, ((ex_range - ex_distance) * (3 / max(1, severity)))) // Essentially, at minimum we're thown to the light explosion edge, at maximum 3x as far when hit by a devastate explosion.
+		throw_at(get_edge_target_turf(src, get_dir(epicenter, loc)), throw_dist, 3 * (3/severity))
+		log_debug("Thrown [src], Epicenter [epicenter], Range [ex_range], Severity [severity], Dist = [ex_distance], Throw_Dist = [throw_dist], Target = [get_edge_target_turf(src, get_dir(epicenter.loc, src.loc))]")
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
