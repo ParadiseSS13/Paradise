@@ -23,7 +23,7 @@ export const ERTManager = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
-    <Window width={360} height={510}>
+    <Window width={400} height={510}>
       <Window.Content>
         <Stack fill vertical>
           <ERTOverview />
@@ -91,6 +91,7 @@ type ERTManagerData = {
   total: number;
   spawnpoints: number;
   ert_request_messages: ERTRequestMessage[];
+  custom_loadouts: Record<string, string>;
 };
 
 export const ERTOverview = () => {
@@ -121,12 +122,39 @@ export const ERTOverview = () => {
   );
 };
 
+const ERTTypeButton = (props: { selected: boolean; name: string; color: string }) => {
+  const { act } = useBackend();
+  const { selected, name, color } = props;
+
+  return (
+    <Button
+      width={5}
+      textAlign="center"
+      color={selected ? color : ''}
+      onClick={() => act('ert_type', { ert_type: name })}
+    >
+      {name}
+    </Button>
+  );
+};
+
+const CustomLoadoutButton = (props: { role: string; loadout_name: string }) => {
+  const { loadout_name, role } = props;
+  const { act } = useBackend();
+  return (
+    <Button fluid onClick={() => act('choose_custom_loadout', { role })}>
+      {loadout_name}
+    </Button>
+  );
+};
+
 const SendERT = () => {
   const { act, data } = useBackend<ERTManagerData>();
-  const { ert_type, com, sec, med, eng, par, jan, cyb, secborg, total, spawnpoints } = data;
+  const { ert_type, com, sec, med, eng, par, jan, cyb, secborg, total, spawnpoints, custom_loadouts } = data;
   let slotOptions = [0, 1, 2, 3, 4, 5];
 
   const [silentERT, setSilentERT] = useState(false);
+  const isCustom = ert_type === 'Custom';
 
   return (
     <Stack.Item grow>
@@ -136,40 +164,26 @@ const SendERT = () => {
         title="Send ERT"
         buttons={
           <>
-            <Button
-              width={5}
-              textAlign="center"
-              color={ert_type === 'Amber' ? 'orange' : ''}
-              onClick={() => act('ert_type', { ert_type: 'Amber' })}
-            >
-              Amber
-            </Button>
-            <Button
-              width={5}
-              textAlign="center"
-              color={ert_type === 'Red' ? 'red' : ''}
-              onClick={() => act('ert_type', { ert_type: 'Red' })}
-            >
-              Red
-            </Button>
-            <Button
-              width={5}
-              textAlign="center"
-              color={ert_type === 'Gamma' ? 'purple' : ''}
-              onClick={() => act('ert_type', { ert_type: 'Gamma' })}
-            >
-              Gamma
-            </Button>
+            <ERTTypeButton selected={ert_type === 'Amber'} name="Amber" color="orange" />
+            <ERTTypeButton selected={ert_type === 'Red'} name="Red" color="red" />
+            <ERTTypeButton selected={ert_type === 'Gamma'} name="Gamma" color="purple" />
+            <ERTTypeButton selected={ert_type === 'Custom'} name="Custom" color="blue" />
           </>
         }
       >
         <LabeledList>
-          <LabeledList.Item label="Commander">
+          <LabeledList.Item label="Commander" className="candystripe">
             <Button icon={com ? 'toggle-on' : 'toggle-off'} selected={com} onClick={() => act('toggle_com')}>
               {com ? 'Yes' : 'No'}
             </Button>
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Command" loadout_name={custom_loadouts['Command']} />
+              </Box>
+            )}
           </LabeledList.Item>
-          <LabeledList.Item label="Security">
+          {isCustom && <LabeledList.Divider />}
+          <LabeledList.Item label="Security" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
                 key={'sec' + a}
@@ -183,8 +197,14 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Security" loadout_name={custom_loadouts['Security']} />
+              </Box>
+            )}
           </LabeledList.Item>
-          <LabeledList.Item label="Medical">
+          {isCustom && <LabeledList.Divider />}
+          <LabeledList.Item label="Medical" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
                 key={'med' + a}
@@ -198,8 +218,14 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Medical" loadout_name={custom_loadouts['Medical']} />
+              </Box>
+            )}
           </LabeledList.Item>
-          <LabeledList.Item label="Engineering">
+          {isCustom && <LabeledList.Divider />}
+          <LabeledList.Item label="Engineering" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
                 key={'eng' + a}
@@ -213,8 +239,14 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Engineering" loadout_name={custom_loadouts['Engineering']} />
+              </Box>
+            )}
           </LabeledList.Item>
-          <LabeledList.Item label="Paranormal">
+          {isCustom && <LabeledList.Divider />}
+          <LabeledList.Item label="Paranormal" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
                 key={'par' + a}
@@ -228,8 +260,14 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Paranormal" loadout_name={custom_loadouts['Paranormal']} />
+              </Box>
+            )}
           </LabeledList.Item>
-          <LabeledList.Item label="Janitor">
+          {isCustom && <LabeledList.Divider />}
+          <LabeledList.Item label="Janitor" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
                 key={'jan' + a}
@@ -243,8 +281,14 @@ const SendERT = () => {
                 {String(a)}
               </Button>
             ))}
+            {isCustom && (
+              <Box>
+                <CustomLoadoutButton role="Janitor" loadout_name={custom_loadouts['Janitor']} />
+              </Box>
+            )}
           </LabeledList.Item>
-          <LabeledList.Item label="Cyborg">
+          {isCustom && <LabeledList.Divider />}
+          <LabeledList.Item label="Cyborg" className="candystripe">
             {slotOptions.map((a, i) => (
               <Button
                 key={'cyb' + a}
