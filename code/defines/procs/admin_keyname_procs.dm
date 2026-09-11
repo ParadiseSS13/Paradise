@@ -94,3 +94,8 @@
 /proc/log_and_message_admins_no_usr(message)
 	log_admin(message)
 	message_admins(message)
+
+// oh my GOD
+/proc/log_and_message_admins_mob_user(mob/user, message)
+	log_admin("[key_name(user)] " + message)
+	message_admins("[key_name_admin(user)] " + message)
