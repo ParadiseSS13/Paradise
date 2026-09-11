@@ -189,6 +189,8 @@
 		if("transfer")
 			if(!authenticated_account)
 				return
+			if(SSmachines.get_by_type(/obj/structure/checkoutmachine))
+				return
 			var/transfer_amount = text2num(params["funds_amount"])
 			var/target_account_number = text2num(params["target_acc_number"])
 			var/transfer_purpose = params["purpose"]
@@ -210,6 +212,8 @@
 			var/tried_pin = text2num(params["account_pin"])
 			attempt_login(tried_account_num, tried_pin, user)
 		if("withdrawal")
+			if(SSmachines.get_by_type(/obj/structure/checkoutmachine))
+				return
 			var/amount = max(text2num(params["funds_amount"]), 0)
 			if(amount)
 				withdraw(amount, user)
