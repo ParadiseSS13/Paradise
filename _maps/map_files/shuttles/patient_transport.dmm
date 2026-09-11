@@ -1,0 +1,420 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ah" = (
+/obj/structure/table/tray,
+/obj/effect/spawner/random/toy/therapy_doll{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"ew" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/chair/wheelchair,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"eJ" = (
+/obj/structure/chair/wheelchair,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"fz" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/patient)
+"gv" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"gH" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/patient)
+"gK" = (
+/obj/structure/rack,
+/obj/item/crutches,
+/obj/item/crutches,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"hc" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"kd" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"kV" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/patient)
+"qS" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"rw" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/chair/wheelchair,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"uo" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"ut" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/patient)
+"uM" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"uY" = (
+/obj/structure/table/tray,
+/obj/effect/spawner/random/library_book{
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"vz" = (
+/obj/structure/table/tray,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"vU" = (
+/obj/structure/rack,
+/obj/item/stack/medical/bruise_pack/improvised,
+/obj/item/stack/medical/bruise_pack/improvised,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"wQ" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"xe" = (
+/obj/structure/rack,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"xC" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"yx" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/machinery/iv_drip,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"By" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"BC" = (
+/obj/structure/table/tray,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"Ek" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/machinery/iv_drip,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"EK" = (
+/turf/template_noop,
+/area/template_noop)
+"Go" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 19;
+	width = 16;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/patient)
+"JY" = (
+/obj/structure/table/tray,
+/obj/item/food/grown/apple{
+	pixel_y = 12
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"Mv" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/patient)
+"NN" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/closet/wardrobe/pjs,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"NU" = (
+/obj/structure/closet/l3closet/general,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+"OP" = (
+/obj/structure/table/tray,
+/obj/item/reagent_containers/drinks/carton/plum{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"PC" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/closet,
+/obj/item/clothing/under/rank/medical/scrubs,
+/obj/item/clothing/under/rank/medical/scrubs/coroner,
+/obj/item/clothing/under/rank/medical/scrubs/green,
+/obj/item/clothing/under/rank/medical/scrubs/purple,
+/obj/item/clothing/under/rank/medical/gown,
+/obj/item/clothing/under/rank/medical/gown,
+/obj/item/clothing/under/rank/medical/gown,
+/obj/item/clothing/under/rank/medical/gown,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/white,
+/obj/item/clothing/shoes/white,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/patient)
+"PX" = (
+/obj/machinery/shower/directional/north,
+/turf/simulated/floor/noslip,
+/area/shuttle/patient)
+"UT" = (
+/obj/machinery/computer/shuttle/patient,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/patient)
+
+(1,1,1) = {"
+EK
+EK
+EK
+EK
+kV
+kV
+Mv
+Mv
+kV
+Mv
+Mv
+kV
+kV
+EK
+EK
+EK
+EK
+EK
+"}
+(2,1,1) = {"
+EK
+kV
+kV
+kV
+kV
+rw
+Ek
+JY
+yx
+BC
+Ek
+PC
+kV
+Mv
+kV
+EK
+EK
+EK
+"}
+(3,1,1) = {"
+EK
+Mv
+NU
+gv
+hc
+xC
+gv
+gv
+xC
+xC
+gv
+gv
+qS
+kd
+kV
+Mv
+kV
+EK
+"}
+(4,1,1) = {"
+kV
+kV
+PX
+gv
+kV
+eJ
+gv
+gv
+xC
+xC
+gv
+gv
+xC
+xC
+xC
+xC
+kV
+kV
+"}
+(5,1,1) = {"
+Go
+xC
+xC
+xC
+By
+gv
+Ek
+vz
+Ek
+uY
+Ek
+xC
+vU
+kV
+wQ
+uo
+fz
+ut
+"}
+(6,1,1) = {"
+gH
+xC
+xC
+xC
+By
+gv
+Ek
+OP
+Ek
+vz
+Ek
+xC
+xe
+kV
+UT
+uo
+fz
+ut
+"}
+(7,1,1) = {"
+kV
+kV
+PX
+gv
+kV
+eJ
+gv
+gv
+xC
+xC
+gv
+gv
+xC
+xC
+xC
+xC
+kV
+kV
+"}
+(8,1,1) = {"
+EK
+Mv
+NU
+gv
+hc
+xC
+gv
+gv
+xC
+xC
+gv
+gv
+uM
+gK
+kV
+Mv
+kV
+EK
+"}
+(9,1,1) = {"
+EK
+kV
+kV
+kV
+kV
+ew
+Ek
+vz
+yx
+ah
+Ek
+NN
+kV
+Mv
+kV
+EK
+EK
+EK
+"}
+(10,1,1) = {"
+EK
+EK
+EK
+EK
+kV
+kV
+Mv
+Mv
+kV
+Mv
+Mv
+kV
+kV
+EK
+EK
+EK
+EK
+EK
+"}
