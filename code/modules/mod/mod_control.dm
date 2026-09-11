@@ -8,6 +8,7 @@
 	desc = "You should not see this, yell at a coder!"
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	new_attack_chain = TRUE
 
 /obj/item/mod/control
 	name = "MOD control unit"
@@ -450,49 +451,61 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
-	if(istype(attacking_item, /obj/item/mod/module))
+/obj/item/mod/control/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/mod/module))
 		if(!open)
 			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
-		install(attacking_item, user)
+			return ITEM_INTERACT_COMPLETE
+
+		install(used, user)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_ADDED, user)
-		return TRUE
-	else if(istype(attacking_item, /obj/item/mod/core))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mod/core))
 		if(!open)
 			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
+
 		if(core)
 			to_chat(user, SPAN_WARNING("Core already installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
-		var/obj/item/mod/core/attacking_core = attacking_item
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/mod/core/attacking_core = used
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		user.drop_item()
 		attacking_core.install(src)
 		update_charge_alert()
-		return TRUE
-	else if(open && attacking_item.GetID())
-		update_access(user, attacking_item.GetID())
-		return TRUE
-	else if(istype(attacking_item, /obj/item/stock_parts/cell))
+		return ITEM_INTERACT_COMPLETE
+
+	if(open && used.GetID())
+		update_access(user, used.GetID())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stock_parts/cell))
+		if(!core)
+			to_chat(user, SPAN_WARNING("There is no core installed!"))
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return ITEM_INTERACT_COMPLETE
+		core.item_interaction(used, user, modifiers)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/ore/plasma) || istype(used, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
-		core.on_attackby(attacking_item, user, params)
-	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
-		if(!core)
-			to_chat(user, SPAN_WARNING("There is no core installed!"))
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
-		core.on_attackby(attacking_item, user, params)
-	else if(istype(attacking_item, /obj/item/mod/skin_applier))
+		core.item_interaction(used, user, modifiers)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mod/skin_applier))
 		return ..()
-	else if(bag && istype(attacking_item))
-		bag.attackby__legacy__attackchain(attacking_item, user, params)
+
+	if(bag && istype(used))
+		bag.attackby__legacy__attackchain(used, user, list2params(modifiers))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
