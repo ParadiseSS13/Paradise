@@ -436,6 +436,7 @@
 	var/current_reagent = null
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
+	new_attack_chain = TRUE
 
 /obj/item/handheld_chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -452,12 +453,13 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	if(!proximity || !current_reagent || !amount)
-		return
+/obj/item/handheld_chem_dispenser/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!current_reagent || !amount)
+		return ..()
 
-	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
-		return
+	if(!check_allowed_items(target, target_self = TRUE) || !target.is_refillable())
+		return ..()
+
 	switch(mode)
 		if("dispense")
 			var/free = target.reagents.maximum_volume - target.reagents.total_volume
@@ -469,19 +471,23 @@
 				update_icon(UPDATE_OVERLAYS)
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
 				to_chat(user, SPAN_WARNING("Insufficient energy to complete operation."))
+			return ITEM_INTERACT_COMPLETE
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
 				to_chat(user, SPAN_NOTICE("You remove [amount] unit\s of [current_reagent] from [target]."))
+			return ITEM_INTERACT_COMPLETE
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, SPAN_NOTICE("You remove all but [current_reagent] from [target]."))
+			return ITEM_INTERACT_COMPLETE
 
-/obj/item/handheld_chem_dispenser/attack_self__legacy__attackchain(mob/user)
+/obj/item/handheld_chem_dispenser/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(cell)
 		ui_interact(user)
 	else
 		to_chat(user, SPAN_WARNING("[src] lacks a power cell!"))
-
 
 /obj/item/handheld_chem_dispenser/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -576,20 +582,26 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/item/handheld_chem_dispenser/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
-		if(cell)
-			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
-		else
-			if(C.maxcharge < 100)
-				to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
-				return
-			if(!user.transfer_item_to(W, src))
-				return
-			cell = W
-			to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
-			update_icon(UPDATE_OVERLAYS)
+/obj/item/handheld_chem_dispenser/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return ..()
+
+	var/obj/item/stock_parts/cell/new_cell = used
+	if(cell)
+		to_chat(user, SPAN_NOTICE("[src] already has a cell."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(new_cell.maxcharge < 100)
+		to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.transfer_item_to(used, src))
+		return ITEM_INTERACT_COMPLETE
+
+	cell = used
+	to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
+	update_icon(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(!isrobot(loc) && cell)
