@@ -223,7 +223,7 @@
 	desc = "The circuit board for a R&D Network Controller Console."
 	id = "rdnetworkcontrol"
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, MAT_GOLD = 10000, MAT_DIAMOND = 10000) // Ideally we dont want people printing these all over the place.
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 1500, MAT_DIAMOND = 3000)
 	build_path = /obj/item/circuitboard/rnd_network_controller
 	category = list("Computer Boards")
 
