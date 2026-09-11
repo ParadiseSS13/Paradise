@@ -1,7 +1,6 @@
 /obj/item/suspiciousphone
 	name = "suspicious phone"
 	desc = "This device is connected to the interstellar stock exchange. With but a single sentence, you can start a chain reaction to crash the market - dump it."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "suspiciousphone"
 	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
