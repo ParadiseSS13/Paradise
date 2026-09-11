@@ -208,7 +208,7 @@
 	name = "Ion Rifle Crate"
 	contains = list(/obj/item/gun/energy/ionrifle,
 					/obj/item/gun/energy/ionrifle)
-	cost = 750
+	cost = 500
 	containername = "ion rifle crate"
 
 /datum/supply_packs/security/armory/expenergy
