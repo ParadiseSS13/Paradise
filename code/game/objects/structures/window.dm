@@ -179,17 +179,27 @@
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassbang.ogg', 100, 1)
-		user.visible_message(SPAN_WARNING("[user] bangs against [src]!"), \
-							SPAN_WARNING("You bang against [src]!"), \
-							"You hear a banging sound.")
+		user.visible_message(
+			SPAN_WARNING("[user] bangs against [src]!"),
+			SPAN_WARNING("You bang against [src]!"),
+			SPAN_WARNING("You hear a banging sound!")
+		)
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
-		user.visible_message("[user] knocks on [src].", \
-							"You knock on [src].", \
-							"You hear a knocking sound.")
+		user.visible_message(
+			SPAN_NOTICE("[user] knocks on [src]."),
+			SPAN_NOTICE("You knock on [src]."),
+			SPAN_HEAR("You hear a knocking sound.")
+		)
 		add_fingerprint(user)
+
+/obj/structure/window/attack_robot(mob/user)
+	if(isdrone(user) || !Adjacent(user))
+		return ..()
+
+	attack_hand(user)
 
 /obj/structure/window/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
