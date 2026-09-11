@@ -314,6 +314,32 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message_pieces, verb)
 
+
+
+	if(client?.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS)
+		if(ishuman(src))
+			var/mob/living/carbon/human/bloop_source = src
+			if(bloop_source.dna.blooper_id || bloop_source.blooper)
+				var/datum/multilingual_say_piece/message_inst = message_pieces[1]
+				var/datum/blooper/bloop_datum = GLOB.blooper_list[bloop_source.dna.blooper_id]
+				var/bloop_count_multiplier = initial(bloop_datum.bloop_count_multiplier)
+				var/blooper_count = min(round(((length_char(message_inst.message) / bloop_source.dna.blooper_speed)) + 1) * bloop_count_multiplier, BLOOPER_MAX_BLOOPERS)
+				var/total_delay = 0
+				bloop_source.blooper_tick = 0
+				bloop_source.blooper_current_blooper = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
+				LAZYINITLIST(blooper_queue)
+				for(var/i in 1 to blooper_count)
+					if(total_delay > BLOOPER_MAX_TIME)
+						break
+					blooper_queue += new /datum/bloop_queue_entry(
+						world.time + total_delay,
+						max(blooper_volume, 100),
+						BLOOPER_DO_VARY(bloop_source.get_blooper_pitch(), bloop_source.get_blooper_pitch_range()),
+						blooper_current_blooper,
+					)
+					total_delay += rand(DS2TICKS(bloop_source.dna.blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(bloop_source.dna.blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(bloop_source.dna.blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
+				SSbloopers.queue(src)
+
 	return TRUE
 
 /obj/effect/speech_bubble

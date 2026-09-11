@@ -147,3 +147,20 @@
 	var/list/ownedSoullinks
 	/// Soul links we are the sharer of.
 	var/list/sharedSoullinks
+
+
+	// Bloopers
+
+
+
+	var/sound/blooper
+	var/blooper_id
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.2
+	var/blooper_speed = BLOOPER_SPEED_BASELINE
+	var/blooper_volume = 50
+	var/blooper_current_blooper // antispam, will be used in a check
+	var/blooper_timer_ref
+	var/blooper_timing_delay
+	var/blooper_tick
+	var/list/blooper_queue // Subsystem related, theory is that for mobs, we store what they hear in this queue and have a subsystem tick over it. Possible? I think.

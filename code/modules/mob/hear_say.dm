@@ -23,10 +23,6 @@
 						piece = pick(S.speak)
 					else
 						piece = stars(piece)
-				else if(isbasicmob(speaker))
-					var/mob/living/basic/B = speaker
-					if(LAZYLEN(B.unintelligble_phrases))
-						piece = pick(B.unintelligble_phrases)
 				else
 					piece = SP.speaking.scramble(piece)
 			if(always_stars)
@@ -34,19 +30,14 @@
 			piece = SP.speaking.format_message(piece)
 		else
 			if(!say_understands(speaker, null))
+				piece = stars(piece)
 				if(isanimal(speaker))
 					var/mob/living/simple_animal/S = speaker
 					if(LAZYLEN(S.speak))
 						piece = pick(S.speak)
-				else if(isbasicmob(speaker))
-					var/mob/living/basic/B = speaker
-					if(LAZYLEN(B.unintelligble_phrases))
-						piece = pick(B.unintelligble_phrases)
-					else
-						piece = stars(piece)
 				if(always_stars)
 					piece = stars(piece)
-			piece = SPAN_MESSAGE(SPAN_BODY("[piece]") )
+			piece = "<span class='message'><span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
 	if(msg == "")
 		// There is literally no content left in this message, we need to shut this shit down
@@ -67,6 +58,7 @@
 /mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)
 		return 0
+
 
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
@@ -118,24 +110,16 @@
 				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
 
-	// horrid horrid horrid
-	// better handling for basicmob interpretation is needed everywhere
-	// but it doesn't help that all the animal interpretation is snowflaked
-	// into core /mob procs
-	if(isbasicmob(speaker) && !say_understands(speaker, null))
-		var/mob/living/basic/B = speaker
-		if(LAZYLEN(B.unintelligble_speak_verbs))
-			verb = pick(B.unintelligble_speak_verbs)
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
-			to_chat(src, SPAN_WARNING("You cannot hear yourself speak!"))
+			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "[SPAN_NAME("[speaker.name]")] talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'>[SPAN_NAME("[speaker_name]")][speaker.GetAltName()] [track][verb], \"[message]\"</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], \"[message]\"</span>")
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
@@ -144,6 +128,7 @@
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
+
 
 
 /mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, atom/movable/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
@@ -167,7 +152,7 @@
 
 	if(!can_hear())
 		if(prob(20))
-			to_chat(src, SPAN_WARNING("You feel your headset vibrate but can hear nothing from it!"))
+			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 	else
@@ -229,5 +214,7 @@
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed)
 
-	var/rendered = "<span class='game say'>[SPAN_NAME("[name]")] [message]</span>"
+	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)
+
+
