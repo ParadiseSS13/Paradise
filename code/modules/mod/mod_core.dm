@@ -258,11 +258,6 @@
 	/// Associated list of charge sources, only stacks allowed.
 	var/list/charger_list = list(/obj/item/stack/ore/plasma, /obj/item/stack/sheet/mineral/plasma)
 
-/obj/item/mod/core/plasma/item_interaction(mob/user, obj/item/used, list/modifiers)
-	if(charge_plasma(used, user))
-		return ITEM_INTERACT_COMPLETE
-	return ..()
-
 /obj/item/mod/core/plasma/charge_source()
 	return src
 
