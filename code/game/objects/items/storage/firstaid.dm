@@ -63,8 +63,8 @@
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/populate_contents()
-	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
-	new /obj/item/stack/medical/suture/regen_mesh(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
+	new /obj/item/stack/medical/adv/regen_mesh(src)
 	new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -114,8 +114,8 @@
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/populate_contents()
-	new /obj/item/stack/medical/suture/medicated(src)
-	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/adv/suture(src)
 	new /obj/item/reagent_containers/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -446,8 +446,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture, /obj/item/suture_needle)
-	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	can_hold = list(/obj/item/stack/medical/adv/suture, /obj/item/suture_needle)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14
@@ -462,7 +461,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture/regen_mesh, /obj/item/biomesh)
+	can_hold = list(/obj/item/stack/medical/adv/regen_mesh, /obj/item/biomesh)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14
