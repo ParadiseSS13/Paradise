@@ -274,6 +274,7 @@
 
 /datum/spell/horror
 	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
+	base_cooldown = 1 SECONDS
 	var/datum/action/innate/cult/blood_spell/attached_action
 
 /datum/spell/horror/Destroy()
@@ -282,6 +283,39 @@
 	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
+/datum/spell/horror/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 7
+	T.click_radius = -1
+	return T
+
+/datum/spell/horror/can_cast(mob/user, charge_check, show_message)
+	if(!user.mind)
+		if(show_message)
+			to_chat(user, SPAN_WARNING("You shouldn't have this spell! Something's wrong."))
+		return FALSE
+
+	if(!holy_area_cancast && user.holy_check())
+		return FALSE
+
+	if(charge_check)
+		if(cooldown_handler.is_on_cooldown())
+			if(show_message)
+				to_chat(user, still_recharging_msg)
+			return FALSE
+
+	if(!ghost)
+		if(user.stat && !stat_allowed)
+			if(show_message)
+				to_chat(user, SPAN_NOTICE("You can't cast this spell while incapacitated."))
+			return FALSE
+		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
+			if(show_message)
+				to_chat(user, "Mmmf mrrfff!")
+			return FALSE
+
+	return TRUE
+
 /datum/spell/horror/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, SPAN_CULT("You dispel the magic..."))
@@ -289,18 +323,22 @@
 		add_ranged_ability(user, SPAN_CULT("You prepare to horrify a target..."))
 
 /datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target) //This should not exist
-	. = ..()
-	if(!.)
-		return FALSE
-	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
+	if(user.ranged_ability != src)
+		to_chat(user, SPAN_WARNING("<b>[user.ranged_ability.name]</b> has been disabled."))
+		user.ranged_ability.remove_ranged_ability(user)
+		return TRUE //TRUE for failed, FALSE for passed.
+	user.face_atom(target)
+	if(targeting)
+		targeting.InterceptClickOn(user, params, target, src)
+	if(user.incapacitated() || !IS_CULTIST(user))
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE
 	if(user.holy_check())
 		return TRUE
-	var/turf/T = get_turf(ranged_ability_user)
+	var/turf/T = get_turf(user)
 	if(!isturf(T))
 		return TRUE
-	if(target in view(7, ranged_ability_user))
+	if(target in view(7, user))
 		if(!ishuman(target) || IS_CULTIST(target))
 			return TRUE
 		var/mob/living/carbon/human/H = target
@@ -309,9 +347,9 @@
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
 		attached_action.build_all_button_icons()
-		user.ranged_ability.remove_ranged_ability(user, SPAN_CULT("<b>[H] has been cursed with living nightmares!</b>"))
+		to_chat(user, SPAN_CULT("<b>[H] has been cursed with living nightmares!</b>"))
 		if(attached_action.charges <= 0)
-			to_chat(ranged_ability_user, SPAN_CULT("You have exhausted the spell's power!"))
+			to_chat(user, SPAN_CULT("You have exhausted the spell's power!"))
 			qdel(src)
 		return TRUE
 
@@ -330,7 +368,7 @@
 		owner.visible_message(SPAN_WARNING("Thin grey dust falls from [owner]'s hand!"), \
 		SPAN_CULTITALIC("You invoke the veiling spell, hiding nearby runes and cult structures."))
 		charges--
-		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
+		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team?.cult_risen || !SSticker.mode.cult_team?.cult_ascendant)
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -346,7 +384,7 @@
 		SPAN_CULTITALIC("You invoke the counterspell, revealing nearby runes and cult structures."))
 		charges--
 		owner.whisper(invocation)
-		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
+		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team?.cult_risen || !SSticker.mode.cult_team?.cult_ascendant)
 			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -532,6 +570,8 @@
 
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
+		if(IS_ACOLYTE(user) && T.z != teleportee.z)
+			continue
 		var/resultkey = T.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++

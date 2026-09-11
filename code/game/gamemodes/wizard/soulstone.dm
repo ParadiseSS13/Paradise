@@ -117,6 +117,10 @@
 		to_chat(user, SPAN_CULTLARGE("\"Come now, do not capture your fellow's soul.\""))
 		return ..()
 
+	if(IS_ACOLYTE(user))
+		to_chat(user, SPAN_CULTLARGE("\"You feel the power of the soul stone is just out of your reach.\""))
+		return ..()
+
 	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, SPAN_WARNING("This being's soul seems worthless. Not even the stone will absorb it."))
 		return ..()
@@ -359,13 +363,22 @@
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target
 			var/mob/living/simple_animal/shade/shade = locate() in src
-			var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
-											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
-											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
-			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
-											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
-											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
+			var/list/construct_types
+			var/list/construct_icons
+			if(IS_ACOLYTE(user))
+				construct_types = list("Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+										"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+				/// Custom construct icons for different cults
+				construct_icons = list("Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+										"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
+			else
+				construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
+										"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+										"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+				/// Custom construct icons for different cults
+				construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("juggernaut"), "behemoth")),
+										"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("wraith"), "floating")),
+										"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = GET_CULT_DATA(get_icon("builder"), "artificer")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
@@ -446,13 +459,15 @@
 
 	if(user)
 		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation
-		if(iswizard(user))
+		if(iswizard(user) || IS_ACOLYTE(user))
 			var/datum/antagonist/wizard/construct/construct = new /datum/antagonist/wizard/construct()
 			construct.my_creator = user
 			S.mind.add_antag_datum(construct)
-		if(IS_CULTIST(user))
+		if(IS_CULTIST(user) && !IS_ACOLYTE(user))
 			S.mind.add_antag_datum(/datum/antagonist/cultist)
 			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
+		else if(IS_ACOLYTE(user))
+			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
 		else
 			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
 			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))

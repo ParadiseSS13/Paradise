@@ -5,6 +5,7 @@
 		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
 		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
 		<a href='byond://?src=[UID()];makeAntag=4'>Make Cult</a><br>
+		<a href='byond://?src=[UID()];makeAntag=11'>Make Acolytes</a><br>
 		<a href='byond://?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
@@ -91,6 +92,36 @@
 			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
 			message_admins("[key_name(owner)] made [key_name_admin(H)] a Changeling with One-Click-Antag")
+
+		return TRUE
+	return FALSE
+
+/datum/admins/proc/makeAcolytes()
+	var/datum/game_mode/traitor/temp = new
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many acolytes do you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	log_admin("[key_name(owner)] tried making [antnum] acolytes with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] acolytes with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_ACOLYTE, applicant, temp))
+			candidates += applicant
+
+	if(length(candidates))
+		var/numAcolytes = min(length(candidates), antnum)
+
+		for(var/i = 0, i<numAcolytes, i++)
+			H = pick(candidates)
+			H.mind.add_antag_datum(/datum/antagonist/acolyte)
+			candidates.Remove(H)
+			message_admins("[key_name(owner)] made [key_name_admin(H)] an Acolyte with One-Click-Antag")
 
 		return TRUE
 	return FALSE
