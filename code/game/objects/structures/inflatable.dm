@@ -243,7 +243,7 @@
 	return ..()
 
 /obj/item/inflatable/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!do_after(user, delay, FALSE, user))
+	if(!do_after(user, delay, FALSE, target))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!useResource(user))
