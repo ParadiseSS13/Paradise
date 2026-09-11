@@ -62,3 +62,30 @@
 	autohiss_exempt = list("Chittin")
 
 	plushie_type = /obj/item/toy/plushie/kidanplushie
+
+/datum/species/kidan/randomize_eye_color()
+	return rand_hex_color()
+
+/datum/species/kidan/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 40)
+	return ..()
+
+/datum/species/kidan/randomize_head_accessory(prob_to_apply = 60)
+	return ..()
+
+/datum/species/kidan/randomize_head_accessory_color(head_accessory, body_color = null, hair_color = null)
+	if(prob(80))
+		return COLOR_BLACK
+	// color only slightly and rarely
+	return rgb(rand(0, 360), rand(0, 100), rand(5, 20), space = COLORSPACE_HSL)
+
+/datum/species/kidan/randomize_body_markings_color(body_markings, body_color = null, skin_tone = null)
+	if(prob(80))
+		return COLOR_BLACK
+	// color only slightly and rarely
+	return rgb(rand(0, 360), rand(0, 100), rand(5, 20), space = COLORSPACE_HSL)
+
+/datum/species/kidan/randomize_head_markings_color(head_markings, body_color = null)
+	if(prob(80))
+		return COLOR_BLACK
+	// color only slightly and rarely
+	return rgb(rand(0, 360), rand(0, 100), rand(5, 20), space = COLORSPACE_HSL)

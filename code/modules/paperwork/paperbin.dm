@@ -59,7 +59,7 @@
 		if(H.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
+			to_chat(H, SPAN_DANGER("You try to move your [temp.name], but cannot!"))
 			return
 	if(amount >= 1)
 		amount--

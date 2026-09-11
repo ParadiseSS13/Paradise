@@ -94,15 +94,15 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process."),
 			SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade."),
 			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	else
 		user.visible_message(
-			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
+			SPAN_DANGER("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process."),
 			SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade."),
 			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
@@ -480,9 +480,9 @@
 
 /obj/item/melee/energy/cleaving_saw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
+	. += SPAN_NOTICE("It is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
 	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.<br>\
-	Transforming it immediately after an attack causes the next attack to come out faster.</span>"
+	Transforming it immediately after an attack causes the next attack to come out faster.")
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))

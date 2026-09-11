@@ -41,6 +41,7 @@
 	fluff_name = "NSS Legaria"
 	technical_name = "OmegaStation"
 	map_path = "_maps/map_files/stations/omegastation.dmm"
+	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/omegastation/"
 	max_players_random = 25
 
 /datum/map/test_tiny

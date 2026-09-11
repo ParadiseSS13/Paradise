@@ -376,3 +376,83 @@
 		/obj/item/soap/deluxe,
 		/obj/item/soap/nanotrasen
 	)
+
+/obj/effect/spawner/random/large_tank
+	name = "random large tank"
+	icon_state = "tank"
+	loot = list(
+		/obj/structure/reagent_dispensers/watertank,
+		/obj/structure/reagent_dispensers/watertank/high,
+		/obj/structure/reagent_dispensers/watertank/firetank,
+		/obj/structure/reagent_dispensers/oil,
+		/obj/structure/reagent_dispensers/fueltank,
+	)
+
+/obj/effect/spawner/random/locker
+	name = "random locker"
+	icon_state = "locker_closed"
+	loot = list(
+		/obj/structure/closet/emcloset = 8,
+		list(
+			/obj/structure/closet/firecloset = 5,
+			// just includes an extra flashlight
+			/obj/structure/closet/firecloset/full = 1,
+		) = 8,
+
+		/obj/structure/closet/toolcloset = 2,
+		/obj/structure/closet/radiation = 1,
+
+		list(
+			/obj/structure/closet/l3closet,
+			/obj/structure/closet/l3closet/virology,
+			/obj/structure/closet/l3closet/janitor,
+			/obj/structure/closet/l3closet/scientist,
+		) = 1,
+
+		list(
+			/obj/structure/closet/wardrobe/generic,
+			/obj/structure/closet/wardrobe/pink,
+			/obj/structure/closet/wardrobe/black,
+			/obj/structure/closet/wardrobe/green,
+			/obj/structure/closet/wardrobe/xenos,
+			/obj/structure/closet/wardrobe/yellow,
+			/obj/structure/closet/wardrobe/white,
+			/obj/structure/closet/wardrobe/pjs,
+			/obj/structure/closet/wardrobe/grey,
+			/obj/structure/closet/wardrobe/mixed,
+		) = 1,
+	)
+
+/obj/effect/spawner/random/locker/empty
+	name = "random empty locker"
+	icon_state = "locker_open"
+	loot = list(
+		/obj/structure/closet = 3,
+		/obj/structure/closet/emcloset/empty = 1,
+		/obj/structure/closet/firecloset/empty = 1,
+		/obj/structure/closet/toolcloset/empty = 1,
+		/obj/structure/closet/radiation/empty = 1,
+		/obj/structure/closet/l3closet/empty = 1,
+		/obj/structure/closet/jcloset/empty = 1,
+	)
+
+// why empty_crate vs locker/empty? because most crates are empty by default and
+// most lockers aren't
+/obj/effect/spawner/random/empty_crate
+	name = "random empty"
+	icon_state = "crate_open"
+	spawn_loot_chance = 50
+	loot = list(
+		/obj/structure/closet/crate = 5,
+		/obj/structure/closet/crate/plastic,
+		/obj/structure/closet/crate/internals,
+		/obj/structure/closet/crate/internals/nitrogen,
+		/obj/structure/closet/crate/medical,
+		/obj/structure/closet/crate/radiation,
+		/obj/structure/closet/crate/hydroponics,
+		/obj/structure/closet/crate/sci,
+		/obj/structure/closet/crate/sci/robo,
+		/obj/structure/closet/crate/engineering,
+		/obj/structure/closet/crate/engineering/electrical,
+		/obj/structure/closet/crate/nanotrasen,
+	)

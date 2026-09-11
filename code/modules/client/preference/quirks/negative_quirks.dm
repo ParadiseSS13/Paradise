@@ -152,6 +152,13 @@
 	trait_to_apply = TRAIT_NEARSIGHT
 	species_flags = QUIRK_SLIME_INCOMPATIBLE
 
+/datum/quirk/unclonable
+	name = "Unclonable"
+	desc = "You have a genetic condition that prevents you from being cloned. This does not prevent revival by other methods."
+	cost = -2
+	trait_to_apply = TRAIT_UNCLONABLE
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE | QUIRK_SLIME_INCOMPATIBLE | QUIRK_VOX_INCOMPATIBLE
+
 /datum/quirk/work_hard_party_harder
 	name = "Work Hard, Party Harder"
 	desc = "You party like there's no tomorrow every day, the consequences are a problem for future you! When the shift starts, you will always wake up in a random part of the station, drunk."

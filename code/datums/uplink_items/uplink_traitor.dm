@@ -468,6 +468,16 @@
 
 	new /obj/item/diona_growth_serum(loc, cost)
 
+// Tajaran
+/datum/uplink_item/species_restricted/blizzard
+	name = "CFL-3 \"Blizzard\""
+	desc = "A small pistol that fires a spread of cryogenic flechettes, which can cool their target to dangerously low temperatures. \
+	It can only fire one burst at a time before needing to regenerate new flechettes, which it will do over the following fifteen seconds."
+	reference = "CLF3"
+	item = /obj/item/gun/energy/kinetic_accelerator/blizzard
+	cost = 45 // High utility, meh damage. It can be cheaper
+	species = list("Tajaran")
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
