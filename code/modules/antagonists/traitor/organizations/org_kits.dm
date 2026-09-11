@@ -21,7 +21,7 @@
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/cybersun_implant_kit/populate_contents()
-	var/obj/item/I = pick(/obj/item/organ/internal/cyberimp/chest/nutriment/sus, /obj/item/organ/internal/cyberimp/arm/gun/laser/sus,
+	var/obj/item/I = pick(/obj/item/organ/internal/cyberimp/chest/nutriment/suspicious, /obj/item/organ/internal/cyberimp/arm/gun/laser/suspicious,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/death_alarm)
 	new I(src)
 	new /obj/item/paper/guides/antag/implant_experimenting(src)

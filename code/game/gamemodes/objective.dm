@@ -1750,7 +1750,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Test an object on the crew."
 	delayed_objective_text = "Your objective is unknown. You will recieve further information in a few minutes."
 	needs_target = FALSE
-	var/list/bad_items = list(/obj/item/organ/internal/cyberimp/chest/nutriment/sus, /obj/item/organ/internal/cyberimp/arm/gun/laser/sus,
+	var/list/bad_items = list(/obj/item/organ/internal/cyberimp/chest/nutriment/suspicious, /obj/item/organ/internal/cyberimp/arm/gun/laser/suspicious,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/death_alarm, /obj/item/reagent_containers/glass/bottle/experiment)
 
 /datum/objective/unique_objective/experiment/check_completion()

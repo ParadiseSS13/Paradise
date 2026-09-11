@@ -1,10 +1,10 @@
-/obj/item/organ/internal/cyberimp/chest/nutriment/sus //Nutriment pump that gives the hunger hallucination
+/obj/item/organ/internal/cyberimp/chest/nutriment/suspicious //Nutriment pump that gives the hunger hallucination
 	name = "suspicious implant"
 	desc = "This implant looks highly experimental. It probably has some nasty side effects."
 	implant_overlay = null
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/sus/on_life()
+/obj/item/organ/internal/cyberimp/chest/nutriment/suspicious/on_life()
 	if(!owner)
 		return
 	if(synthesizing)
@@ -22,16 +22,16 @@
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
-/obj/item/organ/internal/cyberimp/arm/gun/laser/sus // Arm laser that doesn't self-charge
+/obj/item/organ/internal/cyberimp/arm/gun/laser/suspicious // Arm laser that doesn't self-charge
 	name = "suspicious implant"
 	desc = "This implant looks highly experimental. It probably has some nasty side effects."
 	icon_state = "sus_laser"
-	contents = newlist(/obj/item/gun/energy/laser/mounted/sus)
+	contents = newlist(/obj/item/gun/energy/laser/mounted/suspicious)
 
-/obj/item/organ/internal/cyberimp/arm/gun/laser/sus/l
+/obj/item/organ/internal/cyberimp/arm/gun/laser/suspicious/l
 	parent_organ = "l_arm"
 
-/obj/item/gun/energy/laser/mounted/sus
+/obj/item/gun/energy/laser/mounted/suspicious
 	name = "suspicious mounted laser"
 	selfcharge = FALSE
 
