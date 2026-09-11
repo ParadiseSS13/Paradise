@@ -1493,6 +1493,8 @@
 						E.status |= ORGAN_INT_BLEEDING
 					E.hidden = part[5]
 					for(var/obj/item/I in part[6])
+						if(I != part[5] && mind.has_antag_datum(/datum/antagonist/changeling))
+							continue
 						I.forceMove(E)
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
 					qdel(part)
