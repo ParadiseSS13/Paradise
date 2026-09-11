@@ -61,7 +61,7 @@ fn milla_create_environment(
         conversion::byond_to_option_f32(agent_b)?,
         conversion::byond_to_option_f32(hydrogen)?,
         conversion::byond_to_option_f32(water_vapor)?,
-        conversion::byond_to_option_f32(temperature)?,
+        conversion::bounded_byond_to_option_f32(temperature, 0.0, 1e10)?,
     ) as f32))
 }
 
@@ -214,12 +214,12 @@ fn milla_set_tile(
         conversion::bounded_byond_to_option_f32(agent_b, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(hydrogen, 0.0, f32::INFINITY)?,
         conversion::bounded_byond_to_option_f32(water_vapor, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(temperature, 0.0, 1e10)?,
         None,
         // Temporarily disabled to better match the existing system.
         //bounded_byond_to_option_f32(innate_heat_capacity, 0.0, f32::INFINITY)?,
         Some(0.0),
-        conversion::bounded_byond_to_option_f32(hotspot_temperature, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(hotspot_temperature, 0.0, 1e10)?,
         conversion::bounded_byond_to_option_f32(hotspot_volume, 0.0, 1.0)?,
     )?;
     Ok(ByondValue::null())
@@ -565,7 +565,7 @@ fn milla_create_hotspot(
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
     let rust_temperature =
-        conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?
+        conversion::bounded_byond_to_option_f32(temperature, 0.0, 1e10)?
             .ok_or(eyre!("Hotspot temperature is required.."))?;
     let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?
         .ok_or(eyre!("Hotspot volume is required.."))?;

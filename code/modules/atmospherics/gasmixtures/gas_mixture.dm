@@ -230,7 +230,7 @@ What are the archived variables for?
 		var/giver_heat_capacity = giver.heat_capacity()
 		var/combined_heat_capacity = giver_heat_capacity + self_heat_capacity
 		if(combined_heat_capacity != 0)
-			private_temperature = (giver.private_temperature * giver_heat_capacity + private_temperature * self_heat_capacity) / combined_heat_capacity
+			set_temperature((giver.private_temperature * giver_heat_capacity + private_temperature * self_heat_capacity) / combined_heat_capacity)
 
 	private_oxygen += giver.private_oxygen
 	private_carbon_dioxide += giver.private_carbon_dioxide
@@ -467,10 +467,10 @@ What are the archived variables for?
 		var/new_sharer_heat_capacity = old_sharer_heat_capacity + heat_capacity_self_to_sharer - heat_capacity_sharer_to_self
 
 		if(new_self_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			private_temperature = (old_self_heat_capacity * private_temperature - heat_capacity_self_to_sharer * private_temperature_archived + heat_capacity_sharer_to_self * sharer.private_temperature_archived) / new_self_heat_capacity
+			set_temperature((old_self_heat_capacity * private_temperature - heat_capacity_self_to_sharer * private_temperature_archived + heat_capacity_sharer_to_self * sharer.private_temperature_archived) / new_self_heat_capacity)
 
 		if(new_sharer_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			sharer.private_temperature = (old_sharer_heat_capacity * sharer.private_temperature - heat_capacity_sharer_to_self * sharer.private_temperature_archived + heat_capacity_self_to_sharer * private_temperature_archived) / new_sharer_heat_capacity
+			sharer.set_temperature((old_sharer_heat_capacity * sharer.private_temperature - heat_capacity_sharer_to_self * sharer.private_temperature_archived + heat_capacity_self_to_sharer * private_temperature_archived) / new_sharer_heat_capacity)
 
 			if(abs(old_sharer_heat_capacity) > MINIMUM_HEAT_CAPACITY)
 				if(abs(new_sharer_heat_capacity / old_sharer_heat_capacity - 1) < 0.10) // <10% change in sharer heat capacity
@@ -553,7 +553,7 @@ What are the archived variables for?
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/new_self_heat_capacity = old_self_heat_capacity - heat_capacity_transferred
 		if(new_self_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			private_temperature = (old_self_heat_capacity * private_temperature - heat_capacity_transferred * private_temperature_archived) / new_self_heat_capacity
+			set_temperature((old_self_heat_capacity * private_temperature - heat_capacity_transferred * private_temperature_archived) / new_self_heat_capacity)
 
 		temperature_mimic(model, model.thermal_conductivity)
 
@@ -601,7 +601,7 @@ What are the archived variables for?
 			var/heat = conduction_coefficient * delta_temperature * \
 				(self_heat_capacity * model.heat_capacity / (self_heat_capacity + model.heat_capacity))
 
-			private_temperature -= heat / self_heat_capacity
+			set_temperature(private_temperature - (heat / self_heat_capacity))
 
 	///Performs temperature sharing calculations (via conduction) between two gas_mixtures assuming only 1 boundary length
 	///Returns: new temperature of the sharer
@@ -617,8 +617,8 @@ What are the archived variables for?
 			var/heat = conduction_coefficient*delta_temperature * \
 				(self_heat_capacity * sharer_heat_capacity / (self_heat_capacity + sharer_heat_capacity))
 
-			private_temperature -= heat / self_heat_capacity
-			sharer.private_temperature += heat / sharer_heat_capacity
+			set_temperature(private_temperature - (heat / self_heat_capacity))
+			sharer.set_temperature(sharer.private_temperature + (heat / sharer_heat_capacity))
 
 /datum/gas_mixture/proc/temperature_turf_share(turf/simulated/sharer, conduction_coefficient) //I want this proc to die a painful death
 	var/delta_temperature = (private_temperature_archived - sharer.temperature)
@@ -630,7 +630,7 @@ What are the archived variables for?
 			var/heat = conduction_coefficient * delta_temperature * \
 				(self_heat_capacity * sharer.heat_capacity / (self_heat_capacity + sharer.heat_capacity))
 
-			private_temperature -= heat / self_heat_capacity
+			set_temperature(private_temperature - (heat / self_heat_capacity))
 			sharer.temperature += heat / sharer.heat_capacity
 
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
@@ -710,7 +710,7 @@ What are the archived variables for?
 
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+				set_temperature((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 
 			reacting = TRUE
 
@@ -729,7 +729,7 @@ What are the archived variables for?
 
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+				set_temperature((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 			reacting = TRUE
 
 	fuel_burnt = 0
@@ -765,7 +765,7 @@ What are the archived variables for?
 		if(energy_released > 0)
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+				set_temperature((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 
 		if(fuel_burnt)
 			reacting = TRUE
@@ -793,7 +793,7 @@ What are the archived variables for?
 		var/new_heat_capacity = heat_capacity()
 		// Calculate new temperature
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+			set_temperature((private_temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 
 		if(fuel_burnt)
 			reacting = TRUE
