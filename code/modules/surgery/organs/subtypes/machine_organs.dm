@@ -162,6 +162,3 @@
 	if(!special)
 		to_chat(owner, SPAN_USERDANGER("BZZZZZZZZZZZZZZT! Microphone error!"))
 	. = ..()
-
-
-

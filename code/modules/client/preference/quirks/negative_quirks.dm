@@ -166,8 +166,6 @@
 	trait_to_apply = TRAIT_WORK_HARD_PARTY_HARDER
 	conflicting_quirks = list(/datum/quirk/temperate_partier)
 
-
-
 /datum/quirk/traditional_thinker
 	name = "Traditional Thinker"
 	desc = "You are closer to your creators, in that your brain is located in your head."
