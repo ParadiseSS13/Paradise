@@ -300,22 +300,25 @@
 	desc = "Dusty cube with humanoid imprint on it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "prison_cube"
+	new_attack_chain = TRUE
 
-/obj/item/prisoncube/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!proximity_flag || !isliving(target))
-		return
-	var/mob/living/victim = target
-	var/mob/living/carbon/carbon_victim = victim
+/obj/item/prisoncube/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isliving(target))
+		return NONE
+
+	var/mob/living/carbon/carbon_victim = target
 	//Handcuffed or unconcious
-	if(istype(carbon_victim) && carbon_victim.handcuffed || victim.stat != CONSCIOUS)
-		if(!puzzle_imprison(target))
-			to_chat(user,SPAN_WARNING("[src] does nothing."))
-			return
-		to_chat(user,SPAN_WARNING("You trap [victim] in the prison cube!"))
-		qdel(src)
-	else
+	if(!(istype(carbon_victim) && carbon_victim.handcuffed || carbon_victim.stat != CONSCIOUS))
 		to_chat(user,SPAN_NOTICE("[src] only accepts restrained or unconscious prisoners."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!puzzle_imprison(target))
+		to_chat(user,SPAN_WARNING("[src] does nothing."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user,SPAN_WARNING("You trap [target] in [src]!"))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /proc/puzzle_imprison(mob/living/prisoner)
 	var/turf/T = get_turf(prisoner)
