@@ -866,7 +866,7 @@
 		to_chat(user, SPAN_NOTICE("Vending object due to admin interaction."))
 		paid = TRUE
 	else
-		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
+		to_chat(user, SPAN_WARNING("Payment failure: you have no ID or other method of payment."))
 		flick(icon_deny, src)
 		. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 		return
@@ -875,7 +875,7 @@
 		vend(currently_vending, user)
 		. = TRUE
 	else
-		to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
+		to_chat(user, SPAN_WARNING("Payment failure: unable to process payment."))
 
 /obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user, has_delay = TRUE)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH

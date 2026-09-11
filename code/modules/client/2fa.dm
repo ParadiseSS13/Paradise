@@ -48,7 +48,7 @@
 		prefs.ShowChoices(usr)
 		if(holder && holder.restricted_by_2fa)
 			reload_one_admin(ckey, silent = TRUE)
-			to_chat(usr, "<span class='notice'>2fa configured, admin verbs enabled.")
+			to_chat(usr, SPAN_NOTICE("2fa configured, admin verbs enabled."))
 		alert(usr, "Congratulations. 2FA is now setup properly for your account. In preferences, you can change whether you want it to ask for a code on every connection or only when your IP changes")
 		return
 

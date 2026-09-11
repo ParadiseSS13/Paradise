@@ -336,6 +336,8 @@
 			feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_UNCLONEABLE_SPECIES)
 			feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad", "scan_succeeded" = FALSE)
+		if(SCANNER_UNCLONABLE_TRAIT)
+			feedback = list("text" = "The patient cannot be scanned due to a genetic anomaly.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_HUSKED)
 			feedback = list("text" = "The patient is husked.", "color" = "bad", "scan_succeeded" = FALSE)
 		if(SCANNER_ABSORBED)

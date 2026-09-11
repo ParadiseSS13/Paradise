@@ -516,8 +516,7 @@
 	tolerance += 1
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 	if(freezing)
-		to_chat(owner, "<span class='warning'>Our healing's effectiveness is reduced \
-			by our cold body!</span>")
+		to_chat(owner, SPAN_WARNING("Our healing's effectiveness is reduced by our cold body!"))
 	active_instances += instance_duration
 
 /datum/status_effect/fleshmend/tick()
