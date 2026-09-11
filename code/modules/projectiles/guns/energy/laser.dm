@@ -444,3 +444,69 @@
 	icon_state = "redtag"
 	inhand_icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
+
+//////////////////////////////
+// MARK: DREKSEH MARKSMAN RIFLE
+//////////////////////////////
+/obj/item/gun/energy/drekseh
+	name = "\improper drekseh marksman rifle"
+	desc = "A highly advanced vulpkanin-made beam rifle that fires high velocity energy payloads. These payloads are known to be particularly stable, and benefit from disruptions gained from ricochettes."
+	icon_state = "drekseh"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = null
+	inhand_icon_state = null
+	w_class = WEIGHT_CLASS_BULKY
+	force = 12
+	slot_flags = ITEM_SLOT_BACK
+	weapon_weight = WEAPON_HEAVY
+	origin_tech = "combat=6;magnets=6;powerstorage=4;syndicate=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/drekseh)
+	execution_speed = 8 SECONDS
+	inhand_charge_sections = 1
+	/// Tracks the number displayed when scoping
+	var/scope_ver
+
+/obj/item/gun/energy/drekseh/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 2 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
+	scope_ver = rand(1, 9999)
+
+/obj/item/gun/energy/drekseh/on_scope_success(mob/living/user)
+	to_chat(user, "<b>[SPAN_ROBOT("SCOPE_CREEPER_[scope_ver] Online.")]</b>")
+	select_fire(user)
+	user.apply_status_effect(STATUS_EFFECT_LWAPSCOPE)
+
+/obj/item/gun/energy/drekseh/on_scope_end(mob/living/user)
+	select_fire(user)
+	user.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
+
+/obj/item/gun/energy/drekseh/update_overlays()
+	. = list()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(cell.charge > shot.e_cost || chambered)
+		. += "drekseh_charge"
+	else
+		. += "drekseh_empty"
+
+/obj/item/ammo_casing/energy/laser/drekseh
+	projectile_type = /obj/projectile/beam/laser/drekseh
+	muzzle_flash_color = LIGHT_COLOR_DARKGREEN
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	select_name = null
+	fire_sound = 'sound/weapons/marauder.ogg'
+	delay = 1 SECONDS
+
+/obj/projectile/beam/laser/drekseh
+	name = "drekseh laser"
+	icon_state = "xray"
+	range = 255
+	speed = 0.5
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	forced_accuracy = TRUE
+	ricochet_chance = 100
+	ricochets_max = 8
+	ricochet_decay_damage = 1.2
+	ricochet_decay_chance = 1
+	ricochet_incidence_leeway = 0
+	always_nonmob_ricochet = TRUE
