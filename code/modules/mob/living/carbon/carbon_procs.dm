@@ -1301,12 +1301,12 @@ so that different stomachs can handle things in different ways VB*/
 			to_chat(src, SPAN_BLOB("Finally, some good fucking food."))
 			adjustFireLoss(-2)
 			adjustBruteLoss(-2)
-		else if(to_eat.slice_path) // Stuff your face with a whole pizza/cake
+		else if(to_eat.slice_path) // Stuff your face with a whole pizza/cake.
 			to_chat(src, SPAN_BLOB("Sharing is for chumps. All for me!"))
 			adjustFireLoss(-1)
 			adjustBruteLoss(-1)
 
-		// Dont let them eat enough to OD themself.
+		// Don't let them eat enough to OD themselves.
 		reagents.check_and_add("kelotane", 20, 1)
 		reagents.check_and_add("bicaridine", 20, 1)
 

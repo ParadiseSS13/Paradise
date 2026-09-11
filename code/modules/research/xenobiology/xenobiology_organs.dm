@@ -286,7 +286,7 @@
 	var/turfs = line_target(0, line_range, target, user)
 	dragon_fire_line(user, turfs)
 
-	if(quality == 1) // Damaged will burn the user
+	if(quality == 1) // Damaged will burn the user.
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.adjustFireLossByPart(10, BODY_ZONE_HEAD)
@@ -373,7 +373,7 @@
 				owner.setStaminaLoss(15)
 				COOLDOWN_START(src, drain_interval, drain_delay)
 		if(ORGAN_NORMAL)
-			if((owner.getStaminaLoss() < 85 || owner.getBruteLoss() > 10 || owner.getFireLoss() > 10) && !COOLDOWN_FINISHED(src, drain_delay)) // this shits exhausting! But wont knock you over
+			if((owner.getStaminaLoss() < 85 || owner.getBruteLoss() > 10 || owner.getFireLoss() > 10) && !COOLDOWN_FINISHED(src, drain_delay)) // This shit's exhausting! But won't knock you over.
 				owner.setStaminaLoss(15)
 				COOLDOWN_START(src, drain_interval, drain_delay)
 			owner.adjustBruteLoss(-2)
@@ -748,7 +748,7 @@
 
 	for(var/obj/effect/decal/cleanable/trail_holder/TH in range(T, 2))
 		new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(TH))
-		temp += 1 // worth much less
+		temp += 1 // Worth much less.
 		qdel(TH)
 	if(temp)
 		user.Beam(T, icon_state = "drainbeam", time = 15)
@@ -1093,7 +1093,7 @@
 				owner.adjustStaminaLoss(-5)
 			if(ORGAN_NORMAL)
 				owner.adjustStaminaLoss(-15)
-			if(ORGAN_PRISTINE) // better than emagged cybernetic
+			if(ORGAN_PRISTINE) // Better than emagged cybernetic heart.
 				owner.adjustStaminaLoss(-30)
 				if(prob(20))
 					owner.AdjustStunned(-3 SECONDS)
@@ -1222,15 +1222,15 @@
 
 /obj/item/organ/internal/eyes/xenobiology/receptors/insert(mob/living/carbon/M, special, dont_remove_slot)
 	switch(organ_quality)
-		if(ORGAN_BROKEN) // some NV but flash sensitive
+		if(ORGAN_BROKEN) // Some night vision, but flash sensitive.
 			flash_protect = FLASH_PROTECTION_SENSITIVE
 			see_in_dark = 4
-		if(ORGAN_NORMAL) // slightly better mesons
+		if(ORGAN_NORMAL) // Slightly better mesons.
 			see_in_dark = 4
 			flash_protect = FLASH_PROTECTION_FLASH
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 			vision_flags = SEE_OBJS | SEE_TURFS
-		if(ORGAN_PRISTINE) // xrays
+		if(ORGAN_PRISTINE) // X-ray vision.
 			see_in_dark = 8
 			flash_protect = FLASH_PROTECTION_FLASH
 			vision_flags = SEE_OBJS | SEE_TURFS | SEE_MOBS
@@ -1478,7 +1478,7 @@
 
 	ADD_TRAIT(user, TRAIT_EXPLOSION_PROOF, ORGAN_TRAIT)
 	ADD_TRAIT(user, TRAIT_EMP_RESIST, ORGAN_TRAIT)
-	addtimer(CALLBACK(src, PROC_REF(cleanup), user), 0.3 SECONDS) // juuust long enough to survive the blast itself.
+	addtimer(CALLBACK(src, PROC_REF(cleanup), user), 0.3 SECONDS) // Juuust long enough to survive the blast itself.
 
 	explosion(user.loc, 0, 3, 4, 4, cause = user)
 	if(quality == ORGAN_PRISTINE)
@@ -1494,7 +1494,7 @@
 	for(var/obj/item/organ/internal/cell/C in user.internal_organs)
 		switch(C.organ_quality)
 			if(ORGAN_BROKEN)
-				C.damage += 20 // ouch. Maybe dont blow up
+				C.damage += 20 // Ouch! Maybe don't blow up.
 			if(ORGAN_NORMAL)
 				C.damage += 15
 			if(ORGAN_PRISTINE)
@@ -1803,7 +1803,7 @@
 	return ..()
 
 // MARK: Finned
-// currently does nothign until TRAIT_SPACEWALK is merged
+// Currently does nothing until TRAIT_SPACEWALK is merged.
 /obj/item/organ/internal/kidneys/xenobiology/finned
 	name = "finned organ"
 	desc = "This organ has large fins that protrude through the skin. Special molecular fibers help to catch ionic compouds to propel through space."
