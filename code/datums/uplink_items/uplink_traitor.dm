@@ -440,6 +440,16 @@
 	species = list("Drask")
 	surplus = 0
 
+// Nian
+/datum/uplink_item/species_restricted/crab17
+	name = "CRAB-17 Phone"
+	desc = "This suspicious communication device is connected to a bureau of merchants on the interstellar stock market. With but a single sentence, you can start a chain reaction to crash the market - dump it. \
+			You can swipe IDs on the device to make them immune to the crash. You will receive a box where your well-placed investments will pay out - at the crew's expense."
+	reference = "CRAB17"
+	item = /obj/item/suspiciousphone
+	cost = 35
+	species = list("Nian")
+
 // Unathi
 /datum/uplink_item/species_restricted/breach_cleaver
 	name = "Breach Cleaver"
