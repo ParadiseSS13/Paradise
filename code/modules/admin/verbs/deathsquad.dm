@@ -192,7 +192,6 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.deathsquad_names)
-	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head") // This appearance code is brought to you by ert.dm, basically the same code. If you change something here change somethere there too.
 
 	if(is_leader)
 		new_commando.age = rand(35, 45)
@@ -200,33 +199,13 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	else
 		new_commando.real_name = "[commando_name]"
 
-	if(prob(50))
-		new_commando.change_gender(MALE)
-	else
-		new_commando.change_gender(FEMALE)
-
 	// All of this code down here too is also from ert.dm, I'm lazy don't blame me
 	new_commando.set_species(/datum/species/human, TRUE)
 	new_commando.dna.ready_dna(new_commando)
 	new_commando.cleanSE() //No fat/blind/colourblind/epileptic/whatever Deathsquad.
 	new_commando.overeatduration = 0
 
-	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = rand(-120, 20) // A range of skin colors (This doesn't work, result is always pale white)
-
-	head_organ.facial_colour = hair_c
-	head_organ.sec_facial_colour = hair_c
-	head_organ.hair_colour = hair_c
-	head_organ.sec_hair_colour = hair_c
-	new_commando.change_eye_color(eye_c)
-	new_commando.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
-
-	new_commando.regenerate_icons()
-	new_commando.update_body()
-	new_commando.update_dna()
+	new_commando.generate_random_appearance(prosthesis_prob = 0)
 
 	//Creates mind stuff.
 	new_commando.mind_initialize()

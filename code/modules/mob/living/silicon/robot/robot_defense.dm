@@ -34,9 +34,15 @@
 	return
 
 /mob/living/silicon/robot/attack_ai(mob/user)
-	if(user.a_intent == INTENT_HELP && is_ai(user))
+	if(user.a_intent == INTENT_HELP && is_ai(user) && !shell) // We check if is not a shell so we don't pet and deploy at the same time.
 		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
 		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
+	else if(user.a_intent == INTENT_HELP && is_ai(user) && shell)
+		var/mob/living/silicon/ai/AI = user
+		if(AI.controlled_mech) // If the AI is in a mech it can’t control a shell.
+			to_chat(AI, SPAN_WARNING("Disconnect from your mech before piloting a shell."))
+			return
+		AI.deploy_to_shell(src)
 
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)

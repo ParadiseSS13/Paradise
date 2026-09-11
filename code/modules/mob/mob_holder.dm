@@ -85,7 +85,7 @@
 		H.desc = desc
 	H.attack_hand(grabber)
 
-	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
+	to_chat(grabber, SPAN_NOTICE("You scoop up \the [src]."))
 	to_chat(src, SPAN_NOTICE("\The [grabber] scoops you up."))
 	grabber.status_flags |= PASSEMOTES
 	return H
