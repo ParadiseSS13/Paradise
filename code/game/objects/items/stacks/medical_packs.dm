@@ -430,14 +430,16 @@
 		return FALSE
 	if(ismob(loc) && !inhand) // no merging with items that are on the mob
 		return FALSE
-	if(!istype(check, merge_type))
-		if(depleted_type && !istype(check, depleted_type))
+	if(check.type != merge_type && depleted_type)
+		if(!istype(check, depleted_type))
 			return FALSE
 		else
 			return amount > 0
 	// it must be a stack
 	var/obj/item/stack/check_stack = check
-	if(amount <= 0 || check_stack.amount <= 0 || check_stack.merge_type != merge_type) // no merging empty stacks that are in the process of being qdel'd
+	if(amount <= 0 || check_stack.amount <= 0) // no merging empty stacks that are in the process of being qdel'd
+		return FALSE
+	if(!istype(check_stack, merge_type) || check_stack.merge_type != merge_type)
 		return FALSE
 	return TRUE
 
@@ -467,10 +469,10 @@
 
 /obj/item/stack/medical/adv/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(isstorage(used))
-		return FALSE
+		return NONE
 
 	if(!can_merge(used, TRUE))
-		return ..()
+		return NONE
 
 	var/obj/item/stack/material = used
 	var/merge_amount = merge(material)
@@ -649,7 +651,7 @@
 			var/needle = new depleted_type(src.loc)
 			if(ishuman(src.loc))
 				var/mob/living/carbon/human/human_user = src.loc
-				human_user.put_in_active_hand(needle)
+				human_user.put_in_hands(needle)
 		qdel(src)
 
 /obj/item/stack/medical/adv/suture/AltClick(mob/living/user)
