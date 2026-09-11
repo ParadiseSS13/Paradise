@@ -22,6 +22,7 @@
 
 /// Called from external source
 /datum/worldgen_modifier/proc/generate()
+#warn TODO: make this actually check for the valid gen data flags
 	if(!isemptylist(generation_data_expected) && isnull(generation_data))
 		error("[name] found no generation data, expected [generation_data_expected]")
 		return
@@ -59,7 +60,7 @@
 	if(seed == -1)
 		seed = rand(1, 999999)
 	generate_noise()
-	. = result_map
+	. = list("map" = result_map)
 	apply()
 	return
 
@@ -112,11 +113,11 @@
 
 /datum/worldgen_modifier/noise/humidity/generate()
 	..()
-	. = list("humidity", result_map)
+	. = list("humidity" = result_map)
 
 /datum/worldgen_modifier/noise/humidity/apply_value(turf/T)
-	if(0 == 1) // various importanta checks go here
-		return
+	//if(0 == 1) // various importanta checks go here
+	//	return
 	T.ChangeTurf(generation_data["liquid_type"])
 	return
 
@@ -137,7 +138,7 @@
 
 /datum/worldgen_modifier/noise/biome/generate()
 	..()
-	. = list("biome", result_map)
+	. = list("biome" = result_map)
 
 /datum/worldgen_modifier/noise/biome/apply_value(turf/T)
 	if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))

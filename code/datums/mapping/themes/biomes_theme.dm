@@ -69,69 +69,93 @@ Biomes:
 /datum/biome_theme
 	var/name = "backrooms"
 	#warn TODO: AUTODOC!!!!!!!!
-	var/seed
-	var/size = 230
-	var/frequency = 0.02
-	var/divisor = 1
-	var/octaves = 3
-	var/mix = 0.25
+	var/list/generation_data = list(
+		"rock_type" = /turf/simulated/wall/indestructible/backrooms,
+		"floor_type" = /turf/simulated/floor/backrooms_carpet,
+		"liquid_type" = /turf/simulated/floor/lava/lava_land_surface/plasma,
+		"ambient_light" = COLOR_AMBER,
+		"ore_chance" = 10,
+		"ore_weights" = list(
+			/obj/item/stack/ore/bananium = 50,
+			/obj/item/stack/ore/iron = 20,
+			/obj/item/stack/ore/tranquillite = 30
+		),
+		"fauna_chance" = 1,
+		"fauna_weights" = list(
+			/mob/living/basic/clown = 50,
+			/mob/living/basic/clown/goblin = 50
+		),
+		"flora_chance" = 2,
+		"flora_weights" = list(
+			/obj/structure/flora/corn_stalk/alt_1 = 50,
+			/obj/structure/flora/corn_stalk/alt_2 = 50
+		),
+		"area_type" = null
+	) // add megafauna stuff here too
+	var/list/generation_steps = list(
+		/datum/worldgen_modifier/noise/biome,
+		/datum/worldgen_modifier/noise/ore,
+		/datum/worldgen_modifier/noise/humidity,
+		/datum/worldgen_modifier/flora,
+		/datum/worldgen_modifier/fauna
+	)
 
-	var/area_type = null
-	var/turf_type = /turf/simulated/floor/backrooms_carpet
-	var/rock_type_old = /turf/simulated/wall/indestructible/backrooms
-	var/fauna_weights = list()
-	var/megafauna_weights = list()
-	var/flora_weights = list()
-	var/liquid_type = null
 	#warn TODO: pull from global list instead
+	var/size = 96
 	var/temp_location_x = 10
 	var/temp_location_y = 10
 	var/temp_location_z = null
 
-/datum/biome_theme/New()
-	seed = rand(1, 999999)
 
-/datum/biome_theme/proc/setup()
+/// Create a new instance of a biome
+/datum/biome_theme/New()
+	#warn TODO: get location to place from calling proc on lavaland generation
 	var/valid_zs = levels_by_trait(ORE_LEVEL)
-	var/datum/biome_theme/chosen_biome = pick(subtypesof(/datum/biome_theme))
-	var/datum/biome_theme/our_biome = new chosen_biome
+	#warn TODO: have SSmapping choose the biome lmao
+	var/datum/biome_theme/chosen_biome = new /datum/biome_theme
 	#warn TODO: gotta change this later
-	our_biome.temp_location_z = pick(valid_zs)
-	our_biome.setup()
+	chosen_biome.temp_location_z = pick(valid_zs)
+
+/// Handles calling and coordinating the worldgen_modifiers to generate the biome
+/datum/biome_theme/proc/setup()
+	for(var/datum/worldgen_modifier/step in generation_steps)
+		var/datum/worldgen_modifier/my_worldgen = new step(generation_data) // Initialise and give it its data
+		my_worldgen.location_x = temp_location_x
+		my_worldgen.location_y = temp_location_y
+		my_worldgen.location_z = temp_location_z
+		my_worldgen.size = size
+		generation_data += my_worldgen.generate() // Run it and push the generated data to the list
+
 
 
 /datum/biome_theme/test_biome
 	name = "mmm test biome"
 
 /datum/biome_theme/test_biome/setup()
-	var/result = rustlibs_perlin_generate_advanced_dlerp("[seed]", "[size]", "[frequency]", "[divisor]", "[octaves]", "[mix]")
-	for(var/turf/simulated/mineral/T in block(temp_location_x, temp_location_y, temp_location_z, (size + temp_location_x) - 1, (size + temp_location_y) - 1, temp_location_z))
-		if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
-			continue
-		var/c = result[(size * ((T.y - temp_location_y)) + (T.x - temp_location_x + 1))]
+	var/turf/simulated/mineral/T
+	var/c = "1"
+	T.should_reset_color = FALSE
 
-		T.should_reset_color = FALSE
+	if(c == "0")
+		T.color = COLOR_RED
+	if(c == "1")
+		T.color = COLOR_DARK_ORANGE
+	if(c == "2")
+		T.color = COLOR_ORANGE
+	if(c == "3")
+		T.color = COLOR_YELLOW
+	if(c == "4")
+		T.color = COLOR_LIME
+	if(c == "5")
+		T.color = COLOR_GREEN
+	if(c == "6")
+		T.color = COLOR_BLUE_LIGHT
+	if(c == "7")
+		T.color = COLOR_BLUE
+	if(c == "8")
+		T.color = COLOR_DARK_BLUE_GRAY
+	if(c == "9")
+		T.color = COLOR_INDIGO
 
-		if(c == "0")
-			T.color = COLOR_RED
-		if(c == "1")
-			T.color = COLOR_DARK_ORANGE
-		if(c == "2")
-			T.color = COLOR_ORANGE
-		if(c == "3")
-			T.color = COLOR_YELLOW
-		if(c == "4")
-			T.color = COLOR_LIME
-		if(c == "5")
-			T.color = COLOR_GREEN
-		if(c == "6")
-			T.color = COLOR_BLUE_LIGHT
-		if(c == "7")
-			T.color = COLOR_BLUE
-		if(c == "8")
-			T.color = COLOR_DARK_BLUE_GRAY
-		if(c == "9")
-			T.color = COLOR_INDIGO
-
-		//T.ChangeTurf(rock_type)
+	//T.ChangeTurf(rock_type)
 	return

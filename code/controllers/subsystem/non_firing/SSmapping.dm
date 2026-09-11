@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/existing_station_areas_types
 	/// What lavaland biome are we generating
 	var/datum/biome_theme/biome_theme
-
+	#warn TODO: change the above
 	/// The type of the Lavaland theme for the next round, if selected.
 	var/next_lavaland_theme
 	/// The type of the current Lavaland theme.
@@ -117,7 +117,7 @@ SUBSYSTEM_DEF(mapping)
 	SSblackbox.record_feedback("text", "procgen_settings", 1, "[current_lavaland_theme]")
 
 	#warn TODO: add the biome selection here instead...
-	biome_theme = new /datum/biome_theme
+	//biome_theme = new /datum/biome_theme
 	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
 	ASSERT(caves_theme_type)
 	caves_theme = new caves_theme_type
@@ -374,7 +374,8 @@ SUBSYSTEM_DEF(mapping)
 	var/theme_watch = start_watch()
 	log_startup_progress("Loading lavaland themes...")
 	#warn TODO: ADD BIOME GEN THEME HERE
-	biome_theme.setup()
+	//var/datum/biome_theme/my_biome = new /datum/biome_theme
+	//my_biome.setup()
 	//if(lavaland_theme)
 		//lavaland_theme.setup()
 	//if(caves_theme)
