@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/receive = get_hearers_in_radio_ranges(radios)
 
 /* ###### Organize the receivers into categories for displaying the message ###### */
 
@@ -329,8 +329,20 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/M in receive)
+	for(var/atom/M as anything in receive) // as anything to skip type checks
+		if(isnull(M))
+			log_debug("null found in list of radio hearers")
+			continue
+
+		// TODO: things other than mobs can be hearing-atoms
+		//
+		// ultimately hearing should be moved down to type-specific procs for
+		// handling (e.g. /atom/proc/hear) but continuing early here doesn't
+		// hurt anything because those cases weren't handled in the first place,
+		// this is just for mobs
 		var/mob/R = M
+		if(!istype(R))
+			continue
 
 		/* --- Loop through the receivers and categorize them --- */
 

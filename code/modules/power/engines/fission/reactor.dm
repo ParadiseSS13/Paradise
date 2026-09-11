@@ -190,7 +190,7 @@
 	air_contents.set_temperature(T20C)
 	GLOB.poi_list |= src
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	if(primary_engine)

@@ -54,7 +54,7 @@
 	))
 
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	radio.config(list("Supply" = 0))
 

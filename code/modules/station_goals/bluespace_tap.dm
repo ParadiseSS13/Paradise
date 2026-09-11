@@ -171,7 +171,7 @@
 		list(1, 0,		   1),
 	))
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 

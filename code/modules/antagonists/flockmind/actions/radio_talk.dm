@@ -15,7 +15,7 @@
 
 	if(istype(target, /obj/item/radio))
 		worn_radio = target
-		if(!worn_radio.listening)
+		if(!worn_radio.is_listening())
 			to_chat(owner, SPAN_ALERT("[target] is not turned on!"))
 			return FALSE
 
@@ -25,7 +25,7 @@
 			if(istype(I, /obj/item/radio))
 				worn_radio = I
 				break
-		if(!istype(worn_radio) || !worn_radio.listening)
+		if(!istype(worn_radio) || !worn_radio.is_listening())
 			to_chat(owner, SPAN_ALERT("[target] does not have a working radio!"))
 			return FALSE
 
