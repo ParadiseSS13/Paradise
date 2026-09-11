@@ -1,6 +1,7 @@
 /obj/item/reagent_containers/drinks/drinkingglass
 	name = "glass"
 	desc = "Your standard drinking glass."
+	icon = 'icons/obj/drinks/drinkingglass.dmi'
 	icon_state = "glass_empty"
 	inhand_icon_state = "drinking_glass"
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'

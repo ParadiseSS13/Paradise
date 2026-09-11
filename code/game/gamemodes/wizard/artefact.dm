@@ -984,9 +984,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 
 	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
-							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
-							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
-							"Holy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask"),
+							"Ale" = image(icon = 'icons/obj/drinks/bottles.dmi', icon_state = "alebottle"),
+							"Wine" = image(icon = 'icons/obj/drinks/drinkingglass.dmi', icon_state = "wineglass"),
+							"Holy Water" = image(icon = 'icons/obj/drinks/flasks.dmi', icon_state = "holyflask"),
 							"Welder Fuel" = image(icon = 'icons/obj/objects.dmi', icon_state = "fuel"),
 							"Vomit" = image(icon = 'icons/effects/blood.dmi', icon_state = "vomit_1"))
 	var/static/list/options_to_reagent = list("Omnizine" = "omnizine",

@@ -24,15 +24,15 @@
 							)
 
 	var/static/list/rsf_icons = list(
-							"Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
-							"Shot Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "shotglass"),
+							"Drinking Glass" = image(icon = 'icons/obj/drinks/drinkingglass.dmi', icon_state = "glass_empty"),
+							"Shot Glass" = image(icon = 'icons/obj/drinks/drinkingglass.dmi', icon_state = "shotglass"),
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
 							"Cigarette" = image(icon = 'icons/obj/clothing/smoking.dmi', icon_state = "cig_on"),
 							"Newdles" = image(icon = 'icons/obj/food/food.dmi', icon_state = "chinese3"),
 							"Donut" = image(icon = 'icons/obj/food/bakedgoods.dmi', icon_state = "donut1"),
-							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
+							"Chicken Soup" = image(icon = 'icons/obj/drinks/cans.dmi', icon_state = "soupcan"),
 							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"),
 							"Cigar" = image(icon = 'icons/obj/clothing/smoking.dmi', icon_state = "cigar"),
 							"Smoked Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-smoked"),
