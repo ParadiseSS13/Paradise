@@ -204,6 +204,13 @@
 	cost = 1000
 	containername = "combat shotgun crate"
 
+/datum/supply_packs/security/armory/ionrifle
+	name = "Ion Rifle Crate"
+	contains = list(/obj/item/gun/energy/ionrifle,
+					/obj/item/gun/energy/ionrifle)
+	cost = 750
+	containername = "ion rifle crate"
+
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
 	contains = list(/obj/item/gun/energy/gun,

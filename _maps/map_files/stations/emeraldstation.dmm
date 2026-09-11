@@ -35726,7 +35726,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
 /obj/structure/window/reinforced,
-/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "het" = (
@@ -111123,6 +111122,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "vZo" = (

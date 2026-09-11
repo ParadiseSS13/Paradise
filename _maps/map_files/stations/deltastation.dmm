@@ -15650,6 +15650,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bmg" = (
@@ -91245,7 +91246,6 @@
 "uJk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
-/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "uJC" = (

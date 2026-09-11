@@ -1522,6 +1522,7 @@
 	dir = 8
 	},
 /obj/structure/shelf/security,
+/obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "aiq" = (
@@ -1640,7 +1641,6 @@
 	dir = 8
 	},
 /obj/item/clothing/suit/hooded/ablative,
-/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "aiD" = (
@@ -6019,8 +6019,7 @@
 	},
 /obj/structure/sign/poster/official/random/directional/east,
 /obj/machinery/keycard_auth{
-	pixel_y = 27;
-	pixel_x = 0
+	pixel_y = 27
 	},
 /obj/structure/closet/secure_closet/blueshield,
 /turf/simulated/floor/wood,
@@ -26044,7 +26043,6 @@
 "bWw" = (
 /obj/structure/table/wood,
 /obj/item/paper/blueshield{
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /obj/item/lighter/zippo/blue{
@@ -60036,7 +60034,6 @@
 	},
 /obj/structure/table/wood,
 /obj/item/ashtray/glass{
-	pixel_x = 0;
 	pixel_y = 2
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold{
@@ -80411,7 +80408,6 @@
 	pixel_y = 2
 	},
 /obj/item/pen/multi/fountain{
-	pixel_x = 0;
 	pixel_y = 6
 	},
 /turf/simulated/floor/wood,
@@ -82438,8 +82434,7 @@
 /obj/item/paper_bin,
 /obj/item/pen/fancy,
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
-	pixel_x = -10;
-	pixel_y = 0
+	pixel_x = -10
 	},
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = -9;

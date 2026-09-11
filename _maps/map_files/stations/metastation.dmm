@@ -30973,9 +30973,6 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/item/storage/secure/safe{
 	pixel_y = 32
 	},
@@ -37338,6 +37335,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/asmaint)
+"ghc" = (
+/obj/effect/turf_decal/trimline/department/security/line,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/armory/secure)
 "ghd" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
@@ -47881,9 +47885,6 @@
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_North_West";
 	location = "Armory_North"
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/trimline/department/security/corner{
@@ -63554,22 +63555,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "oKF" = (
-/obj/item/grenade/barrier{
-	pixel_x = -6;
-	pixel_y = -2
-	},
-/obj/item/grenade/barrier{
-	pixel_x = -1;
-	pixel_y = -1
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 4
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 9;
-	pixel_y = 1
-	},
 /obj/structure/shelf/security,
+/obj/item/storage/box/flashbangs,
+/obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "oKH" = (
@@ -76928,7 +76916,9 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
-/obj/machinery/economy/vending/security,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "tcP" = (
@@ -92084,8 +92074,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 9
 	},
-/obj/structure/gunrack,
-/obj/item/gun/energy/ionrifle,
+/obj/machinery/economy/vending/security,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "xWt" = (
@@ -120665,7 +120654,7 @@ kEO
 oxt
 aHO
 tcK
-hIy
+ghc
 oKF
 iZz
 fWJ
