@@ -97,7 +97,7 @@
 /datum/mutation/dwarf/activate(mob/M)
 	..()
 	M.pass_flags |= PASSTABLE
-	if(HAS_TRAIT(M, TRAIT_DWARF)) // So we don't become super tiny.
+	if(HAS_TRAIT(M, TRAIT_TINY)) // So we don't become super tiny.
 		return
 	M.resize = 0.8
 	M.update_transform()
@@ -105,6 +105,8 @@
 /datum/mutation/dwarf/deactivate(mob/M)
 	..()
 	M.pass_flags &= ~PASSTABLE
+	if(HAS_TRAIT(M, TRAIT_TINY)) // So we don't loose our tiny quirk.
+		return
 	M.resize = 1.25
 	M.update_transform()
 

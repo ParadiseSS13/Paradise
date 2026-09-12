@@ -209,7 +209,7 @@
 	name = "Tiny"
 	desc = "You are smaller than the average person."
 	cost = 3
-	trait_to_apply = TRAIT_DWARF
+	trait_to_apply = TRAIT_TINY
 
 /datum/quirk/tiny/apply_quirk_effects() // Just the pasted `activate()` proc from the dwarf mutation.
 	..() // I'M AT MY WITS END THIS IS THE ONLY WAY I KNOW TO MAKE THIS WORK.
