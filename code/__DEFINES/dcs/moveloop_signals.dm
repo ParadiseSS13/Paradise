@@ -15,3 +15,5 @@
 #define COMSIG_MOVABLE_MOVED_FROM_LOOP "movable_moved_from_loop"
 ///from [/datum/move_loop/has_target/jps/on_finish_pathing]
 #define COMSIG_MOVELOOP_JPS_FINISHED_PATHING "moveloop_jps_finished_pathing"
+/// from /datum/move_loop/has_target/jps/frustrations/handle_move_attempt_failure
+#define COMSIG_MOVELOOP_JPS_FRUSTRATION_INCREMENTED "moveloop_jps_frustration_incremented"

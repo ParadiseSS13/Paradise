@@ -68,6 +68,7 @@
 	death_message = null
 	gold_core_spawnable = NO_SPAWN
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/skeleton_warden
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/skeleton/warden/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
@@ -87,6 +88,7 @@
 	loot = list(/obj/effect/decal/remains/human, /obj/item/clothing/head/warden, /obj/item/card/sec_shuttle_ruin)
 	gold_core_spawnable = NO_SPAWN
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/skeleton_warden
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/skeleton/angered_warden/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE

@@ -516,9 +516,13 @@
 		iconholder = 1
 		controllock = TRUE
 		enabled = FALSE //turns off the turret temporarily
-		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
+		// 6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+		addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 6 SECONDS)
 		return TRUE
+
+/obj/machinery/porta_turret/proc/finish_emag_act()
+	// Turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
+	enabled = TRUE
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armor_penetration_flat, armor_penetration_percentage)

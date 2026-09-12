@@ -34,6 +34,7 @@
 			/obj/effect/gibspawner/generic)
 	basic_mob_flags = DEL_ON_DEATH
 	faction = list("pirate")
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 	sentience_type = SENTIENCE_OTHER
 	step_type = FOOTSTEP_MOB_SHOE
 

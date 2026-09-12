@@ -572,7 +572,7 @@
 	name = "aquatic starter kit"
 	desc = "It's a starter kit box for an aquarium."
 	icon_state = "AquaticKit"
-	med_bot_skin = "fish"
+	// med_bot_skin = "fish" Uncomment when we have our sprites done
 
 /obj/item/storage/firstaid/aquatic_kit/full
 	desc = "It's a starter kit for an aquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, 1 container of fish food and 1 fish bag."

@@ -24,6 +24,7 @@
 	basic_mob_flags = DEL_ON_DEATH
 	advanced_bullet_dodge_chance = 25 // This will be adjusted when active, vs deactivated. Randomises on hit if it is zero.
 	ai_controller = /datum/ai_controller/basic_controller/simple/malf_drone
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_FLYING, TRAIT_SPACEWALK)
 	/// Is the drone passive?
 	var/passive = FALSE
 

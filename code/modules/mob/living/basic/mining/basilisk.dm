@@ -56,6 +56,7 @@
 			adjustBruteLoss(110)
 
 /mob/living/basic/mining/basilisk/space
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/basilisk/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE

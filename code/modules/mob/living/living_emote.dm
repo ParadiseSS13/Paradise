@@ -3,7 +3,7 @@
 	mob_type_blacklist_typecache = list(
 		/mob/living/brain,	// nice try
 		/mob/living/silicon,
-		/mob/living/simple_animal/bot
+		/mob/living/basic/bot
 	)
 	message_postfix = "at %t."
 

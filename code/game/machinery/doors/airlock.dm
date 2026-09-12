@@ -1431,28 +1431,32 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
 		operating = DOOR_MALF
 		update_icon(AIRLOCK_EMAG, 1)
-		sleep(6)
-		if(QDELETED(src))
-			return
-		electronics = new /obj/item/airlock_electronics/destroyed()
-		operating = NONE
-		if(!open())
-			update_icon(AIRLOCK_CLOSED, 1)
-		emagged = TRUE
+		addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 0.6 SECONDS)
 		return TRUE
+
+/obj/machinery/door/airlock/finish_emag_act()
+	if(QDELETED(src))
+		return
+	electronics = new /obj/item/airlock_electronics/destroyed()
+	operating = NONE
+	if(!open())
+		update_icon(AIRLOCK_CLOSED, 1)
+	emagged = TRUE
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
 		return FALSE
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, 1)
-	sleep(6)
+	addtimer(CALLBACK(src, PROC_REF(finish_cmag_act)), 0.6 SECONDS)
+	return TRUE
+
+/obj/machinery/door/airlock/finish_cmag_act()
 	if(QDELETED(src))
-		return FALSE
+		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()
