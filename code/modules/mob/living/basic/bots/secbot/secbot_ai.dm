@@ -33,11 +33,11 @@
 	if(isturf(the_target.loc) && living_mob.z != the_target.z || iseffect(the_target.loc)) // Handles mechs and the like
 		return FALSE
 	var/mob/living/carbon/human/human_target = the_target
-	if(human_target.handcuffed || human_target.stat != CONSCIOUS)
+	var/mob/living/basic/bot/secbot/my_bot = living_mob
+	if((human_target.handcuffed && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED)) || human_target.stat != CONSCIOUS)
 		return FALSE
 	if(locate(human_target) in my_controller.blackboard[BB_BASIC_MOB_RETALIATE_LIST])
 		return TRUE
-	var/mob/living/basic/bot/secbot/my_bot = living_mob
 	if(human_target.IsWeakened() && !(my_bot.security_mode_flags & SECBOT_HANDCUFF_TARGET))
 		return FALSE
 	var/assess_flags = my_bot.judgement_criteria()
@@ -80,13 +80,12 @@
 
 /datum/ai_planning_subtree/arrest_target/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
 	var/mob/living/carbon/my_target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
-	if(QDELETED(my_target) || !istype(my_target) || my_target.handcuffed)
+	var/mob/living/basic/bot/secbot/my_bot = controller.pawn
+	if((QDELETED(my_target) || !istype(my_target) || my_target.handcuffed || my_target.stat != CONSCIOUS) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
 		controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
-
-	var/mob/living/basic/bot/secbot/my_bot = controller.pawn
 	var/bot_flags = my_bot.security_mode_flags
-	if(my_target.IsWeakened() && !(bot_flags & SECBOT_HANDCUFF_TARGET))
+	if(my_target.IsWeakened() && !(bot_flags & SECBOT_HANDCUFF_TARGET) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
 		controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
 
