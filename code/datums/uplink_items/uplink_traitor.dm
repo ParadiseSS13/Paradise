@@ -461,6 +461,7 @@
 	refundable = TRUE
 	surplus = 0
 	uses_special_spawn = TRUE
+	species = list("Diona")
 
 /datum/uplink_item/species_restricted/growthserum/spawn_item(turf/loc, obj/item/uplink/U)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
