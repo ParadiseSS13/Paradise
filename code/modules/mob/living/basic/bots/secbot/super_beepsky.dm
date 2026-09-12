@@ -89,7 +89,7 @@
 	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
 		var/area/location = get_area(src)
 		if(!spam_flag)
-			speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+			speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!", radio_channel)
 			spam_flag = 1
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 100) // to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")

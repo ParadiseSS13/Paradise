@@ -12,5 +12,5 @@
 	. = ..()
 	var/mob/living/basic/bot/secbot/griefsky/super_beeps = pawn
 	if(!super_beeps.sword_active)
-		super_beeps.on_weapon_transform()
+		super_beeps.on_weapon_transform(src, super_beeps, TRUE)
 	super_beeps.visible_message("<b>[super_beeps]</b> points at [blackboard[BB_BASIC_MOB_CURRENT_TARGET]]!")
