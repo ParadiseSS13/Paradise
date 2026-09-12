@@ -163,7 +163,7 @@
 	containername = "blood pack crate"
 
 /datum/supply_packs/medical/vox_blood
-	name = "Vox Blood Pack Variety Crate"
+	name = "Vox Blood Pack Crate"
 	contains = list(/obj/item/reagent_containers/iv_bag/blood/vox,
 					/obj/item/reagent_containers/iv_bag/blood/vox,
 					/obj/item/reagent_containers/iv_bag/blood/vox,
