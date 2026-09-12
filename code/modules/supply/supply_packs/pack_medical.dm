@@ -199,9 +199,7 @@
 					/obj/item/circular_saw,
 					/obj/item/surgical_drapes)
 	cost = 100
-	containertype = /obj/structure/closet/crate/secure/medisec
 	containername = "surgery crate"
-	access = ACCESS_MEDICAL
 
 /datum/supply_packs/medical/gloves
 	name = "Nitrile Glove Crate"
