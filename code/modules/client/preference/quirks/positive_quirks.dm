@@ -204,3 +204,15 @@
 	cost = 1
 	trait_to_apply = TRAIT_TEMPERATE_PARTIER
 	conflicting_quirks = list(/datum/quirk/work_hard_party_harder)
+
+/datum/quirk/tiny
+	name = "Tiny"
+	desc = "You are smaller than the average person."
+	cost = 3
+	trait_to_apply = TRAIT_TINY
+
+/datum/quirk/tiny/apply_quirk_effects() // Just the pasted `activate()` proc from the dwarf mutation.
+	..() // I'M AT MY WITS END THIS IS THE ONLY WAY I KNOW TO MAKE THIS WORK.
+	owner.resize = 0.8
+	owner.update_transform()
+
