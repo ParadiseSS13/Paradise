@@ -247,20 +247,3 @@
 	. = ..()
 	if(. && qdel_on_open)
 		qdel(src)
-
-// pre-set subtypes of the crates if in case you wanted something for mapping/admin shennanigans
-/obj/structure/closet/crate/secure/loot/wordle
-	game_mode = "words"
-	code_length = 5
-	attempts = 6
-
-/obj/structure/closet/crate/secure/loot/wordle/Initialize(mapload)
-	. = ..()
-	code = generate_word()
-
-/obj/structure/closet/crate/secure/loot/number
-	game_mode = "numbers"
-
-/obj/structure/closet/crate/secure/loot/number/Initialize(mapload)
-	. = ..()
-	code = generate_code(code_length)
