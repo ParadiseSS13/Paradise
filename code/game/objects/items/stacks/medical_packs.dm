@@ -645,8 +645,6 @@
 	depleted_type = /obj/item/suture_needle
 
 /obj/item/stack/medical/adv/suture/on_atom_entered(datum/source, atom/movable/entered)
-	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
-
 	if(istype(entered, depleted_type)) // Don't auto-merge with needles to avoid player headaches.
 		return
 
