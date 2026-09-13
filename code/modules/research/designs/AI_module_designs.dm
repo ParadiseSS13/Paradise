@@ -22,7 +22,7 @@
 
 /datum/design/oxygen_module
 	name = "AI Module (OxygenIsToxicToHumans)"
-	desc = "Allows for the construction of a Safeguard AI Module."
+	desc = "Allows for the construction of a Oxygen is Toxic AI Module."
 	id = "oxygen_module"
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
@@ -117,6 +117,15 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/ai_module/crewsimov
+	category = list("AI Modules")
+
+/datum/design/nt_default
+	name = "Core AI Module (NT Default)"
+	desc = "Allows for the construction of a NT Default AI Core Module."
+	id = "nt_default_module"
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
+	build_path = /obj/item/ai_module/nanotrasen
 	category = list("AI Modules")
 
 /datum/design/freeformcore_module

@@ -25,4 +25,4 @@
 	if(cost["Research"] <= 250 && !starting_node)
 		log_debug("Technode [src] has a 250 or less cost but is not a starting node!") // MIXTODO - Remove some of this logging.
 
-#warn REMAINING TECHNODES: Weapons, MODsuits, Mech Equipment, Illegal and Alien tech, Sort various circuitboards into relevent technodes.
+#warn REMAINING TECHNODES: Mech Equipment, Illegal and Alien tech, Sort various circuitboards into relevent technodes.
