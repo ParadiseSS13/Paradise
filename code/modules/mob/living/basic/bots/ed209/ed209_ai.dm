@@ -37,6 +37,7 @@
 		"Threat detected!"
 	)
 	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), pick(lines_to_pick))
+	playsound(pawn, 'sound/voice/ed209_20sec.ogg', 50, FALSE)
 
 /datum/ai_planning_subtree/arrest_target/ed209
 	arrest_behavior = /datum/ai_behavior/basic_melee_attack/interact_once/bot/ed209
