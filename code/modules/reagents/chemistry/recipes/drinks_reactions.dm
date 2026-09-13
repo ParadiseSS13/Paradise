@@ -468,6 +468,22 @@
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/strawberry_daiquiri
+	name = "Strawberry Daiquiri"
+	id = "strawberry_daiquiri"
+	result = "strawberry_daiquiri"
+	required_reagents = list("berryjuice" = 1, "sugar" = 1, "rum" = 2, "ice" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/miami_vice
+	name = "Miami Vice"
+	id = "miami_vice"
+	result = "miami_vice"
+	required_reagents = list("pinacolada" = 1, "strawberry_daiquiri" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/sbiten
 	name = "Sbiten"
 	id = "sbiten"
@@ -1232,7 +1248,7 @@
 	result = "eggcream"
 	required_reagents = list("egg" = 5, "milk" = 5, "sugar" = 10)
 	max_temp = 290
-	min_temp = 275
+	min_temp = 260
 	result_amount = 20
 	mix_message = "The egg and milk whip nicely together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -1455,8 +1471,8 @@
 	name = "Vampiro"
 	id = "vampiro"
 	result = "vampiro"
-	required_reagents = list("tequila" = 1, "tomatojuice" = 2, "limejuice" = 1)
-	result_amount = 4
+	required_reagents = list("tequilasunrise" = 1, "tomatojuice" = 1)
+	result_amount = 2
 	mix_message = "Mariachi sounds loudly in the container."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -1527,7 +1543,7 @@
 	name= "Mambo Smoothie"
 	id = "mambo_smoothie"
 	result = "mambo_smoothie"
-	required_reagents = list("lettucejuice" = 1, "mangojuice" = 2)
+	required_reagents = list("kiwijuice" = 1, "mangojuice" = 2)
 	result_amount = 3
 	mix_message = "Smells like hydroponics."
 

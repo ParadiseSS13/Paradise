@@ -540,6 +540,7 @@
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
 		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_ITEM(/obj/item/paper),
 		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
 	)
 

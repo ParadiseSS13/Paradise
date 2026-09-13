@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(mobs)
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when CC is created and new_players can login before that.
+	var/static/list/flock_cameras_by_zlevel[][]= list(list())
 	var/static/list/cubemonkeys = list()
 	/// The amount of Xenobiology mobs (and their offspring) that exist in the world. Used for mob capping. Excludes Slimes
 	var/xenobiology_mobs = 0
@@ -26,6 +27,7 @@ SUBSYSTEM_DEF(mobs)
 /datum/controller/subsystem/mobs/Initialize()
 	clients_by_zlevel = new /list(world.maxz, 0)
 	dead_players_by_zlevel = new /list(world.maxz, 0)
+	flock_cameras_by_zlevel = new /list(world.maxz, 0)
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
 	var/seconds = wait * 0.1

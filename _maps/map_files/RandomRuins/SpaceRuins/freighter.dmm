@@ -39,6 +39,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
+"fx" = (
+/obj/structure/salvageable/protolathe,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered)
 "fL" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
@@ -701,6 +705,12 @@
 /obj/item/paper/fluff/ruins/nian_freighter/manifest,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
+"XI" = (
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
 "Zc" = (
 /obj/structure/railing{
 	dir = 8
@@ -959,7 +969,7 @@ MY
 Nl
 Sp
 zu
-Nl
+fx
 Nl
 tV
 fY
@@ -1243,7 +1253,7 @@ LW
 QM
 sy
 Pf
-Pf
+XI
 Fm
 wL
 LW

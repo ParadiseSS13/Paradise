@@ -46,8 +46,6 @@
 	. = ..()
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
 
-
-
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
 	for(var/obj/O in list(nadeassembly.a_left, nadeassembly.a_right))
@@ -102,7 +100,7 @@
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		if(nadeassembly)
-			nadeassembly.attack_self__legacy__attackchain(user)
+			nadeassembly.activate_self(user)
 			update_icon(UPDATE_ICON_STATE)
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.

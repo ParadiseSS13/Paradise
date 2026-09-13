@@ -103,7 +103,7 @@
 			return ITEM_INTERACT_COMPLETE
 		var/claimed = FALSE
 		for(var/access in req_access_claim)
-			if(anyone_claim || (access in ID.access))
+			if(anyone_claim || (access in ID.GetAccess()))
 				ID.mining_points += points
 				ID.total_mining_points += points
 				to_chat(user, SPAN_NOTICE("<b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!"))

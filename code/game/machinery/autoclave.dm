@@ -123,7 +123,7 @@
 
 	if(is_open && occupant)
 		add_fingerprint(user)
-		user.put_in_active_hand(occupant)
+		user.put_in_hands(occupant)
 		to_chat(user, SPAN_NOTICE("You take [occupant] out of [src]."))
 		occupant = null
 		update_appearance(UPDATE_OVERLAYS)
@@ -145,7 +145,7 @@
 		to_chat(user, SPAN_WARNING("The door on [src] is closed!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(used.w_class > WEIGHT_CLASS_NORMAL)
+	if(used.w_class > WEIGHT_CLASS_NORMAL && !istype(used, /obj/item/storage/surgical_tray))
 		to_chat(user, SPAN_WARNING("[used] is too big to fit in [src]."))
 		return ITEM_INTERACT_COMPLETE
 
@@ -195,7 +195,7 @@
 	return TRUE
 
 /obj/machinery/autoclave/proc/try_start()
-	if(work_timer_id || !occupant || panel_open)
+	if(work_timer_id || !occupant || panel_open || !has_power())
 		return FALSE
 
 	soundloop.start()

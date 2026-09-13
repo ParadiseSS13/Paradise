@@ -13,7 +13,7 @@
 	if(opened || !ishuman(target))
 		return ..()
 
-	to_chat(user, "<span class='warning'>[src] cannot be eaten without removing the packaging first!</span>")
+	to_chat(user, SPAN_WARNING("[src] cannot be eaten without removing the packaging first!"))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/rations/activate_self(mob/user)
@@ -24,7 +24,7 @@
 		opened = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -5)
-		to_chat(user, "<span class='notice'>You tear open the packaging of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You tear open the packaging of [src]."))
 
 /obj/item/food/rations/update_icon_state()
 	icon_state = opened_icon

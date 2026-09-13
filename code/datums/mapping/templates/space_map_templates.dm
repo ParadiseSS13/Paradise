@@ -190,6 +190,13 @@
 	description = "Just somewhere quiet, where I can focus on my work with \
 		no interruptions."
 
+/datum/map_template/ruin/space/ragnarok_ship
+	id = "ragnarok"
+	suffix = "ragnarok_ship.dmm"
+	name = "The Ragnarok"
+	description = "A large kidan space yacht carrying royalty. Expect an opulant trial."
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"

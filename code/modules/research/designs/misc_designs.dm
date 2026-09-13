@@ -31,6 +31,17 @@
 	build_path = /obj/item/aicard
 	category = list("Miscellaneous")
 
+/datum/design/boris_ai_controller
+	name = "B.O.R.I.S."
+	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
+	id = "borg_ai_control"
+	req_tech = list("programming" = 5, "magnets" = 4, "engineering" = 3)
+	build_type = MECHFAB | PROTOLATHE
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) // Same as robobrain.
+	construction_time = 75
+	build_path = /obj/item/borg/upgrade/ai
+	category = list("Miscellaneous", "Misc")
+
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
 	desc = "Allows for the construction of a pAI Card."

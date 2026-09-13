@@ -296,7 +296,9 @@
 			. += "[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]"
 		return
 	if(light)
-		underlays += emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
+		var/mutable_appearance/lightmask  = emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
+		lightmask.transform = transform
+		underlays += lightmask
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -864,7 +866,7 @@
 		to_chat(user, SPAN_NOTICE("Vending object due to admin interaction."))
 		paid = TRUE
 	else
-		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
+		to_chat(user, SPAN_WARNING("Payment failure: you have no ID or other method of payment."))
 		flick(icon_deny, src)
 		. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 		return
@@ -873,7 +875,7 @@
 		vend(currently_vending, user)
 		. = TRUE
 	else
-		to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
+		to_chat(user, SPAN_WARNING("Payment failure: unable to process payment."))
 
 /obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user, has_delay = TRUE)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
@@ -994,6 +996,7 @@
 /obj/machinery/economy/vending/proc/on_untilt(atom/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
 	tilted = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/economy/vending/proc/throw_item()
@@ -1055,6 +1058,10 @@
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
 	tilt_over(should_throw_at_target ? victim : null)
+
+/obj/machinery/economy/vending/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))

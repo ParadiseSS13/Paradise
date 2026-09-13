@@ -72,7 +72,7 @@
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
 			if(holosign_enabled)
-				holosign_controller.afterattack__legacy__attackchain(target_turf, chassis.occupant, TRUE)
+				holosign_controller.interact_with_atom(target_turf, chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -110,7 +110,7 @@
 	if(afilter.get("toggle_holosign"))
 		holosign_enabled = !holosign_enabled
 		if(!holosign_enabled)
-			holosign_controller.attack_self__legacy__attackchain(chassis.occupant)
+			holosign_controller.activate_self(chassis.occupant)
 		update_equip_info()
 		return
 
@@ -318,5 +318,5 @@
 	else // Dumping
 		for(var/obj/item/I in storage_controller.contents)
 			storage_controller.remove_from_storage(I, target_turf)
-		chassis.occupant_message("<span class='notice'>You dump everything out of [src].")
+		chassis.occupant_message(SPAN_NOTICE("You dump everything out of [src]."))
 	update_equip_info()

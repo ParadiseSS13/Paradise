@@ -140,7 +140,10 @@
 		loaded_item.forceMove(get_turf(src))
 		loaded_item.throw_at(target, pressure_setting * 5, pressure_setting * 2, user)
 	if(pressure_setting >= 3 && user)
-		user.visible_message(SPAN_WARNING("[user] is thrown down by the force of the cannon!"), "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
+		user.visible_message(
+			SPAN_WARNING("[user] is thrown down by the force of the cannon!"),
+			SPAN_USERDANGER("[src] slams into your shoulder, knocking you down!")
+		)
 		user.KnockDown(3 SECONDS)
 
 /obj/item/pneumatic_cannon/proc/add_tank(obj/item/tank/new_tank, mob/living/carbon/human/user)

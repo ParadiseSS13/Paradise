@@ -782,6 +782,9 @@
 		nutrition_display.icon_state = null
 		return
 	nutrition_display.icon = dna.species.hunger_icon
+	if(nutrition_hud_override)
+		nutrition_display.icon_state = nutrition_hud_override
+		return
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			nutrition_display.icon_state = "fat"
@@ -811,14 +814,18 @@
 		var/obj/item/organ/external/BP = X
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
-				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
-				to_chat(src, SPAN_USERDANGER("[I] embedded in your [BP.name] hurts!"))
+				BP.receive_damage(I.w_class * I.embedded_pain_multiplier)
+				to_chat(src, SPAN_USERDANGER("[I] embedded in your [BP.name] [can_feel_pain() ? "hurts" : "crunches"]!"))
 
 			if(prob(I.embedded_fall_chance))
-				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
+				BP.receive_damage(I.w_class * I.embedded_fall_pain_multiplier)
 				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
-				visible_message(SPAN_DANGER("[I] falls out of [name]'s [BP.name]!"),SPAN_USERDANGER("[I] falls out of your [BP.name]!"))
+				visible_message(
+					SPAN_DANGER("[I] falls out of [name]'s [BP.name]!"),
+					SPAN_USERDANGER("[I] falls out of your [BP.name]!"),
+					SPAN_HEAR("Something clatters to the floor!")
+				)
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 

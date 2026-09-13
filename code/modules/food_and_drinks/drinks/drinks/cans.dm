@@ -13,7 +13,7 @@
 	. = ..()
 	if(can_opened)
 		. += SPAN_NOTICE("It has been opened.")
-	else
+	else if(can_shake)
 		. += SPAN_NOTICE("Ctrl-click to shake it up!")
 
 /obj/item/reagent_containers/drinks/cans/activate_self(mob/user)
@@ -27,6 +27,7 @@
 	can_opened = TRUE
 	container_type |= OPENCONTAINER
 	to_chat(user, SPAN_NOTICE("You open the drink with an audible pop!"))
+	add_fingerprint(user)
 
 /obj/item/reagent_containers/drinks/cans/proc/crush(mob/user)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
@@ -39,6 +40,8 @@
 		crushed_can.name = "broken bottle"
 	else
 		playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
+	transfer_fingerprints_to(crushed_can)
+	crushed_can.add_fingerprint(user)
 	qdel(src)
 	return crushed_can
 
@@ -48,10 +51,11 @@
 		return ..()
 	H = user
 	if(can_opened)
-		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
+		to_chat(H, SPAN_WARNING("You can't shake up an already opened drink!"))
 		return
 	if(H.is_holding(src))
 		can_shake = FALSE
+		add_fingerprint(user)
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, SPAN_NOTICE("You start shaking up [src]."))
 		if(do_after(H, 1 SECONDS, target = H))
@@ -77,7 +81,11 @@
 
 /obj/item/reagent_containers/drinks/cans/item_interaction(mob/living/user, obj/item/used, list/modifiers) // This doesn't belong here.
 	if(istype(used, /obj/item/storage/bag/trash/cyborg))
-		user.visible_message(SPAN_NOTICE("[user] crushes [src] in [user.p_their()] trash compactor."), SPAN_NOTICE("You crush [src] in your trash compactor."))
+		user.visible_message(
+			SPAN_NOTICE("[user] crushes [src] in [user.p_their()] trash compactor."),
+			SPAN_NOTICE("You crush [src] in your trash compactor."),
+			SPAN_HEAR("You hear the crunch of a flimsy can.")
+		)
 		// Automatic crushed can pickup seems to be broken until storage is migrated.
 		crush(user)
 		return ITEM_INTERACT_COMPLETE
@@ -224,7 +232,8 @@
 	name = "Electrolytez"
 	desc = "The fastest way to rehydration. Now with a giant Z on the can. Or is it a lightning bolt?"
 	icon_state = "electrolytes_can"
-	list_reagents = list("electrolytes" = 30)
+	can_shake = FALSE
+	list_reagents = list("electrolytes" = 50)
 
 /obj/item/reagent_containers/drinks/cans/tonic
 	name = "T-Borg's Tonic Water"
@@ -302,6 +311,7 @@
 	name = "Mrs Brown"
 	desc = "A can of iced coffee. The can sports a big red star."
 	icon_state = "mrs_brown"
+	can_shake = FALSE
 	list_reagents = list("icecoffee" = 30)
 
 /obj/item/reagent_containers/drinks/cans/behemoth_energy

@@ -420,7 +420,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(hair.secondary_theme)
 				var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
 				if(!hair.no_sec_colour)
-					img_secondary.color = COLOR_MATRIX_ADD(O.sec_hair_colour)
+					img_secondary.color = list(null, null, null, null, O.sec_hair_colour)
 				MA.overlays += img_secondary
 
 	overlays_standing[HAIR_LAYER] = MA
@@ -765,7 +765,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		right_ear_inv?.update_icon()
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+	var/datum/robolimb/robohead = head_organ?.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 
 	if(l_ear)
 		update_hud_l_ear(l_ear)
@@ -1262,6 +1262,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!body_accessory.try_restrictions(src))
 		return
 
+	dna.species.updatespeciescolor(src)
 	var/icon/spines_icon = new /icon(body_accessory.icon, spines)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		spines_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)

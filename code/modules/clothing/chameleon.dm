@@ -1,5 +1,6 @@
 #define EMP_RANDOMISE_TIME 300
 
+// MARK: Datums
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
 	button_icon_state = "chameleon_outfit"
@@ -238,6 +239,7 @@
 		return
 	random_look(owner)
 
+// MARK: Jumpsuit
 /obj/item/clothing/under/chameleon
 	name = "white jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
@@ -248,6 +250,7 @@
 	random_sensor = FALSE
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
@@ -296,6 +299,7 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Exosuit
 /obj/item/clothing/suit/chameleon
 	name = "armor"
 	desc = "A slim armored vest that protects against most types of damage."
@@ -303,7 +307,7 @@
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
@@ -331,12 +335,14 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Glasses
 /obj/item/clothing/glasses/chameleon
 	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	prescription_upgradable = TRUE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	origin_tech = "materials=5;magnets=4;engineering=2;syndicate=1"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -365,20 +371,20 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/glasses/chameleon/thermal
-	origin_tech = "magnets=3;syndicate=2"
+	origin_tech = "materials=5;magnets=4;syndicate=2"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 /obj/item/clothing/glasses/chameleon/night
-	origin_tech = "magnets=3;syndicate=1"
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	hud_access_override = TRUE
 	flash_protect = FLASH_PROTECTION_FLASH
-
+	origin_tech = "materials=5;magnets=4;combat=2;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/hud/security/chameleon/Initialize(mapload)
@@ -422,7 +428,7 @@
 	. = ..()
 	chameleon_action.emp_randomise()
 
-
+// MARK: Gloves
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
@@ -431,7 +437,7 @@
 	icon_state = "yellow"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/gloves/chameleon/Initialize(mapload)
@@ -454,13 +460,14 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Hat
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon = 'icons/obj/clothing/head/softcap.dmi'
 	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	icon_state = "grey"
-
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
@@ -490,6 +497,7 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Mask
 /obj/item/clothing/mask/chameleon
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
@@ -501,7 +509,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-
+	origin_tech = "materials=5;syndicate=1"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -536,7 +544,7 @@
 
 /obj/item/clothing/mask/chameleon/voice_change
 	icon_state = "swat"
-
+	origin_tech = "materials=5;magnets=4;syndicate=2"
 	var/obj/item/voice_changer/voice_changer
 
 /obj/item/clothing/mask/chameleon/voice_change/Destroy()
@@ -548,6 +556,7 @@
 
 	voice_changer = new(src)
 
+// MARK: Shoes
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
 	icon_state = "black"
@@ -556,7 +565,7 @@
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/shoes/chameleon/Initialize(mapload)
@@ -582,13 +591,14 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Backpack
 /obj/item/storage/backpack/chameleon
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 	)
-
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/storage/backpack/chameleon/Initialize(mapload)
@@ -610,9 +620,11 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Belt
 /obj/item/storage/belt/chameleon
 	name = "tool-belt"
 	desc = "Can hold various tools."
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/storage/belt/chameleon/Initialize(mapload)
@@ -635,7 +647,9 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Headset
 /obj/item/radio/headset/chameleon
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/radio/headset/chameleon/Initialize(mapload)
@@ -657,8 +671,10 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: PDA
 /obj/item/pda/chameleon
 	name = "PDA"
+	origin_tech = "materials=5;magnets=4;programming=2;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/pda/chameleon/Initialize(mapload)
@@ -681,8 +697,10 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Stamp
 /obj/item/stamp/chameleon
 	dye_color = DYE_RAINBOW
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/stamp/chameleon/Initialize(mapload)
@@ -700,12 +718,13 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
+// MARK: Neck
 /obj/item/clothing/neck/chameleon
 	name = "black tie"
 	desc = "A neosilk clip-on tie."
 	icon_state = "blacktie"
 	resistance_flags = NONE
-
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/neck/chameleon/Initialize(mapload)

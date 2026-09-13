@@ -257,7 +257,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
-	attack_self__legacy__attackchain(user)
+	ui_interact(user)
 
 //Bed
 /obj/structure/bed/pod

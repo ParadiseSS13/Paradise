@@ -133,7 +133,7 @@
 // Simpler. Don't specify UI in order for the mob to use its own.
 /mob/proc/UpdateAppearance(list/UI = null)
 	if(ishuman(src)) // WHY?!
-		if(UI!=null)
+		if(UI != null)
 			dna.UI = UI
 			dna.UpdateUI()
 		dna.check_integrity()
@@ -212,6 +212,10 @@
 // This proc applies the DNA's information to the given head
 /datum/dna/proc/write_head_attributes(obj/item/organ/external/head/head_organ)
 
+	head_organ.dna.UI = UI
+	head_organ.dna.UpdateUI()
+	head_organ.dna.check_integrity()
+
 	//Hair
 	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,length(GLOB.hair_styles_full_list))
 	if((hair > 0) && (hair <= length(GLOB.hair_styles_full_list)))
@@ -254,6 +258,9 @@
 
 // This proc gives the DNA info for eye color to the given eyes
 /datum/dna/proc/write_eyes_attributes(obj/item/organ/internal/eyes/eyes_organ)
+	eyes_organ.dna.UI = UI
+	eyes_organ.dna.UpdateUI()
+	eyes_organ.dna.check_integrity()
 	eyes_organ.eye_color = rgb(eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_R, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_G, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_B, 255))
 
 /*

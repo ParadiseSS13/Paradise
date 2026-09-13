@@ -41,7 +41,6 @@
 	icon_resting = "cat_rest"
 	gender = FEMALE
 	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
 
@@ -189,7 +188,6 @@
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
 	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/cat/var_cat
 	name = "Var"

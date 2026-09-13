@@ -176,20 +176,20 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
-/obj/item/organ/external/attack__legacy__attackchain(mob/M, mob/living/user)
-	if(!ishuman(M))
+/obj/item/organ/external/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target))
 		return ..()
-	var/mob/living/carbon/human/C = M
-	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
+	var/mob/living/carbon/human/patient = target
+	if(is_robotic() && HAS_TRAIT(patient, TRAIT_IPC_JOINTS_MAG) && isnull(patient.bodyparts_by_name[limb_name]))
 		user.drop_item_to_ground(src)
-		replaced(C)
-		C.update_body()
-		C.updatehealth()
-		C.UpdateDamageIcon()
+		replaced(patient)
+		patient.update_body()
+		patient.updatehealth()
+		patient.UpdateDamageIcon()
 		user.visible_message(
-			SPAN_NOTICE("[user] has attached [C]'s [src] to the [amputation_point]."),
-			SPAN_NOTICE("You have attached [C]'s [src] to the [amputation_point]."))
-		return TRUE
+			SPAN_NOTICE("[user] has attached [patient]'s [src] to the [amputation_point]."),
+			SPAN_NOTICE("You have attached [patient]'s [src] to the [amputation_point]."))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
@@ -824,21 +824,21 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disembowel("groin"))
 		return TRUE
 
-/obj/item/organ/external/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.sharp)
-		add_fingerprint(user)
-		if(!length(contents))
-			to_chat(user, SPAN_WARNING("There is nothing left inside [src]!"))
-			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		user.visible_message(SPAN_WARNING("[user] begins to cut open [src]."),\
-			SPAN_NOTICE("You begin to cut open [src]..."))
-		if(do_after(user, 5.4 SECONDS, target = src))
-			drop_organs(user)
-			drop_embedded_objects()
-			open = ORGAN_ORGANIC_VIOLENT_OPEN
-	else
+/obj/item/organ/external/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
 		return ..()
+	add_fingerprint(user)
+	if(!length(contents))
+		to_chat(user, SPAN_WARNING("There is nothing left inside [src]!"))
+		return ITEM_INTERACT_COMPLETE
+	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+	user.visible_message(SPAN_WARNING("[user] begins to cut open [src]."),\
+		SPAN_NOTICE("You begin to cut open [src]..."))
+	if(do_after(user, 5.4 SECONDS, target = src))
+		drop_organs(user)
+		drop_embedded_objects()
+		open = ORGAN_ORGANIC_VIOLENT_OPEN
+	return ITEM_INTERACT_COMPLETE
 
 //empties the bodypart from its organs and other things inside it
 /obj/item/organ/external/proc/drop_organs(mob/user)

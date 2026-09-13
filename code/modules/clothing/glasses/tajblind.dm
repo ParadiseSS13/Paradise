@@ -4,8 +4,7 @@
 
 /obj/item/clothing/glasses/hud/tajblind
 	name = "\improper Tajaran veil"
-	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality.<br>\
-			<span class='notice'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
+	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality."
 	icon_state = "tajblind"
 	inhand_icon_state = "blindfold"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -13,7 +12,6 @@
 	correct_wires = TRUE
 	var/list/modes = list(MODE_OFF = MODE_NATURAL, MODE_NATURAL = MODE_CORRECTION, MODE_CORRECTION = MODE_OFF)
 	var/selected_mode = MODE_CORRECTION
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
@@ -24,7 +22,9 @@
 
 /obj/item/clothing/glasses/hud/tajblind/examine()
 	. = ..()
+	. += SPAN_NOTICE("Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.")
 	. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> [src] to toggle its electronics if present.")
+	. += SPAN_NOTICE("You could easily craft a HUD into it.")
 
 /obj/item/clothing/glasses/hud/tajblind/activate_self(mob/user)
 	if(..())
@@ -75,7 +75,7 @@
 			return
 		for(var/new_hud in hud_types)
 			var/datum/atom_hud/H = GLOB.huds[new_hud]
-			H.remove_hud_from(user)
+			H.remove_hud_from(user, src)
 		hud_types = null
 		return
 	electronics = TRUE
@@ -85,7 +85,7 @@
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]
-		H.add_hud_to(user)
+		H.add_hud_to(user, src)
 
 /obj/item/clothing/glasses/hud/tajblind/meson
 	name = "\improper Tajaran engineering meson veil"

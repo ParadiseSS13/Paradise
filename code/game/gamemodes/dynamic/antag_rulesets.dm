@@ -40,6 +40,10 @@
 		"Chief Engineer",
 		"Quartermaster"
 	)
+	/// Roles that shouldn't be an antag if hijack isn't allowed.
+	var/list/hijack_only_jobs = list(
+		"AI"
+	)
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
 	/// A blacklist of species names that cannot play this antagonist
@@ -81,6 +85,9 @@
 /datum/ruleset/proc/antagonist_possible(budget)
 	return budget >= antag_cost
 
+/datum/ruleset/proc/can_assign_hijack_objective()
+	return FALSE
+
 /datum/ruleset/proc/roundstart_pre_setup()
 	if(antag_amount == 0)
 		return
@@ -94,6 +101,9 @@
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		banned_jobs += protected_jobs
+
+	if(!can_assign_hijack_objective())
+		banned_jobs += hijack_only_jobs
 
 	shuffle_inplace(possible_antags)
 	for(var/datum/mind/antag as anything in possible_antags)
@@ -204,7 +214,7 @@
 
 /datum/ruleset/traitor
 	name = "Traitor"
-	ruleset_weight = 11
+	ruleset_weight = 15
 	antag_cost = 7
 	antag_weight = 2
 	antagonist_type = /datum/antagonist/traitor
@@ -222,7 +232,7 @@
 
 /datum/ruleset/heretic
 	name = "Heretic"
-	ruleset_weight = 10
+	ruleset_weight = 6
 	antag_cost = 10
 	antagonist_type = /datum/antagonist/heretic
 
@@ -363,3 +373,7 @@
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, SPAN_WARNING("<FONT size = 3>The staff managed to stop the cult!</FONT>"))
+
+/// Helper functions for Malf AI pop checks.
+/datum/ruleset/traitor/can_assign_hijack_objective()
+	return (GLOB.roundstart_ready_players >= GLOB.configuration.gamemode.min_players_hijack_roundstart)

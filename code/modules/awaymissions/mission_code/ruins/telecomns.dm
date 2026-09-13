@@ -369,6 +369,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	inhand_icon_state = "camera_bug"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "syndicate=4;programming=6"
+	new_attack_chain = TRUE
 	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console
 
@@ -386,18 +387,23 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	QDEL_NULL(integrated_console)
 	return ..()
 
-/obj/item/remote_ai_upload/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/remote_ai_upload/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	integrated_console.attack_hand(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/remote_ai_upload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/emag))
-		to_chat(user, SPAN_WARNING("You are more likely to damage this with an emag, than achieve something useful."))
-		return
-	var/time_to_die = integrated_console.item_interaction(user, O, params2list(params))
+/obj/item/remote_ai_upload/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/emag))
+		to_chat(user, SPAN_WARNING("You are more likely to damage this with an emag than to achieve something useful."))
+		return ITEM_INTERACT_COMPLETE
+
+	var/time_to_die = integrated_console.item_interaction(user, used, modifiers)
 	if(time_to_die)
 		to_chat(user, SPAN_DANGER("[src]'s relay begins to overheat..."))
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/remote_ai_upload/proc/prime()
 		explosion(loc, -1, -1, 2, 4, flame_range = 4, cause = "Remote AI Upload explosion")

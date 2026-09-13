@@ -810,7 +810,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 	if(cultist_to_summon.pulledby || cultist_to_summon.buckled)
 		to_chat(user, SPAN_CULTITALIC("[cultist_to_summon] is being held in place!"))
-		to_chat(cultist_to_summon, "<span class='cult'>You feel a tugging sensation, but you are being held in place!")
+		to_chat(cultist_to_summon, SPAN_CULT("You feel a tugging sensation, but you are being held in place!"))
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target restrained")
 		return

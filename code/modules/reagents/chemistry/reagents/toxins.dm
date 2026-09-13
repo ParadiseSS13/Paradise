@@ -96,7 +96,7 @@
 		if(!isshadowperson(human))
 			to_chat(M, SPAN_DANGER("Your flesh rapidly mutates!"))
 			to_chat(M, SPAN_DANGER("You are now a Shadow Person, a mutant race of darkness-dwelling humanoids."))
-			to_chat(M, SPAN_DANGER("Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness."))
+			to_chat(M, "[SPAN_DANGER("Your body reacts violently to light.")] [SPAN_NOTICE("However, it naturally heals in darkness.")]")
 			to_chat(M, SPAN_DANGER("Aside from your new traits, you are mentally unchanged and retain your prior obligations."))
 			human.set_species(/datum/species/shadow)
 	return ..()
@@ -363,8 +363,10 @@
 			limb.remove_synthetic_skin(TRUE)
 
 	if(was_skin_removed)
-		H.visible_message("<span class='warning'>The synthetic skin on [H]'s body bubbles and melts away.</span>", \
-						"<span class='warning'>The synthetic skin on your body bubbles and melts away.</span>")
+		H.visible_message(
+			SPAN_WARNING("The synthetic skin on [H]'s body bubbles and melts away."),
+			SPAN_DANGER("The synthetic skin on your body bubbles and melts away.")
+		)
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
@@ -956,6 +958,49 @@
 			M.Paralyse(50 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/frigidi
+	name = "Frigidi"
+	id = "frigidi"
+	description = "Budget industrial coolant appropriate for large spacecraft and detrimental to smaller machines. May cause microbattery damage."
+	reagent_state = LIQUID
+	color = "#444E90"
+	metabolization_rate = 0.8
+	penetrates_skin = TRUE
+	process_flags = ORGANIC | SYNTHETIC
+	taste_mult = 0
+
+/datum/reagent/frigidi/on_mob_life(mob/living/M)
+	if(!ismachineperson(M))
+		var/update_flags = STATUS_UPDATE_NONE | M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		return ..() | update_flags
+	var/mob/living/carbon/human/target = M
+	switch(current_cycle)
+		if(1 to 5)
+			if(M.nutrition > NUTRITION_LEVEL_HUNGRY)
+				M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_HUNGRY
+				target.handle_nutrition_alerts()
+		if(6 to 9)
+			M.AdjustEyeBlurry(10 SECONDS)
+			M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_STARVING
+			target.handle_nutrition_alerts()
+		if(10)
+			M.emote("faint")
+			M.Weaken(10 SECONDS)
+		if(11 to INFINITY)
+			M.Paralyse(50 SECONDS)
+			if(prob(10))
+				var/obj/item/organ/internal/cell/microbattery = M.get_organ_slot("heart")
+				if(istype(microbattery))
+					microbattery.receive_damage(2, TRUE)
+	var/update_flags = STATUS_UPDATE_NONE
+	return ..() | update_flags
+
+/datum/reagent/frigidi/on_mob_delete(mob/living/M)
+	if(ismachineperson(M))
+		var/mob/living/carbon/human/target = M
+		M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_NONE
+		target.handle_nutrition_alerts()
+
 /datum/reagent/sulfonal
 	name = "Sulfonal"
 	id = "sulfonal"
@@ -1220,6 +1265,10 @@
 		if(M.mob_biotypes & MOB_BUG)
 			var/damage = min(round(0.4 * volume, 0.1), 10)
 			M.adjustToxLoss(damage)
+		if(istype(M, /mob/living/basic/megafauna/kidan_princess))
+			var/mob/living/basic/megafauna/kidan_princess/princess = M
+			if(!princess.enraged)
+				princess.enrage()
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/damage = 1

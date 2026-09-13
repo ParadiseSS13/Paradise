@@ -797,7 +797,7 @@
 "Zf" = (
 /obj/structure/table,
 /obj/item/shard,
-/obj/item/scalpel/laser/laser2,
+/obj/item/scalpel/laser,
 /turf/template_noop,
 /area/template_noop)
 

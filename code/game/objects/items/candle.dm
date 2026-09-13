@@ -16,6 +16,7 @@
 	var/infinite = FALSE
 	var/start_lit = FALSE
 	var/flickering = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/candle/Initialize(mapload)
 	. = ..()
@@ -40,11 +41,11 @@
 	else
 		return TRUE
 
-/obj/item/candle/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W.get_heat())
-		light(SPAN_NOTICE("[user] lights [src] with [W]."))
-		return
-	return ..()
+/obj/item/candle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.get_heat())
+		return ..()
+	light(SPAN_NOTICE("[user] lights [src] with [used]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -111,11 +112,13 @@
 		update_icon(UPDATE_ICON_STATE)
 		set_light(0)
 
-
-/obj/item/candle/attack_self__legacy__attackchain(mob/user)
-	if(lit)
-		user.visible_message(SPAN_NOTICE("[user] snuffs out [src]."))
-		unlight()
+/obj/item/candle/activate_self(mob/user)
+	if(!lit)
+		return ..()
+	user.visible_message(SPAN_NOTICE("[user] snuffs out [src]."))
+	unlight()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/candle/lit
 	start_lit = TRUE
@@ -139,8 +142,10 @@
 	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
 	start_lit = TRUE
 
-/obj/item/candle/eternal/wizard/attack_self__legacy__attackchain(mob/user)
-	return
+/obj/item/candle/eternal/wizard/activate_self(mob/user)
+	if(!user)
+		return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/candle/eternal/wizard/process()
 	return
@@ -149,7 +154,6 @@
 	. = ..()
 	if(lit)
 		set_light(CANDLE_LUM * 2)
-
 
 /obj/item/candle/extinguish_light(force)
 	if(!force)

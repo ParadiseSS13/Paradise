@@ -19,6 +19,15 @@
 	if(obj_integrity <= 0)
 		obj_destruction(damage_flag)
 
+/**
+ * Retrieves the objects's current damage as a percentage where `100%` is `100`.
+ */
+/obj/proc/get_integrity_percentage()
+	return ceil(obj_integrity / max_integrity * 100)
+
+/obj/proc/get_integrity_lost()
+	return max_integrity - obj_integrity
+
 ///returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)

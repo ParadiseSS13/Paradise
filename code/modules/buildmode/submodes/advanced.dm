@@ -8,7 +8,7 @@
 /datum/buildmode_mode/advanced/show_help(mob/user)
 	to_chat(user, SPAN_NOTICE("***********************************************************"))
 	to_chat(user, SPAN_NOTICE("Right Mouse Button on buildmode button = Set object type"))
-	to_chat(user, "<span class='notice'>Left Mouse Button + alt on turf/obj    = Copy object type")
+	to_chat(user, SPAN_NOTICE("Left Mouse Button + alt on turf/obj    = Copy object type"))
 	to_chat(user, SPAN_NOTICE("Left Mouse Button on turf/obj          = Place objects"))
 	to_chat(user, SPAN_NOTICE("Right Mouse Button                     = Delete objects"))
 	to_chat(user, SPAN_NOTICE("Use the button in the upper left corner to"))

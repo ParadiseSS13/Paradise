@@ -14,12 +14,17 @@
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat = 3)
 	response_disarm = "gently pushes aside"
+	var/collar_icon_state = "fox"
+
+/mob/living/simple_animal/pet/dog/fox/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state)
+	regenerate_icons()
 
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
-	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/dog/fox/renault/Initialize(mapload)
@@ -35,7 +40,6 @@
 	icon_dead = "Syndifox_dead"
 	icon_resting = "Syndifox_rest"
 	faction = list("syndicate")
-	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

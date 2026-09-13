@@ -116,10 +116,90 @@
 	allowed_roles = list("Quartermaster", "Explorer")
 
 //LABCOATS
-/datum/gear/suit/labcoat_emt
+/datum/gear/suit/labcoat
+	main_typepath = /datum/gear/suit/labcoat
+
+/datum/gear/suit/labcoat/generic
+	display_name = "Labcoat"
+	path = /obj/item/clothing/suit/storage/labcoat
+
+/datum/gear/suit/labcoat/mad
+	display_name = "Labcoat, mad scientist"
+	path = /obj/item/clothing/suit/storage/labcoat/mad
+
+/datum/gear/suit/labcoat/job
+	main_typepath = /datum/gear/suit/labcoat/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/suit/labcoat/job/med
+	display_name = "Labcoat, medical"
+	path = /obj/item/clothing/suit/storage/labcoat/medical
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+
+/datum/gear/suit/labcoat/job/med/cmo
+	display_name = "Labcoat, cmo"
+	path = /obj/item/clothing/suit/storage/labcoat/cmo
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/suit/labcoat/job/med/chemist
+	display_name = "Labcoat, chemist"
+	path = /obj/item/clothing/suit/storage/labcoat/chemist
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/suit/labcoat/job/med/virologist
+	display_name = "Labcoat, virologist"
+	path = /obj/item/clothing/suit/storage/labcoat/virologist
+	allowed_roles = list("Chief Medical Officer", "Virologist")
+
+/datum/gear/suit/labcoat/job/med/mortician
+	display_name = "Labcoat, coroner"
+	path = /obj/item/clothing/suit/storage/labcoat/mortician
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/suit/labcoat/job/med/emt
 	display_name = "Labcoat, paramedic"
 	path = /obj/item/clothing/suit/storage/labcoat/emt
 	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
+/datum/gear/suit/labcoat/job/med/psych
+	display_name = "Labcoat, psychiatrist"
+	path = /obj/item/clothing/suit/storage/labcoat/psych
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/suit/labcoat/job/sci
+	display_name = "Labcoat, science"
+	path = /obj/item/clothing/suit/storage/labcoat/science
+	allowed_roles = list("Research Director", "Scientist", "Roboticist", "Geneticist", "Xenobiologist")
+
+/datum/gear/suit/labcoat/job/sci/genetics
+	display_name = "Labcoat, geneticist"
+	path = /obj/item/clothing/suit/storage/labcoat/genetics
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/suit/labcoat/job/sci/robowhite
+	display_name = "Labcoat, roboticist"
+	path = /obj/item/clothing/suit/storage/labcoat/robowhite
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/suit/labcoat/job/sci/roboblack
+	display_name = "Labcoat, biomechanical engineer"
+	path = /obj/item/clothing/suit/storage/labcoat/roboblack
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/suit/labcoat/job/sci/rd
+	display_name = "Labcoat, rd"
+	path = /obj/item/clothing/suit/storage/labcoat/rd
+	allowed_roles = list("Research Director")
+
+/datum/gear/suit/labcoat/job/hydro
+	display_name = "Labcoat, botanist"
+	path = /obj/item/clothing/suit/storage/labcoat/hydro
+	allowed_roles = list("Head of Personnel", "Botanist")
+
+/datum/gear/suit/labcoat/job/hydro/alt
+	display_name = "Labcoat, hydroponicist"
+	path = /obj/item/clothing/suit/storage/labcoat/hydro/alt
+	allowed_roles = list("Head of Personnel", "Botanist")
 
 //BOMBER JACKETS
 /datum/gear/suit/bomber

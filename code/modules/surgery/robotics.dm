@@ -716,7 +716,12 @@
 	return ..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.all_robolimbs)
+	var/possible_robolimbs = list()
+	for(var/robolimb in GLOB.all_robolimbs)
+		var/datum/robolimb/robopart = GLOB.all_robolimbs[robolimb]
+		if(target_zone in robopart.parts)
+			possible_robolimbs += robolimb
+	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", possible_robolimbs)
 	if(!chosen_appearance)
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

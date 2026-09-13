@@ -93,7 +93,7 @@ emp_act
 		return TRUE
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
-		if(ismachineperson(src))
+		if(ismachineperson(src) && !(user.zone_selected == "mouth" && istype(src.wear_mask, /obj/item/clothing/mask/cigarette/)))
 			to_chat(user, SPAN_NOTICE("[p_they(TRUE)] [p_are()] missing that limb!"))
 			return TRUE
 		return

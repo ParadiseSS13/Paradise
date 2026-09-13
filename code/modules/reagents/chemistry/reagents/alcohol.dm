@@ -401,6 +401,30 @@
 	yuck_description = "stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
 
+/datum/reagent/consumable/ethanol/strawberry_daiquiri
+	name = "Strawberry Daiquiri"
+	id = "strawberry_daiquiri"
+	description = "Berry juice and sugar mixed with rum. A fruity and refreshing mix."
+	color = "#ff8091"
+	alcohol_perc = 0.4
+	drink_icon = "strawberrydaiquiriglass"
+	drink_name = "Strawberry Daiquiri"
+	drink_desc = "A sweeter alternative to the standard daiquiri."
+	taste_description = "sweetened berry juice and rum"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/miami_vice
+	name = "Miami Vice"
+	id = "miami_vice"
+	description = "A pina colada on top of a strawberry daiquiri. A fruity and tart mix."
+	color = "#ffc3cb"
+	alcohol_perc = 0.6
+	drink_icon = "miamiviceglass"
+	drink_name = "Miami Vice"
+	drink_desc = "A pina colada on top of a strawberry daiquiri. You're filled with a longing for an ancient city..."
+	taste_description = "sweet berries and tangy pineapples"
+	goal_difficulty = REAGENT_GOAL_EASY
+
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"
 	id = "martini"

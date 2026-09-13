@@ -145,24 +145,27 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user)
-	if(..() || !consumable)
-		return FINISH_ATTACK
-	if(target == user)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(!H.check_has_mouth())
-				to_chat(user, SPAN_WARNING("You do not have a mouth!"))
-				return
-		times_eaten++
-		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		user.adjust_nutrition(5)
-		user.reagents.add_reagent_list(list_reagents)
-		if(times_eaten < max_bites)
-			to_chat(user, SPAN_NOTICE("You take a bite of the [name]. [flavor]"))
-		else
-			to_chat(user, SPAN_WARNING("There is no more of [name] left!"))
-			qdel(src)
+/obj/item/toy/crayon/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!consumable)
+		return ..()
+	if(target != user)
+		return ..()
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(!human_user.check_has_mouth())
+			to_chat(user, SPAN_WARNING("You do not have a mouth!"))
+			return ITEM_INTERACT_COMPLETE
+	times_eaten++
+	playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+	user.adjust_nutrition(5)
+	user.reagents.add_reagent_list(list_reagents)
+	if(times_eaten < max_bites)
+		to_chat(user, SPAN_NOTICE("You take a bite of the [name]. [flavor]"))
+	else
+		to_chat(user, SPAN_WARNING("There is no more of [name] left!"))
+		qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/crayon/examine(mob/user)
 	. = ..()

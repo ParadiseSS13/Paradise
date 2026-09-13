@@ -2,7 +2,8 @@ GLOBAL_LIST_INIT(hallucinations, alist(
 	HALLUCINATE_MINOR = list(
 		/obj/effect/hallucination/bolts = 10,
 		/obj/effect/hallucination/fake_danger = 10,
-		/obj/effect/hallucination/fake_health = 15,
+		/obj/effect/hallucination/fake_health = 10,
+		/obj/effect/hallucination/fake_nutrition = 10,
 		/obj/effect/hallucination/speech = 15,
 		/obj/effect/hallucination/audio/localized = 25,
 		/obj/effect/hallucination/trait_applier/medical_machinery = 25,

@@ -39,6 +39,12 @@
 
 	qdel(src)
 
+/obj/effect/map_effect/dynamic_airlock/Destroy()
+	. = ..()
+
+	LAZYCLEARLIST(sibling_items)
+	LAZYCLEARLIST(neighbor_helpers)
+
 /obj/effect/map_effect/dynamic_airlock/proc/collect_sibling_item(atom/A)
 	if(is_type_in_list(A, valid_siblings))
 		LAZYADD(sibling_items, A)
@@ -55,6 +61,12 @@
 /obj/effect/map_effect/dynamic_airlock/door
 	var/list/buttons = list()
 	var/obj/machinery/door/airlock/external/airlock
+
+/obj/effect/map_effect/dynamic_airlock/door/Destroy()
+	. = ..()
+
+	buttons.Cut()
+	airlock = null
 
 /obj/effect/map_effect/dynamic_airlock/door/proc/assign_access(datum/dynamic_airlock_linker/linker)
 	for(var/obj/machinery/access_button/button in buttons)

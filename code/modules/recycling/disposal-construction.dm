@@ -2,7 +2,6 @@
 // This is the pipe that you drag around, not the attached ones.
 
 /obj/structure/disposalconstruct
-
 	name = "disposal pipe segment"
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes/disposal.dmi'
@@ -128,12 +127,6 @@
 			return /obj/structure/disposalpipe/sortjunction
 	return
 
-
-
-// attackby item
-// wrench: (un)anchor
-// weldingtool: convert to real pipe
-
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/ispipe = is_pipe()
@@ -184,8 +177,7 @@
 			nicetype = "sorting pipe"
 	return nicetype
 
-/obj/structure/disposalconstruct/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	. = ITEM_INTERACT_COMPLETE
+/obj/structure/disposalconstruct/welder_act(mob/living/user, obj/item/I)
 	var/nicetype = get_nice_name()
 	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 	var/turf/T = get_turf(src)
@@ -193,73 +185,78 @@
 
 	if(T.intact)
 		to_chat(user, SPAN_WARNING("You can only attach the [nicetype] if the floor plating is removed."))
-		return
+		return TRUE
 
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
-		var/obj/structure/disposalpipe/trunk/CP = locate() in T
-		if(!CP) // There's no trunk
+		var/obj/structure/disposalpipe/trunk/pipe_trunk = locate() in T
+		if(!pipe_trunk) // There's no trunk.
 			to_chat(user, SPAN_WARNING("The [nicetype] requires a trunk underneath it in order to work."))
-			return
+			return TRUE
 	else
-		for(var/obj/structure/disposalpipe/CP in T)
-			if(CP)
+		for(var/obj/structure/disposalpipe/pipe_trunk in T)
+			if(pipe_trunk)
 				update()
-				var/pdir = CP.dpdir
-				if(istype(CP, /obj/structure/disposalpipe/broken))
-					pdir = CP.dir
+				var/pdir = pipe_trunk.dpdir
+				if(istype(pipe_trunk, /obj/structure/disposalpipe/broken))
+					pdir = pipe_trunk.dir
 				if(pdir & dpdir)
 					to_chat(user, SPAN_WARNING("There is already a [nicetype] at that location."))
-					return
+					return TRUE
 
-	if(istype(I, /obj/item/weldingtool))
-		if(anchored)
-			if(I.tool_use_check(user, 0))
-				to_chat(user, SPAN_NOTICE("You begin welding the [nicetype] in place."))
-				if(I.use_tool(src, user, 20, volume = I.tool_volume))
-					to_chat(user, SPAN_NOTICE("You have welded the [nicetype] in place!"))
-					update() // TODO: Make this neat
-					if(ispipe) // Pipe
+	if(!anchored)
+		to_chat(user, SPAN_WARNING("You need to attach it to the plating first!"))
+		return TRUE
 
-						var/pipetype = dpipetype()
-						var/obj/structure/disposalpipe/P = new pipetype(src.loc)
-						src.transfer_fingerprints_to(P)
-						P.base_icon_state = base_state
-						P.dir = dir
-						P.dpdir = dpdir
-						P.update_icon(UPDATE_ICON_STATE)
+	if(!I.tool_use_check(user, 0))
+		to_chat(user, SPAN_WARNING("You need more welding fuel to complete this task."))
+		return TRUE
 
-						//Needs some special treatment ;)
-						if(ptype == PIPE_DISPOSALS_SORT_RIGHT || ptype == PIPE_DISPOSALS_SORT_LEFT)
-							var/obj/structure/disposalpipe/sortjunction/SortP = P
-							SortP.updatedir()
+	user.visible_message(
+		SPAN_NOTICE("[user] begins welding [nicetype] to [get_turf(src)]..."),
+		SPAN_NOTICE("You begin welding [nicetype] to [get_turf(src)]..."),
+		SPAN_HEAR("You hear welding.")
+	)
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		to_chat(user, SPAN_WARNING("You stop welding [nicetype]!"))
+		return TRUE
 
-					else if(ptype == PIPE_DISPOSALS_BIN) // Disposal bin
-						var/obj/machinery/disposal/P = new /obj/machinery/disposal(src.loc)
-						src.transfer_fingerprints_to(P)
-						P.mode = 0 // start with pump off
+	to_chat(user, SPAN_NOTICE("You have welded the [nicetype] in place!"))
+	update() // TODO: Make this neat.
+	if(ispipe) // Pipe.
+		var/pipetype = dpipetype()
+		var/obj/structure/disposalpipe/P = new pipetype(src.loc)
+		src.transfer_fingerprints_to(P)
+		P.base_icon_state = base_state
+		P.dir = dir
+		P.dpdir = dpdir
+		P.update_icon(UPDATE_ICON_STATE)
 
-					else if(ptype == PIPE_DISPOSALS_OUTLET) // Disposal outlet
+		// Needs some special treatment. ;)
+		if(ptype == PIPE_DISPOSALS_SORT_RIGHT || ptype == PIPE_DISPOSALS_SORT_LEFT)
+			var/obj/structure/disposalpipe/sortjunction/SortP = P
+			SortP.updatedir()
 
-						var/obj/structure/disposaloutlet/P = new /obj/structure/disposaloutlet(src.loc)
-						src.transfer_fingerprints_to(P)
-						P.dir = dir
+	else if(ptype == PIPE_DISPOSALS_BIN) // Disposal bin.
+		var/obj/machinery/disposal/P = new /obj/machinery/disposal(src.loc)
+		src.transfer_fingerprints_to(P)
+		P.mode = 0 // start with pump off
 
-					else if(ptype==PIPE_DISPOSALS_CHUTE) // Disposal outlet
+	else if(ptype == PIPE_DISPOSALS_OUTLET) // Disposal outlet.
+		var/obj/structure/disposaloutlet/P = new /obj/structure/disposaloutlet(src.loc)
+		src.transfer_fingerprints_to(P)
+		P.dir = dir
 
-						var/obj/machinery/disposal/delivery_chute/P = new /obj/machinery/disposal/delivery_chute(src.loc)
-						src.transfer_fingerprints_to(P)
-						P.dir = dir
+	else if(ptype == PIPE_DISPOSALS_CHUTE) // Disposal outlet.
+		var/obj/machinery/disposal/delivery_chute/P = new /obj/machinery/disposal/delivery_chute(src.loc)
+		src.transfer_fingerprints_to(P)
+		P.dir = dir
 
-					qdel(src)
-					return
-			else
-				to_chat(user, SPAN_WARNING("You need more welding fuel to complete this task."))
-				return
-		else
-			to_chat(user, SPAN_WARNING("You need to attach it to the plating first!"))
-			return
+	qdel(src)
+	return TRUE
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(anchored)
+		return FALSE
 	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
 		rotate(user)

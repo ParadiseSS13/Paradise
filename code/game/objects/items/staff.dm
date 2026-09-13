@@ -13,6 +13,7 @@
 	armor_penetration_percentage = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 	resistance_flags = FLAMMABLE
+	new_attack_chain = TRUE
 
 /obj/item/staff/Initialize(mapload)
 	. = ..()
@@ -47,14 +48,17 @@
 		animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 		animate(user)
 
-/obj/item/staff/broom/attackby__legacy__attackchain(obj/O, mob/user)
-	if(istype(O, /obj/item/clothing/mask/horsehead))
-		new/obj/item/staff/broom/horsebroom(get_turf(src))
-		user.unequip(O)
-		qdel(O)
-		qdel(src)
-		return
-	..()
+/obj/item/staff/broom/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/clothing/mask/horsehead))
+		return ..()
+	var/obj/item/staff/broom/horsebroom/new_broom = new(get_turf(src))
+	transfer_fingerprints_to(new_broom)
+	used.transfer_fingerprints_to(new_broom)
+	new_broom.add_fingerprint(user)
+	user.unequip(used)
+	qdel(used)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/staff/broom/dropped(mob/user)
 	REMOVE_TRAIT(user, TRAIT_FLYING, "broomstick")

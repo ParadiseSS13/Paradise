@@ -37,8 +37,10 @@
 
 		list(
 			/obj/effect/landmark/mob_spawner/abandoned_minebot,
+			/obj/effect/landmark/mob_spawner/ashwalker_npc,
 			/obj/effect/landmark/mob_spawner/goldgrub,
 			/obj/effect/landmark/mob_spawner/gutlunch,
+			/obj/effect/landmark/mob_spawner/ash_whelp,
 		) = 1,
 	)
 

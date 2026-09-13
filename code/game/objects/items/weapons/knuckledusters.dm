@@ -18,18 +18,26 @@
 	var/elite = FALSE
 	/// How much organ damage can the weapon do?
 	var/trauma = 5
+	new_attack_chain = TRUE
 
-/obj/item/melee/knuckleduster/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/knuckleduster/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	add_fingerprint(user)
+
 	if(!gripped)
 		gripped = TRUE
-		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
+		to_chat(user, SPAN_NOTICE("You tighten your grip on [src], ensuring you won't drop it."))
 		set_nodrop(TRUE, user)
 		ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
-	else
-		gripped = FALSE
-		to_chat(user, "You relax your grip on [src].")
-		set_nodrop(FALSE, user)
-		REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
+		return ITEM_INTERACT_COMPLETE
+
+	gripped = FALSE
+	to_chat(user, SPAN_NOTICE("You relax your grip on [src]."))
+	set_nodrop(FALSE, user)
+	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/knuckleduster/dropped(mob/user, silent)
 	. = ..()
@@ -37,21 +45,26 @@
 	set_nodrop(FALSE, user)
 	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 
-/obj/item/melee/knuckleduster/attack__legacy__attackchain(mob/living/target, mob/living/user)
-	. = ..()
+/obj/item/melee/knuckleduster/pre_attack(atom/target, mob/living/user, params)
 	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	return ..()
+
+/obj/item/melee/knuckleduster/after_attack(mob/living/carbon/human/target, mob/user, proximity_flag, click_parameters)
+	if(..())
+		return FINISH_ATTACK
 	if(!ishuman(target) || QDELETED(target))
-		return
+		return FINISH_ATTACK
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)
 	if(!length(punched.internal_organs))
-		return
+		return FINISH_ATTACK
 
 	var/obj/item/organ/internal/squishy = pick(punched.internal_organs)
 	if(gripped && elite)
 		squishy.receive_damage(trauma)
 	if(punched.is_broken())
 		squishy.receive_damage(trauma) // Probably not so good for your organs to have your already broken ribs punched hard by a metal object
+	return FINISH_ATTACK
 
 /obj/item/melee/knuckleduster/syndie
 	name = "syndicate knuckleduster"
