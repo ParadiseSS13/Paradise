@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		return 0
 
 	for(var/datum/reagent/vaccine in affected_mob.reagents.reagent_list) // If the vaccine has the same ID as the virus we cure the virus.
-		if(src.GetDiseaseID() in vaccine.data)
+		if(GetDiseaseID() in vaccine.data)
 			return TRUE
 
 	var/cures_found = 0

@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		return 0
 
 	for(var/datum/reagent/vaccine in affected_mob.reagents.reagent_list)
-		if(src.GetDiseaseID() in vaccine.data)
+		if(GetDiseaseID() in vaccine.data)
 			return TRUE
 
 	var/cures_found = 0

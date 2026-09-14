@@ -22,7 +22,7 @@
 
 /datum/disease/critical/has_cure()
 	for(var/datum/reagent/vaccine in affected_mob.reagents.reagent_list)
-		if(src.GetDiseaseID() in vaccine.data)
+		if(GetDiseaseID() in vaccine.data)
 			return TRUE
 
 	for(var/C_id in cures)
