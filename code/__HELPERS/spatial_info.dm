@@ -205,8 +205,24 @@
 
 /proc/get_hearers_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
+
+	// TODO: Put this somewhere else for fuck sake
+	for(var/mob/dead/observer in GLOB.player_list)
+		if(observer.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+			. |= observer
+
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/radio as anything in radios)
+		//Cyborg checks. Receiving message uses a bit of cyborg's charge.
+		var/obj/item/radio/borg/BR = radio
+		if(istype(BR) && BR.myborg)
+			var/mob/living/silicon/robot/borg = BR.myborg
+			var/datum/robot_component/CO = borg.get_component("radio")
+			if(!CO)
+				continue //No radio component (Shouldn't happen)
+			if(!borg.is_component_functioning("radio"))
+				continue //No power.
+
 		. |= get_hearers_in_LOS(radio.canhear_range, radio)
 
 /proc/is_in_sight(atom/first_atom, atom/second_atom)

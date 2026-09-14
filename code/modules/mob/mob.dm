@@ -42,6 +42,7 @@
 	reset_perspective(src)
 	prepare_huds()
 	update_runechat_msg_location()
+	become_hearing_sensitive()
 	ADD_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 	. = ..()
 
