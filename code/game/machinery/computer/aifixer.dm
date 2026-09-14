@@ -113,10 +113,10 @@
 /obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
-	//Downloading AI from card to terminal.
+	// Downloading AI from card to terminal.
 	if(interaction == AI_TRANS_FROM_CARD)
 		if(stat & (NOPOWER|BROKEN))
-			to_chat(user, "[src] is offline and cannot take an AI at this time!")
+			to_chat(user, SPAN_WARNING("[src] is offline and cannot take an AI at this time!"))
 			return
 		AI.forceMove(src)
 		occupant = AI
@@ -125,12 +125,14 @@
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
 		to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		update_icon(UPDATE_OVERLAYS)
+		card.held_ai = null
 
-	else //Uploading AI from terminal to card
+	else // Uploading AI from terminal to card.
 		if(occupant && !active)
 			to_chat(occupant, "You have been downloaded to a mobile storage device. Still no remote access.")
 			to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 			occupant.forceMove(card)
+			card.held_ai = occupant
 			occupant = null
 			update_icon(UPDATE_OVERLAYS)
 		else if(active)
