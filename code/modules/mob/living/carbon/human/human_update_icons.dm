@@ -423,6 +423,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					img_secondary.color = list(null, null, null, null, O.sec_hair_colour)
 				MA.overlays += img_secondary
 
+	var/datum/robolimb/robohead = O.is_robotic() ? GLOB.all_robolimbs[O.model] : null
+	if(robohead && robohead.is_monitor && stat == DEAD)
+		MA.alpha = 80
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
 
