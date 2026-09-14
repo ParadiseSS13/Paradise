@@ -53242,7 +53242,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "kDr" = (
-/obj/structure/table/wood,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "kDs" = (
@@ -82547,7 +82547,7 @@
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
 "qty" = (
-/obj/structure/chair/comfy/black,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "qtz" = (
