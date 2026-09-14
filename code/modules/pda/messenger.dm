@@ -190,7 +190,7 @@
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)
 			if(isobserver(M) && M.client && (M.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA))
-				var/ghost_message = SPAN_NAME("[pda.owner]</span> ([ghost_follow_link(pda, ghost=M)]) <span class='game say'>PDA Message</span> --> [SPAN_NAME("[P.owner]")] ([ghost_follow_link(P, ghost=M)]): <span class='message'>[t]")
+				var/ghost_message = SPAN_NAME("[pda.owner]</span> ([ghost_follow_link(pda, ghost=M)]) <span class='game say'>PDA Message</span> --> [SPAN_NAME("[P.owner]")] ([ghost_follow_link(P, ghost=M)]): [SPAN_MESSAGE(t)]")
 				to_chat(M, "[ghost_message]")
 
 		if(!conversations.Find("[P.UID()]"))

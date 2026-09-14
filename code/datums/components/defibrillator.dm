@@ -105,7 +105,7 @@
 		return
 	safety = !safety
 	if(user && !robotic)
-		to_chat(user, "<span class='warning'>You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card.")
+		to_chat(user, SPAN_WARNING("You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card."))
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE

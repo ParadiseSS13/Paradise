@@ -328,7 +328,7 @@
 			SPAN_WARNING("You gasp for air and accidentally swallow your [cig]!")
 		)
 		if(cig.lit)
-			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
+			to_chat(user, SPAN_USERDANGER("The lit [cig] burns on the way down!"))
 			user.unequip(cig)
 			qdel(cig)
 			H.adjustFireLoss(5)
@@ -439,6 +439,11 @@
 	key = "handshake"
 	key_third_person = "handshakes"
 	status = STATUS_EFFECT_HANDSHAKE
+
+/datum/emote/living/carbon/human/highfive/fistbump
+	key = "fistbump"
+	key_third_person = "fistbumps"
+	status = STATUS_EFFECT_FISTBUMP
 
 /datum/emote/living/carbon/human/highfive/rps
 	key = "rps"
@@ -686,10 +691,10 @@
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		to_chat(H, "<span class='warning'>Your wings are burnt off!</span>")
+		to_chat(H, SPAN_WARNING("Your wings are burnt off!"))
 		return FALSE
 	if(!H.body_accessory || !istype(H.body_accessory, /datum/body_accessory/wing))
-		to_chat(H, "<span class='warning'>You don't have wings!</span>")
+		to_chat(H, SPAN_WARNING("You don't have wings!"))
 		return FALSE
 	return TRUE
 

@@ -36,5 +36,5 @@ USER_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as t
 	var/prefix = "[stafftype] ([client.key])"
 	if(client.holder.fakekey)
 		prefix = "Administrator"
-	say_dead_direct(SPAN_NAME("[prefix]</span> says, <span class='message'>\"[msg]\""))
+	say_dead_direct("[SPAN_NAME(prefix)] says, [SPAN_MESSAGE(msg)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

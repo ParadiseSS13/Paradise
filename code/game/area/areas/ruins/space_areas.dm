@@ -61,6 +61,8 @@
 /area/ruin/space/djstation
 	name = "\improper Soviet DJ Station"
 	icon_state = "DJ"
+	area_icon_text = "DJ"
+	area_icon_color = AREA_COLOR_AWAY2
 
 /area/ruin/space/djstation/solars
 	name = "\improper Soviet DJ Station Solars"
@@ -295,6 +297,8 @@
 /area/ruin/space/rocky_motel
 	name = "\improper Rocky Motel"
 	icon_state = "rocky_motel"
+	area_icon_text = "ROCKY\nMOTEL"
+	area_icon_color = AREA_COLOR_AWAY3
 	there_can_be_many = FALSE
 
 /area/ruin/space/rocky_motel/asteroid
@@ -303,6 +307,8 @@
 /area/ruin/space/space_relay
 	name = "Nanotrasen Bluespace Relay"
 	icon_state = "space_relay"
+	area_icon_text = "SPACE\nRELAY"
+	area_icon_color = AREA_COLOR_AWAY4
 
 /area/ruin/space/space_relay/Initialize(mapload)
 	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name

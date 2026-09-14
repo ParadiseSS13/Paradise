@@ -80,7 +80,7 @@
 
 /obj/item/clothing/shoes/clown_shoes
 	name = "clown shoes"
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! <span class='notice'>Alt-click to toggle the waddle dampeners!</span>"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
 	icon_state = "clown"
 	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
@@ -89,6 +89,10 @@
 	// shoes, but the functionality of clown shoes.
 
 	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/examine()
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-click</b> to toggle the waddle dampeners!")
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()

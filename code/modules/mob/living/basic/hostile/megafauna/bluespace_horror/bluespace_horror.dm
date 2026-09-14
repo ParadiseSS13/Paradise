@@ -108,7 +108,7 @@
 				desto_turfs += possible
 			for(var/mob/living/C in oview(get_turf(src), 3))
 				C.forceMove(pick(desto_turfs))
-				to_chat(C, "<span class='danger'>You are teleported a short distance!</span>")
+				to_chat(C, SPAN_DANGER("You are teleported a short distance!"))
 				do_sparks(3, TRUE, C)
 		// Yoink!
 		if(3)
@@ -116,7 +116,7 @@
 				var/dir = get_dir(C.loc, loc)
 				var/turf/step = get_step(C, dir)
 				C.forceMove(step)
-				to_chat(C, "<span class='danger'>You feel a strong force pulling you towards [src]!</span>")
+				to_chat(C, SPAN_DANGER("You feel a strong force pulling you towards [src]!"))
 
 		// Shazam!
 		if(4)
@@ -131,9 +131,11 @@
 				if(faction_check(faction, L.faction, FALSE))
 					continue
 
-				L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
-				"<span class='userdanger'>You feel a strong force throwing you!</span>",
-				"<span class='danger'>You hear a thud.</span>")
+				L.visible_message(
+					SPAN_DANGER("[L] was thrown by [src]!"),
+					SPAN_USERDANGER("You feel a strong force throwing you!"),
+					SPAN_DANGER("You hear a thud.")
+				)
 				var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 				L.throw_at(throw_target, 4, 4)
 				var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))

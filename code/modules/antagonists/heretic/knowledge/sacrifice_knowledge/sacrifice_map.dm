@@ -86,6 +86,8 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/centcom/heretic_sacrifice
 	name = "Mansus"
 	icon_state = "heretic"
+	area_icon_text = "HERETIC"
+	area_icon_color = AREA_COLOR_AWAY1
 	sound_environment = SOUND_ENVIRONMENT_CAVE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 

@@ -195,7 +195,7 @@
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
 	new /obj/effect/temp_visual/swarmer(target)
-	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	to_chat(src, SPAN_NOTICE("Beginning disintegration of [target]."))
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
@@ -211,7 +211,7 @@
 	if(target.resistance_flags & INDESTRUCTIBLE)
 		return
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
-	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	to_chat(src, SPAN_NOTICE("Beginning disintegration of [target]."))
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
@@ -235,7 +235,7 @@
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
 	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
-	to_chat(src, "<span class='notice'>Beginning integration of [target].")
+	to_chat(src, SPAN_NOTICE("Beginning integration of [target]."))
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target].", interaction_key = "disintegrate"))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)

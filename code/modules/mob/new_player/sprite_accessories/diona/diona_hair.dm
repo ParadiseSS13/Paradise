@@ -2,7 +2,7 @@
 //DIONA: Sprites by skittles below
 /datum/sprite_accessory/hair/diona
 	icon = 'icons/mob/sprite_accessories/diona/diona_hair.dmi'
-	species_allowed = list("Diona")
+	species_allowed = list("Diona", "Diomorph")
 	glasses_over = 1
 	do_colouration = 0
 

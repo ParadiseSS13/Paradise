@@ -4,6 +4,7 @@
 	icon_state = "tome"
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 
 /obj/item/tome/Initialize(mapload)
 	. = ..()
@@ -678,31 +679,38 @@
 	desc = "A small metal orb, crackling with the power of a barely-restrained curse. Crushing the orb will unleash its energy, targeting the vessel which attempts to save the station from its fate."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
+	new_attack_chain = TRUE
 	var/global/curselimit = 0
 
-/obj/item/shuttle_curse/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/shuttle_curse/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!IS_CULTIST(user))
 		user.drop_item_to_ground(src, force = TRUE)
 		user.Weaken(10 SECONDS)
 		to_chat(user, SPAN_WARNING("A powerful force shoves you away from [src]!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(curselimit > 1)
-		to_chat(user, SPAN_NOTICE("We have exhausted our ability to curse the shuttle."))
-		return
+		to_chat(user, SPAN_WARNING("We have exhausted our ability to curse the shuttle!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/basic/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, SPAN_DANGER("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 3 MINUTES
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
 		SSshuttle.emergency.setTimer(timer)
-		to_chat(user,SPAN_DANGER("You shatter the orb! A dark essence spirals into the air, then disappears."))
+		to_chat(user, SPAN_DANGER("You shatter the orb! A dark essence spirals into the air, then disappears."))
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
 		GLOB.major_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
 		qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/cult_shift
 	name = "veil shifter"
@@ -710,6 +718,7 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
+	new_attack_chain = TRUE
 
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
@@ -729,20 +738,26 @@
 			pulled.forceMove(turf_behind)
 			. = pulled
 
-/obj/item/cult_shift/attack_self__legacy__attackchain(mob/user)
+/obj/item/cult_shift/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
 	if(!uses || !iscarbon(user))
 		to_chat(user, SPAN_WARNING("[src] is dull and unmoving in your hands."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!IS_CULTIST(user))
 		user.drop_item_to_ground(src, force = TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, SPAN_WARNING("[src] flickers out of your hands, too eager to move!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(user)) & COMPONENT_BLOCK_TELEPORT)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.holy_check())
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/outer_tele_radius = 9
 
 	var/mob/living/carbon/C = user
@@ -760,24 +775,26 @@
 			continue
 		turfs += T
 
-	if(length(turfs))
-		uses--
-		var/turf/mobloc = get_turf(C)
-		var/turf/destination = pick(turfs)
-		if(uses <= 0)
-			icon_state = "shifter_drained"
-		playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
-
-		handle_teleport_grab(destination, C)
-		C.forceMove(destination)
-
-		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
-		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-
-	else
+	if(!length(turfs))
 		to_chat(C, SPAN_DANGER("The veil cannot be torn here!"))
+		return ITEM_INTERACT_COMPLETE
+
+	uses--
+	add_fingerprint(user)
+	var/turf/mobloc = get_turf(C)
+	var/turf/destination = pick(turfs)
+	if(uses <= 0)
+		icon_state = "shifter_drained"
+	playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
+
+	handle_teleport_grab(destination, C)
+	C.forceMove(destination)
+
+	new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
+	playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
@@ -936,7 +953,7 @@
 		if(IS_CULTIST(holder))
 			to_chat(holder, SPAN_CULTITALIC("The shield's illusions are back at full strength!"))
 		else
-			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
+			to_chat(holder, SPAN_WARNING("[src] vibrates slightly, and starts glowing."))
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
@@ -963,6 +980,7 @@
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	needs_permit = TRUE
+	new_attack_chain = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/cult_spear/Initialize(mapload)
@@ -1020,11 +1038,14 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
-	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
-		S.trigger()
+	if(!istype(target))
+		return FINISH_ATTACK
+
+	var/datum/status_effect/cult_stun_mark/stun_mark = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(stun_mark && HAS_TRAIT(src, TRAIT_WIELDED))
+		stun_mark.trigger()
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
@@ -1109,38 +1130,37 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "amulet"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 
+/obj/item/portal_amulet/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/effect/rune))
+		return ..()
 
-/obj/item/portal_amulet/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
-	. = ..()
 	if(!IS_CULTIST(user))
 		if(!iscarbon(user))
-			return
-		var/mob/living/carbon/M = user
-		to_chat(M, SPAN_CULTLARGE("\"So, you want to explore space?\""))
-		to_chat(M, SPAN_WARNING("Space flashes around you as you are moved somewhere else!"))
-		M.Confused(20 SECONDS)
-		M.flash_eyes(override_blindness_check = TRUE)
-		M.EyeBlind(20 SECONDS)
-		do_teleport(M, get_turf(M), 5, sound_in = 'sound/magic/cult_spell.ogg')
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_CULTLARGE("\"So, you want to explore space?\""))
+		to_chat(user, SPAN_USERDANGER("Space flashes around you as you are moved somewhere else!"))
+		user.Confused(20 SECONDS)
+		user.flash_eyes(override_blindness_check = TRUE)
+		user.EyeBlind(20 SECONDS)
+		do_teleport(user, get_turf(user), 5, sound_in = 'sound/magic/cult_spell.ogg')
 		qdel(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/effect/rune))
-		if(!istype(O, /obj/effect/rune/teleport))
-			to_chat(user, SPAN_WARNING("[src] only works on teleport runes."))
-			return
-		if(!proximity)
-			to_chat(user, SPAN_WARNING("You are too far away from the teleport rune."))
-			return
-		var/obj/effect/rune/teleport/R = O
-		attempt_portal(R, user)
+	if(!istype(target, /obj/effect/rune/teleport))
+		to_chat(user, SPAN_WARNING("[src] only works on teleport runes."))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/effect/rune/teleport/rune = target
+	attempt_portal(rune, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/portal_amulet/proc/attempt_portal(obj/effect/rune/teleport/R, mob/user)
 	var/list/potential_runes = list()
 	var/list/teleport_names = list()
 	var/list/duplicate_rune_count = list()
-	var/turf/T = get_turf(src) //used to tell the other rune where we came from
+	var/turf/T = get_turf(src) // Used to tell the other rune where we came from.
 
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/target = I
@@ -1163,8 +1183,8 @@
 		to_chat(user, SPAN_CULTITALIC("You are not in the right dimension!"))
 		return
 
-	var/input_rune_key = tgui_input_list(user, "Choose a rune to make a portal to", "Rune to make a portal to", potential_runes) //we know what key they picked
-	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to make a portal to", "Rune to make a portal to", potential_runes) // We know what key they picked.
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] // What rune does that key correspond to?
 	if(QDELETED(R) || QDELETED(actual_selected_rune) || !Adjacent(user) || user.incapacitated())
 		return
 
@@ -1218,7 +1238,7 @@ GLOBAL_LIST_EMPTY(proteon_portals)
 	light_range = 3
 	light_color = LIGHT_COLOR_RED
 	new_attack_chain = TRUE
-	/// A nice blood colour matrix
+	/// A nice blood colour matrix.
 	var/list/blood_color_matrix = list(1.25,-0.1,-0.1,0, 0,0.15,0,0, 0,0,0.15,0, 0,0,0,1, 0,0,0,0)
 
 

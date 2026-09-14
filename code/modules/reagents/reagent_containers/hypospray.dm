@@ -238,11 +238,15 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
-	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. <br><span class='boldwarning'>WARNING: Do not inject more than one pen in quick succession.</span>"
+	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards."
 	icon_state = "survpen"
 	volume = 42
 	amount_per_transfer_from_this = 42
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5)
+
+/obj/item/reagent_containers/hypospray/autoinjector/survival/examine()
+	. = ..()
+	. += SPAN_BOLDWARNING("WARNING: Do not inject more than one pen in quick succession.")
 
 /obj/item/reagent_containers/hypospray/autoinjector/emergency_nuclear
 	name = "emergency stabilization medipen"
@@ -254,11 +258,15 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
-	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair.<br><span class='boldwarning'>WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!</span>"
+	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair."
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 40
 	volume = 40
 	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
+
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/examine()
+	. = ..()
+	. += SPAN_BOLDWARNING("WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!")
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/apply(mob/living/M, mob/user)
 	if(..())
