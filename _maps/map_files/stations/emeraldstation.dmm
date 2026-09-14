@@ -16257,9 +16257,7 @@
 /area/shuttle/pod_2)
 "dlq" = (
 /obj/structure/rack,
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "dls" = (
@@ -17213,9 +17211,7 @@
 /area/station/medical/virology)
 "duG" = (
 /obj/structure/table,
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -19594,9 +19590,7 @@
 	codes_txt = "patrol;next_patrol=Armory_North";
 	location = "Armory_South"
 	},
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "dUP" = (
@@ -37424,9 +37418,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/item/pickaxe,
 /obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/tiles/dark/corner{
@@ -96035,7 +96027,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "tbu" = (
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -107769,7 +107761,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "vrV" = (

@@ -106,7 +106,7 @@
 	else
 		attack_ai(user)
 
-/mob/living/simple_animal/bot/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
+/mob/living/basic/bot/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	if(user.loc == src)
 		return
 	to_chat(user, SPAN_WARNING("You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you."))
@@ -116,15 +116,15 @@
 	user.current_bot = src
 	hijacked = TRUE
 
-/mob/living/simple_animal/bot/relaymove(mob/user, dir)
-	if(!on)
+/mob/living/basic/bot/relaymove(mob/user, dir)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		to_chat(user, "[src] isn't turned on!")
 		return
 	if(ispulsedemon(user))
 		var/mob/living/basic/demon/pulse_demon/demon = user
 		if(demon.bot_movedelay <= world.time && dir)
 			Move(get_step(get_turf(src), dir))
-			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
+			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (move_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
@@ -203,16 +203,16 @@
 	else
 		attack_ai(user)
 
-/mob/living/simple_animal/bot/proc/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/proc/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(Adjacent(A))
 		UnarmedAttack(A)
 	else
 		RangedAttack(A)
 
-/mob/living/simple_animal/bot/secbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/secbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(Adjacent(A))
 		UnarmedAttack(A)
@@ -221,8 +221,8 @@
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50)
 		visible_message("<b>[src]</b> points at [A.name]!")
 
-/mob/living/simple_animal/bot/floorbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/repairbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
@@ -230,8 +230,8 @@
 		F.break_tile_to_plating()
 		audible_message(SPAN_DANGER("[src] makes an excited booping sound."))
 
-/mob/living/simple_animal/bot/cleanbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/cleanbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
@@ -242,14 +242,3 @@
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 				playsound(F, 'sound/effects/blobattack.ogg', 40, TRUE)
-
-/mob/living/simple_animal/bot/mulebot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
-		return
-	if(istype(A) && Adjacent(A) && ismovable(A))
-		to_chat(user, SPAN_NOTICE("You try to load [A] onto [src]."))
-		load(A)
-		return
-	if(load)
-		to_chat(user, SPAN_NOTICE("You unload [load]."))
-		unload(0)

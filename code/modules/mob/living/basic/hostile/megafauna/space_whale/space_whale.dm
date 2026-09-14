@@ -28,6 +28,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/space_whale
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/space_whale/charge = BB_WHALE_CHARGE_ACTION)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE,  TRAIT_SPACEWALK)
 
 	/// List of stuff (space fish) that we want to eat
 	var/static/list/edibles = list(
