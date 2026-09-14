@@ -164,8 +164,11 @@
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
 
-/atom/movable/ex_act(severity, turf/epicenter, ex_range)
-	if(epicenter && !anchored && !(istype(src, /mob/dead)) && !throwing && severity >= 1)
+/atom/movable/ex_act(severity)
+	..()
+
+/atom/movable/proc/ex_throw(severity, turf/epicenter, ex_range)
+	if(epicenter && !anchored && !throwing && severity >= 1)
 		var/real_epi = locate(epicenter.x, epicenter.y, epicenter.z) // We cant just use the loc of epicenter as it may get destroyed in the explosion, resulting in infinity.
 		var/real_dir = get_dir(real_epi, loc)
 		if(!real_dir)
@@ -173,7 +176,6 @@
 		var/ex_distance = abs(get_dist(real_epi, loc))
 		var/throw_dist = abs((ex_range - ex_distance) * (3/severity))
 		throw_at(get_edge_target_turf(src, real_dir), throw_dist, 5)
-	..()
 
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))

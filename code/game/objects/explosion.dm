@@ -200,7 +200,10 @@
 
 			for(var/atom/A as anything in S)
 				if(!QDELETED(A) && A.simulated && (A.level >= affecting_level))
-					A.ex_act(explosion_strength, epicenter, light_impact_range)
+					A.ex_act(explosion_strength)
+				if(istype(A, /atom/movable) && !(istype(A, /mob/dead)))
+					var/atom/movable/AM = A
+					AM.ex_throw(explosion_strength, epicenter, light_impact_range)
 				CHECK_TICK
 
 		var/took = stop_watch(watch)
