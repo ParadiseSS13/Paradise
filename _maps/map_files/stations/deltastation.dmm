@@ -21590,10 +21590,10 @@
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bJa" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bJb" = (
@@ -47378,6 +47378,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"dTa" = (
+/obj/machinery/papershredder,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "dTc" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
@@ -139666,7 +139670,7 @@ bOZ
 dne
 dnf
 cfK
-cfK
+dTa
 bYv
 mTf
 bYv
