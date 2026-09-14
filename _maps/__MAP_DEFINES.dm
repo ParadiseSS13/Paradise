@@ -36,8 +36,15 @@
 	/// Tcomms relays will always extend to this level.
 	#define TCOMM_RELAY_ALWAYS "Tcomm Relay Always"
 
+	/// Whether this z level is an upper/lower level of a station map.
+	/// We do not have "true" multi-z, instead we allow for station maps to have two hardcoded upper and lower levels.
+	#define ZTRAIT_LOWER_LEVEL "Up"
+	#define ZTRAIT_UPPER_LEVEL "Down"
+	#define ZTRAIT_WINTER_LEVEL "Winter Level"
+
 // Level names
 	#define MAIN_STATION "Main Station"
+	#define SUB_STATION "Sub Station"
 	#define CENTCOMM "CentComm"
 	#define TELECOMMS "Telecomms Satellite"
 	#define DERELICT "Derelicted Station"

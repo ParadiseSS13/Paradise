@@ -187,6 +187,8 @@
 #define ENVIRONMENT_TEMPERATE "temperate"
 /// Cold environment: Normal atmosphere, -93 C.
 #define ENVIRONMENT_COLD "cold"
+/// Ice planet environment: Supercold CO2.
+#define ENVIRONMENT_ICEPLANET "planet"
 
 /// How far away should we load the pressure HUD data from MILLA?
 #define PRESSURE_HUD_LOAD_RADIUS 15
