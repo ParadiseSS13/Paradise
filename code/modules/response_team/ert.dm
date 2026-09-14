@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	M.generate_random_appearance(prosthesis_prob = 0)
 
-	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
+	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(S.get_random_name(M.gender))]")
 	M.age = rand(23,35)
 	M.update_dna()
 	M.regenerate_icons()
