@@ -14126,7 +14126,9 @@
 	pixel_y = 24
 	},
 /obj/structure/table,
-/obj/machinery/cell_charger,
+/obj/machinery/cell_charger{
+	pixel_x = -2
+	},
 /obj/item/stock_parts/cell/high,
 /obj/item/screwdriver{
 	pixel_y = 10
@@ -14136,6 +14138,9 @@
 	pixel_y = 14
 	},
 /obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/recharger{
+	pixel_x = 9
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "bHC" = (
@@ -37597,12 +37602,10 @@
 /area/station/engineering/control)
 "gnf" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel,
 /area/station/supply/break_room)
 "gng" = (
@@ -66708,10 +66711,10 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
+/obj/item/rcs,
 /turf/simulated/floor/plasteel,
 /area/station/supply/break_room)
 "pNc" = (
@@ -75115,10 +75118,10 @@
 /area/station/service/bar)
 "szM" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/station/supply/break_room)
 "szY" = (
@@ -77126,7 +77129,6 @@
 /area/station/supply/lobby)
 "tgu" = (
 /obj/structure/table,
-/obj/machinery/recharger,
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
 	dir = 1
@@ -77136,6 +77138,9 @@
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/break_room)
 "tgB" = (
@@ -78177,7 +78182,6 @@
 	pixel_x = -32
 	},
 /obj/machinery/recharger,
-/obj/item/rcs,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
