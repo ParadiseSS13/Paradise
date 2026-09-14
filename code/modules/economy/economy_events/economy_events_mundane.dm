@@ -3,7 +3,7 @@
 	endWhen = 10
 
 /datum/event/mundane_news/announce()
-	var/datum/trade_destination/topic = pickweight(GLOB.weighted_mundaneevent_locations)
+	var/datum/lore_location/topic = pickweight(GLOB.weighted_mundaneevent_locations)
 	var/event_type
 	if(length(topic.viable_mundane_events))
 		event_type = pick(topic.viable_mundane_events)
@@ -27,7 +27,7 @@
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new
 	newMsg.author = "Editor Mike Hammers"
-	var/datum/trade_destination/affected_dest = pick(GLOB.weighted_mundaneevent_locations)
+	var/datum/lore_location/affected_dest = pick(GLOB.weighted_mundaneevent_locations)
 	var/headline = pick(file2list("config/news/trivial.txt"))
 	newMsg.title = replacetext(headline, "{{AFFECTED}}", affected_dest.name)
 

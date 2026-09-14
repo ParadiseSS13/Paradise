@@ -21590,10 +21590,10 @@
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bJa" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bJb" = (
@@ -39603,9 +39603,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "dan" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "dap" = (
@@ -47380,6 +47378,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"dTa" = (
+/obj/machinery/papershredder,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "dTc" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
@@ -91236,6 +91238,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
+"uIM" = (
+/obj/item/kirbyplants/large,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/abandonedbar)
 "uJk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
@@ -125558,7 +125568,7 @@ cIx
 cWn
 sYY
 cLz
-rlI
+uIM
 dbJ
 dcX
 deG
@@ -139660,7 +139670,7 @@ bOZ
 dne
 dnf
 cfK
-cfK
+dTa
 bYv
 mTf
 bYv
