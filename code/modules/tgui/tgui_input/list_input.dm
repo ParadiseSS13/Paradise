@@ -10,7 +10,7 @@
  * * default - If an option is already preselected on the UI. Current values, etc.
  * * timeout - The timeout of the input box, after which the menu will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_list(mob/user, message, title = "Select", list/items, default, timeout = 0, ui_state = GLOB.always_state)
+/proc/tgui_input_list(mob/user, message, title = "Select", list/items, default, timeout = 0, ui_state = GLOB.always_state, modal_type = "ListInputModal")
 	if(!user)
 		user = usr
 
@@ -30,7 +30,7 @@
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		return input(user, message, title, default) as null|anything in items
 
-	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout, ui_state)
+	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout, ui_state, modal_type)
 
 	if(input.invalid)
 		qdel(input)
@@ -76,13 +76,14 @@
 	/// The TGUI modal to use for this popup
 	var/modal_type = "ListInputModal"
 
-/datum/tgui_list_input/New(mob/user, message, title, list/_items, default, timeout, ui_state)
+/datum/tgui_list_input/New(mob/user, message, title, list/_items, default, timeout, ui_state, modal_selected = "ListInputModal")
 	src.title = title
 	src.message = message
 	src.items = list()
 	src.items_map = list()
 	src.default = default
 	src.state = ui_state
+	src.modal_type = modal_selected
 
 	handle_new_items(_items)
 
@@ -153,7 +154,9 @@
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
-
+		if("preview")
+			SEND_SOUND(usr, GLOB.pda_ringtone_choices[params["entry"]])
+			return TRUE
 
 /datum/tgui_list_input/proc/handle_submit_action(params)
 	if(!(params["entry"] in items))
