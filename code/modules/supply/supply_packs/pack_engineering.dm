@@ -326,8 +326,6 @@
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
 
-
-
 /datum/supply_packs/engineering/canister/large_air_pump
 	name = "Large Air Pump"
 	contains = list(/obj/machinery/atmospherics/portable/pump/big)
