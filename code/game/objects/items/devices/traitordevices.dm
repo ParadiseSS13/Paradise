@@ -340,6 +340,46 @@
 	to_chat(user, SPAN_NOTICE("You inject yourself with the enhancer!"))
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
+/obj/item/subdermal_applicator
+	name = "thermal protein applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface membrane and inner organelles to provide insulation against the cold and greatly improved resistance to extreme temperatures."
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+	new_attack_chain = TRUE
+	var/used = FALSE
+
+/obj/item/subdermal_applicator/activate_self(mob/user)
+	if(..())
+		return
+	if(HAS_TRAIT(user, TRAIT_SLIMEPERSON_INSUL))
+		to_chat(user, SPAN_WARNING("Your body is already augmented with thermal proteins!"))
+		return
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || !isslimeperson(user))
+		to_chat(user, SPAN_WARNING("The injector is not compatable with your biology!"))
+		return
+	if(used)
+		to_chat(user, SPAN_NOTICE("The injector is empty!"))
+		return
+	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", src.name, list("Yes", "No"))
+	if(choice != "Yes")
+		to_chat(user, SPAN_NOTICE("You decide against using [src]."))
+		return
+	if(used)
+		to_chat(user, SPAN_WARNING("The injector is empty!"))
+		return
+	used = TRUE
+	to_chat(user, SPAN_NOTICE("You inject yourself with the applicator!"))
+	ADD_TRAIT(user, TRAIT_SLIMEPERSON_INSUL, "subdermal_applicator")
+	var/mob/living/carbon/human/slime = user
+	var/datum/species/S = slime.dna.species
+	S.cold_level_1 = 160 //Default 260 - Lower is better
+	S.cold_level_2 = 100 //Default 200
+	S.cold_level_3 = -1 //Default 120
+	S.coldmod = 1
+	S.heat_level_1 = 505 //Default 360 - Higher is better
+	S.heat_level_2 = 540 //Default 400
+	S.heat_level_3 = 600 //Default 460
+
 /obj/item/batterer
 	name = "mind batterer"
 	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user."
