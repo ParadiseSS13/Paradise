@@ -93,6 +93,7 @@
 			take_damage(rand(100, 250), BRUTE, BOMB, 0)
 		if(3)
 			take_damage(rand(10, 90), BRUTE, BOMB, 0)
+	..()
 
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
