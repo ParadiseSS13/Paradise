@@ -53764,7 +53764,6 @@
 /area/station/security/main)
 "kpR" = (
 /obj/structure/rack,
-/obj/item/gun/energy/ionrifle,
 /obj/item/clothing/suit/hooded/ablative,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -92513,6 +92512,10 @@
 	pixel_y = -3
 	},
 /obj/structure/shelf/security,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "sMt" = (
