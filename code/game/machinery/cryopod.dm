@@ -381,6 +381,15 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
+		for(var/datum/mind/heretic in SSticker.mode.heretics)
+			var/datum/antagonist/heretic/heretic_datum = heretic.has_antag_datum(/datum/antagonist/heretic)
+			if(!heretic_datum)
+				return
+			if(occupant in heretic_datum.all_sac_targets)
+				heretic_datum.all_sac_targets -= occupant
+				var/datum/heretic_knowledge/hunt_and_sacrifice/knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
+				knowledge.reroll_target(heretic_datum)
+
 		occupant.mind.remove_all_antag_datums(handle_target_cryo = TRUE) // i wish cryo used signals, this is scuffed
 
 	if(occupant.mind && occupant.mind.assigned_role)
@@ -736,7 +745,7 @@
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return TRUE
-			
+
 	return FALSE
 
 /// Immeditely teleport a human or robot to cryo and then despawn them.
