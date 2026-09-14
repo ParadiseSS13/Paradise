@@ -47,6 +47,18 @@
 	desc = "A medical kit designed for Nanotrasen medical personnel."
 
 /obj/item/storage/firstaid/regular/doctor/populate_contents()
+	new /obj/item/stack/medical/suture/medicated(src)
+	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/firstaid/regular/doctor/cmo
+	desc = "A medical kit designed for Nanotrasen Chief Medical Officers."
+
+/obj/item/storage/firstaid/regular/doctor/cmo/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/patch/styptic(src)
