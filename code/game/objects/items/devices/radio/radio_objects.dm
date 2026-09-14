@@ -139,6 +139,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/AltClick(mob/user)
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+
 	if(!do_after(user, 40, target = src))
 		return
 	ToggleBroadcast()
