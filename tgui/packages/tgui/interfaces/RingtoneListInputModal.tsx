@@ -89,9 +89,7 @@ export const RingtoneListInputModal = (props) => {
     setTimeout(() => document!.getElementById(selected.toString())?.focus(), 1);
   }
 
-  const onPreview = () => {
-    
-  }
+  const onPreview = () => {};
 
   return (
     <Window title={title} width={325} height={windowHeight}>
