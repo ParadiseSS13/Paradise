@@ -129,6 +129,10 @@
 /obj/machinery/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
+"pL" = (
+/obj/structure/salvageable/circuit_imprinter,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
 "Di" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -137,6 +141,11 @@
 "Ou" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"SB" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/salvageable/autolathe,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -217,7 +226,7 @@ aa
 aV
 ab
 ac
-aM
+SB
 ab
 aT
 aV
@@ -437,7 +446,7 @@ aa
 ap
 aa
 aa
-ac
+pL
 aH
 aZ
 aT
