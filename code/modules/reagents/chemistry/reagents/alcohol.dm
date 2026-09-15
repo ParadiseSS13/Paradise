@@ -877,7 +877,7 @@
 	drink_desc = "A spicy mix of Wine and Spice. Very hot."
 	taste_description = "comforting warmth"
 	yuck_description = "subpar assembly fluid"
-	goal_difficulty = REAGENT_GOAL_NORMAL
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)

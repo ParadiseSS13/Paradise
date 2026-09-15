@@ -861,7 +861,7 @@
 				<h2>Fernet Cola:</h2>
 				Mix two parts of cola to one part fernet.
 				<h2>Gimlet:</h2>
-				Mix two parts gin to one part each of soda water, lemon juice, and sugar.
+				Mix two parts gin to one part each of lemon juice, and sugar.
 				<h2>Gin Fizz:</h2>
 				Mix two parts gin to one part each of soda water and lime juice.
 				<h2>Gin and Tonic:</h2>
@@ -947,6 +947,8 @@
 				Cool two parts cider to 270K. Chemistry can help.
 				<h2>Beepsky Smash:</h2>
 				Mix two parts each lime juice and whiskey to one part iron. Chemistry or Cargo can help.
+				<h2>Bellini:</h2>
+				Mix two parts peach juice to four parts white wine and one part tonic.
 				<h2>Burnout: §</h2>
 				Mix one part synthanol to one part acetone. Heat to 375K. Chemistry can help.
 				<h2>Die Seife: (a Drask favorite!)</h2>
@@ -977,8 +979,6 @@
 				Mix 10 parts nutriment to five parts universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Neuro-toxin:</h2>
 				Mix one part ether to one part Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Chemistry can help.
-				<h2>Bellini:</h2>
-				Mix two parts peach juice to four parts white wine and one part tonic.
 				<h2>Sbiten:</h2>
 				Mix 10 parts wine to one part each honey and hot sauce. The botanist can help.
 				<h2>Singulo:</h2>
