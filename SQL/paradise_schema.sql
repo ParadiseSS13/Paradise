@@ -70,6 +70,7 @@ CREATE TABLE `characters` (
   `nanotrasen_relation` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `physique` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `height` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
+  `blooper_id` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `speciesprefs` int(1) NOT NULL,
   `socks` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL,

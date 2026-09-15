@@ -84,6 +84,12 @@
 
 	var/height = "average height"
 
+	var/blooper_id = "mutedc4"
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.2
+	var/blooper_speed = 4
+	var/blooper_volume = 50
+
 	// OOC Metadata:
 	var/metadata = ""
 
@@ -225,7 +231,11 @@
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
 					pda_ringtone=:pda_ringtone,
-					quirks=:quirks
+					quirks=:quirks,
+					blooper_id=:blooper_id,
+					blooper_speed=:blooper_speed,
+					blooper_pitch=:blooper_pitch,
+					blooper_pitch_range=:blooper_pitch_range
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -291,7 +301,11 @@
 						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
 						"slot" = slot_number,
-						"quirks" = quirks
+						"quirks" = quirks,
+						"blooperid" = blooper_id,
+						"blooper_speed" = blooper_speed,
+						"blooper_pitch" = blooper_pitch,
+						"blooper_pitch_range" = blooper_pitch_range
 					))
 
 			if(!query.warn_execute())
@@ -330,7 +344,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks, blooperid, blooper_speed, blooper_pitch, blooper_pitch_range)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -357,7 +371,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks, :blooper_id, :blooper_speed, :blooper_pitch, :blooper_pitch_range)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -422,7 +436,11 @@
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
 		"pda_ringtone" = pda_ringtone,
-		"quirks" = quirks
+		"quirks" = quirks,
+		"blooper_id" = blooper_id,
+		"blooper_speed" = blooper_speed,
+		"blooper_pitch" = blooper_pitch,
+		"blooper_pitch_range" = blooper_pitch_range
 	))
 
 	if(!query.warn_execute())
@@ -517,8 +535,12 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
-
 	quirks = query.item[62]
+	blooper_id = query.item[63]
+	blooper_speed = query.item[64]
+	blooper_pitch = query.item[65]
+	blooper_pitch_range = query.item[66]
+
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -544,6 +566,18 @@
 
 	if(isnull(height))
 		height = initial(height)
+
+	if(isnull(blooper_id))
+		blooper_id = initial(blooper_id)
+
+	if(isnull(blooper_speed))
+		blooper_speed = initial(blooper_speed)
+
+	if(isnull(blooper_pitch))
+		blooper_pitch = initial(blooper_pitch)
+
+	if(isnull(blooper_pitch_range))
+		blooper_pitch = initial(blooper_pitch)
 
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
@@ -608,6 +642,10 @@
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
+	blooper_id = sanitize_inlist(blooper_id, GLOB.blooper_list, initial(blooper_id))
+	blooper_speed = sanitize_float(blooper_speed, BLOOPER_DEFAULT_MINSPEED, BLOOPER_DEFAULT_MAXSPEED, initial(blooper_speed))
+	blooper_pitch = sanitize_float(blooper_pitch, BLOOPER_DEFAULT_MINPITCH, BLOOPER_DEFAULT_MAXPITCH, initial(blooper_pitch))
+	blooper_pitch_range = sanitize_float(blooper_pitch_range, BLOOPER_DEFAULT_MINVARY, BLOOPER_DEFAULT_MAXVARY, initial(blooper_pitch_range))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
@@ -1839,6 +1877,8 @@
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+
+	character.change_blooper_data(blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
 
 	character.age = age
 
