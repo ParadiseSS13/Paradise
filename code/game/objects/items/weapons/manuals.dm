@@ -788,7 +788,7 @@
 				<h2 id="Irish_Cream">Irish Cream:</h2>
 				Mix two parts whiskey to one part cream.
 				<h2>Manhattan:</h2>
-				Mix two parts whiskey to one part vermouth.
+				Mix two parts whiskey to one part each of vermouth and Angostura Bitters.
 				<h2>Patron:</h2>
 				Mix 10 parts tequila to one part silver.
 				<h2>Synthignon:</h2>
@@ -809,13 +809,13 @@
 				<h1>Easy Alcoholic Drinks</h1>
 				Most of these drinks, you should be able to mix right at your dispenser. Drinks marked with a § are for synthetic customers.
 				<h2>Acapulco de Noche:</h2>
-				Mix one part each of tequila, rum, sugar, and ice.
+				Mix two parts each of Pineapple Juice, Tequila, and Orange Juice to one parts each rum, sugar, and ice.
 				<h2>Allies Cocktail:</h2>
 				Mix one part Classic Martini to one part vodka.
 				<h2>Aloe:</h2>
 				Mix one part each of watermelon juice, cream, and whiskey.
 				<h2>Andalusia:</h2>
-				Mix one part each of rum, whiskey, and lemon juice.
+				Mix two parts wine to one part each of cognac, rum, and angostura bitters.
 				<h2>Anti-Freeze:</h2>
 				Mix two parts vodka to one part each cream and ice.
 				<h2>B-52:</h2>
@@ -829,9 +829,9 @@
 				<h2>Bilkshake:</h2>
 				Mix two parts each of bilk and ice to one part cream.
 				<h2>Black Russian:</h2>
-				Mix three parts vodka to two parts kahlua.
+				Mix two parts vodka to one part kahlua.
 				<h2>Bloody Mary:</h2>
-				Mix two parts tomato juice to one part each of vodka and lime juice.
+				Mix two parts vodka to three parts tomato juice and one part lemon juice.
 				<h2>Bluescreen: §</h2>
 				Mix one part each of synthanol, welding fuel, Goldschlager (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), tonic, and water. You might find a fuel tank in the maintenance tunnels.
 				<h2>Booger:</h2>
@@ -861,7 +861,7 @@
 				<h2>Fernet Cola:</h2>
 				Mix two parts of cola to one part fernet.
 				<h2>Gimlet:</h2>
-				Mix one part each of gin, lime juice, and sugar.
+				Mix two parts gin to one part each of soda water, lemon juice, and sugar.
 				<h2>Gin Fizz:</h2>
 				Mix two parts gin to one part each of soda water and lime juice.
 				<h2>Gin and Tonic:</h2>
@@ -871,9 +871,9 @@
 				<h2>Irish Coffee:</h2>
 				Mix two parts Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>) to two parts coffee.
 				<h2>Long Island Iced Tea:</h2>
-				Mix one part each of Cuba Libre, vodka, gin, and tequila.
+				Mix one part each of vodka, tequila, Cuba Libre, gin, and triple sec.
 				<h2>Margarita:</h2>
-				Mix two parts tequila to one part lime juice.
+				Mix two parts tequila to one part each triple sec, and lime juice.
 				<h2>Miami Vice:</h2>
 				Mix one part Strawberry Daiquiri and one part Piña Colada.
 				<h2>Mint Julep:</h2>
@@ -893,9 +893,9 @@
 				<h2>Servo: §</h2>
 				Mix two parts synthanol to one part each hot chocolate and cream.
 				<h2>Sidecar:</h2>
-				Mix one part each of cognac, lemon juice, and orange juice.
+				Mix two parts cognac to one parts each lemon juice, and triple sec.
 				<h2>Snow White:</h2>
-				Mix one part beer to one part lemon-lime.
+				Mix one part lager to one part lemon-lime.
 				<h2>Strawberry Daiquiri:</h2>
 				Mix two parts rum to one part each of berry juice, sugar, and ice.
 				<h2>Syndicate Bomb:</h2>
@@ -903,7 +903,7 @@
 				<h2>Synth 'n Soda: §</h2>
 				Mix one part synthanol to two parts cola.
 				<h2>Tequila Sunrise:</h2>
-				Mix two parts tequila to one part orange juice.
+				Mix two parts tequila to one parts each orange juice, and berry juice.
 				<h2>The Manly Dorf:</h2>
 				Mix two parts ale to one part beer.
 				<h2>Trinary: §</h2>
@@ -962,13 +962,13 @@
 				<h2>Flaming Moe:</h2>
 				Mix one part each of cognac, gin, saline-glucose solution, tequila, and vodka. Heat to 374K. Chemistry can help.
 				<h2>Hanky Panky:</h2>
-				Mix one part each of Fernet, vermouth, gin, and orange juice.
+				Mix one part each of Fernet, vermouth, and gin.
 				<h2>Hooch:</h2>
 				Mix two parts ethanol with one part each welding fuel and universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Islay Whiskey: (a Dionae favorite!)</h2>
 				Mix one part each E-Z-Nutrient, whiskey, and nutriment. The Kitchen or Botany can help.
 				<h2>Jackrose:</h2>
-				Mix four parts Applejack to one part lemon juice.
+				Mix four parts Applejack to one part each of lemon juice, and berry juice.
 				<h2>Jungle Vox: (a Vox favorite!)</h2>
 				Mix one part each of rum, lime juice, sugar, kahlua, and nitrogen. Chemistry can help.
 				<h2>Michelada:</h2>
@@ -977,10 +977,10 @@
 				Mix 10 parts nutriment to five parts universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Neuro-toxin:</h2>
 				Mix one part ether to one part Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Chemistry can help.
-				<h2>Peach Bellini:</h2>
-				Mix one part each of peach juice, wine and tonic. Botany can help.
+				<h2>Bellini:</h2>
+				Mix two parts peach juice to four parts white wine, and one part tonic.
 				<h2>Sbiten:</h2>
-				Mix 10 parts vodka to one part capsaicin. The Xenobiologist can help.
+				Mix 10 parts wine to one part each honey, and hot sauce. The botanist can help.
 				<h2>Singulo:</h2>
 				Mix five parts each of vodka and wine to one part radium. Chemistry can help.
 				<h2>Stack Trace: §</h2>
