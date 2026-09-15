@@ -89,7 +89,7 @@
 	switch(stage)
 		if(1)
 			if(imp_in && imp_in.stat)
-				imp_in.visible_message("<span class = 'warning'>[imp_in] doubles over in pain!</span>")
+				imp_in.visible_message(SPAN_WARNING("[imp_in] doubles over in pain!"))
 				imp_in.Weaken(14 SECONDS)
 		if(4)
 			self_destruct()
