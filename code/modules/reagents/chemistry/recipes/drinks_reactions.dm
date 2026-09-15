@@ -246,7 +246,7 @@
 	name = "Tequila Sunrise"
 	id = "tequilasunrise"
 	result = "tequilasunrise"
-	required_reagents = list("tequila" = 2, "orangejuice" = 1, "berryjuice")
+	required_reagents = list("tequila" = 2, "orangejuice" = 1, "berryjuice" = 1)
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
