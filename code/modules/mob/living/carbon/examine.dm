@@ -250,7 +250,7 @@
 			appears_dead = TRUE
 
 		if(suiciding)
-			msg += "[SPAN_WARNING("[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.")]\n"
+			msg += "[SPAN_DEADSAY("[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.")]\n"
 		if(!just_sleeping)
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
 			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
