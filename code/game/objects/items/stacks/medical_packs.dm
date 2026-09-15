@@ -410,7 +410,7 @@
 	var/self_delay = 3 SECONDS
 	var/mob/current_target
 	/// The type of the item we create when depleted
-	var/depleted_type = null
+	var/depleted_type
 
 /obj/item/stack/medical/adv/attack_hand(mob/user)
 	if(user.is_in_inactive_hand(src))
