@@ -21,10 +21,6 @@
 	return TRUE
 
 /datum/disease/critical/has_cure()
-	for(var/datum/reagent/vaccine in affected_mob.reagents.reagent_list)
-		if(GetDiseaseID() in vaccine.data)
-			return TRUE
-
 	for(var/C_id in cures)
 		if(affected_mob.reagents.has_reagent(C_id))
 			if(prob(cure_chance))
