@@ -1434,9 +1434,12 @@
 
 /mob/living/proc/get_blooper_id()
 	return blooper_id
+
 /mob/living/proc/get_blooper_speed()
 	return blooper_speed
+
 /mob/living/proc/get_blooper_pitch()
 	return blooper_pitch
+
 /mob/living/proc/get_blooper_pitch_range()
 	return blooper_pitch_range

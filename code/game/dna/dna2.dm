@@ -58,8 +58,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/chat_color
 	/// The blooper data to load for when a character is cloned, a changeling transforms, or when a character is created
 	var/datum/blooper/blooper_id
+	// The speed of a blooper, which changes delays per sound.
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
+	// The base pitch of a blooper before variance.
 	var/blooper_pitch = 1
+	// The Additional +/- pitch, modifies default pitch with the range in positive and negative directions.
 	var/blooper_pitch_range = 0.5
 
 // Make a copy of this strand.
@@ -145,20 +148,20 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_TAIL_MARK_G,	color2G(character.m_colours["tail"]),	255,	TRUE)
 	SetUIValueRange(DNA_UI_TAIL_MARK_B,	color2B(character.m_colours["tail"]),	255,	TRUE)
 
-	SetUIValueRange(DNA_UI_SKIN_TONE,	abs(35 - character.s_tone),	220,	TRUE)
+	SetUIValueRange(DNA_UI_SKIN_TONE, abs(35 - character.s_tone),	220,	TRUE)
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		TRUE)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		TRUE)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		TRUE)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,	length(GLOB.marking_styles_list),		TRUE)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,	length(GLOB.marking_styles_list),		TRUE)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,	length(GLOB.marking_styles_list),		TRUE)
 
-	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), TRUE)
-	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), TRUE)
+	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique), length(GLOB.character_physiques), TRUE)
+	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height), length(GLOB.character_heights), TRUE)
 
 
-	SetUIValueRange(DNA_UI_BLOOPER_ID, GLOB.blooper_list.Find(character.blooper_id),	length(GLOB.blooper_list), 1)
-	SetUIValueRange(DNA_UI_BLOOPER_SPEED, character.blooper_speed,	BLOOPER_DEFAULT_MAXSPEED, 1)
-	SetUIValueRange(DNA_UI_BLOOPER_PITCH, character.blooper_pitch,	BLOOPER_DEFAULT_MAXPITCH, 1)
-	SetUIValueRange(DNA_UI_BLOOPER_PITCH_RANGE, character.blooper_pitch_range,	BLOOPER_DEFAULT_MAXVARY, 1)
+	SetUIValueRange(DNA_UI_BLOOPER_ID, GLOB.blooper_list.Find(character.blooper_id), length(GLOB.blooper_list), 1)
+	SetUIValueRange(DNA_UI_BLOOPER_SPEED, character.blooper_speed, BLOOPER_DEFAULT_MAXSPEED, 1)
+	SetUIValueRange(DNA_UI_BLOOPER_PITCH, character.blooper_pitch, BLOOPER_DEFAULT_MAXPITCH, 1)
+	SetUIValueRange(DNA_UI_BLOOPER_PITCH_RANGE, character.blooper_pitch_range, BLOOPER_DEFAULT_MAXVARY, 1)
 
 
 	var/list/bodyacc = GLOB.body_accessory_by_name.Find(character.body_accessory?.name || "None")

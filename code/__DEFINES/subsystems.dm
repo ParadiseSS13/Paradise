@@ -50,7 +50,6 @@
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
 #define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_BLOOPERS	28 // I would assume this doesn't need much priority, no?
 #define INIT_ORDER_GARBAGE 27
 #define INIT_ORDER_DBCORE 26
 #define INIT_ORDER_REDIS 25 // Make sure we dont miss any events

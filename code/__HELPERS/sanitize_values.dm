@@ -6,7 +6,7 @@
 			return number
 	return default
 
-/proc/sanitize_float(number, min=0, max=1, default=0)
+/proc/sanitize_float(number, min = 0, max = 1, default = 0)
 	if(isnum(number))
 		if(min <= number && number <= max)
 			return number

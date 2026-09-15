@@ -326,7 +326,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				var/blooper_count = min(round(((length_char(message_inst.message) / bloop_source.dna.blooper_speed)) + 1) * bloop_count_multiplier, BLOOPER_MAX_BLOOPERS)
 				var/total_delay = 0
 				bloop_source.blooper_tick = 0
-				bloop_source.blooper_current_blooper = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
+				bloop_source.blooper_last_start_time = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
 				LAZYINITLIST(blooper_queue)
 				for(var/i in 1 to blooper_count)
 					if(total_delay > BLOOPER_MAX_TIME)
@@ -335,7 +335,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 						world.time + total_delay,
 						max(blooper_volume, 100),
 						BLOOPER_DO_VARY(bloop_source.get_blooper_pitch(), bloop_source.get_blooper_pitch_range()),
-						blooper_current_blooper,
+						blooper_last_start_time,
 					)
 					total_delay += rand(DS2TICKS(bloop_source.dna.blooper_speed / BLOOPER_SPEED_BASELINE), DS2TICKS(bloop_source.dna.blooper_speed / BLOOPER_SPEED_BASELINE) + DS2TICKS(bloop_source.dna.blooper_speed / BLOOPER_SPEED_BASELINE)) TICKS
 				SSbloopers.queue(src)

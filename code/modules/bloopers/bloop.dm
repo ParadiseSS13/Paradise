@@ -1,7 +1,7 @@
-/// Thank you Iris!
+/// Chat Sounds with configurable inputs.
 /datum/blooper
-	var/name = "None"
-	var/id = "No Voice"
+	var/bloopername = "None"
+	var/blooperid = "No Voice"
 	var/soundpath
 
 	var/minpitch = BLOOPER_DEFAULT_MINPITCH
@@ -9,17 +9,16 @@
 	var/minvariance = BLOOPER_DEFAULT_MINVARY
 	var/maxvariance = BLOOPER_DEFAULT_MAXVARY
 
-	// Speed vars. Speed determines the number of characters required for each blooper, with lower speeds being faster with higher blooper density
+	// Speed vars. Speed determines the number of characters required for each blooper
+	// with lower speeds being faster with higher blooper density
 	var/minspeed = BLOOPER_DEFAULT_MINSPEED
 	var/maxspeed = BLOOPER_DEFAULT_MAXSPEED
 
-	var/bloop_count_multiplier = 1
+	var/bloop_count_multiplier = 1 // Multiplier for amount of bloops on the datum. Some sounds literally just need less bloops like voxsounds.
 
-	// Visibility vars. Regardless of what's set below, these can still be obtained via adminbus and genetics. Rule of fun.
-	var/list/ckeys_allowed
-	var/ignore = FALSE // If TRUE - only for admins
-	var/allow_random = FALSE
+	var/allow_random = FALSE // Allows the blooper to be randomly selected.
 
+// A runtime copy of bloopers for iterating on.
 /datum/bloop_queue_entry
 	var/start_time
 	var/volume
@@ -35,14 +34,14 @@
 /proc/init_blooper_sounds()
 	for(var/sound_blooper_path in subtypesof(/datum/blooper))
 		var/datum/blooper/B = new sound_blooper_path()
-		GLOB.blooper_list[B.id] = sound_blooper_path
+		GLOB.blooper_list[B.blooperid] = sound_blooper_path
 		if(B.allow_random)
-			GLOB.blooper_random_list[B.id] = sound_blooper_path
+			GLOB.blooper_random_list[B.blooperid] = sound_blooper_path
 
 /mob/living/proc/do_blooper(volume, pitch, queue_time)
 	if(!GLOB.blooper_allowed)
 		return
-	if(queue_time && blooper_current_blooper != queue_time)
+	if(queue_time && blooper_last_start_time != queue_time)
 		return
 	if(!blooper)
 		if(!dna.blooper_id || !set_blooper_id(dna.blooper_id))
@@ -52,10 +51,6 @@
 		return
 	volume = min(volume, 100)
 	playsound(src, blooper, volume, TRUE, frequency = pitch, ignore_walls = FALSE, channel = CHANNEL_BLOOPERS)
-
-// Bloopers
-/mob/living/proc/bp_bloop(bloopsound)
-	blooper = sound(bloopsound)
 
 /mob/living/proc/set_blooper_id(id)
 	if(!id)
@@ -84,6 +79,7 @@
 	var/datum/blooper/voice_type = GLOB.blooper_list[blooper_id]
 	if(!voice_type)
 		to_chat(user, SPAN_WARNING("Select a voice first."))
+		return
 
 	var/soundpath = initial(voice_type.soundpath)
 

@@ -1,11 +1,11 @@
 SUBSYSTEM_DEF(bloopers)
 	name = "Bloopers"
-	init_order = INIT_ORDER_BLOOPERS
 	flags = SS_BACKGROUND | SS_NO_INIT
 	wait = 1
 	offline_implications = "You will no longer hear bloopers. Not a big deal, but you may hear complaints about it."
 
-	var/list/mob_queue = list() // Mobs we're processing over. They add themselves to this.
+	/// Mobs we're processing over. They add themselves to this.
+	var/list/mob_queue = list()
 
 /datum/controller/subsystem/bloopers/fire(resumed)
 	for(var/mob/living/char as anything in mob_queue.Copy())
