@@ -19,7 +19,6 @@
 	var/no_spin_thrown = FALSE
 	var/mob/pulledby = null
 
-
 	var/atom/movable/pulling
 	/// Face towards the atom while pulling it
 	var/face_while_pulling = FALSE
@@ -818,7 +817,6 @@
 
 	for(var/mob/buckled_mob as anything in buckled_mobs)
 		buckled_mob.set_glide_size(target)
-
 
 //Overlays
 /atom/movable/overlay
