@@ -2,7 +2,9 @@
 /datum/reagent/consumable/ethanol
 	name = "Ethanol" //Parent class for all alcoholic reagents.
 	id = "ethanol"
-	description = "A well-known alcohol with a variety of applications."
+	description = "An organic compound widely used both as a solvent and feedstock in many chemical processes. \
+	It is also the second most widely-consumed drug in the Orion Arm (behind caffine), being able to affect all known sapient species with broadly similar effects of intoxication. \
+	The Skrell are known to be unsually sensitive to ethanol, and will begin to feel its effects in quantities that would have no effect on non-Skrell."
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
