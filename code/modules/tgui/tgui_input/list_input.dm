@@ -155,7 +155,14 @@
 			SStgui.close_uis(src)
 			return TRUE
 		if("preview")
-			SEND_SOUND(usr, GLOB.pda_ringtone_choices[params["entry"]])
+			var/sound/preview = sound(
+				GLOB.pda_ringtone_choices[params["entry"]],
+				repeat = 0,
+				wait = 0,
+				volume = 60 * usr.client.prefs.get_channel_volume(CHANNEL_GENERAL),
+				channel = CHANNEL_GENERAL
+			)
+			SEND_SOUND(usr, preview)
 			return TRUE
 
 /datum/tgui_list_input/proc/handle_submit_action(params)
