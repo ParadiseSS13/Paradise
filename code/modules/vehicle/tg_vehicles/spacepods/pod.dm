@@ -118,7 +118,7 @@
 /obj/tgvehicle/sealed/vectorcraft/spacepod/mob_enter(mob/living/M)
 	if(!driver)
 		driver = M
-	if(get_fuel() >=1)
+	if(get_fuel() >= 1)
 		start_engine()
 		icon_state = base_icon_state + "-on"
 	else
@@ -146,7 +146,7 @@
 		stop_engine()
 	if(driver.stat == DEAD)
 		mob_exit(driver)
-	if(get_fuel() >=1)
+	if(get_fuel() >= 1)
 		start_engine()
 		icon_state = base_icon_state + "-on"
 	else
@@ -194,7 +194,7 @@
 		else
 			set_light(MINIMUM_USEFUL_LIGHT_RANGE, LIGHTING_MINIMUM_POWER)
 			act.button_icon_state = "mech_lights_off"
-		to_chat(occupant, SPAN_NOTICE("Turned lights [pod_flags & MECH_LIGHTS_ON ? "on":"off"]."))
+		to_chat(occupant, SPAN_NOTICE("Turned lights [pod_flags & MECH_LIGHTS_ON ? "on" : "off"]."))
 
 		act.build_all_button_icons()
 
@@ -233,7 +233,7 @@
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/ui_data(mob/user)
 	var/list/data = list()
-	var/isoperator = (user in occupants) //maintenance mode outside of mech
+	var/isoperator = (user in occupants) // maintenance mode outside of mech
 	data["isoperator"] = isoperator
 	data["name"] = name
 	data["integrity"] = obj_integrity
@@ -251,7 +251,13 @@
 		return
 	switch(action)
 		if("changename")
-			var/userinput = tgui_input_text(usr, "Choose a new pod name", "Rename Pod", max_length = MAX_NAME_LEN, default = name)
+			var/userinput = tgui_input_text(
+				usr,
+				message = "Choose a new pod name",
+				title = "Rename Pod",
+				max_length = MAX_NAME_LEN,
+				default = name
+			)
 			if(!userinput)
 				return
 			if(userinput == format_text(name))

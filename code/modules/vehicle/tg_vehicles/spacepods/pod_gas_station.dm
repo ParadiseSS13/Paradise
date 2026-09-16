@@ -50,7 +50,7 @@
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
-/obj/machinery/fuel_pump/update_appearance(updates=ALL)
+/obj/machinery/fuel_pump/update_appearance(updates = ALL)
 	. = ..()
 	set_light((!(stat & BROKEN|NOPOWER)) ? MINIMUM_USEFUL_LIGHT_RANGE : 0)
 

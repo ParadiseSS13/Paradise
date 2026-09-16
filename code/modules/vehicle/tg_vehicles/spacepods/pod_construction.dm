@@ -27,5 +27,5 @@
 
 	return TRUE
 
-/datum/construction/space_pod/basic/action(atom/used_atom,mob/user as mob)
+/datum/construction/space_pod/basic/action(atom/used_atom, mob/user as mob)
 	return check_all_steps(used_atom, user)
