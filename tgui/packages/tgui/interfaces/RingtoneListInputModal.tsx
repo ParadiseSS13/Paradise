@@ -177,7 +177,7 @@ const ListDisplay = (props) => {
       {filteredItems.map((item, index) => {
         return (
           <Stack>
-            <Button icon="bell" onClick={() => act('preview', { entry: item })} />
+            <Button icon="volume-high" onClick={() => act('preview', { entry: item })} />
             <Button
               fluid
               color="transparent"
