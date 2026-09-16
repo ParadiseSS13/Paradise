@@ -899,7 +899,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/reagent_containers/glass/beaker = 2)
 
-/obj/item/circuitboard/pod_imprinter
+/obj/item/circuitboard/pod_board_etcher
 	board_name = "Pod Circuit Etcher"
 	icon_state = "science"
 	build_path = /obj/machinery/r_n_d/circuit_imprinter/pod_board_etcher

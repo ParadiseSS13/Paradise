@@ -59,6 +59,22 @@
 	if(trail)
 		QDEL_NULL(trail)
 
+/obj/tgvehicle/sealed/vectorcraft/spacepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/reagent_containers/container = used
+	if(!istype(used))
+		return ..()
+
+	if(!container.is_open_container())
+		to_chat(user, SPAN_NOTICE("You must open [container] before using it to refill the tank."))
+		return ITEM_INTERACT_COMPLETE
+
+	// check to ensure that only plasma is in the container
+	if(container.reagents.get_reagents() != "Plasma")
+		to_chat(user, SPAN_NOTICE("[src] can only be refuelled with pure liquid plasma."))
+		return ITEM_INTERACT_COMPLETE
+
+	return container.normal_act(pod_fueltank, user)
+
 /obj/tgvehicle/sealed/vectorcraft/spacepod/mob_try_enter(mob/M)
 	if(!ishuman(M))
 		return
