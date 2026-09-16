@@ -138,7 +138,11 @@
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message(SPAN_DANGER("[user] smacks [C] in [E] with their tail!"), SPAN_DANGER("You hit [C] in [E] with your tail!"))
+			user.visible_message(
+				SPAN_DANGER("[user] smacks [C] in [E] with their tail!"),
+				SPAN_DANGER("You hit [C] in [E] with your tail!"),
+				SPAN_DANGER("You hear a whipping sound!")
+			)
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(2 SECONDS, 1)
@@ -147,7 +151,11 @@
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(10 SECONDS)
-					user.visible_message(SPAN_DANGER("[user] loses [user.p_their()] balance!"), SPAN_DANGER("You lose your balance!"))
+					user.visible_message(
+						SPAN_DANGER("[user] loses [user.p_their()] balance!"), 
+						SPAN_DANGER("You lose your balance!"),
+						SPAN_DANGER("You hear a heavy thud!")
+					)
 					return
 			if(user.getStaminaLoss() >= 60) // Bit higher as you don't need to start, just would need to keep going with the tail lash.
 				to_chat(user, SPAN_WARNING("You run out of momentum!"))
