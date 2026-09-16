@@ -115,9 +115,10 @@ export const ComplexModal = (props) => {
   } else if (type === 'textarea') {
     let [curValue, setCurValue] = useState(data.modal.value);
     modalOnEnter = (e) => {
-      if(!e.shiftKey) {
+      if (!e.shiftKey) {
         modalAnswer(id, curValue);
-    }}
+      }
+    };
     modalBody = (
       <TextArea
         value={data.modal.value}

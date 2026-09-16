@@ -341,9 +341,7 @@ const MedicalRecordsViewMedical = (_properties) => {
         <LabeledList>
           {medical.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field} preserveWhitespace>
-              <Box preserveWhitespace>
-                {decodeHtmlEntities(field.value)}
-              </Box>
+              <Box preserveWhitespace>{decodeHtmlEntities(field.value)}</Box>
               {!!field.edit && (
                 <Button
                   icon="pen"
