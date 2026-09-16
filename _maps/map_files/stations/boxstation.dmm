@@ -48404,6 +48404,24 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"foG" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig)
 "foO" = (
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
@@ -52666,6 +52684,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "hdR" = (
@@ -53705,6 +53724,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
+"hzm" = (
+/obj/machinery/door_control{
+	id = "brig_pilot_outer";
+	name = "Brig Hangar Outer Door Control";
+	req_access = list(83);
+	pixel_y = -24
+	},
+/turf/space,
+/area/space)
 "hzy" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -58072,6 +58100,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "juH" = (
@@ -61377,6 +61406,7 @@
 /obj/machinery/door/firedoor{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar,
 /turf/simulated/floor/plating,
 /area/station/engineering/shipwright/hangar)
 "kNS" = (
@@ -64349,6 +64379,12 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
+"meb" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "med" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -65629,7 +65665,6 @@
 "mFt" = (
 /obj/machinery/alarm/directional/west,
 /obj/item/kirbyplants/large,
-/obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -125630,7 +125665,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+meb
 aaa
 aaa
 aaa
@@ -128745,7 +128780,7 @@ aeV
 aoS
 apW
 aih
-oUF
+foG
 aqW
 atg
 aRq
@@ -130019,7 +130054,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+hzm
 iXd
 iXd
 iXd

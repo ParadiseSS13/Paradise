@@ -65,11 +65,9 @@
 /obj/item/spacepod_plate/sci
 	name = "expeditor armor plate"
 	desc = "Has average defense. Just right for space exploration."
-	icon = 'icons/obj/spacepods/plate.dmi'
 	icon_state = "plate_sci"
 
 /obj/item/spacepod_plate/sec
 	name = "security armor plate"
 	desc = "Well-fortified protection for your Pod. Sold only under license!"
-	icon = 'icons/obj/spacepods/plate.dmi'
 	icon_state = "plate_sec"

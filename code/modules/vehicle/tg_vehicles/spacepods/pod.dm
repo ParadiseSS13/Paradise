@@ -12,6 +12,7 @@
 	icon_state = "raptor-off"
 	mouse_pointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	max_acceleration = 4
+	move_resist = MOVE_FORCE_STRONG
 	accel_step = 0.22
 	acceleration = 0.30
 	/// Pod flags, currently keyed to what's available for mechs.

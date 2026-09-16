@@ -92,8 +92,8 @@
 
 	current_beam = user.Beam(
 		src,
-		"hose",
-		'icons/obj/spacepods/beam.dmi',
+		icon_state = "hose",
+		icon = 'icons/obj/spacepods/beam.dmi',
 		time = INFINITY,
 	)
 
