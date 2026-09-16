@@ -48534,6 +48534,13 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
+"frs" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "frv" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
@@ -58742,6 +58749,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "jKE" = (
@@ -68528,6 +68536,7 @@
 	specialfunctions = 4;
 	pixel_y = 34
 	},
+/obj/item/lighter/zippo/engraved,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "nUu" = (
@@ -82460,9 +82469,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "tSU" = (
-/obj/structure/table/wood,
-/obj/item/lighter/zippo/engraved,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/papershredder,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "tSX" = (
@@ -87912,13 +87920,6 @@
 	},
 /turf/simulated/floor/catwalk/white,
 /area/station/science/hallway)
-"wph" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/alarm/directional/south,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/east)
 "wpz" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -115934,7 +115935,7 @@ bdz
 gOk
 biF
 dmv
-wph
+frs
 wrU
 wrU
 wrU
