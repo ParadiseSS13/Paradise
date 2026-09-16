@@ -861,7 +861,7 @@
 				<h2>Fernet Cola:</h2>
 				Mix two parts of cola to one part fernet.
 				<h2>Gimlet:</h2>
-				Mix two parts gin to one part each of lime juice, and sugar.
+				Mix two parts gin to one part each of lime juice and sugar.
 				<h2>Gin Fizz:</h2>
 				Mix two parts gin to one part each of soda water and lime juice.
 				<h2>Gin and Tonic:</h2>
