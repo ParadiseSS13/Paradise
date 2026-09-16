@@ -558,7 +558,7 @@
 		return ..()
 
 	if(length(beakers) >= max_beakers)
-		to_chat(user, SPAN_WARNING("[used] won't fit! [src] can only hold up to [max_beakers] containers."))
+		to_chat(user, SPAN_WARNING("[used] won't fit! [src] can only hold up to [max_beakers] containers!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item())
@@ -633,11 +633,11 @@
 		return ..()
 
 	if(ttv)
-		to_chat(user, SPAN_WARNING("Another tank transfer valve is already loaded."))
+		to_chat(user, SPAN_WARNING("Another tank transfer valve is already loaded!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(check_attached(used))
-		to_chat(user, SPAN_WARNING("Remove the attached assembly component from [used] first."))
+		to_chat(user, SPAN_WARNING("Remove the attached assembly component from [used] first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!user.drop_item())
