@@ -79,11 +79,15 @@
 	..()
 	var/datum/action/innate/unathi_ignite/fire = new()
 	fire.Grant(H)
+	var/datum/action/innate/tail_lash/lash = new()
+	lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
 	for(var/datum/action/innate/unathi_ignite/fire in H.actions)
 		fire.Remove(H)
+	for(var/datum/action/innate/tail_lash/lash in H.actions)
+		lash.Remove(H)
 
 /datum/action/innate/unathi_ignite
 	name = "Ignite"
@@ -116,6 +120,46 @@
 			to_chat(user, SPAN_WARNING("You don't have any free hands."))
 	else
 		to_chat(user, SPAN_WARNING("You need to drink welding fuel first."))
+
+/datum/action/innate/tail_lash
+	name = "Tail lash"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "tail"
+	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+
+/datum/action/innate/tail_lash/Activate()
+	var/mob/living/carbon/human/user = owner
+	if((user.restrained() && user.pulledby) || user.buckled)
+		to_chat(user, SPAN_WARNING("You need freedom of movement to tail lash!"))
+	if(user.getStaminaLoss() >= 50)
+		to_chat(user, SPAN_WARNING("Rest before tail lashing again!"))
+		return
+	for(var/mob/living/carbon/human/C in orange(1))
+		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+		if(E)
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message(
+				SPAN_DANGER("[user] smacks [C] in [E] with their tail!"),
+				SPAN_DANGER("You hit [C] in [E] with your tail!"),
+				SPAN_DANGER("You hear a whipping sound!")
+			)
+			user.adjustStaminaLoss(15)
+			C.apply_damage(5, BRUTE, E)
+			user.spin(2 SECONDS, 1)
+			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
+			add_attack_logs(user, C, "tail whipped")
+			if(user.restrained())
+				if(prob(50))
+					user.Weaken(10 SECONDS)
+					user.visible_message(
+						SPAN_DANGER("[user] loses [user.p_their()] balance!"), 
+						SPAN_DANGER("You lose your balance!"),
+						SPAN_DANGER("You hear a heavy thud!")
+					)
+					return
+			if(user.getStaminaLoss() >= 60) // Bit higher as you don't need to start, just would need to keep going with the tail lash.
+				to_chat(user, SPAN_WARNING("You run out of momentum!"))
+				return
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
