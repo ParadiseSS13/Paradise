@@ -2,7 +2,9 @@
 /datum/reagent/consumable/ethanol
 	name = "Ethanol" //Parent class for all alcoholic reagents.
 	id = "ethanol"
-	description = "A well-known alcohol with a variety of applications."
+	description = "An organic compound widely used both as a solvent and feedstock in many chemical processes. \
+	It is also the second most widely-consumed drug in the Orion Arm (behind caffine), being able to affect all known sapient species with broadly similar effects of intoxication. \
+	The Skrell are known to be unsually sensitive to ethanol, and will begin to feel its effects in quantities that would have no effect on non-Skrell."
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
@@ -35,14 +37,56 @@
 	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(volume / 15)
 
+// MARK: Base alcohols
+/datum/reagent/consumable/ethanol/absinthe
+	name = "Absinthe"
+	id = "absinthe"
+	description = "A spirit produced by distilling the liquid from fermenting anise, fennel, and wormwood (and commonly including other herbs for flavor). \
+	In old Earth texts it is called \"the green fairy\". While it was once believed to cause hallucinations and delirium due to the presence of thujone in wormwood, \
+	scientific analysis showed that one would need to consume enough absinthe to die of alcohol poisoning before enough thujone is present to cause any symptoms. \
+	It is commonly consumed neat, and is also a widely-used cocktail component."
+	color = "#33EE00" // rgb: lots, ??, ??
+	overdose_threshold = 30
+	dizzy_adj = 10 SECONDS
+	alcohol_perc = 0.7
+	drink_icon = "absinthebottle"
+	drink_name = "Glass of Absinthe"
+	drink_desc = "The green fairy is going to get you now!"
+	taste_description = "bitter"
+
+/datum/reagent/consumable/ethanol/ale
+	name = "Ale"
+	id = "ale"
+	description = "A type of beer produced by fermenting cereal grains at high temperature and maturing the resulting brew in the same conditions. It is not as sweet as lager. \
+	It is usually consumed neat, but can also be used as a cocktail component."
+	color = "#82291c"
+	alcohol_perc = 0.1
+	drink_icon = "aleglass"
+	drink_name = "Ale glass"
+	drink_desc = "A freezing pint of delicious Ale."
+	taste_description = "ale"
+	yuck_description = "diluted assembly fluid"
+
+/datum/reagent/consumable/ethanol/angostura_bitters
+	name = "Angostura Bitters"
+	id = "angostura_bitters"
+	description = "An alcoholic beverage produced by distilling the liquid from fermenting gentian and flavoring it with other herbs and spices. \
+	It is named after the town once known as Angostura (now Ciudad Bolívar), Venezuela on Earth, where sales first began in 1824. \
+	It is very rarely consumed neat, and is instead used as a cocktail component."
+	color = "#2E0C02"
+	alcohol_perc = 0.45
+	drink_name = "Glass of Angostura Bitters"
+	drink_desc = "A glass of Angostura Bitters. This belongs in a cocktail. Do not drink this neat."
+	taste_description = "extreme bitterness"
 
 /datum/reagent/consumable/ethanol/beer
 	name = "Beer"
 	id = "beer"
-	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
+	description = "An alcoholic beverage produced by fermenting cereal grains. Beer has been independently invented by every single sapient species in the Orion Arm, with the notable exception of the Skrell. \
+	It is usually consumed neat, but can also be used as a cocktail component."
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#958223"
-	alcohol_perc = 0.2
+	alcohol_perc = 0.05
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer."
@@ -51,137 +95,94 @@
 /datum/reagent/consumable/ethanol/cider
 	name = "Cider"
 	id = "cider"
-	description = "An alcoholic beverage derived from apples."
+	description = "An alcoholic beverage produced by fermenting apple juice. Confusingly, some people use \"cider\" to refer to non-alcoholic whole apple juice. \
+	It is usually consumed neat, but can also be used as a cocktail component."
 	color = "#174116"
 	nutriment_factor = 1 * REAGENTS_METABOLISM
-	alcohol_perc = 0.2
+	alcohol_perc = 0.05
 	drink_icon = "rewriter"
 	drink_name = "Cider"
 	drink_desc = "A refreshing glass of traditional cider."
 	taste_description = "cider"
 	yuck_description = "stickiness in your tubes"
 
-/datum/reagent/consumable/ethanol/whiskey
-	name = "Whiskey"
-	id = "whiskey"
-	description = "A superb and well-aged single-malt whiskey. Damn."
-	color = "#671f04"
+/datum/reagent/consumable/ethanol/cognac
+	name = "Cognac"
+	id = "cognac"
+	description = "A type of brandy produced by double-distilling the liquid from fermented grapes, flavoring it with various botanical ingrediants, and aging it for no less than 2 years in oak barrels. \
+	It is named after the commune of Cocnac, France on Earth. It is commonly consumed neat, and is also a widely-used cocktail component."
+	color = "#a84317"
 	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
-	drink_icon = "whiskeyglass"
-	drink_name = "Glass of whiskey"
-	drink_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
-	taste_description = "whiskey"
-
-/datum/reagent/consumable/ethanol/specialwhiskey
-	name = "Special Blend Whiskey"
-	id = "specialwhiskey"
-	description = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
-	color = "#664300" // rgb: 102, 67, 0
-	alcohol_perc = 0.5
-	taste_description = "class"
+	drink_icon = "cognacglass"
+	drink_name = "Glass of cognac"
+	drink_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
+	taste_description = "cognac"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
 	id = "gin"
-	description = "It's gin. In space. I say, good sir."
+	description = "A clear spirit produced by distilling the liquid from fermented cereal grains, flavored with juniper berries and other botanical ingrediants. \
+	It is commonly consumed neat, and is also a widely-used cocktail component."
 	color = "#7aaac7"
 	alcohol_perc = 0.5
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of gin"
-	drink_desc = "A crystal clear glass of Griffeater gin."
+	drink_desc = "A crystal clear glass of gin."
 	taste_description = "gin"
 
-/datum/reagent/consumable/ethanol/absinthe
-	name = "Absinthe"
-	id = "absinthe"
-	description = "Watch out that the Green Fairy doesn't come for you!"
-	color = "#33EE00" // rgb: lots, ??, ??
-	overdose_threshold = 30
-	dizzy_adj = 10 SECONDS
-	alcohol_perc = 0.7
-	drink_icon = "absinthebottle"
-	drink_name = "Glass of Absinthe"
-	drink_desc = "The green fairy is going to get you now!"
-	taste_description = "fucking pain"
-	allowed_overdose_process = TRUE
+/datum/reagent/consumable/ethanol/lager
+	name = "Lager"
+	id = "lager"
+	description = "A type of beer produced by fermenting cereal grains at low temperature and maturing the resulting brew in the same conditions. Commonly consumed by football hooligans. \
+	It is usually consumed neat, but can also be used as a cocktail component."
+	color = "#958223"
+	alcohol_perc = 0.05
+	drink_icon = "lagerglass"
+	drink_name = "Starlink Lager"
+	drink_desc = "A pale beer that's the cause of many a football-related fight." // It's called football, I will kill you.
+	taste_description = "an own goal"
 
-//copy paste from LSD... shoot me
-/datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
-	M.AdjustHallucinate(5 SECONDS)
+/datum/reagent/consumable/ethanol/kahlua
+	name = "Kahlua"
+	id = "kahlua"
+	description = "A widely known Mexican coffee-flavoured liqueur in production since 1936. It contains rum, sugar, and arabica coffee. \
+	It is commonly consumed neat, and is also a widely-used cocktail component."
+	color = "#31211b"
+	alcohol_perc = 0.2
+	drink_icon = "kahluaglass"
+	drink_name = "Glass of RR coffee Liquor"
+	drink_desc = "DAMN, THIS THING LOOKS ROBUST!"
+	taste_description = "coffee and alcohol"
+	yuck_description = "grit in your tubes"
+
+/datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/M)
+	M.AdjustDizzy(-10 SECONDS)
+	M.AdjustDrowsy(-6 SECONDS)
+	M.AdjustSleeping(-4 SECONDS)
+	M.Jitter(10 SECONDS)
 	return ..()
-
-/datum/reagent/consumable/ethanol/absinthe/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1, FALSE)
-	return list(0, update_flags)
-
-/datum/reagent/consumable/ethanol/hooch
-	name = "Hooch"
-	id = "hooch"
-	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
-	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 14 SECONDS
-	drink_icon = "glass_brown2"
-	drink_name = "Hooch"
-	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_description = "pure resignation"
-	yuck_description = "off-brand assembly fluid"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind && M.mind.assigned_role == "Assistant")
-		M.heal_organ_damage(1, 1)
-		. = 1
-	return ..() || .
 
 /datum/reagent/consumable/ethanol/rum
 	name = "Rum"
 	id = "rum"
-	description = "Popular with the sailors. Not very popular with everyone else."
+	description = "A liquor produced by distilling the liquid from the fermented juice or molasses of sugarcane. It is often aged in barrels to add color and impart flavor. \
+	It is commonly consumed neat, and is also a widely-used cocktail component."
 	color = "#662800"
-	overdose_threshold = 30
 	alcohol_perc = 0.4
 	dizzy_adj = 10 SECONDS
 	drink_icon = "rumglass"
 	drink_name = "Glass of Rum"
-	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
+	drink_desc = "A drink fit for a true sailor."
 	taste_description = "rum"
 	yuck_description = "stickiness in your tubes"
-	allowed_overdose_process = TRUE
-
-/datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1, FALSE)
-	return list(0, update_flags)
-
-/datum/reagent/consumable/ethanol/mojito
-	name = "Mojito"
-	id = "mojito"
-	description = "If it's good enough for Spesscuba, it's good enough for you."
-	color = "#62956e"
-	alcohol_perc = 0.2
-	drink_icon = "mojito"
-	drink_name = "Glass of Mojito"
-	drink_desc = "Fresh from Spesscuba."
-	taste_description = "mojito"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/vodka
-	name = "Vodka"
-	id = "vodka"
-	description = "Number one drink AND fueling choice for Russians worldwide."
-	color = "#7aaac7"
-	alcohol_perc = 0.4
-	drink_icon = "ginvodkaglass"
-	drink_name = "Glass of vodka"
-	drink_desc = "The glass contain wodka. Xynta."
-	taste_description = "vodka"
 
 /datum/reagent/consumable/ethanol/sake
 	name = "Sake"
 	id = "sake"
-	description = "Anime's favorite drink."
+	description = "Sake is a Japanese wine produced by the fermentation of polished rice. \"Sake\" technically can refer to any alcohol in Japanese, \
+	so \"nihonshu\" can be used when specifcally referring to Japanese rice wines."
 	color = "#9aaab9"
 	alcohol_perc = 0.2
 	drink_icon = "sake"
@@ -192,7 +193,8 @@
 /datum/reagent/consumable/ethanol/tequila
 	name = "Tequila"
 	id = "tequila"
-	description = "A strong and mildly flavoured, mexican produced spirit. Feeling thirsty hombre?"
+	description = "A clear spirit produced by distilling the liquid from fermented blue agave. It is named after the town of Santiago de Tequila, Mexico on Earth. \
+	It is commonly consumed neat, and is also a widely-used cocktail component."
 	color = "#8d8e71"
 	alcohol_perc = 0.4
 	drink_icon = "tequilaglass"
@@ -201,81 +203,18 @@
 	yuck_description = "stickiness in your tubes"
 	taste_description = "tequila"
 
-/datum/reagent/consumable/ethanol/vermouth
-	name = "Vermouth"
-	id = "vermouth"
-	description = "You suddenly feel a craving for a martini..."
-	color = "#64a088"
-	alcohol_perc = 0.2
-	drink_icon = "vermouthglass"
-	drink_name = "Glass of Vermouth"
-	drink_desc = "You wonder why you're even drinking this straight."
-	taste_description = "vermouth"
-
-/datum/reagent/consumable/ethanol/wine
-	name = "Wine"
-	id = "wine"
-	description = "An premium alchoholic beverage made from distilled grape juice."
-	color = "#690732"
-	dizzy_adj = 4 SECONDS
-	alcohol_perc = 0.2
-	drink_icon = "wineglass"
-	drink_name = "Glass of wine"
-	drink_desc = "A very classy looking drink."
-	yuck_description = "stickiness in your tubes"
-	taste_description = "wine"
-
-/datum/reagent/consumable/ethanol/cognac
-	name = "Cognac"
-	id = "cognac"
-	description = "A sweet and strongly alchoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
-	color = "#a84317"
-	dizzy_adj = 8 SECONDS
-	alcohol_perc = 0.4
-	drink_icon = "cognacglass"
-	drink_name = "Glass of cognac"
-	drink_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
-	taste_description = "cognac"
-	yuck_description = "stickiness in your tubes"
-
-/// otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
-/datum/reagent/consumable/ethanol/suicider
-	name = "Suicider"
-	id = "suicider"
-	description = "An unbelievably strong and potent variety of Cider."
-	color = "#CF3811"
-	dizzy_adj = 40 SECONDS
-	drink_icon = "suicider"
-	drink_name = "Suicider"
-	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_description = "approaching death"
-	yuck_description = "acidic stickiness in your tubes"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/consumable/ethanol/ale
-	name = "Ale"
-	id = "ale"
-	description = "A dark alchoholic beverage made by malted barley and yeast."
-	color = "#82291c"
-	alcohol_perc = 0.1
-	drink_icon = "aleglass"
-	drink_name = "Ale glass"
-	drink_desc = "A freezing pint of delicious Ale."
-	taste_description = "ale"
-	yuck_description = "diluted assembly fluid"
-
 /datum/reagent/consumable/ethanol/thirteenloko
 	name = "Thirteen Loko"
 	id = "thirteenloko"
-	description = "A potent mixture of caffeine and alcohol."
+	description = "A potent mixture of caffeine and alcohol, illegal in many juristicions due to its potent effects."
 	color = "#922d01"
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.3
 	heart_rate_increase = 1
 	drink_icon = "thirteen_loko_glass"
 	drink_name = "Glass of Thirteen Loko"
-	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
-	taste_description = "party"
+	drink_desc = "An infamous alcoholic energy drink. While it may not be the strongest offering, all the caffine will keep you wide awake long after you should have passed out."
+	taste_description = "THE LOKO"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-14 SECONDS)
@@ -285,9 +224,84 @@
 	M.Jitter(10 SECONDS)
 	return ..()
 
+/datum/reagent/consumable/ethanol/triple_sec
+	name = "Triple Sec"
+	id = "triple_sec"
+	description = "A liqueur produced by distilling the liquid from fermenting sugar beets, and steeping unripened orange peels in the resulting distillate. \
+	The origin of the name is unclear, and multiple contradictory accounts seek to explain it. It is rarely consumed neat, and is instead used as a cocktail component."
+	color = "#FED70E"
+	alcohol_perc = 0.4
+	drink_name = "Glass of Triple Sec"
+	drink_desc = "You wonder why you're even drinking this straight."
+	taste_description = "orange"
 
-/////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
+/datum/reagent/consumable/ethanol/vermouth
+	name = "Vermouth"
+	id = "vermouth"
+	description = "An aromatized, fortified wine, flavored with various botanical components. \
+	It was originally used for medicinal purposes, but gained popularity as an apéritif and later as a widely-used cocktail component."
+	color = "#64a088"
+	alcohol_perc = 0.2
+	drink_icon = "vermouthglass"
+	drink_name = "Glass of Vermouth"
+	drink_desc = "You wonder why you're even drinking this straight."
+	taste_description = "fruity wine"
 
+/datum/reagent/consumable/ethanol/vodka
+	name = "Vodka"
+	id = "vodka"
+	description = "A clear spirit traditionally produced by distilling the liquid from fermeted potatoes or cerial grains. \
+	It is principally a mixture of water and ~40% ethanol by volume. It is commonly consumed neat, and is also a widely-used cocktail component."
+	color = "#7aaac7"
+	alcohol_perc = 0.4
+	drink_icon = "ginvodkaglass"
+	drink_name = "Glass of vodka"
+	drink_desc = "The glass contain wodka. Xynta."
+	taste_description = "vodka"
+
+/datum/reagent/consumable/ethanol/whiskey
+	name = "Whiskey"
+	id = "whiskey"
+	description = "A liquor produced by distilling the liquid from fermented grain mash. It is typically aged in wooden casks, for years or sometimes decades. \
+	Casks previously used to age rum, port, sherry, or other similar spirits are commonly used to impart flavor and color onto the final product. \
+	It is commonly drink neat and is also a widely-used cocktail component."
+	color = "#671f04"
+	dizzy_adj = 8 SECONDS
+	alcohol_perc = 0.4
+	drink_icon = "whiskeyglass"
+	drink_name = "Glass of whiskey"
+	drink_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
+	taste_description = "whiskey"
+
+/datum/reagent/consumable/ethanol/white_wine
+	name = "White Wine"
+	id = "white_wine"
+	description = "An alchoholic beverage produced by fermenting grapes. Unlike red wine, white wine skips the process of maceration. \
+	There is great variation in the taste, aroma, and appearance of wine depending on the grapes used to produce it. \
+	It is usually consumed neat, but it can also be used as a cocktail component."
+	color = "#EEEDC4"
+	dizzy_adj = 2 SECONDS
+	alcohol_perc = 0.2
+	drink_icon = "white_wine_glass"
+	drink_name = "Glass of White Wine"
+	drink_desc = "A classy glass of white wine."
+	taste_description = "white wine"
+
+/datum/reagent/consumable/ethanol/red_wine
+	name = "Red Wine"
+	id = "wine"
+	description = "An alchoholic beverage produced by fermenting grapes. There is great variation in the taste, aroma, and appearance of wine depending on the grapes used to produce it. \
+	It is usually consumed neat, but it can also be used as a cocktail component."
+	color = "#690732"
+	dizzy_adj = 4 SECONDS
+	alcohol_perc = 0.2
+	drink_icon = "wineglass"
+	drink_name = "Glass of Red Wine"
+	drink_desc = "A very classy looking drink."
+	yuck_description = "stickiness in your tubes"
+	taste_description = "red wine"
+
+// MARK: Cocktails
 /datum/reagent/consumable/ethanol/bilk
 	name = "Bilk"
 	id = "bilk"
@@ -491,12 +505,12 @@
 /datum/reagent/consumable/ethanol/bloody_mary
 	name = "Bloody Mary"
 	id = "bloodymary"
-	description = "A strange yet pleasurable mixture made of vodka, tomato and lime juice. Or at least you THINK the red stuff is tomato juice."
+	description = "A strange yet pleasurable mixture made of vodka, tomato and lemon juice. Or at least you THINK the red stuff is tomato juice."
 	color = "#7d0707"
-	alcohol_perc = 0.2
+	alcohol_perc = 0.13
 	drink_icon = "bloodymaryglass"
 	drink_name = "Bloody Mary"
-	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
+	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lemon. Tastes like liquid murder."
 	taste_description = "tomatoes with booze"
 	yuck_description = "stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -542,12 +556,12 @@
 /datum/reagent/consumable/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
 	id = "tequilasunrise"
-	description = "Tequila and orange juice. Much like a Screwdriver, only Mexican~"
+	description = "Tequila, orange juice, and grenadine. Much like a Screwdriver, only Mexican~"
 	color = "#923a07"
 	alcohol_perc = 0.3
 	drink_icon = "tequilasunriseglass"
 	drink_name = "Tequila Sunrise"
-	drink_desc = "Oh great, now you feel nostalgic about sunrises back on Terra..."
+	drink_desc = "Oh great, now you feel nostalgic about sunrises back on Earth..."
 	taste_description = "fruity alcohol"
 	yuck_description = "acidic stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -612,7 +626,7 @@
 	id = "longislandicedtea"
 	description = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
 	color = "#b4202a"
-	alcohol_perc = 0.5
+	alcohol_perc = 0.22
 	drink_icon = "longislandicedteaglass"
 	drink_name = "Long Island Iced Tea"
 	drink_desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
@@ -664,7 +678,7 @@
 	id = "margarita"
 	description = "On the rocks with salt on the rim. Arriba~!"
 	color = "#52c76a"
-	alcohol_perc = 0.3
+	alcohol_perc = 0.27
 	drink_icon = "margaritaglass"
 	drink_name = "Margarita"
 	drink_desc = "On the rocks with salt on the rim. Arriba~!"
@@ -677,7 +691,7 @@
 	id = "blackrussian"
 	description = "For the lactose-intolerant. Still as classy as a White Russian."
 	color = "#3f0415"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.33
 	drink_icon = "blackrussianglass"
 	drink_name = "Black Russian"
 	drink_desc = "For the lactose-intolerant. Still as classy as a White Russian."
@@ -690,7 +704,7 @@
 	id = "manhattan"
 	description = "The Detective's undercover drink of choice. He never could stomach gin..."
 	color = "#ac0649"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.3
 	drink_icon = "manhattanglass"
 	drink_name = "Manhattan"
 	drink_desc = "The Detective's undercover drink of choice. He never could stomach gin..."
@@ -832,7 +846,7 @@
 	id = "bahama_mama"
 	description = "Tropic cocktail."
 	color = "#a33900"
-	alcohol_perc = 0.2
+	alcohol_perc = 0.14
 	drink_icon = "bahama_mama"
 	drink_name = "Bahama Mama"
 	drink_desc = "Tropic cocktail."
@@ -857,15 +871,15 @@
 /datum/reagent/consumable/ethanol/sbiten
 	name = "Sbiten"
 	id = "sbiten"
-	description = "A spicy Vodka! Might be a little hot for the little guys!"
+	description = "A spicy Wine! Might be a little hot for the little guys!"
 	color = "#827f17"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.1
 	drink_icon = "sbitenglass"
 	drink_name = "Sbiten"
-	drink_desc = "A spicy mix of Vodka and Spice. Very hot."
+	drink_desc = "A spicy mix of Wine and Spice. Very hot."
 	taste_description = "comforting warmth"
 	yuck_description = "subpar assembly fluid"
-	goal_difficulty = REAGENT_GOAL_NORMAL
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
@@ -936,10 +950,22 @@
 	alcohol_perc = 0.2
 	drink_icon = "grogglass"
 	drink_name = "Grog"
-	drink_desc = "A fine and cepa drink for Space."
+	drink_desc = "Rum that has been watered down."
 	taste_description = "strongly diluted rum"
 	yuck_description = "film on your processors"
 	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/mojito
+	name = "Mojito"
+	id = "mojito"
+	description = "If it's good enough for Spesscuba, it's good enough for you."
+	color = "#62956e"
+	alcohol_perc = 0.2
+	drink_icon = "mojito"
+	drink_name = "Glass of Mojito"
+	drink_desc = "Fresh from Spesscuba."
+	taste_description = "mojito"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/aloe
 	name = "Aloe"
@@ -959,7 +985,7 @@
 	id = "andalusia"
 	description = "A nice, strange named drink."
 	color = "#446a0c"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.33
 	drink_icon = "andalusia"
 	drink_name = "Andalusia"
 	drink_desc = "A nice, strange named drink."
@@ -1142,25 +1168,6 @@
 		M.AdjustStuttering(20 SECONDS)
 	return ..()
 
-/datum/reagent/consumable/ethanol/kahlua
-	name = "Kahlua"
-	id = "kahlua"
-	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
-	color = "#31211b"
-	alcohol_perc = 0.2
-	drink_icon = "kahluaglass"
-	drink_name = "Glass of RR coffee Liquor"
-	drink_desc = "DAMN, THIS THING LOOKS ROBUST!"
-	taste_description = "coffee and alcohol"
-	yuck_description = "grit in your tubes"
-
-/datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/M)
-	M.AdjustDizzy(-10 SECONDS)
-	M.AdjustDrowsy(-6 SECONDS)
-	M.AdjustSleeping(-4 SECONDS)
-	M.Jitter(10 SECONDS)
-	return ..()
-
 /datum/reagent/ginsonic
 	name = "Gin and sonic"
 	id = "ginsonic"
@@ -1204,12 +1211,45 @@
 	yuck_description = "stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
+/// otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
+/datum/reagent/consumable/ethanol/suicider
+	name = "Suicider"
+	id = "suicider"
+	description = "An unbelievably strong and potent variety of Cider."
+	color = "#CF3811"
+	dizzy_adj = 40 SECONDS
+	drink_icon = "suicider"
+	drink_name = "Suicider"
+	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
+	taste_description = "approaching death"
+	yuck_description = "acidic stickiness in your tubes"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/hooch
+	name = "Hooch"
+	id = "hooch"
+	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
+	color = "#664300" // rgb: 102, 67, 0
+	dizzy_adj = 14 SECONDS
+	drink_icon = "glass_brown2"
+	drink_name = "Hooch"
+	drink_desc = "You've really hit rock bottom now... Your liver packed its bags and left last night."
+	taste_description = "pure resignation"
+	yuck_description = "off-brand assembly fluid"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
+	if(M.mind && M.mind.assigned_role == "Assistant")
+		M.heal_organ_damage(1, 1)
+		. = 1
+	return ..() || .
+
 /datum/reagent/consumable/ethanol/jackrose
 	name = "Jack Rose"
 	id = "jackrose"
 	description = "A classic cocktail that had fallen out of fashion, but never out of taste,"
 	color = "#a4af9d"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.27
 	drink_icon = "patronglass"
 	drink_name = "Jack Rose"
 	drink_desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
@@ -1807,7 +1847,7 @@
 	id = "gimlet"
 	description = "A sharp cocktail dating back to the 19th century. Gin and lime, nothing else."
 	color = "#DEF8AB" // rgb (222, 248, 171)
-	alcohol_perc = 0.3
+	alcohol_perc = 0.2
 	drink_icon = "gimlet"
 	drink_name = "Gimlet"
 	drink_desc = "There are debates on whether this drink should be half gin and half lime, or three parts gin and one part lime. All you know is, it's alcohol."
@@ -1818,7 +1858,7 @@
 /datum/reagent/consumable/ethanol/sidecar
 	name = "Sidecar"
 	id = "sidecar"
-	description = "A citrus cocktail of cognac, lemon and orange."
+	description = "A citrus cocktail of cognac, lemon and triple sec."
 	color = "#D7A61E" // rgb (215, 166, 30)
 	alcohol_perc = 0.4
 	drink_icon = "sidecar"
@@ -1880,17 +1920,6 @@
 	taste_description = "bilk, cream, and cold tears"
 	yuck_description = "cold stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
-
-/datum/reagent/consumable/ethanol/lager
-	name = "Lager"
-	id = "lager"
-	description = "A pale beer commonly drank by football hooligans"
-	color = "#958223"
-	alcohol_perc = 0.4
-	drink_icon = "lagerglass"
-	drink_name = "Starlink Lager"
-	drink_desc = "A pale beer that's the cause of many a soccer-related fight."
-	taste_description = "an own goal"
 
 /datum/reagent/consumable/ethanol/stout
 	name = "Stout"
@@ -2424,18 +2453,6 @@
 	drink_desc = "A crystal clear glass of 400 Conejos with a little worm inside."
 	taste_description = "tasty worm"
 
-/datum/reagent/consumable/ethanol/white_wine
-	name = "White Wine"
-	id = "whitewine"
-	description = "A fancy version of your regular wine."
-	color = "#EEEDC4"
-	dizzy_adj = 2
-	alcohol_perc = 0.2
-	drink_icon = "white_wine_glass"
-	drink_name = "Glass of White Wine"
-	drink_desc = "A classy glass of white wine."
-	taste_description = "vibrant"
-
 /datum/reagent/consumable/ethanol/michelada
 	name= "Michelada"
 	id = "michelada"
@@ -2466,7 +2483,7 @@
 	name= "Acapulco de Noche"
 	id = "acapulco_de_noche"
 	description = "A flamboyant cocktail perfect for the beach."
-	color = "#ff0033"
+	color = "#F4D65E"
 	alcohol_perc = 0.3
 	drink_icon = "acapulco_de_noche"
 	drink_name = "Glass of Acapulco de Noche"
@@ -2494,21 +2511,21 @@
 	id = "hanky_panky"
 	description = "A cocktail ideal for after work."
 	color = "#ab4003"
-	alcohol_perc = 0.3
+	alcohol_perc = 0.4
 	drink_icon = "hanky_panky"
 	drink_name = "Glass of Hanky Panky"
-	drink_desc = "Bad enough to be served in a pretty glass."
+	drink_desc = "By Jove! That is the real hanky-panky!"
 	taste_description = "alcohol both strong and light at the same time"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
-/datum/reagent/consumable/ethanol/peach_bellini
-	name= "Peach Bellini"
-	id = "peach_bellini"
+/datum/reagent/consumable/ethanol/bellini
+	name= "Bellini"
+	id = "bellini"
 	description = "A mimosa made with peach purée."
 	color = "#ff7970"
 	alcohol_perc = 0.4
 	drink_icon = "peach_bellini"
-	drink_name = "Glass of Peach Bellini"
+	drink_name = "Glass of Bellini"
 	drink_desc = "A mimosa made with peach purée. Oh la la fancy man."
 	taste_description = "fresh peaches"
 	yuck_description = "stickiness in your tubes"
