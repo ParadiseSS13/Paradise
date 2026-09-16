@@ -768,7 +768,7 @@
 	name = "Triple Piss"
 	id = "triple_piss"
 	description = "The distilled essence of piss. Scholars debate if the name comes from the fact that the piss has gone through a triple distilation, \
-	if it's due to the three veriaties of piss that have been blended together, or in reference to how it has three times the flavor of other piss."
+	if it's due to the three varieties of piss that have been blended together, or in reference to how it has three times the flavor of other piss."
 	reagent_state = LIQUID
 	color = "#857400"
 	taste_description = "PISS"
