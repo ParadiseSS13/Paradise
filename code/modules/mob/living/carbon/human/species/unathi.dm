@@ -135,6 +135,8 @@
 		to_chat(user, SPAN_WARNING("Rest before tail lashing again!"))
 		return
 	for(var/mob/living/carbon/human/C in orange(1))
+		if(!user.Adjacent(C))
+			continue
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -150,9 +152,9 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(10 SECONDS)
+					user.Weaken(5 SECONDS)
 					user.visible_message(
-						SPAN_DANGER("[user] loses [user.p_their()] balance!"), 
+						SPAN_DANGER("[user] loses [user.p_their()] balance!"),
 						SPAN_DANGER("You lose your balance!"),
 						SPAN_DANGER("You hear a heavy thud!")
 					)
