@@ -6,8 +6,6 @@
 	language = "Orluum"
 	eyes = "drask_eyes_s"
 
-	speech_sounds = list('sound/voice/drasktalk.ogg')
-	speech_chance = 20
 	male_scream_sound = 'sound/voice/drasktalk2.ogg'
 	female_scream_sound = 'sound/voice/drasktalk2.ogg'
 	male_cough_sounds = 'sound/voice/draskcough.ogg'
@@ -71,3 +69,14 @@
 
 /datum/species/drask/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/soap(H.loc)
+
+/datum/species/drask/skin_tone_from_body_color(datum/species/old_species, body_color)
+	return 35 - (220 - ceil(rgb2num(body_color, COLORSPACE_HSL)[3] * 2.2))
+
+/datum/species/drask/skin_tone_to_hex(skin_tone)
+	var/list/body_colors = rgb2num(flesh_color, COLORSPACE_HSL)
+	body_colors[3] = max(body_colors[3] + ceil(skin_tone / 2.2), 1)
+	return rgb(body_colors[1], body_colors[2], body_colors[3], space = COLORSPACE_HSL)
+
+/datum/species/drask/randomize_eye_color()
+	return rand_hex_color()

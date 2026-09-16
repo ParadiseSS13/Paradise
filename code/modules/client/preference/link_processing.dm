@@ -101,44 +101,43 @@
 					active_character.age = rand(S.min_age , S.max_age)
 				if("hair")
 					if(!(S.bodyflags & BALD))
-						active_character.h_colour = rand_hex_color()
+						active_character.h_colour = S.randomize_hair_colors(robohead, active_character.s_colour, active_character.s_tone)["h1"]
 				if("secondary_hair")
 					if(!(S.bodyflags & BALD))
-						active_character.h_sec_colour = rand_hex_color()
+						active_character.h_sec_colour = S.randomize_hair_colors(robohead, active_character.s_colour, active_character.s_tone)["h2"]
 				if("h_style")
-					active_character.h_style = random_hair_style(active_character.species, robohead)
+					active_character.h_style = S.randomize_hair_style(robohead)
 				if("facial")
 					if(!(S.bodyflags & SHAVED))
-						active_character.f_colour = rand_hex_color()
+						active_character.f_colour = S.randomize_hair_colors(robohead, active_character.s_colour, active_character.s_tone)["f1"]
 				if("secondary_facial")
 					if(!(S.bodyflags & SHAVED))
-						active_character.f_sec_colour = rand_hex_color()
+						active_character.f_sec_colour = S.randomize_hair_colors(robohead, active_character.s_colour, active_character.s_tone)["f2"]
 				if("f_style")
-					active_character.f_style = random_facial_hair_style(active_character.species, robohead)
+					active_character.f_style = S.randomize_facial_hair_style(robohead, gender = active_character.gender)
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-						active_character.hacc_colour = rand_hex_color()
+						active_character.hacc_colour = S.randomize_head_accessory_color(active_character.ha_style, active_character.s_colour, active_character.h_colour)
 				if("ha_style")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-						active_character.ha_style = random_head_accessory(active_character.species)
+						active_character.ha_style = S.randomize_head_accessory()
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						active_character.m_styles["head"] = random_marking_style("head", active_character.species, robohead, null, active_character.alt_head)
-				if("m_head_colour")
+						active_character.m_styles["head"] = S.randomize_head_markings(alt_head = active_character.alt_head)
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						active_character.m_colours["head"] = rand_hex_color()
+						active_character.m_colours["head"] = S.randomize_head_markings_color(active_character.m_styles["head"], active_character.s_colour)
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
-						active_character.m_styles["body"] = random_marking_style("body", active_character.species)
+						active_character.m_styles["body"] = S.randomize_body_markings()
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
-						active_character.m_colours["body"] = rand_hex_color()
+						active_character.m_colours["body"] = S.randomize_body_markings_color(active_character.m_styles["body"], active_character.s_colour, active_character.s_tone)
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						active_character.m_styles["tail"] = random_marking_style("tail", active_character.species, null, active_character.body_accessory)
+						active_character.m_styles["tail"] = S.randomize_tail_markings(tail_type = active_character.body_accessory)
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						active_character.m_colours["tail"] = rand_hex_color()
+						active_character.m_colours["tail"] = S.randomize_tail_markings_color(active_character.m_styles["tail"])
 				if("underwear")
 					active_character.underwear = random_underwear(active_character.body_type, active_character.species)
 					ShowChoices(user)
@@ -149,15 +148,15 @@
 					active_character.socks = random_socks(active_character.body_type, active_character.species)
 					ShowChoices(user)
 				if("eyes")
-					active_character.e_colour = rand_hex_color()
+					active_character.e_colour = S.randomize_eye_color()
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
-						active_character.s_tone = 35 - random_skin_tone(active_character.species)
+						active_character.s_tone = S.randomize_skin_tone()
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
-						active_character.s_tone = random_skin_tone(active_character.species)
+						active_character.s_tone = S.randomize_skin_tone()
 				if("s_color")
 					if(S.bodyflags & HAS_SKIN_COLOR)
-						active_character.s_colour = rand_hex_color()
+						active_character.s_colour = S.randomize_body_color()
 				if("bag")
 					active_character.backbag = pick(GLOB.backbaglist)
 				if("all")
@@ -192,48 +191,22 @@
 					var/new_active_character_species = tgui_input_list(user, "Please select a species", "Character Generation", sortList(new_species))
 					if(!new_active_character_species)
 						return
-					active_character.species = new_active_character_species
-					var/datum/species/NS = GLOB.all_species[active_character.species]
-					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
-						active_character.species = prev_species
+					var/datum/species/NS = GLOB.all_species[new_active_character_species]
+					if(!istype(NS)) // The species was invalid. Notify the user and fail out.
 						to_chat(user, SPAN_WARNING("Invalid species, please pick something else."))
 						return
-					if(prev_species != active_character.species)
-						active_character.quirks = list() //Reset their quirks
+					if(prev_species != new_active_character_species)
+						active_character.species = new_active_character_species
+
+						// Randomize their appearance.
+						active_character.organ_data = list()
+						active_character.rlimb_data = list()
+						active_character.reset_appearance()
+						NS.generate_random_appearance(prosthesis_prob = active_character.species == "machine" ? 100 : 0, appearance = active_character)
+
+						// Reset their quirks.
+						active_character.quirks = list()
 						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
-						var/datum/robolimb/robohead
-						if(NS.bodyflags & ALL_RPARTS)
-							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
-							robohead = GLOB.all_robolimbs[head_model]
-						//grab one of the valid hair styles for the newly chosen species
-						active_character.h_style = random_hair_style(active_character.species, robohead)
-
-						//grab one of the valid facial hair styles for the newly chosen species
-						active_character.f_style = random_facial_hair_style(active_character.species, robohead)
-
-						if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
-							active_character.ha_style = random_head_accessory(active_character.species)
-						else
-							active_character.ha_style = "None" // No Vulp ears on Unathi
-							active_character.hacc_colour = rand_hex_color()
-
-						if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-							active_character.m_styles["head"] = random_marking_style("head", active_character.species, robohead, null, active_character.alt_head)
-						else
-							active_character.m_styles["head"] = "None"
-							active_character.m_colours["head"] = "#000000"
-
-						if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-							active_character.m_styles["body"] = random_marking_style("body", active_character.species)
-						else
-							active_character.m_styles["body"] = "None"
-							active_character.m_colours["body"] = "#000000"
-
-						if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-							active_character.m_styles["tail"] = random_marking_style("tail", active_character.species, null, active_character.body_accessory)
-						else
-							active_character.m_styles["tail"] = "None"
-							active_character.m_colours["tail"] = "#000000"
 
 						// Don't wear another species' underwear!
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[active_character.underwear]
@@ -248,31 +221,13 @@
 						if(!SA || !(active_character.species in SA.species_allowed))
 							active_character.socks = random_socks(active_character.body_type, active_character.species)
 
-						//reset skin tone and colour
-						if(NS.bodyflags & HAS_SKIN_TONE)
-							active_character.s_tone = 35 - random_skin_tone(active_character.species)
-						else if(NS.bodyflags & HAS_ICON_SKIN_TONE)
-							active_character.s_tone = random_skin_tone(active_character.species)
-						else
-							active_character.s_tone = 1
-
-						if(!(NS.bodyflags & HAS_SKIN_COLOR))
-							active_character.s_colour = "#000000"
-
-						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
-
-						//Reset prosthetics.
-						active_character.organ_data = list()
-						active_character.rlimb_data = list()
 
 						if(!(NS.autohiss_basic_map))
 							active_character.autohiss_mode = AUTOHISS_OFF
 				if("speciesprefs")
 					active_character.speciesprefs = !active_character.speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
-//						var/languages_available
 					var/list/new_languages = list("None")
 					for(var/L in GLOB.all_languages)
 						var/datum/language/lang = GLOB.all_languages[L]
@@ -618,6 +573,32 @@
 					var/new_height = tgui_input_list(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference", GLOB.character_heights)
 					if(new_height in GLOB.character_heights)
 						active_character.height = new_height
+
+				if("blooper_id")
+					var/new_blooperid = tgui_input_list(user, "Choose your voice!", "Voice Modification", GLOB.blooper_list)
+					if(new_blooperid in GLOB.blooper_list)
+						active_character.blooper_id = new_blooperid
+
+				if("blooper_speed")
+					var/new_blooperspeed = tgui_input_number(user, "Set your voice speed.", "Voice Speed", active_character.blooper_speed, BLOOPER_DEFAULT_MAXSPEED, BLOOPER_DEFAULT_MINSPEED, round_value = FALSE)
+					if(new_blooperspeed)
+						active_character.blooper_speed = new_blooperspeed
+
+				if("blooper_pitch")
+					var/new_blooperpitch = tgui_input_number(user, "Set your voice pitch.", "Voice Pitch", active_character.blooper_pitch, BLOOPER_DEFAULT_MAXPITCH, BLOOPER_DEFAULT_MINPITCH, round_value = FALSE)
+					if(new_blooperpitch)
+						active_character.blooper_pitch = new_blooperpitch
+
+				if("blooper_pitch_range")
+					var/new_blooperpitchrange = tgui_input_number(user, "Set your voice pitch range. 0 is no variation, 1 is too much variation.", "Voice Pitch", active_character.blooper_pitch_range, BLOOPER_DEFAULT_MAXVARY, BLOOPER_DEFAULT_MINVARY, round_value = FALSE)
+					if(new_blooperpitchrange)
+						active_character.blooper_pitch_range = new_blooperpitchrange
+
+				if("blooper_preview")
+					var/preview_text = tgui_input_text(user, "Enter a test message to preview your character's voice.", "Voice Preview", "The captain may be a traitor! I am SO startled right now...", max_length = 200, multiline = FALSE)
+					if(isnull(preview_text))
+						return
+					active_character.preview_blooper_voice(user, preview_text)
 
 				if("flavor_text")
 					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)

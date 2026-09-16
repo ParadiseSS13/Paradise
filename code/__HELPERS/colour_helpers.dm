@@ -66,3 +66,53 @@
 	var/list/TARGET = rgb2num(color_to_match, COLORSPACE_HSL)
 	RGB[3] = TARGET[3] //change lightness to target lightness
 	return rgb(RGB[1], RGB[2], RGB[3], space = COLORSPACE_HSL)
+
+/// Returns a purely random tint for specific color
+/proc/tint_color(color, range = 25)
+	if(!is_color_text(color)) // if it's not a hex color
+		return color // just leave it as it is
+
+	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
+	var/G = clamp(color2G(color) + rand(-range, range), 0, 255)
+	var/B = clamp(color2B(color) + rand(-range, range), 0, 255)
+
+	return rgb(R, G, B)
+
+/// Returns a random tint for a specific color in HSL space.
+/proc/tint_color_hsl(color, range = 10)
+	var/list/HSL = rgb2num(color, COLORSPACE_HSL)
+	HSL[1] = clamp(HSL[1] + rand(-range, range), 0, 100)
+	HSL[2] = clamp(HSL[2] + rand(-range, range), 0, 100)
+	HSL[3] = clamp(HSL[3] + rand(-range, range), 0, 100)
+	return rgb(HSL[1], HSL[2], HSL[3], space = COLORSPACE_HSL)
+
+/// Returns the index of the closest color in the list.
+/proc/pick_closest_list_color(list/colors, color)
+	var/list/color_rgb
+	if(is_color_text(color))
+		color_rgb = rgb2num(color)
+	else if(is_color_rgb(color))
+		color_rgb = color
+	else
+		return FALSE
+
+	var/distance = 255
+	var/picked_color = COLOR_BLACK
+	for(var/possible_color in colors)
+		var/possible_rgb
+		if(is_color_text(possible_color))
+			possible_rgb = rgb2num(possible_color)
+		else if(is_color_rgb(possible_color))
+			possible_rgb = possible_color
+		else
+			return FALSE
+		if(possible_rgb[1] == color_rgb[1] && possible_rgb[2] == color_rgb[2] && possible_rgb[2] == color_rgb[2])
+			return colors.Find(possible_color)
+		var/possible_distance = sqrt( \
+			(color_rgb[1] - possible_rgb[1]) ** 2 + \
+			(color_rgb[2] - possible_rgb[2]) ** 2 + \
+			(color_rgb[3] - possible_rgb[3]) ** 2)
+		if(possible_distance < distance)
+			distance = possible_distance
+			picked_color = possible_color
+	return picked_color
