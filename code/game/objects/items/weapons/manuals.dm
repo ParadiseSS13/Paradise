@@ -861,7 +861,7 @@
 				<h2>Fernet Cola:</h2>
 				Mix two parts of cola to one part fernet.
 				<h2>Gimlet:</h2>
-				Mix two parts gin to one part each of lemon juice, and sugar.
+				Mix two parts gin to one part each of lime juice, and sugar.
 				<h2>Gin Fizz:</h2>
 				Mix two parts gin to one part each of soda water and lime juice.
 				<h2>Gin and Tonic:</h2>
@@ -979,8 +979,6 @@
 				Mix 10 parts nutriment to five parts universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Neuro-toxin:</h2>
 				Mix one part ether to one part Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Chemistry can help.
-				<h2>Sbiten:</h2>
-				Mix 10 parts wine to one part each honey and hot sauce. The botanist can help.
 				<h2>Singulo:</h2>
 				Mix five parts each of vodka and wine to one part radium. Chemistry can help.
 				<h2>Stack Trace: §</h2>
@@ -1028,6 +1026,8 @@
 				Mix one part each of tequila, Bilk (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>), Red Mead, and ice.
 				<h2>Red Mead:</h2>
 				Mix one part mead to one part blood. Medical or Botany can help.
+				<h2>Sbiten:</h2>
+				Mix 10 parts wine to one part each honey and hot sauce. The botanist can help.
 				<h2>Shrub Julep:</h2>
 				Mix two parts whiskey to one part each of mint, Beet Shrub (<a href='byond://?src=[UID()];seek_page=10'>Hard Soft Drinks</a>), and ice. Botany or the Kitchen can help.
 				<h2>Slime Mold: (a Slime People favorite!)</h2>
