@@ -236,6 +236,9 @@
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)
 
+/mob/living/carbon/human/machine/get_spooked()
+	to_chat(src, SPAN_WHISPER("[pick(GLOB.boo_phrases_robot)]"))
+	return TRUE
 /datum/species/machine/generate_random_appearance(prosthesis_prob = 100, appearance = null, use_gender = null)
 	return ..()
 
