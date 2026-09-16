@@ -43,7 +43,7 @@
 	id = "absinthe"
 	description = "A spirit produced by distilling the liquid from fermenting anise, fennel, and wormwood (and commonly including other herbs for flavor). \
 	In old Earth texts it is called \"the green fairy\". While it was once believed to cause hallucinations and delirium due to the presence of thujone in wormwood, \
-	scientific anylisis showed that one would need to consume enough absinthe to die of alcohol poisoning before enough thujone is present to cause any symptoms. \
+	scientific analysis showed that one would need to consume enough absinthe to die of alcohol poisoning before enough thujone is present to cause any symptoms. \
 	It is commonly consumed neat, and is also a widely-used cocktail component."
 	color = "#33EE00" // rgb: lots, ??, ??
 	overdose_threshold = 30
