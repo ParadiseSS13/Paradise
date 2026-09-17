@@ -90,6 +90,7 @@
 		return
 
 	controller.queue_behavior(arrest_behavior, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETING_STRATEGY)
+	controller.queue_behavior(/datum/ai_behavior/frustration, BB_SECBOT_FRUSTRATION, 45 SECONDS)
 	return SUBTREE_RETURN_FINISH_PLANNING
 
 /datum/ai_behavior/basic_melee_attack/bot
@@ -98,4 +99,5 @@
 	var/mob/living/carbon/human/human_target = controller.blackboard[target_key]
 	if(!isnull(human_target) && human_target.handcuffed)
 		controller.remove_from_blackboard_lazylist_key(BB_BASIC_MOB_RETALIATE_LIST, human_target)
+		controller.clear_blackboard_key(BB_SECBOT_FRUSTRATION)
 	return ..()

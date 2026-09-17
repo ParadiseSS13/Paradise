@@ -77,6 +77,8 @@
 // Secbots
 /// Threat of our current target
 #define BB_CURRENT_CRIMINAL_ASSESSMENT "current_criminal_assessment"
+/// Arrest frustration timer
+#define BB_SECBOT_FRUSTRATION "secbot_frustration"
 
 // Honkbots
 /// Key that holds all possible clown friends
