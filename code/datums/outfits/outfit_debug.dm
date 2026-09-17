@@ -107,7 +107,7 @@
 
 /obj/item/clothing/glasses/hud/debug/examine(mob/user)
 	. = ..()
-	. += "<span class = 'notice'><b>Alt-Click</b> to toggle X-ray vision.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to toggle X-ray vision.")
 
 /obj/item/clothing/glasses/hud/debug/equipped(mob/user, slot)
 	..()

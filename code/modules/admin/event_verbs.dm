@@ -708,7 +708,7 @@ USER_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message"
 	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
 	H.create_log(MISC_LOG, "Headset Message: [input]", "From: [key_name_admin(src)]")
-	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
+	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span> [SPAN_SPECIALNOTICE(input)]")
 	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
 
 USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the Lavaland theme for the next round", VERB_CATEGORY_EVENT)
