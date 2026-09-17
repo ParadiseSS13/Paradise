@@ -11,7 +11,7 @@
 /datum/action/cooldown/mob_cooldown/kidan_princess/summon_mobs/Activate(atom/target)
 	var/mob/living/basic/megafauna/kidan_princess/summoner = owner
 	if(!istype(summoner))
-		to_chat(owner, "<span class='warning'>I am unable to summon servants!</span>")
+		to_chat(owner, SPAN_WARNING("I am unable to summon servants!"))
 		return
 
 	var/list/all_possible_dirs = GLOB.alldirs
@@ -46,7 +46,7 @@
 			break
 		for(var/obj/machinery/door/D in T.contents)
 			break
-	owner.visible_message("<span class='danger'>[owner] prepares to charge!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(charge_to), dir_to_target, 0), 0.3 SECONDS)
 	StartCooldown()
 
@@ -72,8 +72,8 @@
 	for(var/mob/living/L in T.contents - owner)
 		if(owner.faction_check_mob(L))
 			continue
-		owner.visible_message("<span class='danger'>[owner] slams into [L]!</span>")
-		to_chat(L, "<span class='userdanger'>[owner] charges into you and smashes you away!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] slams into [L]!"))
+		to_chat(L, SPAN_USERDANGER("[owner] charges into you and smashes you away!"))
 		L.throw_at(throwtarget, 10, 1, owner)
 		L.Weaken(1 SECONDS) // Pain Train has no breaks.
 		if(L in hit_targets)

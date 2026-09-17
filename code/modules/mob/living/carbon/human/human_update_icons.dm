@@ -765,7 +765,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		right_ear_inv?.update_icon()
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+	var/datum/robolimb/robohead = head_organ?.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 
 	if(l_ear)
 		update_hud_l_ear(l_ear)

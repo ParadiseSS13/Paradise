@@ -83,12 +83,6 @@
 	. += SPAN_NOTICE("Alt+click to open and close the shielding while the chamber is raised.")
 	. += SPAN_NOTICE("Click on the chamber while it is closed to raise and lower it.")
 
-	if(isobserver(user))
-		// observers get regular examine + nested multitool info
-		var/list/deep_info = get_deep_examine_info()
-		if(length(deep_info))
-			. += chat_box_examine(deep_info.Join("<br>"))
-
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	desync()
 	if(held_rod) // We shouldnt be able to decon with this in, but just in case

@@ -99,9 +99,6 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/basic/flock/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
-	return TRUE
-
 /mob/living/basic/flock/set_stat(new_stat)
 	. = ..()
 	if(stat != DEAD)

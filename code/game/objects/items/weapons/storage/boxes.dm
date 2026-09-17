@@ -395,10 +395,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival/empty/populate_contents()
 	return
@@ -412,9 +414,11 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_vox/empty/populate_contents()
 	return
@@ -444,11 +448,13 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
-
+		new /obj/item/stack/medical/bruise_pack(src)
+		
 /obj/item/storage/box/engineer/empty/populate_contents()
 	return
 
@@ -461,10 +467,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_mining/empty/populate_contents()
 	return
@@ -480,6 +488,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 /obj/item/storage/box/survival_syndie/empty/populate_contents()
 	return

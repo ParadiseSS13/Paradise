@@ -628,6 +628,22 @@ USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/l
 	log_admin("[key_name(client)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins(SPAN_NOTICE("[key_name_admin(client)] changed the equipment of [key_name_admin(M)] to [dresscode]."), 1)
 
+USER_CONTEXT_MENU(randomize_appearance, R_EVENT, "\[Admin\] Randomize appearance", mob/living/carbon/human/M in GLOB.human_list)
+	if(!ishuman(M) && !isobserver(M))
+		alert(client, "Invalid mob")
+		return
+
+	var/prosthesis_prob = tgui_input_number(client, "Enter prosthesis probability between 0 and 100. Close to cancel.", "Randomize Appearance", 0, 100, 0)
+	if(!isnum(prosthesis_prob))
+		return
+
+	var/randomize_gender = tgui_alert(client, "Randomize gender?", "Randomize Appearance", list("Yes", "No")) == "Yes"
+
+	M.generate_random_appearance(prosthesis_prob, use_gender = randomize_gender ? null : M.gender)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Randomize Appearance")
+	log_admin("[key_name(client)] randomized the appearance of [key_name(M)].")
+	message_admins(SPAN_NOTICE("[key_name_admin(client)] randomized the appearance of [key_name_admin(M)]."), 1)
+
 USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice", VERB_CATEGORY_EVENT)
 	if(client.holder)
 		client.holder.one_click_antag()
@@ -694,3 +710,36 @@ USER_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message"
 	H.create_log(MISC_LOG, "Headset Message: [input]", "From: [key_name_admin(src)]")
 	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
 	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
+
+USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the Lavaland theme for the next round", VERB_CATEGORY_EVENT)
+	if(!SSmapping)
+		to_chat(client, SPAN_WARNING("SSmapping is not initialized yet."))
+		return
+
+	var/list/lavaland_themes = subtypesof(/datum/lavaland_theme)
+	var/choice = tgui_input_list(client, "Select the Lavaland theme for next round.", "Next Lavaland Theme", lavaland_themes)
+	if(choice)
+		SSmapping.next_lavaland_theme = choice
+		message_admins("[key_name_admin(client)] set the Lavaland theme for next round to [choice].")
+
+USER_VERB(trigger_custom_false_alarm, R_EVENT, "Custom False Alarm", "Trigger specific false alarm.", VERB_CATEGORY_EVENT)
+	//var/list/options = list("Option 1", "Option 2")
+	var/list/event_list = GLOB.false_alarm_types
+	var/input = input(client, "Please select an announcement to imitate", "Custom False Alarm") as null|anything in event_list
+	if(!input)
+		return
+
+	log_admin("Admin [key_name(client)] has triggered a false alarm - [input]")
+	message_admins("Admin [key_name_admin(client)] has triggered a false alarm - [input]")
+
+	new /datum/event/falsealarm(override_input = input)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Custom False Alarm")
+
+USER_VERB(trigger_random_false_alarm, R_EVENT, "Random False Alarm", "Trigger a random false alarm.", VERB_CATEGORY_EVENT)
+	var/confirm = alert(client, "You sure?", "Confirm", "Yes", "No")
+	if(confirm != "Yes") return
+	log_admin("[key_name(client)] has triggered a random false alarm.")
+	message_admins("[key_name_admin(client)] has triggered a random false alarm.")
+
+	new /datum/event/falsealarm()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Random False Alarm")

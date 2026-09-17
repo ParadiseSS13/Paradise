@@ -81,7 +81,8 @@
 		return
 	user.visible_message(
 		SPAN_DANGER("[user] de-materializes and jumps through the screen of [target]!"),
-		"<span class='warning'>You de-materialize and jump into [target]!")
+		SPAN_WARNING("You de-materialize and jump into [target]!")
+	)
 
 	user.set_body_position(STANDING_UP)
 	var/matrix/previous = user.transform

@@ -276,7 +276,7 @@
 		if(target_zone == surgery.location)
 			if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
 				return initiate(user, target, target_zone, tool, surgery)
-			to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!")
+			to_chat(user, SPAN_WARNING("You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!"))
 			return SURGERY_INITIATE_FAILURE //returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)

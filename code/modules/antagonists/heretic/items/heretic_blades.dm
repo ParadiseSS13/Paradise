@@ -131,7 +131,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!heretic_datum)
 		return
-	. += "<span class='info'>We may touch the blade to ourself to call forth an aspect of winter's end."
+	. += SPAN_INFO("We may touch the blade to ourself to call forth an aspect of winter's end.")
 
 /obj/item/melee/sickly_blade/void/dropped(mob/user, silent)
 	. = ..()
