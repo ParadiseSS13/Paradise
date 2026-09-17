@@ -40,8 +40,8 @@
 	var/uv_super = FALSE
 	/// How many uv cleaning cycles to do, counts down while cleaning takes place.
 	var/uv_cycles = 6
-	/// Time between UV cleaning cycles, in deciseconds.
-	var/uv_cycle_delay = 50
+	/// Time between UV cleaning cycles.
+	var/uv_cycle_delay = 5 SECONDS
 	/// Damage multiplier for occupants during UV cleaning.
 	var/uv_damage_multiplier = 1
 	var/message_cooldown
