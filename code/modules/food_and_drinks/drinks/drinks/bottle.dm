@@ -8,6 +8,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	throwforce = 15
+	icon = 'icons/obj/drinks/bottles.dmi'
 	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	var/is_glass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
@@ -24,7 +25,7 @@
 		user.put_in_active_hand(B)
 	B.icon_state = icon_state
 
-	var/icon/I = new('icons/obj/drinks.dmi', icon_state)
+	var/icon/I = new('icons/obj/drinks/bottles.dmi', icon_state)
 	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
 	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	B.icon = I
@@ -150,7 +151,7 @@
 /obj/item/broken_bottle
 	name = "Broken Bottle"
 	desc = "A bottle with a sharp broken bottom."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "broken_bottle"
 	inhand_icon_state = "broken_beer"
 	force = 9
@@ -160,7 +161,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
-	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
+	var/icon/broken_outline = icon('icons/obj/drinks/misc_drinks.dmi', "broken")
 	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -225,6 +226,7 @@
 /obj/item/reagent_containers/drinks/bottle/holywater
 	name = "flask of holy water"
 	desc = "A flask of the chaplain's holy water."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	list_reagents = list("holywater" = 100)
 
@@ -305,6 +307,7 @@
 /obj/item/reagent_containers/drinks/bottle/orangejuice
 	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "orangejuice"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -315,6 +318,7 @@
 /obj/item/reagent_containers/drinks/bottle/cream
 	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "cream"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -335,6 +339,7 @@
 /obj/item/reagent_containers/drinks/bottle/limejuice
 	name = "lime juice"
 	desc = "Sweet-sour goodness."
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "limejuice"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -345,6 +350,7 @@
 /obj/item/reagent_containers/drinks/bottle/milk
 	name = "milk"
 	desc = "Soothing milk."
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "milk"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -355,6 +361,7 @@
 /obj/item/reagent_containers/drinks/bottle/chocolate_milk
 	name = "chocolate milk"
 	desc = "Brown milk from brown cows. Maybe."
+	icon = 'icons/obj/drinks/cartons.dmi'
 	icon_state = "chocolatebox"
 	inhand_icon_state = "contvapour"
 	throwforce = 0
@@ -474,6 +481,7 @@
 /obj/item/reagent_containers/drinks/bottle/vampire_bestfriend
 	name = "Alucard's guilty sin"
 	desc = "You can distinguish pieces of garlic floating inside."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "vampire_bf_flask"
 	list_reagents = list("vampire_bf" = 100)
 
