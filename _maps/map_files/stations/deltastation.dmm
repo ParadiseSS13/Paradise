@@ -43402,6 +43402,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/item/storage/firstaid/regular/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dsL" = (
