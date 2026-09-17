@@ -730,20 +730,27 @@
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
-	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
-		if(P.occupant)
+	var/list/free_pods = list()
+	for(var/obj/machinery/cryopod/pod in SSmachines.get_by_type(/obj/machinery/cryopod))
+		if(pod.occupant)
 			continue
-		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
-			free_cryopods += P
-	var/obj/machinery/cryopod/target_cryopod = null
-	if(length(free_cryopods))
-		target_cryopod = safepick(free_cryopods)
-		if(target_cryopod.check_occupant_allowed(person_to_cryo))
+		// Only allow pods on the station to be teleported to.
+		if(!is_station_level(pod.z))
+			continue
+		// Make sure mobs only try to get sent to a compatable pod.
+		if(ishuman(person_to_cryo) && !istype(pod, /obj/machinery/cryopod/robot))
+			free_pods += pod
+			continue
+		if(isrobot(person_to_cryo) && istype(pod, /obj/machinery/cryopod/robot))
+			free_pods += pod
+	var/obj/machinery/cryopod/target_pod = null
+	if(length(free_pods))
+		target_pod = safepick(free_pods)
+		if(target_pod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
 			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40, create_sparks = FALSE)
 			SP.name = "NT SSD Teleportation Portal"
-			target_cryopod.take_occupant(person_to_cryo, 1)
+			target_pod.take_occupant(person_to_cryo, 1)
 			return TRUE
 
 	return FALSE
@@ -756,8 +763,8 @@
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		cryo_ssd(person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
-		var/obj/machinery/cryopod/P = person_to_cryo.loc
-		P.despawn_occupant()
+		var/obj/machinery/cryopod/pod = person_to_cryo.loc
+		pod.despawn_occupant()
 
 #undef CRYO_DESTROY
 #undef CRYO_PRESERVE
