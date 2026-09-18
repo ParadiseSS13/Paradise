@@ -65,8 +65,11 @@
 /area/shuttle/arrival/station)
 "nI" = (
 /obj/structure/table,
-/obj/item/kitchen/rollingpin,
-/obj/item/kitchen/knife,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "uq" = (
@@ -260,11 +263,11 @@
 /area/shuttle/arrival/station)
 "LI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cooking/board,
-/obj/item/reagent_containers/cooking/board{
-	pixel_x = -4;
-	pixel_y = 6
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_x = 1;
+	pixel_y = 8
 	},
+/obj/item/reagent_containers/cooking/bowl,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "LJ" = (
@@ -288,11 +291,8 @@
 /area/shuttle/arrival/station)
 "NL" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cooking/bowl,
-/obj/item/reagent_containers/cooking/bowl{
-	pixel_x = 1;
-	pixel_y = 8
-	},
+/obj/item/kitchen/knife,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "Ov" = (
@@ -32140,11 +32140,11 @@ Tc
 Nw
 QG
 Me
+uq
 hp
 Me
-Me
 vf
-uq
+Ov
 Me
 Me
 Me
@@ -32397,7 +32397,7 @@ Tc
 Nw
 DM
 Me
-nI
+Me
 Ch
 Me
 Me
@@ -32654,11 +32654,11 @@ Tc
 Nw
 jw
 Me
-Ov
+Me
 vT
 Me
-uq
-uq
+NL
+LI
 Me
 Bl
 Me
@@ -32911,7 +32911,7 @@ Tc
 Nw
 Sm
 Me
-jp
+Me
 dX
 Me
 gs
@@ -33168,11 +33168,11 @@ Tc
 Nw
 vo
 Me
-NL
+Me
 wo
 Me
-uq
-uq
+jp
+nI
 Me
 Wk
 Me
@@ -33425,7 +33425,7 @@ Tc
 Nw
 CC
 Me
-LI
+Me
 OZ
 Me
 Me
@@ -33682,8 +33682,8 @@ Tc
 Nw
 LH
 Me
+uq
 Gk
-Me
 Me
 vf
 uq
