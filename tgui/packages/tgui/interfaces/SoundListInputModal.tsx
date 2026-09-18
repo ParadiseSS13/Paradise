@@ -7,7 +7,7 @@ import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
 
-type RingtoneListInputData = {
+type SoundListInputData = {
   init_value: string;
   items: string[];
   message: string;
@@ -15,8 +15,8 @@ type RingtoneListInputData = {
   title: string;
 };
 
-export const RingtoneListInputModal = (props) => {
-  const { act, data } = useBackend<RingtoneListInputData>();
+export const SoundListInputModal = (props) => {
+  const { act, data } = useBackend<SoundListInputData>();
   const { items = [], message = '', init_value, timeout, title } = data;
   const [selected, setSelected] = useState<number>(items.indexOf(init_value));
   const [searchBarVisible, setSearchBarVisible] = useState<boolean>(items.length > 10);
@@ -169,7 +169,7 @@ export const RingtoneListInputModal = (props) => {
  * If a search query is provided, filters the items.
  */
 const ListDisplay = (props) => {
-  const { act } = useBackend<RingtoneListInputData>();
+  const { act } = useBackend<SoundListInputData>();
   const { filteredItems, onClick, onFocusSearch, searchBarVisible, selected } = props;
 
   return (
@@ -217,7 +217,7 @@ const ListDisplay = (props) => {
  * Closing the bar defaults input to an empty string.
  */
 const SearchBar = (props) => {
-  const { act } = useBackend<RingtoneListInputData>();
+  const { act } = useBackend<SoundListInputData>();
   const { filteredItems, onSearch, searchQuery, selected } = props;
 
   return (
