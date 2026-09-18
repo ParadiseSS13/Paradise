@@ -943,9 +943,8 @@
 	network = list("SyndicateCaves");
 	dir = 6
 	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/vault,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "fM" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -11410,7 +11409,7 @@ xW
 kE
 AD
 Mf
-kE
+AD
 kE
 kE
 Ri
@@ -11776,7 +11775,7 @@ kE
 kE
 AD
 AD
-kE
+AD
 kE
 kE
 Ri
@@ -11847,7 +11846,7 @@ pk
 Vl
 kE
 kE
-kE
+AD
 AD
 Mf
 kE
@@ -11920,10 +11919,10 @@ nv
 Vl
 Vl
 kE
-kE
 AD
 AD
-Ri
+AD
+QM
 kE
 kE
 Ri
@@ -11993,7 +11992,7 @@ nv
 nv
 Vl
 Vl
-kE
+Mf
 Mf
 AD
 kE
@@ -12140,7 +12139,7 @@ nv
 nv
 Vl
 Vl
-kE
+Mf
 Mf
 Mf
 kE
@@ -12213,8 +12212,8 @@ nv
 nv
 qT
 Vl
-kE
-kE
+QM
+QM
 AD
 kE
 Ri
@@ -12287,7 +12286,7 @@ nv
 Vl
 Vl
 Vl
-kE
+QM
 Mf
 kE
 kE
