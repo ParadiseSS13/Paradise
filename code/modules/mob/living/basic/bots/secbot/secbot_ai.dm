@@ -81,7 +81,7 @@
 /datum/ai_planning_subtree/arrest_target/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
 	var/mob/living/carbon/my_target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 	var/mob/living/basic/bot/secbot/my_bot = controller.pawn
-	if((QDELETED(my_target) || !istype(my_target) || my_target.handcuffed || my_target.stat != CONSCIOUS) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
+	if((QDELETED(my_target) || !my_target || !istype(my_target) || my_target.handcuffed || my_target.stat != CONSCIOUS) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
 		controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
 	var/bot_flags = my_bot.security_mode_flags
