@@ -733,6 +733,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(glasses)
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		if(!istype(head_organ))
+			return
 		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		update_hud_glasses(glasses)
 
