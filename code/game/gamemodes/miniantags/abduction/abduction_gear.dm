@@ -233,7 +233,8 @@ CONTENTS:
 	for(var/obj/I in all_items)
 		if(isradio(I))
 			var/obj/item/radio/R = I
-			R.listening = FALSE // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+			// Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+			R.set_listening(FALSE)
 			R.emp_act(EMP_HEAVY)
 
 /obj/item/gun/energy/alien

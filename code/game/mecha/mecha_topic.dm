@@ -99,8 +99,8 @@
 	. += "<div class='links'>"
 	. += "<a href='byond://?src=[UID()];toggle_lights=1'>Toggle Lights</a><br>"
 	. += "<b>Radio settings:</b><br>"
-	. += "Microphone: <a href='byond://?src=[UID()];rmictoggle=1'><span id='rmicstate'>[radio.broadcasting?"Engaged":"Disengaged"]</span></a><br>"
-	. += "Speaker: <a href='byond://?src=[UID()];rspktoggle=1'><span id='rspkstate'>[radio.listening?"Engaged":"Disengaged"]</span></a><br>"
+	. += "Microphone: <a href='byond://?src=[UID()];rmictoggle=1'><span id='rmicstate'>[radio.get_broadcasting()?"Engaged":"Disengaged"]</span></a><br>"
+	. += "Speaker: <a href='byond://?src=[UID()];rspktoggle=1'><span id='rspkstate'>[radio.get_listening()?"Engaged":"Disengaged"]</span></a><br>"
 	. += "Frequency:"
 	. += "<a href='byond://?src=[UID()];rfreq=-10'>-</a>"
 	. += "<a href='byond://?src=[UID()];rfreq=-2'>-</a>"
@@ -279,13 +279,13 @@
 		return
 	if(href_list["rmictoggle"])
 		if(usr != occupant)	return
-		radio.broadcasting = !radio.broadcasting
-		send_byjax(occupant,"exosuit.browser","rmicstate",(radio.broadcasting?"Engaged":"Disengaged"))
+		radio.set_broadcasting(!radio.get_broadcasting())
+		send_byjax(occupant,"exosuit.browser","rmicstate",(radio.get_broadcasting()?"Engaged":"Disengaged"))
 		return
 	if(href_list["rspktoggle"])
 		if(usr != occupant)	return
-		radio.listening = !radio.listening
-		send_byjax(occupant,"exosuit.browser","rspkstate",(radio.listening?"Engaged":"Disengaged"))
+		radio.set_listening(!radio.get_listening())
+		send_byjax(occupant,"exosuit.browser","rspkstate",(radio.get_listening()?"Engaged":"Disengaged"))
 		return
 	if(href_list["rfreq"])
 		if(usr != occupant)	return

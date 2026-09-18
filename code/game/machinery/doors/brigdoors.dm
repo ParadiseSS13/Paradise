@@ -41,7 +41,7 @@
 
 	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
-	Radio.listening = FALSE
+	Radio.set_listening(FALSE)
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
 	return INITIALIZE_HINT_LATELOAD

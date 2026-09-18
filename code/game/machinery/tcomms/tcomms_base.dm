@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/receive = get_hearers_in_radio_ranges(radios)
 
 /* ###### Organize the receivers into categories for displaying the message ###### */
 
@@ -329,11 +329,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/M in receive)
-		var/mob/R = M
+	for(var/mob/R in receive)
+		// TODO: things other than mobs can be hearing-atoms
+		//
+		// ultimately hearing should be moved down to type-specific procs for
+		// handling (e.g. /atom/proc/hear) but filtering the list here doesn't
+		// hurt anything since all the below code is mob-specific
 
 		/* --- Loop through the receivers and categorize them --- */
-
 		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
