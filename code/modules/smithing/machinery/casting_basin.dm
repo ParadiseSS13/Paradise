@@ -239,7 +239,7 @@
 			else
 				stored = min(M.amount / MINERAL_MATERIAL_AMOUNT, stored)
 			if(istype(cast, /obj/item/smithing_cast/sheet))
-				amount = min(amount, stored, MAX_STACK_SIZE)
+				amount = floor(min(amount, stored, MAX_STACK_SIZE))
 		if(!amount)
 			to_chat(user, SPAN_WARNING("Not enough materials in the crucible to smelt a sheet of [temp_product.name]!"))
 			qdel(temp_product)
