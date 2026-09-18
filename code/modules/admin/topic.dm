@@ -1017,8 +1017,6 @@
 				to_chat(M, SPAN_WARNING("This is a temporary ban, it will be removed in [mins] minutes."))
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				add_note(M.last_known_ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
-				if(M.client)
-					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, SPAN_WARNING("To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]"))
 				else
@@ -1033,8 +1031,6 @@
 					return
 				to_chat(M, SPAN_WARNING("<big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big>"))
 				to_chat(M, SPAN_WARNING("This ban does not expire automatically and must be appealed."))
-				if(M.client)
-					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, SPAN_WARNING("To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]"))
 				else

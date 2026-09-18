@@ -4,6 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	var/gps
+	new_attack_chain = TRUE
 
 /obj/item/lance_docking_generator/Initialize(mapload)
 	. = ..()
@@ -22,14 +23,18 @@
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		return TRUE
 
-/obj/item/lance_docking_generator/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/lance_docking_generator/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!is_station_level(user.z))
 		to_chat(user, SPAN_WARNING("You'll want this to dock on the station."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 	var/dir_choice = tgui_input_list(user, "Which direction should the shuttle approach from?", "Dock Orientation", dir_choices)
 	if(!dir_choice)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/dest_dir = dir_choices[dir_choice]
 	var/turf/destination = get_step(user.loc, dest_dir)
@@ -51,16 +56,18 @@
 			if((istype(O, /obj/machinery/atmospherics/supermatter_crystal) || istype(O, /obj/singularity)) && !emagged)
 				to_chat(user, SPAN_WARNING("Dangerous landing conditions, aborting!"))
 				qdel(port, force = TRUE)
-				return
+				return ITEM_INTERACT_COMPLETE
 
 	if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
 		to_chat(user, SPAN_WARNING("Docking space area too close to edge of sector, aborting!"))
 		qdel(port, force = TRUE)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
 		to_chat(user, SPAN_WARNING("Docking space area too close to edge of sector, aborting!"))
 		qdel(port, force = TRUE)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/list/L2 = list()
 	switch(dest_dir)
 		if(NORTH)
@@ -76,13 +83,15 @@
 			if((istype(Ohno, /obj/machinery/atmospherics/supermatter_crystal) || istype(Ohno, /obj/singularity)) && !emagged)
 				to_chat(user, SPAN_WARNING("Dangerous landing conditions, aborting!"))
 				qdel(port, force = TRUE)
-				return
+				return ITEM_INTERACT_COMPLETE
+
 	port.register()
 
 	log_admin("[key_name(user)] created the lance docking location at [COORD(port)].")
 	to_chat(user, SPAN_NOTICE("Landing zone set. The signaller vanishes!"))
 	new /obj/structure/lance_beacon(get_turf(src))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/lance_beacon
 	name = "lance docking beacon"

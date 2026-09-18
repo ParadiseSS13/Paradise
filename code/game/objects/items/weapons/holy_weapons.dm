@@ -1032,8 +1032,8 @@
 /obj/item/nullrod/missionary_staff/examine(mob/living/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
-			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
+		. += SPAN_WARNING("This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
+			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.")
 
 /obj/item/nullrod/missionary_staff/Initialize(mapload)
 	. = ..()

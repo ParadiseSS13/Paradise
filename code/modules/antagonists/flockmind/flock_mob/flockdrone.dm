@@ -3,8 +3,6 @@
 	hud_type = /datum/hud/flockdrone
 	ai_controller = /datum/ai_controller/flock/drone
 
-	move_force = MOVE_FORCE_WEAK
-
 	actions_to_grant = list(
 		/datum/action/cooldown/flock/release_control,
 		/datum/action/cooldown/flock/nest,
@@ -40,6 +38,16 @@
 
 	if(stat == CONSCIOUS)
 		flock_talk(src, pick(GLOB.flockdrone_created_phrases), flock, TRUE)
+
+/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
+		if(avoid_stop_flockphase())
+			flockphase_tax()
+		else
+			stop_flockphase()
+	if(isspaceturf(get_turf(src)))
+		substrate.remove_points(20)
 
 /mob/living/basic/flock/drone/Destroy()
 	release_control()
@@ -88,14 +96,6 @@
 	var/datum/flockdrone_part/absorber/absorber = locate() in parts
 	absorber.try_drop_item()
 	return ..()
-
-/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
-		if(avoid_stop_flockphase())
-			flockphase_tax()
-		else
-			stop_flockphase()
 
 /mob/living/basic/flock/drone/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
@@ -378,7 +378,7 @@
 
 /// Deducts the substrate tax for flockphasing, ending flockphase if the drone ran out of points.
 /mob/living/basic/flock/drone/proc/flockphase_tax()
-	substrate.remove_points(1)
+	substrate.remove_points(20)
 	if(!substrate.has_points())
 		stop_flockphase(TRUE)
 		return FALSE
@@ -399,7 +399,8 @@
 	controlled_by.controlling_bird = src
 
 	if(controlled_by.mind)
-		controlled_by.mind.transfer_to(src, FALSE)
+		key = controlled_by.key
+		mind = controlled_by.mind
 
 	if(isflocktrace(controlled_by))
 		flock.add_notice(src, FLOCK_NOTICE_FLOCKTRACE_CONTROL)
@@ -439,9 +440,9 @@
 
 	master_bird.forceMove(destination)
 	if(mind)
-		mind.transfer_to(master_bird, FALSE)
+		master_bird.key = key
+		master_bird.mind = mind
 
-	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)
 		to_chat(master_bird, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
 

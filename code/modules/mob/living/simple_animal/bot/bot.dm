@@ -182,7 +182,7 @@
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.remove_hud_from(src)
+		data_hud.remove_hud_from(src, "bot")
 
 	GLOB.bots_list -= src
 	QDEL_NULL(path)
@@ -1077,7 +1077,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.add_hud_to(src)
+		data_hud.add_hud_to(src, "bot")
 
 	diag_hud_set_botmode()
 	show_laws()

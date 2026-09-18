@@ -191,7 +191,7 @@
 			// Reload their job ban holder
 			C.jbh.reload_jobbans(C)
 	else
-		flag_account_for_forum_sync(ckey)
+		flag_account_for_role_sync(ckey, DATABASE_TASK_MARK_BANNED)
 
 /datum/admins/proc/DB_ban_unban(ckey, bantype, job = "")
 
@@ -281,7 +281,7 @@
 			// Reload their job ban holder
 			C.jbh.reload_jobbans(C)
 	else
-		flag_account_for_forum_sync(ckey)
+		flag_account_for_role_sync(ckey, DATABASE_TASK_MARK_UNBANNED)
 
 /datum/admins/proc/DB_ban_edit(banid = null, param = null)
 
@@ -389,7 +389,6 @@
 			return
 
 /datum/admins/proc/DB_ban_unban_by_id(id)
-
 	if(!check_rights(R_BAN))
 		return
 
@@ -442,7 +441,7 @@
 
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	log_admin("[key_name(usr)] has lifted [pckey]'s ban.")
-	flag_account_for_forum_sync(pckey)
+	flag_account_for_role_sync(pckey, DATABASE_TASK_MARK_UNBANNED)
 	// See if they are online
 	var/client/C = GLOB.directory[ckey(pckey)]
 	if(C)
@@ -692,15 +691,24 @@
 	popup.open()
 	onclose(usr, "ban_panel")
 
-/proc/flag_account_for_forum_sync(ckey)
+/datum/admins/proc/flag_account_for_role_sync(ckey, task_type)
 	if(!SSdbcore.IsConnected())
 		return
-	var/datum/db_query/adm_query = SSdbcore.NewQuery("UPDATE player SET fupdate = 1 WHERE ckey=:ckey", list(
-		"ckey" = ckey
-	))
-	// We do nothing with output here so we dont need to wrap the warn_execute() inside an if statement
-	adm_query.warn_execute()
-	qdel(adm_query)
 
+	var/uuid = rustlibs_generate_uuid()
+	var/task_arguments = alist()
+	task_arguments["ckey"] = ckey
+
+	var/datum/db_query/task_query = SSdbcore.NewQuery(
+		"INSERT INTO task_queue (task_id, task_type, task_arguments, date_inserted) VALUES (:tid, :tt, :ta, NOW())",
+		list(
+			"tid" = uuid,
+			"tt" = task_type,
+			"ta" = json_encode(task_arguments)
+		)
+	)
+
+	task_query.warn_execute()
+	qdel(task_query)
 
 #undef MAX_ADMIN_BANS_PER_ADMIN

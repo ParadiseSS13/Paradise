@@ -13,7 +13,7 @@
 	for(var/i in 1 to 9)
 		new /obj/effect/temp_visual/dragon_swoop/space_whale(T)
 		T = get_step(T, dir_to_target)
-	owner.visible_message("<span class='danger'>[owner] prepares to charge!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(charge_to), dir_to_target, 0), 4)
 	StartCooldown()
 
@@ -41,8 +41,8 @@
 	for(var/mob/living/L in T.contents - owner)
 		if(owner.faction_check_mob(L))
 			continue
-		owner.visible_message("<span class='danger'>[owner] rams into [L]!</span>")
-		to_chat(L, "<span class='userdanger'>[owner] rams into you and bashes you away!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] rams into [L]!"))
+		to_chat(L, SPAN_USERDANGER("[owner] rams into you and bashes you away!"))
 		L.throw_at(throwtarget, 10, 1, owner)
 		L.Weaken(1 SECONDS) // Pain Train has no breaks.
 		if(L in hit_targets)
