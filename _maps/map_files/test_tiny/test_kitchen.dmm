@@ -65,11 +65,8 @@
 /area/shuttle/arrival/station)
 "nI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cooking/board{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/cooking/board,
+/obj/item/kitchen/knife,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "uq" = (
@@ -263,20 +260,20 @@
 /area/shuttle/arrival/station)
 "LI" = (
 /obj/structure/table,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/cooking/board,
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/arrival/station)
+"LJ" = (
+/obj/structure/table,
 /obj/item/reagent_containers/cooking/bowl{
 	pixel_x = 1;
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/cooking/bowl,
-/turf/simulated/floor/plasteel/white,
-/area/shuttle/arrival/station)
-"LJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "Me" = (
@@ -290,9 +287,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "NL" = (
-/obj/structure/table,
-/obj/item/kitchen/knife,
-/obj/item/kitchen/rollingpin,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/arrival/station)
 "Ov" = (
@@ -31631,9 +31628,9 @@ Wm
 mF
 md
 ff
-LJ
+Wm
 AD
-Me
+NL
 Me
 Nw
 Tc
@@ -32657,8 +32654,8 @@ Me
 Me
 vT
 Me
-NL
-LI
+nI
+LJ
 Me
 Bl
 Me
@@ -33172,7 +33169,7 @@ Me
 wo
 Me
 jp
-nI
+LI
 Me
 Wk
 Me
