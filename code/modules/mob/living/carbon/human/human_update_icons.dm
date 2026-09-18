@@ -1007,9 +1007,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_wear_mask(wear_mask)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK) && !HAS_TRAIT(wear_mask, TRAIT_NO_WORN_ICON))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
-			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			if(!istype(head_organ))
 				return // Nothing to update here
+			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
