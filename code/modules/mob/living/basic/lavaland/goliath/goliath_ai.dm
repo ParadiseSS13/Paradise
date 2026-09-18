@@ -75,7 +75,7 @@
 	var/mob/living/pawn = controller.pawn
 	var/list/nearby_turfs = RANGE_TURFS(scan_range, pawn)
 	if(!length(nearby_turfs))
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR FAILED
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	var/turf/check_turf = pick(nearby_turfs) // This isn't an efficient search algorithm but we don't need it to be
 	if(!is_valid_turf(check_turf))
 		// Otherwise they won't perform idle wanderin
