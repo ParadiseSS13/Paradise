@@ -86,14 +86,13 @@
 	addtimer(CALLBACK(src, PROC_REF(do_booms), wait_delay, 1), wait_delay)
 
 /obj/item/bio_chip/explosive/proc/do_booms(wait_delay, stage)
-	switch(stage)
-		if(1)
-			if(imp_in && imp_in.stat)
-				imp_in.visible_message(SPAN_WARNING("[imp_in] doubles over in pain!"))
-				imp_in.Weaken(14 SECONDS)
-		if(4)
-			self_destruct()
-			return
+	if(stage == 1)
+		if(imp_in && imp_in.stat)
+			imp_in.visible_message(SPAN_WARNING("[imp_in] doubles over in pain!"))
+			imp_in.Weaken(14 SECONDS)
+	else if(stage == 4)
+		self_destruct()
+		return
 
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	addtimer(CALLBACK(src, PROC_REF(do_booms), wait_delay, stage + 1), wait_delay)
