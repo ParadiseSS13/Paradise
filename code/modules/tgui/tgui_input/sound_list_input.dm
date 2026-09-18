@@ -41,12 +41,10 @@
 /datum/tgui_list_input/sound/ui_act(action, list/params)
 	. = ..()
 	if(.)
-		message_admins("returning early due to parent")
 		return
 
 	switch(action)
 		if("preview")
-			message_admins("[params["entry"]] chosen, [items_map[params["entry"]]]")
 			var/sound/preview = sound(
 				items_map[params["entry"]],
 				repeat = 0,
