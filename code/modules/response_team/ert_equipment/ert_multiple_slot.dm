@@ -46,3 +46,7 @@
 /datum/ert_loadout_slot/multiple/bio_chip
 	slot_name = "Bio-chips"
 	outfit_var = "bio_chips"
+
+/datum/ert_loadout_slot/multiple/bio_chip/allowed_items()
+	. = ..()
+	. |= list(/obj/item/bio_chip/dust)
