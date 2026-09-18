@@ -6,9 +6,10 @@ Pens Proclaim Pencils Obsolete: 'Lead is Dead'
 Rock and Paper Sue Scissors for Discrimination
 Steak Tell-All Book Reveals He Never Liked Sitting By Potato
 Woodchuck Stops Counting How Many Times He's Chucked: 'Never Again'
-{{AFFECTED}} Clerk First Person Able to Pronounce '@*$%!'
-{{AFFECTED}} Delis Serving Boiled Paperback Dictionaries, 'Adjectives Chewy' Customers Declare
-{{AFFECTED}} Weather Deemed 'Boring'; Meteors and Rad Storms to Be Imported
+{{AFFECTED}} clerk First Person Able to Pronounce '@*$%!'
+{{AFFECTED}} delis Serving Boiled Paperback Dictionaries, 'Adjectives Chewy' Customers Declare
+{{AFFECTED}} weather Deemed 'Boring'; Meteors and Rad Storms to Be Imported
+{{AFFECTED}} passes new law targeting so-called 'bridge hobo' epidemic
 Most {{AFFECTED}} Security Officers Prefer Cream Over Sugar
 Palindrome Speakers Conference in {{AFFECTED}}; 'Wow!' Says Otto
 Question Mark Worshipped As Deity By Ancient {{AFFECTED}} Dwellers
@@ -17,10 +18,10 @@ World Largest Carp Patty At Display on {{AFFECTED}}
 'Here Kitty Kitty' No Longer Preferred Tajaran Retrieval Technique
 Man Travels 7000 Light Years to Retrieve Lost Hankie: 'It Was My Favorite'
 New Bowling Lane That Shoots Mini-Meteors At Bowlers Very Popular
-Guy Gets Tattoo of Tau Ceti on Chest: 'Asteroid Tickles Most'
-Guy Gets Tattoo of Tau Ceti on Chest: 'Starship Tickles Most'
-Guy Gets Tattoo of Tau Ceti on Chest: 'Star Tickles Most'
-Guy Gets Tattoo of Tau Ceti on Chest: 'Centcom Tickles Most'
+Guy Gets Tattoo of Epsilon Eridani on Chest: 'Asteroid Tickles Most'
+Guy Gets Tattoo of Epsilon Eridani on Chest: 'Starship Tickles Most'
+Guy Gets Tattoo of Epsilon Eridani on Chest: 'Star Tickles Most'
+Guy Gets Tattoo of Epsilon Eridani on Chest: 'Centcom Tickles Most'
 Skrell Marries Computer; Wedding Attended By 100 Modems
 Chef Reports Successfully Using Harmonica As Cheese Grater
 Nanotrasen Invents Handkerchief That Says 'Bless You' After Sneeze
