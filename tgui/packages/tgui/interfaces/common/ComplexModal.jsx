@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Dropdown, Input, Modal, Stack } from 'tgui-core/components';
+import { Box, Button, Dropdown, Input, Modal, Stack, TextArea } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 
@@ -93,6 +93,34 @@ export const ComplexModal = (props) => {
     modalOnEnter = (e) => modalAnswer(id, curValue);
     modalBody = (
       <Input
+        value={data.modal.value}
+        placeholder="ENTER to submit"
+        width="100%"
+        my="0.5rem"
+        autofocus
+        onChange={(val) => {
+          setCurValue(val);
+        }}
+      />
+    );
+    modalFooter = (
+      <Box mt="0.5rem">
+        <Button icon="arrow-left" content="Cancel" color="grey" onClick={() => modalClose()} />
+        <Button icon="check" color="good" m="0" style={{ float: 'right' }} onClick={() => modalAnswer(id, curValue)}>
+          Confirm
+        </Button>
+        <Box style={{ clear: 'both' }} />
+      </Box>
+    );
+  } else if (type === 'textarea') {
+    let [curValue, setCurValue] = useState(data.modal.value);
+    modalOnEnter = (e) => {
+      if (!e.shiftKey) {
+        modalAnswer(id, curValue);
+      }
+    };
+    modalBody = (
+      <TextArea
         value={data.modal.value}
         placeholder="ENTER to submit"
         width="100%"

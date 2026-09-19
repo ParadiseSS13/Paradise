@@ -109,6 +109,25 @@ GLOBAL_LIST(ui_modals)
 	return ui_modal_new(source, modal)
 
 /**
+  * Opens a textarea input UI modal
+  *
+  * Arguments:
+  * * source - The source datum
+  * * id - The ID of the modal
+  * * text - The text to display above the answers
+  * * delegate - The proc to call when submitted
+  * * arguments - List of arguments passed to and from JS (mostly useful for chaining modals)
+  * * value - The default value of the input
+  * * max_length - The maximum char length of the input
+  */
+/datum/proc/ui_modal_textarea(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", max_length = UI_MODAL_INPUT_MAX_LENGTH)
+	ASSERT(length(id))
+	ASSERT(max_length > 0)
+
+	var/datum/ui_modal/input/textarea/modal = new(id, text, delegate, arguments, value, max_length)
+	return ui_modal_new(source, modal)
+
+/**
   * Opens a dropdown input UI modal
   *
   * Internally checks if the answer is in the list of choices.
@@ -293,6 +312,12 @@ GLOBAL_LIST(ui_modals)
 /datum/ui_modal/input/to_data()
 	. = ..()
 	.["value"] = value
+
+/**
+  * Textarea modal - has a box to enter multiline text.
+  */
+/datum/ui_modal/input/textarea
+	modal_type = "textarea"
 
 /**
   * Choice modal - has a dropdown menu that can be used to select an answer
