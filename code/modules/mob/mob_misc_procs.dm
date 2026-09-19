@@ -360,7 +360,7 @@
 
 		var/letter = copytext_char(t, i, i + 1)
 		if(prob(replace_rate))
-			if(p >= 70) // This could be just a TRUE/FALSE check but im to scared to break it.
+			if(p >= 70) // This could be just a TRUE/FALSE check but im too scared to break it.
 				letter = ""
 
 			for(var/j = 1, j <= rand(0, 2), j++)
