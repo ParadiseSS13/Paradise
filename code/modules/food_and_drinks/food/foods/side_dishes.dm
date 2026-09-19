@@ -149,3 +149,28 @@
 	tastes = list("rice" = 3, "seaweed" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+
+
+/obj/item/food/fufu
+	name = "fufu"
+	desc = "Best eaten with soup."
+	icon_state = "fufu"
+	list_reagents = list("nutriment" = 2, "vitamin" = 2)
+	tastes = list("banana" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/friedrice
+	name = "fried rice"
+	desc = "Rice, but fried!"
+	icon_state = "friedrice"
+	list_reagents = list("nutriment" = 4)
+	tastes = list("fried rice" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/friedriceegg
+	name = "egg fried rice"
+	desc = "Fried rice with a fried egg on top!"
+	icon_state = "friedriceegg"
+	list_reagents = list("nutriment" = 4, "protein" = 7)
+	tastes = list("fried rice" = 1, "egg"= 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
