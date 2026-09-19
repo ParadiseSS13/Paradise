@@ -440,6 +440,16 @@
 	species = list("Drask")
 	surplus = 0
 
+// Vulpkanin
+/datum/uplink_item/species_restricted/drekseh
+	name = "Dreksehgewehr Marksman Rifle"
+	desc = "A highly advanced vulpkanin-made beam rifle that fires high velocity energy payloads. These payloads are known to be particularly stable, and benefit from disruptions gained from ricochettes. \
+	Requires two hands to fire."
+	reference = "DMR"
+	item = /obj/item/gun/energy/drekseh
+	cost = 45
+	species = list("Vulpkanin")
+
 // Unathi
 /datum/uplink_item/species_restricted/breach_cleaver
 	name = "Breach Cleaver"
