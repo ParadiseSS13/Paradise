@@ -386,7 +386,7 @@
  *Arguments:
  *
  * * message pieces - The message we want to make into gibberish
- * * p - Any value higher than 70 for will cause letters to be replaced instead of added
+ * * p - Any value higher than 70 will cause letters to be replaced instead of added
  * * replace_rate - The chance a letter will be corrupted
 */
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
