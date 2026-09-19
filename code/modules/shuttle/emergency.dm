@@ -596,6 +596,11 @@
 		"Emergency Shuttle Transit Failure",
 	)
 
+/obj/docking_port/mobile/emergency/ui_data(mob/user)
+	. = ..()
+	.["hijack_status"] = hijack_status
+	.["ai_hacked"] = aihacked
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"
