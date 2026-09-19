@@ -80,12 +80,12 @@
 	return ..()
 
 /obj/item/bio_chip/explosive/proc/timed_explosion()
-	imp_in.visible_message("<span class = 'warning'>[imp_in] starts beeping ominously!</span>")
+	imp_in.visible_message(SPAN_WARNING("[imp_in] starts beeping ominously!</span>"))
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	var/wait_delay = delay / 4
 	sleep(wait_delay)
 	if(imp_in && imp_in.stat)
-		imp_in.visible_message("<span class = 'warning'>[imp_in] doubles over in pain!</span>")
+		imp_in.visible_message(SPAN_WARNING("[imp_in] doubles over in pain!</span>"))
 		imp_in.Weaken(14 SECONDS)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(wait_delay)

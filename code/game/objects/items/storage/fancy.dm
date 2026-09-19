@@ -339,8 +339,8 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_random/examine(mob/user)
 	. = ..()
-	. += "<span class = 'warning'>Warning: Not all substances used have undergone regulatory testing, smoke at your own risk. \
-	The Embellished Enigma Tobacco Company does not accept liability for proper or negligent use of its products. Consult your doctor before use.</span>"
+	. += SPAN_WARNING("Warning: Not all substances used have undergone regulatory testing, smoke at your own risk. \
+	The Embellished Enigma Tobacco Company does not accept liability for proper or negligent use of its products. Consult your doctor before use.")
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
@@ -379,7 +379,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_candy/examine(mob/user)
 	. = ..()
-	. += "<span class = 'warning'>*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>"
+	. += SPAN_WARNING("*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>")
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims packet"

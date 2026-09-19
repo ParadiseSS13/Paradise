@@ -195,7 +195,7 @@
 
 /obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice(mob/user)
 	if(last_emag_button_use + dice_cooldown_time > world.time)
-		to_chat(user, "<span class=notice'>The button panel is currently recharging.</span>")
+		to_chat(user, SPAN_WARNING("The button panel is currently recharging."))
 		return
 	last_emag_button_use = world.time
 	switch(rand(1,6))

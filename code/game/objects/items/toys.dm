@@ -435,7 +435,7 @@
 			icon_state = "nuketoyidle"
 	else
 		var/timeleft = (cooldown - world.time)
-		to_chat(user, SPAN_ALERT("Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display."))
+		to_chat(user, "[SPAN_ALERT("Nothing happens, and '")][round(timeleft/10)][SPAN_ALERT("' appears on a small display.")]")
 
 /obj/item/toy/therapy
 	name = "therapy doll"

@@ -90,15 +90,15 @@
 		return ..()
 
 	if(!opened)
-		to_chat(user, "<span class = 'warning'>[src] cannot be eaten without removing the packaging first!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be eaten without removing the packaging first!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class = 'notice'>You start to bite into [src] and try to rip a small piece off.</span>")
+	to_chat(user, SPAN_NOTICE("You start to bite into [src] and try to rip a small piece off."))
 	if(!do_after_once(user, delay = 5 SECONDS, target = user))	// It's VERY VERY chewy. A few months of service and you shall have the most strong, chiseled jaw ever. Like the soldiers on propaganda posters have.
-		to_chat(user, "<span class = 'notice'>You give up on trying to bite through [src].</span>")
+		to_chat(user, SPAN_NOTICE("You give up on trying to bite through [src]."))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class = 'notice'>You successfully manage to rip a small chunk out of [src].</span>")
+	to_chat(user, SPAN_NOTICE("You successfully manage to rip a small chunk out of [src]."))
 	return ..()
 
 // MARK:	MRE Mains

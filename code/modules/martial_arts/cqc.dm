@@ -107,8 +107,10 @@
 						SPAN_USERDANGER("[A] [picked_hit_type] you!"))
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !IS_HORIZONTAL(D))
-		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							SPAN_USERDANGER("[A] leg sweeps you!"))
+		D.visible_message(
+			SPAN_WARNING("[A] leg sweeps [D]!"),
+			SPAN_USERDANGER("[A] leg sweeps you!")
+		)
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 10, TRUE, -1)
 		D.KnockDown(5 SECONDS)
 		A.SetKnockDown(0 SECONDS)
@@ -127,8 +129,10 @@
 		drop_restraining()
 
 	if(!IS_HORIZONTAL(D) || !restraining)
-		D.visible_message(SPAN_WARNING("[A] strikes [D]'s jaw with their hand!"), \
-							SPAN_USERDANGER("[A] strikes your jaw, disorienting you!"))
+		D.visible_message(
+			SPAN_WARNING("[A] strikes [D]'s jaw with their hand!"),
+			SPAN_USERDANGER("[A] strikes your jaw, disorienting you!")
+		)
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 5, TRUE, -1)
 		D.SetSlur(4 SECONDS)
 		D.apply_damage(15, STAMINA)
