@@ -514,6 +514,16 @@
 	icon_state = "internalaffairsagent"
 	access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_ENGINEERING_GENERAL, ACCESS_MAILSORTING)
 
+/obj/item/card/id/brig_pilot
+	name = "Brig Pilot ID"
+	registered_name = "Brig Pilot"
+	icon_state = "brig_pilot"
+	access = list(
+		ACCESS_BRIG_PILOT,
+		ACCESS_SEC_DOORS,
+		ACCESS_SECURITY,
+	)
+
 // MARK: Medical
 /obj/item/card/id/medical
 	name = "Medical ID"
@@ -631,6 +641,18 @@
 	icon_state = "atmostech"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ENGINEERING_GENERAL, ACCESS_ATMOSPHERICS)
 	skeleton_access = list(ACCESS_STATION_ENGINEER, ACCESS_ENGINE_EQUIP)
+
+/obj/item/card/id/shipwright
+	name = "Shipwright ID"
+	registered_name = "Shipwright"
+	icon_state = "shipwright"
+	access = list(
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_EVA,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SHIPWRIGHT,
+	)
 
 // MARK: Command
 /obj/item/card/id/captains_spare/assigned

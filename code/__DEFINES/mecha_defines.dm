@@ -20,3 +20,16 @@
 #define MECHA_BOLTS_UP          2
 #define MECHA_OPEN_HATCH        3
 #define MECHA_BATTERY_UNSCREW   4
+
+#define MECH_PANEL_OPEN (1<<0)
+#define MECH_ID_LOCK_ON (1<<1)
+#define MECH_CAN_STRAFE (1<<2)
+#define MECH_LIGHTS_ON (1<<3)
+#define MECH_SILICON_PILOT (1<<4)
+#define MECH_IS_ENCLOSED (1<<5)
+#define MECH_HAS_LIGHTS (1<<6)
+#define MECH_QUIET_STEPS (1<<7)
+#define MECH_QUIET_TURNS (1<<8)
+#define MECH_CANNOT_INTERACT (1<<9) //! blocks using equipment and melee attacking.
+#define MECH_MMI_COMPATIBLE (1<<10) //! posibrains can drive this mecha
+#define MECH_OMNIDIRECTIONAL_ATTACKS (1<<11) //! Can click from any direction and perform stuff

@@ -498,3 +498,13 @@
 	name = "Cardboard"
 	id = MAT_CARDBOARD
 	sheet_type = /obj/item/stack/sheet/cardboard
+
+GLOBAL_LIST_INIT(materials_by_id, generate_materials_by_id())
+
+/proc/generate_materials_by_id()
+	var/list/materials = list()
+	for(var/type_ in subtypesof(/datum/material))
+		var/datum/material/material_type = type_
+		materials[material_type::id] = material_type
+
+	return materials
