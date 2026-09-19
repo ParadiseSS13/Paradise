@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(jammed && !syndiekey)
 		Gibberish_all(message_pieces, 100, 70)
 
-	if(should_be_muffeled)
+	if(should_be_muffled)
 		Gibberish_all(message_pieces, 70, 46)
 
 	// --- Human: use their actual job ---
