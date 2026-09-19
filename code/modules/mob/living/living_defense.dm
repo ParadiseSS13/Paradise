@@ -294,9 +294,10 @@
 // End BS12 momentum-transfer code.
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	if(user == src && ishuman(user))
-		var/mob/living/carbon/human/self = user
-		INVOKE_ASYNC(self, TYPE_PROC_REF(/mob/living/carbon/human, peel_off_synthetic_skin))
+	if(user == src) // Letting any mob grab themselves results in them getting to run EXTREMELY fast and runtiming a billion times causing the MC to lockup.
+		if(ishuman(user))
+			var/mob/living/carbon/human/self = user
+			INVOKE_ASYNC(self, TYPE_PROC_REF(/mob/living/carbon/human, peel_off_synthetic_skin))
 		return
 	if(anchored)
 		return FALSE

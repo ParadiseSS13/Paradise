@@ -13,6 +13,10 @@
 	container = null
 	recipe = null
 
+/datum/autochef_task/follow_recipe/human_readable_desc()
+	var/atom/product_type = recipe.product_type
+	return "Follow recipe: [product_type::name]"
+
 /datum/autochef_task/follow_recipe/proc/register_for_completion(obj/item/reagent_containers/cooking/container)
 	RegisterSignal(container, COMSIG_COOK_MACHINE_STEP_COMPLETE, PROC_REF(on_machine_step_complete), override = TRUE)
 	RegisterSignal(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, PROC_REF(on_machine_step_interrupted), override = TRUE)
@@ -76,22 +80,16 @@
 /datum/autochef_task/follow_recipe/finalize()
 	autochef.atom_say("Recipe complete.")
 	autochef.set_display("screen-complete")
-	var/moved = FALSE
-	for(var/i = length(autochef.linked_storages); i >= 1; i--)
-		var/obj/machinery/smartfridge/storage = autochef.linked_storages[i]
-		if(!istype(storage))
-			continue
+	var/obj/machinery/smartfridge/storage = autochef.get_current_output_storage()
+	if(istype(storage) && isInSight(autochef, storage))
 		for(var/atom/movable/result in container.contents)
-			if(isInSight(autochef, storage) && storage.load(result))
+			if(storage.load(result))
 				storage.Beam(get_turf(container), icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 				SStgui.update_uis(storage)
-				moved = TRUE
-		if(moved)
-			break
 
 	// If we can't find somewhere to store it, just toss it
 	// on a nearby table.
-	if(!moved)
+	if(length(container.contents))
 		var/turf/center = get_turf(container)
 		for(var/turf/T in RANGE_EDGE_TURFS(1, center))
 			if(locate(/obj/structure/table) in T)
@@ -100,7 +98,7 @@
 						content.pixel_x = rand(-8, 8)
 						content.pixel_y = rand(-8, 8)
 					else
-						content.forceMove(content.loc)
+						content.forceMove(center)
 
 	container.unclaim()
 	container.do_empty()

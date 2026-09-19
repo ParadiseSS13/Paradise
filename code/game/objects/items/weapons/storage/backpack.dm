@@ -734,6 +734,7 @@
 /obj/item/reagent_containers/drinks/bottle/dragonsbreath
 	name = "flask of dragons breath"
 	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	color = "#DC0000"
 	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
@@ -741,6 +742,7 @@
 /obj/item/reagent_containers/drinks/bottle/immortality
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	color = "#437fb8"
 	volume = 5

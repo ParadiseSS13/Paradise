@@ -34,6 +34,7 @@
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Alt-click to [opened ? "close":"open"] it.")
+	. += SPAN_NOTICE("It looks like it can be <b>welded</b> off the wall.")
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
