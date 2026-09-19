@@ -106,7 +106,7 @@
 	/// Inhabited cyborg, only maintained while inside the cyborg.
 	var/mob/living/silicon/robot/current_robot
 	/// Inhabited bot, only maintained while inside the bot.
-	var/mob/living/simple_animal/bot/current_bot
+	var/mob/living/basic/bot/current_bot
 
 	/// Delay tracker for movement inside bots.
 	var/bot_movedelay = 0
