@@ -40,6 +40,10 @@
 	var/uv_super = FALSE
 	/// How many uv cleaning cycles to do, counts down while cleaning takes place.
 	var/uv_cycles = 6
+	/// Time between UV cleaning cycles.
+	var/uv_cycle_delay = 5 SECONDS
+	/// Damage multiplier for occupants during UV cleaning.
+	var/uv_damage_multiplier = 1
 	var/message_cooldown
 	var/breakout_time = 300
 
@@ -287,6 +291,13 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
+/obj/machinery/suit_storage_unit/RefreshParts()
+	. = ..()
+	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
+		uv_cycle_delay = initial(uv_cycle_delay) / laser.rating
+		uv_damage_multiplier = laser.rating
+		break
+
 /obj/machinery/suit_storage_unit/Destroy(force)
 	if(!force)
 		dump_contents()
@@ -473,11 +484,11 @@
 		if(occupant)
 			var/mob/living/mob_occupant = occupant
 			if(uv_super)
-				mob_occupant.adjustFireLoss(rand(20, 36))
+				mob_occupant.adjustFireLoss(rand(20, 36) * uv_damage_multiplier)
 			else
-				mob_occupant.adjustFireLoss(rand(10, 16))
+				mob_occupant.adjustFireLoss(rand(10, 16) * uv_damage_multiplier)
 			mob_occupant.emote("scream")
-		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
+		addtimer(CALLBACK(src, PROC_REF(cook)), uv_cycle_delay)
 	else
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
