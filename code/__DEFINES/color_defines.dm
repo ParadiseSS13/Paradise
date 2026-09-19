@@ -98,6 +98,7 @@
 #define COLOR_RUSTED_GLASS     "#917c65"
 #define COLOR_SOFT_RED         "#FA8282"
 #define COLOR_CULT_RED         "#960000"
+#define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"

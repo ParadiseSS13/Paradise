@@ -403,3 +403,26 @@
 		return
 	var/mob/clown = pick(drivers)
 	owner.say("Thank you for the fun ride, [clown.name]!")
+
+/datum/action/vehicle/sealed/garage_door
+	name = "Activate garage door opener"
+	desc = "Attempt to open any nearby garage door remotely."
+	button_icon = 'icons/obj/objects.dmi'
+	button_icon_state = "launcheract"
+
+/datum/action/vehicle/sealed/garage_door/Trigger(trigger_flags)
+	var/obj/tgvehicle/vehicle = vehicle_entered_target
+	var/list/turfs = RANGE_TURFS(5, vehicle.loc)
+	for(var/turf/T in turfs)
+		for(var/obj/machinery/door/poddoor/multi_tile/door in T)
+			// fallthrough early on the first pod door we find
+			if(door.operating)
+				to_chat(owner, SPAN_WARNING("[door] is currently operating. Please wait."))
+				return
+
+			to_chat(owner, SPAN_WARNING("You activate the remote toggle for [door]."))
+			if(door.density)
+				INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
+			else
+				INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, close))
+			return
