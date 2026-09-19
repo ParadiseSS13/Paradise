@@ -640,11 +640,11 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/on_enter_storage(obj/item/storage/S)
 	. = ..()
-	should_be_muffeled = TRUE
+	should_be_muffled = TRUE
 
 /obj/item/radio/on_exit_storage(obj/item/storage/S)
 	. = ..()
-	should_be_muffeled = FALSE
+	should_be_muffled = FALSE
 
 ///////////////////////////////
 //////////Borg Radios//////////
