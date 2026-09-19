@@ -69,7 +69,7 @@
 
 /datum/antagonist/acolyte/farewell()
 	if(owner && owner.current)
-		owner.current.visible_message(SPAN_CULT("[owner.current] looks like [owner.current.p_they()] just reverted to [owner.current.p_their()] old faith!"),
+		owner.current.visible_message(SPAN_CULT("[owner.current] looks like [owner.current.p_they()] just gave up on [owner.current.p_their()] cult-like faith!"),
 			SPAN_USERDANGER("An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it."))
 
 /datum/antagonist/acolyte/on_body_transfer(old_body, new_body)
