@@ -86,6 +86,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	/// A timer that, when going off, will turn this radio on again
 	var/radio_enable_timer
+	/// Wheather or not the messages should be muffeled.
+	var/should_be_muffled = FALSE
 	new_attack_chain = TRUE
 
 /obj/item/radio/proc/set_frequency(new_frequency)
@@ -138,6 +140,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/AltClick(mob/user)
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	if((user.get_active_hand() || user.get_inactive_hand()) != src)
+		to_chat(user, SPAN_NOTICE("The [src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]"))
 		return
 
 	ToggleBroadcast()
@@ -210,6 +215,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		if("listen")
 			listening = !listening
 		if("broadcast")
+			if(ui.user.get_active_hand() != src && ui.user.get_inactive_hand() != src) // I'm pretty sure there is a easier way to check this, but i'm no tgui wizard.
+				to_chat(ui.user, SPAN_NOTICE("The [src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]"))
+				return
 			broadcasting = !broadcasting
 		if("channel") // For keyed channels on headset radios only
 			var/channel = params["channel"]
@@ -407,6 +415,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	if(jammed && !syndiekey)
 		Gibberish_all(message_pieces, 100, 70)
+
+	if(should_be_muffled)
+		Gibberish_all(message_pieces, 70, 46)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
@@ -626,6 +637,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/recalculateChannels()
 	/// Exists so that borg radios and headsets can override it.
 	stack_trace("recalculateChannels() called on a radio which does not implement the proc.")
+
+/obj/item/radio/on_enter_storage(obj/item/storage/S)
+	. = ..()
+	should_be_muffled = TRUE
+
+/obj/item/radio/on_exit_storage(obj/item/storage/S)
+	. = ..()
+	should_be_muffled = FALSE
 
 ///////////////////////////////
 //////////Borg Radios//////////
