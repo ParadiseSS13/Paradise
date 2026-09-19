@@ -157,7 +157,7 @@
 	icon_state = "fufu"
 	list_reagents = list("nutriment" = 2, "vitamin" = 2)
 	tastes = list("banana" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/friedrice
 	name = "fried rice"
@@ -165,7 +165,7 @@
 	icon_state = "friedrice"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("fried rice" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
+	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/friedriceegg
 	name = "egg fried rice"
@@ -173,4 +173,4 @@
 	icon_state = "friedriceegg"
 	list_reagents = list("nutriment" = 4, "protein" = 7)
 	tastes = list("fried rice" = 1, "egg"= 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
+	goal_difficulty = FOOD_GOAL_EASY
