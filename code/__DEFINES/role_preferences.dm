@@ -17,6 +17,7 @@
 #define ROLE_ALIEN				"xenomorph"
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
+#define ROLE_ACOLYTE			"acolyte"
 #define ROLE_BLOB				"blob"
 #define ROLE_MONKEY				"monkey"
 #define ROLE_GANG				"gangster"
@@ -62,6 +63,7 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
+	ROLE_ACOLYTE,										// Acolyte
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
