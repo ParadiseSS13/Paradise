@@ -318,7 +318,8 @@ That prevents a few funky behaviors.
 			AI.builtInCamera = new /obj/machinery/camera/portable(AI)
 			AI.builtInCamera.c_tag = AI.name
 			AI.builtInCamera.network = list("SS13")
+		card.held_ai = null
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
-		to_chat(user, "There is no AI loaded on this terminal!")
+		to_chat(user, SPAN_WARNING("There is no AI loaded on this terminal!"))
 
