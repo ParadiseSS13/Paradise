@@ -1093,3 +1093,22 @@
 	)
 
 // ---------- END of recipe imports from Hispania!
+
+/datum/cooking/recipe/fufu
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/fufu
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/friedrice
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/friedrice
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_REAGENT("rice", 10),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
