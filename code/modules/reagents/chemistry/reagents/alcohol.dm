@@ -100,7 +100,7 @@
 	overdose_threshold = 30
 	dizzy_adj = 10 SECONDS
 	alcohol_perc = 0.7
-	drink_icon = "absinthebottle"
+	drink_icon = "absintheglass"
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
@@ -2339,6 +2339,11 @@
 			SPAN_USERDANGER("THE SUN BURNS YOU!"),
 			SPAN_WARNING("You briefly feel a wave of warmth wash over you.")
 		)
+		if(M.mind)
+			for(var/obj/structure/blob/B in hear(6, T))
+				var/damage = round(30 / (get_dist(B, T) + 1))
+				B.take_damage(damage, BURN, MELEE, FALSE)
+
 	return list(0, update_flags)
 
 /datum/reagent/consumable/ethanol/sontse/proc/on_species_change(mob/living/M)

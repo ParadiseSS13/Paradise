@@ -579,8 +579,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 			else
-				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "solid")
-				clothes_s.swap_palette(PALETTE_JS_WHITE, PALETTE_JS_GREY)
+				var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
+				clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice
