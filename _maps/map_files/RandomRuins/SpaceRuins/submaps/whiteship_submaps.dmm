@@ -197,7 +197,7 @@
 /area/template_noop)
 "lq" = (
 /obj/structure/closet/crate/secure/loot{
-	codelen = 6;
+	code_length = 6;
 	attempts = 12
 	},
 /obj/item/rcs,
