@@ -1094,7 +1094,6 @@
 
 // ---------- END of recipe imports from Hispania!
 
-
 /datum/cooking/recipe/fufu
 	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/fufu

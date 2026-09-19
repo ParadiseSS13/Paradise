@@ -149,8 +149,6 @@
 	tastes = list("rice" = 3, "seaweed" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-
-
 /obj/item/food/fufu
 	name = "fufu"
 	desc = "Best eaten with soup."
