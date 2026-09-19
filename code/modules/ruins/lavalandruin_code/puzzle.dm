@@ -239,7 +239,7 @@
 /obj/structure/puzzle_element/Moved()
 	. = ..()
 	if(!source)
-	 return
+		return
 	source.validate()
 
 //Admin abuse version so you can pick the icon before it sets up
