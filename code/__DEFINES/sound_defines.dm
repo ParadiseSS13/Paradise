@@ -13,6 +13,7 @@
 #define CHANNEL_BOSS_MUSIC 1013
 #define CHANNEL_GENERAL 1012
 #define CHANNEL_SURGERY_SOUNDS 1011
+#define CHANNEL_BLOOPERS 1010
 
 #define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
 
