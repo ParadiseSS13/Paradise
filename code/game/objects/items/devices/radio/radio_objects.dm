@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	/// A timer that, when going off, will turn this radio on again
 	var/radio_enable_timer
 	/// Wheather or not the messages should be muffeled.
-	var/should_be_muffeled = FALSE
+	var/should_be_muffled = FALSE
 	new_attack_chain = TRUE
 
 /obj/item/radio/proc/set_frequency(new_frequency)
