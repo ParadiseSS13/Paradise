@@ -1158,6 +1158,12 @@
 	possible_destinations = "trader_away;trader_home"
 	shuttleId = "trader"
 
+/obj/machinery/computer/shuttle/patient
+	name = "Transport Console"
+	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
+	shuttleId = "trader"
+
 //#undef DOCKING_PORT_HIGHLIGHT
 
 /turf/proc/copyTurf(turf/T)
