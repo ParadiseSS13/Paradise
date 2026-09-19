@@ -5,6 +5,7 @@
 	containertype = /obj/structure/closet/crate/engineering
 	department_restrictions = list(DEPARTMENT_ENGINEERING)
 
+// MARK: Misc
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/fueltank)
@@ -19,7 +20,7 @@
 	containertype = /obj/structure/largecrate
 	containername = "firefighting foam tank crate"
 
-/// the most robust crate
+/// The most robust crate...
 /datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"
 	contains = list(/obj/item/storage/toolbox/electrical,
@@ -27,15 +28,19 @@
 					/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical)
-	cost = 500
-	containername = "electrical maintenance crate"
+					/obj/item/storage/toolbox/mechanical,
+					/obj/item/storage/toolbox/emergency,
+					/obj/item/storage/toolbox/emergency,
+					/obj/item/storage/toolbox/emergency)
+	cost = 100
+	containername = "toolbox crate"
 
 /datum/supply_packs/vending/engivend
 	name = "Engineering Vendor Supply Crate"
 	contains = list(/obj/item/vending_refill/engivend,
 					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
+	containertype = /obj/structure/closet/crate/engineering
 
 /datum/supply_packs/engineering/vending/clothingvendor
 	name = "Engineering Clothing Vendors Crate"
@@ -44,6 +49,15 @@
 					/obj/item/vending_refill/atmosdrobe)
 	containername = "engineering clothing vendor crate"
 
+/datum/supply_packs/engineering/inflatable
+	name = "Inflatable Barriers Crate"
+	contains = list(/obj/item/storage/briefcase/inflatable,
+					/obj/item/storage/briefcase/inflatable,
+					/obj/item/storage/briefcase/inflatable)
+	cost = 20
+	containername = "inflatable barrier crate"
+
+// MARK: PPE & clothes
 /datum/supply_packs/engineering/powergamermitts
 	name = "Insulated Gloves Crate"
 	contains = list(/obj/item/clothing/gloves/color/yellow,
@@ -53,13 +67,20 @@
 	containername = "insulated gloves crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
-/datum/supply_packs/engineering/power
+/datum/supply_packs/engineering/power_cells
 	name = "Power Cell Crate"
-	contains = list(/obj/item/stock_parts/cell/high,		//Changed to an extra high powercell because normal cells are useless
+	contains = list(/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
+					/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high)
-	cost = 300
-	containername = "electrical maintenance crate"
+	cost = 20
+	containername = "power cell super pack crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_packs/engineering/engiequipment
@@ -81,6 +102,33 @@
 	cost = 100
 	containername = "engineering gear crate"
 
+/datum/supply_packs/engineering/radiation
+	name = "Radiation Protection Crate"
+	cost = 150
+	contains = list(/obj/item/clothing/head/radiation,
+					/obj/item/clothing/head/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/geiger_counter,
+					/obj/item/geiger_counter)
+	containername = "radiation protection crate"
+	containertype = /obj/structure/closet/crate/radiation
+	department_restrictions = list(DEPARTMENT_ENGINEERING, DEPARTMENT_MEDICAL)
+
+/datum/supply_packs/engineering/engine/spacesuit
+	name = "Space Suit Crate"
+	contains = list(/obj/item/clothing/suit/space,
+					/obj/item/clothing/suit/space,
+					/obj/item/clothing/head/helmet/space,
+					/obj/item/clothing/head/helmet/space,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 300
+	containertype = /obj/structure/closet/crate/secure
+	containername = "space suit crate"
+	access = ACCESS_EVA
+
+// MARK: Other Power
 /datum/supply_packs/engineering/solar
 	name = "Solar Pack Crate"
 	contains  = list(/obj/item/solar_assembly,
@@ -111,6 +159,14 @@
 	containername = "solar pack crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
+/datum/supply_packs/engineering/transmission_laser
+	name = "Power Transmission Laser Circuitboard"
+	cost = 1500
+	contains = list(/obj/item/circuitboard/machine/transmission_laser)
+	containername = "power transmission laser circuitboard crate"
+	containertype = /obj/structure/closet/crate/engineering/electrical
+
+// MARK: Engine crates
 /datum/supply_packs/engineering/engine
 	name = "Emitter Crate"
 	contains = list(/obj/machinery/power/emitter,
@@ -126,30 +182,20 @@
 					/obj/machinery/field/generator)
 	containername = "field generator crate"
 
-/datum/supply_packs/engineering/engine/sing_gen
-	name = "Singularity Generator And Console Circuitboard Crate"
-	contains = list(/obj/machinery/the_singularitygen, /obj/item/circuitboard/singulo_monitor)
-	cost = 350
-	containername = "singularity generator crate"
-
-/datum/supply_packs/engineering/engine/tesla
-	name = "Energy Ball Generator Crate"
-	contains = list(/obj/machinery/the_singularitygen/tesla)
-	cost = 350
-	containername = "energy ball generator crate"
-
 /datum/supply_packs/engineering/engine/coil
 	name = "Tesla Coil Crate"
 	contains = list(/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil)
 	containername = "tesla coil crate"
+	containertype = /obj/structure/closet/crate/secure/electrical
 
 /datum/supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod)
 	containername = "grounding rod crate"
+	containertype = /obj/structure/closet/crate/secure/electrical
 
 /datum/supply_packs/engineering/engine/collector
 	name = "Collector Crate"
@@ -157,6 +203,7 @@
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
 	containername = "collector crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /datum/supply_packs/engineering/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
@@ -170,51 +217,26 @@
 	cost = 250
 	containername = "particle accelerator crate"
 
-/datum/supply_packs/engineering/transmission_laser
-	name = "Power Transmission Laser Circuitboard"
-	cost = 1500
-	contains = list(/obj/item/circuitboard/machine/transmission_laser)
-	containername = "power transmission laser circuitboard crate"
+/datum/supply_packs/engineering/engine/sing_gen
+	name = "Singularity Generator And Console Circuitboard Crate"
+	contains = list(/obj/machinery/the_singularitygen, /obj/item/circuitboard/singulo_monitor)
+	cost = 350
+	containername = "singularity generator crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
-/datum/supply_packs/engineering/radiation
-	name = "Radiation Protection Crate"
-	cost = 150
-	contains = list(/obj/item/clothing/head/radiation,
-					/obj/item/clothing/head/radiation,
-					/obj/item/clothing/suit/radiation,
-					/obj/item/clothing/suit/radiation,
-					/obj/item/geiger_counter,
-					/obj/item/geiger_counter)
-	containername = "radiation protection crate"
-	containertype = /obj/structure/closet/crate/radiation
-	department_restrictions = list(DEPARTMENT_ENGINEERING, DEPARTMENT_MEDICAL)
-
-/datum/supply_packs/engineering/engine/spacesuit
-	name = "Space Suit Crate"
-	contains = list(/obj/item/clothing/suit/space,
-					/obj/item/clothing/suit/space,
-					/obj/item/clothing/head/helmet/space,
-					/obj/item/clothing/head/helmet/space,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath)
-	cost = 300
-	containertype = /obj/structure/closet/crate/secure
-	containername = "space suit crate"
-	access = ACCESS_EVA
-
-/datum/supply_packs/engineering/inflatable
-	name = "Inflatable Barriers Crate"
-	contains = list(/obj/item/storage/briefcase/inflatable,
-					/obj/item/storage/briefcase/inflatable,
-					/obj/item/storage/briefcase/inflatable)
-	cost = 100
-	containername = "inflatable barrier crate"
+/datum/supply_packs/engineering/engine/tesla
+	name = "Energy Ball Generator Crate"
+	contains = list(/obj/machinery/the_singularitygen/tesla)
+	cost = 350
+	containername = "energy ball generator crate"
+	containertype = /obj/structure/closet/crate/secure/electrical
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	cost = 750 //So cargo thinks twice before killing themselves with it
 	containername = "supermatter shard crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /datum/supply_packs/engineering/engine/nuclear_supermatter_rod
 	name = "Nuclear Supermatter Rod Crate"
@@ -224,6 +246,7 @@
 	)
 	cost = 400
 	containername = "nuclear supermatter rod crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /datum/supply_packs/engineering/engine/nuclear_supermatter_kit
 	name = "Nuclear Supermatter Rods Starter Crate"
@@ -237,6 +260,7 @@
 	)
 	cost = 800
 	containername = "nuclear supermatter starter crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /datum/supply_packs/engineering/engine/nuclear_moderator_rods
 	name = "Forged Nuclear Moderator crate"
@@ -248,6 +272,7 @@
 	)
 	cost = 600
 	containername = "Forged Nuclear Moderator crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /datum/supply_packs/engineering/engine/nuclear_coolant_rods
 	name = "Forged Nuclear Coolant crate"
@@ -259,6 +284,7 @@
 	)
 	cost = 600
 	containername = "Forged Nuclear Coolant crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /datum/supply_packs/engineering/engine/nuclear_premium_rods
 	name = "Forged Premium Nuclear Rods crate"
@@ -270,6 +296,7 @@
 	)
 	cost = 1500
 	containername = "Forged Premium Nuclear Rods crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
 
 /* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg
@@ -279,11 +306,10 @@
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 250
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "thermo-electric generator crate"
-	access = ACCESS_CE
-	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
 */
+
+// MARK: Atmospherics
 /datum/supply_packs/engineering/canister/nitrogen
 	name = "Nitrogen canister"
 	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
@@ -354,7 +380,12 @@
 	containertype = /obj/structure/largecrate
 	containername = "Large Air Pump Crate"
 
-/datum/supply_packs/engineering/bsa
+// MARK: Station goals
+/datum/supply_packs/engineering/goal
+	containertype = /obj/structure/closet/crate/secure/nanotrasen
+	access = ACCESS_ENGINEERING_GENERAL
+
+/datum/supply_packs/engineering/goal/bsa
 	name = "Bluespace Artillery Parts"
 	cost = 2250
 	contains = list(/obj/item/circuitboard/machine/bsa/front,
@@ -363,9 +394,8 @@
 					/obj/item/circuitboard/computer/bsa_control
 					)
 	containername = "bluespace artillery parts crate"
-	containertype = /obj/structure/closet/crate/nanotrasen
 
-/datum/supply_packs/engineering/bluespace_tap
+/datum/supply_packs/engineering/goal/bluespace_tap
 	name = "Bluespace Harvester Parts"
 	cost = 1750
 	contains = list(
@@ -373,18 +403,16 @@
 					/obj/item/paper/bluespace_tap
 					)
 	containername = "bluespace harvester parts crate"
-	containertype = /obj/structure/closet/crate/nanotrasen
 
-/datum/supply_packs/engineering/dna_vault
+/datum/supply_packs/engineering/goal/dna_vault
 	name = "DNA Vault Parts"
 	cost = 1500
 	contains = list(
 					/obj/item/circuitboard/machine/dna_vault
 					)
 	containername = "dna vault parts crate"
-	containertype = /obj/structure/closet/crate/nanotrasen
 
-/datum/supply_packs/engineering/dna_probes
+/datum/supply_packs/engineering/goal/dna_probes
 	name = "DNA Vault Samplers"
 	cost = 350
 	contains = list(/obj/item/dna_probe,
@@ -394,9 +422,10 @@
 					/obj/item/dna_probe
 					)
 	containername = "dna samplers crate"
-	containertype = /obj/structure/closet/crate/nanotrasen
+	access = null
+	containertype = /obj/structure/closet/crate/nanotrasen // Crew can grab these to help.
 
-/datum/supply_packs/engineering/shield_sat
+/datum/supply_packs/engineering/goal/shield_sat
 	name = "Shield Generator Satellites"
 	cost = 150
 	contains = list(
@@ -406,13 +435,11 @@
 					/obj/machinery/satellite/meteor_shield
 					)
 	containername = "shield sat crate"
-	containertype = /obj/structure/closet/crate/nanotrasen
 
-/datum/supply_packs/engineering/shield_sat_control
+/datum/supply_packs/engineering/goal/shield_sat_control
 	name = "Shield System Control Board"
 	cost = 1000
 	contains = list(
 					/obj/item/circuitboard/computer/sat_control
 					)
 	containername = "shield control board crate"
-	containertype = /obj/structure/closet/crate/nanotrasen
