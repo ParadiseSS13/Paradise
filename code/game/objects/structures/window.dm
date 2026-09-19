@@ -20,7 +20,8 @@
 	var/reinf = FALSE
 	var/heat_resistance = 800
 	var/decon_speed = 2 SECONDS
-	var/con_speed = 2 SECONDS // Construction speed, affects installation step speed
+	/// Affects installation steps speed
+	var/construction_speed = 2 SECONDS
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
@@ -274,7 +275,7 @@
 		return
 	if(decon_speed) // Only show this if it actually takes time
 		to_chat(user, SPAN_NOTICE("You begin to lever the window [state == WINDOW_OUT_OF_FRAME ? "into":"out of"] the frame..."))
-	if(!I.use_tool(src, user, (state == WINDOW_OUT_OF_FRAME ? con_speed : decon_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+	if(!I.use_tool(src, user, (state == WINDOW_OUT_OF_FRAME ? construction_speed : decon_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, SPAN_NOTICE("You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame."))
@@ -289,7 +290,7 @@
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
 				to_chat(user, SPAN_NOTICE("You begin to [state == WINDOW_SCREWED_TO_FRAME ? "unscrew the window from":"screw the window to"] the frame..."))
-			if(!I.use_tool(src, user, (state == WINDOW_SCREWED_TO_FRAME ? decon_speed : con_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+			if(!I.use_tool(src, user, (state == WINDOW_SCREWED_TO_FRAME ? decon_speed : construction_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
 			to_chat(user, SPAN_NOTICE("You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame."))
@@ -297,7 +298,7 @@
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
 				to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor..."))
-			if(!I.use_tool(src, user, (anchored ? decon_speed : con_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+			if(!I.use_tool(src, user, (anchored ? decon_speed : construction_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
 			recalculate_atmos_connectivity()
@@ -307,7 +308,7 @@
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
 			to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor..."))
-		if(!I.use_tool(src, user, (anchored ? decon_speed : con_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
+		if(!I.use_tool(src, user, (anchored ? decon_speed : construction_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
 		recalculate_atmos_connectivity()
