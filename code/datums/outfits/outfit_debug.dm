@@ -1,5 +1,5 @@
 /datum/outfit/admin/debug
-	name = "Debug outfit"
+	name = "Debug Outfit"
 
 	uniform = /obj/item/clothing/under/costume/patriotsuit
 	back = /obj/item/mod/control/pre_equipped/debug
@@ -37,7 +37,7 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
+		apply_to_card(I, H, get_absolutely_all_accesses(), "Debugger", "admin")
 
 	H.dna.SetSEState(GLOB.breathlessblock, 1)
 	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
