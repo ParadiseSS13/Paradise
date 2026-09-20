@@ -13634,7 +13634,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/directional/east,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -13643,6 +13642,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/obj/machinery/power/apc/reinforced/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "bnz" = (
