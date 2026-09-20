@@ -47,8 +47,8 @@
 	desc = "A medical kit designed for Nanotrasen medical personnel."
 
 /obj/item/storage/firstaid/regular/doctor/populate_contents()
-	new /obj/item/stack/medical/suture/medicated(src)
-	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
 	new /obj/item/reagent_containers/patch/styptic(src)
 	new /obj/item/reagent_containers/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/pill/salicylic(src)
