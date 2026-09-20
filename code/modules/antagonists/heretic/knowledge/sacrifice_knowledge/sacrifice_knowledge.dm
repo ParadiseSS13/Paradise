@@ -193,6 +193,79 @@
 
 	return TRUE
 
+/datum/heretic_knowledge/hunt_and_sacrifice/proc/reroll_target(datum/antagonist/heretic/our_heretic)
+	// First construct a list of minds that are valid objective targets.
+	var/list/datum/mind/valid_targets = list()
+	for(var/datum/mind/possible_target as anything in SSticker.minds)
+		if(possible_target == heretic_mind)
+			continue
+		if(!possible_target.assigned_role)
+			continue
+		if(is_invalid_target(possible_target))
+			continue
+		if(possible_target in target_blacklist)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		if(possible_target.current.stat == DEAD)
+			continue
+
+		valid_targets += possible_target
+
+	// See what kind of target we're missing.
+	var/has_head = 0
+	var/has_sec = 0
+	var/has_dep = 0
+	for(var/datum/mind/M in our_heretic.all_sac_targets)
+		if(M.assigned_role in GLOB.command_head_positions)
+			has_head = 1
+		if(M.assigned_role in GLOB.active_security_positions)
+			has_sec = 1
+		if(M.job_datum.job_department_flags & heretic_mind.job_datum.job_department_flags)
+			has_dep = 1
+
+	// Now, ensure we have our targets:
+	// - Two are completely random
+	// - One from your department
+	// - One from security
+	// - One from heads of staff ("high value")
+	var/datum/mind/reroll_target
+
+	// First target, any command.
+	if(!has_head)
+		for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
+			if(head_mind.assigned_role in GLOB.command_head_positions)
+				reroll_target += head_mind
+				break
+
+	// Second target, any security.
+	if(!has_sec)
+		for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
+			if(sec_mind.assigned_role in GLOB.active_security_positions)
+				reroll_target += sec_mind
+				break
+
+	// Third target, someone in their department.
+	if(!has_dep)
+		for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
+			if(!heretic_mind.job_datum)
+				break
+			if(department_mind.job_datum.job_department_flags & heretic_mind.job_datum.job_department_flags)
+				reroll_target += department_mind
+				break
+
+	// Now grab completely random targets until we'll full.
+	if(!reroll_target)
+		reroll_target = pick_n_take(valid_targets)
+
+	to_chat(heretic_mind.current, SPAN_DANGER("One of your targets has faded from our reach. A new one has been discovered! Go and sacrifice them!"))
+
+	our_heretic.add_sacrifice_target(reroll_target.current)
+
+	to_chat(heretic_mind.current, SPAN_DANGER("[reroll_target.current.real_name], the [reroll_target.assigned_role]!"))
+
+	return TRUE
+
 /**
  * Begin the process of sacrificing the target.
  *
@@ -351,8 +424,8 @@
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
-	// If our target is dead, try to revive them. We will restore their organs because they get ripped out alot.
-	// and if we fail to revive them, don't proceede the chain
+	// If our target is dead, try to revive them. We will restore their organs because they get ripped out a lot.
+	// and if we fail to revive them, don't proceed the chain.
 	sac_target.check_and_regenerate_organs()
 	if(sac_target.stat & DEAD)
 		sac_target.adjustOxyLoss(-100, FALSE)
@@ -549,9 +622,9 @@
 		var/composed_return_message = ""
 		composed_return_message += SPAN_NOTICE("Your victim, [sac_target], was returned to the station - ")
 		if(sac_target.stat == DEAD)
-			composed_return_message += "<span class='red'>dead. </span>"
+			composed_return_message += SPAN_RED("dead. ")
 		else
-			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
+			composed_return_message += SPAN_GREEN("alive, but with a shattered mind. ")
 
 		composed_return_message += SPAN_NOTICE("You hear a whisper... ")
 		composed_return_message += SPAN_HIEROPHANT_WARNING("[get_area_name(safe_turf, TRUE)]")

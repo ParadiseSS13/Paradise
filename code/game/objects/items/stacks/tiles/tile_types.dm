@@ -379,5 +379,54 @@
 	merge_type = /obj/item/stack/tile/catwalk/white
 
 /obj/item/stack/tile/catwalk/cyborg
+	name = "\improper catwalk tile dispenser"
+	singular_name = "\improper catwalk tile dispenser"
+	desc = "A reprogrammable tile dispenser that can dispense catwalk tiles in different colors. Use in-hand to change the tile color."
+	icon_state = "tile_catwalk_borg_standard"
 	energy_type = /datum/robot_storage/energy/catwalk
 	is_cyborg = TRUE
+	var/mode = "standard"
+
+/obj/item/stack/tile/catwalk/cyborg/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	get_radial_menu(user)
+	return ITEM_INTERACT_COMPLETE
+
+// Bypasses multiple checks that prevent us from picking up colored catwalk tile subtypes.
+/obj/item/stack/tile/catwalk/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/stack/tile/catwalk))
+		return NONE
+
+	var/obj/item/stack/material = target
+	if(material.merge(src))
+		to_chat(user, SPAN_NOTICE("Your [src] stack now contains [get_amount()] [singular_name]\s."))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/tile/catwalk/cyborg/proc/get_radial_menu(mob/user)
+	var/list/choices = list(
+		"Standard" = image(icon = 'icons/obj/tiles.dmi', icon_state = "tile_catwalk"),
+		"Grey" = image(icon = 'icons/obj/tiles.dmi', icon_state = "tile_catwalk_grey"),
+		"Black" = image(icon = 'icons/obj/tiles.dmi', icon_state = "tile_catwalk_black"),
+		"White" = image(icon = 'icons/obj/tiles.dmi', icon_state = "tile_catwalk_white")
+	)
+	if(mode == "standard")
+		choices -= "Standard"
+	else
+		choices -= capitalize(mode)
+	var/choice = show_radial_menu(user, src, choices, radius = 42)
+	if(!choice)
+		return
+
+	playsound(src, 'sound/effects/pop.ogg', 50, 0)
+	mode = lowertext(choice)
+	to_chat(user, SPAN_NOTICE("You will now dispense [mode] catwalk tiles."))
+	if(mode == "standard")
+		turf_type = initial(turf_type)
+	else
+		turf_type = "/turf/simulated/floor/catwalk/[mode]"
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/stack/tile/catwalk/cyborg/update_icon_state()
+	icon_state = "tile_catwalk_borg_[mode]"

@@ -158,6 +158,8 @@ SUBSYSTEM_DEF(ticker)
 					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
 						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
+						if(length(GLOB.clients) > initial(M.max_players_random))
+							continue
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
@@ -723,8 +725,8 @@ SUBSYSTEM_DEF(ticker)
 	for(var/feed_channel_type in subtypesof(/datum/feed_channel))
 		GLOB.news_network.channels += new feed_channel_type
 
-	for(var/loc_type in subtypesof(/datum/trade_destination))
-		var/datum/trade_destination/D = new loc_type
+	for(var/loc_type in subtypesof(/datum/lore_location))
+		var/datum/lore_location/D = new loc_type
 		GLOB.weighted_randomevent_locations[D] = length(D.viable_random_events)
 		GLOB.weighted_mundaneevent_locations[D] = length(D.viable_mundane_events)
 

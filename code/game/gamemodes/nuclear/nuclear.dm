@@ -171,21 +171,7 @@
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
 
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
-	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
-	head_organ.facial_colour = hair_c
-	head_organ.sec_facial_colour = hair_c
-	head_organ.hair_colour = hair_c
-	head_organ.sec_hair_colour = hair_c
-	M.change_eye_color(eye_c)
-	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
-	M.body_accessory = null
-	M.regenerate_icons()
-	M.update_body()
+	M.generate_random_appearance(prosthesis_prob = 0)
 
 	if(!the_bomb)
 		the_bomb = locate(/obj/machinery/nuclearbomb/syndicate) in GLOB.poi_list
