@@ -46,8 +46,8 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	chosen_disease.carrier = TRUE
 
 /datum/event/disease_outbreak/start()
-	if(length(GLOB.crew_list) < 30 && severity == EVENT_LEVEL_MAJOR) // manifest must have 30 crew to roll major
-		// if disease doesn't roll due to pop, try again to roll for a major in 60 seconds
+	if(length(GLOB.crew_list) < 30 && severity == EVENT_LEVEL_MAJOR) // Manifest must have 30 crew to roll major.
+		// If disease doesn't roll due to pop, try again to roll for a major in 60 seconds.
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + 1 MINUTES
 		log_debug("Not enough crew to spawn a major virus. Rerolling Major.")
