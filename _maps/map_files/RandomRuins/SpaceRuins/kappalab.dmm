@@ -426,7 +426,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "hg" = (
 /obj/structure/cable{
@@ -1038,7 +1038,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "qi" = (
 /obj/effect/map_effect/dynamic_airlock,
@@ -1120,7 +1120,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "qQ" = (
 /obj/structure/gunrack,
@@ -1765,7 +1765,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "Af" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
@@ -1925,7 +1925,7 @@
 	},
 /area/ruin/space/unpowered)
 "CS" = (
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "CY" = (
 /obj/structure/shelf/science,
@@ -1992,7 +1992,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "DP" = (
 /obj/structure/flora/grass/jungle,
@@ -2045,10 +2045,9 @@
 "EN" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/off_station/directional/south,
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "Fa" = (
-/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
@@ -2289,7 +2288,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "Jx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -2310,7 +2309,7 @@
 /area/ruin/space/kappa_lab/diner)
 "JG" = (
 /obj/effect/spawner/random/space_pirate,
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "JL" = (
 /obj/machinery/light{
@@ -2701,7 +2700,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow,
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "Pe" = (
 /obj/structure/railing{
@@ -3258,7 +3257,7 @@
 /area/ruin/space/kappa_lab/bridge)
 "WT" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/catwalk/airless,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/kappa_lab/engineering)
 "WU" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
