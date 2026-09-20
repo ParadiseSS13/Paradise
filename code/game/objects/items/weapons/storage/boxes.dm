@@ -454,7 +454,7 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 		new /obj/item/stack/medical/bruise_pack(src)
-		
+
 /obj/item/storage/box/engineer/empty/populate_contents()
 	return
 
@@ -1551,6 +1551,11 @@
 
 /obj/item/storage/box/fakesyndiesuit/empty/populate_contents()
 	return
+
+/obj/item/storage/box/crab_box
+	name = "market profit box"
+	desc = "A sleek, sturdy box with a miniature teleporter beacon inside, linked to a remote market device."
+	icon_state = "doom_box"
 
 /obj/item/storage/box/enforcer_rubber
 	name = "\improper Enforcer pistol kit (rubber)"
