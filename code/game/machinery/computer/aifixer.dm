@@ -129,7 +129,7 @@
 
 	else // Uploading AI from terminal to card.
 		if(occupant && !active)
-			to_chat(occupant, "[SPAN_BOLDNOTICE("You have been downloaded to a mobile storage device."] [SPAN_DANGER("Still no remote access.")]")
+			to_chat(occupant, "[SPAN_BOLDNOTICE("You have been downloaded to a mobile storage device.")] [SPAN_DANGER("Still no remote access.")]")
 			to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 			occupant.forceMove(card)
 			card.held_ai = occupant
