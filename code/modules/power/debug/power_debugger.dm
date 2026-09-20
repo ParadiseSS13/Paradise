@@ -1,16 +1,16 @@
-/// Screen define, makes the TGUI for the powernet debugger display the list of regional powernets in the world
+/// Screen define, makes the TGUI for the powernet debugger display the list of regional powernets in the world.
 #define PW_DEBUG_SCREEN_POWERNETS	1
-/// Screen define, makes the TGUI for the powernet debugger display detailed information about a specified Regional/Local Net
+/// Screen define, makes the TGUI for the powernet debugger display detailed information about a specified Regional/Local Net.
 #define PW_DEBUG_SCREEN_DETAILS		2
-/// Sets the minimum cable count for a regional powernet to be displayed on the Debugger, declogs the menu so that only relevant nets are included
+/// Sets the minimum cable count for a regional powernet to be displayed on the Debugger, declogs the menu so that only relevant nets are included.
 #define PW_MIN_CABLE_COUNT			5
 
 /*
-	* The Powernet Debugger
+	* The Powernet Debugger!
 	*
 	* Got a problem with powernets? This UI module will give you all the information (+ visuals) you could ever want to know and more!
 	* Beyond dumping a list of regional powernets for you to overview, you can click on them to get details about the machines
-	* contained, local powernets, and general state
+	* contained, local powernets, and general state.
 	*
 	* This tool is also great for looking at local powernets and investigating where power is being consumed and the various states
 	* that `/machinery` is in. Furthermore, as a contributor, you can add additional functionality through powernet logging that's
@@ -25,24 +25,24 @@
 	/// selected can be garbage collected normally instead of being harddel'd by the debugger.
 	var/selected_net_uid = null
 
-	/// a list of UIDs pointing to powernets we have selected, all powernets in this list will show up as tabs in the UI module, great for bouncing between multiple things
+	/// a list of UIDs pointing to powernets we have selected, all powernets in this list will show up as tabs in the UI module, great for bouncing between multiple things.
 	var/list/selected_powernets = list()
-	/// The current screen we're on, just used to distinguish looking at the list of regional powernets vs. the detailed view of the net we have selected
+	/// The current screen we're on, just used to distinguish looking at the list of regional powernets vs. the detailed view of the net we have selected.
 	var/debug_screen = PW_DEBUG_SCREEN_POWERNETS
-	/// A cache of machines/power-machines that we're listing. We don't want to send a billion icons to the UI-module, so we only send one of each by caching stuff
+	/// A cache of machines/power-machines that we're listing. We don't want to send a billion icons to the UI-module, so we only send one of each by caching stuff.
 	var/list/power_icon_cache = list()
 
 	// # Filter Tools
-	/// When TRUE, removes pipes from the local powernet machine list
+	/// When TRUE, removes pipes from the local powernet machine list.
 	var/filter_pipes = FALSE
-	/// When TRUE, removes walls lights from the local powernet machine list
+	/// When TRUE, removes walls lights from the local powernet machine list.
 	var/filter_lights = FALSE
-	/// When TRUE, removes APCs from the regional powernet power machine list
+	/// When TRUE, removes APCs from the regional powernet power machine list.
 	var/filter_apcs = FALSE
-	/// When TRUE, removes terminals from the regional powernet power machine list
+	/// When TRUE, removes terminals from the regional powernet power machine list.
 	var/filter_terminals = FALSE
-	/// When TRUE, removes off-station powernets from the initial regional powernet list
-	var/filter_non_station_powernets = TRUE // enabled by default b/c most contributors and admins wont care about off-station nets
+	/// When TRUE, removes off-station powernets from the initial regional powernet list.
+	var/filter_non_station_powernets = TRUE // Enabled by default b/c most contributors and admins wont care about off-station nets.
 
 /datum/ui_module/powernet_debugger/ui_state(mob/user)
 	return GLOB.admin_state
@@ -54,16 +54,16 @@
 		ui.autoupdate = TRUE
 		ui.open()
 
-/// Returns a list of data on regional powernets in the world for the global list view
+/// Returns a list of data on regional powernets in the world for the global list view.
 /datum/ui_module/powernet_debugger/proc/get_all_powernets()
 	var/list/powernets = list()
-	// SSmachines.powernets only ever holds regional_powernet datums (see regional_powernet New/Destroy), so `as anything` is safe here
+	// SSmachines.powernets only ever holds regional_powernet datums (see `regional_powernet New/Destroy`), so `as anything` is safe here.
 	for(var/datum/regional_powernet/powernet as anything in SSmachines.powernets)
 		if(length(powernet.cables) < PW_MIN_CABLE_COUNT)
-			continue // we don't give a shit about tiny powernets
+			continue // We don't give a shit about tiny powernets.
 		var/obj/structure/cable/test_cable = powernet.cables[1]
 		if(filter_non_station_powernets && !is_station_level(test_cable.z))
-			continue // we don't give a shit about powernets off the station z-level
+			continue // We don't give a shit about powernets off the station z-level.
 		var/list/powernet_data = list(
 			"PW_UID" = powernet.UID(),
 			"cables" = length(powernet.cables),
@@ -76,7 +76,7 @@
 		powernets += list(powernet_data)
 	return powernets
 
-/// Gets ui_data for the selected regional or local net, returns an empty list if nothing is selected
+/// Gets ui_data for the selected regional or local net, returns an empty list if nothing is selected.
 /datum/ui_module/powernet_debugger/proc/get_selected_powernet_data()
 	var/datum/selected_net = locateUID(selected_net_uid)
 	if(istype(selected_net, /datum/regional_powernet))
@@ -84,15 +84,15 @@
 	else if(istype(selected_net, /datum/local_powernet))
 		return get_local_net_data(selected_net)
 	else if(debug_screen == PW_DEBUG_SCREEN_DETAILS)
-		debug_screen = PW_DEBUG_SCREEN_POWERNETS // the net was rebuilt/destroyed out from under us, kick them back to the list now!
-	return list() //return an empty list
+		debug_screen = PW_DEBUG_SCREEN_POWERNETS // The net was rebuilt/destroyed out from under us, kick them back to the list now!
+	return list() // Return an empty list.
 
-/// Gets ui_data for the selected regional net and returns it
+/// Gets ui_data for the selected regional net and returns it.
 /datum/ui_module/powernet_debugger/proc/get_regional_net_data(datum/regional_powernet/regional_net)
 	var/list/powernet_data = list()
-	// set the net type so that our UI knows what data to look for
+	// Set the net type so that our UI knows what data to look for.
 	powernet_data["net_type"] = "regional"
-	// basic summary of the net
+	// Basic summary of the net.
 	powernet_data["power_stats"] = list(
 		"PW_UID" = regional_net.UID(),
 		"cables" = length(regional_net.cables),
@@ -103,10 +103,10 @@
 		"queued_production" = regional_net.queued_power_production
 	)
 	powernet_data["power_machines"] = list()
-	// grab all end points of our powernet
+	// Grab all end points of our powernet.
 	var/list/power_machines = regional_net.nodes.Copy()
 	for(var/obj/machinery/power/terminal/terminal in regional_net.nodes)
-		power_machines |= terminal.master // we want to grab all the machines terminals are hooked up to since they're not included in the nodes
+		power_machines |= terminal.master // We want to grab all the machines terminals are hooked up to since they're not included in the nodes.
 	for(var/obj/machinery/power/power_machine in power_machines)
 		if(filter_apcs && isapc(power_machine))
 			continue
@@ -120,7 +120,7 @@
 		)
 		powernet_data["power_machines"] += list(machine_data)
 		get_power_icon(power_machine, power_machine.dir)
-	// since we're a regional net, we want to see all the local nets hooked up to us for further investigation
+	// Since we're a regional net, we want to see all the local nets hooked up to us for further investigation.
 	powernet_data["local_powernets"] = list()
 	for(var/obj/machinery/power/terminal/terminal in regional_net.nodes)
 		if(!isapc(terminal.master))
@@ -139,18 +139,18 @@
 		powernet_data["local_powernets"] += list(local_powernet_data)
 	return powernet_data
 
-/// Gets ui_data for the selected local net and returns it
+/// Gets `ui_data` for the selected local net and returns it.
 /datum/ui_module/powernet_debugger/proc/get_local_net_data(datum/local_powernet/local_net)
 	var/list/powernet_data = list()
 	powernet_data["net_type"] = "local"
-	// first thing we do is start summarizing info about powernet. We build a list so that doubled-up flags both show up
+	// First thing we do is start summarizing info about powernet. We build a list so that doubled-up flags both show up.
 	var/list/power_flag_names = list()
 	if(local_net.power_flags & PW_ALWAYS_UNPOWERED)
 		power_flag_names += "Always Unpowered"
 	if(local_net.power_flags & PW_ALWAYS_POWERED)
 		power_flag_names += "Always Powered"
 	var/power_flag = length(power_flag_names) ? jointext(power_flag_names, ", ") : "No Power Flags"
-	// Basic facts about the powernet
+	// Basic facts about the powernet.
 	powernet_data["power_stats"] = list(
 		"PW_UID" = local_net.UID(),
 		"area_name" = local_net.powernet_area.name,
@@ -171,7 +171,7 @@
 			"PW_UID" = machine.UID(),
 			"name" = machine.name,
 			"powered" = !(machine.stat & NOPOWER),
-			"pw_channel" = local_net.channel_to_name(machine.power_channel), //we love helper procs!
+			"pw_channel" = local_net.channel_to_name(machine.power_channel), // We love helper procs!
 			"pw_state" = local_net.state_to_name(machine.power_state),
 			"idle_consumption" = machine.idle_power_consumption,
 			"active_consumption" = machine.active_power_consumption,
@@ -196,15 +196,15 @@
 		"off_station" = filter_non_station_powernets
 	)
 
-	// Global info
+	// Global info.
 	data["debug_page"] = debug_screen
-	// all powernets we have actively selected, this generates the tabs in our UI
+	// all powernets we have actively selected, this generates the tabs in our UI.
 	data["selected_nets"] = selected_powernets
-	// list of all regional powernets
+	// list of all regional powernets.
 	data["powernets"] = get_all_powernets()
-	// Detailed page info
+	// Detailed page info.
 	data["selected_net"] = get_selected_powernet_data()
-	// a copy of our power icon cache, used to generate pictures of power machines for use in our UI's tables
+	// a copy of our power icon cache, used to generate pictures of power machines for use in our UI's tables.
 	data["power_images"] = power_icon_cache
 
 	return data
@@ -242,15 +242,15 @@
 			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/debug_variables, tgt)
 		if("jmp")
 			var/client/C = ui.user.client
-			// normally, in TGUI params, we would be more careful about preventing the usr from inject any atoms UID, however non-admins can't use jumptocoord!
-			// note: a local powernet is a plain datum (not an atom), so we must not gate this on istype(target, /atom) or the local net branch becomes unreachable
+			// Normally, in TGUI params, we would be more careful about preventing the `usr` from inject any atoms UID, however non-admins can't use `jumptocoord`!
+			// Note: a local powernet is a plain datum (not an atom), so we must not gate this on `istype(target, /atom)` or the local net branch becomes unreachable.
 			var/datum/target = locateUID(params["tgt_UID"])
 			if(istype(target, /datum/local_powernet))
 				var/datum/local_powernet/net_to_teleport_to = target
 				C.jumptoarea(net_to_teleport_to.powernet_area)
 				return
-			var/obj/O = target // isobj() below guards the runtime type before we touch obj-only vars like loc/x/y/z
-			if(isobj(O) && !isnull(O.loc)) // pretty much anything else you can target with "jmp"
+			var/obj/O = target // `isobj()` below guards the runtime type before we touch obj-only vars like loc/x/y/z.
+			if(isobj(O) && !isnull(O.loc)) // Pretty much anything else you can target with "jmp".
 				C.jumptocoord(O.x, O.y, O.z)
 		if("set_page")
 			var/new_page = text2num(params["page"])
@@ -261,7 +261,7 @@
 			debug_screen = PW_DEBUG_SCREEN_POWERNETS
 			selected_powernets = list()
 			selected_net_uid = null
-		// start filter button actions
+		// Start filter button actions.
 		if("filter_off_station")
 			filter_non_station_powernets = !filter_non_station_powernets
 		if("filter_apcs")

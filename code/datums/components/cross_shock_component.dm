@@ -52,7 +52,7 @@
 		if(!our_cable || !our_cable.powernet || !our_cable.powernet.available_power)
 			return
 		living_to_shock.electrocute_act(shock_damage, parent)
-		// can assume that powernnet is not null
+		// Can assume that powernet is not null.
 		our_cable.powernet.power_demand += energy_cost
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	else

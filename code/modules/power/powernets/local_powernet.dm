@@ -181,7 +181,7 @@
 	if(!entry)
 		return
 	powernet_log += "\[[time_stamp()]] [entry]"
-	if(length(powernet_log) > POWERNET_LOG_MAX_ENTRIES) // ring-buffer: drop the oldest so the log can't grow unbounded
+	if(length(powernet_log) > POWERNET_LOG_MAX_ENTRIES) // Ring-buffer: drop the oldest so the log can't grow unbounded.
 		powernet_log.Cut(1, length(powernet_log) - POWERNET_LOG_MAX_ENTRIES + 1)
 
 /datum/local_powernet/proc/channel_to_name(channel)
