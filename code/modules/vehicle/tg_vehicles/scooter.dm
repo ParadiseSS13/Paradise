@@ -348,7 +348,7 @@
 	if(!I.use_tool(src, user, 20, volume = 50))
 		return
 	to_chat(user, SPAN_NOTICE("You deconstruct the wheels on [src]."))
-	new /obj/item/stack/sheet/metal(drop_location(), 5)
+	new /obj/item/stack/sheet/metal(drop_location(), 2)
 	new /obj/item/scooter_frame(drop_location())
 	if(has_buckled_mobs())
 		var/mob/living/carbon/skatergirl = buckled_mobs[1]

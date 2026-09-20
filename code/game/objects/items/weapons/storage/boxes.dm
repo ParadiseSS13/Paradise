@@ -925,8 +925,8 @@
 	return
 
 /obj/item/storage/box/autoinjectors
-	name = "box of injectors"
-	desc = "Contains autoinjectors."
+	name = "box of epinephrine autoinjectors"
+	desc = "Contains autoinjectors pre-loaded with epinephrine."
 	icon_state = "injector_box"
 
 /obj/item/storage/box/autoinjectors/populate_contents()
