@@ -148,6 +148,18 @@
 		to_chat(H, SPAN_WARNING("Redirecting excess power from servos to vital components."))
 		H.Slowed(rand(15 SECONDS, 32 SECONDS))
 
+/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	if(!head_organ)
+		return ..()
+
+	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
+	if(!robohead || !robohead.is_monitor)
+		return ..()
+
+	H.update_hair()
+	return
+
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
@@ -236,6 +248,9 @@
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)
 
+/mob/living/carbon/human/machine/get_spooked()
+	to_chat(src, SPAN_WHISPER("[pick(GLOB.boo_phrases_robot)]"))
+	return TRUE
 /datum/species/machine/generate_random_appearance(prosthesis_prob = 100, appearance = null, use_gender = null)
 	return ..()
 

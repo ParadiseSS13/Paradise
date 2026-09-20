@@ -378,6 +378,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!istype(O))
 		return
 
+	var/datum/robolimb/robohead = O.is_robotic() ? GLOB.all_robolimbs[O.model] : null
+	if(robohead && robohead.is_monitor && stat == DEAD)
+		return
+
 	if((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR))
 		return
 
@@ -733,6 +737,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(glasses)
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		if(!istype(head_organ))
+			return
 		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		update_hud_glasses(glasses)
 
@@ -1007,9 +1013,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_wear_mask(wear_mask)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK) && !HAS_TRAIT(wear_mask, TRAIT_NO_WORN_ICON))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
-			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			if(!istype(head_organ))
 				return // Nothing to update here
+			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]

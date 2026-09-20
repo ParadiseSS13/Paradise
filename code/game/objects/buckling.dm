@@ -1,6 +1,7 @@
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
-	. = ..()
+	if(..())
+		return TRUE
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
