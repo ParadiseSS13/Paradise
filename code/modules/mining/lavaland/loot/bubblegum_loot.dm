@@ -61,7 +61,6 @@
 		var/turf/target_turf = pick(spawn_exit)
 		O.forceMove(target_turf)
 
-
 // Mayhem
 
 /obj/item/mayhem
@@ -69,15 +68,20 @@
 	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
+	new_attack_chain = TRUE
 
-/obj/item/mayhem/attack_self__legacy__attackchain(mob/user)
-	for(var/mob/living/carbon/human/H in range(7,user))
+/obj/item/mayhem/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	for(var/mob/living/carbon/human/H in range(7, user))
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
 			B.mineEffect(H)
 	to_chat(user, SPAN_NOTICE("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // Blood Contract
 
@@ -87,43 +91,50 @@
 	icon_state = "scroll2"
 	color = "#FF0000"
 	desc = "Mark your target for death."
+	new_attack_chain = TRUE
 	var/used = FALSE
 
-/obj/item/blood_contract/attack_self__legacy__attackchain(mob/user)
+/obj/item/blood_contract/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(used)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	used = TRUE
 	var/choice = tgui_input_list(user, "Who do you want dead?", "Choose Your Victim", GLOB.player_list)
 
 	if(!choice)
 		used = FALSE
-		return
-	else if(!isliving(choice))
-		to_chat(user, "[choice] is already dead!")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!isliving(choice))
+		to_chat(user, SPAN_WARNING("[choice] is already dead!"))
 		used = FALSE
-		return
-	else if(choice == user)
-		to_chat(user, "You feel like writing your own name into a cursed death warrant would be unwise.")
+		return ITEM_INTERACT_COMPLETE
+
+	if(choice == user)
+		to_chat(user, SPAN_WARNING("You feel like writing your own name into a cursed death warrant would be unwise."))
 		used = FALSE
-		return
-	else
-		var/mob/living/L = choice
+		return ITEM_INTERACT_COMPLETE
 
-		message_admins("[key_name_admin(L)] has been marked for death by [key_name_admin(user)].")
-		log_admin("[key_name(L)] has been marked for death by [key_name(user)].")
+	var/mob/living/target = choice
 
-		L.mind.add_mind_objective(/datum/objective/survive)
-		to_chat(L, SPAN_USERDANGER("You've been marked for death! Don't let the demons get you!"))
-		L.color = "#FF0000"
-		spawn()
-			var/obj/effect/mine/pickup/bloodbath/B = new(L)
-			B.mineEffect(L)
+	message_admins("[key_name_admin(target)] has been marked for death by [key_name_admin(user)].")
+	log_admin("[key_name(target)] has been marked for death by [key_name(user)].")
 
-		for(var/mob/living/carbon/human/H in GLOB.player_list)
-			if(H.stat == DEAD || H == L)
-				continue
-			to_chat(H, SPAN_USERDANGER("You have an overwhelming desire to kill [L]. [L.p_they(TRUE)] [L.p_have()] been marked red! Go kill [L.p_them()]!"))
-			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
+	target.mind.add_mind_objective(/datum/objective/survive)
+	to_chat(target, SPAN_USERDANGER("You've been marked for death! Don't let the demons get you!"))
+	target.color = "#FF0000"
+	spawn()
+		var/obj/effect/mine/pickup/bloodbath/bloodbath_mine = new(target)
+		bloodbath_mine.mineEffect(target)
+
+	for(var/mob/living/carbon/human/living_player in GLOB.player_list)
+		if(living_player.stat == DEAD || living_player == target)
+			continue
+		to_chat(living_player, SPAN_USERDANGER("You have an overwhelming desire to kill [target]. [target.p_they(TRUE)] [target.p_have()] been marked red! Go kill [target.p_them()]!"))
+		living_player.put_in_hands(new /obj/item/kitchen/knife/butcher(living_player))
 
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
