@@ -31070,7 +31070,10 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 10
 	},
-/obj/machinery/alarm/directional/south,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "eiZ" = (
@@ -62313,6 +62316,16 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
+"onA" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/lobby)
 "onF" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -65015,9 +65028,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "piA" = (
@@ -68173,6 +68183,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "qmk" = (
@@ -68319,10 +68332,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "qpy" = (
@@ -71881,7 +71891,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
-/obj/machinery/economy/atm/directional/north,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "rwQ" = (
@@ -118391,7 +118401,7 @@ nvB
 pDi
 kCc
 lXV
-gfb
+onA
 gBj
 wLb
 aHM
