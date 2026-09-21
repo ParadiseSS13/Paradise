@@ -559,16 +559,15 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/cursed_katana/pre_attack(mob/living/target, mob/user, params)
+	if(!istype(target))
+		return ..()
+
 	if(target.stat == DEAD || target == user) // No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_WARNING("You don't want to harm [target]!"))
 		return FINISH_ATTACK
-
-/obj/item/cursed_katana/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
-	if(!istype(target))
-		return ..()
 
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
