@@ -217,7 +217,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	if(min_latespawn_budget <= 0)
 		return
 	var/turf/T = get_turf(cryopod)
-	if(!T || !is_station_level(T.z))
+	if(!T || is_admin_level(T.z) || sleepy_mob.mind.offstation_role == TRUE)
 		log_dynamic("Non-crew cryo. No budget change.", TRUE)
 		return
 	antag_budget = max(0, antag_budget - 1)

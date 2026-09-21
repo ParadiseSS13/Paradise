@@ -35,6 +35,7 @@
 	allow_species_pick = TRUE
 	allow_gender_pick = TRUE
 	faction = list("syndicate")
+	offstation_role = TRUE
 
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
