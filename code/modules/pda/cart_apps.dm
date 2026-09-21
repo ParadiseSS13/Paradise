@@ -338,16 +338,16 @@
 			active_uid = null
 
 		if("stop", "start", "home", "unload", "target")
-			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.bot_control(action, usr)
+				active_bot.handle_command(usr, action)
 			else
 				active_uid = null
 
 		if("set_auto_return", "set_pickup_type")
-			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.bot_control(action, usr, params)
+				active_bot.handle_command(usr, action, params)
 			else
 				active_uid = null
 
