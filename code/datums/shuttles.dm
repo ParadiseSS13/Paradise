@@ -284,7 +284,7 @@
 	description = "Trading vessel for merchant guild traders."
 
 /datum/map_template/shuttle/patient
-	port_id = "trader"
-	suffix = "patient_transport"
+	port_id = "patient"
+	suffix = "transport"
 	name = "NSS Ulna"
 	description = "A vessel for patient transport."
