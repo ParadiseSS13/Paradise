@@ -848,7 +848,7 @@
 	uses_lockdown = TRUE
 	port_direction = EAST
 
-/obj/docking_port/mobile/mining
+/obj/docking_port/mobile/engineering
 	dir = WEST
 	dwidth = 3
 	height = 5
