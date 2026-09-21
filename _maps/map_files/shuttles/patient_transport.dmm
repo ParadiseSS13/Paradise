@@ -33,6 +33,7 @@
 	id_tag = "s_docking_airlock";
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/shuttle/patient)
 "gK" = (
@@ -152,13 +153,10 @@
 	id_tag = "s_docking_airlock";
 	dir = 4
 	},
-/obj/docking_port/mobile/trader{
-	height = 19;
-	width = 16;
-	dwidth = 7;
-	preferred_direction = 1;
+/obj/docking_port/mobile/patient{
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/shuttle/patient)
 "JY" = (
