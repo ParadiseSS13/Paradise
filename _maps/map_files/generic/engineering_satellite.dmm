@@ -2509,7 +2509,11 @@
 	name = "engineering outpost dock";
 	width = 7
 	},
-/turf/space,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	name = "Engineering Shuttle Airlock"
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/space)
 "gD" = (
 /obj/structure/cable{
@@ -3860,6 +3864,12 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/constructionsite)
+"kd" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/space)
 "kg" = (
 /obj/machinery/power/solar,
 /obj/structure/cable,
@@ -4555,6 +4565,22 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
+"nY" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/space)
+"qJ" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"sT" = (
+/turf/simulated/wall/mineral/titanium,
+/area/space)
+"uW" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "zH" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment{
@@ -4563,6 +4589,51 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"CY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"Ng" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"OY" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced,
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"Ri" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"Vt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"XL" = (
+/turf/simulated/floor/mineral/titanium,
+/area/space)
 
 (1,1,1) = {"
 aa
@@ -16249,9 +16320,9 @@ aa
 aa
 ab
 aa
-aa
-aa
-aa
+sT
+nY
+sT
 aa
 aa
 aa
@@ -16505,11 +16576,11 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
+sT
+sT
+qJ
+sT
+sT
 aa
 aa
 aa
@@ -16762,11 +16833,11 @@ da
 da
 da
 da
-aa
-aa
-aa
-aa
-aa
+nY
+XL
+kd
+XL
+nY
 aa
 aa
 aa
@@ -17020,10 +17091,10 @@ dW
 dW
 gr
 gC
-aa
-aa
-aa
-aa
+XL
+Ri
+XL
+nY
 aa
 aa
 aa
@@ -17276,11 +17347,11 @@ cF
 gs
 dW
 cF
-aa
-aa
-aa
-aa
-aa
+nY
+Vt
+Vt
+Vt
+nY
 aa
 aa
 aa
@@ -17533,11 +17604,11 @@ cC
 da
 da
 da
-aa
-aa
-aa
-aa
-aa
+OY
+CY
+CY
+Ng
+OY
 aa
 aa
 aa
@@ -17790,11 +17861,11 @@ gf
 gf
 ab
 ab
-aa
-aa
-aa
-aa
-aa
+uW
+sT
+sT
+sT
+uW
 aa
 aa
 aa
