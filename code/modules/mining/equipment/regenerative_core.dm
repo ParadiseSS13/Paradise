@@ -6,21 +6,32 @@
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
+	new_attack_chain = TRUE
 
-/obj/item/hivelordstabilizer/afterattack__legacy__attackchain(obj/item/organ/internal/M, mob/user)
-	. = ..()
-	var/obj/item/organ/internal/regenerative_core/C = M
-	if(!istype(C, /obj/item/organ/internal/regenerative_core))
+/obj/item/hivelordstabilizer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!istype(target, /obj/item))
+		return NONE
+
+	if(isstorage(target) || istype(target, /obj/item/mod/control))
+		return NONE
+
+	var/obj/item/organ/internal/regenerative_core/core = target
+	if(!istype(core))
 		to_chat(user, SPAN_WARNING("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
-	if(C.inert)
-		to_chat(user, SPAN_WARNING("[M] is inert! The stabilizer won't function as the regenerative enzymes have dissolved!"))
-		return ..()
+	if(core.inert)
+		to_chat(user, SPAN_WARNING("[core] is inert! The stabilizer won't function as the regenerative enzymes have dissolved!"))
+		return ITEM_INTERACT_COMPLETE
 
-	C.preserved()
-	to_chat(user, SPAN_NOTICE("You inject [M] with the stabilizer. It will no longer go inert."))
+	core.preserved()
+	core.add_fingerprint(user)
+	to_chat(user, SPAN_NOTICE("You inject [core] with the stabilizer. It will no longer go inert."))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /************************Hivelord core*******************/
 /obj/item/organ/internal/regenerative_core
