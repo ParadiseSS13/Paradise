@@ -126,6 +126,11 @@
 	xenobiology_compatible = TRUE
 	parallax_move_direction = WEST
 
+
+/area/shuttle/constructionsite
+	name = "\improper Construction Site Shuttle"
+	icon_state = "yellow"
+
 /// Currently disabled as our shuttle system does not support TG-shuttle areas yet
 // /area/shuttle/transit
 // 	name = "Hyperspace"

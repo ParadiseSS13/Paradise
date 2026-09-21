@@ -949,6 +949,7 @@
 #include "code\game\area\areas\mining_areas.dm"
 #include "code\game\area\areas\ruins\alien_cache_site_areas.dm"
 #include "code\game\area\areas\ruins\blackmarketpackers.dm"
+#include "code\game\area\areas\ruins\engineering_satellite_areas.dm"
 #include "code\game\area\areas\ruins\lavaland_areas.dm"
 #include "code\game\area\areas\ruins\space_areas.dm"
 #include "code\game\area\areas\ruins\syndicate_space_base_areas.dm"

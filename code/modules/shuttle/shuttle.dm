@@ -848,6 +848,17 @@
 	uses_lockdown = TRUE
 	port_direction = EAST
 
+/obj/docking_port/mobile/mining
+	dir = WEST
+	dwidth = 3
+	height = 5
+	id = "engineering"
+	name = "engineering shuttle"
+	rebuildable = TRUE
+	width = 7
+	uses_lockdown = TRUE
+	port_direction = SOUTH
+
 /obj/docking_port/mobile/specops
 	dir = WEST
 	dwidth = 2
