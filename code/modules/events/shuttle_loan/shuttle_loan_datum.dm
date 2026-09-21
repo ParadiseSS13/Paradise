@@ -163,9 +163,9 @@
 
 /datum/shuttle_loan_situation/mineral_haul/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
 	var/static/list/crate_types = list(
-		/datum/supply_packs/materials/metal50,
-		/datum/supply_packs/materials/glass50,
-		/datum/supply_packs/materials/sandstone30,
+		/datum/supply_packs/materials/metal,
+		/datum/supply_packs/materials/glass,
+		/datum/supply_packs/materials/sandstone,
 	)
 	for(var/crate in crate_types)
 		var/datum/supply_packs/new_crate = new crate()

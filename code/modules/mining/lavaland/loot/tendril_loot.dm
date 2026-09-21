@@ -22,6 +22,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 	origin_tech = "bluespace=6"
+	new_attack_chain = TRUE
 	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/shared_storage/Moved(atom/oldloc, dir, forced = FALSE)
@@ -45,8 +46,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
 
-/obj/item/shared_storage/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	bag?.attackby__legacy__attackchain(W, user, params)
+/obj/item/shared_storage/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	bag?.attackby__legacy__attackchain(used, user, list2params(modifiers))
 
 /obj/item/shared_storage/attack_ghost(mob/user)
 	if(isobserver(user))
@@ -54,13 +55,14 @@
 		bag?.show_to(user)
 	return ..()
 
-/obj/item/shared_storage/attack_self__legacy__attackchain(mob/living/carbon/user)
+/obj/item/shared_storage/activate_self(mob/living/carbon/user)
 	if(!iscarbon(user))
-		return
+		return ..()
 	if(user.is_holding(src))
 		bag?.open(user)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user))
