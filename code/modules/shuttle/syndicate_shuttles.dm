@@ -7,8 +7,19 @@
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	circuit = /obj/item/circuitboard/shuttle/syndicate
-	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
+	shuttleIds = list("syndicate")
+	possibleDestinations2 = alist("syndicate" = list(
+		"syndicate_away",
+		"syndicate_z5",
+		"syndicate_z3",
+		"syndicate_ne",
+		"syndicate_nw",
+		"syndicate_n",
+		"syndicate_se",
+		"syndicate_sw",
+		"syndicate_s",
+		"syndicate_custom"
+	))
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/challenge = FALSE
@@ -17,7 +28,7 @@
 /obj/machinery/computer/shuttle/syndicate/recall
 	name = "syndicate shuttle recall terminal"
 	circuit = /obj/item/circuitboard/shuttle/syndicate/recall
-	possible_destinations = "syndicate_away"
+	possibleDestinations2 = alist("syndicate" = list("syndicate_away"))
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	var/time_to_go = max(SYNDICATE_CHALLENGE_TIMER, (challenge_time + 10 MINUTES))
@@ -33,8 +44,8 @@
 	icon_state = "syndie_assault_pod"
 	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod
-	shuttleId = "steel_rain"
-	possible_destinations = null
+	shuttleIds = list("steel_rain")
+	possibleDestinations2 = alist("steel_rain" = list())
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
 	if(action == "move")
@@ -50,8 +61,8 @@
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
-	shuttleId = "sst"
-	possible_destinations = "sst_home;sst_away;sst_custom"
+	shuttleIds = list("sst")
+	possibleDestinations2 = alist("sst" = list("sst_home", "sst_away", "sst_custom"))
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/sit
@@ -61,8 +72,8 @@
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
-	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
+	shuttleIds = list("sit")
+	possibleDestinations2 = alist("sit" = list("sit_arrivals", "sit_engshuttle", "sit_away", "sit_custom"))
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
@@ -96,15 +107,3 @@
 	y_offset = 0
 
 #undef SYNDICATE_CHALLENGE_TIMER
-
-// Fuck it its syndicate now
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin/vox
-	name = "skipjack navigation computer"
-	desc = "Used to designate a precise transit location for the skipjack."
-	flags = NODECONSTRUCT
-	access_mining = FALSE
-
-/obj/machinery/computer/shuttle/admin/vox
-	name = "vox skipjack console"
-	req_access = list(ACCESS_VOX)
-	possible_destinations = "admin_home;admin_custom"

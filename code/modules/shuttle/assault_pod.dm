@@ -25,7 +25,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	inhand_icon_state = "radio"
-	var/shuttle_id = "steel_rain"
+	var/target_shuttle_id = "steel_rain"
 	var/dwidth = 3
 	var/dheight = 0
 	var/width = 7
@@ -55,8 +55,9 @@
 	landing_zone.register() //new docking ports must be registered
 
 	for(var/obj/machinery/computer/shuttle/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
-		if(S.shuttleId == shuttle_id)
-			S.possible_destinations = "[landing_zone.id]"
+		for(var/shuttle_id2 in S.shuttleIds)
+			if(shuttle_id2 == target_shuttle_id)
+				S.possibleDestinations2[target_shuttle_id] += "[landing_zone.id]"
 
 	to_chat(user, "Landing zone set.")
 
