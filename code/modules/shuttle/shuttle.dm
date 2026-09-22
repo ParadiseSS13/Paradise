@@ -31,6 +31,9 @@
 	var/list/ripples = list()
 	var/hidden = FALSE //are we invisible to shuttle navigation computers?
 
+	/// Highlight colour for debug mode
+	var/highlight_colour = "#ffffff" // Default to white
+
 	//these objects are indestructable
 /obj/docking_port/Destroy(force)
 	if(force)
@@ -159,6 +162,7 @@
 // MARK: Stationary port
 /obj/docking_port/stationary
 	name = "dock"
+	highlight_colour = "#ff0000"
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
@@ -219,6 +223,7 @@
 /obj/docking_port/mobile
 	name = "shuttle"
 	icon_state = "pinonclose"
+	highlight_colour = "#00ff00"
 
 	var/area/shuttle/areaInstance
 	var/list/shuttle_areas
@@ -278,11 +283,7 @@
 /obj/docking_port/LateInitialize()
 	. = ..()
 	#ifdef DOCKING_PORT_HIGHLIGHT
-	if(istype(src, /obj/docking_port/stationary))
-		highlight("#f00")
-
-	if(istype(src, /obj/docking_port/mobile))
-		highlight("#0f0")
+	highlight(highlight_colour)
 	#endif
 
 
