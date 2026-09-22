@@ -6471,6 +6471,9 @@
 /obj/item/clothing/under/costume/rebeloutfit,
 /obj/item/clothing/suit/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
+/obj/structure/mirror/magic{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "wy" = (
@@ -7366,10 +7369,6 @@
 "Aa" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
-/area/admin)
-"Ab" = (
-/obj/structure/mirror/magic,
-/turf/simulated/floor/plasteel,
 /area/admin)
 "Ac" = (
 /obj/structure/table/wood/fancy/royalblack,
@@ -8631,8 +8630,8 @@
 	pixel_y = 10
 	},
 /obj/structure/shelf/security,
-/obj/item/ammo_casing/caseless/arrow,
-/obj/item/ammo_casing/caseless/arrow,
+/obj/item/storage/backpack/quiver/full,
+/obj/item/storage/backpack/quiver/full,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "EI" = (
@@ -71957,7 +71956,7 @@ lZ
 lZ
 lZ
 lZ
-Ab
+lZ
 lZ
 lZ
 lZ
