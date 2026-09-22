@@ -61,26 +61,19 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
 "aq" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 32
-	},
+/obj/machinery/alarm/monitor/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
 "ar" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
 "as" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
@@ -90,10 +83,7 @@
 /area/constructionsite/hallway/port)
 "au" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
@@ -130,10 +120,7 @@
 "aB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
@@ -149,42 +136,24 @@
 /area/constructionsite/hallway/fore)
 "aE" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
 "aF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
 "aG" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/bridge)
@@ -201,11 +170,7 @@
 	req_access = list(19)
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
@@ -216,45 +181,25 @@
 /area/constructionsite/hallway/fore)
 "aK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/fore)
 "aL" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/fore)
 "aM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/fore)
@@ -280,11 +225,7 @@
 	req_access = list(19)
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
@@ -311,10 +252,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
 "aV" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 32
-	},
+/obj/machinery/alarm/monitor/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/fore)
 "aW" = (
@@ -330,11 +268,7 @@
 /area/constructionsite/hallway/starboard)
 "aY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -364,11 +298,7 @@
 /area/constructionsite/science)
 "be" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/science/glass,
@@ -389,11 +319,7 @@
 /area/constructionsite/science)
 "bi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
@@ -417,11 +343,7 @@
 /area/constructionsite/science)
 "bm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -470,10 +392,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/science)
 "bt" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 32
-	},
+/obj/machinery/alarm/monitor/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/science)
 "bu" = (
@@ -481,35 +400,19 @@
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/science)
 "bv" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/science)
 "bw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/science)
@@ -529,11 +432,7 @@
 /area/constructionsite/science)
 "bz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -567,105 +466,70 @@
 /area/constructionsite/science)
 "bF" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
 "bG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
 "bH" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
 "bI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/science)
 "bJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/science)
 "bK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/science)
 "bL" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/starboard)
 "bM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/starboard)
 "bN" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/starboard)
 "bO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
@@ -675,11 +539,7 @@
 /area/constructionsite/science)
 "bQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/public/glass,
@@ -687,10 +547,7 @@
 /area/constructionsite/science)
 "bR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/starboard)
@@ -700,10 +557,7 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
@@ -726,72 +580,37 @@
 /area/constructionsite/hallway/center)
 "bY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
 "bZ" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
 /obj/structure/cable,
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/starboard)
 "ca" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
 /obj/structure/cable,
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/port)
 "cb" = (
 /turf/space,
 /area/constructionsite/hallway/center)
 "cc" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
 "cd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -819,11 +638,7 @@
 /area/constructionsite/hallway/center)
 "ci" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -838,10 +653,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
 "ck" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 32
-	},
+/obj/machinery/alarm/monitor/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/center)
 "cl" = (
@@ -859,8 +671,7 @@
 "ct" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -868,8 +679,6 @@
 /area/ruin/space/engiestation/solars)
 "cu" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -878,8 +687,7 @@
 "cv" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -887,13 +695,9 @@
 /area/ruin/space/engiestation/solars)
 "cw" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -902,7 +706,6 @@
 "cx" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -916,23 +719,15 @@
 "cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/center)
 "cA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -940,18 +735,12 @@
 /area/ruin/space/engiestation/solars)
 "cB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -972,11 +761,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
@@ -990,14 +775,9 @@
 "cK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-bcircuit";
 	icon_state = "bcircuit"
 	},
 /area/constructionsite/ai)
@@ -1034,8 +814,6 @@
 "cY" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -1060,7 +838,6 @@
 "dd" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1076,10 +853,7 @@
 /area/ruin/space/engiestation)
 "df" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
@@ -1090,9 +864,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	icon_state = "0-2"
 	},
 /obj/machinery/power/solar_control/autostart{
 	name = "Engineering Outpost Solar Control"
@@ -1121,7 +893,6 @@
 /area/ruin/space/engiestation)
 "dk" = (
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
 	icon_state = "tube1";
 	dir = 1
 	},
@@ -1150,11 +921,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
@@ -1164,13 +931,9 @@
 /area/constructionsite/ai)
 "dp" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -1178,19 +941,12 @@
 /area/ruin/space/engiestation/solars)
 "dq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -1199,23 +955,15 @@
 "ds" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation/solars)
 "dt" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1224,30 +972,19 @@
 /area/ruin/space/engiestation)
 "du" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
 "dv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -1256,35 +993,22 @@
 /area/ruin/space/engiestation)
 "dw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
 "dx" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
@@ -1292,33 +1016,22 @@
 /area/ruin/space/engiestation)
 "dy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/ruin/space/engiestation/solars)
 "dA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
@@ -1375,28 +1088,13 @@
 /area/ruin/space/engiestation)
 "dH" = (
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-gcircuit";
-	icon_state = "gcircuit"
-	},
-/area/constructionsite/ai)
-"dI" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel/airless{
-	tag = "icon-gcircuit";
 	icon_state = "gcircuit"
 	},
 /area/constructionsite/ai)
 "dJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
@@ -1415,9 +1113,7 @@
 /area/ruin/space/engiestation)
 "dM" = (
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 0
+	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
 	input_attempt = 1;
@@ -1441,8 +1137,6 @@
 /area/ruin/space/engiestation)
 "dO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1464,11 +1158,7 @@
 	initialize_directions = 11
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
@@ -1480,8 +1170,6 @@
 /area/constructionsite/ai)
 "dS" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -1489,14 +1177,9 @@
 /area/ruin/space/engiestation/solars)
 "dT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -1504,10 +1187,7 @@
 /area/ruin/space/engiestation/solars)
 "dV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
@@ -1538,8 +1218,6 @@
 /area/ruin/space/engiestation)
 "dZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1548,15 +1226,10 @@
 /area/ruin/space/engiestation)
 "ea" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -1644,7 +1317,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-gcircuit";
 	icon_state = "gcircuit"
 	},
 /area/constructionsite/ai)
@@ -1653,30 +1325,21 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-gcircuit";
 	icon_state = "gcircuit"
 	},
 /area/constructionsite/ai)
 "ej" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "Engineering Outpost APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
 	},
 /area/ruin/space/engiestation)
 "ek" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
@@ -1684,10 +1347,7 @@
 /area/ruin/space/engiestation)
 "el" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
@@ -1696,6 +1356,7 @@
 	pixel_x = 0;
 	pixel_y = -32
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
 	},
@@ -1721,7 +1382,6 @@
 /area/constructionsite/ai)
 "eq" = (
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-bcircuit";
 	icon_state = "bcircuit"
 	},
 /area/constructionsite/ai)
@@ -1734,7 +1394,6 @@
 /area/constructionsite/ai)
 "et" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(0);
 	req_one_access = list(10, 24)
 	},
 /turf/simulated/floor/plasteel{
@@ -1783,13 +1442,10 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eA" = (
-/obj/item/kirbyplants,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1797,6 +1453,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
+/obj/item/kirbyplants/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eB" = (
@@ -1814,7 +1471,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eD" = (
-/obj/merge_conflict_marker,
+/obj/machinery/computer/shuttle/engineering{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eE" = (
@@ -1822,13 +1481,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/engiestation)
-"eF" = (
 /obj/machinery/floodlight,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eG" = (
@@ -1841,7 +1494,6 @@
 "eH" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
-	req_access = list(0);
 	req_one_access = list(10, 24)
 	},
 /turf/simulated/floor/plasteel,
@@ -1901,13 +1553,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eQ" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28;
-	pixel_y = 0;
-	req_access = list(0)
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eR" = (
@@ -1917,10 +1563,7 @@
 "eS" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
@@ -2017,7 +1660,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/medium,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fo" = (
@@ -2044,8 +1687,7 @@
 /area/ruin/space/engiestation)
 "ft" = (
 /obj/machinery/door/airlock{
-	name = "Restroom";
-	req_access = list(0)
+	name = "Restroom"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
@@ -2060,7 +1702,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fw" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/engiestation)
 "fx" = (
@@ -2076,37 +1718,20 @@
 /area/ruin/space/engiestation)
 "fz" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
 "fA" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless{
-	tag = "icon-bcircuit";
 	icon_state = "bcircuit"
 	},
 /area/constructionsite/ai)
@@ -2115,10 +1740,8 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/engiestation)
 "fC" = (
-/obj/structure/toilet{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2133,11 +1756,11 @@
 	},
 /area/ruin/space/engiestation)
 "fF" = (
-/obj/item/kirbyplants,
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
+/obj/item/kirbyplants/medium,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2151,11 +1774,7 @@
 /area/ruin/space/engiestation)
 "fH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/highsecurity{
@@ -2182,8 +1801,7 @@
 	},
 /obj/structure/window/reinforced/tinted{
 	dir = 4;
-	icon_state = "twindow";
-	tag = ""
+	icon_state = "twindow"
 	},
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
@@ -2191,12 +1809,7 @@
 	},
 /area/ruin/space/engiestation)
 "fK" = (
-/obj/structure/sink{
-	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2212,9 +1825,7 @@
 "fN" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/obj/structure/sign/poster/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/random/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/engiestation)
 "fO" = (
@@ -2249,14 +1860,9 @@
 /turf/space,
 /area/space/nearstation)
 "fS" = (
-/obj/machinery/shower{
-	dir = 4;
-	icon_state = "shower";
-	pixel_x = 5;
-	tag = "icon-shower (EAST)"
-	},
 /obj/structure/curtain/open/shower/engineering,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2301,13 +1907,11 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_stairs";
 	icon_state = "stage_stairs"
 	},
 /area/ruin/space/engiestation)
 "fY" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_stairs";
 	icon_state = "stage_stairs"
 	},
 /area/ruin/space/engiestation)
@@ -2365,15 +1969,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "gi" = (
-/obj/structure/sink{
-	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
-	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "gj" = (
@@ -2433,7 +2029,6 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "engineering_away";
 	name = "Engineering Dock Airlock";
-	req_access = list(0);
 	req_one_access = list(10, 24)
 	},
 /obj/structure/fans/tiny,
@@ -2457,11 +2052,7 @@
 /area/constructionsite/hallway/engcore)
 "gw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/public/glass,
@@ -2478,18 +2069,12 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/engcore)
 "gz" = (
-/obj/machinery/alarm/monitor{
-	pixel_y = 23
-	},
+/obj/machinery/alarm/monitor/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/engcore)
 "gA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
@@ -2513,15 +2098,12 @@
 	id_tag = "s_docking_airlock";
 	name = "Engineering Shuttle Airlock"
 	},
+/obj/docking_port/mobile/engineering,
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
 "gD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -2579,42 +2161,23 @@
 /area/constructionsite/medical)
 "gO" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/engcore)
 "gP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/engcore)
 "gQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
@@ -2627,9 +2190,7 @@
 /area/constructionsite/hallway/aft)
 "gT" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "";
 	name = "Medbay";
-	req_access = list(0);
 	req_one_access = list(65, 5)
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -2644,56 +2205,34 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/atmospherics)
 "gW" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 32
-	},
+/obj/machinery/alarm/monitor/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/medical)
 "gX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/engcore)
 "gY" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "tile_white_standard"
 	},
 /area/constructionsite/medical)
 "gZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/medical)
 "ha" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "tile_white_standard"
@@ -2701,36 +2240,23 @@
 /area/constructionsite/medical)
 "hb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/wall,
 /area/constructionsite/medical)
 "hc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/engcore)
 "hd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/engcore)
@@ -2771,11 +2297,7 @@
 /area/constructionsite/hallway/engcore)
 "hk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -2827,9 +2349,7 @@
 /area/constructionsite/medical)
 "hs" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "";
 	name = "Medbay";
-	req_access = list(0);
 	req_one_access = list(65, 5)
 	},
 /turf/simulated/floor/plating/airless,
@@ -2971,18 +2491,9 @@
 /area/constructionsite/hallway/aft)
 "hM" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/atmospherics)
 "hN" = (
@@ -3024,15 +2535,9 @@
 /area/constructionsite/atmospherics)
 "hS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3044,19 +2549,13 @@
 	req_access = list(24)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/atmospherics)
 "hU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/atmospherics)
@@ -3176,9 +2675,7 @@
 	},
 /area/constructionsite/atmospherics)
 "ik" = (
-/obj/machinery/alarm/monitor{
-	pixel_y = -32
-	},
+/obj/machinery/alarm/monitor/directional/south,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/atmospherics)
 "il" = (
@@ -3243,22 +2740,14 @@
 /area/constructionsite/atmospherics)
 "is" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/aft)
 "it" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating/airless,
@@ -3286,11 +2775,7 @@
 /turf/simulated/wall,
 /area/constructionsite/storage)
 "iA" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_x = -32;
-	pixel_y = 0
-	},
+/obj/machinery/alarm/monitor/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/aft)
 "iB" = (
@@ -3299,32 +2784,17 @@
 /area/constructionsite/storage)
 "iC" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/aft)
 "iD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -3336,11 +2806,7 @@
 	level = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/aft)
@@ -3366,53 +2832,30 @@
 /area/constructionsite/storage)
 "iJ" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	start_charge = 0
-	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/storage)
 "iK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/storage)
 "iL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/hallway/aft)
 "iM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/storage)
@@ -3428,11 +2871,7 @@
 /area/constructionsite/hallway/aft)
 "iP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/public/glass,
@@ -3441,10 +2880,7 @@
 "iQ" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/aft)
@@ -3459,11 +2895,7 @@
 	level = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/hallway/aft)
@@ -3486,11 +2918,7 @@
 /area/constructionsite/engineering)
 "iX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/engineering/glass,
@@ -3505,63 +2933,29 @@
 /area/constructionsite/engineering)
 "ja" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "jb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "jc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
-	},
-/turf/simulated/floor/plating/airless,
-/area/constructionsite/engineering)
-"jd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "je" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
-/turf/simulated/floor/plating/airless,
-/area/constructionsite/engineering)
-"jf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
@@ -3571,15 +2965,9 @@
 /area/constructionsite/engineering)
 "ji" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3587,7 +2975,6 @@
 "jj" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3649,17 +3036,10 @@
 /area/solar/constructionsite)
 "jD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
@@ -3669,46 +3049,25 @@
 /area/constructionsite/engineering)
 "jF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "jG" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/plating/airless,
-/area/constructionsite/engineering)
-"jH" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "jL" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -3729,7 +3088,6 @@
 "jR" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -3738,30 +3096,19 @@
 /area/solar/constructionsite)
 "jS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/constructionsite)
 "jT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
@@ -3770,10 +3117,7 @@
 "jU" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
@@ -3783,8 +3127,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3818,45 +3160,31 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "ka" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/constructionsite)
 "kc" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/tracker,
@@ -3869,7 +3197,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
 "kg" = (
 /obj/machinery/power/solar,
 /obj/structure/cable,
@@ -3885,21 +3213,15 @@
 /area/constructionsite/engineering)
 "ki" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kj" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -3913,10 +3235,7 @@
 /area/constructionsite/engineering)
 "kn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable,
 /obj/machinery/power/solar_control,
@@ -3924,57 +3243,37 @@
 /area/constructionsite/engineering)
 "ko" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "ks" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable,
 /obj/machinery/power/solar_control,
@@ -3985,30 +3284,17 @@
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kw" = (
-/obj/machinery/power/apc/off_station{
-	dir = 8;
-	locked = 0;
-	name = "Construction Site APC";
-	operating = 0;
-	pixel_x = -24;
-	pixel_y = 0;
-	shock_proof = 1
-	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/off_station/directional/west,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kx" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4018,27 +3304,17 @@
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kz" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_x = 32;
-	pixel_y = 0
-	},
+/obj/machinery/alarm/monitor/directional/east,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kB" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4046,8 +3322,6 @@
 "kC" = (
 /obj/machinery/particle_accelerator/control_box,
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4059,23 +3333,18 @@
 "kE" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kF" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kG" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4107,50 +3376,36 @@
 	outputting = 0
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kN" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kO" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kP" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kQ" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4158,8 +3413,6 @@
 "kR" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4172,47 +3425,33 @@
 /area/constructionsite/engineering)
 "kT" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kU" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kV" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "kW" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4230,13 +3469,9 @@
 /area/constructionsite/engineering)
 "kZ" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4248,8 +3483,6 @@
 	state = 2
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4291,20 +3524,15 @@
 	state = 2
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "lg" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4326,8 +3554,6 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4340,7 +3566,6 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4400,21 +3625,15 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "lv" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4432,7 +3651,6 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4442,57 +3660,42 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "lA" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "lB" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
 "lC" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 0;
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4568,40 +3771,41 @@
 "nY" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/space)
+/area/shuttle/engineering)
 "qJ" = (
+/obj/machinery/computer/shuttle/engineering{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/area/shuttle/engineering)
 "sT" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
 "uW" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/shuttle/engineering)
+"vp" = (
+/obj/machinery/alarm/monitor/directional/north,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "gcircuit"
+	},
+/area/constructionsite/ai)
 "zH" = (
 /obj/structure/lattice,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
-"CY" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/space)
 "Ng" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/area/shuttle/engineering)
 "OY" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -4614,11 +3818,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/shuttle/engineering)
 "Ri" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
 "Vt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -4630,10 +3834,10 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/area/shuttle/engineering)
 "XL" = (
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
 
 (1,1,1) = {"
 aa
@@ -15025,7 +14229,7 @@ fk
 cC
 cC
 cC
-fB
+cC
 cC
 ge
 aa
@@ -16302,10 +15506,10 @@ dL
 dW
 ek
 da
-dj
 eO
 eV
 eW
+dj
 eK
 da
 da
@@ -16560,9 +15764,9 @@ dO
 el
 da
 eE
-eO
 eV
 eW
+dj
 dj
 fu
 fG
@@ -16817,9 +16021,9 @@ dY
 cR
 da
 ev
-eF
 eP
 fd
+dj
 dj
 dj
 dj
@@ -17605,8 +16809,8 @@ da
 da
 da
 OY
-CY
-CY
+Ng
+Ng
 Ng
 OY
 aa
@@ -43888,7 +43092,7 @@ iU
 iZ
 iZ
 iU
-jd
+jb
 kh
 iZ
 kv
@@ -44403,7 +43607,7 @@ iZ
 iZ
 iZ
 je
-jf
+ka
 kn
 iZ
 jq
@@ -44918,7 +44122,7 @@ iZ
 iZ
 iZ
 iZ
-jd
+jb
 iZ
 iZ
 iZ
@@ -45432,7 +44636,7 @@ ja
 jN
 jV
 ki
-jd
+jb
 kw
 kE
 iZ
@@ -45595,7 +44799,7 @@ cD
 cD
 cD
 cD
-dH
+vp
 dH
 dH
 cJ
@@ -45679,12 +44883,12 @@ hv
 hl
 iV
 ja
-jf
-jf
+ka
+ka
 ji
-jf
-jf
-jf
+ka
+ka
+ka
 jD
 jN
 jV
@@ -45852,7 +45056,7 @@ cJ
 cV
 cJ
 lF
-dI
+dH
 cJ
 cJ
 cJ
@@ -45946,7 +45150,7 @@ jE
 iV
 jW
 iZ
-jd
+jb
 iZ
 kC
 iZ
@@ -46203,7 +45407,7 @@ jg
 jg
 jX
 iZ
-jd
+jb
 ky
 kD
 kH
@@ -46449,7 +45653,7 @@ hl
 hl
 hl
 iW
-jd
+jb
 iZ
 iZ
 jl
@@ -46460,7 +45664,7 @@ jE
 iV
 jY
 iZ
-jd
+jb
 iZ
 iZ
 iZ
@@ -46707,16 +45911,16 @@ iN
 hl
 iV
 je
-jf
-jf
-jf
-jf
-jf
-jf
+ka
+ka
+ka
+ka
+ka
+ka
 jF
 jN
 jZ
-jf
+ka
 kp
 iZ
 iZ
@@ -46973,7 +46177,7 @@ iZ
 jG
 jN
 jZ
-jf
+ka
 kq
 kz
 iZ
@@ -47227,7 +46431,7 @@ jm
 jm
 jm
 iZ
-jd
+jb
 iZ
 iZ
 iZ
@@ -47484,8 +46688,8 @@ jn
 jn
 jn
 iZ
-jH
-jf
+je
+ka
 ka
 ka
 kr
@@ -47745,7 +46949,7 @@ iZ
 iZ
 iZ
 iZ
-jd
+jb
 iZ
 iZ
 iZ
@@ -48001,7 +47205,7 @@ iZ
 iZ
 iZ
 ja
-jf
+ka
 ks
 iZ
 jr
@@ -48514,7 +47718,7 @@ iU
 iZ
 iZ
 iU
-jd
+jb
 kk
 iZ
 kv

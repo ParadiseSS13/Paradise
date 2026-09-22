@@ -170,6 +170,9 @@
 	if(!mapload)
 		register()
 
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
@@ -181,9 +184,6 @@
 	if(name == "dock")
 		name = "dock[length(SSshuttle.stationary_docking_ports)]"
 
-	#ifdef DOCKING_PORT_HIGHLIGHT
-	highlight("#f00")
-	#endif
 	return 1
 
 //returns first-found touching shuttleport
@@ -262,10 +262,6 @@
 		areaInstance.name = name
 		areaInstance.contents += return_ordered_turfs()
 
-	#ifdef DOCKING_PORT_HIGHLIGHT
-	highlight("#0f0")
-	#endif
-
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -275,6 +271,20 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
+
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/docking_port/LateInitialize()
+	. = ..()
+	#ifdef DOCKING_PORT_HIGHLIGHT
+	if(istype(src, /obj/docking_port/stationary))
+		highlight("#f00")
+
+	if(istype(src, /obj/docking_port/mobile))
+		highlight("#0f0")
+	#endif
+
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
@@ -849,7 +859,7 @@
 	port_direction = EAST
 
 /obj/docking_port/mobile/engineering
-	dir = WEST
+	dir = SOUTH
 	dwidth = 3
 	height = 5
 	id = "engineering"
@@ -858,6 +868,7 @@
 	width = 7
 	uses_lockdown = TRUE
 	port_direction = SOUTH
+	preferred_direction = SOUTH // Yes it flies west but the port is aligned south so we dont want to rotate it
 
 /obj/docking_port/mobile/specops
 	dir = WEST
@@ -1169,8 +1180,6 @@
 	possible_destinations = "trader_away;trader_home"
 	shuttleId = "trader"
 
-//#undef DOCKING_PORT_HIGHLIGHT
-
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type, keep_icon = FALSE)
@@ -1190,3 +1199,5 @@
 		T.setDir(dir)
 	TransferComponents(T)
 	return T
+
+//#undef DOCKING_PORT_HIGHLIGHT
