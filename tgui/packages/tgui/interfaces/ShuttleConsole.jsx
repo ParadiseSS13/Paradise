@@ -42,9 +42,11 @@ export const ShuttleConsole = (props) => {
                           icon="exclamation-circle"
                           content="Request Authorization"
                           disabled={!s.status}
-                          onClick={() => act('request', {
-                            shuttle: s.shuttle_id,
-                          })}
+                          onClick={() =>
+                            act('request', {
+                              shuttle: s.shuttle_id,
+                            })
+                          }
                         />
                       </LabeledList.Item>
                     )}
