@@ -1120,12 +1120,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/space_outpost/life_support)
-"UJ" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = -32
-	},
-/turf/space,
-/area/space)
 "Vd" = (
 /obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/tiles/white/corner{
@@ -10532,7 +10526,7 @@ so
 so
 so
 so
-UJ
+so
 so
 so
 ol
