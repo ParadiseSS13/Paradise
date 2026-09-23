@@ -38,6 +38,9 @@ If you want to add a new point type, look at SSResearch.
 	/// Total research points we've generated in this research datum
 	var/list/total_points = list()
 
+	/// Subtypes of slimes we have scanned, in colors.
+	var/list/scanned_slimes = list()
+
 /datum/research/New()
 	// MON DIEU!!! - Im not even gonna question why this monologue is here, or why the french wrote our original research.
 	// These are semi-global, but not TOTALLY global?

@@ -453,38 +453,65 @@
 			if(stat == CONSCIOUS)
 				say (pick(phrases))
 
-/mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
+/mob/living/simple_animal/slime/proc/get_mutation_chances()
+	var/mutation_chances
+	if(slime_mutation[4] == colour)
+		mutation_chances += "<b>This slime does not evolve any further.</b>"
+	else
+		if(slime_mutation[3] == slime_mutation[4])
+			if(slime_mutation[2] == slime_mutation[1])
+				mutation_chances += "<b>Possible mutation:</b> [slime_mutation[3]]"
+			else
+				mutation_chances += "<b>Possible mutation:</b> [slime_mutation[1]], [slime_mutation[2]], [slime_mutation[3]] (x2)"
+		else
+			mutation_chances += "<b>Possible mutation:</b> [slime_mutation[1]], [slime_mutation[2]], [slime_mutation[3]], [slime_mutation[4]]"
+	return mutation_chances
+
+/// Can't go above it.
+/mob/living/simple_animal/slime/proc/get_max_nutrition()
 	if(is_adult)
 		return 1200
 	else
 		return 1000
 
-/mob/living/simple_animal/slime/proc/get_grow_nutrition() // Above it we grow, below it we can eat
+/// Above it we grow, below it we can eat.
+/mob/living/simple_animal/slime/proc/get_grow_nutrition()
 	if(is_adult)
 		return 1000
 	else
 		return 800
 
-/mob/living/simple_animal/slime/proc/get_hunger_nutrition() // Below it we will always eat
+/// Returns Satiated, Hungry or Starving depending on nutrition.
+/mob/living/simple_animal/slime/proc/get_nutrition_status()
+	if(nutrition <= get_starve_nutrition())
+		return "Starving"
+	if(nutrition <= get_hunger_nutrition())
+		return "Hungry"
+	return "Satiated"
+
+/// Below it we will always eat.
+/mob/living/simple_animal/slime/proc/get_hunger_nutrition()
 	if(is_adult)
 		return 600
 	else
 		return 500
 
-/mob/living/simple_animal/slime/proc/get_starve_nutrition() // Below it we will eat before everything else
+/// Below it we will eat before everything else.
+/mob/living/simple_animal/slime/proc/get_starve_nutrition()
 	if(is_adult)
 		return 300
 	else
 		return 200
 
-/mob/living/simple_animal/slime/proc/will_hunt(hunger = -1) // Check for being stopped from feeding and chasing
+/// Check for being stopped from feeding and chasing.
+/mob/living/simple_animal/slime/proc/will_hunt(hunger = -1)
 	if(docile)
 		return FALSE
 	if(hunger == 2 || rabid || attacked)
 		return TRUE
 	return TRUE
 
-// Handles xeno organ processing, and turns the unidentified organs into the true organ type.
+/// Handles xeno organ processing, and turns the unidentified organs into the true organ type.
 /mob/living/simple_animal/slime/proc/handle_organs()
 	if(!holding_organ)
 		return

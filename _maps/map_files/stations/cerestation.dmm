@@ -68407,7 +68407,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -90752,7 +90752,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{

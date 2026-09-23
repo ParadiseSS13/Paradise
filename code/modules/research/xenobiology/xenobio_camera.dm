@@ -26,10 +26,23 @@
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/machinery/monkey_recycler/connected_recycler
 
+	/// ID to autolink to, used in mapload
+	var/autolink_id = null // MIXTODO - Should probably add xenobio console to rnd network controller data.
+	/// UID of the network that we use
+	var/network_manager_uid = null
+
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
 	if(!connected_recycler)
 		locate_recycler()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/camera_advanced/xenobio/LateInitialize()
+	. = ..()
+	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		if(RNC.network_name == autolink_id)
+			network_manager_uid = RNC.UID()
+			RNC.servers += UID()
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/eye/xenobio(loc, name, src, current_user)
@@ -187,6 +200,21 @@
 		connected_recycler = M.buffer
 		connected_recycler.connected += src
 		to_chat(user, SPAN_NOTICE("You link [src] to the recycler stored in [M]'s buffer."))
+	if(!network_manager_uid)
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+			if(atoms_share_level(RNC, src))
+				controllers[RNC.network_name] = RNC
+		var/choice = tgui_input_list(user, "Select a research network", "Server Linking", controllers)
+		if(!choice)
+			return
+		var/server_password = tgui_input_text(usr, "Please enter network password","Password Entry")
+		var/obj/machinery/computer/rnd_network_controller/RNC2 = controllers[choice]
+		if(server_password == RNC2.network_password)
+			network_manager_uid = RNC2.UID()
+			to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[RNC2.network_name]</b>."))
+		else
+			to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 
 // === SLIME ACTION DATUMS ====
 /datum/action/innate/slime_place
@@ -396,7 +424,7 @@
 	var/mob/camera/eye/xenobio/E = C.remote_control
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		slime_scan(S, C)
+		slime_scan(S, C, network_manager_uid)
 
 //Feeds a potion to slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickAlt(mob/living/user, mob/living/simple_animal/slime/S)
@@ -504,3 +532,6 @@
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)
+
+/obj/machinery/computer/camera_advanced/xenobio/station
+	autolink_id = "station_rnd"

@@ -180,7 +180,37 @@ SLIME SCANNER
 		return
 	slime_scan(M, user)
 
-/proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
+// While this being a global proc greatly pains me it works.
+/proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user, network_manager_uid)
+	var/list/scan_output = list()
+
+	scan_output.Insert(1,
+		"<b>Slime scan results:</b> [T.colour] [T.is_adult ? "adult" : "baby"] slime ",
+		"",
+		"<b>Nutrition:</b> [T.nutrition] / [T.get_max_nutrition()] - [T.get_nutrition_status()]",
+		"<b>Electric change strength:</b> [T.powerlevel]",
+		"<b>Health:</b> [round(T.health/T.maxHealth,0.01)*100]%",
+		"",
+		"[T.get_mutation_chances()]",
+		"<b>Genetic instability:</b> [T.mutation_chance]% chance of mutation on splitting",
+		"<b>Growth progress:</b> [T.amount_grown] / [SLIME_EVOLUTION_THRESHOLD]",
+	)
+	if(network_manager_uid)
+		var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+		if(!(T.colour in RNC.research_files.scanned_slimes))
+			var/list/temp_value = T.point_value
+			for(var/r in temp_value)
+				temp_value[r] *= T.slime_colours[T.colour]
+				scan_output.Add("[temp_value[r]] [r] points awarded for new slime scan.")
+			RNC.research_files.scanned_slimes += T.colour
+			RNC.research_files.addpoints(temp_value)
+		else
+			scan_output.Add("No points awarded, slime type has already been scanned.")
+	else
+		scan_output.Add("No connected research server, cannot award points.")
+
+	to_chat(user, chat_box_notice(scan_output.Join("<br>")))
+/*
 	to_chat(user, "========================")
 	to_chat(user, "<b>Slime scan results:</b>")
 	to_chat(user, SPAN_NOTICE("[T.colour] [T.is_adult ? "adult" : "baby"] slime"))
@@ -211,3 +241,4 @@ SLIME SCANNER
 		to_chat(user, SPAN_NOTICE("Core mutation in progress: [T.effectmod]"))
 		to_chat(user, SPAN_NOTICE("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]"))
 	to_chat(user, "========================")
+*/

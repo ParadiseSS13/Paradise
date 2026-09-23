@@ -51279,7 +51279,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "kjj" = (
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -116074,7 +116074,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "xeq" = (
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/side{

@@ -38015,7 +38015,7 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -64572,7 +64572,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/secondary)
 "krj" = (
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /obj/machinery/light{

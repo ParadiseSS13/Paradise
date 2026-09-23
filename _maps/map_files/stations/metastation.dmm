@@ -41700,7 +41700,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/bridge)
 "hDF" = (
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -65045,7 +65045,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "pji" = (
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/side,

@@ -64480,7 +64480,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science,
@@ -82198,7 +82198,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "umH" = (
-/obj/machinery/computer/camera_advanced/xenobio{
+/obj/machinery/computer/camera_advanced/xenobio/station{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science,

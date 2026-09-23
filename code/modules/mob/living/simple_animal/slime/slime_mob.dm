@@ -64,12 +64,14 @@
 	var/Discipline = 0
 	/// Stun variable
 	var/SStun = 0
-	// does this slime have a xeno organ inserted into it already?
+	/// Does this slime have a xeno organ inserted into it already?
 	var/obj/item/xeno_organ/holding_organ
-	// An elevated form of discipline. Is this slime trained and ready to begin organ therapy?
+	/// An elevated form of discipline. Is this slime trained and ready to begin organ therapy?
 	var/trained = FALSE
-	// how far along in the organ processing are we
+	/// How far along in the organ processing are we.
 	var/organ_progress = 0
+	/// Research points we get for scanning this slime.
+	var/list/point_value = list("Research" = 100)
 
 	///////////TIME FOR SUBSPECIES
 
@@ -77,10 +79,11 @@
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
 
-	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
-	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
-	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
-	"cerulean", "sepia", "black", "pyrite")
+	/// All possible colours with their research point multiplier.
+	var/static/list/slime_colours = list("rainbow" = 32, "grey" = 1, "purple" = 2, "metal" = 2, "orange" = 2,
+	"blue" = 2, "dark blue" = 4, "dark purple" = 4, "yellow" = 4, "silver" = 4, "pink" = 8, "red" = 8,
+	"gold" = 8, "green" = 8, "adamantine" = 16, "oil" = 16, "light pink" = 16, "bluespace" = 16,
+	"cerulean" = 16, "sepia" = 16, "black" = 16, "pyrite" = 16)
 
 	///////////CORE-CROSSING CODE
 
