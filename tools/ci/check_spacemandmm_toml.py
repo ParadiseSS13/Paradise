@@ -13,7 +13,7 @@ BLUE = "\033[0;34m"
 NC = "\033[0m"  # No Color
 
 
-def format_error(source_loc: SourceLoc | Path, message):
+def error(source_loc: SourceLoc | Path, message):
     if isinstance(source_loc, SourceLoc):
         if os.getenv("GITHUB_ACTIONS") == "true":
             return f"::error file={source_loc.file_path},line={source_loc.line},title=SpacemanDMM TOML::{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
@@ -31,40 +31,49 @@ TOML_CHECK_KEYS = (
     ("map_renderer", "fancy_layers"),
 )
 
+
+# Descend into a nested dictionary based on the names in the given 'key_path'
+# iterable. Return None if at any point, a nested key doesn't exist.
+def get_nested_key(data, key_path):
+    key = data
+    for name in key_path:
+        key = key.get(name)
+        if key is None:
+            return
+
+    return key
+
+
+# Check all known paths against the paths in a given nested key in the config.
+def check_nested_key(config, key_path, all_paths):
+    result = []
+    data = get_nested_key(config, key_path)
+    if data:
+        paths = [p(path) for path in data]
+        for path in paths:
+            if path not in all_paths:
+                result += [error("SpacemanDMM.toml", f"{path} doesn't exist in DME")]
+    else:
+        result += [error(__file__, f"invalid key-path {key_path}")]
+
+    return result
+
+
 if __name__ == "__main__":
     print("check_spacemandmm_toml started")
 
-    exit_code = 0
     start = time.time()
 
     errors = []
 
-    config = tomllib.load(open("SpacemanDMM.toml", "rb"))
+    with open("SpacemanDMM.toml", "rb") as f:
+        config = tomllib.load(f)
+
     dme = DME.from_file("paradise.dme")
     all_paths = set(dme.typesof("/"))
 
     for key_path in TOML_CHECK_KEYS:
-        found_data = True
-        data = config
-        for name in key_path:
-            data = data.get(name)
-            if data is None:
-                found_data = False
-                print(f"no config keys at {key_path} exist")
-                break
-        if not found_data:
-            continue
-
-        missing_paths = set()
-        paths = [p(path) for path in data]
-        for path in paths:
-            if path not in all_paths:
-                exit_code = 1
-                errors.append(
-                    format_error(
-                        "SpacemanDMM.toml", f"path {path} does not exist in DME"
-                    )
-                )
+        errors.extend(check_nested_key(config, key_path, all_paths))
 
     end = time.time()
 
@@ -73,4 +82,5 @@ if __name__ == "__main__":
 
     print(f"check_spacemandmm_toml tests completed in {end - start:.2f}s\n")
 
-    sys.exit(exit_code)
+    if errors:
+        sys.exit(1)
