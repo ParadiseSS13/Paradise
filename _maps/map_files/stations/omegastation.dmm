@@ -42567,7 +42567,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "rba" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "rbu" = (
 /obj/structure/cable/extra_insulated{
