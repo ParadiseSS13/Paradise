@@ -21,6 +21,7 @@
 			user.big_voice = 1
 			user.say(say_message)
 			user.big_voice = 0
+			user.client.give_award(/datum/award/achievement/misc/loudmouth, user)
 		else
 			user.say(say_message)
 			cooldown_handler.start_recharge()
