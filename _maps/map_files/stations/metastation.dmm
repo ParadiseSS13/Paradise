@@ -19901,8 +19901,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "cmn" = (
-/obj/machinery/door/morgue/manual_rotation{
-	name = "Confession Booth (Chaplain)"
+/obj/machinery/door/morgue{
+	name = "Confession Booth (Chaplain)";
+	req_access = list(22)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
@@ -20849,7 +20850,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos)
 "cqY" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Study #1"
 	},
 /turf/simulated/floor/wood,
@@ -21552,7 +21553,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "cuz" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Study #2"
 	},
 /turf/simulated/floor/wood,
@@ -70334,7 +70335,7 @@
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "qVA" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
