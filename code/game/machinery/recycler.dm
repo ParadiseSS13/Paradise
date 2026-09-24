@@ -94,6 +94,8 @@
 			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, SPAN_NOTICE("You use the jestographic sequencer on [src]."))
+		if(HAS_CONNECTED_PLAYER(user))
+			user.client.give_award(/datum/award/achievement/misc/cmag_recycler, user)
 		return TRUE
 
 /obj/machinery/recycler/emag_act(mob/user)

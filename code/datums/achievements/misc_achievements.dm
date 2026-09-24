@@ -76,3 +76,38 @@
 	desc = "Those tickets can be used for SO much!"
 	database_id = MEDAL_ARCADE_WIN
 	icon_state = "arcade_win"
+
+/datum/award/achievement/misc/depot_self_destruct
+	name = "Going Out With a Bang"
+	desc = "Escalate the Syndicate Depot to Code Red and watch it self-destruct."
+	database_id = MEDAL_DEPOT_SELF_DESTRUCT
+
+/datum/award/achievement/misc/cmag_recycler
+	name = "Reduce, Reuse, Recycle"
+	desc = "Use a cmag on a recycler. Honk!"
+	database_id = MEDAL_CMAG_RECYCLER
+
+/datum/award/achievement/misc/swarmer_teleport
+	name = "They're gonna eat RnD!"
+	desc = "Something tells me being tied up and teleported away isn't stopping them."
+	database_id = MEDAL_SWARMER_TELEPORT
+
+/datum/award/achievement/misc/ipc_toast
+	name = "The Future Is Toast"
+	desc = "Use an IPC plushie to make toast."
+	database_id = MEDAL_IPC_TOAST
+
+/datum/award/achievement/misc/dark_shard
+	name = "Use a Dark Shard"
+	desc = "Blessed with a kickass katana, you get the feeling you probably shouldn't die..."
+	database_id = MEDAL_DARK_SHARD
+
+/datum/award/achievement/misc/incursion_portal
+	name = "Back to Where You Came"
+	desc = "Send those demons back to their red space by destroying an incursion portal."
+	database_id = MEDAL_INCURSION_PORTAL
+
+/datum/award/achievement/misc/pressurized_pipe
+	name = "Pipe Dream"
+	desc = "Be flung by a pressurized pipe."
+	database_id = MEDAL_PRESSURIZED_PIPE

@@ -1043,6 +1043,11 @@
 
 		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
 		if(.)
+			if(ismob(victim))
+				var/mob/mob_victim = victim
+				var/client/mob_client = mob_victim.client
+				if(mob_client)
+					mob_client.give_award(/datum/award/achievement/misc/vendor_squish, mob_victim)
 			tilted = TRUE
 			anchored = FALSE
 			layer = ABOVE_MOB_LAYER

@@ -10,6 +10,11 @@
 	database_id = MEDAL_SANDMAN
 	icon_state = "basemisc"
 
+/datum/award/achievement/jobs/asclepius_oath
+	name = "First, Do No Harm"
+	desc = "Take the Hippocratic Oath with the Rod of Asclepius."
+	database_id = MEDAL_ASCLEPIUS_OATH
+
 /datum/award/achievement/jobs/helbitaljanken
 	name = "Playing with Death"
 	desc = "You have been cruelly deceived."
@@ -22,6 +27,21 @@
 	desc = "If the rod is immovable, does it pass by you, or do you pass by it?"
 	database_id = MEDAL_RODSUPLEX
 	icon_state = "featofstrength"
+
+/datum/award/achievement/jobs/dna_vault
+	name = "Genetic Insurance"
+	desc = "Genetically modify yourself from a completed DNA Vault."
+	database_id = MEDAL_DNA_VAULT
+
+/datum/award/achievement/jobs/bsa_fire
+	name = "Target Practice"
+	desc = "Fire the Bluespace Artillery."
+	database_id = MEDAL_BSA_FIRE
+
+/datum/award/achievement/jobs/flashlight_eyes
+	name = "You Alone Will Light Up the World, but At What Cost?"
+	desc = "Craft flashlight eyes."
+	database_id = MEDAL_FLASHLIGHT_EYES
 
 // MARK: Supply
 /datum/award/achievement/jobs/rookie_miner

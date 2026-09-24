@@ -150,7 +150,7 @@
 /datum/surgery/proc/complete(mob/living/carbon/human/target)
 	if(ishuman(target))
 		var/datum/status_effect/incapacitating/sleeping/S = target.IsSleeping()
-		if(target.stat == UNCONSCIOUS && !(S?.voluntary) && target == target && target.client)
+		if(target.stat == UNCONSCIOUS && !(S?.voluntary) && HAS_CONNECTED_PLAYER(target))
 			target.client.give_award(/datum/award/achievement/jobs/sandman, target)
 
 	target.surgeries -= src

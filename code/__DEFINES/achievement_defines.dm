@@ -11,6 +11,16 @@
 #define MEDAL_PULSE "Jackpot"
 #define MEDAL_TIMEWASTE "Overextended The Joke"
 #define MEDAL_RODSUPLEX "Feat of Strength"
+#define MEDAL_DNA_VAULT "DNA Vault"
+#define MEDAL_BSA_FIRE "Bluespace Artillery"
+#define MEDAL_CMAG_RECYCLER "CMAG Recycler"
+#define MEDAL_SWARMER_TELEPORT "Swarmer Teleport"
+#define MEDAL_INCURSION_PORTAL "Incursion Portal"
+#define MEDAL_FLASHLIGHT_EYES "Flashlight Eyes"
+#define MEDAL_IPC_TOAST "IPC Toast"
+#define MEDAL_ASCLEPIUS_OATH "Hippocratic Oath"
+#define MEDAL_DARK_SHARD "Dark Shard"
+#define MEDAL_PRESSURIZED_PIPE "Pressurized Pipe"
 #define MEDAL_CLOWNCARKING "Round and Full"
 #define MEDAL_THANKSALOT "The Best Driver"
 #define MEDAL_HELBITALJANKEN "Hel-bent on Winning"
@@ -28,6 +38,7 @@
 #define MEDAL_HEALTHY "Heart Healthy"
 #define MEDAL_DIE "Die"
 #define MEDAL_ARCADE_WIN "Win An Arcade Game"
+#define MEDAL_DEPOT_SELF_DESTRUCT "Depot Self-Destruct"
 
 
 // Job specific hub IDs

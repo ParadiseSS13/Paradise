@@ -24,6 +24,8 @@
 	var/always_available = TRUE
 	/// Will this recipe send an admin message when it's completed.
 	var/alert_admins_on_craft = FALSE
+	/// Achievement type awarded to the crafter on successful completion.
+	var/achievement_type
 
 /datum/crafting_recipe/ied
 	name = "IED"
@@ -542,6 +544,7 @@
 /datum/crafting_recipe/flashlight_eyes
 	name = "Flashlight Eyes"
 	result = list(/obj/item/organ/internal/eyes/cybernetic/flashlight)
+	achievement_type = /datum/award/achievement/jobs/flashlight_eyes
 	time = 10
 	reqs = list(/obj/item/flashlight = 2,
 				/obj/item/restraints/handcuffs/cable = 1)
