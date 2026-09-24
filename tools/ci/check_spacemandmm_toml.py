@@ -46,15 +46,16 @@ def get_nested_key(nested_data, keys):
 
 # Check all known paths against the paths in a given nested key in the config.
 def check_nested_key(config, key_path, all_paths):
-    result = []
     data = get_nested_key(config, key_path)
-    if data:
-        paths = [p(path) for path in data]
-        for path in paths:
-            if path not in all_paths:
-                result += [error("SpacemanDMM.toml", f"{path} doesn't exist in DME")]
-    else:
-        result += [error(__file__, f"invalid key-path {key_path}")]
+
+    if not data:
+        return [error(__file__, f"invalid key-path {key_path}")]
+
+    result = []
+    paths = [p(path) for path in data]
+    for path in paths:
+        if path not in all_paths:
+            result += [error("SpacemanDMM.toml", f"{path} doesn't exist in DME")]
 
     return result
 
