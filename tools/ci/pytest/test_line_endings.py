@@ -24,8 +24,8 @@ def has_newlines(lines: list[bytes]) -> bool:
 			return True
 	return False
 
-# Windows reads these LF files as CRLF anyways
-@pytest.mark.skipif(sys.platform == "win32", reason="Does not run on Windows")
+# git's autocrlf may make this test fail locally for some windows developers, disabled for that reason
+@pytest.mark.skipif(sys.platform == "win32", reason="Inconsistent for Windows developers")
 def test_line_endings(files_to_read: list[Any]):
 	filelist: list[Any] = []
 
