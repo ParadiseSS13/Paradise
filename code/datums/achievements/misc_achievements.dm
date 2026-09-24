@@ -17,7 +17,7 @@
 
 /datum/award/achievement/misc/gamer
 	name = "The Status of My Watchlist is Unimportant"
-	desc = "You may think violent video games are harmless. However, the security personnel and medics armed with batons and transquilizer gas seem to disagree."
+	desc = "You may think violent video games are harmless. However, the security personnel and medics armed with batons and tranquilizer gas seem to disagree."
 	database_id = MEDAL_GAMER
 
 /datum/award/achievement/misc/vendor_squish
@@ -43,7 +43,7 @@
 
 /datum/award/achievement/misc/ascension
 	name = "Ascension"
-	desc = "Slay them, for the He knows those who are his."
+	desc = "Slay them, for He knows those who are his."
 	database_id = MEDAL_ASCENSION
 	icon_state = "ascension"
 

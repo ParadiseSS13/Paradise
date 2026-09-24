@@ -65,7 +65,6 @@ SUBSYSTEM_DEF(achievements)
 		if(!persistent_client.achievements.initialized)
 			persistent_client.achievements.InitializeData()
 
-	return
 
 /datum/controller/subsystem/achievements/Shutdown()
 	save_achievements_to_db()
@@ -88,14 +87,14 @@ SUBSYSTEM_DEF(achievements)
 /datum/controller/subsystem/achievements/proc/update_metadata()
 	var/list/current_metadata = list()
 	//select metadata here
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT achievement_key, achievement_version FROM [format_table_name("achievement_metadata")]")
 	if(!query.Execute(async = TRUE))
 		qdel(query)
 		return
-	else
-		while(query.NextRow())
-			current_metadata[query.item[1]] = text2num(query.item[2])
-		qdel(query)
+
+	while(query.NextRow())
+		current_metadata[query.item[1]] = text2num(query.item[2])
+	qdel(query)
 
 	var/list/to_update = list()
 	for(var/key in awards)
@@ -115,7 +114,7 @@ SUBSYSTEM_DEF(achievements)
 	. = list()
 	var/list/current_metadata = list()
 	// Fetch all keys from the db
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT achievement_key,achievement_version FROM [format_table_name("achievement_metadata")]")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT achievement_key, achievement_version FROM [format_table_name("achievement_metadata")]")
 	if(!query.Execute(async = TRUE))
 		qdel(query)
 		return
