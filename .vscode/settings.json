@@ -1,6 +1,8 @@
 {
 	// ESLint settings:
-	"eslint.workingDirectories": ["tgui/"],
+	"eslint.workingDirectories": [
+		"tgui/"
+	],
 	"eslint.nodePath": "tgui/.yarn/sdks",
 	"prettier.configPath": "tgui/.prettierrc.yml",
 	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
@@ -17,18 +19,21 @@
 		// but it's better to show them as yellow squigglies in IDE
 		// and thus differentiate from the red typescript ones which
 		// are actually hard errors.
-		{ "rule": "*", "severity": "warn" }
+		{
+			"rule": "*",
+			"severity": "warn"
+		}
 	],
-
 	"[javascript][javascriptreact][typescript][typescriptreact][scss][css][html]": {
-		"editor.rulers": [120],
+		"editor.rulers": [
+			120
+		],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
 	"[toml]": {
 		"editor.formatOnSave": false
 	},
-
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
@@ -38,4 +43,11 @@
 		"--ignore-revs-file",
 		"${workspaceRoot}/.git-blame-ignore-revs"
 	],
+	"python.testing.pytestArgs": [
+		"tools/ci/pytest",
+		"--color=yes",
+		"--durations=0"
+	],
+	"python.testing.unittestEnabled": false,
+	"python.testing.pytestEnabled": true,
 }
