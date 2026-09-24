@@ -1,7 +1,8 @@
 from collections import defaultdict
 from pathlib import Path
-import pytest
-from ci_common import Color
+from ci_common import ErrorReporter
+
+reporter = ErrorReporter("Same File Name")
 
 def test_file_names():
     file_name_map: dict[str, list[Path]] = defaultdict(list)
@@ -16,15 +17,10 @@ def test_file_names():
     }
 
     if duplicate_files:
-        message = [
-            "The following files have the same name in multiple places "
-            "in the codebase. Please fix!",
-            "",
-        ]
+        for paths in duplicate_files.values():
+            for path in paths:
+                other_paths = ", ".join([str(other) for other in paths if other != path])
+                reporter.print(f"Identical name to {other_paths}", path)
 
-        for filename, paths in duplicate_files.items():
-            message.append(f">>> {Color.RED}{filename}{Color.NO_COLOR}")
-            message.extend(f"    {path}" for path in paths)
-            message.append("")
+    reporter.END_TEST()
 
-        pytest.fail("\n".join(message), pytrace=False)

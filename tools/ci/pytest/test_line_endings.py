@@ -1,0 +1,44 @@
+# TODO: This file reads the WHOLE codebase, this should be done at the same time as other operations that read the whole codebase, like check_grep2
+
+import glob
+import pytest
+import sys
+from typing import Any
+from ci_common import ErrorReporter
+
+reporter = ErrorReporter("CRLF File")
+WINDOWS_NEWLINE = b'\r\n'
+
+@pytest.fixture
+def files_to_read():
+    files_to_read: list[Any] = []
+    files_to_read.extend(glob.glob(r"**/*.dm", recursive=True))
+    files_to_read.extend(glob.glob(r"**/*.dmm", recursive=True))
+    files_to_read.extend(glob.glob(r"*.dme"))
+
+    yield files_to_read
+
+def has_newlines(lines: list[bytes]) -> bool:
+	for line in lines:
+		if line.endswith(WINDOWS_NEWLINE):
+			return True
+	return False
+
+# Windows reads these LF files as CRLF anyways
+@pytest.mark.skipif(sys.platform == "win32", reason="Does not run on Windows")
+def test_line_endings(files_to_read: list[Any]):
+	filelist: list[Any] = []
+
+	for file in files_to_read:
+		with open(file, "rb") as data:
+			if has_newlines(data.readlines()):
+				filelist.append(file)
+
+	if len(filelist) == 0:
+		print("No CRLF files found.")
+		return reporter.END_TEST()
+
+	for file in filelist:
+		reporter.print("CLRF File", file)
+	reporter.END_TEST(f"Found {reporter.total_errors} files with suspected CRLF type.")
+
