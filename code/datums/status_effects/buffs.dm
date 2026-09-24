@@ -337,7 +337,7 @@
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
+	H.add_hud_to(owner, src)
 	owner.permanent_huds |= H
 	return ..()
 
@@ -345,7 +345,7 @@
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	owner.permanent_huds ^= H
-	H.remove_hud_from(owner)
+	H.remove_hud_from(owner, src)
 
 /datum/status_effect/hippocratic_oath/tick()
 	// Death transforms you into a snake after a short grace period
@@ -516,8 +516,7 @@
 	tolerance += 1
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 	if(freezing)
-		to_chat(owner, "<span class='warning'>Our healing's effectiveness is reduced \
-			by our cold body!</span>")
+		to_chat(owner, SPAN_WARNING("Our healing's effectiveness is reduced by our cold body!"))
 	active_instances += instance_duration
 
 /datum/status_effect/fleshmend/tick()
@@ -654,6 +653,16 @@
 		H.physiology.armor = H.physiology.armor.detachArmor(cleaving_armor_boost)
 		H.physiology.stamina_mod /= 0.5
 	QDEL_NULL(cleaving_armor_boost)
+
+/datum/status_effect/dueling
+	id = "dueling"
+	alert_type = /atom/movable/screen/alert/status_effect/dueling
+	duration = 1 MINUTES
+
+/atom/movable/screen/alert/status_effect/dueling
+	name = "Dueling"
+	desc = SPAN_DANGER("Ten paces, then draw.")
+	icon_state = "dueling"
 
 /datum/status_effect/hope
 	id = "hope"

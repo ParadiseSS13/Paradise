@@ -39,7 +39,7 @@
 		return
 	if(.)
 		return
-	var/num_loaded = magazine.attackby__legacy__attackchain(A, user, params, 1)
+	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
 	if(num_loaded)
 		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]."))
 		A.update_icon()
@@ -131,6 +131,14 @@
 	options["Copper Finish"] = "revolver-copper"
 	options["Fancy"] = "revolver-fancy"
 	options["Rose Gold Finish"] = "revolver-rose"
+
+/// Special revolver found in the vulpkanin ship lavaland ruin
+/obj/item/gun/projectile/revolver/charons_special
+	name = "Charon's Modified Revolver"
+	desc = "A bog-standard service revolver, modified to fire special .32 caliber \"Huntsman\" rounds. The barrel is engraved with a captain's insignia and a pair of wings."
+	icon_state = "charons-special"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/charons_special
+	origin_tech = "combat=6;materials=5"
 
 /// Summoned by the Finger Gun spell, from advanced mimery traitor item
 /obj/item/gun/projectile/revolver/fingergun
@@ -380,6 +388,33 @@
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
 		sling = FALSE
 		update_icon(UPDATE_ICON_STATE)
+
+
+// Dueling Pistols //
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol
+	name = "dueling pistol"
+	desc = "An expensive pistol used for settling disputes."
+	icon_state = "dueling_pistol"
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
+	inhand_icon_state ="pistol"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_BELT
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dueling_pistol
+	unique_reskin = FALSE
+	can_sawoff = FALSE
+	can_holster = TRUE
+
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/AltClick(mob/living/user)
+	. = ..()
+	if(loc != user)
+		return
+	user.apply_status_effect(STATUS_EFFECT_DUELING)
+
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/stack/cable_coil))
+		return
+	else
+		return ..()
 
 //caneshotgun
 

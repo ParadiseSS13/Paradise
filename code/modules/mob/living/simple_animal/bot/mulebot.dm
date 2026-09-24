@@ -138,7 +138,7 @@
 	update_controls()
 	update_icon()
 
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
+/mob/living/simple_animal/bot/mulebot/toggle_lock(mob/user)
 	if(allowed(user))
 		locked = !locked
 		update_controls()

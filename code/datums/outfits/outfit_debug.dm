@@ -1,5 +1,5 @@
 /datum/outfit/admin/debug
-	name = "Debug outfit"
+	name = "Debug Outfit"
 
 	uniform = /obj/item/clothing/under/costume/patriotsuit
 	back = /obj/item/mod/control/pre_equipped/debug
@@ -37,7 +37,7 @@
 		return
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
+		apply_to_card(I, H, get_absolutely_all_accesses(), "Debugger", "admin")
 
 	H.dna.SetSEState(GLOB.breathlessblock, 1)
 	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
@@ -61,9 +61,12 @@
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = 1 // yeah, all channels, sure, probably fine
 
-/obj/item/encryptionkey/syndicate/all_channels/attack_self__legacy__attackchain(mob/user, pickupfireoverride)
+/obj/item/encryptionkey/syndicate/all_channels/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	change_voice = !change_voice
-	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
+	to_chat(user, SPAN_NOTICE("You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
 	var/new_name = tgui_input_text(user, "Enter new fake agent name...", "New name", max_length = MAX_NAME_LEN)

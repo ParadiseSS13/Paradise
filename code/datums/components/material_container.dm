@@ -450,6 +450,16 @@
 	sheet_type = /obj/item/stack/sheet/mineral/iridium
 	ore_type = /obj/item/stack/ore/iridium
 
+/datum/material/gnesis
+	name = "gnesis"
+	id = MAT_GNESIS
+	sheet_type = /obj/item/stack/sheet/gnesis
+
+/datum/material/gnesis_glass
+	name = "translucent gnesis"
+	id = MAT_GNESIS_GLASS
+	sheet_type = /obj/item/stack/sheet/gnesis_glass
+
 /datum/material/bananium
 	name = "Bananium"
 	id = MAT_BANANIUM
@@ -483,3 +493,8 @@
 	name = "Wood"
 	id = MAT_WOOD
 	sheet_type = /obj/item/stack/sheet/wood
+
+/datum/material/cardboard
+	name = "Cardboard"
+	id = MAT_CARDBOARD
+	sheet_type = /obj/item/stack/sheet/cardboard

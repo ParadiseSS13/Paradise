@@ -127,7 +127,8 @@
 			"name" = quirk.name,
 			"desc" = quirk.desc,
 			"cost" = quirk.cost,
-			"path" = quirk.type
+			"path" = quirk.type,
+			"conflicts" = quirk.conflicting_quirks,
 		)
 		GLOB.quirk_paths[quirk.name] = quirk.type // This will let us get the datum of a quirk with just the name later.
 		GLOB.quirk_tgui_info += list(data)
@@ -190,6 +191,8 @@
 	for(var/path in subtypesof(/datum/tech))
 		var/datum/tech/T = path
 		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
+
+	populate_global_drink_lists()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

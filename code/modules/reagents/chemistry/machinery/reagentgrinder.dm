@@ -81,7 +81,15 @@
 		/obj/item/food/grown/bungofruit = list("bungojuice" = 0),
 		/obj/item/food/grown/plum = list("plumjuice" = 0),
 		/obj/item/food/grown/redbeet = list("beetjuice" = 0),
-		/obj/item/food/grown/lettuce = list("lettucejuice" = 0)
+		/obj/item/food/grown/lettuce = list("lettucejuice" = 0),
+		/obj/item/food/grown/agave = list("agave" = 0),
+		/obj/item/food/grown/annona = list("annonajuice" = 0),
+		/obj/item/food/grown/prickly_pear = list("cactusjuice" = 0),
+		/obj/item/food/grown/kiwi = list("kiwijuice" = 0),
+		/obj/item/food/grown/mango = list("mangojuice" = 0),
+		/obj/item/food/grown/nispero = list("nisperojuice" = 0),
+		/obj/item/food/grown/peach = list("peachjuice" = 0),
+		/obj/item/food/grown/ricinus = list("castor_oil" = 0),
 	)
 
 	var/list/dried_items = list(
@@ -100,12 +108,22 @@
 
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/reagentgrinder/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	RefreshParts()
+
+/obj/machinery/reagentgrinder/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	var/H
@@ -343,6 +361,8 @@
 		return
 	if(!Adjacent(user))
 		return
+	if(operating)
+		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	beaker.forceMove(get_turf(src))
@@ -420,7 +440,6 @@
 
 		for(var/r_id in special_juice)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-
 			beaker.reagents.add_reagent(r_id, min(get_juice_amount(O) * efficiency, space))
 
 			if(beaker.reagents.holder_full())

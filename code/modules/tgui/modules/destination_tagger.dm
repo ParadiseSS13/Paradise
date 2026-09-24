@@ -43,7 +43,7 @@
 		// Handle setting tags (and flushing for drones)
 		if(istype(host, /obj/item/dest_tagger))
 			var/obj/item/dest_tagger/O = host
-			O.currTag = my_tag
+			O.current_tag = my_tag
 		else if(isrobot(host))
 			var/mob/living/silicon/robot/R = host
 			R.mail_destination = my_tag

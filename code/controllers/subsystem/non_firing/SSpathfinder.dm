@@ -213,3 +213,74 @@ SUBSYSTEM_DEF(pathfinder)
 		active_pathing += path
 		return TRUE
 	return FALSE
+
+/datum/controller/subsystem/pathfinder/proc/astar_pathfind(
+	atom/movable/invoker,
+	atom/end,
+	max_steps = 30,
+	mintargetdist,
+	list/access,
+	simulated_only = TRUE,
+	turf/exclude,
+	skip_first = TRUE,
+	use_diagonals = TRUE,
+	datum/callback/on_finish,
+	datum/callback/heuristic,
+)
+
+	var/datum/pathfind/astar/path = new(
+		invoker,
+		end,
+		access,
+		max_steps,
+		mintargetdist,
+		simulated_only,
+		exclude,
+		skip_first,
+		use_diagonals,
+		on_finish,
+		heuristic,
+	)
+
+	if(path.start())
+		active_pathing += path
+		return TRUE
+	return FALSE
+
+/datum/controller/subsystem/pathfinder/proc/astar_pathfind_now(
+	atom/movable/invoker,
+	atom/end,
+	max_steps = 14,
+	mintargetdist,
+	list/access,
+	simulated_only = TRUE,
+	turf/exclude,
+	skip_first = TRUE,
+	use_diagonals = TRUE,
+	datum/callback/heuristic,
+)
+
+	var/datum/pathfind/astar/path = new(
+		invoker,
+		end,
+		access,
+		max_steps,
+		mintargetdist,
+		simulated_only,
+		exclude,
+		skip_first,
+		use_diagonals,
+		null,
+		heuristic,
+	)
+
+	if(!path.start())
+		return FALSE
+
+	if(!path.search_step(FALSE))
+		path.early_exit()
+		return FALSE
+
+	path.finished()
+	return path.path
+

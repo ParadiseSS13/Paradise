@@ -80,10 +80,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/casino/kitchen)
-"bJ" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel/freezer,
-/area/ruin/space/powered/casino/hall)
 "bR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -431,6 +427,12 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
+"lc" = (
+/obj/machinery/door/airlock{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/floor)
 "lj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -500,10 +502,6 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
-"mP" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/powered/casino/arrivals)
 "mW" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -643,6 +641,12 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
+"ri" = (
+/obj/machinery/door/airlock{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
 "rp" = (
 /obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plating,
@@ -651,6 +655,12 @@
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/casino/docked_ships)
+"rM" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/casino/arrivals)
 "sx" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -917,10 +927,6 @@
 "zX" = (
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
-"An" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered/casino/maints)
 "Aw" = (
 /obj/effect/spawner/airlock,
 /turf/simulated/wall,
@@ -1022,10 +1028,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
-"Dy" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered/casino/floor)
 "DJ" = (
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/pool/casino_mob,
@@ -1082,11 +1084,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
-"EZ" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered/casino/maints)
 "Fk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -1167,6 +1164,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
+"HI" = (
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/casino/security)
 "Is" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -1207,15 +1214,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/teleporter)
-"JW" = (
-/obj/machinery/door/airlock/security{
-	name = "Evidence Storage"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered/casino/security)
 "Ky" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer{
@@ -1258,6 +1256,12 @@
 "LK" = (
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/arrivals)
+"Mm" = (
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/kitchen)
 "Mt" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/powered/casino/docked_ships)
@@ -1345,6 +1349,12 @@
 	icon_state = "showroomfloor"
 	},
 /area/ruin/space/powered/casino/kitchen)
+"Pr" = (
+/obj/machinery/door/airlock{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/powered/casino/hall)
 "Pz" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -1398,10 +1408,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/engine)
-"Ri" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered/casino/kitchen)
 "Ro" = (
 /obj/machinery/light{
 	dir = 8
@@ -1738,6 +1744,19 @@
 "Zr" = (
 /obj/structure/coatrack,
 /obj/item/storage/bag/garment,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/maints)
+"Zs" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/arrivals)
+"ZH" = (
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "ZJ" = (
@@ -2275,7 +2294,7 @@ Uy
 ky
 dd
 dd
-EZ
+ZH
 DJ
 dd
 dd
@@ -2328,7 +2347,7 @@ rp
 TO
 in
 PG
-Ri
+Mm
 lS
 lS
 TW
@@ -2416,7 +2435,7 @@ aC
 aC
 ZM
 oP
-An
+ri
 IS
 sO
 UW
@@ -2620,15 +2639,15 @@ wg
 "}
 (20,1,1) = {"
 wg
-xw
+Zs
 Dv
 Yy
 DR
 jt
-mP
+rM
 cc
 cc
-mP
+rM
 cc
 wq
 SX
@@ -2665,7 +2684,7 @@ wg
 "}
 (21,1,1) = {"
 wg
-xw
+Zs
 wD
 jK
 zg
@@ -2870,7 +2889,7 @@ zX
 jh
 qe
 Hq
-bJ
+Pr
 cy
 qe
 gQ
@@ -2960,7 +2979,7 @@ zX
 iw
 qe
 wn
-bJ
+Pr
 cy
 qe
 xD
@@ -2999,7 +3018,7 @@ xq
 VI
 VI
 OU
-JW
+HI
 bR
 bR
 hi
@@ -3052,7 +3071,7 @@ KV
 jz
 du
 no
-Dy
+lc
 Th
 Th
 aW

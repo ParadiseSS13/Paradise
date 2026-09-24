@@ -20,6 +20,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
+/obj/machinery/processor/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+
 /obj/machinery/processor/update_icon_state()
 	. = ..()
 	if(processing)
@@ -217,8 +225,10 @@
 		to_chat(user, SPAN_WARNING("That probably won't blend."))
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(SPAN_NOTICE("\the [user] puts \the [what] into \the [src]."), \
-		"<span class='notice'>You put \the [what] into \the [src].")
+	user.visible_message(
+		SPAN_NOTICE("[user] puts [what] into [src]."),
+		SPAN_NOTICE("You put [what] into [src].")
+	)
 
 	user.drop_item()
 

@@ -462,7 +462,6 @@
 	desc = "This cone is trying to warn you of something!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cone"
-	force = 1.0
 	throwforce = 3.0
 	throw_range = 5
 	attack_verb = list("warned", "cautioned", "smashed")
@@ -478,6 +477,9 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
 		)
+
+/obj/item/clothing/head/cone/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/clothing/head/jester
 	name = "jester hat"

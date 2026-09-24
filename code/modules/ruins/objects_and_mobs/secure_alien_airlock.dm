@@ -5,6 +5,9 @@
 	locked = TRUE
 	req_access = list()
 
+/obj/machinery/door/airlock/abductor/secure/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/abductor/secure/Initialize(mapload)
 	. = ..()
 	// Randomize the wires so they aren't the same as the station

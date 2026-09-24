@@ -82,6 +82,8 @@
 
 #define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
 
+#define STATUS_EFFECT_DUELING /datum/status_effect/dueling
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -208,6 +210,7 @@
 #define STATUS_EFFECT_OFFERING_EFTPOS /datum/status_effect/high_five/offering_eftpos
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 #define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
+#define STATUS_EFFECT_FISTBUMP /datum/status_effect/high_five/fistbump
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 

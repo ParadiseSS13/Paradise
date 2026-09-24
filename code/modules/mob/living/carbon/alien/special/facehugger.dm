@@ -5,6 +5,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
 	inhand_icon_state = "facehugger"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3

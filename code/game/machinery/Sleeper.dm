@@ -74,8 +74,8 @@
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -91,6 +91,8 @@
 /obj/machinery/sleeper/Destroy()
 	for(var/mob/M in contents)
 		M.forceMove(get_turf(src))
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
 	return ..()
 
 /obj/machinery/sleeper/relaymove(mob/user as mob)
@@ -104,6 +106,9 @@
 			continue
 		else
 			M.forceMove(loc)
+
+	if(!has_power())
+		return
 
 	if(occupant)
 		if(auto_eject_dead && occupant.stat == DEAD)

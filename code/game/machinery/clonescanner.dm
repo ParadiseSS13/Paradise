@@ -71,6 +71,8 @@
 		return
 	if(!ishuman(O))
 		return
+	if(!Adjacent(user))
+		return
 	var/mob/living/carbon/human/H = O
 	if(H.stat != DEAD)
 		to_chat(user, SPAN_WARNING("You don't think it'd be wise to scan a living being."))
@@ -114,6 +116,8 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
+	if(HAS_TRAIT(scanned, TRAIT_UNCLONABLE))
+		return SCANNER_UNCLONABLE_TRAIT
 	if(!scanned.ckey || !scanned.client || IS_CHANGELING(scanned))
 		return SCANNER_NO_SOUL
 	if(scanned.suiciding || !scanned.get_int_organ(/obj/item/organ/internal/brain))
@@ -189,7 +193,6 @@
 	icon_state = "scanner_occupied"
 	return
 
-
 /obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -216,3 +219,15 @@
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
+
+/obj/machinery/clonescanner/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	update_icon()
+	RefreshParts()

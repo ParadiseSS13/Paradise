@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
-	var/msg = SPAN_RESONATE(SPAN_NAME("[owner.real_name]</span> <span class='message'>resonates, \"[message]\"") )
+	var/msg = SPAN_RESONATE("[SPAN_NAME(owner.real_name)] [SPAN_MESSAGE("resonates, \"[message]\"")]")
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -582,9 +582,9 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand."
 	var/has_implanted = FALSE
 
-/obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/organ/internal/vocal_cords/colossus/wizard/activate_self(mob/living/user)
 	if(has_implanted)
-		return
+		return ..()
 	user.drop_item()
 	insert(user)
 	has_implanted = TRUE

@@ -7,12 +7,18 @@
 /obj/item/folder,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"at" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
 "aI" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
@@ -31,7 +37,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "ce" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/loaded/upgraded{
 	hacked = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -211,12 +217,6 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "qQ" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 25
-	},
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 35
-	},
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -225,6 +225,12 @@
 	name = "Bridge Privacy Shutters";
 	pixel_x = 25;
 	req_access = list(19)
+	},
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_y = 35
+	},
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_y = 25
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -235,10 +241,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/administration)
-"rA" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/administration)
 "sq" = (
 /obj/structure/table/reinforced,
@@ -286,6 +288,20 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"um" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "uW" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -305,8 +321,7 @@
 /area/shuttle/administration)
 "vy" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "vA" = (
@@ -382,12 +397,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"xU" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "xZ" = (
 /turf/space,
 /area/shuttle/administration)
@@ -410,19 +419,25 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"yu" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_x = -5
-	},
-/obj/machinery/recharger{
-	pixel_x = 8
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "yF" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"zk" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "AH" = (
 /obj/machinery/light/spot,
@@ -451,20 +466,6 @@
 	pixel_y = -4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"Bj" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Bn" = (
 /obj/machinery/door/window/reinforced/normal{
@@ -497,7 +498,6 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Du" = (
@@ -514,10 +514,6 @@
 /obj/machinery/light/spot,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"EQ" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Fd" = (
 /obj/structure/rack,
@@ -578,25 +574,6 @@
 /obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"Gx" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/docking_port/mobile/admin{
-	dwidth = 9;
-	height = 18;
-	name = "armory";
-	roundstart_move = "cc_bay_1";
-	width = 19
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
 "Gy" = (
 /obj/structure/chair{
 	dir = 1
@@ -621,9 +598,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"Iv" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/administration)
 "Jt" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -676,7 +650,7 @@
 /area/shuttle/administration)
 "Mi" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Mj" = (
@@ -713,7 +687,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ns" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_y = 25
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -728,7 +702,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ou" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/loaded/upgraded{
 	hacked = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -799,6 +773,27 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"So" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/docking_port/mobile/admin{
+	dwidth = 9;
+	height = 18;
+	name = "armory";
+	roundstart_move = "cc_bay_1";
+	width = 19
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "TD" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Center"
@@ -851,18 +846,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/administration)
-"UX" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "VC" = (
 /obj/machinery/door/airlock/titanium{
@@ -974,7 +957,7 @@ Op
 Kh
 Kh
 Kh
-Bj
+zk
 "}
 (4,1,1) = {"
 vk
@@ -994,7 +977,7 @@ Jt
 Kh
 Kh
 Kh
-Bj
+zk
 "}
 (5,1,1) = {"
 vk
@@ -1014,7 +997,7 @@ vk
 xH
 NQ
 NQ
-rA
+kf
 "}
 (6,1,1) = {"
 vk
@@ -1077,14 +1060,14 @@ fQ
 NQ
 "}
 (9,1,1) = {"
-UX
+um
 mw
 mw
 mw
 mw
 mw
 mw
-EQ
+at
 mw
 mw
 mw
@@ -1097,14 +1080,14 @@ fQ
 NQ
 "}
 (10,1,1) = {"
-Gx
+So
 mw
 mw
 mw
 mw
 mw
 mw
-EQ
+at
 mw
 mw
 mw
@@ -1246,10 +1229,10 @@ Kh
 Kh
 fF
 iz
-yu
+Mi
 sq
 WV
-xU
+Mi
 ce
 jB
 jU
@@ -1258,22 +1241,22 @@ vk
 "}
 (18,1,1) = {"
 vk
-Iv
+vk
 uW
 uW
-Iv
 vk
 vk
-Iv
-uW
-uW
-Iv
 vk
 vk
-Iv
 uW
 uW
-Iv
+vk
+vk
+vk
+vk
+uW
+uW
+vk
 vk
 "}
 (19,1,1) = {"

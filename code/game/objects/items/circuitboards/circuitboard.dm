@@ -13,6 +13,7 @@
 	var/build_path = null
 	var/board_type = "computer"
 	var/list/req_components = null
+	new_attack_chain = TRUE
 
 /obj/item/circuitboard/computer
 

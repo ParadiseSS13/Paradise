@@ -15,14 +15,15 @@
 	var/scanning = FALSE
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
+	new_attack_chain = TRUE
 
-/obj/item/detective_scanner/attack_self__legacy__attackchain(mob/user)
+/obj/item/detective_scanner/activate_self(mob/user)
 	var/search = tgui_input_text(user, "Enter name, fingerprint or blood DNA.", "Find record")
 
 	if(!search || user.stat || user.incapacitated())
-		return
+		return ..()
 
-	search = lowertext(search) //This is here so that it doesn't run 'lowertext()' until the checks have passed.
+	search = lowertext(search) // This is here so that it doesn't run 'lowertext()' until the checks have passed.
 
 	var/name
 	var/fingerprint = "FINGERPRINT NOT FOUND"
@@ -30,16 +31,16 @@
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
-	for(var/record in GLOB.data_core.general) // Search in the 'general' datacore
+	for(var/record in GLOB.data_core.general) // Search in the 'general' datacore.
 		var/datum/data/record/S = record
 		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"]))) // Get Fingerprint and Name
 			name = S.fields["name"]
 			fingerprint = S.fields["fingerprint"]
 			break
 
-	for(var/record in GLOB.data_core.medical) // Then search in the 'medical' datacore
+	for(var/record in GLOB.data_core.medical) // Then search in the 'medical' datacore.
 		var/datum/data/record/M = record
-		if(M && (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])) // Get Blood DNA
+		if(M && (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])) // Get Blood DNA.
 			dna = M.fields["b_dna"]
 
 			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched for DNA, and so do not have the relevant information from the fingerprint records.
@@ -49,7 +50,7 @@
 					if(S && (name == S.fields["name"]))
 						fingerprint = S.fields["fingerprint"]
 						break
-			else //Eveything's been set, break the loop
+			else // Eveything's been set, break the loop.
 				break
 
 	if(name)
@@ -57,7 +58,9 @@
 		<i>Fingerprint:</i>[SPAN_NOTICE(" [fingerprint]")]<br>\
 		<i>Blood DNA:</i>[SPAN_NOTICE(" [dna]")]")
 	else
-		to_chat(user, SPAN_WARNING("No match found in station records."))
+		to_chat(user, SPAN_WARNING("No match found in station records!"))
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/print_forensic_report)
@@ -90,7 +93,6 @@
 		M.put_in_hands(P)
 		to_chat(M, SPAN_NOTICE("Report printed. Log cleared."))
 
-
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
@@ -99,12 +101,16 @@
 	else
 		to_chat(usr, SPAN_WARNING("The scanner has no logs or is in use."))
 
+/obj/item/detective_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	add_fingerprint(user)
+	scan(target, user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/detective_scanner/attack__legacy__attackchain()
-	return
+/obj/item/detective_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 
-/obj/item/detective_scanner/afterattack__legacy__attackchain(atom/A, mob/user)
-	scan(A, user)
+	add_fingerprint(user)
+	scan(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/detective_scanner/proc/scan(atom/A, mob/user)
 
@@ -120,10 +126,9 @@
 		user.visible_message("[user] points [src] at [A] and performs a forensic scan.",
 		SPAN_NOTICE("You scan [A]. The scanner is now analysing the results..."))
 
-
 		// GATHER INFORMATION
 
-		//Make our lists
+		// Make our lists.
 		var/list/fingerprints = list()
 		var/list/blood = list()
 		var/list/fibers = list()
@@ -131,7 +136,7 @@
 
 		var/target_name = A.name
 
-		// Start gathering
+		// Start gathering.
 
 		if(length(A.blood_DNA))
 			blood = A.blood_DNA.Copy()
@@ -169,7 +174,7 @@
 		var/found_something = FALSE
 		add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", FALSE)
 
-		// Fingerprints
+		// Fingerprints.
 		if(length(fingerprints))
 			sleep(30)
 			add_log(SPAN_NOTICE("<B>Prints:</B>"))
@@ -177,7 +182,7 @@
 				add_log("[finger]")
 			found_something = TRUE
 
-		// Blood
+		// Blood.
 		if(length(blood))
 			sleep(30)
 			add_log(SPAN_NOTICE("<B>Blood:</B>"))
@@ -185,7 +190,7 @@
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
 
-		//Fibers
+		// Fibers.
 		if(length(fibers))
 			sleep(30)
 			add_log(SPAN_NOTICE("<B>Fibers:</B>"))
@@ -193,7 +198,7 @@
 				add_log("[fiber]")
 			found_something = TRUE
 
-		//Reagents
+		// Reagents.
 		if(length(reagents))
 			sleep(30)
 			add_log(SPAN_NOTICE("<B>Reagents:</B>"))
@@ -209,7 +214,7 @@
 		if(!found_something)
 			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, SPAN_NOTICE("Unable to locate any fingerprints, materials, fibers, or blood on [A]!"))
+				to_chat(holder, SPAN_WARNING("Unable to locate any fingerprints, materials, fibers, or blood on [A]!"))
 		else
 			if(holder)
 				to_chat(holder, SPAN_NOTICE("You finish scanning [A]."))

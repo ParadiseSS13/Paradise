@@ -16,6 +16,7 @@
 	var/list/products
 	var/list/contraband
 	var/list/premium
+	new_attack_chain = TRUE
 
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()

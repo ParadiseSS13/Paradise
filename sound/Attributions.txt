@@ -2,6 +2,8 @@ items/thermal_drill.ogg was sampled from Builders Drilling.wav under a Sampling 
 
 creatures/dog_yelp.ogg is DogYelp.wav. It is under a CC-BY 3.0 license. It has been cropped, EQ'd, and compressed to .ogg. Source (https://freesound.org/people/TobiasKosmos/sounds/163280/)
 
+creatures/EN_yelp.ogg is "EN_yelp" by martcraft, licensed under CC-BY 4.0. Derivative of "DogYelp.wav" by TobiasKosmos which is licensed under the CC-BY 4.0 license.  (https://freesound.org/people/TobiasKosmos/sounds/163280/)
+
 standard_stamp.ogg is adapted from tom_woysky's "Stamp.wav" https://freesound.org/people/tom_woysky/sounds/348316/
 
 machines/triple_beep.ogg is taken from /tg/station. Source (https://github.com/tgstation/tgstation)
@@ -32,3 +34,4 @@ items/beach_chair_hit_1.ogg was compressed to ogg from "screen door open 1.wav" 
 
 items/pool_noodle_hit.ogg was compressed to ogg from "cardboard box hit 28.wav" in https://filmcow.itch.io/filmcow-sfx-4 's "Hits & Crunches 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement
 
+effects/sculptures/sand_buildfinish.ogg, sand_buildstart.ogg, sand_collapse.ogg, and sand_hit.ogg were compressed to ogg from "sand foley 14.wav", "sand foley 31.wav", "sand falling 4.wav", and "sand hit ground 2.wav" in https://filmcow.itch.io/filmcow-sfx-3 's "Beads & Sand 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement.

@@ -49,8 +49,8 @@
 	if(!.)
 		. = B.qdels - A.qdels
 
-/proc/cmp_atom_layer_asc(atom/A,atom/B)
-	if(A.plane != B.plane)
+/proc/cmp_atom_layer_asc(atom/A, atom/B)
+	if(!istype(A) && !istype(B) && A.plane != B.plane)
 		return A.plane - B.plane
 	else
 		return A.layer - B.layer

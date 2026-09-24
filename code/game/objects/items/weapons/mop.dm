@@ -62,6 +62,10 @@
 	if(istype(target, /obj/structure/janitorialcart/) || istype(target, /obj/structure/mopbucket))
 		return ITEM_INTERACT_COMPLETE
 
+	// if it's a storage item and it isn't dirty, just put the mop in the storage
+	if(isstorage(target) && !target.is_dirty())
+		return ..()
+
 	if(reagents.total_volume < 1)
 		to_chat(user, SPAN_WARNING("Your mop is dry!"))
 		return ITEM_INTERACT_COMPLETE

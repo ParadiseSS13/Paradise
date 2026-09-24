@@ -10,34 +10,41 @@
 	origin_tech = "materials=6;syndicate=1"
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/telecrystal/attack__legacy__attackchain(mob/target, mob/user)
-	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
-		for(var/obj/item/bio_chip/uplink/I in target)
-			if(I && I.imp_in)
-				I.hidden_uplink.uses += amount
-				use(amount)
-				to_chat(user, SPAN_NOTICE("You press [src] onto yourself and charge your hidden uplink."))
-
-/obj/item/stack/telecrystal/afterattack__legacy__attackchain(obj/item/I, mob/user, proximity)
-	if(!proximity)
-		return
-	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
-		I.hidden_uplink.uses += amount
-		use(amount)
-		to_chat(user, SPAN_NOTICE("You slot [src] into [I] and charge its internal uplink."))
-	else if(istype(I, /obj/item/cartridge/frame))
-		var/obj/item/cartridge/frame/cart = I
-		if(!cart.charges)
-			to_chat(user, SPAN_NOTICE("[cart] is out of charges, it's refusing to accept [src]"))
-			return
-		cart.telecrystals += amount
-		use(amount)
-		to_chat(user, SPAN_NOTICE("You slot [src] into [cart].  The next time it's used, it will also give telecrystals"))
-
 /obj/item/stack/telecrystal/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
 		. += SPAN_WARNING("Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on inactive uplinks.")
+
+/obj/item/stack/telecrystal/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isitem(target))
+		var/obj/item/I = target
+		if(I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
+			I.hidden_uplink.uses += amount
+			use(amount)
+			to_chat(user, SPAN_NOTICE("You slot [src] into [target] and charge its internal uplink."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(istype(target, /obj/item/cartridge/frame))
+			var/obj/item/cartridge/frame/cart = target
+			if(!cart.charges)
+				to_chat(user, SPAN_NOTICE("[cart] is out of charges, it's refusing to accept [src]"))
+				return ITEM_INTERACT_COMPLETE
+
+			cart.telecrystals += amount
+			use(amount)
+			to_chat(user, SPAN_NOTICE("You slot [src] into [cart].  The next time it's used, it will also give telecrystals"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(target != user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
+		return ..()
+
+	for(var/obj/item/bio_chip/uplink/implant in target)
+		if(implant && implant.imp_in)
+			implant.hidden_uplink.uses += amount
+			use(amount)
+			to_chat(user, SPAN_NOTICE("You press [src] onto yourself and charge your hidden uplink."))
+			break
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/telecrystal/five
 	amount = 5

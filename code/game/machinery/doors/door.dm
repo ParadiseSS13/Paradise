@@ -51,6 +51,8 @@
 	/// How many levels of foam do we have on us? Capped at 5
 	var/foam_level = 0
 
+	/// Is this door prevented from autorotating?
+	var/manual_dir = FALSE
 	/// Is this door barricaded?
 	var/barricaded = FALSE
 	/// How much this door reduces superconductivity to when closed.
@@ -61,6 +63,9 @@
 	/// Blocks the door from making sparks when on cooldown. Lag preventor, disabled by disable_door_sparks for 3 seconds
 	COOLDOWN_DECLARE(spark_block_cooldown)
 
+/obj/machinery/door/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-Click</b> to knock on it.")
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -77,6 +82,11 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	if(manual_dir == FALSE)
+		for(var/d in GLOB.cardinal)
+			var/turf/T = get_step(src, d)
+			if(iswallturf(T) || locate(/obj/structure/window/full) in T)
+				QUEUE_SMOOTH(T)
 	update_icon()
 	recalculate_atmos_connectivity()
 
@@ -109,6 +119,10 @@
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
+	for(var/d in GLOB.cardinal)
+		var/turf/T = get_step(src, d)
+		if(iswallturf(T) || locate(/obj/structure/window/full) in T)
+			QUEUE_SMOOTH(T)
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
@@ -243,6 +257,18 @@
 		return
 	..()
 
+/obj/machinery/door/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(src, 'sound/magic/hereticknock.ogg', 50, 1)
+	user.visible_message(
+		SPAN_NOTICE("[user] knocks on [src]."),
+		SPAN_NOTICE("You knock on [src]."),
+		SPAN_HEAR("You hear a knocking sound.")
+	)
+	add_fingerprint(user)
+
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
 	if(operating || emagged || foam_level || barricaded)
@@ -285,7 +311,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+		return ..()
 
 	if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM && !istype(used, /obj/item/card/id/heretic))
 		try_to_activate_door(user)
@@ -433,6 +459,9 @@
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = DOOR_OPENING
+	var/direction = get_current_direction()
+	dir = direction
+	update_icon()
 	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(FALSE)
@@ -483,6 +512,9 @@
 		if(width > 1)
 			set_fillers_opacity(TRUE)
 	operating = NONE
+	var/direction = get_current_direction()
+	dir = direction
+	update_icon()
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
@@ -490,6 +522,20 @@
 	else
 		crush()
 	return TRUE
+
+/obj/machinery/door/proc/get_current_direction()
+	// Prioritize walls to avoid adjacent airlock shenanigans
+	if(manual_dir == TRUE)
+		return
+	for(var/direction in GLOB.cardinal)
+		if(iswallturf(get_step(src, direction)))
+			return direction
+	for(var/direction in GLOB.cardinal)
+		if((locate(/obj/structure/window/full) in get_step(src, direction)))
+			return direction
+	for(var/direction in GLOB.cardinal)
+		if((locate(/obj/machinery/door) in get_step(src, direction)))
+			return direction
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))
@@ -565,6 +611,10 @@
 	icon = 'icons/obj/doors/doormorgue.dmi'
 	icon_state = "door1"
 
+
+/obj/machinery/door/morgue/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/proc/lock()
 	return
 
@@ -612,12 +662,12 @@
 
 	QDEL_LIST_CONTENTS(fillers)
 
-	if(dir in list(SOUTH, NORTH))
+	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 		bound_y = 0
 		pixel_y = 0
-		if(dir == NORTH)
+		if(dir == WEST)
 			bound_x = -(width - 1) * world.icon_size
 			pixel_x = -(width - 1) * world.icon_size
 		else
@@ -629,7 +679,7 @@
 		bound_height = width * world.icon_size
 		bound_x = 0
 		pixel_x = 0
-		if(dir == WEST)
+		if(dir == NORTH)
 			bound_y = -(width - 1) * world.icon_size
 			pixel_y = -(width - 1) * world.icon_size
 		else

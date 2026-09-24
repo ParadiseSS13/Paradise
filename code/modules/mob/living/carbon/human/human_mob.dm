@@ -1152,7 +1152,7 @@
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!H || !H.can_intake_reagents)
+	if(!H || (!H.can_intake_reagents && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
 		return FALSE
 	return TRUE
 
@@ -1168,50 +1168,50 @@
 	else
 		germ_level += n
 
-/mob/living/carbon/human/proc/check_and_regenerate_organs(mob/living/carbon/human/H) //Regenerates missing limbs/organs.
-	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
-	for(var/obj/item/organ/internal/I in H.internal_organs)
-		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
+/mob/living/carbon/human/proc/check_and_regenerate_organs() // Regenerates missing limbs/organs.
+	var/list/types_of_int_organs = list() // This will hold all the types of organs in the mob before rejuvenation.
+	for(var/obj/item/organ/internal/I in internal_organs)
+		types_of_int_organs |= I.type // Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
 
 	//Clean up limbs
-	for(var/organ_name in H.bodyparts_by_name)
-		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
-		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
+	for(var/organ_name in bodyparts_by_name)
+		var/obj/item/organ/organ = bodyparts_by_name[organ_name]
+		if(!organ) // The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
-			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
+			bodyparts_by_name -= organ_name // Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
-	for(var/limb_type in H.dna.species.has_limbs)
-		if(!(limb_type in H.bodyparts_by_name))
-			var/list/organ_data = H.dna.species.has_limbs[limb_type]
+	for(var/limb_type in dna.species.has_limbs)
+		if(!(limb_type in bodyparts_by_name))
+			var/list/organ_data = dna.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder, temp_holder)
-			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
-				continue					//In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
-											//while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
+			if(get_limb_by_name(O.name)) // Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
+				continue					// In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
+											// while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
 			else
-				O = new limb_path(H, H) //Create the limb on the player.
-				O.owner = H
-				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
-				if(O.body_part == HEAD) //They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
-					H.UpdateAppearance()
+				O = new limb_path(src, src) // Create the limb on the player.
+				O.owner = src
+				bodyparts |= bodyparts_by_name[O.limb_name]
+				if(O.body_part == HEAD) // They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
+					UpdateAppearance()
 
-	//Replacing lost organs with the species default.
+	// Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human/fake()
-	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
-	if(H.dna.species.mutantears)
-		species_organs["ears"] = H.dna.species.mutantears
+	var/list/species_organs = dna.species.has_organ.Copy() // Compile a list of species organs and tack on the mutantears afterward.
+	if(dna.species.mutantears)
+		species_organs["ears"] = dna.species.mutantears
 	for(var/index in species_organs)
 		var/organ = species_organs[index]
-		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
-			var/obj/item/organ/internal/I = new organ(temp_holder, temp_holder) //Create the organ inside our holder so we can check it before implantation.
-			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
-				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
-										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
+		if(!(organ in types_of_int_organs)) // If the mob is missing this particular organ...
+			var/obj/item/organ/internal/I = new organ(temp_holder, temp_holder) // Create the organ inside our holder so we can check it before implantation.
+			if(get_organ_slot(I.slot)) // Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
+				continue				 // In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
+										// while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
-				I = new organ(H, H) //Create the organ inside the player.
-				I.insert(H)
+				I = new organ(src, src) // Create the organ inside the player.
+				I.insert(src)
 	qdel(temp_holder)
 
 /**
@@ -1233,7 +1233,7 @@
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
+	check_and_regenerate_organs() // Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
 	REMOVE_TRAIT(src, TRAIT_SKELETONIZED, null)
@@ -1416,6 +1416,10 @@
 
 	if(dna.species.default_language)
 		add_language(dna.species.default_language)
+
+	if(HAS_TRAIT(src, TRAIT_FOREIGNER))
+		remove_language("Galactic Common")
+		set_default_language(languages[1])
 
 	hunger_drain = dna.species.hunger_drain
 
@@ -1663,6 +1667,13 @@
 		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+	var/obj/item/clothing/glasses/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses)
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+		var/worn_icon = glasses.worn_icon || (robohead && robohead.is_monitor ? glasses.icon_monitor : FALSE) || listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
+		var/worn_icon_state = glasses.worn_icon_state || glasses.icon_state
+		var/icon/glasses_icon = new /icon("icon" = worn_icon, "icon_state" = worn_icon_state)
+		hair.Blend(glasses_icon, ICON_UNDERLAY)
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
 	MA.plane = ABOVE_LIGHTING_PLANE
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
@@ -1672,8 +1683,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!get_location_accessible(src, "eyes"))
-		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
 	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		return TRUE
@@ -1989,17 +1998,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
-		if(!ismachineperson(src) || (ismachineperson(src) && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
-			to_chat(src, SPAN_NOTICE("Where do you intend to put [toEat]? You don't have a mouth!"))
-			return FALSE
+		to_chat(src, SPAN_NOTICE("Where do you intend to put [toEat]? You don't have a mouth!"))
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!ismachineperson(src) || !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
-			if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
-				to_chat(user, SPAN_NOTICE("Where do you intend to put [toEat]? \The [src] doesn't have a mouth!"))
-				return FALSE
+		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
+			to_chat(user, SPAN_NOTICE("Where do you intend to put [toEat]? [src] doesn't have a mouth!"))
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/drinks/toDrink)
@@ -2196,7 +2203,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		makeCluwne()
 
 /mob/living/carbon/human/is_literate()
-	return getBrainLoss() < 90
+	return getBrainLoss() < 50
 
 
 /mob/living/carbon/human/fakefire(fire_icon = "Generic_mob_burning")
@@ -2494,7 +2501,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /// Used to toggle whether wings are open or not
 /mob/living/carbon/human/proc/Togglewings()
 	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		to_chat(src, "<span class='warning'>Your wings are burnt off!</span>")
+		to_chat(src, SPAN_WARNING("Your wings are burnt off!"))
 		return
 
 	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))

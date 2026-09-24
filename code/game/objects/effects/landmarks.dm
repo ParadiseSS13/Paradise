@@ -104,6 +104,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "revenantspawn"
 	icon_state = "Rev"
 
+/obj/effect/landmark/spawner/flock
+	name = "flockspawn"
+	icon_state = "flockmind"
+
 /obj/effect/landmark/spawner/ninja
 	name = "ninjaspawn"
 
@@ -652,6 +656,26 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
 	if(prob(1))
 		mobtype = /mob/living/basic/mining/goliath/ancient
+	. = ..()
+
+/obj/effect/landmark/mob_spawner/ash_whelp
+	mobtype = /mob/living/basic/mining/ash_whelp
+
+/obj/effect/landmark/mob_spawner/ash_whelp/Initialize(mapload)
+	if(prob(2))
+		mobtype = /mob/living/basic/mining/ash_whelp/ice
+	. = ..()
+
+/obj/effect/landmark/mob_spawner/ashwalker_npc
+	mobtype = /mob/living/basic/ash_walker
+
+/obj/effect/landmark/mob_spawner/ashwalker_npc/Initialize(mapload)
+	if(prob(40))
+		mobtype = /mob/living/basic/ash_walker/tough
+	else if(prob(15))
+		mobtype = /mob/living/basic/ash_walker/veteran
+	else if(prob(1))
+		mobtype = /mob/living/basic/ash_walker/elite
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion

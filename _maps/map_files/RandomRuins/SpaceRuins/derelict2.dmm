@@ -92,6 +92,12 @@
 /obj/item/salvage/ruin/tablet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
+"B" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 a
@@ -288,7 +294,7 @@ c
 e
 e
 e
-c
+B
 i
 i
 i
@@ -296,7 +302,7 @@ n
 i
 i
 i
-c
+B
 e
 e
 e

@@ -28,20 +28,6 @@ GLOBAL_LIST_EMPTY(socks_f)	 //stores only socks name
 	//Alt Heads
 GLOBAL_LIST_EMPTY(alt_heads_list)	//stores /datum/sprite_accessory/alt_heads indexed by name
 
-// Reference list for disposal sort junctions. Set the sort_type_txt variable on disposal sort junctions to
-// the index of the sort department that you want. For example, adding "2" to sort_type_txt will reroute all packages
-// tagged for the Cargo Bay. Multiple destinations can be added by separating them with ;, like "2;8" for Cargo Bay and Security.
-
-//If you don't want to fuck up disposals, add to this list, and don't change the order.
-//If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
-
-GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals",
-	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "HoS Office", "Security", "Medbay",
-	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Captain's Office",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics", "Detective", "Morgue"))
-
 GLOBAL_LIST_INIT(greek_letters, list("Alpha", "Beta", "Gamma", "Delta",
 	"Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu",
 	"Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi",

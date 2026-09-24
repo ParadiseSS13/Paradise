@@ -58,84 +58,91 @@
 	var/shards_required = 4
 	/// It can replace lights at a distance?
 	var/bluespace_toggle = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby__legacy__attackchain(obj/item/I, mob/user)
+/obj/item/lightreplacer/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(fill_replacer(user, used))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/lightreplacer/proc/fill_replacer(mob/user, obj/item/used)
+	if(!istype(used))
+		return FALSE
+
 	if(uses >= max_uses)
-		to_chat(user, SPAN_WARNING("[src] is full."))
-		return
+		to_chat(user, SPAN_WARNING("[src] is full!"))
+		return TRUE
 
-	if(istype(I, /obj/item/stack/sheet/glass))
-		var/obj/item/stack/sheet/glass/G = I
+	if(istype(used, /obj/item/stack/sheet/glass))
+		var/obj/item/stack/sheet/glass/stack = used
 
-		if(G.use(decrement))
+		if(stack.use(decrement))
 			AddUses(increment)
 			to_chat(user, SPAN_NOTICE("You insert some glass into [src]. You have [uses] light\s remaining."))
 		else
 			to_chat(user, SPAN_WARNING("You need one sheet of glass to replace lights!"))
-		return
+		return TRUE
 
-	if(istype(I, /obj/item/shard))
-		if(!user.drop_item_to_ground(I))
-			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
-			return
+	if(istype(used, /obj/item/shard))
+		if(!user.drop_item_to_ground(used))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return TRUE
 
 		AddUses(increment)
 		to_chat(user, SPAN_NOTICE("You insert a shard of glass into [src]. You have [uses] light\s remaining."))
-		qdel(I)
-		return
+		qdel(used)
+		return TRUE
 
-	if(istype(I, /obj/item/light))
-		var/obj/item/light/L = I
-		if(!user.drop_item_to_ground(L))
-			to_chat(user, SPAN_WARNING("[L] is stuck to your hand!"))
-			return
+	if(istype(used, /obj/item/light))
+		var/obj/item/light/bulb = used
+		if(!user.drop_item_to_ground(bulb))
+			to_chat(user, SPAN_WARNING("[bulb] is stuck to your hand!"))
+			return TRUE
 
-		if(L.status == LIGHT_OK)
+		if(bulb.status == LIGHT_OK)
 			AddUses(1)
-			to_chat(user, SPAN_NOTICE("You insert [L] into [src]. You have [uses] light\s remaining."))
-			qdel(L)
+			to_chat(user, SPAN_NOTICE("You insert [bulb] into [src]. You have [uses] light\s remaining."))
 		else
 			AddShards(1, user)
-			to_chat(user, SPAN_NOTICE("You insert [L] into [src]. You have [uses] light\s remaining."))
-		qdel(L)
-		return
+			to_chat(user, SPAN_NOTICE("You insert [bulb] into [src]. You have [uses] light\s remaining."))
+		qdel(bulb)
+		return ITEM_INTERACT_COMPLETE
 
-	if(isstorage(I))
-		var/obj/item/storage/S = I
+	if(isstorage(used))
+		var/obj/item/storage/container = used
 		var/found_lightbulbs = FALSE
 		var/replaced_something = TRUE
 
-		for(var/obj/item/IT in S.contents)
+		for(var/obj/item/IT in container.contents)
 			if(istype(IT, /obj/item/light))
-				var/obj/item/light/L = IT
+				var/obj/item/light/bulb = IT
 				found_lightbulbs = TRUE
 				if(uses >= max_uses)
 					break
-				if(L.status == LIGHT_OK)
+				if(bulb.status == LIGHT_OK)
 					replaced_something = TRUE
 					AddUses(1)
-					qdel(L)
+					qdel(bulb)
 
-				else if(L.status == LIGHT_BROKEN || L.status == LIGHT_BURNED)
+				else if(bulb.status == LIGHT_BROKEN || bulb.status == LIGHT_BURNED)
 					replaced_something = TRUE
 					AddShards(1, user)
-					qdel(L)
+					qdel(bulb)
 
 		if(!found_lightbulbs)
-			to_chat(user, SPAN_WARNING("[S] contains no bulbs."))
-			return
+			return FALSE
 
 		if(!replaced_something && uses == max_uses)
 			to_chat(user, SPAN_WARNING("[src] is full!"))
-			return
+			return TRUE
 
-		to_chat(user, SPAN_NOTICE("You fill [src] with lights from [S]. " + status_string() + ""))
-		return
-	return ..()
+		to_chat(user, SPAN_NOTICE("You fill [src] with lights from [container]. " + status_string() + ""))
+		return TRUE
+	return FALSE
 
 /obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
@@ -144,7 +151,9 @@
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		return TRUE
 
-/obj/item/lightreplacer/attack_self__legacy__attackchain(mob/user)
+/obj/item/lightreplacer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
@@ -189,59 +198,80 @@
 		AddUses(1)
 		charge = 1
 
-/obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/U)
+/obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/user)
 	if(target.status != LIGHT_OK)
-		if(CanUse(U))
-			if(!Use(U))
+		if(CanUse(user))
+			if(!Use(user))
 				return
 			if(target.status != LIGHT_EMPTY)
-				AddShards(1, U)
+				AddShards(1, user)
 				target.status = LIGHT_EMPTY
-			target.fix(U, src, emagged)
+			target.fix(user, src, emagged)
 
 		else
-			to_chat(U, "[src]'s refill light blinks red.")
+			to_chat(user, SPAN_WARNING("[src]'s refill light blinks red!"))
 			return
 	else
-		to_chat(U, SPAN_WARNING("There is a working [target.fitting] already inserted!"))
+		to_chat(user, SPAN_WARNING("There is a working [target.fitting] already inserted!"))
 		return
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
-	if(uses > 0)
-		return 1
-	else
-		return 0
+	return (uses > 0)
 
-/obj/item/lightreplacer/afterattack__legacy__attackchain(atom/target, mob/U, proximity)
-	. = ..()
+/obj/item/lightreplacer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(isitem(target))
-		attackby__legacy__attackchain(target, U)
-		return
+		if(isstorage(target) && uses >= max_uses)
+			return ..()
+		if(fill_replacer(user, target))
+			return ITEM_INTERACT_COMPLETE
+		return ..()
 
-	if(!proximity && !bluespace_toggle)
-		return
+	if(is_surface(target))
+		return NONE
 
 	var/turf/replace_turf = get_turf(target)
 	if(!istype(replace_turf))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(get_dist(src, target) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
-		return
+	if(replace_lights_on_turf(replace_turf, user))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/lightreplacer/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!bluespace_toggle)
+		return ITEM_INTERACT_COMPLETE
+
+	var/turf/replace_turf = get_turf(target)
+	if(!istype(replace_turf))
+		return ITEM_INTERACT_COMPLETE
+
+	if(get_dist(src, target) >= (user.client.maxview() + 2)) // To prevent people from using it over cameras.
+		return ITEM_INTERACT_COMPLETE
+
+	replace_lights_on_turf(replace_turf, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/lightreplacer/proc/replace_lights_on_turf(turf/replace_turf, mob/living/user)
+	if(!istype(replace_turf))
+		return FALSE
 
 	var/used = FALSE
-	for(var/atom/A in replace_turf)
-		if(!CanUse(U))
+	for(var/atom/each_atom in replace_turf)
+		if(!CanUse(user))
+			to_chat(user, SPAN_WARNING("[src]'s refill light blinks red!"))
 			break
+		if(!istype(each_atom, /obj/machinery/light))
+			continue
+		if(!each_atom.Adjacent(user))  // only beams if at a distance
+			user.Beam(each_atom, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+			playsound(src, 'sound/items/pshoom.ogg', 40, 1)
+		ReplaceLight(each_atom, user)
 		used = TRUE
-		if(istype(A, /obj/machinery/light))
-			if(!proximity)  // only beams if at a distance
-				U.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-			ReplaceLight(A, U)
-
-	if(!used)
-		to_chat(U, "[src]'s refill light blinks red.")
+	if(used)
+		return TRUE
 
 /obj/item/lightreplacer/cyborg/cyborg_recharge(coeff, emagged)
 	for(var/I in 1 to coeff)
@@ -254,6 +284,10 @@
 	belt_icon = "light_replacer_blue"
 	bluespace_toggle = TRUE
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
+
+/obj/item/lightreplacer/bluespace/update_icon_state() // Does not have an emagged icon state
+	icon_state = "lightreplacer_blue"
+	belt_icon = "lightreplacer_blue"
 
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid

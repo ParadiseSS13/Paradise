@@ -71,6 +71,7 @@
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("<b>Alt-Click</b> [src] with a pen in hand to rename it.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] inhand to fold it into an airplane.")
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)
@@ -550,7 +551,10 @@
 
 	if(!stamped)
 		stamped = new
-	stamped += S.type
+	if(istype(S, /obj/item/stamp/mod))
+		stamped += S.icon_state == "stamp-ok" ? /obj/item/stamp/granted : /obj/item/stamp/denied
+	else
+		stamped += S.type
 	stamp_overlays += stampoverlay
 	update_icon(UPDATE_OVERLAYS)
 

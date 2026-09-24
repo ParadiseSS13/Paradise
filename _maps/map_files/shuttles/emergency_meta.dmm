@@ -9,24 +9,9 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"ag" = (
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "ah" = (
 /obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/mineral/titanium,
-/area/shuttle/escape)
-"ai" = (
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "am" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -363,20 +348,6 @@
 /obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
-"bh" = (
-/obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"bj" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "bl" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
@@ -386,12 +357,6 @@
 "bm" = (
 /obj/structure/sign/lifestar,
 /turf/simulated/wall/mineral/titanium,
-/area/shuttle/escape)
-"bn" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Cargo Bay Airlock"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bo" = (
 /obj/structure/chair/comfy/shuttle{
@@ -737,7 +702,7 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"ci" = (
+"ln" = (
 /obj/docking_port/mobile/emergency{
 	dir = 2;
 	dwidth = 5;
@@ -748,14 +713,61 @@
 	},
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
+/area/shuttle/escape)
+"so" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Cargo Bay Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"vt" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Emergency Shuttle Airlock";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"AG" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"EO" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "FM" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"Kv" = (
+/obj/machinery/door/airlock/external{
+	name = "Emergency Recovery Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Mh" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Emergency Shuttle Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Rk" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
@@ -769,6 +781,14 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"UK" = (
+/obj/machinery/door/airlock/command{
+	name = "Emergency Recovery Airlock";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -849,7 +869,7 @@ bp
 bp
 bp
 bp
-bq
+Kv
 "}
 (6,1,1) = {"
 ac
@@ -865,7 +885,7 @@ bq
 ab
 bp
 bp
-bq
+Kv
 "}
 (7,1,1) = {"
 ac
@@ -876,7 +896,7 @@ au
 au
 au
 au
-bh
+UK
 br
 ab
 bJ
@@ -924,7 +944,7 @@ au
 au
 au
 au
-bj
+AG
 Rk
 Rk
 Rk
@@ -948,7 +968,7 @@ bS
 ac
 "}
 (12,1,1) = {"
-ai
+Mh
 au
 au
 aM
@@ -980,7 +1000,7 @@ ab
 ab
 "}
 (14,1,1) = {"
-ai
+Mh
 au
 au
 aL
@@ -1020,7 +1040,7 @@ au
 au
 au
 au
-bl
+EO
 au
 au
 au
@@ -1076,7 +1096,7 @@ bZ
 ab
 "}
 (20,1,1) = {"
-ci
+ln
 au
 au
 aM
@@ -1108,7 +1128,7 @@ cb
 ac
 "}
 (22,1,1) = {"
-ag
+vt
 au
 au
 au
@@ -1116,7 +1136,7 @@ au
 au
 au
 au
-bn
+so
 bA
 bp
 bp
@@ -1132,7 +1152,7 @@ au
 au
 au
 au
-bn
+so
 bA
 bp
 bp

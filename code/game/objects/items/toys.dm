@@ -242,15 +242,15 @@
 	if(prob(1))
 		if(target == user)
 			user.visible_message(
-				"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow...</span>",
+				SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow..."),
 				SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade. Somehow..."),
 				SPAN_DANGER("You hear an energy blade slashing something!")
 			)
 		else
 			user.visible_message(
-				"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow...</span>",
+				SPAN_DANGER("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow..."),
 				SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade. Somehow..."),
 				SPAN_DANGER("You hear an energy blade slashing something!")
 			)
@@ -261,15 +261,15 @@
 	// Else, bat it out of the target's mouth.
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor.</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor."),
 			SPAN_WARNING("You casually slash [src] at [cig], swatting it out of your mouth."),
 			SPAN_NOTICE("You hear a gentle tapping.")
 		)
 	else
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!"),
 			SPAN_WARNING("You casually slash [src] at [cig] in the mouth of [target], swatting it to the floor!"),
 			SPAN_NOTICE("You hear a gentle tapping.")
 		)
@@ -1013,8 +1013,8 @@
 /obj/item/toy/plushie/borgplushie
 	name = "borg plushie"
 	desc = "The synthetic backbone of the station, rendered in plush form. Features a built-in flashlight and polychromic fabric."
+	base_icon_state = "plushie_borg"
 	icon_state = "plushie_borg"
-	var/borg_plushie_overlay = "plushie_borgassist"
 	var/plushie_module_selected = FALSE
 	var/on = FALSE
 
@@ -1047,13 +1047,13 @@
 		"Medical"		= image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor"		= image('icons/mob/robots.dmi', "jan-radial")
 	)
-	var/static/list/plushie_module_overlays = list(
-		"Security"		= "plushie_borgsec",
-		"Engineering"	= "plushie_borgengi",
-		"Mining"		= "plushie_borgmine",
-		"Service"		= "plushie_borgserv",
-		"Medical"		= "plushie_borgmed",
-		"Janitor"		= "plushie_borgjan"
+	var/static/list/plushie_module_icons = list(
+		"Security"		= "plushie_borg_security",
+		"Engineering"	= "plushie_borg_engineering",
+		"Mining"		= "plushie_borg_mining",
+		"Service"		= "plushie_borg_service",
+		"Medical"		= "plushie_borg_medical",
+		"Janitor"		= "plushie_borg_janitor"
 	)
 	playsound(src, 'sound/effects/pop.ogg', 50, TRUE)
 	var/user_selection = show_radial_menu(user, src, menu_options, require_near = TRUE, radius = 42)
@@ -1061,10 +1061,10 @@
 	if(!user_selection)
 		return
 
-	borg_plushie_overlay = plushie_module_overlays[user_selection]
 	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!"))
-	update_icon()
+	icon_state = plushie_module_icons[user_selection]
 	plushie_module_selected = TRUE
+	update_icon()
 
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
@@ -1074,18 +1074,20 @@
 		to_chat(user, SPAN_WARNING("[src] is already in standard mode!"))
 		return ITEM_INTERACT_COMPLETE
 
-	borg_plushie_overlay = "plushie_borgassist"
-	update_icon()
-	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, reverting it back to standard mode."))
 	plushie_module_selected = FALSE
+	icon_state = base_icon_state
+	update_appearance(UPDATE_ICON)
+	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, reverting it back to standard mode."))
 	qdel(used)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/activate_self(mob/user)
 	if(..())
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	on = !on
 	update_brightness()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/proc/update_brightness()
 	if(on)
@@ -1096,7 +1098,6 @@
 
 /obj/item/toy/plushie/borgplushie/update_overlays()
 	. = ..()
-	add_overlay(borg_plushie_overlay)
 	if(on)
 		add_overlay("borglights")
 	else
@@ -1123,10 +1124,34 @@
 
 /obj/item/toy/plushie/borgplushie/random/Initialize(mapload)
 	. = ..()
-	borg_plushie_overlay = pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi")
-	if(borg_plushie_overlay != "plushie_borgassist")
+	icon_state = pick("plushie_borg", "plushie_borg_security", "plushie_borg_mining", "plushie_borg_engineering", "plushie_borg_service", "plushie_borg_medical", "plushie_borg_janitor")
+	if(icon_state != base_icon_state)
 		plushie_module_selected = TRUE
 	update_icon()
+
+/obj/item/toy/plushie/borgplushie/security
+	icon_state = "plushie_borg_security"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/miner
+	icon_state = "plushie_borg_mining"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/engineering
+	icon_state = "plushie_borg_engineering"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/service
+	icon_state = "plushie_borg_service"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/medical
+	icon_state = "plushie_borg_medical"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/janitor
+	icon_state = "plushie_borg_janitor"
+	plushie_module_selected = TRUE
 
 /obj/item/toy/plushie/dionaplushie
 	name = "diona plushie"
@@ -2062,6 +2087,7 @@
 	desc = "Tuits are hard to come by, especially the round ones. Guard it with your life."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "round_tuit_wooden"
+	w_class = WEIGHT_CLASS_TINY
 	COOLDOWN_DECLARE(toy_message_cooldown)
 
 /obj/item/toy/round_tuit/activate_self(mob/user)
@@ -2123,8 +2149,6 @@
 	icon_state = "pool_noodle"
 	attack_verb = list("bopped", "splatted", "smacked", "thwapped", "slapped")
 	hitsound = 'sound/items/pool_noodle_hit.ogg'
-	// Having this var at all should play hitsound even if damage is zero
-	var/zero_damage_hitsound = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/toy/pool_noodle/Initialize(mapload)
@@ -2133,6 +2157,9 @@
 	name = "pool noodle"
 	desc = "A damp, flexible tube for unrestrained summer fun."
 	return ..()
+
+/obj/item/toy/pool_noodle/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/toy/pool_noodle/pink
 	color = COLOR_PINK
@@ -2148,3 +2175,218 @@
 
 /obj/item/toy/pool_noodle/orange
 	color = COLOR_ORANGE
+
+/obj/item/toy/bucket_and_spade
+	name = "small bucket and spade"
+	desc = "Only useful for sculpting."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "bucket_and_spade"
+	materials = list(MAT_PLASTIC = 2000)
+
+/obj/item/toy/bucket_and_spade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /turf/simulated/floor/beach/sand))
+		return ..()
+	if(length(target.contents))
+		var/obj/structure/sand_sculpture/sculpture = (locate(/obj/structure/sand_sculpture) in target)
+		if(!sculpture)
+			to_chat(user, SPAN_NOTICE("There are too many things in the way to build a sculpture here."))
+			return ITEM_INTERACT_COMPLETE
+		if(user.a_intent == INTENT_HARM)
+			sculpture.take_damage(5, BRUTE)
+			return ITEM_INTERACT_COMPLETE
+		sculpture.interact_sculpture(user, src)
+		return ITEM_INTERACT_COMPLETE
+
+	var/list/obj/structure/sand_sculpture/valid_sculptures = typesof(/obj/structure/sand_sculpture)
+	var/list/picker_list = list()
+	for(var/each_sculpture in valid_sculptures)
+		var/obj/structure/sand_sculpture/picker_sculpture = each_sculpture
+		picker_list |= list(picker_sculpture::name = picker_sculpture)
+	var/obj/structure/sand_sculpture/chosen_sculpture = tgui_input_list(user, "Choose which sculpture to build:", "Choosing sculpture", picker_list)
+
+	if(!chosen_sculpture)
+		return ITEM_INTERACT_COMPLETE
+	if(!user.can_reach(target))
+		return ..()
+
+	chosen_sculpture = picker_list[chosen_sculpture]
+
+	visible_message(
+			SPAN_NOTICE("[user] starts sculpting on [target] with [src]."),
+			SPAN_NOTICE("You start sculpting on [target] with [src]."),
+			SPAN_NOTICE("You hear shuffling and packing of sand nearby."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildstart.ogg', 80, TRUE)
+
+	if(!do_after(user = user, delay = 8 SECONDS, target = target))
+		to_chat(user, SPAN_NOTICE("You stop building [chosen_sculpture::name]."))
+		return ITEM_INTERACT_COMPLETE
+	visible_message(
+		SPAN_NOTICE("[user] builds \a [chosen_sculpture::name] on [target]."),
+		SPAN_NOTICE("You finish building \the [chosen_sculpture::name] on [target]."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildfinish.ogg', 80, TRUE)
+	new chosen_sculpture(target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/sand_sculpture
+	name = "ruined sand sculpture"
+	desc = "Oh. That's unfortunate."
+	icon = 'icons/obj/sculptures.dmi'
+	var/base_icon = 'icons/obj/sculptures.dmi'
+	icon_state = "sand_ruined"
+	// easy to destroy
+	max_integrity = 100
+	integrity_failure = 99
+
+/obj/structure/sand_sculpture/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	update_icon()
+
+/obj/structure/sand_sculpture/update_overlays()
+	. = ..()
+	overlays.Cut()
+
+	var/icon/silhouette = icon(icon, icon_state + "_mask")
+	var/turf/simulated/underlay_source = get_turf(src)
+	var/icon/underlay_icon = icon(underlay_source.icon, underlay_source.icon_state)
+	silhouette.Blend(underlay_icon, ICON_MULTIPLY)
+	. += silhouette
+	. += icon(base_icon, icon_state)
+
+/obj/structure/sand_sculpture/proc/on_atom_entered(datum/source, mob/living/entered)
+	if(istype(entered))
+		take_damage(5, BRUTE)
+
+/obj/structure/sand_sculpture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/toy/bucket_and_spade) || user.a_intent == INTENT_HARM)
+		return ..()
+
+	interact_sculpture(user, used)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/sand_sculpture/attacked_by(obj/item/attacker, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	take_damage(5, BRUTE)
+	return FINISH_ATTACK
+
+/obj/structure/sand_sculpture/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		take_damage(5, BRUTE)
+		return
+	interact_sculpture(user)
+
+/obj/structure/sand_sculpture/proc/interact_sculpture(mob/user, obj/item/tool = null)
+	if(!user.can_reach(src))
+		return
+	// repairing or dismantling with hands only will take longer
+	var/speed_modifier = istype(tool, /obj/item/toy/bucket_and_spade) ? 1 : 2
+	var/choice = "Nothing"
+	if(icon_state == initial(icon_state))
+		choice = tgui_alert(usr, "What would you like to do with the sculpture?", "Sculpture action", list("Dismantle", "Nothing"))
+	else
+		choice = tgui_alert(usr, "What would you like to do with the sculpture?", "Sculpture action", list("Repair", "Dismantle", "Nothing"))
+	if(choice == "Nothing" || !choice)
+		return
+	if(!user.can_reach(src))
+		return
+
+	visible_message(
+		SPAN_NOTICE("[user] starts [choice == "Repair" ? "repairing" : "dismantling"] \the [src]."),
+		SPAN_NOTICE("You start [choice == "Repair" ? "repairing" : "dismantling"] \the [src]."),
+		SPAN_NOTICE("You hear shuffling and packing of sand nearby."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildstart.ogg', 80, TRUE)
+
+	if(do_after(user = user, delay = (choice == "Repair" ? 50 * speed_modifier : 20 * speed_modifier), target = src))
+		if(choice == "Repair")
+			icon_state = initial(icon_state)
+			name = initial(name)
+			desc = initial(desc)
+			update_icon()
+			obj_integrity = max_integrity
+			visible_message(
+				SPAN_NOTICE("[user] repairs [src]."),
+				SPAN_NOTICE("You finish repairing [src]."))
+			playsound(loc, 'sound/effects/sculptures/sand_buildfinish.ogg', 80, TRUE)
+		else
+			qdel(src)
+		return
+	take_damage(5, BRUTE)
+
+/obj/structure/sand_sculpture/move_from_pull(atom/movable/puller, turf/target_turf, puller_glide_size)
+	take_damage(5, BRUTE, sound_effect = FALSE)
+	puller.stop_pulling()
+
+/obj/structure/sand_sculpture/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(loc, 'sound/effects/sculptures/sand_hit.ogg', 90, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/effects/sculptures/sand_hit.ogg', 70, TRUE)
+
+/obj/structure/sand_sculpture/obj_break(damage_flag)
+	if(icon_state == "sand_ruined")
+		return
+	visible_message(
+		SPAN_WARNING("[src] collapses!"),
+		SPAN_WARNING("[src] collapses before you!"),
+		SPAN_NOTICE("You hear a pile of sand collapse."))
+	playsound(loc, 'sound/effects/sculptures/sand_collapse.ogg', 100, TRUE)
+	name = "ruined sand sculpture"
+	desc = "Oh. That's unfortunate."
+	icon_state = "sand_ruined"
+	update_icon()
+
+/obj/structure/sand_sculpture/mermaid
+	name = "mermaid sand sculpture"
+	desc = "Legend has it this creature exists, somewhere out there among the stars."
+	icon_state = "sand_mermaid"
+
+/obj/structure/sand_sculpture/merman
+	name = "merman sand sculpture"
+	desc = "Legend has it this creature exists, somewhere out there among the stars."
+	icon_state = "sand_merman"
+
+/obj/structure/sand_sculpture/starship
+	name = "sandship sculpture"
+	desc = "Boldly building where no man has built before."
+	icon_state = "sand_starship"
+
+/obj/structure/sand_sculpture/bar
+	name = "sand bar"
+	desc = "You can order a beach feast, but good luck drinking it."
+	icon_state = "sand_bar"
+
+/obj/structure/sand_sculpture/castle
+	name = "sand castle"
+	desc = "A classic fortress to guard your valuable shells and seaweed."
+	icon_state = "sand_castle"
+
+/obj/structure/sand_sculpture/corgi
+	name = "sand corgi"
+	desc = "Legend has it theis creature exists inside the very halls of a Nanotrasen station."
+	icon_state = "sand_corgi"
+
+/obj/structure/sand_sculpture/secbot
+	name = "sandbot"
+	desc = "You're fairly sure it would try to arrest you if it had any moving parts."
+	icon_state = "sand_secbot"
+
+/obj/structure/sand_sculpture/oyster
+	name = "sand pearl oyster"
+	desc = "That's the second biggest pearl you've ever seen. It must be worth a lot of sand dollars."
+	icon_state = "sand_shell"
+
+/obj/structure/sand_sculpture/crab
+	name = "sand crab"
+	desc = "If you add just enough water, it could become a mud crab."
+	icon_state = "sand_crab"
+
+/obj/structure/sand_sculpture/nad
+	name = "nuclear authentication dune"
+	desc = "The codes are crudely scored into the flat sand."
+	icon_state = "sand_nad"

@@ -1,5 +1,9 @@
 GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"))
 GLOBAL_LIST_INIT(alphabet_uppercase, list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"))
+GLOBAL_LIST_INIT(vowels_lower, list("a","e","i","o","u"))
+GLOBAL_LIST_INIT(vowels_upper, list("A","E","I","O","U"))
+GLOBAL_LIST_INIT(consonants_lower, list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z"))
+GLOBAL_LIST_INIT(consonants_upper, list("B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"))
 GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamarine","Azure","Beige","Bisque","Black","Blanched Almond","Blue","Blue Violet",
 									"Brown","Burly Wood","Cadet Blue","Chartreuse","Chocolate","Coral","Cornflower Blue","Cornsilk","Crimson","Cyan",
 									"Dark Blue","Dark Cyan","Dark Golden Rod","Dark Gray","Dark Green","Dark Khaki","Dark Magenta","Dark Olive Green",
@@ -104,3 +108,37 @@ GLOBAL_LIST_INIT(blacklisted_heretic_areas, list(
 	/area/station/aisat,
 	/area/station/science/toxins/test,
 	))
+
+GLOBAL_LIST_EMPTY(starlight) // Turfs that emit starlight
+
+GLOBAL_LIST_INIT(false_alarm_types, list(
+	/datum/event/alien_infestation, \
+	/datum/event/apc_overload, \
+	/datum/event/apc_short, \
+	/datum/event/blob, \
+	/datum/event/brand_intelligence, \
+	/datum/event/bureaucratic_error, \
+	/datum/event/communications_blackout, \
+	/datum/event/electrical_storm, \
+	/datum/event/immovable_rod, \
+	/datum/event/infestation, \
+	/datum/event/ion_storm, \
+	/datum/event/mass_hallucination, \
+	/datum/event/meteor_wave, \
+	/datum/event/prison_break, \
+	/datum/event/rogue_drone, \
+	/datum/event/solar_flare, \
+	/datum/event/spider_infestation, \
+	/datum/event/spider_terror, \
+	/datum/event/tear, \
+	/datum/event/tear/honk, \
+	/datum/event/traders, \
+	/datum/event/market_crash, \
+	/datum/event/disease_outbreak, \
+	/datum/event/vent_clog, \
+	/datum/event/disposals_clog, \
+	/datum/event/demon_incursion, \
+	/datum/event/shuttle_loan, \
+	/datum/event/grid_check, \
+	) + subtypesof(/datum/event/anomaly) + subtypesof(/datum/event/carp_migration) \
+)

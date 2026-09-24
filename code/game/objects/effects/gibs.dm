@@ -7,6 +7,9 @@
 /proc/xgibs(atom/location)
 	new /obj/effect/gibspawner/xeno(get_turf(location))
 
+/proc/flockgibs(atom/location)
+	new /obj/effect/gibspawner/flock(get_turf(location))
+
 /proc/robogibs(atom/location)
 	new /obj/effect/gibspawner/robot(get_turf(location))
 

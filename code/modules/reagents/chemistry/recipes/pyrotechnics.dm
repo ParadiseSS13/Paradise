@@ -213,8 +213,8 @@
 	name = "Phlogiston"
 	id = "phlogiston"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1, "stabilizing_agent" = 1)
-	result_amount = 4
+	required_reagents = list("phosacid" = 1, "plasma" = 1, "stabilizing_agent" = 1)
+	result_amount = 3
 	mix_message = "The substance becomes sticky and extremely warm."
 
 /datum/chemical_reaction/phlogiston_dust
@@ -230,7 +230,7 @@
 	name = "Phlogiston Fire"
 	id = "phlogiston_fire"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1)
+	required_reagents = list("phosacid" = 1, "plasma" = 1)
 	mix_message = "The substance erupts into wild flames."
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)

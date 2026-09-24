@@ -109,6 +109,10 @@
 			. += SPAN_WARNING(" - [A.name]")
 
 /obj/item/wormhole_jaunter/extraction/activate(mob/user)
+	if(!isAntag(user))
+		to_chat(user, SPAN_WARNING("No matter how much you try, you can't get [src] to ignite!"))
+		return
+
 	if(!turf_check(user))
 		return
 

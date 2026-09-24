@@ -19,14 +19,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered)
-"f" = (
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Escape Pod Hatch"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/space/unpowered)
 "l" = (
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
@@ -95,6 +87,15 @@
 /obj/structure/computerframe,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"P" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/unpowered)
 "R" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -322,7 +323,7 @@ l
 O
 D
 c
-f
+P
 R
 R
 R

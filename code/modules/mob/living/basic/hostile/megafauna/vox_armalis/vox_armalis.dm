@@ -25,7 +25,7 @@
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
 	ranged_cooldown = 0.5 SECONDS // It's player controlled, it can have player fire rates.
-	initial_traits = list()
+	initial_traits = list(TRAIT_NOFIRE)
 	blood_color = "#2299FC"
 	butcher_time = 40 SECONDS
 	butcher_results = list(
@@ -107,7 +107,7 @@
 	return TRUE
 
 /mob/living/basic/megafauna/vox_armalis/proc/death_explosion()
-	visible_message("<span class='userdanger'>[src] starts beeping ominously!</span>")
+	visible_message(SPAN_USERDANGER("[src] starts beeping ominously!"))
 	for(var/i in 1 to 4)
 		playsound(loc, 'sound/items/timer.ogg', 30, 0)
 		sleep(1 SECONDS)
@@ -148,16 +148,16 @@
 	if(D.operating)
 		return
 	if(D.welded)
-		to_chat(src, "<span class='warning'>The door is welded.</span>")
+		to_chat(src, SPAN_WARNING("The door is welded."))
 	else if(D.locked)
-		to_chat(src, "<span class='warning'>The door is bolted.</span>")
+		to_chat(src, SPAN_WARNING("The door is bolted."))
 	else if(D.allowed(src))
 		if(D.density)
 			D.open(TRUE)
 		else
 			D.close(TRUE)
 		return TRUE
-	visible_message("<span class='danger'>[src] forces the door!</span>")
+	visible_message(SPAN_DANGER("[src] forces the door!"))
 	playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(D.density)
 		D.open(TRUE)

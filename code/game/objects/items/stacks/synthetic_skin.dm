@@ -10,22 +10,23 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/skin_level = 1
 
-/obj/item/stack/synthetic_skin/attack__legacy__attackchain(mob/living/M as mob, mob/user as mob)
-	if(!ishuman(M) || !istype(user))
-		return FALSE
-	var/mob/living/carbon/human/H = M
+/obj/item/stack/synthetic_skin/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target) || !istype(user))
+		return ..()
+
+	var/mob/living/carbon/human/H = target
 	var/obj/item/organ/external/external_limb = H.get_organ(user.zone_selected)
 	if(external_limb)
 		user.visible_message(SPAN_NOTICE("[user] starts to apply [src] on [H]'s [external_limb.name]..."))
 		if(!do_mob(user, H, 5 SECONDS))
-			return FALSE
-		use(1)
+			return ITEM_INTERACT_COMPLETE
+
 		if(external_limb.apply_augmented_skin(skin_level))
+			use(1)
 			user.visible_message(SPAN_NOTICE("[user] applies some [src] on [H]'s [external_limb.name]."))
-			return TRUE
 		else
 			to_chat(user, SPAN_WARNING("You fail to apply a better skin cover to [H]'s [external_limb.name]."))
-			return FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/synthetic_skin/level_2
 	name = "level-2 synthetic skin patch"

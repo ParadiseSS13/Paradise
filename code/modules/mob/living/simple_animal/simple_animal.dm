@@ -83,9 +83,6 @@
 	/// Higher speed is slower, negative speed is faster
 	var/speed = 1
 
-	/// If the mob can be renamed
-	var/unique_pet = FALSE
-
 	/// Hot simple_animal baby making vars
 	var/list/childtype = null
 	var/next_scan_time = 0

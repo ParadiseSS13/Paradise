@@ -13,6 +13,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	flags_2 = RANDOM_BLOCKER_2
+	new_attack_chain = TRUE
 	/// Has the pin been pulled?
 	var/active = FALSE
 	/// Time between the pin being pulled and detonation.
@@ -21,6 +22,8 @@
 	var/display_timer = TRUE
 	/// Can the grenade's fuze time be changed?
 	var/modifiable_timer = TRUE
+	/// Allows the default `activate_self()` behavour to be fully overriden.
+	var/custom_activation = FALSE
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
@@ -39,6 +42,12 @@
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
+		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
+		message_admins("Damage has caused [src] to be primed for detonation at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+		log_game("Damage has caused [src] has be primed for detonation at [A] ([bombturf.x],[bombturf.y],[bombturf.z])")
+		investigate_log("Damage has caused [src] has be primed for detonation at [A] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+		add_attack_logs(null, src, "has primed for detonation by damage.", ATKLOG_FEW)
 		prime()
 	if(!QDELETED(src))
 		qdel(src)
@@ -56,11 +65,18 @@
 		return FALSE
 	return TRUE
 
-/obj/item/grenade/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/grenade/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(custom_activation)
+		return // Let the child proc cook.
+
 	if(active)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!clown_check(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_DANGER("You prime [src]! [det_time / 10] seconds!"))
 	active = TRUE
@@ -77,6 +93,7 @@
 		C.throw_mode_on()
 	spawn(det_time)
 		prime()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/proc/prime()
 	return

@@ -61,11 +61,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/pandemic(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	RefreshParts()
+	initialize_parts()
 
 	GLOB.pandemics |= src
 	var/datum/symptom/S
@@ -79,6 +75,20 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	if(!(z in GLOB.known_advanced_diseases))
 		GLOB.known_advanced_diseases += list("[z]" = list("4:origin", "24:origin"))
 	update_icon()
+
+/obj/machinery/pandemic/proc/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/pandemic(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	RefreshParts()
+
+/obj/machinery/pandemic/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/pandemic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	RefreshParts()
 
 /obj/machinery/pandemic/RefreshParts()
 	var/manip_rating = 0

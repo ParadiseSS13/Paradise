@@ -8,7 +8,6 @@
 	idle_power_consumption = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
-	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 10
@@ -30,27 +29,29 @@
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+	dispensable_reagents = sortList(dispensable_reagents)
+
+/obj/machinery/chem_dispenser/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-	dispensable_reagents = sortList(dispensable_reagents)
 
-/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/chem_dispenser/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
@@ -73,17 +74,15 @@
 		"diethylamine")
 	upgrade_reagents = null
 
-/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
-	. = ..()
+/obj/machinery/chem_dispenser/mutagensaltpeter/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
-	RefreshParts()
 
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
@@ -109,8 +108,8 @@
 	if(panel_open)
 		. += SPAN_NOTICE("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.<span>"
-
+		. += SPAN_NOTICE("The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.")
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly remove [beaker].")
 
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
@@ -331,14 +330,26 @@
 	ui_interact(user)
 
 /obj/machinery/chem_dispenser/AltClick(mob/user)
-	if(!is_drink || !Adjacent(user))
+	if(!Adjacent(user))
+		return
+	if(beaker) // Getting the beaker out is probably gonna be a more common desire than turning it around.
+		beaker.forceMove(get_turf(src))
+		if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
+			user.put_in_hands(beaker)
+		beaker = null
+		update_icon()
+		add_fingerprint(user)
+		return
+
+	if(!is_drink)
 		return
 	if(user.incapacitated())
 		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(anchored)
-		to_chat(user, SPAN_WARNING("[src] is anchored to the floor!"))
+		to_chat(user, SPAN_WARNING("There's no beaker inside and you can't rotate it while it's anchored!"))
 		return
+
 	pixel_x = 0
 	pixel_y = 0
 	setDir(turn(dir, 90))
@@ -357,29 +368,25 @@
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/soda/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/soda/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
-/obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/soda/upgraded/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
 /obj/machinery/chem_dispenser/beer
 	icon_state = "booze_dispenser"
@@ -393,29 +400,25 @@
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/beer/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/beer/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
-/obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/beer/upgraded/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
 // Handheld chem dispenser
 /obj/item/handheld_chem_dispenser
@@ -433,6 +436,7 @@
 	var/current_reagent = null
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
+	new_attack_chain = TRUE
 
 /obj/item/handheld_chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -449,12 +453,13 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	if(!proximity || !current_reagent || !amount)
-		return
+/obj/item/handheld_chem_dispenser/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!current_reagent || !amount)
+		return ..()
 
-	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
-		return
+	if(!check_allowed_items(target, target_self = TRUE) || !target.is_refillable())
+		return ..()
+
 	switch(mode)
 		if("dispense")
 			var/free = target.reagents.maximum_volume - target.reagents.total_volume
@@ -466,19 +471,23 @@
 				update_icon(UPDATE_OVERLAYS)
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
 				to_chat(user, SPAN_WARNING("Insufficient energy to complete operation."))
+			return ITEM_INTERACT_COMPLETE
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
 				to_chat(user, SPAN_NOTICE("You remove [amount] unit\s of [current_reagent] from [target]."))
+			return ITEM_INTERACT_COMPLETE
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, SPAN_NOTICE("You remove all but [current_reagent] from [target]."))
+			return ITEM_INTERACT_COMPLETE
 
-/obj/item/handheld_chem_dispenser/attack_self__legacy__attackchain(mob/user)
+/obj/item/handheld_chem_dispenser/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(cell)
 		ui_interact(user)
 	else
 		to_chat(user, SPAN_WARNING("[src] lacks a power cell!"))
-
 
 /obj/item/handheld_chem_dispenser/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -573,20 +582,26 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/item/handheld_chem_dispenser/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
-		if(cell)
-			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
-		else
-			if(C.maxcharge < 100)
-				to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
-				return
-			if(!user.transfer_item_to(W, src))
-				return
-			cell = W
-			to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
-			update_icon(UPDATE_OVERLAYS)
+/obj/item/handheld_chem_dispenser/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return ..()
+
+	var/obj/item/stock_parts/cell/new_cell = used
+	if(cell)
+		to_chat(user, SPAN_NOTICE("[src] already has a cell."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(new_cell.maxcharge < 100)
+		to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.transfer_item_to(used, src))
+		return ITEM_INTERACT_COMPLETE
+
+	cell = used
+	to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
+	update_icon(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(!isrobot(loc) && cell)

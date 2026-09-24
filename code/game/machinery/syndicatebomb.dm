@@ -351,7 +351,6 @@
 /obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
 	detonate()
 
-
 /obj/item/bombcore/burn()
 	detonate()
 	..()
@@ -648,8 +647,6 @@
 	ttv.forceMove(get_turf(src))
 	ttv = null
 
-
-
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
 	if(ttv.attached_device)
 		return TRUE
@@ -679,11 +676,15 @@
 	var/timer = 0
 	var/detonated =	0
 	var/existant =	0
+	new_attack_chain = TRUE
 
-/obj/item/syndicatedetonator/attack_self__legacy__attackchain(mob/user)
+/obj/item/syndicatedetonator/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(timer >= world.time)
 		to_chat(user, SPAN_ALERT("Nothing happens."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 		if(B.active)
@@ -704,6 +705,8 @@
 	detonated =	0
 	existant = 0
 	timer = world.time + BUTTON_COOLDOWN
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 #undef BUTTON_COOLDOWN
 #undef BUTTON_DELAY

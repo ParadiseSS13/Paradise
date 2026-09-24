@@ -66,6 +66,15 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
+"p" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/unpowered)
 "r" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
@@ -149,14 +158,6 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/asteroid8,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"N" = (
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Escape Pod Hatch"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/space/unpowered)
 "P" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
@@ -232,7 +233,7 @@ h
 o
 w
 t
-N
+p
 h
 h
 "}

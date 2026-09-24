@@ -15,17 +15,17 @@
 
 /obj/machinery/cooking/stovetop/Initialize(mapload)
 	. = ..()
+	for(var/i in 1 to 4)
+		surfaces += new/datum/cooking_surface/stovetop_burner(src)
+	initialize_parts()
+	RefreshParts()
 
+/obj/machinery/cooking/stovetop/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/stove(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-
-	for(var/i in 1 to 4)
-		surfaces += new/datum/cooking_surface/stovetop_burner(src)
-
-	RefreshParts()
 
 /obj/machinery/cooking/stovetop/examine(mob/user)
 	. = ..()
@@ -136,6 +136,15 @@
 		var/datum/cooking_surface/surface = surfaces[i]
 		if(i % 2 == 0)
 			surface.container = new /obj/item/reagent_containers/cooking/pot(src)
+			surface.container.surface = surface
 		else
 			surface.container = new /obj/item/reagent_containers/cooking/pan(src)
+			surface.container.surface = surface
 	update_appearance()
+
+/obj/machinery/cooking/stovetop/loaded/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)

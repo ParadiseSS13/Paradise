@@ -78,10 +78,6 @@
 "aq" = (
 /turf/simulated/wall/mineral/wood,
 /area/ruin/powered/snow_cabin)
-"ar" = (
-/obj/machinery/door/airlock/wood,
-/turf/simulated/floor/plating,
-/area/ruin/powered/snow_cabin)
 "as" = (
 /obj/structure/fans,
 /turf/simulated/wall/mineral/wood,
@@ -127,10 +123,6 @@
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
-"aD" = (
-/obj/machinery/door/airlock/wood,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
 "aE" = (
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement"
@@ -177,11 +169,6 @@
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"aO" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
 "aP" = (
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
@@ -332,6 +319,13 @@
 "tl" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
+"tP" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_cabin)
 "tZ" = (
 /turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
@@ -340,10 +334,11 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
-"vf" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
+"wd" = (
+/obj/machinery/door/airlock/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "wM" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
@@ -356,6 +351,13 @@
 /area/ruin/powered/snow_biodome)
 "AM" = (
 /obj/machinery/economy/vending/coffee/free,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"AR" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "BF" = (
@@ -379,11 +381,6 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
-"Ez" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
 "FP" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -406,8 +403,21 @@
 "HP" = (
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
+"IV" = (
+/obj/machinery/door/airlock/wood{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_cabin)
 "Mp" = (
 /obj/item/clothing/mask/balaclava,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Mz" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "MA" = (
@@ -827,10 +837,10 @@ tb
 Wg
 ad
 af
-ar
+IV
 bw
 et
-aD
+wd
 jE
 aL
 aq
@@ -929,7 +939,7 @@ at
 at
 aH
 aM
-vf
+tP
 ak
 ak
 ak
@@ -945,10 +955,10 @@ ao
 ak
 ak
 ak
-aO
+AR
 tl
 tl
-Ez
+Mz
 Qa
 "}
 (16,1,1) = {"

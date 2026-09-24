@@ -79,7 +79,7 @@
 	// Monkeys are a snowflake because you can't remove accessories once added.
 	if(!ishuman(target) || ismonkeybasic(target))
 		return ..()
-	
+
 	var/mob/living/carbon/human/H = target
 	if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 		to_chat(user, "[H]'s body is covered, and you cannot attach [src].")
@@ -329,6 +329,10 @@
 	name = "vetus speculator HRD-MDE award"
 	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Vetus Speculator."
 
+/obj/item/clothing/accessory/medal/plasma/princess
+	name = "kidan princess's prowess award"
+	desc = "An award given to those who enrage the Kidan Princess and triumphed."
+
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
 	Security agent - the user details can be imprinted on the badge with a Security-access ID card,
@@ -398,7 +402,7 @@
 /obj/item/clothing/accessory/holobadge/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target == user || !ismob(target))
 		return ..()
-	
+
 	user.visible_message(
 		SPAN_WARNING("[user] invades [target]'s personal space, thrusting [src] into [target.p_their()] face insistently."),
 		SPAN_WARNING("You invade [target]'s personal space, thrusting [src] into [target.p_their()] face insistently. You are THE LAW!"))

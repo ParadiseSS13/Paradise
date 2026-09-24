@@ -1,3 +1,27 @@
+/datum/crafting_recipe/raw_ash_kebab
+	name = "Uncooked Ash Kebab"
+	reqs = list(
+		/obj/item/stack/rods = 1,
+		/obj/item/food/grown/ash_flora/mushroom_leaf = 1,
+		/obj/item/food/grown/ash_flora/cactus_fruit = 2,
+		/obj/item/food/monstermeat/goliath = 1
+	)
+	result = list(/obj/item/food/meat/raw_ash_kebab)
+	category = CAT_FOOD
+	subcategory = CAT_MEAT
+
+/datum/crafting_recipe/raw_ash_kebab_bone
+	name = "Uncooked Ash Kebab"
+	reqs = list(
+		/obj/item/stack/bone_rods = 1,
+		/obj/item/food/grown/ash_flora/mushroom_leaf = 1,
+		/obj/item/food/grown/ash_flora/cactus_fruit = 2,
+		/obj/item/food/monstermeat/goliath = 1
+	)
+	result = list(/obj/item/food/meat/raw_ash_kebab/bone)
+	category = CAT_FOOD
+	subcategory = CAT_MEAT
+
 /datum/crafting_recipe/sandwich
 	name = "Sandwich"
 	reqs = list(

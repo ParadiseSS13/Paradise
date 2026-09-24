@@ -15,6 +15,10 @@
 	/// Can be used in certain situations where you may have effects that trigger only at the edge,
 	/// while also wanting the field effect to trigger at edge turfs as well
 	var/edge_is_a_field = FALSE
+
+	/// If TRUE, view() will be used over range(). If this is used, edge turfs will not exist!
+	var/use_view = FALSE
+
 	/// All turfs on the inside of the proximity monitor - range - 1 turfs
 	var/list/turf/field_turfs = list()
 	/// All turfs on the very last tile of the proximity monitor's radius
@@ -131,6 +135,13 @@
 /datum/proximity_monitor/advanced/proc/update_new_turfs()
 	if(ignore_if_not_on_turf && !isturf(host.loc))
 		return list(FIELD_TURFS_KEY = list(), EDGE_TURFS_KEY = list())
+
+	if(use_view)
+		var/list/turfs = list()
+		for(var/turf/T as turf in view(current_range, host))
+			turfs += T
+		return list(FIELD_TURFS_KEY = turfs, EDGE_TURFS_KEY = list())
+
 	var/list/local_field_turfs = list()
 	var/list/local_edge_turfs = list()
 	var/turf/center = get_turf(host)

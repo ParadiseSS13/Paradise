@@ -175,7 +175,7 @@ const GASES = [
     'color': 'pink',
   },
   {
-    'id': 'water_vapor',
+    'id': 'h2o',
     'name': 'Water Vapor',
     'label': 'H₂O',
     'color': 'grey',
@@ -229,7 +229,7 @@ const GASES = [
     'color': 'olive',
   },
   {
-    'id': 'hydrogen',
+    'id': 'h2',
     'name': 'Hydrogen',
     'label': 'H₂',
     'color': '#997379',

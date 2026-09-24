@@ -32,3 +32,25 @@
 // 	DEPARTMENT_COMMAND = DEP_FLAG_COMMAND
 // 	)
 // )
+
+#define DEP_MAIL_LIST_SECURITY list("Head of Security", "Security Officer", "Detective", "Warden")
+#define DEP_MAIL_LIST_SCIENCE list("Research Director", "Roboticist", "Geneticist", "Scientist")
+#define DEP_MAIL_LIST_SUPPLY list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+#define DEP_MAIL_LIST_MEDICAL list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
+#define DEP_MAIL_LIST_ENGINEERING list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+#define DEP_MAIL_LIST_BREAD list("Bartender", "Chef", "Botanist", "Janitor", "Librarian")
+#define DEP_MAIL_LIST_SERVICE list("Clown", "Mime", "Head of Personnel", "Chaplain")
+#define DEP_MAIL_LIST_COMMAND list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Nanotrasen Career Trainer")
+#define DEP_MAIL_LIST_MISC list("Assistant")
+
+GLOBAL_LIST_INIT(mail_crate_possible_contents, list(
+	/obj/item/envelope/security = DEP_MAIL_LIST_SECURITY,
+	/obj/item/envelope/science = DEP_MAIL_LIST_SCIENCE,
+	/obj/item/envelope/supply = DEP_MAIL_LIST_SUPPLY,
+	/obj/item/envelope/medical = DEP_MAIL_LIST_MEDICAL,
+	/obj/item/envelope/engineering = DEP_MAIL_LIST_ENGINEERING,
+	/obj/item/envelope/bread = DEP_MAIL_LIST_BREAD,
+	/obj/item/envelope/circuses = DEP_MAIL_LIST_SERVICE,
+	/obj/item/envelope/command = DEP_MAIL_LIST_COMMAND,
+	/obj/item/envelope/misc = DEP_MAIL_LIST_MISC,
+))

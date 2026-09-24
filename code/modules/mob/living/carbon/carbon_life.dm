@@ -69,6 +69,9 @@
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
 
+	if(istype(loc, /obj/machinery/cryopod)) // Do not suffocate in cryogenic storage. What the hell.
+		return
+
 	var/datum/gas_mixture/breath
 
 	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
@@ -256,6 +259,9 @@
 			continue
 		if(stat != DEAD)
 			if(M.stat == DEAD && !iscarbon(M))
+				if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+					apply_effect(20000, IRRADIATE) // You willingly ate the green mouse that is clearly making everyone sick, this is on you.
+
 				LAZYREMOVE(stomach_contents, M)
 				qdel(M)
 				continue

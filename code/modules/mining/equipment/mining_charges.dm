@@ -6,12 +6,12 @@
 	inhand_icon_state = "charge_indust"
 	det_time = 5
 	origin_tech = "materials=1"
-	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
+	notify_admins = FALSE // No need to make adminlogs on lavaland, while they are "safe" to use.
 	/// When TRUE, charges won't detonate on it's own. Used for mining detonator
 	var/timer_off = FALSE
 	var/installed = FALSE
 	var/smoke_amount = 3
-	/// list of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, first is used for hacked charges
+	/// List of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, first is used for hacked charges.
 	var/boom_sizes = list(2, 3, 5)
 	var/hacked = FALSE
 
@@ -26,56 +26,71 @@
 	if(timer_off)
 		. += SPAN_NOTICE("The mining charge is connected to a detonator.")
 
-/obj/item/grenade/plastic/miningcharge/attack_self__legacy__attackchain(mob/user)
-	if(nadeassembly)
-		nadeassembly.attack_self__legacy__attackchain(user)
+/obj/item/grenade/plastic/miningcharge/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismineralturf(target) && !hacked)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/grenade/plastic/miningcharge/afterattack__legacy__attackchain(atom/movable/AM, mob/user, flag)
-	if(!ismineralturf(AM) && !hacked)
-		return
-	if(is_ancient_rock(AM) && !hacked)
-		to_chat(user, SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
-		return
-	if(!timer_off) //override original proc for plastic explosions
+	if(is_ancient_rock(target) && !hacked)
+		to_chat(user, SPAN_WARNING("This rock appears to be resistant to all mining tools except pickaxes!"))
+		return ITEM_INTERACT_COMPLETE
+
+	// Override original proc for plastic explosives.
+	if(!timer_off)
 		return ..()
-	if(!flag)
-		return
-	if(iscarbon(AM))
-		return
+
+	if(iscarbon(target))
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, SPAN_NOTICE("You start planting [src]."))
-	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = AM))
-		return
+	if(!do_after(user, (2.5 SECONDS) * toolspeed, target = target))
+		return ITEM_INTERACT_COMPLETE
+
 	if(!user.unequip(src))
-		return
-	target = AM
-	forceMove(AM)
+		to_chat(user, SPAN_DANGER("[src] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	forceMove(target)
 	if(hacked)
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_COORDJMP(target)]")
 		log_game("planted [name] on [target.name] at [COORD(target)]", user)
 	installed = TRUE
 	target.overlays += image_overlay
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/grenade/plastic/miningcharge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/detonator))
-		return
-	var/obj/item/detonator/detonator = I
+/obj/item/grenade/plastic/miningcharge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/detonator))
+		return NONE
+
+	var/obj/item/detonator/detonator = used
 	if((src in detonator.bombs) || timer_off)
 		to_chat(user, SPAN_WARNING("[src] was already synchronized to a existing detonator!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	detonator.bombs += src
 	timer_off = TRUE
-	to_chat(user, SPAN_NOTICE("You synchronize [src] to [I]."))
+	to_chat(user, SPAN_NOTICE("You synchronize [src] to [used]."))
 	playsound(src, 'sound/machines/twobeep.ogg', 50)
 	detonator.update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/plastic/miningcharge/proc/detonate()
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
 
 /obj/item/grenade/plastic/miningcharge/prime()
-	if(hacked) //try not to blow your fingers off
+	if(hacked) // Try not to blow your fingers off.
 		explode()
 		return
-	var/turf/simulated/mineral/location = get_turf(target)
+	var/turf/simulated/mineral/location
+	if(target_atom)
+		if(!QDELETED(target_atom))
+			if(isturf(target_atom))
+				location = get_turf(target_atom)
+			else
+				location = get_atom_on_turf(target_atom)
+			target_atom.overlays -= image_overlay
+	else
+		location = get_atom_on_turf(src)
+
 	var/datum/effect_system/smoke_spread/S = new
 	S.set_up(smoke_amount, 0, location, null)
 	S.start()
@@ -83,34 +98,34 @@
 		var/distance = get_dist_euclidian(location, rock)
 		if(distance <= boom_sizes[3])
 			if(rock.ore)
-				rock.ore.drop_max += 3 // if rock is going to get drilled, add bonus mineral amount
+				rock.ore.drop_max += 3 // If rock is going to get drilled, add bonus mineral amount.
 				rock.ore.drop_min += 3
 			rock.gets_drilled(triggered_by_explosion = TRUE)
 	for(var/mob/living/carbon/C in circlerange(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location, C)
 		C.flash_eyes()
-		C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-		C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) //guaranteed deafness
+		C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) // 1 second for how close you are to center if you're in range.
+		C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) // Guaranteed deafness.
 		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-		if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) //headsets should be enough to avoid taking damage
-			ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
+		if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) // Headsets should be enough to avoid taking damage.
+			ears.receive_damage((boom_sizes[3] - distance) * 2) // Something like that I guess. Mega charge makes 12 damage to ears if nearby.
 		to_chat(C, SPAN_USERDANGER("You are knocked down by the power of the mining charge!"))
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode()
 	var/turf/location
-	if(target)
-		if(!QDELETED(target))
-			if(isturf(target))
-				location = get_turf(target)
+	if(target_atom)
+		if(!QDELETED(target_atom))
+			if(isturf(target_atom))
+				location = get_turf(target_atom)
 			else
-				location = get_atom_on_turf(target)
-			target.overlays -= image_overlay
+				location = get_atom_on_turf(target_atom)
+			target_atom.overlays -= image_overlay
 	else
 		location = get_atom_on_turf(src)
 	if(location)
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = name)
-		location.ex_act(EXPLODE_HEAVY, target)
+		location.ex_act(EXPLODE_HEAVY, target_atom)
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()
@@ -120,7 +135,7 @@
 	boom_sizes[2] = round(boom_sizes[2] / 3)	//lesser - 0, normal - 1, mega - 2; c4 - 0
 	boom_sizes[3] = round(boom_sizes[3] / 1.5)	//lesser - 2, normal - 3, mega - 5; c4 - 3
 
-/// Overriding to avoid the chargers from exploding because of received damage
+/// Overriding to avoid the chargers from exploding because of received damage.
 /obj/item/grenade/plastic/miningcharge/deconstruct(disassembled = TRUE)
 	if(!QDELETED(src))
 		qdel(src)
@@ -158,22 +173,27 @@
 	. = ..()
 	. += SPAN_NOTICE("This scanner has an extra port for overriding mining charge safeties.")
 
-/obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/t_scanner/adv_mining_scanner/syndicate/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
-		return
+		return ..()
+
 	var/obj/item/grenade/plastic/miningcharge/charge = target
 	if(charge.hacked)
-		to_chat(user, SPAN_NOTICE("[src] is already overridden!"))
-		return
+		to_chat(user, SPAN_WARNING("[src] is already overridden!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(charges <= 0)
-		to_chat(user, SPAN_NOTICE("Its overriding function is depleted."))
-		return
+		to_chat(user, SPAN_WARNING("Its overriding function is depleted!"))
+		return ITEM_INTERACT_COMPLETE
+
 	charge.override_safety()
 	visible_message(SPAN_WARNING("Sparks fly out of [src]!"))
 	playsound(src, "sparks", 50, TRUE)
 	charges--
 	if(charges <= 0)
 		to_chat(user, SPAN_WARNING("[src]'s internal battery for overriding mining charges has run dry!"))
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 // MINING CHARGES DETONATOR
 
@@ -183,8 +203,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
+	new_attack_chain = TRUE
 
-	/// list of all bombs connected to a detonator for a moment
+	/// List of all bombs connected to a detonator for a moment.
 	var/list/bombs = list()
 
 /obj/item/detonator/examine(mob/user)
@@ -201,19 +222,24 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/detonator/attack_self__legacy__attackchain(mob/user)
+/obj/item/detonator/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	playsound(src, 'sound/items/detonator.ogg', 40)
-	if(length(bombs))
-		to_chat(user, SPAN_NOTICE("Activating explosives..."))
-		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			if(QDELETED(charge))
-				bombs -= charge
-				update_icon() //if the last bomb was qdeleted, detonator icon should change after activating
-				continue
-			if(charge.installed)
-				bombs -= charge
-				charge.detonate()
-				update_icon()
-	else
+	if(!length(bombs))
 		to_chat(user, SPAN_WARNING("There are no charges linked to a detonator!"))
-	return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("Activating explosives..."))
+	for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
+		if(QDELETED(charge))
+			bombs -= charge
+			update_icon() // If the last bomb was qdeleted, detonator icon should change after activating.
+			continue
+		if(charge.installed)
+			bombs -= charge
+			charge.detonate()
+			update_icon()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE

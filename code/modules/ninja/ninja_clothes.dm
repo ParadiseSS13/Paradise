@@ -49,7 +49,6 @@
 	inhand_icon_state = "s-ninja_mask"
 	flash_protect = FLASH_PROTECTION_FLASH
 	origin_tech = "combat=4;materials=4;syndicate=1"
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',

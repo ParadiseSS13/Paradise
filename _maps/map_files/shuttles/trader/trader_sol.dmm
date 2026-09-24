@@ -120,6 +120,22 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
+"gL" = (
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile/trader{
+	height = 16;
+	width = 14;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 1;
+	port_direction = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/trade/sol)
 "hi" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -206,6 +222,13 @@
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
+"yb" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/trade/sol)
 "zp" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/engineering,
@@ -225,8 +248,13 @@
 "CH" = (
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
-"Fb" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+"DG" = (
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Fe" = (
 /obj/structure/bed,
@@ -258,13 +286,6 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/trade/sol)
-"Gk" = (
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "GM" = (
@@ -360,11 +381,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
-"No" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/trade/sol)
 "NG" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
@@ -401,21 +417,6 @@
 	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/trade/sol)
-"Pw" = (
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/trader{
-	height = 16;
-	width = 14;
-	dwidth = 7;
-	preferred_direction = 1;
-	dir = 1;
-	port_direction = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
@@ -548,11 +549,11 @@ Xi
 Xi
 Xi
 hM
-Fb
-Fb
-Fb
-Fb
-Fb
+hM
+hM
+hM
+hM
+hM
 hi
 fZ
 Xi
@@ -564,13 +565,13 @@ Xi
 Xi
 Xi
 hM
-Fb
-Fb
+hM
+hM
 QN
 Pa
 OE
 LH
-Fb
+hM
 fW
 fZ
 Xi
@@ -580,15 +581,15 @@ Xi
 Xi
 Xi
 hM
-Fb
-Fb
-Fb
+hM
+hM
+hM
 dN
 Wy
 CH
 CH
 CH
-No
+yb
 XX
 fW
 fZ
@@ -597,16 +598,16 @@ Xi
 (4,1,1) = {"
 Xi
 Xi
-Fb
+hM
 Zi
 Yn
-Fb
+hM
 GM
 CH
 aM
 CH
 NG
-Fb
+hM
 VT
 CH
 Lg
@@ -615,28 +616,28 @@ fZ
 (5,1,1) = {"
 Xi
 hM
-Fb
+hM
 Fe
 Mn
-Fb
+hM
 OT
 CH
 CH
 CH
 Jc
-Fb
-Fb
+hM
+hM
 zV
-Fb
-Fb
+hM
+hM
 "}
 (6,1,1) = {"
 uF
 uF
-Fb
-Fb
+hM
+hM
 WB
-Fb
+hM
 fe
 CH
 CH
@@ -646,7 +647,7 @@ Yy
 uk
 CH
 IX
-Fb
+hM
 "}
 (7,1,1) = {"
 uF
@@ -654,7 +655,7 @@ df
 FZ
 OE
 CH
-No
+yb
 CH
 CH
 Hb
@@ -664,7 +665,7 @@ kr
 gA
 CH
 Of
-Gk
+DG
 "}
 (8,1,1) = {"
 uF
@@ -672,7 +673,7 @@ Rp
 gq
 Zx
 CH
-No
+yb
 CH
 CH
 Hb
@@ -682,15 +683,15 @@ kr
 gA
 CH
 Of
-Pw
+gL
 "}
 (9,1,1) = {"
 uF
 uF
-Fb
-Fb
+hM
+hM
 WB
-Fb
+hM
 fe
 CH
 CH
@@ -700,39 +701,39 @@ Yy
 eI
 CH
 lh
-Fb
+hM
 "}
 (10,1,1) = {"
 Xi
 hM
-Fb
+hM
 Fe
 Mn
-Fb
+hM
 fL
 CH
 CH
 CH
 lO
-Fb
-Fb
+hM
+hM
 PU
-Fb
-Fb
+hM
+hM
 "}
 (11,1,1) = {"
 Xi
 Xi
-Fb
+hM
 ID
 Qw
-Fb
+hM
 iW
 CH
 pd
 CH
 NG
-Fb
+hM
 RX
 CH
 Lg
@@ -742,15 +743,15 @@ fZ
 Xi
 Xi
 hM
-Fb
-Fb
-Fb
+hM
+hM
+hM
 zp
 cM
 CH
 CH
 CH
-No
+yb
 XX
 IG
 fZ
@@ -762,13 +763,13 @@ Xi
 Xi
 Xi
 hM
-Fb
-Fb
+hM
+hM
 fc
 Zy
 Zx
 SA
-Fb
+hM
 IG
 fZ
 Xi
@@ -782,11 +783,11 @@ Xi
 Xi
 Xi
 hM
-Fb
-Fb
-Fb
-Fb
-Fb
+hM
+hM
+hM
+hM
+hM
 hi
 fZ
 Xi

@@ -88,17 +88,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(allowed(user) && !open && !emagged)
-			locked = !locked
-			to_chat(user, SPAN_NOTICE("You [ locked ? "lock" : "unlock"] \the [src] behaviour controls."))
-		else
-			if(emagged)
-				to_chat(user, SPAN_WARNING("ERROR"))
-			if(open)
-				to_chat(user, SPAN_WARNING("Please close the access panel before locking it."))
-			else
-				to_chat(user, SPAN_NOTICE("\The [src] doesn't seem to respect your authority."))
-
+		toggle_lock(user)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

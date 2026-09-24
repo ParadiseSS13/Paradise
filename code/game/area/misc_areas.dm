@@ -9,6 +9,8 @@
 
 /area/space
 	icon_state = "space"
+	area_icon_text = "SPACE"
+	area_icon_color = AREA_COLOR_TRANSPARENT
 	requires_power = FALSE
 	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
@@ -42,9 +44,11 @@
 
 /area/space/centcomm
 	icon_state = "space_cc"
+	area_icon_text = "SPACE\nCC"
 
 /area/space/no_teleport
 	icon_state = "space_notp"
+	area_icon_text = "SPACE\nNOTP"
 	tele_proof = TRUE
 
 /area/game_test
@@ -56,6 +60,8 @@
 /area/syndicate_mothership
 	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
+	area_icon_text = "SYNDI\nSHIP"
+	area_icon_color = AREA_COLOR_SECURITY
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE

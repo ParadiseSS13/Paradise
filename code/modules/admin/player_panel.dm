@@ -419,6 +419,8 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
+		if(length(SSticker.mode.flockminds))
+			dat += check_role_table("Flockminds", SSticker.mode.flockminds)
 
 		if(length(SSticker.mode.blob_overminds))
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
@@ -484,6 +486,11 @@
 
 		if(length(SSticker.mode.zombie_infected))
 			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
+
+		if(length(SSticker.mode.uplifted_primitives))
+			for(var/datum/species/species_path in SSticker.mode.uplifted_primitives)
+				var/minds = SSticker.mode.uplifted_primitives[species_path]
+				dat += check_role_table("Uplifted Primitives ([species_path::name])", minds)
 
 		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()

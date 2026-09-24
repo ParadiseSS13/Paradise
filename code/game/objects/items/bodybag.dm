@@ -1,4 +1,4 @@
-//Also contains /obj/structure/closet/body_bag because I doubt anyone would think to look for bodybags in /object/structures
+// Also contains /obj/structure/closet/body_bag because I doubt anyone would think to look for bodybags in /object/structures
 
 /obj/item/bodybag
 	name = "body bag"
@@ -6,11 +6,16 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 
-/obj/item/bodybag/attack_self__legacy__attackchain(mob/user)
+/obj/item/bodybag/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
+	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/body_bag
 	name = "body bag"
@@ -27,24 +32,35 @@
 	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
 
-/obj/structure/closet/body_bag/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(is_pen(I))
-		var/t = rename_interactive(user, I)
-		if(isnull(t))
-			return ITEM_INTERACT_COMPLETE
-		cut_overlays()
-		if(t)
-			add_overlay("bodybag_label")
+/obj/structure/closet/body_bag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!is_pen(used))
+		return ..()
+	var/new_name = rename_interactive(user, used)
+	if(isnull(new_name))
 		return ITEM_INTERACT_COMPLETE
-	if(istype(I, /obj/item/wirecutters))
-		to_chat(user, SPAN_NOTICE("You cut the tag off the bodybag."))
-		name = initial(name)
-		cut_overlays()
-		return ITEM_INTERACT_COMPLETE
-	return ..()
+	cut_overlays()
+	if(new_name)
+		add_overlay("bodybag_label")
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/closet/body_bag/wirecutter_act(mob/user, obj/item/used)
+	if(!istype(used, /obj/item/wirecutters))
+		return
+	if(name == initial(name))
+		return
+	user.visible_message(
+		SPAN_NOTICE("[user] cuts the tag off the body bag."),
+		SPAN_NOTICE("You cut the tag off the body bag."),
+		SPAN_HEAR("You hear a little snip.")
+	)
+	name = initial(name)
+	cut_overlays()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
-	return // Can't weld a body bag shut
+	return // Can't weld a body bag shut.
 
 /obj/structure/closet/body_bag/close()
 	if(..())
@@ -62,7 +78,9 @@
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
 		visible_message(SPAN_NOTICE("[usr] folds up [src]."))
-		new item_path(get_turf(src))
+		var/obj/item/bodybag/new_bag = new item_path(get_turf(src))
+		transfer_fingerprints_to(new_bag)
+		new_bag.add_fingerprint(usr)
 		qdel(src)
 		return
 	. = ..()
@@ -71,11 +89,11 @@
 	if(user.stat)
 		return
 
-	// Make it possible to escape from bodybags in morgues and crematoriums
+	// Make it possible to escape from bodybags in morgues and crematoriums.
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, SPAN_NOTICE("It won't budge!"))
 
 /obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
-	// no, you can't shove people into a body bag
+	// No, you can't shove people into a body bag.
 	return FALSE

@@ -46,13 +46,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/bmp_ship/delta)
-"am" = (
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/bmp_ship/delta)
 "an" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plating/airless,
@@ -360,10 +353,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/delta)
-"bE" = (
-/obj/machinery/door/airlock/silver,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered/bmp_ship/fore)
 "bF" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/bmp_ship/midship)
@@ -1410,17 +1399,6 @@
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/aft)
-"fl" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered/bmp_ship/fore)
-"fm" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered/bmp_ship/fore)
 "fn" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1658,28 +1636,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
-"gc" = (
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/bmp_ship/aft)
-"gd" = (
-/obj/machinery/door/airlock/silver{
-	locked = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/bmp_ship/aft)
-"ge" = (
-/obj/machinery/door/airlock/titanium,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/bmp_ship/aft)
 "gf" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/head/helmet/space/syndicate/green/dark,
@@ -1690,13 +1646,6 @@
 /obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
-"gh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/silver,
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/bmp_ship/fore)
 "gi" = (
 /turf/simulated/mineral/random/space,
 /area/ruin/unpowered/bmp_ship/midship)
@@ -2064,6 +2013,15 @@
 /obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
+"rQ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/bmp_ship/fore)
 "uK" = (
 /mob/living/basic/pirate,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
@@ -2072,6 +2030,15 @@
 "uT" = (
 /turf/simulated/mineral/random/high_chance/space,
 /area/ruin/powered)
+"xB" = (
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/bmp_ship/aft)
 "BC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2080,6 +2047,12 @@
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/bmp_ship/midship)
+"Df" = (
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/bmp_ship/fore)
 "Ht" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -2095,12 +2068,52 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/delta)
+"IO" = (
+/obj/machinery/door/airlock/silver{
+	locked = 1;
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/bmp_ship/delta)
+"Kd" = (
+/obj/machinery/door/airlock/silver{
+	locked = 1;
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/bmp_ship/aft)
 "PE" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/aft)
 "PP" = (
 /obj/structure/computerframe{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/bmp_ship/fore)
+"Ql" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/silver{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/bmp_ship/fore)
+"Qt" = (
+/obj/machinery/door/airlock/silver{
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/bmp_ship/aft)
+"RW" = (
+/obj/machinery/door/airlock/silver{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -2715,7 +2728,7 @@ ek
 ds
 ds
 ds
-fl
+Df
 fA
 fN
 fA
@@ -2768,7 +2781,7 @@ ds
 eB
 el
 el
-fm
+rQ
 fC
 fB
 fY
@@ -2810,7 +2823,7 @@ aD
 aQ
 bi
 bh
-fl
+Df
 ds
 ds
 ds
@@ -2916,7 +2929,7 @@ aD
 aR
 bj
 bk
-bE
+RW
 ds
 ds
 cG
@@ -2931,7 +2944,7 @@ aD
 fF
 fQ
 fQ
-gh
+Ql
 gq
 gL
 fA
@@ -4467,7 +4480,7 @@ ew
 ft
 eX
 cv
-gc
+Qt
 cC
 dG
 cC
@@ -4606,7 +4619,7 @@ ad
 ad
 aj
 aj
-am
+IO
 aB
 aj
 aj
@@ -4626,14 +4639,14 @@ fk
 fv
 fJ
 dD
-gd
+Kd
 cB
 gE
 gS
 gZ
 gR
 cC
-gc
+Qt
 dG
 dG
 cl
@@ -4891,7 +4904,7 @@ cB
 cB
 cB
 eA
-ge
+xB
 cB
 gG
 cC

@@ -27,7 +27,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(target, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
 		to_chat(user, "<font color='red'>You have <b>BANNED</b> [target]</font>")
-		playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
+		playsound(loc, 'sound/effects/adminhelp.ogg', 15) // Keep it at 15% volume so people don't jump out of their skin too much.
 		return FINISH_ATTACK
 
 /obj/item/sord
@@ -42,10 +42,13 @@
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	new_attack_chain = TRUE
 
 /obj/item/sord/suicide_act(mob/user)
-	user.visible_message(SPAN_SUICIDE("[user] is trying to impale [user.p_themselves()] with [src]! It might be a suicide attempt if it weren't so shitty."), \
-	SPAN_SUICIDE("You try to impale yourself with [src], but it's USELESS..."))
+	user.visible_message(
+		SPAN_SUICIDE("[user] is trying to impale [user.p_themselves()] with [src]! It might be a suicide attempt if it weren't so shitty."),
+		SPAN_SUICIDE("You try to impale yourself with [src], but it's USELESS...")
+	)
 	return SHAME
 
 /obj/item/claymore
@@ -64,6 +67,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -89,6 +93,7 @@
 	force = 20
 	throwforce = 15
 	attack_verb = list("jabbed","stabbed","ripped")
+	new_attack_chain = TRUE
 
 /obj/item/wirerod
 	name = "wired rod"
@@ -98,36 +103,48 @@
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
-	materials = list(MAT_METAL=1150, MAT_GLASS=75)
+	materials = list(MAT_METAL = 1150, MAT_GLASS = 75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
+	new_attack_chain = TRUE
 
-/obj/item/wirerod/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	..()
-	if(istype(I, /obj/item/shard))
-		var/obj/item/spear/S = new /obj/item/spear
-		if(istype(I, /obj/item/shard/plasma))
-			S.add_plasmaglass()
-			S.update_icon()
-		if(!remove_item_from_storage(user))
-			user.unequip(src)
-		user.unequip(I)
+/obj/item/wirerod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/shard) && !istype(used, /obj/item/assembly/igniter))
+		return ..()
 
-		user.put_in_hands(S)
-		to_chat(user, SPAN_NOTICE("You fasten the glass shard to the top of the rod with the cable."))
-		qdel(I)
-		qdel(src)
+	if(istype(used, /obj/item/assembly/igniter))
+		if(used.flags & NODROP)
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
 
-	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+		var/obj/item/melee/baton/cattleprod/prod = new /obj/item/melee/baton/cattleprod
 
 		if(!remove_item_from_storage(user))
 			user.unequip(src)
-		user.unequip(I)
+		user.unequip(used)
 
-		user.put_in_hands(P)
-		to_chat(user, SPAN_NOTICE("You fasten [I] to the top of the rod with the cable."))
-		qdel(I)
+		src.transfer_fingerprints_to(prod)
+		transfer_fingerprints_to(prod)
+		user.put_in_hands(prod)
+		to_chat(user, SPAN_NOTICE("You fasten [used] to the top of the rod with the cable."))
+		qdel(used)
 		qdel(src)
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/spear/spear = new /obj/item/spear
+	if(istype(used, /obj/item/shard/plasma))
+		spear.add_plasmaglass()
+		spear.update_icon()
+	if(!remove_item_from_storage(user))
+		user.unequip(src)
+	user.unequip(used)
+
+	used.transfer_fingerprints_to(spear)
+	transfer_fingerprints_to(spear)
+	user.put_in_hands(spear)
+	to_chat(user, SPAN_NOTICE("You fasten [used] to the top of the rod with the cable."))
+	qdel(used)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/throwing_star
 	name = "throwing star"
@@ -138,21 +155,37 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 2
-	throwforce = 20 //This is never used on mobs since this has a 100% embed chance.
+	throwforce = 20 // This is never used on mobs since this has a 100% embed chance.
 	throw_speed = 4
 	embedded_pain_multiplier = 4
 	w_class = WEIGHT_CLASS_SMALL
 	embed_chance = 100
-	embedded_fall_chance = 0 //Hahaha!
+	embedded_fall_chance = 0 // Hahaha!
 	sharp = TRUE
-	materials = list(MAT_METAL=500, MAT_GLASS=500)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A one-handed spear brought over from the Kidan homeworld."
+/obj/item/kidan_spear
+	name = "\improper kidan spear"
+	desc = "A one-handed spear made of a design that traces back to the kidan homeworld."
+	icon = 'icons/obj/weapons/spears.dmi'
 	icon_state = "kidanspear"
-	throwforce = 15
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	force = 15
+	throwforce = 18
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	materials = list(MAT_METAL = 500, MAT_PLASMA = 500, MAT_TITANIUM = 500)
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	sharp = TRUE
+	armor_penetration_flat = 5
+	no_spin_thrown = TRUE
+	needs_permit = TRUE
+	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
@@ -170,7 +203,10 @@
 	var/throw_cooldown = 10 SECONDS
 	var/homerun_ready = FALSE
 	var/homerun_able = FALSE
-	var/deflectmode = FALSE // deflect small/medium thrown objects
+	/// Deflect small/medium thrown objects.
+	var/deflectmode = FALSE
+	/// Is the bat made of metal?
+	var/is_metal = FALSE
 
 	new_attack_chain = TRUE
 
@@ -184,12 +220,21 @@
 	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
 		return FALSE
 	var/obj/item/I = hitby
-	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
+	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // Baseball bat deflecting.
 		if(!deflectmode)
 			return
-		if(prob(10))
-			visible_message(SPAN_BOLDWARNING("[owner] Deflects [I] directly back at the thrower! It's a home run!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower! It's a home run!"))
+		if(prob(5) || homerun_ready)
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] far into the air! It's a homerun!"), SPAN_BOLDWARNING("You deflect [I] far into the air! It's a homerun!"))
 			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
+			do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			hit_object(owner, I, TRUE)
+			return TRUE
+		else if(prob(10))
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] directly back at the thrower!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower!"))
+			var/sound = 'sound/weapons/baseball_hit.ogg'
+			if(is_metal)
+				sound = 'sound/weapons/effects/batreflect1.ogg'
+			playsound(get_turf(owner), sound, 75, TRUE, -1)
 			do_attack_animation(I, ATTACK_EFFECT_DISARM)
 			I.throw_at(locateUID(I.thrownby), 20, 20, owner)
 			deflectmode = FALSE
@@ -206,13 +251,30 @@
 			return FALSE
 		else
 			visible_message(SPAN_WARNING("[owner] swings and deflects [I]!"), SPAN_WARNING("You swing and deflect [I]!"))
-			playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
+			var/sound = 'sound/weapons/baseball_hit.ogg'
+			if(is_metal)
+				sound = 'sound/weapons/effects/batreflect1.ogg'
+			playsound(get_turf(owner), sound, 75, TRUE, -1)
 			do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
-			deflectmode = FALSE
-			if(!istype(I, /obj/item/beach_ball))
-				COOLDOWN_START(src, last_deflect, deflect_cooldown)
+			hit_object(owner, I)
 			return TRUE
+
+/obj/item/melee/baseball_bat/proc/hit_object(mob/living/carbon/human/owner, obj/item/I, homerun = FALSE)
+	var/deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 180 // 180 degree angle in front of the user.
+	var/deflect_range = rand(5, 10)
+	if(homerun)
+		deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 120
+		deflect_range = 20
+		I.pass_flags |= PASSMOB
+		addtimer(CALLBACK(PROC_REF(reset_flags), I), 0.3 SECONDS)
+	I.throw_at(get_angle_target_turf(owner, deflect_dir, deflect_range), deflect_range, 14, owner)
+	deflectmode = FALSE
+	homerun_ready = FALSE
+	if(!istype(I, /obj/item/beach_ball))
+		COOLDOWN_START(src, last_deflect, deflect_cooldown)
+
+/obj/item/melee/baseball_bat/proc/reset_flags(obj/item/I)
+	I.pass_flags = initial(I.pass_flags)
 
 /obj/item/melee/baseball_bat/activate_self(mob/user)
 	if(..())
@@ -279,12 +341,8 @@
 	icon_state = "baseball_bat_metal"
 	force = 12
 	throwforce = 15
+	is_metal = TRUE
 
-/obj/item/melee/baseball_bat/ablative/IsReflect()//some day this will reflect thrown items instead of lasers
-	var/picksound = rand(1,2)
-	var/turf = get_turf(src)
-	if(picksound == 1)
-		playsound(turf, 'sound/weapons/effects/batreflect1.ogg', 50, 1)
-	if(picksound == 2)
-		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, 1)
-	return 1
+/obj/item/melee/baseball_bat/ablative/IsReflect() // Some day this will reflect thrown items instead of lasers.
+	playsound(get_turf(src), pick('sound/weapons/effects/batreflect1.ogg', 'sound/weapons/effects/batreflect2.ogg'), 50, 1)
+	return TRUE

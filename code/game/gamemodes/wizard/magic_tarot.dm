@@ -8,26 +8,34 @@
 	var/maximum_cards = 3
 	/// List of cards we have created, to check against maximum, and so we can purge them from the pack.
 	var/list/our_card_list = list()
-	///How long the cooldown is each time we draw a card before we can draw another?
+	/// How long the cooldown is each time we draw a card before we can draw another?
 	var/our_card_cooldown_time = 25 SECONDS
 	COOLDOWN_DECLARE(card_cooldown)
+	new_attack_chain = TRUE
 
 /obj/item/tarot_generator/wizard
 	maximum_cards = 5
-	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards
+	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards.
 
-/obj/item/tarot_generator/attack_self__legacy__attackchain(mob/user)
+/obj/item/tarot_generator/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
 		to_chat(user, SPAN_WARNING("[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(length(our_card_list) >= maximum_cards)
 		to_chat(user, SPAN_WARNING("[src]'s magic can only support up to [maximum_cards] in the world at once, use or destroy some!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), src)
 	our_card_list += MTC
 	user.put_in_hands(MTC)
-	to_chat(user, SPAN_HIEROPHANT("You draw [MTC.name]... [MTC.card_desc]")) //No period on purpose.
+	to_chat(user, SPAN_HIEROPHANT("You draw [MTC.name]... [MTC.card_desc]")) // No period on purpose.
 	COOLDOWN_START(src, card_cooldown, our_card_cooldown_time)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tarot_generator/examine(mob/user)
 	. = ..()
@@ -47,16 +55,24 @@
 	desc = "A pack of 3 Enchanted tarot cards. Collect them all!"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "pack"
-	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
+	/// How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega.
 	var/cards = 3
+	new_attack_chain = TRUE
 
-/obj/item/tarot_card_pack/attack_self__legacy__attackchain(mob/user)
-	user.visible_message(SPAN_NOTICE("[user] tears open [src]."), \
-						SPAN_HIEROPHANT("You tear open [src]!"))
+/obj/item/tarot_card_pack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(
+		SPAN_NOTICE("[user] tears open [src]."),
+		SPAN_HIEROPHANT("You tear open [src]!"),
+		SPAN_HEAR("You hear the telltale tearing of a small card pack!")
+	)
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	for(var/i in 1 to cards)
 		new /obj/item/magic_tarot_card(get_turf(src))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tarot_card_pack/jumbo
 	name = "\improper Jumbo Arcana Pack"
@@ -82,6 +98,7 @@
 	resistance_flags = FLAMMABLE
 	/// If a person can choose what the card produces. No cost if they can choose.
 	var/let_people_choose = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/blank_tarot_card/examine(mob/user)
 	. = ..()
@@ -90,23 +107,30 @@
 	else
 		. += SPAN_HIEROPHANT("We have the Ink... Could you provide your Vision instead?")
 
-/obj/item/blank_tarot_card/attack_self__legacy__attackchain(mob/user)
+/obj/item/blank_tarot_card/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!ishuman(user))
-		return
+		to_chat(user, SPAN_WARNING("You don't have the mysticism to use this!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(!let_people_choose)
-		var/mob/living/carbon/human/H = user
-		if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
-			to_chat(user, SPAN_CULT("No blood to provide?...</span><span class='hierophant'> Then no Ink for the art..."))
-			return
-		if(H.blood_volume <= 100) //Shouldn't happen, they should be dead, but failsafe. Not bleeding as then they could recover the blood with blood rites
-			return
-		H.blood_volume -= 100
-		H.drop_item()
+		var/mob/living/carbon/human/human_user = user
+		if(human_user.dna && (NO_BLOOD in human_user.dna.species.species_traits))
+			to_chat(user, "[SPAN_CULT("No blood to provide?...")] [SPAN_HIEROPHANT("Then no Ink for the art...")]")
+			return ITEM_INTERACT_COMPLETE
+		if(human_user.blood_volume <= 100) // Shouldn't happen, they should be dead, but failsafe. Not bleeding as then they could recover the blood with blood rites.
+			to_chat(user, "[SPAN_CULT("Such a paltry blood offering?...")] [SPAN_HIEROPHANT("Then no Ink for the art...")]")
+			return ITEM_INTERACT_COMPLETE
+		human_user.blood_volume -= 100
+		human_user.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
+		transfer_fingerprints_to(MTC)
 		user.put_in_hands(MTC)
-		to_chat(user, SPAN_CULT("Your blood flows into [src]...</span><span class='hierophant'> And your Ink makes a work of art! [MTC.name]... [MTC.card_desc]")) //No period on purpose.
+		to_chat(user, "[SPAN_CULT("Your blood flows into [src]...")] [SPAN_HIEROPHANT("And your Ink makes a work of art! [MTC.name]... [MTC.card_desc]")]") // No period on purpose.
 		qdel(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/tarot_type
 	var/tarot_name
 	var/list/card_by_name = list()
@@ -116,14 +140,18 @@
 
 	tarot_name = tgui_input_list(user, "Choose the Work of Art to create.", "Art Creation", card_by_name)
 	tarot_type = card_by_name[tarot_name]
-	if(tarot_type)
-		user.drop_item()
-		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
-		user.put_in_hands(MTC)
-		to_chat(user, SPAN_HIEROPHANT("You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]")) //No period on purpose.
-		qdel(src)
+	if(!tarot_type)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
+	user.drop_item()
+	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
+	transfer_fingerprints_to(MTC)
+	user.put_in_hands(MTC)
+	to_chat(user, SPAN_HIEROPHANT("You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]")) // No period on purpose.
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/blank_tarot_card/choose // For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
 	let_people_choose = TRUE
 
 /obj/item/magic_tarot_card
@@ -147,6 +175,7 @@
 	var/needs_mob_target = TRUE
 	/// Has the card been activated? If it has, don't activate it again
 	var/has_been_activated = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -177,17 +206,24 @@
 	if(!face_down)
 		. += SPAN_HIEROPHANT("[src] [our_tarot.extended_desc]")
 
-/obj/item/magic_tarot_card/attack_self__legacy__attackchain(mob/user)
+/obj/item/magic_tarot_card/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	poof()
 	if(has_been_activated)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(face_down)
 		flip()
+
 	if(our_tarot)
 		user.drop_item()
 		pre_activate(user, user)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/magic_tarot_card/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	if(face_down)

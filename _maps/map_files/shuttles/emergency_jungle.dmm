@@ -121,13 +121,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/wood,
 /area/shuttle/escape)
-"aF" = (
-/obj/machinery/door/airlock/wood/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/grass,
-/area/shuttle/escape)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
@@ -829,6 +822,14 @@
 	},
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
+"PX" = (
+/obj/machinery/door/airlock/wood/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
 "Rr" = (
 /obj/structure/flora/junglebush,
 /obj/machinery/light/small{
@@ -1114,7 +1115,7 @@ ah
 mC
 SO
 cu
-aF
+PX
 cv
 bM
 ia
@@ -1145,7 +1146,7 @@ ai
 mC
 IH
 cv
-aF
+PX
 SO
 cu
 bM

@@ -12,54 +12,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
-"ad" = (
-/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "voxwest_door_ext";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
-/area/shuttle/administration)
 "ae" = (
 /obj/machinery/computer/shuttle/admin/vox{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
-/area/shuttle/administration)
-"ai" = (
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "voxshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plating/nitrogen,
-/area/shuttle/administration)
-"aj" = (
-/obj/docking_port/mobile/admin{
-	dir = 2;
-	dwidth = 9;
-	height = 18;
-	id = "admin";
-	name = "skipjack";
-	roundstart_move = "cc_bay_1";
-	timid = 1;
-	width = 19
-	},
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "voxshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plating/nitrogen,
 /area/shuttle/administration)
 "aq" = (
 /obj/machinery/light{
@@ -125,23 +82,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/shuttle/administration)
-"aM" = (
-/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "voxeast_door_ext";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
-/area/shuttle/administration)
-"aN" = (
-/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "voxwest_door_int";
-	locked = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "aP" = (
 /obj/item/broken_bottle,
@@ -287,7 +227,7 @@
 	autolink_id = "voxwest_btn_int";
 	req_access = list(152)
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 "ci" = (
 /obj/effect/spawner/window/plastitanium,
@@ -326,15 +266,7 @@
 	autolink_id = "voxeast_btn_int";
 	req_access = list(152)
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/administration)
-"co" = (
-/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "voxeast_door_int";
-	locked = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 "cp" = (
 /obj/structure/ai_core,
@@ -360,7 +292,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "eP" = (
@@ -383,19 +315,54 @@
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
+"pf" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
 "qa" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/cell_charger,
 /obj/item/weed_extract,
+/obj/machinery/cell_charger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "sd" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/light,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"tn" = (
+/obj/docking_port/mobile/admin{
+	dwidth = 9;
+	height = 18;
+	name = "skipjack";
+	roundstart_move = "cc_bay_1";
+	width = 19
+	},
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
 /area/shuttle/administration)
 "ue" = (
 /obj/structure/window/reinforced{
@@ -470,6 +437,13 @@
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
+"Hg" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
 "IH" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -499,6 +473,34 @@
 /obj/item/tank/internals/nitrogen,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
+"Kl" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxeast_door_ext";
+	locked = 1;
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"LP" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxeast_door_int";
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"MR" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxwest_door_int";
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
 "MT" = (
 /obj/structure/rack,
 /obj/item/pneumatic_cannon,
@@ -517,9 +519,19 @@
 /obj/item/organ/internal/brain,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
+"UD" = (
+/obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxwest_door_ext";
+	locked = 1;
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
 "Vl" = (
-/obj/machinery/bodyscanner,
 /obj/machinery/light,
+/obj/machinery/bodyscanner/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "XB" = (
@@ -558,7 +570,7 @@ aa
 av
 jg
 jg
-aN
+MR
 jg
 jg
 jg
@@ -575,7 +587,7 @@ aa
 aa
 "}
 (3,1,1) = {"
-ad
+UD
 aq
 aG
 cg
@@ -695,12 +707,12 @@ ae
 zD
 "}
 (9,1,1) = {"
-ai
+pf
 jg
 jg
 ck
 jg
-bb
+Hg
 jg
 jg
 jg
@@ -708,19 +720,19 @@ jg
 jg
 jg
 jg
-bb
+Hg
 jg
 jg
 wk
 wb
 "}
 (10,1,1) = {"
-aj
+tn
 jg
 bY
 cl
 cu
-bb
+Hg
 jg
 jg
 jg
@@ -728,7 +740,7 @@ jg
 jg
 jg
 jg
-bb
+Hg
 XK
 jg
 bR
@@ -835,7 +847,7 @@ aa
 aa
 "}
 (16,1,1) = {"
-aM
+Kl
 aB
 cf
 cn
@@ -858,7 +870,7 @@ aa
 bO
 jg
 jg
-co
+LP
 jg
 jg
 jg

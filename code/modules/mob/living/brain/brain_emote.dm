@@ -58,9 +58,37 @@
 	key_third_person = "beeps"
 	message = "beeps."
 	self_message = "You beep."
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/machines/twobeep.ogg"
 
 /datum/emote/living/brain/boop
 	key = "boop"
 	key_third_person = "boops"
 	message = "boops."
 	self_message = "You boop."
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/machines/boop.ogg"
+
+/datum/emote/living/brain/scream
+	key = "scream"
+	key_third_person = "screams"
+	message = "screams!"
+	self_message = "You scream!"
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/brain/scream/select_message_type(mob/user, msg, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(H.dna.species?.scream_verb)
+		if(H.mind?.miming)
+			return "[H.dna.species?.scream_verb] silently!"
+		else
+			return "[H.dna.species?.scream_verb]!"
+
+/datum/emote/living/brain/scream/get_sound(mob/living/brain/user)
+	if(user.mind?.miming || !istype(user))
+		return
+	if(user.gender == FEMALE)
+		return user.dna.species.female_scream_sound
+	else
+		return user.dna.species.male_scream_sound

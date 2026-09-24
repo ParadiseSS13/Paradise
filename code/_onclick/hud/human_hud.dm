@@ -406,11 +406,7 @@
 			else
 				inv.alpha = hud_alpha
 	for(var/atom/movable/screen/craft/crafting in static_inventory)
-		if(!S.can_craft)
-			crafting.invisibility = INVISIBILITY_ABSTRACT
-			H.handcrafting?.close(H)
-		else
-			crafting.invisibility = initial(crafting.invisibility)
+		crafting.invisibility = initial(crafting.invisibility)
 
 /datum/hud/human/hidden_inventory_update(mob/viewer)
 	if(!mymob)

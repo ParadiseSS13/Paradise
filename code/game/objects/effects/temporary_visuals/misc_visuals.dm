@@ -491,6 +491,13 @@
 /obj/effect/temp_visual/obliteration
 	duration = 2 SECONDS
 
+/obj/effect/temp_visual/cargo_drop_pod
+	duration = 5 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_circle"
+
+
 /obj/effect/temp_visual/obliteration/Initialize(mapload, atom/target)
 	. = ..()
 	if(isobj(target))

@@ -328,8 +328,8 @@ const NewscasterJobs = (properties) => {
         Sign up for any of the above position now at the <b>Head of Personnel&apos;s Office!</b>
         <br />
         <Box as="small" color="label">
-          By signing up for a job at Nanotrasen, you agree to transfer your soul to the loyalty department of the
-          omnipresent and helpful watcher of humanity.
+          By accepting employment at Nanotrasen or any of its installations, you additionally agree to the terms and
+          conditions provided by the company, including Standard Operating Procedure and Space Law.
         </Box>
       </Section>
     </Stack>

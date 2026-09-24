@@ -12,9 +12,6 @@
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"av" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/escape)
 "bm" = (
 /obj/structure/shuttle/engine/propulsion/burst/left,
 /turf/simulated/floor/plating/airless,
@@ -62,11 +59,6 @@
 "cF" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /obj/effect/turf_decal/tiles/department/command/corner,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
-"dq" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "dP" = (
@@ -144,7 +136,7 @@
 /area/shuttle/escape)
 "gs" = (
 /obj/structure/sign/lifestar,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "gN" = (
 /obj/machinery/economy/vending/wallmed/directional/north,
@@ -196,6 +188,13 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"hy" = (
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ii" = (
@@ -364,6 +363,23 @@
 "qk" = (
 /obj/structure/marker_beacon/dock_marker,
 /turf/simulated/floor/catwalk,
+/area/shuttle/escape)
+"qm" = (
+/obj/docking_port/mobile/emergency{
+	height = 50;
+	width = 19;
+	timid = 1;
+	dir = 2;
+	lance_docking = 1;
+	shuttle_speed_factor = 1.5;
+	port_direction = 1
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "qS" = (
 /obj/machinery/optable,
@@ -585,22 +601,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"yD" = (
-/obj/docking_port/mobile/emergency{
-	height = 50;
-	width = 19;
-	timid = 1;
-	dir = 2;
-	lance_docking = 1;
-	shuttle_speed_factor = 1.5;
-	port_direction = 1
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock"
-	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "yM" = (
 /obj/machinery/computer/crew{
 	dir = 4
@@ -812,6 +812,14 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"IZ" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "Jb" = (
 /obj/machinery/light/small,
 /obj/machinery/computer/operating{
@@ -981,6 +989,13 @@
 	specialfunctions = 4
 	},
 /turf/simulated/floor/mineral/silver,
+/area/shuttle/escape)
+"Qq" = (
+/obj/machinery/door/airlock/highsecurity{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Qs" = (
 /obj/effect/turf_decal/tiles/department/engineering{
@@ -1167,20 +1182,20 @@ iJ
 iJ
 iJ
 jK
-av
+fE
 Vf
 Vf
 Vf
 Vf
-av
+fE
 jK
 iJ
 iJ
 iJ
 fE
 hv
-av
-av
+fE
+fE
 iJ
 iJ
 iJ
@@ -1218,14 +1233,14 @@ iJ
 iJ
 iJ
 iJ
-av
+fE
 DD
 ut
 jZ
 yM
 uW
 DD
-av
+fE
 ul
 qk
 ul
@@ -1329,15 +1344,15 @@ UY
 UY
 Cl
 fR
-av
-av
-av
-av
-av
+fE
+fE
+fE
+fE
+fE
 gS
-av
-av
-av
+fE
+fE
+fE
 jK
 iJ
 iJ
@@ -1381,16 +1396,16 @@ lH
 lH
 iY
 DZ
-av
+fE
 jn
-av
+fE
 fH
 IJ
 lH
 IJ
 wS
-av
-av
+fE
+fE
 iJ
 iJ
 iJ
@@ -1414,35 +1429,35 @@ iJ
 iJ
 iJ
 jK
-av
-av
+fE
+fE
 gZ
-av
-av
-av
+fE
+fE
+fE
 gZ
-av
+fE
 jK
 iJ
 iJ
 iJ
-av
-av
+fE
+fE
 ae
-av
+fE
 xv
 wx
 vk
-av
+fE
 Qh
-av
+fE
 Tc
 WU
 WU
 WU
 yg
 nP
-av
+fE
 iJ
 iJ
 iJ
@@ -1458,43 +1473,43 @@ iJ
 iJ
 iJ
 jK
-av
-av
-av
-av
-av
-av
+fE
+fE
+fE
+fE
+fE
+fE
 hv
-av
-av
+fE
+fE
 eP
 UY
 eL
-av
+fE
 tW
 UY
 eL
-av
-av
+fE
+fE
 gZ
-av
-av
+fE
+fE
 eP
 WU
-av
-av
+fE
+fE
 Vf
-av
-av
+fE
+fE
 ii
-av
+fE
 bA
 Wk
 WU
 WU
 WU
 Jb
-av
+fE
 dP
 iJ
 iJ
@@ -1504,49 +1519,49 @@ iJ
 iJ
 iJ
 jK
-av
-av
-av
+fE
+fE
+fE
 gZ
-av
-av
-av
+fE
+fE
+fE
 SQ
 wu
 wF
 XB
-av
+fE
 sT
 Bn
-av
+fE
 Id
 UY
 rp
-av
+fE
 Id
 UY
 rp
-av
+fE
 fL
 WJ
 fL
-av
+fE
 eP
 WU
 fL
 fL
 fL
 fL
-av
+fE
 VM
-av
+fE
 KQ
 VM
 Wk
 WU
 kr
 xI
-av
+fE
 Zg
 dP
 iJ
@@ -1555,22 +1570,22 @@ iJ
 jK
 gZ
 hv
-av
-av
+fE
+fE
 ww
 qS
 fL
 mS
 fG
-av
+fE
 lH
 lH
 lH
 lH
-av
+fE
 gS
-av
-av
+fE
+fE
 HK
 WU
 lH
@@ -1578,11 +1593,11 @@ eh
 lH
 WU
 nP
-av
+fE
 Oq
 WU
 WU
-av
+fE
 Nc
 WU
 lH
@@ -1591,20 +1606,20 @@ lH
 lH
 jr
 YC
-dq
+Qq
 WU
 Jd
 Iu
 Iu
 Wk
 Rc
-av
-av
+fE
+fE
 IN
 dP
 "}
 (10,1,1) = {"
-yD
+qm
 Wq
 Wq
 AK
@@ -1614,7 +1629,7 @@ Wq
 Wq
 Wq
 Wq
-dq
+Qq
 UY
 UY
 UY
@@ -1622,7 +1637,7 @@ UY
 xj
 UY
 UY
-dq
+Qq
 WU
 UY
 If
@@ -1630,11 +1645,11 @@ Bx
 bV
 UY
 WU
-dq
+Qq
 UY
 UY
 UY
-dq
+Qq
 WU
 UY
 UY
@@ -1651,7 +1666,7 @@ Wk
 WU
 ob
 KL
-av
+fE
 IN
 dP
 "}
@@ -1659,22 +1674,22 @@ dP
 jK
 gZ
 hv
-av
-av
+fE
+fE
 KB
 mS
 ku
 gX
 sE
-av
-av
+fE
+fE
 gS
-av
+fE
 Iu
 Iu
 Iu
 Iu
-av
+fE
 gN
 WU
 Iu
@@ -1682,11 +1697,11 @@ EV
 Iu
 WU
 rX
-av
+fE
 CL
 WU
 KY
-av
+fE
 eP
 WU
 Nt
@@ -1695,15 +1710,15 @@ HL
 Iu
 EV
 kg
-dq
+Qq
 WU
 yg
 lH
 lH
 YC
 Rc
-av
-av
+fE
+fE
 IN
 dP
 "}
@@ -1712,49 +1727,49 @@ iJ
 iJ
 iJ
 jK
-av
-av
-av
+fE
+fE
+fE
 gZ
-av
-av
-av
+fE
+fE
+fE
 Bn
 Ky
-av
+fE
 rg
 Bi
 QM
 sx
-av
+fE
 bo
 UY
 ew
-av
+fE
 bo
 UY
 ew
-av
+fE
 ku
 WJ
 ku
-av
+fE
 eP
 WU
-av
+fE
 gZ
-av
+fE
 wz
-av
+fE
 gZ
-av
+fE
 Rh
 WU
 WU
 yg
 jp
 xI
-av
+fE
 qb
 dP
 iJ
@@ -1770,43 +1785,43 @@ iJ
 iJ
 iJ
 jK
-av
-av
+fE
+fE
 hv
-av
-av
-av
-av
-av
-av
+fE
+fE
+fE
+fE
+fE
+fE
 eP
 UY
 Ek
-av
+fE
 eP
 UY
 eL
-av
-av
+fE
+fE
 gZ
-av
-av
+fE
+fE
 eP
 WU
-av
+fE
 nX
 DU
 DU
 DU
 Xz
-av
+fE
 gU
 WU
 WU
 WU
 yg
 Jb
-av
+fE
 dP
 iJ
 iJ
@@ -1830,35 +1845,35 @@ iJ
 iJ
 iJ
 jK
-av
-av
+fE
+fE
 gZ
-av
-av
-av
+fE
+fE
+fE
 gZ
-av
+fE
 jK
 iJ
 iJ
 iJ
-av
-av
+fE
+fE
 ek
-av
+fE
 nX
 DU
 DU
 DU
 Xz
-av
+fE
 bQ
 WU
 WU
 WU
 Jd
 rX
-av
+fE
 iJ
 iJ
 iJ
@@ -1897,20 +1912,20 @@ bO
 kO
 ok
 Yi
-av
+fE
 Hk
 it
 it
 it
 HE
-av
+fE
 kZ
 of
 of
 Iu
 Nd
-av
-av
+fE
+fE
 iJ
 iJ
 iJ
@@ -1949,19 +1964,19 @@ lj
 kO
 XO
 hs
-av
-av
-av
-av
-av
-av
-av
-av
-av
+fE
+fE
+fE
+fE
+fE
+fE
+fE
+fE
+fE
 gZ
 FP
-av
-av
+fE
+fE
 jK
 iJ
 iJ
@@ -2003,9 +2018,9 @@ cn
 Qs
 Qs
 pV
-gS
+hy
 Wo
-hv
+IZ
 ul
 ul
 ul
@@ -2050,14 +2065,14 @@ iJ
 iJ
 iJ
 iJ
-av
+fE
 Mb
 PK
 AS
 Nu
-av
+fE
 IF
-av
+fE
 ul
 qk
 ul
@@ -2103,12 +2118,12 @@ iJ
 iJ
 iJ
 jK
-av
+fE
 gZ
 gZ
-av
-av
-av
+fE
+fE
+fE
 jK
 iJ
 iJ

@@ -213,11 +213,6 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/shuttle/escape)
-"ys" = (
-/obj/machinery/door/airlock/clockwork,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/clockwork,
-/area/shuttle/escape)
 "yt" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1;
@@ -502,6 +497,13 @@
 "SY" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Tr" = (
+/obj/machinery/door/airlock/clockwork{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/clockwork,
 /area/shuttle/escape)
 "Uq" = (
@@ -946,7 +948,7 @@ EC
 bL
 xQ
 FQ
-ys
+Tr
 FQ
 Yd
 Yd
@@ -1020,7 +1022,7 @@ EC
 mg
 xQ
 FQ
-ys
+Tr
 FQ
 Yd
 Yd
