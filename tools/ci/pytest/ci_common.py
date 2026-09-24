@@ -13,20 +13,11 @@ class Color(StrEnum):
 
 GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
 
-@pytest.fixture(autouse=True)
-def reset_error_reporters():
-    yield
-
-    for reporter in ErrorReporter.instances:
-        reporter.END_TEST()
-
 class ErrorReporter:
-    instances: list[ErrorReporter] = []
 
     def __init__(self, title: str):
         self.title = title
         self.total_errors = 0
-        self.instances.append(self)
 
     def _github_format(
         self,
