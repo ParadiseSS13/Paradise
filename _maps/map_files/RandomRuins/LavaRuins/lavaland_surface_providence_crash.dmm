@@ -108,14 +108,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "dy" = (
-/obj/machinery/door/airlock/hatch/manual_rotation{
+/obj/machinery/door/airlock/hatch{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/providence)
 "dF" = (
-/obj/machinery/door/airlock/hatch/manual_rotation{
+/obj/machinery/door/airlock/hatch{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
@@ -229,7 +229,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/providence)
 "hN" = (
-/obj/machinery/door/airlock/hatch/manual_rotation{
+/obj/machinery/door/airlock/hatch{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
@@ -826,12 +826,12 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/powered/providence)
 "MT" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/triple/manual_rotation{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	dir = 4;
 	id_tag = "PW_CHALLENGE_LOOTROOM";
 	name = "ship's vault"
 	},
-/obj/machinery/door/airlock/hatch/manual_rotation{
+/obj/machinery/door/airlock/hatch{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,

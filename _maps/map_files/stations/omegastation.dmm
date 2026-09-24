@@ -24873,7 +24873,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/engineering/manual_rotation{
+/obj/machinery/door/airlock/engineering{
 	dir = 4
 	},
 /turf/simulated/floor/plating{
