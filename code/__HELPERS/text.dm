@@ -783,5 +783,8 @@
 	text = replacetext(text, "\improper", "")
 	return text
 
+/**
+ * Formats a table name to be used in SQL queries
+ */
 /proc/format_table_name(table as text)
 	return table

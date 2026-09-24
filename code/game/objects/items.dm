@@ -525,7 +525,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	in_inventory = TRUE
 
 /obj/item/proc/grant_pickup_achievement(mob/user, achievement_type)
-	if(!user || !user.client)
+	if(!user || !HAS_CONNECTED_PLAYER(user))
 		return FALSE
 	user.client.give_award(achievement_type, user)
 	return TRUE

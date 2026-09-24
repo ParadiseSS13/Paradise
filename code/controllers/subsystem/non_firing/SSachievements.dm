@@ -119,10 +119,9 @@ SUBSYSTEM_DEF(achievements)
 	if(!query.Execute(async = TRUE))
 		qdel(query)
 		return
-	else
-		while(query.NextRow())
-			current_metadata[query.item[1]] = query.item[2]
-		qdel(query)
+	while(query.NextRow())
+		current_metadata[query.item[1]] = query.item[2]
+	qdel(query)
 
 	var/list/achievements_by_db_id = list()
 	for(var/datum/award/award as anything in subtypesof(/datum/award))
