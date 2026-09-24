@@ -41,7 +41,7 @@
 	var/list/code_digits = list()
 
 	for(var/i in 1 to length)
-		if(!digits.len)
+		if(!length(digits))
 			break
 		var/digit = pick(digits)
 		code_digits += digit
@@ -52,7 +52,7 @@
 /// we pick our word here from wordle_words
 /obj/structure/closet/crate/secure/loot/proc/generate_word()
 	// if wordle_words isn't found, default to "SPACE"
-	if(!GLOB.wordle_words?.len)
+	if(length(GLOB.wordle_words))
 		return "SPACE"
 
 	// go ahead and capatilize the word for STYLE
@@ -60,7 +60,6 @@
 
 /obj/structure/closet/crate/secure/loot/proc/spawn_loot()
 	spawned_loot = TRUE
-	return
 
 /// making sure that the player actually enters a 5 letter word
 /obj/structure/closet/crate/secure/loot/proc/validate_word_input(input)
