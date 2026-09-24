@@ -393,6 +393,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
+"CK" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/mech_transport)
 "CL" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -1097,7 +1100,7 @@ Uf
 sH
 kI
 di
-vo
+CK
 vo
 vo
 vo
@@ -1247,7 +1250,7 @@ VS
 VS
 VS
 di
-vo
+CK
 jd
 vo
 vo

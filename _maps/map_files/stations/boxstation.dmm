@@ -12573,7 +12573,7 @@
 /turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "aVY" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "aWb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -69151,7 +69151,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "oqz" = (
 /obj/structure/cable/extra_insulated{

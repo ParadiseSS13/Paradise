@@ -100,6 +100,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
+"hL" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/freegolem)
 "iq" = (
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/light{
@@ -557,10 +560,10 @@ bq
 WF
 WF
 bq
-bq
+hL
 rr
 uT
-bq
+hL
 WF
 WF
 WF
@@ -608,7 +611,7 @@ oD
 oD
 tz
 jD
-bq
+hL
 bq
 bq
 EE
@@ -688,13 +691,13 @@ HE
 oD
 oD
 FQ
-bq
+hL
 bq
 bq
 Ob
 bq
 bq
-bq
+hL
 yn
 hg
 YZ
@@ -716,13 +719,13 @@ JF
 AT
 qT
 EB
+hL
 bq
 bq
+hL
 bq
 bq
-bq
-bq
-bq
+hL
 EE
 "}
 (11,1,1) = {"
@@ -785,10 +788,10 @@ oD
 oD
 oD
 FQ
+hL
 bq
 bq
-bq
-bq
+hL
 EE
 "}
 (14,1,1) = {"
@@ -815,9 +818,9 @@ EE
 "}
 (15,1,1) = {"
 EE
+hL
 bq
-bq
-bq
+hL
 HE
 oD
 oD
@@ -866,10 +869,10 @@ Rr
 BU
 BU
 jr
-bq
+hL
 bQ
 bQ
-bq
+hL
 HE
 oD
 oD
@@ -907,7 +910,7 @@ EE
 EE
 bq
 bq
-bq
+hL
 wp
 wp
 bq
@@ -916,7 +919,7 @@ xj
 bq
 wp
 wp
-bq
+hL
 bq
 bq
 EE
@@ -932,10 +935,10 @@ EE
 bq
 cg
 cg
-bq
+hL
 nX
 MD
-bq
+hL
 cg
 cg
 bq

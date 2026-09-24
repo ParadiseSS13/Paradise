@@ -1080,7 +1080,7 @@
 /area/ghost_bar)
 "ex" = (
 /obj/structure/sign/public/cryo,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "eA" = (
 /obj/structure/chair/stool{
@@ -1481,7 +1481,7 @@
 /turf/simulated/floor/wood,
 /area/ninja/holding)
 "gh" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/centcom)
 "gi" = (
 /obj/item/storage/firstaid/fire,
@@ -1610,7 +1610,7 @@
 	layer = 1;
 	name = "Blocker"
 	},
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/centcom)
 "gG" = (
 /obj/effect/decal/remains/human,
@@ -1990,7 +1990,7 @@
 /area/centcom)
 "hM" = (
 /obj/structure/sign/public/restroom,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "hN" = (
 /obj/machinery/door_control/no_emag{
@@ -2205,7 +2205,7 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "iy" = (
 /obj/machinery/door/airlock/hatch/syndicate/command,
@@ -2433,7 +2433,7 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "jh" = (
 /obj/structure/chair/office/dark{
@@ -2446,7 +2446,7 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "jk" = (
 /obj/effect/landmark/spawner/syndicate_infiltrator,
@@ -3017,7 +3017,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lg" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/jail)
 "lh" = (
 /obj/machinery/door/poddoor/multi_tile/impassable{
@@ -3081,7 +3081,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "lq" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "lr" = (
 /turf/simulated/floor/mineral/titanium,
@@ -3155,7 +3155,7 @@
 /turf/simulated/floor/plating,
 /area/centcom)
 "lH" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/admin)
 "lI" = (
 /obj/structure/rack,
@@ -5418,7 +5418,7 @@
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tf" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/syndicate)
 "tg" = (
 /obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
@@ -6874,7 +6874,7 @@
 /area/ghost_bar)
 "yn" = (
 /obj/structure/sign/medical,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "yp" = (
 /obj/item/radio/intercom/syndicate{
@@ -7190,7 +7190,7 @@
 /area/ghost_bar)
 "zJ" = (
 /obj/structure/sign/service/kitchen,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "zK" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
@@ -7790,7 +7790,7 @@
 /turf/simulated/floor/plasteel,
 /area/syndicate_mothership)
 "BZ" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "Ca" = (
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -9311,7 +9311,7 @@
 /area/holodeck/source_knightarena)
 "HK" = (
 /obj/structure/sign/public/drop,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/syndicate_mothership)
 "HM" = (
 /obj/machinery/economy/vending/boozeomat,
@@ -10465,7 +10465,7 @@
 /area/ninja/outpost)
 "Md" = (
 /obj/structure/sign/public/arcade,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "Me" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -10888,7 +10888,7 @@
 	},
 /area/ghost_bar)
 "NJ" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/ghost_bar)
 "NK" = (
 /obj/machinery/computer/shuttle/admin{
@@ -11254,7 +11254,7 @@
 /area/centcom/specops)
 "Pc" = (
 /obj/structure/sign/public/arcade,
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "Pd" = (
 /obj/machinery/status_display,
@@ -11445,7 +11445,7 @@
 /area/centcom/control)
 "PK" = (
 /obj/structure/sign/service/bar,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "PL" = (
 /obj/machinery/economy/vending/cigarette/free,
@@ -11917,7 +11917,7 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "Rv" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/administration)
 "Rw" = (
 /obj/machinery/door/airlock/external{
@@ -12136,7 +12136,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "Sd" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/syndicate_mothership)
 "Se" = (
 /obj/item/storage/fancy/crayons,
@@ -12856,7 +12856,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "UO" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium/limited_smooth,
+/turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
 "UQ" = (
 /obj/structure/table,
@@ -12932,7 +12932,7 @@
 /area/holodeck/source_picnicarea)
 "Vd" = (
 /obj/structure/sign/service/library,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "Ve" = (
 /obj/structure/mirror{
@@ -13242,7 +13242,7 @@
 /area/centcom/evac)
 "Wm" = (
 /obj/structure/sign/public/drop,
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "Wp" = (
 /obj/structure/table/wood,
@@ -13758,7 +13758,7 @@
 /area/centcom/specops)
 "Ya" = (
 /obj/structure/sign/service/custodian,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "Yb" = (
 /obj/structure/table,
@@ -14058,7 +14058,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Zk" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/syndicate_mothership/jail)
 "Zl" = (
 /obj/item/kirbyplants/large,

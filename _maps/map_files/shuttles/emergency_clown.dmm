@@ -325,7 +325,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "tH" = (
-/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/turf/simulated/wall/indestructible/opsglass,
 /area/shuttle/escape)
 "Ct" = (
 /obj/machinery/door/airlock/titanium{
@@ -340,7 +340,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/shuttle/escape)
 "MA" = (
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/escape)
 "RA" = (
 /obj/machinery/door/airlock/medical/glass{
