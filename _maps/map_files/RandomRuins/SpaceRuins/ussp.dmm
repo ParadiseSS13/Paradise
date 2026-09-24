@@ -1493,12 +1493,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
-<<<<<<< HEAD
-=======
-"eg" = (
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
-/area/ruin/space/derelict/hallway/primary)
->>>>>>> parent of 68fb77a19a (Wallening 2: Return of the attack of the girders [MDB IGNORE][IDB IGNORE] (#30609))
 "eh" = (
 /obj/machinery/light/spot{
 	dir = 1
