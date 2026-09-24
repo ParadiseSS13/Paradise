@@ -8794,7 +8794,7 @@
 /turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "biq" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "biu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -70239,7 +70239,7 @@
 /area/station/public/dorms)
 "qTT" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "qTX" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
@@ -76150,7 +76150,7 @@
 /area/station/maintenance/aft2)
 "sOi" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "sOy" = (
 /obj/machinery/ai_status_display{
