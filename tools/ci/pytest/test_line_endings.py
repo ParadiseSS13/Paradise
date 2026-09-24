@@ -4,9 +4,7 @@ import glob
 import pytest
 import sys
 from typing import Any
-from ci_common import ErrorReporter
 
-reporter = ErrorReporter("CRLF File")
 WINDOWS_NEWLINE = b'\r\n'
 
 @pytest.fixture
@@ -26,19 +24,14 @@ def has_newlines(lines: list[bytes]) -> bool:
 
 # git's autocrlf may make this test fail locally for some windows developers, disabled for that reason
 @pytest.mark.skipif(sys.platform == "win32", reason="Inconsistent for Windows developers")
-def test_line_endings(files_to_read: list[Any]):
-	filelist: list[Any] = []
+@pytest.mark.lint("CRLF File")
+def test_line_endings(files_to_read: list[Any], lint):
+    filelist: list[Any] = []
 
-	for file in files_to_read:
-		with open(file, "rb") as data:
-			if has_newlines(data.readlines()):
-				filelist.append(file)
+    for file in files_to_read:
+        with open(file, "rb") as data:
+            if has_newlines(data.readlines()):
+                filelist.append(file)
 
-	if len(filelist) == 0:
-		print("No CRLF files found.")
-		return reporter.END_TEST()
-
-	for file in filelist:
-		reporter.print("CLRF File", file)
-	reporter.END_TEST(f"Found {reporter.total_errors} files with suspected CRLF type.")
-
+    for file in filelist:
+        lint.error("suspected CRLF file.", file=file)
