@@ -34,14 +34,14 @@ TOML_CHECK_KEYS = (
 
 # Descend into a nested dictionary based on the names in the given 'key_path'
 # iterable. Return None if at any point, a nested key doesn't exist.
-def get_nested_key(data, key_path):
-    key = data
-    for name in key_path:
-        key = key.get(name)
-        if key is None:
+def get_nested_key(nested_data, keys):
+    current = nested_data
+    for layer in keys:
+        current = current.get(layer)
+        if current is None:
             return
 
-    return key
+    return current
 
 
 # Check all known paths against the paths in a given nested key in the config.
