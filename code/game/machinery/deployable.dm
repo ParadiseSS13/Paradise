@@ -134,7 +134,7 @@
 
 /obj/structure/barricade/wooden/Destroy()
 	de_barricade()
-	..()
+	. = ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

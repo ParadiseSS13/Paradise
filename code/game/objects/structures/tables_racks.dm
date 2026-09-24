@@ -105,6 +105,10 @@
 	new /obj/structure/table/reinforced/cult(loc)
 	qdel(src)
 
+/obj/structure/table/try_flock_convert(datum/flock/flock, force)
+	new /obj/structure/table/reinforced/flock(loc)
+	qdel(src)
+
 /obj/structure/table/start_climb(mob/living/user)
 	. = ..()
 	item_placed(user)

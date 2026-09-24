@@ -267,6 +267,22 @@
 	)
 	return show_radial_menu(user, user, move_icons)
 
+/datum/status_effect/high_five/fistbump
+	id = "fistbump"
+	critical_success = "give each other an AWESOME fistbump!"
+	success = "give each other a fistbump!"
+	request = "requests a fistbump!"
+	sound_effect = "sound/weapons/thudswoosh.ogg"
+
+/datum/status_effect/high_five/fistbump/get_missed_message()
+	var/list/missed_messages = list(
+		"drops [owner.p_their()] fist.",
+		"taps [owner.p_their()] outstretched fist with [owner.p_their()] other hand and gives [owner.p_themselves()] a fistbump.",
+		"fistbumps [owner.p_themselves()] shamefully."
+	)
+
+	return pick(missed_messages)
+
 /// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
 /// although there is a maximum amount of bonus time that can be active at any given time.
 /datum/status_effect/limited_bonus

@@ -85,6 +85,10 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	new build_stack_type(get_turf(src), 5)
 	return ..()
 
+/obj/structure/shelf/try_flock_convert(datum/flock/flock, force)
+	new /obj/structure/shelf/flock(loc)
+	qdel(src)
+
 /obj/structure/shelf/engineering
 	icon_state = "shelf_engi"
 	shelf_style = "engi"

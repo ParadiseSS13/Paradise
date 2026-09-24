@@ -65,10 +65,16 @@
 		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
-			"This subject does not have life energy", "This subject is empty", \
-			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			var/feed_messages = list(
+				"This subject is incompatible!",
+				"This subject does not have life energy!",
+				"This subject is empty!",
+				"I am not satisified!",
+				"I can not feed from this subject!",
+				"I do not feel nourished!",
+				"This subject is not food!"
+			)
+			to_chat(src, SPAN_WARNING(pick(feed_messages)))
 			return FALSE
 
 	if(isslime(M))
@@ -114,10 +120,16 @@
 /mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living = 1)
 	if(buckled)
 		if(!living)
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
-			"This subject does not have life energy", "This subject is empty", \
-			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
+			var/feed_messages = list(
+				"This subject is incompatible!",
+				"This subject does not have life energy!",
+				"This subject is empty!",
+				"I am not satisified!",
+				"I can not feed from this subject!",
+				"I do not feel nourished!",
+				"This subject is not food!"
+			)
+			to_chat(src, SPAN_WARNING(pick(feed_messages)))
 		if(!silent)
 			visible_message(SPAN_WARNING("[src] has let go of [buckled]!"), \
 							SPAN_NOTICE("<i>I stopped feeding.</i>"))

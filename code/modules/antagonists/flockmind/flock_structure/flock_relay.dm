@@ -224,5 +224,7 @@
 	for(var/obj/machinery/telecomms/T in SSmachines.get_by_type(/obj/machinery/telecomms))
 		T.emp_act(EMP_HEAVY)
 
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+		return
 	SSshuttle.emergency.request(null, 0.3)
 	SSshuttle.emergency.canRecall = FALSE // Cannot recall

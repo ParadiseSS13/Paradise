@@ -684,19 +684,19 @@
 	//Summon
 	switch(rand(1, 8))
 		if(1)
-			new /obj/item/antag_spawner/slaughter_demon(src)
+			new /obj/item/antag_spawner/monster/slaughter_demon(src)
 			value += 2
 		if(2)
-			new /obj/item/antag_spawner/morph(src)
+			new /obj/item/antag_spawner/monster/morph(src)
 			value += 1
 		if(3)
-			new /obj/item/antag_spawner/slaughter_demon/laughter(src)
+			new /obj/item/antag_spawner/monster/slaughter_demon/laughter(src)
 			value += 1
 		if(4)
-			new /obj/item/antag_spawner/slaughter_demon/shadow(src)
+			new /obj/item/antag_spawner/monster/slaughter_demon/shadow(src)
 			value += 1
 		if(5)
-			new /obj/item/antag_spawner/revenant(src)
+			new /obj/item/antag_spawner/monster/revenant(src)
 			value += 1
 		if(6)
 			new /obj/item/contract(src)
@@ -734,6 +734,7 @@
 /obj/item/reagent_containers/drinks/bottle/dragonsbreath
 	name = "flask of dragons breath"
 	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	color = "#DC0000"
 	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
@@ -741,6 +742,7 @@
 /obj/item/reagent_containers/drinks/bottle/immortality
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	color = "#437fb8"
 	volume = 5

@@ -47,6 +47,18 @@
 	desc = "A medical kit designed for Nanotrasen medical personnel."
 
 /obj/item/storage/firstaid/regular/doctor/populate_contents()
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/firstaid/regular/doctor/cmo
+	desc = "A medical kit designed for Nanotrasen Chief Medical Officers."
+
+/obj/item/storage/firstaid/regular/doctor/cmo/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/patch/styptic(src)
@@ -63,8 +75,8 @@
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/populate_contents()
-	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
-	new /obj/item/stack/medical/suture/regen_mesh(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
+	new /obj/item/stack/medical/adv/regen_mesh(src)
 	new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -114,8 +126,8 @@
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/populate_contents()
-	new /obj/item/stack/medical/suture/medicated(src)
-	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/adv/suture(src)
 	new /obj/item/reagent_containers/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -392,13 +404,31 @@
 		new /obj/item/reagent_containers/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/painkillers
-	name = "Pill Bottle (Salicylic Acid)"
+	name = "Pill Bottle (Acetylsalicylic Acid)"
 	desc = "Contains various pills for minor pain relief."
 	wrapper_color = COLOR_RED
 
 /obj/item/storage/pill_bottle/painkillers/populate_contents()
 	for(var/I in 1 to 8)
 		new /obj/item/reagent_containers/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/salbutamol
+	name = "Pill Bottle (Salbutamol)"
+	desc = "Contains pills used to open up the airways in cases of pulmonary distress."
+	wrapper_color = COLOR_LIGHT_CYAN
+
+/obj/item/storage/pill_bottle/salbutamol/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/reagent_containers/pill/salbutamol(src)
+
+/obj/item/storage/pill_bottle/spaceacillin
+	name = "Pill Bottle (Spaceacillin)"
+	desc = "Contains pills used to treat bactieral infections."
+	wrapper_color = COLOR_LUMINOL 
+
+/obj/item/storage/pill_bottle/spaceacillin/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/reagent_containers/pill/spaceacillin(src)
 
 /obj/item/storage/pill_bottle/fakedeath
 	allow_wrap = FALSE
@@ -446,8 +476,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture, /obj/item/suture_needle)
-	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	can_hold = list(/obj/item/stack/medical/adv/suture, /obj/item/suture_needle)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14
@@ -462,7 +491,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture/regen_mesh, /obj/item/biomesh)
+	can_hold = list(/obj/item/stack/medical/adv/regen_mesh, /obj/item/biomesh)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14

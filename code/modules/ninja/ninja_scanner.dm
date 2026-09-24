@@ -124,6 +124,9 @@
 			ninja_obj.completed = TRUE
 			ninja_obj.complete_objective()
 			return TRUE
+		if(istype(ninja_obj, /datum/objective/ninja/hack_rnd) && istype(attacked_obj, /obj/machinery/computer/rdconsole))
+			to_chat(user, SPAN_WARNING("The client wants access to the R&D Server controller itself, not this workstation console!"))
+			return TRUE
 		if(istype(ninja_obj, /datum/objective/ninja/insert_spider_rod) && istype(attacked_obj, /obj/machinery/atmospherics/reactor_chamber))
 			var/obj/machinery/atmospherics/reactor_chamber/r_chamber = attacked_obj
 			if(!r_chamber.held_rod)

@@ -172,4 +172,5 @@
 	addtimer(CALLBACK(src, PROC_REF(cleanup)), 2 SECONDS)
 
 /mob/camera/flock/proc/cleanup(datum/source)
+	SSticker.mode.flockminds -= mind
 	qdel(src)
