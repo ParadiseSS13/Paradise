@@ -660,9 +660,109 @@
 	construction_time = 30 SECONDS
 	category = list("Phazon")
 
-// MARK: Equipment
+// MARK: Mech Modules
+/datum/design/mech_energy_relay
+	name = "Exosuit Tesla Energy Relay"
+	desc = "Tesla Energy Relay."
+	id = "mech_energy_relay"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_GOLD = 2000, MAT_SILVER = 3000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_generator
+	name = "Exosuit Plasma Generator"
+	id = "mech_generator"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/generator
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_generator_nuclear
+	name = "Exosuit Nuclear Reactor"
+	desc = "Compact nuclear reactor module."
+	id = "mech_generator_nuclear"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/generator/nuclear
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000, MAT_SILVER = 500)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_gravcatapult
+	name = "Exosuit Gravitational Catapult Module"
+	desc = "An exosuit mounted Gravitational Catapult."
+	id = "mech_gravcatapult"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/gravcatapult
+	materials = list(MAT_METAL = 10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_repair_droid
+	name = "Exosuit Repair Droid Module"
+	desc = "Automated Repair Droid. BEEP BOOP"
+	id = "mech_repair_droid"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/repair_droid
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_GOLD = 1000, MAT_SILVER = 2000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_ccw_armor
+	name = "Exosuit Melee Armor Booster Module"
+	desc = "Exosuit-mounted armor booster."
+	id = "mech_ccw_armor"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_proj_armor
+	name = "Exosuit Ranged Armor Booster Module"
+	desc = "Exosuit-mounted armor booster."
+	id = "mech_proj_armor"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_pulse_shield
+	name = "Exosuit EPS-99 Pulse Shield Generator"
+	desc = "Exosuit-mounted shield generator."
+	id = "mech_shield_gen"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/pulse_shield
+	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000, MAT_BLUESPACE = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_teleporter
+	name = "Exosuit Teleporter Module"
+	desc = "An exosuit module that allows exosuits to teleport to any position in view."
+	id = "mech_teleporter"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/teleporter
+	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mecha_thruster
+	name = "Heavy-duty Exosuit Ion Thruster"
+	desc = "Allows for further control in zero gravity environments."
+	id = "mech_thruster"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/thrusters
+	materials = list(MAT_METAL = 15000, MAT_PLASMA = 3000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+// MARK: Mech Engi Modules
 /datum/design/mech_cable_layer
-	name = "Exosuit Engineering Equipment (Cable Layer)"
+	name = "Exosuit Cable Layer"
 	id = "mech_cable_layer"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/cable_layer
@@ -670,26 +770,8 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_drill
-	name = "Exosuit Engineering Equipment (Drill)"
-	id = "mech_drill"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/drill
-	materials = list(MAT_METAL = 10000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_crusher
-	name = "Exosuit Mining Equipment (Mounted crusher)"
-	id = "mech_crusher"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/mech_crusher
-	materials = list(MAT_METAL = 23000, MAT_TITANIUM = 8000)
-	construction_time = 25 SECONDS
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_extinguisher
-	name = "Exosuit Engineering Equipment (Extinguisher)"
+	name = "Exosuit Extinguisher"
 	id = "mech_extinguisher"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/extinguisher
@@ -698,7 +780,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_hydraulic_clamp
-	name = "Exosuit Engineering Equipment (Hydraulic Clamp)"
+	name = "Exosuit Hydraulic Clamp"
 	id = "mech_hydraulic_clamp"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
@@ -706,8 +788,77 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_rcd
+	name = "Exosuit RCD Module"
+	desc = "An exosuit-mounted Rapid Construction Device."
+	id = "mech_rcd"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
+	materials = list(MAT_METAL = 30000, MAT_GOLD = 20000, MAT_PLASMA = 25000, MAT_SILVER = 20000)
+	construction_time = 120 SECONDS
+	category = list("Exosuit Equipment")
+
+// MARK: Mech Mining Modules
+/datum/design/mech_drill
+	name = "Exosuit Drill"
+	id = "mech_drill"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/drill
+	materials = list(MAT_METAL = 10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_diamond_drill
+	name = "Exosuit Diamond Mining Drill"
+	desc = "An upgraded version of the standard drill."
+	id = "mech_diamond_drill"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
+	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 6500)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_crusher
+	name = "Exosuit Mounted crusher"
+	id = "mech_crusher"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mech_crusher
+	materials = list(MAT_METAL = 23000, MAT_TITANIUM = 8000)
+	construction_time = 25 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_plasma_cutter
+	name = "Exosuit 217-D Heavy Plasma Cutter"
+	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
+	id = "mech_plasma_cutter"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 6000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_mining_scanner
+	name = "Exosuit Mining Scanner"
+	id = "mech_mscanner"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
+	construction_time = 5 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_armor_plate
+	name = "Exosuit Mining Armor Plate"
+	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
+	id = "mech_plate_armor"
+	build_type = MECHFAB
+	build_path = /obj/item/stack/sheet/animalhide/armor_plate
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+// MARK: Mech Med Modules
 /datum/design/mech_sleeper
-	name = "Exosuit Medical Equipment (Mounted Sleeper)"
+	name = "Exosuit Mounted Sleeper"
 	id = "mech_sleeper"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/sleeper
@@ -716,7 +867,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_syringe_gun
-	name = "Exosuit Medical Equipment (Syringe Gun)"
+	name = "Exosuit Syringe Gun"
 	id = "mech_syringe_gun"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
@@ -725,7 +876,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/medical_jaw
-	name = "Exosuit Medical Equipment (Rescue Jaw)"
+	name = "Exosuit Rescue Jaw"
 	id = "mech_medical_jaw"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
@@ -734,7 +885,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_medical_beamgun
-	name = "Exosuit Medical Equipment (Medical Beamgun)"
+	name = "Exosuit Medical Beamgun"
 	id = "mech_medi_beam"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
@@ -742,8 +893,9 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
+// MARK: Mech Jani Modules
 /datum/design/mech_mop
-	name = "Exosuit Janitorial Equipment (Mega Mop)"
+	name = "Exosuit Mega Mop"
 	id = "mech_mop"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop
@@ -752,7 +904,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_garbage_bag
-	name = "Exosuit Janitorial Equipment (Garbage Magnet)"
+	name = "Exosuit Garbage Magnet"
 	id = "mech_garbage_bag"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
@@ -761,7 +913,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mega_spray
-	name = "Exosuit Janitorial Equipment (Mega Spray)"
+	name = "Exosuit Mega Spray"
 	id = "mech_mega_spray"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
@@ -770,7 +922,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_light_replacer
-	name = "Exosuit Janitorial Equipment (Light Replacer)"
+	name = "Exosuit Light Replacer"
 	id = "mech_light_replacer"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer
@@ -779,7 +931,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_cleaning_grenade_launcher
-	name = "Exosuit Janitorial Equipment (Cleaning Grenade Launcher)"
+	name = "Exosuit Cleaning Grenade Launcher"
 	id = "mech_cleaning_grenade_launcher"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
@@ -787,33 +939,7 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_generator
-	name = "Exosuit Equipment (Plasma Generator)"
-	id = "mech_generator"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/generator
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 5000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_disabler
-	name = "Exosuit Weapon (CH-DS \"Peacemaker\" Disabler)"
-	id = "mech_disabler"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
-	materials = list(MAT_METAL = 10000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_lmg
-	name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
-	id = "mech_lmg"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
-	materials = list(MAT_METAL = 10000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
+// MARK: Mech Serv Modules
 /datum/design/mech_banana_mortar
 	name = "H.O.N.K Banana Mortar"
 	id = "mech_banana_mortar"
@@ -851,7 +977,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mimercd
-	name = "Exosuit Module (Mime RCD Module)"
+	name = "Exosuit Mime RCD Module"
 	desc = "An exosuit-mounted Mime Rapid Construction Device."
 	id = "mech_mrcd"
 	build_type = MECHFAB
@@ -860,108 +986,88 @@
 	construction_time = 70 SECONDS
 	category = list("Exosuit Equipment")
 
-// Exosuit Modules
-/datum/design/mech_diamond_drill
-	name = "Exosuit Module (Diamond Mining Drill)"
-	desc = "An upgraded version of the standard drill."
-	id = "mech_diamond_drill"
+// MARK: Mech Weapons
+/datum/design/mech_laser_heavy
+	name = "Exosuit CH-LC \"Solaris\" Laser Cannon"
+	desc = "Allows for the construction of CH-LC Laser Cannon."
+	id = "mech_laser_heavy"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
-	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 6500)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_mining_scanner
-	name = "Exosuit Engineering Equipment (Mining Scanner)"
-	id = "mech_mscanner"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
-	construction_time = 5 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_generator_nuclear
-	name = "Exosuit Module (ExoNuclear Reactor)"
-	desc = "Compact nuclear reactor module."
-	id = "mech_generator_nuclear"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/generator/nuclear
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000, MAT_SILVER = 500)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_gravcatapult
-	name = "Exosuit Module (Gravitational Catapult Module)"
-	desc = "An exosuit mounted Gravitational Catapult."
-	id = "mech_gravcatapult"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/gravcatapult
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	materials = list(MAT_METAL = 10000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_rcd
-	name = "Exosuit Module (RCD Module)"
-	desc = "An exosuit-mounted Rapid Construction Device."
-	id = "mech_rcd"
+/datum/design/mech_immolator
+	name = "Exosuit ZFI Immolation Beam Gun"
+	desc = "Allows for the construction of ZFI Immolation Beam Gun."
+	id = "mech_immolator"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
-	materials = list(MAT_METAL = 30000, MAT_GOLD = 20000, MAT_PLASMA = 25000, MAT_SILVER = 20000)
-	construction_time = 120 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_ccw_armor
-	name = "Exosuit Module (Melee Armor Booster Module)"
-	desc = "Exosuit-mounted armor booster."
-	id = "mech_ccw_armor"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
-	materials = list(MAT_METAL = 20000, MAT_SILVER = 5000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_proj_armor
-	name = "Exosuit Module (Ranged Armor Booster Module)"
-	desc = "Exosuit-mounted armor booster."
-	id = "mech_proj_armor"
+/datum/design/mech_laser
+	name = "Exosuit CH-PL \"Firedart\" Laser"
+	desc = "Allows for the construction of CH-PS Laser."
+	id = "mech_laser"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
-	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	materials = list(MAT_METAL = 10000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_pulse_shield
-	name = "Exosuit Module (EPS-99 Pulse Shield Generator)"
-	desc = "Exosuit-mounted shield generator."
-	id = "mech_shield_gen"
+/datum/design/mech_disabler_shotgun
+	name = "Exosuit MESG-01 Disabler Scattercannon"
+	desc = "Allows for the construction of MESG-01 Disabler Scattercannon."
+	id = "mech_scatter_disabler"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/pulse_shield
-	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000, MAT_BLUESPACE = 5000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 6000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_armor_plate
-	name = "Exosuit Mining Armor Plate"
-	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
-	id = "mech_plate_armor"
+/datum/design/mech_laser_shotgun
+	name = "Exosuit MESG-02 Laser Scattercannon"
+	desc = "Allows for the construction of MESG-02 Laser Scattercannon."
+	id = "mech_scatter_laser"
 	build_type = MECHFAB
-	build_path = /obj/item/stack/sheet/animalhide/armor_plate
-	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 5000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	materials = list(MAT_METAL = 10000, MAT_GOLD = 6000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_repair_droid
-	name = "Exosuit Module (Repair Droid Module)"
-	desc = "Automated Repair Droid. BEEP BOOP"
-	id = "mech_repair_droid"
+/datum/design/mech_disabler
+	name = "Exosuit CH-DS \"Peacemaker\" Disabler"
+	id = "mech_disabler"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/repair_droid
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_GOLD = 1000, MAT_SILVER = 2000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
+	materials = list(MAT_METAL = 10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_bola
+	name = "Exosuit PCMK-6 Bola Launcher"
+	desc = "Allows for the construction of PCMK-6 Bola Launcher."
+	id = "mech_bola"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
+	materials = list(MAT_METAL = 10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_grenade_launcher
+	name = "Exosuit SGL-6 Flashbang Launcher"
+	desc = "Allows for the construction of SGL-6 Flashbang Launcher."
+	id = "mech_grenade_launcher"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
+	materials = list(MAT_METAL = 22000, MAT_GOLD = 6000, MAT_SILVER = 8000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/clusterbang_launcher
-	name = "Exosuit Module (SOB-3 Clusterbang Launcher)"
+	name = "Exosuit SOB-3 Clusterbang Launcher"
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute."
 	id = "clusterbang_launcher"
 	build_type = MECHFAB
@@ -971,7 +1077,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/dropwall_launcher
-	name = "Exosuit Module (DWDL-04 Dropwall Launcher)"
+	name = "Exosuit DWDL-04 Dropwall Launcher"
 	id = "dropwall_launcher"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
@@ -979,59 +1085,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_bola
-	name = "Exosuit Weapon Design (PCMK-6 Bola Launcher)"
-	desc = "Allows for the construction of PCMK-6 Bola Launcher."
-	id = "mech_bola"
+/datum/design/mech_lmg
+	name = "Exosuit \"Ultra AC 2\" LMG"
+	id = "mech_lmg"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
-	materials = list(MAT_METAL = 10000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_teleporter
-	name = "Exosuit Module (Teleporter Module)"
-	desc = "An exosuit module that allows exosuits to teleport to any position in view."
-	id = "mech_teleporter"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/teleporter
-	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 10000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_energy_relay
-	name = "Exosuit Module (Tesla Energy Relay)"
-	desc = "Tesla Energy Relay."
-	id = "mech_energy_relay"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_GOLD = 2000, MAT_SILVER = 3000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-// MARK: Weapons
-/datum/design/mech_laser_heavy
-	name = "Exosuit Weapon (CH-LC \"Solaris\" Laser Cannon)"
-	desc = "Allows for the construction of CH-LC Laser Cannon."
-	id = "mech_laser_heavy"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
-	materials = list(MAT_METAL = 10000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_laser
-	name = "Exosuit Weapon (CH-PL \"Firedart\" Laser)"
-	desc = "Allows for the construction of CH-PS Laser."
-	id = "mech_laser"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	materials = list(MAT_METAL = 10000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_carbine
-	name = "Exosuit Weapon (FNX-66 \"Hades\" Carbine)"
+	name = "Exosuit FNX-66 \"Hades\" Carbine"
 	desc = "Allows for the construction of FNX-66 \"Hades\" Carbine."
 	id = "mech_carbine"
 	build_type = MECHFAB
@@ -1041,7 +1105,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_scattershot
-	name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
+	name = "Exosuit LBX AC 10 \"Scattershot\""
 	desc = "Allows for the construction of LBX AC 10."
 	id = "mech_scattershot"
 	build_type = MECHFAB
@@ -1050,28 +1114,8 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_disabler_shotgun
-	name = "Exosuit Weapon (MESG-01 Disabler Scattercannon)"
-	desc = "Allows for the construction of MESG-01 Disabler Scattercannon."
-	id = "mech_ion"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
-	materials = list(MAT_METAL = 10000, MAT_SILVER = 6000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_laser_shotgun
-	name = "Exosuit Weapon (MESG-02 Laser Scattercannon)"
-	desc = "Allows for the construction of MESG-02 Laser Scattercannon."
-	id = "mech_ion"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
-	materials = list(MAT_METAL = 10000, MAT_GOLD = 6000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_ion
-	name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
+	name = "Exosuit MK-IV Ion Heavy Cannon"
 	desc = "Allows for the construction of MKIV Ion Heavy Cannon."
 	id = "mech_ion"
 	build_type = MECHFAB
@@ -1080,38 +1124,8 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_grenade_launcher
-	name = "Exosuit Weapon (SGL-6 Flashbang Launcher)"
-	desc = "Allows for the construction of SGL-6 Flashbang Launcher."
-	id = "mech_grenade_launcher"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	materials = list(MAT_METAL = 22000, MAT_GOLD = 6000, MAT_SILVER = 8000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_missile_rack
-	name = "Exosuit Weapon (SRM-8 Missile Rack)"
-	desc = "Allows for the construction of SRM-8 Missile Rack."
-	id = "mech_missile_rack"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	materials = list(MAT_METAL = 22000, MAT_GOLD = 6000,MAT_SILVER = 8000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_plasma_cutter
-	name = "Exosuit Module Design (217-D Heavy Plasma Cutter)"
-	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
-	id = "mech_plasma_cutter"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 6000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_tesla
-	name = "Exosuit Weapon (P-X Tesla Cannon)"
+	name = "Exosuit P-X Tesla Cannon"
 	desc = "Allows for the construction of P-X Tesla Cannon."
 	id = "mech_tesla"
 	build_type = MECHFAB
@@ -1120,23 +1134,13 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_immolator
-	name = "Exosuit Weapon (ZFI Immolation Beam Gun)"
-	desc = "Allows for the construction of ZFI Immolation Beam Gun."
-	id = "mech_immolator"
+/datum/design/mech_missile_rack
+	name = "Exosuit SRM-8 Missile Rack"
+	desc = "Allows for the construction of SRM-8 Missile Rack."
+	id = "mech_missile_rack"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
-	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")
-
-/datum/design/mecha_thruster
-	name = "Heavy-duty Exosuit Ion Thruster"
-	desc = "Allows for further control in zero gravity environments."
-	id = "mech_thruster"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/thrusters
-	materials = list(MAT_METAL = 15000, MAT_PLASMA = 3000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
+	materials = list(MAT_METAL = 22000, MAT_GOLD = 6000,MAT_SILVER = 8000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
