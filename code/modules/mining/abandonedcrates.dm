@@ -1,19 +1,24 @@
 // Originally coded by ISaidNo, later modified by Kelenius. Ported from Baystation12.
 
+#define GAME_MODE_NUMEBRS "numbers"
+#define GAME_MODE_NUMBERS "words"
+
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "What could be inside?"
 	integrity_failure = 0 //no breaking open the crate
+	tamperproof = 90
 	var/code = null
 	/// Associated list of previous attempts w/ bulls & cows
 	var/list/previous_attempts = list()
 	var/attempts = 10
 	var/code_length = 4
 	var/qdel_on_open = FALSE
+	/// Whether or not we've spawned the loot inside the crate
 	var/spawned_loot = FALSE
 	tamperproof = 90
 	/// what game mode the crate is using, "numbers" for deca-code (bulls & cows), "words" for wordle
-	var/game_mode = "numbers"
+	var/game_mode = GAME_MODE_NUMEBRS
 
 /obj/structure/closet/crate/secure/loot/Initialize(mapload)
 	. = ..()
@@ -22,10 +27,10 @@
 	var/mode_roll = rand(1, 2)
 	switch(mode_roll)
 		if(1)
-			game_mode = "numbers"
+			game_mode = GAME_MODE_NUMEBRS
 			code = generate_code(code_length)
 		if(2)
-			game_mode = "words"
+			game_mode = GAME_MODE_NUMBERS
 			code_length = 5
 			attempts = 6
 			code = generate_word()
@@ -80,7 +85,7 @@
 	var/prompt_message
 
 	switch(game_mode)
-		if("words")
+		if(GAME_MODE_NUMBERS)
 			prompt_title = "Word Lock"
 			prompt_message = "Enter a [code_length]-letter word."
 		else
@@ -89,7 +94,7 @@
 
 	var/input = tgui_input_text(user, title = prompt_title, message = prompt_message, max_length = code_length)
 
-	if(game_mode == "words")
+	if(game_mode == GAME_MODE_NUMBERS)
 		input = uppertext(input)
 
 	if(input == code)
@@ -112,7 +117,7 @@
 		boom(user)
 
 /obj/structure/closet/crate/secure/loot/proc/validate_input(input)
-	if(game_mode == "words")
+	if(game_mode == GAME_MODE_NUMBERS)
 		return validate_word_input(input)
 
 	if(!input || code_length != length(input))
@@ -143,10 +148,16 @@
 
 	data["previous_attempts"] = previous_attempts
 	data["attempts_left"] = attempts
-	data["game_mode"] = game_mode
-	data["code_length"] = code_length
 
 	return data
+
+/obj/structure/closet/crate/secure/loot/ui_static_data(mob/user)
+	var/list/static_data = list()
+
+	static_data["game_mode"] = game_mode
+	static_data["code_length"] = code_length
+
+	return static_data
 
 /obj/structure/closet/crate/secure/loot/multitool_act(mob/living/user, obj/item/tool)
 	if(!locked)
@@ -162,7 +173,7 @@
 	if(!guess)
 		return list("attempt" = "", "bulls" = 0, "cows" = 0)
 
-	if(game_mode == "words")
+	if(game_mode == GAME_MODE_NUMBERS)
 		return check_word_guess(guess)
 
 	var/bulls = 0
