@@ -49,7 +49,7 @@
 	desc = "Experimental technology used to compress items in a pocket of bluespace, bigger on the inside."
 	id = "bs_storage"
 	prereqs = list()
-	unlocks = list("bag_holding", "bluespace_belt", "bluespace_closet")
+	unlocks = list("bag_holding", "bluespace_belt", "bluespace_closet", "bluespace_cell")
 	cost = list()
 
 // MARK: Mechs
@@ -58,7 +58,7 @@
 	desc = "Firefighter chassis for the APLU 'Ripley' series of exosuit."
 	id = "mech_aplu"
 	prereqs = list("advparts")
-	unlocks = list("ripley_main", "ripley_peri", "ripley_chassis", "firefighter_chassis", "ripley_torso", "ripley_left_arm", "ripley_right_arm", "ripley_left_leg", "ripley_right_leg")
+	unlocks = list("ripley_main", "ripley_peri", "ripley_chassis", "firefighter_chassis", "ripley_torso", "ripley_left_arm", "ripley_right_arm", "ripley_left_leg", "ripley_right_leg", "mech_plate_armor")
 	cost = list("Research" = 500)
 
 /datum/technode/rnd/mech_ody
@@ -100,6 +100,93 @@
 	prereqs = list("mech_cmbt")
 	unlocks = list("phazon_main", "phazon_peri", "phazon_targ", "phazon_chassis", "phazon_head", "phazon_torso", "phazon_left_arm", "phazon_right_arm", "phazon_left_leg", "phazon_right_leg", "phazon_armor")
 	cost = list("Research" = 1500)
+
+// MARK: Mech Equipment
+/datum/technode/rnd/mech_equip_standard // MIXTODO - Mech equipment may be better off in more generalised nodes/"tiers".
+	name = "Exosuit Standard Equipment"
+	desc = "General purpose equipment capable of attaching to any class of exosuit."
+	id = "mech_equip_standard"
+	prereqs = list("mech_aplu")
+	unlocks = list("mech_repair_droid", "mech_thruster", "mech_proj_armor", "mech_ccw_armor", "mech_generator_nuclear", "mech_generator", "mech_energy_relay")
+
+/datum/technode/rnd/mech_equip_mining
+	name = "Exosuit Mining Equipment"
+	desc = "Large-scale mining equipment for use on exosuits."
+	id = "mech_equip_mining"
+	prereqs = list("mech_aplu")
+	unlocks = list("mech_drill", "mech_diamond_drill", "mech_crusher", "mech_plasma_cutter", "mech_mscanner", "mech_plate_armor", "mech_hydraulic_clamp")
+
+/datum/technode/rnd/mech_equip_engineering
+	name = "Exosuit Engineering Equipment"
+	desc = "Industrial engineering equipment for use on exosuits."
+	id = "mech_equip_engineering"
+	prereqs = list("mech_aplu")
+	unlocks = list("mech_rcd", "mech_extinguisher", "mech_cable_layer")
+
+/datum/technode/rnd/mech_equip_medical
+	name = "Exosuit Medical Equipment"
+	desc = "Mobile synthesis and medical equipment for use on medical-class exosuits."
+	id = "mech_equip_medical"
+	prereqs = list("mech_ody")
+	unlocks = list("mech_sleeper", "mech_syringe_gun", "mech_medical_jaw", "mech_medi_beam")
+
+/datum/technode/rnd/mech_equip_janitorial
+	name = "Exosuit Janitorial Equipment"
+	desc = "Industrial cleaning solutions, the next best thing from soap is a grenade."
+	id = "mech_equip_janitorial"
+	prereqs = list("mech_nkr")
+	unlocks = list("mech_mop", "mech_garbage_bag", "mech_mega_spray", "mech_light_replacer")
+
+/datum/technode/rnd/mech_equip_entertainment
+	name = "Exosuit Entertainment Equipment"
+	desc = "Fun for everyone! now mounted on a giant hunk of metal!"
+	id = "mech_equip_entertainment"
+	prereqs = list("mech_ent")
+	unlocks = list("mech_banana_mortar", "mech_honker", "mech_mousetrap_mortar", "mech_silentgun", "mech_mrcd")
+
+/datum/technode/rnd/mech_equip_defence
+	name = "Advanced Exosuit Defence"
+	desc = "Active defence equipment for use on exosuits."
+	id = "mech_equip_defence"
+	prereqs = list("mech_cmbt")
+	unlocks = list("dropwall_launcher", "mech_shield_gen")
+
+
+// MARK: Mech Weapons
+/datum/technode/rnd/mech_weap_nonlethal
+	name = "Exosuit Non-Lethal Weaponry"
+	desc = "Non-lethal weapons and security equipment for use on combat exosuits."
+	id = "mech_weap_nonlethal"
+	prereqs = list("mech_cmbt")
+	unlocks = list("mech_scatter_disabler", "mech_disabler", "mech_bola", "mech_grenade_launcher")
+
+/datum/technode/rnd/mech_weap_laser
+	name = "Exosuit Basic Laser Weaponry"
+	desc = "Lethal laser weaponry for use on combat exosuits."
+	id = "mech_weap_laser"
+	prereqs = list("mech_cmbt")
+	unlocks = list("mech_laser", "mech_immolator")
+
+/datum/technode/rnd/mech_weap_heavylaser
+	name = "Exosuit Heavy Laser Weaponry"
+	desc = "Exceptionally lethal laser weaponry for use on combat exosuits."
+	id = "mech_weap_heavylaser"
+	prereqs = list("mech_weap_laser")
+	unlocks = list("mech_laser_heavy", "mech_scatter_laser")
+
+/datum/technode/rnd/mech_weap_ballistic
+	name = "Exosuit Ballistic Weaponry"
+	desc = "Deadly ballistic weaponry for use on combat exosuits."
+	id = "mech_weap_ballistic"
+	prereqs = list("mech_weap_laser")
+	unlocks = list("mech_lmg", "mech_carbine")
+
+/datum/technode/rnd/mech_weap_special
+	name = "Exosuit Special Weaponry"
+	desc = "Unique weaponry for use on combat exosuits."
+	id = "mech_weap_special"
+	prereqs = list("mech_weap_heavylaser")
+	unlocks = list("mech_ion", "mech_tesla", "mech_missile_rack")
 
 // MARK: Mining
 /datum/technode/rnd/mining
@@ -394,6 +481,27 @@
 	id = "ammo_flame"
 	prereqs = list()
 	unlocks = list("chem_flamethrower_extended", "chemical_canister", "chemical_canister_extended", "chemical_canister_pyro")
+
+/datum/technode/rnd/improved_grenades
+	name = "Improved Grenade Casings"
+	desc = "Grenade casings with larger range or specialised effects."
+	id = "improved_grenades"
+	prereqs = list()
+	unlocks = list("large_grenade", "pyro_grenade", "cryo_grenade", "adv_grenade")
+
+/datum/technode/rnd/defence_tech
+	name = "Personal Defence Techknowledgy"
+	desc = "Devices and equipment to defend individuals or groups."
+	id = "defence_tech"
+	prereqs = list()
+	unlocks = list("tele_shield", "drop_wall")
+
+/datum/technode/rnd/portals
+	name = "Handheld Portal Device"
+	desc = "A device capable of firing two types of interconnected wormholes, comes with free unpoisoned cake!"
+	id = "portals"
+	prereqs = list()
+	unlocks = list("wormholeprojector")
 
 // MARK: Synthetics
 /datum/technode/rnd/ai

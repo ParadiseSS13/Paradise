@@ -22,7 +22,7 @@
 		log_debug("Technode [src] and its designs are inaccessable!")
 	if(unlocks.len == 0)
 		log_debug("Technode [src] has no design unlocks!")
-	if(cost["Research"] <= 250 && !starting_node)
+	if(cost["Research"] <= 250 || cost.len == 0 && !starting_node)
 		log_debug("Technode [src] has a 250 or less cost but is not a starting node!") // MIXTODO - Remove some of this logging.
 
-#warn REMAINING TECHNODES: Mech Equipment, Illegal and Alien tech, Sort various circuitboards into relevent technodes.
+#warn REMAINING TECHNODES: Illegal and Alien tech, Sort various circuitboards into relevent technodes.
