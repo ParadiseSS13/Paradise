@@ -296,12 +296,13 @@
 /obj/item/his_grace/proc/ascend()
 	if(ascended)
 		return
+	var/mob/living/carbon/human/master = loc
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
 	ascended = TRUE
 	SSblackbox.record_feedback("amount", "his_grace_ascended", 1)
 	update_icon()
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
-	var/mob/living/carbon/human/master = loc
+	master.client?.give_award(/datum/award/achievement/misc/ascension, master)
 	if(istype(master))
 		master.visible_message("<span class='his_grace big bold'>Gods will be watching.</span>")
 		name = "[master]'s mythical toolbox of three powers"

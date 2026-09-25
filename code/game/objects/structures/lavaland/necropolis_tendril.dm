@@ -53,9 +53,28 @@ GLOBAL_LIST_EMPTY(tendrils)
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)
 
 /obj/structure/spawner/lavaland/Destroy()
+	give_awards()
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
 	return ..()
+
+/obj/structure/spawner/lavaland/proc/give_awards()
+	var/last_tendril = TRUE
+	if(length(GLOB.tendrils) > 1)
+		last_tendril = FALSE
+
+	if(!last_tendril || admin_spawned)
+		return
+
+	if(!SSachievements.achievements_enabled)
+		return
+
+	for(var/mob/living/mob in view(7, src))
+		if(mob.stat || !mob.client)
+			continue
+
+		mob.client.give_award(/datum/award/achievement/boss/tendril_exterminator, mob)
+		mob.client.give_award(/datum/award/score/tendril_score, mob) //Progresses score by one
 
 /obj/effect/light_emitter/tendril
 	set_luminosity = 4

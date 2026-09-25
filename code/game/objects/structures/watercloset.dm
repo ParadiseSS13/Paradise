@@ -110,6 +110,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 									C.adjustOxyLoss(5)
 							else
 								target.adjustOxyLoss(5)
+							if(HAS_CONNECTED_PLAYER(target))
+								target.client.give_award(/datum/award/achievement/misc/swirlie, target)
 						swirlie = null
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)

@@ -61,8 +61,9 @@ Difficulty: Hard
 	crusher_loot = list(/obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	internal_gps = /obj/item/gps/internal/hierophant
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	contains_xeno_organ = TRUE

@@ -20,6 +20,8 @@
 	pull_force = MOVE_FORCE_VERY_STRONG
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
 	butcher_results = list(/obj/item/regen_mesh = 1)
+	achievement_type = /datum/award/achievement/boss/fleshling_kill
+	score_achievement_type = /datum/award/score/fleshling_score
 	/// Is the boss charging right now?
 	var/charging = FALSE
 	/// Did our boss die?

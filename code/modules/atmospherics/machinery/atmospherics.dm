@@ -286,6 +286,8 @@ Pipelines + Other Objects -> Pipe network
 	user.visible_message(SPAN_DANGER("[user] is sent flying by pressure!"),SPAN_USERDANGER("The pressure sends you flying!"))
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction, pressures/10, pressures/50)
+	if(istype(src, /obj/machinery/atmospherics/pipe) && HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/misc/pressurized_pipe, user)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

@@ -263,6 +263,8 @@
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
+	if(HAS_CONNECTED_PLAYER(target))
+		target.client.give_award(/datum/award/achievement/misc/swarmer_teleport, target)
 
 /mob/living/basic/swarmer/proc/spacecheck(atom/target)
 	for(var/turf/T in range(1, target))

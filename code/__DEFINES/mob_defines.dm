@@ -302,6 +302,9 @@
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
+/// Abstraction over using mob.client to just check if there's a connected player.
+#define HAS_CONNECTED_PLAYER(mob) (!isnull(mob.client))
+
 #define is_external_organ(A)		(istype((A), /obj/item/organ/external))
 #define is_internal_organ(A)		(istype((A), /obj/item/organ/internal))
 #define	is_organ(A)				(istype((A), /obj/item/organ))

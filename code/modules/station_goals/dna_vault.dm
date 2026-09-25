@@ -316,6 +316,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		if(VAULT_QUICK)
 			to_chat(H, SPAN_NOTICE("Your arms move as fast as lightning."))
 			H.next_move_modifier = 0.5
+	if(HAS_CONNECTED_PLAYER(H))
+		H.client.give_award(/datum/award/achievement/jobs/dna_vault, H)
 	power_lottery[H] = list()
 
 #undef VAULT_TOXIN

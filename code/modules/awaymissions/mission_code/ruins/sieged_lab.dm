@@ -45,13 +45,15 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/doors_opened = FALSE
 	pixel_x = 0
-	medal_type = null
-	score_type = null
+	achievement_type = null
+	score_achievement_type = null
 	crusher_loot = list()
 	health = 750
 	maxHealth = 750
 	rapid_melee = 3
 	move_force = MOVE_FORCE_DEFAULT
+	achievement_type = /datum/award/achievement/boss/harbinger_kill
+	score_achievement_type = /datum/award/score/harbinger_score
 	loot = list(/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger)
 	death_simplemob_representation = /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 

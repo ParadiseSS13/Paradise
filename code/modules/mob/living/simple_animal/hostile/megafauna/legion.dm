@@ -41,8 +41,9 @@ Difficulty: Medium
 	var/charging = FALSE
 	var/firing_laser = FALSE
 	internal_gps = /obj/item/gps/internal/legion
-	medal_type = BOSS_MEDAL_LEGION
-	score_type = LEGION_SCORE
+	achievement_type = /datum/award/achievement/boss/legion_kill
+	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
+	score_achievement_type = /datum/award/score/legion_score
 	loot = list(/obj/item/storm_staff)
 	difficulty_ore_modifier = 3
 	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull, /obj/item/crusher_trophy/retool_kit/ashenskull)

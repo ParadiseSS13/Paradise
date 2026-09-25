@@ -1,0 +1,162 @@
+///Datum that handles
+/datum/achievement_data
+	///Ckey of this achievement data's owner
+	var/owner_ckey
+	///Up to date list of all achievements and their info.
+	var/data = list()
+	///Original status of achievement.
+	var/original_cached_data = list()
+	///All icons for the UI of achievements
+	var/list/AchievementIcons = null
+	///Have we done our set-up yet?
+	var/initialized = FALSE
+
+/datum/achievement_data/New(ckey)
+	owner_ckey = ckey
+	if(SSachievements.initialized && !initialized)
+		InitializeData()
+
+/datum/achievement_data/proc/InitializeData()
+	initialized = TRUE
+	load_all_achievements() //So we know which achievements we have unlocked so far.
+
+///Gets list of changed rows in MassInsert format
+/datum/achievement_data/proc/get_changed_data()
+	. = list()
+	for(var/key in data)
+		var/datum/award/award = SSachievements.awards[key]
+
+		if(data[key] == original_cached_data[key])//If our data from before is not the same as now, save it to db.
+			continue
+
+		var/deets = award.get_changed_rows(src)
+
+		if(!deets)
+			continue
+
+		. += list(deets)
+
+/datum/achievement_data/proc/load_all_achievements()
+	set waitfor = FALSE
+
+	var/list/key_value = list()
+	var/datum/db_query/query = SSdbcore.NewQuery(
+		"SELECT achievement_key,value FROM [format_table_name("achievements")] WHERE ckey = :ckey",
+		list("ckey" = owner_ckey)
+	)
+
+	if(!query.Execute())
+		qdel(query)
+		return
+
+	while(query.NextRow())
+		var/key = query.item[1]
+		var/value = text2num(query.item[2])
+		key_value[key] = value
+
+	qdel(query)
+
+	for(var/award_type in subtypesof(/datum/award))
+		var/datum/award/award = SSachievements.awards[award_type]
+		if(!award || !award.name) //Skip abstract achievements types
+			continue
+		award.on_achievement_data_init(src, key_value[award.database_id])
+
+///Updates local cache with db data for the given achievement type if it wasn't loaded yet.
+/datum/achievement_data/proc/get_data(achievement_type)
+	var/datum/award/award = SSachievements.awards[achievement_type]
+
+	if(!award.name)
+		return FALSE
+
+	if(data[achievement_type])
+		return
+
+	award.load(src)
+
+///Unlocks an achievement of a specific type.
+/datum/achievement_data/proc/unlock(achievement_type, mob/user, value = 1)
+	set waitfor = FALSE
+
+	if(!SSachievements.achievements_enabled)
+		return
+
+	var/datum/award/award = SSachievements.awards[achievement_type]
+	get_data(achievement_type) //Get the current status first if necessary
+	award.unlock(user, src, value)
+
+///Getter for the status/score of an achievement
+/datum/achievement_data/proc/get_achievement_status(achievement_type)
+	return data[achievement_type]
+
+/datum/achievement_data/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/achievements),
+	)
+
+/datum/achievement_data/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/achievement_data/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Achievements")
+		ui.open()
+
+/datum/achievement_data/ui_static_data(mob/user)
+	. = ..()
+	.["categories"] = GLOB.achievement_categories
+	.["achievements"] = list()
+	.["highscores"] = list()
+	.["progresses"] = list()
+	.["user_key"] = owner_ckey
+
+	var/datum/asset/spritesheet/achievements/assets = get_asset_datum(/datum/asset/spritesheet/achievements)
+	for(var/achievement_type in SSachievements.awards)
+		var/datum/award/award = SSachievements.awards[achievement_type]
+
+		if(!award.name) //No name? we a subtype.
+			continue
+
+		if(isnull(data[achievement_type])) //We're still loading
+			continue
+
+		var/list/award_data = list(
+			"name" = award.name,
+			"desc" = award.desc,
+			"category" = award.category,
+			"icon_class" = assets.icon_class_name("achievement-[award.icon_state]"),
+			"value" = data[achievement_type],
+			)
+
+		award_data += award.get_ui_data(award_data, src)
+		.["achievements"] += list(award_data)
+
+	for(var/score_type in SSachievements.scores)
+		var/datum/award/score/score = SSachievements.scores[score_type]
+
+		if(!score.name)
+			continue
+
+		if(istype(score, /datum/award/score/progress))
+			var/datum/award/score/progress/prog = score
+			var/list/prog_data = prog.get_progress(src)
+			if(length(prog_data))
+				.["progresses"] += list(prog_data)
+
+		if(!score.track_high_scores || !length(score.high_scores))
+			continue
+
+		.["highscores"] += list(list("name" = score.name, "scores" = score.high_scores))
+
+/client/verb/checkachievements()
+	set category = "OOC"
+	set name = "Check Achievements"
+	set desc = "View all your achievements!"
+
+	var/datum/achievement_data/achievements = usr.client.persistent.achievements
+	if(!achievements.initialized)
+		achievements.InitializeData()
+
+	achievements.ui_interact(usr)
+

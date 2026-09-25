@@ -280,6 +280,73 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return new /datum/db_query(connection, sql_query, arguments)
 
+/*
+ * Takes a list of rows (each row being an associated list of column => value) and inserts them via a single mass query.
+ * Rows missing columns present in other rows will resolve to SQL NULL
+ * You are expected to do your own escaping of the data, and expected to provide your own quotes for strings.
+ * The duplicate_key arg can be true to automatically generate this part of the query
+ * or set to a string that is appended to the end of the query
+ * Ignore_errors instructes mysql to continue inserting rows if some of them have errors.
+ * the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
+*/
+/datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, warn = FALSE, async = TRUE, special_columns = null)
+	if(!table || !rows || !istype(rows))
+		return
+
+	// Prepare column list
+	var/list/columns = list()
+	var/list/has_question_mark = list()
+	for(var/list/row in rows)
+		for(var/column in row)
+			columns[column] = "?"
+			has_question_mark[column] = TRUE
+	for(var/column in special_columns)
+		columns[column] = special_columns[column]
+		has_question_mark[column] = findtext(special_columns[column], "?")
+
+	// Prepare SQL query full of placeholders
+	var/list/query_parts = list("INSERT")
+	if(ignore_errors)
+		query_parts += " IGNORE"
+	query_parts += " INTO "
+	query_parts += table
+	query_parts += "\n([columns.Join(", ")])\nVALUES"
+
+	var/list/arguments = list()
+	var/has_row = FALSE
+	for(var/list/row in rows)
+		if(has_row)
+			query_parts += ","
+		query_parts += "\n  ("
+		var/has_col = FALSE
+		for(var/column in columns)
+			if(has_col)
+				query_parts += ", "
+			if(has_question_mark[column])
+				var/name = "p[length(arguments)]"
+				query_parts += replacetext(columns[column], "?", ":[name]")
+				arguments[name] = row[column]
+			else
+				query_parts += columns[column]
+			has_col = TRUE
+		query_parts += ")"
+		has_row = TRUE
+
+	if(duplicate_key == TRUE)
+		var/list/column_list = list()
+		for(var/column in columns)
+			column_list += "[column] = VALUES([column])"
+		query_parts += "\nON DUPLICATE KEY UPDATE [column_list.Join(", ")]"
+	else if(duplicate_key != FALSE)
+		query_parts += duplicate_key
+
+	var/datum/db_query/Query = NewQuery(query_parts.Join(), arguments)
+	if(warn)
+		. = Query.warn_execute(async)
+	else
+		. = Query.Execute(async)
+	qdel(Query)
+
 /**
   * Handler to allow many queries to be executed en masse
   *
@@ -319,7 +386,7 @@ SUBSYSTEM_DEF(dbcore)
 			query = querys[thing]
 		else
 			query = thing
-		UNTIL(!query.in_progress)
+		query.sync()
 		if(qdel)
 			qdel(query)
 
@@ -479,6 +546,11 @@ SUBSYSTEM_DEF(dbcore)
 /datum/db_query/proc/Close()
 	rows = null
 	item = null
+
+/// Sleeps until execution of the query has finished.
+/datum/db_query/proc/sync()
+	while(in_progress)
+		stoplag()
 
 // Verb that lets admins force reconnect the DB
 USER_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", VERB_CATEGORY_DEBUG)

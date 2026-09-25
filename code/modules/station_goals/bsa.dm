@@ -220,6 +220,8 @@
 
 	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4, cause = "BSA strike")
+	if(HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/jobs/bsa_fire, user)
 
 	reload()
 
