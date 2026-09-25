@@ -1,10 +1,11 @@
 from collections import defaultdict
 from pathlib import Path
-from ci_common import ErrorReporter
 
-reporter = ErrorReporter("Same File Name")
+import pytest
 
-def test_file_names():
+
+@pytest.mark.lint("Same File Name")
+def test_file_names(lint):
     file_name_map: dict[str, list[Path]] = defaultdict(list)
 
     for file in Path(".").glob("**/*.dm"):
@@ -20,7 +21,4 @@ def test_file_names():
         for paths in duplicate_files.values():
             for path in paths:
                 other_paths = ", ".join([str(other) for other in paths if other != path])
-                reporter.print(f"Identical name to {other_paths}", path)
-
-    reporter.END_TEST()
-
+                lint.error(f"Identical name to {other_paths}", path)
