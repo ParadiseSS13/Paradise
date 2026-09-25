@@ -10,6 +10,8 @@
 	icon_gib = "carp_gib"
 	butcher_results = list(/obj/item/food/meat = 30,
 		/obj/item/stack/sheet/leather = 30) // In the future might add more unique loot,
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/whale
 	speak_emote = list("calls")
 	melee_attack_cooldown_min = 1 SECONDS
 	damage_coeff = list(BRUTE = 0.75, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
