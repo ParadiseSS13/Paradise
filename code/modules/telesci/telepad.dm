@@ -75,7 +75,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class = 'caution'> You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon.</span>")
+	to_chat(user, SPAN_CAUTION("You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon."))
 	stage = !stage
 
 /obj/machinery/telepad_cargo/wrench_act(mob/user, obj/item/I)

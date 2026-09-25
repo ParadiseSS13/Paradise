@@ -80,7 +80,7 @@
 	return ..()
 
 /obj/item/bio_chip/explosive/proc/timed_explosion()
-	imp_in.visible_message("<span class = 'warning'>[imp_in] starts beeping ominously!</span>")
+	imp_in.visible_message(SPAN_WARNING("[imp_in] starts beeping ominously!</span>"))
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	var/wait_delay = delay / 4
 	addtimer(CALLBACK(src, PROC_REF(do_booms), wait_delay, 1), wait_delay)
