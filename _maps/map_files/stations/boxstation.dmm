@@ -15393,11 +15393,12 @@
 	c_tag = "Office Supplies";
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/status_display{
 	layer = 4;
-	pixel_y = 32
+	pixel_y = 1;
+	pixel_x = -32
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/office)
 "bgt" = (
@@ -15815,7 +15816,7 @@
 "bhI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/woodsiding{
-	dir = 9
+	dir = 10
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -51456,6 +51457,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/camera{
+	dir = 6;
+	network = list("Engineering","SS13");
+	c_tag = "Power Transmission Laser"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "gGQ" = (
@@ -51805,7 +51811,7 @@
 "gNX" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/woodsiding{
-	dir = 5
+	dir = 6
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -54514,11 +54520,6 @@
 /turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "hXA" = (
-/obj/machinery/camera{
-	dir = 6;
-	network = list("Engineering","SS13");
-	c_tag = "Power Transmission Laser"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -58353,9 +58354,7 @@
 /obj/item/flashlight/lamp/green{
 	pixel_y = 8
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 1
-	},
+/obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "jGd" = (
@@ -112536,7 +112535,7 @@ cNB
 rjt
 cQy
 sTc
-sTc
+scI
 jEc
 tjG
 tHE
@@ -112793,7 +112792,7 @@ pMH
 wcG
 cQy
 onZ
-onZ
+scI
 kgK
 tdO
 sDe
