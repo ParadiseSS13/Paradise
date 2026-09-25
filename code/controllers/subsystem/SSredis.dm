@@ -98,10 +98,12 @@ SUBSYSTEM_DEF(redis)
 
 			message_admins("Redis error: [error_str] | Please inform the server host")
 			log_game("Redis error: [error_str]")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "<@200631029675982858> Redis 0x01 - `[error_str]`")
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))
 			stack_trace("Received a message on the channel '[channel]' when we arent subscribed to it. What the heck?")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "<@200631029675982858> Redis 0x02 - Got message on `[channel]` when not subbed")
 			continue
 
 		var/datum/redis_callback/RCB = subbed_channels[channel]
