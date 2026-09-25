@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 		log_dynamic("Applying [ruleset.antag_amount] [ruleset.name]\s.")
 		antag_budget += ruleset.roundstart_pre_setup()
 	antag_budget = max(0, antag_budget)
-	
+
 	log_dynamic("Budget overflow: [antag_budget].")
 	// for the future, maybe try readding antagonists with apply_antag_budget(antag_budget)
 	log_dynamic("Finished dynamic setup in [stop_watch(watch)]s.")
@@ -217,7 +217,8 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	if(min_latespawn_budget <= 0)
 		return
 	var/turf/T = get_turf(cryopod)
-	if(!T || is_admin_level(T.z))
+	if(!T || is_admin_level(T.z) || sleepy_mob.mind.offstation_role == TRUE)
+		log_dynamic("Non-crew cryo. No budget change.", TRUE)
 		return
 	antag_budget = max(0, antag_budget - 1)
 	if(!sleepy_mob.mind || !length(sleepy_mob.mind.antag_datums))
