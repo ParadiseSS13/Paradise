@@ -190,7 +190,7 @@
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)
-	radio.broadcasting = TRUE
+	radio.set_broadcasting(TRUE)
 	radio_action = new(radio, src)
 	if(brainmob && brainmob.loc == src)
 		radio_action.Grant(brainmob)
