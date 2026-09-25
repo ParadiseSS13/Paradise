@@ -147,3 +147,24 @@
 	var/list/ownedSoullinks
 	/// Soul links we are the sharer of.
 	var/list/sharedSoullinks
+
+
+	// Bloopers
+
+
+
+	var/sound/blooper
+	// The current mob's stored ID for their blooper. ID of a datum.
+	var/blooper_id
+	// The pitch pre-variation.
+	var/blooper_pitch = 1
+	// The +/- modifier for the pitch.
+	var/blooper_pitch_range = 0.2
+	// The time between each bloop.
+	var/blooper_speed = BLOOPER_SPEED_BASELINE
+	// The bloop volume 0-100.
+	var/blooper_volume = 50
+	// The time of the last fired blooper.
+	var/blooper_last_start_time
+	// LAZYLIST
+	var/list/blooper_queue // Subsystem related, theory is that for mobs, we store what they hear in this queue and have a subsystem tick over it. Possible? I think.
