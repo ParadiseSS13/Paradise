@@ -385,8 +385,6 @@
 	board_name = "Shuttle"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle
-	var/shuttleId
-	var/possible_destinations = ""
 
 /obj/item/circuitboard/labor_shuttle
 	board_name = "Labor Shuttle"
