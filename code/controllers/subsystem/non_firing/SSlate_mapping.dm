@@ -60,6 +60,12 @@ SUBSYSTEM_DEF(late_mapping)
 
 	GLOB.spawn_pool_manager.process_pools()
 
+	GLOB.avernus_shieldgens = sortAtom(GLOB.avernus_shieldgens)
+	for(var/i in 1 to length(GLOB.avernus_shieldgens))
+		var/obj/structure/streetlight/light = GLOB.avernus_shieldgens[i]
+
+
+
 /**
  * Randomly spawns mice in maintenance instead of being purely fixed spawn points
  */
