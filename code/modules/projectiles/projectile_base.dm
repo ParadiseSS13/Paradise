@@ -301,7 +301,8 @@
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
-		ricochet_chance *= ricochet_decay_chance // Note: I should impliment ricohet decay damage. I'm not doing that during heretic as balance scope
+		ricochet_chance *= ricochet_decay_chance
+		damage *= ricochet_decay_damage
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
 			permutated.Cut()
