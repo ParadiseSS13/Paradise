@@ -343,3 +343,19 @@
 	new /obj/item/radio/headset/headset_iaa(src)
 	new /obj/item/radio/headset/headset_iaa(src)
 	new /obj/item/clothing/accessory/legal_badge/iaa(src)
+
+/obj/structure/closet/secure_closet/brig_pilot
+	name = "brig pilot's locker"
+	req_access = list(ACCESS_BRIG_PILOT)
+	icon_state = "sec"
+
+/obj/structure/closet/secure_closet/brig_pilot/populate_contents()
+	new /obj/item/clothing/suit/armor/vest/security(src)
+	new /obj/item/clothing/head/helmet(src)
+	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/storage/toolbox/mechanical(src)
+	new /obj/item/storage/toolbox/electrical(src)
+	new /obj/item/clothing/head/welding(src)
+	new /obj/item/storage/belt/security/full(src)

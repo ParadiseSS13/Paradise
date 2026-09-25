@@ -33,6 +33,8 @@
 #define JOB_BLUESHIELD			(1<<13)
 #define JOB_NANO				(1<<14)
 #define JOB_INSTRUCTOR			(1<<15)
+#define JOB_SHIPWRIGHT			(1<<16)
+#define JOB_SEC_POD_PILOT		(1<<17)
 
 #define JOBCAT_MEDSCI			(1<<1)
 

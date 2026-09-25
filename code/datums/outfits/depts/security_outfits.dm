@@ -97,3 +97,28 @@
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
 	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
+/datum/outfit/job/brig_pilot
+	name = "Brig Pilot"
+	jobtype = /datum/job/brig_pilot
+	uniform = /obj/item/clothing/under/rank/security/officer
+	suit = /obj/item/clothing/suit/armor/vest/security
+	suit_store = /obj/item/gun/energy/disabler
+	backpack_contents = list(
+		/obj/item/evidencebag = 1,
+	)
+	id = /obj/item/card/id/brig_pilot
+	pda = /obj/item/pda/security
+	l_ear = /obj/item/radio/headset/headset_sec
+	gloves = /obj/item/clothing/gloves/color/black
+	head = /obj/item/clothing/head/helmet
+	shoes = /obj/item/clothing/shoes/jackboots
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
+	chameleon_extras = list(
+		/obj/item/clothing/glasses/hud/security/sunglasses,
+		/obj/item/clothing/head/helmet,
+		/obj/item/gun/energy/disabler,
+	)
+	bio_chips = list(/obj/item/bio_chip/mindshield)

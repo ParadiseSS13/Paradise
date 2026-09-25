@@ -55,6 +55,9 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 /obj/item/stack/sheet/glass/two
 	amount = 2
 
+/obj/item/stack/sheet/glass/ten
+	amount = 10
+
 /obj/item/stack/sheet/glass/five
 	amount = 5
 
