@@ -8,7 +8,7 @@
 	category = /datum/changeling_power_category/utility
 
 /datum/action/changeling/contort_body/Remove(mob/M)
-	deactivate()
+	deactivate(M)
 	..()
 
 /datum/action/changeling/contort_body/sting_action(mob/living/user)
