@@ -835,6 +835,11 @@
 			var/mob/living/carbon/human/H = target
 
 			if(H.mind)
+				if(IS_ACOLYTE(H))
+					H.mind.remove_antag_datum(/datum/antagonist/acolyte)
+					cleansing = FALSE
+					return
+
 				if(IS_CULTIST(H))
 					var/datum/antagonist/cultist/cultist = IS_CULTIST(H)
 					cultist.remove_gear_on_removal = TRUE
