@@ -93,15 +93,29 @@
 
 /obj/machinery/power/smes/update_overlays()
 	. = ..()
+	underlays.Cut()
 	if(stat & BROKEN)
 		return
 
-	. += "smes-op[outputting ? TRUE : FALSE]"
-	. += "smes-oc[inputting ? TRUE : FALSE]"
+	var/list/new_overlays = list()
+
+	new_overlays += "smes-op[outputting]"
+	new_overlays += "smes-oc[inputting]"
 
 	var/charge_level = charge_display()
 	if(charge_level > 0)
-		. += "smes-og[charge_level]"
+		new_overlays += "smes-og[charge_level]"
+
+	. += new_overlays
+
+	for(var/I in new_overlays)
+		var/lightmask = "[I]_lightmask"
+		if(lightmask in icon_states(icon))
+			underlays += emissive_appearance(icon, lightmask)
+
+	if(icon_state == "[initial(icon_state)]-o")
+		if("smes-o_lightmask" in icon_states(icon))
+			underlays += emissive_appearance(icon, "smes-o_lightmask")
 
 /obj/machinery/power/smes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Opening using screwdriver
@@ -482,10 +496,6 @@
 		IO += CP.rating
 	input_level_max = initial(input_level) * IO
 	output_level_max = initial(input_level) * IO
-
-/obj/machinery/power/smes/transformer/update_overlays()
-	..()
-	overlays.Cut()
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"
