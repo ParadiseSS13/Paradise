@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/shotgun
-	name = "shotgun"
-	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
+	name = "M400 pump shotgun"
+	desc = "A traditional shotgun with wood furniture and a 4+1 tube magazine underneath."
 	icon_state = "shotgun"
 	worn_icon_state = null
 	inhand_icon_state = null
@@ -26,15 +26,17 @@
 /obj/item/gun/projectile/shotgun/proc/get_shotgun_info()
 	return SPAN_NOTICE("After firing a shot, use this item in hand to remove the spent shell.")
 
-/obj/item/gun/projectile/shotgun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/shotgun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(.)
-		return
-	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
+		return ITEM_INTERACT_COMPLETE
+
+	var/num_loaded = magazine.load_box(used, user, silent = TRUE)
 	if(num_loaded)
-		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]!"))
-		A.update_icon()
+		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into [src]!"))
+		used.update_icon()
 		update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/projectile/shotgun/process_chamber()
 	return ..(FALSE, FALSE)
@@ -47,9 +49,10 @@
 		return FALSE
 	return chambered.BB
 
-/obj/item/gun/projectile/shotgun/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/gun/projectile/shotgun/handle_activate_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, pump_cooldown))
 		return
+
 	pump(user)
 	COOLDOWN_START(src, pump_cooldown, pump_time)
 
@@ -81,40 +84,54 @@
 /// for spawn in the armory
 /obj/item/gun/projectile/shotgun/riot
 	name = "\improper M500 riot shotgun"
-	desc = "A sturdy shotgun by Starstrike Arms, featuring a longer magazine and a fixed tactical stock designed for non-lethal riot control."
+	desc = "A sturdy shotgun by Starstrike Arms, featuring a 6+1 tube magazine and a fixed tactical stock. Designed for non-lethal riot control."
 	icon_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 
-/obj/item/gun/projectile/shotgun/riot/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
+/obj/item/gun/projectile/shotgun/riot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/circular_saw) || istype(used, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
-	if(istype(A, /obj/item/melee/energy))
-		var/obj/item/melee/energy/W = A
-		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
+		return ITEM_INTERACT_COMPLETE
+	
+	if(istype(used, /obj/item/melee/energy))
+		var/obj/item/melee/energy/esword = used
+		if(HAS_TRAIT(esword, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
-	if(istype(A, /obj/item/pipe))
-		unsaw(A, user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/pipe))
+		unsaw(used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, SPAN_WARNING("[src] has already been shortened!"))
 		return
+
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, SPAN_NOTICE("How do you plan to modify [src] while it's in a bag."))
+		to_chat(user, SPAN_WARNING("How do you plan to modify [src] while it's in a bag."))
 		return
-	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
+
+	if(chambered)	// If the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'.
 		if(chambered.BB)
 			process_fire(user, user)
-			user.visible_message(SPAN_DANGER("\The [src] goes off!"), SPAN_DANGER("\The [src] goes off in your face!"))
+			user.visible_message(
+				SPAN_DANGER("[src] goes off!"),
+				SPAN_USERDANGER("[src] goes off in your face!"),
+				SPAN_DANGER("You hear a gunshot!")
+			)
 			return
-		else
-			afterattack__legacy__attackchain(user, user)
-			user.visible_message("[src] goes click!", SPAN_NOTICE("[src] you are holding goes click."))
+		ranged_interact_with_atom(user, user)
+		user.audible_message(deaf_message = SPAN_WARNING("[src] goes click!"))
+
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message(SPAN_DANGER("[user.name] opens [src] up and the shells go goes flying around!"), SPAN_USERDANGER("You open [src] up and the shells go goes flying everywhere!!"))
+		user.visible_message(
+			SPAN_DANGER("[user] opens [src] up and the shells go goes flying around!"),
+			SPAN_USERDANGER("You open [src] up and the shells go goes flying everywhere!!")
+		)
 		while(get_ammo(0) > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -123,9 +140,12 @@
 				CB.update_icon()
 
 	if(do_after(user, 30, target = src))
-		user.visible_message("[user] shortens \the [src]!", SPAN_NOTICE("You shorten \the [src]."))
+		user.visible_message(
+			SPAN_WARNING("[user] shortens [src]!"), 
+			SPAN_NOTICE("You shorten [src].")
+		)
 		post_sawoff()
-		return 1
+		return TRUE
 
 /obj/item/gun/projectile/shotgun/riot/proc/post_sawoff()
 	w_class = WEIGHT_CLASS_NORMAL
@@ -145,14 +165,22 @@
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
-			afterattack__legacy__attackchain(user, user)
-			user.visible_message(SPAN_DANGER("\The [src] goes off!"), SPAN_DANGER("\The [src] goes off in your face!"))
+			process_fire(user, user)
+			user.visible_message(
+				SPAN_DANGER("[src] goes off!"),
+				SPAN_USERDANGER("[src] goes off in your face!"),
+				SPAN_DANGER("You hear a gunshot!")
+			)
 			return
-		else
-			afterattack__legacy__attackchain(user, user)
-			user.visible_message("[src] goes click!", SPAN_NOTICE("[src] you are holding goes click."))
+
+		ranged_interact_with_atom(user, user)
+		user.audible_message(deaf_message = SPAN_WARNING("[src] goes click!"))
+
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message(SPAN_DANGER("[user.name] opens [src] up and the shells go goes flying around!"), SPAN_USERDANGER("You open [src] up and the shells go goes flying everywhere!!"))
+		user.visible_message(
+			SPAN_DANGER("[user] opens [src] up and the shells go goes flying around!"),
+			SPAN_USERDANGER("You open [src] up and the shells go goes flying everywhere!!")
+		)
 		while(get_ammo() > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -162,9 +190,11 @@
 
 	if(do_after(user, 30, target = src))
 		qdel(A)
-		user.visible_message(SPAN_NOTICE("[user] lengthens [src]!"), SPAN_NOTICE("You lengthen [src]."))
+		user.visible_message(
+			SPAN_WARNING("[user] lengthens [src]!"),
+			SPAN_NOTICE("You lengthen [src]."))
 		post_unsaw(user)
-		return 1
+		return TRUE
 
 /obj/item/gun/projectile/shotgun/riot/proc/post_unsaw()
 	w_class = initial(w_class)
@@ -229,15 +259,16 @@
 		process_fire(user, user,0)
 		. = 1
 
-/obj/item/gun/projectile/shotgun/boltaction/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/shotgun/boltaction/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!bolt_open)
-		to_chat(user, SPAN_NOTICE("The bolt is closed!"))
-		return
-	. = ..()
+		to_chat(user, SPAN_DANGER("The bolt is closed!"))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
 	. = ..()
-	. += "The bolt is [bolt_open ? "open" : "closed"]."
+	. += SPAN_NOTICE("The bolt is [bolt_open ? "open" : "closed"].")
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"
@@ -255,7 +286,7 @@
 	..()
 	guns_left = 0
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self__legacy__attackchain()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/handle_activate_self(mob/user)
 	return
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
@@ -293,8 +324,10 @@
 	qdel(src)
 
 // Automatic Shotguns//
-
 /obj/item/gun/projectile/shotgun/automatic
+	name = "Generic Automatic Shotgun"
+	desc = ABSTRACT_TYPE_DESC
+	icon_state = null
 
 /obj/item/gun/projectile/shotgun/automatic/get_shotgun_info()
 	return SPAN_NOTICE("Automatically releases spent shotgun shells.")
@@ -338,6 +371,7 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE
+	pump_cooldown = 0
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 
@@ -350,11 +384,11 @@
 	QDEL_NULL(alternate_magazine)
 	return ..()
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/handle_activate_self(mob/user)
 	if(!chambered && length(magazine.contents))
-		pump(user)
-	else
-		toggle_tube(user)
+		pump()
+
+	toggle_tube(user)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/proc/toggle_tube(mob/living/user)
 	var/current_mag = magazine

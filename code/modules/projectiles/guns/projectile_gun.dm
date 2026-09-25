@@ -1,13 +1,13 @@
 /obj/item/gun/projectile
-	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason"
-	name = "projectile gun"
-	icon_state = "tommygun"
+	name = "generic projectile gun"
 	origin_tech = "combat=2;materials=2"
-	materials = list(MAT_METAL=1000)
-
-	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
+	materials = list(MAT_META = 1000)
+	/// The type path of the gun's magazine.
+	var/mag_type = /obj/item/ammo_box/magazine/m10mm
+	/// The magazine currently inside the gun.
 	var/obj/item/ammo_box/magazine/magazine
-	var/can_tactical = FALSE //check to see if the gun can tactically reload
+	/// Can the gun's maganzine be reloaded while there's already a magazine inside.
+	var/can_tactical = FALSE
 	/// The sound it will make when the gun suppression is TRUE
 	var/suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 
@@ -97,52 +97,54 @@
 		user.update_inv_l_hand()
 	return
 
-/obj/item/gun/projectile/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(can_reload())
-				reload(AM, user)
-				to_chat(user, SPAN_NOTICE("You load a new magazine into \the [src]."))
-				return TRUE
-			else if(!can_tactical)
-				to_chat(user, SPAN_NOTICE("There's already a magazine in \the [src]."))
-				return TRUE
-			else
-				to_chat(user, SPAN_NOTICE("You perform a tactical reload on \the [src], replacing the magazine."))
-				magazine.loc = get_turf(loc)
-				magazine.update_icon()
-				magazine = null
-				reload(AM, user)
-				return TRUE
-		else
-			to_chat(user, SPAN_NOTICE("You can't put this type of ammo in \the [src]."))
-			return TRUE
-	if(istype(A, /obj/item/suppressor))
-		var/obj/item/suppressor/S = A
-		if(can_suppress)
-			if(!suppressed)
-				if(!user.unequip(A))
-					return
-				A.forceMove(src)
-				to_chat(user, SPAN_NOTICE("You screw [S] onto [src]."))
-				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-				suppressed = A
-				S.oldsound = fire_sound
-				S.initial_w_class = w_class
-				fire_sound = suppressed_sound
-				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-				A.loc = src
-				update_icon()
-				return
-			else
-				to_chat(user, SPAN_WARNING("[src] already has a suppressor."))
-				return
-		else
-			to_chat(user, SPAN_WARNING("You can't seem to figure out how to fit [S] on [src]."))
-			return
-	else
-		return ..()
+/obj/item/gun/projectile/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/ammo_box/magazine))
+		var/obj/item/ammo_box/magazine/mag = used
+		if(!istype(mag, mag_type))
+			to_chat(user, SPAN_WARNING("[used] doesn't fit in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(can_reload())
+			reload(mag, user)
+			to_chat(user, SPAN_NOTICE("You load a new magazine into [src]."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!can_tactical)
+			to_chat(user, SPAN_NOTICE("There's already a magazine in [src]."))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You perform a tactical reload on [src], replacing the magazine."))
+		magazine.loc = get_turf(loc)
+		magazine.update_icon()
+		magazine = null
+		reload(mag, user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/suppressor))
+		var/obj/item/suppressor/S = used
+		if(!can_suppress)
+			to_chat(user, SPAN_WARNING("[src] doesn't have a threaded barrel for [S] to screw onto!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(suppressed)
+			to_chat(user, SPAN_WARNING("[src] is already suppressed!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.transfer_item_to(used, src))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You screw [S] onto [src]."))
+		playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+		suppressed = S
+		S.oldsound = fire_sound
+		S.initial_w_class = w_class
+		fire_sound = suppressed_sound
+		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/attack_hand(mob/user)
 	if(loc == user)
@@ -161,24 +163,28 @@
 			return
 	..()
 
-/obj/item/gun/projectile/attack_self__legacy__attackchain(mob/living/user as mob)
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
+/obj/item/gun/projectile/handle_activate_self(mob/user)
+	var/obj/item/ammo_casing/AC = chambered // Find chambered round.
 	if(magazine)
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine.update_icon()
 		magazine = null
-		to_chat(user, SPAN_NOTICE("You pull the magazine out of \the [src]!"))
+		to_chat(user, SPAN_NOTICE("You pull the magazine out of [src]."))
 		playsound(src, magout_sound, 50, 1)
-	else if(chambered)
+		update_icon()
+		return
+
+	if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		to_chat(user, SPAN_NOTICE("You unload the round from \the [src]'s chamber."))
+		to_chat(user, SPAN_NOTICE("You unload the round from [src]'s chamber."))
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
-	else
-		to_chat(user, SPAN_NOTICE("There's no magazine in \the [src]."))
-	update_icon()
+		update_icon()
+		return
+
+	to_chat(user, SPAN_NOTICE("There's no magazine in [src]!"))
 	return
 
 /obj/item/gun/projectile/examine(mob/user)

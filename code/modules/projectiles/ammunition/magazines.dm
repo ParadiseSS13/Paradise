@@ -1,9 +1,8 @@
 /obj/item/ammo_box/magazine
-	icon_state = null
+	desc = ABSTRACT_TYPE_DESC
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
-	desc = "Oh god, this shouldn't be here!"
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
 /obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/R)
@@ -420,6 +419,7 @@
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
+	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
