@@ -29,6 +29,28 @@
 		qdel(mind)
 	return ..()
 
+/mob/new_player/proc/get_job_availability_code(datum/job/job)
+	if(!job.is_position_available())
+		return JOB_SELECT_SLOTS_FILLED
+	if(jobban_isbanned(src, job.title))
+		return JOB_SELECT_PLAYER_BANNED
+	if(!job.player_old_enough(client))
+		return JOB_SELECT_NOT_ENOUGH_PLAYTIME
+	if(job.admin_only && !check_rights(R_EVENT, FALSE, user = src))
+		return JOB_SELECT_ADMIN_ONLY
+	if(job.get_exp_restrictions(client))
+		return JOB_SELECT_EXP_RESTRICTED
+	if(job.mentor_only && !check_rights(R_MENTOR | R_ADMIN, FALSE, user = src))
+		return JOB_SELECT_MENTOR_ONLY
+	if(job.barred_by_disability(client))
+		return JOB_SELECT_DISABILITY_BARRED
+	if(job.barred_by_missing_limbs(client))
+		return JOB_SELECT_AMPUTEE_BARRED
+	if(job.barred_by_quirk(client))
+		return JOB_SELECT_QUIRK_BARRED
+
+	return JOB_SELECT_AVAILABLE
+
 /mob/new_player/proc/new_player_panel()
 	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
@@ -238,22 +260,6 @@
 	if(href_list["manifest"])
 		ViewManifest()
 
-	if(href_list["SelectedJob"])
-
-		if(!GLOB.enter_allowed)
-			to_chat(usr, SPAN_NOTICE("There is an administrative lock on entering the game!"))
-			return
-
-		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-			client.prefs.load_random_character_slot(client)
-
-		if(!can_use_species(src, client.prefs.active_character.species))
-			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
-			return FALSE
-
-		AttemptLateSpawn(href_list["SelectedJob"])
-		return
-
 	if(!ready && href_list["preference"])
 		if(client)
 			client.prefs.process_link(src, href_list)
@@ -270,11 +276,11 @@
 		return FALSE
 	if(!job.player_old_enough(client))
 		return FALSE
-	if(job.admin_only && !check_rights(R_EVENT, FALSE))
+	if(job.admin_only && !check_rights(R_EVENT, FALSE, user = src))
 		return FALSE
 	if(job.get_exp_restrictions(client))
 		return FALSE
-	if(job.mentor_only && !check_rights(R_MENTOR | R_ADMIN, FALSE))
+	if(job.mentor_only && !check_rights(R_MENTOR | R_ADMIN, FALSE, user = src))
 		return FALSE
 
 	if(GLOB.configuration.jobs.assistant_limit)
@@ -402,7 +408,7 @@
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
-
+	return TRUE
 
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -455,99 +461,7 @@
 					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/LateChoices()
-	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
-	//var/secs = ((mills % 36000) % 600) / 10 //Not really needed, but I'll leave it here for refrence.. or something
-	var/mins = (mills % 36000) / 600
-	var/hours = mills / 36000
-
-	var/dat = "<html><meta charset='utf-8'><body><center>"
-	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
-	dat += "<b>The station alert level is: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
-
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
-		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
-
-	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
-		var/amt = length(SSjobs.prioritized_jobs)
-		var/amt_count
-		for(var/datum/job/a in SSjobs.prioritized_jobs)
-			amt_count++
-			if(amt_count != amt)
-				dat += " [a.title], "
-			else
-				dat += " [a.title]. </font><br>"
-
-
-	var/num_jobs_available = 0
-	var/list/activePlayers = list()
-	var/list/categorizedJobs = list(
-		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
-		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.active_security_positions, color = "#ff9999"),
-		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
-		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
-		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
-		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
-		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
-		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
-		)
-	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.barred_by_missing_limbs(client) && !job.barred_by_quirk(client))
-			num_jobs_available++
-			activePlayers[job] = 0
-			var/categorized = 0
-			// Only players with the job assigned and AFK for less than 10 minutes count as active
-			for(var/mob/M in GLOB.player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 MINUTES)
-				activePlayers[job]++
-			for(var/jobcat in categorizedJobs)
-				var/list/jobs = categorizedJobs[jobcat]["jobs"]
-				if(job.title in categorizedJobs[jobcat]["titles"])
-					categorized = 1
-					if(jobcat == "Command") // Put captain at top of command jobs
-						if(job.title == "Captain")
-							jobs.Insert(1, job)
-						else
-							jobs += job
-					else // Put heads at top of non-command jobs
-						if(job.title in GLOB.command_positions)
-							jobs.Insert(1, job)
-						else
-							jobs += job
-			if(!categorized)
-				categorizedJobs["Miscellaneous"]["jobs"] += job
-
-	if(num_jobs_available)
-		dat += "Choose from the following open positions:<br><br>"
-		dat += "<table><tr><td valign='top'>"
-		for(var/jobcat in categorizedJobs)
-			if(categorizedJobs[jobcat]["colBreak"])
-				dat += "</td><td valign='top'>"
-			if(length(categorizedJobs[jobcat]["jobs"]) < 1)
-				continue
-			var/color = categorizedJobs[jobcat]["color"]
-			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
-			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
-			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
-				if(job in SSjobs.prioritized_jobs)
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
-				else
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
-			dat += "</fieldset><br>"
-
-		dat += "</td></tr></table></center>"
-	else
-		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<BR>Wait a few minutes, then try again.<BR>Or, try observing the round.</center>"
-	// Removing the old window method but leaving it here for reference
-//		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
-	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
-	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
-	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
-	popup.set_content(dat)
-	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
+	GLOB.latejoin_menu.ui_interact(src)
 
 /mob/new_player/proc/create_character()
 	spawning = TRUE
@@ -632,3 +546,25 @@
 // No hearing announcements
 /mob/new_player/can_hear()
 	return 0
+
+/mob/new_player/verb/latejoin_fallback()
+	set category = "OOC"
+	set name = "Join Game"
+	set desc = "Choose a job and join the game!"
+
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		to_chat(src, SPAN_WARNING("You cannot join the game before it starts!"))
+		return
+
+	var/list/jobs = list()
+	for(var/datum/job/job as anything in SSjobs.occupations)
+		if(get_job_availability_code(job) == JOB_SELECT_AVAILABLE)
+			jobs += job.title
+
+	jobs = sortList(jobs)
+	var/input_contents = input(src, "Pick a job to join as:", "Latejoin Job Selection") as null|anything in jobs
+
+	if(!input_contents)
+		return
+
+	AttemptLateSpawn(input_contents)
