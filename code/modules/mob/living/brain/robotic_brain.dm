@@ -166,9 +166,9 @@
 		return
 	switch(severity)
 		if(EMP_HEAVY)
-			brainmob.emp_damage += rand(20, 30)
+			brainmob.emp_damage += rand(5, 10)
 		if(EMP_LIGHT)
-			brainmob.emp_damage += rand(10, 20)
+			brainmob.emp_damage += rand(1, 5)
 	..()
 
 /obj/item/mmi/robotic_brain/Initialize(mapload)
