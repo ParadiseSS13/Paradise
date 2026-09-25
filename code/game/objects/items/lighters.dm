@@ -330,12 +330,18 @@
 
 /obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
 	if(!lit)
-		return FALSE
+		return TRUE
 	// Uses initial(name) so it doesn't say "lit" twice in a row.
 	to_chat(user, SPAN_WARNING("[S] can't hold [initial(name)] while it's lit!"))
-	return TRUE
+	return FALSE
 
 /obj/item/match/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/item/mod/control))
+		return NONE
+
+	if(isstorage(target) && !istype(target, /obj/item/storage/fancy/matches) && can_enter_storage(target, user))
+		return NONE
+
 	if(cigarette_lighter_act(user, target))
 		return ITEM_INTERACT_COMPLETE
 

@@ -42,7 +42,7 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 
 /obj/item/push_broom/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isturf(target) || isitem(target))
+	if(isturf(target) || isitem(target) || is_surface(target))
 		return ..()
 
 	if(user.a_intent != INTENT_HELP)
