@@ -62,12 +62,12 @@
 /area/ruin/space/derelict/bridge)
 "ao" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "ap" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aq" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -208,7 +208,7 @@
 /area/ruin/space/derelict/bridge)
 "aE" = (
 /obj/structure/sign/nuke,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aF" = (
 /obj/item/kirbyplants/large,
@@ -977,7 +977,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "cL" = (
 /obj/structure/sign/mech,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "cM" = (
 /obj/machinery/door/airlock/public/glass{
@@ -1448,7 +1448,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "dX" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "dZ" = (
 /obj/structure/closet/crate/can,
@@ -1595,7 +1595,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "et" = (
 /obj/structure/sign/science,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "eu" = (
 /turf/simulated/floor/plasteel/fakestairs,
@@ -1647,7 +1647,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "ez" = (
 /obj/structure/noticeboard,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "eA" = (
 /obj/machinery/atmospherics/unary/passive_vent,
@@ -2131,7 +2131,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "fL" = (
 /obj/structure/sign/nosmoking,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2272,7 +2272,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "ge" = (
 /obj/structure/sign/service/bar,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "gf" = (
 /obj/structure/chair/wood{
@@ -2411,7 +2411,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "gy" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "gz" = (
 /obj/machinery/recharge_station,
@@ -2676,7 +2676,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hi" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -2752,7 +2752,7 @@
 /area/ruin/space/derelict/solar_control)
 "ht" = (
 /obj/structure/sign/security,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "hw" = (
 /obj/structure/sink/directional/west,
@@ -2779,7 +2779,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "hz" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hA" = (
 /obj/structure/table/reinforced,
@@ -3948,7 +3948,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "kG" = (
 /obj/structure/sign/vacuum,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "kH" = (
 /obj/structure/cable{
@@ -4290,7 +4290,7 @@
 /area/ruin/space/derelict/arrival)
 "lz" = (
 /obj/structure/sign/service/botany,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "lC" = (
 /obj/structure/cable{
@@ -4858,7 +4858,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "nA" = (
 /obj/machinery/hydroponics,
@@ -5570,7 +5570,7 @@
 /area/ruin/space/derelict/arrival)
 "pJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "pK" = (
 /obj/structure/window/reinforced,
@@ -5735,7 +5735,7 @@
 /area/ruin/space/derelict/arrival)
 "qh" = (
 /obj/structure/sign/medical/examroom,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qi" = (
 /obj/machinery/computer/arcade,
@@ -5781,7 +5781,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "qp" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qr" = (
 /obj/structure/cable{
@@ -5793,7 +5793,7 @@
 /area/ruin/space/derelict/arrival)
 "qs" = (
 /obj/structure/sign/nosmoking/alt,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qt" = (
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -6112,7 +6112,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "ro" = (
 /obj/structure/sign/medical,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "rp" = (
 /obj/structure/table,
@@ -6445,7 +6445,7 @@
 /area/ruin/space/derelict/arrival)
 "rZ" = (
 /obj/structure/sign/vacuum,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "sc" = (
 /obj/structure/cable{
@@ -6594,11 +6594,11 @@
 /obj/item/gps/ruin{
 	gpstag = "Soviet Distress Signal"
 	},
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "tc" = (
 /obj/structure/sign/security/armory,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "uy" = (
 /obj/machinery/door/airlock/security/glass{
@@ -6639,7 +6639,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "xi" = (
 /obj/effect/spawner/random/fungus/frequent,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "Ae" = (
 /mob/living/basic/giant_spider/hunter,
@@ -6708,7 +6708,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "El" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "EF" = (
 /obj/machinery/door/airlock/titanium{
@@ -6737,7 +6737,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "HM" = (
 /obj/structure/sign/engineering,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "IU" = (
 /obj/structure/cable{
@@ -6767,19 +6767,19 @@
 /area/ruin/space/derelict/arrival)
 "KH" = (
 /obj/structure/sign/command,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "Lb" = (
 /obj/structure/sign/public/laundry,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "Ld" = (
 /obj/structure/sign/service/chapel,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "Lk" = (
 /obj/structure/sign/cargo/dock,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "Mf" = (
 /obj/machinery/door/airlock/hatch{
@@ -6792,11 +6792,11 @@
 /area/ruin/space/derelict/arrival)
 "Mh" = (
 /obj/structure/sign/service/kitchen,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "Mi" = (
 /obj/effect/spawner/random/fungus/frequent,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "ME" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -6825,11 +6825,11 @@
 /area/ruin/space/derelict/hallway/primary)
 "Nv" = (
 /obj/effect/spawner/airlock,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "Oh" = (
 /obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "Pn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6886,7 +6886,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "UY" = (
 /obj/structure/sign/command/conference,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "VH" = (
 /obj/structure/cable{
@@ -6940,7 +6940,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "Ye" = (
 /obj/effect/spawner/random/fungus/frequent,
-/turf/simulated/wall/indestructible/titanium/soviet,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "Yi" = (
 /obj/structure/cable{

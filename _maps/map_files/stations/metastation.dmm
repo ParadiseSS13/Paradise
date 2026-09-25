@@ -8794,7 +8794,7 @@
 /turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "biq" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "biu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19901,8 +19901,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "cmn" = (
-/obj/machinery/door/morgue/manual_rotation{
-	name = "Confession Booth (Chaplain)"
+/obj/machinery/door/morgue{
+	name = "Confession Booth (Chaplain)";
+	req_access = list(22)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
@@ -20849,7 +20850,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos)
 "cqY" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Study #1"
 	},
 /turf/simulated/floor/wood,
@@ -21552,7 +21553,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "cuz" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Study #2"
 	},
 /turf/simulated/floor/wood,
@@ -70236,7 +70237,7 @@
 /area/station/public/dorms)
 "qTT" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "qTX" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
@@ -70334,7 +70335,7 @@
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "qVA" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -76147,7 +76148,7 @@
 /area/station/maintenance/aft2)
 "sOi" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "sOy" = (
 /obj/machinery/ai_status_display{

@@ -905,13 +905,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "agD" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "agE" = (
 /turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "agH" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -26906,9 +26906,7 @@
 /turf/simulated/wall,
 /area/station/service/library)
 "cdC" = (
-/obj/machinery/door/morgue/manual_rotation{
-	name = "Study #2"
-	},
+/obj/machinery/door/morgue,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cdD" = (
@@ -30849,12 +30847,12 @@
 /turf/simulated/wall,
 /area/station/service/library)
 "csI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Private Study";
 	req_access = list(37)
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "csJ" = (
@@ -46687,8 +46685,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "dQh" = (
-/obj/machinery/door/morgue/manual_rotation{
-	name = "Confession Booth (Chaplain)"
+/obj/machinery/door/morgue{
+	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
@@ -47001,7 +46999,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "dRN" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -94192,12 +94190,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
-"vIt" = (
-/obj/machinery/door/morgue/manual_rotation{
-	name = "Study #1"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/service/library)
 "vIR" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	autolink_id = "o2_in";
@@ -135044,7 +135036,7 @@ exy
 bYj
 jRu
 cbO
-vIt
+cdC
 ckj
 crn
 ciz

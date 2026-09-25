@@ -3520,7 +3520,7 @@
 /area/space/nearstation)
 "aBe" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "aBj" = (
 /obj/machinery/newscaster/security_unit/directional/east,
@@ -17046,7 +17046,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "cFY" = (
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "cFZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -23916,11 +23916,11 @@
 /area/station/supply/storage)
 "dSn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Private Study";
 	req_access = list(37)
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "dSo" = (
@@ -60588,7 +60588,7 @@
 /area/station/service/clown/secret)
 "lHH" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "lHI" = (
 /obj/structure/sign/directions/medical{
@@ -76614,7 +76614,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "pkt" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "pku" = (
 /obj/structure/cable{

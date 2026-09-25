@@ -12573,7 +12573,7 @@
 /turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "aVY" = (
-/turf/simulated/wall/indestructible/fakeglass/titanium_window,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "aWb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16331,8 +16331,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjp" = (
-/obj/machinery/door/morgue/manual_rotation{
-	name = "Confession Booth (Chaplain)"
+/obj/machinery/door/morgue{
+	name = "Confession Booth (Chaplain)";
+	req_access = list(22)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
@@ -17108,7 +17109,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "bmg" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -17926,7 +17927,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "boy" = (
-/obj/machinery/door/morgue/manual_rotation{
+/obj/machinery/door/morgue{
 	name = "Private Study";
 	req_access = list(37)
 	},
@@ -69150,7 +69151,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "oqz" = (
 /obj/structure/cable/extra_insulated{

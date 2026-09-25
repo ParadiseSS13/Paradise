@@ -38,27 +38,7 @@
 
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
-	offset_by_dir()
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/machinery/light_construct/setDir(newdir)
-	. = ..()
-	offset_by_dir()
-
-/obj/machinery/light_construct/proc/offset_by_dir()
-	switch(dir)
-		if(NORTH)
-			pixel_x = 0
-			pixel_y = 20
-		if(SOUTH)
-			pixel_x = 0
-			pixel_y = 0
-		if(EAST)
-			pixel_x = 8
-			pixel_y = 4
-		if(WEST)
-			pixel_x = -8
-			pixel_y = 4
 
 /obj/machinery/light_construct/examine(mob/user)
 	. = ..()
@@ -207,9 +187,6 @@
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/floor/built
 
-/obj/machinery/light_construct/floor/offset_by_dir()
-	return
-
 /obj/machinery/light_construct/clockwork/small
 	name = "small brass light fixture frame"
 	desc = "A small brass light fixture under construction."
@@ -227,9 +204,6 @@
 	fixture_type = "clockwork_floor"
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/clockwork/floor/built
-
-/obj/machinery/light_construct/clockwork/floor/offset_by_dir()
-	return
 
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED
@@ -404,8 +378,6 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
-	offset_by_dir()
-
 	switch(base_state)
 		if("tube")
 			brightness_range = 8
@@ -425,27 +397,6 @@
 		brightness_color = A.area_light_color
 	if(A.area_nightlight_color)
 		nightshift_light_color = A.area_nightlight_color
-
-/obj/machinery/light/proc/offset_by_dir()
-	switch(dir)
-		if(NORTH)
-			pixel_x = 0
-			pixel_y = 20
-		if(SOUTH)
-			pixel_x = 0
-			pixel_y = 0
-		if(EAST)
-			pixel_x = 8
-			pixel_y = 4
-		if(WEST)
-			pixel_x = -8
-			pixel_y = 4
-
-/obj/machinery/light/floor/offset_by_dir()
-	return
-
-/obj/machinery/light/clockwork/floor/offset_by_dir()
-	return
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
@@ -1038,10 +989,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update()
-
-/obj/machinery/light/setDir(newdir)
-	. = ..()
-	offset_by_dir()
 
 /obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
