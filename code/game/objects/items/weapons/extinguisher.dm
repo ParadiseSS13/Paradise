@@ -31,6 +31,17 @@
 /obj/item/extinguisher/empty
 	prefilled = FALSE
 
+// Firebot assembly
+/obj/item/extinguisher/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/robot_parts/l_arm) && !istype(tool, /obj/item/robot_parts/r_arm))
+		return NONE
+
+	to_chat(user, SPAN_NOTICE("You add [tool] to [src]."))
+	qdel(tool)
+	new /obj/item/bot_assembly/firebot(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
 /obj/item/extinguisher/atmospherics
 	name = "atmospheric fire extinguisher"
 	desc = "An extinguisher coated in yellow paint that is pre-filled with firefighting foam."
@@ -41,6 +52,11 @@
 	dog_fashion = null
 	reagent_id = "firefighting_foam"
 	reagent_capacity = 65
+
+/obj/item/extinguisher/atmospherics/firebot
+	has_safety = FALSE
+	precision = TRUE
+	reagent_capacity = INFINITY
 
 /obj/item/extinguisher/atmospherics/empty
 	prefilled = FALSE
