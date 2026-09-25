@@ -449,6 +449,11 @@
 	path = /obj/item/clothing/under/rank/civilian/mime/skirt
 	allowed_roles = list("Mime")
 
+/datum/gear/uniform/skirt/job/mime/long
+	display_name = "Long skirt, mime"
+	path = /obj/item/clothing/under/rank/civilian/mime/skirt/long
+	allowed_roles = list("Mime")
+
 /datum/gear/uniform/skirt/job/janitor
 	display_name = "Skirt, janitor"
 	path = /obj/item/clothing/under/rank/civilian/janitor/skirt
