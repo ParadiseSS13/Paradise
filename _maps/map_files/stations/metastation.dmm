@@ -19814,11 +19814,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "clO" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
@@ -29536,10 +29536,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "dIc" = (
-/obj/structure/cable/extra_insulated,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/machinery/power/apc/reinforced/directional/east,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "dIe" = (
@@ -61190,7 +61190,7 @@
 	},
 /area/station/science/test_chamber)
 "nTz" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -62986,10 +62986,10 @@
 	name = "Central Emergency Storage";
 	dir = 4
 	},
-/obj/structure/cable/extra_insulated{
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "oAm" = (
