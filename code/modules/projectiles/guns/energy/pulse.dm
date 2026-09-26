@@ -123,7 +123,7 @@
 	desc = "A pulse rifle fitted with a heavy duty prism, spreading a cone of destruction in front of the user. The fire selector has three settings, and they are all 'ANNIHILATE'."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
-/obj/item/gun/energy/pulse/destroyer/annihilator/handle_activate_self(mob.user)
+/obj/item/gun/energy/pulse/destroyer/annihilator/handle_activate_self(mob/user)
 	to_chat(user, SPAN_BOLDANNOUNCEIC("[src] is now set to ANNIHILATE."))
 
 //////////////////////////////
