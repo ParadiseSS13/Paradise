@@ -43,11 +43,11 @@
 	if(!istype(used, /obj/item/borg/upgrade/modkit))
 		return ..()
 
-	if(max_mod_capacity)
+	var/obj/item/borg/upgrade/modkit/mod = used
+	if((get_remaining_mod_capacity() - mod.cost) < 0)
 		to_chat(user, SPAN_WARNING("[src] hasn't got enough mod capacity to install [used]!"))
 		return ITEM_INTERACT_COMPLETE
 
-	var/obj/item/borg/upgrade/modkit/mod = used
 	mod.install(src, user)
 	return ITEM_INTERACT_COMPLETE
 
@@ -438,7 +438,7 @@
 		return ..()
 
 	var/obj/item/gun/energy/kinetic_accelerator/gun = used
-	if(gun.max_mod_capacity)
+	if((gun.get_remaining_mod_capacity() - cost) < 0)
 		install(used, user)
 	return ITEM_INTERACT_COMPLETE
 
