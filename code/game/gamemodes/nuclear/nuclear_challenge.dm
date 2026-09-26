@@ -13,23 +13,27 @@
 	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault. \
 		Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals. \
 		Must be used within ten minutes, or your benefactors will lose interest."
+	new_attack_chain = TRUE
 	var/declaring_war = FALSE
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
-/obj/item/nuclear_challenge/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/nuclear_challenge/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!check_allowed(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	declaring_war = TRUE
 	var/are_you_sure = tgui_alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? You have [-round((world.time-SSticker.round_start_time - CHALLENGE_TIME_LIMIT)/10)] seconds to decide.", "Declare war?", list("Yes", "No"))
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(are_you_sure != "Yes")
 		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/war_declaration = "[user.real_name] has declared [user.p_their()] intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them."
 
@@ -38,7 +42,7 @@
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(custom_threat == "Yes")
 		declaring_war = TRUE
@@ -46,7 +50,7 @@
 		declaring_war = FALSE
 
 	if(!check_allowed(user) || !war_declaration)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	GLOB.major_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
@@ -63,6 +67,7 @@
 	share_telecrystals()
 	SSshuttle.refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nuclear_challenge/proc/share_telecrystals()
 	var/player_tc

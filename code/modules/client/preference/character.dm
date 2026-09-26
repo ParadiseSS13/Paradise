@@ -2040,8 +2040,8 @@
 		var/datum/job/lastJob
 		if(!SSjobs)
 			return
-		for(var/J in SSjobs.occupations)
-			var/datum/job/job = J
+		for(var/J in GLOB.occupation_pref_job_order)
+			var/datum/job/job = SSjobs.GetJob(J)
 
 			var/difficulty_meter = ""
 			if(job.difficulty)

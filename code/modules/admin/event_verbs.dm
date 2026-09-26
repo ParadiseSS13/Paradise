@@ -721,3 +721,25 @@ USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the 
 	if(choice)
 		SSmapping.next_lavaland_theme = choice
 		message_admins("[key_name_admin(client)] set the Lavaland theme for next round to [choice].")
+
+USER_VERB(trigger_custom_false_alarm, R_EVENT, "Custom False Alarm", "Trigger specific false alarm.", VERB_CATEGORY_EVENT)
+	//var/list/options = list("Option 1", "Option 2")
+	var/list/event_list = GLOB.false_alarm_types
+	var/input = input(client, "Please select an announcement to imitate", "Custom False Alarm") as null|anything in event_list
+	if(!input)
+		return
+
+	log_admin("Admin [key_name(client)] has triggered a false alarm - [input]")
+	message_admins("Admin [key_name_admin(client)] has triggered a false alarm - [input]")
+
+	new /datum/event/falsealarm(override_input = input)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Custom False Alarm")
+
+USER_VERB(trigger_random_false_alarm, R_EVENT, "Random False Alarm", "Trigger a random false alarm.", VERB_CATEGORY_EVENT)
+	var/confirm = alert(client, "You sure?", "Confirm", "Yes", "No")
+	if(confirm != "Yes") return
+	log_admin("[key_name(client)] has triggered a random false alarm.")
+	message_admins("[key_name_admin(client)] has triggered a random false alarm.")
+
+	new /datum/event/falsealarm()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Random False Alarm")

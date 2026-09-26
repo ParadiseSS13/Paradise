@@ -162,6 +162,7 @@
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
+	new_attack_chain = TRUE
 	var/extend = TRUE
 	var/swiping = FALSE
 
@@ -202,7 +203,7 @@
 	name = "telescopic scythe"
 	desc = "A sharp and curved blade on a collapsable fibre metal handle, this tool is the pinnacle of covert reaping technology."
 	icon_state = "tscythe0"
-	inhand_icon_state = null	//no sprite for folded version, like a tele-baton
+	inhand_icon_state = null	// No sprite for folded version, like a tele-baton.
 	force = 3
 	sharp = FALSE
 	w_class = WEIGHT_CLASS_SMALL
@@ -212,33 +213,39 @@
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
 
-/obj/item/scythe/tele/attack_self__legacy__attackchain(mob/user)
+/obj/item/scythe/tele/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	extend = !extend
 	if(extend)
 		to_chat(user, SPAN_WARNING("With a flick of your wrist, you extend the scythe. It's reaping time!"))
-		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
-		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
-		force = 15		//slightly better than normal scythe damage
+		slot_flags = ITEM_SLOT_BACK	// Won't fit on belt, but can be worn on belt when extended.
+		w_class = WEIGHT_CLASS_BULKY		// Won't fit in backpacks while extended.
+		force = 15		// Slightly better than normal scythe damage.
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
 		hitsound = 'sound/weapons/bladeslice.ogg'
-		//Extend sound (blade unsheath)
-		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
+		// Extend sound (blade unsheath).
+		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	// Sound credit to Qat of Freesound.org.
+
 	else
 		to_chat(user, SPAN_NOTICE("You collapse the scythe, folding it away for easy storage."))
-		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
+		slot_flags = ITEM_SLOT_BELT	// Can be worn on belt again, but no longer makes sense to wear on the back.
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("hit", "poked")
 		hitsound = "swing_hit"
-		//Collapse sound (blade sheath)
-		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
+		// Collapse sound (blade sheath).
+		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org.
+
 	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/scythe/tele/update_icon_state()
 	if(extend)
