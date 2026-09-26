@@ -45,6 +45,8 @@
 
 	switch(action)
 		if("preview")
+			if(!(params["entry"] in items_map) || isnull(items_map[params["entry"]]))
+				return NONE
 			var/sound/preview = sound(
 				items_map[params["entry"]],
 				repeat = 0,
