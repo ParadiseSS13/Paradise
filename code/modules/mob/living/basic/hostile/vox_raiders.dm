@@ -51,6 +51,9 @@
 	if(prob(25))
 		loot.Add(/obj/item/gun/energy/plasmacutter)
 
+/mob/living/basic/vox_miner/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE
+
 /mob/living/basic/vox_miner/proc/retaliate_callback(mob/living/attacker)
 	if(!istype(attacker))
 		return
