@@ -250,3 +250,6 @@
 	. = ..()
 	if(. && qdel_on_open)
 		qdel(src)
+
+#undef GAME_MODE_NUMEBRS
+#undef GAME_MODE_WORDS
