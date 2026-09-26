@@ -378,6 +378,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!istype(O))
 		return
 
+	var/datum/robolimb/robohead = O.is_robotic() ? GLOB.all_robolimbs[O.model] : null
+	if(robohead && robohead.is_monitor && stat == DEAD)
+		return
+
 	if((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR))
 		return
 

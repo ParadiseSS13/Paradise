@@ -283,6 +283,9 @@
 		else if(istype(A, /area/station/engineering/engine/reactor))
 			to_chat(src, SPAN_WARNING("Disrupting the control equipment of a nuclear reactor would not be to our benefit. Aborting."))
 			return TRUE
+		else if(istype(A, /area/station/hallway/secondary/entry))
+			to_chat(src, SPAN_WARNING("Destroying this object has the potential to interfere with new arrivals. Aborting."))
+			return TRUE
 	return FALSE
 
 // =====================
