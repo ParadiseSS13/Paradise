@@ -4,7 +4,7 @@
 /obj/item/reagent_containers/drinks
 	name = "drink"
 	desc = "yummy!"
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/misc_drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
@@ -204,6 +204,7 @@
 /obj/item/reagent_containers/drinks/mugwort
 	name = "mugwort tea"
 	desc = "A bitter herbal tea."
+	icon = 'icons/obj/drinks/drinkingglass.dmi'
 	icon_state = "manlydorfglass"
 	inhand_icon_state = "coffee"
 	list_reagents = list("mugwort" = 30)
@@ -211,6 +212,7 @@
 /obj/item/reagent_containers/drinks/h_chocolate
 	name = "Dutch hot coco"
 	desc = "Made in Space South America."
+	icon = 'icons/obj/drinks/drinkingglass.dmi'
 	icon_state = "hot_coco"
 	inhand_icon_state = "coffee"
 	list_reagents = list("hot_coco" = 30, "sugar" = 5)
@@ -219,6 +221,7 @@
 /obj/item/reagent_containers/drinks/chocolate
 	name = "hot chocolate"
 	desc = "Made in Space Switzerland."
+	icon = 'icons/obj/drinks/drinkingglass.dmi'
 	icon_state = "hot_coco"
 	inhand_icon_state = "coffee"
 	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
@@ -227,6 +230,7 @@
 /obj/item/reagent_containers/drinks/weightloss
 	name = "weight-loss shake"
 	desc = "A shake designed to cause weight loss, now in a berry-flavored formulation. The package proudly proclaims that it is 'tapeworm free.'"
+	icon = 'icons/obj/drinks/cans.dmi'
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "berryjuice" = 5)
 
@@ -244,6 +248,7 @@
 /obj/item/reagent_containers/drinks/chicken_soup
 	name = "canned chicken soup"
 	desc = "A delicious and soothing can of chicken noodle soup; just like spessmom used to microwave it."
+	icon = 'icons/obj/drinks/cans.dmi'
 	icon_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
 
@@ -321,6 +326,7 @@
 /obj/item/reagent_containers/drinks/flask
 	name = "flask"
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "flask"
 	materials = list(MAT_METAL=250)
 	volume = 60

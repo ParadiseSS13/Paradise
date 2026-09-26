@@ -356,7 +356,7 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "smallbottle"
 	inhand_icon_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
