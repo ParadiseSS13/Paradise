@@ -1084,7 +1084,7 @@
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	flags = NOBLUDGEON | DROPDEL
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/is_gun_busy(atom/target, mob/living/user)
 	if(user.holy_check())
 		return
 	..()

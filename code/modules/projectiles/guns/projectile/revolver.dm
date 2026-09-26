@@ -19,7 +19,7 @@
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder)) // Ideally, a double barrel shotgun or peashooter has no cylinder.
 		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to spin it's cylinder.")
 
-/obj/item/gun/projectile/revolver/chamber_round(spin = 1)
+/obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(spin)
 		chambered = magazine.get_round(1)
 	else
@@ -28,25 +28,24 @@
 
 /obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	..()
-	chamber_round(1)
+	chamber_round(TRUE)
 
 /obj/item/gun/projectile/revolver/process_chamber()
 	return ..(0, 1)
 
-/obj/item/gun/projectile/revolver/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	. = ..()
-	if(istype(A, /obj/item/ammo_box/b357))
-		return
-	if(.)
-		return
-	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
-	if(num_loaded)
-		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into \the [src]."))
-		A.update_icon()
-		update_icon()
-		chamber_round(0)
+/obj/item/gun/projectile/revolver/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/ammo_box))
+		return ..()
 
-/obj/item/gun/projectile/revolver/attack_self__legacy__attackchain(mob/living/user)
+	var/num_loaded = magazine.load_box(used, user, silent = TRUE)
+	if(num_loaded)
+		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into [src]."))
+		used.update_icon()
+		update_icon()
+		chamber_round(FALSE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/gun/projectile/revolver/handle_activate_self(mob/user)
 	var/num_unloaded = 0
 	chambered = null
 	while(get_ammo() > 0)
@@ -62,6 +61,7 @@
 		to_chat(user, SPAN_NOTICE("You unload [num_unloaded] shell\s from [src]."))
 	else
 		to_chat(user, SPAN_WARNING("[src] is empty!"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/projectile/revolver/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -186,19 +186,19 @@
 	qdel(src)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/revolver/fingergun/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if(!user.mind.miming)
 		to_chat(usr, SPAN_WARNING("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
-	..()
 
-/obj/item/gun/projectile/revolver/fingergun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	return
+	return ..(target, user, proximity)
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/gun/projectile/revolver/fingergun/item_interaction(mob/living/user, obj/item/used, list/modifiers)	
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/gun/projectile/revolver/fingergun/handle_activate_self(mob/user)
 	to_chat(usr, SPAN_NOTICE("You holster your fingers. Another time."))
 	qdel(src)
-	return
 
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
@@ -290,25 +290,29 @@
 	options["Maple"] = "dbshotgun_l"
 	options["Rosewood"] = "dbshotgun_p"
 
-/obj/item/gun/projectile/revolver/doublebarrel/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+/obj/item/gun/projectile/revolver/doublebarrel/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/ammo_box) || istype(used, /obj/item/ammo_casing))
 		chamber_round()
 	if(!can_sawoff)
 		return ..()
-	if(istype(A, /obj/item/melee/energy))
-		var/obj/item/melee/energy/W = A
-		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
-			sawoff(user)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
+
+	if(istype(used, /obj/item/circular_saw) || istype(used, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/melee/energy))
+		var/obj/item/melee/energy/esword = used
+		if(HAS_TRAIT(esword, TRAIT_ITEM_ACTIVE))
+			sawoff(user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
 	. = ..()
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/projectile/revolver/doublebarrel/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/gun/projectile/revolver/doublebarrel/handle_activate_self(mob/user)
 	var/num_unloaded = 0
 
 	while(get_ammo() > 0)
@@ -365,19 +369,24 @@
 	unique_reskin = FALSE
 	var/sling = FALSE
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
-		var/obj/item/stack/cable_coil/C = A
-		if(sling)
-			to_chat(user, SPAN_WARNING("The shotgun already has a sling!"))
-		else if(C.use(10))
-			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, SPAN_NOTICE("You tie the lengths of cable to the shotgun, making a sling."))
-			sling = TRUE
-			update_icon()
-		else
-			to_chat(user, SPAN_WARNING("You need at least ten lengths of cable if you want to make a sling!"))
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/cable_coil) && !sawn_state)
+		return ..()
+
+	var/obj/item/stack/cable_coil/C = used
+	if(sling)
+		to_chat(user, SPAN_WARNING("The shotgun already has a sling!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(C.use(10))
+		slot_flags = ITEM_SLOT_BACK
+		to_chat(user, SPAN_NOTICE("You tie the lengths of cable to the shotgun, making a sling."))
+		sling = TRUE
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_WARNING("You need at least ten lengths of cable if you want to make a sling!"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
 	icon_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
@@ -388,7 +397,6 @@
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
 		sling = FALSE
 		update_icon(UPDATE_ICON_STATE)
-
 
 // Dueling Pistols //
 /obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol
@@ -409,12 +417,6 @@
 	if(loc != user)
 		return
 	user.apply_status_effect(STATUS_EFFECT_DUELING)
-
-/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/stack/cable_coil))
-		return
-	else
-		return ..()
 
 //caneshotgun
 
@@ -446,11 +448,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/stack/cable_coil))
-		return
-	else
-		return ..()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/cable_coil))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user)
 	// So that it is stealthy

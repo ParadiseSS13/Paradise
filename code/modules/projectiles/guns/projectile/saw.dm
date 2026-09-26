@@ -22,7 +22,7 @@
 	. = ..()
 	AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
 
-/obj/item/gun/projectile/automatic/l6_saw/attack_self__legacy__attackchain(mob/user)
+/obj/item/gun/projectile/automatic/l6_saw/handle_activate_self(mob/user)
 	cover_open = !cover_open
 	to_chat(user, SPAN_NOTICE("You [cover_open ? "open" : "close"] [src]'s cover."))
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
@@ -32,12 +32,19 @@
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE) / 12.5, 1) * 25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	inhand_icon_state = "l6[cover_open ? "open" : "closed"][magazine ? "mag" : ""]"
 
-/obj/item/gun/projectile/automatic/l6_saw/afterattack__legacy__attackchain(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
+/obj/item/gun/projectile/automatic/l6_saw/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if(cover_open)
-		to_chat(user, SPAN_NOTICE("[src]'s cover is open! Close it before firing!"))
-	else
-		..()
-		update_icon()
+		to_chat(user, SPAN_DANGER("[src]'s cover is open! Close it before firing!"))
+		return
+
+	..(target, user, proximity)
+	update_icon()
+
+/obj/item/gun/projectile/automatic/l6_saw/can_shoot()
+	if(!cover_open)
+		return ..()
+
+	return FALSE
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
 	if(loc != user)
@@ -59,13 +66,16 @@
 			user.update_inv_l_hand()
 		to_chat(user, SPAN_NOTICE("You remove the magazine from [src]."))
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(!cover_open)
-				to_chat(user, SPAN_WARNING("[src]'s cover is closed! You can't insert a new mag."))
-				return
+/obj/item/gun/projectile/automatic/l6_saw/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/ammo_box/magazine))
+		return ..()
+
+	var/obj/item/ammo_box/magazine/mag = used
+	if(istype(mag, mag_type))
+		if(!cover_open)
+			to_chat(user, SPAN_DANGER("[src]'s cover is closed! You can't insert [mag]!"))
+			return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 //ammo//

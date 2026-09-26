@@ -13,6 +13,7 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	multi_sprite_step = 1
 	icon_state = "357_box"
+	multiload = FALSE
 
 /obj/item/ammo_box/huntsman32
 	name = "speed loader (.32 Huntsman)"
@@ -84,7 +85,7 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	w_class = WEIGHT_CLASS_NORMAL
 	max_ammo = 20
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/wt550/wtap
 	name = "ammo box (Armor Piercing 4.6x30mm)"

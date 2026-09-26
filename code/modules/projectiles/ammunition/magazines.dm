@@ -1,9 +1,8 @@
 /obj/item/ammo_box/magazine
-	icon_state = null
+	desc = "An assembly for holding and feeding ammunition to a gun."
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
-	desc = "Oh god, this shouldn't be here!"
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
 /obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/R)
@@ -14,7 +13,6 @@
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = "357"
-
 
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = 1)
 	var/boolets = 0
@@ -91,7 +89,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = "shotgun"
 	max_ammo = 4
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = 1)
 	if(!countempties)
@@ -172,7 +170,7 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = "357"
 	max_ammo = 6
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
 	. = ..()
@@ -278,7 +276,7 @@
 	caliber = "4.6x30mm"
 	max_ammo = 20
 	multi_sprite_step = 4
-	multiload = 0
+	multiload = FALSE
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 10000)
@@ -420,6 +418,7 @@
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
+	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF

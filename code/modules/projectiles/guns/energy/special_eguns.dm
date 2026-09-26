@@ -137,11 +137,11 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
-/obj/item/gun/energy/floragun/pre_attack(atom/target, mob/living/user, params)
+/obj/item/gun/energy/floragun/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/hydroponics))
-		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
-		afterattack__legacy__attackchain(target, user, FALSE, params)
-		return CONTINUE_ATTACK
+		// Guns normally try to melee in close quarters unless on harm intent. This makes the gun think the target is at range, making it easy to use for botanists.
+		ranged_interact_with_atom(target, user, modifiers)
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 //////////////////////////////
@@ -291,27 +291,32 @@
 	. += "It can be reloaded using refined plasma sheets, or plasma ore obtained in the field (although the latter is less efficient). \
 	Plasma cutters such as these can be found in use at plasma mining operations throughout known space."
 
-/obj/item/gun/energy/plasmacutter/attackby__legacy__attackchain(obj/item/A, mob/user)
-	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+/obj/item/gun/energy/plasmacutter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user, SPAN_NOTICE("[src] is already fully charged."))
-			return
-		var/obj/item/stack/sheet/S = A
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/stack/sheet/S = used
 		S.use(1)
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, SPAN_NOTICE("You insert [A] in [src], recharging it."))
-	else if(istype(A, /obj/item/stack/ore/plasma))
+		to_chat(user, SPAN_NOTICE("You insert [used] in [src], recharging it."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user, SPAN_NOTICE("[src] is already fully charged."))
-			return
-		var/obj/item/stack/ore/S = A
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/stack/ore/S = used
 		S.use(1)
 		cell.give(500)
 		on_recharge()
-		to_chat(user, SPAN_NOTICE("You insert [A] in [src], recharging it."))
-	else
-		return ..()
+		to_chat(user, SPAN_NOTICE("You insert [used] in [src], recharging it."))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
@@ -545,16 +550,19 @@
 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()
 
-/obj/item/gun/energy/plasma_pistol/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/gun/energy/plasma_pistol/handle_activate_self(mob/user)
 	if(overloaded)
 		to_chat(user, SPAN_WARNING("[src] is already overloaded!"))
 		return
+
 	if(cell.charge <= 140) //at least 6 seconds of charge time
 		to_chat(user, SPAN_WARNING("[src] does not have enough charge to be overloaded."))
 		return
+
 	if(charging)
 		to_chat(user, SPAN_WARNING("[src] is already charging!"))
 		return
+
 	to_chat(user, SPAN_NOTICE("You begin to overload [src]."))
 	charging = TRUE
 	charge_failure = FALSE
@@ -692,33 +700,37 @@
 	it will capture some of the energy from the detonation of the weapon's projectile and use it to create a finely-tuned neutralising bluespace field that destructively interferes with the bluespace shock wave. \
 	However, this system is not strong enough to defend against a direct hit from another (or your own, if you're unlucky) BSG shot."
 
-/obj/item/gun/energy/bsg/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+/obj/item/gun/energy/bsg/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
 			to_chat(user, SPAN_NOTICE("[src] already has a bluespace crystal installed."))
-			return
-		var/obj/item/stack/S = O
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/stack/S = used
 		if(!loc || !S || S.get_amount() < 1)
-			return
-		to_chat(user, SPAN_NOTICE("You load [O] into [src]."))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You load [used] into [src]."))
 		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+	if(istype(used, /obj/item/assembly/signaler/anomaly/flux))
 		if(core)
-			to_chat(user, SPAN_NOTICE("[src] already has a [O]!"))
-			return
-		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("[O] is stuck to your hand!"))
-			return
-		to_chat(user, SPAN_NOTICE("You insert [O] into [src], and [src] starts to warm up."))
-		O.forceMove(src)
-		core = O
+			to_chat(user, SPAN_NOTICE("[src] already has a [core]!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.transfer_item_to(src))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+		core = used
 		update_icon()
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/energy/bsg/equipped(mob/user, slot, initial)
 	. = ..()
@@ -812,7 +824,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/attack_self__legacy__attackchain(mob/user)
+/obj/item/gun/energy/temperature/handle_activate_self(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -1044,21 +1056,24 @@
 	user.visible_message(SPAN_NOTICE("[user] [overcharged ? "removes" : "restores"] the safety limits on [src]."), SPAN_NOTICE("You [overcharged ? "remove" : "restore" ] the safety limits on [src]"))
 	update_icon()
 
-/obj/item/gun/energy/detective/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	. = ..()
-	if(!istype(I, /obj/item/ammo_box/magazine/detective/speedcharger))
-		return
-	var/obj/item/ammo_box/magazine/detective/speedcharger/S = I
+/obj/item/gun/energy/detective/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/ammo_box/magazine/detective/speedcharger))
+		return ..()
+
+	var/obj/item/ammo_box/magazine/detective/speedcharger/S = used
 	if(!S.charge)
-		to_chat(user, SPAN_NOTICE("[S] has no charge to give!"))
-		return
+		to_chat(user, SPAN_WARNING("[S] has no charge to give!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(cell.charge == cell.maxcharge)
-		to_chat(user, SPAN_NOTICE("[src] is already at full power!"))
-		return
+		to_chat(user, SPAN_WARNING("[src] is already fully charged!"))
+		return ITEM_INTERACT_COMPLETE
+
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge
 	S.update_icon(UPDATE_OVERLAYS)
 	update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	if(!overcharged)
@@ -1270,10 +1285,11 @@
 /obj/item/gun/energy/laser/lever_action/emp_act()
 	return
 
-/obj/item/gun/energy/laser/lever_action/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/gun/energy/laser/lever_action/handle_activate_self(mob/user)
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && user.get_inactive_hand())
 		to_chat(user, SPAN_WARNING("You need both hands to cycle the action!"))
 		return
+
 	cycle_action(user)
 	if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))
 		var/obj/item/gun/energy/laser/lever_action/offhand = user.get_inactive_hand()

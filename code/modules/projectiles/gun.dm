@@ -1,6 +1,6 @@
 /obj/item/gun
-	name = "gun"
-	desc = "It's a gun. It's pretty terrible, though."
+	name = "generic basetype gun"
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver_bright"
 	worn_icon_state = "gun"
@@ -9,7 +9,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(MAT_METAL=2000)
+	materials = list(MAT_METAL = 2000)
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -17,6 +17,7 @@
 	origin_tech = "combat=1"
 	needs_permit = TRUE
 	attack_verb = list("struck", "hit", "bashed")
+	new_attack_chain = TRUE
 	/// Sound played when a projectile is fired.
 	var/fire_sound = "gunshot"
 	/// Sound played when inserting a new magazine.
@@ -73,7 +74,7 @@
 	var/obj/item/flashlight/gun_light = null
 	/// Whether or not a flashlight can be attached to the gun.
 	var/can_flashlight = FALSE
-	/// Whether or not a knife can be attached to the gun.
+	/// Whether or not a knife can be attached to the gun. If this is FALSE and the gun has a bayonet anyway, the bayonet is a permanent part of the gun.
 	var/can_bayonet = FALSE
 	var/obj/item/kitchen/knife/bayonet
 	var/mutable_appearance/knife_overlay
@@ -108,7 +109,7 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin && !current_skin)
-		. += SPAN_NOTICE("Alt-click it to reskin it.")
+		. += SPAN_NOTICE("<b>Alt-click</b> it to reskin it.")
 	if(unique_rename)
 		. += SPAN_NOTICE("Use a pen on it to rename it.")
 	if(bayonet)
@@ -116,7 +117,7 @@
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
 			. += SPAN_NOTICE("[bayonet] looks like it can be <b>unscrewed</b> from [src].")
 	else if(can_bayonet)
-		. += "It has a <b>bayonet</b> lug on it."
+		. += SPAN_NOTICE("It has a <b>bayonet</b> lug on it.")
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -172,78 +173,110 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
-	if(firing_burst)
-		return
-	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
-		return
-	if(SEND_SIGNAL(src, COMSIG_MOB_TRY_FIRE, user, target, flag, params) & COMPONENT_CANCEL_GUN_FIRE)
-		return
-	if(flag) //It's adjacent, is the user, or is on the user's person
-		if(target in user.contents) //can't shoot stuff inside us.
-			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
-			return
-		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
-			return
+/obj/item/gun/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	
+	handle_activate_self(user)
+	return ITEM_INTERACT_COMPLETE
 
-	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
+/// Handles `activate_self()` interactions. Allows us to get around the requirement to call `..()` on `activate_self()`, because that breaks stuff!
+/obj/item/gun/proc/handle_activate_self(mob/user)
+	return
+
+/obj/item/gun/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_gun_busy(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+	if(target in user.contents) // Can't shoot stuff inside us.
+		return ..()
+
+	if(!ismob(target) || user.a_intent == INTENT_HARM) // Melee attack.
+		return NONE
+
+	if(target == user && user.zone_selected != "mouth") // So we can't shoot ourselves (unless mouth selected).
+		return NONE
+	
+	try_to_shoot_gun(target, user, proximity = TRUE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/gun/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_gun_busy(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+	try_to_shoot_gun(target, user, proximity = FALSE)
+
+/// Checks that must be passed before the user can attempt to either shoot the gun again or use it in melee.
+/obj/item/gun/proc/is_gun_busy(atom/target, mob/living/user)
+	if(firing_burst)
+		return TRUE
+
+	if(SEND_SIGNAL(src, COMSIG_GUN_TRY_FIRE, user, target) & COMPONENT_CANCEL_GUN_FIRE)
+		return TRUE
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_TRY_FIRE, user, target) & COMPONENT_CANCEL_GUN_FIRE)
+		return TRUE
+
+	return FALSE
+
+/// Checks that must be passed to see if the gun can shoot.
+/obj/item/gun/proc/try_to_shoot_gun(atom/target, mob/living/user, proximity, list/modifiers)
+	if(istype(user)) // Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
 		var/mob/living/L = user
 		if(!can_trigger_gun(L))
 			return
 
-	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can't shoot.
+	if(!can_shoot()) // Just because you can pull the trigger doesn't mean it can shoot.
 		shoot_with_empty_chamber(user)
 		return
 
-	if(flag)
-		if(user.zone_selected == "mouth")
-			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
-				user.visible_message(
-					SPAN_DANGER("[user] blows smoke off of [src]'s barrel. What a badass."),
-					SPAN_DANGER("You blow smoke off of [src]'s barrel."),
-					SPAN_DANGER("You hear someone blowing over a hollow tube.")
-				)
-			else
-				handle_suicide(user, target, params)
+	if(proximity && user?.zone_selected == "mouth")
+		if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we're blowing smoke off of our own gun, otherwise we are trying to execute someone.
+			user.visible_message(
+				SPAN_DANGER("[user] blows smoke off of [src]'s barrel. What a badass."),
+				SPAN_NOTICE("You blow smoke off of [src]'s barrel."),
+				SPAN_HEAR("You hear someone blowing over a hollow tube.")
+			)
+		else
+			handle_suicide(user, target, list2params(modifiers))
+		return
+
+	// Exclude lasertag guns from the CLUMSY check.
+	if(clumsy_check && istype(user))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+			to_chat(user, SPAN_USERDANGER("You shoot yourself in the foot with [src]!"))
+			var/shot_leg = pick("l_foot", "r_foot")
+			process_fire(user, user, 0, list2params(modifiers), zone_override = shot_leg)
+			user.drop_item()
 			return
 
-	//Exclude lasertag guns from the CLUMSY check.
-	if(clumsy_check)
-		if(istype(user))
-			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-				to_chat(user, SPAN_USERDANGER("You shoot yourself in the foot with \the [src]!"))
-				var/shot_leg = pick("l_foot", "r_foot")
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_item()
-				return
-
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
-		to_chat(user, SPAN_USERDANGER("You need both hands free to fire \the [src]!"))
+		to_chat(user, SPAN_USERDANGER("You need both hands free to fire [src]!"))
 		return
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
 	if(!(ishuman(user) && user.a_intent == INTENT_HARM))
-		process_fire(target, user, TRUE, params, null, bonus_spread)
+		process_fire(target, user, TRUE, list2params(modifiers), null, bonus_spread)
 		return
+
 	var/mob/living/carbon/human/H = user
 	var/obj/item/gun/GUN_1 = H.get_active_hand()
-	if(istype(H.get_inactive_hand(), /obj/item/gun)) //We do not need to check gun one, as it is controlled by the afterattack
+	if(istype(H.get_inactive_hand(), /obj/item/gun)) // We do not need to check gun one, as it is controlled by the afterattack.
 		var/obj/item/gun/GUN_2 = H.get_inactive_hand()
-
 		if(GUN_2.weapon_weight >= WEAPON_MEDIUM)
-			process_fire(target, user, TRUE, params, null, bonus_spread)
+			process_fire(target, user, TRUE, list2params(modifiers), null, bonus_spread)
 			return
+
 		if(GUN_2.can_trigger_gun(user))
 			if(!HAS_TRAIT(user, TRAIT_BADASS))
 				var/temporary_weapon_weight = GUN_2.weapon_weight
 				if(GUN_1.type != GUN_2.type)
 					temporary_weapon_weight = max(temporary_weapon_weight, WEAPON_LIGHT) //Can't hold the sparker in the off hand to make both guns perfectly accurate, must be 2 sparkers
 				bonus_spread += dual_wield_spread * temporary_weapon_weight
-			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, params, null, bonus_spread), 1)
+			addtimer(CALLBACK(GUN_2, PROC_REF(process_fire), target, user, TRUE, list2params(modifiers), null, bonus_spread), 1)
 
-	process_fire(target, user, TRUE, params, null, bonus_spread)
+	process_fire(target, user, TRUE, list2params(modifiers), null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
@@ -330,50 +363,59 @@
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
-/obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
-	if(user.a_intent == INTENT_HARM) //Flogging
-		if(bayonet)
-			M.attack_by(bayonet, user)
-		else
-			return ..()
+// AFFIX BAYONETS!
+/obj/item/gun/pre_attack(atom/target, mob/living/user, params)
+	if(bayonet && user.a_intent == INTENT_HARM)
+		target.attack_by(bayonet, user)
+		return FINISH_ATTACK
 
-/obj/item/gun/attack_obj__legacy__attackchain(obj/O, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		if(bayonet)
-			O.attackby__legacy__attackchain(bayonet, user)
-			return
 	return ..()
 
-/obj/item/gun/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/flashlight/seclite))
-		var/obj/item/flashlight/seclite/S = I
-		if(can_flashlight)
-			if(!gun_light)
-				if(!user.transfer_item_to(I, src))
-					return
-				to_chat(user, SPAN_NOTICE("You click [S] into place on [src]."))
-				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-				if(S.on)
-					set_light(0)
-				gun_light = S
-				update_icon()
-				update_gun_light(user)
-				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
-				if(loc == user)
-					A.Grant(user)
+/obj/item/gun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/flashlight/seclite))
+		if(!can_flashlight)
+			to_chat(user, SPAN_WARNING("There's no attachment point on [src] for [used]!"))
+			return ITEM_INTERACT_COMPLETE
 
-	if(unique_rename)
-		if(is_pen(I))
-			var/t = rename_interactive(user, I, use_prefix = FALSE)
-			if(!isnull(t))
-				to_chat(user, SPAN_NOTICE("You name the gun [name]. Say hello to your new friend."))
-	if(istype(I, /obj/item/kitchen/knife))
-		var/obj/item/kitchen/knife/K = I
-		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
-			return ..()
-		if(!user.drop_item())
-			return
-		K.forceMove(src)
+		if(gun_light)
+			to_chat(user, SPAN_WARNING("[src] already a flashlight attachment!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.transfer_item_to(used, src))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/flashlight/seclite/S = used
+		to_chat(user, SPAN_NOTICE("You click [S] into place on [src]."))
+		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
+		if(S.on)
+			set_light(0)
+		gun_light = S
+		update_icon()
+		update_gun_light(user)
+		var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
+		if(loc == user)
+			A.Grant(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/kitchen/knife))
+		var/obj/item/kitchen/knife/K = used
+		if(!can_bayonet)
+			to_chat(user, SPAN_WARNING("There's no beyonet lug on [src]!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!K.bayonet)
+			to_chat(user, SPAN_WARNING("[used] is not compatable with the bayonet lug of [src]!"))
+			return ITEM_INTERACT_COMPLETE	
+
+		if(bayonet)
+			to_chat(user, SPAN_WARNING("[src] already has an attached bayonet!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.transfer_item_to(used, src))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
 		to_chat(user, SPAN_NOTICE("You attach [K] to [src]'s bayonet lug."))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		bayonet = K
@@ -385,8 +427,15 @@
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
 		overlays += knife_overlay
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	if(is_pen(used) && unique_rename)
+		var/t = rename_interactive(user, used, use_prefix = FALSE)
+		if(!isnull(t))
+			to_chat(user, SPAN_NOTICE("You name the gun [name]. Say hello to your new friend!"))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -444,8 +493,6 @@
 	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
-
-
 
 /obj/item/gun/AltClick(mob/user)
 	..()
