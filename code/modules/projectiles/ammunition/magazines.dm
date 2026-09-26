@@ -1,5 +1,5 @@
 /obj/item/ammo_box/magazine
-	desc = ABSTRACT_TYPE_DESC
+	desc = "An assembly for holding and feeding ammunition to a gun."
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
@@ -13,7 +13,6 @@
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = "357"
-
 
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = 1)
 	var/boolets = 0
