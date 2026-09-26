@@ -405,20 +405,24 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby__legacy__attackchain(obj/item/item, mob/living/user, params)
-	if(item.type in accepted_anomalies)
-		if(core)
-			to_chat(user, SPAN_WARNING("A core is already installed!"))
-			return
-		if(!user.drop_item())
-			return
-		core = item
-		to_chat(user, SPAN_NOTICE("You install [item]."))
-		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-		update_icon(UPDATE_ICON_STATE)
-		core.forceMove(src)
-	else
+/obj/item/mod/module/anomaly_locked/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!(used.type in accepted_anomalies))
 		return ..()
+
+	if(core)
+		to_chat(user, SPAN_WARNING("A core is already installed!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	core = used
+	to_chat(user, SPAN_NOTICE("You install [used] in [src]."))
+	playsound(src, 'sound/machines/click.ogg', 30, TRUE)
+	update_icon(UPDATE_ICON_STATE)
+	core.forceMove(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
