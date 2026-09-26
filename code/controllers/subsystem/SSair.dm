@@ -813,6 +813,8 @@ SUBSYSTEM_DEF(air)
 /// condenses water on a tile at the specified coordinates
 /proc/condense_water(water_phase, x, y, z)
 	var/turf/simulated/floor/tile =  locate(x, y, z)
+	if(!istype(tile))
+		return
 	tile.MakeSlippery(water_phase)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
