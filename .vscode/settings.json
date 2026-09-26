@@ -44,9 +44,7 @@
 		"${workspaceRoot}/.git-blame-ignore-revs"
 	],
 	"python.testing.pytestArgs": [
-		"tools/ci/pytest",
-		"--color=yes",
-		"--durations=0"
+		"tools/ci/pytest"
 	],
 	"python.testing.unittestEnabled": false,
 	"python.testing.pytestEnabled": true,
