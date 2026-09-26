@@ -336,14 +336,9 @@
 	return FALSE
 
 /obj/item/match/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(istype(target, /obj/item/mod/control))
-		return NONE
-
-	if(isstorage(target) && !istype(target, /obj/item/storage/fancy/matches) && can_enter_storage(target, user))
-		return NONE
-
 	if(cigarette_lighter_act(user, target))
 		return ITEM_INTERACT_COMPLETE
+	return NONE
 
 /obj/item/match/attack(mob/living/target, mob/living/carbon/human/user)
 	if(lit && target.IgniteMob())
