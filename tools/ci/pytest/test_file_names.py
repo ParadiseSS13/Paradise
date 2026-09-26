@@ -2,10 +2,11 @@ from collections import defaultdict
 from pathlib import Path
 
 import pytest
+from conftest import Lint
 
 
 @pytest.mark.lint("Same File Name")
-def test_file_names(lint):
+def test_file_names(lint: Lint):
     file_name_map: dict[str, list[Path]] = defaultdict(list)
 
     for file in Path(".").glob("**/*.dm"):
@@ -22,3 +23,4 @@ def test_file_names(lint):
             for path in paths:
                 other_paths = ", ".join([str(other) for other in paths if other != path])
                 lint.error(f"Identical name to {other_paths}", path)
+    # assert False

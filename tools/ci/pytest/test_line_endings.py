@@ -1,9 +1,11 @@
 # TODO: This file reads the WHOLE codebase, this should be done at the same time as other operations that read the whole codebase, like check_grep2
 
 import glob
-import pytest
 import sys
 from typing import Any
+
+import pytest
+from conftest import Lint
 
 WINDOWS_NEWLINE = b'\r\n'
 
@@ -25,7 +27,7 @@ def has_newlines(lines: list[bytes]) -> bool:
 # git's autocrlf may make this test fail locally for some windows developers, disabled for that reason
 @pytest.mark.skipif(sys.platform == "win32", reason="Inconsistent for Windows developers")
 @pytest.mark.lint("CRLF File")
-def test_line_endings(files_to_read: list[Any], lint):
+def test_line_endings(files_to_read: list[Any], lint: Lint):
     filelist: list[Any] = []
 
     for file in files_to_read:
