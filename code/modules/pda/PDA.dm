@@ -367,10 +367,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!scanmode)
 		return ..()
+
+	if(isstorage(target) || is_surface(target))
+		return ..()
+
 	if(iscarbon(target))
 		scanmode.scan_mob(target, user)
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
+
 	scanmode.scan_atom(target, user)
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
