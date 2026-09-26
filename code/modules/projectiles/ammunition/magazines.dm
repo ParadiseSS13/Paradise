@@ -241,7 +241,7 @@
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer
-	name = "pistol magazine (9mm rubber)"
+	name = "\improper Enforcer pistol magazine (9mm rubber)"
 	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	desc = "An 8-round magazine for the Enforcer pistol that holds 9mm rounds. Pre-loaded with less-lethal rubber bullets."
@@ -270,7 +270,7 @@
 	return FALSE
 
 /obj/item/ammo_box/magazine/enforcer/lethal
-	name = "pistol magazine (9mm)"
+	name = "\improper Enforcer pistol magazine (9mm)"
 	desc = "An 8-round magazine for the Enforcer pistol that holds 9mm rounds."
 	ammo_type = /obj/item/ammo_casing/c9mm
 
@@ -346,7 +346,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/magazine/uzim9mm
-	name = "\improper Uzi magazine (9mm)"
+	name = "\improper Uzi SMG magazine (9mm)"
 	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "uzi9mm"
 	desc = "A 32-round magazine for the Uzi submachine gun that holds 9mm rounds."
@@ -356,7 +356,7 @@
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm9mm
-	name = "\improper SMG magazine (9mm)"
+	name = "\improper Uzi SMG magazine (9mm)"
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -365,20 +365,20 @@
 	multi_sprite_step = 4
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
-	name = "\improper SMG magazine (9mm AP)"
+	name = "\improper Uzi SMG magazine (9mm AP)"
 	desc = "A 32-round magazine for the Uzi submachine gun that holds 9mm rounds. Pre-loaded with rounds which are better against armoured targets, but are less effective against unarmoured targets."
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
-	name = "\improper SMG magazine (9mm Toxin-Tipped)"
+	name = "\improper Uzi SMG magazine (9mm Toxin-Tipped)"
 	desc = "A 32-round magazine for the Uzi submachine gun that holds 9mm rounds. Pre-loaded with rounds tipped with a toxic payload. \
 	Less damaging than standard rounds, but standard trauma treatments will not heal the damage they cause."
 	ammo_type = /obj/item/ammo_casing/c9mm/tox
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
-	name = "\improper SMG Magazine (9mm Incendiary)"
+	name = "\improper Uzi SMG Magazine (9mm Incendiary)"
 	desc = "A 32-round magazine for the Uzi submachine gun that holds 9mm rounds. Pre-loaded with incendiary rounds which set the target on fire."
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
