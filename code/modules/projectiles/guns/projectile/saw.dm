@@ -111,7 +111,7 @@
 /obj/item/ammo_box/magazine/mm762x51
 	name = "\improper L6 SAW belt box magazine (7.62x51mm)"
 	icon_state = "a762"
-	description = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds."
+	desc = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds."
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm762x51
 	caliber = "mm762x51"
@@ -120,26 +120,26 @@
 
 /obj/item/ammo_box/magazine/mm762x51/bleeding
 	name = "\improper L6 SAW belt box magazine (7.62x51mm Shredder)"
-	description = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. Pre-loaded with serrated rounds designed to cause major bleeding."
+	desc = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. Pre-loaded with serrated rounds designed to cause major bleeding."
 	origin_tech = "combat=3"
 	ammo_type = /obj/item/ammo_casing/mm762x51/bleeding
 
 /obj/item/ammo_box/magazine/mm762x51/hollow
 	name = "\improper L6 SAW belt box magazine (7.62x51mm HP)"
-	description = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. \
+	desc = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. \
 	Pre-loaded with hollow-point rounds, extremely effective against unarmored targets, but nearly useless against protective clothing."
 	origin_tech = "combat=3"
 	ammo_type = /obj/item/ammo_casing/mm762x51/hollow
 
 /obj/item/ammo_box/magazine/mm762x51/ap
 	name = "\improper L6 SAW belt box magazine (7.62x51mm AP)"
-	description = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. Pre-loaded with rounds which are better against armoured targets, but are less effective against unarmoured targets."
+	desc = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. Pre-loaded with rounds which are better against armoured targets, but are less effective against unarmoured targets."
 	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm762x51/ap
 
 /obj/item/ammo_box/magazine/mm762x51/incen
 	name = "\improper L6 SAW belt box magazine (7.62x51mm Incendiary)"
-	description = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. Pre-loaded with incendiary rounds which set the target on fire."
+	desc = "A 50-round belt box magazine for the L6 SAW that holds 7.62x51mm rounds. Pre-loaded with incendiary rounds which set the target on fire."
 	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm762x51/incen
 
