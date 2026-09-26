@@ -145,7 +145,9 @@
 	var/max_ammo = 7
 	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // See update_icon_state for details.
 	var/caliber
-	var/multiload = 1
+	/// Can we fully fill our target in a single interaction? If `FALSE`, rounds must be loaded one at a time.
+	var/multiload = TRUE
+	/// If `TRUE`, rounds will be loaded after a `do_after`.
 	var/slow_loading = FALSE
 	/// For calculating refund values.
 	var/list/initial_mats

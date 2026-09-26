@@ -90,7 +90,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = "shotgun"
 	max_ammo = 4
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = 1)
 	if(!countempties)
@@ -171,7 +171,7 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = "357"
 	max_ammo = 6
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
 	. = ..()
@@ -277,7 +277,7 @@
 	caliber = "4.6x30mm"
 	max_ammo = 20
 	multi_sprite_step = 4
-	multiload = 0
+	multiload = FALSE
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 10000)
