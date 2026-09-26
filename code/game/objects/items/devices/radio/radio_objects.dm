@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if((user.get_active_hand() || user.get_inactive_hand()) != src)
-		to_chat(user, SPAN_NOTICE("The [src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]"))
+		to_chat(user, SPAN_WARNING("[src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]!"))
 		return
 
 	ToggleBroadcast()
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			listening = !listening
 		if("broadcast")
 			if(ui.user.get_active_hand() != src && ui.user.get_inactive_hand() != src) // I'm pretty sure there is a easier way to check this, but i'm no tgui wizard.
-				to_chat(ui.user, SPAN_NOTICE("The [src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]"))
+				to_chat(ui.user, SPAN_WARNING("[src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]!"))
 				return
 			broadcasting = !broadcasting
 		if("channel") // For keyed channels on headset radios only
