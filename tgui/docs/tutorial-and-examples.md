@@ -295,26 +295,26 @@ upon code review):
 
 ```dm
 /obj/copypasta/ui_interact(mob/user, datum/tgui/ui)
-  ui = SStgui.try_update_ui(user, src, ui)
-  if(!ui)
-    ui = new(user, src, "copypasta")
-    ui.open()
+    ui = SStgui.try_update_ui(user, src, ui)
+    if(!ui)
+        ui = new(user, src, "copypasta")
+        ui.open()
 
 /obj/copypasta/ui_data(mob/user)
-  var/list/data = list()
-  data["var"] = var
-  return data
+    var/list/data = list()
+    data["var"] = var
+    return data
 
 /obj/copypasta/ui_act(action, params)
-  if(..())
-    return
-  switch(action)
-    if("copypasta")
-      var/newvar = params["var"]
-      // A demo of proper input sanitation.
-      var = CLAMP(newvar, min_val, max_val)
-      . = TRUE
-  update_icon() // Not applicable to all objects.
+    if(..())
+        return
+    switch(action)
+        if("copypasta")
+            var/newvar = params["var"]
+            // A demo of proper input sanitation.
+            var = CLAMP(newvar, min_val, max_val)
+            . = TRUE
+    update_icon() // Not applicable to all objects.
 ```
 
 And the template:
