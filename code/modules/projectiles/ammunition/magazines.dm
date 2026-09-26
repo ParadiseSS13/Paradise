@@ -621,7 +621,7 @@
 /obj/item/ammo_box/magazine/toy/m762
 	name = "\improper Donksoft machine gun magazine"
 	icon_state = "a762"
-	desc = "A 50-round belt box magazine for a Donksoft machine gun. While the design is based on the L6 SAW, it can neither accept 7.62x51mm Federal rounds, nor will fit in a real L6 SAW."
+	desc = "A 50-round belt box magazine for a Donksoft machine gun. While the design is based on the L6 SAW, it can neither accept 7.62x51mm rounds, nor will fit in a real L6 SAW."
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 50
 	multi_sprite_step = 10
