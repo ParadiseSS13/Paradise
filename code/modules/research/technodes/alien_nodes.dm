@@ -5,23 +5,23 @@
 	node_type = "Alien Technology"
 	cost_hidden = list("Alien" = 50)
 
-/datum/technode/alien/test1
-	name = "Alien Node Test 1"
-	desc = "wowwie im a test node!"
-	id = "alien_test_1"
-	prereqs = list("rnd_test_1")
-	cost = list("Research" = 250, "Alien" = 50)
+/datum/technode/alien/alien_tools
+	name = "Alien Tools"
+	desc = "Strange but very efficient tools used by an advanced species."
+	id = "alien_tools"
+	prereqs = list()
+	unlocks = list("alien_wrench", "alien_wirecutters", "alien_screwdriver", "alien_crowbar", "alien_welder", "alien_multitool", "ci-hacking", "alienalloy")
 
-/datum/technode/alien/test2
-	name = "Alien Node Test 2"
-	desc = "wowwie im a test node!"
-	id = "alien_test_2"
-	prereqs = list("alien_test_1")
-	cost = list("Research" = 500, "Alien" = 100)
+/datum/technode/alien/alien_medical
+	name = "Alien Medical Equipment"
+	desc = "Strange surgical tools from some advanced species with a similar biology to those working on Nanotrasen stations."
+	id = "alien_medical"
+	prereqs = list()
+	unlocks = list("alien_scalpel", "alien_hemostat", "alien_retractor", "alien_saw", "alien_drill", "alien_bonegel", "alien_bonesetter", "alien_fixovein", "dissection_manager_alien", "ci-med-abductor", "alienalloy")
 
-/datum/technode/alien/test3
-	name = "Alien Node Test 3"
-	desc = "wowwie im a test node!"
-	id = "alien_test_3"
-	prereqs = list("alien_test_2")
-	cost = list("Research" = 500, "Alien" = 200)
+/datum/technode/alien/alien_jani
+	name = "Alien Janitorial Equipment"
+	desc = "Strange cleaning equipment from an advanced species that is seemingly messier then those working on Nanotrasen stations.. somehow."
+	id = "alien_jani"
+	prereqs = list()
+	unlocks = list("alien_mop", "alien_light_replacer", "alien_flyswatter", "ci-jani-abductor", "alienalloy")

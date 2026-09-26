@@ -5,23 +5,30 @@
 	node_type = "Illegal Technology"
 	cost_hidden = list("Illegal" = 50)
 
-/datum/technode/illegal/test1
-	name = "Illegal Node Test 1"
-	desc = "wowwie im a test node!"
-	id = "illegal_test_1"
-	prereqs = list("rnd_test_1")
-	cost = list("Research" = 250, "Illegal" = 50)
+/datum/technode/illegal/module_illegal
+	name = "Syndicate Modules"
+	desc = "MODsuit modules of dubious origin."
+	id = "module_illegal"
+	prereqs = list()
+	unlocks = list("mod_storage_syndicate", "mod_stealth", "mod_compression")
 
-/datum/technode/illegal/test2
-	name = "Illegal Node Test 2"
-	desc = "wowwie im a test node!"
-	id = "illegal_test_2"
-	prereqs = list("illegal_test_1")
-	cost = list("Research" = 500, "Illegal" = 100)
+/datum/technode/illegal/mech_equip_illegal
+	name = "Exosuit Syndicate Equipment"
+	desc = "Advanced and dangerous weaponry for use on combat exosuits."
+	id = "mech_equip_illegal"
+	prereqs = list()
+	unlocks = list("mech_scattershot", "clusterbang_launcher")
 
-/datum/technode/illegal/test3
-	name = "Illegal Node Test 3"
-	desc = "wowwie im a test node!"
-	id = "illegal_test_3"
-	prereqs = list("illegal_test_1")
-	cost = list("Research" = 500, "Illegal" = 200)
+/datum/technode/illegal/implants_illegal
+	name = "Black Market Implants"
+	desc = "Powerful implants typically restricted to special operations or syndicate personnel."
+	id = "implants_illegal"
+	prereqs = list()
+	unlocks = list("mantis_blade_nt", "muscle_implant", "ci-razorwire-spool", "ci-shell_launcher", "ci-sensory-enhancer")
+
+/datum/technode/illegal/weap_illegal
+	name = "Infiltration Weaponry"
+	desc = "Quiet and lethal weaponry, useful for infiltration or escaping."
+	id = "weap_illegal"
+	prereqs = list()
+	unlocks = list("largecrossbow", "silencer")

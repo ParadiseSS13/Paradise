@@ -6,9 +6,10 @@
 
 // MARK: Anomaly
 /datum/technode/rnd/anom_tech
-	name = "Anomaly Core Utilization"
+	name = "Anomaly Core Technology"
 	desc = "Powerful equipment powered by various valuble anomaly cores."
 	id = "anom_tech"
+	prereqs = list()
 	unlocks = list("reactivearmor", "gravboots", "pyro_gloves", "bsg", "v1_arm", "mod_teleporter", "mod_kinesis", "mod_firewall", "mod_arcshield", "mod_vortex", "mod_cryo")
 
 // MARK: Stock Parts
@@ -54,7 +55,7 @@
 
 // MARK: Mechs
 /datum/technode/rnd/firefighter
-	name = "Working-Class Enhancements"
+	name = "Working-Class Exosuits"
 	desc = "Firefighter chassis for the APLU 'Ripley' series of exosuit."
 	id = "mech_aplu"
 	prereqs = list("advparts")
@@ -62,7 +63,7 @@
 	cost = list("Research" = 500)
 
 /datum/technode/rnd/mech_ody
-	name = "Medical Exosuit"
+	name = "Medical Exosuits"
 	desc = "Odysseus civilian-class exosuit used for emergency response and general medicine."
 	id = "mech_ody"
 	prereqs = list("mech_aplu")
@@ -70,7 +71,7 @@
 	cost = list("Research" = 750)
 
 /datum/technode/rnd/mech_nkr
-	name = "Janitorial Exosuit"
+	name = "Janitorial Exosuits"
 	desc = "Nkarrdem civilian-class exosuit used for mass janitorial work."
 	id = "mech_nkr"
 	prereqs = list("mech_aplu", "borg_jani")
@@ -107,7 +108,7 @@
 	desc = "General purpose equipment capable of attaching to any class of exosuit."
 	id = "mech_equip_standard"
 	prereqs = list("mech_aplu")
-	unlocks = list("mech_repair_droid", "mech_thruster", "mech_proj_armor", "mech_ccw_armor", "mech_generator_nuclear", "mech_generator", "mech_energy_relay")
+	unlocks = list("mech_repair_droid", "mech_thruster", "mech_proj_armor", "mech_ccw_armor", "mech_generator_nuclear", "mech_generator", "mech_energy_relay", "mech_gravcatapult")
 
 /datum/technode/rnd/mech_equip_mining
 	name = "Exosuit Mining Equipment"
@@ -135,7 +136,7 @@
 	desc = "Industrial cleaning solutions, the next best thing from soap is a grenade."
 	id = "mech_equip_janitorial"
 	prereqs = list("mech_nkr")
-	unlocks = list("mech_mop", "mech_garbage_bag", "mech_mega_spray", "mech_light_replacer")
+	unlocks = list("mech_mop", "mech_garbage_bag", "mech_mega_spray", "mech_light_replacer", "mech_cleaning_grenade_launcher")
 
 /datum/technode/rnd/mech_equip_entertainment
 	name = "Exosuit Entertainment Equipment"
@@ -150,7 +151,6 @@
 	id = "mech_equip_defence"
 	prereqs = list("mech_cmbt")
 	unlocks = list("dropwall_launcher", "mech_shield_gen")
-
 
 // MARK: Mech Weapons
 /datum/technode/rnd/mech_weap_nonlethal
@@ -490,7 +490,7 @@
 	unlocks = list("large_grenade", "pyro_grenade", "cryo_grenade", "adv_grenade")
 
 /datum/technode/rnd/defence_tech
-	name = "Personal Defence Techknowledgy"
+	name = "Personal Defence Technology"
 	desc = "Devices and equipment to defend individuals or groups."
 	id = "defence_tech"
 	prereqs = list()
@@ -553,7 +553,7 @@
 	cost = list("Research" = 750)
 
 /datum/technode/rnd/borg_jani
-	name = "Janitor Cyborg Enhancements"
+	name = "Janitorial Cyborg Enhancements"
 	desc = "Upgrades for janitorial cyborgs."
 	id = "borg_jani"
 	prereqs = list("borg_uni")
@@ -609,26 +609,26 @@
 	name = "Medical Modules"
 	desc = "MODsuit modules specialised for medical purposes."
 	id = "module_med"
-	prereqs = list()
+	prereqs = list("module_gen")
 	unlocks = list("mod_visor_medhud", "mod_injector", "mod_monitor", "mod_defib", "mod_analyzer")
 
 /datum/technode/rnd/module_sup
 	name = "Supply Modules"
 	desc = "MODsuit modules specialised for supply, salvage and mining purposes."
 	id = "module_sup"
-	prereqs = list()
+	prereqs = list("module_gen")
 	unlocks = list("mod_clamp", "mod_drill", "mod_orebag")
 
 /datum/technode/rnd/module_sec
 	name = "Security Modules"
 	desc = "MODsuit modules specialised for security and combat purposes."
 	id = "module_sec"
-	prereqs = list()
+	prereqs = list("module_gen")
 	unlocks = list("mod_holster", "mod_sonar", "mod_smokegrenade", "mod_visor_sechud")
 
 /datum/technode/rnd/module_engi
 	name = "Engineering Modules"
 	desc = "MODsuit modules specialised for engineering purposes."
 	id = "module_engi"
-	prereqs = list()
+	prereqs = list("module_gen")
 	unlocks = list("mod_jetpack", "mod_magboot", "mod_rad_protection", "mod_welding")
