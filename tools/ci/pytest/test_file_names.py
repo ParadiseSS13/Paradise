@@ -23,4 +23,3 @@ def test_file_names(lint: Lint):
             for path in paths:
                 other_paths = ", ".join([str(other) for other in paths if other != path])
                 lint.error(f"Identical name to {other_paths}", path)
-    # assert False
