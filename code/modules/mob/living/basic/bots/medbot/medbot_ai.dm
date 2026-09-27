@@ -9,7 +9,6 @@
 		/datum/ai_planning_subtree/salute_authority,
 		/datum/ai_planning_subtree/find_patrol_beacon/medbot,
 	)
-	ai_traits = AI_FLAG_PAUSE_DURING_DO_AFTER
 	ai_movement = /datum/ai_movement/jps/bot/medbot
 	reset_keys = list(
 		BB_PATIENT_TARGET,
