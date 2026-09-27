@@ -49,6 +49,7 @@
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_regular"
 	inhand_icon_state = "firstaid_regular"
+	med_bot_skin = "regular"
 
 /obj/item/storage/firstaid/regular/populate_contents()
 	new /obj/item/reagent_containers/patch/styptic(src)
@@ -184,7 +185,7 @@
 	desc = "A kit that contains supplies to repair IPCs on the go."
 	icon_state = "firstaid_machine"
 	inhand_icon_state = "firstaid_machine"
-	med_bot_skin = "adv"
+	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/populate_contents()
 	new /obj/item/weldingtool/mini(src)
@@ -206,7 +207,7 @@
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	req_one_access = list(ACCESS_SYNDICATE)
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 	syndicate_aligned = TRUE
 	damagetype_healed = HEAL_ALL_DAMAGE
 
@@ -230,6 +231,7 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
+	med_bot_skin = "surgery"
 	can_hold = list(/obj/item/roller,/obj/item/bonesetter,/obj/item/bonegel, /obj/item/scalpel, /obj/item/hemostat,
 		/obj/item/cautery, /obj/item/retractor, /obj/item/fix_o_vein, /obj/item/surgicaldrill, /obj/item/circular_saw)
 
@@ -250,7 +252,7 @@
 	desc = "A medical kit used by Nanotrasen emergency response team personnel."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/ert/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -266,7 +268,7 @@
 	desc = "A medical kit used by Amber level emergency response team personnel."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -282,7 +284,7 @@
 	desc = "I hope you've got insurance. The paint is still wet."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/fake_tactical/populate_contents()
 	return
@@ -449,7 +451,7 @@
 /obj/item/storage/pill_bottle/spaceacillin
 	name = "Pill Bottle (Spaceacillin)"
 	desc = "Contains pills used to treat bactieral infections."
-	wrapper_color = COLOR_LUMINOL 
+	wrapper_color = COLOR_LUMINOL
 
 /obj/item/storage/pill_bottle/spaceacillin/populate_contents()
 	for(var/I in 1 to 8)

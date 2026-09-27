@@ -8,6 +8,10 @@
 	var/healthanalyzer = /obj/item/healthanalyzer
 	var/medkit_type = /obj/item/storage/firstaid
 
+/obj/item/bot_assembly/medbot/Initialize(mapload)
+	. = ..()
+	add_overlay("[base_icon_state]_arm")
+
 /obj/item/bot_assembly/medbot/proc/set_skin(skin)
 	src.skin = skin
 	if(skin)

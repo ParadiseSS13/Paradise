@@ -157,7 +157,7 @@
 	. = ..()
 
 	var/mode_suffix = mode == BOT_HEALING ? "active" : "idle"
-	icon_state = "[base_icon_state]_[skin]_[mode_suffix]"
+	icon_state = "[base_icon_state]_[skin]"
 
 /mob/living/basic/bot/medbot/update_overlays()
 	. = ..()
@@ -166,9 +166,13 @@
 		. += mutable_appearance(icon, "[base_icon_state]_overlay_wheels")
 
 	var/mode_suffix = mode == BOT_HEALING ? "active" : "idle"
+	if(mode == BOT_HEALING)
+		. += mutable_appearance(icon, "[base_icon_state]_overlay_arm_active")
+	else
+		. += mutable_appearance(icon, "[base_icon_state]_overlay_arm_idle")
 	if(bot_mode_flags & BOT_MODE_ON)
-		. += mutable_appearance(icon, "[base_icon_state]_overlay_on_[mode_suffix]")
-		. += emissive_appearance(icon, "[base_icon_state]_overlay_on_[mode_suffix]", src, alpha = src.alpha)
+		. += mutable_appearance(icon, "[base_icon_state]_overlay_on")
+		. += emissive_appearance(icon, "[base_icon_state]_overlay_on", src, alpha = src.alpha)
 	else
 		. += mutable_appearance(icon, "[base_icon_state]_overlay_incapacitated")
 		. += emissive_appearance(icon, "[base_icon_state]_overlay_incapacitated", src, alpha = src.alpha)
