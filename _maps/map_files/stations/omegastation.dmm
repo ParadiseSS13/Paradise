@@ -11196,6 +11196,10 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_x = 1;
+	pixel_y = 31
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "aWS" = (
@@ -30251,10 +30255,6 @@
 /obj/effect/spawner/random/tech_storage/service,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
-"kfJ" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel/dark,
-/area/station/science/robotics)
 "kfK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -96351,7 +96351,7 @@ bWx
 aPf
 vmW
 oia
-kfJ
+xwO
 aTs
 aUt
 aVn
