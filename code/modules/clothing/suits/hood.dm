@@ -1,7 +1,6 @@
 //Hoods for winter coats and dark robes etc
 
 /obj/item/clothing/suit/hooded
-	actions_types = list(/datum/action/item_action/toggle)
 	var/obj/item/clothing/head/hooded/hood
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 	/// If this variable is true, the hood can not be removed if the hood is nodrop
@@ -10,74 +9,11 @@
 
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
-	MakeHood()
+	AddComponent(/datum/component/hood_component, hoodtype, TRUE, respects_nodrop)
 
 /obj/item/clothing/suit/hooded/Destroy()
 	QDEL_NULL(hood)
 	. = ..()
-
-/obj/item/clothing/suit/hooded/proc/MakeHood()
-	if(!hood)
-		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
-		W.suit = src
-		hood = W
-
-/obj/item/clothing/suit/hooded/clean_blood(radiation_clean)
-	. = ..()
-	hood.clean_blood()
-
-/obj/item/clothing/suit/hooded/ui_action_click()
-	ToggleHood()
-
-/obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_OUTER_SUIT)
-		return 1
-
-/obj/item/clothing/suit/hooded/equipped(mob/user, slot)
-	if(slot != ITEM_SLOT_OUTER_SUIT)
-		RemoveHood()
-	..()
-
-/obj/item/clothing/suit/hooded/proc/RemoveHood()
-	if(isnull(hood))
-		return
-	icon_state = "[initial(icon_state)]"
-	suit_adjusted = 0
-	if(ishuman(hood.loc))
-		var/mob/living/carbon/H = hood.loc
-		H.transfer_item_to(hood, src, force = TRUE)
-		H.update_inv_wear_suit()
-	else
-		hood.forceMove(src)
-	update_action_buttons()
-
-/obj/item/clothing/suit/hooded/dropped()
-	..()
-	RemoveHood()
-
-/obj/item/clothing/suit/hooded/proc/ToggleHood()
-	if(!suit_adjusted)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.wear_suit != src)
-				to_chat(H,SPAN_WARNING("You must be wearing [src] to put up the hood!"))
-				return
-			if(H.head)
-				to_chat(H,SPAN_WARNING("You're already wearing something on your head!"))
-				return
-			else if(H.equip_to_slot_if_possible(hood, ITEM_SLOT_HEAD, FALSE, FALSE))
-				suit_adjusted = 1
-				icon_state = "[initial(icon_state)]_hood"
-				H.update_inv_wear_suit()
-				update_action_buttons()
-	else
-		if((hood?.flags & NODROP) && respects_nodrop)
-			if(ishuman(loc))
-				var/mob/living/carbon/human/H = loc
-				to_chat(H, SPAN_WARNING("[hood] is stuck to your head!"))
-			return
-		RemoveHood()
-
 
 /obj/item/clothing/head/hooded
 	var/obj/item/clothing/suit/hooded/suit
@@ -85,19 +21,6 @@
 /obj/item/clothing/head/hooded/Destroy()
 	suit = null
 	return ..()
-
-/obj/item/clothing/head/hooded/dropped()
-	..()
-	if(suit)
-		suit.RemoveHood()
-
-/obj/item/clothing/head/hooded/equipped(mob/user, slot)
-	..()
-	if(slot != ITEM_SLOT_HEAD)
-		if(suit)
-			suit.RemoveHood()
-		else
-			qdel(src)
 
 /obj/item/clothing/head/hooded/screened_niqab
 	name = "screened niqab"
