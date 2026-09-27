@@ -30251,6 +30251,10 @@
 /obj/effect/spawner/random/tech_storage/service,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
+"kfJ" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/robotics)
 "kfK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -96347,7 +96351,7 @@ bWx
 aPf
 vmW
 oia
-xwO
+kfJ
 aTs
 aUt
 aVn
