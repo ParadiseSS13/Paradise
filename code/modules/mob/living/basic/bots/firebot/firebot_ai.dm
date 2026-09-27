@@ -51,7 +51,7 @@
 
 /datum/ai_planning_subtree/extinguishing_people/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	if(controller.blackboard_key_exists(BB_FIREBOT_EXTINGUISH_TARGET))
-		controller.queue_behavior(/datum/ai_behavior/basic_melee_attack/interact_once/extinguish, BB_FIREBOT_EXTINGUISH_TARGET, BB_TARGETING_STRATEGY)
+		controller.queue_behavior(/datum/ai_behavior/extinguish, BB_FIREBOT_EXTINGUISH_TARGET, BB_TARGETING_STRATEGY)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
 	var/mob/living/basic/bot/firebot/living_bot = controller.pawn
@@ -107,11 +107,32 @@
 
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-///behavior to extinguish mobs or turfs
-/datum/ai_behavior/basic_melee_attack/interact_once/extinguish
+/datum/ai_behavior/extinguish
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
+	action_cooldown = 5 SECONDS
+	required_distance = 3
 
-/datum/ai_behavior/basic_melee_attack/interact_once/extinguish/finish_action(datum/ai_controller/basic_controller/bot/controller, succeeded, target_key, targeting_strategy_key, hiding_location_key)
-	var/atom/target = controller.blackboard[BB_FIREBOT_EXTINGUISH_TARGET]
+/datum/ai_behavior/extinguish/setup(datum/ai_controller/controller, target_key)
+	. = ..()
+	var/turf/target = controller.blackboard[target_key]
+	if(isnull(target))
+		return FALSE
+	set_movement_target(controller, target)
+
+/datum/ai_behavior/extinguish/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
+	var/mob/living/basic/living_pawn = controller.pawn
+	var/atom/target = controller.blackboard[target_key]
+
+	if(QDELETED(target))
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+
+	living_pawn.RangedAttack(target)
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+
+/datum/ai_behavior/extinguish/finish_action(datum/ai_controller/basic_controller/bot/controller, succeeded, target_key, targeting_strategy_key, hiding_location_key)
+	var/atom/target = controller.blackboard[target_key]
+	controller.clear_blackboard_key(target_key)
 	var/mob/living/basic/bot/living_bot = controller.pawn
 
 	//if we couldnt path, or we successfully burnt someone, ignore them for a bit!

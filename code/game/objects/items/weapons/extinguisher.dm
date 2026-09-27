@@ -20,6 +20,8 @@
 	var/reagent_id = "water"
 	/// Used to determine the maximum capacity of extinguishers
 	var/reagent_capacity = 50
+	/// Amount of reagents in each spray particle
+	var/reagent_spray_amount = 1
 	/// If `TRUE`, using in hand will toggle the extinguisher's safety. This must be set to `FALSE` for extinguishers with different firing modes (i.e. backpacks).
 	var/has_safety = TRUE
 	/// If `TRUE`, the extinguisher will not fire.
@@ -194,7 +196,7 @@
 	for(var/a in 1 to 5)
 		var/obj/effect/particle_effect/water/water = new /obj/effect/particle_effect/water(get_turf(src))
 		water.create_reagents(5)
-		reagents.trans_to(water, 1)
+		reagents.trans_to(water, reagent_spray_amount)
 		var/turf/new_target = pick(the_targets)
 		if(precision)
 			the_targets -= new_target

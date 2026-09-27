@@ -52,7 +52,7 @@
 	ai_controller.set_blackboard_key(BB_FIREBOT_EMAGGED_LINES, emagged_lines)
 	ai_controller.set_blackboard_key(BB_FIREBOT_IDLE_LINES, idle_lines)
 	ai_controller.set_blackboard_key(BB_FIREBOT_FIRE_DETECTED_LINES, fire_detected_lines)
-	return idle_lines + fire_detected_lines
+	return idle_lines + fire_detected_lines + emagged_lines
 
 /mob/living/basic/bot/firebot/Initialize(mapload)
 	. = ..()
@@ -91,10 +91,6 @@
 		. += "[base_icon_state]_light_incapacitated_[mode_suffix]"
 		. += emissive_appearance(icon, "[base_icon_state]_light_incapacitated_[mode_suffix]", src, alpha = src.alpha)
 
-/mob/living/basic/bot/firebot/bot_reset(bypass_ai_reset)
-	. = ..()
-	create_extinguisher()
-
 /mob/living/basic/bot/firebot/proc/create_extinguisher()
 	internal_ext = new /obj/item/extinguisher/atmospherics/firebot(src)
 	internal_ext.reagents.add_reagent(internal_ext.reagent_id, internal_ext.reagent_capacity)
@@ -112,8 +108,6 @@
 
 /mob/living/basic/bot/firebot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(!(bot_access_flags & BOT_COVER_EMAGGED))
-		return
 
 	to_chat(user, SPAN_WARNING("You enable the very ironically named \"fighting with fire\" mode, and disable the targeting safeties.")) // heheehe. funny
 
@@ -123,6 +117,7 @@
 	internal_ext.reagent_id = "clf3" // Refill the internal extinguisher with liquid fire
 	internal_ext.reagents.clear_reagents()
 	internal_ext.reagents.add_reagent(internal_ext.reagent_id, internal_ext.reagent_capacity)
+	internal_ext.reagent_spray_amount = 5
 
 	return TRUE
 
