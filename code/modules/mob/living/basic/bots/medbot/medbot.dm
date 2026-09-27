@@ -80,6 +80,10 @@
 		MEDIBOT_VOICED_THANKS = 'sound/voice/medbot/thank_you.ogg',
 		MEDIBOT_VOICED_GOOD_PERSON = 'sound/voice/medbot/youre_good.ogg',
 	)
+	/// announcements when we forgive our tipper
+	var/static/list/forgive_announcements = list(
+		MEDIBOT_VOICED_FORGIVE = 'sound/voice/medbot/forgive.ogg',
+	)
 	/// announcements when we are worried
 	var/static/list/worried_announcements = list(
 		MEDIBOT_VOICED_PUT_BACK = 'sound/voice/medbot/please_put_me_back.ogg',
@@ -155,26 +159,24 @@
 
 /mob/living/basic/bot/medbot/update_icon_state()
 	. = ..()
-
-	var/mode_suffix = mode == BOT_HEALING ? "active" : "idle"
 	icon_state = "[base_icon_state]_[skin]"
 
 /mob/living/basic/bot/medbot/update_overlays()
 	. = ..()
+	overlays.Cut()
 
 	if(!(medical_mode_flags & MEDBOT_STATIONARY_MODE))
-		. += mutable_appearance(icon, "[base_icon_state]_overlay_wheels")
+		. += image(icon, "[base_icon_state]_overlay_wheels")
 
-	var/mode_suffix = mode == BOT_HEALING ? "active" : "idle"
 	if(mode == BOT_HEALING)
-		. += mutable_appearance(icon, "[base_icon_state]_overlay_arm_active")
+		. += image(icon, "[base_icon_state]_overlay_arm_active")
 	else
-		. += mutable_appearance(icon, "[base_icon_state]_overlay_arm_idle")
+		. += image(icon, "[base_icon_state]_overlay_arm_idle")
 	if(bot_mode_flags & BOT_MODE_ON)
-		. += mutable_appearance(icon, "[base_icon_state]_overlay_on")
+		. += image(icon, "[base_icon_state]_overlay_on")
 		. += emissive_appearance(icon, "[base_icon_state]_overlay_on", src, alpha = src.alpha)
 	else
-		. += mutable_appearance(icon, "[base_icon_state]_overlay_incapacitated")
+		. += image(icon, "[base_icon_state]_overlay_incapacitated")
 		. += emissive_appearance(icon, "[base_icon_state]_overlay_incapacitated", src, alpha = src.alpha)
 
 // this is sin
@@ -241,7 +243,8 @@
  * user - the mob who is tipping us over
  */
 /mob/living/basic/bot/medbot/proc/pre_tip_over(mob/user)
-	speak(pick(worried_announcements))
+	var/datum/action/cooldown/bot_announcement/announcement = ai_controller.blackboard[BB_ANNOUNCE_ABILITY]
+	announcement?.announce(pick(ai_controller.blackboard[BB_WORRIED_ANNOUNCEMENTS]))
 
 /*
  * Proc used in a callback for after this medibot is tipped by the tippable component.
@@ -273,9 +276,11 @@
 	if(isnull(tipper_mob))
 		return
 	if(tipper_mob == user)
-		speak(MEDIBOT_VOICED_FORGIVE)
+		var/datum/action/cooldown/bot_announcement/announcement = ai_controller.blackboard[BB_ANNOUNCE_ABILITY]
+		announcement?.announce(pick(forgive_announcements))
 		return
-	speak(pick(untipped_announcements))
+	var/datum/action/cooldown/bot_announcement/announcement = ai_controller.blackboard[BB_ANNOUNCE_ABILITY]
+	announcement?.announce(pick(untipped_announcements))
 
 /mob/living/basic/bot/medbot/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))

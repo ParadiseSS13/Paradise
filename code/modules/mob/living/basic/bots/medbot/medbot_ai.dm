@@ -9,6 +9,7 @@
 		/datum/ai_planning_subtree/salute_authority,
 		/datum/ai_planning_subtree/find_patrol_beacon/medbot,
 	)
+	ai_traits = AI_FLAG_PAUSE_DURING_DO_AFTER
 	ai_movement = /datum/ai_movement/jps/bot/medbot
 	reset_keys = list(
 		BB_PATIENT_TARGET,
@@ -83,7 +84,8 @@
 	announcement?.announce(pick(controller.blackboard[BB_WAIT_SPEECH]))
 
 /datum/ai_behavior/tend_to_patient
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION | AI_BEHAVIOR_REQUIRE_REACH
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
+	action_cooldown = 5 SECONDS
 
 /datum/ai_behavior/tend_to_patient/setup(datum/ai_controller/controller, target_key)
 	. = ..()
@@ -125,7 +127,7 @@
 
 /datum/ai_behavior/tend_to_patient/proc/check_if_healed(mob/living/carbon/human/patient, threshold, access_flags)
 	if(access_flags & BOT_COVER_EMAGGED)
-		return (patient.stat > CONSCIOUS)
+		return TRUE
 	var/patient_damage = patient.get_total_damage()
 	return (patient_damage <= threshold)
 
@@ -135,7 +137,7 @@
 
 /datum/ai_planning_subtree/handle_medbot_speech/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/basic/bot/medbot/bot_pawn = controller.pawn
-	//we cant speak!
+	// we cant speak!
 	if(!(bot_pawn.medical_mode_flags & MEDBOT_SPEAK_MODE))
 		return
 

@@ -113,6 +113,8 @@ DEFINE_BITFIELD(bot_mode_flags, list(
 #define BOT_CLEANING "Cleaning"
 /// Medibots - Healing people
 #define BOT_HEALING "Healing"
+/// Firebots - Extinguishing Fires
+#define BOT_EXTINGUISHING "Extinguishing"
 /// MULEbot - Moving to deliver
 #define BOT_DELIVER "Delivering"
 /// MULEbot - Returning to home

@@ -14,6 +14,8 @@
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
 	new_attack_chain = TRUE
+	/// Firebot skin tone
+	var/firebot_skin = "red"
 	/// Used to determine the chemical that spawns in the extinguisher
 	var/reagent_id = "water"
 	/// Used to determine the maximum capacity of extinguishers
@@ -38,7 +40,8 @@
 
 	to_chat(user, SPAN_NOTICE("You add [tool] to [src]."))
 	qdel(tool)
-	new /obj/item/bot_assembly/firebot(get_turf(src))
+	var/obj/item/bot_assembly/firebot/assembly = new(get_turf(src))
+	assembly.set_skin(firebot_skin)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
@@ -48,6 +51,7 @@
 	icon_state = "atmoFE0"
 	base_icon_state = "atmoFE"
 	inhand_icon_state = "atmoFE"
+	firebot_skin = "olive"
 	materials = list(MAT_TITANIUM = 200)
 	dog_fashion = null
 	reagent_id = "firefighting_foam"
@@ -55,6 +59,7 @@
 
 /obj/item/extinguisher/atmospherics/firebot
 	has_safety = FALSE
+	safety_active = FALSE
 	precision = TRUE
 	reagent_capacity = INFINITY
 

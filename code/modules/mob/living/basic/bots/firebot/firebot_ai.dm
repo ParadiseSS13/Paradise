@@ -93,7 +93,7 @@
 	for(var/turf/possible_turf as anything in RANGE_TURFS(5, living_pawn))
 		if(QDELETED(living_pawn))
 			return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-		if(!isspaceturf(possible_turf))
+		if(isspaceturf(possible_turf))
 			continue
 		var/turf/simulated/open_turf = possible_turf
 		if(!istype(open_turf))

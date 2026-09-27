@@ -3,7 +3,8 @@
 /mob/living/basic/bot/firebot
 	name = "\improper Firebot"
 	desc = "A little fire extinguishing bot. He looks rather anxious."
-	icon_state = "firebot1"
+	icon_state = "firebot_red"
+	base_icon_state = "firebot"
 	light_color = "#8cffc9"
 	light_power = 0.8
 
@@ -17,6 +18,12 @@
 	ai_controller = /datum/ai_controller/basic_controller/bot/firebot
 	/// our inbuilt fire extinguisher
 	var/obj/item/extinguisher/internal_ext
+
+	/// Color of the bot based on the extinguisher used
+	var/skin = "red"
+	/// Color of the hat based on the helmet used
+	var/hat = "yellow"
+
 
 	/// Flags firebots use to decide how they function.
 	var/firebot_mode_flags = FIREBOT_EXTINGUISH_PEOPLE | FIREBOT_EXTINGUISH_FLAMES
@@ -49,7 +56,7 @@
 
 /mob/living/basic/bot/firebot/Initialize(mapload)
 	. = ..()
-	update_appearance(UPDATE_ICON)
+	update_appearance()
 	var/static/list/things_to_extinguish = typecacheof(list(/mob/living/carbon))
 	ai_controller.set_blackboard_key(BB_FIREBOT_CAN_EXTINGUISH, things_to_extinguish)
 	create_extinguisher()
@@ -61,6 +68,28 @@
 /mob/living/basic/bot/firebot/Destroy()
 	QDEL_NULL(internal_ext)
 	return ..()
+
+/mob/living/basic/bot/firebot/update_icon_state()
+	. = ..()
+
+	icon_state = "firebot_[skin]"
+
+/mob/living/basic/bot/firebot/update_overlays()
+	. = ..()
+
+	if(!(firebot_mode_flags & FIREBOT_STATIONARY_MODE))
+		. += mutable_appearance(icon, "[base_icon_state]_feet")
+
+	var/mode_suffix = mode == BOT_EXTINGUISHING ? "active" : "idle"
+	. += "[base_icon_state]_arm_[mode_suffix]"
+	. += "[base_icon_state]_hose_[mode_suffix]"
+	. += "[base_icon_state]_hat_[hat]_[mode_suffix]"
+	if(bot_mode_flags & BOT_MODE_ON)
+		. += "[base_icon_state]_light_on_[mode_suffix]"
+		. += emissive_appearance(icon, "[base_icon_state]_light_on_[mode_suffix]", src, alpha = src.alpha)
+	else
+		. += "[base_icon_state]_light_incapacitated_[mode_suffix]"
+		. += emissive_appearance(icon, "[base_icon_state]_light_incapacitated_[mode_suffix]", src, alpha = src.alpha)
 
 /mob/living/basic/bot/firebot/bot_reset(bypass_ai_reset)
 	. = ..()
@@ -123,21 +152,10 @@
 			update_appearance()
 
 /mob/living/basic/bot/firebot/proc/spray_water(atom/attacked_atom, list/modifiers)
-	if(firebot_mode_flags & FIREBOT_STATIONARY_MODE)
-		flick("firebots_use", src)
-	else
-		flick("firebot1_use", src)
+	update_bot_mode(new_mode = BOT_EXTINGUISHING, update_hud = FALSE)
 	internal_ext?.interact_with_atom(attacked_atom, src, modifiers)
-
-/mob/living/basic/bot/firebot/update_icon_state()
-	. = ..()
-	if(!(bot_mode_flags & BOT_MODE_ON))
-		icon_state = "firebot0"
-		return
-	if(IsStunned() || IsParalyzed() || (firebot_mode_flags & FIREBOT_STATIONARY_MODE)) // Bot has yellow light to indicate stationary mode.
-		icon_state = "firebots1"
-		return
-	icon_state = "firebot1"
+	sleep(8)
+	bot_reset()
 
 /mob/living/basic/bot/firebot/explode()
 	var/turf/my_turf = drop_location()
