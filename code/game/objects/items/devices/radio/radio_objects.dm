@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/AltClick(mob/user)
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if((user.get_active_hand() || user.get_inactive_hand()) != src)
+	if(user.get_active_hand() != src && user.get_inactive_hand() != src)
 		to_chat(user, SPAN_WARNING("[src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]!"))
 		return
 
