@@ -143,8 +143,7 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, RAD = 100, FIRE = 100, ACID = 30)
 	anchored = TRUE
 	climbable = FALSE
-	light_power = 1
-	light_range = 2
+	light_range = 3
 	light_color = LIGHT_COLOR_ORANGE
 
 /obj/structure/closet/crate/cargo_pod/Initialize(mapload)
