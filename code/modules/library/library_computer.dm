@@ -134,7 +134,8 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/toner/T = used
-		user.drop_item()
+		if(!user.drop_item())
+			return ITEM_INTERACT_COMPLETE
 		toner += T.toner_amount
 		qdel(used)
 		to_chat(user, SPAN_NOTICE("[src] beeps happily as it accepts a new toner cartridge!"))

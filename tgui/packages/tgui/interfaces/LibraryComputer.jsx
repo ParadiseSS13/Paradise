@@ -402,6 +402,7 @@ const LibraryBooksList = (properties) => {
           icon="random"
           color="average"
           size={3}
+          mt={0.5}
           content="Print Random Book"
           onClick={() => act('order_random_book')}
         />
