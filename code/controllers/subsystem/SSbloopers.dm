@@ -18,6 +18,3 @@ SUBSYSTEM_DEF(bloopers)
 /datum/controller/subsystem/bloopers/proc/queue(mob/living/char)
 	if(!mob_queue[char])
 		mob_queue[char] = char
-
-/datum/controller/subsystem/bloopers/proc/remove_from_queue(mob/living/char)
-	mob_queue -= char
