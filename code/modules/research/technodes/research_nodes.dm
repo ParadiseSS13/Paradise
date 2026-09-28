@@ -32,7 +32,7 @@
 	name = "Experimental Machine Parts"
 	desc = "Various experimental parts utilizing advanced materials and bluespace to create and improve machinery."
 	id = "blueparts"
-	prereqs = list("superparts")
+	prereqs = list("arti_bs")
 	unlocks = list("quadratic_capacitor", "triphasic_scanning", "femto_mani", "quadultra_micro_laser", "bluespace_matter_bin")
 	cost = list("Research" = 2500)
 
@@ -41,7 +41,7 @@
 	name = "Bluespace Synthesis"
 	desc = "Artifical synthesis of extremely fragile bluespace crystals and experimental space compression technology."
 	id = "arti_bs"
-	prereqs = list()
+	prereqs = list("superparts")
 	unlocks = list("bluespace_crystal", "minerbag_holding", "bluespace_belt_holder", "brpd", "bluespaceshotglass", "light_replacer_bluespace")
 	cost = list()
 
@@ -49,7 +49,7 @@
 	name = "Bluespace Storage"
 	desc = "Experimental technology used to compress items in a pocket of bluespace, bigger on the inside."
 	id = "bs_storage"
-	prereqs = list()
+	prereqs = list("arti_bs")
 	unlocks = list("bag_holding", "bluespace_belt", "bluespace_closet", "bluespace_cell")
 	cost = list()
 
@@ -58,9 +58,9 @@
 	name = "Working-Class Exosuits"
 	desc = "Firefighter chassis for the APLU 'Ripley' series of exosuit."
 	id = "mech_aplu"
-	prereqs = list("advparts")
 	unlocks = list("ripley_main", "ripley_peri", "ripley_chassis", "firefighter_chassis", "ripley_torso", "ripley_left_arm", "ripley_right_arm", "ripley_left_leg", "ripley_right_leg", "mech_plate_armor")
 	cost = list("Research" = 500)
+	starting_node = TRUE
 
 /datum/technode/rnd/mech_ody
 	name = "Medical Exosuits"
@@ -193,14 +193,14 @@
 	name = "Mining Equipment"
 	desc = "Standard mining equipment designed to destroy rock."
 	id = "mining"
+	prereqs = list("advparts")
 	unlocks = list("drill", "plasmacutter", "resonator", "triggermod", "rangemod")
-	starting_node = TRUE
 
 /datum/technode/rnd/adv_mining
 	name = "Advanced Mining Equipment"
 	desc = "Improved mining equipment allowing miners to cut through rock with ease."
 	id = "adv_mining"
-	prereqs = list("mining", "superparts")
+	prereqs = list("mining")
 	unlocks = list("plasmacutter_adv", "drill_diamond", "superresonator", "damagemod", "cooldownmod", "hypermod")
 	cost = list("Research" = 800)
 
@@ -208,7 +208,7 @@
 	name = "Experimental Mining Equipment"
 	desc = "High-tech mining equipment for rapid excavation of minerals."
 	id = "exp_mining"
-	prereqs = list("adv_mining", "blueparts")
+	prereqs = list("adv_mining")
 	unlocks = list("megacharge", "lavarod", "jackhammer")
 	cost = list("Research" = 1000)
 
@@ -237,10 +237,10 @@
 	unlocks = list("night_vision_goggles", "nvgmesons")
 	cost = list()
 
-/datum/technode/rnd/emergency_equip
-	name = "Emergency Equipment"
+/datum/technode/rnd/personal_equip
+	name = "Personal Equipment"
 	desc = "Break glass incase of broken glass."
-	id = "emergency_equip"
+	id = "personal_equip"
 	unlocks = list("breathmask", "emergencyoxygen", "oxygentank")
 	starting_node = TRUE
 
@@ -249,7 +249,7 @@
 	name = "Power Tools"
 	desc = "Advanced tools that are much faster then their standard counterparts."
 	id = "power_tools"
-	prereqs = list()
+	prereqs = list("superparts")
 	unlocks = list("exwelder", "handdrill", "bolter_wrench") // Jaws are in emergency medicine as that is their ""intended"" purpose.
 	cost = list()
 
@@ -322,7 +322,7 @@
 	name = "Advanced Sanitation"
 	desc = "Improved janitorial tools to keep the station as clean as ever!"
 	id = "adv_sani"
-	prereqs = list()
+	prereqs = list("superparts")
 	unlocks = list("advmop", "blutrash", "holosign", "light_replacer")
 	cost = list()
 
@@ -331,7 +331,7 @@
 	name = "Medical Analysis"
 	desc = "Body and reagent analysis equipment for diagnosis and reagent synthesis."
 	id = "med_analysis"
-	prereqs = list()
+	prereqs = list("personal_equip")
 	unlocks = list("adv_reagent_scanner", "healthanalyzer_upgrade", "sleeper", "bodyscanner")
 	cost = list()
 
@@ -339,7 +339,7 @@
 	name = "Cellular Replication"
 	desc = "Cloning technology able to completely replicate most biological humanoids from DNA."
 	id = "cloning"
-	prereqs = list()
+	prereqs = list("chem")
 	unlocks = list("clonepod", "clonescanner", "clonecontrol", "dissection_manager_upgraded")
 	cost = list()
 
@@ -347,7 +347,7 @@
 	name = "Chemical Synthesis"
 	desc = "Machines able to synthesise chemicals from energy and press them into approprate form."
 	id = "chem"
-	prereqs = list()
+	prereqs = list("med_analysis")
 	unlocks = list("splitbeaker", "chem_dispenser", "chem_master", "chem_heater", "reagentgrinder")
 	cost = list()
 
@@ -355,15 +355,15 @@
 	name = "Emergency Medicine"
 	desc = "Legal breaking and entering that sometimes saves a life!"
 	id = "em_medicine"
-	prereqs = list()
+	prereqs = list("power_tools")
 	unlocks = list("jawsoflife", "holo_stretcher", "compact_defib", "scalpel_laser")
 	cost = list()
 
 /datum/technode/rnd/adv_med
 	name = "Advanced Medical Devices"
-	desc = ""
+	desc = "If Nanotrasen didn't give all employees coverage you'd probably have to sell a kidney for the bill."
 	id = "adv_med"
-	prereqs = list()
+	prereqs = list("em_medicine")
 	unlocks = list("scalpel_manager", "automender", "bluespacebeaker") // MIXTODO - Maybe make automender a prototype
 	cost = list()
 
@@ -371,7 +371,7 @@
 	name = "Biochips"
 	desc = "Small sterile chips with various purposes that can be implanted in humanoids, machines included."
 	id = "biochips"
-	prereqs = list()
+	prereqs = list("med_analysis")
 	unlocks = list("biochip_pad", "implanter", "implantcase", "implant_chem", "implant_tracking", "implant_trombone")
 	cost = list()
 
@@ -379,7 +379,7 @@
 	name = "Organ Replacements"
 	desc = "Cybernetic organs that are functionally identical to their organic counterpart, keep away from magnets."
 	id = "organ_replacements"
-	prereqs = list()
+	prereqs = list("advparts")
 	unlocks = list("cybernetic_eyes", "cybernetic_ears", "cybernetic_liver", "cybernetic_kidneys", "cybernetic_heart", "cybernetic_lungs", "ci-nutriment", "skin_1", "skin_2")
 	cost = list()
 
@@ -395,7 +395,7 @@
 	name = "Eye Implants"
 	desc = "Improved cybernetic eyes capable of preventing flashes, displaying information and identifying structures through walls."
 	id = "eye_imp"
-	prereqs = list()
+	prereqs = list("organ_replacements")
 	unlocks = list("ci-mesonhud", "ci-welding", "ci-janihud", "ci-diaghud", "ci-skillhud", "ci-medhud", "ci-hydrohud", "ci-sechud")
 	cost = list()
 
@@ -419,7 +419,7 @@
 	name = "Chest Implants"
 	desc = "Cybernetic implants that fit into the chest cavity."
 	id = "chest_imp"
-	prereqs = list()
+	prereqs = list("organ_replacements")
 	unlocks = list("ci-nutrimentplus", "ci-reviver", "bluespace_anchor_implant")
 	cost = list()
 
@@ -427,7 +427,7 @@
 	name = "Brain Implants"
 	desc = "Cybernetic implants that attach directly to the brain, keep away from magnets."
 	id = "brain_imp"
-	prereqs = list()
+	prereqs = list("organ_replacements")
 	unlocks = list("ci-wire_interface", "ci-clownvoice", "ci-antisleep", "ci-antistun", "ci-antidrop")
 	cost = list()
 
@@ -435,7 +435,7 @@
 	name = "Arm-mounted Implants"
 	desc = "Cybernetic implants stuffed neatly inside the arm containing a variety of useful tools."
 	id = "arm_imp"
-	prereqs = list()
+	prereqs = list("organ_replacements")
 	unlocks = list("ci-botanical", "ci-janitorial", "ci-cargo", "ci-toolset", "ci-surgey")
 	cost = list()
 
@@ -444,7 +444,7 @@
 	name = "Basic Laser Weaponry"
 	desc = "Conversion kits for low-powered or specialised laser weaponry, gun sold seperately."
 	id = "laser_basic"
-	prereqs = list()
+	prereqs = list("personal_equip")
 	unlocks = list("sparker", "stunrevolver", "temp_gun", "ppistol", "nuclear_gun")
 
 /datum/technode/rnd/laser_high
@@ -465,42 +465,42 @@
 	name = "Cased Laser Ammunition"
 	desc = "Ammunition for the IK-Series of laser projector rifles."
 	id = "ammo_laser"
-	prereqs = list()
+	prereqs = list("laser_basic")
 	unlocks = list("mag_laser", "box_laser")
 
 /datum/technode/rnd/ammo_wt
 	name = "Ballistic Ammunition"
 	desc = "4.6x30mm ammunition used in submachine guns and low-caliber rifles."
 	id = "ammo_wt"
-	prereqs = list()
+	prereqs = list("laser_high")
 	unlocks = list("mag_oldsmg", "box_oldsmg", "box_oldsmg_ap", "box_oldsmg_ic", "box_oldsmg_tx")
 
 /datum/technode/rnd/ammo_flame
 	name = "Chemical Warfare"
 	desc = "Canisters and conversion kits used by chemical flamethrowers, gun sold seperately."
 	id = "ammo_flame"
-	prereqs = list()
+	prereqs = list("laser_high")
 	unlocks = list("chem_flamethrower_extended", "chemical_canister", "chemical_canister_extended", "chemical_canister_pyro")
 
 /datum/technode/rnd/improved_grenades
 	name = "Improved Grenade Casings"
 	desc = "Grenade casings with larger range or specialised effects."
 	id = "improved_grenades"
-	prereqs = list()
+	prereqs = list("laser_basic")
 	unlocks = list("large_grenade", "pyro_grenade", "cryo_grenade", "adv_grenade")
 
 /datum/technode/rnd/defence_tech
 	name = "Personal Defence Technology"
 	desc = "Devices and equipment to defend individuals or groups."
 	id = "defence_tech"
-	prereqs = list()
+	prereqs = list("personal_equip")
 	unlocks = list("tele_shield", "drop_wall")
 
 /datum/technode/rnd/portals
 	name = "Handheld Portal Device"
 	desc = "A device capable of firing two types of interconnected wormholes, comes with free unpoisoned cake!"
 	id = "portals"
-	prereqs = list()
+	prereqs = list("arti_bs")
 	unlocks = list("wormholeprojector")
 
 // MARK: Synthetics
@@ -508,7 +508,7 @@
 	name = "Artificial Intelligence"
 	desc = "Nanotrasen, pioneering ethical practices since 2080!"
 	id = "ai"
-	prereqs = list()
+	prereqs = list("borg_uni")
 	unlocks = list("aicore", "aifixer", "aiupload", "intellicard")
 	cost = list()
 
@@ -581,7 +581,7 @@
 	name = "MODsuit Construction"
 	desc = "Customisable 'Modular Outerwear Device' suits capable of EVA while offering extra functionality in the form of modules."
 	id = "mod"
-	prereqs = list()
+	prereqs = list("superparts")
 	unlocks = list("mod_shell", "mod_helmet", "mod_chestplate", "mod_gauntlets", "mod_boots", "mod_plating_standard", "mod_storage")
 
 /datum/technode/rnd/mod_plating
