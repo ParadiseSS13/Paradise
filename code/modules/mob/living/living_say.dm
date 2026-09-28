@@ -315,7 +315,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				O.hear_talk(src, message_pieces, verb)
 
 
-
 	if(!(client?.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS))
 		return TRUE
 
