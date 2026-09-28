@@ -328,7 +328,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/bloop_count_multiplier = initial(bloop_datum.bloop_count_multiplier)
 		var/blooper_count = min(round(((length_char(message_inst.message) / bloop_source.dna.blooper_speed)) + 1) * bloop_count_multiplier, BLOOPER_MAX_BLOOPERS)
 		var/total_delay = 0
-		bloop_source.blooper_last_start_time = world.time //this is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
+		bloop_source.blooper_last_start_time = world.time // This is juuuuust random enough to reliably be unique every time send_speech() is called, in most scenarios
 		LAZYINITLIST(blooper_queue)
 		for(var/i in 1 to blooper_count)
 			if(total_delay > BLOOPER_MAX_TIME)
