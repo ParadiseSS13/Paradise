@@ -4271,7 +4271,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library/perma,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "asg" = (
@@ -8559,6 +8559,10 @@
 	},
 /obj/item/taperecorder,
 /obj/item/tape,
+/obj/item/toner{
+	pixel_x = 6;
+	pixel_y = -4
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/library)
 "aKd" = (

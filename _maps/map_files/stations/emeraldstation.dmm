@@ -66720,7 +66720,9 @@
 /area/station/maintenance/aft2)
 "nrm" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)

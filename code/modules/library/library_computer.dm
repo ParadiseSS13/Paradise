@@ -66,6 +66,7 @@
 	var/branch_name = "Nanotrasen Main Library Branch"
 	if(!COOLDOWN_FINISHED(src, overdue_check))
 		return
+	// we're checking every 5 minutes for overdue books, no need to constantly check
 	COOLDOWN_START(src, overdue_check, 5 MINUTES)
 	for(var/datum/borrowbook/book in checkouts)
 		if(world.time > book.duedate && !book.announced_overdue)
@@ -675,25 +676,25 @@ While we here at the Nanotrasen Main Library Branch do enjoy our employees utili
 		log_debug("A non-existant library patron account was attempted to be charged")
 		return
 
-	var/datum/money_account_database/main_station/database = GLOB.station_money_database
-	if(!database)
+	var/datum/money_account_database/main_station/account_database = GLOB.station_money_database
+	if(!account_database)
 		return
 
-	var/datum/money_account/patron_account = database.find_user_account(book.patron_account)
+	var/datum/money_account/patron_account = account_database.find_user_account(book.patron_account)
 	if(!patron_account)
 		log_debug("A non-existant library account was attempted to be charged.")
 		return
 
-	var/datum/money_account/service_account = database.get_account_by_department(DEPARTMENT_SERVICE)
-	if(!service_account)
+	var/datum/money_account/linked_account = account_database.get_account_by_department(DEPARTMENT_SERVICE)
+	if(!linked_account)
 		log_debug("The Service account does not exist.")
 		return
 
 	var/fine = 25
-	if(!database.charge_account(patron_account, fine, "Overdue library book fine - '[book.bookname]'", src.name, FALSE, FALSE))
+	if(!account_database.charge_account(patron_account, fine, "Overdue library book fine - '[book.bookname]'", src.name, FALSE, FALSE))
 		return
 
-	database.credit_account(service_account, fine, "Overdue library book fine - '[book.bookname]'", "Nanotrasen Library Servies", FALSE)
+	account_database.credit_account(linked_account, fine, "Overdue library book fine - '[book.bookname]'", "Nanotrasen Library Servies", FALSE)
 	log_debug("Patron [book.patron_name] has been fined for an overdue book.")
 
 /obj/machinery/computer/library/emag_act(mob/user)

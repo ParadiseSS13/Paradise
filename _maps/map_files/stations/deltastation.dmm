@@ -29361,7 +29361,9 @@
 /area/station/service/library)
 "cnn" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 8
+	},
 /obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/library)
