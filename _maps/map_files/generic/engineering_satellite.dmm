@@ -769,6 +769,12 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
+"cH" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
 "cJ" = (
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/ai)
@@ -783,7 +789,8 @@
 /area/constructionsite/ai)
 "cR" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
@@ -901,6 +908,22 @@
 	pixel_y = 32
 	},
 /obj/structure/closet/crate/internals,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/head/hardhat/orange,
+/obj/item/clothing/head/hardhat/orange,
+/obj/item/clothing/head/hardhat/orange,
+/obj/item/clothing/head/hardhat/orange,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "dl" = (
@@ -1112,14 +1135,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
 "dM" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/power/smes/engineering{
 	input_attempt = 1;
 	input_level = 50000;
 	inputting = 1;
 	output_level = 15000
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
@@ -1136,11 +1159,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
 "dO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/engiestation)
@@ -1329,16 +1352,16 @@
 	},
 /area/constructionsite/ai)
 "ej" = (
-/obj/structure/cable{
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable/extra_insulated{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
 	},
 /area/ruin/space/engiestation)
 "ek" = (
-/obj/structure/cable{
+/obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1346,9 +1369,6 @@
 	},
 /area/ruin/space/engiestation)
 "el" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
 	icon_state = "shock";
@@ -1357,12 +1377,15 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tile_dark_standard"
 	},
 /area/ruin/space/engiestation)
 "en" = (
-/obj/machinery/economy/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eo" = (
@@ -1410,6 +1433,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "ew" = (
@@ -1434,6 +1460,9 @@
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "ez" = (
@@ -1443,6 +1472,9 @@
 	pixel_y = 6
 	},
 /obj/machinery/newscaster/directional/north,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eA" = (
@@ -1454,6 +1486,9 @@
 	pixel_y = 32
 	},
 /obj/item/kirbyplants/medium,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eB" = (
@@ -1463,11 +1498,17 @@
 /obj/structure/sign/singulo{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eC" = (
 /obj/structure/table,
 /obj/item/food/soup/meatballsoup,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eD" = (
@@ -1482,12 +1523,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/floodlight,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eG" = (
 /obj/machinery/status_display{
 	pixel_x = 0;
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
@@ -1507,8 +1554,10 @@
 /area/ruin/space/engiestation)
 "eJ" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eK" = (
@@ -1539,10 +1588,16 @@
 "eN" = (
 /obj/structure/table,
 /obj/item/food/meatsteak,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eO" = (
 /obj/machinery/floodlight,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eP" = (
@@ -1554,26 +1609,34 @@
 /area/ruin/space/engiestation)
 "eQ" = (
 /obj/machinery/economy/vending/wallmed/directional/east,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eR" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/engiestation)
-"eS" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/portable/canister/air{
+	filled = 0.1
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eT" = (
 /obj/machinery/economy/vending/coffee,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eU" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/coffee,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "eV" = (
@@ -1619,6 +1682,9 @@
 /area/ruin/space/engiestation)
 "fb" = (
 /obj/machinery/economy/vending/snack,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fd" = (
@@ -1640,6 +1706,9 @@
 /area/ruin/space/engiestation)
 "fj" = (
 /obj/machinery/economy/vending/cola,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fk" = (
@@ -1649,18 +1718,22 @@
 	name = "station intercom (General)";
 	pixel_y = -28
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fl" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fm" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /obj/item/kirbyplants/medium,
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fo" = (
@@ -1693,10 +1766,16 @@
 /area/ruin/space/engiestation)
 "fu" = (
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fv" = (
 /obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1770,6 +1849,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fH" = (
@@ -1819,7 +1901,12 @@
 /turf/simulated/wall,
 /area/ruin/space/engiestation)
 "fM" = (
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/station_alert{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
 "fN" = (
@@ -1988,7 +2075,8 @@
 "gm" = (
 /obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/machinery/light_switch{
-	pixel_y = -28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
@@ -2013,7 +2101,8 @@
 "gp" = (
 /obj/machinery/light_switch{
 	pixel_x = -28;
-	pixel_y = 0
+	pixel_y = 0;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/engiestation)
@@ -3778,6 +3867,16 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
+"sh" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
+"sp" = (
+/obj/effect/spawner/airlock/w_to_e,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/engiestation)
 "sT" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/engineering)
@@ -3793,6 +3892,27 @@
 	icon_state = "gcircuit"
 	},
 /area/constructionsite/ai)
+"yO" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
+"yV" = (
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
+"zk" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
 "zH" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment/corner{
@@ -3800,12 +3920,41 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"DF" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
+"FX" = (
+/obj/machinery/atmospherics/portable/pump,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
+"Iu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
 "Ng" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
+"Ol" = (
+/obj/machinery/light_switch{
+	pixel_y = -28;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
 "OY" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -3823,6 +3972,16 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
+"TY" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
 "Vt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3835,6 +3994,12 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
+"VN" = (
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/engiestation)
 "XL" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
@@ -13965,7 +14130,7 @@ dS
 dK
 da
 ey
-dj
+cH
 eT
 fb
 fj
@@ -14995,8 +15160,8 @@ da
 eC
 eN
 eU
-dj
-dj
+VN
+yO
 ft
 fT
 fT
@@ -15507,10 +15672,10 @@ dW
 ek
 da
 eO
-eV
-eW
-dj
-eK
+FX
+TY
+cH
+zk
 da
 da
 fL
@@ -15767,7 +15932,7 @@ eE
 eV
 eW
 dj
-dj
+DF
 fu
 fG
 fM
@@ -16277,14 +16442,14 @@ df
 dZ
 cS
 et
+sh
 dj
 dj
 dj
 dj
 dj
 dj
-dj
-dj
+yV
 eH
 fX
 gg
@@ -16536,12 +16701,12 @@ cX
 da
 eG
 eQ
-dj
-dj
-dj
+VN
+VN
+VN
 fv
-dj
-dj
+VN
+yO
 eH
 fY
 dj
@@ -18333,7 +18498,7 @@ di
 ed
 en
 eu
-eJ
+Ol
 cC
 ab
 ab
@@ -19105,7 +19270,7 @@ dE
 eo
 dE
 dj
-dE
+Iu
 cC
 cl
 cl
@@ -19362,8 +19527,8 @@ dX
 da
 ee
 cC
-eS
-cC
+dW
+sp
 aa
 aa
 aa
@@ -19876,7 +20041,7 @@ ef
 cC
 ew
 cC
-eS
+dW
 cC
 aa
 aa
