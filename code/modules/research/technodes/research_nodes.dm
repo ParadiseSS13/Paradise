@@ -11,6 +11,8 @@
 	id = "anom_tech"
 	prereqs = list()
 	unlocks = list("reactivearmor", "gravboots", "pyro_gloves", "bsg", "v1_arm", "mod_teleporter", "mod_kinesis", "mod_firewall", "mod_arcshield", "mod_vortex", "mod_cryo")
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
+	cost_hidden = list(RESEARCH_POINT_STANDARD = 3000)
 
 // MARK: Stock Parts
 /datum/technode/rnd/advparts
@@ -43,7 +45,7 @@
 	id = "arti_bs"
 	prereqs = list("superparts")
 	unlocks = list("bluespace_crystal", "minerbag_holding", "bluespace_belt_holder", "brpd", "bluespaceshotglass", "light_replacer_bluespace")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/bs_storage
 	name = "Bluespace Storage"
@@ -51,7 +53,7 @@
 	id = "bs_storage"
 	prereqs = list("arti_bs")
 	unlocks = list("bag_holding", "bluespace_belt", "bluespace_closet", "bluespace_cell")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 4000)
 
 // MARK: Mechs
 /datum/technode/rnd/firefighter
@@ -84,7 +86,7 @@
 	id = "mech_ent"
 	prereqs = list("mech_ody", "mech_nkr")
 	unlocks = list("honk_main", "honk_peri", "honk_targ", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm", "honk_left_leg", "honk_right_leg", "reticence_main", "reticence_peri", "reticence_targ", "reticence_chassis", "reticence_head", "reticence_torso", "reticence_left_arm", "reticence_right_arm", "reticence_left_leg", "reticence_right_leg")
-	cost = list(RESEARCH_POINT_STANDARD = 1200, RESEARCH_POINT_ILLEGAL = 100) // MIXTODO - Remove the illegal from this, just for testing
+	cost = list(RESEARCH_POINT_STANDARD = 1200)
 
 /datum/technode/rnd/mech_cmbt
 	name = "Combat Exosuits"
@@ -109,6 +111,7 @@
 	id = "mech_equip_standard"
 	prereqs = list("mech_aplu")
 	unlocks = list("mech_repair_droid", "mech_thruster", "mech_proj_armor", "mech_ccw_armor", "mech_generator_nuclear", "mech_generator", "mech_energy_relay", "mech_gravcatapult")
+	cost = list(RESEARCH_POINT_STANDARD = 400)
 
 /datum/technode/rnd/mech_equip_mining
 	name = "Exosuit Mining Equipment"
@@ -116,6 +119,7 @@
 	id = "mech_equip_mining"
 	prereqs = list("mech_aplu")
 	unlocks = list("mech_drill", "mech_diamond_drill", "mech_crusher", "mech_plasma_cutter", "mech_mscanner", "mech_plate_armor", "mech_hydraulic_clamp")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/mech_equip_engineering
 	name = "Exosuit Engineering Equipment"
@@ -123,6 +127,7 @@
 	id = "mech_equip_engineering"
 	prereqs = list("mech_aplu")
 	unlocks = list("mech_rcd", "mech_extinguisher", "mech_cable_layer")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/mech_equip_medical
 	name = "Exosuit Medical Equipment"
@@ -130,6 +135,7 @@
 	id = "mech_equip_medical"
 	prereqs = list("mech_ody")
 	unlocks = list("mech_sleeper", "mech_syringe_gun", "mech_medical_jaw", "mech_medi_beam")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/mech_equip_janitorial
 	name = "Exosuit Janitorial Equipment"
@@ -137,6 +143,7 @@
 	id = "mech_equip_janitorial"
 	prereqs = list("mech_nkr")
 	unlocks = list("mech_mop", "mech_garbage_bag", "mech_mega_spray", "mech_light_replacer", "mech_cleaning_grenade_launcher")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/mech_equip_entertainment
 	name = "Exosuit Entertainment Equipment"
@@ -144,6 +151,7 @@
 	id = "mech_equip_entertainment"
 	prereqs = list("mech_ent")
 	unlocks = list("mech_banana_mortar", "mech_honker", "mech_mousetrap_mortar", "mech_silentgun", "mech_mrcd")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/mech_equip_defence
 	name = "Advanced Exosuit Defence"
@@ -151,6 +159,7 @@
 	id = "mech_equip_defence"
 	prereqs = list("mech_cmbt")
 	unlocks = list("dropwall_launcher", "mech_shield_gen")
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 // MARK: Mech Weapons
 /datum/technode/rnd/mech_weap_nonlethal
@@ -159,6 +168,7 @@
 	id = "mech_weap_nonlethal"
 	prereqs = list("mech_cmbt")
 	unlocks = list("mech_scatter_disabler", "mech_disabler", "mech_bola", "mech_grenade_launcher")
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/mech_weap_laser
 	name = "Exosuit Basic Laser Weaponry"
@@ -166,6 +176,7 @@
 	id = "mech_weap_laser"
 	prereqs = list("mech_cmbt")
 	unlocks = list("mech_laser", "mech_immolator")
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/mech_weap_heavylaser
 	name = "Exosuit Heavy Laser Weaponry"
@@ -173,6 +184,7 @@
 	id = "mech_weap_heavylaser"
 	prereqs = list("mech_weap_laser")
 	unlocks = list("mech_laser_heavy", "mech_scatter_laser")
+	cost = list(RESEARCH_POINT_STANDARD = 1200)
 
 /datum/technode/rnd/mech_weap_ballistic
 	name = "Exosuit Ballistic Weaponry"
@@ -180,6 +192,7 @@
 	id = "mech_weap_ballistic"
 	prereqs = list("mech_weap_laser")
 	unlocks = list("mech_lmg", "mech_carbine")
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/mech_weap_special
 	name = "Exosuit Special Weaponry"
@@ -187,6 +200,7 @@
 	id = "mech_weap_special"
 	prereqs = list("mech_weap_heavylaser")
 	unlocks = list("mech_ion", "mech_tesla", "mech_missile_rack")
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 // MARK: Mining
 /datum/technode/rnd/mining
@@ -195,6 +209,7 @@
 	id = "mining"
 	prereqs = list("advparts")
 	unlocks = list("drill", "plasmacutter", "resonator", "triggermod", "rangemod")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/adv_mining
 	name = "Advanced Mining Equipment"
@@ -210,7 +225,7 @@
 	id = "exp_mining"
 	prereqs = list("adv_mining")
 	unlocks = list("megacharge", "lavarod", "jackhammer")
-	cost = list(RESEARCH_POINT_STANDARD = 1000)
+	cost = list(RESEARCH_POINT_STANDARD = 1250)
 
 // MARK: Equipment
 /datum/technode/rnd/huds
@@ -219,7 +234,7 @@
 	id = "huds"
 	prereqs = list("advparts")
 	unlocks = list("health_hud", "security_hud", "skills_hud", "jani_hud", "dianostic_hud", "scigoggles", "hydroponic_hud")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/scanners
 	name = "Penetrating Scanners"
@@ -227,7 +242,7 @@
 	id = "scanners"
 	prereqs = list("huds")
 	unlocks = list("mesons", "engine_goggles", "atmos_goggles")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/nvgs
 	name = "Low-Light Technology"
@@ -235,7 +250,7 @@
 	id = "nvgs"
 	prereqs = list("scanners", "mining")
 	unlocks = list("night_vision_goggles", "nvgmesons")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/personal_equip
 	name = "Personal Equipment"
@@ -251,7 +266,7 @@
 	id = "power_tools"
 	prereqs = list("superparts")
 	unlocks = list("exwelder", "handdrill", "bolter_wrench") // Jaws are in emergency medicine as that is their ""intended"" purpose.
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 8000)
 
 /datum/technode/rnd/porta_power
 	name = "Portable Power"
@@ -259,7 +274,7 @@
 	id = "porta_power"
 	prereqs = list("emergency_equip", "advparts")
 	unlocks = list("pacman", "superpacman", "high_cell", "super_cell")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/indus_power
 	name = "Industrial Power Solutions"
@@ -267,7 +282,7 @@
 	id = "indus_power"
 	prereqs = list("porta_power", "superparts")
 	unlocks = list("mrspacman", "smes", "ptransformer", "hyper_cell",)
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/turbine_power
 	name = "Gas Turbine Generation"
@@ -275,7 +290,7 @@
 	id = "turbine_power"
 	prereqs = list("indus_power")
 	unlocks = list("power_compressor", "power_turbine", "power_turbine_console")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/tesla_power
 	name = "Lightning Redirection"
@@ -283,7 +298,7 @@
 	id = "tesla_power"
 	prereqs = list("indus_power")
 	unlocks = list("grounding_rod", "tesla_coil", "emitter")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/nuclear_power
 	name = "Atomic Energy"
@@ -291,7 +306,7 @@
 	id = "nuclear_power"
 	prereqs = list("indus_power")
 	unlocks = list("nuclear_centrifuge", "nuclear_fabricator", "nuclear_gas_node", "reactor_chamber", "nuclear_monitor")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/nuclear_upgrade
 	name = "Fissile Fabrications"
@@ -299,7 +314,7 @@
 	id = "nuclear_upgrade"
 	prereqs = list("nuclear_power")
 	unlocks = list("nuclear_fab_upgrade", "neutron_grenade")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/atmospherics
 	name = "Atmospherics Equipment"
@@ -307,7 +322,7 @@
 	id = "atmospherics"
 	prereqs = list("emergency_equip", "advparts")
 	unlocks = list("thermomachine", "space_heater", "oxygen_grenade", "extendedoxygen")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/opt_tanks
 	name = "Optimized Tanks"
@@ -315,7 +330,7 @@
 	id = "opt_tanks"
 	prereqs = list("atmospherics")
 	unlocks = list("doubleoxygen") // MIXTODO - maybe make this a prototype.
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 1500) // These last for a bit under half an hour, very useful.
 
 // MARK: Service
 /datum/technode/rnd/adv_sani
@@ -324,7 +339,7 @@
 	id = "adv_sani"
 	prereqs = list("superparts")
 	unlocks = list("advmop", "blutrash", "holosign", "light_replacer")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 // MARK: Medical
 /datum/technode/rnd/med_analysis
@@ -333,7 +348,7 @@
 	id = "med_analysis"
 	prereqs = list("personal_equip")
 	unlocks = list("adv_reagent_scanner", "healthanalyzer_upgrade", "sleeper", "bodyscanner")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/cloning
 	name = "Cellular Replication"
@@ -341,7 +356,7 @@
 	id = "cloning"
 	prereqs = list("chem")
 	unlocks = list("clonepod", "clonescanner", "clonecontrol", "dissection_manager_upgraded")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 2500)
 
 /datum/technode/rnd/chem
 	name = "Chemical Synthesis"
@@ -349,7 +364,7 @@
 	id = "chem"
 	prereqs = list("med_analysis")
 	unlocks = list("splitbeaker", "chem_dispenser", "chem_master", "chem_heater", "reagentgrinder")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/em_medicine
 	name = "Emergency Medicine"
@@ -357,7 +372,7 @@
 	id = "em_medicine"
 	prereqs = list("power_tools")
 	unlocks = list("jawsoflife", "holo_stretcher", "compact_defib", "scalpel_laser")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500) // Given the amount of nodes you need to reach this, pretty fair.
 
 /datum/technode/rnd/adv_med
 	name = "Advanced Medical Devices"
@@ -365,7 +380,7 @@
 	id = "adv_med"
 	prereqs = list("em_medicine")
 	unlocks = list("scalpel_manager", "automender", "bluespacebeaker") // MIXTODO - Maybe make automender a prototype
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/biochip
 	name = "Biochips"
@@ -381,7 +396,7 @@
 	id = "organ_replacements"
 	prereqs = list("advparts")
 	unlocks = list("cybernetic_eyes", "cybernetic_ears", "cybernetic_liver", "cybernetic_kidneys", "cybernetic_heart", "cybernetic_lungs", "ci-nutriment", "skin_1", "skin_2")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/advanced_organs
 	name = "Advanced Organ Replacements"
@@ -389,7 +404,7 @@
 	id = "advanced_organs"
 	prereqs = list("organ_replacements")
 	unlocks = list("cybernetic_liver_u", "cybernetic_kidneys_u", "cybernetic_heart_u", "cybernetic_lungs_u", "skin_3", "epidermal_applicator")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/eye_imp
 	name = "Eye Implants"
@@ -397,7 +412,7 @@
 	id = "eye_imp"
 	prereqs = list("organ_replacements")
 	unlocks = list("ci-mesonhud", "ci-welding", "ci-janihud", "ci-diaghud", "ci-skillhud", "ci-medhud", "ci-hydrohud", "ci-sechud")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 250)
 
 /datum/technode/rnd/wide_spectrum
 	name = "Wide Spectrum Replacements"
@@ -405,7 +420,7 @@
 	id = "wide_spectrum"
 	prereqs = list("eye_imp")
 	unlocks = list("ci-thermals", "ci-scope")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/ultrawide_spectrum
 	name = "Ultra-wide Spectrum Replacements"
@@ -413,7 +428,7 @@
 	id = "ultrawide_spectrum"
 	prereqs = list("wide_spectrum")
 	unlocks = list("ci-xray") // MIXTODO - Probably make this a prototype
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 1250)
 
 /datum/technode/rnd/chest_imp
 	name = "Chest Implants"
@@ -421,7 +436,7 @@
 	id = "chest_imp"
 	prereqs = list("organ_replacements")
 	unlocks = list("ci-nutrimentplus", "ci-reviver", "bluespace_anchor_implant")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 250)
 
 /datum/technode/rnd/brain_imp
 	name = "Brain Implants"
@@ -429,7 +444,7 @@
 	id = "brain_imp"
 	prereqs = list("organ_replacements")
 	unlocks = list("ci-wire_interface", "ci-clownvoice", "ci-antisleep", "ci-antistun", "ci-antidrop")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 250)
 
 /datum/technode/rnd/arm_imp
 	name = "Arm-mounted Implants"
@@ -437,7 +452,7 @@
 	id = "arm_imp"
 	prereqs = list("organ_replacements")
 	unlocks = list("ci-botanical", "ci-janitorial", "ci-cargo", "ci-toolset", "ci-surgey")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 250)
 
 // MARK: Weapons
 /datum/technode/rnd/laser_basic
@@ -446,6 +461,7 @@
 	id = "laser_basic"
 	prereqs = list("personal_equip")
 	unlocks = list("sparker", "stunrevolver", "temp_gun", "ppistol", "nuclear_gun")
+	cost = list(RESEARCH_POINT_STANDARD = 400)
 
 /datum/technode/rnd/laser_high
 	name = "Advanced Laser Weaponry"
@@ -453,6 +469,7 @@
 	id = "laser_high"
 	prereqs = list("laser_basic")
 	unlocks = list("xray", "immolator", "lwap", "lasercannon", "ioncarbine")
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/laser_ult
 	name = "Experimental Laser Weaponry"
@@ -460,13 +477,15 @@
 	id = "laser_ult"
 	prereqs = list("laser_high")
 	unlocks = list("decloner")
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/ammo_laser
 	name = "Cased Laser Ammunition"
-	desc = "Ammunition for the IK-Series of laser projector rifles."
+	desc = "Ammunition for the IK-Series of laser projector rifles, gun sold seperately"
 	id = "ammo_laser"
 	prereqs = list("laser_basic")
 	unlocks = list("mag_laser", "box_laser")
+	cost = list(RESEARCH_POINT_STANDARD = 400)
 
 /datum/technode/rnd/ammo_wt
 	name = "Ballistic Ammunition"
@@ -474,6 +493,7 @@
 	id = "ammo_wt"
 	prereqs = list("laser_high")
 	unlocks = list("mag_oldsmg", "box_oldsmg", "box_oldsmg_ap", "box_oldsmg_ic", "box_oldsmg_tx")
+	cost = list(RESEARCH_POINT_STANDARD = 400)
 
 /datum/technode/rnd/ammo_flame
 	name = "Chemical Warfare"
@@ -481,6 +501,7 @@
 	id = "ammo_flame"
 	prereqs = list("laser_high")
 	unlocks = list("chem_flamethrower_extended", "chemical_canister", "chemical_canister_extended", "chemical_canister_pyro")
+	cost = list(RESEARCH_POINT_STANDARD = 400)
 
 /datum/technode/rnd/improved_grenades
 	name = "Improved Grenade Casings"
@@ -488,6 +509,7 @@
 	id = "improved_grenades"
 	prereqs = list("laser_basic")
 	unlocks = list("large_grenade", "pyro_grenade", "cryo_grenade", "adv_grenade")
+	cost = list(RESEARCH_POINT_STANDARD = 200)
 
 /datum/technode/rnd/defence_tech
 	name = "Personal Defence Technology"
@@ -495,6 +517,7 @@
 	id = "defence_tech"
 	prereqs = list("personal_equip")
 	unlocks = list("tele_shield", "drop_wall")
+	cost = list(RESEARCH_POINT_STANDARD = 600)
 
 /datum/technode/rnd/portals
 	name = "Handheld Portal Device"
@@ -502,6 +525,7 @@
 	id = "portals"
 	prereqs = list("arti_bs")
 	unlocks = list("wormholeprojector")
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 // MARK: Synthetics
 /datum/technode/rnd/ai
@@ -509,16 +533,16 @@
 	desc = "Nanotrasen, pioneering ethical practices since 2080!"
 	id = "ai"
 	prereqs = list("borg_uni")
-	unlocks = list("aicore", "aifixer", "aiupload", "intellicard")
-	cost = list()
+	unlocks = list("aicore", "aifixer", "aiupload", "intellicard", "reset_module", "purge_module")
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/standard_ai
 	name = "Standard AI Lawsets"
 	desc = "Classic set of Nanotrasen approved AI laws, cleans up 99.9% of all malfunctioning code!"
 	id = "standard_ai"
 	prereqs = list("ai")
-	unlocks = list("freeform_module", "reset_module", "purge_module", "corporate_module", "crewsimov_module", "nt_default_module")
-	cost = list()
+	unlocks = list("freeform_module", "corporate_module", "crewsimov_module", "nt_default_module")
+	cost = list(RESEARCH_POINT_STANDARD = 250)
 
 /datum/technode/rnd/unique_ai
 	name = "Unique AI Lawsets"
@@ -526,7 +550,7 @@
 	id = "unique_ai"
 	prereqs = list("standard_ai")
 	unlocks = list("freeformcore_module", "protectstation_module", "quarantine_module", "safeguard_module", "pranksimov_module", "asimov_module", "paladin_module")
-	cost = list()
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/borg_uni
 	name = "Universal Cyborg Enhancements"
@@ -583,6 +607,7 @@
 	id = "mod"
 	prereqs = list("superparts")
 	unlocks = list("mod_shell", "mod_helmet", "mod_chestplate", "mod_gauntlets", "mod_boots", "mod_plating_standard", "mod_storage")
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/mod_plating
 	name = "Specialised MODsuit Plating"
@@ -590,6 +615,7 @@
 	id = "mod_plating"
 	prereqs = list("mod")
 	unlocks = list("mod_plating_engineering", "mod_plating_atmospheric", "mod_plating_medical", "mod_plating_security", "mod_plating_cosmohonk", "mod_skin_civilian", "mod_skin_corpsman")
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/module_gen
 	name = "Standard Modules"
@@ -597,6 +623,7 @@
 	id = "module_gen"
 	prereqs = list("mod")
 	unlocks = list("mod_visor_diaghud", "mod_visor_meson", "mod_t_ray", "mod_flashlight", "mod_reagent_scanner", "mod_gps", "mod_tether", "mod_bikehorn", "mod_waddle")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/module_spec
 	name = "Advanced Modules"
@@ -604,6 +631,7 @@
 	id = "module_spec"
 	prereqs = list("module_gen")
 	unlocks = list("mod_storage_expanded", "mod_status_readout", "mod_plasmastable", "mod_thermal_regulator", "mod_dna_lock", "mod_pathfinder")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/module_med
 	name = "Medical Modules"
@@ -611,6 +639,7 @@
 	id = "module_med"
 	prereqs = list("module_gen")
 	unlocks = list("mod_visor_medhud", "mod_injector", "mod_monitor", "mod_defib", "mod_analyzer")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/module_sup
 	name = "Supply Modules"
@@ -618,6 +647,7 @@
 	id = "module_sup"
 	prereqs = list("module_gen")
 	unlocks = list("mod_clamp", "mod_drill", "mod_orebag")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/module_sec
 	name = "Security Modules"
@@ -625,6 +655,7 @@
 	id = "module_sec"
 	prereqs = list("module_gen")
 	unlocks = list("mod_holster", "mod_sonar", "mod_smokegrenade", "mod_visor_sechud")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
 
 /datum/technode/rnd/module_engi
 	name = "Engineering Modules"
@@ -632,3 +663,4 @@
 	id = "module_engi"
 	prereqs = list("module_gen")
 	unlocks = list("mod_jetpack", "mod_magboot", "mod_rad_protection", "mod_welding")
+	cost = list(RESEARCH_POINT_STANDARD = 300)
