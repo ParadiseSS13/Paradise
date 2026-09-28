@@ -620,6 +620,7 @@
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
 	result = list(/obj/item/stack/tile/carpet/black)
+	blacklist = list(/obj/item/stack/tile/carpet/black)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/black)
@@ -628,6 +629,7 @@
 /datum/crafting_recipe/bluecarpet
 	name = "Blue Carpet"
 	result = list(/obj/item/stack/tile/carpet/blue)
+	blacklist = list(/obj/item/stack/tile/carpet/blue)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue)
@@ -636,6 +638,7 @@
 /datum/crafting_recipe/cyancarpet
 	name = "Cyan Carpet"
 	result = list(/obj/item/stack/tile/carpet/cyan)
+	blacklist = list(/obj/item/stack/tile/carpet/cyan)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
@@ -644,6 +647,7 @@
 /datum/crafting_recipe/greencarpet
 	name = "Green Carpet"
 	result = list(/obj/item/stack/tile/carpet/green)
+	blacklist = list(/obj/item/stack/tile/carpet/green)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/green)
@@ -652,6 +656,7 @@
 /datum/crafting_recipe/orangecarpet
 	name = "Orange Carpet"
 	result = list(/obj/item/stack/tile/carpet/orange)
+	blacklist = list(/obj/item/stack/tile/carpet/orange)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/orange)
@@ -660,6 +665,7 @@
 /datum/crafting_recipe/purplecarpet
 	name = "Purple Carpet"
 	result = list(/obj/item/stack/tile/carpet/purple)
+	blacklist = list(/obj/item/stack/tile/carpet/purple)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/purple)
@@ -668,6 +674,7 @@
 /datum/crafting_recipe/redcarpet
 	name = "Red Carpet"
 	result = list(/obj/item/stack/tile/carpet/red)
+	blacklist = list(/obj/item/stack/tile/carpet/red)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/red)
@@ -676,6 +683,7 @@
 /datum/crafting_recipe/royalblackcarpet
 	name = "Royal Black Carpet"
 	result = list(/obj/item/stack/tile/carpet/royalblack/ten)
+	blacklist = list(/obj/item/stack/tile/carpet/royalblack)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet/black = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)
@@ -684,6 +692,7 @@
 /datum/crafting_recipe/royalbluecarpet
 	name = "Royal Blue Carpet"
 	result = list(/obj/item/stack/tile/carpet/royalblue/ten)
+	blacklist = list(/obj/item/stack/tile/carpet/royalblue)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet/blue = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)
