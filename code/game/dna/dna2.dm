@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
 	/// The base pitch of a blooper before variance.
 	var/blooper_pitch = 1
-	// The Additional +/- pitch, modifies default pitch with the range in positive and negative directions.
+	/// The Additional +/- pitch, modifies default pitch with the range in positive and negative directions.
 	var/blooper_pitch_range = 0.5
 
 // Make a copy of this strand.
