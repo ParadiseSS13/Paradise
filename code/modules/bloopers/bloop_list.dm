@@ -23,7 +23,7 @@
 	allow_random = TRUE
 
 /datum/blooper/voxshriek
-	bloopername = "Vox Sound"
+	bloopername = "Vox Shriek"
 	blooperid = "voxshriek"
 	soundpath = 'sound/voice/shriek1.ogg'
 	allow_random = TRUE
