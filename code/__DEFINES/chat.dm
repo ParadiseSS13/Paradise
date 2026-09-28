@@ -40,7 +40,7 @@
 #define BLOOPER_MAX_BLOOPERS 24
 #define BLOOPER_MAX_TIME (1.5 SECONDS) // More or less the amount of time the above takes to process through with a BLOOPER speed of 2.
 
-// /Macro for determining random pitch based off gender
+/// Macro for determining random pitch based off gender
 #define BLOOPER_PITCH_RAND(gend) ((gend == MALE ? rand(60, 120) : (gend == FEMALE ? rand(80, 140) : rand(60, 140))) / 100)
 
 #define BLOOPER_VARIANCE_RAND (rand(BLOOPER_DEFAULT_MINVARY * 100, BLOOPER_DEFAULT_MAXVARY * 100) / 100) //Macro for randomizing BLOOPER variance to reduce the amount of copy-pasta necessary for that
