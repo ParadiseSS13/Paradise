@@ -164,7 +164,7 @@
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
 	// The bloop volume 0-100.
 	var/blooper_volume = 50
-	// The time of the last fired blooper.
+	/// The time of the last fired blooper.
 	var/blooper_last_start_time
 	/// LAZYLIST
 	var/list/blooper_queue // Subsystem related, theory is that for mobs, we store what they hear in this queue and have a subsystem tick over it. Possible? I think.
