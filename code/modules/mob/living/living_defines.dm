@@ -166,5 +166,5 @@
 	var/blooper_volume = 50
 	// The time of the last fired blooper.
 	var/blooper_last_start_time
-	// LAZYLIST
+	/// LAZYLIST
 	var/list/blooper_queue // Subsystem related, theory is that for mobs, we store what they hear in this queue and have a subsystem tick over it. Possible? I think.
