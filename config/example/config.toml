@@ -180,7 +180,7 @@ fluff_undershirts = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 72
+sql_version = 73
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -686,7 +686,9 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/engineering_vessel.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/gas_station.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/kappalab.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",
@@ -710,6 +712,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_vox.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_skullakin.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/alien_cache_site.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/ragnarok_ship.dmm",
 
   ### The following ruins are based from past pre-spawned Zlevel content ###
   "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
@@ -782,6 +785,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_wooden_cabin.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_basalt_lab.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_providence_crash.dmm",
 ]
 
 ################################################################
@@ -795,10 +799,6 @@ active_lava_ruins = [
 shutdown_on_reboot = false
 # If true to above, an optional shell command can be ran. Defaults to killing DD on windows
 #shutdown_shell_command = "taskkill /im dreamdaemon.exe /f"
-# URL for the internal API host. See https://github.com/ParadiseSS13/ParadiseInternalAPI Do not use https:// or a trailing slash. Comment out to disable
-#api_host = "http://127.0.0.1:8080"
-# Access key for the internal API.
-#api_key = "your_secret_here"
 # Github API token for in game bug reporting
 #github_api_token = "your_secret_here"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
@@ -841,9 +841,6 @@ toast_on_init_complete = true
 # Location of server resources. Used to offload sending the paradise.rsc from DD to a webserver
 # NOTE: This wants paradise.rsc inside a zip file, and it is HTTP ONLY. NO HTTPS
 #rsc_urls = ["http://www.paradisestation.org/windows/paradise.rsc.zip"]
-# Link URL to link forum accounts to ckeys. If set to an empty string, no link option will be offered
-# Token is appended right on the end, so set parameters as needed
-#forum_link_url = "https://example.com/link.php?token="
 # URL for accessing player info from admin webtools
 # Ckey is appended right on the end, so set parameters as needed
 #forum_playerinfo_url = "https://example.com/info.php?ckey="
@@ -861,8 +858,6 @@ github_url = "https://github.com/ParadiseSS13/Paradise"
 exploit_url = "https://www.paradisestation.org/forum/179-exploit-reports/"
 # Discord address
 #discord_url = "http://example.org"
-# Discord address (forum-based invite)
-discord_forum_url = "https://www.paradisestation.org/forum/discord/invite/general/"
 # Donations address
 donations_url = "https://www.patreon.com/ParadiseStation"
 # Ban appeals URL - usually for a forum or wherever people should go to contact your admins

@@ -122,7 +122,7 @@
 "z" = (
 /obj/structure/table/wood,
 /obj/structure/glowshroom,
-/obj/item/a_gift,
+/obj/item/small_delivery/gift/random,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
 "A" = (
@@ -191,7 +191,7 @@
 /area/ruin/powered/pizza_party)
 "M" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/a_gift,
+/obj/item/small_delivery/gift/random,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/powered/pizza_party)
 "N" = (

@@ -123,6 +123,7 @@
 
 		// Medical in general
 		/obj/item/mod/construction/plating/rescue = 25,
+		/obj/item/mod/construction/plating/advanced = 25,
 		/obj/item/gun/medbeam = 25, //Antags can see this to remove it if a threat, unlikely to happen with another midround
 		/obj/item/bodyanalyzer = 25,
 		/obj/item/circuitboard/sleeper/syndicate = 25,

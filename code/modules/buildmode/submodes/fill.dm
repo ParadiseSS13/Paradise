@@ -9,7 +9,7 @@
 	to_chat(user, SPAN_NOTICE("Left Mouse Button on turf/obj/mob      = Select corner"))
 	to_chat(user, SPAN_NOTICE("Left Mouse Button + Alt on turf/obj/mob = Delete region"))
 	to_chat(user, SPAN_NOTICE("Right Mouse Button on buildmode button = Select object type"))
-	to_chat(user, "<span class='notice'>Left Mouse Button + alt on turf/obj    = Copy object type")
+	to_chat(user, SPAN_NOTICE("Left Mouse Button + alt on turf/obj    = Copy object type"))
 	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/fill/change_settings(mob/user)

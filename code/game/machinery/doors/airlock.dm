@@ -121,6 +121,22 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/welded
 	welded = TRUE
 
+/// Special case so spawners with doors autorotate, otherwise identicle
+/obj/machinery/door/airlock/spawner
+
+/obj/machinery/door/airlock/spawner/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/// Lateint required to actually rotate
+/obj/machinery/door/airlock/spawner/LateInitialize()
+	. = ..()
+	var/direction = get_current_direction()
+	dir = direction
+
+/obj/machinery/door/airlock/spawner/welded
+	welded = TRUE
+
 /*
  * reimp, imitate an access denied event.
  */
@@ -666,7 +682,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			. += "There's a [note.name] pinned to the front..."
 			note.examine(user)
 			. += SPAN_NOTICE("Use an empty hand on the airlock on grab mode to remove [note.name].")
-
+	if(welded)
+		. += SPAN_WARNING("It's welded shut!")
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)

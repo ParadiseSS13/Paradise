@@ -181,12 +181,12 @@ const SupermatterMonitorDataView = () => {
                   <ProgressBar
                     value={SM_moles}
                     minValue={0}
-                    maxValue={12000}
+                    maxValue={5000}
                     ranges={{
                       teal: [-Infinity, 100],
-                      average: [100, 11333],
-                      good: [11333, 12000],
-                      bad: [12000, Infinity],
+                      average: [100, 4500],
+                      good: [4500, 5000],
+                      bad: [5000, Infinity],
                     }}
                   >
                     {toFixed(SM_moles) + ' mol'}

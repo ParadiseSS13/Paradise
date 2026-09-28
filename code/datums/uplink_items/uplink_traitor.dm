@@ -440,6 +440,16 @@
 	species = list("Drask")
 	surplus = 0
 
+// Nian
+/datum/uplink_item/species_restricted/crab17
+	name = "CRAB-17 Phone"
+	desc = "This suspicious communication device is connected to a bureau of merchants on the interstellar stock market. With but a single sentence, you can start a chain reaction to crash the market - dump it. \
+			You can swipe IDs on the device to make them immune to the crash. You will receive a box where your well-placed investments will pay out - at the crew's expense."
+	reference = "CRAB17"
+	item = /obj/item/suspiciousphone
+	cost = 35
+	species = list("Nian")
+
 // Unathi
 /datum/uplink_item/species_restricted/breach_cleaver
 	name = "Breach Cleaver"
@@ -449,6 +459,16 @@
 	item = /obj/item/storage/belt/sheath/breach_cleaver
 	cost = 65 // Incredibly strong melee weapon on par with a chainsaw.
 	species = list("Unathi")
+
+// Tajaran
+/datum/uplink_item/species_restricted/blizzard
+	name = "CFL-3 \"Blizzard\""
+	desc = "A small pistol that fires a spread of cryogenic flechettes, which can cool their target to dangerously low temperatures. \
+	It can only fire one burst at a time before needing to regenerate new flechettes, which it will do over the following fifteen seconds."
+	reference = "CLF3"
+	item = /obj/item/gun/energy/kinetic_accelerator/blizzard
+	cost = 45 // High utility, meh damage. It can be cheaper
+	species = list("Tajaran")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS

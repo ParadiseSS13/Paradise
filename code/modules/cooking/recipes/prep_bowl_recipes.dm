@@ -22,6 +22,17 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 	)
 
+/datum/cooking/recipe/ash_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/ash_salad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
+		PCWJ_ADD_ITEM(/obj/item/food/goliath_steak),
+	)
+
 /datum/cooking/recipe/caesar_salad
 	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/caesar
@@ -168,3 +179,47 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
 	)
 
+// ----------- Bowl recipes imported from Hispania!
+
+// ENSALADASS CALENTITAS
+/datum/cooking/recipe/ensaladacactus
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/ensaladacactus
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+	)
+
+/datum/cooking/recipe/garlic_snack
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/garlic_snack
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_REAGENT("guacamole", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 2),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/baguette),
+	)
+
+/datum/cooking/recipe/guacamole
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/reagent_containers/condiment/guacamole
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+	)
+
+// ----------- END of recipe imports from Hispania!

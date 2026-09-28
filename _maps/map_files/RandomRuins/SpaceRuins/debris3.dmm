@@ -79,6 +79,10 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/unpowered)
+"y" = (
+/obj/structure/salvageable/computer,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/unpowered)
 "z" = (
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/unpowered)
@@ -140,6 +144,10 @@
 /obj/item/trash/can,
 /turf/template_noop,
 /area/template_noop)
+"T" = (
+/obj/structure/salvageable/kitchenvend,
+/turf/simulated/floor/plating/damaged/airless,
+/area/ruin/unpowered)
 "U" = (
 /mob/living/simple_animal/hostile/syndicate/depot/modsuit/backup,
 /turf/template_noop,
@@ -486,7 +494,7 @@ w
 a
 W
 d
-z
+y
 v
 g
 i
@@ -525,7 +533,7 @@ a
 a
 a
 a
-z
+T
 g
 a
 a

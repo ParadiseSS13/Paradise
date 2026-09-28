@@ -3,7 +3,7 @@
 	desc = "Looks absolutely SHOCKING!"
 	icon_state = "echair0"
 	item_chair = null
-	var/obj/item/assembly/shock_kit/part = null
+	var/obj/item/assembly/shock_kit/shocker = null
 	var/last_time = 1.0
 	var/delay_time = 50
 	var/shocking = FALSE
@@ -13,17 +13,17 @@
 	update_icon(UPDATE_OVERLAYS)
 
 	if(sk)
-		part = sk
+		shocker = sk
 
-	if(isnull(part)) //This e-chair was not custom built
-		part = new(src)
-		var/obj/item/clothing/head/helmet/part1 = new(part)
-		var/obj/item/electropack/part2 = new(part)
-		part2.integrated_signaler.frequency = 1445
-		part2.integrated_signaler.code = 6
-		part2.master = part
-		part.part1 = part1
-		part.part2 = part2
+	if(isnull(shocker)) // This e-chair was not custom built.
+		shocker = new(src)
+		var/obj/item/clothing/head/helmet/attached_helmet = new(shocker)
+		var/obj/item/electropack/attached_electropack = new(shocker)
+		attached_electropack.integrated_signaler.frequency = 1445
+		attached_electropack.integrated_signaler.code = 6
+		attached_electropack.master = shocker
+		shocker.attached_helmet = attached_helmet
+		shocker.attached_electropack = attached_electropack
 
 /obj/structure/chair/e_chair/examine(mob/user)
 	. = ..()
@@ -34,9 +34,9 @@
 	var/obj/structure/chair/C = new /obj/structure/chair(loc)
 	I.play_tool_sound(src, 50)
 	C.dir = dir
-	part.loc = loc
-	part.master = null
-	part = null
+	shocker.loc = loc
+	shocker.master = null
+	shocker = null
 	visible_message(SPAN_WARNING("[user] deconstructs [src]."))
 	qdel(src)
 

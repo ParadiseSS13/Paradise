@@ -631,6 +631,7 @@
 	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "hud-spartan"
+	icon_monitor = null
 
 //////////// Hats ////////////
 /// Regens: Heather Winceworth

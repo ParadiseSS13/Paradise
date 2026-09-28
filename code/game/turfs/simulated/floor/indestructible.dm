@@ -1,5 +1,9 @@
 /turf/simulated/floor/indestructible
 
+/turf/simulated/floor/indestructible/examine(mob/user, infix, suffix)
+	. = ..()
+	. += SPAN_NOTICE("It appears to be effectively impervious to all conventional methods of destruction.")
+
 /turf/simulated/floor/indestructible/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor

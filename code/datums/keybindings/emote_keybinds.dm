@@ -331,6 +331,10 @@
 	linked_emote = /datum/emote/living/brain/boop
 	name = "Boop"
 
+/datum/keybinding/emote/carbon/brain/scream
+	linked_emote = /datum/emote/living/brain/scream
+	name = "Scream"
+
 /datum/keybinding/emote/carbon/human
 	category = KB_CATEGORY_EMOTE_HUMAN
 
@@ -452,6 +456,10 @@
 /datum/keybinding/emote/carbon/human/handshake
 	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
+
+/datum/keybinding/emote/carbon/human/fistbump
+	linked_emote = /datum/emote/living/carbon/human/highfive/fistbump
+	name = "Fistbump"
 
 /datum/keybinding/emote/carbon/human/snap
 	linked_emote = /datum/emote/living/carbon/human/snap

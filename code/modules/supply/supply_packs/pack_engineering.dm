@@ -216,17 +216,16 @@
 	cost = 750 //So cargo thinks twice before killing themselves with it
 	containername = "supermatter shard crate"
 
-/datum/supply_packs/engineering/nuclear_supermatter_rod
+/datum/supply_packs/engineering/engine/nuclear_supermatter_rod
 	name = "Nuclear Supermatter Rod Crate"
 	contains = list(
 	/obj/item/nuclear_rod/fuel/supermatter,
 	/obj/item/nuclear_rod/fuel/supermatter,
 	)
 	cost = 400
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "nuclear supermatter rod crate"
 
-/datum/supply_packs/engineering/nuclear_supermatter_kit
+/datum/supply_packs/engineering/engine/nuclear_supermatter_kit
 	name = "Nuclear Supermatter Rods Starter Crate"
 	contains = list(
 	/obj/item/nuclear_rod/fuel/supermatter,
@@ -237,10 +236,9 @@
 	/obj/item/nuclear_rod/moderator/plasma_agitator
 	)
 	cost = 800
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "nuclear supermatter starter crate"
 
-/datum/supply_packs/engineering/nuclear_moderator_rods
+/datum/supply_packs/engineering/engine/nuclear_moderator_rods
 	name = "Forged Nuclear Moderator crate"
 	contains = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
@@ -249,10 +247,9 @@
 		/obj/item/nuclear_rod/moderator/aluminum_reflector
 	)
 	cost = 600
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "Forged Nuclear Moderator crate"
 
-/datum/supply_packs/engineering/nuclear_coolant_rods
+/datum/supply_packs/engineering/engine/nuclear_coolant_rods
 	name = "Forged Nuclear Coolant crate"
 	contains = list(
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
@@ -261,10 +258,9 @@
 		/obj/item/nuclear_rod/coolant/molten_salt
 	)
 	cost = 600
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "Forged Nuclear Coolant crate"
 
-/datum/supply_packs/engineering/nuclear_premium_rods
+/datum/supply_packs/engineering/engine/nuclear_premium_rods
 	name = "Forged Premium Nuclear Rods crate"
 	contains = list(
 		/obj/item/nuclear_rod/moderator/platinum_plating,
@@ -273,7 +269,6 @@
 		/obj/item/nuclear_rod/coolant/iridium_conductor,
 	)
 	cost = 1500
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "Forged Premium Nuclear Rods crate"
 
 /* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
@@ -330,27 +325,6 @@
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
-
-/datum/supply_packs/engineering/chemical_flamethrower
-	name = "Chemical Flamethrower Starter Pack"
-	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
-	cost = 500
-	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
-	containername = "chemical flamethrower crate"
-
-/datum/supply_packs/engineering/chemthrower_upgrade
-	name = "Chemical Flamethrower Upgrade Pack"
-	contains = list(/obj/item/weaponcrafting/gunkit/chemical_flamethrower)
-	cost = 250
-	containertype = /obj/structure/closet/crate
-	containername = "chemical flamethrower upgrade crate"
-
-/datum/supply_packs/engineering/chemical_canister
-	name = "Chemical Flamethrower Canister Pack"
-	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
-	cost = 300
-	containertype = /obj/structure/closet/crate
-	containername = "chemical flamethrower canister crate"
 
 /datum/supply_packs/engineering/canister/large_air_pump
 	name = "Large Air Pump"

@@ -7,4 +7,5 @@
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
 		"CereStation_nanomap_z1.png"	= 'icons/_nanomaps/CereStation_nanomap_z1.png',
 		"EmeraldStation_nanomap_z1.png"	= 'icons/_nanomaps/EmeraldStation_nanomap_z1.png',
+		"OmegaStation_nanomap_z1.png"	= 'icons/_nanomaps/OmegaStation_nanomap_z1.png',
 	)

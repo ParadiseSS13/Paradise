@@ -8,6 +8,10 @@
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
+	/// Text shown on the area's icon for map editors.
+	var/area_icon_text = null
+	/// Background color drawn on the area's icon for map editors.
+	var/area_icon_color = null
 	layer = AREA_LAYER
 	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0
@@ -341,10 +345,7 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-			GLOB.firealarm_soundloop.start(F)
+		start_alarm_sounds()
 		if(!firealarm_sound_stop_timer)
 			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 4 MINUTES, TIMER_STOPPABLE | TIMER_UNIQUE)
 
@@ -357,10 +358,19 @@
 
 	START_PROCESSING(SSobj, src)
 
+/area/proc/start_alarm_sounds()
+	for(var/obj/machinery/firealarm/F in firealarms)
+		F.update_icon()
+		GLOB.firealarm_soundloop.start(F)
+	for(var/obj/machinery/alarm/A in air_alarms)
+		GLOB.firealarm_soundloop.start(A)
+
 /area/proc/stop_alarm_sounds()
 	for(var/obj/machinery/firealarm/F in firealarms)
 		F.update_icon()
 		GLOB.firealarm_soundloop.stop(F)
+	for(var/obj/machinery/alarm/A in air_alarms)
+		GLOB.firealarm_soundloop.stop(A)
 /**
   * Reset the firealarm alert for this area
   *
@@ -376,10 +386,7 @@
 		if(firealarm_sound_stop_timer)
 			deltimer(firealarm_sound_stop_timer)
 			firealarm_sound_stop_timer = null
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-			GLOB.firealarm_soundloop.stop(F, TRUE)
+		stop_alarm_sounds()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)

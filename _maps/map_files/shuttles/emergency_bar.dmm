@@ -16,6 +16,7 @@
 /area/shuttle/escape)
 "af" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/machinery/optable,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
@@ -191,6 +192,7 @@
 	pixel_y = 9
 	},
 /obj/item/storage/firstaid/o2,
+/obj/item/storage/box/bodybags,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aP" = (
@@ -604,6 +606,7 @@
 /area/shuttle/escape)
 "wF" = (
 /obj/machinery/iv_drip,
+/obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "xd" = (
@@ -754,8 +757,11 @@
 "Ej" = (
 /obj/machinery/light/spot,
 /obj/machinery/economy/vending/wallmed/directional/east,
-/obj/item/storage/box/bodybags,
 /obj/structure/table/reinforced,
+/obj/item/storage/surgical_tray{
+	pixel_y = 11
+	},
+/obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "EQ" = (
@@ -1100,7 +1106,9 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "YQ" = (
-/obj/structure/bed/roller,
+/obj/machinery/computer/operating{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Zz" = (

@@ -35,7 +35,9 @@
 	var/drink_name = "Glass of ..what?"
 	var/drink_desc = "You can't really tell what this is."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
+	var/taste_flag = ORGANIC
 	var/taste_description = "metaphorical salt"
+	var/yuck_description = null // message they'll get if they meet sensitivity but don't match taste flag, not required
 	/// how quickly the addiction threshold var decays
 	var/addiction_decay_rate = 0.01
 

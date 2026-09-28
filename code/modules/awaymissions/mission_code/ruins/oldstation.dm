@@ -469,6 +469,8 @@
 /area/ruin/ancientstation/proto
 	name = "Theta Station Prototype Lab"
 	icon_state = "scilab"
+	area_icon_text = "SCI\nLAB"
+	area_icon_color = AREA_COLOR_SCIENCE
 
 /area/ruin/ancientstation/rnd
 	name = "Theta Station Research and Development"
@@ -476,7 +478,9 @@
 
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
-	icon_state = "teleporter"
+	icon_state = "hivebot"
+	area_icon_text = "HIVEBOT"
+	area_icon_color = AREA_COLOR_SECURITY
 	requires_power = FALSE
 
 // MARK: LORE CONSOLES

@@ -9,6 +9,7 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler
 	var/obj/item/assembly/signaler/electropack/integrated_signaler
+	new_attack_chain = TRUE
 
 /obj/item/electropack/Initialize(mapload)
 	. = ..()
@@ -20,11 +21,11 @@
 
 	if(istype(loc, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/S = loc
-		if(S.part1 == src)
-			S.part1 = null
+		if(S.attached_helmet == src)
+			S.attached_helmet = null
 
-		else if(S.part2 == src)
-			S.part2 = null
+		else if(S.attached_electropack == src)
+			S.attached_electropack = null
 
 		master = null
 
@@ -37,33 +38,51 @@
 
 	..()
 
-/obj/item/electropack/attack_self__legacy__attackchain(mob/user)
+/obj/item/electropack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/electropack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
+/obj/item/electropack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/clothing/head/helmet))
+		return ..()
 
-	if(istype(W, /obj/item/clothing/head/helmet))
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(user)
-		A.icon = 'icons/obj/assemblies.dmi'
+	attach_helmet(used, user)
+	return ITEM_INTERACT_COMPLETE
 
-		if(!user.unequip(W))
-			to_chat(user, SPAN_NOTICE("\the [W] is stuck to your hand, you cannot attach it to \the [src]!"))
-			return
+/obj/item/electropack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/clothing/head/helmet))
+		return ..()
 
-		W.forceMove(A)
-		W.master = A
-		A.part1 = W
+	attach_helmet(target, user)
+	return ITEM_INTERACT_COMPLETE
 
-		user.transfer_item_to(src, A)
-		master = A
-		A.part2 = src
+/obj/item/electropack/proc/attach_helmet(obj/item/clothing/head/helmet/used, mob/living/user)
+	if(!istype(used))
+		return FALSE
 
-		user.put_in_hands(A)
-		A.add_fingerprint(user)
-		if(src.flags & NODROP)
-			A.set_nodrop(TRUE)
+	var/obj/item/assembly/shock_kit/kit = new /obj/item/assembly/shock_kit(user)
+	kit.icon = 'icons/obj/assemblies.dmi'
 
+	if(!user.unequip(used))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot attach it to [src]!"))
+		return FALSE
+
+	used.forceMove(kit)
+	used.master = kit
+	kit.attached_helmet = used
+
+	user.transfer_item_to(src, kit)
+	master = kit
+	kit.attached_electropack = src
+
+	user.put_in_hands(kit)
+	kit.add_fingerprint(user)
+	if(src.flags & NODROP)
+		kit.set_nodrop(TRUE)
+	return TRUE
 
 /obj/item/electropack/proc/handle_shock()
 	if(istype(master, /obj/item/assembly/shock_kit))
@@ -79,7 +98,7 @@
 
 // This should honestly just proxy the UI to the internal signaler
 /obj/item/electropack/ui_state(mob/user)
-	return GLOB.inventory_state
+	return GLOB.deep_inventory_state
 
 /obj/item/electropack/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

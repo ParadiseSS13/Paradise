@@ -123,6 +123,11 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	req_access = list(ACCESS_SYNDICATE)
 	req_one_access = list()
 
+/// General space ruin air alarms
+/obj/machinery/alarm/ruin
+	report_danger_level = FALSE
+	remote_control = FALSE
+
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
 
@@ -706,6 +711,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
 
+	var/area/area_loc = get_area(src)
+	data["fireAlarmActivated"] = area_loc.fire
+
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
@@ -864,6 +872,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		to_chat(user, SPAN_WARNING("AI control for \the [src] interface has been disabled."))
 		return UI_CLOSE
 
+	if(rcon_setting == RCON_NO && !Adjacent(user) && !issilicon(user))
+		return UI_DISABLED
+
 	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
@@ -891,6 +902,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(RCON_YES)
 					rcon_setting = RCON_YES
 
+		if("set_fire_alarm")
+			var/area/area_loc = get_area(src)
+			if(area_loc.fire)
+				area_loc.firereset(src)
+			else
+				area_loc.firealert(src)
 
 		if("command")
 			if(!is_authenticated(usr, active_ui))
@@ -1227,6 +1244,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/ruin, 32, 32)
 
 /*
 AIR ALARM CIRCUIT

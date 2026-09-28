@@ -182,7 +182,7 @@
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.remove_hud_from(src)
+		data_hud.remove_hud_from(src, "bot")
 
 	GLOB.bots_list -= src
 	QDEL_NULL(path)
@@ -329,6 +329,8 @@
 	else
 		. += "[src] is in pristine condition."
 
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly swipe your ID.")
+
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
 	if(amount > 0 && prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -422,18 +424,26 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
+/mob/living/simple_animal/bot/AltClick(mob/user)
+	if(Adjacent(user))
+		toggle_lock(user)
+
+/mob/living/simple_animal/bot/proc/toggle_lock(mob/user)
+	if(allowed(user) && !open && !emagged)
+		locked = !locked
+		to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
+		return TRUE
+	if(emagged)
+		to_chat(user, SPAN_DANGER("ERROR"))
+	if(open)
+		to_chat(user, SPAN_WARNING("Please close the access panel before locking it."))
+	else
+		to_chat(user, SPAN_WARNING("Access denied."))
+	return FALSE
+
 /mob/living/simple_animal/bot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
-		if(allowed(user) && !open && !emagged)
-			locked = !locked
-			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
-			return ITEM_INTERACT_COMPLETE
-		if(emagged)
-			to_chat(user, SPAN_DANGER("ERROR"))
-		if(open)
-			to_chat(user, SPAN_WARNING("Please close the access panel before locking it."))
-		else
-			to_chat(user, SPAN_WARNING("Access denied."))
+		toggle_lock(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/paicard))
@@ -1067,7 +1077,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.add_hud_to(src)
+		data_hud.add_hud_to(src, "bot")
 
 	diag_hud_set_botmode()
 	show_laws()

@@ -222,8 +222,8 @@
 	walltype = /turf/simulated/wall/mineral/uranium
 	var/active = FALSE
 	var/last_event = 0
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_URANIUM_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /obj/structure/falsewall/uranium/Initialize(mapload)
 	. = ..()
@@ -241,8 +241,8 @@
 	base_icon_state = "gold_wall"
 	mineral = /obj/item/stack/sheet/mineral/gold
 	walltype = /turf/simulated/wall/mineral/gold
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_GOLD_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_GOLD_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /obj/structure/falsewall/silver
 	name = "silver wall"
@@ -252,8 +252,8 @@
 	base_icon_state = "silver_wall"
 	mineral = /obj/item/stack/sheet/mineral/silver
 	walltype = /turf/simulated/wall/mineral/silver
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SILVER_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SILVER_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /obj/structure/falsewall/diamond
 	name = "diamond wall"
@@ -263,8 +263,8 @@
 	base_icon_state = "diamond_wall"
 	mineral = /obj/item/stack/sheet/mineral/diamond
 	walltype = /turf/simulated/wall/mineral/diamond
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_DIAMOND_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_DIAMOND_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 	max_integrity = 800
 
 
@@ -276,8 +276,8 @@
 	base_icon_state = "plasma_wall"
 	mineral = /obj/item/stack/sheet/mineral/plasma
 	walltype = /turf/simulated/wall/mineral/plasma
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_PLASMA_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -320,8 +320,8 @@
 	base_icon_state = "bananium_wall"
 	mineral = /obj/item/stack/sheet/mineral/bananium
 	walltype = /turf/simulated/wall/mineral/bananium
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BANANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BANANIUM_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
@@ -331,8 +331,8 @@
 	base_icon_state = "sandstone_wall"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SANDSTONE_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SANDSTONE_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
@@ -342,8 +342,8 @@
 	base_icon_state = "wood_wall"
 	mineral = /obj/item/stack/sheet/wood
 	walltype = /turf/simulated/wall/mineral/wood
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WOOD_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /obj/structure/falsewall/iron
 	name = "rough metal wall"

@@ -377,7 +377,7 @@ pub(crate) fn post_process(
                 react(my_next_tile, true);
             }
 
-            do_turf_effects(my_next_tile, x, y, z);
+            do_turf_effects(my_next_tile, x, y, z)?;
 
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
@@ -703,20 +703,37 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         thermal_energy += HYDROGEN_BURN_ENERGY * hydrogen_burnt;
         // Recalculate temperature for any subsequent reactions.
         // (or we would, but this is the last reaction)
-        //cached_temperature = thermal_energy / cached_heat_capacity;
+        cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += hydrogen_burnt;
     }
 
     if hotspot_step {
-        adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);
+        // Conduct some temperature to the tile.
+        let mut conduction = 0.0;
+        let tile_temperature = my_next_tile.temperature();
+        let temperature_difference = cached_temperature - tile_temperature;
+        if temperature_difference > 0.0 {
+            let excess_thermal_energy = temperature_difference * cached_heat_capacity;
+            conduction = excess_thermal_energy * HOTSPOT_CONDUCTION;
+            my_next_tile.thermal_energy += conduction;
+        }
+        adjust_hotspot(
+            my_next_tile,
+            thermal_energy - initial_thermal_energy - conduction,
+        );
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
     }
 }
 
 /// Apply the effects of the gas onto the turf itself
-pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
+pub(crate) fn do_turf_effects(
+    my_next_tile: &mut Tile,
+    x: i32,
+    y: i32,
+    z: i32,
+) -> Result<(), eyre::Error> {
     let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
     // Calculate the water saturation pressure using the Arden Buck equation
     let saturation_pressure: f32;
@@ -737,13 +754,15 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
         (my_next_tile.gases.water_vapor() * R_IDEAL_GAS_EQUATION * cached_temperature
             / TILE_VOLUME)
             / saturation_pressure;
-    if relative_humidity > 1.0 && my_next_tile.gases.water_vapor() > 0.0 {
+    if relative_humidity > 1.0 && my_next_tile.gases.water_vapor() > 1.0 {
         // Condense all the water we cannot hold
         let condensed_water: f32 =
             my_next_tile.gases.water_vapor() - my_next_tile.gases.water_vapor() / relative_humidity;
         my_next_tile
             .gases
             .set_water_vapor(my_next_tile.gases.water_vapor() - condensed_water);
+
+        my_next_tile.thermal_energy += WATER_VAPOR_BREAKDOWN_ENERGY * condensed_water;
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
         // Make the floor wet
@@ -759,8 +778,9 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
                 ByondValue::from((y + 1) as f32),
                 ByondValue::from((z + 1) as f32),
             ],
-        );
+        )?;
     }
+    Ok(())
 }
 
 /// Apply effects caused by the tile's atmos mode.

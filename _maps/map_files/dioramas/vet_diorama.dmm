@@ -1,0 +1,258 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table/glass,
+/obj/item/lazarus_injector{
+	pixel_x = 6;
+	pixel_y = 14
+	},
+/obj/item/storage/belt/lazarus{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/structure/window/plastitanium,
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"d" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table/glass,
+/obj/item/stack/sheet/bone{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/obj/item/queen_bee{
+	pixel_x = -2;
+	pixel_y = 11
+	},
+/obj/item/toy/cattoy{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"e" = (
+/obj/machinery/optable,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"f" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/engine/cult,
+/area/centcom/diorama/lavaland)
+"i" = (
+/obj/structure/table/glass,
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"l" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/door/window/survival_pod{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/centcom/diorama/lavaland)
+"o" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/bed/dogbed,
+/obj/item/toy/pet_rock/fred,
+/turf/simulated/floor/grass/jungle,
+/area/centcom/diorama/lavaland)
+"p" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/centcom/diorama/lavaland)
+"q" = (
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/centcom/diorama/lavaland)
+"u" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/cat/cak,
+/turf/simulated/floor/grass/jungle,
+/area/centcom/diorama/lavaland)
+"z" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"B" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"C" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"D" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/corgi/narsie,
+/turf/simulated/floor/engine/cult,
+/area/centcom/diorama/lavaland)
+"J" = (
+/turf/template_noop,
+/area/template_noop)
+"K" = (
+/obj/structure/table/glass,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/obj/item/storage/surgical_tray{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"L" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/door/window/survival_pod{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle,
+/area/centcom/diorama/lavaland)
+"N" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"O" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+"T" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"Y" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle,
+/area/centcom/diorama/lavaland)
+"Z" = (
+/obj/structure/closet/secure_closet/medical1,
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/diorama/lavaland)
+
+(1,1,1) = {"
+u
+Y
+o
+Y
+D
+f
+J
+"}
+(2,1,1) = {"
+L
+t
+L
+t
+l
+p
+J
+"}
+(3,1,1) = {"
+z
+C
+q
+q
+C
+O
+T
+"}
+(4,1,1) = {"
+K
+N
+q
+q
+d
+a
+J
+"}
+(5,1,1) = {"
+i
+e
+B
+B
+B
+Z
+J
+"}

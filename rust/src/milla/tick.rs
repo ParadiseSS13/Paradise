@@ -318,8 +318,8 @@ mod tests {
         toxins_: Option<f32>,
         sleeping_agent_: Option<f32>,
         agent_b_: Option<f32>,
-        hydrogen: Option<f32>,
-        water_vapor: Option<f32>,
+        hydrogen_: Option<f32>,
+        water_vapor_: Option<f32>,
         thermal_energy_: Option<f32>,
         temperature_: Option<f32>,
     }
@@ -333,8 +333,8 @@ mod tests {
                 toxins_: None,
                 sleeping_agent_: None,
                 agent_b_: None,
-                hydrogen: None,
-                water_vapor: None,
+                hydrogen_: None,
+                water_vapor_: None,
                 thermal_energy_: None,
                 temperature_: None,
             }

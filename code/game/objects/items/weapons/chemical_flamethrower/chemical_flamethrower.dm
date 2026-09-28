@@ -280,9 +280,9 @@
 		return
 
 	if(!first_time_silent)
-		audible_message("<span class='notice'>[src]'s speaker beeps: \
+		audible_message(SPAN_NOTICE("[src]'s speaker beeps: \
 						The reservoir has [reagents.total_volume] out of [required_volume] units. \
-						Reagents are [has_enough_reagents ? "in effect" : "not active"].</span>")
+						Reagents are [has_enough_reagents ? "in effect" : "not active"]."))
 	first_time_silent = FALSE
 
 	if(has_enough_reagents)

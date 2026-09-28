@@ -293,33 +293,32 @@
 		stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
-	var/valid_target = FALSE
+	var/obj/machinery/atmospherics/unary/vent_pump/valid_supply = null
+	var/obj/machinery/atmospherics/unary/vent_pump/valid_scrubber = null
+	var/obj/machinery/atmospherics/pipe/pipe_loc = loc
 	for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
-		if(P.welded)
-			valid_target = TRUE
+		if(P.welded && (!istype(pipe_loc, /obj/machinery/atmospherics) || pipe_loc.parent == P.parent))
+			valid_supply = P
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
-		if(C.welded)
-			valid_target = TRUE
-	if(!valid_target)
+		if(C.welded && (!istype(pipe_loc, /obj/machinery/atmospherics) || pipe_loc.parent == C.parent))
+			valid_scrubber = C
+	if(!(valid_supply || valid_scrubber))
 		to_chat(src, SPAN_WARNING("No welded vent or scrubber nearby!"))
 		return
 	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
-	if(do_after(src, 40, target = loc))
-		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
-			if(P.welded)
-				P.welded = FALSE
-				P.update_icon()
-				P.update_pipe_image()
-				forceMove(P.loc)
-				P.visible_message(SPAN_DANGER("[src] smashes the welded cover off [P]!"))
-				return
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
-			if(C.welded)
-				C.welded = FALSE
-				C.update_icon()
-				C.update_pipe_image()
-				forceMove(C.loc)
-				C.visible_message(SPAN_DANGER("[src] smashes the welded cover off [C]!"))
-				return
-		to_chat(src, SPAN_DANGER("There is no welded vent or scrubber close enough to do this."))
+	if(!do_after(src, 40, target = loc))
+		return
+	if(valid_supply && valid_supply.welded)
+		valid_supply.welded = FALSE
+		valid_supply.update_icon()
+		forceMove(valid_supply.loc)
+		valid_supply.visible_message(SPAN_DANGER("[src] smashes the welded cover off [valid_supply]!"))
+		return
+	if(valid_scrubber && valid_scrubber.welded)
+		valid_scrubber.welded = FALSE
+		valid_scrubber.update_icon()
+		forceMove(valid_scrubber.loc)
+		valid_scrubber.visible_message(SPAN_DANGER("[src] smashes the welded cover off [valid_scrubber]!"))
+		return
+	to_chat(src, SPAN_WARNING("There is no welded vent or scrubber close enough to do this!"))
 

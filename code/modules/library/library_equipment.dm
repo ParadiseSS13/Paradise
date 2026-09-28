@@ -358,13 +358,18 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/list/modes = list(BARCODE_MODE_SCAN_SELECT, BARCODE_MODE_SCAN_INVENTORY, BARCODE_MODE_CHECKOUT, BARCODE_MODE_CHECKIN)
-	/// Associated Library Computer, needed to perform actions
+	/// Associated Library Computer, needed to perform actions.
 	var/obj/machinery/computer/library/computer
 	var/mode = BARCODE_MODE_SCAN_SELECT
+	new_attack_chain = TRUE
 
-/obj/item/barcodescanner/attack_self__legacy__attackchain(mob/user)
+/obj/item/barcodescanner/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!check_connection(user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	mode++
 	if(mode > length(modes))
 		mode = modes[1]
@@ -382,21 +387,23 @@
 			modedesc = "ERROR"
 	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 	to_chat(user, SPAN_NOTICE("[src] mode: [modedesc]"))
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/barcodescanner/proc/connect(obj/machinery/computer/library/library_computer)
 	if(!istype(library_computer))
 		return FALSE
 	if(computer == library_computer)
-		return TRUE //we're succesfully connected already, let player know it was a "succesful connection"
+		return TRUE // We're succesfully connected already, let player know it was a "succesful connection".
 
-	disconnect() //clear references to old computer, we have to unregister signals
+	disconnect() // Clear references to old computer, we have to unregister signals.
 	computer = library_computer
 	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, PROC_REF(disconnect))
 	return TRUE
 
 /obj/item/barcodescanner/proc/disconnect()
 	if(!computer)
-		return //proc will runtime if computer is null
+		return // Proc will runtime if computer is null.
 	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
 	computer = null
 

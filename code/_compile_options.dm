@@ -55,3 +55,9 @@
 #error Your version of BYOND is too out-of-date to compile this project. Go to secure.byond.com/download and update.
 #error You need version 516.1651 or higher
 #endif
+
+#define MAX_COMPILER_BUILD 1673
+#if(DM_BUILD > MAX_COMPILER_BUILD) && !defined(SPACEMAN_DMM)
+#error Your version of BYOND is too new for the libraries in this project.
+#error Please go to secure.byond.com/download and download 516.1673 or older.
+#endif

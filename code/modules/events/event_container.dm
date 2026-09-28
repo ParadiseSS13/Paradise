@@ -142,9 +142,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 252),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 9),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 7),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 7),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 14),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 11),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 10),
@@ -198,8 +197,10 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 40, TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/shuttle_loan, 50, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/anomalous_particulate_event, 60, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/market_crash, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_irradiated_mouse, 20),
 	)
 
 /datum/event_container/major
@@ -221,7 +222,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/space_ninja, 9),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/wizard_adept, 5),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 16, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_uplifted_primitive, 16, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/aurora_caelus, 5, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration/whale, 10, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
 
@@ -231,6 +234,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 5730),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/flockmind, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/prince, 0, TRUE),

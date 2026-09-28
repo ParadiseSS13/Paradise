@@ -12,6 +12,7 @@
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
+	new_attack_chain = TRUE
 	/// Uses before it goes inert
 	var/Uses = 1
 	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
@@ -19,15 +20,15 @@
 	/// The gun type associated with the extract
 	var/obj/item/gun/energy/associated_gun_type
 
-/obj/item/slime_extract/attackby__legacy__attackchain(obj/item/O, mob/user)
-	if(istype(O, /obj/item/slimepotion/enhancer))
+/obj/item/slime_extract/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/slimepotion/enhancer))
 		if(Uses >= 5)
 			to_chat(user, SPAN_WARNING("You cannot enhance this extract further!"))
 			return ..()
 		to_chat(user, SPAN_NOTICE("You apply the enhancer to the slime extract. It may now be reused one more time."))
 		Uses++
-		qdel(O)
-	if(istype(O, /obj/item/reagent_containers/syringe))
+		qdel(used)
+	if(istype(used, /obj/item/reagent_containers/syringe))
 		injector_mob = user
 	..()
 

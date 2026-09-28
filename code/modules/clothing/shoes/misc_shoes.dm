@@ -80,7 +80,7 @@
 
 /obj/item/clothing/shoes/clown_shoes
 	name = "clown shoes"
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! <span class='notice'>Alt-click to toggle the waddle dampeners!</span>"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
 	icon_state = "clown"
 	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
@@ -89,6 +89,10 @@
 	// shoes, but the functionality of clown shoes.
 
 	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/examine()
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-click</b> to toggle the waddle dampeners!")
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
@@ -211,6 +215,9 @@
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Thick-soled boots for industrial work environments."
+	flags = THICKMATERIAL
+	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 20, RAD = 0, FIRE = 50, ACID = 100)
+	materials = list(MAT_METAL = 1000)
 	can_cut_open = 1
 	icon_state = "workboots"
 	dyeable = FALSE
@@ -219,6 +226,7 @@
 	name = "mining boots"
 	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
 	icon_state = "explorer"
+	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 20, RAD = 0, FIRE = 200, ACID = 100) // Made for Lavaland so they put some extra asbestos in there, as a treat.
 	resistance_flags = FIRE_PROOF
 	cold_protection = FEET|LEGS
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT

@@ -743,7 +743,7 @@
 		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
-	var/turf/target_turf = targets[1]
+	var/turf/target_turf = get_turf(targets[1])
 	var/mob/living/silicon/ai/AI = user
 	if(!check_camera_vision(user, target_turf))
 		revert_cast()

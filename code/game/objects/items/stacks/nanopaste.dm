@@ -102,6 +102,7 @@
 		user.visible_message(SPAN_NOTICE("[user] applies some nanite paste at [H]'s [other_external_limb.name] with [src]."))
 	if(H.bleed_rate && ismachineperson(H))
 		H.bleed_rate = 0
+	H.UpdateDamageIcon()
 
 /obj/item/stack/nanopaste/cyborg
 	energy_type = /datum/robot_storage/energy/medical/nanopaste

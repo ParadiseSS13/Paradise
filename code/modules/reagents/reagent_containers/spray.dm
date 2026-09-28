@@ -32,7 +32,7 @@
 
 /obj/item/reagent_containers/spray/normal_act(atom/A, mob/living/user)
 	. = TRUE
-	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+	if(isstorage(A) || ismodcontrol(A) || is_surface(A) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return FALSE
 

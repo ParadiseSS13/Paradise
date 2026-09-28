@@ -23,7 +23,7 @@ have ways of interacting with a specific mob and control it.
 		BB_MONKEY_ENEMIES = list(),
 		BB_MONKEY_BLACKLISTITEMS = list(),
 		BB_MONKEY_PICKPOCKETING = FALSE,
-		BB_MONKEY_DISPOSING = FALSE,
+		BB_MONKEY_DISPOSING = MONKEY_DISPOSING_READY,
 		BB_MONKEY_GUN_NEURONS_ACTIVATED = FALSE,
 		BB_RESISTING = FALSE,
 	)
@@ -63,6 +63,24 @@ have ways of interacting with a specific mob and control it.
 		/datum/ai_planning_subtree/punpun_shenanigans,
 	)
 	idle_behavior = /datum/idle_behavior/idle_monkey/pun_pun
+
+/datum/ai_controller/monkey/uplifted_npc
+	movement_delay = 7 DECISECONDS // uplifted npcs move slower so that they're less annoying
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/generic_resist,
+		/datum/ai_planning_subtree/monkey_combat,
+	)
+
+/datum/ai_controller/monkey/uplifted_npc/retaliate(mob/living/living_mob)
+	var/mob/living/carbon/human/me = pawn
+	var/mob/living/carbon/human/target = living_mob
+
+	if(istype(me) && istype(target) \
+		&& target.mind && target.mind.has_antag_datum(/datum/antagonist/uplifted_primitive) \
+		&& target.dna.species.type == me.dna.species.type)
+		return
+
+	return ..()
 
 /datum/ai_controller/monkey/angry
 

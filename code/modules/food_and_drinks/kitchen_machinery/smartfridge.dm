@@ -188,6 +188,9 @@
 	if(istype(used, /obj/item/autochef_remote))
 		return
 
+	if(istype(used, /obj/item/gripper))
+		return ..()
+
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, SPAN_NOTICE("[src] is unpowered and useless."))
 		return ITEM_INTERACT_COMPLETE

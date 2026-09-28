@@ -38,6 +38,7 @@
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/blob_overminds = list()
+	var/list/flockminds = list()
 	var/list/incursion_portals = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
@@ -115,6 +116,11 @@
 	var/list/datum/mind/zombies = list()
 	/// A list of all minds that are infected with the zombie virus, but aren't zombies yet
 	var/list/datum/mind/zombie_infected = list()
+
+	/// An associative list between a species and all the minds that are uplifted primitive of that species.
+	var/list/datum/mind/uplifted_primitives = alist()
+	/// An associative list between the species of the team and the team's datum.
+	var/list/datum/team/uplifted_primitive/uplifted_teams = alist()
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")

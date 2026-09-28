@@ -7,6 +7,7 @@
 	color = "#600694"
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	taste_description = "admin abuse"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0, FALSE)

@@ -142,8 +142,24 @@
 		return standard_mode
 
 	if(length(message) >= 2)
-		var/channel_prefix = copytext_char(message, 1, 3)
-		return GLOB.department_radio_keys[channel_prefix]
+		var/channel_prefix_long = trim_right(copytext_char(message, 1, 4))
+		var/channel_prefix_short = trim_right(copytext_char(message, 1, 3))
+
+		// Check languages first. Deconflict your language/radio keys if this causes problems.
+		var/datum/language/L = GLOB.language_keys[channel_prefix_long]
+		if(L != null && can_speak_language(L))
+			return null
+		L = GLOB.language_keys[channel_prefix_short]
+		if(L != null && can_speak_language(L))
+			return null
+
+		// Now check radio keys.
+		var/radio_key = GLOB.department_radio_keys[channel_prefix_long]
+		if(radio_key != null)
+			return radio_key
+		radio_key = GLOB.department_radio_keys[channel_prefix_short]
+		if(radio_key != null)
+			return radio_key
 
 	return null
 

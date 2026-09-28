@@ -136,6 +136,7 @@
 	preloadBridgeTemplates()
 	preloadEventTemplates()
 	preloadLazyTemplates()
+	preloadDiorama()
 
 /proc/preloadRuinTemplates()
 	// Merge the active lists together
@@ -218,3 +219,22 @@
 		var/datum/map_template/lazy/L = new lazy_type()
 
 		GLOB.map_templates[L.name] = L
+
+/proc/preloadDiorama()
+	var/list/valid_dioramas = list()
+
+	for(var/item in subtypesof(/datum/map_template/diorama))
+		var/datum/map_template/diorama/diorama_type = item
+		if(!initial(diorama_type.mappath))
+			continue
+		var/datum/map_template/diorama/E = new diorama_type()
+		GLOB.map_templates[E.diorama_id] = E
+		valid_dioramas += E
+
+	if(length(valid_dioramas))
+		var/datum/map_template/diorama/chosen = pick(valid_dioramas)
+		var/turf/T = locate(108, 115, 1)
+		if(chosen.fits_in_map_bounds(T))
+			chosen.load(T)
+			for(var/obj/structure/diorama_sign/S in world)
+				S.desc = chosen.description

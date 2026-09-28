@@ -5,6 +5,7 @@
 	desc = "A generic chess piece used in a game of chess."
 	icon = 'icons/obj/chess.dmi'
 	materials = list(MAT_CARDBOARD = 2000)
+	new_attack_chain = TRUE
 
 //Black chess pieces.
 
