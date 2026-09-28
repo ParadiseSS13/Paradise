@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/chat_color
 	/// The blooper data to load for when a character is cloned, a changeling transforms, or when a character is created
 	var/datum/blooper/blooper_id
-	// The speed of a blooper, which changes delays per sound.
+	/// The speed of a blooper, which changes delays per sound.
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
 	/// The base pitch of a blooper before variance.
 	var/blooper_pitch = 1
