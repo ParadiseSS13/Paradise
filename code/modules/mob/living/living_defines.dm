@@ -152,7 +152,6 @@
 	// Bloopers
 
 
-
 	var/sound/blooper
 	// The current mob's stored ID for their blooper. ID of a datum.
 	var/blooper_id
