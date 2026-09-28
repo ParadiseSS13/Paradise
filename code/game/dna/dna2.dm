@@ -157,7 +157,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique), length(GLOB.character_physiques), TRUE)
 	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height), length(GLOB.character_heights), TRUE)
 
-
 	SetUIValueRange(DNA_UI_BLOOPER_ID, GLOB.blooper_list.Find(character.blooper_id), length(GLOB.blooper_list), 1)
 	SetUIValueRange(DNA_UI_BLOOPER_SPEED, character.blooper_speed, BLOOPER_DEFAULT_MAXSPEED, 1)
 	SetUIValueRange(DNA_UI_BLOOPER_PITCH, character.blooper_pitch, BLOOPER_DEFAULT_MAXPITCH, 1)
