@@ -71,7 +71,7 @@
 	/// How far along in the organ processing are we.
 	var/organ_progress = 0
 	/// Research points we get for scanning this slime.
-	var/list/point_value = list("Research" = 100)
+	var/list/point_value = list(RESEARCH_POINT_STANDARD = 100)
 
 	///////////TIME FOR SUBSPECIES
 

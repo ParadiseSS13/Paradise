@@ -3,7 +3,7 @@
 	desc = "If you see me, make a bug report!"
 	id = "alien_base"
 	node_type = "Alien Technology"
-	cost_hidden = list("Alien" = 50)
+	cost_hidden = list(RESEARCH_POINT_ALIEN = 50)
 
 /datum/technode/alien/alien_tools
 	name = "Alien Tools"

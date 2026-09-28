@@ -6,7 +6,7 @@ procs in this file.
 
 Each RnD Network Manager contains its own research datum, meaning all research is local and will be destroyed along with the console.
 
-Point operations are always performed through lists in the form of ("Type" = amount), e.g. list("Research" = 500), if an operation attempts
+Point operations are always performed through lists in the form of ("Type" = amount), e.g. list(RESEARCH_POINT_STANDARD = 500), if an operation attempts
 to use a point type that does not exist in SSresearch then that point type will be removed.
 
 If you want to add a new point type, look at SSResearch.

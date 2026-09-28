@@ -26,7 +26,7 @@
 	id = "superparts"
 	prereqs = list("advparts")
 	unlocks = list("super_capacitor", "phasic_sensor", "pico_mani", "ultra_micro_laser", "super_matter_bin", "bs_rped")
-	cost = list("Research" = 1000)
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 /datum/technode/rnd/blueparts
 	name = "Experimental Machine Parts"
@@ -34,7 +34,7 @@
 	id = "blueparts"
 	prereqs = list("arti_bs")
 	unlocks = list("quadratic_capacitor", "triphasic_scanning", "femto_mani", "quadultra_micro_laser", "bluespace_matter_bin")
-	cost = list("Research" = 2500)
+	cost = list(RESEARCH_POINT_STANDARD = 2500)
 
 // MARK: Bluespace
 /datum/technode/rnd/arti_bs
@@ -59,7 +59,7 @@
 	desc = "Firefighter chassis for the APLU 'Ripley' series of exosuit."
 	id = "mech_aplu"
 	unlocks = list("ripley_main", "ripley_peri", "ripley_chassis", "firefighter_chassis", "ripley_torso", "ripley_left_arm", "ripley_right_arm", "ripley_left_leg", "ripley_right_leg", "mech_plate_armor")
-	cost = list("Research" = 500)
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 	starting_node = TRUE
 
 /datum/technode/rnd/mech_ody
@@ -68,7 +68,7 @@
 	id = "mech_ody"
 	prereqs = list("mech_aplu")
 	unlocks = list("odysseus_main", "odysseus_peri", "odysseus_chassis", "odysseus_head", "odysseus_torso", "odysseus_left_arm", "odysseus_right_arm", "odysseus_left_leg", "odysseus_right_leg")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/mech_nkr
 	name = "Janitorial Exosuits"
@@ -76,7 +76,7 @@
 	id = "mech_nkr"
 	prereqs = list("mech_aplu", "borg_jani")
 	unlocks = list("nkarrdem_main", "nkarrdem_peri", "nkarrdem_chassis", "nkarrdem_head", "nkarrdem_torso", "nkarrdem_left_arm", "nkarrdem_right_arm", "nkarrdem_left_leg", "nkarrdem_right_leg")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/mech_ent
 	name = "Entertainment Exosuits"
@@ -84,7 +84,7 @@
 	id = "mech_ent"
 	prereqs = list("mech_ody", "mech_nkr")
 	unlocks = list("honk_main", "honk_peri", "honk_targ", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm", "honk_left_leg", "honk_right_leg", "reticence_main", "reticence_peri", "reticence_targ", "reticence_chassis", "reticence_head", "reticence_torso", "reticence_left_arm", "reticence_right_arm", "reticence_left_leg", "reticence_right_leg")
-	cost = list("Research" = 1200, "Illegal" = 100) // MIXTODO - Remove the illegal from this, just for testing
+	cost = list(RESEARCH_POINT_STANDARD = 1200, RESEARCH_POINT_ILLEGAL = 100) // MIXTODO - Remove the illegal from this, just for testing
 
 /datum/technode/rnd/mech_cmbt
 	name = "Combat Exosuits"
@@ -92,7 +92,7 @@
 	id = "mech_cmbt"
 	prereqs = list("mech_ody", "mech_nkr")
 	unlocks = list("durand_main", "durand_peri", "durand_targ", "durand_chassis", "durand_head", "durand_torso", "durand_left_arm", "durand_right_arm", "durand_left_leg", "durand_right_leg", "durand_armor", "gygax_main", "gygax_peri", "gygax_targ", "gygax_chassis", "gygax_head", "gygax_torso", "gygax_left_arm", "gygax_right_arm", "gygax_left_leg", "gygax_right_leg", "gygax_armor")
-	cost = list("Research" = 1200)
+	cost = list(RESEARCH_POINT_STANDARD = 1200)
 
 /datum/technode/rnd/mech_exp
 	name = "Experimental Exosuits"
@@ -100,7 +100,7 @@
 	id = "mech_exp"
 	prereqs = list("mech_cmbt")
 	unlocks = list("phazon_main", "phazon_peri", "phazon_targ", "phazon_chassis", "phazon_head", "phazon_torso", "phazon_left_arm", "phazon_right_arm", "phazon_left_leg", "phazon_right_leg", "phazon_armor")
-	cost = list("Research" = 1500)
+	cost = list(RESEARCH_POINT_STANDARD = 1500)
 
 // MARK: Mech Equipment
 /datum/technode/rnd/mech_equip_standard // MIXTODO - Mech equipment may be better off in more generalised nodes/"tiers".
@@ -202,7 +202,7 @@
 	id = "adv_mining"
 	prereqs = list("mining")
 	unlocks = list("plasmacutter_adv", "drill_diamond", "superresonator", "damagemod", "cooldownmod", "hypermod")
-	cost = list("Research" = 800)
+	cost = list(RESEARCH_POINT_STANDARD = 800)
 
 /datum/technode/rnd/exp_mining
 	name = "Experimental Mining Equipment"
@@ -210,7 +210,7 @@
 	id = "exp_mining"
 	prereqs = list("adv_mining")
 	unlocks = list("megacharge", "lavarod", "jackhammer")
-	cost = list("Research" = 1000)
+	cost = list(RESEARCH_POINT_STANDARD = 1000)
 
 // MARK: Equipment
 /datum/technode/rnd/huds
@@ -534,7 +534,7 @@
 	id = "borg_uni"
 	prereqs = list("advparts")
 	unlocks = list("borg_upgrade_vtec", "borg_upgrade_thrusters", "borg_upgrade_selfrepair")
-	cost = list("Research" = 500)
+	cost = list(RESEARCH_POINT_STANDARD = 500)
 
 /datum/technode/rnd/borg_engi
 	name = "Engineering Cyborg Enhancements"
@@ -542,7 +542,7 @@
 	id = "borg_engi"
 	prereqs = list("borg_uni")
 	unlocks = list("borg_upgrade_RCD", "borg_upgrade_RPED")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/borg_med
 	name = "Medical Cyborg Enhancements"
@@ -550,7 +550,7 @@
 	id = "borg_med"
 	prereqs = list("borg_uni")
 	unlocks = list("borg_upgrade_holo_stretcher")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/borg_jani
 	name = "Janitorial Cyborg Enhancements"
@@ -558,7 +558,7 @@
 	id = "borg_jani"
 	prereqs = list("borg_uni")
 	unlocks = list("borg_upgrade_floorbuffer", "borg_upgrade_bluespace_trash_bag")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/borg_serv
 	name = "Service Cyborg Enhancements"
@@ -566,7 +566,7 @@
 	id = "borg_serv"
 	prereqs = list("borg_uni")
 	unlocks = list("borg_upgrade_RSF_executive")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 /datum/technode/rnd/borg_mine
 	name = "Mining Cyborg Enhancements"
@@ -574,7 +574,7 @@
 	id = "borg_mine"
 	prereqs = list("borg_uni")
 	unlocks = list("borg_upgrade_lavaproof", "borg_upgrade_holding", "borg_upgrade_diamonddrill")
-	cost = list("Research" = 750)
+	cost = list(RESEARCH_POINT_STANDARD = 750)
 
 // MARK: MODsuits
 /datum/technode/rnd/mod

@@ -3,7 +3,7 @@
 	desc = "If you see me, make a bug report!"
 	id = "illegal_base"
 	node_type = "Illegal Technology"
-	cost_hidden = list("Illegal" = 50)
+	cost_hidden = list(RESEARCH_POINT_ILLEGAL = 50)
 
 /datum/technode/illegal/module_illegal
 	name = "Syndicate Modules"

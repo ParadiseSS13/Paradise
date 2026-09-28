@@ -1073,7 +1073,7 @@
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_research = list("Research" = 7, "Illegal" = 1)
+	var/list/possible_research = list(RESEARCH_POINT_STANDARD = 7, RESEARCH_POINT_ILLEGAL = 1)
 	var/p_name = pick("old", "torn", "aged", "time-worn")
 	p_type = pickweight(possible_research)
 	amount = 0

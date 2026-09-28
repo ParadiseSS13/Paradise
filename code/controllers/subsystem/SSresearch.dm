@@ -1,3 +1,7 @@
+#define RESEARCH_POINT_STANDARD "Research"
+#define RESEARCH_POINT_ILLEGAL "Illegal"
+#define RESEARCH_POINT_ALIEN "Alien"
+
 SUBSYSTEM_DEF(research)
 	name = "Research"
 	flags = SS_NO_INIT
@@ -8,7 +12,7 @@ SUBSYSTEM_DEF(research)
 	/// List of R&D backups - Key = datum ID, value = /datum/rnd_backup
 	var/list/backups = list()
 	/// Used to ensure research lists contain valid point types.
-	var/list/point_types = list("Research", "Illegal", "Alien")
+	var/list/point_types = list(RESEARCH_POINT_STANDARD, RESEARCH_POINT_ILLEGAL, RESEARCH_POINT_ALIEN)
 	/// Used to determine toxins reward, global as toxins is only used for points by the station.
 	var/successful_toxins = 0
 

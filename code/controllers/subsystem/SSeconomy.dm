@@ -92,9 +92,9 @@ SUBSYSTEM_DEF(economy)
 	/// Types of points we've already sent to CentComm, associated with their amount.
 	var/list/research_points = list()
 	/// Point type to cost scalar.
-	var/list/point_scalar = list("Research" = 0.78, "Illegal" = 0.82, "Alien" = 0.86) // This might need further tweaking, cost = 4*points^scalar
+	var/list/point_scalar = list(RESEARCH_POINT_STANDARD = 0.78, RESEARCH_POINT_ILLEGAL = 0.82, RESEARCH_POINT_ALIEN = 0.86) // This might need further tweaking, cost = 4*points^scalar
 	/// Maximum amount of each point we can sell.
-	var/list/maximum_points_sold = list("Research" = 6000) // As research is infinitely renewable its capped to a reasonable amount (~3550cr)
+	var/list/maximum_points_sold = list(RESEARCH_POINT_STANDARD = 6000) // As research is infinitely renewable its capped to a reasonable amount (~3550cr)
 	var/list/research_designs = list()
 
 	///Requested crates, waiting for approval by department heads
