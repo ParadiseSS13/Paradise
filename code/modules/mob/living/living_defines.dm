@@ -162,7 +162,7 @@
 	var/blooper_pitch_range = 0.2
 	// The time between each bloop.
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
-	// The bloop volume 0-100.
+	/// The bloop volume 0-100.
 	var/blooper_volume = 50
 	/// The time of the last fired blooper.
 	var/blooper_last_start_time
