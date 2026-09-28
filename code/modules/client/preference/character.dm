@@ -440,7 +440,7 @@
 		"blooper_id" = blooper_id,
 		"blooper_speed" = blooper_speed,
 		"blooper_pitch" = blooper_pitch,
-		"blooper_pitch_range" = blooper_pitch_range
+		"blooper_pitch_range" = blooper_pitch_range,
 	))
 
 	if(!query.warn_execute())
