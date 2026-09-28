@@ -1,15 +1,15 @@
 /*
-General Explaination:
-The research datum contains all points, technodes and designs of a particular research network, it also containts the procs required
-to manipulate these things. Nothing should ever have custom procs for adding/taking points, technodes or designs directly from the vars, it should use the
-procs in this file.
+	General Explaination:
+	The research datum contains all points, technodes and designs of a particular research network, it also containts the procs required
+	to manipulate these things. Nothing should ever have custom procs for adding/taking points, technodes or designs directly from the vars, it should use the
+	procs in this file.
 
-Each RnD Network Manager contains its own research datum, meaning all research is local and will be destroyed along with the console.
+	Each RnD Network Manager contains its own research datum, meaning all research is local and will be destroyed along with the console.
 
-Point operations are always performed through lists in the form of ("Type" = amount), e.g. list(RESEARCH_POINT_STANDARD = 500), if an operation attempts
-to use a point type that does not exist in SSresearch then that point type will be removed.
+	Point operations are always performed through lists in the form of ("Type" = amount), e.g. list(RESEARCH_POINT_STANDARD = 500), if an operation attempts
+	to use a point type that does not exist in SSresearch then that point type will be removed.
 
-If you want to add a new point type, look at SSResearch.
+	If you want to add a new point type, look at SSResearch.
 */
 
 /// Holder for all the existing, archived, and known tech. Individual to each network controller.
@@ -35,7 +35,7 @@ If you want to add a new point type, look at SSResearch.
 	var/list/unblacklisted_designs = list()
 	/// Points for research operations.
 	var/list/research_points = list()
-	/// Total research points we've generated in this research datum
+	/// Total research points we've generated in this research datum.
 	var/list/total_points = list()
 
 	/// Subtypes of slimes we have scanned, in colors.
