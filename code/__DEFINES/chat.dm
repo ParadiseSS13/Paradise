@@ -48,4 +48,4 @@
 // Macro for handling pitch variations using parameters.
 #define BLOOPER_DO_VARY(pitch, variance) (rand(((pitch * 100) - (variance * 50)), ((pitch * 100) + (variance * 50))) / 100)
 
-#define BLOOPER_SOUND_FALLOFF_EXPONENT 0.5 //At lower ranges, we want the exponent to be below 1 so that whispers don't sound too awkward. At higher ranges, we want the exponent fairly high to make yelling less obnoxious
+#define BLOOPER_SOUND_FALLOFF_EXPONENT 0.5 // At lower ranges, we want the exponent to be below 1 so that whispers don't sound too awkward. At higher ranges, we want the exponent fairly high to make yelling less obnoxious
