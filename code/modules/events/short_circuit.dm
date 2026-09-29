@@ -1,7 +1,8 @@
 /datum/event/short_circuit
 	name = "Short Circuit"
 	nominal_severity = EVENT_LEVEL_MODERATE
-	endWhen = 20 // In process ticks
+	role_weights = list(ASSIGNMENT_ENGINEERING = 4)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 1)
 
 /datum/event/short_circuit/start()
 	. = ..()
