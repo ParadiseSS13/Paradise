@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))
+	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer."))
 
 	return TRUE
 
