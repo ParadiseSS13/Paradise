@@ -134,6 +134,7 @@
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "eye replacement implant"
