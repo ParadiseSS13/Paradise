@@ -166,7 +166,7 @@
 
 /atom/movable/proc/ex_throw(severity, turf/epicenter, ex_range)
 	if(epicenter && !anchored && !throwing && severity >= 1)
-		var/real_epi = locate(epicenter.x, epicenter.y, epicenter.z) // We cant just use the loc of epicenter as it may get destroyed in the explosion, resulting in infinity.
+		var/real_epi = get_turf(epicenter) // We cant just use the loc of epicenter as it may get destroyed in the explosion, resulting in infinity.
 		var/real_dir = get_dir(real_epi, loc)
 		if(!real_dir)
 			real_dir = pick(GLOB.alldirs)
