@@ -8,9 +8,18 @@
 /datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
 	name = "Research & Development Crate"
 	contains = list(/obj/item/storage/box/large/rnd_parts)
-	cost = 1000
+	cost = 1500
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "research & development crate"
+	access = ACCESS_RESEARCH
+	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
+
+/datum/supply_packs/science/rnd_server // Servers generate points infinitely, we dont want them being easily spammable.
+	name = "Research Server Crate"
+	contains = list(/obj/item/circuitboard/rdserver) // Costs a whole scanning module and cable to make.. you can get that yourself.
+	cost = 750
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "research server crate"
 	access = ACCESS_RESEARCH
 	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
 

@@ -343,15 +343,6 @@
 	build_path = /obj/item/circuitboard/protolathe
 	category = list("Research Machinery")
 
-/datum/design/rdserver
-	name = "Machine Board (R&D Server)"
-	desc = "The circuit board for an R&D Server."
-	id = "rdserver"
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdserver
-	category = list("Research Machinery")
-
 /datum/design/gibber
 	name = "Machine Design (Gibber Board)"
 	desc = "The circuit board for a gibber."
