@@ -494,6 +494,12 @@
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
+/obj/item/melee/blood_magic/stun/Initialize(mapload, spell)
+	. = ..()
+	if(source && IS_ACOLYTE(source.owner))
+		icon_state = "acolyte-stun"
+		color = null
+
 /obj/item/melee/blood_magic/stun/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!isliving(target) || !proximity)
 		return
@@ -527,7 +533,10 @@
 			to_chat(target, SPAN_WARNING("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!"))
 			to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [L] falls to the ground!"))
 		else
-			L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+			if(IS_ACOLYTE(user))
+				L.apply_status_effect(STATUS_EFFECT_ACOLYTE_STUN)
+			else
+				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 			L.Silence(6 SECONDS)
 			if(issilicon(target))
 				var/mob/living/silicon/S = L
@@ -544,6 +553,9 @@
 	user.do_attack_animation(target)
 	uses--
 	..()
+
+
+/obj/item/melee/blood_magic/stun/acolyte
 
 
 //Teleportation
