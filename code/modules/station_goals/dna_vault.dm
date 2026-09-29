@@ -64,6 +64,7 @@
 	icon_state = "sampler_hypo"
 	inhand_icon_state = "hypo"
 	flags = NOBLUDGEON
+	new_attack_chain = TRUE
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
@@ -75,49 +76,49 @@
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	..()
-	if(!proximity || !target)
-		return
+/obj/item/dna_probe/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	//tray plants
 	if(istype(target,/obj/machinery/hydroponics))
-		var/obj/machinery/hydroponics/H = target
-		if(!H.myseed)
-			return
-		if(!H.harvest)// So it's bit harder.
-			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
-			return
-		if(plants[H.myseed.type])
-			to_chat(user, SPAN_NOTICE("Plant data already present in local storage."))
-			return
-		plants[H.myseed.type] = 1
+		var/obj/machinery/hydroponics/tray = target
+		if(!tray.myseed)
+			to_chat(user, SPAN_WARNING("There's nothing planted here!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!tray.harvest)// So it's bit harder.
+			to_chat(user, SPAN_WARNING("Plant needs to be ready to harvest to perform full data scan!")) // Because space dna is actually magic.
+			return ITEM_INTERACT_COMPLETE
+		if(plants[tray.myseed.type])
+			to_chat(user, SPAN_WARNING("Plant data already present in local storage!"))
+			return ITEM_INTERACT_COMPLETE
+		plants[tray.myseed.type] = 1
 		to_chat(user, SPAN_NOTICE("Plant data added to local storage."))
+		return ITEM_INTERACT_COMPLETE
 
 	//animals
 	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
 		if(isanimal_or_basicmob(target))
-			var/mob/living/A = target
-			if(!A.healable) // simple approximation of being animal not a robot or similar
-				to_chat(user, SPAN_WARNING("No compatible DNA detected"))
-				return
+			var/mob/living/creature = target
+			if(!creature.healable) // Simple approximation of being animal not a robot or similar.
+				to_chat(user, SPAN_WARNING("No compatible DNA detected!"))
+				return ITEM_INTERACT_COMPLETE
 		if(animals[target.type])
-			to_chat(user, SPAN_NOTICE("Animal data already present in local storage."))
-			return
+			to_chat(user, SPAN_WARNING("Animal data already present in local storage!"))
+			return ITEM_INTERACT_COMPLETE
 		animals[target.type] = 1
 		to_chat(user, SPAN_NOTICE("Animal data added to local storage."))
+		return ITEM_INTERACT_COMPLETE
 
 	//humans
 	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(HAS_TRAIT(H, TRAIT_GENELESS))
-			to_chat(user, SPAN_NOTICE("This humanoid doesn't have DNA."))
-			return
-		if(dna[H.dna.uni_identity])
-			to_chat(user, SPAN_NOTICE("Humanoid data already present in local storage."))
-			return
-		dna[H.dna.uni_identity] = 1
+		var/mob/living/carbon/human/human_target = target
+		if(HAS_TRAIT(human_target, TRAIT_GENELESS))
+			to_chat(user, SPAN_WARNING("This humanoid doesn't have DNA!"))
+			return ITEM_INTERACT_COMPLETE
+		if(dna[human_target.dna.uni_identity])
+			to_chat(user, SPAN_WARNING("Humanoid data already present in local storage!"))
+			return ITEM_INTERACT_COMPLETE
+		dna[human_target.dna.uni_identity] = 1
 		to_chat(user, SPAN_NOTICE("Humanoid data added to local storage."))
-
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"

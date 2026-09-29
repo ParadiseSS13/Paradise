@@ -368,6 +368,7 @@
 	id = "cargoshipblastdoor3";
 	pixel_y = -32
 	},
+/obj/structure/salvageable/server,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "nx" = (
@@ -1220,7 +1221,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "VF" = (
-/obj/machinery/computer/nonfunctional{
+/obj/structure/salvageable/computer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,

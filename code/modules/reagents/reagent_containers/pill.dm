@@ -165,6 +165,12 @@
 	icon_state = "pill8"
 	list_reagents = list("salbutamol" = 20)
 
+/obj/item/reagent_containers/pill/spaceacillin
+	name = "\improper Spaceacillin pill"
+	desc = "Used to treat bacterial infections."
+	icon_state = "pill3"
+	list_reagents = list("spaceacillin" = 5)
+
 /obj/item/reagent_containers/pill/hydrocodone
 	name = "\improper Hydrocodone pill"
 	desc = "Used to treat extreme pain."

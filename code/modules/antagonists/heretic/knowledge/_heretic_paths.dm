@@ -182,13 +182,7 @@ GLOBAL_LIST(heretic_research_tree)
 		heretic_research_tree[main_column.blade][HKT_DEPTH] = 9
 		heretic_research_tree[main_column.ascension][HKT_DEPTH] = 11
 
-		//Per path bullshit goes here \/\/\/
-		for(var/t2_knowledge in tier2)
-			heretic_research_tree[t2_knowledge][HKT_NEXT] += /datum/heretic_knowledge/reroll_targets
 
-	// If you want to do any custom bullshit put it here \/\/\/
-	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_ROUTE] = PATH_SIDE
-	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_DEPTH] = 8
 
 	heretic_research_tree[/datum/heretic_knowledge/rifle][HKT_NEXT] += /datum/heretic_knowledge/rifle_ammo
 	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_ROUTE] = PATH_SIDE

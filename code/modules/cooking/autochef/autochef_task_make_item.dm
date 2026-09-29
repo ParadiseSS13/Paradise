@@ -26,6 +26,9 @@
 	autochef.atom_say("Cannot make [target_type::name].")
 	current_state = AUTOCHEF_ACT_FAILED
 
+/datum/autochef_task/make_item/human_readable_desc()
+	return "Make item: [target_type::name]"
+
 /datum/autochef_task/make_item/proc/handle_recipe(datum/cooking/recipe/recipe)
 	var/container_count = 0
 	for(var/obj/item/reagent_containers/container in autochef.linked_cooking_containers)

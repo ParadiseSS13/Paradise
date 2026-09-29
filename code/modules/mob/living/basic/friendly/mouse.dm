@@ -37,6 +37,8 @@
 	var/cable_zap_prob = 85
 	/// Food types that mice eat
 	var/static/list/food_types = list(/obj/item/food/sliced/cheesewedge, /obj/item/food/sliceable/cheesewheel)
+	/// Can this rat be picked up?
+	var/can_be_scooped = TRUE
 
 /mob/living/basic/mouse/Initialize(mapload)
 	. = ..()
@@ -61,7 +63,7 @@
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/basic/mouse/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == INTENT_HELP)
+	if(M.a_intent == INTENT_HELP && can_be_scooped)
 		get_scooped(M, TRUE)
 	..()
 
