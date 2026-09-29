@@ -1,9 +1,12 @@
 GLOBAL_LIST_EMPTY(message_servers)
 
 /datum/data_pda_msg
-	var/recipient = "Unspecified" //name of the person
-	var/sender = "Unspecified" //name of the sender
-	var/message = "Blank" //transferred message
+	/// Name of the person recieving the PDA message
+	var/recipient = "Unspecified"
+	/// Name of the sender of the PDA message
+	var/sender = "Unspecified"
+	/// Contents of the PDA message
+	var/message = "Blank"
 
 /datum/data_pda_msg/New(param_rec = "", param_sender = "", param_message = "")
 
@@ -15,11 +18,17 @@ GLOBAL_LIST_EMPTY(message_servers)
 		message = param_message
 
 /datum/data_rc_msg
-	var/rec_dpt = "Unspecified" //name of the person
-	var/send_dpt = "Unspecified" //name of the sender
-	var/message = "Blank" //transferred message
+	/// Recieving department
+	var/rec_dpt = "Unspecified"
+	/// Sending department
+	var/send_dpt = "Unspecified"
+	/// Message
+	var/message = "Blank"
+	/// stamp
 	var/stamp = "Unstamped"
+	/// ID authentication
 	var/id_auth = "Unauthenticated"
+	/// priority
 	var/priority = "Normal"
 
 /datum/data_rc_msg/New(param_rec = "", param_sender = "", param_message = "", param_stamp = "", param_id_auth = "", param_priority)
@@ -54,7 +63,9 @@ GLOBAL_LIST_EMPTY(message_servers)
 	idle_power_consumption = 10
 	active_power_consumption = 100
 
+	/// List of PDA messages
 	var/list/datum/data_pda_msg/pda_msgs = list()
+	/// LIst of request console messages
 	var/list/datum/data_rc_msg/rc_msgs = list()
 	var/active = TRUE
 	var/decryptkey = "password"
