@@ -12,6 +12,8 @@
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 3000, MAT_GOLD = 3000, MAT_PLASMA = 4000)
+	origin_tech = "engineering = 4;combat = 4"
 	///How much faster will your suit deploy?
 	var/activation_step_time_booster = 2
 	///Is this the syndicate version, which can be toggled on multitool?
