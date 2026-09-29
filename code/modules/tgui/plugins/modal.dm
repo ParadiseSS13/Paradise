@@ -120,11 +120,11 @@ GLOBAL_LIST(ui_modals)
   * * value - The default value of the input
   * * max_length - The maximum char length of the input
   */
-/datum/proc/ui_modal_textarea(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", max_length = UI_MODAL_INPUT_MAX_LENGTH)
+/datum/proc/ui_modal_textarea(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", max_length = MAX_PAPER_MESSAGE_LEN)
 	ASSERT(length(id))
 	ASSERT(max_length > 0)
 
-	var/datum/ui_modal/input/textarea/modal = new(id, text, delegate, arguments, value, max_length)
+	var/datum/ui_modal/input/textarea/modal = new(id, text, delegate, arguments, html_decode(value), max_length)
 	return ui_modal_new(source, modal)
 
 /**
@@ -318,6 +318,11 @@ GLOBAL_LIST(ui_modals)
   */
 /datum/ui_modal/input/textarea
 	modal_type = "textarea"
+
+/datum/ui_modal/input/textarea/preprocess_answer(answer)
+	var/encoded_answer = html_encode(answer)
+	encoded_answer = trim(encoded_answer, max_length)
+	return encoded_answer
 
 /**
   * Choice modal - has a dropdown menu that can be used to select an answer

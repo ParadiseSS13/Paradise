@@ -124,8 +124,10 @@ export const ComplexModal = (props) => {
         value={data.modal.value}
         placeholder="ENTER to submit"
         width="100%"
+        height="16rem"
         my="0.5rem"
-        autofocus
+        autoFocus
+        fluid
         onChange={(val) => {
           setCurValue(val);
         }}
