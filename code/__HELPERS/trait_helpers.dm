@@ -593,6 +593,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_WHISPERING "no_whisper"
 #define TRAIT_COOL "cool"
 #define TRAIT_UNCLONABLE "unclonable"
+#define TRAIT_TINY "tiny"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
@@ -645,6 +646,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait from mob/living/update_transform()
 #define UPDATE_TRANSFORM_TRAIT "update_transform"
+
+/// Trait from hungry organ to allow for benefits from eaten food/drink.
+#define TRAIT_GLUTTONOUS_GLORY "gluttonous_glory"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

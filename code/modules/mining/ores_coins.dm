@@ -253,10 +253,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "Gibtonite ore"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
-	anchored = TRUE //Forces people to carry it by hand, no pulling!
+	anchored = TRUE // Forces people to carry it by hand, no pulling!
+	new_attack_chain = TRUE
 	var/primed = 0
 	var/det_time = 100
-	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
+	var/quality = GIBTONITE_QUALITY_LOW // How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from. Higher value = better.
 	var/attacher = "UNKNOWN"
 	var/datum/wires/explosive/gibtonite/wires
 
@@ -275,41 +276,51 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/gibtonite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!wires && istype(I, /obj/item/assembly/igniter))
-		user.visible_message("[user] attaches [I] to [src].", SPAN_NOTICE("You attach [I] to [src]."))
+/obj/item/gibtonite/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!wires && istype(used, /obj/item/assembly/igniter))
+		user.visible_message(
+			SPAN_NOTICE("[user] attaches [used] to [src]."),
+			SPAN_NOTICE("You attach [used] to [src].")
+		)
 		wires = new(src)
 		attacher = key_name(user)
-		qdel(I)
+		qdel(used)
 		overlays += "Gibtonite_igniter"
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
+		if(istype(used, /obj/item/wirecutters) || istype(used, /obj/item/multitool) || istype(used, /obj/item/assembly/signaler))
 			wires.Interact(user)
-			return
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/pickaxe) || istype(I, /obj/item/resonator) || I.force >= 10)
+	if(istype(used, /obj/item/pickaxe) || istype(used, /obj/item/resonator) || used.force >= 10)
 		GibtoniteReaction(user)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
+		if(istype(used, /obj/item/mining_scanner) || istype(used, /obj/item/t_scanner/adv_mining_scanner) || istype(used, /obj/item/multitool))
 			primed = 0
-			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", SPAN_NOTICE("You stopped the chain reaction. ...The ore's quality looks diminished."))
+			user.visible_message(
+				SPAN_NOTICE("The chain reaction was stopped! ...The ore's quality looks diminished."),
+				SPAN_NOTICE("You stopped the chain reaction. ...The ore's quality looks diminished.")
+			)
 			icon_state = "Gibtonite ore"
 			quality = GIBTONITE_QUALITY_LOW
-			return
-	..()
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gibtonite/attack_ghost(mob/user)
 	if(wires)
 		wires.Interact(user)
 
-/obj/item/gibtonite/attack_self__legacy__attackchain(mob/user)
+/obj/item/gibtonite/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(wires)
 		wires.Interact(user)
-	else
-		..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gibtonite/bullet_act(obj/projectile/P)
 	GibtoniteReaction(P.firer)
