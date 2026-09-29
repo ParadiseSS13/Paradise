@@ -437,6 +437,8 @@
 			return amount > 0
 	// it must be a stack
 	var/obj/item/stack/check_stack = check
+	if(!istype(check_stack))
+		return FALSE
 	if(amount <= 0 || check_stack.amount <= 0) // no merging empty stacks that are in the process of being qdel'd
 		return FALSE
 	if(!istype(check_stack, merge_type) || check_stack.merge_type != merge_type)

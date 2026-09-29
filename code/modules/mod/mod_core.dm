@@ -152,8 +152,8 @@
 /obj/item/mod/core/standard/proc/install_cell(new_cell)
 	cell = new_cell
 	cell.forceMove(src)
-	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-	RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
+	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit), override = TRUE)
+	RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell), override = TRUE)
 
 /obj/item/mod/core/standard/proc/uninstall_cell()
 	if(!cell)
@@ -208,10 +208,7 @@
 	if(!istype(used, /obj/item/stock_parts/cell))
 		return NONE
 
-	if(!mod)
-		return NONE
-
-	if(!mod.open)
+	if(mod && !mod.open)
 		to_chat(user, SPAN_WARNING("Open the cover first!"))
 		playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return ITEM_INTERACT_COMPLETE
@@ -225,7 +222,7 @@
 	install_cell(used)
 	to_chat(user, SPAN_NOTICE("You install the cell."))
 	playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	mod.update_charge_alert()
+	mod?.update_charge_alert()
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mod/core/standard/proc/on_wearer_set(datum/source, mob/user)

@@ -6,21 +6,32 @@
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
+	new_attack_chain = TRUE
 
-/obj/item/hivelordstabilizer/afterattack__legacy__attackchain(obj/item/organ/internal/M, mob/user)
-	. = ..()
-	var/obj/item/organ/internal/regenerative_core/C = M
-	if(!istype(C, /obj/item/organ/internal/regenerative_core))
+/obj/item/hivelordstabilizer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!istype(target, /obj/item))
+		return NONE
+
+	if(isstorage(target) || istype(target, /obj/item/mod/control))
+		return NONE
+
+	var/obj/item/organ/internal/regenerative_core/core = target
+	if(!istype(core))
 		to_chat(user, SPAN_WARNING("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
-	if(C.inert)
-		to_chat(user, SPAN_WARNING("[M] is inert! The stabilizer won't function as the regenerative enzymes have dissolved!"))
-		return ..()
+	if(core.inert)
+		to_chat(user, SPAN_WARNING("[core] is inert! The stabilizer won't function as the regenerative enzymes have dissolved!"))
+		return ITEM_INTERACT_COMPLETE
 
-	C.preserved()
-	to_chat(user, SPAN_NOTICE("You inject [M] with the stabilizer. It will no longer go inert."))
+	core.preserved()
+	core.add_fingerprint(user)
+	to_chat(user, SPAN_NOTICE("You inject [core] with the stabilizer. It will no longer go inert."))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /************************Hivelord core*******************/
 /obj/item/organ/internal/regenerative_core
@@ -75,26 +86,30 @@
 
 ///Handles applying the core, logging and status/mood events.
 /obj/item/organ/internal/regenerative_core/proc/applyto(atom/target, mob/user)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(inert)
-			to_chat(user, SPAN_NOTICE("[src] has decayed and can no longer be used to heal."))
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(inert)
+		to_chat(user, SPAN_NOTICE("[src] has decayed and can no longer be used to heal."))
+		return
+	else
+		if(H.stat == DEAD)
+			to_chat(user, SPAN_NOTICE("[src] is useless on the dead."))
 			return
+		if(H != user)
+			H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
+			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 		else
-			if(H.stat == DEAD)
-				to_chat(user, SPAN_NOTICE("[src] is useless on the dead."))
-				return
-			if(H != user)
-				H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
-				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
-			else
-				to_chat(user, SPAN_NOTICE("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
-				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
-			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE, core_type)
-			user.drop_item()
-			qdel(src)
+			to_chat(user, SPAN_NOTICE("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
+			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
+		H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE, core_type)
+		user.drop_item()
+		qdel(src)
 
 /obj/item/organ/internal/regenerative_core/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+	if(!ishuman(target))
+		return NONE
+
 	applyto(target, user)
 	return ITEM_INTERACT_COMPLETE
 
