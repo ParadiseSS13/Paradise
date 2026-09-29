@@ -8,6 +8,8 @@ SUBSYSTEM_DEF(lighting)
 	var/static/list/sources_queue = list() // List of lighting sources queued for update.
 	var/static/list/corners_queue = list() // List of lighting corners queued for update.
 	var/static/list/objects_queue = list() // List of lighting objects queued for update.
+	/// Goes up by one every light source update. See [/datum/controller/subsystem/lighting/proc/get_update_stamp]
+	var/static/update_stamp = 0
 
 /datum/controller/subsystem/lighting/get_stat_details()
 	return "L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]"
@@ -91,6 +93,23 @@ SUBSYSTEM_DEF(lighting)
 	if(i)
 		queue.Cut(1, i + 1)
 
+
+/**
+ * Returns a unique number for a light source update to stamp the corners it visits with.
+ * Lets update_corners() skip corners it has already seen without building an associative list.
+ *
+ * Wraps back to 1 before hitting [LIGHTING_MAX_UPDATE_STAMP], and clears every corner's stamp when it does,
+ * so an old stamp can never match a new one. The clear is slow, but only happens every ~16.7 million updates.
+ */
+/datum/controller/subsystem/lighting/proc/get_update_stamp()
+	if(++update_stamp < LIGHTING_MAX_UPDATE_STAMP)
+		return update_stamp
+	for(var/datum/thing)
+		if(istype(thing, /datum/lighting_corner))
+			var/datum/lighting_corner/corner = thing
+			corner.update_stamp = 0
+	update_stamp = 1
+	return update_stamp
 
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized
