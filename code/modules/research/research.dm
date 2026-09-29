@@ -51,40 +51,43 @@
 	for(var/P in SSresearch.point_types)
 		research_points[P] = 0
 		total_points[P] = 0
+	research_points[RESEARCH_POINT_STANDARD] = 250 // Start them off with enough to afford a starting node.
 	RefreshResearch()
 
-/// Anything calling this proc should use the returned value to remove points from itself.
+/// Adds provided points list to the research datum and returns the list of points that were added.
 /datum/research/proc/addpoints(list/points_list)
 	for(var/i in points_list)
 		if(!(i in SSresearch.point_types))
+			log_debug("Unexpected research point type [i] attempted illegal deposit.")
+			points_list.Remove(i)
 			continue
-		if((i in research_points) && points_list[i] > 0)
-			research_points[i] = FLOOR(research_points[i] + points_list[i], 1)
-			return points_list // So the caller doesnt delete points that werent sent.
-		if((i in total_points) && points_list[i] > 0)
-			total_points[i] = FLOOR(total_points[i] + points_list[i], 1)
+		if(points_list[i] <= 0)
+			continue
+		research_points[i] = FLOOR(research_points[i] + points_list[i], 1)
+		total_points[i] = FLOOR(research_points[i] + points_list[i], 1)
 	RefreshResearch() // Update visibility when adding points to ensure nodes show correctly.
+	return points_list
 
-// Autobalance determines if requesting more points then we have will automatically reduce the request or just cancel it.
-/// Anything calling this proc should use the returned value to add points to itself.
-/datum/research/proc/takepoints(list/points_list, autobalance = TRUE)
+/// Withdraws provided points list, returning the list of points withdrawn. ALWAYS use the returned list if adding points to the caller.
+/datum/research/proc/takepoints(list/points_list)
 	for(var/i in points_list)
 		if(!(i in SSresearch.point_types))
+			log_debug("Unexpected research point type [i] attempted illegal withdrawl.")
+			points_list.Remove(i)
 			continue
-		if(research_points[i] < points_list[i] && autobalance == TRUE)
+		if(points_list[i] <= 0)
+			continue
+		if(points_list[i] > research_points[i])
 			points_list[i] = research_points[i]
-		if(research_points[i] < points_list[i] && autobalance == FALSE)
-			return
-		if((i in research_points) && points_list[i] > 0)
-			research_points[i] = FLOOR(research_points[i] - points_list[i], 1)
-			return points_list
-		log_debug("Research point withdrawl failed unexpectedly.")
-		return
+		research_points[i] = FLOOR(research_points[i] - points_list[i], 1)
+	return points_list
 
 /// Checks to see if technode has all the required pre-reqs. Output: TRUE/FALSE
 /datum/research/proc/technode_has_prereqs(datum/technode/T)
 	if(T.starting_node)
 		return TRUE
+	if(T.cost_hidden.len > 0 && T.prereqs == 0)
+		return TRUE // Special case for nodes that are hidden with no prereqs.
 	var/prereqs_met = 0
 	for(var/i in T.prereqs)
 		if(i in known_technodes)
@@ -137,7 +140,7 @@
 		return FALSE // Technode is already known, we don't need to check this.
 	if(!T.starting_node && T.prereqs.len == 0)
 		return FALSE
-	if(T.cost_hidden.len > 0)
+	if(T.cost_hidden.len > 0 && T.prereqs == 0)
 		var/tc = 0
 		for(var/i in T.cost_hidden)
 			if(total_points[i] > T.cost_hidden[i])
