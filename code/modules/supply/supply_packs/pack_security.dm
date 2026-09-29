@@ -6,31 +6,12 @@
 	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
 	department_restrictions = list(DEPARTMENT_SECURITY)
 
+/datum/supply_packs/security/armory
+	containertype = /obj/structure/closet/crate/secure/weapon
+	access = ACCESS_ARMORY
+	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))
 
-/datum/supply_packs/security/supplies
-	name = "Security Supplies Crate"
-	contains = list(/obj/item/storage/box/flashbangs,
-					/obj/item/storage/box/teargas,
-					/obj/item/storage/box/flashes,
-					/obj/item/storage/box/handcuffs)
-	cost = 600
-	containername = "security supply crate"
-
-/datum/supply_packs/security/vending/security
-	name = "SecTech Supply Crate"
-	cost = 600
-	contains = list(/obj/item/vending_refill/security)
-	containername = "SecTech supply crate"
-
-/datum/supply_packs/security/vending/clothingvendor
-	name = "Security Clothing Vendors Crate"
-	cost = 200
-	contains = list(/obj/item/vending_refill/secdrobe,
-					/obj/item/vending_refill/detdrobe)
-	containername = "security clothing vendor crate"
-
-////// Armor: Basic
-
+// MARK: Armor
 /datum/supply_packs/security/helmets
 	name = "Helmets Crate"
 	contains = list(/obj/item/clothing/head/helmet,
@@ -46,7 +27,7 @@
 					/obj/item/clothing/head/helmet/justice/escape,
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
-	cost = 400 //justice comes at a price. An expensive, noisy price.
+	cost = 400 // Justice comes at a price! An expensive, noisy price.
 	containername = "justice enforcer crate"
 
 /datum/supply_packs/security/armor
@@ -65,48 +46,6 @@
 	cost = 400
 	containername = "bloody armor crate"
 	contraband = TRUE
-
-////// Weapons: Basic
-
-/datum/supply_packs/security/baton
-	name = "Stun Batons Crate"
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
-	cost = 400
-	containername = "stun baton crate"
-
-/datum/supply_packs/security/laser
-	name = "Lasers Crate"
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
-	cost = 500
-	containername = "laser crate"
-
-/datum/supply_packs/security/disabler
-	name = "Disabler Crate"
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
-	cost = 300
-	containername = "disabler crate"
-
-/datum/supply_packs/security/forensics
-	name = "Forensics Resupply Crate"
-	contains = list(/obj/item/storage/briefcase/crimekit,
-					/obj/item/storage/briefcase/crimekit)
-	cost = 250
-	containername = "forensics resupply crate"
-
-///// Armory stuff
-
-/datum/supply_packs/security/armory
-	containertype = /obj/structure/closet/crate/secure/weapon
-	access = ACCESS_ARMORY
-	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))
-
-///// Armor: Specialist
 
 /datum/supply_packs/security/armory/riothelmets
 	name = "Riot Helmets Crate"
@@ -148,14 +87,6 @@
 	cost = 300
 	containername = "tactical armor crate"
 
-/datum/supply_packs/security/armory/webbing
-	name = "Webbing Crate"
-	contains = list(/obj/item/storage/belt/security/webbing,
-					/obj/item/storage/belt/security/webbing,
-					/obj/item/storage/belt/security/webbing)
-	cost = 400
-	containername = "tactical webbing crate"
-
 /datum/supply_packs/security/armory/swat
 	name = "SWAT Gear Crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
@@ -180,7 +111,81 @@
 	cost = 500
 	containername = "ablative armor crate"
 
-/////// Weapons: Specialist
+// MARK: Weapons
+/datum/supply_packs/security/baton
+	name = "Stun Batons Crate"
+	contains = list(/obj/item/melee/baton/loaded,
+					/obj/item/melee/baton/loaded,
+					/obj/item/melee/baton/loaded)
+	cost = 400
+	containername = "stun baton crate"
+
+/datum/supply_packs/security/armory/securiblades
+	name = "Securiblade Crate"
+	contains = list(/obj/item/storage/belt/sheath/secsword,
+		/obj/item/storage/belt/sheath/secsword)
+	cost = 600
+	containername = "securiblade crate"
+
+/datum/supply_packs/security/armory/expenergy
+	name = "Energy Guns Crate"
+	contains = list(/obj/item/gun/energy/gun,
+					/obj/item/gun/energy/gun)
+	cost = 500
+	containername = "energy gun crate"
+
+/// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+/datum/supply_packs/security/armory/epistol
+	name = "Energy Pistol Crate"
+	contains = list(/obj/item/gun/energy/gun/mini,
+					/obj/item/gun/energy/gun/mini,
+					/obj/item/gun/energy/gun/mini)
+	cost = 300
+	containername = "energy gun crate"
+
+/datum/supply_packs/security/armory/eshotguns
+	name = "Energy Shotguns Crate"
+	contains = list(/obj/item/gun/energy/gun/shotgun,
+					/obj/item/gun/energy/gun/shotgun)
+	cost = 500
+	containername = "energy shotgun crate"
+
+/datum/supply_packs/security/laser
+	name = "Lasers Crate"
+	contains = list(/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser)
+	cost = 500
+	containername = "laser crate"
+
+/datum/supply_packs/security/armory/laserrifle
+	name = "IK-M1 Laser Rifle Crate"
+	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
+					/obj/item/gun/projectile/automatic/laserrifle)
+	cost = 500
+	containername = "laser rifle crate"
+
+/datum/supply_packs/security/armory/lever_action
+	name = "Model 2495 Laser Rifle Crate"
+	contains = list(/obj/item/gun/energy/laser/lever_action,
+					/obj/item/gun/energy/laser/lever_action)
+	cost = 250
+	containername = "lever action rifle crate"
+
+/datum/supply_packs/security/disabler
+	name = "Disabler Crate"
+	contains = list(/obj/item/gun/energy/disabler,
+					/obj/item/gun/energy/disabler,
+					/obj/item/gun/energy/disabler)
+	cost = 300
+	containername = "disabler crate"
+
+/datum/supply_packs/security/armory/disablersmg
+	name = "WT-450 Disabler SMG Crate"
+	contains = list(/obj/item/gun/energy/disabler/smg,
+					/obj/item/gun/energy/disabler/smg)
+	cost = 550
+	containername = "disabler smg crate"
 
 /datum/supply_packs/security/armory/ballistic
 	name = "Riot Shotguns Crate"
@@ -204,42 +209,12 @@
 	cost = 1000
 	containername = "combat shotgun crate"
 
-/datum/supply_packs/security/armory/expenergy
-	name = "Energy Guns Crate"
-	contains = list(/obj/item/gun/energy/gun,
-					/obj/item/gun/energy/gun)
-	cost = 500
-	containername = "energy gun crate"
-
-/datum/supply_packs/security/armory/eshotguns
-	name = "Energy Shotguns Crate"
-	contains = list(/obj/item/gun/energy/gun/shotgun,
-					/obj/item/gun/energy/gun/shotgun)
-	cost = 500
-	containername = "energy shotgun crate"
-
-/datum/supply_packs/security/armory/securiblades
-	name = "Securiblade Crate"
-	contains = list(/obj/item/storage/belt/sheath/secsword,
-		/obj/item/storage/belt/sheath/secsword)
-	cost = 600
-	containername = "securiblade crate"
-
 /datum/supply_packs/security/armory/stingers
 	name = "Stinger Grenade Crate"
 	contains = list(/obj/item/storage/box/stingers,
 					/obj/item/storage/box/stingers)
 	cost = 300
 	containername = "stingball grenade crate"
-
-/// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
-/datum/supply_packs/security/armory/epistol
-	name = "Energy Pistol Crate"
-	contains = list(/obj/item/gun/energy/gun/mini,
-					/obj/item/gun/energy/gun/mini,
-					/obj/item/gun/energy/gun/mini)
-	cost = 300
-	containername = "energy gun crate"
 
 /datum/supply_packs/security/armory/eweapons
 	name = "Incendiary Weapons Crate"
@@ -255,6 +230,18 @@
 	containername = "incendiary weapons crate"
 	access = ACCESS_HEADS
 
+/datum/supply_packs/security/armory/chemical_flamethrower
+	name = "Chemical Flamethrower Starter Pack"
+	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
+	cost = 500
+	containername = "chemical flamethrower crate"
+
+/datum/supply_packs/security/armory/chemthrower_upgrade
+	name = "Chemical Flamethrower Upgrade Pack"
+	contains = list(/obj/item/weaponcrafting/gunkit/chemical_flamethrower)
+	cost = 250
+	containername = "chemical flamethrower upgrade crate"
+
 /datum/supply_packs/security/armory/wt550
 	name = "WT-550 PDW Crate"
 	contains = list(/obj/item/gun/projectile/automatic/wt550,
@@ -262,39 +249,7 @@
 	cost = 625
 	containername = "auto rifle crate"
 
-/datum/supply_packs/security/armory/wt550ammo
-	name = "WT-550 PDW Ammo Crate"
-	contains = list(/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,)
-	cost = 500
-	containername = "auto rifle ammo crate"
-
-/datum/supply_packs/security/armory/laserrifle
-	name = "IK-M1 Laser Rifle Crate"
-	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
-					/obj/item/gun/projectile/automatic/laserrifle)
-	cost = 500
-	containername = "laser rifle crate"
-
-/datum/supply_packs/security/armory/laserammo
-	name = "IK-M1 Laser Rifle Ammo Crate"
-	contains = list(/obj/item/ammo_box/magazine/laser,
-					/obj/item/ammo_box/magazine/laser,
-					/obj/item/ammo_box/magazine/laser,
-					/obj/item/ammo_box/magazine/laser)
-	cost = 300
-	containername = "laser rifle ammo crate"
-
-/datum/supply_packs/security/armory/lever_action
-	name = "Model 2495 Laser Rifle Crate"
-	contains = list(/obj/item/gun/energy/laser/lever_action,
-					/obj/item/gun/energy/laser/lever_action)
-	cost = 250
-	containername = "lever action rifle crate"
-
+// MARK: Ammunition
 /datum/supply_packs/security/armory/beanammo
 	name = "Beanbag Shell Crate"
 	contains = list(/obj/item/storage/fancy/shell/beanbag,
@@ -315,20 +270,6 @@
 					/obj/item/storage/fancy/shell/incendiary)
 	cost = 225 // This is cargo printable, but slightly increased in cost due to it being lethal
 	containername = "incendiary shell crate"
-
-/datum/supply_packs/security/armory/tranqammo
-	name = "Tranquilizer Shell Crate"
-	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
-					/obj/item/storage/fancy/shell/tranquilizer)
-	cost = 400
-	containername = "tranquilizer shell crate"
-
-/datum/supply_packs/security/armory/holyammo
-	name = "Holy Water Shell Crate"
-	contains = list(/obj/item/storage/fancy/shell/holy,
-					/obj/item/storage/fancy/shell/holy)
-	cost = 400
-	containername = "holy water shell crate"
 
 /datum/supply_packs/security/armory/dragonsbreathammo
 	name = "Dragonsbreath Shell Crate"
@@ -351,15 +292,70 @@
 	cost = 400
 	containername = "lasershot shell crate"
 
-/datum/supply_packs/security/armory/disablersmg
-	name = "WT-450 Disabler SMG Crate"
-	contains = list(/obj/item/gun/energy/disabler/smg,
-					/obj/item/gun/energy/disabler/smg)
-	cost = 550
-	containername = "disabler smg crate"
+/datum/supply_packs/security/armory/tranqammo
+	name = "Tranquilizer Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/tranquilizer,
+					/obj/item/storage/fancy/shell/tranquilizer)
+	cost = 400
+	containername = "tranquilizer shell crate"
 
-/////// Implants & etc
+/datum/supply_packs/security/armory/holyammo
+	name = "Holy Water Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/holy,
+					/obj/item/storage/fancy/shell/holy)
+	cost = 400
+	containername = "holy water shell crate"
 
+/datum/supply_packs/security/party_ammo
+	name = "Party Ammunition Crate"
+	contains = list(
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/grenade/confetti,
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/confetti
+	)
+	cost = 300
+	containername = "party ammunition crate"
+
+/datum/supply_packs/security/pepperball_ammo
+	name = "Pepperball Ammunition Crate"
+	contains = list(
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball
+	)
+	cost = 150
+	containername = "pepperball ammunition crate"
+	access = ACCESS_ARMORY
+
+/datum/supply_packs/security/armory/wt550ammo
+	name = "WT-550 PDW Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,)
+	cost = 500
+	containername = "auto rifle ammo crate"
+
+/datum/supply_packs/security/armory/laserammo
+	name = "IK-M1 Laser Rifle Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser)
+	cost = 300
+	containername = "laser rifle ammo crate"
+
+/datum/supply_packs/security/armory/chemical_canister
+	name = "Chemical Flamethrower Canister Pack"
+	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
+	cost = 300
+	containername = "chemical flamethrower canister crate"
+
+// MARK: Implants
 /datum/supply_packs/security/armory/mindshield
 	name = "Mindshield Bio-chips Crate"
 	contains = list (/obj/item/storage/lockbox/mindshield)
@@ -392,6 +388,15 @@
 	cost = 250
 	containername = "bluespace anchor crate"
 
+// MARK: Tactical Gear
+/datum/supply_packs/security/armory/webbing
+	name = "Webbing Crate"
+	contains = list(/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing)
+	cost = 400
+	containername = "tactical webbing crate"
+
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
 	contains = list(/obj/item/grenade/barrier,
@@ -400,6 +405,47 @@
 					/obj/item/grenade/barrier)
 	cost = 200
 	containername = "security barriers crate"
+
+// MARK: Supplies
+/datum/supply_packs/security/supplies
+	name = "Security Supplies Crate"
+	contains = list(/obj/item/storage/box/flashbangs,
+					/obj/item/storage/box/teargas,
+					/obj/item/storage/box/flashes,
+					/obj/item/storage/box/handcuffs)
+	cost = 600
+	containername = "security supply crate"
+
+/datum/supply_packs/security/vending/security
+	name = "SecTech Supply Crate"
+	cost = 600
+	contains = list(/obj/item/vending_refill/security)
+	containername = "SecTech supply crate"
+
+/datum/supply_packs/security/vending/clothingvendor
+	name = "Security Clothing Vendors Crate"
+	cost = 200
+	contains = list(/obj/item/vending_refill/secdrobe,
+					/obj/item/vending_refill/detdrobe)
+	containername = "security clothing vendor crate"
+
+/datum/supply_packs/security/forensics
+	name = "Forensics Resupply Crate"
+	contains = list(/obj/item/storage/briefcase/crimekit,
+					/obj/item/storage/briefcase/crimekit)
+	cost = 250
+	containername = "forensics resupply crate"
+
+// MARK: Misc
+/datum/supply_packs/security/secway
+	name = "Secway Crate"
+	contains_special = list(
+		"Secway"
+	)
+	cost = 800
+	containertype = /obj/structure/largecrate/secway
+	containername = "secway crate"
+	access = ACCESS_HEADS
 
 /datum/supply_packs/security/securityclothes
 	name = "Security Clothing Crate"
@@ -445,37 +491,3 @@
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 500 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
-
-/datum/supply_packs/security/secway
-	name = "Secway Crate"
-	contains_special = list(
-		"Secway"
-	)
-	cost = 800
-	containertype = /obj/structure/largecrate/secway
-	containername = "secway crate"
-	access = ACCESS_HEADS
-
-/datum/supply_packs/security/party_ammo
-	name = "Party Ammunition Crate"
-	contains = list(
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/grenade/confetti,
-		/obj/item/storage/fancy/shell/confetti,
-		/obj/item/storage/fancy/shell/confetti,
-		/obj/item/storage/fancy/shell/confetti
-	)
-	cost = 300
-	containername = "party ammunition crate"
-
-/datum/supply_packs/security/pepperball_ammo
-	name = "Pepperball Ammunition Crate"
-	contains = list(
-		/obj/item/ammo_box/magazine/paintball/pepperball,
-		/obj/item/ammo_box/magazine/paintball/pepperball,
-		/obj/item/ammo_box/magazine/paintball/pepperball
-	)
-	cost = 150
-	containername = "pepperball ammunition crate"
-	access = ACCESS_ARMORY

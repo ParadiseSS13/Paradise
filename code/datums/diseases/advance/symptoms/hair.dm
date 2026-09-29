@@ -38,10 +38,19 @@ BONUS
 			head_organ.h_style = random_hair_style(head_organ.dna.species.name)
 		else
 			to_chat(H, SPAN_WARNING("Hair bursts forth from your scalp!"))
-			var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
-
-			if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
-				head_organ.h_style = "Very Long Hair"
-			else //Otherwise, give them a random hair style.
-				head_organ.h_style = random_hair_style(head_organ.dna.species.name)
+			var/tmp_hair_style = "Very Long Hair"
+			switch(head_organ.dna.species.name)
+				if("Diona")
+					tmp_hair_style = "Spanish Moss"
+				if("Kidan")
+					tmp_hair_style = "Hawk Horn"
+				if("Skkulakin")
+					tmp_hair_style = "Brewmaster"
+				if("Skrell")
+					tmp_hair_style = "Long Skrell Tentacles"
+				if("Tajaran")
+					tmp_hair_style = "Tajara Long Tail"
+				if("Vox")
+					tmp_hair_style = "Long Vox Quills"
+			head_organ.h_style = tmp_hair_style
 	H.update_hair()

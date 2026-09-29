@@ -113,6 +113,11 @@
 	new /obj/item/multitool/red(src)
 	new /obj/item/clothing/gloves/combat(src)
 
+/obj/item/storage/toolbox/syndicate/empty
+
+/obj/item/storage/toolbox/syndicate/empty/populate_contents()
+	return
+
 /obj/item/storage/toolbox/fakesyndi
 	name = "suspicous looking toolbox"
 	icon_state = "syndicate"

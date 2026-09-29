@@ -326,27 +326,6 @@
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
 
-/datum/supply_packs/engineering/chemical_flamethrower
-	name = "Chemical Flamethrower Starter Pack"
-	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
-	cost = 500
-	containertype = /obj/structure/closet/crate // Just a normal open crate, you can get a gas flamethrower from an autolathe
-	containername = "chemical flamethrower crate"
-
-/datum/supply_packs/engineering/chemthrower_upgrade
-	name = "Chemical Flamethrower Upgrade Pack"
-	contains = list(/obj/item/weaponcrafting/gunkit/chemical_flamethrower)
-	cost = 250
-	containertype = /obj/structure/closet/crate
-	containername = "chemical flamethrower upgrade crate"
-
-/datum/supply_packs/engineering/chemical_canister
-	name = "Chemical Flamethrower Canister Pack"
-	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
-	cost = 300
-	containertype = /obj/structure/closet/crate
-	containername = "chemical flamethrower canister crate"
-
 /datum/supply_packs/engineering/canister/large_air_pump
 	name = "Large Air Pump"
 	contains = list(/obj/machinery/atmospherics/portable/pump/big)

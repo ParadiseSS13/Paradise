@@ -39,6 +39,16 @@
 	if(stat == CONSCIOUS)
 		flock_talk(src, pick(GLOB.flockdrone_created_phrases), flock, TRUE)
 
+/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
+		if(avoid_stop_flockphase())
+			flockphase_tax()
+		else
+			stop_flockphase()
+	if(isspaceturf(get_turf(src)))
+		substrate.remove_points(20)
+
 /mob/living/basic/flock/drone/Destroy()
 	release_control()
 	QDEL_NULL(substrate)
@@ -86,14 +96,6 @@
 	var/datum/flockdrone_part/absorber/absorber = locate() in parts
 	absorber.try_drop_item()
 	return ..()
-
-/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
-		if(avoid_stop_flockphase())
-			flockphase_tax()
-		else
-			stop_flockphase()
 
 /mob/living/basic/flock/drone/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
@@ -376,7 +378,7 @@
 
 /// Deducts the substrate tax for flockphasing, ending flockphase if the drone ran out of points.
 /mob/living/basic/flock/drone/proc/flockphase_tax()
-	substrate.remove_points(1)
+	substrate.remove_points(20)
 	if(!substrate.has_points())
 		stop_flockphase(TRUE)
 		return FALSE

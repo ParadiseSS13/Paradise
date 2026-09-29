@@ -159,7 +159,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count--
 
-/mob/living/basic/chicken/proc/on_eat(atom/target, mob/feeder)
+/mob/living/basic/chicken/proc/on_eat(atom/source, atom/target, mob/feeder)
 	SIGNAL_HANDLER // COMSIG_MOB_PRE_EAT
 	if(stat == CONSCIOUS && eggsleft < 8)
 		eggsleft += rand(1, 4)
