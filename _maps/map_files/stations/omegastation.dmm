@@ -359,9 +359,6 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "acd" = (
@@ -582,9 +579,13 @@
 /area/station/command/office/hop)
 "adH" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/stamp/hop,
+/obj/item/paper_bin{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/stamp/hop{
+	pixel_x = -7
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -596,19 +597,11 @@
 /area/station/command/office/hop)
 "adI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/keycard_auth{
-	pixel_y = 32
-	},
-/obj/machinery/computer/account_database,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "adJ" = (
-/obj/structure/table/wood,
-/obj/machinery/newscaster/directional/north,
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28;
-	dir = 5
+/obj/machinery/keycard_auth{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
@@ -1213,8 +1206,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "ahG" = (
-/obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/ian,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
@@ -23611,6 +23602,15 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/station/maintenance/turbine)
+"gwB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/wood,
+/area/station/command/office/hop)
 "gwE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/tiles/department/security/corner{
@@ -40905,6 +40905,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prison)
+"qbL" = (
+/obj/structure/bed/dogbed/ian,
+/mob/living/simple_animal/pet/dog/corgi/ian,
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/office/hop)
 "qbT" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -49095,8 +49100,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint2)
 "ulm" = (
-/turf/simulated/floor/plating/asteroid,
-/area/mine/unexplored/omega/cargo)
+/obj/machinery/keycard_auth{
+	pixel_y = 32
+	},
+/obj/machinery/computer/account_database{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/office/hop)
 "ulr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -55557,6 +55568,22 @@
 "xFa" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/station/science/robotics/chargebay)
+"xFg" = (
+/obj/structure/table/wood,
+/obj/machinery/newscaster/directional/north,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28;
+	dir = 5
+	},
+/obj/item/book/manual/wiki/sop_command{
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_x = -6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/office/hop)
 "xFR" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -55585,6 +55612,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
+"xHl" = (
+/turf/simulated/floor/wood,
+/area/station/command/office/hop)
 "xHp" = (
 /obj/machinery/disposal,
 /obj/machinery/status_display{
@@ -56424,6 +56454,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -94501,11 +94534,11 @@ aZD
 aZD
 aae
 aZD
-aZD
 rJR
 bye
 abW
 acN
+qbL
 ahG
 aet
 ate
@@ -94758,12 +94791,12 @@ aae
 aae
 aae
 aae
-aae
 rJR
 abw
 biM
 bjT
 bsv
+gwB
 bxM
 cFE
 afY
@@ -95014,13 +95047,13 @@ aZD
 aZD
 aae
 aZD
-hVy
 aZD
 rJR
 aWX
 dWG
 acO
 adG
+xHl
 aeu
 afk
 afX
@@ -95272,12 +95305,12 @@ eOr
 eOr
 eOr
 aae
-aae
 rJR
 aXD
 bje
 rJR
-bsw
+ulm
+xHl
 bxX
 adH
 afY
@@ -95528,12 +95561,12 @@ kfT
 emS
 nyH
 eOr
-ulm
 eOr
-cWs
-cWs
-cWs
-cWs
+rJR
+rJR
+rJR
+rJR
+bsw
 adI
 abX
 adW
@@ -95786,11 +95819,11 @@ emS
 jdX
 eOr
 eOr
-eOr
 aPT
 abx
 aca
-cWs
+rJR
+xFg
 adJ
 apY
 afm
@@ -96045,8 +96078,8 @@ sqH
 ieX
 ieX
 ieX
-ieX
 rel
+cWs
 cWs
 cWs
 cWs
