@@ -69,15 +69,17 @@
 	return data
 
 
-/obj/structure/ore_box/ui_act(action, list/params)
+/obj/structure/ore_box/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
-	if(action != "empty" || !Adjacent(usr))
-		return FALSE
-	add_fingerprint(usr)
-	dump_box_contents()
-	to_chat(usr, SPAN_NOTICE("You empty the box."))
-	return TRUE
+	if(!Adjacent(ui.user))
+		return
+	switch(action)
+		if("empty")
+			add_fingerprint(ui.user)
+			dump_box_contents()
+			to_chat(ui.user, SPAN_NOTICE("You empty the box."))
+			return TRUE
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/wood/W = new (loc, 4)
