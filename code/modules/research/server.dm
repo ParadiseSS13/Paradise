@@ -131,7 +131,7 @@
 		var/list/temp_points = list()
 		for(var/i in point_generation)
 			temp_points[i] = point_generation[i]
-			temp_points[i] = FLOOR(temp_points[i] * efficiency_coeff, 0.5)
+			temp_points[i] = FLOOR(temp_points[i] * efficiency_coeff, 1)
 			total_points[i] += temp_points[i]
 		if(send_points)
 			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)

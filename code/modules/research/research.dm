@@ -7,16 +7,13 @@
 	Each RnD Network Manager contains its own research datum, meaning all research is local and will be destroyed along with the console.
 
 	Point operations are always performed through lists in the form of ("Type" = amount), e.g. list(RESEARCH_POINT_STANDARD = 500), if an operation attempts
-	to use a point type that does not exist in SSresearch then that point type will be removed.
+	to use a point type that does not exist in SSresearch then that point type will be ignored.
 
 	If you want to add a new point type, look at SSResearch.
 */
 
 /// Holder for all the existing, archived, and known tech. Individual to each network controller.
 /datum/research
-	// These lists hold datum/tech
-
-
 	/// List of all possible technodes, in direct datum references.
 	var/list/possible_technodes = list()
 	/// List of technodes we can see, in direct datum references.
@@ -51,36 +48,35 @@
 		possible_technodes += new T(src)
 	for(var/D in subtypesof(/datum/design))
 		possible_designs += new D(src)
-	research_points = SSresearch.point_types
-	for(var/i in research_points)
-		research_points[i] = 0
-	total_points = SSresearch.point_types
-	for(var/i in total_points)
-		total_points[i] = 0
+	for(var/P in SSresearch.point_types)
+		research_points[P] = 0
+		total_points[P] = 0
 	RefreshResearch()
 
 /// Anything calling this proc should use the returned value to remove points from itself.
 /datum/research/proc/addpoints(list/points_list)
-	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
+		if(!(i in SSresearch.point_types))
+			continue
 		if((i in research_points) && points_list[i] > 0)
-			research_points[i] = FLOOR(research_points[i] + points_list[i], 0.1)
+			research_points[i] = FLOOR(research_points[i] + points_list[i], 1)
 			return points_list // So the caller doesnt delete points that werent sent.
 		if((i in total_points) && points_list[i] > 0)
-			total_points[i] = FLOOR(total_points[i] + points_list[i], 0.1)
+			total_points[i] = FLOOR(total_points[i] + points_list[i], 1)
 	RefreshResearch() // Update visibility when adding points to ensure nodes show correctly.
 
 // Autobalance determines if requesting more points then we have will automatically reduce the request or just cancel it.
 /// Anything calling this proc should use the returned value to add points to itself.
 /datum/research/proc/takepoints(list/points_list, autobalance = TRUE)
-	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
+		if(!(i in SSresearch.point_types))
+			continue
 		if(research_points[i] < points_list[i] && autobalance == TRUE)
 			points_list[i] = research_points[i]
 		if(research_points[i] < points_list[i] && autobalance == FALSE)
 			return
 		if((i in research_points) && points_list[i] > 0)
-			research_points[i] = FLOOR(research_points[i] - points_list[i], 0.1)
+			research_points[i] = FLOOR(research_points[i] - points_list[i], 1)
 			return points_list
 		log_debug("Research point withdrawl failed unexpectedly.")
 		return

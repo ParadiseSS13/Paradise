@@ -9,8 +9,9 @@
 
 /// Input: List of points. Returns: points deposited or nothing if failed.
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
-	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
+		if(!(i in SSresearch.point_types))
+			continue
 		if(stored_research.len <= type_limit && !(i in stored_research) || i <= 0)
 			continue
 		stored_research[i] += points_list[i]
@@ -23,6 +24,8 @@
 		return
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
+		if(!(i in SSresearch.point_types))
+			continue
 		if(!(i in stored_research) || i <= 0)
 			continue
 		if(points_list[i] > stored_research[i])
