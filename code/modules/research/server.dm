@@ -16,8 +16,8 @@
 	var/send_points = FALSE
 	var/efficiency_coeff = 1
 	// Multiple types of points is technically supported codewise, but not supported by TGUI as its not expected, TGUI will just fetch the first in the list.
-	/// How many points this generates each process() call (~every 2 seconds)
-	var/list/point_generation = list(RESEARCH_POINT_STANDARD = 4)
+	/// How many points this generates each process() call
+	var/list/point_generation = list(RESEARCH_POINT_STANDARD = 20) // MIXTODO - Balance later.
 	/// Points stored within this server.
 	var/list/stored_points = list()
 	/// Total points this server has generated.
@@ -55,9 +55,9 @@
 
 /obj/machinery/rnd_server/examine(mob/user)
 	. = ..()
+	var/tp = point_generation[point_generation[1]] // this feels slightly cursed
 	. += SPAN_NOTICE("This machine is temperature sensitive. Any temperature colder than 273K will freeze it, while any temperature higher than [overheat_temp]K will cause it to overheat.")
-	for(var/p in point_generation)
-		. += SPAN_NOTICE("It is generating [((point_generation[p]) / 2)] [p] points per second")
+	. += SPAN_NOTICE("It is generating [((tp * efficiency_coeff) / 2)] points per second")
 
 /obj/machinery/rnd_server/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk))
@@ -82,22 +82,34 @@
 		stored_points[i] -= t
 	SStgui.update_uis(src)
 
-/// Switches the state of `send_points`.
-/obj/machinery/rnd_server/proc/switch_mode()
-	if(!send_points)
-		send_points = TRUE
+/// Input: Opposite of what you want: TRUE/FALSE, none will switch between the two.
+/obj/machinery/rnd_server/proc/switch_mode(choice)
+	var/ta = null
+	if(choice)
+		ta = choice
 	else
-		send_points = FALSE
+		ta = send_points
+	switch(ta)
+		if(TRUE)
+			send_points = FALSE
+		if(FALSE)
+			send_points = TRUE
 	SStgui.update_uis(src)
 
-/// Switches if we're active or not.
-/obj/machinery/rnd_server/proc/switch_state()
-	if(!active && !(overheating || panel_open))
-		active = TRUE
-		change_power_mode(ACTIVE_POWER_USE)
+/// Input: Opposite of what you want: TRUE/FALSE, none will switch between the two.
+/obj/machinery/rnd_server/proc/switch_on(choice)
+	var/ta = null
+	if(choice)
+		ta = choice
 	else
-		active = FALSE
-		change_power_mode(IDLE_POWER_USE)
+		ta = active
+	switch(ta)
+		if(TRUE)
+			active = FALSE
+			change_power_mode(IDLE_POWER_USE)
+		if(FALSE && !(overheating || panel_open))
+			active = TRUE
+			change_power_mode(ACTIVE_POWER_USE)
 	update_icon_state()
 	SStgui.update_uis(src)
 
@@ -120,21 +132,21 @@
 /obj/machinery/rnd_server/RefreshParts()
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)
-		T += S.rating / 2
+		T += S.rating
 	efficiency_coeff = T
 
 /obj/machinery/rnd_server/process()
 	if(active)
-		if(send_points && !network_manager_uid)	// We cant send points to the aether if theres no connected network.
+		if(send_points == TRUE && !network_manager_uid)	// We cant send points to the aether if theres no connected network.
 			send_points = FALSE
 		for(var/i in point_generation)
 			var/list/tl = point_generation
-			tl[i] *= efficiency_coeff
-			if(send_points)
+			tl[i] *= (efficiency_coeff / point_generation.len) // We divide by length so generating a second type doesnt double the output.
+			if(send_points == TRUE)
 				var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 				RNC.research_files.addpoints(tl)
 				total_points[i] = FLOOR(total_points[i] + point_generation[i], 0.1)
-			else
+			if(send_points == FALSE)
 				stored_points[i] = FLOOR(stored_points[i] + point_generation[i], 0.1)
 				total_points[i] = FLOOR(total_points[i] + point_generation[i], 0.1)
 		milla.invoke_async(src)
@@ -182,32 +194,46 @@
 		ui.open()
 
 
-/obj/machinery/rnd_server/ui_data(mob/user) // MIXTODO - Fix the TGUI.
+/obj/machinery/rnd_server/ui_data(mob/user)
 	var/list/data = list()
 
-	var/list/point_gen_data = list()
-	for(var/pg in point_generation)
-		point_gen_data[pg] = point_generation[pg]
-	data["point_gen"] = point_gen_data
+	var/pgt = point_generation[1] // MIXTODO - Make servers TGUI work with multiple point types now that im not fucking stupid.
+	var/pgv = point_generation[pgt] * (efficiency_coeff / point_generation.len) // TGUI wont display a second type of point, but it should display the first accurately.
 
-	var/list/stored_point_data = list()
-	for(var/sp in stored_points)
-		stored_point_data[sp] = stored_points[sp]
-	data["stored_points"] = stored_point_data
+	// Point data
+	var/sp = null
+	if(!stored_points[pgt])
+		sp = 0
+	else
+		sp = stored_points[pgt]
 
-	var/list/total_point_data = list()
-	for(var/tp in total_points)
-		total_point_data[tp] = total_points[tp]
-	data["total_points"] = list()
+	var/tp = null
+	if(!total_points[pgt])
+		tp = 0
+	else
+		tp = total_points [pgt]
+
+	data["point_gen_type"] = pgt
+	data["point_gen_val"] = pgv
+	data["stored_points"] = sp
+	data["total_points"] = tp
 
 	data["mode"] = send_points
 
-	data["loaded_disk"] = null
-
-	var/list/stored_disk_points = list()
-	for(var/ds in t_disk.stored_research)
-		stored_disk_points[ds] = t_disk.stored_research[ds]
-	data["disk_stored"] = stored_disk_points
+	if(t_disk)
+		data["loaded_disk"] = t_disk
+		if(t_disk.stored_research.len > 0)
+			var/tdt = t_disk.stored_research[1] // As with tech_disks.dm, rather fragile but disks shouldnt have more then one kind of point.
+			var/tdp = t_disk.stored_research[tdt]
+			data["disk_stored_t"] = tdt
+			data["disk_stored_p"] = tdp
+		else
+			data["disk_stored_t"] = null
+			data["disk_stored_p"] = null
+	else
+		data["loaded_disk"] = null
+		data["disk_stored_t"] = null
+		data["disk_stored_p"] = null
 
 	data["active"] = active
 
@@ -247,16 +273,16 @@
 			switch_mode()
 
 		if("swtch_on")
-			switch_state()
+			switch_on()
 
 		if("load")
 			if(!t_disk || !stored_points)
 				return
-			var/p_type = tgui_alert(usr, "Please select a type to transfer.", "Disk Transfer", t_disk.stored_research)
-			var/amnt = tgui_input_number(usr, "Please enter amount to transfer.", "Disk Transfer")
+			var/amnt = tgui_input_number(usr, "Please enter amount to transfer", "Disk Transfer")
+			var/p_type = stored_points[1]
 			if(amnt < 0 || !amnt)
 				return // No.
-			var/list/to_send = list()
+			var/list/to_send = list(p_type)
 			to_send[p_type] = amnt
 			points_to_disk(to_send)
 
