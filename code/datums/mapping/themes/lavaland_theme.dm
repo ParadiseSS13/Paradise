@@ -1,7 +1,7 @@
 /datum/lavaland_theme
 	/// Name of lavaland theme
 	var/name = "Not Specified"
-	/// Typepath of turf the `/turf/simulated/floor/lava/mapping_lava` will be changed to on Late Initialization
+	/// Typepath of turf the `/turf/simulated/floor/lava/mapping_lava` will be changed to
 	var/turf/simulated/floor/primary_turf_type
 	/// Icon state of planet present on background of station Z-level
 	var/planet_icon_state
@@ -24,6 +24,28 @@
 /datum/lavaland_theme/proc/setup()
 	SHOULD_CALL_PARENT(TRUE)
 	setup_multisector()
+
+/**
+ * Changes all the mapping lava on lavaland into our primary turf type.
+ * Has to run after the caves are generated, as they look for mapping lava.
+ *
+ * Nothing on lavaland is initialized yet, so we can just make the new turf in its place, which is much faster than ChangeTurf().
+ * Mapping lava that shows up after this still changes itself in LateInitialize().
+ */
+/datum/lavaland_theme/proc/replace_mapping_lava()
+	for(var/zlvl in levels_by_trait(ORE_LEVEL))
+		var/datum/space_level/level = GLOB.space_manager.get_zlev(zlvl)
+		for(var/turf/simulated/floor/lava/mapping_lava/mapping_turf in block(1, 1, zlvl, world.maxx, world.maxy, zlvl))
+			// Keep the same baseturf, like ChangeTurf() does
+			var/new_baseturf = mapping_turf.baseturf
+			if(new_baseturf == mapping_turf.type)
+				new_baseturf = primary_turf_type // Baseturf helpers skip turfs that are their own baseturf, so keep it that way
+			var/turf/new_turf = new primary_turf_type(mapping_turf)
+			new_turf.baseturf = new_baseturf
+			// Turfs on the edge of the z-level need their transition set up again
+			level.add_to_transit(new_turf)
+			level.apply_transition(new_turf)
+			CHECK_TICK
 
 /datum/lavaland_theme/proc/setup_multisector()
 	var/bridge_diameter = 14
