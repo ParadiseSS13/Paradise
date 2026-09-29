@@ -34,35 +34,50 @@
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))
-		show_contents(user)
+		ui_interact(user)
 
 /obj/structure/ore_box/attack_robot(mob/user)
 	if(Adjacent(user))
-		show_contents(user)
+		ui_interact(user)
 
-/obj/structure/ore_box/proc/show_contents(mob/user)
-	var/dat = "<b>The contents of the ore box reveal...</b><br>"
+
+/obj/structure/ore_box/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/structure/ore_box/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "OreBox", name)
+		ui.open()
+
+/obj/structure/ore_box/ui_data(mob/user)
+	var/list/data = list()
 	var/list/assembled = list()
 	for(var/obj/item/stack/ore/O in src)
 		assembled[O.type] += O.amount
+	var/list/ores = list()
 	for(var/type in assembled)
 		var/obj/item/stack/ore/O = type
-		dat += "[initial(O.name)] - [assembled[type]]<br>"
+		ores += list(list(
+			"id" = "[type]",
+			"name" = initial(O.name),
+			"amount" = assembled[type],
+			"icon" = initial(O.icon),
+			"icon_state" = initial(O.icon_state)
+		))
+	data["ores"] = ores
+	return data
 
-	dat += "<br><br><A href='byond://?src=[UID()];removeall=1'>Empty box</A>"
-	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
 
-/obj/structure/ore_box/Topic(href, href_list)
+/obj/structure/ore_box/ui_act(action, list/params)
 	if(..())
 		return
-	usr.set_machine(src)
+	if(action != "empty" || !Adjacent(usr))
+		return FALSE
 	add_fingerprint(usr)
-	if(href_list["removeall"])
-		dump_box_contents()
-		to_chat(usr, SPAN_NOTICE("You empty the box."))
-	updateUsrDialog()
+	dump_box_contents()
+	to_chat(usr, SPAN_NOTICE("You empty the box."))
+	return TRUE
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/wood/W = new (loc, 4)
@@ -101,3 +116,4 @@
 
 	dump_box_contents()
 	to_chat(user, SPAN_NOTICE("You empty the ore box."))
+
