@@ -14,10 +14,10 @@
 	var/network_manager_uid = null
 	/// Do we send our points to the server or store them?
 	var/send_points = FALSE
-	var/efficiency_coeff = 1
+	var/efficiency_coeff = 0.5
 	// Multiple types of points is technically supported codewise, but not supported by TGUI as its not expected, TGUI will just fetch the first in the list.
 	/// How many points this generates each process() call
-	var/list/point_generation = list(RESEARCH_POINT_STANDARD = 20) // MIXTODO - Balance later.
+	var/list/point_generation = list(RESEARCH_POINT_STANDARD = 4) // MIXTODO - Balance later.
 	/// Points stored within this server.
 	var/list/stored_points = list()
 	/// Total points this server has generated.
@@ -55,9 +55,9 @@
 
 /obj/machinery/rnd_server/examine(mob/user)
 	. = ..()
-	var/tp = point_generation[point_generation[1]] // this feels slightly cursed
 	. += SPAN_NOTICE("This machine is temperature sensitive. Any temperature colder than 273K will freeze it, while any temperature higher than [overheat_temp]K will cause it to overheat.")
-	. += SPAN_NOTICE("It is generating [((tp * efficiency_coeff) / 2)] points per second")
+	for(var/i in point_generation)
+		. += SPAN_NOTICE("It is generating [(point_generation[i] * efficiency_coeff)] [i] points per second")
 
 /obj/machinery/rnd_server/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk))
@@ -82,34 +82,23 @@
 		stored_points[i] -= t
 	SStgui.update_uis(src)
 
-/// Input: Opposite of what you want: TRUE/FALSE, none will switch between the two.
-/obj/machinery/rnd_server/proc/switch_mode(choice)
-	var/ta = null
-	if(choice)
-		ta = choice
+/// Switches `send_points`
+/obj/machinery/rnd_server/proc/switch_mode()
+	if(send_points)
+		send_points = FALSE
 	else
-		ta = send_points
-	switch(ta)
-		if(TRUE)
-			send_points = FALSE
-		if(FALSE)
-			send_points = TRUE
+		send_points = TRUE
 	SStgui.update_uis(src)
 
 /// Input: Opposite of what you want: TRUE/FALSE, none will switch between the two.
-/obj/machinery/rnd_server/proc/switch_on(choice)
-	var/ta = null
-	if(choice)
-		ta = choice
+/obj/machinery/rnd_server/proc/switch_on()
+	if(active)
+		active = FALSE
+		change_power_mode(IDLE_POWER_USE)
 	else
-		ta = active
-	switch(ta)
-		if(TRUE)
-			active = FALSE
-			change_power_mode(IDLE_POWER_USE)
-		if(FALSE && !(overheating || panel_open))
-			active = TRUE
-			change_power_mode(ACTIVE_POWER_USE)
+		active = TRUE
+		change_power_mode(ACTIVE_POWER_USE)
+
 	update_icon_state()
 	SStgui.update_uis(src)
 
@@ -133,22 +122,23 @@
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		T += S.rating
-	efficiency_coeff = T
+	efficiency_coeff = initial(efficiency_coeff) * T
 
 /obj/machinery/rnd_server/process()
 	if(active)
-		if(send_points == TRUE && !network_manager_uid)	// We cant send points to the aether if theres no connected network.
+		if(send_points && !network_manager_uid)	// We cant send points to the aether if theres no connected network.
 			send_points = FALSE
+		var/list/temp_points = list()
 		for(var/i in point_generation)
-			var/list/tl = point_generation
-			tl[i] *= (efficiency_coeff / point_generation.len) // We divide by length so generating a second type doesnt double the output.
-			if(send_points == TRUE)
-				var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
-				RNC.research_files.addpoints(tl)
-				total_points[i] = FLOOR(total_points[i] + point_generation[i], 0.1)
-			if(send_points == FALSE)
-				stored_points[i] = FLOOR(stored_points[i] + point_generation[i], 0.1)
-				total_points[i] = FLOOR(total_points[i] + point_generation[i], 0.1)
+			temp_points[i] = point_generation[i]
+			temp_points[i] = FLOOR(temp_points[i] * efficiency_coeff, 0.5)
+			total_points[i] += temp_points[i]
+		if(send_points)
+			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+			RNC.research_files.addpoints(temp_points)
+		else
+			for(var/p in temp_points)
+				stored_points[p] += temp_points[p]
 		milla.invoke_async(src)
 	SStgui.update_uis(src)
 
