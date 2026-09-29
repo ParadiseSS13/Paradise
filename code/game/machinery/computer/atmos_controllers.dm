@@ -54,56 +54,42 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	qdel(src)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
-#define ONOFF_TOGGLE(flag) "\[[(output & flag) ? "YES" : "NO"]]"
 /obj/machinery/atmospherics/air_sensor/multitool_act(mob/living/user, obj/item/I)
-	var/list/options = list(
-		"Pressure: [ONOFF_TOGGLE(SENSOR_PRESSURE)]" = SENSOR_PRESSURE,
-		"Temperature: [ONOFF_TOGGLE(SENSOR_TEMPERATURE)]" = SENSOR_TEMPERATURE,
-		"Oxygen: [ONOFF_TOGGLE(SENSOR_O2)]" = SENSOR_O2,
-		"Toxins: [ONOFF_TOGGLE(SENSOR_PLASMA)]" = SENSOR_PLASMA,
-		"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
-		"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
-		"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
-		"Hydrogen: [ONOFF_TOGGLE(SENSOR_H2)]" = SENSOR_H2,
-		"Water Vapor: [ONOFF_TOGGLE(SENSOR_H2O)]" = SENSOR_H2O,
-		"-SAVE TO BUFFER-" = "multitool"
+	var/list/sensor_flags = list(
+		"Pressure" = SENSOR_PRESSURE,
+		"Temperature" = SENSOR_TEMPERATURE,
+		"Oxygen" = SENSOR_O2,
+		"Toxins" = SENSOR_PLASMA,
+		"Nitrogen" = SENSOR_N2,
+		"Carbon Dioxide" = SENSOR_CO2,
+		"Nitrous Oxide" = SENSOR_N2O,
+		"Hydrogen" = SENSOR_H2,
+		"Water Vapor" = SENSOR_H2O
 	)
+	var/list/options = list()
+	for(var/sensor_name in sensor_flags)
+		options[sensor_name] = (output & sensor_flags[sensor_name]) != 0
 
-	var/temp_answer = tgui_input_list(user, "Select an option to adjust", "Options!", options)
+	var/list/selected_options = tgui_input_checkbox_list(user, "Select the readings to report", "Gas Sensor", options)
 
 	if(!(src in view(5, user)))
 		return TRUE
 
-	if(temp_answer in options) // Null will break us out
-		switch(options[temp_answer])
-			if(SENSOR_PRESSURE)
-				output ^= SENSOR_PRESSURE
-			if(SENSOR_TEMPERATURE)
-				output ^= SENSOR_TEMPERATURE
-			if(SENSOR_O2)
-				output ^= SENSOR_O2
-			if(SENSOR_PLASMA)
-				output ^= SENSOR_PLASMA
-			if(SENSOR_N2)
-				output ^= SENSOR_N2
-			if(SENSOR_CO2)
-				output ^= SENSOR_CO2
-			if(SENSOR_N2O)
-				output ^= SENSOR_N2O
-			if(SENSOR_H2)
-				output ^= SENSOR_H2
-			if(SENSOR_H2O)
-				output ^= SENSOR_H2O
-			if("multitool")
-				if(!ismultitool(I)) // Should never happen
-					return
+	if(!selected_options)
+		return TRUE
+	if(!ismultitool(I)) // Should never happen
+		return
 
-				var/obj/item/multitool/M = I
-				M.buffer_uid = UID()
-				to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))
+	output = 0
+	for(var/sensor_name in sensor_flags)
+		if(selected_options[sensor_name])
+			output |= sensor_flags[sensor_name]
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))
 
 	return TRUE
-#undef ONOFF_TOGGLE
 
 
 
