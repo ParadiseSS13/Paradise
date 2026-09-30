@@ -348,14 +348,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
 	var/carryover_turf_flags = turf_flags & (RESERVATION_TURF|UNUSED_RESERVATION_TURF)
 	var/turf/W = new path(src)
 	W.turf_flags |= carryover_turf_flags
 	if(old_comp_lookup)
 		LAZYOR(W.comp_lookup, old_comp_lookup)
-	if(old_signal_procs)
-		LAZYOR(W.signal_procs, old_signal_procs)
 
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
@@ -882,7 +879,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	return pressure_overlay
 
 /turf/_clear_signal_refs()
-	return
+	// Things listening to this turf carry over to the new one in ChangeTurf(), so leave those.
+	// Stop listening to things ourselves though, the new turf might not have the same procs.
+	for(var/target in signal_procs)
+		UnregisterSignal(target, signal_procs[target])
 
 /turf/proc/set_transition_north(dest_z)
 	destination_x = x
