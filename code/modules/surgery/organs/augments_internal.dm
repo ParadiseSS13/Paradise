@@ -591,21 +591,33 @@
 		using the innate processing power of humanoid biology to perform calculations and operations beneficial to research. \
 		The I-04 utilizes some of its processing to slowly repair damage to the user's central nervous system that may or \
 		may not be caused by its operation."
+	icon_state = "neural_comp"
 	implant_overlay = null
 	implant_color = null
-	icon_state = "neural_comp"
 	slot = "brain_antistun"
 	var/network_manager_uid = null
-	var/list/point_gen = list(RESEARCH_POINT_STANDARD = 20) // MIXTODO - Balance later
+	var/list/point_gen = list(RESEARCH_POINT_STANDARD = 2) // MIXTODO - Balance later
 	var/disabled = FALSE
 	/// Brain damage gained on EMP.
 	var/brain_damage = 30
+	augment_icon = "neural_comp"
+
+/obj/item/organ/internal/cyberimp/brain/neural_computer/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
 
 /obj/item/organ/internal/cyberimp/brain/neural_computer/examine(mob/user)
 	. = ..()
 	if(!network_manager_uid)
 		. += SPAN_NOTICE("It is not connected to any research network, it will not generate points!")
 		. += SPAN_NOTICE("It can be connected by using a multitool.")
+	else
+		. += SPAN_NOTICE("It is connected to network [network_manager_uid].")
+		for(var/p in point_gen)
+			. += SPAN_NOTICE("It is generating [point_gen[p]] [p] points.")
 
 /obj/item/organ/internal/cyberimp/brain/neural_computer/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
