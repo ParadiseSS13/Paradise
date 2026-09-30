@@ -112,10 +112,10 @@
 	var/obj/item/reagent_containers/syringe/syringe = used
 
 	if(!(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5)))
-		to_chat(user, SPAN_WARNING("There's nothing in this syringe worth injecting into a power cell."))
+		to_chat(user, SPAN_WARNING("There's nothing in [used] worth injecting into [src]."))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You inject the solution into the power cell."))
+	to_chat(user, SPAN_WARNING("You inject the solution into [src]."))
 	rigged = TRUE
 	log_admin("LOG: [key_name(user)] injected a power cell with plasma, rigging it to explode.")
 	message_admins("LOG: [key_name_admin(user)] injected a power cell with plasma, rigging it to explode.")
