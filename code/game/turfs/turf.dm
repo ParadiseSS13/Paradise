@@ -370,15 +370,17 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	lighting_corner_SW = old_lighting_corner_SW
 	lighting_corner_NW = old_lighting_corner_NW
 
-	if(!W.dynamic_lighting)
-		W.lighting_build_overlay()
-	else
-		W.lighting_clear_overlay()
-
 	if(SSlighting.initialized)
 		W.lighting_object = old_lighting_object
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
+
+		// Keep the old lighting object, but space doesn't get one and everything else lit needs one
+		if(IS_DYNAMIC_LIGHTING(W) && IS_DYNAMIC_LIGHTING(W.loc))
+			if(!lighting_object)
+				lighting_build_overlay()
+		else if(lighting_object)
+			lighting_clear_overlay()
 
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
