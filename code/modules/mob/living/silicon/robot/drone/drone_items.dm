@@ -21,7 +21,7 @@
 	var/grabbed_something = FALSE
 
 	for(var/atom/movable/atom in the_floor)
-		if(atom.decompile_act(src, user)) // Each decompileable mob or obj needs to have this defined
+		if(atom.decompile_act(src, user)) // Each decompileable mob or obj needs to have this defined.
 			grabbed_something = TRUE
 
 	if(grabbed_something)
@@ -54,7 +54,7 @@
 				stack = stack_glass
 			if("wood")
 				if(!stack_wood)
-					stack_wood = new /obj/item/stack/sheet/wood(src.module)
+					stack_wood = new /obj/item/stack/sheet/wood/cyborg(src.module)
 					stack_wood.amount = 1
 				stack = stack_wood
 		stack.amount++
