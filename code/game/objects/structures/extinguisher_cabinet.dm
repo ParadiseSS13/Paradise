@@ -180,13 +180,13 @@
 	if(no_user)
 		src.visible_message(
 			SPAN_WARNING("[src] swings open!"),
-			SPAN_HEAR("You hear a latch opening.")
+			SPAN_HEAR("You hear a latch clicking.")
 		)
 	else
 		user.visible_message(
 			SPAN_NOTICE("[user] opens [src]."),
 			SPAN_NOTICE("You open [src]."),
-			SPAN_HEAR("You hear a latch opening.")
+			SPAN_HEAR("You hear a latch clicking.")
 		)
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened
