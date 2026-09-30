@@ -80,3 +80,9 @@
 		var/obj/item/target_type = .
 		color = initial(target_type.color)
 		worn_icon_state = worn_as + "_dyeable"
+
+/obj/item/clothing/suit/oversuit/dye_item(dye_color, dye_key_override)
+	. = ..()
+	if(.)
+		var/obj/item/target_type = .
+		color = initial(target_type.color)

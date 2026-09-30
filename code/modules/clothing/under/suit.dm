@@ -92,3 +92,10 @@
 /obj/item/clothing/under/suit/victsuit/red
 	name = "red victorian suit"
 	icon_state = "victorianredvest"
+
+/obj/item/clothing/under/suit/dress_shirt
+	name = "white dress shirt"
+	desc = "A plain, professional white dress shirt, with matching black tie and slacks."
+	icon = 'icons/obj/clothing/under/procedure.dmi'
+	worn_icon = 'icons/mob/clothing/under/procedure.dmi'
+	icon_state = "iaa"
