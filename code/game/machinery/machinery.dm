@@ -623,31 +623,39 @@
 
 // Short circuit - when electronic machinery is exposed to water (or bad circuitry), short circuit.
 /obj/machinery/proc/short_circuit()
-	if(time_shorted > world.time + 1 MINUTES)
+	if(world.time < time_shorted + 1 MINUTES)
 		return FALSE
 	if(power_state == NO_POWER_USE || !has_power() || !power_initialized) // The machine is turned off, don't explode.
 		return FALSE
 	var/area/local_area = get_area(src)
 	var/obj/machinery/power/apc/apc = local_area?.get_apc()
-	if(!apc)
+	if(!apc || !apc.cell)
 		return FALSE
 	do_sparks(6, FALSE, src)
-	sleep(2 SECONDS) // Enough time to go "OH SHIT!".
+	visible_message(SPAN_DANGER("[src] sparks violently!"))
+	addtimer(CALLBACK(src, PROC_REF(do_short_circuit), apc), 2 SECONDS)
+	return TRUE
+
+/obj/machinery/proc/do_short_circuit(obj/machinery/power/apc/apc)
+	if(!apc || !apc.cell)
+		return
 	var/power_consumed = apc.cell.charge * 0.8
 	apc.cell.use(power_consumed)
 	apc.emag_act()
 
-	var/heavy_impact_range = floor(power_consumed / 5000)
-	var/light_impact_range = floor(power_consumed / 750)
-	var/flash_range = floor(power_consumed / 500)
+	var/heavy_impact_range = max(floor(power_consumed / 5000), 1)
+	var/light_impact_range = max(floor(power_consumed / 750), 6)
+	var/flash_range = max(floor(power_consumed / 500), 10)
 	/// How many fires will we spawn?
-	var/fires = floor(power_consumed / 250)
+	var/fires = max(floor(power_consumed / 250), 25)
 	log_debug("Short circuit event created [fires] fires.")
 	explosion(get_turf(src), -1, heavy_impact_range, light_impact_range, flash_range, flame_range = light_impact_range , cause = "short circuit", breach = FALSE)
 	var/list/turfs = list()
-	for(var/turf/T in view(light, get_turf(src)))
+	for(var/turf/T in view(light_impact_range, get_turf(src)))
 		turfs += T
 	while(fires > 0 && length(turfs))
+		if(!length(turfs)) // No more turfs to pick from
+			break
 		var/turf/flamed = pick_n_take(turfs)
 		if(flamed.density)
 			continue
@@ -658,9 +666,3 @@
 		new /obj/effect/fire/electrical(flamed)
 		fires--
 	time_shorted = world.time
-	return TRUE
-
-/obj/machinery/water_act(volume, temperature, source, method)
-	. = ..()
-	if(volume >= 50)
-		short_circuit()
