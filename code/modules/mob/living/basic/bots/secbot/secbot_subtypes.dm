@@ -6,7 +6,7 @@
 /mob/living/basic/bot/secbot/beepsky/ofitser
 	name = "Prison Ofitser"
 	desc = "Powered by the tears and sweat of laborers."
-	bot_mode_flags = ~(BOT_MODE_CAN_BE_SAPIENT|BOT_MODE_AUTOPATROL)
+	bot_mode_flags = ~(BOT_MODE_AUTOPATROL)
 
 /mob/living/basic/bot/secbot/beepsky/armsky
 	name = "Sergeant-At-Armsky"
@@ -27,7 +27,7 @@
 	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
 	light_color = "#62baf5"
 	radio_channel = "AI Private"
-	bot_mode_flags = ~(BOT_MODE_CAN_BE_SAPIENT|BOT_MODE_AUTOPATROL)
+	bot_mode_flags = ~(BOT_MODE_AUTOPATROL)
 	security_mode_flags = SECBOT_DECLARE_ARRESTS | SECBOT_CHECK_IDS | SECBOT_CHECK_RECORDS
 
 /mob/living/basic/bot/secbot/beepsky/explode()

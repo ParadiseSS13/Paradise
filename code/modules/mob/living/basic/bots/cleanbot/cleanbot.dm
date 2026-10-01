@@ -71,6 +71,7 @@
 		/obj/item/trash,
 		/obj/effect/decal/remains,
 		/obj/item/cigbutt,
+		/obj/item/trash/spentcasing
 	))
 	///drawings we hunt
 	var/static/list/cleanable_drawings = typecacheof(list(/obj/effect/decal/cleanable/crayon))
@@ -289,7 +290,7 @@
 	ai_controller.set_blackboard_key(BB_CLEANBOT_EMAGGED_PHRASES, emagged_phrases)
 
 /mob/living/basic/bot/cleanbot/autopatrol
-	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_ROUNDSTART_POSSESSION
+	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_ROUNDSTART_POSSESSION
 
 /mob/living/basic/bot/cleanbot/medbay
 	name = "Scrubs, MD"
