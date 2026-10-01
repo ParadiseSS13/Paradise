@@ -66,6 +66,9 @@ Biomes:
 	lavaland will have 2 z levels, maybe 3 and some biomes are maybe not allowed to be together! just a thought
  */
 
+#define BORDER_PADDING 10
+#define MAX_OVERLAP 5
+
 /datum/biome_theme
 	var/name = "backrooms"
 	#warn TODO: AUTODOC!!!!!!!!
@@ -90,7 +93,7 @@ Biomes:
 			/obj/structure/flora/corn_stalk/alt_1 = 50,
 			/obj/structure/flora/corn_stalk/alt_2 = 50
 		),
-		"area_type" = null
+		"area_type" = /area/lavaland/surface/biome
 	) // add megafauna stuff here too
 	var/list/generation_steps = list(
 		/datum/worldgen_modifier/noise/biome,
@@ -99,22 +102,44 @@ Biomes:
 		/datum/worldgen_modifier/flora,
 		/datum/worldgen_modifier/fauna
 	)
+	var/temp_location_x
+	var/temp_location_y
+	var/temp_location_z
+	/// Size of the placement, x and y
+	var/size
 
-	#warn TODO: pull from global list instead
-	var/size = 96
-	var/temp_location_x = 10
-	var/temp_location_y = 10
-	var/temp_location_z = null
+
+/// Finds suitable coordinates to place the biome, with minimal overlap
+/datum/biome_theme/proc/suitable_placement()
+	var/valid = TRUE
+	var/placement_attempts = 3
+	while(placement_attempts > 0 && !valid)
+		valid = TRUE // can never be too sure
+		var/turf/placement_attempt = locate(
+			rand(BORDER_PADDING, world.maxx - (BORDER_PADDING + size)),
+			rand(BORDER_PADDING, world.maxy - (BORDER_PADDING + size)),
+			temp_location_z
+		)
+		// trimming off some acceptable overlap, look at the block of what our biome will occupy
+		for(var/turf/check in block(placement_attempt.x + MAX_OVERLAP, placement_attempt.y + MAX_OVERLAP, temp_location_z, placement_attempt.x + size - MAX_OVERLAP, placement_attempt.y + size - MAX_OVERLAP, temp_location_z))
+			if(istype(get_area(check), /area/lavaland/surface/biome))
+				valid = FALSE
+		// while placement_attempt is still in scope :)
+		if(valid)
+			temp_location_x = placement_attempt.x
+			temp_location_y = placement_attempt.y
+			return TRUE
+	// failed
+	return FALSE
 
 
 /// Create a new instance of a biome
-/datum/biome_theme/New()
-	#warn TODO: get location to place from calling proc on lavaland generation
-	var/valid_zs = levels_by_trait(ORE_LEVEL)
-	#warn TODO: have SSmapping choose the biome lmao
-	var/datum/biome_theme/chosen_biome = new /datum/biome_theme
-	#warn TODO: gotta change this later
-	chosen_biome.temp_location_z = pick(valid_zs)
+/datum/biome_theme/New(datum/space_level/zlevel)
+	size = rand(80, 100)
+	temp_location_z = zlevel.zpos
+	var/success = suitable_placement()
+	if(!success)
+		qdel(src)
 
 /// Handles calling and coordinating the worldgen_modifiers to generate the biome
 /datum/biome_theme/proc/setup()

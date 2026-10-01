@@ -22,8 +22,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/existing_station_areas
 	/// Types of areas that exist on the station this shift
 	var/list/existing_station_areas_types
-	/// What lavaland biome are we generating
-	var/datum/biome_theme/biome_theme
+	/// What lavaland biomes are we generating
+	var/list/lavaland_biomes
 	#warn TODO: change the above
 	/// The type of the Lavaland theme for the next round, if selected.
 	var/next_lavaland_theme
@@ -115,9 +115,6 @@ SUBSYSTEM_DEF(mapping)
 	lavaland_theme = new current_lavaland_theme
 	log_startup_progress("We're in the mood for [lavaland_theme.name] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
 	SSblackbox.record_feedback("text", "procgen_settings", 1, "[current_lavaland_theme]")
-
-	#warn TODO: add the biome selection here instead...
-	//biome_theme = new /datum/biome_theme
 	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
 	ASSERT(caves_theme_type)
 	caves_theme = new caves_theme_type
@@ -373,9 +370,17 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/procgen_lavaland()
 	var/theme_watch = start_watch()
 	log_startup_progress("Loading lavaland themes...")
-	#warn TODO: ADD BIOME GEN THEME HERE
-	//var/datum/biome_theme/my_biome = new /datum/biome_theme
-	//my_biome.setup()
+	if(GLOB.configuration.ruins.enable_biomes)
+		var/list/valid_zs = levels_by_trait(ORE_LEVEL)
+		for(var/datum/space_level/S in valid_zs)
+		#warn VALID ZS RETURNS A NUMBER IDIOT
+			var/biome_count = rand(GLOB.configuration.ruins.minimum_biome_attempt, GLOB.configuration.ruins.maximum_biome_attempt)
+			for(var/i = 0 to biome_count)
+				var/biome_type = pick(subtypesof(/datum/biome_theme))
+				var/datum/biome_theme/curr_biome = new biome_type(S)
+				if(!QDELETED(curr_biome)) // qdel'd if failed placement
+					curr_biome.setup() // run that shit
+
 	//if(lavaland_theme)
 		//lavaland_theme.setup()
 	//if(caves_theme)

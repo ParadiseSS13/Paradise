@@ -144,7 +144,8 @@
 	if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
 		return
 	T.ChangeTurf(generation_data["rock_type"])
-	//T.area = generation_data["biome_area"]
+	var/area/old_area = T.loc
+	T.change_area(old_area, generation_data["biome_area"])
 
 
 /// World generation modifier for fauna, small random chance per tile, more at centre of biome
