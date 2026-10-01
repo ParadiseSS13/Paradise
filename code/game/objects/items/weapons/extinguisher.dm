@@ -63,6 +63,7 @@
 	has_safety = FALSE
 	safety_active = FALSE
 	precision = TRUE
+	prefilled = FALSE
 	reagent_capacity = INFINITY
 
 /obj/item/extinguisher/atmospherics/empty

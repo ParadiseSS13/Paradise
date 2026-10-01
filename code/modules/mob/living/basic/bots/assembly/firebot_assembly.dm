@@ -42,6 +42,8 @@
 			firebot.name = created_name
 			firebot.skin = skin
 			firebot.hat = hat
+			firebot.update_appearance()
+			firebot.create_extinguisher()
 			qdel(tool)
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE

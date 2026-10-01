@@ -16,6 +16,7 @@
 	path_image_color = "#FFA500"
 	possessed_message = "You are a firebot! Protect the station from fires to the best of your ability!"
 	ai_controller = /datum/ai_controller/basic_controller/bot/firebot
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_MAGPULSE)
 	/// our inbuilt fire extinguisher
 	var/obj/item/extinguisher/internal_ext
 
@@ -92,7 +93,10 @@
 		. += emissive_appearance(icon, "[base_icon_state]_light_incapacitated_[mode_suffix]", src, alpha = src.alpha)
 
 /mob/living/basic/bot/firebot/proc/create_extinguisher()
+	if(internal_ext)
+		qdel(internal_ext)
 	internal_ext = new /obj/item/extinguisher/atmospherics/firebot(src)
+	internal_ext.reagent_id = (skin == "red" ? "water" : "firefighting_foam")
 	internal_ext.reagents.add_reagent(internal_ext.reagent_id, internal_ext.reagent_capacity)
 
 /mob/living/basic/bot/firebot/melee_attack(atom/attacked_atom, list/modifiers, ignore_cooldown = FALSE)
