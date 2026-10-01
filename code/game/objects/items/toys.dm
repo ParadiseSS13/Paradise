@@ -242,15 +242,15 @@
 	if(prob(1))
 		if(target == user)
 			user.visible_message(
-				"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow...</span>",
+				SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow..."),
 				SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade. Somehow..."),
 				SPAN_DANGER("You hear an energy blade slashing something!")
 			)
 		else
 			user.visible_message(
-				"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow...</span>",
+				SPAN_DANGER("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow..."),
 				SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade. Somehow..."),
 				SPAN_DANGER("You hear an energy blade slashing something!")
 			)
@@ -261,15 +261,15 @@
 	// Else, bat it out of the target's mouth.
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor.</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor."),
 			SPAN_WARNING("You casually slash [src] at [cig], swatting it out of your mouth."),
 			SPAN_NOTICE("You hear a gentle tapping.")
 		)
 	else
 		user.visible_message(
-			"<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!</span>",
+			SPAN_WARNING("[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!"),
 			SPAN_WARNING("You casually slash [src] at [cig] in the mouth of [target], swatting it to the floor!"),
 			SPAN_NOTICE("You hear a gentle tapping.")
 		)
@@ -1013,8 +1013,8 @@
 /obj/item/toy/plushie/borgplushie
 	name = "borg plushie"
 	desc = "The synthetic backbone of the station, rendered in plush form. Features a built-in flashlight and polychromic fabric."
+	base_icon_state = "plushie_borg"
 	icon_state = "plushie_borg"
-	var/borg_plushie_overlay = "plushie_borgassist"
 	var/plushie_module_selected = FALSE
 	var/on = FALSE
 
@@ -1047,13 +1047,13 @@
 		"Medical"		= image('icons/mob/robots.dmi', "med-radial"),
 		"Janitor"		= image('icons/mob/robots.dmi', "jan-radial")
 	)
-	var/static/list/plushie_module_overlays = list(
-		"Security"		= "plushie_borgsec",
-		"Engineering"	= "plushie_borgengi",
-		"Mining"		= "plushie_borgmine",
-		"Service"		= "plushie_borgserv",
-		"Medical"		= "plushie_borgmed",
-		"Janitor"		= "plushie_borgjan"
+	var/static/list/plushie_module_icons = list(
+		"Security"		= "plushie_borg_security",
+		"Engineering"	= "plushie_borg_engineering",
+		"Mining"		= "plushie_borg_mining",
+		"Service"		= "plushie_borg_service",
+		"Medical"		= "plushie_borg_medical",
+		"Janitor"		= "plushie_borg_janitor"
 	)
 	playsound(src, 'sound/effects/pop.ogg', 50, TRUE)
 	var/user_selection = show_radial_menu(user, src, menu_options, require_near = TRUE, radius = 42)
@@ -1061,10 +1061,10 @@
 	if(!user_selection)
 		return
 
-	borg_plushie_overlay = plushie_module_overlays[user_selection]
 	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, transforming it into \a [lowertext(user_selection)] plush!"))
-	update_icon()
+	icon_state = plushie_module_icons[user_selection]
 	plushie_module_selected = TRUE
+	update_icon()
 
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
@@ -1074,18 +1074,20 @@
 		to_chat(user, SPAN_WARNING("[src] is already in standard mode!"))
 		return ITEM_INTERACT_COMPLETE
 
-	borg_plushie_overlay = "plushie_borgassist"
-	update_icon()
-	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, reverting it back to standard mode."))
 	plushie_module_selected = FALSE
+	icon_state = base_icon_state
+	update_appearance(UPDATE_ICON)
+	to_chat(user, SPAN_NOTICE("The fabric on [src] changes color, reverting it back to standard mode."))
 	qdel(used)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/activate_self(mob/user)
 	if(..())
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	on = !on
 	update_brightness()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/toy/plushie/borgplushie/proc/update_brightness()
 	if(on)
@@ -1096,7 +1098,6 @@
 
 /obj/item/toy/plushie/borgplushie/update_overlays()
 	. = ..()
-	add_overlay(borg_plushie_overlay)
 	if(on)
 		add_overlay("borglights")
 	else
@@ -1123,10 +1124,34 @@
 
 /obj/item/toy/plushie/borgplushie/random/Initialize(mapload)
 	. = ..()
-	borg_plushie_overlay = pick("plushie_borgjan", "plushie_borgsec", "plushie_borgmed", "plushie_borgmine", "plushie_borgserv", "plushie_borgassist", "plushie_borgengi")
-	if(borg_plushie_overlay != "plushie_borgassist")
+	icon_state = pick("plushie_borg", "plushie_borg_security", "plushie_borg_mining", "plushie_borg_engineering", "plushie_borg_service", "plushie_borg_medical", "plushie_borg_janitor")
+	if(icon_state != base_icon_state)
 		plushie_module_selected = TRUE
 	update_icon()
+
+/obj/item/toy/plushie/borgplushie/security
+	icon_state = "plushie_borg_security"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/miner
+	icon_state = "plushie_borg_mining"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/engineering
+	icon_state = "plushie_borg_engineering"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/service
+	icon_state = "plushie_borg_service"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/medical
+	icon_state = "plushie_borg_medical"
+	plushie_module_selected = TRUE
+
+/obj/item/toy/plushie/borgplushie/janitor
+	icon_state = "plushie_borg_janitor"
+	plushie_module_selected = TRUE
 
 /obj/item/toy/plushie/dionaplushie
 	name = "diona plushie"

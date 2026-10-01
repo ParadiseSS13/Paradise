@@ -318,5 +318,5 @@
 	else // Dumping
 		for(var/obj/item/I in storage_controller.contents)
 			storage_controller.remove_from_storage(I, target_turf)
-		chassis.occupant_message("<span class='notice'>You dump everything out of [src].")
+		chassis.occupant_message(SPAN_NOTICE("You dump everything out of [src]."))
 	update_equip_info()

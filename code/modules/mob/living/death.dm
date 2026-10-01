@@ -76,6 +76,13 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(gibbed, src)
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(gibbed, src)
+
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
 	if(mind)

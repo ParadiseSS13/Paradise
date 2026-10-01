@@ -71,6 +71,8 @@
 		return
 	if(!ishuman(O))
 		return
+	if(!Adjacent(user))
+		return
 	var/mob/living/carbon/human/H = O
 	if(H.stat != DEAD)
 		to_chat(user, SPAN_WARNING("You don't think it'd be wise to scan a living being."))
@@ -114,6 +116,8 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
+	if(HAS_TRAIT(scanned, TRAIT_UNCLONABLE))
+		return SCANNER_UNCLONABLE_TRAIT
 	if(!scanned.ckey || !scanned.client || IS_CHANGELING(scanned))
 		return SCANNER_NO_SOUL
 	if(scanned.suiciding || !scanned.get_int_organ(/obj/item/organ/internal/brain))

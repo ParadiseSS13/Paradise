@@ -145,6 +145,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 				used.forceMove(src)
 
 			surface.container = used
+			surface.container.surface = surface
 			surface.prob_quality_decrease = 0
 			surface.RegisterSignal(used, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/cooking_surface, container_examine), override = TRUE)
 			if(surface.on)

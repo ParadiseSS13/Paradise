@@ -1693,7 +1693,7 @@
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.drop_item_to_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
-			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+			to_chat(H, SPAN_BOLDANNOUNCEOOC("Could not find an empty slot for internals! Please report this as a bug."))
 	H.internal = internal_tank
 
 /datum/outfit/admin/vox_war_drone
@@ -1722,7 +1722,7 @@
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.drop_item_to_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
-			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+			to_chat(H, SPAN_BOLDANNOUNCEOOC("Could not find an empty slot for internals! Please report this as a bug."))
 	H.internal = internal_tank
 
 /datum/outfit/admin/supreme

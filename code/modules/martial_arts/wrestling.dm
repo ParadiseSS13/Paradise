@@ -66,3 +66,33 @@
 	to_chat(user, "[SPAN_NOTICE("Clinch")]: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
 	to_chat(user, "[SPAN_NOTICE("Suplex")]: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
 	to_chat(user, "[SPAN_NOTICE("Advanced grab")]: Grab. Passively causes stamina damage when grabbing someone.")
+
+/obj/item/storage/belt/champion/wrestling
+	name = "Wrestling Belt"
+	layer_over_suit = TRUE
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	if(slot == ITEM_SLOT_BELT)
+		var/mob/living/carbon/human/H = user
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, SPAN_WARNING("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
+			return
+		style.teach(H, TRUE)
+		to_chat(user, SPAN_SCIRADIO("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the verb in the martial arts tab."))
+	return
+
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
+		style.remove(H)
+		to_chat(user, SPAN_SCIRADIO("You no longer have an urge to flex your muscles."))

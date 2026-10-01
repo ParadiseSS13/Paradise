@@ -20,6 +20,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_DEMON = 5,
 	ROLE_ELITE = 5,
 	ROLE_FLOCK = 20,
+	ROLE_MIND_FLAYER = 5,
+	ROLE_HERETIC = 5,
+	ROLE_NINJA = 20,
+	ROLE_IRRADIATED_MOUSE = 10,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
@@ -32,6 +36,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 20,
 	ROLE_UPLIFTED_PRIMITIVE = 10,
+	ROLE_ASH_WALKER = 5,
 ))
 
 // Admin Verbs

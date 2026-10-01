@@ -301,7 +301,7 @@
 				. += SPAN_NOTICE("It has [remaining_capacity] seconds remaining.") // to avoid having 0 minutes
 			else
 				. += SPAN_NOTICE("It has [seconds_to_time(remaining_capacity)] remaining.")
-		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to wipe the current tape."
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to wipe the current tape.")
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

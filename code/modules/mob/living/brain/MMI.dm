@@ -90,19 +90,29 @@
 		if(radio)
 			to_chat(user, SPAN_WARNING("[src] already has a radio installed."))
 			return ITEM_INTERACT_COMPLETE
-		user.visible_message(SPAN_NOTICE("[user] begins to install [used] into [src]..."), \
-			SPAN_NOTICE("You start to install [used] into [src]..."))
-		if(do_after(user, 2 SECONDS, target=src))
-			if(user.drop_item())
-				user.visible_message(SPAN_NOTICE("[user] installs [used] in [src]."), \
-					SPAN_NOTICE("You install [used] in [src]."))
-				if(brainmob)
-					to_chat(brainmob, SPAN_NOTICE("MMI radio capability installed."))
-					install_radio()
-					qdel(used)
-					return ITEM_INTERACT_COMPLETE
-			else
-				to_chat(user, SPAN_WARNING("You can't drop [used]!"))
+
+		user.visible_message(
+			SPAN_NOTICE("[user] begins to install [used] into [src]..."),
+			SPAN_NOTICE("You start to install [used] into [src]...")
+		)
+		if(!do_after(user, 2 SECONDS, target=src))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("You can't drop [used]!"))
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] installs [used] in [src]."),
+			SPAN_NOTICE("You install [used] in [src].")
+		)
+		install_radio()
+		qdel(used)
+
+		if(brainmob)
+			to_chat(brainmob, SPAN_NOTICE("MMI radio capability installed."))
+		return ITEM_INTERACT_COMPLETE
+
 	if(istype(used, /obj/item/stack/nanopaste)) // MMIs can get EMP damaged too so this isn't just for robobrains
 		if(!brainmob)
 			return ITEM_INTERACT_COMPLETE

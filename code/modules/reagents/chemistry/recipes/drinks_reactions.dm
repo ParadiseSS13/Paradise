@@ -1248,7 +1248,7 @@
 	result = "eggcream"
 	required_reagents = list("egg" = 5, "milk" = 5, "sugar" = 10)
 	max_temp = 290
-	min_temp = 275
+	min_temp = 260
 	result_amount = 20
 	mix_message = "The egg and milk whip nicely together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

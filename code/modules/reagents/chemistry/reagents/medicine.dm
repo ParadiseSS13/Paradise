@@ -17,7 +17,7 @@
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
-	description = "An extremely effective painkiller; may have long term abuse consequences."
+	description = "An extremely effective painkiller."
 	reagent_state = LIQUID
 	color = "#C805DC"
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
@@ -32,7 +32,7 @@
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
-	description = "Sterilizes wounds in preparation for surgery."
+	description = "Sterilizes wounds in preparation for surgery. Sterilizes liquid vessels and syringes as well."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "antiseptic"
@@ -140,7 +140,7 @@
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
 	id = "mitocholide"
-	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
+	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs. Ineffective against internal bleeding."
 	reagent_state = LIQUID
 	color = "#8523be"
 	taste_description = "nurturing"
@@ -269,7 +269,7 @@
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
-	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
+	description = "This saline and glucose solution can help stabilize critically injured patients and those in shock. It can also be used as a fluid replacement to treat minor blood loss."
 	reagent_state = LIQUID
 	color = "#cbc6ce"
 	penetrates_skin = TRUE
@@ -337,7 +337,7 @@
 /datum/reagent/medicine/heal_on_apply/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
-	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
+	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically. At sufficient saturation, reverses husking from burns."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
 	penetrates_skin = TRUE
@@ -378,7 +378,7 @@
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
-	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
+	description = "Styptic (aluminum sulfate) powder helps to control bleeding and heal physical wounds."
 	reagent_state = LIQUID
 	color = "#FF9696"
 	metabolization_rate = 3
@@ -447,7 +447,7 @@
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
 	id = "charcoal"
-	description = "Activated charcoal helps to absorb toxins."
+	description = "Activated charcoal slowly absorbs toxins in the body."
 	reagent_state = LIQUID
 	taste_description = "dust"
 	taste_flag = ORGANIC | SYNTHETIC
@@ -466,7 +466,7 @@
 /datum/reagent/medicine/omnizine
 	name = "Omnizine"
 	id = "omnizine"
-	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
+	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries. May be habit forming. Overdose may cause dizziness, tremors, confusion, and sudden loss of muscle strength."
 	reagent_state = LIQUID
 	color = "#d6047f"
 	metabolization_rate = 0.2
@@ -573,7 +573,7 @@
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
-	description = "Potassium Iodide is a medicinal drug used to counter the effects of radiation poisoning."
+	description = "Potassium iodide is a medicinal drug used to counter the effects of radiation poisoning. Works slowly, but is very well-tolerated in clinical trials."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "cleansing"
@@ -607,9 +607,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
-	name = "Salicylic Acid"
+	name = "Acetylsalicylic Acid"
 	id = "sal_acid"
-	description = "This is a is a standard salicylate pain reliever and fever reducer."
+	description = "This is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B54848"
 	metabolization_rate = 0.1
@@ -695,7 +695,7 @@
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
-	description = "Ephedrine is a plant-derived stimulant."
+	description = "Ephedrine is a plant-derived stimulant that can also assist the stabilisation of critical patients (in combination with other treatments). May cause vomiting, dizziness, and muscle weakness in excessive doses."
 	reagent_state = LIQUID
 	color = "#a185b1"
 	metabolization_rate = 0.3
@@ -749,7 +749,7 @@
 /datum/reagent/medicine/diphenhydramine
 	name = "Diphenhydramine"
 	id = "diphenhydramine"
-	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
+	description = "Anti-allergy medication. May cause drowsiness. Do not operate heavy machinery while using this. Higher doses may cause hallucinations."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
 	addiction_chance = 1
@@ -842,7 +842,7 @@
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
-	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
+	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects. Well-tolerated in clinical trials."
 	reagent_state = LIQUID
 	color = "#757377"
 	taste_description = "clarity"
@@ -873,7 +873,7 @@
 /datum/reagent/medicine/atropine
 	name = "Atropine"
 	id = "atropine"
-	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
+	description = "Atropine is a potent cardiac resuscitant. May cause confusion, dizziness and hyperthermia."
 	reagent_state = LIQUID
 	metabolization_rate = 0.2
 	overdose_threshold = 25
@@ -902,7 +902,7 @@
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
 	id = "epinephrine"
-	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest."
+	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest. Overdose may cause weakness, vomiting, and dizziness."
 	reagent_state = LIQUID
 	color = "#96B1AE"
 	metabolization_rate = 0.2
@@ -1022,7 +1022,7 @@
 /datum/reagent/medicine/sanguine_reagent
 	name = "Sanguine Reagent"
 	id = "sanguine_reagent"
-	description = "A deeply crimson almost-gel that can mimic blood, regardless of type."
+	description = "A deeply crimson almost-gel that can mimic blood, regardless of type. Overdose may cause shortness of breath and blood vomiting."
 	color = "#770101"
 	taste_description = "coppery fuel"
 	harmless = FALSE
@@ -1079,7 +1079,7 @@
 /datum/reagent/medicine/osseous_reagent
 	name = "Osseous Reagent"
 	id = "osseous_reagent"
-	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel."
+	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel. Toxic and may cause bone tumors when applied directly to patients."
 	color = "#c9abab"
 	taste_description = "chunky marrow"
 	harmless = FALSE
@@ -1109,7 +1109,7 @@
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
-	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
+	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling. Well-tolerated in clinical trials."
 	color = "#D1D1F1"
 	taste_description = "sweetness"
 	yuck_description = "stickiness in your tubes"
@@ -1214,7 +1214,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
+	description = "A military-grade psychostimulant that dramatically improves muscular performance, eliminates lactic acid buildup, sharpens reaction times, and promotes the regeneration of damaged tissues. Above the teraputic dose, positive effects are reduced and cytotoxic effects are known to occur."
 	color = "#96210de3"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
@@ -1257,8 +1257,8 @@
 /datum/reagent/medicine/stimulative_agent/surge_plus
 	name = "Surge Plus"
 	id = "surge_plus"
-	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficincy of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
-	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiancy gains."
+	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficiency of synthetic locomotive systems, allowing the user to run faster and increasing component processing speed. \
+	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiency gains."
 	reagent_state = LIQUID
 	color = "#28b581"
 	process_flags = SYNTHETIC
@@ -1431,7 +1431,7 @@
 /datum/reagent/medicine/omnizine_diluted
 	name = "Diluted Omnizine"
 	id = "weak_omnizine"
-	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
+	description = "A stereoisomer of omnizine. It has the same range of medical applications, but structural differences make it bind less effectively to therapeutic targets. It is, however, known to be far less addictive."
 	reagent_state = LIQUID
 	color = "#c173c4"
 	overdose_threshold = 30
@@ -1442,7 +1442,7 @@
 /datum/reagent/medicine/omnizine_diluted/godblood
 	name = "Godblood"
 	id = "godblood"
-	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	description = "A strange ichor that glows with mysterious power. It miracuously heals a wide range of injuries through unknown mechanisms, albeit slowly."
 	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
@@ -1500,7 +1500,7 @@
 /datum/reagent/medicine/liquid_solder
 	name = "Liquid Solder"
 	id = "liquid_solder"
-	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
+	description = "A solution formulated to clean and repair damaged connections in positronic brains while in use."
 	reagent_state = LIQUID
 	color = "#D7B395"
 	process_flags = SYNTHETIC
@@ -1520,7 +1520,7 @@
 /datum/reagent/medicine/bicaridine
 	name = "Bicaridine"
 	id = "bicaridine"
-	description = "Restores bruising. Overdose causes it instead."
+	description = "A plant-derived drug that promotes tissue repair and wound healing. High concentrations will cause harmful inflammation and lesions."
 	reagent_state = LIQUID
 	color = "#bb3805"
 	overdose_threshold = 30
@@ -1540,7 +1540,7 @@
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
 	id = "kelotane"
-	description = "Restores fire damage. Overdose causes it instead."
+	description = "A plant-derived drug that promotes the regrowth of tissues damaged or destroyed by burns. High concentrations are corrosive and will cause chemical burns."
 	reagent_state = LIQUID
 	color = "#dae907"
 	overdose_threshold = 30
@@ -1562,7 +1562,7 @@
 /datum/reagent/medicine/earthsblood
 	name = "Earthsblood"
 	id = "earthsblood"
-	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
+	description = "A strange ichor derived from <i>Ambrosia gaia</i>. It can treat an extremely broad range of injuries through unknown mechanisms, but is known to cause harmful changes in brain chemistry, which incidentally also inhibit violent impulses."
 	color = "#FFAF00"
 	overdose_threshold = 25
 	addiction_threshold = 50
@@ -1698,7 +1698,7 @@
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"
 	id = "lavaland_extract"
-	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
+	description = "An extremely potent drug that supercharges the body's natural healing mechanisms. It is highly toxic outside of its recommended dosage. Nanotrasen continues to strongly assert that it is purified from natural minerials and trace atmospheric gasses found on Lavaland. Any statements you make to the contrary during your gainful employment are grounds for demotion, reassignment, or termination at the discretion of Nanotrasen."
 	color = "#5a2323"
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE

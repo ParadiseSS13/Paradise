@@ -382,7 +382,7 @@ RESTRICT_TYPE(/datum/team/cult)
 			to_chat(M, SPAN_CULT("Current goal: [obj_summon.explanation_text]"))
 		if(NARSIE_HAS_RISEN)
 			to_chat(M, SPAN_CULTLARGE("\"I am here.\""))
-			to_chat(M, SPAN_CULT("Current goal:</span> <span class='cultlarge'>\"Feed me.\""))
+			to_chat(M, "[SPAN_CULT("Current goal:")] [SPAN_CULTLARGE("\"Feed me.\"")]")
 		if(NARSIE_HAS_FALLEN)
 			to_chat(M, SPAN_CULTLARGE("[GET_CULT_DATA(entity_name, "The Dark One")] has been banished!"))
 			to_chat(M, SPAN_CULT("Current goal: Slaughter the unbelievers!"))
@@ -394,7 +394,7 @@ RESTRICT_TYPE(/datum/team/cult)
 	var/list/cult = get_cultists(separate = TRUE)
 	var/total_cult = cult[1] + cult[2]
 
-	var/overview = "<span class='cultitalic'><br><b>Current cult members: [total_cult]"
+	var/overview = "<br><b>Current cult members: [total_cult]"
 	if(!cult_ascendant)
 		var/rise = rise_number - total_cult
 		var/ascend = ascend_number - total_cult
@@ -402,11 +402,11 @@ RESTRICT_TYPE(/datum/team/cult)
 			overview += " | Conversions until Rise: [rise]"
 		else if(ascend > 0)
 			overview += " | Conversions until Ascension: [ascend]"
-	to_chat(M, "[overview]</b></span>")
+	to_chat(M, SPAN_CULTITALIC("[overview]</b>"))
 
 	if(cult[2]) // If there are any constructs, separate them out
-		to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cult[1]]")
-		to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [cult[2]]")
+		to_chat(M, SPAN_CULTITALIC("<b>Cultists:</b> [cult[1]]"))
+		to_chat(M, SPAN_CULTITALIC("<b>Constructs:</b> [cult[2]]"))
 
 /datum/team/cult/proc/create_next_sacrifice()
 	var/datum/objective/sacrifice/obj_sac = objective_holder.add_objective(/datum/objective/sacrifice)
@@ -438,7 +438,7 @@ RESTRICT_TYPE(/datum/team/cult)
 		objective_holder.remove_objective(current_obj)
 		ready_to_summon()
 		return FALSE
-	speak_to_all_alive_cultists(SPAN_DANGER("[GET_CULT_DATA(entity_name, "Your god")]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead..."))
+	speak_to_all_alive_cultists("[SPAN_DANGER("[GET_CULT_DATA(entity_name, "Your god")]")] murmurs, [SPAN_CULTLARGE("\"Our goal is beyond your reach. Sacrifice [current_obj.target] instead...\"")]")
 	return TRUE
 
 /datum/team/cult/proc/successful_sacrifice()
@@ -506,10 +506,10 @@ RESTRICT_TYPE(/datum/team/cult)
 	if(!input)
 		return
 
-	speak_to_all_alive_cultists(SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\""))
+	speak_to_all_alive_cultists("[SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,")] [SPAN_CULTLARGE("\"[input]\"")]")
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		to_chat(O, SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,</span> <span class='cultlarge'>\"[input]\""))
+		to_chat(O, "[SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,")] [SPAN_CULTLARGE("\"[input]\"")]")
 
 	message_admins("Admin [key_name_admin(admin_caller)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
 	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")

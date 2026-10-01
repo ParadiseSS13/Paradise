@@ -86,7 +86,10 @@
 	if(istype(heating_object, /obj/item/lighter/zippo))
 		class = "rose"
 
-	user.visible_message("<span class='[class]'>[user] holds [heating_object] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", "<span class='[class]'>You hold [heating_object] up to [src], burning it slowly.</span>")
+	user.visible_message(
+		"<span class='[class]'>[user] holds [heating_object] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>",
+		"<span class='[class]'>You hold [heating_object] up to [src], burning it slowly.</span>"
+	)
 
 	if(!do_after(user, 2 SECONDS, target = src) || !heating_object.get_heat())
 		return

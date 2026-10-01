@@ -39,11 +39,11 @@
 	remove_verb(src, /mob/living/verb/pulled)
 	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.add_hud_to(src)
+	med_hud.add_hud_to(src, "lightgeist")
 
 /mob/living/basic/lightgeist/Destroy()
 	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.remove_hud_from(src)
+	med_hud.remove_hud_from(src, "lightgeist")
 	return ..()
 
 /mob/living/basic/lightgeist/melee_attack(atom/target, list/modifiers, ignore_cooldown)

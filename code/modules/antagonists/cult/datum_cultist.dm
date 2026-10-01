@@ -60,8 +60,8 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	return
 
 /datum/antagonist/cultist/greet()
-	return "<span class='cultlarge'>You catch a glimpse of the Realm of [GET_CULT_DATA(entity_name, "this is a bug at this point")], [GET_CULT_DATA(entity_title3, "I dont know what else to write")]. \
-						You now see how flimsy the world is, you see that it should be open to the knowledge of [GET_CULT_DATA(entity_name, "making a bug report")].</span>"
+	return SPAN_CULTLARGE("You catch a glimpse of the Realm of [GET_CULT_DATA(entity_name, "this is a bug at this point")], [GET_CULT_DATA(entity_title3, "I dont know what else to write")]. \
+						You now see how flimsy the world is, you see that it should be open to the knowledge of [GET_CULT_DATA(entity_name, "making a bug report")].")
 
 /datum/antagonist/cultist/farewell()
 	if(owner && owner.current)

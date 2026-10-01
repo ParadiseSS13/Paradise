@@ -27,9 +27,9 @@
 
 #define FLOCK_COMPUTE_COST_FLOCKTRACE 100
 #define FLOCK_COMPUTE_COST_DRONE 10
-#define FLOCK_COMPUTE_COST_RELAY 750
+#define FLOCK_COMPUTE_COST_RELAY 1000
 
-#define FLOCK_TURFS_FOR_RELAY 250
+#define FLOCK_TURFS_FOR_RELAY 300
 
 /// Amount of substrate to add to a tealprint.
 #define FLOCK_SUBSTRATE_COST_DEPOST_TEALPRINT 10
@@ -38,12 +38,12 @@
 /// Amount to repair a flock construct.
 #define FLOCK_SUBSTRATE_COST_REPAIR 10
 /// BASE amount to lay an egg.
-#define FLOCK_SUBSTRATE_COST_LAY_EGG 100
+#define FLOCK_SUBSTRATE_COST_LAY_EGG 150
 
 /// Egg cost does not start scaling until there are this many drones.
 #define FLOCK_MIN_DESIRED_POP 10
 /// Each drone above the min desired pop adds this much to the substrate required to be able to lay an egg.
-#define FLOCK_ADDITIONAL_RESOURCE_RESERVATION_PER_DRONE 8
+#define FLOCK_ADDITIONAL_RESOURCE_RESERVATION_PER_DRONE 15
 #define FLOCK_DRONE_LIMIT 50
 
 #define FLOCK_ENDGAME_LOST 1

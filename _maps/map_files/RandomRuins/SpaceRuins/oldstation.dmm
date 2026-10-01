@@ -3871,6 +3871,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
+"mk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/salvageable/computer,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/rnd)
 "mm" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -4478,6 +4483,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
+"tj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/salvageable/protolathe,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/rnd)
 "tm" = (
 /obj/machinery/door/poddoor{
 	id_tag = "prototype_vault_antechamber";
@@ -4665,6 +4675,11 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/ancientstation/atmo)
+"vh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/salvageable/circuit_imprinter,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/rnd)
 "vn" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -5903,6 +5918,11 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/kitchen)
+"Ix" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/salvageable/destructive_analyzer,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/rnd)
 "IB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -10669,9 +10689,9 @@ bO
 Jh
 iX
 Wp
+mk
 dE
-dE
-dE
+tj
 dE
 gg
 iX
@@ -10717,9 +10737,9 @@ ew
 Va
 iX
 SR
-dE
+vh
 fT
-dE
+Ix
 dE
 dP
 gy

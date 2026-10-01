@@ -82,6 +82,14 @@
 	invocation_type = "none"
 	invocation = null
 
+/datum/spell/fireball/shadow_grapple/can_cast(mob/user, charge_check, show_message)
+	// Prevents casting while shadow crawling.
+	if(istype(user.loc, /obj/effect/dummy/slaughter))
+		to_chat(user, SPAN_WARNING("You need to manifest before you can use this ability!"))
+		return FALSE
+	
+	return ..()
+
 /datum/spell/fireball/shadow_grapple/update_spell_icon()
 	return
 

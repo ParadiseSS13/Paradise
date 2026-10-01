@@ -42,3 +42,15 @@
 #define DEP_MAIL_LIST_SERVICE list("Clown", "Mime", "Head of Personnel", "Chaplain")
 #define DEP_MAIL_LIST_COMMAND list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Nanotrasen Career Trainer")
 #define DEP_MAIL_LIST_MISC list("Assistant")
+
+GLOBAL_LIST_INIT(mail_crate_possible_contents, list(
+	/obj/item/envelope/security = DEP_MAIL_LIST_SECURITY,
+	/obj/item/envelope/science = DEP_MAIL_LIST_SCIENCE,
+	/obj/item/envelope/supply = DEP_MAIL_LIST_SUPPLY,
+	/obj/item/envelope/medical = DEP_MAIL_LIST_MEDICAL,
+	/obj/item/envelope/engineering = DEP_MAIL_LIST_ENGINEERING,
+	/obj/item/envelope/bread = DEP_MAIL_LIST_BREAD,
+	/obj/item/envelope/circuses = DEP_MAIL_LIST_SERVICE,
+	/obj/item/envelope/command = DEP_MAIL_LIST_COMMAND,
+	/obj/item/envelope/misc = DEP_MAIL_LIST_MISC,
+))
