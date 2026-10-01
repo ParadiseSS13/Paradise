@@ -123,6 +123,10 @@
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
 	data["NGCR_coefficient"] = active.reactivity_multiplier
+	data["NGCR_overheat_level"] = active.heat_damage_threshold
+	data["NGCR_overpressure_level"] = active.pressure_maximum
+	data["NGCR_mols_created"] = active.total_gas_spawned
+	data["NGCR_instability_level"] = active.reactivity_multiplier
 	if(active.control_lockout)
 		data["NGCR_throttle"] = 0
 	else

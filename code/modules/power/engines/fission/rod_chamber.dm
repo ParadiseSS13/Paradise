@@ -45,6 +45,8 @@
 	var/durability_level = 0
 	/// Holds our previous overlay.
 	var/previous_durability_level
+	/// Prevents rods from being inserted for any reason.
+	var/prevent_rods = FALSE
 
 /obj/machinery/atmospherics/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -278,6 +280,9 @@
 			if(panel_open)
 				to_chat(user, SPAN_WARNING("The open maintenance panel prevents the rod from slotting inside!"))
 				return ITEM_INTERACT_COMPLETE
+			if(prevent_rods)
+				to_chat(user, SPAN_WARNING("You can't insert the rod right now, it would be too dangerous!"))
+				return ITEM_INTERACT_COMPLETE
 			if(user.transfer_item_to(used, src, force = TRUE))
 				held_rod = used
 				playsound(loc, 'sound/machines/podclose.ogg', 50, TRUE)
@@ -307,6 +312,13 @@
 	if(user.a_intent == INTENT_HARM)
 		if(chamber_state == CHAMBER_OVERLOAD_IDLE || chamber_state == CHAMBER_OVERLOAD_ACTIVE)
 			to_chat(user, SPAN_WARNING("You probably shouldn't try to weld it right now."))
+			return ITEM_INTERACT_COMPLETE
+		if(chamber_state != CHAMBER_OPEN && !held_rod)
+			prevent_rods = TRUE
+			if(do_after_once(user, 2 SECONDS, TRUE, src, TRUE, FALSE))
+				anchored = !anchored
+				to_chat(user, SPAN_INFORMATION("You [anchored ? "unweld" : "weld"] [src] [anchored ? "from" : "to"] the floor."))
+			prevent_rods = FALSE
 			return ITEM_INTERACT_COMPLETE
 		if(chamber_state != CHAMBER_DOWN)
 			return ITEM_INTERACT_COMPLETE
