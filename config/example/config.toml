@@ -819,6 +819,7 @@ external_tos_handler = false
 # Path to the map datum to load, overriding the defaults and `data/next_map.txt`.
 # Do not use in production.
 # Comment out to disable.
+#override_map = "/datum/map/test_kitchen"
 #override_map = "/datum/map/test_tiny"
 # Regional servers.
 # This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
