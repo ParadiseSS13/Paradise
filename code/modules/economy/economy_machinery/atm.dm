@@ -28,7 +28,6 @@
 	var/lockout_time = 0
 	///failed login attempts counter, used for locking out the atm
 	var/login_attempts = 0
-	///
 
 /obj/machinery/economy/atm/Initialize(mapload)
 	. = ..()
