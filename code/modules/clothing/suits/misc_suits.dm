@@ -1681,6 +1681,14 @@
 /obj/item/clothing/suit/oversuit
 	name = "oversuit"
 	desc = "A Haroldson-braded oversuit, worn over your existing clothing. It's also neatly foldable and dyeable!"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
+	)
 	icon_state = "oversuit"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_OVERSUIT
