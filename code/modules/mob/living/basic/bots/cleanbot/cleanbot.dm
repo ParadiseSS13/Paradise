@@ -71,7 +71,7 @@
 		/obj/item/trash,
 		/obj/effect/decal/remains,
 		/obj/item/cigbutt,
-		/obj/item/trash/spentcasing
+		/obj/item/ammo_casing
 	))
 	///drawings we hunt
 	var/static/list/cleanable_drawings = typecacheof(list(/obj/effect/decal/cleanable/crayon))
