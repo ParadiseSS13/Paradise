@@ -55,7 +55,7 @@ class Lint:
         self.errors.append(LintError(msg, str(file) if file is not None else None, line, self.title))
 
     def error_source(self, msg: str, source_loc: SourceLoc) -> None:
-        self.errors.append(LintError(msg, source_loc.file_path, source_loc.line))
+        self.errors.append(LintError(msg, str(source_loc.file_path), source_loc.line))
 
 
 # If we're in a GitHub Actions context, write annotations alongside the default failure messages

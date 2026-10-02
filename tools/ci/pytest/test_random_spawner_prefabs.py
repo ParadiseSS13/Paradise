@@ -2,7 +2,7 @@ from avulto import DME, Dmlist
 from avulto.ast import Prefab
 import pytest
 
-from ci.pytest.conftest import Lint
+from conftest import Lint
 
 
 def print_prefab(prefab: Prefab) -> str:
