@@ -142,7 +142,7 @@
 			if(!Adjacent(AL) || restrained())
 				continue
 			AL.try_to_activate_door(src)
-		for(var/obj/structure/falsewall/false_wall)
+		for(var/obj/structure/falsewall/false_wall in clicked_turf.contents)
 			if(!Adjacent(false_wall) || restrained())
 				continue
 			false_wall.toggle(src)
