@@ -1,3 +1,5 @@
+// DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in `revolver.dm`.
+
 /obj/item/gun/projectile/shotgun
 	name = "M400 pump shotgun"
 	desc = "A traditional shotgun with wood furniture and a 4+1 tube magazine underneath."
@@ -79,9 +81,8 @@
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 
-// RIOT SHOTGUN //
 
-/// for spawn in the armory
+// MARK: Riot shotgun
 /obj/item/gun/projectile/shotgun/riot
 	name = "\improper M500 riot shotgun"
 	desc = "A sturdy shotgun by Starstrike Arms, featuring a 6+1 tube magazine and a fixed tactical stock. Designed for non-lethal riot control."
@@ -218,10 +219,7 @@
 	. = ..()
 	post_sawoff()
 
-///////////////////////
-// BOLT ACTION RIFLE //
-///////////////////////
-
+// MARK: Bolt-action
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
 	desc = "An ancient design commonly used by the conscript forces of the USSP. Chambered in 7.62mm. Has a bayonet lug for attaching a knife."
@@ -336,6 +334,7 @@
 	..()
 	pump(user)
 
+// MARK: Combat shotgun
 /obj/item/gun/projectile/shotgun/automatic/combat
 	name = "\improper M600 combat shotgun"
 	desc = "A semi automatic shotgun by Starstrike Arms, with tactical furniture and a six-shell magazine capacity."
@@ -357,8 +356,7 @@
 	if(magazine.ammo_count() < magazine.max_ammo)
 		magazine.stored_ammo.Add(new /obj/item/ammo_casing/shotgun/lasershot)
 
-//Dual Feed Shotgun
-
+// MARK: Dual-feed shotgun
 /obj/item/gun/projectile/shotgun/automatic/dual_tube
 	name = "\improper XM800 cycler shotgun"
 	desc = "A prototype shotgun by Starstrike Arms with two separate magazine tubes, allowing you to quickly toggle between ammo types."
@@ -374,6 +372,11 @@
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-click</b> to manually pump [src].")
+	. += SPAN_NOTICE("It will also automatically pump if the chamber is empty when toggling which magazine is feeding it.")
+
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
 	if(!alternate_magazine)
@@ -385,7 +388,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/handle_activate_self(mob/user)
 	if(!chambered && length(magazine.contents))
-		pump()
+		pump(user)
 
 	toggle_tube(user)
 
@@ -405,5 +408,3 @@
 	if(user.incapacitated() || !Adjacent(user) || !istype(user))
 		return
 	pump(user)
-
-// DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm
