@@ -48,7 +48,7 @@
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
 	to_chat(user, SPAN_WARNING("You begin to break the blade..."))
-	if(!do_after(user, 1 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
+	if(!do_after(user, 2.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
 		to_chat(user, SPAN_WARNING("You fail to break the blade!"))
 		return
 	var/turf/safe_turf = find_safe_turf(blacklist_areas = GLOB.blacklisted_heretic_areas)
