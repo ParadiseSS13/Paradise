@@ -410,13 +410,19 @@ datum/tech/robotics
 
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
-	desc = T.desc + "\n [SPAN_NOTICE("Level: [T.level]")]"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	tech_id = T.id
 	tech_name = T.name
 	tech_level = T.level
 	tech_rarity = T.rare
+
+/obj/item/disk/tech_disk/examine(mob/user)
+	. = ..()
+	if(tech_id)
+		. += SPAN_NOTICE("It contains [tech_name] at level [tech_level].")
+	else
+		. += SPAN_NOTICE("It is empty.")
 
 /obj/item/disk/tech_disk/proc/wipe_tech()
 	name = default_name
@@ -442,6 +448,13 @@ datum/tech/robotics
 	// NOTE: This is just a reference to the design on the system it grabbed it from
 	// This seems highly fragile
 	blueprint = D
+
+/obj/item/disk/design_disk/examine(mob/user)
+	. = ..()
+	if(blueprint)
+		. += SPAN_NOTICE("It contains the design for [blueprint.name].")
+	else
+		. += SPAN_NOTICE("It is empty.")
 
 /obj/item/disk/design_disk/proc/wipe_blueprint()
 	name = default_name
