@@ -245,9 +245,9 @@
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
-		if(light)
-			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
-		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+		if(light && !operating)
+			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]_lightmask")
+			. += image('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]")
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
@@ -340,11 +340,11 @@
 
 /obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
 	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/machinery/door/firedoor/border_only/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
