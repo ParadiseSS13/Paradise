@@ -142,6 +142,10 @@
 			if(!Adjacent(AL) || restrained())
 				continue
 			AL.try_to_activate_door(src)
+		for(var/obj/structure/falsewall/false_wall)
+			if(!Adjacent(false_wall) || restrained())
+				continue
+			false_wall.toggle(src)
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	if(A in direct_access())
