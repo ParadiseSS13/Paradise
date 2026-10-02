@@ -63,7 +63,6 @@
 	contains = list(/obj/structure/janitorialcart,
 					/obj/item/clothing/shoes/galoshes)
 	cost = 100
-	containertype = /obj/structure/closet/crate/janitorial
 	containername = "janitorial cart crate"
 	department_restrictions = list(DEPARTMENT_SERVICE)
 
@@ -82,16 +81,15 @@
 					/obj/item/storage/box/lights/mixed,
 					/obj/item/storage/box/lights/mixed)
 	cost = 50
-	containertype = /obj/structure/closet/crate/janitorial
 	containername = "replacement lights crate"
 
-/datum/supply_packs/misc/janicart
-	name = "Janicart Crate"
+/datum/supply_packs/misc/janitor/pimpin_ride
+	name = "Janicart (Pimpin' Ride) Crate"
 	contains = list(/obj/vehicle/janicart,
 					/obj/item/key/janitor)
 	cost = 500
 	containertype = /obj/structure/largecrate
-	containername = "Janicart. Caution while driving is advised."
+	containername = "janicart (pimpin' ride) crate."
 	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/soap
