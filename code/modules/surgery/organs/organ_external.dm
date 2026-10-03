@@ -382,17 +382,17 @@
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
 			if(EMP_HEAVY)
-				// 5.9 burn damage, 64.9 damage with 11 limbs.
-				receive_damage(0, 5.9)
+				// 2.3 burn damage, 25.3 damage with 11 limbs.
+				receive_damage(0, 2.3)
 			if(EMP_LIGHT)
-				// 3.63 burn damage, 39.93 damage with 11 limbs.
-				receive_damage(0, 3.63)
+				// 1.1 burn damage, 12.1 damage with 11 limbs.
+				receive_damage(0, 1.1)
 			if(EMP_RESIST_BODY)
-				// 1.9 burn damage, 20.9 damage with 11 limbs.
-				receive_damage(0, 1.9)
+				// 0.9 burn damage, 9.9 damage with 11 limbs.
+				receive_damage(0, 0.9)
 			if(EMP_WEAKENED)
-				// 1.32 (2 * .66 burn mod) burn damage, 14.52 damage with 11 limbs.
-				receive_damage(0, 2)
+				// 0.6 burn damage, 6.6 damage with 11 limbs.
+				receive_damage(0, 0.6)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(EMP_HEAVY)
