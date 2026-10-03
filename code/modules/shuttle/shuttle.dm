@@ -31,6 +31,9 @@
 	var/list/ripples = list()
 	var/hidden = FALSE //are we invisible to shuttle navigation computers?
 
+	/// Highlight colour for debug mode
+	var/highlight_colour = "#ffffff" // Default to white
+
 	//these objects are indestructable
 /obj/docking_port/Destroy(force)
 	if(force)
@@ -159,6 +162,7 @@
 // MARK: Stationary port
 /obj/docking_port/stationary
 	name = "dock"
+	highlight_colour = "#ff0000"
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
@@ -169,6 +173,9 @@
 	. = ..()
 	if(!mapload)
 		register()
+
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -181,9 +188,6 @@
 	if(name == "dock")
 		name = "dock[length(SSshuttle.stationary_docking_ports)]"
 
-	#ifdef DOCKING_PORT_HIGHLIGHT
-	highlight("#f00")
-	#endif
 	return 1
 
 //returns first-found touching shuttleport
@@ -219,6 +223,7 @@
 /obj/docking_port/mobile
 	name = "shuttle"
 	icon_state = "pinonclose"
+	highlight_colour = "#00ff00"
 
 	var/area/shuttle/areaInstance
 	var/list/shuttle_areas
@@ -262,10 +267,6 @@
 		areaInstance.name = name
 		areaInstance.contents += return_ordered_turfs()
 
-	#ifdef DOCKING_PORT_HIGHLIGHT
-	highlight("#0f0")
-	#endif
-
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -275,6 +276,16 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
+
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/docking_port/LateInitialize()
+	. = ..()
+	#ifdef DOCKING_PORT_HIGHLIGHT
+	highlight(highlight_colour)
+	#endif
+
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
@@ -848,6 +859,18 @@
 	uses_lockdown = TRUE
 	port_direction = EAST
 
+/obj/docking_port/mobile/engineering
+	dir = SOUTH
+	dwidth = 3
+	height = 5
+	id = "engineering"
+	name = "engineering shuttle"
+	rebuildable = TRUE
+	width = 7
+	uses_lockdown = TRUE
+	port_direction = SOUTH
+	preferred_direction = SOUTH // Yes it flies west but the port is aligned south so we dont want to rotate it
+
 /obj/docking_port/mobile/specops
 	dir = WEST
 	dwidth = 2
@@ -1158,8 +1181,6 @@
 	possible_destinations = "trader_away;trader_home"
 	shuttleId = "trader"
 
-//#undef DOCKING_PORT_HIGHLIGHT
-
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type, keep_icon = FALSE)
@@ -1179,3 +1200,5 @@
 		T.setDir(dir)
 	TransferComponents(T)
 	return T
+
+//#undef DOCKING_PORT_HIGHLIGHT

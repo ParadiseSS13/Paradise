@@ -411,6 +411,11 @@
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle/mining
 
+/obj/item/circuitboard/engineering_shuttle
+	board_name = "Engineering Shuttle"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/shuttle/engineering
+
 /obj/item/circuitboard/white_ship
 	board_name = "White Ship"
 	icon_state = "generic"
