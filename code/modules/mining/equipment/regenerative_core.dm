@@ -86,26 +86,30 @@
 
 ///Handles applying the core, logging and status/mood events.
 /obj/item/organ/internal/regenerative_core/proc/applyto(atom/target, mob/user)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(inert)
-			to_chat(user, SPAN_NOTICE("[src] has decayed and can no longer be used to heal."))
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(inert)
+		to_chat(user, SPAN_NOTICE("[src] has decayed and can no longer be used to heal."))
+		return
+	else
+		if(H.stat == DEAD)
+			to_chat(user, SPAN_NOTICE("[src] is useless on the dead."))
 			return
+		if(H != user)
+			H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
+			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 		else
-			if(H.stat == DEAD)
-				to_chat(user, SPAN_NOTICE("[src] is useless on the dead."))
-				return
-			if(H != user)
-				H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
-				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
-			else
-				to_chat(user, SPAN_NOTICE("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
-				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
-			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE, core_type)
-			user.drop_item()
-			qdel(src)
+			to_chat(user, SPAN_NOTICE("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
+			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
+		H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE, core_type)
+		user.drop_item()
+		qdel(src)
 
 /obj/item/organ/internal/regenerative_core/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+	if(!ishuman(target))
+		return NONE
+
 	applyto(target, user)
 	return ITEM_INTERACT_COMPLETE
 
