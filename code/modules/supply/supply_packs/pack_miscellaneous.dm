@@ -90,7 +90,6 @@
 	cost = 500
 	containertype = /obj/structure/largecrate
 	containername = "janicart (pimpin' ride) crate."
-	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/soap
 	name = "Assorted Soap Crate"
