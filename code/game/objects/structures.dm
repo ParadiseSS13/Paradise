@@ -83,7 +83,7 @@
 
 	if(!isturf(loc))
 		return FALSE
-	var/freerunner_multiplier = HAS_TRAIT(user, TRAIT_FREERUNNER) ? 0.8 : 1
+	var/freerunner_multiplier = HAS_TRAIT(user, TRAIT_FREERUNNER) ? 0.6 : 1
 	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 		user.visible_message(SPAN_WARNING("[user] gets ready to vault up onto [src]!"))
 		if(!do_after(user, 0.5 SECONDS * freerunner_multiplier, target = src))
