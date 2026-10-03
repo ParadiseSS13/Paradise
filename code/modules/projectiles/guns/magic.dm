@@ -21,18 +21,19 @@
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 
-/obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
+/obj/item/gun/magic/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
 			to_chat(user, SPAN_WARNING("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
-			return
+			return ITEM_INTERACT_COMPLETE
 		else
 			no_den_usage = 0
 	if(!user.can_cast_magic(antimagic_flags))
 		to_chat(user, SPAN_WARNING("[src] whizzles quietly."))
-		return FALSE
-	..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..(target, user, proximity)
 
 /obj/item/gun/magic/can_shoot()
 	return charges

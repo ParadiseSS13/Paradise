@@ -47,20 +47,25 @@
 /obj/item/gun/throw/update_overlays()
 	return list()
 
-/obj/item/gun/throw/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
-		if(get_ammocount() < max_capacity)
-			user.drop_item()
-			I.forceMove(src)
-			loaded_projectiles += I
-			to_chat(user, SPAN_NOTICE("You load [I] into [src]."))
-			if(!to_launch)
-				process_chamber()
-			to_chat(user, notify_ammo_count())
-		else
-			to_chat(user, SPAN_WARNING("[src] cannot hold any more projectiles."))
-	else
-		to_chat(user, SPAN_WARNING("You cannot load [I] into [src]!"))
+/obj/item/gun/throw/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, valid_projectile_type))
+		return ..()
+
+	if(get_ammocount() >= max_capacity)
+		to_chat(user, SPAN_WARNING("[src] cannot hold any more projectiles!"))
+		return ITEM_INTERACT_COMPLETE
+
+
+	if(!user.transfer_item_to(used, src))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	loaded_projectiles += used
+	to_chat(user, SPAN_NOTICE("You load [used] into [src]."))
+	if(!to_launch)
+		process_chamber()
+	to_chat(user, notify_ammo_count())
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/throw/process_chamber()
 	if(!to_launch && length(loaded_projectiles))

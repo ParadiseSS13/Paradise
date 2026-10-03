@@ -144,7 +144,7 @@
 /mob/living/basic/mining_drone/RangedAttack(atom/target, list/modifiers)
 	if(a_intent != INTENT_HARM)
 		return
-	stored_gun.afterattack__legacy__attackchain(target, src)
+	stored_gun.ranged_interact_with_atom(target, src, modifiers)
 
 /mob/living/basic/mining_drone/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
 	. = ..()
