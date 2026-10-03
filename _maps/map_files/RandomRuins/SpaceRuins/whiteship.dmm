@@ -70,6 +70,9 @@
 "lp" = (
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
+"qm" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/abandoned)
 "qK" = (
 /obj/structure/table/reinforced,
 /obj/item/whiteship_port_generator,
@@ -453,7 +456,7 @@ zO
 zO
 zO
 zO
-zO
+qm
 zM
 "}
 (13,1,1) = {"
@@ -574,10 +577,10 @@ zM
 zM
 zM
 zM
-zO
+qm
 yC
 ux
-zO
+qm
 zM
 zM
 zM
