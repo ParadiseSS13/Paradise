@@ -79,10 +79,10 @@ Biomes:
 		"ambient_light" = COLOR_AMBER,
 		"ore_chance" = 10,
 		"ore_weights" = list(
-			/obj/item/stack/ore/bananium = 50,
-			/obj/item/stack/ore/iron = 20,
-			/obj/item/stack/ore/tranquillite = 30
-		),
+			/datum/ore/bananium = 50,
+			/datum/ore/iron = 20,
+			/datum/ore/tranquillite = 30
+	),
 		"fauna_chance" = 1,
 		"fauna_weights" = list(
 			/mob/living/basic/clown = 50,
@@ -113,7 +113,7 @@ Biomes:
 /datum/biome_theme/proc/suitable_placement()
 	var/valid = TRUE
 	var/placement_attempts = 3
-	while(placement_attempts > 0 && !valid)
+	while(placement_attempts > 0)
 		valid = TRUE // can never be too sure
 		var/turf/placement_attempt = locate(
 			rand(BORDER_PADDING, world.maxx - (BORDER_PADDING + size)),
@@ -134,16 +134,16 @@ Biomes:
 
 
 /// Create a new instance of a biome
-/datum/biome_theme/New(datum/space_level/zlevel)
+/datum/biome_theme/New(var/zlevel)
 	size = rand(80, 100)
-	temp_location_z = zlevel.zpos
+	temp_location_z = zlevel
 	var/success = suitable_placement()
 	if(!success)
 		qdel(src)
 
 /// Handles calling and coordinating the worldgen_modifiers to generate the biome
 /datum/biome_theme/proc/setup()
-	for(var/datum/worldgen_modifier/step in generation_steps)
+	for(var/step in generation_steps)
 		var/datum/worldgen_modifier/my_worldgen = new step(generation_data) // Initialise and give it its data
 		my_worldgen.location_x = temp_location_x
 		my_worldgen.location_y = temp_location_y
@@ -155,32 +155,3 @@ Biomes:
 
 /datum/biome_theme/test_biome
 	name = "mmm test biome"
-
-/datum/biome_theme/test_biome/setup()
-	var/turf/simulated/mineral/T
-	var/c = "1"
-	T.should_reset_color = FALSE
-
-	if(c == "0")
-		T.color = COLOR_RED
-	if(c == "1")
-		T.color = COLOR_DARK_ORANGE
-	if(c == "2")
-		T.color = COLOR_ORANGE
-	if(c == "3")
-		T.color = COLOR_YELLOW
-	if(c == "4")
-		T.color = COLOR_LIME
-	if(c == "5")
-		T.color = COLOR_GREEN
-	if(c == "6")
-		T.color = COLOR_BLUE_LIGHT
-	if(c == "7")
-		T.color = COLOR_BLUE
-	if(c == "8")
-		T.color = COLOR_DARK_BLUE_GRAY
-	if(c == "9")
-		T.color = COLOR_INDIGO
-
-	//T.ChangeTurf(rock_type)
-	return

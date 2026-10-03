@@ -18,7 +18,7 @@
 
 /datum/worldgen_modifier/New(list/data)
 	generation_data = data
-	return
+
 
 /// Called from external source
 /datum/worldgen_modifier/proc/generate()
@@ -34,7 +34,7 @@
 
 /// Helper function to return a value from a 2D offset list
 /datum/worldgen_modifier/proc/coord2value(x, y, list/longlist)
-	return longlist[((size * y) + (x + 1))]
+	return text2num(longlist[((size * y) + (x + 1))])
 
 
 /// Default noise subtype for generating some noise over a section of map
@@ -56,10 +56,10 @@
 
 /// Called from outside, returns a result_map
 /datum/worldgen_modifier/noise/generate()
-	..()
 	if(seed == -1)
 		seed = rand(1, 999999)
 	generate_noise()
+	..()
 	. = list("map" = result_map)
 	apply()
 	return
@@ -98,6 +98,7 @@
 	// multiply our base ore chance by how biome our biome is * 2
 	if(prob(generation_data["ore_chance"] * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2))
 		T.set_ore(pickweight(generation_data["ore_weights"]))
+		T.color = COLOR_RED
 	return
 
 

@@ -372,14 +372,16 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Loading lavaland themes...")
 	if(GLOB.configuration.ruins.enable_biomes)
 		var/list/valid_zs = levels_by_trait(ORE_LEVEL)
-		for(var/datum/space_level/S in valid_zs)
-		#warn VALID ZS RETURNS A NUMBER IDIOT
-			var/biome_count = rand(GLOB.configuration.ruins.minimum_biome_attempt, GLOB.configuration.ruins.maximum_biome_attempt)
+		for(var/curr_zlevel in valid_zs)
+			//var/biome_count = rand(GLOB.configuration.ruins.minimum_biome_attempt, GLOB.configuration.ruins.maximum_biome_attempt)
+			var/biome_count = 1
 			for(var/i = 0 to biome_count)
 				var/biome_type = pick(subtypesof(/datum/biome_theme))
-				var/datum/biome_theme/curr_biome = new biome_type(S)
+				ASSERT(biome_type) 
+				var/datum/biome_theme/curr_biome = new biome_type(curr_zlevel)
 				if(!QDELETED(curr_biome)) // qdel'd if failed placement
 					curr_biome.setup() // run that shit
+					CHECK_TICK
 
 	//if(lavaland_theme)
 		//lavaland_theme.setup()
