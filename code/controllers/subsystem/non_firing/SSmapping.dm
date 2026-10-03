@@ -105,6 +105,7 @@ SUBSYSTEM_DEF(mapping)
 	environments[ENVIRONMENT_LAVALAND] = create_environment(oxygen = LAVALAND_OXYGEN, nitrogen = LAVALAND_NITROGEN, temperature = LAVALAND_TEMPERATURE)
 	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
 	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
+	environments[ENVIRONMENT_ICEPLANET] = create_environment(carbon_dioxide = MOLES_O2STANDARD, temperature = 180)
 
 	if(!current_lavaland_theme)
 		current_lavaland_theme = pick(subtypesof(/datum/lavaland_theme))
@@ -347,14 +348,18 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(
-		MAIN_STATION,
-		linkage = CROSSLINKED,
-		traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
-		transition_tag = TRANSITION_TAG_SPACE
-	)
-	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	var/list/map_zlevels = list()
+	for(var/i in 1 to length(map_datum.level_traits))
+		map_zlevels += GLOB.space_manager.add_new_zlevel(
+			map_datum.level_names[i],
+			linkage = map_datum.linkage,
+			traits = map_datum.level_traits[i],
+			transition_tag = map_datum.transition_tag
+		)
+	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_zlevels[1])
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
+
+	inject_map_events()
 
 	// Save station name in the DB
 	if(!SSdbcore.IsConnected())
@@ -365,6 +370,23 @@ SUBSYSTEM_DEF(mapping)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
+
+/datum/controller/subsystem/mapping/proc/inject_map_events()
+	if(!SSevents)
+		to_chat(world, SPAN_NARSIE("ERROR: SSevents was not available trying to inject map events."))
+		return
+
+	for(var/datum/event_meta/event in map_datum.mundane_events)
+		var/datum/event_container/container = SSevents.event_containers[EVENT_LEVEL_MUNDANE]
+		container.available_events += event
+
+	for(var/datum/event_meta/event in map_datum.moderate_events)
+		var/datum/event_container/container = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+		container.available_events += event
+
+	for(var/datum/event_meta/event in map_datum.major_events)
+		var/datum/event_container/container = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		container.available_events += event
 
 /datum/controller/subsystem/mapping/proc/procgen_lavaland()
 	var/theme_watch = start_watch()

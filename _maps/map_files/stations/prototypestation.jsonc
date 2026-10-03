@@ -1,0 +1,108 @@
+[
+	{
+		"type": "MazegenHauberk",
+		"allowed_area": "/area/mazegen",
+		"default_floor": "/turf/simulated/floor/plasteel",
+		"winding_percent": 20,
+		"extra_connector_chance": 20,
+		"hallway_horizontal_marker": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_horizontal",
+		"hallway_vertical_marker": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_vertical",
+		"hallway_node_marker": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_floor",
+		"room_configs": [
+			{
+				"marker": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/small",
+				"width": 3,
+				"height": 3,
+				"min": 5,
+				"max": 8
+			},
+			{
+				"marker": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/medium",
+				"width": 5,
+				"height": 5,
+				"min": 2,
+				"max": 3
+			}
+		]
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 9,
+		"submap_size_y": 9,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_small.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/small",
+		"submaps_can_repeat": false
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 15,
+		"submap_size_y": 15,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_medium.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/medium",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/medium",
+		"submaps_can_repeat": false
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 21,
+		"submap_size_y": 9,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_long.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/long",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/long",
+		"submaps_can_repeat": false
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 9,
+		"submap_size_y": 9,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_hallway.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallway_horizontal",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_horizontal",
+		"submaps_can_repeat": true
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 9,
+		"submap_size_y": 9,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_hallway.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallway_vertical",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_vertical",
+		"submaps_can_repeat": true
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 3,
+		"submap_size_y": 3,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_hallway.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallway_floor",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_floor",
+		"submaps_can_repeat": true
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 5,
+		"submap_size_y": 5,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/deepmaints_5x5_hallrooms.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallroom_5x5",
+		"submaps_can_repeat": true
+	},
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 16,
+		"submap_size_y": 16,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/avernus_topside_ruins.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/avernus_topside",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/ruin/avernus_topside",
+		"submaps_can_repeat": false
+	}
+]
