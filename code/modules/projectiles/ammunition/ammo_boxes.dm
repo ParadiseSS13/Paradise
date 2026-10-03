@@ -1,3 +1,4 @@
+// MARK: Revolver
 /obj/item/ammo_box/a357
 	name = "speed loader (.357)"
 	desc = "A small device designed to quickly reload revolvers. Seven round capacity."
@@ -13,7 +14,6 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	multi_sprite_step = 1
 	icon_state = "357_box"
-	multiload = FALSE
 
 /obj/item/ammo_box/huntsman32
 	name = "speed loader (.32 Huntsman)"
@@ -77,6 +77,7 @@
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 14
 
+// MARK: WT-550
 /obj/item/ammo_box/wt550
 	name = "ammo box (4.6x30mm)"
 	desc = "An ammunition box containing 4.6x30mm PDW cartridges, for use in submachine guns and low-caliber rifles."
@@ -85,7 +86,6 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	w_class = WEIGHT_CLASS_NORMAL
 	max_ammo = 20
-	multiload = FALSE
 
 /obj/item/ammo_box/wt550/wtap
 	name = "ammo box (Armor Piercing 4.6x30mm)"
@@ -114,6 +114,7 @@
 	max_ammo = 20
 	w_class = WEIGHT_CLASS_NORMAL
 
+// MARK: Shotgun speedloaders
 /obj/item/ammo_box/shotgun
 	name = "shotgun speedloader (Slug)"
 	desc = "A specialized speedloader for swiftly reloading shotguns. This one is meant for Slugs."
@@ -168,8 +169,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 	materials = list(MAT_METAL=1750)
 
-
-//FOAM DARTS
+// MARK: Toy Ammo
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"
 	desc = "An ammunition box, filled with foam darts for use in toy weapons."

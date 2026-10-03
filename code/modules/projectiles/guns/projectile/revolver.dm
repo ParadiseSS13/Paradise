@@ -34,16 +34,23 @@
 	return ..(0, 1)
 
 /obj/item/gun/projectile/revolver/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used, /obj/item/ammo_box))
-		return ..()
+	if(istype(used, /obj/item/ammo_box))
+		var/num_loaded = magazine.load_box(used, user, silent = TRUE)
+		if(num_loaded)
+			to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into [src]."))
+			used.update_icon()
+			update_icon()
+			chamber_round(FALSE)
+		return ITEM_INTERACT_COMPLETE
 
-	var/num_loaded = magazine.load_box(used, user, silent = TRUE)
-	if(num_loaded)
-		to_chat(user, SPAN_NOTICE("You load [num_loaded] shell\s into [src]."))
-		used.update_icon()
-		update_icon()
-		chamber_round(FALSE)
-	return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/used_casing = used
+		if(magazine.give_round(used_casing))
+			user.transfer_item_to(used_casing, src)
+			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, TRUE)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/revolver/handle_activate_self(mob/user)
 	var/num_unloaded = 0
@@ -77,7 +84,10 @@
 	C.spin()
 	chamber_round(0)
 	playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, TRUE)
-	user.visible_message(SPAN_WARNING("[user] spins [src]'s chamber."), SPAN_NOTICE("You spin [src]'s chamber."))
+	user.visible_message(
+		SPAN_WARNING("[user] spins [src]'s chamber!"),
+		SPAN_NOTICE("You spin [src]'s chamber.")
+	)
 
 /obj/item/gun/projectile/revolver/can_shoot()
 	return get_ammo(0,0)

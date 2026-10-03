@@ -144,10 +144,11 @@
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
 	var/multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_NONE // See update_icon_state for details.
+	// The type of ammo that goes in the box. Allows boxes to block child/parent ammunition.
 	var/caliber
-	/// Can we fully fill our target in a single interaction? If `FALSE`, rounds must be loaded one at a time.
+	/// If `TRUE`, the box can pick up any compatable ammunition on a given tile until it is filled, instantly.
 	var/multiload = TRUE
-	/// If `TRUE`, rounds will be loaded after a `do_after`.
+	/// If `TRUE`, the box cannot pick up ammunition with an `interact_with_atom()`. Bullets must be picked up by hand and added to the box, one at a time.
 	var/slow_loading = FALSE
 	/// For calculating refund values.
 	var/list/initial_mats
@@ -182,7 +183,7 @@
 	for(var/obj/item/ammo_casing/A in stored_ammo)
 		A.emp_act(severity)
 
-/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
+/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return FALSE
