@@ -581,6 +581,7 @@
 #include "code\datums\components\boss_music.dm"
 #include "code\datums\components\breeding.dm"
 #include "code\datums\components\caltrop.dm"
+#include "code\datums\components\clothing_hood.dm"
 #include "code\datums\components\codeword_hearing.dm"
 #include "code\datums\components\connect_containers.dm"
 #include "code\datums\components\connect_loc_behalf.dm"
