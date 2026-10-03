@@ -944,6 +944,21 @@
 	preferred_direction = EAST
 	timid = TRUE
 
+/obj/docking_port/stationary/patient/centcom
+	id = "patient_away"
+	name = "Docking bay at centcom"
+	dir = WEST
+
+/obj/docking_port/mobile/patient
+	dir = WEST
+	id = "patient"
+	name = "patient transport"
+	height = 18
+	width = 10
+	dwidth = 5
+	preferred_direction = EAST
+	timid = TRUE
+
 /obj/docking_port/mobile/nuke_ops
 	dheight = 9
 	dir = SOUTH
@@ -1156,6 +1171,12 @@
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
 	possible_destinations = "trader_away;trader_home"
+	shuttleId = "trader"
+
+/obj/machinery/computer/shuttle/patient
+	name = "Transport Console"
+	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
 	shuttleId = "trader"
 
 //#undef DOCKING_PORT_HIGHLIGHT

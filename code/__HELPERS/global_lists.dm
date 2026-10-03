@@ -252,3 +252,7 @@
 	for(var/path in subtypesof(/datum/reagent))
 		var/datum/reagent/R = new path()
 		.[R.id] = R
+		if(R.description == ABSTRACT_TYPE_DESC)
+			continue
+		if(R.addiction_chance > 0)
+			GLOB.addictive_chems += R.id
