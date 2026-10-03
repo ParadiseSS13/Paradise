@@ -12,8 +12,8 @@
 
 /obj/item/grenade/frag/prime()
 	update_mob()
+	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type) // Its important that shrapnel is created first so it hits the mob before the explosion.
 	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, cause = name, breach = FALSE)
-	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
 	qdel(src)
 
 /obj/item/grenade/frag/stinger
@@ -26,8 +26,8 @@
 
 /obj/item/grenade/frag/stinger/prime()
 	update_mob()
-	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
+	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	qdel(src)
 
 /obj/item/grenade/frag/holy
