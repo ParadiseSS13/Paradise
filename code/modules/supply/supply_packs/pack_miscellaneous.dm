@@ -64,7 +64,6 @@
 					/obj/item/clothing/shoes/galoshes)
 	cost = 100
 	containername = "janitorial cart crate"
-	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/janitor/janitank
 	name = "Janitor Watertank Backpack"
@@ -73,7 +72,6 @@
 	containertype = /obj/structure/closet/crate/secure/janitorial
 	containername = "janitor watertank crate"
 	access = ACCESS_JANITOR
-	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/janitor/lightbulbs
 	name = "Replacement Lights Crate"
