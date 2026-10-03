@@ -70,9 +70,9 @@
 		uneq_all()
 
 	if(!is_component_functioning("radio") || stat == UNCONSCIOUS)
-		radio.on = FALSE
+		radio.set_on(FALSE)
 	else
-		radio.on = TRUE
+		radio.set_on(TRUE)
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state

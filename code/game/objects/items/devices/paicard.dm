@@ -176,13 +176,13 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=4'>[radio.get_broadcasting() ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=2'>[radio.get_listening() ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>

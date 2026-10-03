@@ -13,7 +13,7 @@
 			if(istype(I, /obj/item/radio))
 				worn_radio = I
 				break
-		if(!istype(worn_radio) || !guy.can_hear() || !worn_radio.listening)
+		if(!istype(worn_radio) || !guy.can_hear() || !worn_radio.is_listening())
 			continue
 
 		targets += guy

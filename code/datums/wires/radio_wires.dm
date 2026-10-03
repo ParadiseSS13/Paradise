@@ -17,26 +17,27 @@
 	var/obj/item/radio/R = holder
 	switch(wire)
 		if(WIRE_RADIO_SIGNAL)
-			R.listening = !R.listening && !is_cut(WIRE_RADIO_RECEIVER)
-			R.broadcasting = R.listening && !is_cut(WIRE_RADIO_TRANSMIT)
+			R.set_listening(!R.get_listening() && !is_cut(WIRE_RADIO_RECEIVER))
+			R.set_broadcasting(R.get_listening() && !is_cut(WIRE_RADIO_TRANSMIT))
 
 		if(WIRE_RADIO_RECEIVER)
-			R.listening = !R.listening && !is_cut(WIRE_RADIO_SIGNAL)
+			R.set_listening(!R.get_listening() && !is_cut(WIRE_RADIO_SIGNAL))
 
 		if(WIRE_RADIO_TRANSMIT)
-			R.broadcasting = !R.broadcasting && !is_cut(WIRE_RADIO_SIGNAL)
+			R.set_broadcasting(!R.get_broadcasting() && !is_cut(WIRE_RADIO_SIGNAL))
+
 	..()
 
 /datum/wires/radio/on_cut(wire, mend)
 	var/obj/item/radio/R = holder
 	switch(wire)
 		if(WIRE_RADIO_SIGNAL)
-			R.listening = mend && !is_cut(WIRE_RADIO_RECEIVER)
-			R.broadcasting = mend && !is_cut(WIRE_RADIO_TRANSMIT)
+			R.set_listening(mend && !is_cut(WIRE_RADIO_RECEIVER))
+			R.set_broadcasting(mend && !is_cut(WIRE_RADIO_TRANSMIT))
 
 		if(WIRE_RADIO_RECEIVER)
-			R.listening = mend && !is_cut(WIRE_RADIO_SIGNAL)
+			R.set_listening(mend && !is_cut(WIRE_RADIO_SIGNAL))
 
 		if(WIRE_RADIO_TRANSMIT)
-			R.broadcasting = mend && !is_cut(WIRE_RADIO_SIGNAL)
+			R.set_broadcasting(mend && !is_cut(WIRE_RADIO_SIGNAL))
 	..()

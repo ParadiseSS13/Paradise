@@ -15,7 +15,10 @@
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
 	custom_name = TRUE
-	listening = FALSE
+
+/obj/item/radio/intercom/custom/Initialize(mapload, direction, building)
+	. = ..()
+	set_listening(FALSE)
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"

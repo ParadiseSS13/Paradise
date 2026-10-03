@@ -49,7 +49,7 @@
 	grant_actions_by_list(innate_actions)
 
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	radio.config(list("Supply" = TRUE))
 
