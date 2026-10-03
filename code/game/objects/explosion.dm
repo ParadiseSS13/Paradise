@@ -199,7 +199,9 @@
 				affecting_level = 2
 
 			for(var/atom/A as anything in S)
-				if(!QDELETED(A) && A.simulated && (A.level >= affecting_level))
+				if(QDELETED(A))
+					continue
+				if(A.simulated && (A.level >= affecting_level))
 					A.ex_act(explosion_strength)
 				if(istype(A, /atom/movable) && !QDELETED(A))
 					var/atom/movable/AM = A
