@@ -152,6 +152,12 @@
 	trait_to_apply = TRAIT_NEARSIGHT
 	species_flags = QUIRK_SLIME_INCOMPATIBLE
 
+/datum/quirk/paraplegic
+	name = "Paraplegic"
+	desc = "Your legs do not function."
+	cost = -2
+	trait_to_apply = TRAIT_PARAPLEGIC
+
 /datum/quirk/unclonable
 	name = "Unclonable"
 	desc = "You have a genetic condition that prevents you from being cloned. This does not prevent revival by other methods."
