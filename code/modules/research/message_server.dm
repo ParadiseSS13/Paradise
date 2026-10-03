@@ -67,7 +67,9 @@ GLOBAL_LIST_EMPTY(message_servers)
 	var/list/datum/data_pda_msg/pda_msgs = list()
 	/// LIst of request console messages
 	var/list/datum/data_rc_msg/rc_msgs = list()
+	/// Wheather the server is active
 	var/active = TRUE
+	/// PDA server password
 	var/decryptkey = "password"
 
 /obj/machinery/message_server/Initialize(mapload)

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Button, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
@@ -5,7 +6,20 @@ import { Window } from '../layouts';
 
 export const MessageMonitorConsole = (properties) => {
   const { act, data } = useBackend();
-  const { auth, server, power, password, tabIndex, setTabIndex } = data;
+  const { auth, server, active, password } = data;
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const PickTab = (index) => {
+    switch (index) {
+      case 0:
+        return <MessageLog />;
+      case 1:
+        return <RequestLog />;
+      default:
+        return 'SMETHING WENT VERY WRONG PLEASE AHELP';
+    }
+};
+
   return (
     <Window width={800} height={400}>
       <Window.Content scrollable>
@@ -19,7 +33,7 @@ export const MessageMonitorConsole = (properties) => {
                 <Button content={password ? password : 'Unset'} selected={1} onClick={() => act('password')} />
               </LabeledList.Item>
               <LabeledList.Item label="server power">
-                <Button content={power ? 'On' : 'Off'} selected={power} icon="power-off" onClick={() => act('power')} />
+                <Button content={active ? 'On' : 'Off'} selected={active} icon="power-off" onClick={() => act('active')} />
               </LabeledList.Item>
             </LabeledList>
           </Box>
@@ -29,7 +43,6 @@ export const MessageMonitorConsole = (properties) => {
             <Button content="Clear message logs" selected={0} onClick={() => act('clear_msg')} />
             <Button content="Clear request console logs" selected={0} onClick={() => act('clear_req')} />
             <Button content="Send admin message" selected={0} onClick={() => act('admin_msg')} />
-            <Button content="Set custom key" selected={0} onClick={() => act('custom_key')} />
           </Box>
         </Section>
         <Section title="Logs">
@@ -48,43 +61,67 @@ export const MessageMonitorConsole = (properties) => {
   );
 };
 
-const PickTab = (index) => {
-    switch (index) {
-      case 0:
-        return <MessageLog />;
-      case 1:
-        return <RequestLog />;
-      default:
-        return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
-    }
-};
-
 const MessageLog = (_properties) => {
   const { act, data } = useBackend();
-  const { sender, recipient, message } = data;
+  const { PDALog } = data;
   return (
     <Table m="0.5rem">
       <Table.Row header>
+        <Table.Cell>Delete</Table.Cell>
         <Table.Cell>Sender</Table.Cell>
         <Table.Cell>Recipient</Table.Cell>
         <Table.Cell>Message</Table.Cell>
       </Table.Row>
+      {PDALog.map((P) => (
+        <Table.Row key={P.sender}>
+          <Table.Cell>
+            <Button
+              color="red"
+              content="Delete"
+              icon="trash"
+              onClick={() => act('deleteP', { Pmessage: P })}
+            />
+          </Table.Cell>
+          <Table.Cell>{P.sender}</Table.Cell>
+          <Table.Cell>{P.recipient}</Table.Cell>
+          <Table.Cell>{P.message}</Table.Cell>
+        </Table.Row>
+      ))}
     </Table>
   );
 };
 
 const RequestLog = (_properties) => {
   const { act, data } = useBackend();
-  const { sendingDep, recievingDep, message, stamp, idAuth, priority } = data;
+  const { RequestLog } = data;
   return (
     <Table m="0.5rem">
       <Table.Row header>
-        <Table.Cell>Sendeing Department</Table.Cell>
         <Table.Cell>Recieving Department</Table.Cell>
+        <Table.Cell>Sending Department</Table.Cell>
         <Table.Cell>Message</Table.Cell>
         <Table.Cell>Stamp</Table.Cell>
-        <Table.Cell>ID auth</Table.Cell>
+        <Table.Cell>ID Auth</Table.Cell>
+        <Table.Cell>Priority</Table.Cell>
       </Table.Row>
+      {RequestLog.map((R) => (
+      <Table.Row key={R.recievingDep}>
+        <Table.Cell>{R.recievingDep}</Table.Cell>
+        <Table.Cell>{R.sendingDep}</Table.Cell>
+        <Table.Cell>{R.message}</Table.Cell>
+        <Table.Cell>{R.stamp}</Table.Cell>
+        <Table.Cell>{R.idAuth}</Table.Cell>
+        <Table.Cell>{R.priority}</Table.Cell>
+        <Table.Cell>
+        <Button
+          color="red"
+          content="Delete"
+          icon="trash"
+          onClick={() => act('deleteR', { Rmessage: R })}
+        />
+        </Table.Cell>
+      </Table.Row>
+      ))}
     </Table>
   );
 };

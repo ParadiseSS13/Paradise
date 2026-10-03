@@ -19,17 +19,15 @@
 	/// Screen we show to the user
 	var/screen = MAIN_MENU // 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	/// Is it beaing hacked into by a silicon?
-	var/hacking = TRUE
+	var/hacking = FALSE
 	/// Are they authenticated?
-	var/auth = FALSE
-	var/optioncount = 8
+	#warn Change auth before PRing this
+	var/auth = TRUE
 	// Custom Message Properties
 	/// Sender of a custom message
 	var/customsender = "System Administrator"
 	/// Recipient of a custom message
 	var/obj/item/pda/customrecepient = null
-	var/customjob = "Admin"
-	var/custommessage  = "This is a test, please ignore."
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
@@ -63,22 +61,25 @@
 	// It'll take more time if there's more characters in the password..
 	if(emagged)
 		return FALSE
-	if(!isnull(src.linkedServer))
-		icon_screen = hack_icon // An error screen I made in the computers.dmi
-		emagged = TRUE
-		screen = HACKED_MENU
-		do_sparks(5, 0, src)
-		var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
-		MK.loc = src.loc
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		// Will help make emagging the console not so easy to get away with.
-		MK.info += "<br><br><font color='red'>�%@%(*$%&(�&?*(%&�/{}</font>"
-		update_icon()
-		spawn(100*length(src.linkedServer.decryptkey))
-			UnmagConsole()
-			update_icon()
-	else
+
+	if(isnull(linkedServer))
 		to_chat(user, SPAN_WARNING("No server found"))
+		return FALSE
+
+	icon_screen = hack_icon // An error screen I made in the computers.dmi
+	emagged = TRUE
+	screen = HACKED_MENU
+	do_sparks(5, 0, src)
+	var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
+	MK.loc = loc
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	// Will help make emagging the console not so easy to get away with.
+	MK.info += "<br><br><font color='red'>�%@%(*$%&(�&?*(%&�/{}</font>"
+	update_icon()
+	spawn(100*length(linkedServer.decryptkey))
+		UnmagConsole()
+		update_icon()
+
 
 
 /obj/machinery/computer/message_monitor/update_icon_state()
@@ -98,15 +99,15 @@
 	if(isnull(linkedServer))
 		to_chat(user, SPAN_WARNING("Could not complete brute-force: Linked Server Disconnected!"))
 	else
-		var/currentKey = src.linkedServer.decryptkey
+		var/currentKey = linkedServer.decryptkey
 		to_chat(user, SPAN_WARNING("Brute-force completed! The key is '[currentKey]'."))
-	src.hacking = TRUE
-	src.icon_screen = normal_icon
-	src.screen = MAIN_MENU // Return the screen back to normal
+	hacking = TRUE
+	icon_screen = normal_icon
+	screen = MAIN_MENU // Return the screen back to normal
 
 /obj/machinery/computer/message_monitor/proc/UnmagConsole()
-	src.icon_screen = normal_icon
-	src.emagged = FALSE
+	icon_screen = normal_icon
+	emagged = FALSE
 
 /obj/item/paper/monitorkey
 	name = "Monitor Decryption Key"
@@ -141,42 +142,29 @@
 	data["authenticated"] = auth
 	data["possibleServers"] = GLOB.message_servers
 	data["server"] = linkedServer.name
-	data["power"] = linkedServer.active
+	data["active"] = linkedServer.active
 	data["password"] = linkedServer.decryptkey
 
 	// PDA stuff.
-	var/list/senders = list()
-	var/list/recipients = list()
-	var/list/messages = list()
-	for(var/datum/data_pda_msg/PDA_data in linkedServer.pda_msgs)
-		senders += PDA_data.sender
-		recipients += PDA_data.recipient
-		messages += PDA_data.message
+	var/list/PDA_log = list()
+	for(var/datum/data_pda_msg/P in linkedServer.pda_msgs)
+		PDA_log += list(list("recipient" = P.recipient,
+							"sender" = P.sender,
+							"message" = P.message))
 
-	data["sender"] = senders
-	data["recipient"] = recipients
-	data["message"] = messages
+	data["PDALog"] = PDA_log
 
 	// Request console stuff.
-	var/list/sendingDep = list()
-	var/list/recievingDep = list()
-	var/list/message = list()
-	var/list/stamp = list()
-	var/list/idAuth = list()
-	var/list/priority = list()
-	for(var/datum/data_rc_msg/RC_data in linkedServer.rc_msgs)
-		sendingDep += RC_data.send_dpt
-		recievingDep += RC_data.rec_dpt
-		message += RC_data.message
-		stamp += RC_data.stamp
-		idAuth += RC_data.id_auth
-		priority += RC_data.priority
-	data["sendingDep"] = sendingDep
-	data["recievingDep"] = recievingDep
-	data["message"] = message
-	data["stamp"] = stamp
-	data["idAuth"] = idAuth
-	data["priority"] = priority
+	var/list/RC_log = list()
+	for(var/datum/data_rc_msg/L in linkedServer.rc_msgs)
+		RC_log += list(list("recievingDep" = L.rec_dpt,
+							"sendingDep" = L.send_dpt,
+							"message" = L.message,
+							"stamp" = L.stamp,
+							"idAuth" = L.id_auth,
+							"priority" = L.priority))
+
+	data["RequestLog"] = RC_log
 
 	return data
 
@@ -184,18 +172,26 @@
 	if(..())
 		return
 
-	if(!usr.contents.Find(ui.src_object) || !(in_range(ui.src_object, usr) && isturf(ui.src_object)) || !issilicon(usr))
-		return
 	switch(action)
 		if("server")
 			to_chat(ui.user, SPAN_NOTICE("IT FUCKING WORKS"))
 		if("password")
 			var/password = tgui_input_text(ui.user, "Please input the decryption password", "Authentication")
+			linkedServer.decryptkey = password
 
 		// Turn the server on/off
-		if("power")
-			if(auth)
-				linkedServer.active = !linkedServer.active
+		if("active")
+			to_chat(ui.user, SPAN_NOTICE("IT FUCKING WORKS"))
+			if(linkedServer.active)
+				linkedServer.active = FALSE
+			else
+				linkedServer.active = TRUE
+
+		if("deleteR")
+			var/datum/data_rc_msg/RC = locate(params["Rmessage"])
+			
+		if("deleteP")
+			var/datum/data_pda_msg/P = locate(params["Pmessage"])
 
 		if("clear_msg")
 			return
