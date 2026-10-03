@@ -360,7 +360,7 @@
 	if(used)
 		to_chat(user, SPAN_NOTICE("The injector is empty!"))
 		return
-	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", src.name, list("Yes", "No"))
+	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", name, list("Yes", "No"))
 	if(choice != "Yes")
 		to_chat(user, SPAN_NOTICE("You decide against using [src]."))
 		return
