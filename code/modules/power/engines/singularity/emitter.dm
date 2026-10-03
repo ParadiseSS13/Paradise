@@ -104,6 +104,13 @@
 	QDEL_NULL(sparks)
 	return ..()
 
+/obj/machinery/power/emitter/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(icon_state == "emitter_+a")
+		underlays += emissive_appearance(icon, "emitter_+a_lightmask")
+
 /obj/machinery/power/emitter/update_icon_state()
 	if(active && powernet && get_available_power())
 		icon_state = "emitter_+a"
