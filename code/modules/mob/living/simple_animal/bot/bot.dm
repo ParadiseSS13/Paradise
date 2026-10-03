@@ -119,7 +119,7 @@
 	/// Type of bot, one of the *_BOT defines.
 	var/bot_type
 	/// The type of data HUD the bot uses. Diagnostic by default.
-	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
+	var/data_hud_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 	// This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
@@ -208,6 +208,14 @@
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1
 		config(B.radio_config)
+	var/mob/living/basic/bot/BB = loc
+	if(istype(BB))
+		if(!BB.radio_config)
+			BB.radio_config = list("AI Private" = 1)
+			if(!(BB.radio_channel in BB.radio_config)) // Put it first so it's the :h channel
+				BB.radio_config.Insert(1, "[BB.radio_channel]")
+				BB.radio_config["[BB.radio_channel]"] = 1
+		config(BB.radio_config)
 
 /mob/living/simple_animal/bot/proc/try_chasing_target(mob/target)
 	if(target in view(12, src))
@@ -364,8 +372,6 @@
 		remove_ignored_atom(A)
 
 /mob/living/simple_animal/bot/handle_automated_action()
-	diag_hud_set_botmode()
-
 	if(COOLDOWN_FINISHED(src, ignore_list_cleanup_cd))
 		clear_ignore_list()
 		COOLDOWN_START(src, ignore_list_cleanup_cd, 20 SECONDS)
@@ -383,7 +389,7 @@
 		if(BOT_SUMMON)		// Called by PDA
 			bot_summon()
 			return
-		if(BOT_PATHING)
+		if(BOT_MOVING)
 			return FALSE
 	return TRUE // Successful completion. Used to prevent child process() continuing if this one is ended early.
 
