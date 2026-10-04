@@ -182,22 +182,46 @@
 		// Turn the server on/off
 		if("active")
 			to_chat(ui.user, SPAN_NOTICE("IT FUCKING WORKS"))
-			if(linkedServer.active)
-				linkedServer.active = FALSE
-			else
-				linkedServer.active = TRUE
+			linkedServer.active = !linkedServer.active
+			linkedServer.update_icon(UPDATE_ICON_STATE)
 
 		if("deleteR")
-			var/datum/data_rc_msg/RC = locate(params["Rmessage"])
-			
+			if(!check_password())
+				to_chat(ui.user, SPAN_WARNING("No server found"))
+				return
+			var/datum/data_rc_msg/R = locate(params["Rmessage"])
+			log_debug("[R]")
+			if(istype(R, /datum/data_rc_msg))
+				linkedServer.rc_msgs -= R
+				to_chat(ui.user, SPAN_NOTICE("Request message deleted!"))
+			else
+				to_chat(ui.user, SPAN_WARNING("Could not delete the request message!"))
+
 		if("deleteP")
+			if(!check_password())
+				to_chat(ui.user, SPAN_WARNING("No server found"))
+				return
 			var/datum/data_pda_msg/P = locate(params["Pmessage"])
+			log_debug("[P]")
+			if(istype(P, /datum/data_pda_msg))
+				linkedServer.pda_msgs -= P
+				to_chat(ui.user, SPAN_NOTICE("PDA message deleted!"))
+			else
+				to_chat(ui.user, SPAN_WARNING("Could not delete the PDA message!"))
 
 		if("clear_msg")
-			return
+			if(check_password())
+				linkedServer.pda_msgs = list()
+				to_chat(ui.user, SPAN_NOTICE("All PDA messages cleared!"))
+			else
+				to_chat(ui.user, SPAN_WARNING("No server found"))
 
 		if("clear_req")
-			return
+			if(check_password())
+				linkedServer.rc_msgs = list()
+				to_chat(ui.user, SPAN_NOTICE("All Request Console messages cleared!"))
+			else
+				to_chat(ui.user, SPAN_WARNING("No server found"))
 
 		if("admin_msg")
 			return
