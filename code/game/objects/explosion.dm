@@ -203,6 +203,7 @@
 					continue
 				if(A.simulated && (A.level >= affecting_level))
 					A.ex_act(explosion_strength)
+				// This QDELETED(A) is still here because the ex_act() above may delete A.
 				if(istype(A, /atom/movable) && !QDELETED(A))
 					var/atom/movable/AM = A
 					AM.ex_throw(explosion_strength, epicenter, light_impact_range)
