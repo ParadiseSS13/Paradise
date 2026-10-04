@@ -472,10 +472,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 39, MAROON_OBJECTIVE = 202, ASS_ONCE_OBJECTIVE = 138, ASS_OBJECTIVE = 293, ASS_PET = 138, INFIL_SEC_OBJECTIVE = 190)
 
 	// If our org has an objectives list or unique objective, give one to us if we pass a roll on the org's focus
-	if(organization.unique_targets && prob(organization.focus) && !has_unique_obj)
+	if(!isnull(organization) && length(organization.unique_targets) && prob(organization.focus) && !has_unique_obj)
 		has_unique_obj = TRUE
 		objective_to_add = pick(organization.unique_targets)
-	else if(organization && length(organization.objectives) && prob(organization.focus))
+	else if(!isnull(organization) && length(organization.objectives) && prob(organization.focus))
 		objective_to_add = pick(organization.objectives)
 	else
 		var/objective_to_decide_further = pickweight(the_objective_list)
