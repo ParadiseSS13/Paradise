@@ -107,7 +107,10 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "bz" = (
-/obj/machinery/power/emitter,
+/obj/machinery/power/emitter{
+	anchored = 1;
+	state = 2
+	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
@@ -195,7 +198,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter{
-	dir = 1
+	dir = 1;
+	anchored = 1;
+	state = 2
 	},
 /obj/machinery/light{
 	dir = 4
@@ -330,7 +335,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter{
-	dir = 1
+	dir = 1;
+	anchored = 1;
+	state = 2
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
@@ -567,13 +574,6 @@
 	name = "Output to Waste"
 	},
 /turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
-"hq" = (
-/obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "hs" = (
 /turf/space,
@@ -1485,6 +1485,7 @@
 	dir = 6;
 	network = list("SS13","Engineering")
 	},
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "vX" = (
@@ -4846,7 +4847,7 @@ yT
 ts
 Ga
 up
-hq
+ck
 gc
 gc
 gc
