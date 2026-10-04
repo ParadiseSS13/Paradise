@@ -100,6 +100,8 @@
 
 #define STATUS_EFFECT_CULT_STUN /datum/status_effect/cult_stun_mark
 
+#define STATUS_EFFECT_ACOLYTE_STUN /datum/status_effect/cult_stun_mark/acolyte
+
 #define STATUS_EFFECT_HISWRATH /datum/status_effect/his_wrath //His Wrath.
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts

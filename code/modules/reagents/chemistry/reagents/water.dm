@@ -334,12 +334,18 @@
 			M.visible_message(SPAN_BIGGERDANGER("[M] recoils, their skin flushes with colour, regaining their sense of control!"))
 			return
 
-		if(IS_CULTIST(M))
+		if(IS_CULTIST(M) && !IS_ACOLYTE(M))
 			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
 			cultist.remove_gear_on_removal = TRUE
 			M.mind.remove_antag_datum(/datum/antagonist/cultist)
 
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			M.SetJitter(0)
+			return
+
+		if(IS_ACOLYTE(M))
+			M.mind.remove_antag_datum(/datum/antagonist/acolyte)
+			holder.remove_reagent(id, volume)
 			M.SetJitter(0)
 			return
 
