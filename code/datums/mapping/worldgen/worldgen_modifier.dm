@@ -91,7 +91,7 @@
 	octaves = 1
 	generation_data_expected = list("ore_weights", "biome", "ore_chance")
 
-#warn TODO dont do this                             vvvvvvvvvvvvvvvvv
+#warn TODO: change this to be a regular random chance weighted against how biome it is * 2 and then do random spread chance instead of a noise map
 /datum/worldgen_modifier/noise/ore/apply_value(turf/simulated/mineral/T)
 	if(!ismineralturf(T)) // minerals only!
 		return
@@ -108,7 +108,7 @@
 	// uses a noise map to help with river generation later on
 	lower_range = 7
 	upper_range = 9 // only the wettest areas!
-	frequency = 1
+	frequency = 0.1
 	octaves = 2
 	generation_data_expected = list("liquid_type")
 
@@ -131,7 +131,7 @@
 	size = 96
 	frequency = 0.02
 	octaves = 2
-	var/mix = 0.5
+	var/mix = 0.75
 	generation_data_expected = list("rock_type", "ambient_light")
 
 /datum/worldgen_modifier/noise/biome/generate_noise()
