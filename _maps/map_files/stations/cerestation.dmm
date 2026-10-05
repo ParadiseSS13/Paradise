@@ -8242,6 +8242,10 @@
 "bqg" = (
 /obj/structure/table,
 /obj/item/instrument/harmonica,
+/obj/item/toner{
+	pixel_x = -2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "bqr" = (
@@ -18319,9 +18323,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "cQc" = (
-/obj/machinery/computer/library,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /obj/structure/table/reinforced,
+/obj/machinery/computer/library/perma,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "cQg" = (
@@ -76040,6 +76044,10 @@
 	pixel_y = 7
 	},
 /obj/item/pen/invisible,
+/obj/item/toner{
+	pixel_x = 7;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "pdO" = (

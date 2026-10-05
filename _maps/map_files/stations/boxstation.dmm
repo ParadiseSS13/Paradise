@@ -16531,6 +16531,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
+"bkf" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "bkg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -16784,6 +16791,10 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/item/pen/multi,
+/obj/item/toner{
+	pixel_x = 6;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -18465,22 +18476,9 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bql" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/maintenance{
-	name = "Storefront Access";
-	dir = 4
-	},
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/barricade/wooden/crude,
+/obj/machinery/economy/atm/directional/east,
 /turf/simulated/floor/plasteel,
-/area/station/public/storefront)
+/area/station/hallway/primary/port/east)
 "bqm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -18831,7 +18829,9 @@
 /area/station/service/library)
 "brx" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bry" = (
@@ -46842,6 +46842,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
+"eJS" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Storefront Access";
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "eJZ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -48441,13 +48458,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
-"frs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/alarm/directional/south,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/east)
 "frv" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
@@ -56025,6 +56035,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
+"iFh" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "iFu" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -56484,7 +56498,7 @@
 /area/station/security/lobby)
 "iPz" = (
 /obj/structure/table,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library/perma,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "iPU" = (
@@ -60573,6 +60587,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
+"kCx" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/apmaint2)
 "kCy" = (
 /obj/effect/turf_decal/trimline/misc/toxins/line{
 	dir = 4
@@ -61636,6 +61662,7 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/item/toner,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "laU" = (
@@ -67812,7 +67839,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/catwalk,
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "nMU" = (
 /obj/structure/disposalpipe/segment{
@@ -73948,10 +73975,6 @@
 /obj/structure/sign/medical/examroom,
 /turf/simulated/floor/plating,
 /area/station/medical/patients_rooms1)
-"qrZ" = (
-/obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/east)
 "qsa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83571,10 +83594,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
-"uFD" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "uFH" = (
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /obj/structure/table/reinforced,
@@ -91101,18 +91120,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft2)
-"xWd" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "xWg" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
@@ -114524,7 +114531,7 @@ fCa
 gIc
 xyx
 bpj
-qrZ
+bql
 wrU
 hVI
 lXP
@@ -115294,7 +115301,7 @@ bdz
 gOk
 biF
 dmv
-frs
+bkf
 wrU
 wrU
 wrU
@@ -115552,7 +115559,7 @@ rhL
 bkg
 edg
 iFC
-bql
+eJS
 lVW
 bpl
 ile
@@ -115623,7 +115630,7 @@ uVX
 rUM
 rYt
 bhO
-uFD
+iFh
 tmS
 rna
 feO
@@ -115876,7 +115883,7 @@ cZw
 cZw
 cZw
 sJQ
-xWd
+nME
 siw
 cZw
 cNB
@@ -116133,7 +116140,7 @@ cZw
 siw
 cNB
 cZw
-xWd
+nME
 cZw
 cZw
 llo
@@ -116642,7 +116649,7 @@ gSd
 qst
 cNB
 cZw
-nME
+kCx
 jbf
 dar
 dar
@@ -116899,7 +116906,7 @@ cUh
 qst
 cZw
 cNB
-nME
+kCx
 rna
 dar
 dbt

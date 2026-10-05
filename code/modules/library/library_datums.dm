@@ -41,6 +41,7 @@
 	var/patron_name
 	var/patron_account //Patron's Account ID, used for deducting $credits$ from their account
 	var/duedate
+	var/announced_overdue
 
 /*
  * # Cachedbook datum
