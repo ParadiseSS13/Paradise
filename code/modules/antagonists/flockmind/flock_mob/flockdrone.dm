@@ -237,13 +237,13 @@
 
 
 
-/mob/living/basic/flock/drone/harvest(mob/living/user)
+/mob/living/basic/flock/drone/harvest(mob/living/user, obj/item/I)
 	var/list/loot = list(
 		/obj/item/stack/sheet/gnesis = 1,
 		/obj/item/shard/gnesis_glass = 1,
 	)
-
-	for(var/i in 3 to 6)
+	var/amount = floor(rand(3, 6) * I.bit_productivity_mod)
+	for(var/i in 1 to amount)
 		var/path = pickweight(loot)
 		new path(drop_location())
 
