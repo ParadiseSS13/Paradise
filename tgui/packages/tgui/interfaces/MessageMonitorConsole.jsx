@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Box, Button, LabeledList, Section, Table, Tabs } from 'tgui-core/components';
-import { Dropdown } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -19,8 +18,7 @@ export const MessageMonitorConsole = (properties) => {
       default:
         return 'SMETHING WENT VERY WRONG PLEASE AHELP';
     }
-};
-
+  };
 
   return (
     <Window width={800} height={400}>
@@ -35,7 +33,12 @@ export const MessageMonitorConsole = (properties) => {
                 <Button content={password ? password : 'Unset'} selected={1} onClick={() => act('password')} />
               </LabeledList.Item>
               <LabeledList.Item label="server power">
-                <Button content={active ? 'On' : 'Off'} selected={active} icon="power-off" onClick={() => act('active')} />
+                <Button
+                  content={active ? 'On' : 'Off'}
+                  selected={active}
+                  icon="power-off"
+                  onClick={() => act('active')}
+                />
               </LabeledList.Item>
             </LabeledList>
           </Box>
@@ -77,12 +80,7 @@ const MessageLog = (_properties) => {
       {PDALog.map((P) => (
         <Table.Row key={P.sender}>
           <Table.Cell>
-            <Button
-              color="red"
-              content="Delete"
-              icon="trash"
-              onClick={() => act('deleteP', { Pmessage: P })}
-            />
+            <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteP', { Pmessage: P })} />
           </Table.Cell>
           <Table.Cell>{P.sender}</Table.Cell>
           <Table.Cell>{P.recipient}</Table.Cell>
@@ -107,22 +105,17 @@ const RequestLog = (_properties) => {
         <Table.Cell>Priority</Table.Cell>
       </Table.Row>
       {RequestLog.map((R) => (
-      <Table.Row key={R.recievingDep}>
-        <Table.Cell>{R.recievingDep}</Table.Cell>
-        <Table.Cell>{R.sendingDep}</Table.Cell>
-        <Table.Cell>{R.message}</Table.Cell>
-        <Table.Cell>{R.stamp}</Table.Cell>
-        <Table.Cell>{R.idAuth}</Table.Cell>
-        <Table.Cell>{R.priority}</Table.Cell>
-        <Table.Cell>
-        <Button
-          color="red"
-          content="Delete"
-          icon="trash"
-          onClick={() => act('deleteR', { Rmessage: R })}
-        />
-        </Table.Cell>
-      </Table.Row>
+        <Table.Row key={R.recievingDep}>
+          <Table.Cell>{R.recievingDep}</Table.Cell>
+          <Table.Cell>{R.sendingDep}</Table.Cell>
+          <Table.Cell>{R.message}</Table.Cell>
+          <Table.Cell>{R.stamp}</Table.Cell>
+          <Table.Cell>{R.idAuth}</Table.Cell>
+          <Table.Cell>{R.priority}</Table.Cell>
+          <Table.Cell>
+            <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteR', { Rmessage: R })} />
+          </Table.Cell>
+        </Table.Row>
       ))}
     </Table>
   );
