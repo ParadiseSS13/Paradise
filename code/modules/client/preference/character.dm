@@ -643,9 +643,10 @@
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
 	blooper_id = sanitize_inlist(blooper_id, GLOB.blooper_list, initial(blooper_id))
-	blooper_speed = sanitize_float(blooper_speed, BLOOPER_DEFAULT_MINSPEED, BLOOPER_DEFAULT_MAXSPEED, initial(blooper_speed))
-	blooper_pitch = sanitize_float(blooper_pitch, BLOOPER_DEFAULT_MINPITCH, BLOOPER_DEFAULT_MAXPITCH, initial(blooper_pitch))
-	blooper_pitch_range = sanitize_float(blooper_pitch_range, BLOOPER_DEFAULT_MINVARY, BLOOPER_DEFAULT_MAXVARY, initial(blooper_pitch_range))
+	var/datum/blooper/blooper_type = GLOB.blooper_list[blooper_id]
+	blooper_speed = sanitize_float(blooper_speed, initial(blooper_type.minspeed), initial(blooper_type.maxspeed), initial(blooper_speed))
+	blooper_pitch = sanitize_float(blooper_pitch, initial(blooper_type.minpitch), initial(blooper_type.maxpitch), initial(blooper_pitch))
+	blooper_pitch_range = sanitize_float(blooper_pitch_range, initial(blooper_type.minvariance), initial(blooper_type.maxvariance), initial(blooper_pitch_range))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)

@@ -1,18 +1,19 @@
 /// Chat Sounds with configurable inputs.
 /datum/blooper
-	var/bloopername = "None"
-	var/blooperid = "No Voice"
-	var/soundpath
+	var/bloopername = "None" // The string name of the blooper.
+	var/blooperid = "No Voice" // The internal ID of the blooper used for matching.
+	var/soundpath // The path to the sound file to play.
 
-	var/minpitch = BLOOPER_DEFAULT_MINPITCH
-	var/maxpitch = BLOOPER_DEFAULT_MAXPITCH
-	var/minvariance = BLOOPER_DEFAULT_MINVARY
-	var/maxvariance = BLOOPER_DEFAULT_MAXVARY
+	/// Used for sanitization of the values before saving it and applying it. Keeps in bounds. Per sound.
+	var/minpitch = BLOOPER_DEFAULT_MINPITCH // The minimum pitch to be saved for a sound.
+	var/maxpitch = BLOOPER_DEFAULT_MAXPITCH	// The maximum pitch to be saved for a sound.
+	var/maxvariance = BLOOPER_DEFAULT_MAXVARY	// The maximum variance of pitch to be saved for a sound.
+	var/minvariance = BLOOPER_DEFAULT_MINVARY	// The minimum variance of pitch to be saved for a sound.
 
 	// Speed vars. Speed determines the number of characters required for each blooper
 	// with lower speeds being faster with higher blooper density
-	var/minspeed = BLOOPER_DEFAULT_MINSPEED
-	var/maxspeed = BLOOPER_DEFAULT_MAXSPEED
+	var/minspeed = BLOOPER_DEFAULT_MINSPEED // The minimum speed to be saved for a sound.
+	var/maxspeed = BLOOPER_DEFAULT_MAXSPEED // The maximum speed to be saved for a sound.
 
 	var/bloop_count_multiplier = 1 // Multiplier for amount of bloops on the datum. Some sounds literally just need less bloops like voxsounds.
 
