@@ -157,7 +157,7 @@
 	var/blooper_id
 	/// The pitch pre-variation.
 	var/blooper_pitch = 1
-	// The +/- modifier for the pitch.
+	/// The +/- modifier for the pitch.
 	var/blooper_pitch_range = 0.2
 	// The time between each bloop.
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
