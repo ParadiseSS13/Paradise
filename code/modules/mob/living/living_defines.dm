@@ -159,7 +159,7 @@
 	var/blooper_pitch = 1
 	/// The +/- modifier for the pitch.
 	var/blooper_pitch_range = 0.2
-	// The time between each bloop.
+	/// The time between each bloop.
 	var/blooper_speed = BLOOPER_SPEED_BASELINE
 	/// The bloop volume 0-100.
 	var/blooper_volume = 50
