@@ -271,6 +271,7 @@
 	latetoggle()
 	if(active_alarm)
 		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
