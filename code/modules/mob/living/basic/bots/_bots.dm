@@ -136,6 +136,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 	access_card = new /obj/item/card/id(src)
 	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
+	access_card.access += initial_access
 	access_card.access += ACCESS_ROBOTICS
 	access_card.access += additional_access
 	Radio = new/obj/item/radio/headset/bot(src)
@@ -514,6 +515,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 /mob/living/basic/bot/proc/bot_reset(bypass_ai_reset = FALSE)
 	SEND_SIGNAL(src, COMSIG_BOT_RESET)
 	access_card.access = initial_access
+	access_card.access += additional_access
+	access_card.access += ACCESS_ROBOTICS
 	update_bot_mode(new_mode = src::mode)
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
