@@ -257,7 +257,7 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
-	if(isitem(target) && can_attack_items)
+	if(isitem(target) && !can_attack_items)
 		return FALSE
 	if(!ignore_cooldown && !client)
 		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
