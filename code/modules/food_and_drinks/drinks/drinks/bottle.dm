@@ -489,6 +489,6 @@
 	name = "Corton-Charlemagne Grand Cru"
 	desc = "A bottle straight from Sol's most famous wine-making region... or a very convincing knock-off."
 	icon_state = "white_wine_bottle"
-	list_reagents = list("whitewine" = 100)
+	list_reagents = list("white_wine" = 100)
 
 // ----------- END of imports from Hispania!
