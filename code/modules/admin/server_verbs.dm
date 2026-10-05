@@ -109,11 +109,17 @@ USER_VERB(restart_server, R_SERVER, "Restart", "Restarts the world.", VERB_CATEG
 				SSticker.reboot_helper(init_by, "admin reboot - by [client.key] [client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
 
 			if("Hard Restart")
+				var/hr_response = alert(client, "WARNING\n\nThis is **ONLY** for if the server is beyond saving.\nNo statistical data will be stored after this.\nUse 'Regular Restart' with a delay of 0 under any other circumstances.", "WARNING", "Go Back", "Really go back", "I'm sure")
+				if(hr_response != "I'm sure")
+					return
 				message_admins("[key_name_admin(client)] has initiated a server restart of type [result]")
 				log_admin("[key_name(client)] has initiated a server restart of type [result]")
 				world.Reboot(fast_track = TRUE)
 
 			if("Terminate Process (Kill and restart DD)")
+				var/tp_response = alert(client, "WARNING\n\nThis is **ONLY** for if the server is TRULY beyond saving.\nNo statistical data will be stored after this.\nUse 'Regular Restart' with a delay of 0 under any other circumstances.\nThis option straight up terminates the server task manager style.", "WARNING", "Go Back", "Really go back", "I'm sure")
+				if(tp_response != "I'm sure")
+					return
 				message_admins("[key_name_admin(client)] has initiated a server restart of type [result]")
 				log_admin("[key_name(client)] has initiated a server restart of type [result]")
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
