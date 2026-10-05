@@ -89,6 +89,9 @@
 		we_missed.throw_at(i_wasnt_aiming_for_the_truck, 16, 3)
 	return ..()
 
+/obj/projectile/bullet/shrapnel/ex_act()
+	return // So we don't end up possibly exploding our own shrapnel.
+
 /obj/projectile/bullet/shrapnel/holy
 	name = "blessed shrapnel"
 	embedded_type = /obj/item/shrapnel/holy
