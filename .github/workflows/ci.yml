@@ -42,9 +42,8 @@ jobs:
         run: |
           tools/ci/check_json.sh
           tgui/bin/tgui --ci
+          python -m pytest tools/ci/pytest
           python tools/ci/check_grep2.py
-          python tools/ci/check_line_endings.py
-          python tools/ci/check_file_names.py
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
@@ -146,7 +145,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4.3.0
       - name: Push Docker Image
-        uses: docker/build-push-action@v7.3.0
+        uses: docker/build-push-action@v7.4.0
         with:
           context: .
           tags: ${{ steps.docker_meta.outputs.tags }}

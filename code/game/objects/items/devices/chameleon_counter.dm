@@ -8,6 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=5;magnets=4;syndicate=1"
+	new_attack_chain = TRUE
 	var/can_use = TRUE
 	var/saved_name
 	var/saved_desc
@@ -25,13 +26,16 @@
 	if(dummy_active)
 		. += SPAN_WARNING("It doesn't look quite right...")
 
-/obj/item/chameleon_counterfeiter/afterattack__legacy__attackchain(obj/item/target, mob/user, proximity)
-	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
-		return
+/obj/item/chameleon_counterfeiter/interact_with_atom(obj/item/target, mob/living/user, list/modifiers)
 	if(dummy_active || !isitem(target))
-		return
+		return NONE
+
+	if(!check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
+		return NONE
+
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 	to_chat(user, SPAN_NOTICE("Scanned [target]."))
+	add_fingerprint(user)
 	saved_name = target.name
 	saved_desc = target.desc
 	saved_icon = target.icon
@@ -41,6 +45,7 @@
 	saved_inhand_icon_state = target.inhand_icon_state
 	saved_overlays = target.overlays
 	saved_underlays = target.underlays
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/chameleon_counterfeiter/proc/check_sprite(atom/target)
 	return (target.icon_state in icon_states(target.icon))
@@ -49,6 +54,7 @@
 	if(!can_use || !saved_name)
 		return
 	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
+	add_fingerprint(user)
 	if(dummy_active)
 		matter_deactivate()
 		to_chat(user, SPAN_NOTICE("You deactivate [src]."))
@@ -82,5 +88,9 @@
 	can_use = FALSE
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
-/obj/item/chameleon_counterfeiter/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/chameleon_counterfeiter/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	matter_toggle(user)
+	return ITEM_INTERACT_COMPLETE

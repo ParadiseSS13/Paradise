@@ -453,5 +453,8 @@
 	src.machine = target
 
 /obj/item/pai_cable/interact_with_atom(obj/machinery/target, mob/living/user, list/modifiers)
+	if(!istype(target))
+		return NONE
+
 	src.plugin(target, user)
 	return ITEM_INTERACT_COMPLETE

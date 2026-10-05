@@ -418,6 +418,41 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return
 	return ..()
 
+/datum/objective/acolyte_sacrifice
+	name = "Sacrifice"
+	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to sacrifice another crewmember to the dark gods. You will receive further information in a few minutes."
+
+/datum/objective/acolyte_sacrifice/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	RegisterSignal(src, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(on_target_assigned))
+
+/datum/objective/acolyte_sacrifice/update_explanation_text()
+	if(target?.current)
+		explanation_text = "Sacrifice [target.current.real_name], the [target.assigned_role] using a Sacrifice Rune."
+		var/list/protect_objectives = find_protect_objectives_for_target()
+		if(length(protect_objectives) > 0)
+			explanation_text += " Be warned, it seems they have a guardian angel."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/acolyte_sacrifice/proc/on_target_assigned(datum/source, datum/mind/new_target)
+	SIGNAL_HANDLER  // COMSIG_OBJECTIVE_TARGET_FOUND
+	if(!new_target)
+		return
+	// Notify the first available protect objective that we have a target.
+	for(var/datum/objective/protect/protect_obj in GLOB.all_objectives)
+		if(!protect_obj.target && protect_obj.owner && protect_obj.holder)
+			var/datum/mind/assassination_target = protect_obj.try_find_assassination_target()
+			if(assassination_target && !protect_obj.is_invalid_target(assassination_target))
+				protect_obj.target = assassination_target
+				// Cancel the fallback timer since we now have a target.
+				if(protect_obj.fallback_timer_id)
+					deltimer(protect_obj.fallback_timer_id)
+					protect_obj.fallback_timer_id = null
+				addtimer(CALLBACK(protect_obj, TYPE_PROC_REF(/datum/objective/protect, notify_protect_objectives)), 1 MINUTES)
+				return
+
 /datum/objective/infiltrate_sec
 	name = "Infiltrate Security"
 	explanation_text = "Infiltrate the ranks of the Security department undetected, either by being lawfully hired into it or by replacing one of its members."

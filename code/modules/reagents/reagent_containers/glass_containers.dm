@@ -52,31 +52,33 @@
 			if(!iscarbon(target)) // Non-carbons can't process reagents
 				to_chat(user, SPAN_WARNING("You cannot find a way to feed [target]."))
 				return
-			if(target != user)
-				target.visible_message(SPAN_DANGER("[user] attempts to feed something to [target]."), \
+			var/mob/living/carbon/carb_mob = target
+			if(carb_mob != user)
+				carb_mob.visible_message(SPAN_DANGER("[user] attempts to feed something to [carb_mob]."), \
 							SPAN_USERDANGER("[user] attempts to feed something to you."))
-				if(!do_mob(user, target))
+				if(!do_mob(user, carb_mob))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				target.visible_message(SPAN_DANGER("[user] feeds something to [target]."), SPAN_USERDANGER("[user] feeds something to you."))
-				add_attack_logs(user, target, "Fed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
+				carb_mob.visible_message(SPAN_DANGER("[user] feeds something to [target]."), SPAN_USERDANGER("[user] feeds something to you."))
+				add_attack_logs(user, carb_mob, "Fed with [name] containing [contained]", !!carb_mob.ckey ? null : ATKLOG_ALL)
 			else
 				to_chat(user, SPAN_NOTICE("You swallow a gulp of [src]."))
 			var/fraction = min(5 / reagents.total_volume, 1)
-			reagents.reaction(target, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
+			carb_mob.taste(reagents) // yummy
+			reagents.reaction(carb_mob, REAGENT_INGEST, fraction)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), carb_mob, 5), 5)
 			playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 			// Add viruses where needed
-			if(length(target.viruses))
-				AddComponent(/datum/component/viral_contamination, target.viruses)
+			if(length(carb_mob.viruses))
+				AddComponent(/datum/component/viral_contamination, carb_mob.viruses)
 			// Infect contained blood as well for splash reactions
 			var/datum/reagent/blood/blood_contained = locate() in reagents.reagent_list
 			if(blood_contained?.data["viruses"])
 				var/list/blood_viruses = blood_contained.data["viruses"]
-				blood_viruses |= target.viruses.Copy()
+				blood_viruses |= carb_mob.viruses.Copy()
 				blood_contained.data["viruses"] = blood_viruses
-			SEND_SIGNAL(src, COMSIG_MOB_REAGENT_EXCHANGE, target)
+			SEND_SIGNAL(src, COMSIG_MOB_REAGENT_EXCHANGE, carb_mob)
 
 /obj/item/reagent_containers/glass/normal_act(atom/target, mob/living/user)
 	if(!check_allowed_items(target, target_self = TRUE) || !is_open_container() || !reagents)
@@ -356,7 +358,7 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "smallbottle"
 	inhand_icon_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
