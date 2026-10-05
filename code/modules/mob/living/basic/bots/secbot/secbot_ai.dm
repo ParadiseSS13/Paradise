@@ -83,11 +83,11 @@
 	var/mob/living/basic/bot/secbot/my_bot = controller.pawn
 	if((QDELETED(my_target) || !my_target || !istype(my_target) || my_target.handcuffed || my_target.stat != CONSCIOUS) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
 		controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
-		return
+		return SUBTREE_RETURN_FINISH_PLANNING
 	var/bot_flags = my_bot.security_mode_flags
-	if(my_target.IsWeakened() && !(bot_flags & SECBOT_HANDCUFF_TARGET) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
+	if(my_target && my_target.IsWeakened() && !(bot_flags & SECBOT_HANDCUFF_TARGET) && !(my_bot.bot_access_flags & BOT_COVER_EMAGGED))
 		controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
-		return
+		return SUBTREE_RETURN_FINISH_PLANNING
 
 	controller.queue_behavior(arrest_behavior, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETING_STRATEGY)
 	controller.queue_behavior(/datum/ai_behavior/frustration, BB_SECBOT_FRUSTRATION, 45 SECONDS)

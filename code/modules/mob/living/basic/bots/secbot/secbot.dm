@@ -99,7 +99,7 @@
 	if(QDELETED(target))
 		return FALSE
 	if(!iscarbon(target))
-		..()
+		return ..()
 	var/mob/living/carbon/C = target
 	face_atom(C)
 	if(!emagged) // This keeps it from harm batonning
