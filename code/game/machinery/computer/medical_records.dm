@@ -410,7 +410,7 @@
 		<br>\nCurrent Diseases: [active2.fields["cdi"]] (per disease info placed in log/comment section)
 		<br>\nDetails: [active2.fields["cdi_d"]]<br>\n
 		<br>\nImportant Notes:
-		<br>\n\t[active2.fields["notes"]]<br>\n
+		<br>\n\t[replacetext(active2.fields["notes"], "\n", "<BR>")]<br>\n
 		<br>\n
 		<center><b>Comments/Log</b></center><br>"}
 		for(var/c in active2.fields["comments"])

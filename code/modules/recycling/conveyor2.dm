@@ -13,9 +13,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
-	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly.<br>\
-	<span class='notice'>Use a <b>wrench</b> on the belt to rotate it.<br>\
-	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
+	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
@@ -28,6 +26,11 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	var/slow_factor = 1 	// How slow the items move on the conveyor. MUST be >=1
 
 	var/list/affecting = list() // the list of all items that are in the process of being moved
+
+/obj/machinery/conveyor/examine()
+	. = ..()
+	. += SPAN_NOTICE("Use a <b>wrench</b> on the belt to rotate it.")
+	. += SPAN_NOTICE("Use a <b>crowbar</b> on the belt to dislodge it.")
 
 // create a conveyor
 /obj/machinery/conveyor/New(loc, new_dir, new_id)
@@ -254,10 +257,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
-	<span class='notice'>Use a <b>multitool</b> to configure.<br>\
-	Use a <b>crowbar</b> to dislodge it.<br>\
-	Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.</span>"
+	desc = "This switch controls any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	anchored = TRUE
@@ -267,6 +267,12 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	var/position = DIRECTION_OFF // Which way we are toggled right now.
 	var/reversed = TRUE  // If we're in neutral, would we go forwards or backwards next?
 	var/slow_factor = 1  // How slow the belts should go. Gets copied into connected belts slow_factor.
+
+/obj/machinery/conveyor_switch/examine()
+	. = ..()
+	. += SPAN_NOTICE("Use a <b>multitool</b> to configure.")
+	. += SPAN_NOTICE("Use a <b>crowbar</b> to dislodge it.")
+	. += SPAN_NOTICE("Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.")
 
 /obj/machinery/conveyor_switch/New(newloc, new_id)
 	..(newloc)
@@ -421,82 +427,94 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_loose"
 	name = "conveyor belt assembly"
-	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems.<br>\
-	<span class='notice'><b>Use</b> the assembly on the ground to finalize it.<br>\
-	Use a <b>conveyor belt switch</b> on the assembly to link them.</span>"
+	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems."
 	materials = list(MAT_METAL = 5000)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
+	new_attack_chain = TRUE
 
-/obj/item/conveyor_construct/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	..()
-	if(!istype(I, /obj/item/conveyor_switch_construct))
-		return
-	var/obj/item/conveyor_switch_construct/C = I
-	to_chat(user, SPAN_NOTICE("You link [src] to [C]."))
-	id = C.id
+/obj/item/conveyor_construct/examine()
+	. = ..()
+	. += SPAN_NOTICE("<b>Use</b> the assembly on the ground to finalize it.")
+	. += SPAN_NOTICE("Use a <b>conveyor belt switch</b> on the assembly to link them.")
 
-/obj/item/conveyor_construct/afterattack__legacy__attackchain(turf/T, mob/user, proximity)
-	if(!proximity)
-		return
-	if(user.incapacitated())
-		return
-	if(!isfloorturf(T))
-		return
-	if(T == get_turf(user))
-		to_chat(user, SPAN_NOTICE("You cannot place [src] under yourself."))
-		return
-	if(locate(/obj/machinery/conveyor) in T) //Can't put conveyors beneath conveyors
-		to_chat(user, SPAN_NOTICE("There's already a conveyor there!"))
-		return
-	var/obj/machinery/conveyor/C = new(T, user.dir, id)
-	transfer_fingerprints_to(C)
+/obj/item/conveyor_construct/item_interaction(mob/user, obj/item/conveyor_switch_construct/used, list/modifiers)
+	if(!istype(used, /obj/item/conveyor_switch_construct))
+		return ..()
+	to_chat(user, SPAN_NOTICE("You link [src] to [used]."))
+	id = used.id
+	add_fingerprint(user)
+	used.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/conveyor_construct/interact_with_atom(turf/target, mob/living/user, list/modifiers)
+	if(!isfloorturf(target))
+		return ..()
+
+	if(target == get_turf(user))
+		to_chat(user, SPAN_WARNING("You cannot place [src] under yourself!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(locate(/obj/machinery/conveyor) in target) // Can't put conveyors beneath conveyors.
+		to_chat(user, SPAN_WARNING("There's already a conveyor there!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/machinery/conveyor/new_conveyor = new(target, user.dir, id)
+	transfer_fingerprints_to(new_conveyor)
+	new_conveyor.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to.<br>\
-	<span class='notice'><b>Use</b> it on a section of conveyor belt to link them together.<br>\
-	<b>Use</b> the assembly on the ground to finalize it.<span>"
+	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
 	materials = list(MAT_METAL = 450, MAT_GLASS = 190)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
+	new_attack_chain = TRUE
+
+/obj/item/conveyor_switch_construct/examine()
+	. = ..()
+	. += SPAN_NOTICE("<b>Use</b> it on a section of conveyor belt to link them together.")
+	. += SPAN_NOTICE("<b>Use</b> the assembly on the ground to finalize it.")
 
 /obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
 	. = ..()
 	if(new_id)
 		id = new_id
 	else
-		id = world.time + rand() //this couldn't possibly go wrong
+		id = world.time + rand() // This couldn't possibly go wrong.
 
+/obj/item/conveyor_switch_construct/interact_with_atom(turf/target, mob/living/user, list/modifiers)
+	if(!isfloorturf(target))
+		return ..()
 
-/obj/item/conveyor_switch_construct/afterattack__legacy__attackchain(turf/T, mob/user, proximity)
-	if(!proximity)
-		return
-	if(user.incapacitated())
-		return
-	if(!isfloorturf(T))
-		return
 	var/found = FALSE
-	for(var/obj/machinery/conveyor/C in view())
-		if(C.id == id)
+	for(var/obj/machinery/conveyor/found_conveyor in view())
+		if(found_conveyor.id == id)
 			found = TRUE
 			break
 	if(!found)
-		to_chat(user, SPAN_NOTICE("[src] did not detect any linked conveyor belts in range."))
-		return
-	var/obj/machinery/conveyor_switch/NC = new(T, id)
-	transfer_fingerprints_to(NC)
-	qdel(src)
+		to_chat(user, SPAN_WARNING("[src] did not detect any linked conveyor belts in range!"))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/conveyor_switch_construct/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(!istype(I, /obj/item/conveyor_switch_construct))
+	var/obj/machinery/conveyor_switch/new_switch = new(target, id)
+	transfer_fingerprints_to(new_switch)
+	new_switch.add_fingerprint(user)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/conveyor_switch_construct/item_interaction(mob/user, obj/item/conveyor_switch_construct/used, list/modifiers)
+	if(!istype(used, /obj/item/conveyor_switch_construct))
 		return ..()
-	var/obj/item/conveyor_switch_construct/S = I
-	id = S.id
+
+	id = used.id
 	to_chat(user, SPAN_NOTICE("You link the two switch constructs."))
+	add_fingerprint(user)
+	used.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paper/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"

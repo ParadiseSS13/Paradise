@@ -1,5 +1,6 @@
 /turf/simulated/floor/mech_bay_recharge_floor
 	name = "mech bay recharge station"
+	desc = "A spot to recharge a mecha's power cell."
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
 

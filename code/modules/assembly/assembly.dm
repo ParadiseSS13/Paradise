@@ -145,9 +145,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(toggle_secure())
-		to_chat(user, SPAN_NOTICE("[src] is ready!"))
+		to_chat(user, SPAN_NOTICE("You ready and secure [src]!"))
 	else
-		to_chat(user, SPAN_NOTICE("[src] can now be attached!"))
+		to_chat(user, SPAN_NOTICE("You unsecure [src] with [I] so it can be attached!"))
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)
@@ -156,9 +156,9 @@
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			. += "[src] is ready!"
+			. += "[src] is ready and secured!"
 		else
-			. += "[src] can be attached!"
+			. += "[src] unsecured and can be attached!"
 
 /obj/item/assembly/activate_self(mob/user)
 	if(!user)

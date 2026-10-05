@@ -395,10 +395,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival/empty/populate_contents()
 	return
@@ -412,9 +414,11 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_vox/empty/populate_contents()
 	return
@@ -444,10 +448,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/engineer/empty/populate_contents()
 	return
@@ -461,10 +467,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_mining/empty/populate_contents()
 	return
@@ -480,6 +488,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 /obj/item/storage/box/survival_syndie/empty/populate_contents()
 	return
@@ -916,8 +925,8 @@
 	return
 
 /obj/item/storage/box/autoinjectors
-	name = "box of injectors"
-	desc = "Contains autoinjectors."
+	name = "box of epinephrine autoinjectors"
+	desc = "Contains autoinjectors pre-loaded with epinephrine."
 	icon_state = "injector_box"
 
 /obj/item/storage/box/autoinjectors/populate_contents()
@@ -962,6 +971,30 @@
 		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs/empty/populate_contents()
+	return
+
+/obj/item/storage/box/suture_pack
+	name = "box of suture packs"
+	desc = "It has pictures of suture packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/suture_pack/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/suture_pack(src)
+
+/obj/item/storage/box/suture_pack/empty/populate_contents()
+	return
+
+/obj/item/storage/box/mesh_pack
+	name = "box of mesh packs"
+	desc = "It has pictures of mesh packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/mesh_pack/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/mesh_pack(src)
+
+/obj/item/storage/box/mesh_pack/empty/populate_contents()
 	return
 
 /obj/item/storage/box/bodybags
@@ -1518,6 +1551,11 @@
 
 /obj/item/storage/box/fakesyndiesuit/empty/populate_contents()
 	return
+
+/obj/item/storage/box/crab_box
+	name = "market profit box"
+	desc = "A sleek, sturdy box with a miniature teleporter beacon inside, linked to a remote market device."
+	icon_state = "doom_box"
 
 /obj/item/storage/box/enforcer_rubber
 	name = "\improper Enforcer pistol kit (rubber)"

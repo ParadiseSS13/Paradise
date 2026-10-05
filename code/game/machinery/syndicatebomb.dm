@@ -340,7 +340,8 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	origin_tech = "syndicate=5;combat=6"
-	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
+	resistance_flags = FLAMMABLE // Burnable (but the casing isn't).
+	new_attack_chain = TRUE
 	var/adminlog = null
 	var/range_heavy = 5
 	var/range_medium = 10
@@ -350,7 +351,6 @@
 
 /obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
 	detonate()
-
 
 /obj/item/bombcore/burn()
 	detonate()
@@ -553,19 +553,23 @@
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/chemical/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
-		if(length(beakers) < max_beakers)
-			if(!user.drop_item())
-				return
-			beakers += I
-			to_chat(user, SPAN_NOTICE("You load [src] with [I]."))
-			I.loc = src
-		else
-			to_chat(user, SPAN_WARNING("[I] won't fit! [src] can only hold up to [max_beakers] containers."))
-			return
-	else
+/obj/item/bombcore/chemical/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!(istype(used, /obj/item/reagent_containers/glass/beaker) || istype(used, /obj/item/reagent_containers/glass/bottle)))
 		return ..()
+
+	if(length(beakers) >= max_beakers)
+		to_chat(user, SPAN_WARNING("[used] won't fit! [src] can only hold up to [max_beakers] containers!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	beakers += used
+	to_chat(user, SPAN_NOTICE("You load [src] with [used]."))
+	used.forceMove(src)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/bombcore/chemical/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -624,20 +628,27 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-/obj/item/bombcore/toxins/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/transfer_valve))
-		if(!ttv && !check_attached(I))
-			if(!user.drop_item())
-				return
-			to_chat(user, SPAN_NOTICE("You load [src] with [I]."))
-			ttv = I
-			I.forceMove(src)
-		else if(ttv)
-			to_chat(user, SPAN_WARNING("Another tank transfer valve is already loaded."))
-		else
-			to_chat(user, SPAN_WARNING("Remove the attached assembly component first."))
-	else
+/obj/item/bombcore/toxins/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/transfer_valve))
 		return ..()
+
+	if(ttv)
+		to_chat(user, SPAN_WARNING("Another tank transfer valve is already loaded!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(check_attached(used))
+		to_chat(user, SPAN_WARNING("Remove the attached assembly component from [used] first!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You load [src] with [used]."))
+	ttv = used
+	used.forceMove(src)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/bombcore/toxins/crowbar_act(mob/user, obj/item/I)
 	if(!ttv)
@@ -647,8 +658,6 @@
 		return
 	ttv.forceMove(get_turf(src))
 	ttv = null
-
-
 
 /obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
 	if(ttv.attached_device)
@@ -679,11 +688,15 @@
 	var/timer = 0
 	var/detonated =	0
 	var/existant =	0
+	new_attack_chain = TRUE
 
-/obj/item/syndicatedetonator/attack_self__legacy__attackchain(mob/user)
+/obj/item/syndicatedetonator/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(timer >= world.time)
 		to_chat(user, SPAN_ALERT("Nothing happens."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 		if(B.active)
@@ -704,6 +717,8 @@
 	detonated =	0
 	existant = 0
 	timer = world.time + BUTTON_COOLDOWN
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 #undef BUTTON_COOLDOWN
 #undef BUTTON_DELAY

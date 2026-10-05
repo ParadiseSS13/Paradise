@@ -116,7 +116,7 @@
 	///Tracks the bolt color we are using
 	var/zap_icon = DEFAULT_ZAP_ICON_STATE
 	///The portion of the gasmix we're on that we should remove
-	var/gasefficency = 0.35
+	var/gasefficency = 0.30
 
 	///Are we exploding?
 	var/final_countdown = FALSE
@@ -1081,7 +1081,6 @@
 	base_icon_state = "darkmatter_shard"
 	icon_state = "darkmatter_shard"
 	anchored = FALSE
-	gasefficency = 0.125
 	explosion_power = 12
 	layer = ABOVE_MOB_LAYER
 	moveable = TRUE

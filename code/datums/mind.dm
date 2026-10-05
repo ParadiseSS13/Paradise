@@ -134,7 +134,7 @@
 	if(isliving(current))
 		destroyed_body_json = json_encode(current.serialize())
 
-/datum/mind/proc/bind_to(mob/living/new_character)
+/datum/mind/proc/bind_to(mob/new_character)
 	current = new_character
 	new_character.mind = src
 	RegisterSignal(current, COMSIG_PARENT_QDELETING, PROC_REF(archive_deleted_body), override = TRUE)
@@ -147,11 +147,9 @@
 		current.mind = null
 	current = null
 
-/datum/mind/proc/transfer_to(mob/living/new_character)
+/datum/mind/proc/transfer_to(mob/new_character, transfer_actions_to_target = TRUE)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
-	var/mob/living/old_current = current
-	if(!istype(new_character))
-		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
+	var/mob/old_current = current
 	if(current)					//remove ourself from our old body's mind variable
 		if(isliving(current))
 			current.med_hud_set_status()
@@ -168,19 +166,20 @@
 
 	bind_to(new_character)
 
-	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
-		var/datum/antagonist/A = a
-		A.on_body_transfer(old_current, current)
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
-	transfer_actions(new_character)
-	if(martial_art)
-		for(var/datum/martial_art/MA in known_martial_arts)
-			MA.reset_combos(old_current) // Clear combos on old body
-			if(MA.temporary)
-				MA.remove(current)
-			else
-				MA.remove(current)
-				MA.teach(current)
+	if(transfer_actions_to_target)
+		for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+			var/datum/antagonist/A = a
+			A.on_body_transfer(old_current, current)
+		transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+		transfer_actions(new_character)
+		if(martial_art)
+			for(var/datum/martial_art/MA in known_martial_arts)
+				MA.reset_combos(old_current) // Clear combos on old body
+				if(MA.temporary)
+					MA.remove(current)
+				else
+					MA.remove(current)
+					MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -383,6 +382,18 @@
 		. += "<a href='byond://?src=[UID()];changeling=changeling'>changeling</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
+
+/datum/mind/proc/memory_edit_acolyte(mob/living/carbon/human/H)
+	. = _memory_edit_header("acolyte", list("acolyte"))
+	var/datum/antagonist/acolyte/acolyte = has_antag_datum(/datum/antagonist/acolyte)
+	if(acolyte)
+		. += "<b><font color='red'>ACOLYTE</font></b>|<a href='byond://?src=[UID()];acolyte=clear'>no</a>"
+		if(!acolyte.has_antag_objectives())
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];acolyte=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='byond://?src=[UID()];acolyte=acolyte'>acolyte</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_ACOLYTE)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
@@ -618,6 +629,7 @@
 		"implant",
 		"revolution",
 		"cult",
+		"acolyte",
 		"wizard",
 		"changeling",
 		"vampire", // "traitorvamp",
@@ -638,6 +650,8 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** ACOLYTE ***/
+		sections["acolyte"] = memory_edit_acolyte(H)
 		/** SPACE NINJA */
 		sections["space_ninja"] = memory_edit_space_ninja(H)
 		/** WIZARD ADEPT **/
@@ -1221,6 +1235,19 @@
 				to_chat(current, "<b><font color='red'>Your training awakens, and a myserious set of gear teleports in around you... You are a Space Ninja!</font></b>")
 				message_admins("[key_name(usr)] has ninja'd [key_name(current)].")
 
+	else if(href_list["acolyte"])
+		switch(href_list["acolyte"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/acolyte))
+					remove_antag_datum(/datum/antagonist/acolyte)
+					log_admin("[key_name(usr)] has de-acolyteed [key_name(current)].")
+					message_admins("[key_name(usr)] has de-acolyted [key_name(current)].")
+			if("acolyte")
+				make_acolyte()
+				log_admin("[key_name(usr)] has acolyted [key_name(current)].")
+				to_chat(current, "<b><font color='red'>You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Complete your objectives, to weaken the veil.</font></b>")
+				message_admins("[key_name(usr)] has acolyted [key_name(current)].")
+
 	else if(href_list["wizard_adept"])
 		switch(href_list["wizard_adept"])
 			if("clear")
@@ -1278,12 +1305,12 @@
 			if("Target")
 				var/mob/living/carbon/human/new_target = usr.client?.holder.marked_datum
 				if(!istype(new_target))
-					to_chat(usr, "<span class='warning'>You need to mark a human to do this!</span>")
+					to_chat(usr, SPAN_WARNING("You need to mark a human to do this!"))
 					return
 
 				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-					to_chat(current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-					to_chat(current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
+					to_chat(current, SPAN_DANGER("The Mansus has modified your targets. Go find them!"))
+					to_chat(current, SPAN_DANGER("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
 					var/datum/antagonist/heretic/hereitic = has_antag_datum(/datum/antagonist/heretic)
 					hereitic.add_sacrifice_target(new_target)
 			if("RemoveTarget")
@@ -1300,14 +1327,14 @@
 					return
 
 				if(!thereitic.remove_sacrifice_target(chosen_target))
-					to_chat(usr, "<span class='warning'>Failed to remove [name_of_removed] from [current]'s sacrifice list. Perhaps they're no longer in the list anyways.</span>")
+					to_chat(usr, SPAN_WARNING("Failed to remove [name_of_removed] from [current]'s sacrifice list. Perhaps they're no longer in the list anyways."))
 					return
 
 				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-					to_chat(current, "<span class='danger'>The Mansus has modified your targets.</span>")
+					to_chat(current, SPAN_DANGER("The Mansus has modified your targets."))
 			if("focus")
 				current.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(current)), ITEM_SLOT_NECK, TRUE, TRUE)
-				to_chat(current, "<span class='danger'>The Mansus has given you a focus!</span>")
+				to_chat(current, SPAN_DANGER("The Mansus has given you a focus!"))
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a heretic focus")
 			if("knowledge")
 				var/change_num = tgui_input_number(usr, "Add or remove knowledge points", "Points", 0, 100, -100)
@@ -1902,10 +1929,20 @@
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
+/datum/mind/proc/make_Flockmind()
+	if(!(src in SSticker.mode.flockminds))
+		SSticker.mode.flockminds += src
+		special_role = SPECIAL_ROLE_FLOCK
+
 /datum/mind/proc/make_mind_flayer()
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
 		SSticker.mode.mindflayers |= src
+
+/datum/mind/proc/make_acolyte()
+	if(!has_antag_datum(/datum/antagonist/acolyte))
+		add_antag_datum(/datum/antagonist/acolyte)
+		SSticker.mode.acolytes |= src
 
 /datum/mind/proc/make_space_ninja()
 	if(!has_antag_datum(/datum/antagonist/space_ninja))

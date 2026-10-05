@@ -174,14 +174,16 @@
 /*
  * Researchable Scalpels
  */
-/// parent type
+/// lasers also count as cauteries, and hemostats purely for opening surgery.
 /obj/item/scalpel/laser
 	name = "laser scalpel"
-	desc = "A low-power laser emitter for creating and cauterizing precise surgical incisions."
+	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
+	toolspeed = 0.4
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	origin_tech = "biotech=3;materials=4;magnets=4"
 
 /obj/item/scalpel/laser/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
@@ -207,23 +209,6 @@
 	cig.light(user, target)
 	return TRUE
 
-/// lasers also count as catuarys
-/obj/item/scalpel/laser/laser1
-	desc = "A basic low-power laser emitter for creating and cauterizing precise surgical incisions."
-	toolspeed = 0.8
-
-/obj/item/scalpel/laser/laser2
-	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
-	icon_state = "scalpel_laser2_on"
-	toolspeed = 0.6
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
-
-/obj/item/scalpel/laser/laser3
-	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
-	icon_state = "scalpel_laser3_on"
-	toolspeed = 0.4
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
-
 /// super tool! Retractor/hemostat
 /obj/item/scalpel/laser/manager
 	name = "incision management system"
@@ -231,6 +216,7 @@
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
+	origin_tech = "biotech=6;materials=6;magnets=4;programming=3"
 
 /obj/item/scalpel/laser/manager/Initialize(mapload)
 	. = ..()

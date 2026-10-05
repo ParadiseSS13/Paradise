@@ -142,9 +142,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 252),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 9),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 7),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 7),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 14),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 11),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 10),
@@ -235,6 +234,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 5730),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/flockmind, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/prince, 0, TRUE),

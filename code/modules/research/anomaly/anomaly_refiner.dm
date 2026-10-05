@@ -40,7 +40,7 @@
 /obj/machinery/anomaly_refinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/raw_anomaly_core))
 		return ..()
-	if(refined_core)
+	if(refined_core || inserted_core)
 		to_chat(user, SPAN_WARNING("There is already a core in [src]!"))
 		return ITEM_INTERACT_COMPLETE
 	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))

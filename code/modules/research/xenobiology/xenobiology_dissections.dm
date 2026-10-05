@@ -122,7 +122,7 @@
 			break
 
 	var/inverted_chance = 100 - quality_chance
-	quality_chance += ((inverted_chance * 0.66) * -(I.bit_efficiency_mod - 1))
+	quality_chance += ((inverted_chance * 0.66) * -((I.bit_efficiency_mod - 1) * 1.5))
 	if(prob(quality_chance / 2)) // at best, ~50% chance
 		return ORGAN_PRISTINE
 	if(prob(quality_chance))
@@ -264,6 +264,18 @@
 /datum/xenobiology_surgery_container/goliath
 	xeno_specialized_organs = list(/obj/item/organ/internal/appendix/xenobiology/tendril)
 
+/datum/xenobiology_surgery_container/flockbit
+	xeno_specialized_organs = list(
+		/obj/item/organ/internal/liver/xenobiology/gnesis_shard,
+	)
+
+/datum/xenobiology_surgery_container/flockdrone
+	xeno_specialized_organs = list(
+		/obj/item/organ/internal/appendix/xenobiology/flock_converter,
+		/obj/item/organ/internal/kidneys/xenobiology/gnesis_filters,
+		/obj/item/organ/internal/liver/xenobiology/gnesis_shard,
+	)
+
 /datum/xenobiology_surgery_container/megacarp
 	xeno_specialized_organs = list(/obj/item/organ/internal/heart/xenobiology/megacarp)
 
@@ -302,6 +314,9 @@
 		/obj/item/organ/internal/heart/xenobiology/bananium,
 		/obj/item/organ/internal/heart/xenobiology/cursed_bananium,
 	)
+
+/datum/xenobiology_surgery_container/whale
+	xeno_specialized_organs = list(/obj/item/organ/internal/kidneys/xenobiology/finned)
 
 /datum/xenobiology_surgery_container/revenant
 	xeno_specialized_organs = list(/obj/item/organ/internal/appendix/xenobiology/electro_strands)

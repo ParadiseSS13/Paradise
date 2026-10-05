@@ -5,6 +5,7 @@
  */
 /turf/simulated/floor/lava
 	name = "lava"
+	desc = "Extremely hot liquefied rock, exceptionally dangerous to anything without proper protection. It's very viscous and will slow down anything going through it."
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "lava-255"
 	base_icon_state = "lava"

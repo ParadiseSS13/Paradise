@@ -97,6 +97,7 @@
 		/obj/item/hammer,
 		/obj/item/stack/cable_coil/rcl,
 		/obj/item/melee/sickly_blade/lock,
+		/obj/item/lightreplacer,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -203,6 +204,8 @@
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
+		/obj/item/storage/mesh_pack,
 		/obj/item/stack/medical,
 		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
@@ -383,6 +386,41 @@
 		/obj/item/kitchen/knife
 	)
 
+/obj/item/storage/belt/federation_webbing/marine/populate_contents()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marine_officer/populate_contents()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marsoc/populate_contents()
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marsoc_officer/populate_contents()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
@@ -513,23 +551,6 @@
 		to_chat(user, SPAN_WARNING("[I] is too big for [src]."))
 		return
 	return ..()
-
-/obj/item/storage/belt/military/assault/marines/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	update_icon()
-
-/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	update_icon()
 
 /obj/item/storage/belt/military/assault/soviet/full/populate_contents()
 	new /obj/item/ammo_box/magazine/ak814(src)
@@ -1034,16 +1055,18 @@
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
+		/obj/item/storage/mesh_pack,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/drinks,
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,
-		/obj/item/grenade/plastic/miningcharge)
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/grenade/turret/mining)
 
-/obj/item/storage/belt/mining/vendor/Initialize(mapload)
-	. = ..()
+/obj/item/storage/belt/mining/vendor/populate_contents()
 	new /obj/item/survivalcapsule(src)
 
 /obj/item/storage/belt/mining/alt

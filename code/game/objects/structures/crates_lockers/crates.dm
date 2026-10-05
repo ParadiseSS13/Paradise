@@ -472,13 +472,6 @@
 		return
 	default_unfasten_wrench(user, I, 40)
 
-/obj/structure/closet/crate/radiation
-	desc = "A crate with a radiation sign on it."
-	name = "radioactive gear crate"
-	icon_state = "radiation"
-	icon_opened = "radiation_open"
-	icon_closed = "radiation"
-
 /obj/structure/closet/crate/secure/weapon
 	desc = "A secure weapons crate."
 	name = "weapons crate"
@@ -576,23 +569,44 @@
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	desc = "An engineering crate."
-	icon_state = "engicrate"
-	icon_opened = "engicrate_open"
-	icon_closed = "engicrate"
+	icon_state = "engi_crate"
+	icon_opened = "engi_crate_open"
+	icon_closed = "engi_crate"
 
 /obj/structure/closet/crate/secure/engineering
 	name = "secure engineering crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
-	icon_state = "engisecurecrate"
-	icon_opened = "engisecurecrate_open"
-	icon_closed = "engisecurecrate"
+	icon_state = "engi_crate_secure"
+	icon_opened = "engi_crate_secure_open"
+	icon_closed = "engi_crate_secure"
+
+/obj/structure/closet/crate/radiation
+	desc = "A crate with a radiation symbol on it."
+	name = "radioactive gear crate"
+	icon_state = "radiation"
+	icon_opened = "radiation_open"
+	icon_closed = "radiation"
+
+/obj/structure/closet/crate/secure/radiation
+	desc = "A crate with a lock on it, painted in the scheme of the station's engineers. It has a radiation symbol on it."
+	name = "radioactive gear crate"
+	icon_state = "radiation_secure"
+	icon_opened = "radiation_secure_open"
+	icon_closed = "radiation_secure"
 
 /obj/structure/closet/crate/engineering/electrical
 	name = "electrical engineering crate"
 	desc = "An electrical engineering crate."
-	icon_state = "electricalcrate"
-	icon_opened = "electricalcrate_open"
-	icon_closed = "electricalcrate"
+	icon_state = "electrical_crate"
+	icon_opened = "electrical_crate_open"
+	icon_closed = "electrical_crate"
+
+/obj/structure/closet/crate/secure/electrical
+	name = "secure electrical engineering crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's engineers. It has an electrical symbol on it."
+	icon_state = "electrical_crate_secure"
+	icon_opened = "electrical_crate_secure_open"
+	icon_closed = "electrical_crate_secure"
 
 /obj/structure/closet/crate/nanotrasen
 	name = "corporate crate"
@@ -617,21 +631,16 @@
 	icon_closed = "mailsealed"
 	material_drop = /obj/item/stack/sheet/plastic
 	material_drop_amount = 4
-	var/list/possible_contents = list(/obj/item/envelope/security,
-										/obj/item/envelope/science,
-										/obj/item/envelope/supply,
-										/obj/item/envelope/medical,
-										/obj/item/envelope/engineering,
-										/obj/item/envelope/bread,
-										/obj/item/envelope/circuses,
-										/obj/item/envelope/command,
-										/obj/item/envelope/misc)
+	var/list/envelope_types = list()
+
+/obj/structure/closet/crate/mail/Initialize(mapload, envelope_types_)
+	envelope_types = envelope_types_
+	. = ..()
 
 /obj/structure/closet/crate/mail/populate_contents()
 	. = ..()
-	for(var/i in 1 to rand(5, 10))
-		var/item = pick(possible_contents)
-		new item(src)
+	for(var/envelope_type in envelope_types)
+		new envelope_type(src)
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))

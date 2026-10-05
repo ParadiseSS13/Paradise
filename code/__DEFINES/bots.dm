@@ -37,6 +37,13 @@
 #define HONK_BOT			"Honkbot"	// Honkbots
 #define GRIEF_BOT			"Grief"	// Griefsky
 
+//AI notification defines
+#define		NEW_BORG	1
+#define		NEW_MODULE	2
+#define		RENAME		3
+#define		AI_SHELL	4
+#define		DISCONNECT	5
+
 //Sentience types
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2

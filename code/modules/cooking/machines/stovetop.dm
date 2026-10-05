@@ -136,8 +136,10 @@
 		var/datum/cooking_surface/surface = surfaces[i]
 		if(i % 2 == 0)
 			surface.container = new /obj/item/reagent_containers/cooking/pot(src)
+			surface.container.surface = surface
 		else
 			surface.container = new /obj/item/reagent_containers/cooking/pan(src)
+			surface.container.surface = surface
 	update_appearance()
 
 /obj/machinery/cooking/stovetop/loaded/upgraded/initialize_parts()

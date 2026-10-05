@@ -582,7 +582,7 @@
 /datum/spellbook_entry/item/oozebottle
 	name = "Bottle of Ooze"
 	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with and even casting some very basic spells. Be careful though, as Morph diet includes Wizards."
-	item_path = /obj/item/antag_spawner/morph
+	item_path = /obj/item/antag_spawner/monster/morph
 	category = "Summons"
 	limit = 3
 	cost = 1
@@ -597,7 +597,7 @@
 		to be released on the demon's death. Chaotic, but not ultimately \
 		damaging. The crew's reaction to the other hand could be very \
 		destructive."
-	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
+	item_path = /obj/item/antag_spawner/monster/slaughter_demon/laughter
 	category = "Summons"
 	limit = 3
 	cost = 1 // Non-destructive; it's just a jape, sibling!
@@ -605,7 +605,7 @@
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
 	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon
+	item_path = /obj/item/antag_spawner/monster/slaughter_demon
 	category = "Summons"
 	limit = 3
 	is_ragin_restricted = TRUE
@@ -613,7 +613,7 @@
 /datum/spellbook_entry/item/shadowbottle
 	name = "Bottle of Shadows"
 	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+	item_path = /obj/item/antag_spawner/monster/slaughter_demon/shadow
 	category = "Summons"
 	limit = 3
 	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
@@ -621,7 +621,7 @@
 /datum/spellbook_entry/item/revenantbottle
 	name = "Bottle of Ectoplasm"
 	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/revenant
+	item_path = /obj/item/antag_spawner/monster/revenant
 	category = "Summons"
 	limit = 3
 	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
@@ -629,7 +629,7 @@
 /datum/spellbook_entry/item/pulsedemonbottle
 	name = "Living Lightbulb"
 	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim. It is *heavily* advised not to summon it in maintenance areas."
-	item_path = /obj/item/antag_spawner/pulse_demon
+	item_path = /obj/item/antag_spawner/monster/pulse_demon
 	category = "Summons"
 	limit = 3
 	cost = 1 // Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
@@ -750,14 +750,14 @@
 			qdel(O)
 		return
 
-	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
+	if(istype(O, /obj/item/antag_spawner/monster/slaughter_demon))
 		to_chat(user, SPAN_NOTICE("On second thought, maybe summoning a demon is a bad idea. You refund your points."))
-		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
+		if(istype(O, /obj/item/antag_spawner/monster/slaughter_demon/laughter))
 			uses += 1
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
-		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+		else if(istype(O, /obj/item/antag_spawner/monster/slaughter_demon/shadow))
 			uses += 1
 			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
 				if(!isnull(SB.limit))
@@ -770,7 +770,7 @@
 		qdel(O)
 		return
 
-	if(istype(O, /obj/item/antag_spawner/morph))
+	if(istype(O, /obj/item/antag_spawner/monster/morph))
 		to_chat(user, SPAN_NOTICE("On second thought, maybe awakening a morph is a bad idea. You refund your points."))
 		uses += 1
 		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
@@ -779,7 +779,7 @@
 		qdel(O)
 		return
 
-	if(istype(O, /obj/item/antag_spawner/revenant))
+	if(istype(O, /obj/item/antag_spawner/monster/revenant))
 		to_chat(user, SPAN_NOTICE("On second thought, maybe the ghosts have been salty enough today. You refund your points."))
 		uses += 1
 		for(var/datum/spellbook_entry/item/revenantbottle/RB in entries)

@@ -117,6 +117,7 @@
 	var/list/crew_roles = list(
 		SPECIAL_ROLE_BLOB,
 		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_ACOLYTE,
 		SPECIAL_ROLE_CHANGELING,
 		SPECIAL_ROLE_ERT,
 		SPECIAL_ROLE_HEAD_REV,
@@ -469,7 +470,7 @@
 	set hidden = 1
 
 	if(can_change_intents)
-		if(ishuman(src) || isalienadult(src) || isbrain(src))
+		if(ishuman(src) || isalienadult(src) || isbrain(src) || isflockmob(src))
 			switch(input)
 				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					a_intent = input

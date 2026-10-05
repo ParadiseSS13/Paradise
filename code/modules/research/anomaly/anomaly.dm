@@ -76,6 +76,7 @@
 	icon_state = "unrefined_anomaly_core"
 	w_class = WEIGHT_CLASS_SMALL
 	var/target_explosion_size = 4
+	new_attack_chain = TRUE
 
 /obj/item/raw_anomaly_core/Initialize(mapload)
 	. = ..()
@@ -87,8 +88,12 @@
 	icon_state = "reactiveoff"
 	icon = 'icons/obj/clothing/suits.dmi'
 	materials = list(MAT_PLASMA = 8000, MAT_TITANIUM = 14000, MAT_BLUESPACE = 6000)
+	new_attack_chain = TRUE
 
-/obj/item/reactive_armour_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/reactive_armour_shell/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler/anomaly))
+		return ..()
+
 	var/static/list/anomaly_armour_types = list(
 		/obj/item/assembly/signaler/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/item/assembly/signaler/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
@@ -98,13 +103,15 @@
 		/obj/item/assembly/signaler/anomaly/vortex = /obj/item/clothing/suit/armor/reactive/stealth
 		)
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly))
-		var/obj/item/assembly/signaler/anomaly/A = I
-		var/armour_path = anomaly_armour_types[A.type]
-		if(!armour_path)
-			armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
-		to_chat(user, SPAN_NOTICE("You insert [A] into the chest plate, and the armor gently hums to life."))
-		new armour_path(get_turf(src))
-		qdel(src)
-		qdel(A)
-	return ..()
+	var/obj/item/assembly/signaler/anomaly/anomaly = used
+	var/armour_path = anomaly_armour_types[anomaly.type]
+	if(!armour_path)
+		armour_path = /obj/item/clothing/suit/armor/reactive/stealth // Fallback.
+	to_chat(user, SPAN_NOTICE("You insert [anomaly] into the chest plate, and the armor gently hums to life."))
+	var/obj/item/clothing/suit/armor/reactive/new_armor = new armour_path(get_turf(src))
+	transfer_fingerprints_to(new_armor)
+	anomaly.transfer_fingerprints_to(new_armor)
+	new_armor.add_fingerprint(user)
+	qdel(src)
+	qdel(anomaly)
+	return ITEM_INTERACT_COMPLETE

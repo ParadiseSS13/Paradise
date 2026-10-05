@@ -75,7 +75,7 @@
 
 	// open unpowered
 	if(can_force_open_while_unpowered && !airlock.arePowerSystemsOn())
-		INVOKE_ASYNC(src, PROC_REF(open_unpowered_door), airlock)
+		INVOKE_ASYNC(src, PROC_REF(open_unpowered_door), airlock, user)
 		return TRUE
 
 	// open powered
@@ -88,8 +88,12 @@
 	if(!no_sound)
 		playsound(parent, open_sound, 100, 1)
 
+	var/obj/item/parent_item = parent
+	parent_item.door_force_try_message(airlock, user)
+
 	if(do_after_once(user, time_to_open, target = airlock, attempt_cancel_message = "You decide to stop prying [airlock] with [parent]."))
 		if(airlock.open(TRUE))
+			parent_item.door_force_success_message(airlock, user)
 			return // successfully opened
 
 		// opening failed
@@ -97,8 +101,10 @@
 			to_chat(user, SPAN_WARNING("Despite your attempts, [airlock] refuses to open."))
 
 /// open door without checks
-/datum/component/forces_doors_open/proc/open_unpowered_door(obj/machinery/door/door)
+/datum/component/forces_doors_open/proc/open_unpowered_door(obj/machinery/door/door, mob/user)
 	door.open(TRUE)
+	var/obj/item/parent_item = parent
+	parent_item.door_force_success_message(door, user)
 
 /// subtype for mantis blades
 /datum/component/forces_doors_open/mantis/on_interact(datum/source, mob/user, atom/target)
@@ -115,3 +121,9 @@
 
 	if(try_to_force_open_airlock(user, target))
 		return ITEM_INTERACT_COMPLETE
+
+/obj/item/proc/door_force_try_message(obj/machinery/door/door, mob/user)
+	return
+
+/obj/item/proc/door_force_success_message(obj/machinery/door/door, mob/user)
+	return

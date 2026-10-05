@@ -50,10 +50,10 @@
 				return
 			if(chamber.held_rod)
 				if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
-					occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
+					occupant_message(SPAN_WARNING("Not enough room in the cargo compartment!"))
 					return
 				chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
-				chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
+				chassis.visible_message(SPAN_NOTICE("[chassis] lifts [target] and starts to load it into the cargo compartment."))
 				cargo_holder.cargo += chamber.held_rod
 				chamber.held_rod.forceMove(chassis)
 				chamber.held_rod = null

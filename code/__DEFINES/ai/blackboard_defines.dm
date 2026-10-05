@@ -22,6 +22,10 @@
 #define BB_BASIC_MOB_FLEE_DISTANCE "BB_BASIC_FLEE_DISTANCE"
 #define DEFAULT_BASIC_FLEE_DISTANCE 9
 
+/// Path we should use next time we use the JPS movement datum
+#define BB_PATH_TO_USE "BB_path_to_use"
+/// Max path length we should use next time we use the JPS movement datum
+#define BB_PATH_MAX_LENGTH "BB_path_max_length"
 // Searching
 
 /// key holding a range to look for stuff in

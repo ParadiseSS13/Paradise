@@ -100,6 +100,8 @@
 
 #define STATUS_EFFECT_CULT_STUN /datum/status_effect/cult_stun_mark
 
+#define STATUS_EFFECT_ACOLYTE_STUN /datum/status_effect/cult_stun_mark/acolyte
+
 #define STATUS_EFFECT_HISWRATH /datum/status_effect/his_wrath //His Wrath.
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
@@ -208,8 +210,10 @@
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 #define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
 #define STATUS_EFFECT_OFFERING_EFTPOS /datum/status_effect/high_five/offering_eftpos
+#define STATUS_EFFECT_OFFERING_BARCODE_SCANNER /datum/status_effect/high_five/offering_barcode_scanner
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 #define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
+#define STATUS_EFFECT_FISTBUMP /datum/status_effect/high_five/fistbump
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 

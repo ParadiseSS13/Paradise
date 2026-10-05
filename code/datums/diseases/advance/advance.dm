@@ -385,6 +385,10 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!(disease_flags & VIRUS_CURABLE))
 		return 0
 
+	for(var/datum/reagent/vaccine in affected_mob.reagents.reagent_list)
+		if(GetDiseaseID() in vaccine.data)
+			return TRUE
+
 	var/cures_found = 0
 	for(var/C_id in cures)
 		if(C_id == "ethanol")
@@ -413,7 +417,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 				if(2)
 					cures += cure_pick(GLOB.plant_cures)
 				if(3)
-					cures += cure_pick(GLOB.drinks)
+					cures += cure_pick(GLOB.alcoholic_drinks | GLOB.soft_drinks)
 		for(var/cure in cures)
 			// Get the cure name from the cure_id
 			var/datum/reagent/D = GLOB.chemical_reagents_list[cure]

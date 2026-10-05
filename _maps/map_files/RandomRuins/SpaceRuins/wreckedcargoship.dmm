@@ -368,6 +368,7 @@
 	id = "cargoshipblastdoor3";
 	pixel_y = -32
 	},
+/obj/structure/salvageable/server,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "nx" = (
@@ -550,7 +551,7 @@
 /area/ruin/space/wreck_cargoship)
 "tB" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -668,7 +669,7 @@
 /area/ruin/space/wreck_cargoship)
 "Bo" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -706,7 +707,7 @@
 /area/ruin/space/wreck_cargoship)
 "Co" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1220,7 +1221,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "VF" = (
-/obj/machinery/computer/nonfunctional{
+/obj/structure/salvageable/computer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,

@@ -226,7 +226,8 @@
 	mob_type_blacklist_typecache = list(
 		// Humans and silicons get specialized scream.
 		/mob/living/carbon/human,
-		/mob/living/silicon
+		/mob/living/silicon,
+		/mob/living/brain
 	)
 	volume = 80
 

@@ -41,7 +41,6 @@
 	icon_resting = "cat_rest"
 	gender = FEMALE
 	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
 
@@ -189,7 +188,6 @@
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
 	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/cat/var_cat
 	name = "Var"
@@ -290,6 +288,13 @@
 
 	L.reagents.add_reagent("nutriment", 0.4)
 	L.reagents.add_reagent("vitamin", 0.4)
+
+	if(HAS_TRAIT(L, TRAIT_GLUTTONOUS_GLORY))
+		to_chat(L, SPAN_BLOB("Delicious. The sin makes it that much more enjoyable."))
+		adjustFireLoss(-1)
+		adjustBruteLoss(-1)
+		reagents.check_and_add("kelotane", 20, 1)
+		reagents.check_and_add("bicaridine", 20, 1)
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()

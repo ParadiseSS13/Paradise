@@ -59,6 +59,16 @@
 	if(mind?.current == src)
 		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(FALSE)
+		qdel(s) // If the owner is `destroy()`'d, the soul link is `destroy()`'d.
+	ownedSoullinks = null
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(FALSE)
+		S.removeSoulsharer(src) // If a sharer is `destroy()`'d, they are simply removed.
+	sharedSoullinks = null
 	return ..()
 
 /mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
@@ -452,11 +462,6 @@
 		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
-			L += G.gift
-			if(isstorage(G.gift))
-				L += get_contents(G.gift)
-
 		for(var/obj/item/small_delivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
@@ -478,10 +483,6 @@
 			L += get_contents(S)
 		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
-			L += G.gift
-			if(isstorage(G.gift))
-				L += get_contents(G.gift)
 
 		for(var/obj/item/small_delivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
@@ -747,6 +748,8 @@
 					existing_trail.color = H.dna.species.blood_color
 			else if(isalien(src))
 				existing_trail.color = "#05EE05"
+			else if(isflockmob(src))
+				existing_trail.color = COLOR_BLOOD_FLOCK
 			else
 				existing_trail.color = "#A10808"
 
@@ -1015,18 +1018,19 @@
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
 			if(do_mob(user, src, butcher_time / 2) && Adjacent(I))
-				harvest(user)
+				harvest(user, I)
 		else
 			if(do_mob(user, src, butcher_time) && Adjacent(I))
-				harvest(user)
+				harvest(user, I)
 		return TRUE
 
-/mob/living/proc/harvest(mob/living/user)
+/mob/living/proc/harvest(mob/living/user, obj/item/I)
 	if(QDELETED(src))
 		return
 	if(butcher_results)
 		for(var/path in butcher_results)
-			for(var/i = 1, i <= butcher_results[path], i++)
+			var/amount_to_drop = floor(butcher_results[path] * I.bit_productivity_mod)
+			for(var/i = 1, i <= amount_to_drop, i++)
 				new path(loc)
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message(SPAN_NOTICE("[user] butchers [src]."))

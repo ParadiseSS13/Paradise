@@ -15,6 +15,20 @@
 
 // skip_do_after - When TRUE, do after and visible messages are disabled
 
+/atom/proc/is_dirty()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED)) // So we don't need a cleaning_act for every cmaggable object
+		return TRUE
+	if(ismob(src))
+		// Mobs always get cleaned directly, because humans have clothing that needs cleaning, and because it'd just feel weird to automatically clean under them.
+		return TRUE
+	if(blood_DNA)
+		return TRUE
+	for(var/obj/effect/decal/cleanable/C in src)
+		return TRUE
+	for(var/obj/effect/heretic_rune/H in src)
+		return TRUE
+	return FALSE
+
 /atom/proc/cleaning_act(mob/user, atom/cleaner, cleanspeed = 5 SECONDS, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name, skip_do_after = FALSE)
 	var/is_cmagged = FALSE
 
@@ -22,24 +36,12 @@
 		to_chat(user, SPAN_NOTICE("You need to take that [text_targetname] off before cleaning it."))
 		return FALSE
 
-	var/is_dirty = FALSE
+	var/is_dirty = is_dirty()
+
 	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //So we don't need a cleaning_act for every cmaggable object
 		is_cmagged = TRUE
 		text_verb = "clean the ooze off"
 		cleanspeed = CMAG_CLEANTIME
-		is_dirty = TRUE
-	else if(ismob(src))
-		// Mobs always get cleaned directly, because humans have clothing that needs cleaning, and because it'd just feel weird to automatically clean under them.
-		is_dirty = TRUE
-	else if(blood_DNA)
-		is_dirty = TRUE
-	else
-		for(var/obj/effect/decal/cleanable/C in src)
-			is_dirty = TRUE
-			break
-		for(var/obj/effect/heretic_rune/H in src)
-			is_dirty = TRUE
-			break
 
 	if(!is_dirty && !isturf(src))
 		// We don't need cleaning, so let's spare the janitor a pixel hunt and let the floor under us get cleaned instead.

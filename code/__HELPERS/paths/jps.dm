@@ -111,7 +111,7 @@
 	found_turfs[start] = TRUE // i'm sure this is fine
 	return TRUE
 
-/datum/pathfind/jps/search_step()
+/datum/pathfind/jps/search_step(tick_check = TRUE)
 	. = ..()
 	if(!.)
 		return .
@@ -131,7 +131,7 @@
 			diag_scan_spec(current_turf, scan_direction, current_processed_node)
 
 		// Stable, we'll just be back later
-		if(TICK_CHECK)
+		if(tick_check && TICK_CHECK)
 			return TRUE
 	return TRUE
 

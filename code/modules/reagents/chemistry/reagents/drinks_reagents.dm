@@ -162,7 +162,7 @@
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/consumable/applejuice
+/datum/reagent/consumable/drink/applejuice
 	name = "Apple Juice"
 	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
@@ -171,7 +171,7 @@
 	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
 
-/datum/reagent/consumable/bungojuice
+/datum/reagent/consumable/drink/bungojuice
 	name = "Bungo Juice"
 	id = "bungojuice"
 	description = "Exotic! You feel like you are on vacation already."

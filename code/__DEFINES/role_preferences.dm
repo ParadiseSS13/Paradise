@@ -17,6 +17,7 @@
 #define ROLE_ALIEN				"xenomorph"
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
+#define ROLE_ACOLYTE			"acolyte"
 #define ROLE_BLOB				"blob"
 #define ROLE_MONKEY				"monkey"
 #define ROLE_GANG				"gangster"
@@ -46,6 +47,7 @@
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_NINJA				"ninja"
+#define ROLE_FLOCK				"flockmind"
 #define ROLE_IRRADIATED_MOUSE	"irradiated mouse"
 #define ROLE_UPLIFTED_PRIMITIVE	"uplifted primitive"
 
@@ -61,6 +63,7 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
+	ROLE_ACOLYTE,										// Acolyte
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
@@ -78,6 +81,7 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_IRRADIATED_MOUSE,
 
 	ROLE_UPLIFTED_PRIMITIVE,
+	ROLE_FLOCK,
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,

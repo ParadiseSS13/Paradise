@@ -9,6 +9,8 @@ It currently handles:
 
 - Atmospherics (`milla`)
 - DMM manipulation stuff (`mapmanip`)
+- MFA
+- Some other misc stuff like UUID generation
 
 It also imports and tweaks the following [rust-g](https://github.com/tgstation/rust-g) features:
 

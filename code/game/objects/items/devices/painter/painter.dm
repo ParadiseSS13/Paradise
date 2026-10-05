@@ -27,6 +27,7 @@
 	var/datum/painter/selected_module = null
 	/// List of any instanced [/datum/painter]'s, to avoid spawning more than one of each.
 	var/list/module_list = list()
+	new_attack_chain = TRUE
 
 /obj/item/painter/Initialize(mapload, datum/painter/default_module = /datum/painter/floor) // Defaults to a floor painter
 	. = ..()
@@ -82,18 +83,23 @@
 /**
   * Calls `pick_color()` on the `selected_module`.
   */
-/obj/item/painter/attack_self__legacy__attackchain(mob/user)
+/obj/item/painter/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	selected_module.pick_color(user)
+	return ITEM_INTERACT_COMPLETE
 
 /**
   * If adjacent, calls `paint_atom()` on the `selected_module`, then plays the `usesound`.
   */
-/obj/item/painter/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
+/obj/item/painter/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target) || is_surface(target))
+		return NONE
+
 	if(selected_module.paint_atom(target, user))
 		target.add_hiddenprint(user)
 		playsound(src, usesound, 30, TRUE)
+		return ITEM_INTERACT_COMPLETE
 
 /**
   * Displays a radial menu for choosing a new painter module.

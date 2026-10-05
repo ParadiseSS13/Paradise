@@ -5,6 +5,7 @@
  *	4. REINFORCED PLASMA GLASS
  *	5. TITANIUM GLASS
  *	6. PLASTITANIUM GLASS
+ *	7. GNESIS GLASS
 
  Todo: Create a unified construct_window(sheet, user, created_window, full_window)
 
@@ -26,6 +27,13 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	new /datum/stack_recipe("dropper", /obj/item/reagent_containers/dropper, 1, time = 1 SECONDS),
 ))
 
+GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
+	new /datum/stack_recipe("bright shard", /obj/item/shard/gnesis_glass, time = 0 SECONDS),
+	new /datum/stack_recipe/window("directional gnesis window", /obj/structure/window/flock, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile gnesis window", /obj/structure/window/flock/fulltile, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe("gnesis cache", /obj/item/reagent_containers/glass/gnesis, 5, time = 2 SECONDS),
+))
+
 /obj/item/stack/sheet/glass
 	name = "glass"
 	desc = "HOLY SHEET! That is a lot of glass."
@@ -43,6 +51,12 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 /obj/item/stack/sheet/glass/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
+
+/obj/item/stack/sheet/glass/two
+	amount = 2
+
+/obj/item/stack/sheet/glass/five
+	amount = 5
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -135,8 +149,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 
 GLOBAL_LIST_INIT(pglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
-	new /datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 4 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))
 
 /obj/item/stack/sheet/rglass/cyborg
@@ -209,8 +223,8 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 
 GLOBAL_LIST_INIT(prglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
-	new /datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 4 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))
 
 /obj/item/stack/sheet/plasmarglass
@@ -245,7 +259,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	recipes = GLOB.prglass_recipes
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
-	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 5 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE)
 	))
 
 //////////////////////////////
@@ -278,8 +292,8 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new /datum/stack_recipe("plastitanium shard", /obj/item/shard/plastitanium, time = 0 SECONDS),
-	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 3 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 5 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	))
 
 //////////////////////////////
@@ -312,3 +326,21 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
 
+//////////////////////////////
+// MARK: GNESIS GLASS
+//////////////////////////////
+/obj/item/stack/sheet/gnesis_glass
+	name = "transculent wafers"
+	singular_name = "transculent wafer"
+	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. The layers are arranged to let light through."
+	icon_state = "gnesisglass"
+	materials = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/gnesis_glass
+	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 50, FIRE = 100, ACID = 20)
+	resistance_flags = FIRE_PROOF
+	point_value = 5
+	dynamic_icon_state = FALSE
+
+/obj/item/stack/sheet/gnesis_glass/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.gnesis_glass_recipes
