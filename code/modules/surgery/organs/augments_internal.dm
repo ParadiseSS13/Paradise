@@ -671,6 +671,59 @@
 /obj/item/organ/internal/cyberimp/brain/neural_computer/proc/reactivate()
 	disabled = FALSE
 
+/obj/item/organ/internal/cyberimp/brain/sci_probe
+	name = "research probe implant"
+	desc = "This implant records the response of the brain to certain stimuli, providing valuble research."
+	icon_state = "sci_probe"
+	implant_overlay = null
+	implant_color = null
+	slot = "brain_antistun"
+	var/network_manager_uid = null
+
+/obj/item/organ/internal/cyberimp/brain/sci_probe/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!network_manager_uid) // MIXTODO - Fix runtime and failure when multi-tooling in hand.
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+			if(atoms_share_level(RNC, src))
+				controllers += list("[RNC.network_name]" = RNC.UID())
+		var/cname = tgui_input_list(user, "Select research network", "Network management", controllers)
+		var/new_uid = controllers[cname]
+		var/obj/machinery/computer/rnd_network_controller/RNC2 = locateUID(new_uid)
+		if(cname)
+			var/tpass = tgui_input_text(user, "Enter network password", "Network management")
+			if(tpass == RNC2.network_password)
+				network_manager_uid = RNC2.UID()
+				to_chat(user, SPAN_NOTICE("Network successfully linked."))
+				return
+			to_chat(user, SPAN_NOTICE("Password incorrect."))
+			return
+	else
+		to_chat(user, SPAN_WARNING("Wiping device connection!"))
+		if(do_after(user, 5 SECONDS, target = src ))
+			network_manager_uid = null
+			to_chat(user, SPAN_WARNING("Device connection wiped!"))
+
+/obj/item/organ/internal/cyberimp/brain/sci_probe/on_life()
+	if(!owner)
+		return
+	if(!network_manager_uid)
+		return
+
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	var/list/experiments = list()
+	for(var/datum/probe_experiment/PE in RNC.research_files.probe_experiments)
+		experiments += PE
+	for(var/datum/probe_experiment/P in experiments)
+		log_debug("Had [P]")
+		var/list/reward = list()
+		reward = P.on_life_effect(owner)
+		if(!length(reward) || !reward)
+			continue
+		RNC.research_files.addpoints(reward)
+		RNC.research_files.probe_experiments.Remove(P)
+
+
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
 	parent_organ = "mouth"

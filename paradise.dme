@@ -3314,6 +3314,7 @@
 #include "code\modules\research\circuitprinter.dm"
 #include "code\modules\research\designs.dm"
 #include "code\modules\research\message_server.dm"
+#include "code\modules\research\probe_experiments.dm"
 #include "code\modules\research\protolathe.dm"
 #include "code\modules\research\rdconsole.dm"
 #include "code\modules\research\rdmachines.dm"

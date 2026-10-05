@@ -38,6 +38,9 @@
 	/// Subtypes of slimes we have scanned, in colors.
 	var/list/scanned_slimes = list()
 
+	/// Selected probe experiments of this research datum, generated on New() and removed on completion.
+	var/list/probe_experiments = list()
+
 /datum/research/New()
 	// MON DIEU!!! - Im not even gonna question why this monologue is here, or why the french wrote our original research.
 	// These are semi-global, but not TOTALLY global?
@@ -51,7 +54,13 @@
 	for(var/P in SSresearch.point_types)
 		research_points[P] = 0
 		total_points[P] = 0
+
+	var/list/possible_probe_experiments = pick_multiple_unique(subtypesof(/datum/probe_experiment), 3)
+	for(var/E in possible_probe_experiments) // MIXTODO - Add a proper IC way to actually view these, likely a tab in the rnd console.
+		probe_experiments += new E(src)
+
 	research_points[RESEARCH_POINT_STANDARD] = 250 // Start them off with enough to afford a starting node.
+
 	RefreshResearch()
 
 /// Adds provided points list to the research datum and returns the list of points that were added.
