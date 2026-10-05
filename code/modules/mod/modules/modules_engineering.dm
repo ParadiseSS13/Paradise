@@ -10,6 +10,7 @@
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
 	overlay_state_inactive = "module_welding"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 
 /obj/item/mod/module/welding/on_suit_activation()
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
@@ -50,6 +51,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/magboot)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
 
@@ -84,6 +86,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"
+	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
@@ -104,6 +107,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/tether)
 	cooldown_time = 4 SECONDS
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 
 /obj/item/mod/module/tether/on_use()
 	if(has_gravity(get_turf(src)))

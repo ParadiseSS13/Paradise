@@ -173,7 +173,8 @@
 	unintentional_audio_cooldown = 3.5 SECONDS
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/human/monkey, // screech instead
-		/mob/living/silicon // Robot sounds
+		/mob/living/silicon, // Robot sounds
+		/mob/living/brain
 	)
 
 /datum/emote/living/carbon/human/scream/select_message_type(mob/user, msg, intentional)
@@ -327,7 +328,7 @@
 			SPAN_WARNING("You gasp for air and accidentally swallow your [cig]!")
 		)
 		if(cig.lit)
-			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
+			to_chat(user, SPAN_USERDANGER("The lit [cig] burns on the way down!"))
 			user.unequip(cig)
 			qdel(cig)
 			H.adjustFireLoss(5)
@@ -438,6 +439,11 @@
 	key = "handshake"
 	key_third_person = "handshakes"
 	status = STATUS_EFFECT_HANDSHAKE
+
+/datum/emote/living/carbon/human/highfive/fistbump
+	key = "fistbump"
+	key_third_person = "fistbumps"
+	status = STATUS_EFFECT_FISTBUMP
 
 /datum/emote/living/carbon/human/highfive/rps
 	key = "rps"
@@ -653,12 +659,60 @@
 	message = "flaps their wings."
 	sound = 'sound/effects/mob_effects/flap.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
+	var/wing_time = 1 SECONDS
+
+/datum/emote/living/carbon/human/flap/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.Togglewings()
+		addtimer(CALLBACK(src, PROC_REF(finish_flap), H), wing_time)
+
+/datum/emote/living/carbon/human/flap/proc/finish_flap(mob/living/carbon/human/H)
+	H.Togglewings()
 
 /datum/emote/living/carbon/human/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
 	sound = 'sound/effects/mob_effects/angryflap.ogg'
 	message = "flaps their wings ANGRILY!"
+	wing_time = 0.5 SECONDS
+
+/datum/emote/living/carbon/human/wings
+	key = "wings"
+	key_third_person = "wings"
+	message = "their wings."
+
+/datum/emote/living/carbon/human/wings/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(!..())
+		return FALSE
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(H, SPAN_WARNING("Your wings are burnt off!"))
+		return FALSE
+	if(!H.body_accessory || !istype(H.body_accessory, /datum/body_accessory/wing))
+		to_chat(H, SPAN_WARNING("You don't have wings!"))
+		return FALSE
+	return TRUE
+
+/datum/emote/living/carbon/human/wings/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		var/mob/living/carbon/human/H = user
+		H.Togglewings()
+
+/datum/emote/living/carbon/human/wings/select_message_type(mob/user, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			. = "opens " + message
+		else
+			. = "closes " + message
 
 /datum/emote/living/carbon/human/flutter
 	key = "flutter"
@@ -676,6 +730,31 @@
 	sound = "sound/effects/chitter.ogg"
 	species_type_whitelist_typecache = list(/datum/species/skulk)
 	muzzled_noises = list("frustrated")
+
+/datum/emote/living/carbon/human/droop
+	key = "droop"
+	key_third_person = "droop"
+	message = "droops their antennae."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/wing_preen
+	key = "wpreen"
+	key_third_person = "wpreen"
+	message = "preens their wings."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/antenna_preen
+	key = "apreen"
+	key_third_person = "apreen"
+	message = "preens their antennae."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/antenna_angle
+	key = "aangle"
+	key_third_person = "aangle"
+	message = "angles their antennae."
+	message_param = "angles their antennae towards %t."
+	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/quill
 	key = "quill"

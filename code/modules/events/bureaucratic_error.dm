@@ -9,7 +9,8 @@
 		/datum/job/blueshield,
 		/datum/job/chaplain,
 		/datum/job/officer,
-		/datum/job/warden
+		/datum/job/warden,
+		/datum/job/nanotrasentrainer
 	)
 
 	/// Jobs that pass an additional 40% chance per roll to be picked for the bureaucratic error

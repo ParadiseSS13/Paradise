@@ -1,5 +1,6 @@
 /turf/simulated/floor/mech_bay_recharge_floor
 	name = "mech bay recharge station"
+	desc = "A spot to recharge a mecha's power cell."
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
 
@@ -51,11 +52,11 @@
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mech_recharger(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 	update_recharge_turf()

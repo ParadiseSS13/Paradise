@@ -156,7 +156,7 @@
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-
+	target.update_hands_hud()
 
 // This is a step that handles robotic limb attachment while skipping the "connect" step
 // THIS IS DISTINCT FROM USING A CYBORG LIMB TO CREATE A NEW LIMB ORGAN
@@ -260,7 +260,7 @@
 			if(stump)
 				stump.remove(target)
 			var/new_limb_type = organ_data["path"]
-			var/obj/item/organ/external/new_limb = new new_limb_type(target)
+			var/obj/item/organ/external/new_limb = new new_limb_type(target, target)
 			new_limb.robotize(L.model_info)
 			if(L.sabotaged)
 				new_limb.sabotaged = TRUE

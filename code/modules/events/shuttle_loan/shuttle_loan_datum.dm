@@ -163,11 +163,11 @@
 
 /datum/shuttle_loan_situation/mineral_haul/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
 	var/static/list/crate_types = list(
-		/datum/supply_packs/materials/metal50,
-		/datum/supply_packs/materials/glass50,
-		/datum/supply_packs/materials/sandstone30,
+		/datum/supply_packs/materials/metal,
+		/datum/supply_packs/materials/glass,
+		/datum/supply_packs/materials/sandstone,
 	)
-	for(var/datum/supply_packs/crate in crate_types)
+	for(var/crate in crate_types)
 		var/datum/supply_packs/new_crate = new crate()
 		new_crate.create_package(pick_n_take(empty_shuttle_turfs))
 
@@ -185,9 +185,7 @@
 	)
 	for(var/i in 1 to 5)
 		var/mineral_type = pick(mineral_types)
-		var/obj/item/stack/sheet/mineral/new_mineral = new mineral_type()
-		new_mineral.amount = 10
-		new new_mineral(pick_n_take(empty_shuttle_turfs))
+		new mineral_type(pick_n_take(empty_shuttle_turfs), 10)
 
 /datum/shuttle_loan_situation/honk
 	sender = "Central Command Entertainment Division"
@@ -200,3 +198,30 @@
 	spawn_list.Add(/obj/item/paper/fluff/cargo/bomb)
 	for(var/i in 1 to 4)
 		spawn_list.Add(/mob/living/basic/clown)
+
+/datum/shuttle_loan_situation/monkey_business
+	sender = "Central Command Research Division"
+	announcement_text = "A number of monkeys escaped our containment. It seems they've snuck aboard your cargo shuttle. They're not happy."
+	bonus_points = 500 // It's a lot of monkeys
+	logging_desc = "Shuttle with angry monkeys"
+
+/datum/shuttle_loan_situation/monkey_business/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
+	var/list/monkey_types = list(
+		/mob/living/carbon/human/monkey/angry,
+		/mob/living/carbon/human/nian_worme/angry,
+		/mob/living/carbon/human/stok/angry,
+		/mob/living/carbon/human/farwa/angry,
+		/mob/living/carbon/human/neara/angry,
+		/mob/living/carbon/human/farwa/angry,
+	)
+	var/list/weapon_types = list(
+		/obj/item/storage/toolbox = 10,
+		/obj/item/spear = 5,
+		/obj/item/melee/baseball_bat = 3,
+		/obj/item/melee/bone_sword = 1
+	)
+
+	for(var/i in 1 to 5)
+		spawn_list.Add(pick(monkey_types))
+		spawn_list.Add(pickweight(weapon_types))
+	spawn_list.Add(/mob/living/basic/gorilla)

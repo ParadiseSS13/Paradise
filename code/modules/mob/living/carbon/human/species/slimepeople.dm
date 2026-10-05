@@ -190,7 +190,7 @@
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
-		var/obj/item/organ/external/new_limb = new limb_path(H)
+		var/obj/item/organ/external/new_limb = new limb_path(H, H)
 		new_limb.open = ORGAN_CLOSED // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
 		H.adjustBruteLoss(stored_brute)
 		H.adjustFireLoss(stored_burn)
@@ -202,6 +202,15 @@
 		new_limb.add_limb_flags()
 	else
 		to_chat(H, SPAN_WARNING("You need to hold still in order to regrow a limb!"))
+
+/datum/species/slime/generate_random_appearance(prosthesis_prob = 0, appearance = null, use_gender = null)
+	return ..()
+
+/datum/species/slime/randomize_body_color()
+	return rand_hex_color()
+
+/datum/species/slime/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 60, gender)
+	return ..()
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD

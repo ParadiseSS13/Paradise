@@ -7,18 +7,30 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	normal_integrity = 450
 
+/obj/machinery/door/airlock/command/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
 	normal_integrity = 450
 
+/obj/machinery/door/airlock/security/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/engineering
 	icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_eng
 
+/obj/machinery/door/airlock/engineering/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/medical
 	icon = 'icons/obj/doors/airlocks/station/medical.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_med
+
+/obj/machinery/door/airlock/medical/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/maintenance
 	name = "maintenance access"
@@ -26,37 +38,61 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
 	normal_integrity = 250
 
+/obj/machinery/door/airlock/maintenance/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/maintenance/external
 	name = "external airlock access"
 	icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_extmai
+
+/obj/machinery/door/airlock/maintenance/external/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/mining
 	name = "mining airlock"
 	icon = 'icons/obj/doors/airlocks/station/mining.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_min
 
+/obj/machinery/door/airlock/mining/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/atmos
 	name = "atmospherics airlock"
 	icon = 'icons/obj/doors/airlocks/station/atmos.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_atmo
 
+/obj/machinery/door/airlock/atmos/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/research
 	icon = 'icons/obj/doors/airlocks/station/research.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_research
+
+/obj/machinery/door/airlock/research/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/freezer
 	name = "freezer airlock"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_fre
 
+/obj/machinery/door/airlock/freezer/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/science
 	icon = 'icons/obj/doors/airlocks/station/science.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_science
 
+/obj/machinery/door/airlock/science/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/virology
 	icon = 'icons/obj/doors/airlocks/station/virology.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_viro
+
+/obj/machinery/door/airlock/virology/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -67,52 +103,88 @@
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/command/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
 
+/obj/machinery/door/airlock/command/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/engineering/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/engineering/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/security/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
 
+/obj/machinery/door/airlock/security/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/medical/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/medical/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/virology/glass
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/virology/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/research/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/research/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/mining/glass
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/mining/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/atmos/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/atmos/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/science/glass
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/science/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/maintenance/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/maintenance/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/maintenance/external/glass
 	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 200
+
+/obj/machinery/door/airlock/maintenance/external/glass/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -125,9 +197,15 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_gold
 	paintable = FALSE
 
+/obj/machinery/door/airlock/gold/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/gold/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/gold/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/silver
 	name = "silver airlock"
@@ -135,9 +213,15 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_silver
 	paintable = FALSE
 
+/obj/machinery/door/airlock/silver/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/silver/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/silver/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/diamond
 	name = "diamond airlock"
@@ -147,10 +231,16 @@
 	explosion_block = 2
 	paintable = FALSE
 
+/obj/machinery/door/airlock/diamond/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/diamond/glass
 	normal_integrity = 950
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/diamond/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/uranium
 	name = "uranium airlock"
@@ -159,6 +249,9 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
 	var/last_event = 0
+
+/obj/machinery/door/airlock/uranium/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/uranium/Initialize(mapload)
 	. = ..()
@@ -173,12 +266,18 @@
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/uranium/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/plasma
 	name = "plasma airlock"
 	desc = "No way this can end badly."
 	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 	paintable = FALSE
+
+/obj/machinery/door/airlock/plasma/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
@@ -212,6 +311,9 @@
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/plasma/glass/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/bananium
 	name = "bananium airlock"
 	desc = "Honkhonkhonk!"
@@ -221,9 +323,15 @@
 	doorClose = 'sound/items/bikehorn.ogg'
 	paintable = FALSE
 
+/obj/machinery/door/airlock/bananium/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/bananium/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/bananium/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/tranquillite
 	name = "tranquillite airlock"
@@ -236,15 +344,24 @@
 	boltDown = null
 	paintable = FALSE
 
+/obj/machinery/door/airlock/tranquillite/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/sandstone
 	name = "sandstone airlock"
 	icon = 'icons/obj/doors/airlocks/station/sandstone.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sandstone
 	paintable = FALSE
 
+/obj/machinery/door/airlock/sandstone/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/sandstone/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/sandstone/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/wood
 	name = "wooden airlock"
@@ -252,9 +369,15 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_wood
 	paintable = FALSE
 
+/obj/machinery/door/airlock/wood/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/wood/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/wood/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/titanium
 	name = "shuttle airlock"
@@ -264,10 +387,16 @@
 	normal_integrity = 400
 	paintable = FALSE
 
+/obj/machinery/door/airlock/titanium/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/titanium/glass
 	normal_integrity = 350
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/titanium/glass/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -279,9 +408,15 @@
 	overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 
+/obj/machinery/door/airlock/public/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/public/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/public/glass/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -297,9 +432,22 @@
 	doorOpen = 'sound/machines/airlock_ext_open.ogg'
 	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
+/obj/machinery/door/airlock/external/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// Snowflakey but we're not a tool and don't get first mover advantage in atom interaction so shruggles
+	if(istype(used, /obj/item/mounted/frame/airlock_controller))
+		return
+
+	return ..()
+
+/obj/machinery/door/airlock/external/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/external/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/external/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/external_no_weld
 	name = "external airlock"
@@ -312,6 +460,9 @@
 
 /obj/machinery/door/airlock/external_no_weld/welder_act(mob/user, obj/item/I)
 	return
+
+/obj/machinery/door/airlock/external_no_weld/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -326,9 +477,15 @@
 	normal_integrity = 1000
 	security_level = 6
 
+/obj/machinery/door/airlock/centcom/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/centcom/glass
 	glass = TRUE
 	opacity = FALSE
+
+/obj/machinery/door/airlock/centcom/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/centcom/glass/Initialize(mapload)
 	. = ..()
@@ -349,6 +506,9 @@
 	security_level = 6
 	paintable = FALSE
 
+/obj/machinery/door/airlock/vault/manual_rotation
+	manual_dir = TRUE
+
 //////////////////////////////////
 /*
 	MARK: Hatch Airlocks
@@ -362,9 +522,15 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 	paintable = FALSE
 
+/obj/machinery/door/airlock/hatch/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
 	req_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/door/airlock/hatch/syndicate/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/hatch/syndicate/command
 	name = "Command Center"
@@ -372,6 +538,9 @@
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
+
+/obj/machinery/door/airlock/hatch/syndicate/command/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
 	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
@@ -384,6 +553,9 @@
 	aiControlDisabled = AICONTROLDISABLED_ON
 	safe = FALSE
 	normal_integrity = 100 // going to get boosted by security level anyway
+
+/obj/machinery/door/airlock/hatch/syndicate/command/trapped/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/hatch/syndicate/command/trapped/process()
 	if(locate(/mob/living) in get_turf(src))
@@ -403,6 +575,9 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 
+/obj/machinery/door/airlock/hatch/syndicate/vault/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
 	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
@@ -410,6 +585,9 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	paintable = FALSE
+
+/obj/machinery/door/airlock/maintenance_hatch/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -427,10 +605,16 @@
 	damage_deflection = 30
 	paintable = FALSE
 
+/obj/machinery/door/airlock/highsecurity/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
+
+/obj/machinery/door/airlock/highsecurity/red/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/highsecurity/red/Initialize(mapload)
 	. = ..()
@@ -486,6 +670,9 @@
 	security_level = 1
 	paintable = FALSE
 
+/obj/machinery/door/airlock/abductor/manual_rotation
+	manual_dir = TRUE
+
 // MARK: Clockwork Airlocks
 
 /obj/machinery/door/airlock/clockwork
@@ -495,6 +682,9 @@
 	overlays_file = 'icons/obj/doors/airlocks/clockwork/clockwork-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_clockwork
 	paintable = FALSE
+
+/obj/machinery/door/airlock/clockwork/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/clockwork/Initialize(mapload)
 	. = ..()
@@ -508,6 +698,9 @@
 /obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
 	opacity = FALSE
+
+/obj/machinery/door/airlock/clockwork/glass/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -539,6 +732,9 @@
 	var/stealth_opacity = TRUE
 	/// Inner airlock material (Glass, plasteel)
 	var/stealth_airlock_material = null
+
+/obj/machinery/door/airlock/cult/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
@@ -601,9 +797,15 @@
 /obj/machinery/door/airlock/cult/friendly
 	friendly = TRUE
 
+/obj/machinery/door/airlock/cult/friendly/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/cult/glass
 	glass = TRUE
 	opacity = FALSE
+
+/obj/machinery/door/airlock/cult/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/cult/glass/Initialize(mapload)
 	. = ..()
@@ -612,11 +814,17 @@
 /obj/machinery/door/airlock/cult/glass/friendly
 	friendly = TRUE
 
+/obj/machinery/door/airlock/cult/glass/friendly/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/cult/unruned
 	icon = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
+
+/obj/machinery/door/airlock/cult/unruned/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/cult/unruned/Initialize(mapload)
 	. = ..()
@@ -627,9 +835,15 @@
 /obj/machinery/door/airlock/cult/unruned/friendly
 	friendly = TRUE
 
+/obj/machinery/door/airlock/cult/unruned/friendly/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/cult/unruned/glass
 	glass = TRUE
 	opacity = FALSE
+
+/obj/machinery/door/airlock/cult/unruned/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/airlock/cult/unruned/glass/Initialize(mapload)
 	. = ..()
@@ -638,12 +852,18 @@
 /obj/machinery/door/airlock/cult/unruned/glass/friendly
 	friendly = TRUE
 
+/obj/machinery/door/airlock/cult/unruned/glass/friendly/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/cult/weak
 	name = "brittle cult airlock"
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
 	armor = null
+
+/obj/machinery/door/airlock/cult/weak/manual_rotation
+	manual_dir = TRUE
 
 //////////////////////////////////
 /*
@@ -660,6 +880,9 @@
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
 
+/obj/machinery/door/airlock/multi_tile/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/multi_tile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	update_bounds()
@@ -670,6 +893,9 @@
 /obj/machinery/door/airlock/multi_tile/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/multi_tile/glass/manual_rotation
+	manual_dir = TRUE
 
 /// Player view blocking fillers for multi-tile doors
 /obj/airlock_filler_object

@@ -444,7 +444,7 @@
 		if("store_to_gps")
 			if(inserted_gps)
 				if(last_tele_data)
-					inserted_gps.locked_location = last_tele_data
+					inserted_gps.locked_location = locateUID(last_target_ref)
 					temp_msg = "Location saved"
 				else
 					temp_msg = "ERROR - No data to store"

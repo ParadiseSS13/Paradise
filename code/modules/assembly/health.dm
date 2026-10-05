@@ -5,7 +5,7 @@
 	name = "health sensor"
 	desc = "Used for scanning and monitoring health."
 	icon_state = "health"
-	materials = list(MAT_METAL=800, MAT_GLASS=200)
+	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	origin_tech = "magnets=1;biotech=1"
 
 	/// Are we scanning our user's health?
@@ -70,7 +70,8 @@
 		user_health = null // Clear out the user data, we're no longer scanning
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/assembly/health/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/health/activate_self(mob/user)
+	. = ..()
 	ui_interact(user)
 
 /obj/item/assembly/health/ui_state(mob/user)

@@ -5,6 +5,7 @@ RESTRICT_TYPE(/obj/item/autochef_remote)
 	icon = 'icons/obj/cooking/misc.dmi'
 	icon_state = "autochef_remote"
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 3000)
 	new_attack_chain = TRUE
 
 	var/list/linkable_machine_uids = list()

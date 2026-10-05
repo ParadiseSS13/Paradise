@@ -40,6 +40,7 @@
 #define PIPE_TEMPERATURE_GATE		40
 #define PIPE_GAS_SENSOR				98
 #define PIPE_METER					99
+#define PIPE_HIGH_VOLUME_PUMP		111
 
 // MARK: Disposals pipes
 #define PIPE_DISPOSALS_STRAIGHT			100

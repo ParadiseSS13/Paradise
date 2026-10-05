@@ -82,7 +82,7 @@
 	icon_state = "walldoor"
 	loot = list(
 		/obj/machinery/door/airlock/hatch/syndicate = 6,
-		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2,
+		/turf/simulated/wall/mineral/plastitanium = 2,
 		/obj/structure/falsewall/plastitanium = 2,
 	)
 
@@ -91,5 +91,5 @@
 	icon_state = "wallvault"
 	loot = list(
 		/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
-		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1,
+		/turf/simulated/wall/mineral/plastitanium = 1,
 	)

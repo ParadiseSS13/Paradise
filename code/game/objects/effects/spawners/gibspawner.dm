@@ -54,3 +54,15 @@
 /obj/effect/gibspawner/vox/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/mob_dna)
 	if(!..()) // Probably admin spawned
 		gib.blood_DNA["Unknown Vox DNA"] = "A+"
+
+/obj/effect/gibspawner/flock
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/flock, /obj/effect/decal/cleanable/blood/gibs/flock, /obj/effect/decal/cleanable/blood/gibs/core/flock)
+	gibamounts = list(2,2,1)
+
+/obj/effect/gibspawner/flock/New()
+	gibdirections = list(list(WEST, NORTHWEST, SOUTHWEST, NORTH), list(EAST, NORTHEAST, SOUTHEAST, SOUTH), list())
+	..()
+
+/obj/effect/gibspawner/flock/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/mob_dna)
+	if(!..())
+		gib.blood_DNA["UNKNOWN DNA"] = "&#^*@!"

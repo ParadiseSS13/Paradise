@@ -239,7 +239,24 @@
 	var/armor = L.run_armor_check(limb_to_hit, LASER)
 	L.apply_damage(damage, BURN, limb_to_hit, armor)
 
-/atom/proc/Beam(atom/BeamTarget,
+// The beam fireblast spits out, causes people to walk through it to be on fire
+/obj/effect/ebeam/fire
+	name = "fire beam"
+
+/obj/effect/ebeam/fire/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(entered))
+		return
+	var/mob/living/living_entered = entered
+	if(IS_HERETIC_OR_MONSTER(living_entered) || living_entered.has_status_effect(/datum/status_effect/fire_blasted))
+		return
+	living_entered.apply_damage(10, BURN)
+	living_entered.adjust_fire_stacks(2)
+	living_entered.IgniteMob()
+	// Apply the fireblasted effect - no overlay
+	living_entered.apply_status_effect(/datum/status_effect/fire_blasted)
+
+/atom/proc/Beam(
+	atom/BeamTarget,
 	icon_state = "b_beam",
 	icon = 'icons/effects/beam.dmi',
 	time = 5 SECONDS,

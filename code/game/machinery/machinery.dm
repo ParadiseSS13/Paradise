@@ -33,6 +33,7 @@
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	COOLDOWN_DECLARE(sparks_cooldown)
 
 	new_attack_chain = TRUE
 
@@ -535,7 +536,9 @@
 		return FALSE
 	if(!prob(prb))
 		return FALSE
-	do_sparks(5, 1, src)
+	if(COOLDOWN_FINISHED(src, sparks_cooldown))
+		do_sparks(5, 1, src)
+		COOLDOWN_START(src, sparks_cooldown, 1 SECONDS)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
 		return TRUE
 	return FALSE
@@ -547,6 +550,15 @@
 /obj/machinery/proc/on_deconstruction()
 	return
 
+/**
+* Returns the wires of the machine, or null if not declared.
+*
+* Note: `/obj/machinery/` does not contain a `/datum/wires/` variable,
+* and needs to be implemented on any child object with this function overwritten.
+*/
+/obj/machinery/proc/get_internal_wires()
+	return
+
 /obj/machinery/emp_act(severity)
 	if(power_state && !stat)
 		use_power(7500/severity)
@@ -555,7 +567,7 @@
 
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE, cause = "Random Zap Explosion")
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, cause = "Random Zap Explosion")
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 0.0005, BURN, ENERGY)
 		if(prob(40))
@@ -603,3 +615,6 @@
 
 /obj/machinery/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, rightable = TRUE, block_interactions_until_righted = TRUE)
+
+/obj/machinery/rust_heretic_act()
+	take_damage(500, BRUTE, MELEE, 1)

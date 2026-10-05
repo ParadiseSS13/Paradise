@@ -32,6 +32,16 @@
 	build_path = /obj/item/circuitboard/space_heater
 	category = list ("Engineering Machinery")
 
+/datum/design/electrolyzer
+	name = "Machine Board (Electrolyzer)"
+	desc = "The circuit board for an Electrolyzer."
+	id = "electrolyzer"
+	req_tech = list("programming" = 3, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/electrolyzer
+	category = list ("Engineering Machinery")
+
 /datum/design/recharger
 	name = "Machine Board (Weapon Recharger)"
 	desc = "The circuit board for a weapon recharger."
@@ -60,6 +70,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/smes
+	category = list ("Engineering Machinery")
+
+/datum/design/transformer
+	name = "Machine Board (Electrical Transformer)"
+	desc = "The circuit board for an electrical transformer."
+	id = "ptransformer"
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/transformer
 	category = list ("Engineering Machinery")
 
 /datum/design/emitter
@@ -251,6 +271,16 @@
 	build_path = /obj/item/circuitboard/reagentgrinder
 	category = list ("Medical Machinery")
 
+/datum/design/autoclave
+	name = "Machine Design (Autoclave)"
+	desc = "The circuit board for an Autoclave."
+	id = "reagentgrinder"
+	req_tech = list("biotech" = 2, "materials" = 3, "magnets" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/autoclave
+	category = list ("Medical Machinery")
+
 /datum/design/sleeper
 	name = "Machine Board (Sleeper)"
 	desc = "Allows for the construction of circuit boards used to build a Sleeper."
@@ -381,6 +411,16 @@
 	build_path = /obj/item/circuitboard/gibber
 	category = list ("Misc. Machinery")
 
+/datum/design/papershredder
+	name = "Machine Design (Paper Shredder)"
+	desc = "The circuit board for a paper shredder."
+	id = "papershredder"
+	req_tech = list("programming" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/papershredder
+	category = list ("Misc. Machinery")
+
 /datum/design/smartfridge
 	name = "Machine Design (Smartfridge Board)"
 	desc = "The circuit board for a smartfridge."
@@ -509,6 +549,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/deepfryer
+	category = list("Misc. Machinery")
+
+/datum/design/stovetop
+	name = "Machine Board (Stovetop)"
+	desc = "The circuit board for a Stovetop."
+	id = "stove"
+	req_tech = list("biotech" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/cooking/stove
 	category = list("Misc. Machinery")
 
 /datum/design/orion_trail

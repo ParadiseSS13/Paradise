@@ -3,6 +3,7 @@
 	desc = "A compressed plasma grenade, used to start horrific plasma fires."
 	icon_state = "syndicate"
 	origin_tech = "materials=3;magnets=4;syndicate=3"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
 

@@ -176,8 +176,8 @@
 	flags = DROPDEL
 	breakouttime = 6 SECONDS
 
-/obj/item/restraints/legcuffs/beartrap/energy/New()
-	..()
+/obj/item/restraints/legcuffs/beartrap/energy/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()

@@ -81,6 +81,7 @@
 	icon_state = "motion2"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "programming=2;magnets=2"
+	materials = list(MAT_METAL = 500)
 	var/ai_beacon = FALSE //If this beacon allows for AI control. Exists to avoid using istype() on checking.
 	var/charges_left = 2
 
@@ -198,6 +199,7 @@
 	name = "exosuit AI control beacon"
 	desc = "A device used to transmit exosuit data. Also allows active AI units to take control of said exosuit."
 	origin_tech = "programming=3;magnets=2;engineering=2"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 200)
 	ai_beacon = TRUE
 
 /obj/item/storage/box/mechabeacons

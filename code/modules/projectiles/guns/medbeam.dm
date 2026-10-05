@@ -180,7 +180,7 @@
 		if(INSTALL_ELECTRONICS)
 			. += SPAN_NOTICE("It needs new <b>cabling</b> for the electronics.")
 		if(INSTALL_CELL)
-			. += "<span class='notice'>It needs a fully charged specialized <b>battery</b> to function."
+			. += SPAN_NOTICE("It needs a fully charged specialized <b>battery</b> to function.")
 		if(MULTITOOL_ELECTRONICS)
 			. += SPAN_NOTICE("The electronics need to be tested and reactivated with a <b>multitool</b>.")
 		if(SCREWDRIVER_CLOSED)

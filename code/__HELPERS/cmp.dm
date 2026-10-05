@@ -49,8 +49,8 @@
 	if(!.)
 		. = B.qdels - A.qdels
 
-/proc/cmp_atom_layer_asc(atom/A,atom/B)
-	if(A.plane != B.plane)
+/proc/cmp_atom_layer_asc(atom/A, atom/B)
+	if(!istype(A) && !istype(B) && A.plane != B.plane)
 		return A.plane - B.plane
 	else
 		return A.layer - B.layer
@@ -63,3 +63,8 @@
 
 /proc/cmp_ruin_placement_cost(datum/map_template/ruin/A, datum/map_template/ruin/B)
 	return A.get_cost() - B.get_cost()
+
+
+/// Orders heretic knowledge by priority
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

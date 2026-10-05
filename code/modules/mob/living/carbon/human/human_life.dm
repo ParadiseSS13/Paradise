@@ -14,6 +14,7 @@
 
 	if(.) //not dead
 		handle_kidneys()
+		check_for_missing_organs()
 
 		if(check_mutations)
 			domutcheck(src)
@@ -201,7 +202,7 @@
 	var/loc_temp = get_temperature(readonly_environment)
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != DEAD)
+	if(stat != DEAD || !HAS_TRAIT(src, TRAIT_HYPOTHERMIC))
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -211,7 +212,7 @@
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
 				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-		else
+		else if(!HAS_TRAIT(src, TRAIT_HYPOTHERMIC))
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
@@ -781,6 +782,9 @@
 		nutrition_display.icon_state = null
 		return
 	nutrition_display.icon = dna.species.hunger_icon
+	if(nutrition_hud_override)
+		nutrition_display.icon_state = nutrition_hud_override
+		return
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			nutrition_display.icon_state = "fat"
@@ -810,14 +814,18 @@
 		var/obj/item/organ/external/BP = X
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
-				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
-				to_chat(src, SPAN_USERDANGER("[I] embedded in your [BP.name] hurts!"))
+				BP.receive_damage(I.w_class * I.embedded_pain_multiplier)
+				to_chat(src, SPAN_USERDANGER("[I] embedded in your [BP.name] [can_feel_pain() ? "hurts" : "crunches"]!"))
 
 			if(prob(I.embedded_fall_chance))
-				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
+				BP.receive_damage(I.w_class * I.embedded_fall_pain_multiplier)
 				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
-				visible_message(SPAN_DANGER("[I] falls out of [name]'s [BP.name]!"),SPAN_USERDANGER("[I] falls out of your [BP.name]!"))
+				visible_message(
+					SPAN_DANGER("[I] falls out of [name]'s [BP.name]!"),
+					SPAN_USERDANGER("[I] falls out of your [BP.name]!"),
+					SPAN_HEAR("Something clatters to the floor!")
+				)
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
@@ -1016,3 +1024,14 @@
 			total_damage *= 0.05
 
 	adjustToxLoss(total_damage)
+
+/// A proc that checks for any missing organs and gives you damage for not having them
+/mob/living/carbon/human/proc/check_for_missing_organs()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+
+	// Currently only checks for a liver
+	// This has to be here since we can't check this in the on_life of organs
+	var/obj/item/organ/internal/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver && !isslimeperson(src))
+		adjustToxLoss(2)

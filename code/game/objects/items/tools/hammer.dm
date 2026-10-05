@@ -9,12 +9,13 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	materials = list(MAT_METAL = 300)
+	materials = list(MAT_METAL = 500)
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "hammered", "smashed", "bludgeoned", "whacked")
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_HAMMER
+	new_attack_chain = TRUE
 
 /obj/item/hammer/Initialize(mapload)
 	. = ..()

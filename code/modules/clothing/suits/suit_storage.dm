@@ -1,10 +1,10 @@
 /obj/item/clothing/suit/storage
-	var/obj/item/storage/internal/pockets
+	var/obj/item/storage/internal/pockets = /obj/item/storage/internal
 	w_class = WEIGHT_CLASS_NORMAL //we don't want these to be able to fit in their own pockets.
 
 /obj/item/clothing/suit/storage/Initialize(mapload)
 	. = ..()
-	pockets = new/obj/item/storage/internal(src)
+	pockets = new pockets(src, src)
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
 	pockets.max_combined_w_class = 4
@@ -45,12 +45,12 @@
 		pockets.show_to(user)
 	return ..()
 
-/obj/item/clothing/suit/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/suit/storage/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Inserts shouldn't be added into the inventory of the pockets if they're attaching.
-	if(istype(W, /obj/item/smithed_item/insert) && length(inserts) != insert_max)
-		return ..()
-	..()
-	return pockets?.attackby__legacy__attackchain(W, user, params)
+	if(istype(used, /obj/item/smithed_item/insert) && length(inserts) != insert_max)
+		return NONE
+
+	return pockets?.attackby__legacy__attackchain(used, user, modifiers)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()
@@ -74,10 +74,10 @@
 			L += I
 	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift))
-			L += G.gift:return_inv()
+	for(var/obj/item/small_delivery/gift/G in src)
+		L += G.wrapped
+		if(isstorage(G.wrapped))
+			L += G.wrapped:return_inv()
 	return L
 
 /obj/item/clothing/suit/storage/serialize()

@@ -33,10 +33,10 @@
 /obj/item/mecha_parts/chassis/attack_hand()
 	return
 
-/////////// Ripley
-
+// MARK: Ripley
 /obj/item/mecha_parts/chassis/ripley
 	name = "\improper Ripley chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/ripley/Initialize(mapload)
 	. = ..()
@@ -47,31 +47,41 @@
 	desc = "A torso part of Ripley APLU. Contains power unit, processing core and life support systems."
 	icon_state = "ripley_harness"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 7500)
 
 /obj/item/mecha_parts/part/ripley_left_arm
 	name = "\improper Ripley left arm"
 	desc = "A Ripley APLU left arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "ripley_l_arm"
+	materials = list(MAT_METAL = 15000)
 
 /obj/item/mecha_parts/part/ripley_right_arm
 	name = "\improper Ripley right arm"
 	desc = "A Ripley APLU right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "ripley_r_arm"
+	materials = list(MAT_METAL = 15000)
 
 /obj/item/mecha_parts/part/ripley_left_leg
 	name = "\improper Ripley left leg"
 	desc = "A Ripley APLU left leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "ripley_l_leg"
+	materials = list(MAT_METAL = 15000)
 
 /obj/item/mecha_parts/part/ripley_right_leg
 	name = "\improper Ripley right leg"
 	desc = "A Ripley APLU right leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "ripley_r_leg"
+	materials = list(MAT_METAL = 15000)
 
-///////// Gygax
+// Firefighter ripley subtype
+/obj/item/mecha_parts/chassis/firefighter
+	name = "\improper Firefighter chassis"
+	materials = list(MAT_METAL = 20000)
 
+// MARK: Gygax
 /obj/item/mecha_parts/chassis/gygax
 	name = "\improper Gygax chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/gygax/Initialize(mapload)
 	. = ..()
@@ -82,45 +92,52 @@
 	desc = "A torso part of Gygax. Contains power unit, processing core and life support systems. Has an additional equipment slot."
 	icon_state = "gygax_harness"
 	origin_tech = "programming=2;materials=4;biotech=3;engineering=3"
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_head
 	name = "\improper Gygax head"
 	desc = "A Gygax head. Houses advanced surveillance and targeting sensors."
 	icon_state = "gygax_head"
 	origin_tech = "programming=2;materials=4;magnets=3;engineering=3"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_left_arm
 	name = "\improper Gygax left arm"
 	desc = "A Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "gygax_l_arm"
 	origin_tech = "programming=2;materials=4;engineering=3"
+	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 1000)
 
 /obj/item/mecha_parts/part/gygax_right_arm
 	name = "\improper Gygax right arm"
 	desc = "A Gygax right arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "gygax_r_arm"
 	origin_tech = "programming=2;materials=4;engineering=3"
+	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 1000)
 
 /obj/item/mecha_parts/part/gygax_left_leg
 	name = "\improper Gygax left leg"
 	icon_state = "gygax_l_leg"
 	origin_tech = "programming=2;materials=4;engineering=3"
+	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_right_leg
 	name = "\improper Gygax right leg"
 	icon_state = "gygax_r_leg"
 	origin_tech = "programming=2;materials=4;engineering=3"
+	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_armour
 	name = "\improper Gygax armour plates"
 	icon_state = "gygax_armour"
 	origin_tech = "materials=6;combat=4;engineering=4"
+	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 10000, MAT_TITANIUM = 10000)
 
-
-//////////// Durand
+// MARK: Durand
 
 /obj/item/mecha_parts/chassis/durand
 	name = "\improper Durand chassis"
+	materials = list(MAT_METAL = 25000)
 
 /obj/item/mecha_parts/chassis/durand/Initialize(mapload)
 	. = ..()
@@ -130,52 +147,53 @@
 	name = "\improper Durand torso"
 	icon_state = "durand_harness"
 	origin_tech = "programming=2;materials=3;biotech=3;engineering=3"
+	materials = list(MAT_METAL = 25000, MAT_GLASS = 10000, MAT_SILVER = 10000)
 
 /obj/item/mecha_parts/part/durand_head
 	name = "\improper Durand head"
 	icon_state = "durand_head"
 	origin_tech = "programming=2;materials=3;magnets=3;engineering=3"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 15000, MAT_SILVER = 2000)
 
 /obj/item/mecha_parts/part/durand_left_arm
 	name = "\improper Durand left arm"
 	icon_state = "durand_l_arm"
 	origin_tech = "programming=2;materials=3;engineering=3"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_right_arm
 	name = "\improper Durand right arm"
 	icon_state = "durand_r_arm"
 	origin_tech = "programming=2;materials=3;engineering=3"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_left_leg
 	name = "\improper Durand left leg"
 	icon_state = "durand_l_leg"
 	origin_tech = "programming=2;materials=3;engineering=3"
+	materials = list(MAT_METAL = 15000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_right_leg
 	name = "\improper Durand right leg"
 	icon_state = "durand_r_leg"
 	origin_tech = "programming=2;materials=3;engineering=3"
+	materials = list(MAT_METAL = 15000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_armor
 	name = "\improper Durand armour plates"
 	icon_state = "durand_armor"
 	origin_tech = "materials=5;combat=4;engineering=4"
-
-
-
-////////// Firefighter
-
-/obj/item/mecha_parts/chassis/firefighter
-	name = "\improper Firefighter chassis"
+	materials = list(MAT_METAL = 30000, MAT_URANIUM = 25000, MAT_TITANIUM = 20000)
 
 /obj/item/mecha_parts/chassis/firefighter/Initialize(mapload)
 	. = ..()
 	construct = new /datum/construction/mecha/firefighter_chassis(src)
 
-////////// HONK
+// MARK: H.O.N.K
 
 /obj/item/mecha_parts/chassis/honker
 	name = "\improper H.O.N.K chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/honker/Initialize(mapload)
 	. = ..()
@@ -184,32 +202,37 @@
 /obj/item/mecha_parts/part/honker_torso
 	name = "\improper H.O.N.K torso"
 	icon_state = "honker_harness"
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 10000, MAT_BANANIUM = 10000)
 
 /obj/item/mecha_parts/part/honker_head
 	name = "\improper H.O.N.K head"
 	icon_state = "honker_head"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_BANANIUM = 5000)
 
 /obj/item/mecha_parts/part/honker_left_arm
 	name = "\improper H.O.N.K left arm"
 	icon_state = "honker_l_arm"
+	materials = list(MAT_METAL = 15000, MAT_BANANIUM = 5000)
 
 /obj/item/mecha_parts/part/honker_right_arm
 	name = "\improper H.O.N.K right arm"
 	icon_state = "honker_r_arm"
+	materials = list(MAT_METAL = 15000, MAT_BANANIUM = 5000)
 
 /obj/item/mecha_parts/part/honker_left_leg
 	name = "\improper H.O.N.K left leg"
 	icon_state = "honker_l_leg"
+	materials = list(MAT_METAL = 20000, MAT_BANANIUM = 5000)
 
 /obj/item/mecha_parts/part/honker_right_leg
 	name = "\improper H.O.N.K right leg"
 	icon_state = "honker_r_leg"
+	materials = list(MAT_METAL = 20000, MAT_BANANIUM = 5000)
 
-
-////////// Reticence
-
+// MARK: Reticence
 /obj/item/mecha_parts/chassis/reticence
 	name = "\improper Reticence chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/reticence/Initialize(mapload)
 	. = ..()
@@ -233,32 +256,37 @@
 /obj/item/mecha_parts/part/reticence_torso
 	name = "\improper Reticence torso"
 	icon_state = "reticence_harness"
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 10000, MAT_TRANQUILLITE = 10000)
 
 /obj/item/mecha_parts/part/reticence_head
 	name = "\improper Reticence head"
 	icon_state = "reticence_head"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_TRANQUILLITE = 5000)
 
 /obj/item/mecha_parts/part/reticence_left_arm
 	name = "\improper Reticence left arm"
 	icon_state = "reticence_l_arm"
+	materials = list(MAT_METAL = 15000, MAT_TRANQUILLITE = 5000)
 
 /obj/item/mecha_parts/part/reticence_right_arm
 	name = "\improper Reticence right arm"
 	icon_state = "reticence_r_arm"
+	materials = list(MAT_METAL = 15000, MAT_TRANQUILLITE = 5000)
 
 /obj/item/mecha_parts/part/reticence_left_leg
 	name = "\improper Reticence left leg"
 	icon_state = "reticence_l_leg"
+	materials = list(MAT_METAL = 20000, MAT_TRANQUILLITE = 5000)
 
 /obj/item/mecha_parts/part/reticence_right_leg
 	name = "\improper Reticence right leg"
 	icon_state = "reticence_r_leg"
+	materials = list(MAT_METAL = 20000, MAT_TRANQUILLITE = 5000)
 
-
-////////// Phazon
-
+// MARK: Phazon
 /obj/item/mecha_parts/chassis/phazon
 	name = "\improper Phazon chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/phazon/Initialize(mapload)
 	. = ..()
@@ -273,41 +301,49 @@
 	name = "\improper Phazon torso"
 	icon_state = "phazon_harness"
 	origin_tech = "programming=4;materials=4;bluespace=4;plasmatech=5"
+	materials = list(MAT_METAL = 35000, MAT_GLASS = 10000, MAT_PLASMA = 20000)
 
 /obj/item/mecha_parts/part/phazon_head
 	name = "\improper Phazon head"
 	icon_state = "phazon_head"
 	origin_tech = "programming=3;materials=3;magnets=3"
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_PLASMA = 10000)
 
 /obj/item/mecha_parts/part/phazon_left_arm
 	name = "\improper Phazon left arm"
 	icon_state = "phazon_l_arm"
 	origin_tech = "materials=3;bluespace=3;magnets=3"
+	materials = list(MAT_METAL = 20000, MAT_PLASMA = 10000)
 
 /obj/item/mecha_parts/part/phazon_right_arm
 	name = "\improper Phazon right arm"
 	icon_state = "phazon_r_arm"
 	origin_tech = "materials=3;bluespace=3;magnets=3"
+	materials = list(MAT_METAL = 20000, MAT_PLASMA = 10000)
 
 /obj/item/mecha_parts/part/phazon_left_leg
 	name = "\improper Phazon left leg"
 	icon_state = "phazon_l_leg"
 	origin_tech = "materials=3;bluespace=3;magnets=3"
+	materials = list(MAT_METAL = 20000, MAT_PLASMA = 10000)
 
 /obj/item/mecha_parts/part/phazon_right_leg
 	name = "\improper Phazon right leg"
 	icon_state = "phazon_r_leg"
 	origin_tech = "materials=3;bluespace=3;magnets=3"
+	materials = list(MAT_METAL = 20000, MAT_PLASMA = 10000)
 
 /obj/item/mecha_parts/part/phazon_armor
 	name = "\improper Phazon armor"
 	desc = "Phazon armor plates. They are layered with plasma to protect the pilot from the stress of phasing and have unusual properties."
 	icon_state = "phazon_armor"
 	origin_tech = "materials=4;bluespace=4;plasmatech=5"
+	materials = list(MAT_METAL = 25000, MAT_PLASMA = 20000, MAT_TITANIUM = 20000)
 
-///////// Odysseus
+// MARK: Odysseus
 /obj/item/mecha_parts/chassis/odysseus
 	name = "\improper Odysseus Chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/odysseus/Initialize(mapload)
 	. = ..()
@@ -316,41 +352,48 @@
 /obj/item/mecha_parts/part/odysseus_head
 	name = "\improper Odysseus head"
 	icon_state = "odysseus_head"
+	materials = list(MAT_METAL = 6000,MAT_GLASS = 10000)
 
 /obj/item/mecha_parts/part/odysseus_torso
 	name = "\improper Odysseus torso"
 	desc = "A torso part of Odysseus. Contains power unit, processing core and life support systems."
 	icon_state = "odysseus_torso"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+	materials = list(MAT_METAL = 12000)
 
 /obj/item/mecha_parts/part/odysseus_left_arm
 	name = "\improper Odysseus left arm"
 	desc = "An Odysseus left arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "odysseus_l_arm"
+	materials = list(MAT_METAL = 6000)
 
 /obj/item/mecha_parts/part/odysseus_right_arm
 	name = "\improper Odysseus right arm"
 	desc = "An Odysseus right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "odysseus_r_arm"
+	materials = list(MAT_METAL = 6000)
 
 /obj/item/mecha_parts/part/odysseus_left_leg
 	name = "\improper Odysseus left leg"
 	desc = "An Odysseus left leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "odysseus_l_leg"
+	materials = list(MAT_METAL = 7000)
 
 /obj/item/mecha_parts/part/odysseus_right_leg
 	name = "\improper Odysseus right leg"
 	desc = "A Odysseus right leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "odysseus_r_leg"
+	materials = list(MAT_METAL = 7000)
 
 /*/obj/item/mecha_parts/part/odysseus_armour
 	name = "\improper Odysseus carapace"
 	icon_state = "odysseus_armour"
 	origin_tech = "materials=3;engineering=3")*/
 
-///////// Nkarrdem
+// MARK: Nkarrdem
 /obj/item/mecha_parts/chassis/nkarrdem
 	name = "\improper Nkarrdem Chassis"
+	materials = list(MAT_METAL = 20000)
 
 /obj/item/mecha_parts/chassis/nkarrdem/Initialize(mapload)
 	. = ..()
@@ -359,36 +402,40 @@
 /obj/item/mecha_parts/part/nkarrdem_head
 	name = "\improper Nkarrdem head"
 	icon_state = "nkarrdem_head"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 10000)
 
 /obj/item/mecha_parts/part/nkarrdem_torso
 	name = "\improper Nkarrdem torso"
 	desc = "A torso part of Nkarrdem. Contains power unit, processing core and life support systems."
 	icon_state = "nkarrdem_harness"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+	materials = list(MAT_METAL = 12000)
 
 /obj/item/mecha_parts/part/nkarrdem_left_arm
 	name = "\improper Nkarrdem left arm"
 	desc = "A Nkarrdem left arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "nkarrdem_l_arm"
+	materials = list(MAT_METAL = 6000)
 
 /obj/item/mecha_parts/part/nkarrdem_right_arm
 	name = "\improper Nkarrdem right arm"
 	desc = "A Nkarrdem right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "nkarrdem_r_arm"
+	materials = list(MAT_METAL = 6000)
 
 /obj/item/mecha_parts/part/nkarrdem_left_leg
 	name = "\improper Nkarrdem left leg"
 	desc = "A Nkarrdem left leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "nkarrdem_l_leg"
+	materials = list(MAT_METAL = 12000)
 
 /obj/item/mecha_parts/part/nkarrdem_right_leg
 	name = "\improper Nkarrdem right leg"
 	desc = "A Nkarrdem right leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "nkarrdem_r_leg"
+	materials = list(MAT_METAL = 12000)
 
-
-///////// Circuitboards
-
+// MARK: Circuits
 /obj/item/circuitboard/mecha
 	icon_state = "std_mod"
 	board_type = "other"
@@ -397,7 +444,6 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 15
-
 
 /obj/item/circuitboard/mecha/ripley
 
@@ -455,6 +501,7 @@
 
 /obj/item/circuitboard/mecha/phazon
 	origin_tech = "programming=5;plasmatech=4"
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 
 /obj/item/circuitboard/mecha/phazon/main
 	board_name = "Phazon Central Control Module"

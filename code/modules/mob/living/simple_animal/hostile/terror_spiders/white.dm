@@ -46,7 +46,7 @@
 	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))
 		if(!IsTSInfected(L) && ishuman(L))
 			visible_message(SPAN_DANGER("[src] buries its long fangs deep into the [inject_target] of [L]!"))
-			new /obj/item/organ/internal/body_egg/terror_eggs(L)
+			new /obj/item/organ/internal/body_egg/terror_eggs(L, L)
 			if(!ckey)
 				LoseTarget()
 				GLOB.move_manager.move_away(src,L,2,1)
@@ -67,7 +67,8 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/event_cost()
 	. = list()
-	if(is_station_level((get_turf(src)).z) && owner)
+	var/turf/T = get_turf(src)
+	if(is_station_level(T.z) && owner)
 		return list(ASSIGNMENT_MEDICAL = 1)
 
 /obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special)
@@ -97,4 +98,4 @@
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, SPAN_DANGER("[src] slices into you!"))
-				new /obj/item/organ/internal/body_egg/terror_eggs(C)
+				new /obj/item/organ/internal/body_egg/terror_eggs(C, C)

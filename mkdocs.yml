@@ -24,7 +24,7 @@ extra:
       link: https://github.com/ParadiseSS13/Paradise
     - icon: fontawesome/brands/discord
       name: Paradise Station Discord
-      link: https://discord.gg/paradisess13
+      link: https://discord.gg/YJDsXFE
     - icon: fontawesome/brands/patreon
       name: Paradise Station Patreon
       link: https://www.patreon.com/ParadiseStation
@@ -108,3 +108,4 @@ nav:
       - 'Movement Signals': './references/movement_signals.md'
       - 'Attack Chain': './references/attack_chain.md'
       - 'AI Controllers': './references/ai_controllers.md'
+      - 'Docker': './references/docker.md'

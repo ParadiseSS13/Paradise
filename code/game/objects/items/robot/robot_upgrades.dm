@@ -7,6 +7,7 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
+	materials = list(MAT_METAL = 10000)
 	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
 	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
@@ -118,6 +119,7 @@
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
 	delete_after_install = TRUE
+	materials = list(MAT_METAL = 35000)
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self__legacy__attackchain(mob/user)
@@ -130,7 +132,7 @@
 	if(!R.allow_rename)
 		to_chat(R, SPAN_WARNING("Internal diagnostic error: incompatible upgrade module detected."))
 		return
-	R.notify_ai(3, R.name, heldname)
+	R.notify_ai(RENAME, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
 	R.real_name = heldname
@@ -143,6 +145,7 @@
 	desc = "Used to force a reboot of a disabled-but-repaired cyborg, bringing it back online."
 	icon_state = "cyborg_upgrade1"
 	delete_after_install = TRUE
+	materials = list(MAT_METAL = 60000 , MAT_GLASS = 5000)
 
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
@@ -157,7 +160,7 @@
 	R.set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
 	GLOB.alive_mob_list += R
-	R.notify_ai(1)
+	R.notify_ai(NEW_BORG)
 
 	return TRUE
 
@@ -166,6 +169,7 @@
 	desc = "A energy-operated thruster system for cyborgs."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4"
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 5000, MAT_URANIUM = 6000)
 
 /obj/item/borg/upgrade/thrusters/do_install(mob/living/silicon/robot/R)
 	R.ionpulse = TRUE
@@ -176,6 +180,7 @@
 	desc = "This module will repair the cyborg over time."
 	icon_state = "cyborg_upgrade5"
 	require_module = TRUE
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 15000)
 	var/repair_amount = -1
 	var/repair_tick = 1
 	var/msg_cooldown = 0
@@ -264,6 +269,7 @@
 	icon_state = "cyborg_upgrade2"
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
+	materials = list(MAT_METAL = 80000 , MAT_GLASS = 6000 , MAT_URANIUM = 5000)
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
 	R.slowdown_cap = 3.5
@@ -304,6 +310,7 @@
 	desc = "A diamond drill replacement for the mining cyborg's standard drill."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=5"
+	materials = list(MAT_METAL = 10000, MAT_GOLD = 250, MAT_URANIUM = 500)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	items_to_replace = list(
@@ -325,6 +332,7 @@
 	name = "mining cyborg lavaproof chassis"
 	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
 	icon_state = "ash_plating"
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 4000, MAT_TITANIUM = 5000)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
@@ -343,6 +351,7 @@
 	desc = "A modified Rapid Construction Device, able to pull energy directly from a cyborg's internal power cell."
 	icon_state = "cyborg_upgrade5"
 	origin_tech = "engineering=4;materials=5;powerstorage=4"
+	materials = list(MAT_METAL = 30000, MAT_GLASS = 15000)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_add = list(/obj/item/rcd/borg)
@@ -357,6 +366,7 @@
 	name = "Rapid Part Exchange Device upgrade"
 	desc = "A modified Rapid Part Exchange Device designed to be used by engineering robots."
 	icon_state = "cyborg_upgrade5"
+	materials = list(MAT_METAL = 40000, MAT_GLASS = 15000)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_add = list(/obj/item/storage/part_replacer)
@@ -371,6 +381,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "upgrade"
 	origin_tech = "materials=3;engineering=4"
+	materials = list(MAT_METAL = 9000, MAT_GLASS = 7600)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	/// How much speed the cyborg loses while the buffer is active
@@ -404,6 +415,7 @@
 	icon_state = "cyborg_upgrade4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
+	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
 	items_to_replace = list(
 		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
 	)
@@ -417,6 +429,7 @@
 	desc = "An upgrade that replaces a service cyborg's Rapid Service Fabricator with a classy Executive version."
 	icon_state = "cyborg_upgrade5"
 	origin_tech = "biotech=2;materials=1"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_GOLD = 2000)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/butler
 	items_to_add = list(/obj/item/kitchen/knife/cheese)
@@ -432,6 +445,7 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "holo_retracted"
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 	items_to_replace = list(/obj/item/roller_holder = /obj/item/roller_holder/holo)
@@ -445,6 +459,7 @@
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "combat=6;materials=6"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 15000, MAT_DIAMOND = 10000)
 	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/do_install(mob/living/silicon/robot/R)
@@ -460,6 +475,7 @@
 	icon_state = "cyborg_upgrade4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
+	materials = list(MAT_GOLD = 1250, MAT_PLASMA = 2500, MAT_SILVER = 1250)
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
@@ -473,6 +489,7 @@
 	desc = "An experimental upgrade that replaces an engineering cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
 	origin_tech = "engineering=6;materials=6;abductor=3"
+	materials = list(MAT_METAL = 25000, MAT_SILVER = 12500, MAT_PLASMA = 5000, MAT_TITANIUM = 10000, MAT_DIAMOND = 10000) //Base abductor engineering tools * 4
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_replace = list(
@@ -492,10 +509,11 @@
 	desc = "An experimental upgrade that replaces a medical cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
 	origin_tech = "biotech=6;materials=6;abductor=2"
+	materials = list(MAT_METAL = 18000, MAT_GLASS = 1500, MAT_SILVER = 13000, MAT_GOLD = 1000, MAT_PLASMA = 4000, MAT_TITANIUM = 12000, MAT_DIAMOND = 1000) //Base abductor engineering tools *8 + IMS cost
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 	items_to_replace = list(
-		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/alien,
+		/obj/item/scalpel/laser = /obj/item/scalpel/laser/alien,
 		/obj/item/hemostat = /obj/item/hemostat/alien,
 		/obj/item/retractor = /obj/item/retractor/alien,
 		/obj/item/bonegel = /obj/item/bonegel/alien,
@@ -518,6 +536,7 @@
 	desc = "An experimental upgrade that replaces a janitorial cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
 	origin_tech = "biotech=6;materials=6;abductor=2"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 7500, MAT_PLASMA = 2500, MAT_TITANIUM = 7500, MAT_DIAMOND = 5000) //Base abductor jani tools *5
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	items_to_replace = list(
@@ -533,3 +552,17 @@
 		/obj/item/reagent_containers/spray/cleaner/safety/abductor,
 		/obj/item/lightreplacer/bluespace/abductor
 	)
+
+// MARK: B.O.R.I.S.
+/obj/item/borg/upgrade/ai
+	name = "B.O.R.I.S. module"
+	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
+	icon_state = "bluespacearray"
+	origin_tech = "engineering=3;magnets=4;programming=5"
+	var/alien = FALSE // This is an incredibely scuffed way to do this, but it works.
+	var/syndiemmi = FALSE
+	var/brainmob = null
+
+/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R)
+	to_chat(usr, SPAN_NOTICE("The B.O.R.I.S. module can only be installed into an endoskeleton.")) // Since the BORIS module is an upgrade that acts as an MMI.
+	return

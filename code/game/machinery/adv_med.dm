@@ -48,13 +48,24 @@
 
 /obj/machinery/bodyscanner/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/bodyscanner/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	RefreshParts()
+
+/obj/machinery/bodyscanner/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 2)
 
 /obj/machinery/bodyscanner/RefreshParts()
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
@@ -363,6 +374,10 @@
 			if(E == occupant.get_organ(lung_organ?.parent_organ) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
+			var/obj/item/organ/internal/liver = occupant.get_int_organ(/obj/item/organ/internal/liver)
+			if(E == occupant.get_organ(liver?.parent_organ) && occupant.has_liver_cirrhosis())
+				organData["liverCirrhosis"] = TRUE
+
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
 
@@ -503,9 +518,15 @@
 
 			if(e.status & ORGAN_INT_BLEEDING)
 				ailments |= "Internal Bleeding"
+
 			var/obj/item/organ/internal/lung_organ = occupant.get_int_organ_by_datum(ORGAN_DATUM_LUNGS)
 			if(e == occupant.get_organ(lung_organ?.parent_organ) && occupant.is_lung_ruptured())
 				ailments |= "Lung Ruptured"
+
+			var/obj/item/organ/internal/liver = occupant.get_int_organ(/obj/item/organ/internal/liver)
+			if(e == occupant.get_organ(liver?.parent_organ) && occupant.has_liver_cirrhosis())
+				ailments |= "Liver cirrhosis"
+
 			if(e.status & ORGAN_SPLINTED)
 				ailments |= "Splinted"
 			if(e.status & ORGAN_BROKEN)

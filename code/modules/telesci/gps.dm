@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1000)
 	/// Whether the GPS is on.
 	var/tracking = FALSE
 	/// The tag that is visible to other GPSes.
@@ -27,6 +28,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/emped = FALSE
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
+	new_attack_chain = TRUE
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -130,8 +132,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	return data
 
-/obj/item/gps/attack_self__legacy__attackchain(mob/user)
+/obj/item/gps/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	add_fingerprint(user)
 	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gps/ui_state(mob/user)
 	return GLOB.inventory_state

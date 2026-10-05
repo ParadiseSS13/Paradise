@@ -20,7 +20,7 @@
 	gps = new(src)
 
 /obj/item/mod/module/gps/on_use()
-	gps.attack_self__legacy__attackchain(mod.wearer)
+	gps.activate_self(mod.wearer)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
@@ -121,6 +121,7 @@
 	incompatible_modules = list(/obj/item/mod/module/drill)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_active = "module_drill"
+	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000)
 
 /obj/item/mod/module/drill/on_activation()
 	. = ..()

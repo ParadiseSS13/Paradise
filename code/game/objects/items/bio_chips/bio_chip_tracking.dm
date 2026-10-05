@@ -3,6 +3,7 @@
 	desc = "Track with this."
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
+	materials = list(MAT_METAL = 500)
 	implant_data = /datum/implant_fluff/tracking
 	implant_state = "implant-nanotrasen"
 	var/warn_cooldown = 0

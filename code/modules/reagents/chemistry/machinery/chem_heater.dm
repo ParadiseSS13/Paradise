@@ -29,6 +29,13 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		speed_increase += 20 * (M.rating - 1)
 
+/obj/machinery/chem_heater/AltClick(mob/user, modifiers)
+	if(!Adjacent(user))
+		return
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	eject_beaker(user)
+
 /obj/machinery/chem_heater/process()
 	..()
 	if(stat & (NOPOWER|BROKEN))
@@ -49,7 +56,7 @@
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
-		if(user && Adjacent(user) && !issilicon(user))
+		if(user && Adjacent(user) && !issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
 			user.put_in_hands(beaker)
 		beaker = null
 		icon_state = "mixer0b"

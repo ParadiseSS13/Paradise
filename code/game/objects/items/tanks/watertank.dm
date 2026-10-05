@@ -12,13 +12,14 @@
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
 	var/obj/item/noz
 	var/on = FALSE
 	var/volume = 500
 
-/obj/item/watertank/New()
-	..()
+/obj/item/watertank/Initialize(mapload)
+	. = ..()
 	create_reagents(volume)
 	noz = make_noz()
 
@@ -95,11 +96,12 @@
 				H.put_in_l_hand(src)
 	return
 
-/obj/item/watertank/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W == noz)
-		remove_noz()
-		return
-	..()
+/obj/item/watertank/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used != noz)
+		return ..()
+
+	remove_noz()
+	return ITEM_INTERACT_COMPLETE
 
 // This mister item is intended as an extension of the watertank and always attached to it.
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
@@ -156,8 +158,8 @@
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
 
-/obj/item/watertank/janitor/New()
-	..()
+/obj/item/watertank/janitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("cleaner", 500)
 
 /obj/item/reagent_containers/spray/mister/janitor
@@ -186,8 +188,8 @@
 	worn_icon_state = "waterbackpackatmos"
 	inhand_icon_state = "waterbackpackatmos"
 
-/obj/item/watertank/atmos/New()
-	..()
+/obj/item/watertank/atmos/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("water", 500)
 
 /obj/item/watertank/atmos/make_noz()

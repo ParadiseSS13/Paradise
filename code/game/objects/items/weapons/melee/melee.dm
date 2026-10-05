@@ -3,6 +3,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	needs_permit = TRUE
+	var/drawing_rune = FALSE
 
 // MARK: CAPTAIN'S SABER
 /obj/item/melee/saber
@@ -399,14 +400,14 @@
 /obj/item/melee/breach_cleaver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_wielded = force_wield, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/breach_cleaver/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='notice'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+		. += SPAN_NOTICE("When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
-			and harm intent deals heavy damage.</span>"
+			and harm intent deals heavy damage.")
 
 /obj/item/melee/breach_cleaver/examine_more(mob/user)
 	. = ..()
@@ -593,3 +594,34 @@
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE
+
+// MARK: KATANA
+/obj/item/katana
+	name = "katana"
+	desc = "Woefully underpowered in D20."
+	icon = 'icons/obj/weapons/melee.dmi'
+	icon_state = "katana"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 // Look, you can strap it to your back. You can strap it to your waist too.
+	force = 40
+	throwforce = 10
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
+	resistance_flags = FIRE_PROOF
+	needs_permit = TRUE
+
+	new_attack_chain = TRUE
+
+/obj/item/katana/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+
+/obj/item/katana/suicide_act(mob/user)
+	user.visible_message(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
+	return BRUTELOSS

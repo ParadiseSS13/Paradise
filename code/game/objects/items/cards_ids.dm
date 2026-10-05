@@ -128,8 +128,8 @@
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
-/obj/item/card/id/New()
-	..()
+/obj/item/card/id/Initialize(mapload)
+	. = ..()
 	spawn(30)
 		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
@@ -188,6 +188,14 @@
 		victim.remove_status_effect(STATUS_EFFECT_OFFERING_EFTPOS)
 		eftpos.scan_card(src, user)
 		return ITEM_INTERACT_COMPLETE
+	if(victim.has_status_effect(STATUS_EFFECT_OFFERING_BARCODE_SCANNER))
+		var/obj/item/barcodescanner/scanner = victim.is_holding_item_of_type(/obj/item/barcodescanner)
+		if(!scanner)
+			to_chat(user, SPAN_WARNING("They don't seem to have it in hand anymore."))
+			return ITEM_INTERACT_COMPLETE
+		victim.remove_status_effect(STATUS_EFFECT_OFFERING_BARCODE_SCANNER)
+		scanner.scanID(src, user)
+		return ITEM_INTERACT_COMPLETE
 	return NONE
 
 /obj/item/card/id/proc/UpdateName()
@@ -197,7 +205,7 @@
 	if(!H || !H.dna)
 		return
 
-	sex = capitalize(H.gender)
+	sex = H.gender == PLURAL ? "Genderless" : capitalize(H.gender)
 	age = H.age
 	blood_type = H.dna.blood_type
 	dna_hash = H.dna.unique_enzymes
@@ -403,9 +411,9 @@
 	registered_name = "Captain"
 	assignment = "Captain"
 
-/obj/item/card/id/captains_spare/New()
+/obj/item/card/id/captains_spare/Initialize(mapload)
+	. = ..()
 	access = get_all_accesses()
-	..()
 
 /obj/item/card/id/admin
 	name = "admin ID card"
@@ -415,9 +423,9 @@
 	assignment = "Testing Shit"
 	untrackable = TRUE
 
-/obj/item/card/id/admin/New()
+/obj/item/card/id/admin/Initialize(mapload)
+	. = ..()
 	access = get_absolutely_all_accesses()
-	..()
 
 /obj/item/card/id/centcom
 	name = "central command ID card"
@@ -426,9 +434,9 @@
 	registered_name = "Central Command"
 	assignment = "General"
 
-/obj/item/card/id/centcom/New()
+/obj/item/card/id/centcom/Initialize(mapload)
+	. = ..()
 	access = get_all_centcom_access()
-	..()
 
 // MARK: Security
 /obj/item/card/id/prisoner
@@ -482,8 +490,8 @@
 	registered_name = "Prisoner #13-007"
 
 /obj/item/card/id/prisoner/random
-/obj/item/card/id/prisoner/random/New()
-	..()
+/obj/item/card/id/prisoner/random/Initialize(mapload)
+	. = ..()
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name
@@ -643,7 +651,7 @@
 	icon_state = "HoP"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS, ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS,
 				ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_ENGINEERING_GENERAL,
-				ACCESS_MORGUE, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, 
+				ACCESS_MORGUE, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS,
 				ACCESS_INTERNAL_AFFAIRS, ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 				ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
@@ -978,7 +986,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nctrainer")
+	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "smith", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nctrainer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom", "blueshield", "magistrate", "ntrep", "ERT_leader", "ERT_empty", "ERT_security", "ERT_engineering", "ERT_medical", "ERT_janitorial", "ERT_paranormal", "deathsquad", "commander", "syndie", "TDred", "TDgreen")

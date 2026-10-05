@@ -42,6 +42,7 @@
 	overlay_state_active = "module_defibrillator_active"
 	incompatible_modules = list(/obj/item/mod/module/defibrillator)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
 	. = ..()
@@ -122,6 +123,7 @@
 	incompatible_modules = list(/obj/item/mod/module/monitor)
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
 	var/datum/ui_module/crew_monitor/mod/crew_monitor
 
 
@@ -131,3 +133,62 @@
 
 /obj/item/mod/module/monitor/on_use()
 	crew_monitor.ui_interact(mod.wearer)
+
+/// Health Analyzer - Gives the suit an extendable health analyzer, able to be upgraded
+/obj/item/mod/module/analyzer
+	name = "MOD health analyzer"
+	desc = "A module installed into the palm of the suit, allows the deployment of a typical upgradable health analyzer."
+	icon_state = "health"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN
+	device = /obj/item/healthanalyzer/mod
+	incompatible_modules = list(/obj/item/mod/module/analyzer)
+	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
+
+/obj/item/healthanalyzer/mod
+	name = "MOD health analyzer"
+	desc = "A integrated body scanner that allows the user to scan vital signs of a patient."
+	flags = NODROP
+
+/obj/item/mod/module/cbrn
+	name = "CBRN Protection System"
+	desc = "An active protection system that forms a complete biological shield around the wearer when active, \
+		greatly limiting movement and spiking power usage to completely protect against chemical, biological, radiological, and nuclear hazards."
+	icon_state = "cbrn"
+	module_type = MODULE_TOGGLE
+	cooldown_time = 0.5 SECONDS
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 6 // Eats power for its protection
+	incompatible_modules = list(/obj/item/mod/module/cbrn)
+	removable = FALSE // Exclusive to the CMO suit
+	materials = list(MAT_METAL = 15000, MAT_TITANIUM = 5000, MAT_URANIUM = 5000)
+	/// Speed lowered to the control unit.
+	var/speed_lowered = 0.15
+	/// Original armor of the suit, simpler solution to resolve subtracting infinities
+	var/original_armor = null
+
+/obj/item/mod/module/cbrn/on_activation()
+	. = ..()
+	if(!.)
+		return
+	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(mod.wearer, SPAN_NOTICE("Environmental protection enabled, biological shield raised, mobility decreased."))
+	var/list/parts = mod.mod_parts + mod
+	for(var/obj/item/part as anything in parts)
+		original_armor = part.armor
+		part.armor = part.armor.modifyRating(0, 0, 0, 0, 10, INFINITY, 0, INFINITY, 0) // due to infinities and non-zeros, attach and detach wont work, there is probably a much better solution
+		part.slowdown += (speed_lowered)
+
+/obj/item/mod/module/cbrn/on_deactivation(display_message = TRUE, deleting = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(!deleting)
+		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(mod.wearer, SPAN_NOTICE("Environmental protection disabled, biological shield lowered, mobility increased."))
+	var/list/parts = mod.mod_parts + mod
+	for(var/obj/item/part as anything in parts)
+		part.armor = original_armor
+		part.slowdown -= (speed_lowered)
+

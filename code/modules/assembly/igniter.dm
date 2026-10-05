@@ -2,7 +2,7 @@
 	name = "igniter"
 	desc = "A small electronic device able to ignite combustible substances."
 	icon_state = "igniter"
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	origin_tech = "magnets=1"
 	var/datum/effect_system/spark_spread/sparks
 
@@ -57,9 +57,10 @@
 
 	return TRUE
 
-/obj/item/assembly/igniter/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/assembly/igniter/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -82,10 +83,10 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/assembly/igniter/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/igniter/activate_self(mob/user)
+	. = ..()
 	if(!istype(loc, /obj/item/assembly_holder))
 		activate()
-	add_fingerprint(user)
 
 /obj/item/assembly/igniter/get_heat()
 	return 2000

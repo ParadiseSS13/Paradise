@@ -117,11 +117,13 @@
 	var/list/crew_roles = list(
 		SPECIAL_ROLE_BLOB,
 		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_ACOLYTE,
 		SPECIAL_ROLE_CHANGELING,
 		SPECIAL_ROLE_ERT,
 		SPECIAL_ROLE_HEAD_REV,
 		SPECIAL_ROLE_REV,
 		SPECIAL_ROLE_TRAITOR,
+		SPECIAL_ROLE_HERETIC,
 		SPECIAL_ROLE_VAMPIRE,
 		SPECIAL_ROLE_VAMPIRE_THRALL,
 		SPECIAL_ROLE_DEATHSQUAD
@@ -468,7 +470,7 @@
 	set hidden = 1
 
 	if(can_change_intents)
-		if(ishuman(src) || isalienadult(src) || isbrain(src))
+		if(ishuman(src) || isalienadult(src) || isbrain(src) || isflockmob(src))
 			switch(input)
 				if(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					a_intent = input
@@ -764,6 +766,47 @@
 		newphrase += newletter
 		counter -= 1
 	return newphrase.Join("")
+
+/proc/hereticslur(phrase)
+	phrase = html_decode(phrase)
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/list/newphrase = list()
+	var/newletter
+	while(counter >= 1)
+		newletter = copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
+		if(prob(50))
+			if(lowertext(newletter) == "o")
+				newletter = "u"
+			if(lowertext(newletter) == "t")
+				newletter = "ch"
+			if(lowertext(newletter) == "a")
+				newletter = "ah"
+			if(lowertext(newletter) == "i")
+				newletter = "ks"
+			if(lowertext(newletter) == "c")
+				newletter = "th"
+			if(lowertext(newletter) == "m")
+				newletter = "nth"
+		if(prob(25))
+			if(newletter == " ")
+				newletter = " endless... "
+			if(newletter == "H")
+				newletter = " THE HANDS... "
+			if(newletter == "h")
+				newletter = " BRIGHT "
+			if(newletter == "s")
+				newletter = " LEAK "
+			if(newletter == "r")
+				newletter = " CRACK "
+
+		if(prob(33.33))
+			newletter = pick("'", "br", "th", "see", "etch")
+
+		newphrase += newletter
+		counter -= 1
+	return newphrase.Join("")
+
 
 // Why does this exist?
 /mob/proc/get_preference(toggleflag)

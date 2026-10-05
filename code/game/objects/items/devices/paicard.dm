@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
+	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/radio
@@ -16,13 +17,14 @@
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	var/current_emotion = 1
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	new_attack_chain = TRUE
 
 /obj/item/paicard/syndicate
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
-/obj/item/paicard/New()
-	..()
+/obj/item/paicard/Initialize(mapload)
+	. = ..()
 	overlays += "pai-off"
 
 /obj/item/paicard/Destroy()
@@ -32,10 +34,11 @@
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/item/paicard/attack_self__legacy__attackchain(mob/user)
+/obj/item/paicard/activate_self(mob/user)
 	if(!in_range(src, user))
-		return
+		return ..()
 	user.set_machine(src)
+	add_fingerprint(user)
 	var/dat = {"
 		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
 		<html><meta charset='utf-8'>
@@ -226,7 +229,7 @@
 			"}
 	user << browse(dat, "window=paicard")
 	onclose(user, "paicard")
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paicard/Topic(href, href_list)
 
@@ -289,7 +292,7 @@
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")
 			to_chat(pai, "Prime Directive: <br>[pai.pai_law0]")
 			to_chat(pai, "Supplemental Directives: <br>[pai.pai_laws]")
-	attack_self__legacy__attackchain(usr)
+	activate_self(usr)
 
 // 		WIRE_SIGNAL = 1
 //		WIRE_RECEIVE = 2

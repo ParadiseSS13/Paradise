@@ -51,6 +51,15 @@ GLOBAL_PROTECT(log_end)
 	if(GLOB.configuration.logging.vote_logging)
 		rustlibs_log_write(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
+/proc/log_dynamic(text, important = FALSE)
+	log_game("Dynamic: [text]")
+	var/datum/game_mode/dynamic/dynamic = SSticker.mode
+	if(!istype(dynamic))
+		return
+	if(important)
+		log_debug("\[Dynamic\] [text]")
+	dynamic.dynamic_log += text
+
 /proc/log_if_mismatch(mob/who, message, automatic = FALSE)
 	if(istype(usr, /mob) && istype(who) && usr.last_known_ckey != who.last_known_ckey)
 		if(automatic)
@@ -241,6 +250,9 @@ GLOBAL_PROTECT(log_end)
 /* For logging round startup. */
 /proc/start_log(log)
 	rustlibs_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
+
+/proc/log_heretic_knowledge(log)
+	rustlibs_log_write(GLOB.world_game_log, "Heretic knowledge log: [log]")
 
 // Helper procs for building detailed log lines
 

@@ -25,6 +25,17 @@
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
+/datum/supply_packs/organic/liquid_food
+	name = "LiquidFood Ration Crate"
+	contains = list(/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood)
+	cost = 500
+	containername = "Ration crate"
+
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
@@ -232,6 +243,15 @@
 	containertype = /obj/structure/closet/critter/pig
 	containername = "pig crate"
 
+/datum/supply_packs/organic/isopod
+	name = "Ahuitz Crate"
+	cost = 100
+	contains_special = list(
+		"Ahuitz"
+	)
+	containertype = /obj/structure/closet/critter/isopod
+	containername = "ahuitz crate"
+
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
 	cost = 100
@@ -279,6 +299,15 @@
 	contains = list(/obj/item/petcollar,
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
+
+/datum/supply_packs/organic/isopod_small
+	name = "Deverka Crate"
+	cost = 300
+	contains_special = list(
+		"Deverka"
+	)
+	containertype = /obj/structure/closet/critter/isopod_small
+	containername = "deverka crate"
 
 /datum/supply_packs/organic/pug
 	name = "Pug Crate"

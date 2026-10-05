@@ -23,7 +23,8 @@ CONTENTS:
 /obj/item/abductor
 	name = "generic abductor item"
 	icon = 'icons/obj/abductor.dmi'
-	desc = "You are not supposed to be able to see this. If you can see this, please make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
+	new_attack_chain = TRUE
 
 /obj/item/abductor/proc/AbductorCheck(user)
 	if(isabductor(user))
@@ -193,17 +194,25 @@ CONTENTS:
 	icon_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/abductor/silencer/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/abductor/silencer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!AbductorCheck(user))
-		return
-	radio_off(M, user)
+		return NONE
 
-/obj/item/abductor/silencer/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
-	if(flag)
-		return
-	if(!AbductorCheck(user))
-		return
+	if(!ismob(target))
+		return NONE
+
 	radio_off(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/abductor/silencer/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!AbductorCheck(user))
+		return NONE
+
+	if(!ismob(target))
+		return NONE
+
+	radio_off(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
 	if(!(user in (viewers(7, target))))
@@ -250,9 +259,10 @@ CONTENTS:
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	var/mode = BATON_STUN
+	new_attack_chain = TRUE
 
 /obj/item/abductor_baton/proc/toggle(mob/living/user = usr)
-	mode = (mode+1)%BATON_MODES
+	mode = (mode + 1) % BATON_MODES
 	var/txt
 	switch(mode)
 		if(BATON_STUN)
@@ -279,39 +289,45 @@ CONTENTS:
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
 
-/obj/item/abductor_baton/attack__legacy__attackchain(mob/target, mob/living/user)
-	if(!isabductor(user))
-		return
+/obj/item/abductor_baton/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
+	if(!isabductor(user))
+		return FINISH_ATTACK
 
 	if(!isliving(target))
-		return
+		return FINISH_ATTACK
 
-	var/mob/living/L = target
+/obj/item/abductor_baton/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!ismob(target))
+		return ..()
 
-	user.do_attack_animation(L)
+	user.do_attack_animation(target)
 
-	if(isrobot(L))
-		L.apply_damage(80, STAMINA) //Force a reboot on two hits for consistency.
-		return
+	if(isrobot(target))
+		target.apply_damage(80, STAMINA) // Force a reboot on two hits for consistency.
+		return FINISH_ATTACK
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
-			return 0
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		if(human_target.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			playsound(target, 'sound/weapons/genhit.ogg', 50, 1)
+			return NONE
 
 	switch(mode)
 		if(BATON_STUN)
-			StunAttack(L,user)
+			StunAttack(target, user)
 		if(BATON_SLEEP)
-			SleepAttack(L,user)
+			SleepAttack(target, user)
 		if(BATON_CUFF)
-			CuffAttack(L,user)
+			CuffAttack(target, user)
 		if(BATON_PROBE)
-			ProbeAttack(L,user)
+			ProbeAttack(target, user)
 
-/obj/item/abductor_baton/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/abductor_baton/activate_self(mob/living/user)
+	if(!user)
+		return ..()
 	toggle(user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -325,8 +341,10 @@ CONTENTS:
 	L.apply_damage(80, STAMINA)
 	L.Stuttering(14 SECONDS)
 
-	L.visible_message(SPAN_DANGER("[user] has stunned [L] with [src]!"), \
-							SPAN_USERDANGER("[user] has stunned you with [src]!"))
+	L.visible_message(
+		SPAN_DANGER("[user] has stunned [L] with [src]!"),
+		SPAN_USERDANGER("[user] has stunned you with [src]!")
+	)
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
 	add_attack_logs(user, L, "Stunned with [src]")
@@ -338,12 +356,16 @@ CONTENTS:
 	if((C.getStaminaLoss() < 100) && !C.IsSleeping())
 		C.AdjustDrowsy(2 SECONDS)
 		to_chat(user, SPAN_WARNING("Sleep inducement works fully only on stunned or asleep specimens!"))
-		C.visible_message(SPAN_DANGER("[user] tried to induce sleep in [L] with [src]!"), \
-						SPAN_USERDANGER("You suddenly feel drowsy!"))
+		C.visible_message(
+			SPAN_DANGER("[user] tried to induce sleep in [L] with [src]!"),
+			SPAN_USERDANGER("You suddenly feel drowsy!")
+		)
 		return
 	if(do_mob(user, C, 2.5 SECONDS))
-		C.visible_message(SPAN_DANGER("[user] has induced sleep in [L] with [src]!"), \
-							SPAN_USERDANGER("You suddenly feel very drowsy!"))
+		C.visible_message(
+			SPAN_DANGER("[user] has induced sleep in [L] with [src]!"),
+			SPAN_USERDANGER("You suddenly feel very drowsy!")
+		)
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		C.Sleeping(120 SECONDS)
 		add_attack_logs(user, C, "Put to sleep with [src]")
@@ -354,8 +376,10 @@ CONTENTS:
 	var/mob/living/carbon/C = L
 	if(!C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-		C.visible_message(SPAN_DANGER("[user] begins restraining [C] with [src]!"), \
-								SPAN_USERDANGER("[user] begins shaping an energy field around your hands!"))
+		C.visible_message(
+			SPAN_DANGER("[user] begins restraining [C] with [src]!"),
+			SPAN_USERDANGER("[user] begins shaping an energy field around your hands!")
+		)
 		if(do_mob(user, C, 3 SECONDS))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy(C)
@@ -374,7 +398,7 @@ CONTENTS:
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		species = "<span clas=='notice'>[H.dna.species.name]</span>"
+		species = SPAN_NOTICE("[H.dna.species.name]")
 		if(IS_CHANGELING(L))
 			species = SPAN_WARNING("Changeling lifeform")
 		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
@@ -443,12 +467,12 @@ CONTENTS:
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
 
-/obj/item/abductor/gizmo/attack_self__legacy__attackchain(mob/user)
+/obj/item/abductor/gizmo/activate_self(mob/user)
 	if(!ScientistCheck(user))
-		return
+		return ..()
 	if(!console)
 		to_chat(user, SPAN_WARNING("The device is not linked to a console!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(mode == GIZMO_SCAN)
 		mode = GIZMO_MARK
@@ -458,33 +482,41 @@ CONTENTS:
 		icon_state = "gizmo_scan"
 	to_chat(user, SPAN_NOTICE("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
-/obj/item/abductor/gizmo/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/abductor/gizmo/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return NONE
+
 	if(!ScientistCheck(user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!console)
 		to_chat(user, SPAN_WARNING("The device is not linked to console!"))
-		return
-
-	switch(mode)
-		if(GIZMO_SCAN)
-			scan(M, user)
-		if(GIZMO_MARK)
-			mark(M, user)
-
-/obj/item/abductor/gizmo/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
-	if(flag)
-		return
-	if(!ScientistCheck(user))
-		return
-	if(!console)
-		to_chat(user, SPAN_WARNING("The device is not linked to console!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	switch(mode)
 		if(GIZMO_SCAN)
 			scan(target, user)
 		if(GIZMO_MARK)
 			mark(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/abductor/gizmo/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return NONE
+
+	if(!ScientistCheck(user))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!console)
+		to_chat(user, SPAN_WARNING("The device is not linked to console!"))
+		return ITEM_INTERACT_COMPLETE
+
+	switch(mode)
+		if(GIZMO_SCAN)
+			scan(target, user)
+		if(GIZMO_MARK)
+			mark(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
@@ -505,7 +537,7 @@ CONTENTS:
 		prepare(target,user)
 
 /obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
-	if(get_dist(target,user)>1)
+	if(get_dist(target,user) > 1)
 		to_chat(user, SPAN_WARNING("You need to be next to the specimen to prepare it for transport!"))
 		return
 	to_chat(user, SPAN_NOTICE("You begin preparing [target] for transport..."))
@@ -525,7 +557,10 @@ CONTENTS:
 	inhand_icon_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
-/obj/item/abductor/mind_device/attack_self__legacy__attackchain(mob/user)
+/obj/item/abductor/mind_device/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!ScientistCheck(user))
 		return
 
@@ -537,15 +572,19 @@ CONTENTS:
 		icon_state = "mind_device_message"
 	to_chat(user, SPAN_NOTICE("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
 
-/obj/item/abductor/mind_device/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return NONE
+
 	if(!ScientistCheck(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	switch(mode)
 		if(MIND_DEVICE_CONTROL)
 			mind_control(target, user)
 		if(MIND_DEVICE_MESSAGE)
 			mind_message(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
 	if(iscarbon(target))
@@ -583,7 +622,7 @@ CONTENTS:
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, SPAN_ITALICS("You hear a voice in your head saying: </span><span class='abductor'>[message]"))
+		to_chat(L, "[SPAN_ITALICS("You hear a voice in your head saying:")] [SPAN_ABDUCTOR(message)]")
 		to_chat(user, SPAN_NOTICE("You send the message to your target."))
 		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
 
@@ -628,6 +667,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/wrench/abductor
 	name = "alien wrench"
@@ -637,6 +677,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"
@@ -650,6 +691,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	requires_fuel = FALSE
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/crowbar/abductor
 	name = "alien crowbar"
@@ -660,6 +702,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/wirecutters/abductor
 	name = "alien wirecutters"
@@ -669,6 +712,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/wirecutters/abductor/Initialize(mapload)
 	. = ..()
@@ -682,6 +726,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/multitool/abductor/Initialize(mapload)
 	. = ..()
@@ -701,7 +746,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
+	new /obj/item/stack/cable_coil/rcl(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /////////////////////////////////////////
@@ -714,6 +759,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "scalpel"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/hemostat/alien
 	name = "alien hemostat"
@@ -722,6 +768,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2500)
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/retractor/alien
 	name = "alien retractor"
@@ -730,6 +777,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 3000)
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/circular_saw/alien
 	name = "alien saw"
@@ -737,6 +785,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 
 /obj/item/surgicaldrill/alien
 	name = "alien drill"
@@ -744,6 +793,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 
 /obj/item/bonegel/alien
 	name = "alien bone gel"
@@ -751,6 +801,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/fix_o_vein/alien
 	name = "alien FixOVein"
@@ -758,6 +809,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/bonesetter/alien
 	name = "alien bone setter"
@@ -765,6 +817,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /////////////////////////////////////////
 //////////// JANITORIAL TOOLS ///////////
@@ -778,6 +831,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
 	mopspeed = 10
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 
 /obj/item/soap/syndie/abductor
 	name = "alien soap"
@@ -793,6 +847,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "magnets=3;engineering=4;abductor=2"
 	max_uses = 40
 	uses = 20
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 
 /obj/item/melee/flyswatter/abductor
 	name = "alien flyswatter"
@@ -802,6 +857,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "abductor=1"
 	force = 2 // Twice as powerful thanks to alien technology!
 	throwforce = 2
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 
 /obj/item/reagent_containers/spray/cleaner/safety/abductor	// Essentially an Advanced Space Cleaner, but abductor-themed. For the implant.
 	name = "alien space cleaner"

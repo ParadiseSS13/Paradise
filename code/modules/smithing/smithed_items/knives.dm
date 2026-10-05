@@ -3,10 +3,10 @@
 	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/smithing.dmi'
 	icon_state = "debug"
+	inhand_icon_state = "knife"
 	slot_flags = ITEM_SLOT_BELT
 	embedded_ignore_throwspeed_threshold = TRUE
 
-	new_attack_chain = TRUE
 	/// The quality of the item
 	var/datum/smith_quality/quality
 	/// The material of the item

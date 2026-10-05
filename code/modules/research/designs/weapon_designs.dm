@@ -18,7 +18,7 @@
 	id = "decloner"
 	req_tech = list("combat" = 5, "materials" = 5, "biotech" = 6, "plasmatech" = 7)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 10000)
 	build_path = /obj/item/weaponcrafting/gunkit/decloner
 	category = list("Weapons")
 

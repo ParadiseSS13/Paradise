@@ -75,6 +75,14 @@
 				log_admin("[key_name(usr)] has spawned event characters.")
 				if(!makeEventCharacters())
 					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
+			if("10")
+				log_admin("[key_name(usr)] has spawned heretics.")
+				if(!makeHeretics())
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
+			if("11")
+				log_admin("[key_name(usr)] has spawned acolytes.")
+				if(!makeAcolytes())
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -219,6 +227,7 @@
 							jobs_to_ban += temp.title
 					if("nonhumandept")
 						jobs_to_ban += "pAI"
+						jobs_to_ban += ROLE_GOLEM
 						for(var/jobPos in GLOB.nonhuman_positions)
 							if(!jobPos)	continue
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
@@ -494,6 +503,7 @@
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1)
 			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/runtime , null, null, delmob, 1)
 			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1)
+			if("ian")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi/ian , null, null, delmob, 1)
 			if("crab")				M.change_mob_type( /mob/living/basic/crab , null, null, delmob, 1)
 			if("coffee")			M.change_mob_type( /mob/living/basic/crab/coffee , null, null, delmob, 1)
 			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1)
@@ -683,7 +693,7 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Non-Human (Green)
+	// Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
@@ -703,17 +713,23 @@
 				jobs += "</tr><tr align='center'>"
 				counter = 0
 
-		//Drone
+		// Drone
 		if(jobban_isbanned(M, "Drone"))
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>Drone</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Drone</a></td>"
 
-		//pAI
+		// pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>pAI</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>pAI</a></td>"
+
+		// golem
+		if(jobban_isbanned(M, ROLE_GOLEM))
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[ROLE_GOLEM];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>golem</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[ROLE_GOLEM];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>golem</a></td>"
 
 		jobs += "</tr></table>"
 
@@ -824,6 +840,7 @@
 					joblist += temp.title
 			if("nonhumandept")
 				joblist += "pAI"
+				joblist += ROLE_GOLEM
 				for(var/jobPos in GLOB.nonhuman_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
@@ -1004,8 +1021,6 @@
 				to_chat(M, SPAN_WARNING("This is a temporary ban, it will be removed in [mins] minutes."))
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				add_note(M.last_known_ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
-				if(M.client)
-					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, SPAN_WARNING("To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]"))
 				else
@@ -1020,8 +1035,6 @@
 					return
 				to_chat(M, SPAN_WARNING("<big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big>"))
 				to_chat(M, SPAN_WARNING("This ban does not expire automatically and must be appealed."))
-				if(M.client)
-					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
 					to_chat(M, SPAN_WARNING("To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]"))
 				else
@@ -2144,7 +2157,7 @@
 					possible_guardians -= "Random"
 					scarab.possible_guardians = list()
 					scarab.possible_guardians += typechoice
-				scarab.attack_self__legacy__attackchain(H)
+				scarab.activate_self(H)
 				spawn(700)
 					qdel(scarab)
 				logmsg = "scarab guardian."

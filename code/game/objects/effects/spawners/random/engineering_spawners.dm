@@ -38,13 +38,16 @@
 			/obj/item/stack/sheet/glass,
 			/obj/item/stack/sheet/rglass,
 			/obj/item/stack/sheet/wood,
-		) = 8,
+		) = 7,
 
 		list(
 			/obj/item/stack/sheet/plastic,
 			/obj/item/stack/sheet/plasteel,
 			/obj/item/stack/sheet/mineral/plasma,
 		) = 2,
+		list(
+			/obj/item/stack/sheet/mineral/titanium
+		) = 1 //Makes the heretic knife path slightly easier. Not as useful as silver, so used in place.
 	)
 
 /obj/effect/spawner/random/engineering/materials/make_item(spawn_loc, type_path_to_make)

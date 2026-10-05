@@ -17,6 +17,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 1
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
 	/// When the mopping sound was last played.
 	COOLDOWN_DECLARE(mop_sound_cooldown)
 	/// How fast does this mop?
@@ -71,7 +72,7 @@
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
 			if(holosign_enabled)
-				holosign_controller.afterattack__legacy__attackchain(target_turf, chassis.occupant, TRUE)
+				holosign_controller.interact_with_atom(target_turf, chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -109,7 +110,7 @@
 	if(afilter.get("toggle_holosign"))
 		holosign_enabled = !holosign_enabled
 		if(!holosign_enabled)
-			holosign_controller.attack_self__legacy__attackchain(chassis.occupant)
+			holosign_controller.activate_self(chassis.occupant)
 		update_equip_info()
 		return
 
@@ -123,6 +124,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/emag_act(mob/user)
 	. = ..()
@@ -130,11 +132,11 @@
 	to_chat(user, SPAN_NOTICE("You short out the safeties on [src]."))
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/action(atom/target)
-	if(istype(target, /obj/machinery/light))
-		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	var/turf/T = get_turf(target)
+	for(var/obj/machinery/light/bulb in T)
+		chassis.Beam(bulb, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-		var/obj/machinery/light/light_to_fix = target
-		light_to_fix.fix(chassis.occupant, src, emagged)
+		bulb.fix(chassis.occupant, src, emagged)
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
@@ -144,6 +146,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 200
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 4000, MAT_GOLD = 1000, MAT_PLASMA = 3000)
 	/// Toggle for refilling itself
 	var/refill_enabled = TRUE
 	/// Rate per process() tick spray refills itself
@@ -226,6 +229,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 5
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 1500, MAT_GOLD = 1500, MAT_URANIUM = 700, MAT_PLASMA = 2000)
 	/// Toggle for filling the bag (true) or emptying (false)
 	var/bagging = TRUE
 	/// Toggle for wide area or single tile pickups
@@ -314,5 +318,5 @@
 	else // Dumping
 		for(var/obj/item/I in storage_controller.contents)
 			storage_controller.remove_from_storage(I, target_turf)
-		chassis.occupant_message("<span class='notice'>You dump everything out of [src].")
+		chassis.occupant_message(SPAN_NOTICE("You dump everything out of [src]."))
 	update_equip_info()

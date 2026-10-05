@@ -10,6 +10,7 @@
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
 	temperature_max = 350
+	materials = list(MAT_TITANIUM = 3000, MAT_GLASS = 1000)
 	var/delay = 10
 	var/ignore_flags = FALSE
 	var/applied_amount = 8 // How much it applies

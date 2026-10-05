@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	drydesc = "Whoops..."
 	icon_state = "wheels1"
 	random_icon_states = null
-	amount = 0
+	cleanable_amount = 0
 	gravity_check = ALWAYS_IN_GRAVITY
 
 /// Subtype of tracks used for decorating maps.

@@ -16,9 +16,9 @@
 	var/on_use_sound = null
 	var/datum/spell/touch/attached_spell
 
-/obj/item/melee/touch_attack/New(spell)
+/obj/item/melee/touch_attack/Initialize(mapload, spell)
+	. = ..()
 	attached_spell = spell
-	..()
 
 /obj/item/melee/touch_attack/Destroy()
 	if(attached_spell)

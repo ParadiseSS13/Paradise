@@ -118,7 +118,10 @@
 		/obj/structure/computerframe,
 		/obj/structure/displaycase,
 		/obj/structure/rack,
-		/obj/structure/closet/crate
+		/obj/structure/closet/crate,
+		/obj/machinery/atmospherics/fission_reactor,
+		/obj/machinery/atmospherics/fission_reactor/roundstart,
+		/obj/machinery/atmospherics/reactor_chamber
 	)) - typecacheof(list(
 		/obj/machinery/computer/security/telescreen,
 		/obj/machinery/computer/cryopod,
@@ -244,10 +247,12 @@
 				available_channels.Add(":n")
 			if("Medical")
 				available_channels.Add(":m")
-			if("Mining")
-				available_channels.Add(":d")
-			if("Cargo")
-				available_channels.Add(":q")
+			if("Supply")
+				available_channels.Add(":u")
+			if("Service")
+				available_channels.Add(":z")
+			if("Procedure")
+				available_channels.Add(":x")
 
 	if(ears.translate_binary)
 		available_channels.Add(":b")
@@ -756,7 +761,6 @@
 		"The reactor is going supercritical!",
 		"Danger! Reactor core chamber meltdown in progress! Integrity: 79.47%"
 		)
-	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	available_channels = list(":e")
 

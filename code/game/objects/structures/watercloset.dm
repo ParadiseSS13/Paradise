@@ -538,7 +538,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 	if(user.hand)
 		temp = user.bodyparts_by_name["l_hand"]
 	if(temp && !temp.is_usable())
-		to_chat(user, "<span class='notice'>You try to move your [temp], but cannot!")
+		to_chat(user, SPAN_USERDANGER("You try to move your [temp], but cannot!"))
 		return
 	if(sink_flags & SINK_BUSY)
 		to_chat(user, SPAN_NOTICE("Someone's already washing here."))
@@ -720,8 +720,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink/kitchen/old, 18, -4, 0, 0
 	result = /obj/structure/sink
 	result_name = "sink"
 
-/obj/item/bathroom_parts/New()
-	..()
+/obj/item/bathroom_parts/Initialize(mapload)
+	. = ..()
 	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
 
 /obj/item/bathroom_parts/activate_self(mob/user)

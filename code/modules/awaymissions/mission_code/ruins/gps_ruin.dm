@@ -11,7 +11,7 @@
 	gpstag = "Unknown Signal"
 
 /obj/item/gps/ruin/attack_hand(mob/user)
-	attack_self__legacy__attackchain(user)
+	ui_interact(user)
 
 /obj/item/gps/ruin/mining_base
 	gpstag = "Nanotrasen Mining Outpost"

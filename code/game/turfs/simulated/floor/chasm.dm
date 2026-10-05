@@ -1,6 +1,6 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "A hole in the ground that's so deep that you can't see the bottom. Watch your step."
 	baseturf = /turf/simulated/floor/chasm
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-255"
@@ -11,6 +11,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = 1.7
 	intact = 0
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
@@ -219,8 +220,10 @@
 	if(!AM || QDELETED(AM))
 		return
 	falling_atoms[AM] = TRUE
-	AM.visible_message(SPAN_BOLDWARNING("[AM] falls into [src]!"), "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
-	into the enveloping dark.</span>")
+	AM.visible_message(
+		SPAN_BOLDWARNING("[AM] falls into [src]!"),
+		SPAN_USERDANGER("You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark.")
+	)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE

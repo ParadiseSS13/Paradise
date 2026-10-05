@@ -317,7 +317,11 @@
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		return ITEM_INTERACT_COMPLETE
-
+	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
+		if(!do_after_once(user, 2.5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+			return ITEM_INTERACT_COMPLETE
+		open()
+		return ITEM_INTERACT_COMPLETE
 	add_fingerprint(user)
 	return ..()
 
@@ -524,3 +528,8 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+
+/obj/machinery/door/window/rust_heretic_act()
+	color = COLOR_RUSTED_GLASS
+	take_damage(obj_integrity * 0.5)
+	max_integrity = max_integrity * 0.5

@@ -2,7 +2,6 @@
 	name = "brain"
 	max_damage = 120
 	icon_state = "brain2"
-	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "biotech=5"

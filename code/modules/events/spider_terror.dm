@@ -1,4 +1,5 @@
 #define TS_HIGHPOP_TRIGGER 80
+#define TS_MIDPOP_TRIGGER 45
 
 /datum/event/spider_terror
 	name = "terror spiders"
@@ -6,9 +7,11 @@
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_DISASTER
 	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 0.8, ASSIGNMENT_MEDICAL = 2.5)
-	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 45, ASSIGNMENT_MEDICAL = 4)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 30, ASSIGNMENT_MEDICAL = 4)
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	/// Specific type of terror spawn
+	var/infestation_type
 
 /datum/event/spider_terror/setup()
 	announceWhen = rand(announceWhen, announceWhen + 30)
@@ -36,11 +39,13 @@
 
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
-	var/infestation_type
-	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
-		infestation_type = pick(TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER)
-	else
-		infestation_type = pick(TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+	if(!infestation_type)
+		if((length(GLOB.clients)) < TS_MIDPOP_TRIGGER)
+			infestation_type = pick(TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER)
+		else if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
+			infestation_type = pick(TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER)
+		else
+			infestation_type = pick(TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
 	switch(infestation_type)
 		if(TS_INFESTATION_PRINCE_SPIDER)
 			// Fairly weak. Dangerous in single combat but has little staying power. Always gets whittled down.
@@ -82,4 +87,21 @@
 	SSticker.record_biohazard_start(infestation_type)
 	SSevents.biohazards_this_round += infestation_type
 
+/datum/event/spider_terror/prince
+	name = "terror prince"
+	infestation_type = TS_INFESTATION_PRINCE_SPIDER
+
+/datum/event/spider_terror/white
+	name = "white terror spiders"
+	infestation_type = TS_INFESTATION_WHITE_SPIDER
+
+/datum/event/spider_terror/princess
+	name = "princess terror spiders"
+	infestation_type = TS_INFESTATION_PRINCESS_SPIDER
+
+/datum/event/spider_terror/queen
+	name = "queen of terror spiders"
+	infestation_type = TS_INFESTATION_QUEEN_SPIDER
+
 #undef TS_HIGHPOP_TRIGGER
+#undef TS_MIDPOP_TRIGGER

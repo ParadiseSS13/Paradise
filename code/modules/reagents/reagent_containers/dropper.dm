@@ -11,6 +11,7 @@
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
+	materials = list(MAT_GLASS = 2000)
 	/// How long it takes to drip the contents into someone's eyes.
 	var/mob_drip_delay = 3 SECONDS
 

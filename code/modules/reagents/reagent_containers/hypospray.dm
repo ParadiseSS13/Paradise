@@ -12,6 +12,7 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	/// If TRUE, the hypospray can inject any clothing without TRAIT_HYPOSPRAY_IMMUNE.
 	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
@@ -26,7 +27,7 @@
 									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
 									"mutadone", "sanguine_reagent", "iron", "ephedrine", "heparin", "corazone", "sodiumchloride",
-									"lavaland_extract", "synaptizine", "bicaridine", "kelotane")
+									"lavaland_extract", "synaptizine", "bicaridine", "kelotane", "vaccine")
 
 /obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
@@ -167,9 +168,9 @@
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
-	. += "Nanotrasen's version sports a chemical reserviour over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armour, this \
-	pressurised jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
-	It is also able to interface with the autoinjector ports found on mordern hardsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
+	. += "Nanotrasen's version sports a chemical reservoir over three times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armor. This \
+	pressurized jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
+	It is also able to interface with the autoinjector ports found on modern hardsuits and MODsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
 	. += ""
 	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
@@ -237,11 +238,15 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
-	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. <br><span class='boldwarning'>WARNING: Do not inject more than one pen in quick succession.</span>"
+	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards."
 	icon_state = "survpen"
 	volume = 42
 	amount_per_transfer_from_this = 42
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5)
+
+/obj/item/reagent_containers/hypospray/autoinjector/survival/examine()
+	. = ..()
+	. += SPAN_BOLDWARNING("WARNING: Do not inject more than one pen in quick succession.")
 
 /obj/item/reagent_containers/hypospray/autoinjector/emergency_nuclear
 	name = "emergency stabilization medipen"
@@ -253,11 +258,15 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
-	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair.<br><span class='boldwarning'>WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!</span>"
+	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair."
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 40
 	volume = 40
 	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
+
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/examine()
+	. = ..()
+	. += SPAN_BOLDWARNING("WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!")
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/apply(mob/living/M, mob/user)
 	if(..())
@@ -293,7 +302,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	name = "suspicious medipen"
-	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse."
+	desc = "A cheap-looking medipen. It contains a wide mix of medicines to fix most health issues. The reagent list seems to match up with the chemicals stolen from a recently-raided Nanotrasen warehouse."
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37

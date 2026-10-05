@@ -2,6 +2,16 @@
 ////////////Medical Tools////////////////
 /////////////////////////////////////////
 
+/datum/design/reagent_scanner
+	name = "Reagent Scanner"
+	desc = "A device for identifying chemicals."
+	id = "reagent_scanner"
+	req_tech = list("magnets" = 2, "plasmatech" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
+	build_path = /obj/item/reagent_scanner
+	category = list("Medical")
+
 /datum/design/adv_reagent_scanner
 	name = "Advanced Reagent Scanner"
 	desc = "A device for identifying chemicals and their proportions."
@@ -59,6 +69,16 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 3000, MAT_GLASS = 1000)
 	build_path = /obj/item/reagent_containers/applicator
+	category = list("Medical")
+
+/datum/design/epidermal_applicator
+	name = "Epidermal Applicator"
+	desc = "A pen-shaped device developed by Zeng-Hu Pharmaceuticals and used to apply synthetic skin to prosthetic limbs."
+	id = "epidermal_applicator"
+	req_tech = list("biotech" = 5, "materials" = 6, "engineering" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_SILVER = 500)
+	build_path = /obj/item/epidermal_applicator
 	category = list("Medical")
 
 /datum/design/handheld_defib
@@ -207,51 +227,21 @@
 	build_path = /obj/item/stack/synthetic_skin/level_3
 	category = list("Medical")
 
-/datum/design/reagent_scanner
-	name = "Reagent Scanner"
-	desc = "A device for identifying chemicals."
-	id = "reagent_scanner"
-	req_tech = list("magnets" = 2, "plasmatech" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
-	build_path = /obj/item/reagent_scanner
-	category = list("Medical")
-
-/datum/design/scalpel_laser1
-	name = "Basic Laser Scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
-	id = "scalpel_laser1"
-	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
-	build_path = /obj/item/scalpel/laser/laser1
-	category = list("Medical")
-
-/datum/design/scalpel_laser2
-	name = "Improved Laser Scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks somewhat advanced."
-	id = "scalpel_laser2"
-	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
-	build_path = /obj/item/scalpel/laser/laser2
-	category = list("Medical")
-
-/datum/design/scalpel_laser3
-	name = "Advanced Laser Scalpel"
+/datum/design/scalpel_laser
+	name = "Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
-	id = "scalpel_laser3"
-	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	id = "scalpel_laser"
+	req_tech = list("biotech" = 4, "materials" = 5, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
-	build_path = /obj/item/scalpel/laser/laser3
+	build_path = /obj/item/scalpel/laser
 	category = list("Medical")
 
 /datum/design/scalpel_manager
 	name = "Incision Management System"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	id = "scalpel_manager"
-	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
+	req_tech = list("biotech" = 7, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/scalpel/laser/manager
@@ -829,6 +819,17 @@
 	build_path = /obj/item/organ/internal/liver/cybernetic
 	category = list("Medical")
 
+/datum/design/cybernetic_liver_u
+	name = "Upgraded Cybernetic Liver"
+	desc = "An upgraded cybernetic liver."
+	id = "cybernetic_liver_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/liver/cybernetic/upgraded
+	category = list("Medical")
+
 /datum/design/cybernetic_kidneys
 	name = "Cybernetic Kidneys"
 	desc = "A cybernetic pair of kidneys."
@@ -838,6 +839,17 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
 	build_path = /obj/item/organ/internal/kidneys/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_kidneys_u
+	name = "Upgraded Cybernetic Kidneys"
+	desc = "An upgraded cybernetic pair of kidneys."
+	id = "cybernetic_kidneys_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/kidneys/cybernetic/upgraded
 	category = list("Medical")
 
 /datum/design/cybernetic_heart

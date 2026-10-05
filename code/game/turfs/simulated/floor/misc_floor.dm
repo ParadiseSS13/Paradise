@@ -1,4 +1,6 @@
 /turf/simulated/floor/vault
+	name = "stone floor"
+	desc = "Smooth flooring carved from solid rock. It looks sturdy."
 	icon_state = "rockvault"
 
 /turf/simulated/floor/vault/lavaland_air
@@ -43,6 +45,7 @@
 
 /turf/simulated/floor/beach
 	name = "beach"
+	desc = "The sandy seaside, waves crashing, the sun shining... It's a true paradise."
 	icon = 'icons/misc/beach.dmi'
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
@@ -50,6 +53,7 @@
 
 /turf/simulated/floor/desert_sand
 	name = "sand"
+	desc = "I don't like sand... It's coarse, and rough, and irritating... And it gets everywhere."
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "desert"
 	footstep = FOOTSTEP_SAND
@@ -134,6 +138,7 @@
 
 /turf/simulated/floor/noslip
 	name = "high-traction floor"
+	desc = "Textured and rubberized flooring designed to maximize grip. You won't slip on this."
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
 	slowdown = -0.3
@@ -156,6 +161,7 @@
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
+	desc = "This floor appears to be perpetually covered in a thick layer of slippery lubricant."
 	icon_state = "tile_standard"
 
 /turf/simulated/floor/lubed/Initialize(mapload)
@@ -180,7 +186,6 @@
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
 	desc = "Tightly-pressed brass tiles. They emit minute vibration."
-	icon_state = "plating"
 	baseturf = /turf/simulated/floor/clockwork
 	var/dropped_brass
 	var/uses_overlay = TRUE
@@ -254,7 +259,7 @@
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"
-	desc = "A catwalk for easier inspection of cable and pipe installations."
+	desc = "Flooring made of a metal grid with large holes for easier inspection of cable and pipe installations."
 	icon = 'icons/turf/floors/catwalk_floor.dmi'
 	icon_state = "catwalk"
 	base_icon_state = "catwalk"
@@ -268,6 +273,19 @@
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
+	rust_resistance = RUST_RESISTANCE_BASIC
+
+/turf/simulated/floor/catwalk/grey
+	icon = 'icons/turf/floors/catwalk_floor_grey.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/grey
+
+/turf/simulated/floor/catwalk/white
+	icon = 'icons/turf/floors/catwalk_floor_white.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/white
+
+/turf/simulated/floor/catwalk/black
+	icon = 'icons/turf/floors/catwalk_floor_black.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/black
 
 /turf/simulated/floor/catwalk/Initialize(mapload)
 	. = ..()
@@ -309,14 +327,14 @@
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
 
-// Carpet used in the backrooms hallucination
 /turf/simulated/floor/backrooms_carpet
 	name = "backrooms carpet"
 	desc = "An old, musty carpet. It smells faintly mildewy."
 	icon_state = "backrooms_carpet"
 	baseturf = /turf/simulated/floor/backrooms_carpet
 
-/turf/open/floor/plating/rust
+/turf/simulated/floor/plating/rust
+// Carpet used in the backrooms hallucination
 	//SDMM supports colors, this is simply for easier mapping
 	//and should be removed on initialize
 	color = COLOR_BROWN
@@ -326,7 +344,7 @@
 	AddElement(/datum/element/rust)
 	color = null
 
-/turf/open/floor/plating/heretic_rust
+/turf/simulated/floor/plating/heretic_rust
 	color = COLOR_GREEN_GRAY
 
 /turf/simulated/floor/plating/heretic_rust/Initialize(mapload)

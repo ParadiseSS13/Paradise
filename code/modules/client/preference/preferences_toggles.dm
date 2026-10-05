@@ -470,13 +470,13 @@
 
 /datum/preference_toggle/toggle_debug_logs
 	name = "Toggle Debug Log Messages"
-	description = "Disables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
+	description = "Enables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
 	preftoggle_bitflag = PREFTOGGLE_CHAT_DEBUGLOGS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	rights_required = R_VIEWRUNTIMES | R_DEBUG
-	enable_message = "You now won't get debug logs."
-	disable_message = "You now will get debug logs."
+	enable_message = "You now will get debug logs."
+	disable_message = "You now won't get debug logs."
 	blackbox_message = "Debug logs toggled"
 
 /datum/preference_toggle/toggle_mctabs

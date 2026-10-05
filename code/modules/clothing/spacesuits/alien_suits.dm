@@ -26,6 +26,7 @@
 /obj/item/clothing/head/helmet/space/unathi
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	icon_state = null
+	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	species_restricted = list("Unathi")
 	icon_monitor = null
 	sprite_sheets = list(
@@ -40,6 +41,8 @@
 /obj/item/clothing/suit/space/unathi
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	icon_state = null
+	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	slowdown = 0
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
@@ -64,11 +67,12 @@
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing ,/obj/item/melee/baton ,/obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	icon_state = null
 	icon_monitor = null
+	slowdown = 0
 	species_restricted = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
@@ -103,6 +107,7 @@
 	name = "alien carapace armour"
 	icon_state = "vox-carapace"
 	desc = "An armoured, segmented carapace with glowing purple lights. It looks pretty run-down."
+	flags_inv = HIDEJUMPSUIT | HIDETAIL
 
 /obj/item/clothing/head/helmet/space/vox/stealth
 	name = "alien stealth helmet"
@@ -179,21 +184,23 @@
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
 	multiple_icons = FALSE
 
-/obj/item/clothing/shoes/magboots/vox/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/vox/activate_self(mob/user)
+	if(!ishuman(user))
+		return ITEM_INTERACT_COMPLETE
+
 	if(magpulse)
 		set_nodrop(FALSE, loc)
-		to_chat(user, "You relax your deathgrip on the flooring.")
+		to_chat(user, SPAN_NOTICE("You relax your deathgrip on the flooring."))
 	else
-		//make sure these can only be used when equipped.
-		if(!ishuman(user))
-			return
+		//make sure these can only be turned on when equipped.
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
 			to_chat(user, SPAN_WARNING("You will have to put on [src] before you can do that."))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		set_nodrop(TRUE, loc) //kinda hard to take off magclaws when you are gripping them tightly.
-		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
+		to_chat(user, SPAN_NOTICE("You dig your claws deeply into the flooring, bracing yourself."))
+		to_chat(user, SPAN_NOTICE("It would be hard to take off [src] without relaxing your grip first."))
 	return ..()
 
 //In case they somehow come off while enabled.

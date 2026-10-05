@@ -483,17 +483,21 @@ CREATE TABLE `vpn_whitelist` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `oauth_tokens`
+-- Table structure for table `task_queue`
 --
-DROP TABLE IF EXISTS `oauth_tokens`;
+DROP TABLE IF EXISTS `task_queue`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `oauth_tokens` (
-  `ckey` varchar(32) NOT NULL,
-  `token` varchar(32) NOT NULL,
-  PRIMARY KEY (`token`),
-  KEY `ckey` (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `task_queue` (
+	`task_id` UUID NOT NULL,
+	`task_type` VARCHAR(128) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`task_arguments` VARCHAR(128) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`date_inserted` DATETIME NOT NULL,
+	`date_processed` DATETIME NULL DEFAULT NULL,
+	`processed` TINYINT(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`task_id`) USING BTREE,
+	INDEX `processed` (`processed`) USING BTREE
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -672,11 +676,14 @@ CREATE TABLE `json_datum_saves` (
 --
 DROP TABLE IF EXISTS `bug_reports`;
 CREATE TABLE `bug_reports` (
-  `db_uid` BIGINT(32) NOT NULL,
-  `author_ckey` varchar(32) NOT NULL,
-  `title` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
-  `round_id` int(11),
-  `contents_json` LONGTEXT,
-  CONSTRAINT bug_key PRIMARY KEY (`db_uid`,`author_ckey`) USING BTREE
-
-) COLLATE = 'utf8mb4_general_ci' ENGINE = INNODB;
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `filetime` DATETIME NOT NULL DEFAULT NOW(),
+    `author_ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+    `title` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+    `round_id` INT(11) NOT NULL DEFAULT 0,
+    `contents_json` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+    `submitted` BIT(2) NOT NULL DEFAULT 0,
+	`approver_ckey` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+    PRIMARY KEY (`id`),
+    INDEX `submitted` (`submitted`)
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;

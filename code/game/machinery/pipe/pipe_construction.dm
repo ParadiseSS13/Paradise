@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		/obj/machinery/atmospherics/unary/outlet_injector = PIPE_INJECTOR,
 		/obj/machinery/atmospherics/unary/passive_vent = PIPE_PASV_VENT,
 		/obj/machinery/atmospherics/binary/circulator = PIPE_CIRCULATOR,
+		/obj/machinery/atmospherics/unary/vent_pump/high_volume = PIPE_HIGH_VOLUME_PUMP,
 		"[PIPE_JUNCTION]" = /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 		"[PIPE_HE_STRAIGHT]" = /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 		"[PIPE_HE_BENT]" = /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -76,6 +77,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		"[PIPE_INJECTOR]" = /obj/machinery/atmospherics/unary/outlet_injector,
 		"[PIPE_PASV_VENT]" = /obj/machinery/atmospherics/unary/passive_vent,
 		"[PIPE_CIRCULATOR]" = /obj/machinery/atmospherics/binary/circulator,
+		"[PIPE_HIGH_VOLUME_PUMP]" = /obj/machinery/atmospherics/unary/vent_pump/high_volume,
 ))
 
 /obj/item/pipe
@@ -84,15 +86,17 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	icon_state = "simple"
 	inhand_icon_state = "buildpipe"
 	force = 7
-	/// Will the constructed pipe be flipped
+	new_attack_chain = TRUE
+	/// Will the constructed pipe be flipped?
 	var/flipped = FALSE
-	/// The label that will be put on the constructed pipe when this is wrenched down
+	/// The label that will be put on the constructed pipe when this is wrenched down.
 	var/label = null
-	/// The type of the pipe that will be created when this is wrenched down
+	/// The type of the pipe that will be created when this is wrenched down.
 	var/makes_type = null
 	var/pipe_type = 0
 	var/pipename
-	var/list/connect_types = list(CONNECT_TYPE_NORMAL) //1=regular, 2=supply, 3=scrubber
+	// 1 = Regular, 2 = Supply, 3 = Scrubber.
+	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
 
 /obj/item/pipe/Initialize(mapload, new_pipe_type, new_dir, obj/machinery/atmospherics/make_from)
 	. = ..()
@@ -106,7 +110,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		if(make_from.initialize_directions in list(NORTH|WEST, NORTH|EAST, SOUTH|WEST, SOUTH|EAST))
 			is_bent = TRUE
 
-		// If our path is in the list use the list
+		// If our path is in the list use the list.
 		if(makes_type in GLOB.pipe_path2type)
 			pipe_type = GLOB.pipe_path2type[makes_type] + is_bent
 		// If our path isn't exactly in the list (e.g /obj/machinery/atmospherics/binary/pump/on) try and find an ancestor there
@@ -152,8 +156,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	update(make_from)
 	scatter_atom()
 
-//update the name and icon of the pipe item depending on the type
-
+// Update the name and icon of the pipe item depending on the type.
 /obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
@@ -163,7 +166,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		flip()
 
 	else if(our_rpd.mode == RPD_DELETE_MODE)
-		if(pipe_type == PIPE_CIRCULATOR) //Skip TEG heat circulators, they aren't really pipes
+		if(pipe_type == PIPE_CIRCULATOR) // Skip TEG heat circulators, they aren't really pipes.
 			return ..()
 
 		our_rpd.delete_single_pipe(user, src)
@@ -173,7 +176,8 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 /obj/item/pipe/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("Alt-click it to rotate, Alt-Shift-click it to flip!")
+	. += SPAN_NOTICE("<b>Alt-click</b> to rotate it.")
+	. += SPAN_NOTICE("<b>Alt-Shift-click</b> to flip it.")
 
 /obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -255,7 +259,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			return flip
 
 		if(PIPE_SIMPLE_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT,
-			PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_INJECTOR)
+			PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_INJECTOR, PIPE_HIGH_VOLUME_PUMP)
 			return dir
 
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_JUNCTION,
@@ -297,8 +301,10 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = SOUTH
 
-/obj/item/pipe/attack_self__legacy__attackchain(mob/user as mob)
-	return rotate()
+/obj/item/pipe/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
 	. = TRUE

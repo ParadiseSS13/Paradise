@@ -22,6 +22,10 @@
 #define BB_BASIC_MOB_FLEE_DISTANCE "BB_BASIC_FLEE_DISTANCE"
 #define DEFAULT_BASIC_FLEE_DISTANCE 9
 
+/// Path we should use next time we use the JPS movement datum
+#define BB_PATH_TO_USE "BB_path_to_use"
+/// Max path length we should use next time we use the JPS movement datum
+#define BB_PATH_MAX_LENGTH "BB_path_max_length"
 // Searching
 
 /// key holding a range to look for stuff in
@@ -221,6 +225,7 @@
 
 #define BB_TRAVEL_DESTINATION "BB_TRAVEL_DESTINATION"
 
+#define BB_SHAPESHIFT_ACTION "BB_SHAPESHIFT_ACTION"
 // Giant Spiders
 /// Our webbing target
 #define BB_SPIDER_WEB_TARGET "BB_spider_web_target"

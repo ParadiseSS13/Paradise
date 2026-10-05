@@ -1,6 +1,6 @@
 /obj/item/salvage
 	name = "salvage"
-	desc = "A tonne of salvage looted from bad mapping practices. Who spawned the base type? Report this on the github."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/sellable.dmi'
 	force = 5
 	throwforce = 5
@@ -11,15 +11,14 @@
 	drop_sound = 'sound/items/handling/salvagedrop.ogg'
 	/// How much is the salvage worth?
 	var/value = 100
+	new_attack_chain = TRUE
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("You can bring this back to Cargo to sell to Central Command onboard the 'NTV Arion' Supply shuttle.")
 
 /// Ruin Salvage, misc loot gained from looking around ruins.
-
 /obj/item/salvage/ruin
-	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
 
 /obj/item/salvage/ruin/pirate
 	name = "rum keg"
@@ -73,11 +72,14 @@
 	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 10)
 	drop_sound = sound('sound/hallucinations/look_up2.ogg', 10)
 
+/obj/item/salvage/ruin/broken_rifle
+	name = "broken rifle"
+	desc = "A battered, broken rifle. All but useless as a weapon, however it can be sold for scrap or dismantled for materials."
+	icon_state = "broken_rifle"
+	value = 50
+	materials = list(MAT_METAL = 2000, MAT_PLATINUM = 2000, MAT_IRIDIUM = 2000, MAT_PALLADIUM = 2000)
+
 /// Loot salvage, gained from fighting space simplemobs.
-
-/obj/item/salvage/loot
-	desc = "If you can see this forbidden salvage, report it on GitHub."
-
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
 	desc = "A collection of stolen jewellery and gemstones. Gold, silver, sapphire, amethyst, and more, this bounty will surely fetch a good price on the market."
@@ -109,4 +111,21 @@
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
-	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value
+	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value.
+
+/obj/item/salvage/loot/dogtags
+	name = "dog tags"
+	desc = "Dog tags belonging to an unnamed soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/salvage/loot/dogtags/officer
+	name = "officer's dog tags"
+	desc = "Dog tags belonging to an unnamed high-ranking soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag_officer"
+	value = 250
+
+/obj/item/salvage/loot/dogtags/captain
+	name = "captain's dog tags"
+	desc = "Dog tags belonging to an unnamed captain of a soldier or mercenary group. Someone is likely willing to pay good credits to see them returned."
+	value = 400

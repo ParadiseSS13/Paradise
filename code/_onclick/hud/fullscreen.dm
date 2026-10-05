@@ -121,6 +121,11 @@
 	icon_state = "fog"
 	color = "#FF0000"
 
+/atom/movable/screen/fullscreen/stretch/curse
+	icon = 'icons/mob/screen_fog.dmi'
+	icon_state = "curse"
+	layer = CURSE_LAYER
+
 /atom/movable/screen/fullscreen/stretch/flash
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
@@ -254,6 +259,11 @@
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "agentbox"
 	alpha = 128
+
+/atom/movable/screen/fullscreen/flock_convert
+	icon = 'icons/goonstation/hud/flockmindcircuit.dmi'
+	icon_state = "flockmindcircuit"
+	layer = BLIND_LAYER
 
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER

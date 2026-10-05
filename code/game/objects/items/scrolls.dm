@@ -10,6 +10,7 @@
 	origin_tech = "bluespace=6"
 	resistance_flags = FLAMMABLE
 	var/uses = 4
+	new_attack_chain = TRUE
 
 /obj/item/teleportation_scroll/apprentice
 	name = "lesser scroll of teleportation"
@@ -21,27 +22,34 @@
 	. += SPAN_NOTICE("Number of uses: [uses]. This scroll will vanish after the final use.")
 	. += SPAN_NOTICE("P.S. Don't forget to bring your gear, you'll need it to cast most spells.")
 
-/obj/item/teleportation_scroll/attack_self__legacy__attackchain(mob/living/user)
-	if(!uses) //somehow?
-		to_chat(user, SPAN_WARNING("You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!"))
+/obj/item/teleportation_scroll/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!uses) // Somehow?
+		to_chat(user, SPAN_WARNING("You attempt to read the scroll but it disintegrates in your hand! It appears that is has run out of charges!"))
 		qdel(src)
-		return
+		return ITEM_INTERACT_COMPLETE
+
+	if(!length(SSmapping.teleportlocs)) // Prevent a runtime. Yes, this actually happened during testing.
+		to_chat(user, SPAN_WARNING("There's nowhere to teleport to!"))
+		return ITEM_INTERACT_COMPLETE
 
 	var/picked_area
 	picked_area = tgui_input_list(user, "Area to jump to", "Teleport where?", SSmapping.teleportlocs)
 	if(!picked_area)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/area/thearea = SSmapping.teleportlocs[picked_area]
 	if(user.stat || user.restrained())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!(user == loc || (in_range(src, user) && isturf(user.loc))))
-		return //They can't use it if they put it in their bag or drop it and walk off, but if they are stood next to it they can.
+		return ITEM_INTERACT_COMPLETE // They can't use it if they put it in their bag or drop it and walk off, but if they are next to it they can.
 
-	if(thearea.tele_proof && !istype(thearea, /area/wizard_station)) //Nowhere in SSmapping.teleportlocs should be tele_proof, but better safe than sorry
-		to_chat(user, SPAN_WARNING("A mysterious force disrupts your arcane spell matrix, and you remain where you are."))
-		return
+	if(thearea.tele_proof && !istype(thearea, /area/wizard_station)) // Nowhere in SSmapping.teleportlocs should be tele_proof, but better safe than sorry.
+		to_chat(user, SPAN_WARNING("A mysterious force disrupts your arcane spell matrix and you remain where you are!"))
+		return ITEM_INTERACT_COMPLETE
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, FALSE, get_turf(user))
@@ -55,8 +63,8 @@
 		L.Add(T)
 
 	if(!length(L))
-		to_chat(user, SPAN_WARNING("The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."))
-		return
+		to_chat(user, SPAN_WARNING("The spell matrix was unable to locate a suitable teleport destination for an unknown reason! Sorry."))
+		return ITEM_INTERACT_COMPLETE
 
 	if(user && user.buckled)
 		user.unbuckle(force = TRUE)
@@ -67,9 +75,11 @@
 	user.forceMove(pick(L))
 	smoke.start()
 	uses--
+	add_fingerprint(user)
 
 	if(!uses)
 		to_chat(user, SPAN_WARNING("The scroll fizzles out of existence as the last of the magic within fades."))
 		qdel(src)
 
-	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable
+	user.update_action_buttons_icon()  // Update action buttons as some spells might now be castable.
+	return ITEM_INTERACT_COMPLETE

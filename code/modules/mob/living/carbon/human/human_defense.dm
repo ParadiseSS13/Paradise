@@ -93,7 +93,7 @@ emp_act
 		return TRUE
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
-		if(ismachineperson(src))
+		if(ismachineperson(src) && !(user.zone_selected == "mouth" && istype(src.wear_mask, /obj/item/clothing/mask/cigarette/)))
 			to_chat(user, SPAN_NOTICE("[p_they(TRUE)] [p_are()] missing that limb!"))
 			return TRUE
 		return
@@ -408,6 +408,11 @@ emp_act
 					head_organ.f_style = "Shaved"
 					update_hair()
 					update_fhair()
+
+		if(affecting.has_synthetic_skin)
+			visible_message(SPAN_WARNING("The synthetic skin on [src]'s [affecting.name] bubbles and melts away."), \
+							SPAN_WARNING("The synthetic skin on your [affecting.name] bubbles and melts away."))
+			affecting.remove_synthetic_skin(TRUE)
 
 		UpdateDamageIcon()
 

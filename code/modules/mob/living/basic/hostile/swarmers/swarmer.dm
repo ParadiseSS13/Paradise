@@ -36,12 +36,12 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	death_message = "explodes with a sharp pop!"
 	basic_mob_flags = DEL_ON_DEATH
-	initial_traits = list(TRAIT_FLYING)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE)
 	sentience_type = SENTIENCE_OTHER // No, you cannot sentience or mind-transfer into them
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // EAT EVERYTHING
 	step_type = FOOTSTEP_MOB_CLAW
 	is_ranged = TRUE
-	projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/beam/disabler/swarmer
 	projectile_sound = 'sound/weapons/taser2.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS
@@ -163,7 +163,7 @@
 			L.apply_damage(30, STAMINA)
 			var/obj/item/restraints/handcuffs/cable/cyan/cuffs = new /obj/item/restraints/handcuffs/cable/cyan(src)
 			playsound(loc, cuffs.cuffsound, 15, TRUE, -10)
-			if(do_mob(src, C, 1 SECONDS))
+			if(do_mob(src, C, 2 SECONDS))
 				cuffs.apply_cuffs(target, src)
 			return FALSE
 		// Make it go away.
@@ -195,7 +195,7 @@
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return
 	new /obj/effect/temp_visual/swarmer(target)
-	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	to_chat(src, SPAN_NOTICE("Beginning disintegration of [target]."))
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
@@ -211,7 +211,7 @@
 	if(target.resistance_flags & INDESTRUCTIBLE)
 		return
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
-	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	to_chat(src, SPAN_NOTICE("Beginning disintegration of [target]."))
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
@@ -235,7 +235,7 @@
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
 	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
 	ADD_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
-	to_chat(src, "<span class='notice'>Beginning integration of [target].")
+	to_chat(src, SPAN_NOTICE("Beginning integration of [target]."))
 	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target].", interaction_key = "disintegrate"))
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
@@ -277,6 +277,15 @@
 		else if(istype(A, /area/station/engineering/engine/supermatter))
 			to_chat(src, SPAN_WARNING("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			return TRUE
+		else if(istype(A, /area/station/engineering/engine))
+			to_chat(src, SPAN_WARNING("Disrupting the control equipment of a nuclear reactor would not be to our benefit. Aborting."))
+			return TRUE
+		else if(istype(A, /area/station/engineering/engine/reactor))
+			to_chat(src, SPAN_WARNING("Disrupting the control equipment of a nuclear reactor would not be to our benefit. Aborting."))
+			return TRUE
+		else if(istype(A, /area/station/hallway/secondary/entry))
+			to_chat(src, SPAN_WARNING("Destroying this object has the potential to interfere with new arrivals. Aborting."))
+			return TRUE
 	return FALSE
 
 // =====================
@@ -296,7 +305,10 @@
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/swarmer_trap = BB_SWARMER_TRAP_ACTION,
 		/datum/action/cooldown/mob_cooldown/swarmer_barrier = BB_SWARMER_BARRIER_ACTION,
+		/datum/action/cooldown/mob_cooldown/swarmer_share_resources = BB_SWARMER_RESOURCE_SHARE_ACTION,
 	)
+	/// Our creator
+	var/mob/living/basic/swarmer/progenitor
 
 /mob/living/basic/swarmer/lesser/Initialize(mapload)
 	. = ..()
@@ -305,6 +317,13 @@
 /mob/living/basic/swarmer/lesser/updatename()
 	real_name = "Lesser Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
 	name = real_name
+
+/mob/living/basic/swarmer/lesser/death(gibbed)
+	progenitor = null
+	return ..()
+
+/mob/living/basic/swarmer/lesser/proc/progenitor_death()
+	progenitor = null
 
 // =====================
 // MARK: Swarmer Structures

@@ -12,7 +12,7 @@
 	if(ishuman(helmet.loc))
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
-			helmet.attack_self__legacy__attackchain(H)
+			helmet.activate_self(H)
 		H.transfer_item_to(helmet, src, force = TRUE)
 		H.update_inv_wear_suit()
 		to_chat(H, SPAN_NOTICE("The helmet on the hardsuit disengages."))

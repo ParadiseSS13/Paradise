@@ -23,11 +23,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cig"
 	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
 	container_type = INJECTABLE
-	new_attack_chain = TRUE
 	/// Is the cigarette lit?
 	var/lit = FALSE
 	/// Do we require special items to be lit?
@@ -144,17 +144,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	// If the target has no cig, try to give them the cig.
 	var/mob/living/carbon_target = target
-	if(user.zone_selected == "mouth" && !carbon_target.wear_mask && user.a_intent == INTENT_HELP)
-		user.drop_item_to_ground(src, force = TRUE)
-		carbon_target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
-		if(target != user)
-			user.visible_message(
-				SPAN_NOTICE("[user] slips \a [name] into the mouth of [carbon_target]."),
-				SPAN_NOTICE("You slip [src] into the mouth of [carbon_target].")
-			)
-		else
-			to_chat(user, SPAN_NOTICE("You put [src] into your mouth."))
-		return FINISH_ATTACK
+	if(user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		if(!carbon_target.wear_mask)
+			user.drop_item_to_ground(src, force = TRUE)
+			carbon_target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
+			if(target != user)
+				user.visible_message(
+					SPAN_NOTICE("[user] slips \a [name] into the mouth of [carbon_target]."),
+					SPAN_NOTICE("You slip [src] into the mouth of [carbon_target].")
+				)
+			else
+				to_chat(user, SPAN_NOTICE("You put [src] into your mouth."))
+			return FINISH_ATTACK
+		if(!lit)
+			to_chat(user, SPAN_WARNING("You can't put [src] in [carbon_target]'s mouth with [carbon_target.wear_mask] in the way!"))
+			return FINISH_ATTACK
 
 	// If they DO have a cig, try to light it with your own cig.
 	if(cigarette_lighter_act(user, carbon_target))
@@ -334,11 +338,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/random
 
-/obj/item/clothing/mask/cigarette/random/New()
+/obj/item/clothing/mask/cigarette/random/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, pick("fuel", "saltpetre", "synaptizine", "green_vomit", "potass_iodide", "msg", "lexorin", "mannitol", \
 	"spaceacillin" ,"cryoxadone" ,"holywater", "tea" ,"egg" ,"haloperidol" ,"mutagen" ,"omnizine", "carpet", "aranesp", "cryostylane", "chocolate", \
 	"bilk", "cheese", "rum", "blood", "charcoal", "coffee", "ectoplasm", "space_drugs", "milk", "mutadone", "antihol", "teporone", "insulin", "salbutamol", "toxin") = 20)
-	..()
+	. = ..()
 
 /obj/item/clothing/mask/cigarette/candy
 	name = "candy cigarette"
@@ -428,9 +432,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "death_cig"
 	butt_type = /obj/item/cigbutt/death
 
-/obj/item/clothing/mask/cigarette/carcinoma/New()
+/obj/item/clothing/mask/cigarette/carcinoma/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
-	..()
+	. = ..()
 
 /obj/item/cigbutt
 	name = "cigarette butt"
@@ -642,7 +646,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "holo_cigar"
 	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
-	new_attack_chain = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',

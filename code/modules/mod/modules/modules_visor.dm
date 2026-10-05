@@ -9,6 +9,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/visor)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_SILVER = 2500, MAT_GLASS = 5000)
 	/// The HUD type given by the visor.
 	var/hud_type
 	/// The trait given by the visor.
@@ -20,7 +21,7 @@
 		return
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
-		hud.add_hud_to(mod.wearer)
+		hud.add_hud_to(mod.wearer, src)
 	if(length(visor_trait))
 		ADD_TRAIT(mod.wearer, visor_trait, MODSUIT_TRAIT)
 	mod.wearer.update_sight()
@@ -31,7 +32,7 @@
 		return
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
-		hud.remove_hud_from(mod.wearer)
+		hud.remove_hud_from(mod.wearer, src)
 	if(length(visor_trait))
 		REMOVE_TRAIT(mod.wearer, visor_trait, MODSUIT_TRAIT)
 	mod.wearer.update_sight()

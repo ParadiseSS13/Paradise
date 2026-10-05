@@ -38,15 +38,7 @@
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/smes(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	initialize_parts()
 	RefreshParts()
 
 	// When (re)built, try to connect to the powernet under us.
@@ -66,18 +58,27 @@
 	terminal.master = src
 	update_icon()
 
-/obj/machinery/power/smes/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/power/smes/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/smes(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
-	RefreshParts()
+
+/obj/machinery/power/smes/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/smes(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
 
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
@@ -454,11 +455,37 @@
 	..()
 
 /obj/machinery/power/smes/engineering
-	charge = 0.08e6 // Engineering starts with some charge for singulo
+	charge = 0.1e7 // Engineering starts with some charge for engines
 	input_level = 200000
-	output_level = 80000
+	output_level = 190000
 
 /obj/machinery/power/smes/empty
+
+/obj/machinery/power/smes/transformer
+	name = "electrical transformer"
+	desc = "A device that can convert between high and low voltage. It serves as an intermediary between a powerplant and power-consuming machinery."
+	icon_state = "transformer"
+	capacity = 300 // Low capacitance
+	input_level = 200000
+
+/obj/machinery/power/smes/transformer/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/transformer(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	RefreshParts()
+
+/obj/machinery/power/smes/transformer/RefreshParts()
+	var/IO = 0
+	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
+		IO += CP.rating
+	input_level_max = initial(input_level) * IO
+	output_level_max = initial(input_level) * IO
+
+/obj/machinery/power/smes/transformer/update_overlays()
+	..()
+	overlays.Cut()
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

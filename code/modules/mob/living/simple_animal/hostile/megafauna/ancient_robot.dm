@@ -697,6 +697,7 @@ Difficulty: Hard
 	who_am_i = who
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
+	ADD_TRAIT(src, TRAIT_NO_EDGE_TRANSITIONS, ROUNDSTART_TRAIT)
 
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Destroy()

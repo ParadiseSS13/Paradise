@@ -127,7 +127,8 @@
 			"name" = quirk.name,
 			"desc" = quirk.desc,
 			"cost" = quirk.cost,
-			"path" = quirk.type
+			"path" = quirk.type,
+			"conflicts" = quirk.conflicting_quirks,
 		)
 		GLOB.quirk_paths[quirk.name] = quirk.type // This will let us get the datum of a quirk with just the name later.
 		GLOB.quirk_tgui_info += list(data)
@@ -137,8 +138,6 @@
 	for(var/limb_type in typesof(/datum/robolimb))
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
-		if(R.selectable)
-			GLOB.selectable_robolimbs[R.company] = R
 
 	// Setup world topic handlers
 	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
@@ -159,6 +158,8 @@
 	sortTim(GLOB.client_login_processors, GLOBAL_PROC_REF(cmp_login_processor_priority))
 
 	GLOB.emote_list = init_emote_list()
+
+	GLOB.chemical_reagents_list = init_reagent_list()
 
 	// Set up PCWJ recipes
 	initialize_cooking_recipes()
@@ -190,6 +191,8 @@
 	for(var/path in subtypesof(/datum/tech))
 		var/datum/tech/T = path
 		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
+
+	populate_global_drink_lists()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
@@ -242,3 +245,10 @@
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+/// Initialises all of /datum/reagent into a list indexed by reagent id.
+/proc/init_reagent_list()
+	. = list()
+	for(var/path in subtypesof(/datum/reagent))
+		var/datum/reagent/R = new path()
+		.[R.id] = R

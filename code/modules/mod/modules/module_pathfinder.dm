@@ -13,6 +13,7 @@
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	/// The pathfinding implant.
 	var/obj/item/bio_chip/mod/implant
 
@@ -31,21 +32,28 @@
 	else
 		. += SPAN_WARNING("The implant is missing.")
 
-/obj/item/mod/module/pathfinder/attack__legacy__attackchain(mob/living/target, mob/living/user, params)
+/obj/item/mod/module/pathfinder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ishuman(target) || !implant)
-		return
+		return ..()
+
 	if(!do_after(user, 1.5 SECONDS, target = target))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!implant.implant(target, user))
 		to_chat(user, SPAN_WARNING("Unable to implant [target]!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(target == user)
 		to_chat(user, SPAN_NOTICE("You implant yourself with [implant]."))
 	else
-		target.visible_message(SPAN_NOTICE("[user] implants [target]."), SPAN_NOTICE("[user] implants you with [implant]."))
+		target.visible_message(
+			SPAN_NOTICE("[user] implants [target]."),
+			SPAN_NOTICE("[user] implants you with [implant].")
+		)
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	icon_state = "pathfinder_empty"
 	implant = null
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mod/module/pathfinder/proc/attach(mob/user)
 	if(!ishuman(user))

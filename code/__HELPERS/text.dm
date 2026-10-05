@@ -505,7 +505,7 @@
 		text = replacetext(text, "\[syndielogo\]", 	"")
 
 	if(istype(P, /obj/item/toy/crayon))
-		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
+		text = "<font face=\"[crayonfont]\" color=[P ? P.color : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
 		text = replacetext(text, "\[hr\]",		"<HR>")

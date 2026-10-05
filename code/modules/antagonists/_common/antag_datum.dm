@@ -102,12 +102,14 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
  */
 /datum/antagonist/proc/add_owner_to_gamemode()
+	stack_trace("[type] did not implement add_owner_to_gamemode()!")
 	return
 
 /**
  * Removes the owner from their respective gamemode's list. For example `SSticker.mode.traitors -= owner`.
  */
 /datum/antagonist/proc/remove_owner_from_gamemode()
+	stack_trace("[type] did not implement remove_owner_from_gamemode()!")
 	return
 
 /**
@@ -603,7 +605,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/start_exchange()
 	if(in_exchange)
 		return
-	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
+	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers + SSticker.mode.acolytes
 	possible_opponents -= owner
 	if(!length(possible_opponents))
 		log_debug("[owner] was picked to start a document exchange but there were no other antagonists.")

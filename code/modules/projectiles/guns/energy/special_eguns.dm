@@ -6,19 +6,20 @@
 * 5. METEOR GUN
 * 6. MIND FLAYER
 * 7. ENERGY CROSSBOW
-* 8. PLASMA CUTTER
-* 9. WORMHOLE PROJECTOR
-* 10. CYBORG LMG
-* 11. INSTAGIB RIFLE
-* 12. HONK RIFLE
-* 13. PLASMA PISTOL
-* 14. THE BSG
-* 15. TEMPERATURE GUN
-* 16. MIMIC GUN
-* 17. DETECTIVE ENERGY REVOLVER
-* 18. VOX SPIKETHROWER
-* 19. VORTEX SHOTGUN
-* 20. Model 2495
+* 8. CFL-3 "Blizzard"
+* 9. PLASMA CUTTER
+* 10. WORMHOLE PROJECTOR
+* 11. CYBORG LMG
+* 12. INSTAGIB RIFLE
+* 13. HONK RIFLE
+* 14. PLASMA PISTOL
+* 15. THE BSG
+* 16. TEMPERATURE GUN
+* 17. MIMIC GUN
+* 18. DETECTIVE ENERGY REVOLVER
+* 19. VOX SPIKETHROWER
+* 20. VORTEX SHOTGUN
+* 21. Model 2495
 */
 //////////////////////////////
 // MARK: ION RIFLE
@@ -130,6 +131,7 @@
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
 	origin_tech = "materials=2;biotech=4"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
 	modifystate = 1
 	ammo_x_offset = 1
 	selfcharge = TRUE
@@ -231,6 +233,30 @@
 	return OXYLOSS
 
 //////////////////////////////
+// MARK: CFL-3 "Blizzard"
+//////////////////////////////
+/obj/item/gun/energy/kinetic_accelerator/blizzard
+	name = "CFL-3 \"Blizzard\""
+	desc = "A weapon hailing from Ahdomai, this tajaran-designed flechette pistol fires small groups of cryogenic shards. It slowly generates a new shard on its own."
+	icon_state = "cryopistol"
+	inhand_icon_state = "cryopistol"
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL=2000)
+	origin_tech = "combat=5;magnets=4;syndicate=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/blizzard)
+	overheat_time = 15 SECONDS
+	holds_charge = TRUE
+	unique_frequency = TRUE
+	can_flashlight = FALSE
+	max_mod_capacity = 0
+	empty_state = "cryopistol_empty"
+	can_holster = TRUE
+
+/obj/item/gun/energy/kinetic_accelerator/blizzard/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
+
+//////////////////////////////
 // MARK: PLASMA CUTTER
 //////////////////////////////
 /obj/item/gun/energy/plasmacutter
@@ -239,6 +265,7 @@
 	icon_state = "plasmacutter"
 	inhand_icon_state = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_PLASMA = 400)
 	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
@@ -267,7 +294,7 @@
 /obj/item/gun/energy/plasmacutter/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			to_chat(user, SPAN_NOTICE("[src] is already fully charged."))
 			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
@@ -276,7 +303,7 @@
 		to_chat(user, SPAN_NOTICE("You insert [A] in [src], recharging it."))
 	else if(istype(A, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			to_chat(user, SPAN_NOTICE("[src] is already fully charged."))
 			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
@@ -299,6 +326,7 @@
 	inhand_icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 
@@ -322,6 +350,7 @@
 	icon_state = "wormhole_projector1"
 	inhand_icon_state = null
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
+	materials = list(MAT_SILVER = 2000, MAT_METAL = 5000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 3000)
 	charge_delay = 5
 	selfcharge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
@@ -621,6 +650,7 @@
 	worn_icon_state = "bsg"
 	inhand_icon_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000,  MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
@@ -1242,7 +1272,7 @@
 
 /obj/item/gun/energy/laser/lever_action/attack_self__legacy__attackchain(mob/living/user as mob)
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && user.get_inactive_hand())
-		to_chat(user, "<span class='warning'>You need both hands to cycle the action!")
+		to_chat(user, SPAN_WARNING("You need both hands to cycle the action!"))
 		return
 	cycle_action(user)
 	if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))

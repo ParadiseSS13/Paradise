@@ -1,7 +1,7 @@
 /turf/simulated/wall/r_wall
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
-	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon = 'icons/turf/walls/32x40reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	explosion_block = 2
@@ -13,8 +13,9 @@
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 	heat_resistance = 20000 // Ain't getting through this soon
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
@@ -221,10 +222,10 @@
 
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
-		icon_state = "r_wall-[d_state]"
+		icon_state = "r_wall_[d_state]"
 		smoothing_flags = NONE
 	else
-		smoothing_flags = SMOOTH_BITMASK
+		smoothing_flags = SMOOTH_BITMASK | SMOOTH_OBJ
 		icon_state = "[base_icon_state]-[smoothing_junction]"
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		QUEUE_SMOOTH(src)
@@ -232,3 +233,10 @@
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/metal(src, 2)
+
+/turf/simulated/wall/r_wall/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ChangeTurf(/turf/simulated/wall)
+		rust_turf() //Not magic rusting intentionally
+		return
+	return ..()

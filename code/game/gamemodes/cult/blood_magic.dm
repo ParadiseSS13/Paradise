@@ -6,6 +6,8 @@
 	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
+	/// If the magic has been enhanced somehow, likely due to a crimson medallion.
+	var/magic_enhanced = FALSE
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
@@ -17,7 +19,7 @@
 	var/limit = RUNELESS_MAX_BLOODCHARGE
 	for(var/obj/effect/rune/empower/R in range(1, owner))
 		rune = TRUE
-		limit = MAX_BLOODCHARGE
+		limit = magic_enhanced ? ENHANCED_BLOODCHARGE : MAX_BLOODCHARGE
 		break
 	if(length(spells) >= limit)
 		if(rune)
@@ -272,6 +274,7 @@
 
 /datum/spell/horror
 	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
+	base_cooldown = 1 SECONDS
 	var/datum/action/innate/cult/blood_spell/attached_action
 
 /datum/spell/horror/Destroy()
@@ -280,36 +283,75 @@
 	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
+/datum/spell/horror/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 7
+	T.click_radius = -1
+	return T
+
+/datum/spell/horror/can_cast(mob/user, charge_check, show_message)
+	if(!user.mind)
+		if(show_message)
+			to_chat(user, SPAN_WARNING("You shouldn't have this spell! Something's wrong."))
+		return FALSE
+
+	if(!holy_area_cancast && user.holy_check())
+		return FALSE
+
+	if(charge_check)
+		if(cooldown_handler.is_on_cooldown())
+			if(show_message)
+				to_chat(user, still_recharging_msg)
+			return FALSE
+
+	if(!ghost)
+		if(user.stat && !stat_allowed)
+			if(show_message)
+				to_chat(user, SPAN_NOTICE("You can't cast this spell while incapacitated."))
+			return FALSE
+		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
+			if(show_message)
+				to_chat(user, "Mmmf mrrfff!")
+			return FALSE
+
+	return TRUE
+
 /datum/spell/horror/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, SPAN_CULT("You dispel the magic..."))
 	else
 		add_ranged_ability(user, SPAN_CULT("You prepare to horrify a target..."))
 
-/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target)
-	if(..())
-		return
-	if(ranged_ability_user.incapacitated() || !IS_CULTIST(user))
+/datum/spell/horror/InterceptClickOn(mob/living/user, params, atom/target) //This should not exist
+	if(user.ranged_ability != src)
+		to_chat(user, SPAN_WARNING("<b>[user.ranged_ability.name]</b> has been disabled."))
 		user.ranged_ability.remove_ranged_ability(user)
-		return
+		return TRUE //TRUE for failed, FALSE for passed.
+	user.face_atom(target)
+	if(targeting)
+		targeting.InterceptClickOn(user, params, target, src)
+	if(user.incapacitated() || !IS_CULTIST(user))
+		user.ranged_ability.remove_ranged_ability(user)
+		return TRUE
 	if(user.holy_check())
-		return
-	var/turf/T = get_turf(ranged_ability_user)
+		return TRUE
+	var/turf/T = get_turf(user)
 	if(!isturf(T))
-		return FALSE
-	if(target in view(7, ranged_ability_user))
+		return TRUE
+	if(target in view(7, user))
 		if(!ishuman(target) || IS_CULTIST(target))
-			return
+			return TRUE
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
 		attached_action.build_all_button_icons()
-		user.ranged_ability.remove_ranged_ability(user, SPAN_CULT("<b>[H] has been cursed with living nightmares!</b>"))
+		to_chat(user, SPAN_CULT("<b>[H] has been cursed with living nightmares!</b>"))
 		if(attached_action.charges <= 0)
-			to_chat(ranged_ability_user, SPAN_CULT("You have exhausted the spell's power!"))
+			to_chat(user, SPAN_CULT("You have exhausted the spell's power!"))
 			qdel(src)
+		return TRUE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
@@ -326,7 +368,7 @@
 		owner.visible_message(SPAN_WARNING("Thin grey dust falls from [owner]'s hand!"), \
 		SPAN_CULTITALIC("You invoke the veiling spell, hiding nearby runes and cult structures."))
 		charges--
-		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
+		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team?.cult_risen || !SSticker.mode.cult_team?.cult_ascendant)
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -342,7 +384,7 @@
 		SPAN_CULTITALIC("You invoke the counterspell, revealing nearby runes and cult structures."))
 		charges--
 		owner.whisper(invocation)
-		if(!SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
+		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team?.cult_risen || !SSticker.mode.cult_team?.cult_ascendant)
 			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -452,6 +494,12 @@
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
+/obj/item/melee/blood_magic/stun/Initialize(mapload, spell)
+	. = ..()
+	if(source && IS_ACOLYTE(source.owner))
+		icon_state = "acolyte-stun"
+		color = null
+
 /obj/item/melee/blood_magic/stun/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
 	if(!isliving(target) || !proximity)
 		return
@@ -470,25 +518,44 @@
 		target.visible_message(SPAN_WARNING("[target]'s holy weapon absorbs the red light!"), \
 							SPAN_USERDANGER("Your holy weapon absorbs the blinding light!"))
 	else
-		to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [L] falls to the ground!"))
+		if(IS_HERETIC(L))
+			L.Stun(0.5 SECONDS)
+			L.AdjustConfused(3 SECONDS)
+			L.AdjustDizzy(3 SECONDS)
 
-		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-		L.Silence(6 SECONDS)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.KnockDown(10 SECONDS)
-			C.apply_damage(60, STAMINA)
-			C.flash_eyes(1, TRUE)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
-		to_chat(user, SPAN_BOLDNOTICE("Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!"))
+			var/old_color = target.color
+			target.color = COLOR_HERETIC_GREEN
+			animate(target, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+			L.mob_light(COLOR_HERETIC_GREEN, 1.5, 2.5, 0.5 SECONDS)
+			playsound(L, 'sound/effects/curse.ogg', 50, TRUE)
+
+			to_chat(user, SPAN_WARNING("An eldritch force intervenes as you touch [target], absorbing most of the effects!"))
+			to_chat(target, SPAN_WARNING("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!"))
+			to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [L] falls to the ground!"))
+		else
+			if(IS_ACOLYTE(user))
+				L.apply_status_effect(STATUS_EFFECT_ACOLYTE_STUN)
+			else
+				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+			L.Silence(6 SECONDS)
+			if(issilicon(target))
+				var/mob/living/silicon/S = L
+				S.emp_act(EMP_HEAVY)
+			else if(iscarbon(target))
+				var/mob/living/carbon/C = L
+				C.KnockDown(10 SECONDS)
+				C.apply_damage(60, STAMINA)
+				C.flash_eyes(1, TRUE)
+				C.Stuttering(16 SECONDS)
+				C.CultSlur(20 SECONDS)
+				C.Jitter(16 SECONDS)
+			to_chat(user, SPAN_BOLDNOTICE("Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!"))
 	user.do_attack_animation(target)
 	uses--
 	..()
+
+
+/obj/item/melee/blood_magic/stun/acolyte
 
 
 //Teleportation
@@ -515,6 +582,8 @@
 
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
+		if(IS_ACOLYTE(user) && T.z != teleportee.z)
+			continue
 		var/resultkey = T.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++

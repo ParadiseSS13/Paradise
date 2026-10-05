@@ -117,3 +117,8 @@
 	name = "jean shorts"
 	desc = "The trendy shorts your mother never let you wear. Now in space!"
 	icon_state = "jeanshorts"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/pants.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi'
+	)

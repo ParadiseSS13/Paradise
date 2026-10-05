@@ -21,7 +21,10 @@
 		)
 	permeability_coefficient = 0.4
 
-/obj/item/clothing/head/helmet/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/helmet/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(can_toggle && !user.incapacitated())
 		if(world.time > cooldown + toggle_cooldown)
 			cooldown = world.time
@@ -38,6 +41,7 @@
 					sleep(15)
 			if(toggle_sound)
 				playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"

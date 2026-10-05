@@ -50,10 +50,10 @@
 				return
 			if(chamber.held_rod)
 				if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
-					occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
+					occupant_message(SPAN_WARNING("Not enough room in the cargo compartment!"))
 					return
 				chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
-				chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
+				chassis.visible_message(SPAN_NOTICE("[chassis] lifts [target] and starts to load it into the cargo compartment."))
 				cargo_holder.cargo += chamber.held_rod
 				chamber.held_rod.forceMove(chassis)
 				chamber.held_rod = null
@@ -329,6 +329,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 30000, MAT_TRANQUILLITE = 10000)
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
@@ -490,6 +491,7 @@
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 23000, MAT_TITANIUM = 8000)
 	var/obj/item/kinetic_crusher/mecha/internal_crusher
 
 /obj/item/kinetic_crusher/mecha

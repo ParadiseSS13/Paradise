@@ -46,6 +46,13 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	chosen_disease.carrier = TRUE
 
 /datum/event/disease_outbreak/start()
+	if(length(GLOB.crew_list) < 30 && severity == EVENT_LEVEL_MAJOR) // Manifest must have 30 crew to roll major.
+		// If disease doesn't roll due to pop, try again to roll for a major in 60 seconds.
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		EC.next_event_time = world.time + 1 MINUTES
+		log_debug("Not enough crew to spawn a major virus. Rerolling Major.")
+		kill()
+		return
 	GLOB.current_pending_diseases += list(list("disease" = chosen_disease, "event" = src))
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
@@ -54,7 +61,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		else
 			to_chat(M, chat_box_examine(SPAN_DEADSAY("<b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!")))
 
-/datum/event/disease_outbreak/announce()
+/datum/event/disease_outbreak/announce(false_alarm)
+	if(false_alarm)
+		severity = pick(EVENT_LEVEL_MAJOR, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MUNDANE)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.major_announcement.Announce("Lethal viral pathogen detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak_virus.ogg')

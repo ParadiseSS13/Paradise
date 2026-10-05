@@ -88,8 +88,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			var/mutable_appearance/balloon3
 			if(isliving(A))
 				var/mob/living/M = A
-				M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
-				unbuckle_mob(M, force = TRUE) // Unbuckle them to prevent anchoring problems
+				M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction.
+				unbuckle_mob(M, force = TRUE) // Unbuckle them to prevent anchoring problems.
 			else
 				A.anchored = TRUE
 				A.density = FALSE
@@ -163,12 +163,21 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	desc = "When built, emits a signal which fulton recovery devices can lock onto. Activate in hand to unfold into a beacon."
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "folded_extraction"
+	new_attack_chain = TRUE
 
-/obj/item/fulton_core/attack_self__legacy__attackchain(mob/user)
-	if(do_after(user, 15, target = user) && !QDELETED(src))
-		new /obj/structure/extraction_point(get_turf(user))
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-		qdel(src)
+/obj/item/fulton_core/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(do_after(user, 15, target = user) && !QDELETED(src)))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/structure/extraction_point/new_point = new(get_turf(user))
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+	transfer_fingerprints_to(new_point)
+	new_point.add_fingerprint(user)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/extraction_point
 	name = "fulton recovery beacon"

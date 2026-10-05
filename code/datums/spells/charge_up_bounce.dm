@@ -56,7 +56,6 @@
 	return
 
 /datum/spell/charge_up/bounce/proc/bounce(mob/origin, mob/target, energy, bounces, mob/user)
-	SHOULD_CALL_PARENT(TRUE)
 	create_beam(origin, target)
 	apply_bounce_effect(origin, target, energy, user)
 	add_attack_logs(user, target, "Bounce spell '[src]' bounced on")

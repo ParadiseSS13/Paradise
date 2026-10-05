@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# restore-db
+# Restore a backup dump of the database
+
+set -euo pipefail
+
+BACKUP_FILE="paradise_db.sql"
+DB_CONTAINER="paradise_db"
+MYSQL_DATABASE="paradise_gamedb"
+ROOT_PW_FILE="secret/db-root-password.txt"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# make sure the backup file exists!
+if [ ! -f "${BACKUP_FILE}" ]; then
+    echo >&2 "Error: missing backup file ${BACKUP_FILE}."
+    exit 1
+fi
+
+# make sure the credentials we need to access the database exist
+if [ ! -f "${ROOT_PW_FILE}" ]; then
+    echo >&2 "Error: missing ${ROOT_PW_FILE}. Run tools/docker/init-db first."
+    exit 1
+fi
+
+# make sure the database is running, so we can restore the backup
+if ! docker ps --format '{{.Names}}' | grep -qx "${DB_CONTAINER}"; then
+    echo >&2 "Error: container '${DB_CONTAINER}' is not running."
+    echo >&2 "Start it (or recreate it) before restoring."
+    exit 1
+fi
+
+# run mariadb and import the backup dump into our database container
+MYSQL_ROOT_PASSWORD=$(<"${ROOT_PW_FILE}")
+docker exec --interactive "${DB_CONTAINER}" \
+    mariadb --user root --password="${MYSQL_ROOT_PASSWORD}" "${MYSQL_DATABASE}" <"${BACKUP_FILE}"
+
+# tell the user what we did
+echo "Restored backup: ${BACKUP_FILE}"

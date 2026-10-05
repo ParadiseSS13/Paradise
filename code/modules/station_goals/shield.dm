@@ -23,10 +23,10 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/shield_sat]"]
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/goal/shield_sat]"]
 	P.cost = 100
 
-	P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/shield_sat_control]"]
+	P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/goal/shield_sat_control]"]
 	P.cost = 750
 
 /datum/station_goal/station_shield/check_completion()
@@ -111,6 +111,8 @@
 	data["satellites"] = list()
 	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		var/turf/T = get_turf(S)
+		if(T.z != z) // This satellite isn't on the station level, don't show it on the station level map.
+			continue
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,

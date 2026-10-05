@@ -204,10 +204,10 @@
 
 	for(var/obj/item/storage/S in src) // Inventory of nested storage items
 		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift)) // If the gift contains a storage item
-			var/obj/item/storage/S = G.gift
+	for(var/obj/item/small_delivery/gift/G in src)
+		L += G.wrapped
+		if(isstorage(G.wrapped)) // If the gift contains a storage item.
+			var/obj/item/storage/S = G.wrapped
 			L += S.return_inv()
 	for(var/obj/item/folder/F in src)
 		L += F.contents
@@ -583,12 +583,18 @@
 	if(isrobot(user))
 		return //Robots can't interact with storage items.
 
+	try_insert_item(I, user)
+
+/// Checks if an item can be inserted, then insertsit. Riveting, I know.
+/// Mostly exists to bypass the robot restriction for using storage (for like ore bags).
+/obj/item/storage/proc/try_insert_item(obj/item/I, mob/user)
 	if(!can_be_inserted(I))
 		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
 			return TRUE
 		return FALSE
 
 	handle_item_insertion(I, user)
+	return TRUE
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))

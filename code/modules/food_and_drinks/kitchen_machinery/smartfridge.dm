@@ -177,6 +177,9 @@
 	return ..()
 
 /obj/machinery/smartfridge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
@@ -184,6 +187,9 @@
 
 	if(istype(used, /obj/item/autochef_remote))
 		return
+
+	if(istype(used, /obj/item/gripper))
+		return ..()
 
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, SPAN_NOTICE("[src] is unpowered and useless."))

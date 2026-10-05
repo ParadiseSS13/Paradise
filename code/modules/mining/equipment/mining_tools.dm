@@ -93,6 +93,7 @@
 	hitsound = 'sound/weapons/drill.ogg'
 	usesound = 'sound/weapons/drill.ogg'
 	origin_tech = "materials=2;powerstorage=2;engineering=3"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000)
 
 /obj/item/pickaxe/drill/cyborg
 	name = "cyborg mining drill"
@@ -104,6 +105,7 @@
 	desc = "Yours is the drill that will pierce the heavens!"
 	icon_state = "diamonddrill"
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_DIAMOND = 2000)
 	toolspeed = 0.2
 
 /// This is the BORG version!
@@ -117,6 +119,7 @@
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
 	icon_state = "jackhammer"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_SILVER = 2000, MAT_DIAMOND = 6000)
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'

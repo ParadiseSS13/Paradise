@@ -3,6 +3,13 @@
 #define HAS_AI_CONTROLLER_TYPE(thing, type) istype(thing?.ai_controller, type)
 
 //AI controller flags
+
+#ifdef DEBUG_AI
+#define DEBUG_AI_LOG(controller, message) if(controller.debug_focus) { to_chat(world, span_debug("AI DBG: [message]")) }
+#else
+#define DEBUG_AI_LOG(...)
+#endif
+
 //If you add a new status, be sure to add it to the ai_controllers subsystem's ai_controllers_by_status list.
 /// The AI is currently active.
 #define AI_STATUS_ON "ai_on"
@@ -20,6 +27,7 @@
 // How far should we, by default, be looking for interesting things to de-idle?
 #define AI_DEFAULT_INTERESTING_DIST 10
 #define AI_SIMPLE_INTERESTING_DIST 15
+#define AI_MEGAFAUNA_INTERESTING_DIST 30
 
 /// Cooldown on planning if planning failed last time
 
@@ -50,6 +58,9 @@
 /// Does this behavior NOT block planning?
 #define AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION (1<<4)
 
+/// Magic value to tell the G.O.A.P selector to ignore a behavior.
+#define AI_GOAP_SKIP_BEHAVIOR (-1000001)
+
 // AI flags
 
 /// Don't move if being pulled
@@ -75,4 +86,4 @@
 /// probability that the pawn should try resisting out of restraints
 #define RESIST_SUBTREE_PROB 50
 /// macro for whether it's appropriate to resist right now, used by resist subtree
-#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || source.pulledby)
+#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || source.pulledby || istype(source.loc, /obj/structure/closet))

@@ -5,10 +5,10 @@
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(0), 7, "Flat budget incorrect.")
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(4), 7, "Flat budget incorrect.")
 
-	TEST_ASSERT_EQUAL(dynamic.calculate_budget(5), 7.5, "Lowpop budget incorrect.")
+	TEST_ASSERT_EQUAL(dynamic.calculate_budget(5), 8, "Lowpop budget incorrect.")
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(20), 15, "Lowpop budget incorrect.")
 
-	TEST_ASSERT_EQUAL(dynamic.calculate_budget(21), 16.5, "Midpop budget incorrect.")
+	TEST_ASSERT_EQUAL(dynamic.calculate_budget(21), 17, "Midpop budget incorrect.")
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(30), 30, "Midpop budget incorrect.")
 
 	TEST_ASSERT_EQUAL(dynamic.calculate_budget(31), 31, "Highpop budget incorrect.")

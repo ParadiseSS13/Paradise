@@ -19,7 +19,7 @@ AI MODULES
 	throw_speed = 3
 	throw_range = 15
 	origin_tech = "programming=3"
-	materials = list(MAT_GOLD=50)
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	new_attack_chain = TRUE
 	var/datum/ai_laws/laws = null
 
@@ -147,6 +147,7 @@ AI MODULES
 	desc = "A 'one crew' AI module: 'Only <name> is crew.'"
 	icon_state = "green_high"
 	origin_tech = "programming=4;materials=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 
 /obj/item/ai_module/one_crew_member/activate_self(mob/user)
 	if(..())
@@ -287,6 +288,7 @@ AI MODULES
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "green_high"
 	origin_tech = "programming=3;materials=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	laws = new /datum/ai_laws/asimov
 
 /******************** Crewsimov ********************/
@@ -296,6 +298,7 @@ AI MODULES
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "green_low"
 	origin_tech = "programming=3;materials=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	laws = new /datum/ai_laws/crewsimov
 
 /obj/item/ai_module/crewsimov/cmag_act(mob/user)
@@ -328,6 +331,7 @@ AI MODULES
 	desc = "A 'Corporate' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "blue_low"
 	origin_tech = "programming=3;materials=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	laws = new /datum/ai_laws/corporate
 
 /******************** Drone ********************/
@@ -353,6 +357,7 @@ AI MODULES
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_medium"
 	origin_tech = "programming=3;materials=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	laws = new /datum/ai_laws/paladin
 
 /****************** T.Y.R.A.N.T. *****************/
@@ -362,6 +367,7 @@ AI MODULES
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_high"
 	origin_tech = "programming=3;materials=4;syndicate=1"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	laws = new /datum/ai_laws/tyrant()
 
 /******************** Antimov ********************/
@@ -371,6 +377,7 @@ AI MODULES
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "red_high"
 	origin_tech = "programming=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	laws = new /datum/ai_laws/antimov()
 
 /******************** Pranksimov ********************/
@@ -379,6 +386,7 @@ AI MODULES
 	desc = "A 'Pranksimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	icon_state = "pranksimov"
 	origin_tech = "programming=3;syndicate=1"
+	materials = list(MAT_GLASS = 1000, MAT_BANANIUM = 100)
 	laws = new /datum/ai_laws/pranksimov()
 
 /******************** NT Aggressive ********************/
@@ -424,6 +432,7 @@ AI MODULES
 	desc = "A 'freeform' Core AI module: '<freeform>'"
 	icon_state = "standard_high"
 	origin_tech = "programming=5;materials=4"
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 
 /obj/item/ai_module/freeformcore/activate_self(mob/user)
 	if(..())

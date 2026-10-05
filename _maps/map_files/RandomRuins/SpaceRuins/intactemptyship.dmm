@@ -96,9 +96,9 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "w" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "x" = (

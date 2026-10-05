@@ -28,6 +28,7 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	materials = list(MAT_CARDBOARD = 2000)
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 	/// list containing a list of what this box can change into when colored, probably don't want to manually edit this, use `add_to_colorable_lists()`
@@ -377,6 +378,7 @@
 	desc = "You could build a fort with this."
 	icon_state = "large_box"
 	w_class = 4 // Big, bulky.
+	materials = list(MAT_CARDBOARD = 8000)
 	foldable_amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
@@ -393,10 +395,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival/empty/populate_contents()
 	return
@@ -410,9 +414,11 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_vox/empty/populate_contents()
 	return
@@ -442,10 +448,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/engineer/empty/populate_contents()
 	return
@@ -459,10 +467,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_mining/empty/populate_contents()
 	return
@@ -478,6 +488,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 /obj/item/storage/box/survival_syndie/empty/populate_contents()
 	return
@@ -914,8 +925,8 @@
 	return
 
 /obj/item/storage/box/autoinjectors
-	name = "box of injectors"
-	desc = "Contains autoinjectors."
+	name = "box of epinephrine autoinjectors"
+	desc = "Contains autoinjectors pre-loaded with epinephrine."
 	icon_state = "injector_box"
 
 /obj/item/storage/box/autoinjectors/populate_contents()
@@ -960,6 +971,30 @@
 		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs/empty/populate_contents()
+	return
+
+/obj/item/storage/box/suture_pack
+	name = "box of suture packs"
+	desc = "It has pictures of suture packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/suture_pack/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/suture_pack(src)
+
+/obj/item/storage/box/suture_pack/empty/populate_contents()
+	return
+
+/obj/item/storage/box/mesh_pack
+	name = "box of mesh packs"
+	desc = "It has pictures of mesh packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/mesh_pack/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/mesh_pack(src)
+
+/obj/item/storage/box/mesh_pack/empty/populate_contents()
 	return
 
 /obj/item/storage/box/bodybags
@@ -1212,6 +1247,7 @@
 	icon = 'icons/obj/shell_boxes.dmi'
 	storage_slots = 8
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	materials = list(MAT_CARDBOARD = 4000)
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	/// What shell do we fill the box with
 	var/shell_type
@@ -1516,6 +1552,11 @@
 /obj/item/storage/box/fakesyndiesuit/empty/populate_contents()
 	return
 
+/obj/item/storage/box/crab_box
+	name = "market profit box"
+	desc = "A sleek, sturdy box with a miniature teleporter beacon inside, linked to a remote market device."
+	icon_state = "doom_box"
+
 /obj/item/storage/box/enforcer_rubber
 	name = "\improper Enforcer pistol kit (rubber)"
 	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
@@ -1798,6 +1839,18 @@
 
 /obj/item/storage/box/soviet/empty/populate_contents()
 	return
+
+/obj/item/storage/box/dueling_pistols
+	name = "dueling pistols kit"
+	desc = "A fancy box for storing a dueling pistol, gloves, and spare rounds."
+	icon_state = "dueling_pistols_box"
+
+/obj/item/storage/box/dueling_pistols/populate_contents()
+	new /obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol(src)
+	new /obj/item/ammo_casing/dueling(src)
+	new /obj/item/ammo_casing/dueling(src)
+	new /obj/item/ammo_casing/dueling(src)
+	new /obj/item/clothing/gloves/color/white(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"

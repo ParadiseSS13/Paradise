@@ -275,6 +275,10 @@
 	linked_emote = /datum/emote/living/carbon/sign
 	name = "Sign"
 
+/datum/keybinding/emote/carbon/gulp
+	linked_emote = /datum/emote/living/carbon/gulp
+	name = "Gulp"
+
 /datum/keybinding/emote/carbon/alien
 	category = KB_CATEGORY_EMOTE_ALIEN
 
@@ -326,6 +330,10 @@
 /datum/keybinding/emote/carbon/brain/boop
 	linked_emote = /datum/emote/living/brain/boop
 	name = "Boop"
+
+/datum/keybinding/emote/carbon/brain/scream
+	linked_emote = /datum/emote/living/brain/scream
+	name = "Scream"
 
 /datum/keybinding/emote/carbon/human
 	category = KB_CATEGORY_EMOTE_HUMAN
@@ -449,6 +457,10 @@
 	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
 
+/datum/keybinding/emote/carbon/human/fistbump
+	linked_emote = /datum/emote/living/carbon/human/highfive/fistbump
+	name = "Fistbump"
+
 /datum/keybinding/emote/carbon/human/snap
 	linked_emote = /datum/emote/living/carbon/human/snap
 	name = "Snap"
@@ -477,9 +489,29 @@
 	linked_emote = /datum/emote/living/carbon/human/flap/angry
 	name = "Angry Flap"
 
+/datum/keybinding/emote/carbon/human/wings
+	linked_emote = /datum/emote/living/carbon/human/wings
+	name = "Wings"
+
 /datum/keybinding/emote/carbon/human/flutter
 	linked_emote = /datum/emote/living/carbon/human/flutter
 	name = "Flutter"
+
+/datum/keybinding/emote/carbon/human/droop
+	linked_emote = /datum/emote/living/carbon/human/droop
+	name = "Droop"
+
+/datum/keybinding/emote/carbon/human/wing_preen
+	linked_emote = /datum/emote/living/carbon/human/wing_preen
+	name = "Preen Wings"
+
+/datum/keybinding/emote/carbon/human/antennae_preen
+	linked_emote = /datum/emote/living/carbon/human/antenna_preen
+	name = "Preen Antennae"
+
+/datum/keybinding/emote/carbon/human/antenna_angle
+	linked_emote = /datum/emote/living/carbon/human/antenna_angle
+	name = "Angle Antennae"
 
 /datum/keybinding/emote/carbon/human/chitter
 	linked_emote = /datum/emote/living/carbon/human/chitter
@@ -702,6 +734,18 @@
 /datum/keybinding/emote/simple_animal/lizard/whicker
 	linked_emote = /datum/emote/lizard/whicker
 	name = "Whicker (Lizard)"
+
+/datum/keybinding/emote/living/simple_animal/cow/moo
+	linked_emote = /datum/emote/living/simple_animal/cow/moo
+	name = "Moo (Cow)"
+
+/datum/keybinding/emote/living/simple_animal/cluck
+	linked_emote = /datum/emote/living/simple_animal/chicken/cluck
+	name = "Cluck (Chicken)"
+
+/datum/keybinding/emote/living/simple_animal/pig/oink
+	linked_emote = /datum/emote/living/simple_animal/pig/oink
+	name = "Oink (Pig)"
 
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM

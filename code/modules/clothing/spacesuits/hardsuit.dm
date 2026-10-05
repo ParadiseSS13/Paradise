@@ -41,8 +41,12 @@
 	suit = null
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_light(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(mob/user)
 	on = !on
@@ -171,23 +175,27 @@
 		W.suit = src
 		helmet = W
 
-/obj/item/clothing/suit/space/hardsuit/attack_self__legacy__attackchain(mob/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	..()
+/obj/item/clothing/suit/space/hardsuit/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/clothing/suit/space/hardsuit/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/jetpack/suit))
-		if(jetpack)
-			to_chat(user, SPAN_WARNING("[src] already has a jetpack installed."))
-			return
-		if(src == user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(user, SPAN_WARNING("You cannot install the upgrade to [src] while wearing it."))
-			return
-		if(user.transfer_item_to(I, src))
-			jetpack = I
-			to_chat(user, SPAN_NOTICE("You successfully install the jetpack into [src]."))
-			return
-	return ..()
+	user.changeNext_move(CLICK_CD_MELEE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/clothing/suit/space/hardsuit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/tank/jetpack/suit))
+		return ..()
+
+	if(jetpack)
+		to_chat(user, SPAN_WARNING("[src] already has a jetpack installed."))
+		return ITEM_INTERACT_COMPLETE
+	if(src == user.get_item_by_slot(ITEM_SLOT_OUTER_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
+		to_chat(user, SPAN_WARNING("You cannot install the upgrade to [src] while wearing it."))
+		return ITEM_INTERACT_COMPLETE
+	if(user.transfer_item_to(used, src))
+		jetpack = used
+		to_chat(user, SPAN_NOTICE("You successfully install the jetpack into [src]."))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/space/hardsuit/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -256,10 +264,14 @@
 	linkedsuit = null
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self__legacy__attackchain(mob/user) //Toggle Helmet
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!isturf(user.loc))
 		to_chat(user, SPAN_WARNING("You cannot toggle your helmet while in this [user.loc]!") )
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	on = !on
 	if(on)
 		to_chat(user, SPAN_NOTICE("You switch your hardsuit to EVA mode, sacrificing speed for space protection."))
@@ -287,6 +299,7 @@
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
 	update_action_buttons()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)

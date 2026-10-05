@@ -17,10 +17,12 @@ RESTRICT_TYPE(/mob/living/basic)
 /// code.
 /mob/living/basic
 	name = "basic mob"
-	desc = "If you can see this, make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	healable = TRUE
 	icon = 'icons/mob/animal.dmi'
 	hud_type = /datum/hud/simple_animal
+
+	initial_traits = list(TRAIT_NOFIRE)
 
 	var/basic_mob_flags
 
@@ -346,7 +348,9 @@ RESTRICT_TYPE(/mob/living/basic)
 		density = FALSE
 
 /mob/living/basic/attack_hand(mob/living/carbon/human/M)
-	..()
+	if(..())
+		return TRUE
+
 	switch(M.a_intent)
 
 		if(INTENT_HELP)

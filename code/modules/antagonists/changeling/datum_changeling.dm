@@ -60,7 +60,6 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
 
 /datum/antagonist/changeling/on_gain()
-	SSticker.mode.changelings |= owner
 	var/honorific = owner.current.gender == FEMALE ? "Ms." : "Mr."
 	if(length(GLOB.possible_changeling_IDs))
 		changelingID = pick(GLOB.possible_changeling_IDs)
@@ -79,11 +78,16 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	..()
 
 /datum/antagonist/changeling/Destroy()
-	SSticker.mode.changelings -= owner
 	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
 	chosen_sting = null
 	return ..()
+
+/datum/antagonist/changeling/add_owner_to_gamemode()
+	SSticker.mode.changelings |= owner
+
+/datum/antagonist/changeling/remove_owner_from_gamemode()
+	SSticker.mode.changelings -= owner
 
 /datum/antagonist/changeling/greet()
 	. = ..()

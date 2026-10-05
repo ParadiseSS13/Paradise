@@ -23,12 +23,16 @@
 	else
 		return TRUE
 
-/obj/item/clothing/accessory/holster/attack_self__legacy__attackchain()
+/obj/item/clothing/accessory/holster/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/holsteritem = usr.get_active_hand()
 	if(!holstered)
 		holster(holsteritem, usr)
 	else
 		unholster(usr)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user as mob)
 	if(holstered)
@@ -79,8 +83,8 @@
 
 	..(user)
 
-/obj/item/clothing/accessory/holster/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	holster(W, user)
+/obj/item/clothing/accessory/holster/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	holster(used, user)
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
 	if(holstered)

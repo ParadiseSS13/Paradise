@@ -44,6 +44,8 @@ GLOBAL_LIST_EMPTY(all_shelter_pods)
 
 	var/barometer_predictable = FALSE
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
+	/// This causes the weather to only end if forced to
+	var/perpetual = FALSE
 
 	var/area_act = FALSE // Does this affect more than just mobs, or the landscape?
 
@@ -106,7 +108,8 @@ GLOBAL_LIST_EMPTY(all_shelter_pods)
 				to_chat(M, weather_message)
 			if(weather_sound)
 				SEND_SOUND(M, sound(weather_sound))
-	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
+	if(!perpetual)
+		addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /datum/weather/proc/wind_down()
 	if(stage >= WEATHER_WIND_DOWN_STAGE)

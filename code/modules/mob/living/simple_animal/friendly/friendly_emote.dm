@@ -100,3 +100,27 @@
 	var/mob/living/simple_animal/pet/cat/C = user
 	C.sit()
 	return TRUE
+
+/datum/emote/living/simple_animal/cow/moo
+	key = "moo"
+	key_third_person = "moos"
+	message = "moos!"
+	sound = "sound/creatures/cow.ogg"
+	emote_type = EMOTE_AUDIBLE
+	mob_type_allowed_typecache = list(/mob/living/basic/cow)
+
+/datum/emote/living/simple_animal/chicken/cluck
+	key = "cluck"
+	key_third_person = "clucks"
+	message = "clucks."
+	sound = "sound/creatures/clucks.ogg"
+	emote_type = EMOTE_AUDIBLE
+	mob_type_allowed_typecache = list(/mob/living/basic/chicken)
+
+/datum/emote/living/simple_animal/pig/oink
+	key = "oink"
+	key_third_person = "oinks"
+	message = "oinks."
+	sound = "sound/creatures/pig.ogg"
+	emote_type = EMOTE_AUDIBLE
+	mob_type_allowed_typecache = list(/mob/living/basic/pig)

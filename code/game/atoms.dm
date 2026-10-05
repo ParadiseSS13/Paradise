@@ -1133,6 +1133,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
+		if(type_override)
+			type = type_override
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		if(type_override)
 			type = type_override
@@ -1494,6 +1496,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
 
+/**
+ * Causes effects when the atom gets hit by a rust effect from heretics
+ *
+ * Override this if you want custom behaviour in whatever gets hit by the rust
+ * /turf/rust_turf should be used instead for overriding rust on turfs
+ */
+/atom/proc/rust_heretic_act()
+	return
+
+///wrapper proc that passes our mob's rust_strength to the target we are rusting
+/mob/living/proc/do_rust_heretic_act(atom/target)
+	var/datum/antagonist/heretic/heretic_data = IS_HERETIC(src)
+	target.rust_heretic_act(heretic_data?.rust_strength)
+
+/mob/living/basic/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
+	target.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
+
 /// Used with the spawner component to do something when a mob is spawned.
 /atom/proc/on_mob_spawn(mob/created_mob)
 	return
@@ -1556,3 +1575,29 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(is_station_level((get_turf(src)).z))
 		return list(ASSIGNMENT_CREW = 1)
 
+/atom/MouseEntered(location, control, params)
+	SSmouse_entered.hovers[usr.client] = src
+
+/// Fired whenever this atom is the most recent to be hovered over in the tick.
+/// Preferred over MouseEntered if you do not need information such as the position of the mouse.
+/// Especially because this is deferred over a tick, do not trust that `client` is not null.
+/atom/proc/on_mouse_enter(client/client)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+	if(isnull(user))
+		return
+
+	SEND_SIGNAL(user, COMSIG_ATOM_MOUSE_ENTERED, src)
+
+	// Update the screentip to reflect what we're hovering over.
+	if(invisibility > user.see_invisible)
+		return
+	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks.
+	var/screentip_mode = user.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS) || isfloorturf(src))
+		active_hud.screentip_text.maptext = ""
+		return
+	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this.
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [client.prefs.screentip_color]'>[name]</span>"
+	user.client.moused_over = UID()

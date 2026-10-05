@@ -222,7 +222,7 @@
 	return TRUE
 
 // Random safe location finder
-/proc/find_safe_turf(zlevel, list/zlevels)
+/proc/find_safe_turf(zlevel, list/zlevels, list/blacklist_areas)
 	if(!zlevels)
 		if(zlevel)
 			zlevels = list(zlevel)
@@ -236,8 +236,21 @@
 		var/z = pick(zlevels)
 		var/turf/random_location = locate(x, y, z)
 
-		if(random_location.is_safe())
-			return random_location
+		var/area/area = get_area(random_location)
+		var/blacklisted = FALSE
+		for(var/temp_area as anything in blacklist_areas)
+			if(area.type in typesof(temp_area))
+				log_debug("TELEPORTED TO A FORBIDDEN AREA")
+				blacklisted = TRUE
+				continue
+
+		if(blacklisted)
+			continue
+
+		if(!random_location.is_safe())
+			continue
+
+		return random_location
 
 /// Returns a random department of areas to pass into get_safe_random_station_turf() for more equal spawning.
 /proc/get_safe_random_station_turf_equal_weight()

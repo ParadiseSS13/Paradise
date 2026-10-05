@@ -7,6 +7,15 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/huntsman32
+	name = ".32 huntsman round"
+	desc = "A .32 caliber round. The bullet is scored and designed to fragment on hit, dealing large amounts of damage to large creatures."
+	icon_state = "magnum_steel"
+	caliber = "32"
+	projectile_type = /obj/projectile/bullet/huntsman32
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+
 /obj/item/ammo_casing/rubber9mm
 	name = "9mm rubber round"
 	desc = "A 9mm pistol cartridge. This one has a rubber tip for less-lethal takedowns."
@@ -43,6 +52,15 @@
 
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/projectile/bullet/mime/fake
+
+/obj/item/ammo_casing/dueling
+	name = "dueling round"
+	desc = "A heavy pistol cartridge, modified to fit in a dueling pistol."
+	caliber = "50AE"
+	projectile_type = /obj/projectile/bullet/dueling
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	variance = 15
 
 /obj/item/ammo_casing/c10mm
 	name = "10mm round"
@@ -189,6 +207,7 @@
 	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
 	variance = 25
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubbershot shell"
@@ -197,14 +216,14 @@
 	projectile_type = /obj/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
-	materials = list(MAT_METAL=4000)
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A 12 gauge shell loaded with a beanbag slug for less-lethal takedowns."
 	icon_state = "beanbag"
 	projectile_type = /obj/projectile/bullet/weakbullet
-	materials = list(MAT_METAL=250)
+	materials = list(MAT_METAL = 250)
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
@@ -238,6 +257,7 @@
 	icon_state = "incendiary"
 	projectile_type = /obj/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/frag12
 	name = "\improper FRAG-12 slug"
@@ -272,6 +292,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
@@ -289,6 +310,7 @@
 	desc = "An empty 12 gauge shell, ready to be loaded with all manner of projectiles."
 	icon_state = "techshell"
 	projectile_type = null
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 200)
 
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"
@@ -298,19 +320,20 @@
 	projectile_type = /obj/projectile/bullet/dart
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	materials = list(MAT_METAL = 4000)
 
-/obj/item/ammo_casing/shotgun/dart/New()
-	..()
+/obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
+	. = ..()
 	create_reagents(30)
 
-/obj/item/ammo_casing/shotgun/dart/attackby__legacy__attackchain()
-	return
+/obj/item/ammo_casing/shotgun/dart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return NONE
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
 
-/obj/item/ammo_casing/shotgun/dart/bioterror/New()
-	..()
+/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("neurotoxin", 6)
 	reagents.add_reagent("spore", 6)
 	reagents.add_reagent("capulettium_plus", 6) //;HELP OPS IN MAINT
@@ -456,17 +479,20 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
-	if((is_pen(A)) && modified && !FD.pen)
-		if(!user.unequip(A)) // forceMove happens in add_pen
-			return
-		add_pen(A)
-		to_chat(user, SPAN_NOTICE("You insert [A] into [src]."))
+	if((is_pen(used)) && modified && !FD.pen)
+		if(!user.unequip(used)) // forceMove happens in add_pen
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+		add_pen(used)
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
 	if(modified)
+		to_chat(user, SPAN_WARNING("[src] has already been modified!"))
 		return
 
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
@@ -485,14 +511,18 @@
 	FD.damage = 5
 	FD.nodamage = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/ammo_casing/caseless/foam_dart/activate_self(mob/living/user)
+	if(!user)
+		return ..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
-	if(FD.pen)
-		FD.damage = initial(FD.damage)
-		FD.nodamage = initial(FD.nodamage)
-		user.put_in_hands(FD.pen)
-		to_chat(user, SPAN_NOTICE("You remove [FD.pen] from [src]."))
-		FD.pen = null
+	if(!FD.pen)
+		return ITEM_INTERACT_COMPLETE
+	FD.damage = initial(FD.damage)
+	FD.nodamage = initial(FD.nodamage)
+	user.put_in_hands(FD.pen)
+	to_chat(user, SPAN_NOTICE("You remove [FD.pen] from [src]."))
+	FD.pen = null
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/ammo_casing/caseless/foam_dart/riot
 	name = "riot foam dart"

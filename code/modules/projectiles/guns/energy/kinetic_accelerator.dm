@@ -322,6 +322,9 @@
 /obj/projectile/kinetic/pod
 	range = 4
 
+/obj/projectile/kinetic/turret
+	damage = 30
+
 /obj/projectile/kinetic/pod/regular
 	damage = 50
 	pressure_decrease = 0.5
@@ -408,6 +411,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
 	origin_tech = "programming=2;materials=2;magnets=4"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'
@@ -555,6 +559,7 @@
 //AoE blasts
 /obj/item/borg/upgrade/modkit/aoe
 	modifier = 0
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	var/turf_aoe = FALSE
 	var/stats_stolen = FALSE
 

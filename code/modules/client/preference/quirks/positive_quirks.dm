@@ -36,6 +36,51 @@
 	trait_to_apply = TRAIT_GLUTTON
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 
+/datum/quirk/lifelike
+	name = "Lifelike"
+	desc = "Your prosthetic limbs have been fitted with a synthetic epidermis, making them appear natural. \
+			For IPCs, this covers all body parts, making them look human (except monitor-shaped heads). \
+			For all others, it covers prosthetic limbs."
+	cost = 4
+	item_to_give = /obj/item/epidermal_applicator/aftermarket
+
+/datum/quirk/lifelike/apply_quirk_effects(mob/living/carbon/human/target, character)
+	. = ..(target, character)
+	// Apply synthetic skin after robotic limbs are applied or the quirk doesn't work very well
+	RegisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED, PROC_REF(apply_synthetic_skin_on_signal))
+
+/datum/quirk/lifelike/proc/apply_synthetic_skin_on_signal(mob/living/carbon/human/target)
+	SIGNAL_HANDLER // COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED
+
+	for(var/obj/item/organ/external/limb as anything in target.bodyparts)
+		if(!limb)
+			continue
+
+		// Skip monitor heads
+		if(limb.limb_name == "head" && limb.model)
+			var/datum/robolimb/R = GLOB.all_robolimbs[limb.model]
+			if(R && R.is_monitor)
+				continue
+
+		if(ismachineperson(target) || limb.is_robotic())
+			limb.has_synthetic_skin = TRUE
+			// Apply owner's skin color to synthetic skin
+			limb.synthetic_skin_colour = target.skin_colour
+			// Set real identity for head
+			if(limb.limb_name == "head")
+				limb.synthetic_skin_identity = target.dna.real_name
+			// Clear cached limb icon because otherwise it's sticky
+			limb.force_icon = null
+			// Force mob icon regeneration
+			limb.mob_icon = null
+			limb.compile_icon()
+
+	// Now rebuild appearance
+	target.update_body(rebuild_base = TRUE)
+
+	// Unregister the signal since we're done with it
+	UnregisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
+
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"
 	var/list/entree_options = list(
@@ -117,7 +162,7 @@
 /datum/quirk/culinary_implant
 	name = "IPC Culinary Implant"
 	desc = "Either you or your creator wanted you to seem more organic, and gave you an artificial mouth and stomach."
-	cost = 2
+	cost = 1
 	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/chest/ipc_food
 
@@ -149,6 +194,25 @@
 /datum/quirk/breathing_tube
 	name = "Breathing Tube"
 	desc  = "You have been outfitted with a breathing tube."
-	cost = 2
+	cost = 1
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
+
+/datum/quirk/temperate_partier
+	name = "Temperate Partier"
+	desc = "You never wake up drunk in an unrelated department. You know better than to drink like that on a work night."
+	cost = 1
+	trait_to_apply = TRAIT_TEMPERATE_PARTIER
+	conflicting_quirks = list(/datum/quirk/work_hard_party_harder)
+
+/datum/quirk/tiny
+	name = "Tiny"
+	desc = "You are smaller than the average person."
+	cost = 3
+	trait_to_apply = TRAIT_TINY
+
+/datum/quirk/tiny/apply_quirk_effects() // Just the pasted `activate()` proc from the dwarf mutation.
+	..() // I'M AT MY WITS END THIS IS THE ONLY WAY I KNOW TO MAKE THIS WORK.
+	owner.resize = 0.8
+	owner.update_transform()
+

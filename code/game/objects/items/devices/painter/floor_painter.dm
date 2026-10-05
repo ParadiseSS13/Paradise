@@ -25,18 +25,21 @@
 		"tile_full",
 		"tile_corner",
 		"tile_grid",
+		"tile_paved",
 		"tile_dark_standard",
 		"tile_dark_edge",
 		"tile_dark_half",
 		"tile_dark_full",
 		"tile_dark_corner",
 		"tile_dark_grid",
+		"tile_dark_paved",
 		"tile_white_standard",
 		"tile_white_edge",
 		"tile_white_half",
 		"tile_white_full",
 		"tile_white_corner",
 		"tile_white_grid",
+		"tile_white_paved",
 	)
 
 /datum/painter/floor/paint_atom(atom/target, mob/user)

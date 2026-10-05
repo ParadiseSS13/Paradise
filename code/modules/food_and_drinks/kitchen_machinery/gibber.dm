@@ -228,7 +228,7 @@
 		return
 
 	if(!occupant)
-		visible_message(SPAN_DANGER("You hear a loud metallic grinding sound."))
+		visible_message(SPAN_DANGER("You hear a loud, metallic grinding sound."))
 		return
 
 	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
@@ -236,7 +236,7 @@
 		return
 
 	use_power(1000)
-	visible_message(SPAN_DANGER("You hear a loud squelchy grinding sound."))
+	visible_message(SPAN_DANGER("You hear a loud, squelchy grinding sound."))
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
@@ -410,7 +410,7 @@
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
-	visible_message("<span class='warning'>\The [src] spits out \the [H.name]'s possessions!")
+	visible_message(SPAN_WARNING("[src] spits out \the [H.name]'s possessions!"))
 
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.

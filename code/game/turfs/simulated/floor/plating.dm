@@ -1,6 +1,6 @@
 /turf/simulated/floor/plating
 	name = "plating"
-	icon_state = "plating"
+	desc = "Bare hull plating, normally hidden by a layer of flooring. The cavity between the floor and the plating is used to carry cables, pipes, and other utilities."
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
@@ -8,6 +8,7 @@
 	footstep = FOOTSTEP_PLATING
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -173,12 +174,14 @@
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
+	desc = "Hull plating reinforced with a lattice of metal rods. It's exceptionally resistant to heat and corrosion damage."
 	icon_state = "engine"
 	icon_regular_floor = "engine"
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/floor/engine/update_icon_state()
 	if(!broken && !burnt)
@@ -232,6 +235,7 @@
 
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
+	desc = "Tiles formed from some kind of unnaturally durable stone. Evil energies course through them whenever they're stepped on."
 	icon_state = "cult"
 	icon_regular_floor = "cult"
 
@@ -366,7 +370,8 @@
 	temperature = TCMB
 
 /turf/simulated/floor/plating/ironsand
-	name = "Iron Sand"
+	name = "iron sand"
+	desc = "Iron-rich sand, highly evocotive of Mars."
 	icon = 'icons/turf/floors/ironsand.dmi'
 	icon_state = "ironsand1"
 
@@ -379,6 +384,7 @@
 
 /turf/simulated/floor/plating/snow
 	name = "snow"
+	desc = "A cold layer of accumulated ice crystals with a consistency ranging between fluffy powder and heavy sand. As more and more snow falls, the bottom layers will eventually be compacted into solid ice."
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 	footstep = FOOTSTEP_SAND
@@ -407,6 +413,7 @@
 
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
+	desc = "A weak floor made of metal foam, used to quickly seal hull breaches. It's a good idea to replace it with a more permanent repair."
 	icon_state = "metalfoam"
 	/// which kind of metal this will turn into
 	var/metal_kind = METAL_FOAM_ALUMINUM
@@ -461,6 +468,7 @@
 
 /turf/simulated/floor/plating/abductor
 	name = "alien floor"
+	desc = "Did we learn the secrets of building floors from an advanced alien civilization like this one?"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "alienpod1"
 
@@ -503,6 +511,7 @@
 /turf/simulated/floor/plating/false_asteroid
 	gender = PLURAL
 	name = "volcanic floor"
+	desc = "A thick layer of volcanic rock, specificially basalt."
 	baseturf = /turf/simulated/floor/plating/false_asteroid
 	icon_state = "basalt"
 	icon_plating = "basalt"

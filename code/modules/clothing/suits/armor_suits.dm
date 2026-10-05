@@ -46,21 +46,25 @@
 	desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge))
-		if(user.transfer_item_to(I, src))
-			add_fingerprint(user)
-			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "A Level II soft armor vest used by Nanotrasen corporate security, offering light protection against kinetic impacts and lasers. This one has [attached_badge] attached to it."
-			to_chat(user, SPAN_NOTICE("You attach [attached_badge] to [src]."))
-		return
-	..()
+/obj/item/clothing/suit/armor/vest/security/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/clothing/accessory/holobadge))
+		return ..()
 
-/obj/item/clothing/suit/armor/vest/security/attack_self__legacy__attackchain(mob/user)
+	if(user.transfer_item_to(used, src))
+		add_fingerprint(user)
+		attached_badge = used
+		var/datum/action/A = new /datum/action/item_action/remove_badge(src)
+		A.Grant(user)
+		icon_state = "armorsec"
+		user.update_inv_wear_suit()
+		desc = "A Level II soft armor vest used by Nanotrasen corporate security, offering light protection against kinetic impacts and lasers. This one has [attached_badge] attached to it."
+		to_chat(user, SPAN_NOTICE("You attach [attached_badge] to [src]."))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/clothing/suit/armor/vest/security/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
@@ -72,9 +76,7 @@
 		desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
 		to_chat(user, SPAN_NOTICE("You remove [attached_badge] from [src]."))
 		attached_badge = null
-
-		return
-	..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/armor/vest/street_judge
 	name = "judge's security armor"
@@ -414,11 +416,15 @@
 	. += "Outside of the strange effects caused by the anomaly core, the armor provides no protection against conventional attacks. \
 	Nanotrasen cannot be held liable for injury and/or death due to misuse or proper operation of the reactive armor."
 
-/obj/item/clothing/suit/armor/reactive/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/suit/armor/reactive/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	active = !(active)
 	if(disabled)
 		to_chat(user, SPAN_WARNING("[src] is disabled and rebooting!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(active)
 		to_chat(user, SPAN_NOTICE("[src] is now active."))
 		icon_state = "reactive"
@@ -428,6 +434,7 @@
 		add_fingerprint(user)
 	user.update_inv_wear_suit()
 	update_action_buttons()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
@@ -813,6 +820,13 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 45, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // Still good. Not OP.
+		return
+	armor = list(MELEE = 115, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
 	desc = "The skull of a dragon."
@@ -823,6 +837,13 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 45, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // Still good. Not OP.
+		return
+	armor = list(MELEE = 115, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"

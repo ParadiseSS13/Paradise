@@ -68,6 +68,8 @@ SUBSYSTEM_DEF(ticker)
 	/// List of biohazards keyed to the last time their population was sampled.
 	var/list/biohazard_pop_times = list()
 	var/list/biohazard_included_admin_spawns = list()
+	/// Has cult tried to summon?
+	var/cult_tried_summon = FALSE
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -156,6 +158,8 @@ SUBSYSTEM_DEF(ticker)
 					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
 						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
+						if(length(GLOB.clients) > initial(M.max_players_random))
+							continue
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
@@ -178,6 +182,7 @@ SUBSYSTEM_DEF(ticker)
 		hide_mode = TRUE
 
 	var/list/datum/game_mode/runnable_modes
+	var/is_admin_forced = FALSE
 
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = GLOB.configuration.gamemode.get_runnable_modes()
@@ -188,9 +193,9 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
-			var/datum/game_mode/M = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
-			if(M.can_start())
-				mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
+			mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
+			is_admin_forced = TRUE
+
 		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
@@ -200,7 +205,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		mode = GLOB.configuration.gamemode.pick_mode(GLOB.master_mode)
 
-	if(!mode.can_start())
+	if(!mode.can_start() && !is_admin_forced)
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
@@ -673,7 +678,7 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
-			antag_hud.add_hud_to(M)
+			antag_hud.add_hud_to(M, "round end")
 
 	var/static/list/base_encouragement_messages = list(
 		"Keep on keeping on!",
@@ -720,8 +725,8 @@ SUBSYSTEM_DEF(ticker)
 	for(var/feed_channel_type in subtypesof(/datum/feed_channel))
 		GLOB.news_network.channels += new feed_channel_type
 
-	for(var/loc_type in subtypesof(/datum/trade_destination))
-		var/datum/trade_destination/D = new loc_type
+	for(var/loc_type in subtypesof(/datum/lore_location))
+		var/datum/lore_location/D = new loc_type
 		GLOB.weighted_randomevent_locations[D] = length(D.viable_random_events)
 		GLOB.weighted_mundaneevent_locations[D] = length(D.viable_mundane_events)
 

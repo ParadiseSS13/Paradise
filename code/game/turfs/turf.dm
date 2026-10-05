@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(station_turfs)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
@@ -94,6 +96,9 @@
 
 	var/list/milla_data = null
 
+	///This turf's resistance to getting rusted
+	var/rust_resistance = RUST_RESISTANCE_ORGANIC
+
 	new_attack_chain = TRUE
 	/// The destination x-coordinate that atoms entering this turf will be automatically moved to.
 	var/destination_x
@@ -145,6 +150,8 @@
 		directional_opacity = ALL_CARDINALS
 
 	initialize_milla()
+	if(is_station_level(z))
+		GLOB.station_turfs += src
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -562,14 +569,14 @@
 					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
 			return ITEM_INTERACT_COMPLETE
-		else if(istype(used, /obj/item/rcl))
-			var/obj/item/rcl/R = used
-			if(R.loaded)
+		else if(istype(used, /obj/item/stack/cable_coil/rcl))
+			var/obj/item/stack/cable_coil/rcl/R = used
+			if(R.get_amount())
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.item_interaction(user, R)
 						return ITEM_INTERACT_COMPLETE
-				R.loaded.place_turf(src, user)
+				R.place_turf(src, user)
 				R.is_empty(user)
 
 			return ITEM_INTERACT_COMPLETE
@@ -688,6 +695,12 @@
 
 	AddElement(/datum/element/rust/heretic)
 	new /obj/effect/glowing_rune(src)
+
+/// Check if the heretic is strong enough to rust this turf, and if so, rusts the turf with an added visual effect.
+/turf/rust_heretic_act(rust_strength = 1)
+	if((flags & NO_RUST) || (rust_strength < rust_resistance))
+		return
+	magic_rust_turf()
 
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()

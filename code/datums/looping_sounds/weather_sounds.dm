@@ -54,6 +54,15 @@
 	area_sound = TRUE
 	channel = CHANNEL_ASH_STORM
 
+/datum/looping_sound/void_loop
+	mid_sounds = list('sound/ambience/antag/heretic/VoidsEmbrace.ogg'=1)
+	mid_length = 166.9 SECONDS // exact length of the music in ticks
+	start_sound = 'sound/ambience/antag/heretic/VoidsEmbrace.ogg'
+	start_length = 166.9 SECONDS
+	volume = 120
+	extra_range = 30
+
+
 /datum/looping_sound/active_outside_acid
 	mid_sounds = 'sound/weather/acid/outside/active_mid1.ogg'
 	mid_length = 105

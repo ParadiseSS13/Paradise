@@ -33,6 +33,7 @@
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 10000)
 	energy_drain = 20
 	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
@@ -252,6 +253,7 @@
 	range = MECHA_MELEE | MECHA_RANGED
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 2000)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Initialize(mapload)
 	. = ..()
@@ -505,7 +507,7 @@
 	if(..())
 		return
 	if(!length(processed_reagents) || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
-		occupant_message("<span class='alert'>Reagent processing stopped.</a>")
+		occupant_message(SPAN_ALERT("Reagent processing stopped."))
 		log_message("Reagent processing stopped.")
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -520,6 +522,7 @@
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	equip_cooldown = 15
 	energy_drain = 10
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_TITANIUM = 1500)
 	var/dam_force = 20
 
 
@@ -534,8 +537,10 @@
 	if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
-			target.visible_message(SPAN_NOTICE("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second."), \
-								"<span class='notice'[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>")
+			target.visible_message(
+				SPAN_NOTICE("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second."),
+				SPAN_NOTICE("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.")
+			)
 		else
 			push_aside(chassis, M)//out of the way, I have people to save!
 			occupant_message(SPAN_NOTICE("You gently push [target] out of the way."))

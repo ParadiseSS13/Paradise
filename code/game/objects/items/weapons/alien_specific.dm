@@ -19,7 +19,7 @@
 //Bottles for borg liquid squirters. PSSH PSSH
 /obj/item/reagent_containers/spray/alien
 	name = "generic chemical synthesizer"
-	desc = "If you can see this, make an issue report on GitHub. Something has gone wrong!"
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-default"
 	spray_maxrange = 3

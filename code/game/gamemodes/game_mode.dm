@@ -38,6 +38,7 @@
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/blob_overminds = list()
+	var/list/flockminds = list()
 	var/list/incursion_portals = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
@@ -59,6 +60,10 @@
 	var/list/datum/mind/vampire_enthralled = list()
 	/// A list of all minds which have the mindflayer antag datum
 	var/list/datum/mind/mindflayers = list()
+	/// A list of all minds which have the heretic antag datum
+	var/list/datum/mind/heretics = list()
+	/// A list of all minds which have the acolyte antag datum
+	var/list/datum/mind/acolytes = list()
 
 	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
 	var/list/datum/mind/pre_traitors = list()
@@ -70,8 +75,12 @@
 	var/list/datum/mind/pre_mindflayers = list()
 	/// A list of all minds which have the wizard special role
 	var/list/datum/mind/wizards = list()
+		/// A list of all minds that are wizard adepts
+	var/list/datum/mind/adepts = list()
 	/// A list of all minds that are wizard apprentices
 	var/list/datum/mind/apprentices = list()
+	/// A list of all minds that are ninjas
+	var/list/datum/mind/ninjas = list()
 
 	/// The cult team datum
 	var/datum/team/cult/cult_team
@@ -109,6 +118,11 @@
 	var/list/datum/mind/zombies = list()
 	/// A list of all minds that are infected with the zombie virus, but aren't zombies yet
 	var/list/datum/mind/zombie_infected = list()
+
+	/// An associative list between a species and all the minds that are uplifted primitive of that species.
+	var/list/datum/mind/uplifted_primitives = alist()
+	/// An associative list between the species of the team and the team's datum.
+	var/list/datum/team/uplifted_primitive/uplifted_teams = alist()
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
@@ -632,6 +646,8 @@
 	. += auto_declare_completion_enthralled()
 	. += auto_declare_completion_mindflayer()
 	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_acolyte()
+	. += auto_declare_completion_heretic()
 	. += auto_declare_completion_nuclear()
 	. += auto_declare_completion_wizard()
 	. += auto_declare_completion_revolution()

@@ -105,6 +105,17 @@
 		if("clear_all")
 			selected_accesses = list()
 
+/obj/item/airlock_electronics/proc/apply_access_to(obj/target)
+	if(!istype(target))
+		return
+
+	if(one_access)
+		target.req_access = null
+		target.req_one_access = selected_accesses
+	else
+		target.req_one_access = null
+		target.req_access = selected_accesses
+
 /obj/item/airlock_electronics/destroyed
 	name = "burned-out airlock electronics"
 	icon_state = "door_electronics_smoked"

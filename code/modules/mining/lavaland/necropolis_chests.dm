@@ -73,7 +73,7 @@
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 		if(24)
-			switch(rand(1, 11))
+			switch(rand(1, 10))
 				if(1)
 					new /obj/item/blank_tarot_card(src)
 				if(2 to 5)
@@ -82,8 +82,6 @@
 					new /obj/item/tarot_card_pack/jumbo(src)
 				if(9, 10)
 					new /obj/item/tarot_card_pack/mega(src)
-				if(11)
-					new /obj/item/tarot_generator(src) // ~1/250? Seems reasonable
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
@@ -92,7 +90,7 @@
 	icon_state = "datadisk1"
 	var/modkit_design
 
-/obj/item/disk/design_disk/modkit_disk/New()
+/obj/item/disk/design_disk/modkit_disk/Initialize(mapload)
 	. = ..()
 	if(modkit_design)
 		blueprint = new modkit_design
@@ -327,46 +325,45 @@
 	var/activated = FALSE
 	var/usedHand
 	var/mob/living/carbon/owner
+	new_attack_chain = TRUE
 
-/obj/item/rod_of_asclepius/attack_self__legacy__attackchain(mob/user)
+/obj/item/rod_of_asclepius/activate_self(mob/user)
 	if(activated)
-		return
+		return ..()
 	if(!iscarbon(user))
 		to_chat(user, SPAN_WARNING("The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/mob/living/carbon/itemUser = user
-	if(itemUser.l_hand == src)
-		usedHand = LEFT_HAND
-	if(itemUser.r_hand == src)
-		usedHand = RIGHT_HAND
+	usedHand = itemUser.l_hand == src ? LEFT_HAND : RIGHT_HAND
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
 		to_chat(user, SPAN_WARNING("You can't possibly handle the responsibility of more than one rod!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/failText = SPAN_WARNING("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
 	to_chat(itemUser, SPAN_NOTICE("The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong..."))
 	if(do_after_once(itemUser, 40, target = itemUser))
 		itemUser.say("I swear to fulfill, to the best of my ability and judgment, this covenant:")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(do_after(itemUser, 20, target = itemUser))
 		itemUser.say("I will apply, for the benefit of the sick, all measures that are required, avoiding those twin traps of overtreatment and therapeutic nihilism.")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(do_after(itemUser, 30, target = itemUser))
 		itemUser.say("I will remember that I remain a member of society, with special obligations to all my fellow human beings, those sound of mind and body as well as the infirm.")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(do_after(itemUser, 30, target = itemUser))
 		itemUser.say("If I do not violate this oath, may I enjoy life and art, respected while I live and remembered with affection thereafter. May I always act so as to preserve the finest traditions of my calling and may I long experience the joy of healing those who seek my help.")
 	else
 		to_chat(itemUser, failText)
-		return
+		return ITEM_INTERACT_COMPLETE
 	to_chat(itemUser, SPAN_NOTICE("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
 
 	activated(itemUser)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rod_of_asclepius/Destroy()
 	owner = null
@@ -451,14 +448,16 @@
 	return // It's a shard
 
 
-/obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
-	. = ..()
+/obj/item/organ/internal/cyberimp/arm/katana/activate_self(mob/living/carbon/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	to_chat(user,SPAN_USERDANGER("The mass goes up your arm and inside it!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
 
 	user.drop_item()
 	insert(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
 	return
@@ -521,12 +520,12 @@
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	new_attack_chain = TRUE
 	var/drew_blood = FALSE
 	var/timerid
 	var/list/input_list = list()
 	var/list/combo_strings = list()
 	var/list/combo_list = list()
-
 
 /obj/item/cursed_katana/Initialize(mapload)
 	. = ..()
@@ -552,16 +551,24 @@
 	. = ..()
 	reset_inputs(null, TRUE)
 
-/obj/item/cursed_katana/attack_self__legacy__attackchain(mob/user)
-	. = ..()
-	reset_inputs(user, TRUE)
+/obj/item/cursed_katana/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/cursed_katana/attack__legacy__attackchain(mob/living/target, mob/user, click_parameters)
-	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
+	reset_inputs(user, TRUE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/cursed_katana/pre_attack(mob/living/target, mob/user, params)
+	if(!istype(target))
 		return ..()
+
+	if(target.stat == DEAD || target == user) // No, you can not stab yourself to cloak / not take the penalty for not drawing blood
+		return ..()
+
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_WARNING("You don't want to harm [target]!"))
-		return TRUE
+		return FINISH_ATTACK
+
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
 		input_list += DISARM_SLASH
@@ -577,7 +584,7 @@
 		reset_inputs(user, TRUE)
 	if(check_input(target, user))
 		reset_inputs(null, TRUE)
-		return TRUE
+		return FINISH_ATTACK
 	else
 		timerid = addtimer(CALLBACK(src, PROC_REF(reset_inputs), user, FALSE), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
 		return ..()

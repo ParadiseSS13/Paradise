@@ -199,18 +199,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	scatter_distance = 5
 
-/obj/item/New()
-	..()
-
-	if(!hitsound)
-		if(damtype == "fire")
-			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
-			hitsound = "swing_hit"
-	LAZYINITLIST(attack_verb)
-	if(!move_resist)
-		determine_move_resist()
-
 /obj/item/Initialize(mapload)
 	. = ..()
 	for(var/path in actions_types)
@@ -219,6 +207,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		in_storage = TRUE
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+		if(damtype == "brute")
+			hitsound = "swing_hit"
+	LAZYINITLIST(attack_verb)
+	if(!move_resist)
+		determine_move_resist()
 
 /// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
@@ -317,7 +313,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+/obj/item/proc/check_can_pickup(mob/user, pickupfireoverride = FALSE)
 	if(!user)
 		return FALSE
 	if(ishuman(user))
@@ -356,9 +352,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(..())
-		return
-
 	if(throwing)
 		throwing.finalize(FALSE)
 
@@ -371,7 +364,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	if(flags & ABSTRACT)
 		return FALSE
+	return TRUE
 
+/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+	if(..())
+		return
+	if(!check_can_pickup(user, pickupfireoverride))
+		return FALSE
 	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src))
@@ -565,6 +564,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
@@ -721,6 +721,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	else
 		return
 
+/obj/item/proc/should_play_hitsound(damage)
+	return damage > 0
+
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(hit_atom && !QDELETED(hit_atom))
 		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
@@ -732,7 +735,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
 			var/volume = get_volume_by_throwforce_and_or_w_class()
-			if(throwforce > 0)
+			if(should_play_hitsound(throwforce))
 				if(mob_throw_hit_sound)
 					SSthrowing.playsound_capped(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
 				else if(hitsound)
@@ -860,6 +863,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				outline_color = COLOR_THEME_OPERATIVE
 			if("clockwork")
 				outline_color = COLOR_THEME_CLOCKWORK // if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+			if("mindflayer")
+				outline_color = COLOR_THEME_MINDFLAYER
 			if("glass")
 				outline_color = COLOR_THEME_GLASS
 			else // this should never happen, hopefully

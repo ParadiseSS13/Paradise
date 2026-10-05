@@ -185,7 +185,7 @@
 		unmutateAllBodyparts()
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
-/mob/living/carbon/human/adjustOxyLoss(amount)
+/mob/living/carbon/human/adjustOxyLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.oxy_mod
 	. = ..()
@@ -195,7 +195,7 @@
 		amount *= dna.species.oxy_mod
 	. = ..()
 
-/mob/living/carbon/human/adjustToxLoss(amount)
+/mob/living/carbon/human/adjustToxLoss(amount, updating_health = TRUE)
 	if(dna.species && amount > 0)
 		amount *= dna.species.tox_mod
 	. = ..()

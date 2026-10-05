@@ -195,13 +195,10 @@
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
 
-/obj/item/tank/jetpack/suit/New()
-	..()
+/obj/item/tank/jetpack/suit/Initialize(mapload)
+	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	temp_air_contents = air_contents
-
-/obj/item/tank/jetpack/suit/attack_self__legacy__attackchain()
-	return
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
 	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))

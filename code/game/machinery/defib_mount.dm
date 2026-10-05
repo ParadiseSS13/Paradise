@@ -46,13 +46,13 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
+		. += SPAN_NOTICE("There is a defibrillator unit hooked up. <b>Alt-click</b> to remove it.")
 		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 			. += SPAN_NOTICE("Due to a security situation, its locking clamps can be toggled by swiping any ID.")
 		else
 			. += SPAN_NOTICE("Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.")
 	else
-		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defibrillator unit housing, securing [src] to the wall.<span>"
+		. += SPAN_NOTICE("There are a pair of <b>bolts</b> in the defibrillator unit housing, securing [src] to the wall.")
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
@@ -153,8 +153,7 @@
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
 	w_class = WEIGHT_CLASS_BULKY
-
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)

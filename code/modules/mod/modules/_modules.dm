@@ -3,6 +3,7 @@
 	name = "MOD module"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	/// If it can be removed
 	var/removable = TRUE
 	/// If it's passive, togglable, usable or active
@@ -49,6 +50,8 @@
 	COOLDOWN_DECLARE(cooldown_timer) //sohtgdoiuduhnfipguhndshnfigdnghd
 	///The UID of the module. Don't ask.
 	var/module_UID = null
+	/// Replaces the sprite for monitor heads
+	var/icon_monitor = null
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
@@ -189,7 +192,7 @@
 /// Called when an activated module without a device is active and the user alt/middle-clicks
 /obj/item/mod/module/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
-	on_select_use(target)
+	INVOKE_ASYNC(src, PROC_REF(on_select_use), target)
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process
@@ -303,7 +306,11 @@
 	else
 		return
 	var/image/final_overlay
-	if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
+	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
+	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+	if(robohead && robohead.is_monitor && icon_monitor)
+		final_overlay = image(icon = icon_monitor, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
+	else if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
 		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	else
 		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
@@ -349,6 +356,7 @@
 	name = "MOD anomaly locked module"
 	desc = "A form of a module, locked behind an anomalous core to function."
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 	/// The core item the module runs off.
 	var/obj/item/assembly/signaler/anomaly/core
 	/// Accepted types of anomaly cores.
@@ -397,20 +405,24 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby__legacy__attackchain(obj/item/item, mob/living/user, params)
-	if(item.type in accepted_anomalies)
-		if(core)
-			to_chat(user, SPAN_WARNING("A core is already installed!"))
-			return
-		if(!user.drop_item())
-			return
-		core = item
-		to_chat(user, SPAN_NOTICE("You install [item]."))
-		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-		update_icon(UPDATE_ICON_STATE)
-		core.forceMove(src)
-	else
+/obj/item/mod/module/anomaly_locked/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!(used.type in accepted_anomalies))
 		return ..()
+
+	if(core)
+		to_chat(user, SPAN_WARNING("A core is already installed!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	core = used
+	to_chat(user, SPAN_NOTICE("You install [used] in [src]."))
+	playsound(src, 'sound/machines/click.ogg', 30, TRUE)
+	update_icon(UPDATE_ICON_STATE)
+	core.forceMove(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()

@@ -76,8 +76,16 @@ in their list
 		throw EXCEPTION("No 'type' field in the data")
 	var/path = text2path(data["type"])
 	if(!path)
-		throw EXCEPTION("Path not found: [path]")
+		throw EXCEPTION("Path not found: [data["type"]]")
 
-	var/atom/movable/thing = new path(loc)
+	// Since Initialize() eats the first argument
+	// we need to pass loc twice for organs, otherwise
+	// they'll never attach to the mob. But if it's passed
+	// for everything, it'll break shit cause it gets passed random args.
+	var/atom/movable/thing
+	if(ispath(path, /obj/item/organ))
+		thing = new path(loc, loc)
+	else
+		thing = new path(loc)
 	thing.deserialize(data)
 	return thing

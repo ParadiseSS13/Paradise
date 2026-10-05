@@ -156,7 +156,7 @@
 
 /obj/item/grenade/clusterbuster/xmas
 	name = "\improper Christmas Miracle"
-	payload = /obj/item/a_gift
+	payload = /obj/item/small_delivery/gift/random
 
 /obj/item/grenade/clusterbuster/dirt
 	name = "\improper Megamaid's Job Security Grenade"

@@ -96,7 +96,7 @@
 	name = "Heist Bundle"
 	desc = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation. Drain the vault of all its worth so we can get that pay dirt!11"
 	items = list(
-		/obj/item/gun/projectile/revolver, // 65 TC
+		/obj/item/gun/projectile/revolver/syndie, // 65 TC
 		/obj/item/ammo_box/a357, // 15 TC
 		/obj/item/ammo_box/a357, // 15 TC
 		/obj/item/card/emag, // 30 TC
@@ -175,6 +175,23 @@
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
+/// 167.5 TC
+/obj/item/storage/box/syndie_kit/bundle/gangster
+	name = "Mob Boss"
+	desc = "Armed with a classic suit and a lethally-effective thompson submachine gun, you are the boss, and they have disrespected you."
+	items = list(
+		/obj/item/gun/projectile/automatic/tommygun, // ~80 TC
+		/obj/item/ammo_box/magazine/tommygunm45, // ~20 TC
+		/obj/item/melee/knuckleduster/syndie, // 15 TC
+		/obj/item/clothing/gloves/color/black, // 0TC
+		/obj/item/clothing/under/suit/mafia, // 0TC
+		/obj/item/clothing/head/fedora, // 0 TC
+		/obj/item/storage/fancy/cigars/cohiba, // 0 TC
+		/obj/item/lighter/zippo/engraved, // 0 TC
+		/obj/item/stack/spacecash/c4500, // ~32.5 TC
+		/obj/item/card/id/syndicate, // 10TC
+		/obj/item/encryptionkey/syndicate) // 10TC
+
 /// 215TC + Tactical Grenadier Belt
 /obj/item/storage/box/syndie_kit/bundle/grenadier
 	name = "Grenade Bundle"
@@ -215,8 +232,8 @@
 	desc = "Get pretty good with two revolvers, two speedloaders, and a backup combat knife."
 	items = list(
 		/obj/item/kitchen/knife/combat, // 0TC but very robust
-		/obj/item/gun/projectile/revolver,  // 65TC
-		/obj/item/gun/projectile/revolver,  // 65TC
+		/obj/item/gun/projectile/revolver/syndie,  // 65TC
+		/obj/item/gun/projectile/revolver/syndie,  // 65TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/encryptionkey/syndicate, // 10TC
@@ -540,7 +557,7 @@
 	name = "\improper .357 revolver kit"
 
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
-	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/gun/projectile/revolver/syndie(src)
 	new /obj/item/ammo_box/a357(src)
 
 /obj/item/storage/box/syndie_kit/stechkin

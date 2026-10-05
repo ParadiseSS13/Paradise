@@ -105,6 +105,16 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/hydroponics/constructable/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/hydroponics(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
 /obj/machinery/hydroponics/constructable/RefreshParts()
 	var/tmp_capacity = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -756,7 +766,7 @@
 		to_chat(user, SPAN_NOTICE("[src] already contains [initial(new_chem.name)], adding more won't help."))
 		return
 	var/list/message = list()
-	message += "<span class='notice'>You add [initial(new_chem.name)] to [src]"
+	message += "You add [initial(new_chem.name)] to [src]"
 	if(doping_chem)
 		message += ", replacing \the [initial(doping_chem.name)]."
 	else
@@ -765,8 +775,7 @@
 		message += " This should have interesting effects on the plant's seeds."
 	else
 		message += " You don't think this will help without a source of mutations."
-	message += "</span>"
-	to_chat(user, message.Join(""))
+	to_chat(user, SPAN_NOTICE(message.Join("")))
 	doping_chem = new_chem
 
 /obj/machinery/hydroponics/item_interaction(mob/living/user, obj/item/used, list/modifiers)

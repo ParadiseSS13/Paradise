@@ -60,10 +60,16 @@
 	var/malfdamage
 
 	var/splinted_count = 0 //Time when this organ was last splinted
-	///If this organ's max HP is reduced by the IPC magnetic joints implant
+	///If this organ's max HP is reduced by the IPC magnetic joints implant or by the Frail Trait for IPCs
 	var/fragile = FALSE
 	///The level of false skin used to cover robotic organs on the limb. Updated when too damaged, when installed, or when an organ with it is installed.
 	var/augmented_skin_cover_level = 0
+	/// Whether this robotic limb has synthetic skin applied
+	var/has_synthetic_skin = FALSE
+	/// Stored facial identity for synthetic skin (head only)
+	var/synthetic_skin_identity = null
+	/// Stored skin color for synthetic skin
+	var/synthetic_skin_colour = null
 
 // When the limb is not on a person, make sure it faces south so it's always visible.
 /obj/item/organ/external/setDir()
@@ -119,8 +125,8 @@
 	return
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/external/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		icobase = H.dna.species.icobase
@@ -170,20 +176,20 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
-/obj/item/organ/external/attack__legacy__attackchain(mob/M, mob/living/user)
-	if(!ishuman(M))
+/obj/item/organ/external/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target))
 		return ..()
-	var/mob/living/carbon/human/C = M
-	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
+	var/mob/living/carbon/human/patient = target
+	if(is_robotic() && HAS_TRAIT(patient, TRAIT_IPC_JOINTS_MAG) && isnull(patient.bodyparts_by_name[limb_name]))
 		user.drop_item_to_ground(src)
-		replaced(C)
-		C.update_body()
-		C.updatehealth()
-		C.UpdateDamageIcon()
+		replaced(patient)
+		patient.update_body()
+		patient.updatehealth()
+		patient.UpdateDamageIcon()
 		user.visible_message(
-			SPAN_NOTICE("[user] has attached [C]'s [src] to the [amputation_point]."),
-			SPAN_NOTICE("You have attached [C]'s [src] to the [amputation_point]."))
-		return TRUE
+			SPAN_NOTICE("[user] has attached [patient]'s [src] to the [amputation_point]."),
+			SPAN_NOTICE("You have attached [patient]'s [src] to the [amputation_point]."))
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
@@ -224,7 +230,10 @@
 	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(owner && HAS_TRAIT(owner, TRAIT_FRAIL))
-		max_limb_damage /= 2
+		if(ismachineperson(owner) && !fragile) //check for the upper and lower body when it's an IPC
+			max_limb_damage = max_damage //keep upper and lower body health the same to prevent immortality
+		else
+			max_limb_damage /= 2
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -317,6 +326,10 @@
 				droplimb(1) //Clean loss, just drop the limb and be done
 
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
+
+	// Check if synthetic skin should be removed from damage
+	check_synthetic_skin_damage()
+
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
@@ -342,9 +355,9 @@
 	brute_dam = max(brute_dam - brute, 0)
 	burn_dam  = max(burn_dam - burn, 0)
 
-	if(internal)
+	var/datum/wound/fracture = get_wound(/datum/wound/fracture)
+	if(internal && fracture)
 		status &= ~ORGAN_BROKEN
-		var/datum/wound/fracture = get_wound(/datum/wound/fracture)
 		fracture.cure_wound()
 		perma_injury = 0
 
@@ -578,7 +591,68 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if((brute_dam >= max_damage * (augmented_skin_cover_level / 3) && brute) || (burn_dam >= max_damage * (augmented_skin_cover_level / 3) && burn)) // 66% for level 2, 100% for level 3
 		break_augmented_skin()
 
-// new damage icon system
+/obj/item/organ/external/proc/check_synthetic_skin_damage()
+	if(!has_synthetic_skin || !is_robotic())
+		return
+
+	var/damage_percentage = (brute_dam + burn_dam) / max_damage
+	if(damage_percentage >= 0.8)
+		remove_synthetic_skin()
+
+	// Upper body and lower body are tied together
+	check_connected_limb_skin_damage()
+
+// Chest and lower body are tied together with synthetic skin.
+/obj/item/organ/external/proc/check_connected_limb_skin_damage()
+	if(!owner || !has_synthetic_skin)
+		return
+
+	if(limb_name == "chest")
+		var/damage_percentage = (brute_dam + burn_dam) / max_damage
+		if(damage_percentage >= 0.8)
+			var/obj/item/organ/external/groin_limb = owner.bodyparts_by_name["groin"]
+			if(groin_limb?.has_synthetic_skin)
+				groin_limb.remove_synthetic_skin()
+
+	if(limb_name == "groin")
+		var/damage_percentage = (brute_dam + burn_dam) / max_damage
+		if(damage_percentage >= 0.8)
+			var/obj/item/organ/external/chest_limb = owner.bodyparts_by_name["chest"]
+			if(chest_limb?.has_synthetic_skin)
+				chest_limb.remove_synthetic_skin()
+
+/obj/item/organ/external/proc/remove_synthetic_skin(silent = FALSE)
+	if(!has_synthetic_skin)
+		return
+
+	has_synthetic_skin = FALSE
+
+	// Restore original identity if this is a head
+	if(limb_name == "head" && owner && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		synthetic_skin_identity = null
+		H.real_name = H.dna.real_name
+
+	// Restore original robotic appearance
+	if(model)
+		var/datum/robolimb/R = GLOB.all_robolimbs[model]
+		if(R)
+			force_icon = R.icon
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		if(!silent)
+			to_chat(H, SPAN_WARNING("The synthetic skin on your [name] is destroyed!"))
+		// Force the sprite to update
+		mob_icon = null
+		compile_icon()
+		H.update_body(rebuild_base = TRUE)
+		H.UpdateDamageIcon()
+
+		var/obj/item/organ/internal/cyberimp/chest/skinmonger/regen = H.get_int_organ(/obj/item/organ/internal/cyberimp/chest/skinmonger)
+		if(regen)
+			regen.start_regeneration()
+
 // returns just the brute/burn damage code
 /obj/item/organ/external/proc/damage_state_text()
 	var/tburn = 0
@@ -626,6 +700,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
 		return
+
+	// Loose limbs should not have any synthetic skin
+	if(has_synthetic_skin)
+		remove_synthetic_skin()
+	if(children)
+		for(var/obj/item/organ/external/child in children)
+			if(child.has_synthetic_skin)
+				child.remove_synthetic_skin()
 
 	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
 		fracture()
@@ -745,21 +827,21 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disembowel("groin"))
 		return TRUE
 
-/obj/item/organ/external/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.sharp)
-		add_fingerprint(user)
-		if(!length(contents))
-			to_chat(user, SPAN_WARNING("There is nothing left inside [src]!"))
-			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		user.visible_message(SPAN_WARNING("[user] begins to cut open [src]."),\
-			SPAN_NOTICE("You begin to cut open [src]..."))
-		if(do_after(user, 5.4 SECONDS, target = src))
-			drop_organs(user)
-			drop_embedded_objects()
-			open = ORGAN_ORGANIC_VIOLENT_OPEN
-	else
+/obj/item/organ/external/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
 		return ..()
+	add_fingerprint(user)
+	if(!length(contents))
+		to_chat(user, SPAN_WARNING("There is nothing left inside [src]!"))
+		return ITEM_INTERACT_COMPLETE
+	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+	user.visible_message(SPAN_WARNING("[user] begins to cut open [src]."),\
+		SPAN_NOTICE("You begin to cut open [src]..."))
+	if(do_after(user, 5.4 SECONDS, target = src))
+		drop_organs(user)
+		drop_embedded_objects()
+		open = ORGAN_ORGANIC_VIOLENT_OPEN
+	return ITEM_INTERACT_COMPLETE
 
 //empties the bodypart from its organs and other things inside it
 /obj/item/organ/external/proc/drop_organs(mob/user)
@@ -805,15 +887,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	var/picked_type = pick(typesof(/datum/wound/fracture))
-	var/datum/wound/fracture = new picked_type(src)
-	if(fracture_name_override)
-		fracture.name = fracture_name_override
-	wound_list += fracture
+	create_fracture_wound(fracture_name_override)
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints()
+
+/obj/item/organ/external/proc/create_fracture_wound(fracture_name_override)
+	var/datum/wound/fracture = add_wound(pick(typesof(/datum/wound/fracture)))
+
+	if(fracture_name_override)
+		fracture.name = fracture_name_override
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
@@ -958,6 +1042,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	var/mob/living/carbon/human/victim = owner
 
 	if(status & ORGAN_SPLINTED)

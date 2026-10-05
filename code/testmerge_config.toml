@@ -1,0 +1,11 @@
+# This config file exists for you to place overrides in if you are doing a testmerge that has config changes.
+# It is in this folder as the entire /config/ dir is a static managed by TGS, so /config/example/ wont work.
+# This will not help you for SQL changes.
+
+# Code reviewers, if anything is in this file while you are reviewing before merge, it **NEEDS** binning.
+
+# Anything in here still needs the section header as per regular config.
+# Example below:
+
+#[general_configuration]
+#lobby_time = 99999999

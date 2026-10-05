@@ -10,6 +10,8 @@
 #define ORGAN_DISFIGURED   (1 << 6)
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1 << 9)
 
 // Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"
@@ -70,7 +72,10 @@
 #define PULSE_FAST		3	//90-120 bpm
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
-//feel free to add shit to lists below
+
+// Cirrhosis defines
+#define CIRRHOSIS_MILD		1
+#define CIRRHOSIS_SEVERE	2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG (1<<0)		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -105,6 +110,13 @@
 #define TASTE_SENSITIVITY_SHARP 10
 #define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
+
+// Taste category - determines what types of reagents mob can taste
+// Reagents they can't taste will produce "yucky" or "indescribable" message by default
+#define TASTE_CATEGORY_NONE 0
+#define TASTE_CATEGORY_ORGANIC 1
+#define TASTE_CATEGORY_SYNTHETIC 2
+#define TASTE_CATEGORY_BOTH TASTE_CATEGORY_ORGANIC | TASTE_CATEGORY_SYNTHETIC
 
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
@@ -178,6 +190,8 @@
 #define SHOCK_ILLUSION 	(1<<2)
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN 	(1<<3)
+/// Shock damage is reduced by the average siemen's coeff
+#define SHOCK_USE_AVG_SIEMENS (1 << 4)
 
 #define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
@@ -220,6 +234,9 @@
 #define EXAMINE_MORE_WINDOW 1 SECONDS
 
 #define DIRECTION_LOCK_SLOWDOWN 3
+
+// Helpers
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
 
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
@@ -310,6 +327,16 @@
 #define HEALTH_HUD_OVERRIDE_CRIT 1
 #define HEALTH_HUD_OVERRIDE_DEAD 2
 #define HEALTH_HUD_OVERRIDE_HEALTHY 3
+
+// Defines icon states used in `/mob/living/carbon/human/proc/handle_nutrition_alerts` to override nutrition status.
+#define NUTRITION_HUD_OVERRIDE_NONE null
+#define NUTRITION_HUD_OVERRIDE_FAT "fat"
+#define NUTRITION_HUD_OVERRIDE_FULL "full"
+#define NUTRITION_HUD_OVERRIDE_WELL_FED "well_fed"
+#define NUTRITION_HUD_OVERRIDE_FED "fed"
+#define NUTRITION_HUD_OVERRIDE_HUNGRY "hungry"
+#define NUTRITION_HUD_OVERRIDE_STARVING "starving"
+
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
 #define FLASH_PROTECTION_EXTRA_SENSITIVE -2
@@ -387,6 +414,13 @@
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
 
+//Disgust levels for humans
+#define DISGUST_LEVEL_MAXEDOUT 1500
+#define DISGUST_LEVEL_VERYDISGUSTED 1000
+#define DISGUST_LEVEL_DISGUSTED 750
+#define DISGUST_LEVEL_VERYGROSS 500
+#define DISGUST_LEVEL_GROSS 250
+
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
@@ -418,3 +452,8 @@
 #define GHOST_FLAGS_NO_REENTER (GHOST_FLAGS_DEFAULT & ~GHOST_CAN_REENTER)
 #define GHOST_FLAGS_NO_RESPAWNABLE (GHOST_FLAGS_DEFAULT & ~GHOST_RESPAWNABLE)
 #define GHOST_FLAGS_OBSERVE_ONLY (GHOST_FLAGS_DEFAULT & ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE))
+
+/// Acts as a default faction for most violent creatures
+#define FACTION_HOSTILE "hostile"
+/// Acts as a default faction for most peaceful creatures
+#define FACTION_NEUTRAL "neutral"

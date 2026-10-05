@@ -46,6 +46,7 @@
 
 	/// A list of all wounds currently on this organ
 	var/list/wound_list = list()
+	new_attack_chain = TRUE
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -58,8 +59,8 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
-	..(holder)
+/obj/item/organ/Initialize(mapload, mob/living/carbon/holder, datum/species/species_override = null)
+	. = ..()
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(ishuman(holder))
@@ -75,9 +76,9 @@
 		if(species_override)
 			dna.species = new species_override
 
-/obj/item/organ/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nano = I
+/obj/item/organ/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_robotic() && istype(used, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nano = used
 		nano.use(1)
 		rejuvenate()
 		to_chat(user, SPAN_NOTICE("You repair the damage on [src]."))
@@ -264,6 +265,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 
 	owner.internal_organs -= src
 
@@ -342,6 +344,11 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		last_pain_message = msg
 		to_chat(owner, msg)
 		next_pain_time = world.time + 10 SECONDS
+
+/// Wound datum adding helper. Returns the wound datum
+/obj/item/organ/proc/add_wound(wound_path)
+	// Passing the organ with the arg puts it on the wound list automatically
+	return new wound_path(src)
 
 /// Finds a wound datum. `wound_to_find` should be a typepath, and if `exact` is FALSE, it will grab subtypes aswell.
 /obj/item/organ/proc/get_wound(wound_to_find, exact = FALSE)

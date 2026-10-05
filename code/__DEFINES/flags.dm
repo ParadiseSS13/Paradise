@@ -148,12 +148,16 @@
 #define PASSGIRDER		(1<<8)
 #define PASSTAKE    	(1<<9)
 #define PASSBARRICADE	(1<<10)
+/// Pass through flock objects and mobs
+#define PASSFLOCK (1<<11)
 
 //turf-only flags, under the flags variable
 #define BLESSED_TILE	(1<<0)
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
 #define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
+/// Blocks this turf from being rusted
+#define NO_RUST (1<<4)
 
 // turf flags, under the turf_flags variable
 /// If a turf is an unused reservation turf awaiting assignment
@@ -183,8 +187,9 @@
 #define ZAP_MOB_DAMAGE			(1<<3)
 #define ZAP_MOB_STUN			(1<<4)
 #define ZAP_GENERATES_POWER		(1<<5)
+#define ZAP_NO_COOLDOWN 		(1<<6)
 
-#define ZAP_DEFAULT_FLAGS (ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
+#define ZAP_DEFAULT_FLAGS (ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_NO_COOLDOWN)
 #define ZAP_FUSION_FLAGS (ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN)
 #define ZAP_SUPERMATTER_FLAGS (ZAP_GENERATES_POWER)
 

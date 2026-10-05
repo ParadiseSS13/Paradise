@@ -4,12 +4,14 @@
 /turf/simulated/floor/plating/asteroid
 	gender = PLURAL
 	name = "asteroid sand"
+	desc = "Dusty space rock with a consistency similar to terrestrial sandstone."
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
+	rust_resistance = RUST_RESISTANCE_ORGANIC
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -63,7 +65,7 @@
 
 	if(S.pickup_all_on_tile)
 		for(var/obj/item/stack/ore/O in contents)
-			O.attackby__legacy__attackchain(S, user)
+			S.try_insert_item(O, user)
 			return
 
 /turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -109,6 +111,7 @@
 
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
+	desc = "A thick layer of volcanic rock, specificially basalt."
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	icon_state = "basalt"
 	icon_plating = "basalt"
@@ -215,7 +218,7 @@
 
 /turf/simulated/floor/plating/asteroid/snow
 	name = "snow"
-	desc = "Looks cold."
+	desc = "A cold layer of accumulated ice crystals with a consistency ranging between fluffy powder and heavy sand. As more and more snow falls, the bottom layers will eventually be compacted into solid ice."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
@@ -247,3 +250,9 @@
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/plating/asteroid/snow/mansus
+	temperature = 293.15
+	slowdown = 0
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null

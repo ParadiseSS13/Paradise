@@ -60,7 +60,7 @@
 	list_reagents = list("salglu_solution" = 30)
 
 /obj/item/reagent_containers/glass/bottle/salicylic
-	name = "salicylic acid bottle"
+	name = "acetylsalicylic acid bottle"
 	desc = "A small bottle containing medicine for pain and fevers."
 	list_reagents = list("sal_acid" = 30)
 
@@ -102,7 +102,7 @@
 /obj/item/reagent_containers/glass/bottle/adminordrazine
 	name = "adminordrazine bottle"
 	desc = "A small bottle. Contains the liquid essence of the gods."
-	icon = 'icons/obj/drinks.dmi'
+	icon = 'icons/obj/drinks/flasks.dmi'
 	icon_state = "holyflask"
 	list_reagents = list("adminordrazine" = 30)
 

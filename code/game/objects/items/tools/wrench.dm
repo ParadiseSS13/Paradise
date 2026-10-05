@@ -68,7 +68,7 @@
 	inhand_icon_state = "drill"
 	belt_icon = "hand_drill"
 	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
 	origin_tech = "materials=2;engineering=2"
 	force = 8
 	throwforce = 8
@@ -92,7 +92,7 @@
 	user.put_in_active_hand(s_drill)
 
 /obj/item/wrench/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!")
+	user.visible_message(SPAN_SUICIDE("[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/wrench/medical
@@ -156,5 +156,6 @@
 	desc = "A large wrench designed to interlock with an airlock's bolting mechanisms, allowing it to lift the bolts regardless of power."
 	icon_state = "bolter_wrench"
 	origin_tech = "materials=5;engineering=4"
+	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000)
 	w_class = WEIGHT_CLASS_NORMAL
 	toolspeed = 2.5

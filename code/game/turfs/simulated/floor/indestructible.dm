@@ -1,5 +1,9 @@
 /turf/simulated/floor/indestructible
 
+/turf/simulated/floor/indestructible/examine(mob/user, infix, suffix)
+	. = ..()
+	. += SPAN_NOTICE("It appears to be effectively impervious to all conventional methods of destruction.")
+
 /turf/simulated/floor/indestructible/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
@@ -125,3 +129,10 @@
 	temperature = T20C
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
+
+/turf/simulated/floor/indestructible/titanium
+	name = "shuttle floor"
+	icon_state = "titanium"
+
+/turf/simulated/floor/indestructible/titanium/blue
+	icon_state = "titanium_blue"

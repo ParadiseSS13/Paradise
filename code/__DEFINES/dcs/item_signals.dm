@@ -116,6 +116,13 @@
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
 
+
+// Organ signals
+/// Called on the organ when it is implanted into someone (mob/living/carbon/receiver)
+#define COMSIG_ORGAN_IMPLANTED "organ_implanted"
+/// Called on the organ when it is removed from someone (mob/living/carbon/old_owner)
+#define COMSIG_ORGAN_REMOVED "organ_removed"
+
 // Cyborg specific items
 
 /// from /mob/living/silicon/robot/proc/activate_item() (mob/user), A general signal for if a specific borg item needs something done when being activated.
@@ -123,3 +130,4 @@
 
 /// from /mob/living/silicon/robot/proc/deactivate_item() (mob/user), A general signal for if a specific borg item needs something done when being deactivated.
 #define COMSIG_CYBORG_ITEM_DEACTIVATED "cyborg_deactivation"
+

@@ -29,6 +29,7 @@
 
 /datum/gear/uniform/turtleneck/job
 	main_typepath = /datum/gear/uniform/turtleneck/job
+	subtype_selection_cost = FALSE
 
 //there's a lot more colors than I thought there were @_@
 
@@ -231,6 +232,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/black_tango
+	display_name = "black tango dress"
+	path = /obj/item/clothing/under/dress/blacktango
+
 /datum/gear/uniform/skirt/blue_tango
 	display_name = "blue tango dress"
 	path = /obj/item/clothing/under/dress/blacktango/blue
@@ -372,7 +377,7 @@
 	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/uniform/turtleneck/job/cmo
-	display_name = "Skirt, cmo"
+	display_name = "Turtleneck, cmo"
 	path = /obj/item/clothing/under/rank/medical/cmo/turtleneck
 	allowed_roles = list("Chief Medical Officer")
 
@@ -443,6 +448,11 @@
 /datum/gear/uniform/skirt/job/mime
 	display_name = "Skirt, mime"
 	path = /obj/item/clothing/under/rank/civilian/mime/skirt
+	allowed_roles = list("Mime")
+
+/datum/gear/uniform/skirt/job/mime/long
+	display_name = "Long skirt, mime"
+	path = /obj/item/clothing/under/rank/civilian/mime/skirt/long
 	allowed_roles = list("Mime")
 
 /datum/gear/uniform/skirt/job/janitor
@@ -625,6 +635,10 @@
 	display_name = "Shorts, grey"
 	path = /obj/item/clothing/under/pants/shorts/grey
 
+/datum/gear/uniform/shorts/jean
+	display_name = "Shorts, jean"
+	path = /obj/item/clothing/under/pants/shorts/jeanshorts
+
 /datum/gear/uniform/pants
 	main_typepath = /datum/gear/uniform/pants
 
@@ -714,3 +728,15 @@
 	display_name = "Orange Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is orange."
 	path = /obj/item/clothing/under/misc/orangehawaiianshirt
+
+/datum/gear/uniform/suit/baseball
+	display_name = "Baseball Uniform, Generic"
+	path = /obj/item/clothing/under/misc/baseball
+
+/datum/gear/uniform/suit/baseballtsf
+	display_name = "Baseball Uniform, Trans-Solar Federation"
+	path = /obj/item/clothing/under/misc/baseball/solgov
+
+/datum/gear/uniform/suit/baseballnt
+	display_name = "Baseball Uniform, Nanotrasen"
+	path = /obj/item/clothing/under/misc/baseball/nanotrasen

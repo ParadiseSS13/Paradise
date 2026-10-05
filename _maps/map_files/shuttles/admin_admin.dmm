@@ -2,44 +2,14 @@
 "aa" = (
 /turf/space,
 /area/space)
-"ac" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/administration)
-"ad" = (
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
-"ae" = (
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/obj/docking_port/mobile/admin{
-	dir = 2;
-	dwidth = 8;
-	height = 15;
-	id = "admin";
-	name = "admin";
-	timid = 1;
-	width = 18
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
 "ag" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ah" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/beer{
-	pixel_y = 6
+/obj/machinery/chem_dispenser/beer/upgraded{
+	pixel_y = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -50,8 +20,8 @@
 /area/shuttle/administration)
 "aj" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/soda{
-	pixel_y = 6
+/obj/machinery/chem_dispenser/soda/upgraded{
+	pixel_y = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -71,8 +41,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "an" = (
-/obj/machinery/cell_charger,
 /obj/structure/table,
+/obj/machinery/cell_charger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ao" = (
@@ -83,7 +53,7 @@
 /area/shuttle/administration)
 "ap" = (
 /obj/structure/table,
-/obj/machinery/recharger{
+/obj/machinery/recharger/upgraded{
 	pixel_y = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -91,19 +61,6 @@
 "aq" = (
 /obj/machinery/light/spot{
 	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"ar" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "adminshuttleblast";
-	name = "Blast Doors";
-	req_access = list(101)
-	},
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "General Access"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -123,7 +80,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "au" = (
-/obj/machinery/mecha_part_fabricator/upgraded,
+/obj/machinery/mecha_part_fabricator/loaded/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "av" = (
@@ -131,16 +88,15 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aw" = (
 /obj/machinery/door/window/classic/reversed{
-	name = "bar";
-	dir = 2
+	name = "bar"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -148,6 +104,10 @@
 /obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8;
+	pixel_x = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -217,7 +177,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aI" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/loaded/upgraded{
 	hacked = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -365,7 +325,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bi" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/bodyscanner/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bk" = (
@@ -395,7 +355,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bo" = (
-/obj/machinery/chem_dispenser,
+/obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bp" = (
@@ -456,15 +416,7 @@
 /area/shuttle/administration)
 "bx" = (
 /obj/structure/table,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/surgicaldrill,
-/obj/item/circular_saw,
-/obj/item/scalpel,
-/obj/item/retractor,
-/obj/item/fix_o_vein,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "by" = (
@@ -496,6 +448,47 @@
 "vg" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
+"yy" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Fr" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	dir = 4
+	},
+/obj/docking_port/mobile/admin{
+	name = "admin"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Te" = (
+/obj/machinery/clonescanner/upgraded,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Yl" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "adminshuttleblast";
+	name = "Blast Doors";
+	req_access = list(101)
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "General Access";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
 
 (1,1,1) = {"
 aa
@@ -521,15 +514,15 @@ aa
 aa
 aa
 vg
-ac
-aD
-aD
-ac
 vg
-ac
 aD
 aD
-ac
+vg
+vg
+vg
+aD
+aD
+vg
 vg
 aa
 aa
@@ -546,7 +539,7 @@ am
 am
 aO
 vg
-aZ
+Te
 bg
 bg
 bm
@@ -638,7 +631,7 @@ aa
 aa
 "}
 (8,1,1) = {"
-ac
+vg
 vg
 vg
 vg
@@ -658,9 +651,9 @@ aa
 aa
 "}
 (9,1,1) = {"
-ad
+yy
 al
-ar
+Yl
 aA
 am
 am
@@ -678,9 +671,9 @@ aa
 aa
 "}
 (10,1,1) = {"
-ae
+Fr
 am
-ar
+Yl
 am
 am
 am
@@ -698,7 +691,7 @@ aa
 aa
 "}
 (11,1,1) = {"
-ac
+vg
 vg
 vg
 aB
@@ -791,7 +784,7 @@ vg
 bk
 bq
 bv
-ac
+vg
 vg
 aa
 aa

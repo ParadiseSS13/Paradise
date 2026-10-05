@@ -40,6 +40,10 @@
 	var/uv_super = FALSE
 	/// How many uv cleaning cycles to do, counts down while cleaning takes place.
 	var/uv_cycles = 6
+	/// Time between UV cleaning cycles.
+	var/uv_cycle_delay = 5 SECONDS
+	/// Damage multiplier for occupants during UV cleaning.
+	var/uv_damage_multiplier = 1
 	var/message_cooldown
 	var/breakout_time = 300
 
@@ -191,18 +195,20 @@
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
-	suit_type = /obj/item/mod/control/pre_equipped/medical
+	suit_type = /obj/item/mod/control/pre_equipped/salvation
 	req_access = list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/cmo/secure
 	secure = TRUE
 
-//version of the SSU for medbay secondary storage. Includes magboots. //no it doesn't, it aint have shit for magboots
+//version of the SSU for medbay secondary storage. This is scuffed but woe mapping conflicts
 /obj/machinery/suit_storage_unit/cmo/sec_storage
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
+	suit_type = /obj/item/mod/control/pre_equipped/medical
 
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure
+	req_access = list(ACCESS_MEDICAL)
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/clown
@@ -285,6 +291,13 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
+/obj/machinery/suit_storage_unit/RefreshParts()
+	. = ..()
+	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
+		uv_cycle_delay = initial(uv_cycle_delay) / laser.rating
+		uv_damage_multiplier = laser.rating
+		break
+
 /obj/machinery/suit_storage_unit/Destroy(force)
 	if(!force)
 		dump_contents()
@@ -321,6 +334,9 @@
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
 /obj/machinery/suit_storage_unit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(shocked)
 		if(shock(user, 100))
 			return ITEM_INTERACT_COMPLETE
@@ -468,11 +484,11 @@
 		if(occupant)
 			var/mob/living/mob_occupant = occupant
 			if(uv_super)
-				mob_occupant.adjustFireLoss(rand(20, 36))
+				mob_occupant.adjustFireLoss(rand(20, 36) * uv_damage_multiplier)
 			else
-				mob_occupant.adjustFireLoss(rand(10, 16))
+				mob_occupant.adjustFireLoss(rand(10, 16) * uv_damage_multiplier)
 			mob_occupant.emote("scream")
-		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
+		addtimer(CALLBACK(src, PROC_REF(cook)), uv_cycle_delay)
 	else
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
@@ -774,3 +790,7 @@
 	if(!uv_super)
 		toggleUV(TRUE)
 	secure = FALSE
+
+
+/obj/machinery/suit_storage_unit/get_internal_wires()
+	return wires

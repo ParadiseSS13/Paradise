@@ -15,6 +15,10 @@
 	/// Can be used in certain situations where you may have effects that trigger only at the edge,
 	/// while also wanting the field effect to trigger at edge turfs as well
 	var/edge_is_a_field = FALSE
+
+	/// If TRUE, view() will be used over range(). If this is used, edge turfs will not exist!
+	var/use_view = FALSE
+
 	/// All turfs on the inside of the proximity monitor - range - 1 turfs
 	var/list/turf/field_turfs = list()
 	/// All turfs on the very last tile of the proximity monitor's radius
@@ -27,9 +31,11 @@
 /datum/proximity_monitor/advanced/proc/cleanup_field()
 	for(var/turf/turf as anything in edge_turfs)
 		cleanup_edge_turf(turf)
+		cleanup_effects(turf)
 	edge_turfs = list()
 	for(var/turf/turf as anything in field_turfs)
 		cleanup_field_turf(turf)
+		cleanup_effects(turf)
 	field_turfs = list()
 
 //Call every time the field moves (done automatically if you use update_center) or a setup specification is changed.
@@ -48,10 +54,12 @@
 		if(QDELETED(src))
 			return
 		cleanup_field_turf(old_turf)
+		cleanup_effects(old_turf)
 	for(var/turf/old_turf as anything in old_edge_turfs - edge_turfs)
 		if(QDELETED(src))
 			return
 		cleanup_edge_turf(old_turf)
+		cleanup_effects(old_turf)
 
 	if(full_recalc)
 		old_field_turfs = list()
@@ -109,6 +117,10 @@
 	PRIVATE_PROC(TRUE)
 	return
 
+/// A holder proc for cleaning up various effects.
+/datum/proximity_monitor/advanced/proc/cleanup_effects(turf/target)
+	return
+
 /// Called when a turf in the edge of the monitor is linked
 /datum/proximity_monitor/advanced/proc/setup_edge_turf(turf/target)
 	if(edge_is_a_field) // If the edge is considered a field, set it up like one
@@ -123,6 +135,13 @@
 /datum/proximity_monitor/advanced/proc/update_new_turfs()
 	if(ignore_if_not_on_turf && !isturf(host.loc))
 		return list(FIELD_TURFS_KEY = list(), EDGE_TURFS_KEY = list())
+
+	if(use_view)
+		var/list/turfs = list()
+		for(var/turf/T as turf in view(current_range, host))
+			turfs += T
+		return list(FIELD_TURFS_KEY = turfs, EDGE_TURFS_KEY = list())
+
 	var/list/local_field_turfs = list()
 	var/list/local_edge_turfs = list()
 	var/turf/center = get_turf(host)

@@ -615,9 +615,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	photo = null
 	P.forceMove(loc)
 	if(ishuman(user) && user.put_in_active_hand(P))
-		visible_message("<span class='notice'>[src] ejects [P] from its photo slot into [user]'s hand.")
+		visible_message(SPAN_NOTICE("[src] ejects [P] from its photo slot into [user]'s hand."))
 	else
-		visible_message("<span class='notice'>[src] ejects [P] from its photo slot.")
+		visible_message(SPAN_NOTICE("[src] ejects [P] from its photo slot."))
 	playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 	SStgui.update_uis(src)
 

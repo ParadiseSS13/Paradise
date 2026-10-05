@@ -340,51 +340,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	aggressive = TRUE
 	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
 
-/mob/living/basic/hivebot/strong/malfborg
-	name = "Security cyborg"
-	desc = "Oh god they still have access to these!"
-	icon = 'icons/mob/robots.dmi'
-	icon_state = "Noble-Security"
-	health = 200
-	maxHealth = 200
-	faction = list("malf_drone")
-	speed = 0.5
-	projectile_type = /obj/projectile/beam/disabler/weak
-	projectile_sound = 'sound/weapons/taser2.ogg'
-	ranged_burst_count = 2
-	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
-	a_intent = INTENT_HARM
-	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
-
-/mob/living/basic/hivebot/strong/malfborg/Initialize(mapload)
-	. = ..()
-	baton = new(src)
-
-/mob/living/basic/hivebot/strong/malfborg/Destroy()
-	QDEL_NULL(baton)
-	return ..()
-
-/mob/living/basic/hivebot/strong/malfborg/melee_attack(atom/target, list/modifiers, ignore_cooldown)
-	if(!early_melee_attack(target, modifiers, ignore_cooldown))
-		return FALSE
-	if(QDELETED(target))
-		return FALSE
-	face_atom(target)
-	baton.melee_attack_chain(src, target)
-	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, TRUE)
-	return TRUE
-
-/mob/living/basic/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!used_item && !isturf(A))
-		used_item = baton
-	..()
-
-/mob/living/basic/hivebot/strong/malfborg/emp_act(severity)
-	. = ..()
-	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
-	adjustBruteLoss(50)
-
 /obj/structure/displaycase/dvoraks_treat
 	alert = TRUE // Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
 	force_alarm = TRUE
@@ -414,6 +369,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	inhand_icon_state = "camera_bug"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "syndicate=4;programming=6"
+	new_attack_chain = TRUE
 	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console
 
@@ -431,18 +387,23 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	QDEL_NULL(integrated_console)
 	return ..()
 
-/obj/item/remote_ai_upload/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/remote_ai_upload/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	integrated_console.attack_hand(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/remote_ai_upload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/emag))
-		to_chat(user, SPAN_WARNING("You are more likely to damage this with an emag, than achieve something useful."))
-		return
-	var/time_to_die = integrated_console.item_interaction(user, O, params2list(params))
+/obj/item/remote_ai_upload/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/emag))
+		to_chat(user, SPAN_WARNING("You are more likely to damage this with an emag than to achieve something useful."))
+		return ITEM_INTERACT_COMPLETE
+
+	var/time_to_die = integrated_console.item_interaction(user, used, modifiers)
 	if(time_to_die)
 		to_chat(user, SPAN_DANGER("[src]'s relay begins to overheat..."))
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/remote_ai_upload/proc/prime()
 		explosion(loc, -1, -1, 2, 4, flame_range = 4, cause = "Remote AI Upload explosion")

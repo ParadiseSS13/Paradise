@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
-	var/msg = SPAN_RESONATE(SPAN_NAME("[owner.real_name]</span> <span class='message'>resonates, \"[message]\"") )
+	var/msg = SPAN_RESONATE("[SPAN_NAME(owner.real_name)] [SPAN_MESSAGE("resonates, \"[message]\"")]")
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -135,6 +135,8 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
 	if(IS_CULTIST(owner))
 		spans += "narsiesmall"
+	if(IS_HERETIC(owner))
+		spans = "hierophant_warning"
 	return "<span class=\"[spans]\">[uppertext(message)]</span>"
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
@@ -175,6 +177,10 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
 	if(IS_CULTIST(owner))
+		power_multiplier *= 2
+
+	//Similarly, heretics are used to using the mansus, however they will also give themselfs away!
+	if(IS_HERETIC(owner))
 		power_multiplier *= 2
 
 	//It's magic, they are a wizard.
@@ -576,9 +582,9 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand."
 	var/has_implanted = FALSE
 
-/obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/organ/internal/vocal_cords/colossus/wizard/activate_self(mob/living/user)
 	if(has_implanted)
-		return
+		return ..()
 	user.drop_item()
 	insert(user)
 	has_implanted = TRUE

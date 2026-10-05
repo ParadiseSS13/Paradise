@@ -9,6 +9,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -34,8 +35,12 @@
 		return
 	check_mag_pulse(user, removing = TRUE)
 
-/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_magpulse(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
@@ -189,6 +194,7 @@
 	desc = "These experimental boots try to get around the restrictions of magboots by installing miniature gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
+	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess
 	strip_delay = 10 SECONDS
 	put_on_delay = 10 SECONDS
@@ -269,31 +275,36 @@
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+/obj/item/clothing/shoes/magboots/gravity/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, SPAN_WARNING("[src] already has a cell!"))
-			return
-		if(!user.drop_item_to_ground(I))
-			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, SPAN_NOTICE("You install [I] into [src]."))
-		update_icon()
-		return
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
+
+		used.forceMove(src)
+		cell = used
+		to_chat(user, SPAN_NOTICE("You install [used] into [src]."))
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly/signaler/anomaly/grav))
 		if(core)
-			to_chat(user, SPAN_NOTICE("[src] already has a [I]!"))
-			return
+			to_chat(user, SPAN_NOTICE("[src] already has a [used]!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
-			return
-		to_chat(user, SPAN_NOTICE("You insert [I] into [src], and [src] starts to warm up."))
-		I.forceMove(src)
-		core = I
-	else
-		return ..()
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+		used.forceMove(src)
+		core = used
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
 	..()

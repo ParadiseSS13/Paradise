@@ -5,6 +5,7 @@
 	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "paint"
+	yuck_description = "liquid coating"
 
 /datum/reagent/paint/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))

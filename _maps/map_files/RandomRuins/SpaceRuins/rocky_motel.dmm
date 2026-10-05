@@ -110,14 +110,6 @@
 /obj/effect/turf_decal/tiles/dark/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/rocky_motel)
-"if" = (
-/obj/machinery/door/airlock{
-	id_tag = "toilet_unitb";
-	name = "Unit B"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood,
-/area/ruin/space/rocky_motel)
 "iT" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -158,6 +150,15 @@
 /obj/item/clothing/under/pants/blackjeans,
 /obj/item/clothing/suit/sovietcoat,
 /turf/simulated/floor/carpet/black,
+/area/ruin/space/rocky_motel)
+"mk" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet_unitb";
+	name = "Unit B";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
 /area/ruin/space/rocky_motel)
 "mO" = (
 /obj/structure/cable{
@@ -222,6 +223,13 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/rocky_motel)
+"re" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/door/airlock{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/rocky_motel)
 "sQ" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/rocky_motel)
@@ -234,6 +242,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/rocky_motel/asteroid)
+"tb" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet_unitb";
+	name = "Unit B";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/rocky_motel)
 "tq" = (
 /obj/structure/sign/poster/random/directional/west,
 /turf/simulated/floor/carpet/royalblack,
@@ -385,6 +403,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/rocky_motel)
+"Hg" = (
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/rocky_motel/asteroid)
 "Hp" = (
 /obj/machinery/power/solar_control/autostart,
 /obj/structure/cable{
@@ -470,11 +494,6 @@
 	icon_state = "solarpanel"
 	},
 /area/ruin/space/rocky_motel/asteroid)
-"KJ" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/door/airlock,
-/turf/simulated/floor/wood,
-/area/ruin/space/rocky_motel)
 "LE" = (
 /obj/machinery/suit_storage_unit/standard_unit{
 	storage_type = /obj/item/tank/internals/oxygen
@@ -652,15 +671,6 @@
 	},
 /turf/simulated/wall,
 /area/ruin/space/rocky_motel)
-"Wa" = (
-/obj/machinery/door/airlock{
-	id_tag = "toilet_unitb";
-	name = "Unit B"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/space/rocky_motel)
 "Wn" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -733,10 +743,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/rocky_motel)
-"Zd" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/rocky_motel/asteroid)
 "Ze" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
@@ -997,7 +1003,7 @@ vV
 WD
 WD
 WD
-Wa
+tb
 YM
 cT
 MT
@@ -1098,11 +1104,11 @@ MT
 Ha
 RC
 AG
-KJ
+re
 ib
 ib
 Cq
-if
+mk
 LF
 LF
 LF
@@ -1238,7 +1244,7 @@ Ya
 Aa
 aY
 aY
-Zd
+Hg
 au
 au
 Ya

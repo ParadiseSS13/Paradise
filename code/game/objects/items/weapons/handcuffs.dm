@@ -187,9 +187,9 @@
 /obj/item/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
 
-/obj/item/restraints/handcuffs/cable/random/New()
+/obj/item/restraints/handcuffs/cable/random/Initialize(mapload)
+	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
-	..()
 
 /obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
 	if(!colorC)
