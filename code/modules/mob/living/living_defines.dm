@@ -155,7 +155,7 @@
 	var/sound/blooper
 	/// The current mob's stored ID for their blooper. ID of a datum.
 	var/blooper_id
-	// The pitch pre-variation.
+	/// The pitch pre-variation.
 	var/blooper_pitch = 1
 	// The +/- modifier for the pitch.
 	var/blooper_pitch_range = 0.2
