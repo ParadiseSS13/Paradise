@@ -126,3 +126,20 @@
 
 /datum/targeting_strategy/basic/of_size/smaller
 	inclusive = FALSE
+
+/// Subtype more forgiving for items.
+/// Careful, this can go wrong and keep a mob hyper-focused on an item it can't lose aggro on
+/datum/targeting_strategy/basic/allow_items
+
+/datum/targeting_strategy/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+	. = ..()
+	if(isitem(the_target))
+		// trust fall exercise
+		return TRUE
+
+/datum/targeting_strategy/basic/allow_turfs
+
+/datum/targeting_strategy/basic/allow_turfs/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+	if(isturf(the_target))
+		return TRUE
+	return ..()
