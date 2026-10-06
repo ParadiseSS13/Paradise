@@ -440,6 +440,36 @@
 	species = list("Drask")
 	surplus = 0
 
+// Slime
+/datum/uplink_item/species_restricted/subdermal_applicator
+	name = "Thermal Protein Applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface membrane and inner organelles to provide insulation against the cold and greatly improved resistance to extreme temperatures."
+	reference = "IPA"
+	item = /obj/item/subdermal_applicator
+	cost = 15
+	species = list("Slime People")
+	surplus = 0
+
+// Vulpkanin
+/datum/uplink_item/species_restricted/drekseh
+	name = "Dreksehgewehr Marksman Rifle"
+	desc = "A highly advanced vulpkanin-made beam rifle that fires high velocity energy payloads. These payloads are known to be particularly stable, and benefit from disruptions gained from ricochettes. \
+	Requires two hands to fire."
+	reference = "DMR"
+	item = /obj/item/gun/energy/drekseh
+	cost = 45
+	species = list("Vulpkanin")
+
+// Nian
+/datum/uplink_item/species_restricted/crab17
+	name = "CRAB-17 Phone"
+	desc = "This suspicious communication device is connected to a bureau of merchants on the interstellar stock market. With but a single sentence, you can start a chain reaction to crash the market - dump it. \
+			You can swipe IDs on the device to make them immune to the crash. You will receive a box where your well-placed investments will pay out - at the crew's expense."
+	reference = "CRAB17"
+	item = /obj/item/suspiciousphone
+	cost = 35
+	species = list("Nian")
+
 // Unathi
 /datum/uplink_item/species_restricted/breach_cleaver
 	name = "Breach Cleaver"

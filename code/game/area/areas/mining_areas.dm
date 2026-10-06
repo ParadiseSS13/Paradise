@@ -80,6 +80,23 @@
 	icon_state = "mining_living"
 	area_icon_text = "MINING\nLIVING"
 
+/area/mine/space_outpost
+	name = "Asteroid Outpost"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	request_console_name = "Mining Outpost"
+	request_console_flags = RC_SUPPLY
+	airlock_wires = /datum/wires/airlock/cargo
+
+/area/mine/space_outpost/life_support
+	name = "Asteroid Outpost Life Support"
+	icon_state = "mining_eva"
+	area_icon_text = "MINING\nEVA"
+
+/area/mine/space_outpost/teleporter
+	name = "Asteroid Outpost Teleporter"
+	icon_state = "mining_living"
+	area_icon_text = "MINING\nLIVING"
+
 /// subtype of /surface so storms hit there
 /area/lavaland/surface/outdoors/outpost/catwalk
 	name = "Mining Station Catwalk"

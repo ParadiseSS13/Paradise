@@ -68,7 +68,6 @@
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
-	graffiti.Find()
 	dat += "<h3>Graffiti:</h3><br>"
 	dat += "<a href='byond://?src=[UID()];type=random_graffiti'>Random graffiti</a>"
 	var/c = 1

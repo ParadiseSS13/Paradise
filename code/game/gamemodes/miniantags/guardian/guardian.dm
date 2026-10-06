@@ -272,6 +272,7 @@
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "deck_syndicate_full"
+	new_attack_chain = TRUE
 	var/used = FALSE
 	var/theme = "magic"
 	var/mob_name = "Guardian Spirit"
@@ -282,7 +283,7 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Gaseous", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = FALSE
-	/// What type was picked the first activation
+	/// What type was picked the first activation.
 	var/picked_random_type
 	var/color_list = list("Pink" = "#FFC0CB",
 		"Red" = "#FF0000",
@@ -291,27 +292,33 @@
 		"Blue" = "#0000FF")
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
-/obj/item/guardiancreator/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/guardiancreator/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(has_guardian(user))
-		to_chat(user, "You already have a [mob_name]!")
-		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)|| IS_HERETIC(user))) //God I hate this stupid check but it's needed
-		to_chat(user, "[ling_failure]")
-		return
+		to_chat(user, SPAN_WARNING("You already have a [mob_name]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)|| IS_HERETIC(user))) // God I hate this stupid check but it's needed.
+		to_chat(user, SPAN_WARNING("[ling_failure]"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(used)
-		to_chat(user, "[used_message]")
-		return
+		to_chat(user, SPAN_WARNING("[used_message]"))
+		return ITEM_INTERACT_COMPLETE
+
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
 	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Yes", "No"))
 	if(choice != "Yes")
 		to_chat(user, SPAN_WARNING("You decide against using the [name]."))
 		used = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 	to_chat(user, "[use_message]")
 
 	var/guardian_type
 	if(random)
-		if(!picked_random_type) // Only pick the type once. No type fishing
+		if(!picked_random_type) // Only pick the type once. No type fishing.
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
@@ -319,22 +326,24 @@
 		if(!guardian_type)
 			to_chat(user, SPAN_WARNING("You decide against using the [name]."))
 			used = FALSE
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] ([guardian_type]) of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
 
-	if(length(candidates))
-		theghost = pick(candidates)
-		if(has_guardian(user))
-			to_chat(user, "You already have a [mob_name]!")
-			used = FALSE
-			return
-		dust_if_respawnable(theghost)
-		spawn_guardian(user, theghost.key, guardian_type)
-	else
-		to_chat(user, "[failure_message]")
+	if(!length(candidates))
+		to_chat(user, SPAN_WARNING("[failure_message]"))
 		used = FALSE
+
+	theghost = pick(candidates)
+	if(has_guardian(user))
+		to_chat(user, SPAN_WARNING("You already have a [mob_name]!"))
+		used = FALSE
+		return ITEM_INTERACT_COMPLETE
+
+	dust_if_respawnable(theghost)
+	spawn_guardian(user, theghost.key, guardian_type)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
@@ -346,7 +355,6 @@
 		if(G.summoner == user)
 			return TRUE
 	return FALSE
-
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
