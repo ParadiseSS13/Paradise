@@ -257,12 +257,14 @@
 /obj/item/cardpack/series_miscellaneous
 	name = "Battles of Orion: Mystery Miscellaneous"
 	desc = "Contains five cards the Mystery Miscellaneous series of Battles of Orion! Collect them all!"
+	icon_state = "miscellaneous"
 	series = "pack_miscellaneous"
 	contains_coin = 10
 
 /obj/item/cardpack/series_syndicate
 	name = "Battles of Orion: Syndicate Synergies"
 	desc = "Contains six cards straight from Donk Co.! Don't ask how Donk made the cards so accurate."
+	icon_state = "syndicate"
 	series = "series_syndicate"
 	contains_coin = 10
 
@@ -281,17 +283,58 @@
 		"Legendary" = 5
 	)
 
-/obj/item/cardpack/series_one_deluxe
-	name = "Battles of Orion: Series 1 DELUXE"
-	desc = "A limited edition pack that contains EVERY card in Series 1. Contact your local Administrator or Developer if you find this!"
-	series = "pack_1"
+/// Deluxe packs contain EVERY card of their department's series.
+/obj/item/cardpack/series_command/deluxe
+	name = "Battles of Orion: Commendable Command DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Commendable Command series. Contact your local Administrator or Developer if you find this!"
 	contains_coin = 100
 	drop_all_cards = TRUE
 
-/obj/item/cardpack/series_two_deluxe
-	name = "Battles of Orion: Series 2 DELUXE"
-	desc = "A limited edition pack that contains EVERY card in Series 2. Contact your local Administrator or Developer if you find this!"
-	series = "pack_2"
+/obj/item/cardpack/series_engineering/deluxe
+	name = "Battles of Orion: Electrifying Engineering DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Electrifying Engineering series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_medical/deluxe
+	name = "Battles of Orion: Marvelous Medical DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Marvelous Medical series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_research/deluxe
+	name = "Battles of Orion: Reckless Research DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Reckless Research series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_security/deluxe
+	name = "Battles of Orion: Stalwart Security DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Stalwart Security series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_service/deluxe
+	name = "Battles of Orion: Stellar Service DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Stellar Service series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_supply/deluxe
+	name = "Battles of Orion: Solid Supply DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Solid Supply series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_miscellaneous/deluxe
+	name = "Battles of Orion: Mystery Miscellaneous DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Mystery Miscellaneous series. Contact your local Administrator or Developer if you find this!"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_syndicate/deluxe
+	name = "Battles of Orion: Syndicate Synergies DELUXE"
+	desc = "A limited edition pack that contains EVERY card in the Syndicate Synergies series. Contact your local Administrator or Developer if you find this!"
 	contains_coin = 100
 	drop_all_cards = TRUE
 
@@ -502,6 +545,14 @@
 	w_class = WEIGHT_CLASS_TINY
 	new_attack_chain = TRUE
 	var/list/cards = list()
+
+/obj/item/tcgcard_hand/examine(mob/user)
+	. = ..()
+	if(!length(cards))
+		return
+	. += SPAN_NOTICE("It contains:")
+	for(var/obj/item/tcg_card/card in cards)
+		. += SPAN_NOTICE("[card.flipped ? "A face-down card" : card.name]")
 
 /obj/item/tcgcard_hand/update_icon()
 	. = ..()
