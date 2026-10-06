@@ -147,5 +147,8 @@
 /// Called from base of /datum/controller/subsystem/spatial_grid/proc/exit_cell: (/atom/movable)
 #define SPATIAL_GRID_CELL_EXITED(contents_type) "spatial_grid_cell_exited_[contents_type]"
 
-
 #define COMSIG_ERT_LOADOUT_CREATED "ert_loadout_created" //! [role_name, loadout_name]
+
+/// from base of /datum/wires/proc/cut : (wire)
+#define COMSIG_CUT_WIRE(wire) "cut_wire [wire]"
+#define COMSIG_MEND_WIRE(wire) "mend_wire [wire]"
