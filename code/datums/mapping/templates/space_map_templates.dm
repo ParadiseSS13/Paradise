@@ -129,6 +129,14 @@
 		telecommunications network and hope for the best."
 	allow_duplicates = FALSE // this shouldn't be spawning more than once anymore
 
+/datum/map_template/ruin/space/nt_outpost
+	name = "Nanotrasen Asteroid Outpost"
+	id = "gulag"
+	description = "Nanotrasen's deep space outpost, situated on a mineral-rich asteroid"
+	suffix = "explorer_mining_outpost.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
 	suffix = "derelict1.dmm"
