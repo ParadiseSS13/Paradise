@@ -27,8 +27,11 @@
 		else
 			registered_z = null
 
-/mob/dead/dust()	//ghosts can't be vaporised.
+/mob/dead/dust()		// Ghosts can't be vaporised.
 	return
 
-/mob/dead/gib()		//ghosts can't be gibbed.
+/mob/dead/gib()			// Ghosts can't be gibbed.
+	return
+
+/mob/dead/ex_throw()	// Ghosts can't be thrown.
 	return
