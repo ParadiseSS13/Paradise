@@ -916,6 +916,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/doppler
+	board_name = "Doppler Array"
+	icon_state = "science"
+	build_path = /obj/machinery/doppler_array
+	board_type = "machine"
+	req_components = list(
+							/obj/item/stack/cable_coil = 2,
+							/obj/item/stock_parts/scanning_module = 1)
+	var/completed_tests = 0
+	var/maximum_tests = 4
+
 /obj/item/circuitboard/clonepod
 	board_name = "Clone Pod"
 	icon_state = "medical"
