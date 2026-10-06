@@ -17,6 +17,7 @@
 	melee_damage_type = BURN
 	melee_attack_cooldown_min = 0.75 SECONDS
 	melee_attack_cooldown_max = 1.25 SECONDS
+	can_attack_items = TRUE
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	mob_size = MOB_SIZE_SMALL
@@ -282,6 +283,9 @@
 			return TRUE
 		else if(istype(A, /area/station/engineering/engine/reactor))
 			to_chat(src, SPAN_WARNING("Disrupting the control equipment of a nuclear reactor would not be to our benefit. Aborting."))
+			return TRUE
+		else if(istype(A, /area/station/hallway/secondary/entry))
+			to_chat(src, SPAN_WARNING("Destroying this object has the potential to interfere with new arrivals. Aborting."))
 			return TRUE
 	return FALSE
 

@@ -345,6 +345,7 @@
 		/obj/item/clothing/neck/cloak/mantle = 2,
 		/obj/item/clothing/neck/cloak/old = 1,
 		/obj/item/clothing/neck/cloak/regal = 2,
+		/obj/item/clothing/neck/cloak = 2,
 	)
 
 	contraband = list(
@@ -443,6 +444,7 @@
 		/obj/item/clothing/neck/cloak/mantle = 20,
 		/obj/item/clothing/neck/cloak/old = 20,
 		/obj/item/clothing/neck/cloak/regal = 30,
+		/obj/item/clothing/neck/cloak = 20,
 		/obj/item/clothing/suit/pimpcoat/white = 500,
 		/obj/item/clothing/under/misc/mailman = 100,
 	)

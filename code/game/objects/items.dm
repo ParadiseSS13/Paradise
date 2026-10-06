@@ -313,7 +313,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+/obj/item/proc/check_can_pickup(mob/user, pickupfireoverride = FALSE)
 	if(!user)
 		return FALSE
 	if(ishuman(user))
@@ -352,9 +352,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(..())
-		return
-
 	if(throwing)
 		throwing.finalize(FALSE)
 
@@ -367,7 +364,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	if(flags & ABSTRACT)
 		return FALSE
+	return TRUE
 
+/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
+	if(..())
+		return
+	if(!check_can_pickup(user, pickupfireoverride))
+		return FALSE
 	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src))

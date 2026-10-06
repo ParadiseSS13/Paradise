@@ -79,6 +79,10 @@
 				log_admin("[key_name(usr)] has spawned heretics.")
 				if(!makeHeretics())
 					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
+			if("11")
+				log_admin("[key_name(usr)] has spawned acolytes.")
+				if(!makeAcolytes())
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -2153,7 +2157,7 @@
 					possible_guardians -= "Random"
 					scarab.possible_guardians = list()
 					scarab.possible_guardians += typechoice
-				scarab.attack_self__legacy__attackchain(H)
+				scarab.activate_self(H)
 				spawn(700)
 					qdel(scarab)
 				logmsg = "scarab guardian."

@@ -194,6 +194,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HYPOSPRAY_IMMUNE	"hypospray_immune" // For making crew-accessable hyposprays not pierce your clothing
 #define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
 #define TRAIT_DRASK_SUPERCOOL	"drask_supercool"
+#define TRAIT_SLIMEPERSON_INSUL	"slime_insulated"
 #define TRAIT_BRITTLE_BONES		"brittle_bones"
 
 /// trait determines if this mob can breed given by /datum/component/breeding
@@ -298,6 +299,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AI_PAUSED "trait_ai_paused"
 /// trait that prevents AI controllers from making new plans, but not executing plans
 #define TRAIT_AI_DISABLE_PLANNING "TRAIT_AI_DISABLE_PLANNING"
+
+/// Trait allowing mobs to move to space tiles as part of pathfinding. Shouldn't be used as a generic "safe to cross space" trait
+#define TRAIT_SPACEWALK "spacewalk"
 
 #define TRAIT_TEMPERATE_PARTIER "temperate_partier" // Mob won't wake up drunk in a random department
 #define TRAIT_WORK_HARD_PARTY_HARDER "work_hard_party_harder" // Mob will wake up drunk somewhere random even if nobody else does
@@ -593,6 +597,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_WHISPERING "no_whisper"
 #define TRAIT_COOL "cool"
 #define TRAIT_UNCLONABLE "unclonable"
+#define TRAIT_TINY "tiny"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
@@ -631,6 +636,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///every object that is currently the active storage of some client mob has this trait
 #define TRAIT_ACTIVE_STORAGE "active_storage"
 
+// MARK: HUD Traits
+// TODO: Not actually implemented yet, need HUD trait refactor from tg
+
+#define TRAIT_MEDICAL_HUD "med_hud"
+#define TRAIT_MEDICAL_HUD_SENSOR_ONLY "med_hud_lesser"
+#define TRAIT_SECURITY_HUD "sec_hud"
+#define TRAIT_SECURITY_HUD_ID_ONLY "sec_hud_lesser"
+#define TRAIT_DIAGNOSTIC_HUD "diag_hud"
+#define TRAIT_BOT_PATH_HUD "bot_path_hud"
+
 // Flock trait sources
 /// Under control
 #define FLOCK_CONTROLLED_BY_OVERMIND_SOURCE "FLOCK_CONTROLLED_BY_OVERMIND_SOURCE"
@@ -645,6 +660,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait from mob/living/update_transform()
 #define UPDATE_TRANSFORM_TRAIT "update_transform"
+
+/// Trait from hungry organ to allow for benefits from eaten food/drink.
+#define TRAIT_GLUTTONOUS_GLORY "gluttonous_glory"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

@@ -8,6 +8,7 @@
 
 	active_power_consumption = 5000
 	idle_power_consumption = 5
+	anchored = 1
 
 	/// Time to sanitize the item inside
 	var/sanitize_time = 30 SECONDS
@@ -51,7 +52,8 @@
 /obj/machinery/autoclave/examine(mob/user, infix, suffix)
 	. = ..()
 	. += SPAN_NOTICE("You can open or close [src] with an empty hand.")
-	. += SPAN_NOTICE("You can turn on [src] if it's closed or take an item out of [src] if it is open with by alt-clicking.")
+	. += SPAN_NOTICE("You can take an item out of [src] if it is open with <b>Alt-Click</b>.")
+	. += SPAN_NOTICE("You can turn on [src] if it's closed and anchored with <b>Ctrl-Click</b>.")
 	if(occupant)
 		. += SPAN_INFO("There is \a [occupant] inside.")
 	if(emagged)
@@ -117,6 +119,21 @@
 	light_power = 0
 	light_range = 0
 
+/obj/machinery/autoclave/CtrlClick(mob/user, modifiers)
+	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(!anchored)
+		return ..()
+
+	if(is_open)
+		to_chat(user, SPAN_WARNING("You need to close [src] before starting it, or unanchor it before moving it!"))
+		return
+
+	if(!is_open && try_start())
+		add_fingerprint(user)
+		return
+
 /obj/machinery/autoclave/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
 		return
@@ -127,9 +144,6 @@
 		to_chat(user, SPAN_NOTICE("You take [occupant] out of [src]."))
 		occupant = null
 		update_appearance(UPDATE_OVERLAYS)
-
-	else if(!is_open && try_start())
-		add_fingerprint(user)
 
 /obj/machinery/autoclave/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!Adjacent(user))
