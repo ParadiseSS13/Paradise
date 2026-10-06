@@ -167,3 +167,48 @@
 		"Best cigarettes since 2150.",
 		"Award-winning cigs.",
 	)
+
+/obj/machinery/economy/vending/clean_fun
+	name = "Good Clean Fun"
+	desc = "Vends things the Captain and Head of Personnel probably don't you messing with while on the job!"
+	icon_state = "games"
+	icon_lightmask = "games"
+	vend_delay = 15
+	slogan_list = list("Roll for initiative!",
+						"Definitely not satanic!",
+						"Ruin your friendships!",
+						"Summon the red eyes ash drake!",
+						"Escape to a fantasy world!",
+						"Fuel your gambling addiction!",
+						"Fun times forever!")
+	products = list(/obj/item/deck/cards = 3,
+					/obj/item/storage/bag/dice = 5,
+					/obj/item/storage/fancy/crayons = 3,
+					/obj/item/pen = 5,
+					/obj/item/cardpack/series_command = 15,
+					/obj/item/cardpack/series_engineering = 20,
+					/obj/item/cardpack/series_medical = 20,
+					/obj/item/cardpack/series_research = 20,
+					/obj/item/cardpack/series_security = 20,
+					/obj/item/cardpack/series_service = 20,
+					/obj/item/cardpack/series_supply = 20,
+					/obj/item/cardpack/series_miscellaneous = 20,
+					)
+	contraband = list(/obj/item/cardpack/series_syndicate = 3,
+						/obj/item/pen/multi/fountain = 1)
+
+	prices = list(/obj/item/deck/cards = 50,
+					/obj/item/storage/bag/dice = 75,
+					/obj/item/storage/fancy/crayons = 50,
+					/obj/item/pen = 25,
+					/obj/item/cardpack/series_command = 150,
+					/obj/item/cardpack/series_engineering = 100,
+					/obj/item/cardpack/series_medical = 125,
+					/obj/item/cardpack/series_research = 100,
+					/obj/item/cardpack/series_security = 125,
+					/obj/item/cardpack/series_service = 75,
+					/obj/item/cardpack/series_supply = 75,
+					/obj/item/cardpack/series_miscellaneous = 50,
+					/obj/item/cardpack/series_syndicate = 200,
+					/obj/item/pen/multi/fountain = 200,
+					)

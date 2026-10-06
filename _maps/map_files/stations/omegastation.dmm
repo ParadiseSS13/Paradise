@@ -20908,6 +20908,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
+"eYS" = (
+/obj/machinery/economy/vending/clean_fun,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "eYY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -94063,7 +94067,7 @@ sFy
 aID
 mUh
 xUn
-rgD
+eYS
 sFy
 mOU
 xXt

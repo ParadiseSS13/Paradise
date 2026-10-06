@@ -1,0 +1,101 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_miscellaneous",
+			"icon": "icons/runtime/tcg/miscellaneous.dmi"
+		},
+		{
+			"template": "miscellaneous",
+			"cardtype": "Unit",
+			"series": "pack_miscellaneous",
+			"faction": "Miscellaneous"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_miscellaneous"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_miscellaneous"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_miscellaneous"
+		}
+	],
+	"cards": [
+		{
+			"template": "misc",
+			"id": "assistant",
+			"name": "Assistant",
+			"desc": "Hired to assist employees around the station, Assistants tend to do the exact opposite of that.",
+			"icon_state": "assistant",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "600",
+			"defense": "500",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "misc",
+			"id": "greytide",
+			"name": "Greytide",
+			"desc": "Born from disgruntled and abused Assistants, the Greytide are a nuisance to Security and the rest of the station alike.",
+			"icon_state": "greytide",
+			"rarity": "Rare",
+			"level": "5",
+			"attack": "1900",
+			"defense": "800",
+			"effect": "Cannot be Normal Summoned. Send an Assistant from your hand or field to the Morgue to Special Summon this card. When this card is Special Summoned, send one Security Unit to the Morgue.",
+			"rules": ""
+		},
+		{
+			"template": "misc",
+			"id": "mouse",
+			"name": "Mouse",
+			"desc": "The bane of engineers around the sector, the Mouse makes any cables they find a nice meal for themself.",
+			"icon_state": "mouse",
+			"rarity": "Common",
+			"level": "1",
+			"attack": "100",
+			"defense": "200",
+			"effect": "You can Special Summon this card from your hand for no cost.",
+			"rules": ""
+		},
+		{
+			"template": "misc",
+			"id": "monkey",
+			"name": "Monkey",
+			"desc": "The primitive version of a Human. Usually the subject to many of Nanotrasen and the crew's experiments.",
+			"icon_state": "monkey",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "500",
+			"defense": "400",
+			"effect": "This card can be Special Summoned from your hand for no cost. If this card is sent to the Morgue, you may add one Monkey Unit from your deck to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "misc",
+			"id": "grey_slime",
+			"name": "Grey Slime",
+			"desc": "The most basic of slimes, mostly used for monkey cubes or mutation.",
+			"icon_state": "grey_slime",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "500",
+			"defense": "500",
+			"effect": "",
+			"rules": ""
+		}
+	]
+}

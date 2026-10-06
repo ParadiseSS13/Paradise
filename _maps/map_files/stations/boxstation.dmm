@@ -54438,6 +54438,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
+"hVb" = (
+/obj/machinery/economy/vending/clean_fun,
+/obj/machinery/economy/vending/clean_fun,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "hVy" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/entry/north)
@@ -56025,6 +56030,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
+"iFh" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "iFu" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -67812,7 +67821,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/catwalk,
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "nMU" = (
 /obj/structure/disposalpipe/segment{
@@ -68286,6 +68295,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"nYh" = (
+/obj/item/cardpack/series_syndicate,
+/turf/simulated/floor/indestructible/titanium,
+/area/shuttle/arrival/station)
 "nYr" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 4
@@ -73418,6 +73431,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"qjd" = (
+/obj/item/cardpack/series_security,
+/turf/simulated/floor/indestructible/titanium,
+/area/shuttle/arrival/station)
 "qjo" = (
 /obj/machinery/door_control{
 	id = "smithdesk";
@@ -82821,6 +82838,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"upl" = (
+/obj/item/cardpack,
+/turf/simulated/floor/indestructible/titanium,
+/area/shuttle/arrival/station)
 "upu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83571,10 +83592,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
-"uFD" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "uFH" = (
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /obj/structure/table/reinforced,
@@ -89180,6 +89197,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
+"xeC" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/apmaint2)
 "xeG" = (
 /obj/structure/chair/sofa/corp/left,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -91101,18 +91130,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft2)
-"xWd" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "xWg" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
@@ -102438,10 +102455,10 @@ qdS
 eao
 jyO
 jyO
-jyO
+upl
 nfS
-jyO
-jyO
+qjd
+nYh
 jyO
 eao
 vsS
@@ -115623,7 +115640,7 @@ uVX
 rUM
 rYt
 bhO
-uFD
+iFh
 tmS
 rna
 feO
@@ -115876,7 +115893,7 @@ cZw
 cZw
 cZw
 sJQ
-xWd
+nME
 siw
 cZw
 cNB
@@ -116133,7 +116150,7 @@ cZw
 siw
 cNB
 cZw
-xWd
+nME
 cZw
 cZw
 llo
@@ -116642,7 +116659,7 @@ gSd
 qst
 cNB
 cZw
-nME
+xeC
 jbf
 dar
 dar
@@ -116899,7 +116916,7 @@ cUh
 qst
 cZw
 cNB
-nME
+xeC
 rna
 dar
 dbt
@@ -135336,7 +135353,7 @@ bbY
 bkN
 aGX
 bau
-btl
+hVb
 bih
 bia
 bju

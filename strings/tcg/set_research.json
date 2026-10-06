@@ -1,0 +1,150 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_research",
+			"icon": "icons/runtime/tcg/research.dmi"
+		},
+		{
+			"template": "research",
+			"cardtype": "Unit",
+			"series": "pack_research",
+			"faction": "Research"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_research"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_research"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_research"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "rd",
+			"name": "Research Director",
+			"desc": "The head of the science department who has to wrangle their explosion prone workers around.",
+			"icon_state": "rd",
+			"rarity": "Uncommon",
+			"level": "6",
+			"attack": "1900",
+			"defense": "1700",
+			"effect": "Once per turn, discard 1 card. Look at the top 3 cards of your deck, add 1 to your hand, and shuffle the other 2 into your deck.",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "geneticist",
+			"name": "Geneticist",
+			"desc": "Tasked with manipulating humanoid DNA, the Geneticist is able to give out genetic powers to their fellow crew.",
+			"icon_state": "geneticist",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "1000",
+			"defense": "1000",
+			"effect": "During your Main Phase, target a Unit you control and flip a coin. If heads, it gains 400 ATK until your next Main Phase. If tails, it loses 400 ATK until your next Main Phase.",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "roboticist",
+			"name": "Roboticist",
+			"desc": "The maintainer of all things cyborg, Roboticists build and maintain cyborgs for the station and are able to build a wide variety of exosuits.",
+			"icon_state": "roboticist",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "1300",
+			"defense": "1100",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "scientist",
+			"name": "Scientist",
+			"desc": "A Scientist's job ranges from manning the R&D desk, to mixing chemicals, to setting up tank transfer valve bombs",
+			"icon_state": "scientist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1100",
+			"defense": "900",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "xenobiologist",
+			"name": "Xenobiologist",
+			"desc": "Caretakers of captive slimes, the Xenobiologist breeds many different types of slimes to get unqiue slime extracts, as well as using them to revitalize organs from fauna",
+			"icon_state": "xenobiologist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "900",
+			"defense": "1100",
+			"effect": "When this card is Normal Summoned, you may Special Summon a 'Grey Slime' from your Hand or Deck. Once during your turn, you may Special Summon a 'Grey Slime' from your hand or deck. You may only Special Summon a 'Grey Slime' once per turn.",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "en",
+			"name": "E-N",
+			"desc": "Robotics' adorable and lovable clone of Ian, he's got a heart of gold and can even do your taxes for you! Beware any unexpected sparking though.",
+			"icon_state": "e-n",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "700",
+			"defense": "900",
+			"effect": "Can be used to Special Summon a card with 'Cyborg' in the name.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "ttv_bomb",
+			"name": "Tank Transfer Valve Bomb",
+			"desc": "A mechanism that controls the flow between hot plasma and cold plasma, which leads to a very large explosion.",
+			"icon_state": "ttv_bomb",
+			"rarity": "Uncommon",
+			"effect": "You must control a Scientist card to activate this card. Flip three coins. For each heads, destroy one card on the field. If you flip all three heads, destroy all cards on the field and deal 500 Lifepoints to each player."
+		},
+		{
+			"template": "item_single",
+			"id": "monkey_recycler",
+			"name": "Monkey Recycler",
+			"desc": "A machine used to recycle monkeys into easy to store cubes.",
+			"icon_state": "monkey_recycler",
+			"rarity": "Common",
+			"effect": "Flip a coin. If heads, search your deck for two Monkey cards and add them to your hand. If tails, Special Summon a Monkey card from your Deck or Morgue."
+		},
+		{
+			"template": "item_single",
+			"id": "hand_teleporter",
+			"name": "Hand Teleporter",
+			"desc": "A small experimental teleporter that allows for on the go teleportation.",
+			"icon_state": "hand_teleporter",
+			"rarity": "Rare",
+			"effect": "This card must be placed face down before being activated and you must have an empty slot for a Unit. When one of your Units is targeted by an attack, activate this card. Negate that attack and move the targeted Unit to an empty space."
+		},
+		{
+			"template": "item_single",
+			"id": "bag_of_holding",
+			"name": "Bag of Holding",
+			"desc": "A specialized backpack that utilizes a pocket bluespace dimension to store items within it.",
+			"icon_state": "bag_of_holding",
+			"rarity": "Uncommon",
+			"effect": "You may only activate one 'Bag of Holding' effect per turn. Draw 2 cards."
+		}
+	]
+}

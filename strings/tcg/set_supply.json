@@ -1,0 +1,145 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_supply",
+			"icon": "icons/runtime/tcg/supply.dmi"
+		},
+		{
+			"template": "supply",
+			"cardtype": "Unit",
+			"series": "pack_supply",
+			"faction": "Supply"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_supply"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_supply"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_supply"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "qm",
+			"name": "Quartermaster",
+			"desc": "The head of the supply department that makes sure everyone gets their crates and their ores.",
+			"icon_state": "qm",
+			"rarity": "Uncommon",
+			"level": "5",
+			"attack": "1600",
+			"defense": "1600",
+			"effect": "When this card is Normal Summoned, add one Supply Unit from your Morgue to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "cargo_tech",
+			"name": "Cargo Technician",
+			"desc": "The main workhorse of the Supply department, Cargo Technicians ensure your crates are delivered soon after you order them.",
+			"icon_state": "cargo_tech",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "800",
+			"defense": "800",
+			"effect": "You can Normal Summon this card without it counting towards your one Normal Summon limit per turn. When this card is Normal Summoned, search your Deck for an Item card and add it to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "miner",
+			"name": "Shaft Miner",
+			"desc": "Pioneers of Lavaland, Shaft Miners brave the horrors in order to bring materials to the station.",
+			"icon_state": "miner",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "1500",
+			"defense": "1000",
+			"effect": "When this card destroys a Unit in battle, draw 1 card. Once per turn, you can send this card to the Morgue and add a Supply Unit from your Deck to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "explorer",
+			"name": "Explorer",
+			"desc": "Traveling out into the depths of space, Explorers are tasked with finding and conquering dangerous ruins and fauna.",
+			"icon_state": "explorer",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1200",
+			"defense": "1100",
+			"effect": "When this card is Normal Summoned, search your Deck for an Item card and add it to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "smith",
+			"name": "Smith",
+			"desc": "",
+			"icon_state": "smith",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1000",
+			"defense": "1300",
+			"effect": "Once per turn, you may move one Continuous Item card from one of your Units to another Unit you control. When this card is destroyed, add one Continuous Item card from your Morgue to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "forklift",
+			"name": "Forklift",
+			"desc": "Supply's pet of choice, Forklift has been taught how to carry crates and wouldn't hurt a fly!",
+			"icon_state": "forklift",
+			"rarity": "Uncommon",
+			"level": "5",
+			"attack": "0",
+			"defense": "2000",
+			"effect": "Once during your turn, move one Item card from your Morgue to your Item Zone facedown.",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "brad",
+			"name": "Brad",
+			"desc": "Residing just on the outskirts of the Mining Outpost, Brad is a cockroach that has adapted to the weather patterns of Lavaland and can withstand them.",
+			"icon_state": "brad",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "600",
+			"defense": "800",
+			"effect": "This card cannot be destroyed by card effects.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "approved_manifest",
+			"name": "Approved Cargo Manifest",
+			"desc": "Shipping manifests stamped APPROVED by Cargo, signifying to Central Command that Cargo deserves a few extra credits.",
+			"icon_state": "approved_manifest",
+			"rarity": "Common",
+			"effect": "Draw 2 cards. Then, if you control a Supply Unit, you may add one Item card from your Morgue to your hand. Otherwise, discard 1 card."
+		},
+		{
+			"template": "item_continuous",
+			"id": "autolathe",
+			"name": "Autolathe",
+			"desc": "A lathe that turns metal and glass into a wide variety of items, even more if you can import some designs.",
+			"icon_state": "autolathe",
+			"rarity": "Uncommon",
+			"effect": "Once during your turn, you may send one Item card from your hand to the Morgue. If you do, search your Deck for a different Item card and add it to your hand."
+		}
+	]
+}

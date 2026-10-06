@@ -1,0 +1,176 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_medical",
+			"icon": "icons/runtime/tcg/medical.dmi"
+		},
+		{
+			"template": "medical",
+			"cardtype": "Unit",
+			"series": "pack_medical",
+			"faction": "Medical"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_medical"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_medical"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_medical"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "cmo",
+			"name": "Chief Medical Officer",
+			"desc": "The head of the medical department who makes sure their department isn't committing any intentional or unintentional malpractice.",
+			"icon_state": "cmo",
+			"rarity": "Uncommon",
+			"level": "6",
+			"attack": "1800",
+			"defense": "2000",
+			"effect": "When a Medical Unit you control is sent to the Morgue, you may add it to your hand instead by discarding one card.",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "doctor",
+			"name": "Medical Doctor",
+			"desc": "Medical Doctors are able to cure almost any ailment that may be inflicted on a worker... while also inflicting some themself.",
+			"icon_state": "doctor",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "900",
+			"defense": "1400",
+			"effect": "Once during your turn, you may discard and you restore 200 Lifepoints. If this card is in Defense Position, restore 200 Lifepoints. Only one 'Medical Doctor' effect may be activated once during your turn.",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "chemist",
+			"name": "Chemist",
+			"desc": "Chemists are definitely not producing meth instead of life-saving chemicals.",
+			"icon_state": "chemist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1100",
+			"defense": "900",
+			"effect": "Once during your turn, you may flip a coin. If heads, you restore 150 Lifepoints. If tails, your opponent restores 150 Lifepoints.",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "paramedic",
+			"name": "Paramedic",
+			"desc": "The Medical Department's first response member responsible for stabilizing and rescuing Nanotrasen employees.",
+			"icon_state": "paramedic",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "1000",
+			"defense": "1400",
+			"effect": "Once per turn, discard a card from your hand and add one Unit card from your Morgue to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "virologist",
+			"name": "Virologist",
+			"desc": "The virologist is the person you go crying to that you either have the common cold or a disease that kills you in a few minutes. They might have been the cause of both of them.",
+			"icon_state": "virologist",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "800",
+			"defense": "700",
+			"effect": "When this card destroys a Unit in battle, inflict 100 extra Lifepoints at the beginning of your opponent's next Main Phase. Your opponent may negate this by discarding a card. ",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "coroner",
+			"name": "Coroner",
+			"desc": "Overseer of the morgue, the coroner ensures that dead bodies are properly stored and have their autopsies recorded.",
+			"icon_state": "coroner",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "600",
+			"defense": "1000",
+			"effect": "Once per turn, discard a card from your hand and add one Item card from your Morgue to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "psychologist",
+			"name": "Psychologist",
+			"desc": "Hired to offer emotional reassurance to employees aboard Nanotrasen stations but is usually found secretly dealing their drugs to anyone who asks.",
+			"icon_state": "psych",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "500",
+			"defense": "800",
+			"effect": "At any point during your turn or your opponent's turn, tell your opponent they're doing a good job and you're proud of them. ",
+			"rules": ""
+		},
+		{
+			"template": "medical",
+			"id": "runtime",
+			"name": "Runtime",
+			"desc": "GCAT. Somehow, the four letters used in genomes can spell cat. How purr-ious.",
+			"icon_state": "runtime",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "400",
+			"defense": "600",
+			"effect": "If your opponent attempts to summon a Mouse, flip a coin. If heads, send the Mouse to the Morgue. If tails, allow the summon to occur.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "hypospray",
+			"name": "Hypospray",
+			"desc": "A sterile, spring-loaded injector that delivers chemicals instantly through clothing.",
+			"icon_state": "hypospray",
+			"rarity": "Common",
+			"effect": "This card must be played face down. When your Lifepoints falls below your opponents, you may activate this card. Restore 300 Lifepoints to yourself."
+		},
+		{
+			"template": "item_single",
+			"id": "defibrillator",
+			"name": "Defibrillator",
+			"desc": "Used to restart the heart of a recently deceased crewmember. Clear!",
+			"icon_state": "defibrillator",
+			"rarity": "Common",
+			"effect": "Target one Unit in your Morgue that was destroyed by battle during your opponent's last Battle Phase. Special Summon them in either Attack or Defense Position. It cannot attack this turn."
+		},
+		{
+			"template": "item_single",
+			"id": "cloning_pod",
+			"name": "Cloning Pod",
+			"desc": "Grows a new body from a scan of the old one. Results may vary.",
+			"icon_state": "cloning_pod",
+			"rarity": "Uncommon",
+			"effect": "Target one Unit in your DNR or Morgue, and flip a coin. If heads, copy the target's attack and Special Summon this card in Attack Position. If tails, copy the target's defense and Special Summon this card in Defense Position. When this card is destroyed, place the targeted card on the top of your deck."
+		},
+		{
+			"template": "item_continuous",
+			"id": "medikit",
+			"name": "Medikit",
+			"desc": "A first aid kit stocked with everything needed to patch up the most common injuries.",
+			"icon_state": "medikit",
+			"rarity": "Common",
+			"effect": "If you have less than 500 Lifepoints during your Standby Phase, restore 100 Lifepoints. Only one 'Medikit' may activate this effect per turn."
+		}
+	]
+}

@@ -1053,6 +1053,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/bag/garment/syndie
 	cost = 5
 
+/datum/uplink_item/badass/tcg_pack
+	name = "Battles of Orion: Syndicate Synergies Card Pack"
+	desc = "Contains six cards straight from Donk Co.! I think we both know how Donk Co. got these so accurate."
+	reference = "TCGP"
+	item = /obj/item/cardpack/series_syndicate/uplink
+	cost = 5
+
 ////////////////////////////////////////
 // MARK: BUNDLES AND TELECRYSTALS
 ////////////////////////////////////////

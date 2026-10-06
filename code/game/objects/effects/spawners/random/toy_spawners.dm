@@ -31,3 +31,17 @@
 /obj/effect/spawner/random/toy/shell
 	name = "random beach shell"
 	loot_type_path = /obj/item/toy/shell
+
+/obj/effect/spawner/random/toy/trading_card_pack
+	name = "random trading card pack"
+	icon_state = "cardpack"
+	loot = list(
+		/obj/item/cardpack/series_command = 2,
+		/obj/item/cardpack/series_engineering = 3,
+		/obj/item/cardpack/series_medical = 3,
+		/obj/item/cardpack/series_research = 3,
+		/obj/item/cardpack/series_security = 3,
+		/obj/item/cardpack/series_service = 3,
+		/obj/item/cardpack/series_supply = 3,
+		/obj/item/cardpack/series_miscellaneous = 3,
+		/obj/item/cardpack/series_syndicate = 1)

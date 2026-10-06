@@ -1,0 +1,179 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_service",
+			"icon": "icons/runtime/tcg/service.dmi"
+		},
+		{
+			"template": "service",
+			"cardtype": "Unit",
+			"series": "pack_service",
+			"faction": "Service"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_service"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_service"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_service"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "hop",
+			"name": "Head of Personnel",
+			"desc": "Never far far from their closest pal, Ian, they defend the ability to give out AA to anyone who passes.",
+			"icon_state": "hop",
+			"rarity": "Rare",
+			"level": "6",
+			"attack": "1800",
+			"defense": "1800",
+			"effect": "Once per turn, you may target one Unit you control. Shuffle that Unit into your deck and pick a card of a different Faction to put in your hand",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "botanist",
+			"name": "Botanist",
+			"desc": "The main ingredient provider for the chef, skilled botanist can produce plants that can fill a crewmember up and kill them just as quickly.",
+			"icon_state": "botanist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "900",
+			"defense": "1300",
+			"effect": "Once during your turn if this card is in Defense Position, restore 100 Lifepoints.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "mime",
+			"name": "Mime",
+			"desc": "...",
+			"icon_state": "mime",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "1100",
+			"defense": "1300",
+			"effect": "When this card is summoned, you may negate a Unit's effect during your opponent's next turn.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "clown",
+			"name": "Clown",
+			"desc": "Honk!",
+			"icon_state": "clown",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "1400",
+			"defense": "1000",
+			"effect": "When targeted by an enemy attack or effect, flip a coin. If heads, negate that attack or effect.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "janitor",
+			"name": "Janitor",
+			"desc": "The humble Janitor travels the station in search of any messes that need cleaning.",
+			"icon_state": "janitor",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "700",
+			"defense": "1100",
+			"effect": "Once during your turn, flip a coin. If heads, send one Item card to the Morgue.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "chef",
+			"name": "Chef",
+			"desc": "Wielder of CQC within their kitchen, the Chef protects their kitchen from any invaders trying to disrupt the distribution of food to the crew.",
+			"icon_state": "chef",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1400",
+			"defense": "1000",
+			"effect": "While this Unit is the only Unit you control, this card gains 400 ATK.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "bartender",
+			"name": "Bartender",
+			"desc": "The station's OTHER source of emotional reassurance, the Bartender serves alcohol to anyone who wants it while shooting any disruptive patrons with their shotgun.",
+			"icon_state": "bartender",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1700",
+			"defense": "1000",
+			"effect": "Once during your turn, you may either restore 100 Lifepoints to yourself OR deal 100 Lifepoints to your opponent.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "chaplain",
+			"name": "Chaplain",
+			"desc": "The spirtual leader of the station, the Chaplain offers unique services due to their connection with religious higher-ups.",
+			"icon_state": "chaplain",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "1000",
+			"defense": "1400",
+			"effect": "Once per turn, you may target one Unit you control. It cannot be destroyed by battle this turn.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "librarian",
+			"name": "Librarian",
+			"desc": "Usually found within their library writing and printing books, the Librarian is able to loan out books full of knowledge. Don't forget to return them!",
+			"icon_state": "librarian",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "600",
+			"defense": "1000",
+			"effect": "Once during your turn, look at the top 2 cards of your deck and place them back in any order.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "pete",
+			"name": "Pete",
+			"desc": "The chef's tempermental companion, this goat is not afraid to butt heads with you and take a bite out of your local Diona.",
+			"icon_state": "pete",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "1500",
+			"defense": "1000",
+			"effect": "If you control a Chef Unit, this card gains 300 DEF.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "ian",
+			"name": "Ian",
+			"desc": "The adorable Head of Personnel's pet. Make sure he doesn't nibble on any important paperwork!",
+			"icon_state": "ian",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "1000",
+			"defense": "1500",
+			"effect": "While you control a Head of Personnel Unit, this card cannot be destroyed by battle. Once per turn, you may flip a coin. If heads, restore 100 Lifepoints.",
+			"rules": ""
+		}
+	]
+}
