@@ -27,7 +27,8 @@
 	var/list/safe_areas = typecacheof(list(
 	/area/station/engineering/solar,
 	/area/station/science/toxins/test,
-	/area/station/public/sleep))
+	/area/station/public/sleep,
+	/area/shuttle/arrival))
 
 	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, safe_areas)
 
