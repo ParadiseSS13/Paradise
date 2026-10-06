@@ -2,7 +2,7 @@
 /obj/item/reagent_containers/drinks/mug
 	name = "coffee mug"
 	desc = "A mug for sipping hot beverages out of."
-	icon = 'icons/obj/mugs.dmi'
+	icon = 'icons/obj/drinks/mugs.dmi'
 	icon_state = "mug"
 	var/novelty = FALSE
 	var/preset = FALSE

@@ -9,17 +9,17 @@
 	implant_data = /datum/implant_fluff/dust
 	implant_state = "implant-nanotrasen"
 
-/obj/item/bio_chip/dust/death_trigger(mob/source, force)
-	activate("death")
+/obj/item/bio_chip/dust/death_trigger(mob/source, gibbed)
+	to_chat(imp_in, SPAN_NOTICE("Your dusting bio-chip activates!"))
+	imp_in.visible_message(SPAN_DANGER("[imp_in] burns up in a flash!"))
+	imp_in.dust()
 
 /obj/item/bio_chip/dust/activate(cause)
 	if(!cause || !imp_in || cause == "emp")
 		return FALSE
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting bio-chip? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
 		return FALSE
-	to_chat(imp_in, SPAN_NOTICE("Your dusting bio-chip activates!"))
-	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
-	imp_in.dust()
+	death_trigger(imp_in)
 
 /obj/item/bio_chip/dust/emp_act(severity)
 	return

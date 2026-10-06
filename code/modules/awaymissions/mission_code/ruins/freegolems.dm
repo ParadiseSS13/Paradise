@@ -3,6 +3,7 @@
 	desc = "A box of essential medical supplies, formulated for golems' hard skin."
 	icon_state = "firstaid_freegolem"
 	inhand_icon_state = "firstaid_freegolem"
+	med_bot_skin = "freegolem"
 
 /obj/item/storage/firstaid/freegolem/populate_contents()
 	new /obj/item/healthanalyzer(src)
@@ -120,8 +121,8 @@
 	name = "Golem Ship Console"
 	desc = "Used to control the Golem Ship."
 	circuit = /obj/item/circuitboard/shuttle/golem_ship
-	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_space;freegolem_ussp"
+	shuttleIds = list("freegolem")
+	possibleDestinations2 = alist("freegolem" = list("freegolem_lavaland", "freegolem_space", "freegolem_ussp"))
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))
@@ -132,7 +133,7 @@
 /obj/machinery/computer/shuttle/golem_ship/recall
 	name = "golem ship recall terminal"
 	desc = "Used to recall the Golem Ship."
-	possible_destinations = "freegolem_lavaland"
+	possibleDestinations2 = alist("freegolem" = list("freegolem_lavaland"))
 	resistance_flags = INDESTRUCTIBLE
 
 #define FREE_GOLEM_SHIP_WIDTH 18

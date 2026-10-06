@@ -22,6 +22,7 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
+	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/goliath
 	ai_controller = /datum/ai_controller/basic_controller/goliath
 	faction = list("mining")
@@ -150,6 +151,7 @@
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	tentacle_warning_state = "Goliath_preattack"
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/goliath/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE

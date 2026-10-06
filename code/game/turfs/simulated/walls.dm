@@ -312,17 +312,35 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(rotting)
 		if(hardness <= 10)
-			to_chat(user, SPAN_NOTICE("This wall feels rather unstable."))
+			user.visible_message(
+				SPAN_WARNING("[user] pushes the wall, causing it to let out a concerning metallic groan!"),
+				SPAN_WARNING("You push the wall, it feels rather unstable and lets out a concerning metallic groan!"),
+				SPAN_WARNING("You hear a concerning metallic groan!")
+			)
 			return
 		else
-			to_chat(user, SPAN_NOTICE("The wall crumbles under your touch."))
+			user.visible_message(
+				SPAN_WARNING("[user] pushes the wall, and it crumbles under [user.p_their()] touch!"),
+				SPAN_WARNING("You push the wall, and it crumbles under your touch!"),
+				SPAN_WARNING("You hear something crumbling!")
+			)
 			dismantle_wall()
 			return
 
-	to_chat(user, SPAN_NOTICE("You push the wall but nothing happens!"))
+	user.visible_message(
+		SPAN_NOTICE("[user] pushes the wall, but nothing happens."),
+		SPAN_NOTICE("You push the wall, but nothing happens."),
+		SPAN_HEAR("You hear a solid thud.")
+	)
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
+
+/turf/simulated/wall/attack_robot(mob/user)
+	if(!Adjacent(user) || isdrone(user))
+		return ..()
+	
+	attack_hand(user)
 
 /turf/simulated/wall/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
@@ -539,18 +557,6 @@
 		dent_decals = list(decal)
 
 	update_icon()
-
-/turf/simulated/wall/MouseEntered(location, control, params)
-	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	var/screentip_mode = usr.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
-
-/turf/simulated/wall/MouseExited(location, control, params)
-	usr.hud_used.screentip_text.maptext = ""
 
 /turf/simulated/wall/magic_rust_turf()
 	if(HAS_TRAIT(src, TRAIT_RUSTY))

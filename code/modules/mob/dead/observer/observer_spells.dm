@@ -9,6 +9,17 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	"It feels like someone's standing behind you.",
 ))
 
+GLOBAL_LIST_INIT(boo_phrases_robot, list(
+	"You feel a chill run down your support structure.",
+	"You think you see a figure in your peripheral vision.",
+	"What was that?",
+	"You feel a tingle of static buildup.",
+	"You are filled with a great sadness.",
+	"Something doesn't feel right...",
+	"You feel a presence in the room.",
+	"It feels like someone's standing behind you.",
+))
+
 /datum/spell/boo
 	name = "Boo!"
 	desc = "Fuck with the living."

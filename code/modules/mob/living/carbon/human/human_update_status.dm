@@ -25,6 +25,15 @@
 					update_revive()
 					emote("me", EMOTE_AUDIBLE, "chimes as [p_they()] reactivate[p_s()]!")
 					create_debug_log("revived from healing, trigger reason: [reason]")
+					var/obj/item/organ/external/head/head_organ = get_organ("head")
+					if(!head_organ)
+						return
+
+					var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
+					if(!robohead || !robohead.is_monitor)
+						return
+
+					update_hair()
 
 /mob/living/carbon/human/update_nearsighted_effects()
 	var/obj/item/clothing/glasses/G = glasses
