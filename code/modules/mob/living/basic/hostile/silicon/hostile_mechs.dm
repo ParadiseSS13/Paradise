@@ -25,7 +25,7 @@
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_min = 2.5 SECONDS
 	damage_coeff = list(BRUTE = 0.7, BURN = 0.6, TOX = 0, STAMINA = 0, OXY = 0)
-	initial_traits = list(TRAIT_NOFIRE)
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/laser
 	projectile_sound = 'sound/weapons/laser.ogg'

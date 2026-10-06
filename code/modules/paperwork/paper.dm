@@ -1036,7 +1036,7 @@
 				if(fax)
 					var/turf/T = get_turf(fax)
 					new /obj/effect/portal(T)
-					new /mob/living/simple_animal/bot/secbot(T)
+					new /mob/living/basic/bot/secbot(T)
 			else if(myeffect == "Revoke Fax Access")
 				GLOB.fax_blacklist += target.real_name
 				if(fax)
