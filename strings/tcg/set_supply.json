@@ -107,7 +107,7 @@
 			"level": "5",
 			"attack": "0",
 			"defense": "2000",
-			"effect": "Once per turn, move one Item card from your Morgue to your Item Zone facedown.",
+			"effect": "Once during your turn, move one Item card from your Morgue to your Item Zone facedown.",
 			"rules": ""
 		},
 		{

@@ -70,6 +70,32 @@
 			"defense": "200",
 			"effect": "You can Special Summon this card from your hand for no cost.",
 			"rules": ""
+		},
+		{
+			"template": "misc",
+			"id": "monkey",
+			"name": "Monkey",
+			"desc": "The primitive version of a Human. Usually the subject to many of Nanotrasen and the crew's experiments.",
+			"icon_state": "monkey",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "500",
+			"defense": "400",
+			"effect": "This card can be Special Summoned from your hand for no cost. If this card is sent to the Morgue, you may add one Monkey Unit from your deck to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "misc",
+			"id": "grey_slime",
+			"name": "Grey Slime",
+			"desc": "The most basic of slimes, mostly used for monkey cubes or mutation.",
+			"icon_state": "grey_slime",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "500",
+			"defense": "500",
+			"effect": "",
+			"rules": ""
 		}
 	]
 }

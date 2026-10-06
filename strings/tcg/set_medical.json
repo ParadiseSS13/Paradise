@@ -151,7 +151,7 @@
 			"name": "Defibrillator",
 			"desc": "Used to restart the heart of a recently deceased crewmember. Clear!",
 			"icon_state": "defibrillator",
-			"rarity": "Uncommon",
+			"rarity": "Common",
 			"effect": "Target one Unit in your Morgue that was destroyed by battle during your opponent's last Battle Phase. Special Summon them in either Attack or Defense Position. It cannot attack this turn."
 		},
 		{
