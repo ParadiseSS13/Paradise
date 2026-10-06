@@ -1,13 +1,11 @@
 #warn add the booster boxes to said vendor
-#warn add the new pack to the vendor
 #warn add coins to the vendor, along with D&D die, and the other cards
 #warn make deck boxes
 #warn make premade decks
 #warn add deck searching functionality
 #warn make card values able to be changed
-#warn using a card in hand flips it over
-#warn add the syndicate booster to the uplink
-#warn fix the empty Card Hand thing
+#warn mention it fixes issue #32722
+#warn add monkeys and slimes!!!
 
 #define ROTATED_ANGLE 90
 #define UNROTATED_ANGLE 0
@@ -82,11 +80,21 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	if(flipped)
-		flipped = !flipped
-	if(!flipped)
-		flipped = TRUE
+	flip_card()
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/tcg_card/proc/flip_card()
+	flipped = !flipped
+	if(flipped)
+		icon_state = "cardback"
+		name = "Battles of Orion card"
+		desc = "A flipped Battles of Orion-branded card."
+		return
+	var/datum/card/data = extract_datum()
+	if(data)
+		name = data.name
+		desc = "<i>[data.desc]</i>"
+		icon_state = data.icon_state
 
 /obj/item/tcg_card/New(loc, new_series, new_id, new_illegal = FALSE)
 	. = ..()
@@ -112,17 +120,7 @@
 		if("Pick Up")
 			. = ..()
 		if("Flip")
-			flipped = !flipped
-			if(flipped)
-				icon_state = "cardback"
-				name = "Battles of Orion card"
-				desc = "A flipped Battles of Orion-branded card."
-			else
-				var/datum/card/data = extract_datum()
-				if(data)
-					name = data.name
-					desc = "<i>[data.desc]</i>"
-					icon_state = data.icon_state
+			flip_card()
 		if("Rotate")
 			var/matrix/ntransform = matrix(transform)
 			if(rotated)
@@ -185,6 +183,8 @@
 	var/card_count = 6
 	/// Whether or not all cards from a series is dropped
 	var/drop_all_cards = FALSE
+	/// Whether every card from this pack is marked as a low-quality (illegal) copy
+	var/illegal_pack = FALSE
 	/// The rarity table
 	var/list/rarity_table = list(
 		"Common" = 900,
@@ -263,8 +263,23 @@
 /obj/item/cardpack/series_syndicate
 	name = "Battles of Orion: Syndicate Synergies"
 	desc = "Contains six cards straight from Donk Co.! Don't ask how Donk made the cards so accurate."
-	series = "pack_syndicate"
+	series = "series_syndicate"
 	contains_coin = 10
+
+/obj/item/cardpack/series_syndicate/uplink
+	desc = "Contains six cards straight from Donk Co.! I think we both know how Donk got these so accurate."
+	illegal_pack = TRUE
+	guaranteed_count = 2
+	rarity_table = list(
+		"Common" = 300,
+		"Uncommon" = 300,
+		"Rare" = 200,
+		"Legendary" = 20
+	)
+	guar_rarity = list(
+		"Rare" = 30,
+		"Legendary" = 5
+	)
 
 /obj/item/cardpack/series_one_deluxe
 	name = "Battles of Orion: Series 1 DELUXE"
@@ -305,7 +320,7 @@
 
 	var/obj/item/tcgcard_hand/hand = new(get_turf(user))
 	for(var/id in cards)
-		var/obj/item/tcg_card/card = new(hand, series, id, drop_all_cards)
+		var/obj/item/tcg_card/card = new(hand, series, id, drop_all_cards || illegal_pack)
 		hand.cards.Add(card)
 	user.put_in_hands(hand)
 	hand.update_icon()
@@ -409,14 +424,18 @@
 
 	if(istype(used, /obj/item/tcgcard_hand))
 		var/obj/item/tcgcard_hand/hand = used
-		for(var/obj/item/tcg_card/card in hand.cards)
+		for(var/obj/item/tcg_card/card in hand.cards.Copy())
 			if(contents.len >= max_cards)
-				return ITEM_INTERACT_COMPLETE
+				break
 
 			card.flipped = flipped
 			card.forceMove(src)
 			hand.cards.Remove(card)
 		update_icon()
+		if(length(hand.cards))
+			hand.update_icon()
+		else
+			qdel(hand)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

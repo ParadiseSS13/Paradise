@@ -3,7 +3,8 @@
 		{
 			"template": "default",
 			"cardtype": "Unit",
-			"series": "pack_research"
+			"series": "pack_research",
+			"icon": "icons/runtime/tcg/research.dmi"
 		},
 		{
 			"template": "research",
@@ -41,7 +42,7 @@
 			"level": "6",
 			"attack": "1900",
 			"defense": "1700",
-			"effect": "",
+			"effect": "Once per turn, discard 1 card. Look at the top 3 cards of your deck, add 1 to your hand, and shuffle the other 2 into your deck.",
 			"rules": ""
 		},
 		{

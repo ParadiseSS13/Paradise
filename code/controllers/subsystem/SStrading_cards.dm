@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(trading_card_game)
 	/// Base directory for all related string files
 	var/card_directory = "strings/tcg"
 	/// List of card files to load
-	var/list/card_files = list("set_command.json", "set_engineering.json", "set_medical.json", "set_research.json", "set_security", "set_service", "set_supply", "set_miscellaneous", "set_syndicate")
+	var/list/card_files = list("set_command.json", "set_engineering.json", "set_medical.json", "set_research.json", "set_security.json", "set_service.json", "set_supply.json", "set_miscellaneous.json", "set_syndicate.json")
 	/// List of keyword files
 	/// These allow you to add on hovor logic to parts of a card's text, displaying extra info
 	var/list/keyword_files = list("keywords.json")

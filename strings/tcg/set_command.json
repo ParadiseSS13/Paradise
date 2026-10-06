@@ -3,7 +3,8 @@
 		{
 			"template": "default",
 			"cardtype": "Unit",
-			"series": "pack_command"
+			"series": "pack_command",
+			"icon": "icons/runtime/tcg/command.dmi"
 		},
 		{
 			"template": "command",
@@ -90,7 +91,7 @@
 			"desc": "Sometimes you just gotta report things to your higher-ups.",
 			"icon_state": "fax",
 			"rarity": "Rare",
-			"effect": ""
+			"effect": "Flip a coin. If heads, target 1 Unit your opponent controls. That Unit cannot attack until the end of your opponent's next turn."
 		},
 		{
 			"template": "item_continuous",
@@ -117,14 +118,14 @@
 			"desc": "When on-station personnel are not able to handle the happenings of the station, Central Command may elect to send some extra hands.",
 			"icon_state": "ert_call",
 			"rarity": "Common",
-			"effect": ""
+			"effect": "If your opponent controls more Units than you do, Special Summon a Security or Command Unit from your hand."
 		},
 		{
 			"template": "item_single",
 			"id": "staff_meeting",
 			"name": "Head of Staff Meeting",
 			"desc": "I'm really sure the Captain has something REALLY important to tell us when they interrupt our work.",
-			"icon_state": "staff_meetings",
+			"icon_state": "staff_meeting",
 			"rarity": "Common",
 			"effect": "Search your deck for at most a Command Unit, Special Summon it, and then shuffle your deck."
 		}

@@ -3,7 +3,7 @@
 		{
 			"template": "default",
 			"series": "series_syndicate",
-			"icon": "icons/runtime/tcg/pack2.dmi"
+			"icon": "icons/runtime/tcg/syndicate.dmi"
 		},
 		{
 			"template": "syndicate",

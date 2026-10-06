@@ -3,7 +3,8 @@
 		{
 			"template": "default",
 			"cardtype": "Unit",
-			"series": "pack_security"
+			"series": "pack_security",
+			"icon": "icons/runtime/tcg/security.dmi"
 		},
 		{
 			"template": "security",

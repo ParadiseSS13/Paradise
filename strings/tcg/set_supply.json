@@ -3,7 +3,8 @@
 		{
 			"template": "default",
 			"cardtype": "Unit",
-			"series": "pack_supply"
+			"series": "pack_supply",
+			"icon": "icons/runtime/tcg/supply.dmi"
 		},
 		{
 			"template": "supply",

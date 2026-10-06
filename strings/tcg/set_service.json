@@ -3,7 +3,8 @@
 		{
 			"template": "default",
 			"cardtype": "Unit",
-			"series": "pack_service"
+			"series": "pack_service",
+			"icon": "icons/runtime/tcg/service.dmi"
 		},
 		{
 			"template": "service",
@@ -159,6 +160,19 @@
 			"attack": "1500",
 			"defense": "1000",
 			"effect": "If you control a Chef Unit, this card gains 300 DEF.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "ian",
+			"name": "Ian",
+			"desc": "The adorable Head of Personnel's pet. Make sure he doesn't nibble on any important paperwork!",
+			"icon_state": "ian",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "1000",
+			"defense": "1500",
+			"effect": "While you control a Head of Personnel Unit, this card cannot be destroyed by battle. Once per turn, you may flip a coin. If heads, restore 100 Lifepoints.",
 			"rules": ""
 		}
 	]

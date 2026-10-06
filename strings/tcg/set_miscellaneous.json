@@ -3,7 +3,8 @@
 		{
 			"template": "default",
 			"cardtype": "Unit",
-			"series": "pack_miscellaneous"
+			"series": "pack_miscellaneous",
+			"icon": "icons/runtime/tcg/miscellaneous.dmi"
 		},
 		{
 			"template": "miscellaneous",
