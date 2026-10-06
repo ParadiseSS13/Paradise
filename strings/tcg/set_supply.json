@@ -122,6 +122,24 @@
 			"defense": "800",
 			"effect": "This card cannot be destroyed by card effects.",
 			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "approved_manifest",
+			"name": "Approved Cargo Manifest",
+			"desc": "Shipping manifests stamped APPROVED by Cargo, signifying to Central Command that Cargo deserves a few extra credits.",
+			"icon_state": "approved_manifest",
+			"rarity": "Common",
+			"effect": "Draw 2 cards. Then, if you control a Supply Unit, you may add one Item card from your Morgue to your hand. Otherwise, discard 1 card."
+		},
+		{
+			"template": "item_continuous",
+			"id": "autolathe",
+			"name": "Autolathe",
+			"desc": "A lathe that turns metal and glass into a wide variety of items, even more if you can import some designs.",
+			"icon_state": "autolathe",
+			"rarity": "Uncommon",
+			"effect": "Once during your turn, you may send one Item card from your hand to the Morgue. If you do, search your Deck for a different Item card and add it to your hand."
 		}
 	]
 }
