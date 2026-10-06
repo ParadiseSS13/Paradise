@@ -22,7 +22,7 @@
 	var/hacking = FALSE
 	/// Are they authenticated?
 	#warn Change auth before PRing this
-	var/auth = TRUE
+	var/auth = FALSE
 	// Custom Message Properties
 	/// Sender of a custom message
 	var/customsender = "System Administrator"
@@ -30,6 +30,11 @@
 	var/obj/item/pda/customrecepient = null
 
 	light_color = LIGHT_COLOR_DARKGREEN
+
+#warn Remove this before PRing, just for easier testing.
+/obj/machinery/computer/message_monitor/AltClick(mob/user, modifiers)
+	auth = !auth
+
 
 /obj/machinery/computer/message_monitor/Initialize(mapload)
 	..()
@@ -173,6 +178,8 @@
 		return
 
 	switch(action)
+		if("logout")
+			auth = FALSE
 		if("server")
 			to_chat(ui.user, SPAN_NOTICE("IT FUCKING WORKS"))
 		if("password")
