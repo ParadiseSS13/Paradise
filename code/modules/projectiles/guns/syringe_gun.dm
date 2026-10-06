@@ -82,7 +82,7 @@
 		to_chat(user, SPAN_NOTICE("[src] cannot hold more syringes."))
 		return ITEM_INTERACT_COMPLETE
 
-	if(!user.transfer_item_to(user, src))
+	if(!user.transfer_item_to(used, src))
 		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 
@@ -158,7 +158,7 @@
 
 /obj/item/gun/syringe/rapidsyringe/examine(mob/user)
 	. = ..()
-	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot, [SPAN_NOTICE("alt-click to change it.")]"
+	. += SPAN_NOTICE("<b>Alt-click</b> to change the number of units per shot. It is currently set to [get_units_per_shot()] unit\s per shot.")
 	if(chambered?.BB)
 		. += SPAN_NOTICE("The chambered syringe contains [round(chambered.BB.reagents.total_volume)] units.")
 
