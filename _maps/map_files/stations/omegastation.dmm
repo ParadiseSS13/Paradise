@@ -11187,6 +11187,10 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_x = 1;
+	pixel_y = 31
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "aWS" = (
