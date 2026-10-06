@@ -573,7 +573,12 @@
 		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-
+	var/datum/component/shielded/shield = GetComponent(/datum/component/shielded)
+	if(IS_ACOLYTE(user))
+		shield.shield_icon = "shield-acolyte"
+	else
+		shield.shield_icon = "shield-cult"
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
 	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))

@@ -383,6 +383,18 @@
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
+/datum/mind/proc/memory_edit_acolyte(mob/living/carbon/human/H)
+	. = _memory_edit_header("acolyte", list("acolyte"))
+	var/datum/antagonist/acolyte/acolyte = has_antag_datum(/datum/antagonist/acolyte)
+	if(acolyte)
+		. += "<b><font color='red'>ACOLYTE</font></b>|<a href='byond://?src=[UID()];acolyte=clear'>no</a>"
+		if(!acolyte.has_antag_objectives())
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];acolyte=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='byond://?src=[UID()];acolyte=acolyte'>acolyte</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_ACOLYTE)
+
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
 	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -617,6 +629,7 @@
 		"implant",
 		"revolution",
 		"cult",
+		"acolyte",
 		"wizard",
 		"changeling",
 		"vampire", // "traitorvamp",
@@ -637,6 +650,8 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** ACOLYTE ***/
+		sections["acolyte"] = memory_edit_acolyte(H)
 		/** SPACE NINJA */
 		sections["space_ninja"] = memory_edit_space_ninja(H)
 		/** WIZARD ADEPT **/
@@ -1219,6 +1234,19 @@
 				log_admin("[key_name(usr)] has ninja'd [key_name(current)].")
 				to_chat(current, "<b><font color='red'>Your training awakens, and a myserious set of gear teleports in around you... You are a Space Ninja!</font></b>")
 				message_admins("[key_name(usr)] has ninja'd [key_name(current)].")
+
+	else if(href_list["acolyte"])
+		switch(href_list["acolyte"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/acolyte))
+					remove_antag_datum(/datum/antagonist/acolyte)
+					log_admin("[key_name(usr)] has de-acolyteed [key_name(current)].")
+					message_admins("[key_name(usr)] has de-acolyted [key_name(current)].")
+			if("acolyte")
+				make_acolyte()
+				log_admin("[key_name(usr)] has acolyted [key_name(current)].")
+				to_chat(current, "<b><font color='red'>You serve [GET_CULT_DATA(entity_title2, "your god")] above all else. Complete your objectives, to weaken the veil.</font></b>")
+				message_admins("[key_name(usr)] has acolyted [key_name(current)].")
 
 	else if(href_list["wizard_adept"])
 		switch(href_list["wizard_adept"])
@@ -1910,6 +1938,11 @@
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
 		SSticker.mode.mindflayers |= src
+
+/datum/mind/proc/make_acolyte()
+	if(!has_antag_datum(/datum/antagonist/acolyte))
+		add_antag_datum(/datum/antagonist/acolyte)
+		SSticker.mode.acolytes |= src
 
 /datum/mind/proc/make_space_ninja()
 	if(!has_antag_datum(/datum/antagonist/space_ninja))
