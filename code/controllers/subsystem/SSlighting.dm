@@ -104,8 +104,11 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/proc/get_update_stamp()
 	if(++update_stamp < LIGHTING_MAX_UPDATE_STAMP)
 		return update_stamp
-	for(var/datum/lighting_corner/corner)
-		corner.update_stamp = 0
+	// Corners aren't kept in a list, and the linter only allows looping over bare datums, so check the type ourselves
+	for(var/datum/thing)
+		if(istype(thing, /datum/lighting_corner))
+			var/datum/lighting_corner/corner = thing
+			corner.update_stamp = 0
 	update_stamp = 1
 	return update_stamp
 
