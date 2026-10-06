@@ -642,13 +642,13 @@
 	. = ..()
 	switch(w_dir)
 		if(NORTH)
-			pixel_y = 25
+			pixel_y = 32
 		if(SOUTH)
-			pixel_y = -25
+			pixel_y = -1
 		if(EAST)
-			pixel_x = 25
+			pixel_x = 32
 		if(WEST)
-			pixel_x = -25
+			pixel_x = -32
 
 /obj/machinery/button/windowtint/New(turf/loc, direction)
 	..()
