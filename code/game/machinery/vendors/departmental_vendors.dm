@@ -355,10 +355,10 @@
 		/obj/item/stack/medical/ointment/advanced = 2,
 		/obj/item/reagent_containers/patch/styptic = 3,
 		/obj/item/reagent_containers/patch/silver_sulf = 3,
-		/obj/item/stack/medical/suture/medicated = 3,
-		/obj/item/stack/medical/suture = 5,
-		/obj/item/stack/medical/suture/regen_mesh/advanced = 3,
-		/obj/item/stack/medical/suture/regen_mesh = 5,
+		/obj/item/stack/medical/adv/suture/medicated = 3,
+		/obj/item/stack/medical/adv/suture = 5,
+		/obj/item/stack/medical/adv/regen_mesh/advanced = 3,
+		/obj/item/stack/medical/adv/regen_mesh = 5,
 		/obj/item/stack/medical/bruise_pack = 2,
 		/obj/item/stack/medical/splint = 3,
 		/obj/item/reagent_containers/syringe = 6,
@@ -381,7 +381,7 @@
 		/obj/item/reagent_containers/hypospray/safety = 2,
 		/obj/item/healthanalyzer/advanced = 3,
 		/obj/item/sensor_device = 2,
-		/obj/item/pinpointer/crew = 2,
+		/obj/item/pinpointer/crew = 2
 	)
 
 	contraband = list(
@@ -517,7 +517,7 @@
 	tiltable = FALSE
 	products = list(
 		/obj/item/stack/medical/bruise_pack = 2,
-		/obj/item/stack/medical/suture/emergency = 2,
+		/obj/item/stack/medical/adv/suture/emergency = 2,
 		/obj/item/stack/medical/ointment = 2,
 		/obj/item/reagent_containers/syringe/charcoal = 4,
 		/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,

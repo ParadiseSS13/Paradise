@@ -289,6 +289,13 @@
 	L.reagents.add_reagent("nutriment", 0.4)
 	L.reagents.add_reagent("vitamin", 0.4)
 
+	if(HAS_TRAIT(L, TRAIT_GLUTTONOUS_GLORY))
+		to_chat(L, SPAN_BLOB("Delicious. The sin makes it that much more enjoyable."))
+		adjustFireLoss(-1)
+		adjustBruteLoss(-1)
+		reagents.check_and_add("kelotane", 20, 1)
+		reagents.check_and_add("bicaridine", 20, 1)
+
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()
 	var/obj/item/organ/internal/brain/B = locate(/obj/item/organ/internal/brain) in contents
