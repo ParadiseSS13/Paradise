@@ -27,13 +27,13 @@
 	. = ..()
 	switch(place_dir)
 		if(NORTH)
-			pixel_y = 25
+			pixel_y = 32
 		if(SOUTH)
-			pixel_y = -25
+			pixel_y = -1
 		if(EAST)
-			pixel_x = 25
+			pixel_x = 32
 		if(WEST)
-			pixel_x = -25
+			pixel_x = -32
 
 /obj/machinery/driver_button/attack_ai(mob/user)
 	attack_hand(user)
