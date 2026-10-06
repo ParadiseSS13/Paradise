@@ -118,9 +118,9 @@
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 25, FIRE = 33, ACID = 33)
 
 /datum/mod_theme/engineering
-	name = "'Spark' engineering"
+	name = "'Icarus' engineering"
 	desc = "A standard industrial modsuit. Fire-resistant, shockproof, and fitted with lead insulation for additional radiation protection."
-	extended_desc = "The flagship product of Cybersun Industries's industrial modsuit lineup, the CS-15 'Spark' is an EVA-capable engineering suit designed to provide personal protection in all manner of hostile work environments. \
+	extended_desc = "The flagship product of Cybersun Industries's industrial modsuit lineup, the CS-15 'Icarus' is an EVA-capable engineering suit designed to provide personal protection in all manner of hostile work environments. \
 		The double-insulated carapace renders the user immune to most electrical hazards, while an additional layer of lead plating massively reduces (but does not eliminate) radiation exposure from high-intensity sources, permitting work to be performed in \
 		active radiological zones as long as exposure is properly managed. An inner layer of nomex provides some protection against exposure to the radiant heat of active fires, \
 		but is not rated for full fire engulfment. It also offers some minor protection against low-grade explosive detonations."
@@ -166,11 +166,11 @@
 	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 30, RAD = 150, FIRE = INFINITY, ACID = 150) //Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
 
 /datum/mod_theme/atmospheric
-	name = "'Canary' atmospheric"
+	name = "'Perdix' atmospheric"
 	desc = "A reinforced atmospherics modsuit meant for extreme environments. Completely fireproof, but somewhat lacking in modification potential and power efficiency."
-	extended_desc = "Developed from the popular 'Spark' chassis, the CS-16 'Canary' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
+	extended_desc = "Developed from the popular 'Icarus' chassis, the CS-16 'Perdix' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
 		underlain with multiple layers of insulating fiberglass, which, in combination with a high-powered thermal regulation system, provides the user complete protection from even full engulfment inside a raging plasma fire. \
-		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the 'Spark' suit. \
+		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the 'Icarus' suit. \
 		Cybersun Industries reminds users that this model features minimal radiation shielding - it is not suitable PPE for use in radiological hazard zones."
 	default_skin = "atmospheric"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
