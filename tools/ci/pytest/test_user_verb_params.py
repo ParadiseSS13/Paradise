@@ -2,7 +2,7 @@ from avulto import DME
 from avulto.ast import NodeKind
 import pytest
 
-from ci.pytest.conftest import Lint
+from conftest import Lint
 
 PROCS_NEED_CLIENT = (
     "alert",

@@ -16,7 +16,6 @@ def print_prefab(prefab: Prefab) -> str:
 
     return f"{prefab.path}{{{', '.join(prefab_vars)}}}"
 
-
 def check_list_items(dmlist: Dmlist, invalid_items: list) -> list:
     for item in dmlist:
         if isinstance(item, Dmlist):
