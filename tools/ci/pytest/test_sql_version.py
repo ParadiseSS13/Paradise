@@ -72,7 +72,7 @@ def test_verify_sql_version(lint: Lint, repo_root: Path):
     define_sql = get_define_sql(lint, define_path)
     updates_folder_sql = get_sql_folder_version(lint, sql_updates_path)
 
-    if config_sql == None or define_sql == None or updates_folder_sql == None:
+    if config_sql is None or define_sql is None or updates_folder_sql is None:
         return
 
     if config_sql != updates_folder_sql:
