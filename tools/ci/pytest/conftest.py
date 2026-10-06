@@ -99,6 +99,22 @@ def get_repo_root() -> Path:
 def repo_root(request: FixtureRequest) -> Path:
     return get_repo_root()
 
+@pytest.fixture(scope="session")
+def dm_files(request: FixtureRequest) -> list[Path]:
+    """
+    Find all .dm files recursively
+    """
+    repo_root = get_repo_root()
+    return [file.relative_to(repo_root) for file in repo_root.rglob("*.dm")]
+
+@pytest.fixture(scope="session")
+def dmi_files(request: FixtureRequest) -> list[Path]:
+    """
+    Find all .dmi files recursively
+    """
+    repo_root = get_repo_root()
+    return [file.relative_to(repo_root) for file in repo_root.rglob("*.dmi")]
+
 @pytest.fixture
 def lint(request: FixtureRequest) -> Lint:
     marker = request.node.get_closest_marker("lint")
