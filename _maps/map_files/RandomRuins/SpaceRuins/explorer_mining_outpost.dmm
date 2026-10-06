@@ -64,7 +64,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/lavaland/surface/outdoors/explored)
+/area/mine/unexplored/space_asteroid)
 "cu" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -100,7 +100,7 @@
 /area/mine/space_outpost/life_support)
 "dr" = (
 /turf/simulated/floor/plating/asteroid,
-/area/lavaland/surface/outdoors/explored)
+/area/mine/unexplored/space_asteroid)
 "dw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -172,10 +172,10 @@
 /area/mine/space_outpost/life_support)
 "eu" = (
 /turf/simulated/mineral/random/high_chance/space,
-/area/lavaland/surface/outdoors/unexplored)
+/area/mine/unexplored/space_asteroid)
 "ex" = (
 /turf/simulated/mineral/random/low_chance/space,
-/area/lavaland/surface/outdoors/unexplored)
+/area/mine/unexplored/space_asteroid)
 "eX" = (
 /obj/machinery/light{
 	dir = 4
@@ -315,9 +315,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/life_support)
-"lC" = (
-/turf/simulated/floor/plating/asteroid,
-/area/lavaland/surface/outdoors/unexplored)
 "lG" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/economy/vending/snack,
@@ -611,6 +608,9 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/life_support)
+"yu" = (
+/turf/space,
+/area/mine/unexplored/space_asteroid)
 "yM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -696,7 +696,7 @@
 /area/mine/space_outpost)
 "BA" = (
 /turf/simulated/mineral/random/space,
-/area/lavaland/surface/outdoors/unexplored)
+/area/mine/unexplored/space_asteroid)
 "BC" = (
 /turf/simulated/wall,
 /area/mine/space_outpost/teleporter)
@@ -1042,7 +1042,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/lavaland/surface/outdoors/explored)
+/area/mine/unexplored/space_asteroid)
 "RU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -1662,7 +1662,7 @@ so
 BA
 BA
 BA
-so
+yu
 so
 so
 so
@@ -6706,7 +6706,7 @@ so
 so
 so
 so
-lC
+dr
 BA
 BA
 BA
@@ -6808,7 +6808,7 @@ so
 so
 so
 so
-lC
+dr
 BA
 BA
 BA
@@ -6910,8 +6910,8 @@ so
 so
 so
 so
-lC
-lC
+dr
+dr
 BA
 BA
 BA
@@ -7012,8 +7012,8 @@ so
 so
 so
 so
-lC
-lC
+dr
+dr
 BA
 BA
 BA
@@ -7114,9 +7114,9 @@ so
 so
 so
 so
-lC
-lC
-lC
+dr
+dr
+dr
 BA
 BA
 BA
@@ -7216,10 +7216,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 BA
 BA
 BA
@@ -7318,10 +7318,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 BA
 BA
 BA
@@ -7420,11 +7420,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
 BA
 BA
 BA
@@ -7523,10 +7523,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 BA
 BA
 BA
@@ -7625,11 +7625,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
 so
 BA
 BA
@@ -7727,11 +7727,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
 so
 so
 BA
@@ -7829,10 +7829,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -7931,9 +7931,9 @@ so
 so
 so
 so
-lC
-lC
-lC
+dr
+dr
+dr
 so
 so
 so
@@ -8033,9 +8033,9 @@ so
 so
 so
 so
-lC
-lC
-lC
+dr
+dr
+dr
 so
 so
 so
@@ -8134,10 +8134,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8236,10 +8236,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8338,10 +8338,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8439,11 +8439,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8541,11 +8541,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8643,11 +8643,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8744,13 +8744,13 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8849,10 +8849,10 @@ so
 BA
 BA
 BA
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -8953,8 +8953,8 @@ BA
 BA
 BA
 BA
-lC
-lC
+dr
+dr
 so
 so
 so
@@ -9055,8 +9055,8 @@ eu
 eu
 BA
 BA
-lC
-lC
+dr
+dr
 so
 so
 so
@@ -9157,8 +9157,8 @@ eu
 eu
 eu
 BA
-lC
-lC
+dr
+dr
 so
 so
 so
@@ -9260,7 +9260,7 @@ eu
 eu
 BA
 BA
-lC
+dr
 so
 so
 so
@@ -9362,7 +9362,7 @@ eu
 eu
 BA
 BA
-lC
+dr
 so
 so
 so
@@ -9464,7 +9464,7 @@ eu
 eu
 BA
 BA
-lC
+dr
 so
 so
 so
@@ -9566,7 +9566,7 @@ eu
 eu
 BA
 BA
-lC
+dr
 so
 so
 so
@@ -11603,8 +11603,8 @@ eu
 eu
 eu
 BA
-lC
-lC
+dr
+dr
 so
 so
 so
@@ -11704,10 +11704,10 @@ BA
 BA
 BA
 BA
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -11805,12 +11805,12 @@ so
 so
 BA
 BA
-lC
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
+dr
 so
 so
 so
@@ -11907,12 +11907,12 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
-lC
+dr
+dr
+dr
+dr
+dr
+dr
 BA
 BA
 BA
@@ -12011,8 +12011,8 @@ so
 so
 so
 so
-lC
-lC
+dr
+dr
 BA
 BA
 eu
@@ -12114,7 +12114,7 @@ so
 so
 so
 so
-lC
+dr
 BA
 eu
 eu
