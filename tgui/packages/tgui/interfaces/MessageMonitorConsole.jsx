@@ -30,9 +30,7 @@ export const MessageMonitorConsole = (properties) => {
 
   return (
     <Window width={800} height={400}>
-      <Window.Content scrollable>
-        {body}
-      </Window.Content>
+      <Window.Content scrollable>{body}</Window.Content>
     </Window>
   );
 };
@@ -104,15 +102,11 @@ const AuthPage = (_properties) => {
       <Flex.Item textAlign="center" mt="-2rem">
         <Box fontSize="1.5rem" bold>
           <Icon name="server" verticalAlign="middle" size={3} mr="1rem" />
-            Guest
+          Guest
         </Box>
         <Box color="label" my="1rem">
           ID:
-          <Button
-            icon="id-card"
-            ml="0.5rem"
-            onClick={() => act('login_insert')}
-          />
+          <Button icon="id-card" ml="0.5rem" onClick={() => act('login_insert')} />
         </Box>
       </Flex.Item>
     </Flex>
