@@ -20,6 +20,8 @@
 	var/reinf = FALSE
 	var/heat_resistance = 800
 	var/decon_speed = 2 SECONDS
+	/// Affects installation steps speed
+	var/construction_speed = 2 SECONDS
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
@@ -179,17 +181,27 @@
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassbang.ogg', 100, 1)
-		user.visible_message(SPAN_WARNING("[user] bangs against [src]!"), \
-							SPAN_WARNING("You bang against [src]!"), \
-							"You hear a banging sound.")
+		user.visible_message(
+			SPAN_WARNING("[user] bangs against [src]!"),
+			SPAN_WARNING("You bang against [src]!"),
+			SPAN_WARNING("You hear a banging sound!")
+		)
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
-		user.visible_message("[user] knocks on [src].", \
-							"You knock on [src].", \
-							"You hear a knocking sound.")
+		user.visible_message(
+			SPAN_NOTICE("[user] knocks on [src]."),
+			SPAN_NOTICE("You knock on [src]."),
+			SPAN_HEAR("You hear a knocking sound.")
+		)
 		add_fingerprint(user)
+
+/obj/structure/window/attack_robot(mob/user)
+	if(isdrone(user) || !Adjacent(user))
+		return ..()
+
+	attack_hand(user)
 
 /obj/structure/window/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
@@ -273,7 +285,7 @@
 		return
 	if(decon_speed) // Only show this if it actually takes time
 		to_chat(user, SPAN_NOTICE("You begin to lever the window [state == WINDOW_OUT_OF_FRAME ? "into":"out of"] the frame..."))
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+	if(!I.use_tool(src, user, (state == WINDOW_OUT_OF_FRAME ? construction_speed : decon_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, SPAN_NOTICE("You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame."))
@@ -288,7 +300,7 @@
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
 				to_chat(user, SPAN_NOTICE("You begin to [state == WINDOW_SCREWED_TO_FRAME ? "unscrew the window from":"screw the window to"] the frame..."))
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+			if(!I.use_tool(src, user, (state == WINDOW_SCREWED_TO_FRAME ? decon_speed : construction_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
 			to_chat(user, SPAN_NOTICE("You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame."))
@@ -296,7 +308,7 @@
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
 				to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor..."))
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
+			if(!I.use_tool(src, user, (anchored ? decon_speed : construction_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
 			recalculate_atmos_connectivity()
@@ -306,7 +318,7 @@
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
 			to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor..."))
-		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
+		if(!I.use_tool(src, user, (anchored ? decon_speed : construction_speed), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
 		recalculate_atmos_connectivity()

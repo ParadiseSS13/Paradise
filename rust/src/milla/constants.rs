@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 /// How many Z levels we allow before being suspicious that the wrong number was sent.
 pub(crate) const MAX_Z_LEVELS: i32 = 15;
 
