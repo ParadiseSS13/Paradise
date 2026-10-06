@@ -1,11 +1,10 @@
-#warn add the booster boxes to said vendor
-#warn add coins to the vendor, along with D&D die, and the other cards
-#warn make deck boxes
-#warn make premade decks
-#warn add deck searching functionality
-#warn make card values able to be changed
-#warn mention it fixes issue #32722
-#warn add monkeys and slimes!!!
+// #warn add the booster boxes to said vendor
+// #warn add coins to the vendor, along with D&D die, and the other cards
+// #warn make deck boxes
+// #warn make premade decks
+// #warn add deck searching functionality
+// #warn make card values able to be changed
+// #warn add monkeys and slimes!!!
 
 #define ROTATED_ANGLE 90
 #define UNROTATED_ANGLE 0
