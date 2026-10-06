@@ -114,4 +114,4 @@ def lint(request: FixtureRequest) -> Lint:
 
 @pytest.fixture(scope="session")
 def dme() -> DME:
-    return DME.from_file("paradise.dme", parse_procs=True)
+    return DME.from_file(get_repo_root() / "paradise.dme", parse_procs=True)
