@@ -102,7 +102,7 @@
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
 		if(LAZYLEN(target.butcher_results))
-			target.harvest(chassis) // Butcher the mob with our drill.
+			target.harvest(chassis, src) // Butcher the mob with our drill.
 		else
 			target.gib()
 	else
