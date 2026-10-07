@@ -18,6 +18,7 @@ SUBSYSTEM_DEF(trading_card_game)
 	var/list/keywords = list()
 	var/list/keywords_list = list()
 	var/loaded = FALSE
+	var/datum/card/fallback_card
 
 //Let's load the cards before the map fires, so we can load cards on the map safely
 /datum/controller/subsystem/trading_card_game/Initialize()
@@ -27,8 +28,15 @@ SUBSYSTEM_DEF(trading_card_game)
 /obj/item/tcg_card/proc/extract_datum()
 	var/datum/card/data = SStrading_card_game.get_card(series, id)
 	if(!data)
-		CRASH("A card without a datum has appeared. Series: [series] ID: [id]")
+		stack_trace("A card without a datum has appeared. Series: [series] ID: [id]")
+		return SStrading_card_game.get_fallback_card()
 	return data
+
+/// if a card breaks and has no id or name, spawn the chrono_legionnare
+/datum/controller/subsystem/trading_card_game/proc/get_fallback_card()
+	if(!fallback_card)
+		fallback_card = new /datum/card/chrono_legionnaire()
+	return fallback_card
 
 ///Loads all the card files
 /datum/controller/subsystem/trading_card_game/proc/loadAllCardFiles()
@@ -217,6 +225,18 @@ SUBSYSTEM_DEF(trading_card_game)
 	applyTemplates(data, templates)
 	apply(data)
 	applyKeywords(data | templates)
+
+/datum/card/chrono_legionnaire
+	id = "chrono_legionnaire"
+	name = "Chrono Legionnaire"
+	desc = "A card that should not exist. Something went wrong, you should ahelp this."
+	effect = "Cannot be Summoned by any means."
+	icon_state = "chrono"
+	level = 12
+	attack = 9999
+	defense = 9999
+	faction = "Coderbus"
+	rarity = "Unobtainable"
 
 /datum/card/proc/apply(list/data)
 	for(var/varname in (data & vars))

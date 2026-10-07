@@ -1,36 +1,12 @@
 #warn add the booster boxes to said vendor
 #warn add coins to the vendor, along with D&D die, and the other cards
 #warn make deck boxes
-#warn make premade decks
 #warn add deck searching functionality
 #warn make card values able to be changed
+#warn spawning in decks maybe?
 
 #define ROTATED_ANGLE 90
 #define UNROTATED_ANGLE 0
-
-/datum/tcg_card
-	var/id = "coder"
-	var/name = "Chrono Legionnare"
-	var/desc = "You shouldn't be seeing this. You should ahelp this!"
-	var/level = INFINITY
-	var/attack = INFINITY
-	var/defense = INFINITY
-	var/icon = DEFAULT_TCG_DMI_ICON
-	var/icon_state = "chrono"
-	var/rarity = "Unobtainable"
-	var/faction = "Coderbus"
-	var/card_type = "Unit"
-
-	var/obj/item/tcg_card/card
-
-/datum/tcg_card/proc/UseSelf(mob/living/user)
-	return
-
-/datum/tcg_card/proc/Rotate(mob/living/user)
-	return
-
-/datum/tcg_card/proc/Unrotate(mob/living/user)
-	return
 
 /obj/item/tcg_card
 	var/id = ""
@@ -281,7 +257,7 @@
 		"Legendary" = 5
 	)
 
-/// Deluxe packs contain EVERY card of their department's series.
+/// Deluxe packs contain EVERY card of their department's series, for admin and debugging purposes.
 /obj/item/cardpack/series_command/deluxe
 	name = "Battles of Orion: Commendable Command DELUXE"
 	desc = "A limited edition pack that contains EVERY card in the Commendable Command series. Contact your local Administrator or Developer if you find this!"
@@ -493,7 +469,7 @@
 	if(!contents.len)
 		return
 	var/obj/item/tcg_card/drawn_card = contents[contents.len]
-	drawn_card.flipped = flipped
+	drawn_card.flipped = FALSE
 	drawn_card.forceMove(get_turf(user))
 	user.put_in_hands(drawn_card)
 	drawn_card.update_icon()
@@ -534,6 +510,82 @@
 		card.flipped = flipped
 		card.update_icon()
 	update_icon()
+
+/obj/item/tcgcard_deck/premade
+	var/list/decklist = list()
+
+/obj/item/tcgcard_deck/premade/Initialize(mapload)
+	. = ..()
+	var/list/entries = list()
+	for(var/series_name in decklist)
+		for(var/card_id in decklist[series_name])
+			for(var/i in 1 to decklist[series_name][card_id])
+				entries += list(list(series_name, card_id))
+	for(var/list/entry in shuffle(entries))
+		new /obj/item/tcg_card(src, entry[1], entry[2])
+	update_icon()
+
+/obj/item/tcgcard_deck/premade/security_detail
+	name = "Battles of Orion: Security Detail Deck"
+	desc = "A ready-to-play 30 card deck. Lock down the board with Security and Command, then punish anyone who attacks."
+	decklist = list(
+		"pack_command" = list(
+			"captain" = 1,
+			"renault" = 1,
+			"ntr" = 2,
+			"blueshield" = 2,
+			"ert_call" = 2,
+			"staff_meeting" = 2,
+			"fax" = 1,
+			"command_headset" = 1,
+			"nad" = 1,
+		),
+		"pack_security" = list(
+			"hos" = 1,
+			"warden" = 2,
+			"officer" = 3,
+			"detective" = 2,
+			"beepsky" = 1,
+			"araneus" = 2,
+			"paperwork" = 1,
+			"flash" = 2,
+			"security_holosign" = 2,
+			"code_red" = 1,
+		),
+	)
+
+/obj/item/tcgcard_deck/premade/crew_chaos
+	name = "Battles of Orion: Crew Chaos Deck"
+	desc = "A ready-to-play 30 card deck. Outlast your opponent with Engineering, Medical and Supply recursion."
+	decklist = list(
+		"pack_engineering" = list(
+			"ce" = 1,
+			"atmos_tech" = 2,
+			"engineer" = 3,
+			"emitter" = 1,
+			"supermatter_chamber" = 1,
+			"insulated_gloves" = 1,
+			"supermatter_crystal" = 1,
+			"cooling_loop" = 1,
+		),
+		"pack_supply" = list(
+			"qm" = 1,
+			"cargo_tech" = 2,
+			"miner" = 2,
+			"explorer" = 2,
+			"approved_manifest" = 1,
+			"autolathe" = 1,
+		),
+		"pack_medical" = list(
+			"cmo" = 1,
+			"doctor" = 2,
+			"paramedic" = 2,
+			"coroner" = 1,
+			"hypospray" = 1,
+			"defibrillator" = 2,
+			"medikit" = 1,
+		),
+	)
 
 /obj/item/tcgcard_hand
 	name = "Card Hand"

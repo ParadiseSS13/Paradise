@@ -180,7 +180,7 @@
 			"id": "engiborg",
 			"name": "Syndicate Saboteur Cyborg",
 			"desc": "",
-			"icon_state": "",
+			"icon_state": "saboteur",
 			"rarity": "Uncommon",
 			"level": "4",
 			"attack": "",

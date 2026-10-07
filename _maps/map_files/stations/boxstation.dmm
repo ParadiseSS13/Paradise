@@ -68295,10 +68295,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
-"nYh" = (
-/obj/item/cardpack/series_syndicate,
-/turf/simulated/floor/indestructible/titanium,
-/area/shuttle/arrival/station)
 "nYr" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 4
@@ -73431,10 +73427,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"qjd" = (
-/obj/item/cardpack/series_security,
-/turf/simulated/floor/indestructible/titanium,
-/area/shuttle/arrival/station)
 "qjo" = (
 /obj/machinery/door_control{
 	id = "smithdesk";
@@ -82838,10 +82830,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"upl" = (
-/obj/item/cardpack,
-/turf/simulated/floor/indestructible/titanium,
-/area/shuttle/arrival/station)
 "upu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -102455,10 +102443,10 @@ qdS
 eao
 jyO
 jyO
-upl
+jyO
 nfS
-qjd
-nYh
+jyO
+jyO
 jyO
 eao
 vsS
