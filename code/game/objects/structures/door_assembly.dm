@@ -41,11 +41,18 @@
 		if(iswallturf(get_step(src, direction)))
 			return direction
 	for(var/direction in GLOB.cardinal)
+		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
+		if(W?.useFull)
+			return direction
+	for(var/direction in GLOB.cardinal)
 		if((locate(/obj/structure/window/full) in get_step(src, direction)))
 			return direction
 	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/machinery/door) in get_step(src, direction)))
-			return direction
+		var/turf/T = get_step(src, direction)
+		for(var/obj/machinery/door/airlock/A in T.contents)
+			if(A != src)
+				return direction
+	return src.dir // fallback from mapping
 
 /obj/structure/door_assembly/examine(mob/user)
 	. = ..()
