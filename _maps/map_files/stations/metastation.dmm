@@ -15995,7 +15995,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "bQB" = (
 /obj/item/radio/intercom{
@@ -17474,7 +17474,7 @@
 /obj/machinery/power/turbine,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "bYj" = (
 /obj/structure/table/wood,
@@ -21263,7 +21263,7 @@
 	id_tag = "turbinevent";
 	name = "Turbine Vent"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cty" = (
 /obj/machinery/alarm/directional/north,
@@ -21603,7 +21603,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 9
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cuP" = (
 /obj/structure/cable{
@@ -21625,7 +21625,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cuR" = (
 /obj/machinery/hologram/holopad,
@@ -21951,7 +21951,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cwC" = (
 /obj/structure/closet/crate,
@@ -69671,7 +69671,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "qMk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
