@@ -1,7 +1,7 @@
 /datum/ui_module/botcall
 	name = "Access Robot Control"
 
-	var/mob/living/simple_animal/bot/bot
+	var/mob/living/basic/bot/bot
 	var/mob/living/silicon/ai/AI
 
 /datum/ui_module/botcall/ui_state(mob/user)
@@ -18,7 +18,7 @@
 	var/list/data = ..()
 	data["bots"] = list()
 	for(bot in GLOB.bots_list)
-		if(is_ai_allowed(bot.z) && !bot.remote_disabled)
+		if(is_ai_allowed(bot.z) && (bot.bot_mode_flags & BOT_MODE_REMOTE_ENABLED))
 			if(!(bot.bot_type in data["bots"]))
 				data["bots"][bot.bot_type] = list()
 			data["bots"][bot.bot_type] += list(bot.get_bot_data())
@@ -30,7 +30,7 @@
 	var/selected_UID = params["botref"]
 	AI = usr
 	bot = locateUID(selected_UID)
-	if(!bot || bot.remote_disabled || AI.control_disabled)
+	if(!bot || !(bot.bot_mode_flags & BOT_MODE_REMOTE_ENABLED) || AI.control_disabled)
 		return
 	switch(action)
 		if("interface")
