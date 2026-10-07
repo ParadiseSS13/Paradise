@@ -37,6 +37,7 @@
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
 	desc = "This console allows staff to give out temporary access to their coworkers."
+	icon = 'icons/obj/wallbumps/guest_pass_terminal.dmi'
 	icon_state = "guest"
 	icon_screen = "pass"
 	icon_keyboard = null
