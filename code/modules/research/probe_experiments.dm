@@ -53,3 +53,27 @@
 		var/obj/item/organ/external/E = our_owner.bodyparts_by_name[organ_tag]
 		if(!E)
 			return reward
+
+/datum/probe_experiment/organ_removal
+	desc = "Explore the effects of non-critical organ removal on a living specimen."
+	var/list/non_critical_organs = list(
+		/obj/item/organ/internal/liver, // Technically this will probably kill them but who cares.
+		/obj/item/organ/internal/kidneys,
+		/obj/item/organ/internal/eyes,
+		/obj/item/organ/internal/ears,
+		)
+
+/datum/probe_experiment/organ_removal/on_life_effect(mob/living/carbon/human/our_owner)
+	. = ..()
+	for(var/obj/item/organ/internal/O in non_critical_organs)
+		if(!(O in our_owner.internal_organs))
+			return reward
+
+/datum/probe_experiment/combustion
+	desc = "Explore the effects of tissue combustion on a living specimen."
+
+/datum/probe_experiment/combustion/on_life_effect(mob/living/carbon/human/our_owner)
+	. = ..()
+	if(our_owner.on_fire)
+		return reward
+
