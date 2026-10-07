@@ -1,5 +1,5 @@
 /// Yes, this is a pipe painter subtype.
-/datum/painter/pipe/window
+/datum/painter/window
 	module_name = "window painter"
 	module_state = "window_painter"
 	var/static/list/paintable_windows = list(
@@ -14,23 +14,22 @@
 			/obj/machinery/door/window
 	)
 
-/datum/painter/pipe/window/paint_atom(atom/target, mob/user)
+/datum/painter/window/pick_color(mob/user)
+	var/new_paint_setting = tgui_input_color(user,"Please select a paint color.","Window Painter Color")
+	if(!new_paint_setting)
+		return
+	paint_setting = new_paint_setting
+
+/datum/painter/window/paint_atom(atom/target, mob/user)
 	if(!is_type_in_list(target, paintable_windows))
 		return
 	var/obj/structure/window/W = target
 
 	if(is_type_in_list(target, polarized_windows))
-		if((W.opacity && W.old_color == GLOB.pipe_icon_manager.pipe_colors[paint_setting]) || (!W.opacity && W.color == GLOB.pipe_icon_manager.pipe_colors[paint_setting]))
-			to_chat(user, SPAN_NOTICE("This window is aready painted [paint_setting]!"))
-			return
 		if(!W.opacity)
-			W.color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
-		W.old_color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
+			W.color = paint_setting
+		W.old_color = paint_setting
 		return TRUE
-
-	if(W.color == GLOB.pipe_icon_manager.pipe_colors[paint_setting])
-		to_chat(user, SPAN_NOTICE("This window is aready painted [paint_setting]!"))
-		return
-
-	W.color = GLOB.pipe_icon_manager.pipe_colors[paint_setting]
+		
+	W.color = paint_setting
 	return TRUE
