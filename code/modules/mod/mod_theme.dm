@@ -166,9 +166,9 @@
 	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 30, RAD = 150, FIRE = INFINITY, ACID = 150) //Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
 
 /datum/mod_theme/atmospheric
-	name = "'Perdix' atmospheric"
+	name = "'Canary' atmospheric"
 	desc = "A reinforced atmospherics modsuit meant for extreme environments. Completely fireproof, but somewhat lacking in modification potential and power efficiency."
-	extended_desc = "Developed from the popular 'Icarus' chassis, the CS-16 'Perdix' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
+	extended_desc = "Developed from the popular 'Icarus' chassis, the CS-16 'Canary' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
 		underlain with multiple layers of insulating fiberglass, which, in combination with a high-powered thermal regulation system, provides the user complete protection from even full engulfment inside a raging plasma fire. \
 		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the 'Icarus' suit. \
 		Cybersun Industries reminds users that this model features minimal radiation shielding - it is not suitable PPE for use in radiological hazard zones."
