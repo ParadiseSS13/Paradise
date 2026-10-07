@@ -50,11 +50,6 @@ class Lint:
     errors: list[LintError] = field(default_factory=list[LintError])
 
     def error(self, msg: str, file: str | Path | None = None, line: int | None = None) -> None:
-        # if file is not None:
-        #     # Normalize the path to root, so that its easier for the user to read.
-        #     file = str(Path(file).relative_to(get_repo_root()))
-
-        # self.errors.append(LintError(msg, file, line, self.title))
         self.errors.append(LintError(msg, str(file) if file is not None else None, line, self.title))
 
 # If we're in a GitHub Actions context, write annotations alongside the default failure messages
