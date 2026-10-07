@@ -1,4 +1,3 @@
-import glob
 import os
 import re
 from concurrent.futures import ProcessPoolExecutor
