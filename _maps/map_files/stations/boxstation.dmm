@@ -50671,11 +50671,9 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "gkG" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 10
-	},
 /obj/machinery/light/small,
 /obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "gkH" = (
