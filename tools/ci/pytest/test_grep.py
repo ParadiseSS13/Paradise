@@ -3,7 +3,7 @@ import os
 import re
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from typing import Optional, Callable, NamedTuple
+from typing import Callable, NamedTuple, Optional
 
 import pytest
 from conftest import Lint

@@ -1,9 +1,10 @@
 from collections import defaultdict
+from pathlib import Path
+from typing import cast
 
 from avulto import DMI, IconState
 from conftest import Lint
-from pathlib import Path
-from typing import cast
+
 
 def check_duplicate_names(dmi: DMI) -> list[str]:
     states: set[tuple[str, bool]] = set()
