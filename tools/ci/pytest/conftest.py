@@ -130,7 +130,7 @@ def lint(request: FixtureRequest) -> Lint:
 # And we can't fully rely on pathlib.Path() either, as ProcessPoolExecutor().map() can't pickle these paths. We stringify those paths to get around this.
 # But it means we can't use relative paths across multiple threads so... this is my best work around.
 # This lets us use pathlib.Path() as relative, but still able to be stringified correctly.
-# Path bypasses the pickling issue, but loses data of the absolute path.
+# PurePath bypasses the pickling issue, but loses data of the absolute path.
 # Perhaps in the future, a better implementation can be solved that is pickle-able, but still prints as an absolute path.
 # I also hear you ask, why not make the filename relative in lint.error()? Well, any filenames that are referenced by error messages
 # will still be printed as absolute, even if the fileerror is printed correctly. e.g. "test/ooc.dm: has the same file name as C:/Users/Myself/Documents/Paradise/otherfolder/ooc.dm"
