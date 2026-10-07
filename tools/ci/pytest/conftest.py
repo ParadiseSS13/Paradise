@@ -101,7 +101,7 @@ def repo_root(request: FixtureRequest) -> Path:
 
 def get_codebase_file(extension: str) -> list[Path]:
     repo_root = get_repo_root()
-    return [Path(file).relative_to(repo_root) for file in repo_root.rglob(f"*.{extension}")]
+    return [file.relative_to(repo_root) for file in repo_root.rglob(f"*.{extension}")]
 
 @pytest.fixture(scope="session")
 def dm_files(request: FixtureRequest) -> list[Path]:
