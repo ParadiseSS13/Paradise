@@ -28,7 +28,8 @@
 	/area/station/engineering/solar,
 	/area/station/science/toxins/test,
 	/area/station/public/sleep,
-	/area/shuttle/arrival))
+	/area/shuttle/arrival,
+	/area/station/hallway/secondary/entry))
 
 	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, safe_areas)
 
