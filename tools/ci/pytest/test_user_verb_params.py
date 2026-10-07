@@ -1,5 +1,5 @@
-from avulto import DME
-from avulto.ast import NodeKind
+from avulto import DME, SourceLoc
+from avulto.ast import Expression
 import pytest
 
 from conftest import Lint
@@ -19,51 +19,48 @@ BAD_VARS = (
 
 class Walker:
     def __init__(self):
-        self.bad_names = []
-        self.bad_inputs = []
-        self.bad_calls = []
-        self.bad_clean_inputs = []
+        self.bad_names: list[tuple[Expression, SourceLoc]] = []
+        self.bad_inputs: list[tuple[Expression, SourceLoc]] = []
+        self.bad_calls: list[tuple[Expression.Call, SourceLoc]] = []
+        self.bad_clean_inputs: list[tuple[Expression.Call, SourceLoc]] = []
 
-    def visit_Identifier(self, node, source_info):
+    def visit_Identifier(self, node: Expression.Identifier, source_info: SourceLoc):
         if node.name in BAD_VARS:
             self.bad_names.append((node, source_info))
 
-    def visit_Input(self, node, source_info):
-        if node.args[0].kind == NodeKind.CONSTANT:
+    def visit_Input(self, node: Expression.Input, source_info: SourceLoc):
+        if isinstance(node.args[0], Expression.Constant):
             self.bad_inputs.append((node, source_info))
         elif str(node.args[0]) in BAD_VARS:
             self.bad_names.append((node.args[0], source_info))
 
-    def visit_Call(self, node, source_info):
-        if (
-            str(node.name) in PROCS_NEED_CLIENT
-            and node.args[0].kind == NodeKind.CONSTANT
-        ):
+    def visit_Call(self, node: Expression.Call, source_info: SourceLoc):
+        if str(node.name) in PROCS_NEED_CLIENT and isinstance(node.args[0], Expression.Constant):
             self.bad_calls.append((node, source_info))
 
         if str(node.name) == "clean_input":
             last_arg = node.args[-1]
-            if last_arg.kind == NodeKind.ASSIGN_OP:
+            if isinstance(last_arg, Expression.AssignOp):
                 if str(last_arg.lhs) != "user" or str(last_arg.rhs) != "client":
                     self.bad_clean_inputs.append((node, source_info))
             else:
                 self.bad_clean_inputs.append((node, source_info))
 
         for arg in node.args:
-            if arg.kind == NodeKind.IDENTIFIER:
+            if isinstance(arg, Expression.Identifier):
                 self.visit_Identifier(arg, source_info)
-            elif arg.kind == NodeKind.CALL:
+            elif isinstance(arg, Expression.Call):
                 self.visit_Call(arg, source_info)
-            elif arg.kind == NodeKind.INTERP_STRING:
+            elif isinstance(arg, Expression.InterpString):
                 # "[key_name(usr)] blah blah"
                 #
                 # hate we have to nest this so deeply but once we have a
                 # visit_Node for any Node, its tree is not going to get
                 # visited node by node unless we so do explicitly.
                 for expr, _ in arg.token_pairs:
-                    if expr.kind == NodeKind.CALL:
+                    if isinstance(expr, Expression.Call):
                         self.visit_Call(expr, source_info)
-                    elif expr.kind == NodeKind.IDENTIFIER:
+                    elif isinstance(expr, Expression.Identifier):
                         self.visit_Identifier(expr, source_info)
 
 
