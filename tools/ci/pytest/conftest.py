@@ -85,6 +85,20 @@ def pytest_runtest_call(item: Item):
         # TODO: Don't use ansi color codes if pytest has colors set to false
         pytest.fail("\n".join(e.to_ansi_formatted() for e in lint.errors), pytrace=False)
 
+def get_repo_root() -> Path:
+    # Start from the directory of the current script
+    start_path = Path(__file__).resolve().parent
+
+    for parent in [start_path] + list(start_path.parents):
+        if (parent / '.git').is_dir():
+            return parent
+
+    raise RuntimeError("Git root directory not found.")
+
+@pytest.fixture(scope="session")
+def repo_root(request: FixtureRequest) -> Path:
+    return get_repo_root()
+
 @pytest.fixture
 def lint(request: FixtureRequest) -> Lint:
     marker = request.node.get_closest_marker("lint")
