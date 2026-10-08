@@ -92,3 +92,6 @@
 
 /datum/biome_theme/test_biome
 	name = "mmm test biome"
+
+#undef BORDER_PADDING
+#undef MAX_OVERLAP
