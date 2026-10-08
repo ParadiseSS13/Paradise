@@ -12,6 +12,7 @@ import {
   Stack,
   Dropdown,
   Input,
+  Divider,
 } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
@@ -53,6 +54,8 @@ const MainPage = (_properties) => {
         return <MessageLog />;
       case 1:
         return <RequestLog />;
+      case 2:
+        return <CustomMessage />;
       default:
         return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickTab error'; // `PickTab error` so we get a bit more info fromt the error meesgae.
     }
@@ -105,6 +108,9 @@ const MainPage = (_properties) => {
           <Tabs.Tab key="RequestLog" selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
             View request console logs
           </Tabs.Tab>
+          <Tabs.Tab key="Custom message" selected={tabIndex === 2} onClick={() => setTabIndex(2)}>
+            Send custom message
+          </Tabs.Tab>
         </Tabs>
         {PickTab(tabIndex)}
       </Section>
@@ -139,9 +145,9 @@ const AuthPage = (_properties) => {
         </Box>
         <Box my="1rem">
           <Button
-          content="Decrypt"
-          disabled={!server || !password}
-          onClick={() => act('decrypt', { server: server, password: password })}
+            content="Decrypt"
+            disabled={!server || !password}
+            onClick={() => act('decrypt', { server: server, password: password })}
           />
         </Box>
       </Flex.Item>
@@ -187,6 +193,7 @@ const RequestLog = (_properties) => {
         <Table.Cell>Stamp</Table.Cell>
         <Table.Cell>ID Auth</Table.Cell>
         <Table.Cell>Priority</Table.Cell>
+        <Table.Cell>Delete</Table.Cell>
       </Table.Row>
       {RequestLog.map((R) => (
         <Table.Row key={R.recievingDep}>
@@ -199,8 +206,49 @@ const RequestLog = (_properties) => {
           <Table.Cell>
             <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteR', { Rmessage: R.uid })} />
           </Table.Cell>
+          <Divider />
         </Table.Row>
       ))}
     </Table>
+  );
+};
+
+const CustomMessage = (_properties) => {
+  const { act, data } = useBackend();
+  const { recipients } = data;
+  const [sender, setSender] = useState('');
+  const [senderJob, setSenderJob] = useState('');
+  const [recipient, setRecipient] = useState('');
+  const [message, setMessage] = useState('');
+
+  return (
+    <Stack>
+      <Stack.Item>
+        <LabeledList>
+          <LabeledList.Item label="Sender">
+            <Input onChange={(sender) => setSender(sender)} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Sender's job">
+            <Input onChange={(senderJob) => setSenderJob(senderJob)} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Recipient">
+            <Dropdown
+             width="150px"
+             options={recipients.name}
+             selected={recipient}
+             onSelected={(recipient) => setRecipient(recipient)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Message">
+            <Input onChange={(message) => setMessage(message)} />
+          </LabeledList.Item>
+        </LabeledList>
+        <Button
+          content="Send"
+          disabled={!sender || !senderJob || !recipient || !message}
+          onClick={() => act('message', { sender: sender, senderJob: senderJob, recipient: recipient.uid, message: message })}
+        />
+      </Stack.Item>
+    </Stack>
   );
 };
