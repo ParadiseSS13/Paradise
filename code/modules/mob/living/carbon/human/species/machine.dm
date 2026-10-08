@@ -78,7 +78,8 @@
 		"is forgetting their own password!",
 		"is unpacking a .zip bomb!",
 		"is hacking their own mainframe!",
-		"is dropping tables!")
+		"is dropping tables!",
+		"just remembered they have no I/O shield!")
 
 	plushie_type = /obj/item/toy/plushie/ipcplushie
 
