@@ -65,9 +65,9 @@ GLOBAL_LIST_EMPTY(message_servers)
 
 	/// List of PDA messages
 	var/list/datum/data_pda_msg/pda_msgs = list()
-	/// LIst of request console messages
+	/// List of request console messages
 	var/list/datum/data_rc_msg/rc_msgs = list()
-	/// Wheather the server is active
+	/// Whether the server is active
 	var/active = TRUE
 	/// PDA server password
 	var/decryptkey = "password"

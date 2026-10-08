@@ -1,36 +1,43 @@
 import { useState } from 'react';
-import { Box, Button, Icon, LabeledList, Section, Table, Tabs, Flex, NoticeBox, Stack } from 'tgui-core/components';
+
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  Section, Table,
+  Tabs,
+  Flex,
+  NoticeBox,
+  Stack,
+  Dropdown,
+  Input,
+} from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const MessageMonitorConsole = (properties) => {
   const { act, data } = useBackend();
-  const { auth } = data;
+  const { authenticated } = data;
+  const [tabIndex, setTabIndex] = useState(0);
 
-  let body;
-  const PickPage = () => {
-    if (!auth) {
-      body = <AuthPage />;
-    } else {
-      body = <MainPage />;
-    }
-  };
-
-  const PickTab = (index) => {
-    switch (index) {
+  const PickPage = (pageIndex) => {
+    switch (pageIndex) {
       case 0:
-        return <MessageLog />;
+        return <AuthPage />;
       case 1:
-        return <RequestLog />;
+        return <MainPage />;
       default:
-        return 'SMETHING WENT VERY WRONG PLEASE AHELP';
+        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickPage error';
     }
   };
 
   return (
     <Window width={800} height={400}>
-      <Window.Content scrollable>{body}</Window.Content>
+      <Window.Content scrollable>
+        {PickPage(authenticated)}
+      </Window.Content>
     </Window>
   );
 };
@@ -39,6 +46,17 @@ const MainPage = (_properties) => {
   const { act, data } = useBackend();
   const { server, active, password } = data;
   const [tabIndex, setTabIndex] = useState(0);
+
+    const PickTab = (index) => {
+    switch (index) {
+      case 0:
+        return <MessageLog />;
+      case 1:
+        return <RequestLog />;
+      default:
+        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickTab error'; // `PickTab error` so we get a bit more info fromt the error meesgae.
+    }
+  };
 
   return (
     <Section>
@@ -56,7 +74,7 @@ const MainPage = (_properties) => {
         <Box mb={2}>
           <LabeledList>
             <LabeledList.Item label="Server">
-              <Button content="Server" selected={server} onClick={() => act('server')} />
+              {server ? server : 'Unset'}
             </LabeledList.Item>
             <LabeledList.Item label="Server Password">
               <Button content={password ? password : 'Unset'} selected={1} onClick={() => act('password')} />
@@ -97,16 +115,34 @@ const MainPage = (_properties) => {
 const AuthPage = (_properties) => {
   const { act, data } = useBackend();
   const { servers } = data;
+  const [server, setServer] = useState(servers[0]);
+  const [password, setPassword] = useState('');
   return (
     <Flex height="100%" align="center" justify="center">
       <Flex.Item textAlign="center" mt="-2rem">
         <Box fontSize="1.5rem" bold>
           <Icon name="server" verticalAlign="middle" size={3} mr="1rem" />
-          Guest
+          Decryption
         </Box>
         <Box color="label" my="1rem">
-          ID:
-          <Button icon="id-card" ml="0.5rem" onClick={() => act('login_insert')} />
+          Servers:
+          <Dropdown
+             width="150px"
+             options={servers}
+             selected={server}
+             onSelected={(server) => setServer(server)}
+          />
+        </Box>
+        <Box color="label" my="1rem">
+          Password:
+          <Input onChange={(password) => setPassword(password)} />
+        </Box>
+        <Box my="1rem">
+          <Button
+          content="Decrypt"
+          disabled={!server || !password}
+          onClick={() => act('decrypt', { server: server, password: password })}
+          />
         </Box>
       </Flex.Item>
     </Flex>
@@ -117,24 +153,25 @@ const MessageLog = (_properties) => {
   const { act, data } = useBackend();
   const { PDALog } = data;
   return (
-    <Table m="0.5rem">
-      <Table.Row header>
-        <Table.Cell>Delete</Table.Cell>
-        <Table.Cell>Sender</Table.Cell>
-        <Table.Cell>Recipient</Table.Cell>
-        <Table.Cell>Message</Table.Cell>
-      </Table.Row>
-      {PDALog.map((P) => (
-        <Table.Row key={P.sender}>
-          <Table.Cell>
-            <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteP', { Pmessage: P })} />
-          </Table.Cell>
-          <Table.Cell>{P.sender}</Table.Cell>
-          <Table.Cell>{P.recipient}</Table.Cell>
-          <Table.Cell>{P.message}</Table.Cell>
+      <Table m="0.5rem">
+        <Table.Row header>
+          <Table.Cell>Delete</Table.Cell>
+          <Table.Cell>Sender</Table.Cell>
+          <Table.Cell>Recipient</Table.Cell>
+          <Table.Cell>Message</Table.Cell>
         </Table.Row>
-      ))}
-    </Table>
+        {PDALog.map((P) => (
+          <Table.Row key={P.sender}>
+            <Table.Cell>
+              <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteP', { Pmessage: P.uid })} />
+            </Table.Cell>
+            <Table.Cell>{P.sender}</Table.Cell>
+            <Table.Cell>{P.recipient}</Table.Cell>
+            <Table.Cell>{P.message}</Table.Cell>
+            <Stack.Divider />
+          </Table.Row>
+        ))}
+      </Table>
   );
 };
 
@@ -160,7 +197,7 @@ const RequestLog = (_properties) => {
           <Table.Cell>{R.idAuth}</Table.Cell>
           <Table.Cell>{R.priority}</Table.Cell>
           <Table.Cell>
-            <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteR', { Rmessage: R })} />
+            <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteR', { Rmessage: R.uid })} />
           </Table.Cell>
         </Table.Row>
       ))}

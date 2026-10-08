@@ -1,9 +1,3 @@
-#define MAIN_MENU 0
-#define MESSAGE_MENU 1
-#define HACKED_MENU 2
-#define CUSTOM_MESSAGE_MENU 3
-#define CONSOLE_LOGS_MENU 4
-
 // Allows you to monitor messages that passes the server.
 /obj/machinery/computer/message_monitor
 	name = "message monitoring console"
@@ -16,12 +10,9 @@
 	/// PDA server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Messages - Saves me time if I want to change something.
-	/// Screen we show to the user
-	var/screen = MAIN_MENU // 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	/// Is it beaing hacked into by a silicon?
 	var/hacking = FALSE
-	/// Are they authenticated?
-	#warn Change auth before PRing this
+	/// Is the console authenticated?
 	var/auth = FALSE
 	// Custom Message Properties
 	/// Sender of a custom message
@@ -30,11 +21,6 @@
 	var/obj/item/pda/customrecepient = null
 
 	light_color = LIGHT_COLOR_DARKGREEN
-
-#warn Remove this before PRing, just for easier testing.
-/obj/machinery/computer/message_monitor/AltClick(mob/user, modifiers)
-	auth = !auth
-
 
 /obj/machinery/computer/message_monitor/Initialize(mapload)
 	..()
@@ -73,7 +59,6 @@
 
 	icon_screen = hack_icon // An error screen I made in the computers.dmi
 	emagged = TRUE
-	screen = HACKED_MENU
 	do_sparks(5, 0, src)
 	var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 	MK.loc = loc
@@ -108,7 +93,6 @@
 		to_chat(user, SPAN_WARNING("Brute-force completed! The key is '[currentKey]'."))
 	hacking = TRUE
 	icon_screen = normal_icon
-	screen = MAIN_MENU // Return the screen back to normal
 
 /obj/machinery/computer/message_monitor/proc/UnmagConsole()
 	icon_screen = normal_icon
@@ -133,6 +117,8 @@
 
 /// Checks for a password and server status returns `TRUE` if the conditions are vaible, othervise returns `FLASE`
 /obj/machinery/computer/message_monitor/proc/check_password()
+	if(isnull(linkedServer))
+		return FALSE
 	return !(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
 
 /obj/machinery/computer/message_monitor/ui_interact(mob/user, datum/tgui/ui = null)
@@ -140,36 +126,44 @@
 	if(!ui)
 		ui = new(user, src, "MessageMonitorConsole", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/message_monitor/ui_data(mob/user)
 	var/list/data = list()
 
 	data["authenticated"] = auth
-	data["possibleServers"] = GLOB.message_servers
-	data["server"] = linkedServer.name
-	data["active"] = linkedServer.active
-	data["password"] = linkedServer.decryptkey
+	if(linkedServer)
+		data["active"] = linkedServer.active
+		data["password"] = linkedServer.decryptkey
+		// PDA stuff.
+		var/list/PDA_log = list()
+		for(var/datum/data_pda_msg/P in linkedServer.pda_msgs)
+			PDA_log += list(list("recipient" = P.recipient,
+								"sender" = P.sender,
+								"message" = P.message,
+								"uid" = P.UID()))
 
-	// PDA stuff.
-	var/list/PDA_log = list()
-	for(var/datum/data_pda_msg/P in linkedServer.pda_msgs)
-		PDA_log += list(list("recipient" = P.recipient,
-							"sender" = P.sender,
-							"message" = P.message))
+		data["PDALog"] = PDA_log
 
-	data["PDALog"] = PDA_log
+		// Request console stuff.
+		var/list/RC_log = list()
+		for(var/datum/data_rc_msg/L in linkedServer.rc_msgs)
+			RC_log += list(list("recievingDep" = L.rec_dpt,
+								"sendingDep" = L.send_dpt,
+								"message" = L.message,
+								"stamp" = L.stamp,
+								"idAuth" = L.id_auth,
+								"priority" = L.priority,
+								"uid" = L.UID()))
 
-	// Request console stuff.
-	var/list/RC_log = list()
-	for(var/datum/data_rc_msg/L in linkedServer.rc_msgs)
-		RC_log += list(list("recievingDep" = L.rec_dpt,
-							"sendingDep" = L.send_dpt,
-							"message" = L.message,
-							"stamp" = L.stamp,
-							"idAuth" = L.id_auth,
-							"priority" = L.priority))
+		data["RequestLog"] = RC_log
 
-	data["RequestLog"] = RC_log
+	// All  messaging server UIDs.
+	var/list/servers = list()
+	for(var/obj/machinery/message_server/S in GLOB.message_servers)
+		servers += S.UID()
+
+	data["servers"] = servers
 
 	return data
 
@@ -178,69 +172,85 @@
 		return
 
 	switch(action)
+		// Log into the server
+		if("decrypt")
+			var/obj/machinery/message_server/chosen_server = locateUID(params["server"])
+			if(!istype(chosen_server, /obj/machinery/message_server))
+				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report."))
+				return
+			var/chosen_password = params["password"]
+			log_debug("Decrypting server [chosen_server] with password [chosen_password]")
+			if(chosen_server.decryptkey == chosen_password)
+				to_chat(ui.user, SPAN_NOTICE("Decryption successful!"))
+				auth = TRUE
+				linkedServer = chosen_server
+			else
+				to_chat(ui.user, SPAN_WARNING("Decryption failed!"))
+		// Log out of the server
 		if("logout")
 			auth = FALSE
+			linkedServer = null
 		if("server")
-			to_chat(ui.user, SPAN_NOTICE("IT FUCKING WORKS"))
+
+		// Chnage the password
 		if("password")
+			if(!check_password())
+				to_chat(ui.user, SPAN_WARNING("No server found"))
+				return
 			var/password = tgui_input_text(ui.user, "Please input the decryption password", "Authentication")
 			linkedServer.decryptkey = password
+			to_chat(ui.user, SPAN_NOTICE("Password successfully changed to [password]"))
 
 		// Turn the server on/off
 		if("active")
-			to_chat(ui.user, SPAN_NOTICE("IT FUCKING WORKS"))
 			linkedServer.active = !linkedServer.active
 			linkedServer.update_icon(UPDATE_ICON_STATE)
+			to_chat(ui.user, SPAN_NOTICE("Server is now [linkedServer.active ? "active" : "inactive"]"))
 
+		// Deletes a specific Request console messages
 		if("deleteR")
 			if(!check_password())
 				to_chat(ui.user, SPAN_WARNING("No server found"))
 				return
-			var/datum/data_rc_msg/R = locate(params["Rmessage"])
+			var/datum/data_rc_msg/msg = locateUID(params["Rmessage"])
+			log_debug("[msg]")
+			var/datum/data_rc_msg/R = locate(msg) in linkedServer.rc_msgs
 			log_debug("[R]")
 			if(istype(R, /datum/data_rc_msg))
 				linkedServer.rc_msgs -= R
 				to_chat(ui.user, SPAN_NOTICE("Request message deleted!"))
 			else
-				to_chat(ui.user, SPAN_WARNING("Could not delete the request message!"))
+				to_chat(ui.user, SPAN_WARNING("Could not delete the Request message!"))
 
+		// Deletes a specific PDA messages
 		if("deleteP")
 			if(!check_password())
 				to_chat(ui.user, SPAN_WARNING("No server found"))
 				return
-			var/datum/data_pda_msg/P = locate(params["Pmessage"])
+			var/datum/data_pda_msg/P = locateUID(params["Pmessage"])
 			log_debug("[P]")
-			if(istype(P, /datum/data_pda_msg))
-				linkedServer.pda_msgs -= P
-				to_chat(ui.user, SPAN_NOTICE("PDA message deleted!"))
-			else
-				to_chat(ui.user, SPAN_WARNING("Could not delete the PDA message!"))
+			if(!istype(P, /datum/data_pda_msg))
+				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report."))
+				return
+			linkedServer.pda_msgs -= P
+			to_chat(ui.user, SPAN_NOTICE("PDA message deleted!"))
 
+		// Deletes all PDA messaages from the server
 		if("clear_msg")
-			if(check_password())
-				linkedServer.pda_msgs = list()
-				to_chat(ui.user, SPAN_NOTICE("All PDA messages cleared!"))
-			else
+			if(!check_password())
 				to_chat(ui.user, SPAN_WARNING("No server found"))
+				return
+			linkedServer.pda_msgs = list()
+			to_chat(ui.user, SPAN_NOTICE("All PDA messages cleared!"))
 
+
+		// Deletes all request console messages from the server
 		if("clear_req")
-			if(check_password())
-				linkedServer.rc_msgs = list()
-				to_chat(ui.user, SPAN_NOTICE("All Request Console messages cleared!"))
-			else
+			if(!check_password())
 				to_chat(ui.user, SPAN_WARNING("No server found"))
+				return
+			linkedServer.rc_msgs = list()
+			to_chat(ui.user, SPAN_NOTICE("All Request Console messages cleared!"))
 
 		if("admin_msg")
 			return
-
-		if("custom_key")
-			return
-
-
-
-
-#undef MAIN_MENU
-#undef MESSAGE_MENU
-#undef HACKED_MENU
-#undef CUSTOM_MESSAGE_MENU
-#undef CONSOLE_LOGS_MENU
