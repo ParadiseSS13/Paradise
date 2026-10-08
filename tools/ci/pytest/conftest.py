@@ -124,15 +124,12 @@ def lint(request: FixtureRequest) -> Lint:
     return Lint(title)
 
 # Fuck it, send us to the repo root I guess.
-# Why not use absolute paths, instead of this?
-# Well, absolute paths make logs harder to read, only the local repository path should be shown when printing.'
-# However, handing over relative paths as part of some of these helpers, make it so pytest doesnt function outside of the base of the repository. This is undesirable.
-# And we can't fully rely on pathlib.Path() either, as ProcessPoolExecutor().map() can't pickle these paths. We stringify those paths to get around this.
-# But it means we can't use relative paths across multiple threads so... this is my best work around.
-# This lets us use pathlib.Path() as relative, but still able to be stringified correctly.
-# PurePath bypasses the pickling issue, but loses data of the absolute path.
-# Perhaps in the future, a better implementation can be solved that is pickle-able, but still prints as an absolute path.
-# I also hear you ask, why not make the filename relative in lint.error()? Well, any filenames that are referenced by error messages
-# will still be printed as absolute, even if the fileerror is printed correctly. e.g. "test/ooc.dm: has the same file name as C:/Users/Myself/Documents/Paradise/otherfolder/ooc.dm"
+# We don't use absolute paths because they look bad in logging, only the local repository path should be shown when printing.
+# Using relative string paths doesn't work outside of the base of the repository. This is undesirable.
+# Absolute and relative pathlib.Path() aren't perfect either, as ProcessPoolExecutor().map() can't pickle these paths. We stringify those paths to get around this.
+# Also, PurePath doesn't seem to be pickle-able either.
+# I also hear you ask, why not make the filename relative in lint.error()?
+# Well, any filenames that are referenced by error messages will still be printed as absolute, even if the fileerror is printed correctly.
+# e.g. "test/ooc.dm: has the same file name as C:/Users/Myself/Documents/Paradise/otherfolder/ooc.dm"
 # I believe this is the best solution for now. It will probably result in a un-debuggable mess in the future.
 os.chdir(get_repo_root())
