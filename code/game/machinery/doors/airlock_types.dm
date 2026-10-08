@@ -890,7 +890,7 @@
 	update_bounds()
 
 /obj/machinery/door/airlock/multi_tile/get_current_direction()
-	// Prioritize walls to avoid adjacent airlock shenanigans
+	// Prioritize walls to avoid adjacent airlock shenanigans.
 	if(manual_dir == TRUE)
 		return
 	for(var/direction in GLOB.cardinal)
