@@ -1,4 +1,3 @@
-/// Yes, this is a pipe painter subtype.
 /datum/painter/window
 	module_name = "window painter"
 	module_state = "window_painter"
