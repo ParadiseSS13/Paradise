@@ -94,12 +94,7 @@
 		/area/station/engineering/secure_storage
 	)
 
-	// Presumably running on test_tiny so just give it the area where it was created and skidaddle.
-	if(length(SSmapping.existing_station_areas) < 5) // hehe magic number 5
-		extractable_areas += get_area(src)
-		return
-
-	while(length(extractable_areas) < 3)
+	while(length(extractable_areas) < 3 && length(possible_areas))
 		var/area/selected_area = pick_n_take(possible_areas)
 		for(var/area/potential in SSmapping.existing_station_areas)
 			if(potential.type != selected_area)
