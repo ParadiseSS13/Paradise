@@ -908,7 +908,7 @@
 		for(var/obj/machinery/door/airlock/A in T.contents)
 			if(A != src)
 				return turn(direction, 180)
-	return src.dir // fallback from mapping
+	return dir // fallback from mapping
 
 /obj/machinery/door/airlock/multi_tile/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))
