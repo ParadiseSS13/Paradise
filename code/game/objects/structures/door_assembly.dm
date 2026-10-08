@@ -52,7 +52,7 @@
 		for(var/obj/machinery/door/airlock/A in T.contents)
 			if(A != src)
 				return direction
-	return src.dir // fallback from mapping
+	return dir // Fallback from mapping.
 
 /obj/structure/door_assembly/examine(mob/user)
 	. = ..()
