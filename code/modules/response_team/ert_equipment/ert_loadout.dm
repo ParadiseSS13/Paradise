@@ -69,6 +69,26 @@ GLOBAL_LIST_INIT(ert_loadouts, generate_ert_loadouts_from_outfits())
 		var/datum/ert_loadout_slot/slot = slots[outfit_var]
 		slot.apply_to_outfit(outfit)
 
+	var/datum/outfit/job/response_team/ert_role_type = /datum/outfit/job/response_team
+
+	switch(role)
+		if(ERT_ROLE_COMMAND)
+			ert_role_type = /datum/outfit/job/response_team/commander
+		if(ERT_ROLE_SECURITY)
+			ert_role_type = /datum/outfit/job/response_team/security
+		if(ERT_ROLE_ENGINEERING)
+			ert_role_type = /datum/outfit/job/response_team/engineer
+		if(ERT_ROLE_MEDICAL)
+			ert_role_type = /datum/outfit/job/response_team/medic
+		if(ERT_ROLE_JANITOR)
+			ert_role_type = /datum/outfit/job/response_team/janitorial
+		if(ERT_ROLE_PARANORMAL)
+			ert_role_type = /datum/outfit/job/response_team/paranormal
+
+	outfit.rt_assignment = ert_role_type::rt_assignment
+	outfit.rt_job = ert_role_type::rt_job
+	outfit.rt_mob_job = ert_role_type::rt_mob_job
+
 	return outfit
 
 /datum/ert_loadout/serialize()
