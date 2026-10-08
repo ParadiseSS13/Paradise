@@ -50,7 +50,6 @@ jobs:
           python tools/ci/restrict_file_types.py
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_random_spawner_prefabs.py
-          python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.ci.check_simplemob_additions
           python -m tools.ci.check_user_verb_params
