@@ -65,7 +65,7 @@
 	for(var/obj/machinery/door/D in T.contents)
 		if(D != src)
 			return D.dir
-	return src.dir // fallback from mapping
+	return dir // Fallback from mapping.
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
