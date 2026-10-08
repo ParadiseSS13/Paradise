@@ -379,7 +379,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_candy/examine(mob/user)
 	. = ..()
-	. += SPAN_WARNING("*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>")
+	. += SPAN_WARNING("*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.")
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims packet"
