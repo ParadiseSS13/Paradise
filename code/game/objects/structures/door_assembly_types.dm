@@ -170,7 +170,7 @@
 		for(var/obj/machinery/door/airlock/A in T.contents)
 			if(A != src)
 				return turn(direction, 180)
-	return src.dir // fallback from mapping
+	return dir // fallback from mapping.
 
 /obj/structure/door_assembly/multi_tile/proc/update_bounds()
 	if(width <= 1)
