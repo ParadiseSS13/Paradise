@@ -117,6 +117,13 @@ def dmi_files(request: FixtureRequest) -> list[Path]:
     """
     return get_codebase_file("dmi")
 
+@pytest.fixture(scope="session")
+def dmm_files(request: FixtureRequest) -> list[Path]:
+    """
+    Find all .dmm files recursively
+    """
+    return get_codebase_file("dmm")
+
 @pytest.fixture
 def lint(request: FixtureRequest) -> Lint:
     marker = request.node.get_closest_marker("lint")
