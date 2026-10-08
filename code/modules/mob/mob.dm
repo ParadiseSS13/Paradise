@@ -234,6 +234,9 @@
 /mob/proc/movement_delay()
 	return 0
 
+/mob/proc/active_assigned_to_job(datum/job/job)
+	return mind && client && mind.assigned_role == job.title && client.inactivity <= (10 MINUTES)
+
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_hand()
