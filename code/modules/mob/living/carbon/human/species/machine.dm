@@ -76,6 +76,7 @@
 		"is processing a paradox!",
 		"is dividing by zero!",
 		"is forgetting their own password!",
+		"is unpacking a .zip bomb!",
 		"is hacking their own mainframe!",
 		"is dropping tables!")
 
