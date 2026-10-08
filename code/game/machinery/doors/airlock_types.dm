@@ -884,8 +884,8 @@
 	manual_dir = TRUE
 
 /obj/machinery/door/airlock/multi_tile/Initialize(mapload)
-	if((src.dir == SOUTH) || (src.dir == null))
-		src.dir = NORTH
+	if((dir == SOUTH) || (dir == null))
+		dir = NORTH
 	. = ..()
 	update_bounds()
 
