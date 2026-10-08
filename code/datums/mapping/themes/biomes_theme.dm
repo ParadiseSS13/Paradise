@@ -71,7 +71,7 @@
 
 
 /// Create a new instance of a biome
-/datum/biome_theme/New(var/zlevel)
+/datum/biome_theme/New(zlevel)
 	size = rand(80, 100)
 	z = zlevel
 	var/success = suitable_placement()
