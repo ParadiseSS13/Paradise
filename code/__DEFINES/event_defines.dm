@@ -29,3 +29,12 @@
 #define EVENT_DRONE "rogue_drones"
 #define EVENT_DEMONIC "demonic_incursion"
 #define EVENT_REVENTANT "revenant"
+
+#define ERT_ROLE_COMMAND "Command"
+#define ERT_ROLE_SECURITY "Security"
+#define ERT_ROLE_ENGINEERING "Engineering"
+#define ERT_ROLE_MEDICAL "Medical"
+#define ERT_ROLE_JANITOR "Janitor"
+#define ERT_ROLE_PARANORMAL "Paranormal"
+
+GLOBAL_LIST_INIT(ert_roles, list(ERT_ROLE_COMMAND, ERT_ROLE_SECURITY, ERT_ROLE_ENGINEERING, ERT_ROLE_MEDICAL, ERT_ROLE_JANITOR, ERT_ROLE_PARANORMAL))
