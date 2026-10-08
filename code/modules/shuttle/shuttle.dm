@@ -52,6 +52,16 @@
 /obj/docking_port/shuttleRotate()
 	return //we don't rotate with shuttles via this code.
 
+/obj/docking_port/ui_data(mob/user)
+	. = list(
+		"name" = name,
+		"id" = id,
+		"uid" = UID(),
+		"loc" = list("x" = x, "y" = y, "z" = z),
+		"width" = width,
+		"height" = height,
+	)
+
 //returns a list(x0,y0, x1,y1) where points 0 and 1 are bounding corners of the projected rectangle
 /obj/docking_port/proc/return_coords(_x, _y, _dir)
 	if(_dir == null)
@@ -175,7 +185,7 @@
 		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 		return FALSE
 
-	SSshuttle.stationary_docking_ports += src
+	SSshuttle.stationary_docking_ports |= src
 	if(!id)
 		id = "[length(SSshuttle.stationary_docking_ports)]"
 	if(name == "dock")
@@ -189,6 +199,10 @@
 //returns first-found touching shuttleport
 /obj/docking_port/stationary/get_docked()
 	return locate(/obj/docking_port/mobile) in loc
+
+/obj/docking_port/stationary/ui_data(mob/user)
+	. = ..()
+	.["has_docked"] = get_docked()
 
 /obj/docking_port/stationary/transit
 	name = "In transit"
@@ -214,6 +228,12 @@
 	. = ..()
 	if(force && SSshuttle)
 		SSshuttle.transit_docking_ports -= src
+
+/obj/docking_port/stationary/transit/ui_data(mob/user)
+	. = ..()
+
+	if(owner)
+		.["owner"] = owner.ui_data(user)
 
 // MARK: Mobile port
 /obj/docking_port/mobile
@@ -280,7 +300,7 @@
 	if(!SSshuttle)
 		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
-	SSshuttle.mobile_docking_ports += src
+	SSshuttle.mobile_docking_ports |= src
 
 	if(!id)
 		id = "[length(SSshuttle.mobile_docking_ports)]"
@@ -297,6 +317,14 @@
 		previous = null
 		shuttle_areas = null
 	return ..()
+
+/obj/docking_port/mobile/ui_data(mob/user)
+	. = ..()
+	.["mode"] = mode
+	.["call_time"] = callTime
+	.["ignition_time"] = ignitionTime
+	.["timer_str"] = getTimerStr()
+	.["can_fast_travel"] = (timer && timeLeft() >= 50)
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
