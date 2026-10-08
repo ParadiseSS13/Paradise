@@ -2,13 +2,17 @@
 /datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic
 	melee_attack_behavior = /datum/ai_behavior/basic_melee_attack/opportunistic
 	end_planning = FALSE
+	/// Who to hit
+	var/target_key = BB_BASIC_MOB_CURRENT_TARGET
+	/// Our targeting strategy
+	var/targeting_key = BB_TARGETING_STRATEGY
 
 /datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	. = ..()
-	var/atom/target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
+	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target) || !controller.pawn.Adjacent(target))
 		return
-	controller.queue_behavior(melee_attack_behavior, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETING_STRATEGY, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
+	controller.queue_behavior(melee_attack_behavior, target_key, targeting_key, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
 
 /// Attack something which is already adjacent to us without moving
 /datum/ai_behavior/basic_melee_attack/opportunistic
@@ -25,3 +29,7 @@
 		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
 	. = ..()
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+
+/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic/from_flee_key
+	target_key = BB_BASIC_MOB_FLEE_TARGET
+	targeting_key = BB_FLEE_TARGETING_STRATEGY
