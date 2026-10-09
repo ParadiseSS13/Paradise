@@ -135,7 +135,7 @@
 			total_points[i] += temp_points[i]
 		if(send_points)
 			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
-			RNC.research_files.addpoints(temp_points)
+			RNC.research_files.adjust_points(temp_points)
 		else
 			for(var/p in temp_points)
 				stored_points[p] += temp_points[p]

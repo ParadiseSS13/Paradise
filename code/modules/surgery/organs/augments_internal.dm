@@ -654,7 +654,7 @@
 		owner.adjustBrainLoss(-1)
 		return // dont generate any points if we're healing brain damage
 	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
-	RNC.research_files.addpoints(point_gen)
+	RNC.research_files.adjust_points(point_gen)
 	var/temp = point_gen[1]
 	var/tp = point_gen[temp]
 	log_debug("added [tp] [temp] points from neural computer")
@@ -720,7 +720,7 @@
 		reward = P.on_life_effect(owner)
 		if(!length(reward) || !reward)
 			continue
-		RNC.research_files.addpoints(reward)
+		RNC.research_files.adjust_points(reward)
 		RNC.research_files.probe_experiments.Remove(P)
 
 

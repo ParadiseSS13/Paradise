@@ -203,7 +203,7 @@ SLIME SCANNER
 				temp_value[r] *= T.slime_colours[T.colour]
 				scan_output.Add("[temp_value[r]] [r] points awarded for new slime scan.")
 			RNC.research_files.scanned_slimes += T.colour
-			RNC.research_files.addpoints(temp_value)
+			RNC.research_files.adjust_points(temp_value)
 		else
 			scan_output.Add("No points awarded, slime type has already been scanned.")
 	else

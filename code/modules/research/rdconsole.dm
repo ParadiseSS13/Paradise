@@ -239,7 +239,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(t_disk)
 		var/disk_points = t_disk.stored_research
 		var/temp_points = t_disk.unload_research(disk_points)
-		files.addpoints(temp_points)
+		files.adjust_points(temp_points)
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -610,8 +610,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(!amnt || amnt <= 0)
 				return
 			var/list/to_send = list("[tpt]" = amnt)
-			var/i = t_disk.load_research(to_send)
-			files.takepoints(i)
+			var/list/i = t_disk.load_research(to_send)
+			for(var/r in i)
+				r[i] *= -1
+			files.adjust_points(i)
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)

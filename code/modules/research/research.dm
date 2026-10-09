@@ -63,32 +63,18 @@
 
 	RefreshResearch()
 
-/// Adds provided points list to the research datum and returns the list of points that were added.
-/datum/research/proc/addpoints(list/points_list)
+/// Adds or Takes points from the datum, returning the final list of points added/removed with any autobalancing to the values.
+/datum/research/proc/adjust_points(list/points_list)
 	for(var/i in points_list)
 		if(!(i in SSresearch.point_types))
-			log_debug("Unexpected research point type [i] attempted illegal deposit.")
+			log_debug("Unexpected research point type [i] attempted illegal action.")
 			points_list.Remove(i)
 			continue
-		if(points_list[i] <= 0)
-			continue
+		if(points_list[i] < 0 && (points_list[i] * -1) < research_points[i])
+			points_list[i] = -(research_points[i])
 		research_points[i] = FLOOR(research_points[i] + points_list[i], 1)
 		total_points[i] = FLOOR(research_points[i] + points_list[i], 1)
 	RefreshResearch() // Update visibility when adding points to ensure nodes show correctly.
-	return points_list
-
-/// Withdraws provided points list, returning the list of points withdrawn. ALWAYS use the returned list if adding points to the caller.
-/datum/research/proc/takepoints(list/points_list)
-	for(var/i in points_list)
-		if(!(i in SSresearch.point_types))
-			log_debug("Unexpected research point type [i] attempted illegal withdrawl.")
-			points_list.Remove(i)
-			continue
-		if(points_list[i] <= 0)
-			continue
-		if(points_list[i] > research_points[i])
-			points_list[i] = research_points[i]
-		research_points[i] = FLOOR(research_points[i] - points_list[i], 1)
 	return points_list
 
 /// Checks to see if technode has all the required pre-reqs. Output: TRUE/FALSE
@@ -115,7 +101,7 @@
 		return TRUE
 	return FALSE
 
-/// Output: TRUE/FALSE (success/fail)
+/// Unlocks the node, skipping any cost or prereqs. Output: TRUE/FALSE (sucess/fail)
 /datum/research/proc/unlock_technode(datum/technode/T)
 	if(T.id in known_technodes)
 		log_debug("(Unlock Node) Technode [T.name] attempted unlock but was already unlocked.")
@@ -202,8 +188,7 @@
 	known_designs[D.id] = D
 	return TRUE
 
-//Refreshes visible_technodes and known_designs lists.
-//Input/Output: n/a
+/// Refreshes visible_technodes and known_designs lists, also ensures no point values are negative.
 /datum/research/proc/RefreshResearch()
 	for(var/datum/technode/PT in possible_technodes)
 		check_technode_visibility(PT)
@@ -212,6 +197,13 @@
 			unlock_design(PD)
 	if(length(blacklisted_designs)) // No need to run this unless there are blacklisted designs.
 		known_designs -= blacklisted_designs
+	for(var/i in research_points)
+		if(research_points[i] < 0) // Lets make sure if any negatives somehow occur that they're cleaned up.
+			research_points[i] = 0
+	for(var/i in total_points)
+		if(total_points[i] < 0) // Lets make sure if any negatives somehow occur that they're cleaned up.
+			total_points[i] = 0
+
 
 /datum/research/proc/find_possible_design_by_id(id)
 	for(var/datum/design/i in possible_designs)
