@@ -576,10 +576,10 @@
 	if(method == REAGENT_TOUCH)
 		if(!M.is_mouth_covered() && !M.is_eyes_covered())
 			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
-				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
+				to_chat(M, SPAN_NOTICE("Your eye sockets feel wet."))
 			else
 				if(!M.AmountEyeBlurry())
-					to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
+					to_chat(M, SPAN_WARNING("Tears well up in your eyes!"))
 				M.EyeBlind(4 SECONDS)
 				M.EyeBlurry(10 SECONDS)
 	..()
