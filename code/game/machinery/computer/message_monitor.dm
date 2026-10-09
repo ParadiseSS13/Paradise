@@ -267,18 +267,19 @@
 				return
 			var/sender = params["sender"]
 			var/senderJob = params["senderJob"]
-			var/obj/item/pda/recipient = locateUID(params["recipient"])
+			var/recipient = params["recipient"]
+			var/obj/item/pda/recipient_PDA = GLOB.PDAs[recipient]
 			var/message = params["message"]
 			if(!istype(recipient, /obj/item/pda))
 				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
 				return
-			linkedServer.send_pda_message("[recipient.owner]", "[sender]", "[message]")
-			var/datum/data/pda/app/messenger/recipient_messenger = recipient.find_program(/datum/data/pda/app/messenger/)
+			linkedServer.send_pda_message("[recipient_PDA.owner]", "[sender]", "[message]")
+			var/datum/data/pda/app/messenger/recipient_messenger = recipient_PDA.find_program(/datum/data/pda/app/messenger/)
 			if(!istype(recipient_messenger, /datum/data/pda/app/messenger/))
 				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
 				return
 			recipient_messenger.notify("<b>Message from [sender] ([senderJob]), </b>\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=\ref[src]'>Reply</a>)")
 			// Logging.
-			log_pda("(PDA: [sender]) sent \"[message]\" to [recipient.owner]", ui.user)
-			investigate_log("PDA Message - Custom Name: \"[sender]\", Custom Job: \"[senderJob]\", Real Sender: \"[key_name(ui.user)]\" ([ADMIN_PP(ui.user,"PP")]) -> [recipient.owner] ([ADMIN_VV(recipient, "VV")]), Message: \"[message]\"", "pda")
+			log_pda("(PDA: [sender]) sent \"[message]\" to [recipient_PDA.owner]", ui.user)
+			investigate_log("PDA Message - Custom Name: \"[sender]\", Custom Job: \"[senderJob]\", Real Sender: \"[key_name(ui.user)]\" ([ADMIN_PP(ui.user,"PP")]) -> [recipient_PDA.owner] ([ADMIN_VV(recipient_PDA, "VV")]), Message: \"[message]\"", "pda")
 			ui.user.create_log(MISC_LOG, "sent PDA message \"[message]\" using [ui.src_object] as [sender] ([senderJob]) to [recipient]")

@@ -17,8 +17,53 @@ Table,
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
+type ServerData = {
+  authenticated: boolean;
+  server: string;
+  active: boolean;
+  password: string;
+}
+
+type AuthData = {
+  servers: string[];
+}
+
+type PDALog = {
+  recipient: string;
+  sender: string;
+  message: string;
+  uid: string;
+}
+
+type PDAData = {
+  PDALog: PDALog[];
+}
+
+type RCLog = {
+  recievingDep: string;
+  sendingDep: string;
+  message: string;
+  stamp: string;
+  idAuth: string;
+  priority: string;
+  uid: string;
+}
+
+type RCData = {
+  RequestLog: RCLog[];
+}
+
+type Recipients = {
+  name: string;
+  uid: string;
+}
+
+type RecipientsData = {
+  recipients: Recipients[];
+}
+
 export const MessageMonitorConsole = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<ServerData>();
   const { authenticated } = data;
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -43,7 +88,7 @@ export const MessageMonitorConsole = (properties) => {
 };
 
 const MainPage = (_properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<ServerData>();
   const { server, active, password } = data;
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -61,7 +106,7 @@ const MainPage = (_properties) => {
   };
 
   return (
-    <Section>
+    <Box>
       <NoticeBox info>
         <Stack>
           <Stack.Item grow mt={0.5}>
@@ -110,14 +155,16 @@ const MainPage = (_properties) => {
             Send custom message
           </Tabs.Tab>
         </Tabs>
-        {PickTab(tabIndex)}
+        <Section>
+          {PickTab(tabIndex)}
+        </Section>
       </Section>
-    </Section>
+    </Box>
   );
 };
 
 const AuthPage = (_properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<AuthData>();
   const { servers } = data;
   const [server, setServer] = useState(servers[0]);
   const [password, setPassword] = useState('');
@@ -154,7 +201,7 @@ const AuthPage = (_properties) => {
 };
 
 const MessageLog = (_properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<PDAData>();
   const { PDALog } = data;
   return (
       <Table m="0.5rem">
@@ -179,7 +226,7 @@ const MessageLog = (_properties) => {
 };
 
 const RequestLog = (_properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<RCData>();
   const { RequestLog } = data;
   return (
     <Table m="0.5rem">
@@ -210,7 +257,7 @@ const RequestLog = (_properties) => {
 };
 
 const CustomMessage = (_properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<RecipientsData>();
   const { recipients } = data;
   const [sender, setSender] = useState('');
   const [senderJob, setSenderJob] = useState('');
@@ -246,9 +293,10 @@ const CustomMessage = (_properties) => {
           </LabeledList.Item>
         </LabeledList>
         <Button
+          icon="right-to-bracket"
           content="Send"
           disabled={!sender || !senderJob || !recipient || !message}
-          onClick={() => act('admin_msg', { sender: sender, senderJob: senderJob, recipient: recipient.uid, message: message })}
+          onClick={() => act('admin_msg', { sender: sender, senderJob: senderJob, recipient: recipient, message: message })}
         />
       </Stack.Item>
     </Stack>
