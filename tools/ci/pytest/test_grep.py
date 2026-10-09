@@ -1,9 +1,8 @@
-import glob
 import os
 import re
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from typing import Optional, Callable, NamedTuple
+from typing import Callable, NamedTuple, Optional
 
 import pytest
 from conftest import Lint
@@ -237,11 +236,13 @@ def lint_file(code_filepath: str) -> list[Failure]:
     return all_failures
 
 @pytest.mark.lint("Check Grep")
-def test_grep(lint: Lint, repo_root: Path):
-    dm_files = glob.glob("**/*.dm", recursive=True, root_dir=repo_root)
+def test_grep(lint: Lint, dm_files: list[Path]):
+    # We must stringify the files first, so that the ProcessPoolExecutor
+    # can use pickle to send the files to the processes
+    dm_file_strings = [str(file) for file in dm_files]
 
     with ProcessPoolExecutor() as executor:
-        for failures in executor.map(lint_file, dm_files):
+        for failures in executor.map(lint_file, dm_file_strings):
             for failure in failures:
                 lint.error(failure.message, failure.filename, failure.lineno)
 

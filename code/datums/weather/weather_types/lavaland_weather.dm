@@ -313,7 +313,10 @@
 		if(istype(get_area(current_turf), /area/survivalpod/luxurypod)) // luxury pods are immune to the storm
 			continue
 		if(prob(2))
-			current_turf.visible_message("<span class = 'danger'>The ceiling begins to drip as acid starts eating holes in the roof!</span>", "<span class = 'danger'>You hear droplets hitting the floor as acid leaks in through the roof.</span>")
+			current_turf.visible_message(
+				SPAN_DANGER("The ceiling begins to drip as acid starts eating holes in the roof!"),
+				SPAN_DANGER("You hear droplets hitting the floor as acid leaks in through the roof!")
+			)
 			addtimer(CALLBACK(src, PROC_REF(melt_pod), current_turf), melt_delay)
 
 /datum/weather/acid/on_shelter_placed(datum/source, turf/center)
@@ -336,7 +339,10 @@
 			if(iswallturf(nearby_turf))
 				nearby_turf.dismantle_wall()
 			for(var/obj/machinery/sleeper/survival_pod/pod in nearby_turf.contents)
-				pod.visible_message("<span class = 'danger'>The sleeper melts away into a useless heap of junk!</span>", "<span class = 'danger'>You hear something nearby collapse from the acidic rain!</span>")
+				pod.visible_message(
+					SPAN_DANGER("The sleeper melts away into a useless heap of junk!"),
+					SPAN_DANGER("You hear something nearby collapse from the acidic rain!")
+				)
 				pod.Destroy()
 
 	impacted_areas.Cut()

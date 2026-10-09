@@ -308,9 +308,9 @@
 			for(var/datum/mind/mind as anything in cultist_datum.get_team())
 				if(mind.current)
 					SEND_SOUND(mind.current, 'sound/magic/narsie_attack.ogg')
-					var/message = "<span class='narsie'>A vile heretic has </span>" + \
-					"<span class='hierophant_warning'>sacrificed</span>" + \
-					"<span class='narsie'> one of our own. Destroy and sacrifice the infidel before it claims more!</span>"
+					var/message = SPAN_NARSIE("A vile heretic has ") + \
+					SPAN_HIEROPHANT_WARNING("sacrificed") + \
+					SPAN_NARSIE(" one of our own. Destroy and sacrifice the infidel before it claims more!")
 					to_chat(mind.current, message)
 			// he(retic) gets a warn too
 			to_chat(user, "<span class='narsiesmall'>How DARE you!? I will see you destroyed for this.</span>")
