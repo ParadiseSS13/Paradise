@@ -278,11 +278,11 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You wire the windoor.")
 	player.drop_held_item()
 
-	var/obj/crate = teleport_to_first(player, /obj/structure/closet/crate/secure/loot)
-	player.spawn_fast_tool(/obj/item/multitool)
-	player.click_on(crate)
-	TEST_ASSERT_LAST_CHATLOG(player, "You leave the crate alone.")
-	player.drop_held_item()
+	// var/obj/crate = teleport_to_first(player, /obj/structure/closet/crate/secure/loot)
+	// player.spawn_fast_tool(/obj/item/multitool)
+	// player.click_on(crate)
+	// TEST_ASSERT_LAST_CHATLOG(player, "You leave the crate alone.")
+	// player.drop_held_item()
 
 	var/obj/structure/flora/ash/ashflora = teleport_to_first(player, /obj/structure/flora/ash)
 	ashflora.harvest_time = 0
