@@ -105,20 +105,24 @@
 	to_chat(viewers(user), SPAN_SUICIDE("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
-/obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = W
-
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-			to_chat(user, "You inject the solution into the power cell.")
-			rigged = TRUE
-
-			log_admin("LOG: [key_name(user)] injected a power cell with plasma, rigging it to explode.")
-			message_admins("LOG: [key_name_admin(user)] injected a power cell with plasma, rigging it to explode.")
-		S.reagents.clear_reagents()
-	else
+/obj/item/stock_parts/cell/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/reagent_containers/syringe))
 		return ..()
 
+	var/obj/item/reagent_containers/syringe/syringe = used
+
+	if(!(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5)))
+		to_chat(user, SPAN_WARNING("There's nothing in [used] worth injecting into [src]."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_WARNING("You inject the solution into [src]."))
+	rigged = TRUE
+	log_admin("LOG: [key_name(user)] injected a power cell with plasma, rigging it to explode.")
+	message_admins("LOG: [key_name_admin(user)] injected a power cell with plasma, rigging it to explode.")
+	syringe.reagents.clear_reagents()
+	syringe.add_fingerprint(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stock_parts/cell/proc/explode()
 	var/turf/T = get_turf(loc)

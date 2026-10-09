@@ -167,7 +167,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(shock(user, 50))
 		return
 	if(strengthened)
-		to_chat(user, "<span class = 'danger'>The cable resists your attempts to cut it!")
+		to_chat(user, SPAN_DANGER("The cable resists your attempts to cut it!"))
 		return
 	user.visible_message("[user] cuts the cable.", SPAN_NOTICE("You cut the cable."))
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
@@ -480,6 +480,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	connect_type = CABLE_HIGH_POWER
 	cable_coil_type = /obj/item/stack/cable_coil/extra_insulated
 	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
+	color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0)
+
+/obj/structure/cable/extra_insulated/Initialize(mapload)
+	. = ..()
+	color = null
 
 /// A pre unlocked bridge cable for mapping
 /obj/structure/cable/extra_insulated/pre_connect

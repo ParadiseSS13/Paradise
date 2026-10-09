@@ -10,7 +10,7 @@
 	implant_state = "implant-nanotrasen"
 
 /obj/item/bio_chip/dust/death_trigger(mob/source, gibbed)
-	to_chat(imp_in, SPAN_NOTICE("Your dusting bio-chip activates!"))
+	to_chat(imp_in, SPAN_DANGER("Your dusting bio-chip activates!"))
 	imp_in.visible_message(SPAN_DANGER("[imp_in] burns up in a flash!"))
 	imp_in.dust()
 
