@@ -9,7 +9,7 @@ import {
   LabeledList,
   NoticeBox,
   Section, Stack,
-Table,
+  Table,
   Tabs,
   TextArea,
 } from 'tgui-core/components';
@@ -60,6 +60,7 @@ type Recipients = {
 
 type RecipientsData = {
   recipients: Recipients[];
+  selectedRecipient: Recipients;
 }
 
 export const MessageMonitorConsole = (properties) => {
@@ -79,7 +80,7 @@ export const MessageMonitorConsole = (properties) => {
   };
 
   return (
-    <Window width={800} height={400}>
+    <Window width={800} height={550}>
       <Window.Content scrollable>
         {PickPage(authenticated)}
       </Window.Content>
@@ -113,7 +114,7 @@ const MainPage = (_properties) => {
             Decrypted
           </Stack.Item>
           <Stack.Item>
-            <Button icon="sign-out-alt" content="Logout" color="good" onClick={() => act('logout')} />
+            <Button icon="lock" content="Encrypt" color="good" onClick={() => act('logout')} />
           </Stack.Item>
         </Stack>
       </NoticeBox>
@@ -191,6 +192,7 @@ const AuthPage = (_properties) => {
         <Box my="1rem">
           <Button
             content="Decrypt"
+            icon="unlock"
             disabled={!server || !password}
             onClick={() => act('decrypt', { server: server, password: password })}
           />
@@ -261,8 +263,11 @@ const CustomMessage = (_properties) => {
   const { recipients } = data;
   const [sender, setSender] = useState('');
   const [senderJob, setSenderJob] = useState('');
-  const [recipient, setRecipient] = useState('');
+  const [selectedRecipient, setRecipient] = useState();
   const [message, setMessage] = useState('');
+
+  let recipentMap = [];
+  recipients.map((recipient) => (recipentMap[recipient.name] = recipient.uid));
 
   return (
     <Stack>
@@ -278,8 +283,8 @@ const CustomMessage = (_properties) => {
             <Dropdown
               width="300px"
               options={recipients.map((recipient) => recipient.name)}
-              selected={recipient}
-              onSelected={(recipient) => setRecipient(recipient)}
+              selected={recipients.filter((recipient) => recipient.uid === selectedRecipient)[0]?.name}
+              onSelected={(recipient) => setRecipient(recipentMap[recipient])}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Message">
@@ -293,10 +298,10 @@ const CustomMessage = (_properties) => {
           </LabeledList.Item>
         </LabeledList>
         <Button
-          icon="right-to-bracket"
+          icon="arrow-up-from-bracket"
           content="Send"
-          disabled={!sender || !senderJob || !recipient || !message}
-          onClick={() => act('admin_msg', { sender: sender, senderJob: senderJob, recipient: recipient, message: message })}
+          disabled={!sender || !senderJob || !selectedRecipient || !message}
+          onClick={() => act('admin_msg', { sender: sender, senderJob: senderJob, recipient: selectedRecipient, message: message })}
         />
       </Stack.Item>
     </Stack>

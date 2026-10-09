@@ -135,6 +135,7 @@
 	if(linkedServer)
 		data["active"] = linkedServer.active
 		data["password"] = linkedServer.decryptkey
+		data["server"] = linkedServer.UID()
 		// PDA stuff.
 		var/list/PDA_log = list()
 		for(var/datum/data_pda_msg/P in linkedServer.pda_msgs)
@@ -189,7 +190,6 @@
 				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report."))
 				return
 			var/chosen_password = params["password"]
-			log_debug("Decrypting server [chosen_server] with password [chosen_password]")
 			if(chosen_server.decryptkey == chosen_password)
 				to_chat(ui.user, SPAN_NOTICE("Decryption successful!"))
 				auth = TRUE
@@ -223,9 +223,7 @@
 				to_chat(ui.user, SPAN_WARNING("No server found"))
 				return
 			var/datum/data_rc_msg/msg = locateUID(params["Rmessage"])
-			log_debug("[msg]")
 			var/datum/data_rc_msg/R = locate(msg) in linkedServer.rc_msgs
-			log_debug("[R]")
 			if(!istype(R, /datum/data_rc_msg))
 				to_chat(ui.user, SPAN_ALERT("Uh oh something went wrong please Ahelp or file a bug report, DeleteR error."))
 				return
@@ -237,7 +235,6 @@
 				to_chat(ui.user, SPAN_WARNING("No server found"))
 				return
 			var/datum/data_pda_msg/P = locateUID(params["Pmessage"])
-			log_debug("[P]")
 			if(!istype(P, /datum/data_pda_msg))
 				to_chat(ui.user, SPAN_ALERT("Uh oh something went wrong please Ahelp or file a bug report, DeleteP error."))
 				return
@@ -267,10 +264,9 @@
 				return
 			var/sender = params["sender"]
 			var/senderJob = params["senderJob"]
-			var/recipient = params["recipient"]
-			var/obj/item/pda/recipient_PDA = GLOB.PDAs[recipient]
+			var/obj/item/pda/recipient_PDA = locateUID(params["recipient"])
 			var/message = params["message"]
-			if(!istype(recipient, /obj/item/pda))
+			if(!istype(recipient_PDA, /obj/item/pda))
 				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
 				return
 			linkedServer.send_pda_message("[recipient_PDA.owner]", "[sender]", "[message]")
@@ -282,4 +278,4 @@
 			// Logging.
 			log_pda("(PDA: [sender]) sent \"[message]\" to [recipient_PDA.owner]", ui.user)
 			investigate_log("PDA Message - Custom Name: \"[sender]\", Custom Job: \"[senderJob]\", Real Sender: \"[key_name(ui.user)]\" ([ADMIN_PP(ui.user,"PP")]) -> [recipient_PDA.owner] ([ADMIN_VV(recipient_PDA, "VV")]), Message: \"[message]\"", "pda")
-			ui.user.create_log(MISC_LOG, "sent PDA message \"[message]\" using [ui.src_object] as [sender] ([senderJob]) to [recipient]")
+			ui.user.create_log(MISC_LOG, "sent PDA message \"[message]\" using [ui.src_object] as [sender] ([senderJob]) to [recipient_PDA]")
