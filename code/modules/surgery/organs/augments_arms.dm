@@ -935,15 +935,20 @@
 	name = "vortex feedback arm implant frame"
 	desc = "An implant awaiting installation of a vortex anomaly core."
 	icon_state = "v1_arm"
+	new_attack_chain = TRUE
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 
-/obj/item/v1_arm_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
-		to_chat(user, SPAN_NOTICE("You insert [I] into the back of the hand, and the implant begins to boot up."))
-		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
-		qdel(src)
-		qdel(I)
-	return ..()
+/obj/item/v1_arm_shell/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler/anomaly/vortex))
+		return ..()
+	to_chat(user, SPAN_NOTICE("You insert [used] into the back of the hand, and the implant begins to boot up."))
+	var/obj/item/organ/internal/cyberimp/arm/v1_arm/new_arm = new(get_turf(src))
+	transfer_fingerprints_to(new_arm)
+	used.transfer_fingerprints_to(new_arm)
+	new_arm.add_fingerprint(user)
+	qdel(src)
+	qdel(used)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/cyberimp/arm/muscle
 	name = "strong-arm empowered musculature implant"
