@@ -77697,7 +77697,7 @@
 	name = "inconspicuous wall"
 	},
 /obj/effect/mapping_helpers/turfs/rust,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "pvY" = (
 /obj/structure/chair/sofa/corp/left{

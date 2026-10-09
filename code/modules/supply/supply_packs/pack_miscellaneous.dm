@@ -259,7 +259,7 @@
 					/obj/item/soap/syndie)
 	cost = 250
 	containername = "suspicious soap crate"
-	hidden = TRUE
+	contraband = TRUE
 
 ///////////// Costumes
 

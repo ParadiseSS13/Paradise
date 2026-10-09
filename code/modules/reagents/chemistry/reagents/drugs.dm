@@ -523,7 +523,7 @@
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
+		to_chat(M, SPAN_DANGER("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font>"))
 		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.EyeBlind(2 SECONDS)
 		M.adjustToxLoss(5)

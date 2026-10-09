@@ -1,8 +1,8 @@
-import sys
-import time
-
 from avulto import DME, Dmlist
 from avulto.ast import Prefab
+import pytest
+
+from conftest import Lint
 
 
 def print_prefab(prefab: Prefab) -> str:
@@ -25,13 +25,9 @@ def check_list_items(dmlist: Dmlist, invalid_items: list) -> list:
 
     return invalid_items
 
-if __name__ == "__main__":
-    print("check_random_spawner_prefabs started")
 
-    exit_code = 0
-    start = time.time()
-
-    dme = DME.from_file("paradise.dme")
+@pytest.mark.lint("Random Spawner Prefabs")
+def test_random_spawner_prefabs(dme: DME, lint: Lint):
     prefabs_by_spawner = {}
 
     for pth in dme.subtypesof("/obj/effect/spawner/random"):
@@ -43,14 +39,16 @@ if __name__ == "__main__":
         if result := check_list_items(loot, invalid_items):
             prefabs_by_spawner[pth] = result
 
-    if prefabs_by_spawner:
-        exit_code = 1
-
     for pth, items in prefabs_by_spawner.items():
-        result_list = "\n".join(sorted([f"- {print_prefab(item)}" for item in items if isinstance(item, Prefab)]))
-        print(f"{pth} contains prefabs. Please convert these to subtypes:\n{result_list}")
-
-    end = time.time()
-    print(f"check_random_spawner_prefabs tests completed in {end - start:.2f}s\n")
-
-    sys.exit(exit_code)
+        result_list = "\n".join(
+            sorted(
+                [
+                    f"- {print_prefab(item)}"
+                    for item in items
+                    if isinstance(item, Prefab)
+                ]
+            )
+        )
+        lint.error(
+            f"{pth} contains prefabs. Please convert these to subtypes:\n{result_list}"
+        )
