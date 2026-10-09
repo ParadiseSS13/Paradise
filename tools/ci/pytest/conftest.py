@@ -4,6 +4,8 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Optional, cast
 
+from avulto import DME
+from avulto.ast import SourceLoc
 import pytest
 from pytest import FixtureRequest, Function, Item
 
@@ -51,6 +53,10 @@ class Lint:
 
     def error(self, msg: str, file: str | Path | None = None, line: int | None = None) -> None:
         self.errors.append(LintError(msg, str(file) if file is not None else None, line, self.title))
+
+    def error_source(self, msg: str, source_loc: SourceLoc) -> None:
+        self.errors.append(LintError(msg, str(source_loc.file_path), source_loc.line))
+
 
 # If we're in a GitHub Actions context, write annotations alongside the default failure messages
 def pytest_terminal_summary(terminalreporter: pytest.TerminalReporter) -> None:
@@ -122,6 +128,10 @@ def lint(request: FixtureRequest) -> Lint:
     marker = request.node.get_closest_marker("lint")
     title = marker.args[0] if marker else request.node.name
     return Lint(title)
+
+@pytest.fixture(scope="session")
+def dme() -> DME:
+    return DME.from_file(get_repo_root() / "paradise.dme", parse_procs=True)
 
 # Fuck it, send us to the repo root I guess.
 # We don't use absolute paths because they look bad in logging, only the local repository path should be shown when printing.
