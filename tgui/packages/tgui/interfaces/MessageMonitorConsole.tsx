@@ -8,7 +8,8 @@ import {
   Input,
   LabeledList,
   NoticeBox,
-  Section, Stack,
+  Section,
+  Stack,
   Table,
   Tabs,
   TextArea,
@@ -22,22 +23,22 @@ type ServerData = {
   server: string;
   active: boolean;
   password: string;
-}
+};
 
 type AuthData = {
   servers: string[];
-}
+};
 
 type PDALog = {
   recipient: string;
   sender: string;
   message: string;
   uid: string;
-}
+};
 
 type PDAData = {
   PDALog: PDALog[];
-}
+};
 
 type RCLog = {
   recievingDep: string;
@@ -47,21 +48,21 @@ type RCLog = {
   idAuth: string;
   priority: string;
   uid: string;
-}
+};
 
 type RCData = {
   RequestLog: RCLog[];
-}
+};
 
 type Recipients = {
   name: string;
   uid: string;
-}
+};
 
 type RecipientsData = {
   recipients: Recipients[];
   selectedRecipient: Recipients;
-}
+};
 
 export const MessageMonitorConsole = (properties) => {
   const { act, data } = useBackend<ServerData>();
@@ -81,9 +82,7 @@ export const MessageMonitorConsole = (properties) => {
 
   return (
     <Window width={800} height={550}>
-      <Window.Content scrollable>
-        {PickPage(authenticated)}
-      </Window.Content>
+      <Window.Content scrollable>{PickPage(authenticated)}</Window.Content>
     </Window>
   );
 };
@@ -93,7 +92,7 @@ const MainPage = (_properties) => {
   const { server, active, password } = data;
   const [tabIndex, setTabIndex] = useState(0);
 
-    const PickTab = (index) => {
+  const PickTab = (index) => {
     switch (index) {
       case 0:
         return <MessageLog />;
@@ -121,9 +120,7 @@ const MainPage = (_properties) => {
       <Section title="Authentication">
         <Box mb={2}>
           <LabeledList>
-            <LabeledList.Item label="Server">
-              {server ? server : 'Unset'}
-            </LabeledList.Item>
+            <LabeledList.Item label="Server">{server ? server : 'Unset'}</LabeledList.Item>
             <LabeledList.Item label="Server Password">
               <Button content={password ? password : 'Unset'} selected={1} onClick={() => act('password')} />
             </LabeledList.Item>
@@ -156,9 +153,7 @@ const MainPage = (_properties) => {
             Send custom message
           </Tabs.Tab>
         </Tabs>
-        <Section>
-          {PickTab(tabIndex)}
-        </Section>
+        <Section>{PickTab(tabIndex)}</Section>
       </Section>
     </Box>
   );
@@ -178,12 +173,7 @@ const AuthPage = (_properties) => {
         </Box>
         <Box color="label" my="1rem">
           Servers:
-          <Dropdown
-             width="150px"
-             options={servers}
-             selected={server}
-             onSelected={(server) => setServer(server)}
-          />
+          <Dropdown width="150px" options={servers} selected={server} onSelected={(server) => setServer(server)} />
         </Box>
         <Box color="label" my="1rem">
           Password:
@@ -206,24 +196,24 @@ const MessageLog = (_properties) => {
   const { act, data } = useBackend<PDAData>();
   const { PDALog } = data;
   return (
-      <Table m="0.5rem">
-        <Table.Row header>
-          <Table.Cell>Delete</Table.Cell>
-          <Table.Cell>Sender</Table.Cell>
-          <Table.Cell>Recipient</Table.Cell>
-          <Table.Cell>Message</Table.Cell>
+    <Table m="0.5rem">
+      <Table.Row header>
+        <Table.Cell>Delete</Table.Cell>
+        <Table.Cell>Sender</Table.Cell>
+        <Table.Cell>Recipient</Table.Cell>
+        <Table.Cell>Message</Table.Cell>
+      </Table.Row>
+      {PDALog.map((P) => (
+        <Table.Row key={P.sender}>
+          <Table.Cell>
+            <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteP', { Pmessage: P.uid })} />
+          </Table.Cell>
+          <Table.Cell>{P.sender}</Table.Cell>
+          <Table.Cell>{P.recipient}</Table.Cell>
+          <Table.Cell>{P.message}</Table.Cell>
         </Table.Row>
-        {PDALog.map((P) => (
-          <Table.Row key={P.sender}>
-            <Table.Cell>
-              <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteP', { Pmessage: P.uid })} />
-            </Table.Cell>
-            <Table.Cell>{P.sender}</Table.Cell>
-            <Table.Cell>{P.recipient}</Table.Cell>
-            <Table.Cell>{P.message}</Table.Cell>
-          </Table.Row>
-        ))}
-      </Table>
+      ))}
+    </Table>
   );
 };
 
@@ -301,7 +291,9 @@ const CustomMessage = (_properties) => {
           icon="arrow-up-from-bracket"
           content="Send"
           disabled={!sender || !senderJob || !selectedRecipient || !message}
-          onClick={() => act('admin_msg', { sender: sender, senderJob: senderJob, recipient: selectedRecipient, message: message })}
+          onClick={() =>
+            act('admin_msg', { sender: sender, senderJob: senderJob, recipient: selectedRecipient, message: message })
+          }
         />
       </Stack.Item>
     </Stack>
