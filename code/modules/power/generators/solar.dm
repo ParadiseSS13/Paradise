@@ -47,19 +47,19 @@
 		S.anchored = TRUE
 	S.loc = src
 	switch(S.glass_type)
-		if(/obj/item/stack/sheet/rglass) // if the panel is made of reinforced glass
+		if(/obj/item/stack/sheet/rglass)
 			max_integrity *= RGLASS_SOLAR_MULT
 			obj_integrity = max_integrity
 			solar_type = "solar_panel"
-		if(/obj/item/stack/sheet/plasmaglass) // if the panel is made of plasma glass
+		if(/obj/item/stack/sheet/plasmaglass)
 			max_integrity *= PLASMAGLASS_SOLAR_MULT
 			obj_integrity = max_integrity
 			solar_type = "solar_panel_p"
-		if(/obj/item/stack/sheet/plasmarglass) // if the panel is made of reinforced plasma glass
+		if(/obj/item/stack/sheet/plasmarglass)
 			max_integrity *= PLASMARGLASS_SOLAR_MULT
 			obj_integrity = max_integrity
 			solar_type = "solar_panel_p"
-		if(/obj/item/stack/sheet/plastitaniumglass) // if the panel is made of plastitanium glass
+		if(/obj/item/stack/sheet/plastitaniumglass)
 			max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
 			obj_integrity = max_integrity
 			solar_type = "solar_panel_t"
