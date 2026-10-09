@@ -559,7 +559,7 @@
 //AoE blasts
 /obj/item/borg/upgrade/modkit/aoe
 	modifier = 0
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 7000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	var/turf_aoe = FALSE
 	var/stats_stolen = FALSE
 
