@@ -129,3 +129,76 @@
 	new /obj/item/clothing/head/helmet/thunderdome(src)
 	new /obj/item/clothing/head/helmet/thunderdome(src)
 
+/obj/structure/closet/crate/cargo_pod
+	name = "supply pod"
+	desc = "A supply drop pod."
+	icon = 'icons/obj/2x2.dmi'
+	icon_state = "pod"
+	icon_opened = "pod_open"
+	icon_closed = "pod"
+	pixel_x = -16 // 2x2 sprite
+	material_drop = /obj/item/stack/sheet/plasteel
+	material_drop_amount = 5
+	max_integrity = 250
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, RAD = 100, FIRE = 100, ACID = 30)
+	anchored = TRUE
+	climbable = FALSE
+	light_range = 3
+	light_color = LIGHT_COLOR_ORANGE
+
+/obj/structure/closet/crate/cargo_pod/Initialize(mapload)
+	. = ..()
+	var/type = pick("norm", "adv", "dark")
+	switch(type)
+		if("norm")
+			return
+		if("adv")
+			icon_state = "advpod"
+			icon_opened = "advpod_open"
+			icon_closed = "advpod"
+			material_drop = /obj/item/stack/sheet/mineral/titanium
+		if("dark")
+			icon_state = "darkpod"
+			icon_opened = "darkpod_open"
+			icon_closed = "darkpod"
+			material_drop = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/closet/crate/cargo_pod/open(by_hand = FALSE)
+	if(opened)
+		return FALSE
+	if(!can_open())
+		return FALSE
+
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
+	for(var/obj/O in src) // Objects
+		O.forceMove(loc)
+	for(var/mob/M in src) // Mobs
+		M.forceMove(loc)
+	opened = TRUE
+	icon_state = icon_opened
+	return TRUE
+
+/obj/structure/closet/crate/cargo_pod/update_overlays()
+	. = ..()
+	overlays.Cut()
+	. += "pod_rubble"
+
+/obj/structure/closet/crate/cargo_pod/close()
+	if(!opened)
+		return FALSE
+	if(!can_close())
+		return FALSE
+
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
+	var/itemcount = 0
+	for(var/atom/movable/O in get_turf(src))
+		if(itemcount >= storage_capacity)
+			break
+		if(O.anchored)
+			continue
+		O.forceMove(src)
+		itemcount++
+
+	opened = FALSE
+	icon_state = icon_closed
+	return TRUE
