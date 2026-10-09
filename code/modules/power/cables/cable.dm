@@ -480,6 +480,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	connect_type = CABLE_HIGH_POWER
 	cable_coil_type = /obj/item/stack/cable_coil/extra_insulated
 	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
+	color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0)
+
+/obj/structure/cable/extra_insulated/Initialize(mapload)
+	. = ..()
+	color = null
 
 /// A pre unlocked bridge cable for mapping
 /obj/structure/cable/extra_insulated/pre_connect
