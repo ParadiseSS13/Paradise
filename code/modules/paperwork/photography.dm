@@ -415,7 +415,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	return mob_detail
 
 /obj/item/camera/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(is_surface(target))
+	if(is_surface(target) || isstorage(target))
 		return NONE
 	if(take_photo(target, user))
 		return ITEM_INTERACT_COMPLETE
