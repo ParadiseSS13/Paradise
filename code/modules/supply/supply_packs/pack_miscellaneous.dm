@@ -804,7 +804,7 @@
 	contains = list(/obj/item/storage/pill_bottle/random_drug_bottle,
 					/obj/item/poster/random_contraband,
 					/obj/item/storage/fancy/cigarettes/cigpack_carcinoma,
-					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims)
+					/obj/item/storage/fancy/cigarettes/cigpack_midori)
 	name = "Contraband Crate"
 	cost = 250
 	containername = "crate"	//let's keep it subtle, eh?
