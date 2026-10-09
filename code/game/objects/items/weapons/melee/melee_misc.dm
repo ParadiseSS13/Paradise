@@ -12,6 +12,10 @@
 		var/obj/effect/rune/R = I
 		var/rune_name = initial(R.cultist_name)
 		if(rune_name)
+			if((ispath(R, /obj/effect/rune/convert) || ispath(R, /obj/effect/rune/manifest) || ispath(R, /obj/effect/rune/narsie) || ispath(R, /obj/effect/rune/summon)) && IS_ACOLYTE(user))
+				continue
+			if(ispath(R, /obj/effect/rune/sacrifice) && !IS_ACOLYTE(user))
+				continue
 			possible_runes[rune_name] = R
 	if(!length(possible_runes))
 		return
@@ -97,6 +101,9 @@
 	R.add_hiddenprint(H)
 	R.color = H.dna.species.blood_color
 	R.rune_blood_color = H.dna.species.blood_color
+	if(IS_ACOLYTE(user) && rune.acolyte_desc)
+		to_chat(user, SPAN_CULT("The [lowertext(initial(rune.cultist_name))] rune [initial(rune.acolyte_desc)]"))
+		return
 	to_chat(user, SPAN_CULT("The [lowertext(initial(rune.cultist_name))] rune [initial(rune.cultist_desc)]"))
 
 /obj/item/melee/proc/narsie_rune_check(mob/living/user, area/A)

@@ -194,7 +194,7 @@
 		for(var/name in GLOB.body_accessory_by_species[species])
 			valid_body_accessories += name
 
-	return length(valid_body_accessories) ? sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : null
+	return length(valid_body_accessories) ? sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
 /**
   * Returns a random body accessory for a given species name. Can be null based on is_optional argument.

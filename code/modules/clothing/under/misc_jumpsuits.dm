@@ -1,6 +1,13 @@
 /obj/item/clothing/under/misc
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
+		)
 
 /obj/item/clothing/under/misc/pj/red
 	name = "red pj's"
@@ -69,23 +76,11 @@
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = FALSE // HUNKE
-	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
-		)
 
 /obj/item/clothing/under/misc/burial
 	name = "burial garments"
 	desc = "Traditional burial garments from the early 22nd century."
 	icon_state = "burial"
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi'
-	)
 
 /obj/item/clothing/under/misc/redhawaiianshirt
 	name = "red hawaiian shirt"
@@ -116,13 +111,6 @@
 /obj/item/clothing/under/misc/swimsuit
 	name = "abstract swimsuit"
 	desc = ABSTRACT_TYPE_DESC
-	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
-		)
 
 /obj/item/clothing/under/misc/swimsuit/black
 	name = "black swimsuit"
@@ -152,13 +140,6 @@
 /obj/item/clothing/under/misc/wetsuit
 	name = "abstract wetsuit"
 	desc = ABSTRACT_TYPE_DESC
-	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
-		)
 
 /obj/item/clothing/under/misc/wetsuit/green
 	name = "white and green wetsuit"
@@ -189,13 +170,6 @@
 	name = "baseball uniform"
 	desc = "A generic white and black uniform belonging to no team. Socks included!"
 	icon_state = "baseball"
-	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
-		)
 
 /obj/item/clothing/under/misc/baseball/solgov
 	name = "federation baseball uniform"

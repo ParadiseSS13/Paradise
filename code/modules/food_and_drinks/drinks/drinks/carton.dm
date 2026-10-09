@@ -3,7 +3,7 @@
 	desc = ABSTRACT_TYPE_DESC
 	possible_transfer_amounts = list(5,10,15,20,25,30)
 	volume = 30
-	icon = 'icons/obj/juice_box.dmi'
+	icon = 'icons/obj/drinks/juice_box.dmi'
 	icon_state = null
 	materials = list(MAT_CARDBOARD = 500)
 

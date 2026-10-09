@@ -8,7 +8,7 @@
 	var/list/placed_docks = list()
 	var/max_docks = 6
 	var/shuttleId = "whiteship"
-	var/possible_destinations
+	var/list/possibleDestinations = list()
 
 /obj/item/whiteship_port_generator/examine(mob/user)
 	. = ..()
@@ -111,16 +111,16 @@
 	port.register()
 
 	for(var/obj/machinery/computer/shuttle/white_ship/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/white_ship))
-		S.possible_destinations = null
+		S.possibleDestinations2 = alist()
 		S.connect()
-		possible_destinations = S.possible_destinations
+		possibleDestinations = S.possibleDestinations2.Copy()
 
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
 	to_chat(user, SPAN_NOTICE("Landing zone set."))
 
 /obj/item/whiteship_port_generator/AltClick(mob/user, modifiers)
 	for(var/obj/machinery/computer/shuttle/white_ship/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/white_ship))
-		possible_destinations = S.possible_destinations
+		possibleDestinations = S.possibleDestinations2.Copy()
 		break
 
 	ui_interact(user)
@@ -145,9 +145,8 @@
 		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
-		var/list/options = params2list(possible_destinations)
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
-			if(!options.Find(S.id))
+			if(!possibleDestinations.Find(S.id))
 				continue
 			if(!M.check_dock(S))
 				continue
@@ -164,10 +163,9 @@
 	if(!allowed(usr))
 		to_chat(usr, SPAN_DANGER("Access denied."))
 		return TRUE
-	var/list/options = params2list(possible_destinations)
 	if(action == "move")
 		var/destination = params["move"]
-		if(!options.Find(destination))//figure out if this translation works
+		if(!possibleDestinations.Find(destination))//figure out if this translation works
 			message_admins("[SPAN_BOLDANNOUNCEOOC("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
