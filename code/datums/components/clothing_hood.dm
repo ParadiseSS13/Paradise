@@ -27,7 +27,7 @@
 	src.act = new(parent)
 
 	// Old hooded items are referencing each each other.
-	if (istype(hood, /obj/item/clothing/head/hooded))
+	if(istype(hood, /obj/item/clothing/head/hooded))
 		var/obj/item/clothing/head/hooded/h = hood
 		h.suit = parent
 	if(istype(parent, /obj/item/clothing/suit/hooded))
