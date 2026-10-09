@@ -711,6 +711,9 @@
 /obj/machinery/button/windowtint/update_icon_state()
 	icon_state = "light[active]"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/windowtint, 25, 25)
+BUTTON_HELPERS(/obj/machinery/button/windowtint, 25, 5)
+
 /obj/structure/window/plasmabasic
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through. When hit with Gamma particles it will become charged and start emitting Beta particles"

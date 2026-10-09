@@ -125,3 +125,6 @@
 /obj/machinery/light_switch/off/Initialize(mapload, build_dir)
 	. = ..()
 	set_area_lightswitch(FALSE)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 25, 25)
+BUTTON_HELPERS(/obj/machinery/light_switch, 25, 5)
