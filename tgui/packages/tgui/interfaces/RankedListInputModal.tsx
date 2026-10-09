@@ -44,7 +44,7 @@ export const RankedListInputModal = (props) => {
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props) => {
+export const ListDisplay = (props) => {
   const { filteredItems, setEditedItems } = props;
   const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
 
