@@ -202,6 +202,15 @@
 /proc/rustlibs_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 	return RUSTLIB_CALL(dbp_generate, seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 
+/proc/rustlibs_perlin_generate_binary(seed, stamp_size, world_size, lower_range, upper_range)
+	return RUSTLIB_CALL(perlin_generate_binary, seed, stamp_size, world_size, lower_range, upper_range)
+
+/proc/rustlibs_perlin_generate_advanced(seed, world_size, frequency, divisor, octaves)
+	return RUSTLIB_CALL(perlin_generate_advanced, seed, world_size, frequency, divisor, octaves)
+#warn TODO: autodoc here mix 0.5 etc etc octaves 3
+/proc/rustlibs_perlin_generate_advanced_dlerp(seed, world_size, frequency, divisor, octaves, mix)
+	return RUSTLIB_CALL(perlin_generate_advanced_dlerp, seed, world_size, frequency, divisor, octaves, mix)
+
 // MARK: Redis
 #define RUSTLIBS_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
 
