@@ -278,7 +278,7 @@
 				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
 				return
 			recipient_messenger.notify("<b>Message from [sender] ([senderJob]), </b>\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=\ref[src]'>Reply</a>)")
-			// Logging
+			// Logging.
 			log_pda("(PDA: [sender]) sent \"[message]\" to [recipient.owner]", ui.user)
 			investigate_log("PDA Message - Custom Name: \"[sender]\", Custom Job: \"[senderJob]\", Real Sender: \"[key_name(ui.user)]\" ([ADMIN_PP(ui.user,"PP")]) -> [recipient.owner] ([ADMIN_VV(recipient, "VV")]), Message: \"[message]\"", "pda")
 			ui.user.create_log(MISC_LOG, "sent PDA message \"[message]\" using [ui.src_object] as [sender] ([senderJob]) to [recipient]")

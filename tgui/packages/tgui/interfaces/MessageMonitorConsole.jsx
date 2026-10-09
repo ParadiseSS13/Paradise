@@ -1,17 +1,16 @@
 import { useState } from 'react';
-
 import {
   Box,
   Button,
-  Icon,
-  LabeledList,
-  Section, Table,
-  Tabs,
-  Flex,
-  NoticeBox,
-  Stack,
   Dropdown,
+  Flex,
+  Icon,
   Input,
+  LabeledList,
+  NoticeBox,
+  Section, Stack,
+Table,
+  Tabs,
   TextArea,
 } from 'tgui-core/components';
 

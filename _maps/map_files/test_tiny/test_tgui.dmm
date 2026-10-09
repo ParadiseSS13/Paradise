@@ -83,6 +83,11 @@
 /obj/machinery/economy/vending/atmosdrobe,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
+"eo" = (
+/obj/machinery/computer/message_monitor,
+/obj/item/paper/monitorkey,
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
 "eO" = (
 /turf/space,
 /area/space)
@@ -274,6 +279,10 @@
 /obj/machinery/computer/teleporter{
 	dir = 1
 	},
+/turf/simulated/floor/carpet,
+/area/shuttle/arrival/station)
+"nO" = (
+/obj/machinery/message_server,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "nR" = (
@@ -36051,7 +36060,7 @@ Hz
 Hz
 Hz
 Hz
-JA
+eo
 JA
 JA
 JA
@@ -36308,7 +36317,7 @@ JA
 JA
 JA
 Hz
-JA
+nO
 JA
 Bw
 JA
