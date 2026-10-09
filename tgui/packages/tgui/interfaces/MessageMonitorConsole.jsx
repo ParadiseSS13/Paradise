@@ -12,7 +12,7 @@ import {
   Stack,
   Dropdown,
   Input,
-  Divider,
+  TextArea,
 } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
@@ -97,10 +97,9 @@ const MainPage = (_properties) => {
         <Box mb={2}>
           <Button content="Clear message logs" selected={0} onClick={() => act('clear_msg')} />
           <Button content="Clear request console logs" selected={0} onClick={() => act('clear_req')} />
-          <Button content="Send admin message" selected={0} onClick={() => act('admin_msg')} />
         </Box>
       </Section>
-      <Section title="Logs">
+      <Section>
         <Tabs>
           <Tabs.Tab key="MessageLog" selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
             View Message Log
@@ -174,7 +173,6 @@ const MessageLog = (_properties) => {
             <Table.Cell>{P.sender}</Table.Cell>
             <Table.Cell>{P.recipient}</Table.Cell>
             <Table.Cell>{P.message}</Table.Cell>
-            <Stack.Divider />
           </Table.Row>
         ))}
       </Table>
@@ -206,7 +204,6 @@ const RequestLog = (_properties) => {
           <Table.Cell>
             <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteR', { Rmessage: R.uid })} />
           </Table.Cell>
-          <Divider />
         </Table.Row>
       ))}
     </Table>
@@ -226,27 +223,33 @@ const CustomMessage = (_properties) => {
       <Stack.Item>
         <LabeledList>
           <LabeledList.Item label="Sender">
-            <Input onChange={(sender) => setSender(sender)} />
+            <Input fluid onChange={(sender) => setSender(sender)} />
           </LabeledList.Item>
           <LabeledList.Item label="Sender's job">
-            <Input onChange={(senderJob) => setSenderJob(senderJob)} />
+            <Input fluid onChange={(senderJob) => setSenderJob(senderJob)} />
           </LabeledList.Item>
           <LabeledList.Item label="Recipient">
             <Dropdown
-             width="150px"
-             options={recipients.name}
-             selected={recipient}
-             onSelected={(recipient) => setRecipient(recipient)}
+              width="300px"
+              options={recipients.map((recipient) => recipient.name)}
+              selected={recipient}
+              onSelected={(recipient) => setRecipient(recipient)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Message">
-            <Input onChange={(message) => setMessage(message)} />
+            <TextArea
+              fluid
+              height="7rem"
+              placeholder="Type your maessage here"
+              onChange={(message) => setMessage(message)}
+              value={message}
+            />
           </LabeledList.Item>
         </LabeledList>
         <Button
           content="Send"
           disabled={!sender || !senderJob || !recipient || !message}
-          onClick={() => act('message', { sender: sender, senderJob: senderJob, recipient: recipient.uid, message: message })}
+          onClick={() => act('admin_msg', { sender: sender, senderJob: senderJob, recipient: recipient.uid, message: message })}
         />
       </Stack.Item>
     </Stack>

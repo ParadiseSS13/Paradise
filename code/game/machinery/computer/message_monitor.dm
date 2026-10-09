@@ -165,6 +165,16 @@
 
 	data["servers"] = servers
 
+	// All possible PDAs to send messages to.
+	var/list/recipients = list()
+	for(var/obj/item/pda/P in GLOB.PDAs)
+		var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+		if(!PM || !PM.can_receive())
+			continue
+		recipients += list(list("uid" = P.UID(), "name" = P.name))
+
+	data["recipients"] = recipients
+
 	return data
 
 /obj/machinery/computer/message_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -253,4 +263,10 @@
 			to_chat(ui.user, SPAN_NOTICE("All Request Console messages cleared!"))
 
 		if("admin_msg")
-			return
+			if(!check_password())
+				to_chat(ui.user, SPAN_WARNING("No server found"))
+				return
+			var/sender = params["sender"]
+			var/senderJob = params["senderJob"]
+			var/obj/item/pda/recipient = locateUID(params["recipient"])
+			var/message = params["message"]
