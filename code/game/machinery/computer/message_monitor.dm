@@ -196,11 +196,11 @@
 				linkedServer = chosen_server
 			else
 				to_chat(ui.user, SPAN_WARNING("Decryption failed!"))
+
 		// Log out of the server
 		if("logout")
 			auth = FALSE
 			linkedServer = null
-		if("server")
 
 		// Chnage the password
 		if("password")
@@ -226,11 +226,10 @@
 			log_debug("[msg]")
 			var/datum/data_rc_msg/R = locate(msg) in linkedServer.rc_msgs
 			log_debug("[R]")
-			if(istype(R, /datum/data_rc_msg))
-				linkedServer.rc_msgs -= R
-				to_chat(ui.user, SPAN_NOTICE("Request message deleted!"))
-			else
-				to_chat(ui.user, SPAN_WARNING("Could not delete the Request message!"))
+			if(!istype(R, /datum/data_rc_msg))
+				to_chat(ui.user, SPAN_ALERT("Uh oh something went wrong please Ahelp or file a bug report, DeleteR error."))
+				return
+			to_chat(ui.user, SPAN_NOTICE("Request message deleted!"))
 
 		// Deletes a specific PDA messages
 		if("deleteP")
@@ -240,7 +239,7 @@
 			var/datum/data_pda_msg/P = locateUID(params["Pmessage"])
 			log_debug("[P]")
 			if(!istype(P, /datum/data_pda_msg))
-				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report."))
+				to_chat(ui.user, SPAN_ALERT("Uh oh something went wrong please Ahelp or file a bug report, DeleteP error."))
 				return
 			linkedServer.pda_msgs -= P
 			to_chat(ui.user, SPAN_NOTICE("PDA message deleted!"))
@@ -270,3 +269,16 @@
 			var/senderJob = params["senderJob"]
 			var/obj/item/pda/recipient = locateUID(params["recipient"])
 			var/message = params["message"]
+			if(!istype(recipient, /obj/item/pda))
+				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
+				return
+			linkedServer.send_pda_message("[recipient.owner]", "[sender]", "[message]")
+			var/datum/data/pda/app/messenger/recipient_messenger = recipient.find_program(/datum/data/pda/app/messenger/)
+			if(!istype(recipient_messenger, /datum/data/pda/app/messenger/))
+				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
+				return
+			recipient_messenger.notify("<b>Message from [sender] ([senderJob]), </b>\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=\ref[src]'>Reply</a>)")
+			// Logging
+			log_pda("(PDA: [sender]) sent \"[message]\" to [recipient.owner]", ui.user)
+			investigate_log("PDA Message - Custom Name: \"[sender]\", Custom Job: \"[senderJob]\", Real Sender: \"[key_name(ui.user)]\" ([ADMIN_PP(ui.user,"PP")]) -> [recipient.owner] ([ADMIN_VV(recipient, "VV")]), Message: \"[message]\"", "pda")
+			ui.user.create_log(MISC_LOG, "sent PDA message \"[message]\" using [ui.src_object] as [sender] ([senderJob]) to [recipient]")
