@@ -918,7 +918,7 @@
 	},
 /area/holodeck/source_snowfield)
 "dC" = (
-/obj/structure/bed,
+/obj/structure/bed/dirty,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dD" = (
@@ -9850,6 +9850,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Jj" = (
+/obj/structure/bed/dirty,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Jl" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/food/grown/potato,
@@ -70128,13 +70132,13 @@ lf
 lW
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 aN
 aN
@@ -72184,13 +72188,13 @@ kU
 kU
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 aN
 aN
