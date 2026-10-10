@@ -3,7 +3,7 @@
 //		Vendor		//
 //////////////////////
 
-/obj/item/food/chips
+/obj/item/food/chips // crisps you fucking americans
 	name = "chips"
 	desc = "Commander Riker's What-The-Crisps."
 	icon_state = "chips"

@@ -51,6 +51,10 @@
 	name = "\improper Mining Shuttle"
 	icon_state = "shuttle"
 
+/area/shuttle/engineering
+	name = "\improper Engineering Shuttle"
+	icon_state = "shuttle"
+
 /area/shuttle/transport
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"
@@ -125,6 +129,11 @@
 	icon_state = "purple"
 	xenobiology_compatible = TRUE
 	parallax_move_direction = WEST
+
+
+/area/shuttle/constructionsite
+	name = "\improper Construction Site Shuttle"
+	icon_state = "yellow"
 
 /// Currently disabled as our shuttle system does not support TG-shuttle areas yet
 // /area/shuttle/transit
