@@ -1,5 +1,3 @@
-# This is basically a slightly edited verison of unticked_files.py.
-# Look there for precise documentation on the methods used here.
 import bisect
 import re
 from pathlib import Path

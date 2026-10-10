@@ -1,20 +1,3 @@
-# Naive search for unticked files. Has no semantic knowledge, just a lexical
-# search for #include directives against existing file paths.
-#
-# Usage:
-#  python unticked_files.py C:\Path\To\Paradise\
-#
-# Returns 0 if all existing files are considered ticked, 1 otherwise.
-
-# When running in POSIX environments, the include paths in the codebase need to
-# be munged into PureWindowsPaths before being spit back out. Otherwise, the
-# checker will attempt to find files named e.g. /workspace/code\\foo.dm, which
-# translates to the (completely legitimate) filename "code\foo.dm" in the
-# /workspace directory.
-#
-# For more information, see the discussion of pure paths in the pathlib
-# documentation.
-import bisect
 import re
 from pathlib import Path
 
