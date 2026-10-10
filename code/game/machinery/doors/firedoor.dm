@@ -25,7 +25,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	cares_about_temperature = TRUE
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
-	/// How long does opening by hand take, in deciseconds.
+	/// How long does opening by hand take?
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
 	var/nextstate = null
@@ -226,12 +226,20 @@
 	open()
 
 /obj/machinery/door/firedoor/do_animate(animation)
+	// Do we play the animation with no back door?
+	var/obscured_animation = FALSE
+	if(locate(/obj/machinery/door/airlock) in loc.contents)
+		obscured_animation = TRUE
 	switch(animation)
 		if("opening")
-			flick("door_opening", src)
+			flick("door_opening[obscured_animation ? "_obscured" : ""]", src)
+			if(obscured_animation)
+				new /obj/effect/temp_visual/dir_setting/firedoor_back_opening(get_turf(src), dir)
 			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
 		if("closing")
-			flick("door_closing", src)
+			flick("door_closing[obscured_animation ? "_obscured" : ""]", src)
+			if(obscured_animation)
+				new /obj/effect/temp_visual/dir_setting/firedoor_back_closing(get_turf(src), dir)
 			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
 
 /obj/machinery/door/firedoor/update_icon_state()
@@ -242,6 +250,7 @@
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
+	overlays.Cut()
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
@@ -274,11 +283,12 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/close()
-	. = ..()
 	var/direction = get_current_direction()
 	dir = direction ? direction : NORTH
 	update_icon()
+	. = ..()
 	latetoggle()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/autoclose()
 	if(active_alarm)

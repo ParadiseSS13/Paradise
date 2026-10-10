@@ -546,3 +546,17 @@
 			icon_state = "beam_splash_w"
 		if(EAST)
 			icon_state = "beam_splash_e"
+
+/obj/effect/temp_visual/dir_setting/firedoor_back_opening
+	name = "firelock"
+	icon = 'icons/obj/doors/doorfireglass.dmi'
+	icon_state = "door_opening_hidden"
+	layer = BELOW_OPEN_DOOR_LAYER
+	duration = 12 DECISECONDS
+
+/obj/effect/temp_visual/dir_setting/firedoor_back_closing
+	name = "firelock"
+	icon = 'icons/obj/doors/doorfireglass.dmi'
+	icon_state = "door_closing_hidden"
+	layer = BELOW_OPEN_DOOR_LAYER
+	duration = 12 DECISECONDS
