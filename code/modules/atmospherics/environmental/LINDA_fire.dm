@@ -57,7 +57,7 @@
 		var/r_delta = abs(rgb[1] - light_rgb[1])
 		var/g_delta = abs(rgb[2] - light_rgb[2])
 		var/b_delta = abs(rgb[3] - light_rgb[3])
-		if(r_delta > 10 || g_delta > 10 || b_delta)
+		if(r_delta > 10 || g_delta > 10 || b_delta > 10)
 			set_light(l_color = color)
 
 	if(fuel_burnt > 1)
