@@ -4,49 +4,16 @@
 	containertype = /obj/structure/closet/crate/internals
 	group = SUPPLY_EMERGENCY
 
-/datum/supply_packs/emergency/evac
-	name = "Emergency Equipment Crate"
-	contains = list(/mob/living/basic/bot/repairbot,
-					/mob/living/basic/bot/repairbot,
-					/mob/living/basic/bot/medbot,
-					/mob/living/basic/bot/medbot,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/storage/box/oxygen_grenades,
-					/obj/item/storage/box/oxygen_grenades)
-	cost = 400
-	containername = "emergency crate"
+// MARK: Illumination
+/datum/supply_packs/emergency/floodlight
+	name = "Emergency Flood Light"
+	contains = list(/obj/machinery/floodlight,
+					/obj/item/wrench)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "emergency flood light"
 
-/datum/supply_packs/emergency/glowstick/emergency
-	name = "Emergency Glowstick Crate"
-	contains = list(/obj/item/storage/box/large/glowstick/emergency,
-					/obj/item/storage/box/large/glowstick/emergency,
-					/obj/item/storage/box/large/glowstick/emergency,
-					/obj/item/storage/box/large/glowstick/emergency,
-					/obj/item/storage/box/large/glowstick/emergency)
-	cost = 100
-	containertype = /obj/structure/closet/crate
-	containername = "emergency glowstick crate"
-
-/datum/supply_packs/emergency/glowstick/premium
-	name = "Premium Glowstick Crate"
-	contains = list(/obj/item/storage/box/glowstick/premium,
-					/obj/item/storage/box/glowstick/premium,
-					/obj/item/storage/box/glowstick/premium,
-					/obj/item/storage/box/glowstick/premium)
-	cost = 200
-	containertype = /obj/structure/closet/crate
-	containername = "premium glowstick crate"
-
-/datum/supply_packs/emergency/flares
+/datum/supply_packs/emergency/flare
 	name = "Emergency Flare Crate"
 	contains = list(/obj/item/storage/box/flares,
 					/obj/item/storage/box/flares,
@@ -55,47 +22,141 @@
 	containertype = /obj/structure/closet/crate
 	containername = "emergency flare crate"
 
+/datum/supply_packs/emergency/flare/glowstick
+	name = "Premium Glowstick Crate"
+	contains = list(/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium)
+	cost = 200
+	containername = "premium glowstick crate"
+
+/datum/supply_packs/emergency/flare/emergency_glowstick
+	name = "Emergency Glowstick Crate"
+	contains = list(/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency,
+					/obj/item/storage/box/large/glowstick/emergency)
+	cost = 100
+	containername = "emergency glowstick crate"
+
+// MARK: Life support
 /datum/supply_packs/emergency/internals
 	name = "Internals Crate"
 	contains = list(/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air,
-					/obj/item/tank/internals/air)
+					/obj/item/clothing/mask/gas,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest)
 	cost = 100
 	containername = "internals crate"
 
+/datum/supply_packs/emergency/internals/vox
+	name = "Internals Crate (Vox)"
+	contains = list(/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/tank/internals/emergency_oxygen/double/vox,
+					/obj/item/tank/internals/emergency_oxygen/double/vox,
+					/obj/item/tank/internals/emergency_oxygen/double/vox,
+					/obj/item/tank/internals/emergency_oxygen/double/vox,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest)
+	containertype = /obj/structure/closet/crate/internals/nitrogen
+	containername = "internals crate (vox)"
+
+/datum/supply_packs/emergency/internals/plasmaman
+	name = "Internals Crate (Plasmaman)"
+	contains = list(/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/tank/internals/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
+					/obj/item/clothing/head/helmet/space/plasmaman,
+					/obj/item/clothing/head/helmet/space/plasmaman,
+					/obj/item/clothing/head/helmet/space/plasmaman,
+					/obj/item/clothing/head/helmet/space/plasmaman,
+					/obj/item/clothing/under/plasmaman,
+					/obj/item/clothing/under/plasmaman,
+					/obj/item/clothing/under/plasmaman,
+					/obj/item/clothing/under/plasmaman)
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "internals crate (plasmaman)"
+	access = ACCESS_EVA
+
+/datum/supply_packs/emergency/damage_control
+	name = "Emergency Damage Control Crate"
+	contains = list(/mob/living/basic/bot/repairbot,
+					/mob/living/basic/bot/repairbot,
+					/mob/living/basic/bot/medbot,
+					/mob/living/basic/bot/medbot,
+					/obj/item/grenade/chem_grenade/metalfoam,
+					/obj/item/grenade/chem_grenade/metalfoam,
+					/obj/item/grenade/chem_grenade/metalfoam,
+					/obj/item/storage/box/oxygen_grenades,
+					/obj/item/storage/box/oxygen_grenades,
+					/obj/item/storage/box/oxygen_grenades)
+	cost = 100
+	containertype = /obj/structure/closet/crate/engineering
+	containername = "emergency damage control crate"
+
+// MARK: Firefighting
 /datum/supply_packs/emergency/firefighting
 	name = "Firefighting Crate"
-	contains = list(/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/clothing/mask/gas,
-					/obj/item/clothing/mask/gas,
-					/obj/item/flashlight,
-					/obj/item/flashlight,
-					/obj/item/tank/internals/oxygen/red,
-					/obj/item/tank/internals/oxygen/red,
-					/obj/item/extinguisher,
-					/obj/item/extinguisher,
+	contains = list(/mob/living/basic/bot/firebot,
+					/mob/living/basic/bot/firebot,
 					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red)
+					/obj/item/clothing/head/hardhat/red,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/suit/fire/firefighter,
+					/obj/item/clothing/suit/fire/firefighter,
+					/obj/item/tank/internals/oxygen/red,
+					/obj/item/tank/internals/oxygen/red,
+					/obj/item/flashlight,
+					/obj/item/flashlight,
+					/obj/item/extinguisher,
+					/obj/item/extinguisher,
+					/obj/item/grenade/chem_grenade/firefighting,
+					/obj/item/grenade/chem_grenade/firefighting)
 	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "firefighting crate"
 
 /datum/supply_packs/emergency/atmostank
-	name = "Firefighting Watertank Crate"
+	name = "Firefighting Water Tank Crate"
 	contains = list(/obj/item/watertank/atmos)
 	cost = 100
-	containertype = /obj/structure/closet/crate/secure
-	containername = "firefighting watertank crate"
-	access = ACCESS_ATMOSPHERICS
+	containertype = /obj/structure/largecrate
+	containername = "firefighting water tank crate"
 
+/datum/supply_packs/emergency/foamtank
+	name = "Firefighting Foam Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/watertank/firetank)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "firefighting foam tank crate"
+
+// MARK: Misc
 /datum/supply_packs/emergency/weedcontrol
 	name = "Weed Control Crate"
 	contains = list(/obj/item/scythe,
 					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/grenade/chem_grenade/antiweed,
 					/obj/item/grenade/chem_grenade/antiweed)
 	cost = 300
@@ -105,31 +166,6 @@
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 	department_restrictions = list(DEPARTMENT_SERVICE)
 
-/datum/supply_packs/emergency/voxsupport
-	name = "Vox Life Support Supplies"
-	contains = list(/obj/item/clothing/mask/breath/vox,
-					/obj/item/clothing/mask/breath/vox,
-					/obj/item/tank/internals/emergency_oxygen/double/vox,
-					/obj/item/tank/internals/emergency_oxygen/double/vox)
-	cost = 200
-	containertype = /obj/structure/closet/crate/internals/nitrogen
-	containername = "vox life support supplies crate"
-
-/datum/supply_packs/emergency/plasmamansupport
-	name = "Plasmaman Supply Kit"
-	contains = list(/obj/item/clothing/under/plasmaman,
-					/obj/item/clothing/under/plasmaman,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/mask/breath,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman)
-	cost = 200
-	containertype = /obj/structure/closet/crate/secure/plasma
-	containername = "plasmaman life support supplies crate"
-	access = ACCESS_EVA
-
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
 	contains = list(/obj/item/storage/box/emps,
@@ -138,14 +174,8 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/pen/sleepy,
 					/obj/item/grenade/chem_grenade/incendiary)
-	cost = 150 //this is hard enough to get, lets make it easier to buy
+	cost = 150 // This is hard enough to get, let's make it easier to buy.
 	containertype = /obj/structure/closet/crate
 	containername = "special ops crate"
 	hidden = TRUE
 
-/datum/supply_packs/emergency/floodlight
-	name = "Emergency Flood Light"
-	contains = list(/obj/machinery/floodlight)
-	cost = 250
-	containertype = /obj/structure/largecrate
-	containername = "emergency flood light"
