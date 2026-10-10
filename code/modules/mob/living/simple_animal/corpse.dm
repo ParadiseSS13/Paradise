@@ -145,6 +145,11 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 
+/obj/effect/mob_spawn/human/corpse/vox
+	name = "Vox"
+	mob_name = "Vox"
+	mob_species = /datum/species/vox
+
 /obj/effect/mob_spawn/human/corpse/vox_miner
 	name = "Vox Miner"
 	mob_name = "Vox Miner"

@@ -28,7 +28,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/powered)
 "h" = (
-/mob/living/basic/vox_miner/foreman,
+/mob/living/basic/vox/miner/foreman,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin)
 "j" = (
@@ -151,7 +151,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "O" = (
-/mob/living/basic/vox_miner,
+/mob/living/basic/vox/miner,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin)
 "P" = (

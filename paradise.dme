@@ -2912,6 +2912,8 @@
 #include "code\modules\mob\living\basic\hostile\megafauna\space_whale\space_whale_ai.dm"
 #include "code\modules\mob\living\basic\hostile\megafauna\vox_armalis\vox_armalis.dm"
 #include "code\modules\mob\living\basic\hostile\megafauna\vox_armalis\vox_armalis_actions.dm"
+#include "code\modules\mob\living\basic\hostile\megafauna\vox_quill\vox_quill.dm"
+#include "code\modules\mob\living\basic\hostile\megafauna\vox_quill\vox_quill_actions.dm"
 #include "code\modules\mob\living\basic\hostile\nether_mobs\blankbody.dm"
 #include "code\modules\mob\living\basic\hostile\nether_mobs\creature.dm"
 #include "code\modules\mob\living\basic\hostile\nether_mobs\faithless.dm"
