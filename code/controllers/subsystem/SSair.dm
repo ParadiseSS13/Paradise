@@ -443,8 +443,10 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.active_hotspot))
-					// Wasn't an active hotspot before, add it.
-					hotspots += S
+					// Wasn't an active hotspot before, add it if something is burning.
+					// MILLA also sends tiles that are only hot, and a hotspot there would just get deleted again in update_hotspot().
+					if(fuel_burnt >= 0.001)
+						hotspots += S
 				else
 					S.active_hotspot.temperature = temperature
 					S.active_hotspot.fuel_burnt = fuel_burnt
