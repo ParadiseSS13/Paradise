@@ -817,14 +817,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	// This is a horrible (but fast) way to do this. Don't copy it.
 	// It's only used here because we know we're in safe code and this method is called a ton.
-	var/datum/gas_mixture/air
+	var/moles
 	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
-		air = get_readonly_air()
+		// Nothing has touched this tile's air this tick, so it still has what MILLA sent along with the wind.
+		moles = wind_moles
 	else
-		air = bound_air
+		moles = bound_air.total_moles()
 
 	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
-	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
+	var/wind_strength = wind * moles / MOLES_CELLSTANDARD
 	wind_effect.alpha = min(255, 5 + wind_strength * 25)
 	return TRUE
 
