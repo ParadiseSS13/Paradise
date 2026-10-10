@@ -320,6 +320,25 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/head/helmet/space/syndicate/black/engie,
 		DYE_NTREP = /obj/item/clothing/head/helmet/space/syndicate/blue,
 	),
+	DYE_REGISTRY_OVERSUIT = list(
+		DYE_BLACK = /obj/item/clothing/suit/oversuit/black,
+		DYE_WHITE = /obj/item/clothing/suit/oversuit,
+		DYE_RED = /obj/item/clothing/suit/oversuit/red,
+		DYE_LIGHTRED = /obj/item/clothing/suit/oversuit/red,
+		DYE_GREEN = /obj/item/clothing/suit/oversuit/green,
+		DYE_CAPTAIN = /obj/item/clothing/suit/oversuit/darkblue,
+		DYE_NTREP = /obj/item/clothing/suit/oversuit/darkblue,
+		DYE_PURPLE = /obj/item/clothing/suit/oversuit/purple,
+		DYE_LIGHTPURPLE = /obj/item/clothing/suit/oversuit/purple,
+		DYE_RD = /obj/item/clothing/suit/oversuit/purple,
+		DYE_YELLOW = /obj/item/clothing/suit/oversuit/yellow,
+		DYE_CE = /obj/item/clothing/suit/oversuit/orange,
+		DYE_ORANGE = /obj/item/clothing/suit/oversuit/orange,
+		DYE_CMO = /obj/item/clothing/suit/oversuit/cyan,
+		DYE_BLUE = /obj/item/clothing/suit/oversuit/cyan,
+		DYE_LIGHTBLUE = /obj/item/clothing/suit/oversuit/darkblue,
+		DYE_YELLOWGREEN = /obj/item/clothing/suit/oversuit/green,
+	),
 ))
 
 // Palettes for clothing
