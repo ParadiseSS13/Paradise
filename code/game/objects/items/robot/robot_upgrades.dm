@@ -8,6 +8,7 @@
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
 	materials = list(MAT_METAL = 10000)
+	new_attack_chain = TRUE
 	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
 	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
@@ -122,11 +123,16 @@
 	materials = list(MAT_METAL = 35000)
 	var/heldname = "default name"
 
-/obj/item/borg/upgrade/rename/attack_self__legacy__attackchain(mob/user)
+/obj/item/borg/upgrade/rename/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	if(!new_heldname)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	heldname = new_heldname
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)

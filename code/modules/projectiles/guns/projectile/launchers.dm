@@ -1,7 +1,7 @@
 //KEEP IN MIND: These are different from gun/grenadelauncher. These are designed to shoot premade rocket and grenade projectiles, not flashbangs or chemistry casings etc.
 //Put handheld rocket launchers here if someone ever decides to make something so hilarious ~Paprika
 
-//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
+// This is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes.
 /obj/item/gun/projectile/revolver/grenadelauncher
 	name = "grenade launcher"
 	desc = "A break-action grenade launcher."
@@ -14,10 +14,13 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	can_holster = FALSE  // Not your normal revolver
 
-/obj/item/gun/projectile/revolver/grenadelauncher/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+/obj/item/gun/projectile/revolver/grenadelauncher/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/ammo_box) || istype(used, /obj/item/ammo_casing))
+		magazine.item_interaction(user, used, modifiers)
 		chamber_round()
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."
@@ -32,7 +35,7 @@
 	icon_state = "mecha_grenadelnchr"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/fifteen
 
-/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self__legacy__attackchain()
+/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/handle_activate_self(mob/user)
 	return
 
 /obj/item/gun/projectile/automatic/gyropistol
@@ -75,15 +78,14 @@
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
 
-/obj/item/gun/projectile/automatic/speargun/attack_self__legacy__attackchain()
-	return
-
 /obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-/obj/item/gun/projectile/automatic/speargun/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
+/obj/item/gun/projectile/automatic/speargun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/num_loaded = magazine.load_box(used, user, silent = TRUE)
 	if(num_loaded)
 		to_chat(user, SPAN_NOTICE("You load [num_loaded] spear\s into \the [src]."))
 		update_icon()
 		chamber_round()
+		return ITEM_INTERACT_COMPLETE
+	return NONE

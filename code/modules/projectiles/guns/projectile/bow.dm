@@ -28,7 +28,7 @@
 		ready_to_fire = FALSE
 		update_icon()
 
-/obj/item/gun/projectile/bow/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/gun/projectile/bow/handle_activate_self(mob/user)
 	if(!ready_to_fire && magazine.ammo_count())
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, 1)
@@ -37,12 +37,15 @@
 		ready_to_fire = FALSE
 		update_icon()
 
-/obj/item/gun/projectile/bow/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.load_box(A, user, silent = TRUE)
+/obj/item/gun/projectile/bow/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/num_loaded = magazine.load_box(used, user, silent = TRUE)
 	if(num_loaded)
-		to_chat(user, SPAN_NOTICE("You ready \the [A] into \the [src]."))
+		to_chat(user, SPAN_NOTICE("You ready [used] into [src]."))
 		update_icon()
 		chamber_round()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/bow/can_shoot()
 	. = ..()
