@@ -125,6 +125,9 @@
 /obj/item/stack/tile/carpet/twenty
 	amount = 20
 
+/obj/item/stack/tile/carpet/sixty
+	amount = 60
+
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
 	desc = "Elegant black textile flooring with a gold trim around the edges."
