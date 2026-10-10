@@ -11,7 +11,7 @@
 	var/static/list/painter_type_list = list(
 		"Floor Painter" = /datum/painter/floor,
 		"Pipe Painter" = /datum/painter/pipe,
-		"Window Painter" = /datum/painter/pipe/window,
+		"Window Painter" = /datum/painter/window,
 		"Airlock Painter" = /datum/painter/airlock,
 		"Decal Painter" = /datum/painter/decal)
 
