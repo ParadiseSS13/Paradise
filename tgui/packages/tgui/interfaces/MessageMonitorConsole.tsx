@@ -75,7 +75,7 @@ export const MessageMonitorConsole = (properties) => {
       case 1:
         return <MainPage />;
       default:
-        return 'SOMETHING WENT VERY WRONG PLEASE AHELP, PickPage error';// `PickPage error` so we get a bit more info from the error meesage.
+        return 'SOMETHING WENT VERY WRONG PLEASE AHELP, PickPage error'; // `PickPage error` so we get a bit more info from the error meesage.
     }
   };
 
