@@ -2806,7 +2806,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/mob/living/basic/bot/secbot/buzzsky/telecomms,
 /obj/machinery/alarm/server/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
@@ -3020,7 +3020,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/mob/living/basic/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "YA" = (

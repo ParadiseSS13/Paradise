@@ -232,13 +232,15 @@
 	id = "cult_stun"
 	duration = 10 SECONDS // when the knockdown ends, the mark disappears.
 	alert_type = null
+	/// The icon we use for the stun overlay
+	var/stun_icon = "cult-mark"
 	var/mutable_appearance/overlay
 
 /datum/status_effect/cult_stun_mark/on_apply()
 	. = ..()
 	if(!isliving(owner))
 		return
-	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	overlay = mutable_appearance('icons/effects/cult_effects.dmi', stun_icon, ABOVE_MOB_LAYER)
 	owner.add_overlay(overlay)
 
 /datum/status_effect/cult_stun_mark/on_remove()
@@ -248,6 +250,9 @@
 	owner.apply_damage(60, STAMINA)
 	owner.Silence(6 SECONDS) // refresh the silence
 	qdel(src)
+
+/datum/status_effect/cult_stun_mark/acolyte
+	stun_icon = "acolyte-mark"
 
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"

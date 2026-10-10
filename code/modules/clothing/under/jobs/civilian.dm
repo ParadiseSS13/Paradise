@@ -177,3 +177,7 @@
 	desc = "It's a barber's uniform."
 	name = "barber's uniform"
 	icon_state = "barber"
+
+/obj/item/clothing/under/rank/civilian/mime/skirt/long
+	name = "mime's long skirt"
+	icon_state = "mime_long"

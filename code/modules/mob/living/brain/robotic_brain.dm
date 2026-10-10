@@ -145,7 +145,7 @@
 	. = ..()
 	. += "Its speaker is turned [silenced ? "off" : "on"]."
 
-	var/list/msg = list("<span class='notice'>")
+	var/list/msg = list()
 
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
@@ -158,8 +158,7 @@
 				msg += "[SPAN_DEADSAY("It appears to be completely inactive.")]\n"
 	else
 		msg += "[SPAN_DEADSAY("It appears to be completely inactive.")]\n"
-	msg += "</span>"
-	. += msg.Join("")
+	. += SPAN_NOTICE(msg.Join(""))
 
 /obj/item/mmi/robotic_brain/emp_act(severity)
 	if(!brainmob)
