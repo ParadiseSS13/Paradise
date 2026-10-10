@@ -1,5 +1,14 @@
+# When running in POSIX environments, the include paths in the codebase need to
+# be munged into PureWindowsPaths before being spit back out. Otherwise, the
+# checker will attempt to find files named e.g. /workspace/code\\foo.dm, which
+# translates to the (completely legitimate) filename "code\foo.dm" in the
+# /workspace directory.
+#
+# For more information, see the discussion of pure paths in the pathlib
+# documentation.
+
 import re
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 import pytest
 from conftest import Lint
@@ -27,7 +36,7 @@ def test_unticked_files(lint: Lint, repo_root: Path, dm_files: list[Path]):
             content = file.read()
 
         for result in pattern.finditer(content):
-            ticked_files.add(Path(includer).parent / Path(result.group(1)))
+            ticked_files.add(Path(includer).parent / Path(PureWindowsPath(result.group(1))))
 
     unticked_files = set(dm_files) - ticked_files - {Path(ignore) for ignore in IGNORE_FILES}
     for unticked in unticked_files:

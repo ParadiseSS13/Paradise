@@ -1,6 +1,15 @@
+# When running in POSIX environments, the include paths in the codebase need to
+# be munged into PureWindowsPaths before being spit back out. Otherwise, the
+# checker will attempt to find files named e.g. /workspace/code\\foo.dm, which
+# translates to the (completely legitimate) filename "code\foo.dm" in the
+# /workspace directory.
+#
+# For more information, see the discussion of pure paths in the pathlib
+# documentation.
+
 import bisect
 import re
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 import pytest
 from conftest import Lint
@@ -26,7 +35,7 @@ def test_illegal_files(lint: Lint, repo_root: Path):
         newlines = [i for i, char in enumerate(content) if char == '\n']
 
         for result in pattern.finditer(content):
-            path = Path(includer).parent / Path(result.group(1))
+            path = Path(includer).parent / Path(PureWindowsPath(result.group(1)))
 
             # use bisect to count newlines before the match
             line_number = bisect.bisect_right(newlines, result.start()) + 1
