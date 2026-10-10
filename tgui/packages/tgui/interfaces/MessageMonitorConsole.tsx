@@ -76,7 +76,7 @@ export const MessageMonitorConsole = (properties) => {
       case 1:
         return <MainPage />;
       default:
-        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickPage error';
+        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickPage error';// `PickPage error` so we get a bit more info from the error meesage.
     }
   };
 
@@ -101,7 +101,7 @@ const MainPage = (_properties) => {
       case 2:
         return <CustomMessage />;
       default:
-        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickTab error'; // `PickTab error` so we get a bit more info fromt the error meesgae.
+        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickTab error'; // `PickTab error` so we get a bit more info from the error meesage.
     }
   };
 
