@@ -1,6 +1,9 @@
 // This file is for projectile weapon crafting. All parts and construction paths will be contained here.
 // The weapons themselves are children of other weapons and should be contained in their respective files.
 
+/obj/item/weaponcrafting
+	new_attack_chain = TRUE
+
 // PARTS //
 
 /obj/item/weaponcrafting/receiver
@@ -135,41 +138,54 @@
 	name = "sol gov universal self assembling gun parts kit"
 	icon_state = "solcase" //Ikea reference pending.
 
-/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack__legacy__attackchain(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
+/obj/item/weaponcrafting/gunkit/universal_gun_kit/interact_with_atom(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/living/user, list/modifiers)
 	if(!istype(gunkit_to_use))
-		return
+		return ..()
+
 	if(!gunkit_to_use.outcome)
 		to_chat(user, SPAN_WARNING("That gunkit can not be used to craft a weapon."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(!do_after(user, 5 SECONDS, target = user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) //Snowflake checking, but I don't want a person with a self assembling kit to be robbed
+	if(istype(gunkit_to_use, /obj/item/weaponcrafting/gunkit/sparker)) // Snowflake checking, but I don't want a person with a self assembling kit to be robbed.
 		var/obj/item/gun_produceda = new gunkit_to_use.outcome
 		var/obj/item/gun_producedb = new gunkit_to_use.outcome
 		user.unequip(src)
 		user.put_in_hands(gun_produceda)
 		user.put_in_hands(gun_producedb)
+		gunkit_to_use.transfer_fingerprints_to(gun_produceda)
+		gunkit_to_use.transfer_fingerprints_to(gun_producedb)
+		transfer_fingerprints_to(gun_produceda)
+		transfer_fingerprints_to(gun_producedb)
 	else
 		var/obj/item/gun_produced = new gunkit_to_use.outcome
 		user.unequip(src)
 		user.put_in_hands(gun_produced)
+		gunkit_to_use.transfer_fingerprints_to(gun_produced)
+		transfer_fingerprints_to(gun_produced)
 	qdel(gunkit_to_use)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // CRAFTING //
 
-/obj/item/weaponcrafting/receiver/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/pipe))
-		to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
-		var/obj/item/weaponcrafting/ishotgunconstruction/I = new /obj/item/weaponcrafting/ishotgunconstruction
-		user.unequip(src)
-		user.put_in_hands(I)
-		qdel(W)
-		qdel(src)
-		return
+/obj/item/weaponcrafting/receiver/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/pipe))
+		return ..()
+
+	to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
+	var/obj/item/weaponcrafting/ishotgunconstruction/construction = new /obj/item/weaponcrafting/ishotgunconstruction
+	user.unequip(src)
+	used.transfer_fingerprints_to(construction)
+	transfer_fingerprints_to(construction)
+	user.put_in_hands(construction)
+	qdel(used)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // SHOTGUN //
 
@@ -180,9 +196,10 @@
 	icon_state = "ishotgunstep1"
 
 /obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
-	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
+	var/obj/item/weaponcrafting/ishotgunconstruction2/construction = new /obj/item/weaponcrafting/ishotgunconstruction2
 	user.unequip(src)
-	user.put_in_hands(C)
+	transfer_fingerprints_to(construction)
+	user.put_in_hands(construction)
 	to_chat(user, SPAN_NOTICE("You screw the pins into place, securing the pipe to the receiver."))
 	qdel(src)
 	return TRUE
@@ -193,15 +210,19 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction2/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weaponcrafting/stock))
-		to_chat(user, "You attach the stock to the receiver-barrel assembly.")
-		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new /obj/item/weaponcrafting/ishotgunconstruction3
-		user.unequip(src)
-		user.put_in_hands(I)
-		qdel(W)
-		qdel(src)
-		return
+/obj/item/weaponcrafting/ishotgunconstruction2/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/weaponcrafting/stock))
+		return ..()
+
+	to_chat(user, "You attach the stock to the receiver-barrel assembly.")
+	var/obj/item/weaponcrafting/ishotgunconstruction3/construction = new /obj/item/weaponcrafting/ishotgunconstruction3
+	user.unequip(src)
+	used.transfer_fingerprints_to(construction)
+	transfer_fingerprints_to(construction)
+	user.put_in_hands(construction)
+	qdel(used)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/weaponcrafting/ishotgunconstruction3
 	name = "extremely conspicuous metal construction"
@@ -209,17 +230,20 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep2"
 
-/obj/item/weaponcrafting/ishotgunconstruction3/attackby__legacy__attackchain(obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/stack/package_wrap))
-		var/obj/item/stack/package_wrap/C = I
-		if(C.use(5))
-			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
-			user.unequip(src)
-			user.put_in_hands(W)
-			to_chat(user, SPAN_NOTICE("You tie the wrapping paper around the stock and the barrel to secure it."))
-			qdel(src)
-		else
-			to_chat(user, SPAN_WARNING("You need at least five feet of wrapping paper to secure the stock."))
-			return
+/obj/item/weaponcrafting/ishotgunconstruction3/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/package_wrap))
+		return ..()
 
+	var/obj/item/stack/package_wrap/C = used
+	if(!C.use(5))
+		to_chat(user, SPAN_WARNING("You need at least five feet of wrapping paper to secure the stock."))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/gun/projectile/revolver/doublebarrel/improvised/new_gun = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
+	user.unequip(src)
+	used.transfer_fingerprints_to(new_gun)
+	transfer_fingerprints_to(new_gun)
+	user.put_in_hands(new_gun)
+	to_chat(user, SPAN_NOTICE("You tie the wrapping paper around the stock and the barrel to secure it."))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
