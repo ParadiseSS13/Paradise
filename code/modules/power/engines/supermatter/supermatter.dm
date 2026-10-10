@@ -1082,7 +1082,6 @@
 	icon_state = "darkmatter_shard"
 	anchored = FALSE
 	explosion_power = 12
-	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
 
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine
