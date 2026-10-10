@@ -15,6 +15,7 @@
 	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 75)
 	bubble_icon = "machine"
 	cares_about_temperature = TRUE
+	new_attack_chain = TRUE
 	var/alist/facing_modifiers = alist(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
@@ -598,7 +599,10 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
-	user.visible_message(SPAN_NOTICE("[user] hits [name]. Nothing happens"), SPAN_NOTICE("You hit [name] with no visible effect."))
+	user.visible_message(
+		SPAN_NOTICE("[user] hits [name]. Nothing happens"),
+		SPAN_NOTICE("You hit [name] with no visible effect.")
+	)
 	log_message("Attack by hand/paw. Attacker - [user].")
 
 
@@ -758,85 +762,101 @@
 		take_damage(5, BURN, 0, 1)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
-//////////////////////
-////// MARK: AttackBy
-//////////////////////
+/////////////////////////////
+////// MARK: ITEM_INTERACTION
+/////////////////////////////
 
-/obj/mecha/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/mmi))
-		if(mmi_move_inside(W,user))
-			to_chat(user, "[src]-MMI interface initialized successfuly")
-		else
-			to_chat(user, "[src]-MMI interface initialization failed.")
-		return
+/obj/mecha/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/mmi))
+		if(!mmi_move_inside(used, user))
+			to_chat(user, SPAN_NOTICE("[src]-MMI interface initialization failed."))
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
-		var/obj/item/mecha_parts/mecha_equipment/E = W
+		to_chat(user, SPAN_NOTICE("[src]-MMI interface initialized successfully"))
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mecha_parts/mecha_equipment))
+		var/obj/item/mecha_parts/mecha_equipment/equipment = used
 		spawn()
-			if(E.can_attach(src))
-				if(!user.drop_item())
-					return
-				E.attach(src)
-				user.visible_message("[user] attaches [W] to [src].", SPAN_NOTICE("You attach [W] to [src]."))
-			else
-				to_chat(user, SPAN_WARNING("You were unable to attach [W] to [src]!"))
-		return
+			if(!equipment.can_attach(src))
+				to_chat(user, SPAN_WARNING("You were unable to attach [equipment] to [src]!"))
+				return ITEM_INTERACT_COMPLETE
+			if(!user.drop_item())
+				to_chat(user, SPAN_WARNING("[equipment] is stuck to your hand!"))
+				return ITEM_INTERACT_COMPLETE
+			equipment.attach(src)
+			user.visible_message(
+				SPAN_NOTICE("[user] attaches [equipment] to [src]."),
+				SPAN_NOTICE("You attach [equipment] to [src].")
+			)
+			add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	if(W.GetID())
-		if(add_req_access || maint_access)
-			if(internals_access_allowed(usr))
-				var/obj/item/card/id/id_card
-				if(istype(W, /obj/item/card/id))
-					id_card = W
-				else
-					var/obj/item/pda/pda = W
-					id_card = pda.id
-				output_maintenance_dialog(id_card, user)
-				return
-			else
-				to_chat(user, SPAN_WARNING("Invalid ID: Access denied."))
-		else
+	if(used.GetID())
+		if(!(add_req_access || maint_access))
 			to_chat(user, SPAN_WARNING("Maintenance protocols disabled by operator."))
+			return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/stack/cable_coil))
-		if(state == MECHA_OPEN_HATCH && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
-			var/obj/item/stack/cable_coil/CC = W
-			if(CC.get_amount() > 1)
-				CC.use(2)
-				clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
-				to_chat(user, "You replace the fused wires.")
-			else
-				to_chat(user, "There's not enough wire to finish the task.")
-		return
+		if(internals_access_allowed(usr))
+			to_chat(user, SPAN_WARNING("Invalid ID: Access denied."))
+			return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/stock_parts/cell))
-		if(state == MECHA_BATTERY_UNSCREW)
-			if(!cell)
-				if(!user.drop_item())
-					return
-				to_chat(user, SPAN_NOTICE("You install the powercell."))
-				W.forceMove(src)
-				cell = W
-				log_message("Powercell installed")
-				if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield) && istype(cell, /obj/item/stock_parts/cell/infinite))
-					occupant_message(SPAN_DANGER("The immense power of the cell overloads the shields."))
-					selected.on_unequip()
-			else
-				to_chat(user, SPAN_NOTICE("There's already a powercell installed."))
-		return
+		var/obj/item/card/id/id_card
+		if(istype(used, /obj/item/card/id))
+			id_card = used
+		else
+			var/obj/item/pda/pda = used
+			id_card = pda.id
+		output_maintenance_dialog(id_card, user)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.drop_item_to_ground(W))
-			to_chat(user, SPAN_NOTICE("\the [W] is stuck to your hand, you cannot put it in \the [src]"))
-			return
+	if(istype(used, /obj/item/stack/cable_coil))
+		if(!(state == MECHA_OPEN_HATCH && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT)))
+			return ..()
+
+		var/obj/item/stack/cable_coil/cable = used
+		if(cable.get_amount() > 1)
+			cable.use(2)
+			clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
+			to_chat(user, SPAN_NOTICE("You replace the fused wires."))
+			add_fingerprint(user)
+		else
+			to_chat(user, SPAN_WARNING("There's not enough wire to finish the task!"))
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/stock_parts/cell))
+		if(state != MECHA_BATTERY_UNSCREW)
+			return ..()
+		if(cell)
+			to_chat(user, SPAN_WARNING("There's already a power cell installed!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_NOTICE("You install [used]."))
+		used.forceMove(src)
+		cell = used
+		log_message("Power cell installed")
+		if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield) && istype(cell, /obj/item/stock_parts/cell/infinite))
+			occupant_message(SPAN_DANGER("The immense power of [used] overloads the shields."))
+			selected.on_unequip()
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mecha_parts/mecha_tracking))
+		if(!user.drop_item_to_ground(used))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot put it in [src]."))
+			return ITEM_INTERACT_COMPLETE
 
 		// Check if a tracker exists
-		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
+		var/obj/item/mecha_parts/mecha_tracking/new_tracker = used
 		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
 			if(new_tracker.type == current_tracker.type)
 				to_chat(user, SPAN_WARNING("This exosuit already has a [current_tracker]."))
 				user.put_in_hands(new_tracker)
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			trackers -= current_tracker
 			to_chat(user, SPAN_NOTICE("You remove [current_tracker]."))
@@ -844,51 +864,61 @@
 			user.put_in_hands(duplicate_tracker)
 			qdel(current_tracker)
 		new_tracker.forceMove(src)
-		trackers += W
-		user.visible_message("[user] attaches [new_tracker] to [src].", SPAN_NOTICE("You attach [new_tracker] to [src]."))
+		trackers += used
+		user.visible_message(
+			SPAN_NOTICE("[user] attaches [new_tracker] to [src]."),
+			SPAN_NOTICE("You attach [new_tracker] to [src].")
+		)
 		diag_hud_set_mechtracking()
-		return
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/paintkit))
+	if(istype(used, /obj/item/paintkit))
 		if(occupant)
-			to_chat(user, "You can't customize a mech while someone is piloting it - that would be unsafe!")
-			return
+			to_chat(user, SPAN_WARNING("You can't customize [src] while someone is piloting it - that would be unsafe!"))
+			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/paintkit/P = W
+		var/obj/item/paintkit/kit = used
 		var/found = null
 
-		for(var/type in P.allowed_types)
+		for(var/type in kit.allowed_types)
 			if(type == initial_icon)
-				found = 1
+				found = TRUE
 				break
 
 		if(!found)
-			to_chat(user, "That kit isn't meant for use on this class of exosuit.")
-			return
+			to_chat(user, SPAN_WARNING("That kit isn't meant for use on this class of exosuit."))
+			return ITEM_INTERACT_COMPLETE
 
-		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
-		if(do_after_once(user, 3 SECONDS, target = src))
-			name = P.new_name
-			desc = P.new_desc
-			initial_icon = P.new_icon
-			reset_icon()
-			user.drop_item()
-			qdel(P)
+		user.visible_message(SPAN_NOTICE("[user] opens [kit] and spends some quality time customising [src]."))
+		if(!do_after_once(user, 3 SECONDS, target = src))
+			return ITEM_INTERACT_COMPLETE
+		name = kit.new_name
+		desc = kit.new_desc
+		initial_icon = kit.new_icon
+		reset_icon()
+		user.drop_item()
+		add_fingerprint(user)
+		qdel(kit)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/mecha_modkit))
+	if(istype(used, /obj/item/mecha_modkit))
 		if(occupant)
-			to_chat(user, SPAN_NOTICE("You can't access the mech's modification port while it is occupied."))
-			return
-		var/obj/item/mecha_modkit/M = W
-		if(do_after_once(user, M.install_time, target = src))
-			M.install(src, user)
-		else
-			to_chat(user, SPAN_NOTICE("You stop installing [M]."))
+			to_chat(user, SPAN_WARNING("You can't access [src]'s modification port while it is occupied!"))
+			return ITEM_INTERACT_COMPLETE
 
-	else
-		if(W.force)
-			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
-		return ..()
+		var/obj/item/mecha_modkit/kit = used
+		if(!do_after_once(user, kit.install_time, target = src))
+			to_chat(user, SPAN_NOTICE("You stop installing [kit]."))
+			return ITEM_INTERACT_COMPLETE
+
+		kit.install(src, user)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(used.force)
+		add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [used]")
+	return ..()
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
@@ -899,10 +929,10 @@
 		return
 	if(state == MECHA_BOLTS_UP)
 		state = MECHA_OPEN_HATCH
-		to_chat(user, "You open the hatch to the power unit")
+		to_chat(user, SPAN_NOTICE("You open the hatch to the power unit."))
 	else if(state == MECHA_OPEN_HATCH)
 		state = MECHA_BOLTS_UP
-		to_chat(user, "You close the hatch to the power unit")
+		to_chat(user, SPAN_NOTICE("You close the hatch to the power unit."))
 	else if(ishuman(occupant))
 		user.visible_message(SPAN_NOTICE("[user] begins levering out the driver from the [src]."), SPAN_NOTICE("You begin to lever out the driver from the [src]."))
 		to_chat(occupant, SPAN_WARNING("[user] is prying you out of the exosuit!"))
@@ -932,8 +962,8 @@
 		cell.forceMove(loc)
 		cell = null
 		state = MECHA_BATTERY_UNSCREW
-		to_chat(user, SPAN_NOTICE("You unscrew and pry out the powercell."))
-		log_message("Powercell removed")
+		to_chat(user, SPAN_NOTICE("You unscrew and pry out the power cell."))
+		log_message("Power cell removed")
 	else if(state == MECHA_BATTERY_UNSCREW && cell)
 		state = MECHA_OPEN_HATCH
 		to_chat(user, SPAN_NOTICE("You screw the cell in place."))
@@ -946,10 +976,10 @@
 		return
 	if(state == MECHA_MAINT_ON)
 		state = MECHA_BOLTS_UP
-		to_chat(user, "You undo the securing bolts.")
+		to_chat(user, SPAN_NOTICE("You undo the securing bolts."))
 	else
 		state = MECHA_MAINT_ON
-		to_chat(user, "You tighten the securing bolts.")
+		to_chat(user, SPAN_NOTICE("You tighten the securing bolts."))
 
 /obj/mecha/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -958,10 +988,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		to_chat(user, SPAN_NOTICE("[src] is at full integrity!"))
+		to_chat(user, SPAN_WARNING("[src] is at full integrity!"))
 		return
 	if(repairing)
-		to_chat(user, SPAN_NOTICE("[src] is currently being repaired!"))
+		to_chat(user, SPAN_WARNING("[src] is currently being repaired!"))
 		return
 	if(state == MECHA_MAINT_OFF) // If maint protocols are not active, the state is zero
 		to_chat(user, SPAN_WARNING("[src] can not be repaired without maintenance protocols active!"))
@@ -971,12 +1001,18 @@
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message(SPAN_NOTICE("[user] repairs the damaged gas tank."), SPAN_NOTICE("You repair the damaged gas tank."))
+			user.visible_message(
+				SPAN_NOTICE("[user] repairs the damaged gas tank."),
+				SPAN_NOTICE("You repair the damaged gas tank.")
+			)
 		else if(obj_integrity < max_integrity)
-			user.visible_message(SPAN_NOTICE("[user] repairs some damage to [name]."), SPAN_NOTICE("You repair some damage to [name]."))
+			user.visible_message(
+				SPAN_NOTICE("[user] repairs some damage to [name]."),
+				SPAN_NOTICE("You repair some damage to [name].")
+			)
 			obj_integrity += min(10, max_integrity - obj_integrity)
 		else
-			to_chat(user, SPAN_NOTICE("[src] is at full integrity!"))
+			to_chat(user, SPAN_WARNING("[src] is at full integrity!"))
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
@@ -991,7 +1027,10 @@
 	if(emag_proof)
 		to_chat(user, SPAN_WARNING("[src]'s ID slot rejects the card."))
 		return
-	user.visible_message(SPAN_NOTICE("[user] slides a card through [src]'s id slot."), SPAN_NOTICE("You slide the card through [src]'s ID slot, resetting the DNA and access locks."))
+	user.visible_message(
+		SPAN_NOTICE("[user] slides a card through [src]'s id slot."),
+		SPAN_NOTICE("You slide the card through [src]'s ID slot, resetting the DNA and access locks.")
+	)
 	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	dna = null
 	operation_req_access = list()
@@ -1287,13 +1326,13 @@
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
-			to_chat(user, "Consciousness matrix not detected.")
+			to_chat(user, SPAN_WARNING("Consciousness matrix not detected."))
 			return FALSE
 		else if(mmi_as_oc.brainmob.stat)
-			to_chat(user, "Beta-rhythm below acceptable level.")
+			to_chat(user, SPAN_WARNING("Beta-rhythm below acceptable level."))
 			return FALSE
 		if(!user.drop_item_to_ground(mmi_as_oc))
-			to_chat(user, SPAN_NOTICE("\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]"))
+			to_chat(user, SPAN_NOTICE("[mmi_as_oc] is stuck to your hand, you cannot put it in [src]"))
 			return FALSE
 		var/mob/living/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
@@ -1694,7 +1733,7 @@
 	if(istype(new_sel))
 		selected = new_sel
 		occupant_message(SPAN_NOTICE("You switch to [selected]."))
-		visible_message("[src] raises [selected]")
+		visible_message(SPAN_NOTICE("[src] raises [selected]."))
 		send_byjax(occupant, "exosuit.browser", "eq_list", get_equipment_list())
 
 /obj/mecha/proc/check_menu(mob/living/L)
