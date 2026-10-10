@@ -104,11 +104,7 @@
 					/mob/living/basic/bot/repairbot,
 					/mob/living/basic/bot/medbot,
 					/mob/living/basic/bot/medbot,
-					/obj/item/grenade/chem_grenade/metalfoam,
-					/obj/item/grenade/chem_grenade/metalfoam,
-					/obj/item/grenade/chem_grenade/metalfoam,
-					/obj/item/storage/box/oxygen_grenades,
-					/obj/item/storage/box/oxygen_grenades,
+					/obj/item/storage/box/foam_grenades,
 					/obj/item/storage/box/oxygen_grenades)
 	cost = 100
 	containertype = /obj/structure/closet/crate/engineering
@@ -136,13 +132,6 @@
 	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "firefighting crate"
-
-/datum/supply_packs/emergency/atmostank
-	name = "Firefighting Water Tank Crate"
-	contains = list(/obj/item/watertank/atmos)
-	cost = 100
-	containertype = /obj/structure/largecrate
-	containername = "firefighting water tank crate"
 
 /datum/supply_packs/emergency/foamtank
 	name = "Firefighting Foam Tank Crate"

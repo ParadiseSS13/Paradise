@@ -5,7 +5,7 @@
 	containertype = /obj/structure/closet/crate/engineering
 	department_restrictions = list(DEPARTMENT_ENGINEERING)
 
-// MARK: Tanks
+// MARK: Misc
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/fueltank)
@@ -13,21 +13,14 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
-/datum/supply_packs/engineering/atmostank
-	name = "Firefighting Water Tank Crate"
+/datum/supply_packs/engineering/backpack_firefighter_tank
+	name = "Backpack Firefighting Tank Crate"
 	contains = list(/obj/item/watertank/atmos)
 	cost = 100
-	containertype = /obj/structure/largecrate
-	containername = "firefighting water tank crate"
+	containertype = /obj/structure/closet/crate/engineering
+	containername = "backpack firefighting tank crate"
+	access = ACCESS_ATMOSPHERICS
 
-/datum/supply_packs/engineering/foamtank
-	name = "Firefighting Foam Tank Crate"
-	contains = list(/obj/structure/reagent_dispensers/watertank/firetank)
-	cost = 150
-	containertype = /obj/structure/largecrate
-	containername = "firefighting foam tank crate"
-
-// MARK: Misc
 /// The most robust crate...
 /datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"
