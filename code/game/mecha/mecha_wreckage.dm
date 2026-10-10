@@ -91,11 +91,11 @@
 	if(!..())
 		return
 
- //Proc called on the wreck by the AI card.
-	if(interaction != AI_TRANS_TO_CARD) //AIs can only be transferred in one direction, from the wreck to the card.
+ // Proc called on the wreck by the AI card.
+	if(interaction != AI_TRANS_TO_CARD) // AIs can only be transferred in one direction, from the wreck to the card.
 		return
 	if(!AI) //No AI in the wreck
-		to_chat(user, SPAN_WARNING("No AI backups found."))
+		to_chat(user, SPAN_WARNING("No AI backups found!"))
 		return
 	cut_overlays() //Remove the recovery beacon overlay
 	AI.forceMove(card) //Move the dead AI to the card.
@@ -104,6 +104,7 @@
 	else //Give the AI a heads-up that it is probably going to get fixed.
 		AI.notify_ghost_cloning("You have been recovered from the wreckage!", source = card)
 	to_chat(user, "[SPAN_BOLDNOTICE("Backup files recovered")]: [AI.name] ([rand(1000, 9999)].exe) salvaged from [name] and stored within local memory.")
+	card.held_ai = AI
 	AI = null
 
 /obj/structure/mecha_wreckage/gygax
