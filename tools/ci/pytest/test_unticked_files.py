@@ -14,9 +14,12 @@
 #
 # For more information, see the discussion of pure paths in the pathlib
 # documentation.
-from pathlib import Path, PureWindowsPath
-import argparse
-import sys
+import bisect
+import re
+from pathlib import Path
+
+import pytest
+from conftest import Lint
 
 INCLUDER_FILES = [
     'paradise.dme',
@@ -24,35 +27,25 @@ INCLUDER_FILES = [
     'code/tests/game_tests.dm',
 ]
 
-IGNORE_FILES = {
+IGNORE_FILES = [
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
     'code/modules/tgs/v5/v5_interop_version.dm',
     # Included as part of OD lints
     'tools/ci/lints.dm'
-}
+]
 
-def get_unticked_files(root:Path):
-    ticked_files = set()
+pattern = re.compile(r'#include "(.+)"')
+
+@pytest.mark.lint("Unticked file")
+def test_unticked_files(lint: Lint, repo_root: Path, dm_files: list[Path]):
+    ticked_files: set[Path] = set()
     for includer in INCLUDER_FILES:
-        with open(root / includer, 'r') as f:
-            lines = [line for line in f.readlines() if line.startswith('#include')]
-            included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
-            print(f'Found {len(included)} includes in {root / includer}')
-            ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
+        with open(repo_root / includer, 'r') as file:
+            content = file.read()
 
-    all_dm_files = {f for f in root.glob('**/*.dm')}
-    return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}
+        for result in pattern.finditer(content):
+            ticked_files.add(Path(includer).parent / Path(result.group(1)))
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("root", help="paracode root directory")
-    args = parser.parse_args()
-
-    # Windows quoting behavior for directories adds trailing double-quote
-    unticked_files = get_unticked_files(Path(args.root.strip('"')))
-    if unticked_files:
-        print(f'Found {len(unticked_files)} unticked files:')
-        print('\n'.join(str(x) for x in sorted(unticked_files)))
-        sys.exit(1)
-    else:
-        print(f'Found no unticked files')
+    unticked_files = set(dm_files) - ticked_files - {Path(ignore) for ignore in IGNORE_FILES}
+    for unticked in unticked_files:
+        lint.error("Unticked file", unticked)

@@ -28,7 +28,7 @@ def test_illegal_files(lint: Lint, repo_root: Path):
         newlines = [i for i, char in enumerate(content) if char == '\n']
 
         for result in pattern.finditer(content):
-            path = Path(result.group(1))
+            path = Path(includer).parent / Path(result.group(1))
 
             # use bisect to count newlines before the match
             line_number = bisect.bisect_right(newlines, result.start()) + 1
