@@ -140,6 +140,10 @@
 			/obj/effect/decal/cleanable/blood/vox,
 			/obj/effect/gibspawner/vox)
 
+/mob/living/basic/vox/marauder/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ai_retaliate)
+
 /mob/living/basic/vox/marauder/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
@@ -184,6 +188,10 @@
 			/obj/effect/decal/cleanable/blood/innards/vox,
 			/obj/effect/decal/cleanable/blood/vox,
 			/obj/effect/gibspawner/vox)
+
+/mob/living/basic/vox/raider/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ai_retaliate)
 
 /mob/living/basic/vox/raider/check_eye_prot()
 	return 2
@@ -342,7 +350,6 @@
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/vox_miner,
-		/datum/ai_planning_subtree/target_retaliate,
 		/datum/ai_planning_subtree/find_heal_target,
 		/datum/ai_planning_subtree/vox_medic_heal_ally,
 		/datum/ai_planning_subtree/simple_find_nearest_target_to_flee/from_flee_key,
