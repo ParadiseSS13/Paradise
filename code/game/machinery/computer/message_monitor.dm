@@ -32,7 +32,6 @@
 	linkedServer = null
 
 /obj/machinery/computer/message_monitor/Destroy()
-	customrecepient = null
 	linkedServer = null
 	return ..()
 
