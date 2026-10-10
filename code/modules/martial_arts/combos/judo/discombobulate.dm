@@ -10,5 +10,6 @@
 	playsound(get_turf(user), 'sound/weapons/slap.ogg', 40, TRUE, -1)
 	target.apply_damage(10, STAMINA)
 	target.AdjustConfused(5 SECONDS)
+	target.Deaf(5 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Discombobulate", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
