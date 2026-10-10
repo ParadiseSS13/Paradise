@@ -1910,6 +1910,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Ambience"
 		if(CHANNEL_ENGINE)
 			return "Engine Ambience"
+		if(CHANNEL_BLOOPERS)
+			return "Bloopers"
 		if(CHANNEL_FIREALARM)
 			return "Fire Alarms"
 		if(CHANNEL_ASH_STORM)

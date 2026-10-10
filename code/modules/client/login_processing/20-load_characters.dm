@@ -65,7 +65,11 @@
 		cyborg_brain_type,
 		body_type,
 		pda_ringtone,
-		quirks
+		quirks,
+		blooper_id,
+		blooper_speed,
+		blooper_pitch,
+		blooper_pitch_range
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))
