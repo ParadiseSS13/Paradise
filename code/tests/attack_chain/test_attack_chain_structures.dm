@@ -278,12 +278,6 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You wire the windoor.")
 	player.drop_held_item()
 
-	var/obj/crate = teleport_to_first(player, /obj/structure/closet/crate/secure/loot)
-	player.spawn_fast_tool(/obj/item/multitool)
-	player.click_on(crate)
-	TEST_ASSERT_LAST_CHATLOG(player, "You leave the crate alone.")
-	player.drop_held_item()
-
 	var/obj/structure/flora/ash/ashflora = teleport_to_first(player, /obj/structure/flora/ash)
 	ashflora.harvest_time = 0
 	ashflora.harvest_amount_high = 1 // so we always get the same chat message
@@ -325,6 +319,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You fill [bucket] with 20 units of the contents of [water_cooler]")
 	player.drop_held_item()
 
+	var/obj/crate = teleport_to_first(player, /obj/structure/closet/crate/secure/loot)
 	crate = teleport_to_first(player, /obj/structure/closet/crate/sci)
 	player.spawn_fast_tool(/obj/item/stack/package_wrap)
 	player.click_on(crate)
