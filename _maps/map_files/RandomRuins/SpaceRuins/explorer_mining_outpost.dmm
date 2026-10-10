@@ -107,9 +107,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/space_outpost/life_support)
-"dr" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/lavaland/surface/outdoors/explored)
 "dw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -182,10 +179,10 @@
 /area/mine/space_outpost/life_support)
 "eu" = (
 /turf/simulated/mineral/random/high_chance/space,
-/area/lavaland/surface/outdoors/unexplored)
+/area/mine/unexplored/space_asteroid)
 "ex" = (
 /turf/simulated/mineral/random/low_chance/space,
-/area/lavaland/surface/outdoors/unexplored)
+/area/mine/unexplored/space_asteroid)
 "ft" = (
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 1
@@ -339,9 +336,6 @@
 /obj/machinery/airlock_controller/air_cycler/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/space_outpost)
-"lC" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/lavaland/surface/outdoors/unexplored)
 "lG" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/economy/vending/snack,
@@ -423,6 +417,18 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/mine/space_outpost)
+"oQ" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored/space_asteroid)
+"oZ" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored/space_asteroid)
 "qh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -655,6 +661,9 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/life_support)
+"yu" = (
+/turf/space,
+/area/mine/unexplored/space_asteroid)
 "yM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -676,6 +685,9 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost)
+"zn" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored/space_asteroid)
 "zF" = (
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
@@ -747,7 +759,7 @@
 /area/mine/space_outpost)
 "BA" = (
 /turf/simulated/mineral/random/space,
-/area/lavaland/surface/outdoors/unexplored)
+/area/mine/unexplored/space_asteroid)
 "BC" = (
 /turf/simulated/wall,
 /area/mine/space_outpost/teleporter)
@@ -931,12 +943,6 @@
 	},
 /turf/space,
 /area/space)
-"KE" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/lavaland/surface/outdoors/explored)
 "Lp" = (
 /obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light/small{
@@ -1111,12 +1117,6 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/space_outpost)
-"RR" = (
-/obj/machinery/light/exterior/outdoors{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/lavaland/surface/outdoors/explored)
 "RU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -1734,7 +1734,7 @@ so
 BA
 BA
 BA
-so
+yu
 so
 so
 so
@@ -6778,7 +6778,7 @@ so
 so
 so
 so
-lC
+zn
 BA
 BA
 BA
@@ -6880,7 +6880,7 @@ so
 so
 so
 so
-lC
+zn
 BA
 BA
 BA
@@ -6982,8 +6982,8 @@ so
 so
 so
 so
-lC
-lC
+zn
+zn
 BA
 BA
 BA
@@ -7084,8 +7084,8 @@ so
 so
 so
 so
-lC
-lC
+zn
+zn
 BA
 BA
 BA
@@ -7186,9 +7186,9 @@ so
 so
 so
 so
-lC
-lC
-lC
+zn
+zn
+zn
 BA
 BA
 BA
@@ -7288,10 +7288,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 BA
 BA
 BA
@@ -7390,10 +7390,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 BA
 BA
 BA
@@ -7492,11 +7492,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
 BA
 BA
 BA
@@ -7595,10 +7595,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 BA
 BA
 BA
@@ -7697,11 +7697,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
 so
 BA
 BA
@@ -7799,11 +7799,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
 so
 so
 BA
@@ -7901,10 +7901,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8003,9 +8003,9 @@ so
 so
 so
 so
-lC
-lC
-lC
+zn
+zn
+zn
 so
 so
 so
@@ -8105,9 +8105,9 @@ so
 so
 so
 so
-lC
-lC
-lC
+zn
+zn
+zn
 so
 so
 so
@@ -8206,10 +8206,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8308,10 +8308,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8410,10 +8410,10 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8511,11 +8511,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8613,11 +8613,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8715,11 +8715,11 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8816,13 +8816,13 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8921,10 +8921,10 @@ so
 BA
 BA
 BA
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -9025,8 +9025,8 @@ BA
 BA
 BA
 BA
-lC
-lC
+zn
+zn
 so
 so
 so
@@ -9127,8 +9127,8 @@ eu
 eu
 BA
 BA
-lC
-lC
+zn
+zn
 so
 so
 so
@@ -9229,8 +9229,8 @@ eu
 eu
 eu
 BA
-lC
-lC
+zn
+zn
 so
 so
 so
@@ -9332,7 +9332,7 @@ eu
 eu
 BA
 BA
-lC
+zn
 so
 so
 so
@@ -9434,7 +9434,7 @@ eu
 eu
 BA
 BA
-lC
+zn
 so
 so
 so
@@ -9536,7 +9536,7 @@ eu
 eu
 BA
 BA
-lC
+zn
 so
 so
 so
@@ -9596,9 +9596,9 @@ Dl
 OA
 tx
 ex
-dr
-dr
-dr
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9638,7 +9638,7 @@ eu
 eu
 BA
 BA
-lC
+zn
 so
 so
 so
@@ -9698,9 +9698,9 @@ Aj
 cX
 tx
 ex
-dr
-dr
-dr
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9800,10 +9800,10 @@ wW
 XJ
 tx
 ex
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9901,12 +9901,12 @@ MK
 CU
 uH
 tx
-RR
-dr
-dr
-dr
-dr
-dr
+oZ
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10003,13 +10003,13 @@ tx
 tx
 tx
 tx
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10105,13 +10105,13 @@ in
 sr
 Ia
 vN
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10207,13 +10207,13 @@ IJ
 Lp
 Qg
 hH
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10309,13 +10309,13 @@ ol
 tx
 tx
 tx
-KE
-dr
-dr
-dr
-dr
-dr
-dr
+oQ
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10411,13 +10411,13 @@ ol
 ex
 ex
 ex
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10513,12 +10513,12 @@ ol
 ex
 ex
 ex
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10618,8 +10618,8 @@ ex
 ex
 ex
 ex
-dr
-dr
+zn
+zn
 ex
 ex
 ex
@@ -11675,8 +11675,8 @@ eu
 eu
 eu
 BA
-lC
-lC
+zn
+zn
 so
 so
 so
@@ -11776,10 +11776,10 @@ BA
 BA
 BA
 BA
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -11877,12 +11877,12 @@ so
 so
 BA
 BA
-lC
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -11979,12 +11979,12 @@ so
 so
 so
 so
-lC
-lC
-lC
-lC
-lC
-lC
+zn
+zn
+zn
+zn
+zn
+zn
 BA
 BA
 BA
@@ -12083,8 +12083,8 @@ so
 so
 so
 so
-lC
-lC
+zn
+zn
 BA
 BA
 eu
@@ -12186,7 +12186,7 @@ so
 so
 so
 so
-lC
+zn
 BA
 eu
 eu

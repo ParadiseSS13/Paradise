@@ -23700,11 +23700,11 @@
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint2)
 "cFF" = (
-/obj/structure/closet/l3closet/general,
-/obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 10
 	},
+/obj/structure/closet/l3closet/virology,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "cFH" = (
@@ -30449,8 +30449,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "dYX" = (
-/obj/structure/closet/l3closet/general,
-/obj/item/clothing/mask/gas,
 /obj/machinery/camera{
 	c_tag = "Virology Airlock";
 	dir = 8
@@ -30458,6 +30456,8 @@
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 6
 	},
+/obj/structure/closet/l3closet/virology,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "dZd" = (
