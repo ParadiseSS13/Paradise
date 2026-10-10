@@ -1463,7 +1463,12 @@
 			var/burn = E.burn_dam
 			var/IB = (E.status & ORGAN_INT_BLEEDING)
 			var/obj/item/organ/external/OE = new E.type()
-			var/stats = list(OE, brute, burn, IB)
+			var/hidden_item = E.hidden
+			var/list/implants = list()
+			for(var/I in E.contents)
+				if(!istype(I, /obj/item/organ) && I != E.hidden)
+					implants += I
+			var/stats = list(OE, brute, burn, IB, hidden_item, implants)
 			bodypart_damages += list(stats)
 
 		//Now we do the same for internal organs via the same proceedure.
@@ -1490,6 +1495,11 @@
 					var/IB = part[4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
 					if(IB)
 						E.status |= ORGAN_INT_BLEEDING
+					E.hidden = part[5]
+					for(var/obj/item/I in part[6])
+						if(I != part[5] && mind.has_antag_datum(/datum/antagonist/changeling))
+							continue
+						I.forceMove(E)
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
 					qdel(part)
 
