@@ -6,7 +6,7 @@
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "What could be inside?"
-	integrity_failure = 0 //no breaking open the crate
+	integrity_failure = 0 // no breaking open the crate
 	tamperproof = 90
 	var/code = null
 	/// Associated list of previous attempts w/ bulls & cows
@@ -45,7 +45,7 @@
 			break
 		var/digit = pick(digits)
 		code_digits += digit
-		digits -= digit //there are never matching digits in the answer
+		digits -= digit // there are never matching digits in the answer
 
 	return code_digits.Join("")
 
@@ -126,9 +126,9 @@
 	var/list/used_digits = list()
 	for(var/i = 1 to length(input))
 		var/char = input[i]
-		if(!(char >= "0" && char <= "9")) //if a non-digit is found, reject the input
+		if(!(char >= "0" && char <= "9")) // if a non-digit is found, reject the input
 			return FALSE
-		if(char in used_digits) //if a digit is repeated, reject the input
+		if(char in used_digits) // if a digit is repeated, reject the input
 			return FALSE
 		used_digits += char
 
@@ -229,9 +229,9 @@
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user, silent = FALSE)
 	if(!locked)
-		. = ..() //Run the normal code.
-		if(locked) //Double check if the crate actually locked itself when the normal code ran.
-			//reset the anti-tampering, number of attempts and last attempt when the lock is re-enabled.
+		. = ..() // Run the normal code.
+		if(locked) // Double check if the crate actually locked itself when the normal code ran.
+			// reset the anti-tampering, number of attempts and last attempt when the lock is re-enabled.
 			tamperproof = initial(tamperproof)
 			attempts = initial(attempts)
 			previous_attempts = list()
