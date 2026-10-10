@@ -4,8 +4,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Optional, cast
 
-from avulto import DME
-from avulto.ast import SourceLoc
+from avulto import DME, SourceLoc
 import pytest
 from pytest import FixtureRequest, Function, Item
 
@@ -56,7 +55,6 @@ class Lint:
 
     def error_source(self, msg: str, source_loc: SourceLoc) -> None:
         self.errors.append(LintError(msg, str(source_loc.file_path), source_loc.line))
-
 
 # If we're in a GitHub Actions context, write annotations alongside the default failure messages
 def pytest_terminal_summary(terminalreporter: pytest.TerminalReporter) -> None:

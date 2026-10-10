@@ -1,16 +1,9 @@
-import os
 from pathlib import Path
-import sys
-import time
 
 from avulto import DME, Path as p
-from avulto.ast import SourceLoc
+import pytest
 
-
-RED = "\033[0;31m"
-GREEN = "\033[0;32m"
-BLUE = "\033[0;34m"
-NC = "\033[0m"  # No Color
+from conftest import Lint
 
 BURNDOWN_LIST = {
     p(x)
@@ -171,57 +164,23 @@ BURNDOWN_LIST = {
 }
 
 
-def format_error(source_loc: SourceLoc | Path, message):
-    if isinstance(source_loc, SourceLoc):
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            return f"::error file={source_loc.file_path},line={source_loc.line},title=Simplemob Additions::{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
-        else:
-            return f"{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
-    else:
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            return f"::error file={source_loc},title=Simplemob Additions::{source_loc}: {RED}{message}{NC}"
-        else:
-            return f"{source_loc}: {RED}{message}{NC}"
-
-
-if __name__ == "__main__":
-    print("check_simplemob_additions started")
-
-    exit_code = 0
-    start = time.time()
-
-    dme = DME.from_file("paradise.dme")
-
+@pytest.mark.lint("Simplemob Additions")
+def test_simplemob_additions(dme: DME, lint: Lint):
     simplemobs = set(dme.subtypesof("/mob/living/simple_animal"))
     additions = simplemobs - BURNDOWN_LIST
 
     if additions:
-        exit_code = 1
-        print("unexpected simplemobs found:")
         type_decls = [dme.types[pth] for pth in additions]
         for type_decl in type_decls:
-            print(
-                format_error(
-                    type_decl.source_loc,
-                    f"unexpected simplemob addition {type_decl.path}.",
-                )
+            lint.error_source(
+                f"unexpected simplemob addition {type_decl.path}.", type_decl.source_loc
             )
-        print("Please implement all new mobs as /mob/living/basic mobs.")
 
     unexpected = BURNDOWN_LIST - simplemobs
     if unexpected:
-        exit_code = 1
         print("the following paths were allowed but not found:")
         for pth in sorted(unexpected):
-            print(
-                format_error(
-                    Path(__file__).relative_to(dme.filepath.resolve().parent),
-                    f"stale path {pth}.",
-                )
+            lint.error(
+                f"stale path {pth}.",
+                Path(__file__).relative_to(dme.filepath.resolve().parent),
             )
-        print("Please remove the offending paths from check_simplemob_additions.py.")
-
-    end = time.time()
-    print(f"check_simplemob_additions tests completed in {end - start:.2f}s\n")
-
-    sys.exit(exit_code)
