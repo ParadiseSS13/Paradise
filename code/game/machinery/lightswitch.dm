@@ -13,16 +13,16 @@
 	name = "light switch" // Needed to remove the "(dir) bump" naming
 	switch(build_dir)
 		if(NORTH)
-			pixel_y = -25
+			pixel_y = -1
 			dir = NORTH
 		if(SOUTH)
-			pixel_y = 25
+			pixel_y = 32
 			dir = SOUTH
 		if(EAST)
-			pixel_x = -25
+			pixel_x = -32
 			dir = EAST
 		if(WEST)
-			pixel_x = 25
+			pixel_x = 32
 			dir = WEST
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
@@ -59,7 +59,7 @@
 		return
 	var/area/our_area = get_area(src)
 	. += "light[our_area.lightswitch]"
-	underlays += emissive_appearance(icon, "light_lightmask")
+	underlays += emissive_appearance(icon, "light[our_area.lightswitch]_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
