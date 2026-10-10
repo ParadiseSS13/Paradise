@@ -1,26 +1,18 @@
 /mob/living/basic/vox
 	name = "Vox"
-	desc = "A vox primalis wearing a strange suit and wielding a plasma cutter."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/mob/simple_human.dmi'
-	icon_state = "vox_miner"
-	icon_living = "vox_miner"
-	icon_dead = "vox_miner" // Does not actually exist. del_on_death.
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	response_help_continuous = "pushes the"
 	response_help_continuous = "push the"
 	speak_emote = "screeches"
 	speed = 0
-	harm_intent_damage = 5
-	obj_damage = 45
-	melee_damage_lower = 5
-	melee_damage_upper = 10
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
 	attack_verb_continuous = "claws"
 	attack_verb_simple = "claw"
 	attack_sound = 'sound/weapons/slice.ogg'
 	speak_emote = list("screeches")
-	ai_controller = /datum/ai_controller/basic_controller/simple/vox_miner
 	basic_mob_flags = DEL_ON_DEATH
 	faction = list("vox_raider")
 	sentience_type = SENTIENCE_OTHER
@@ -48,10 +40,8 @@
 	obj_damage = 45
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	attack_sound = 'sound/weapons/slice.ogg'
 	minimum_survivable_temperature = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	speak_emote = list("screeches")
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_miner
 	loot = list(
 			/obj/effect/mob_spawn/human/corpse/vox_miner,
@@ -188,7 +178,6 @@
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS
-	ranged_cooldown = 2 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_marauder/raider
 	loot = list(
 			/obj/item/salvage/loot/vox,
@@ -215,7 +204,6 @@
 	initial_traits = list(TRAIT_NOFIRE, TRAIT_MAGPULSE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 2, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 5, "max_n2" = 0)
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_engineer
-	is_ranged = FALSE
 	loot = list(
 			/obj/effect/mob_spawn/human/corpse/vox,
 			/obj/effect/decal/cleanable/blood/innards/vox,
@@ -236,7 +224,6 @@
 	minimum_survivable_temperature = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_medic
-	is_ranged = FALSE
 	loot = list(
 			/obj/item/salvage/loot/vox,
 			/obj/effect/mob_spawn/human/corpse/vox,
