@@ -316,6 +316,10 @@
 #define MILLA_INTERESTING_REASON_HOT		(1 << 1)
 /// Interesting because it has wind that can push stuff around.
 #define MILLA_INTERESTING_REASON_WIND		(1 << 2)
+/// Interesting because water condensed on it this tick.
+#define MILLA_INTERESTING_REASON_WET		(1 << 3)
+/// Interesting because water condensed on it this tick and froze.
+#define MILLA_INTERESTING_REASON_ICY		(1 << 4)
 
 #define MILLA_NORTH	(1 << 0)
 #define MILLA_EAST	(1 << 1)

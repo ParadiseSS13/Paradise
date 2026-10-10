@@ -5,7 +5,9 @@ use crate::milla::model::*;
 use crate::milla::simulate;
 use crate::milla::statics::*;
 use crate::milla::tick;
+use byondapi::byond_string::str_id_of;
 use byondapi::global_call::call_global;
+use byondapi::global_call::call_global_id;
 use byondapi::map::byond_block;
 use byondapi::map::byond_xyz;
 use byondapi::prelude::*;
@@ -744,7 +746,10 @@ fn internal_get_tracked_pressure_tiles() -> eyre::Result<Vec<f32>> {
 /// BYOND API for starting an atmos tick.
 #[byondapi::bind]
 fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
-    thread::spawn(|| -> Result<(), eyre::Error> {
+    // Looked up here, on BYOND's own thread, where it costs nothing. Looked up from the tick thread
+    // it's one more wait for BYOND's thread on top of the call itself.
+    let tick_finished = str_id_of("milla_tick_finished")?;
+    thread::spawn(move || -> Result<(), eyre::Error> {
         let now = Instant::now();
         let buffers = BUFFERS.get_or_init(Buffers::new);
         let result = tick::tick(buffers);
@@ -753,7 +758,7 @@ fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
             std::sync::atomic::Ordering::Relaxed,
         );
         if result.is_ok() {
-            call_global("milla_tick_finished", &[])?;
+            call_global_id(tick_finished, &[])?;
         } else {
             let err = format!("MILLA tick error:\n----\n{:#?}\n----", result);
             call_global("milla_tick_error", &[ByondValue::new_str(err)?])?;
