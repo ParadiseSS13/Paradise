@@ -1,0 +1,3945 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aI" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"aU" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/line{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"bb" = (
+/obj/machinery/light,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"bg" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"bY" = (
+/obj/structure/railing,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"cg" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"ch" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/spawner/random/engineering/materials,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"cw" = (
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+/obj/effect/spawner/random/blood,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"cD" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/effect/turf_decal/trimline/neutral/line,
+/obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"cE" = (
+/obj/structure/table/glass,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"cK" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"cY" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id = "deepmaintsrobolab"
+	},
+/turf/simulated/floor/catwalk/black,
+/area/deepmaints)
+"cZ" = (
+/obj/structure/table,
+/obj/effect/spawner/random/glowstick,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"dh" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"dN" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"dP" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"ea" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"ef" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_y = 6
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"ei" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/vault,
+/area/deepmaints)
+"eo" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"er" = (
+/obj/machinery/conveyor{
+	id = "deepmaintsprocessing";
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"ez" = (
+/obj/effect/turf_decal/woodsiding/end{
+	dir = 1
+	},
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"eA" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/large_tank,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"eP" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/deepmaints)
+"fL" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"gh" = (
+/obj/structure/reagent_dispensers/beerkeg/nuke,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"gn" = (
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"gC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/orange,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"gL" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/themed_mess/robotic,
+/obj/effect/turf_decal/alphanumeric/center_2,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"gV" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/ore_box,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"hc" = (
+/obj/structure/table/wood,
+/obj/item/pizzabox{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"hi" = (
+/obj/structure/railing/cap/normal{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"hz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"hN" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"hR" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/engineering/filled/warning{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"in" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"it" = (
+/obj/structure/railing/cap/reversed{
+	dir = 8
+	},
+/obj/item/trash/chips,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"iz" = (
+/obj/structure/table/wood,
+/obj/item/food/sliced/mushroom_pizza{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/drinks/cans/cola{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"iT" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"je" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/candle_box/full,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"jg" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/engineering/filled/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"js" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/line{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"jJ" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"jR" = (
+/obj/structure/barricade/wooden/crude,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id = "deepmaintsrobolab"
+	},
+/turf/simulated/floor/catwalk/black,
+/area/deepmaints)
+"jZ" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"kl" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall/r_wall,
+/area/deepmaints)
+"kn" = (
+/obj/structure/railing,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/stairs/left{
+	dir = 8
+	},
+/area/deepmaints)
+"ks" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"kx" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"ky" = (
+/obj/structure/flora/ash/rock/style_4,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"kN" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"kS" = (
+/obj/machinery/mineral/processing_unit_console{
+	pixel_x = -32
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"kT" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/engineering/filled/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"lm" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"lM" = (
+/obj/machinery/atmospherics/unary/tank{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"lN" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"lR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"lU" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/trimline/department/virology/filled/corner,
+/obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"mt" = (
+/obj/machinery/conveyor{
+	id = "deepmaintsprocessing";
+	dir = 8
+	},
+/obj/machinery/mineral/processing_unit{
+	input_dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"na" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id = "deepmaintsrobolab"
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk/black,
+/area/deepmaints)
+"nB" = (
+/turf/template_noop,
+/area/template_noop)
+"nC" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/large_tank,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"nK" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"nP" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"nR" = (
+/obj/structure/bed,
+/obj/item/bedsheet/yellow,
+/obj/effect/spawner/random/plushies,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"nT" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"ou" = (
+/obj/structure/table,
+/obj/effect/spawner/random/engineering/tools,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"ov" = (
+/obj/effect/turf_decal/woodsiding/end{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"oD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"oE" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"pb" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/stairs/right{
+	dir = 8
+	},
+/area/deepmaints)
+"po" = (
+/obj/item/soap/nanotrasen,
+/obj/structure/table/glass,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"pq" = (
+/obj/machinery/door/airlock,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"pu" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/warning{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"pA" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/machinery/iv_drip,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"pH" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/bluegrid,
+/area/deepmaints)
+"pJ" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"pR" = (
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"qb" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"qi" = (
+/obj/machinery/door/airlock/mining,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"qn" = (
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"qt" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/neutral/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"qX" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"rd" = (
+/obj/structure/table,
+/obj/effect/spawner/random/engineering/misc,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"rz" = (
+/turf/simulated/mineral/random/low_chance,
+/area/deepmaints)
+"rG" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"rH" = (
+/obj/machinery/light,
+/obj/structure/bed/roller,
+/obj/effect/mob_spawn/human/corpse/random_species/doctor,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"rT" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"rW" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"sm" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/table/tray,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"so" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/machinery/iv_drip,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"sy" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"sz" = (
+/obj/machinery/conveyor{
+	id = "deepmaintsprocessing"
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"sN" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"sS" = (
+/obj/structure/railing,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"tg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"tk" = (
+/obj/structure/flora/ash/rock/style_2,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"tr" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"tS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"ua" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"uo" = (
+/obj/structure/table/glass,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"ut" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"uu" = (
+/obj/machinery/door/airlock/mining,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"uD" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/cooking/stovetop/loaded,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"uF" = (
+/obj/effect/spawner/random/mech_wreck,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/deepmaints)
+"uG" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"vc" = (
+/obj/machinery/door/airlock/atmos,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/barricade/wooden/crude,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"vy" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"vA" = (
+/obj/structure/railing,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"vH" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/corner{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"vQ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"wc" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/cobweb/right/rare,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"wD" = (
+/obj/machinery/door/airlock/vault{
+	locked = 1;
+	name = "abandoned vault";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/vault,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"wE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/science/filled/warning,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"wG" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/deepmaints)
+"xi" = (
+/obj/item/kirbyplants/large,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"xy" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"ys" = (
+/obj/effect/turf_decal/box/white,
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"yC" = (
+/obj/machinery/optable,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"yF" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Coldroom Maintenance"
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/deepmaints)
+"yX" = (
+/obj/effect/turf_decal/woodsiding/end,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"yY" = (
+/obj/structure/chair/sofa/corp/right,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"zn" = (
+/obj/structure/railing,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/stairs/right{
+	dir = 4
+	},
+/area/deepmaints)
+"zo" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"zq" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id = "deepmaintsrobolab"
+	},
+/turf/simulated/floor/catwalk/black,
+/area/deepmaints)
+"zB" = (
+/obj/effect/turf_decal/woodsiding/end,
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"zR" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/stairs/medium{
+	dir = 8
+	},
+/area/deepmaints)
+"zZ" = (
+/obj/machinery/floodlight/anchored/darker_on,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"An" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"AM" = (
+/turf/simulated/mineral/random/volcanic,
+/area/deepmaints)
+"AR" = (
+/obj/machinery/economy/vending/medical,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Bc" = (
+/obj/structure/table,
+/obj/effect/spawner/random/bureaucracy,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"Bw" = (
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"BN" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Cj" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"CD" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"CQ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/large_tank,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"CT" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/line{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"CX" = (
+/obj/structure/railing/cap/reversed,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Dn" = (
+/obj/effect/turf_decal/woodsiding/end{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"DJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"DM" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/crumpled/bloody{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/pen{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"DS" = (
+/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/deepmaints)
+"Ea" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/themed_mess/robotic,
+/obj/effect/turf_decal/alphanumeric/center_1,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Et" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/effect/turf_decal/trimline/neutral/line,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Ez" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"EK" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Fa" = (
+/obj/structure/table/wood,
+/obj/item/food/sliced/margherita_pizza{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/food/sliced/pepperoni_pizza{
+	pixel_x = 5;
+	pixel_y = 11
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"Fc" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/turf_decal/box/white,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Fd" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Fr" = (
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"Ft" = (
+/obj/effect/turf_decal/loading_area,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"FC" = (
+/turf/simulated/floor/lava,
+/area/deepmaints)
+"FH" = (
+/obj/machinery/conveyor{
+	id = "deepmaintsprocessing";
+	dir = 10
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Gc" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/corner{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Gh" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Gu" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/neutral/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"GC" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"GQ" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"GS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/engineering/tools,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"GZ" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/grille/broken,
+/obj/effect/spawner/random/blood/maybe,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"Hm" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Hv" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"HK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"HQ" = (
+/obj/structure/shelf,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Ib" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/corner{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Ip" = (
+/obj/structure/spider/stickyweb,
+/obj/structure/spider/cocoon,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Ir" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/corner{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"It" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk/black,
+/area/deepmaints)
+"IB" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"II" = (
+/mob/living/basic/mouse/white,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"IQ" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/trimline/department/virology/filled/corner,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Jf" = (
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"JF" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"JI" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/large_tank,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Kc" = (
+/obj/machinery/biogenerator,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Ky" = (
+/obj/structure/chair/sofa/corp/left,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"Lb" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/stairs/left{
+	dir = 4
+	},
+/area/deepmaints)
+"Le" = (
+/obj/structure/railing/cap/reversed{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Li" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/engineering/filled/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Lp" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"LA" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"LM" = (
+/obj/structure/table,
+/obj/machinery/light,
+/obj/effect/spawner/random/engineering/materials,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Mt" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"Mv" = (
+/obj/effect/spawner/window/reinforced/tinted/grilled,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"MG" = (
+/obj/structure/table/wood,
+/obj/item/trash/candle{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"MQ" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"MT" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"MU" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light_construct{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Nb" = (
+/obj/effect/spawner/window/reinforced/tinted/grilled,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"Nd" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"No" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Nt" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"On" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light/small/deepmaints{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"OV" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Pj" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/spawner/random/stock_parts,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Pr" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/kitchen/knife,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Pu" = (
+/obj/structure/dresser,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Py" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"PN" = (
+/obj/structure/chair/sofa/corp,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/plushies,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"PU" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Ql" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4
+	},
+/obj/effect/spawner/random/blood/often,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Qr" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Qt" = (
+/obj/effect/turf_decal/woodsiding/end,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"QA" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"QE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/neutral/corner{
+	dir = 4
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"QH" = (
+/obj/structure/chair/sofa/corp{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"QO" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"RP" = (
+/obj/structure/table,
+/obj/effect/spawner/random/snacks,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"RZ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/vault,
+/area/deepmaints)
+"Sk" = (
+/obj/item/kirbyplants/large,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Sp" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/trimline/department/virology/filled/line,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"SE" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/deepmaints)
+"SK" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"SP" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/spawner/random/cobweb/left/frequent,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"SS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/firecloset,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Td" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"Tk" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/engineering/filled/warning,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Tl" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"TF" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"TK" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/deepmaints)
+"TQ" = (
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Uq" = (
+/obj/machinery/atmospherics/binary/valve,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Ur" = (
+/obj/machinery/light/small/deepmaints,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"US" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Va" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"Vb" = (
+/obj/structure/table/wood,
+/obj/item/trash/can,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"Vf" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"Vi" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/bluegrid,
+/area/deepmaints)
+"VB" = (
+/obj/structure/closet/crate/secure/nanotrasen,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"VM" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"VR" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/border/department/engineering{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"VS" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"WG" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"WH" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/corner{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"WW" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/department/virology/filled/corner{
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Xi" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Xj" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"Xn" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/engineering/filled/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/deepmaints)
+"Xp" = (
+/obj/structure/closet/crate/freezer/iv_storage,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Xr" = (
+/obj/structure/railing/cap/reversed{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/wood,
+/area/deepmaints)
+"XK" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"XN" = (
+/obj/effect/turf_decal/woodsiding/end,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/deepmaints)
+"Yf" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/smartfridge/foodcart,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"YA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk,
+/area/deepmaints)
+"YL" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp/green,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel,
+/area/deepmaints)
+"Za" = (
+/obj/item/crowbar,
+/obj/item/wrench/medical,
+/obj/structure/table/glass,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Ze" = (
+/obj/machinery/sleeper,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Zh" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 6
+	},
+/obj/effect/turf_decal/trimline/neutral/corner,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"Zj" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/stairs/medium{
+	dir = 4
+	},
+/area/deepmaints)
+"ZF" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
+/area/deepmaints)
+"ZU" = (
+/obj/structure/closet/crate/miningcar,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/iron,
+/obj/item/stack/ore/plasma,
+/obj/item/stack/ore/plasma,
+/obj/item/stack/ore/plasma,
+/obj/item/stack/ore/plasma,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/deepmaints)
+"ZV" = (
+/obj/machinery/bodyscanner,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/tiles/department/medical,
+/turf/simulated/floor/plasteel/white,
+/area/deepmaints)
+"ZZ" = (
+/obj/effect/spawner/random/blood/maybe,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/catwalk/black,
+/area/deepmaints)
+
+(1,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(2,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(3,1,1) = {"
+nB
+nB
+eo
+eo
+eo
+eo
+On
+eo
+eo
+eo
+nK
+nB
+nB
+eo
+eo
+eo
+eo
+On
+eo
+eo
+eo
+nK
+nB
+nB
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+nK
+nB
+nB
+rT
+aI
+XK
+rT
+aI
+aI
+MQ
+aI
+Td
+nB
+nB
+"}
+(4,1,1) = {"
+nB
+nB
+eo
+eo
+kl
+kl
+kl
+kl
+kl
+eo
+eo
+nB
+nB
+eo
+ZF
+ZF
+ZF
+ZF
+qi
+ZF
+ZF
+eo
+nB
+nB
+eo
+eo
+ZF
+ZF
+ZF
+ZF
+ZF
+eo
+eo
+nB
+nB
+sS
+FC
+xy
+sS
+FC
+FC
+Fr
+FC
+xy
+nB
+nB
+"}
+(5,1,1) = {"
+nB
+nB
+eo
+kl
+kl
+HQ
+dN
+VB
+kl
+kl
+eo
+nB
+nB
+eo
+ZF
+gV
+qX
+kS
+Xi
+qn
+ZF
+eo
+nB
+nB
+eo
+eo
+VR
+eA
+ZF
+CQ
+VR
+eo
+eo
+nB
+nB
+sS
+FC
+xy
+Xj
+Va
+FC
+Fr
+FC
+xy
+nB
+nB
+"}
+(6,1,1) = {"
+nB
+nB
+eo
+kl
+VM
+qX
+qX
+qX
+qX
+kl
+eo
+nB
+nB
+eo
+ZF
+gV
+qX
+qX
+bY
+er
+ZF
+eo
+nB
+nB
+eo
+eo
+eo
+RP
+ZF
+cZ
+eo
+eo
+eo
+nB
+nB
+sS
+FC
+xy
+Bc
+Xj
+TF
+vA
+FC
+xy
+nB
+nB
+"}
+(7,1,1) = {"
+nB
+nB
+eo
+kl
+rW
+qX
+gh
+II
+qX
+wD
+eo
+nB
+nB
+No
+ZF
+ch
+Le
+qX
+bY
+mt
+ZF
+iT
+nB
+nB
+eo
+gL
+eo
+LM
+ZF
+Pj
+eo
+Ea
+eo
+nB
+nB
+sS
+FC
+xy
+Bc
+dP
+Jf
+sS
+FC
+xy
+nB
+nB
+"}
+(8,1,1) = {"
+nB
+nB
+eo
+kl
+VM
+qX
+qX
+qX
+qX
+kl
+eo
+nB
+nB
+eo
+uu
+qX
+qX
+CX
+lN
+er
+ZF
+eo
+nB
+nB
+eo
+eo
+eo
+rd
+ZF
+ou
+eo
+eo
+eo
+nB
+nB
+sS
+FC
+xy
+Bc
+rT
+aI
+Mt
+FC
+xy
+nB
+nB
+"}
+(9,1,1) = {"
+nB
+nB
+eo
+kl
+kl
+HQ
+oE
+VB
+kl
+kl
+eo
+nB
+nB
+eo
+ZF
+EK
+zo
+Ft
+sz
+FH
+ZF
+eo
+nB
+nB
+eo
+eo
+vQ
+nC
+ZF
+JI
+vQ
+eo
+eo
+nB
+nB
+sS
+FC
+xy
+rT
+sy
+FC
+ut
+FC
+xy
+nB
+nB
+"}
+(10,1,1) = {"
+nB
+nB
+eo
+eo
+kl
+kl
+kl
+kl
+kl
+eo
+eo
+nB
+nB
+eo
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+eo
+nB
+nB
+eo
+eo
+ZF
+ZF
+ZF
+ZF
+ZF
+eo
+eo
+nB
+nB
+sS
+FC
+xy
+sS
+FC
+FC
+ut
+FC
+xy
+nB
+nB
+"}
+(11,1,1) = {"
+nB
+nB
+eo
+eo
+eo
+eo
+Gh
+eo
+eo
+eo
+eo
+nB
+nB
+eo
+eo
+eo
+eo
+Gh
+eo
+eo
+eo
+eo
+nB
+nB
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+nB
+nB
+Xj
+TF
+ua
+Xj
+TF
+TF
+jJ
+TF
+ua
+nB
+nB
+"}
+(12,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(13,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(14,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+qX
+MT
+qX
+It
+ZZ
+It
+MT
+qX
+cK
+nB
+nB
+wG
+wG
+wG
+wG
+wG
+wG
+wG
+wG
+eP
+nB
+nB
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+ei
+nB
+nB
+"}
+(15,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+qX
+ZF
+ZF
+GZ
+Nb
+Nb
+ZF
+ZF
+qX
+nB
+nB
+wG
+wG
+kN
+ZV
+sm
+Ze
+ZF
+ZF
+wG
+nB
+nB
+RZ
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+RZ
+nB
+nB
+"}
+(16,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+CD
+ZF
+Fc
+Ql
+nP
+Uq
+lM
+ZF
+vy
+nB
+nB
+wG
+wG
+uo
+ZF
+ZF
+ZF
+ZF
+DS
+wG
+nB
+nB
+RZ
+ZF
+nR
+eo
+Pu
+ZF
+bg
+ZF
+RZ
+nB
+nB
+"}
+(17,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+Li
+Nb
+ys
+lR
+tg
+tS
+SS
+Mv
+jg
+nB
+nB
+wG
+wG
+ea
+ZF
+Nd
+Lp
+ZF
+SE
+wG
+nB
+nB
+RZ
+ZF
+YL
+eo
+eo
+pq
+eo
+ZF
+RZ
+nB
+nB
+"}
+(18,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+Tk
+vc
+hz
+HK
+ks
+YA
+oD
+vc
+hR
+nB
+nB
+wG
+wG
+rH
+ZF
+Lp
+Lp
+yF
+wG
+wG
+nB
+nB
+RZ
+ZF
+ZF
+ZF
+ZF
+ZF
+eo
+pq
+RZ
+nB
+nB
+"}
+(19,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+kT
+Nb
+Ip
+cw
+Hv
+DJ
+qX
+Nb
+Xn
+nB
+nB
+wG
+wG
+po
+ZF
+TK
+Lp
+ZF
+SE
+wG
+nB
+nB
+RZ
+ZF
+gC
+eo
+eo
+pq
+Ur
+ZF
+RZ
+nB
+nB
+"}
+(20,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+CD
+ZF
+Sk
+DM
+pR
+GC
+xi
+ZF
+vy
+nB
+nB
+wG
+wG
+Za
+ZF
+ZF
+ZF
+ZF
+DS
+wG
+nB
+nB
+RZ
+ZF
+YL
+eo
+Pu
+ZF
+gn
+ZF
+RZ
+nB
+nB
+"}
+(21,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+qX
+ZF
+ZF
+Nb
+Nb
+Nb
+ZF
+ZF
+qX
+nB
+nB
+wG
+wG
+kN
+pA
+so
+AR
+ZF
+ZF
+wG
+nB
+nB
+RZ
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+RZ
+nB
+nB
+"}
+(22,1,1) = {"
+nB
+nB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+IB
+nB
+nB
+qX
+qX
+qX
+It
+It
+It
+qX
+qX
+qX
+nB
+nB
+wG
+wG
+wG
+wG
+wG
+wG
+wG
+wG
+wG
+nB
+nB
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+RZ
+nB
+nB
+"}
+(23,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(24,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(25,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Zh
+sN
+sN
+sN
+sN
+sN
+sN
+sN
+QE
+nB
+nB
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+nK
+nB
+nB
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+dh
+nB
+nB
+"}
+(26,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Et
+ZF
+ZF
+Nt
+Tl
+Nt
+ZF
+ZF
+in
+nB
+nB
+eo
+Bw
+Bw
+Bw
+JF
+Bw
+Bw
+JF
+eo
+nB
+nB
+bb
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+kN
+nB
+nB
+"}
+(27,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+cD
+ZF
+SP
+Vi
+uF
+pH
+MU
+ZF
+kx
+nB
+nB
+eo
+Bw
+Bw
+Py
+Bw
+GQ
+Bw
+Bw
+eo
+nB
+nB
+kN
+cE
+tr
+yC
+kN
+Qr
+kN
+kN
+kN
+nB
+nB
+"}
+(28,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+wE
+jR
+qX
+qX
+qX
+GS
+qX
+na
+pu
+nB
+nB
+eo
+Bw
+Bw
+Bw
+Bw
+Bw
+Bw
+Bw
+eo
+nB
+nB
+kN
+cE
+tr
+TQ
+bb
+ZF
+TQ
+kN
+kN
+nB
+nB
+"}
+(29,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+wE
+cY
+qX
+It
+It
+It
+qX
+zq
+pu
+nB
+nB
+eo
+hN
+Kc
+Bw
+JF
+GQ
+Bw
+Bw
+eo
+nB
+nB
+kN
+Xp
+ZF
+ZF
+ZF
+ZF
+PU
+kN
+kN
+nB
+nB
+"}
+(30,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+wE
+jR
+qX
+qX
+qX
+qX
+qX
+zq
+pu
+nB
+nB
+eo
+eo
+eo
+Bw
+Bw
+Bw
+Bw
+Bw
+eo
+nB
+nB
+kN
+cE
+tr
+yC
+bb
+ZF
+TQ
+kN
+kN
+nB
+nB
+"}
+(31,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+cD
+ZF
+wc
+VS
+rG
+qX
+uG
+ZF
+kx
+nB
+nB
+eo
+ef
+eo
+Bw
+Bw
+Bw
+Py
+JF
+eo
+nB
+nB
+kN
+cE
+tr
+TQ
+kN
+Qr
+kN
+kN
+kN
+nB
+nB
+"}
+(32,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Et
+ZF
+ZF
+Tl
+Tl
+Nt
+ZF
+ZF
+in
+nB
+nB
+eo
+qb
+eo
+GQ
+Bw
+Bw
+Bw
+Bw
+eo
+nB
+nB
+bb
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+kN
+nB
+nB
+"}
+(33,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+qt
+OV
+OV
+OV
+OV
+OV
+OV
+OV
+Gu
+nB
+nB
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+eo
+nB
+nB
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+kN
+nB
+nB
+"}
+(34,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(35,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(36,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+lU
+js
+js
+Gc
+eo
+IQ
+js
+js
+Ir
+nB
+nB
+nT
+nT
+nT
+nT
+nT
+nT
+nT
+nT
+cg
+nB
+nB
+LA
+LA
+LA
+LA
+LA
+LA
+LA
+LA
+QO
+nB
+nB
+"}
+(37,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+ez
+XN
+pb
+Zj
+kn
+ov
+zB
+CT
+nB
+nB
+nT
+ZF
+ZF
+nT
+nT
+ZF
+ZF
+ZF
+nT
+nB
+nB
+LA
+AM
+LA
+LA
+LA
+LA
+AM
+Ez
+LA
+nB
+nB
+"}
+(38,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+SK
+SK
+hi
+SK
+it
+SK
+SK
+CT
+nB
+nB
+nT
+ZF
+Yf
+nT
+nT
+Fd
+uD
+Pr
+nT
+nB
+nB
+LA
+LA
+LA
+rz
+rz
+LA
+LA
+LA
+LA
+nB
+nB
+"}
+(39,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+yY
+MG
+SK
+SK
+SK
+Vb
+jZ
+CT
+nB
+nB
+nT
+ZF
+Cj
+nT
+nT
+nT
+nT
+nT
+nT
+nB
+nB
+LA
+LA
+ky
+rz
+rz
+rz
+LA
+LA
+LA
+nB
+nB
+"}
+(40,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+PN
+iz
+SK
+SK
+SK
+je
+QH
+CT
+nB
+nB
+nT
+ZF
+pJ
+nT
+lm
+nT
+nT
+lm
+nT
+nB
+nB
+LA
+LA
+rz
+rz
+rz
+rz
+tk
+LA
+LA
+nB
+nB
+"}
+(41,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+Ky
+hc
+SK
+SK
+SK
+Fa
+WG
+CT
+nB
+nB
+nT
+ZF
+Hm
+nT
+nT
+nT
+nT
+nT
+nT
+nB
+nB
+LA
+LA
+rz
+rz
+rz
+Vf
+LA
+LA
+LA
+nB
+nB
+"}
+(42,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+SK
+SK
+Xr
+SK
+QA
+SK
+SK
+CT
+nB
+nB
+nT
+ZF
+US
+nT
+nT
+BN
+fL
+An
+nT
+nB
+nB
+LA
+AM
+LA
+rz
+rz
+LA
+LA
+LA
+LA
+nB
+nB
+"}
+(43,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+Sp
+Dn
+Qt
+Lb
+zR
+zn
+ez
+yX
+CT
+nB
+nB
+nT
+ZF
+ZF
+nT
+nT
+ZF
+ZF
+ZF
+nT
+nB
+nB
+LA
+LA
+LA
+LA
+zZ
+LA
+ZU
+LA
+LA
+nB
+nB
+"}
+(44,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+WW
+aU
+aU
+vH
+eo
+Ib
+aU
+aU
+WH
+nB
+nB
+nT
+nT
+nT
+nT
+nT
+nT
+nT
+nT
+nT
+nB
+nB
+LA
+LA
+LA
+LA
+LA
+LA
+LA
+LA
+LA
+nB
+nB
+"}
+(45,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}
+(46,1,1) = {"
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+nB
+"}

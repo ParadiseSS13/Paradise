@@ -172,3 +172,5 @@
 	if(prob(MACHINE_FLICKER_CHANCE))
 		powernet_apc?.flicker()
 
+/datum/local_powernet/proc/is_lightswitch_on()
+	return powernet_area.lightswitch
