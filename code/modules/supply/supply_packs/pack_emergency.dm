@@ -93,7 +93,11 @@
 					/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
-					/obj/item/clothing/under/plasmaman)
+					/obj/item/clothing/under/plasmaman,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest,
+					/obj/item/clothing/suit/storage/hazardvest)
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "internals crate (plasmaman)"
 	access = ACCESS_EVA
