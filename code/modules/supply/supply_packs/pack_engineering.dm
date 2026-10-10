@@ -13,14 +13,6 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
-/datum/supply_packs/engineering/backpack_firefighter_tank
-	name = "Backpack Firefighting Tank Crate"
-	contains = list(/obj/item/watertank/atmos)
-	cost = 100
-	containertype = /obj/structure/closet/crate/engineering
-	containername = "backpack firefighting tank crate"
-	access = ACCESS_ATMOSPHERICS
-
 /// The most robust crate...
 /datum/supply_packs/engineering/tools
 	name = "Toolbox Crate"

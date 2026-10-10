@@ -133,6 +133,14 @@
 	containertype = /obj/structure/closet/crate
 	containername = "firefighting crate"
 
+/datum/supply_packs/engineering/backpack_firefighter_tank
+	name = "Backpack Firefighting Tank Crate"
+	contains = list(/obj/item/watertank/atmos)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "backpack firefighting tank crate"
+	access = ACCESS_ATMOSPHERICS
+
 /datum/supply_packs/emergency/foamtank
 	name = "Firefighting Foam Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/firetank)
