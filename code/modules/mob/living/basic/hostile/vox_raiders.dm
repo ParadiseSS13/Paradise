@@ -96,8 +96,6 @@
 	maxHealth = 125
 	icon_state = "vox_foreman"
 	icon_living = "vox_foreman"
-	minimum_survivable_temperature = 0
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_foreman
 	projectile_type = /obj/projectile/bullet/spike
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
@@ -215,6 +213,7 @@
 	icon_state = "vox_engineer"
 	icon_living = "vox_engineer"
 	initial_traits = list(TRAIT_NOFIRE, TRAIT_MAGPULSE)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 2, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 5, "max_n2" = 0)
 	ai_controller = /datum/ai_controller/basic_controller/simple/vox_engineer
 	is_ranged = FALSE
 	loot = list(

@@ -383,3 +383,6 @@
 
 /area/ruin/space/powered/ragnarok/atmos
 	name = "Ragnarok Atmospherics Bay"
+
+/area/ruin/space/powered/vox_raider_ship
+	name = "Vox Skipjack"
