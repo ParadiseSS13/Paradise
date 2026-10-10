@@ -252,8 +252,8 @@
 /datum/surgery_step/robotics/external/close_hatch/premature/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool].",
-		"<span class'warning'>You are interrupting the current surgery</span>, beginning to close and secure the hatch on [target]'s [affected.name] with \the [tool].",
+		SPAN_NOTICE("[user] begins to close and secure the hatch on [target]'s [affected.name] with [tool]."),
+		SPAN_NOTICE("[SPAN_WARNING("You are interrupting the current surgery")], beginning to close and secure the hatch on [target]'s [affected.name] with [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
