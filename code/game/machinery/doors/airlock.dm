@@ -102,6 +102,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/mutable_appearance/old_lights_underlay
 	var/mutable_appearance/old_damag_underlay
 	var/mutable_appearance/old_sparks_underlay
+	var/mutable_appearance/old_lit_stripes_underlay
+	var/mutable_appearance/old_lit_stripes_lightmask_underlay
 
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
@@ -253,8 +255,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(electrified_until != 0)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/proc/canAIControl()
 	return ((aiControlDisabled != AICONTROLDISABLED_ON) && (!isAllPowerLoss()))
@@ -264,7 +266,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
-		return 0
+		return FALSE
 	return (main_power_lost_until==0 || backup_power_lost_until==0)
 
 /obj/machinery/door/airlock/requiresID()
@@ -272,10 +274,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/proc/isAllPowerLoss()
 	if(stat & (NOPOWER|BROKEN))
-		return 1
+		return TRUE
 	if(wires.is_cut(WIRE_MAIN_POWER1) && wires.is_cut(WIRE_BACKUP_POWER1))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/proc/loseMainPower()
 	main_power_lost_until = wires.is_cut(WIRE_MAIN_POWER1) ? -1 : world.time + 60 SECONDS
@@ -457,15 +459,28 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/image/damag_overlay
 	var/image/sparks_overlay
 	var/image/note_overlay
+	var/image/lit_stripes_underlay
 	var/notetype = note_type()
 	var/mutable_appearance/buttons_underlay
 	var/mutable_appearance/lights_underlay
 	var/mutable_appearance/damag_underlay
 	var/mutable_appearance/sparks_underlay
+	var/mutable_appearance/lit_stripes_lightmask_underlay
+
+	var/obj/machinery/door/firedoor/fire_door
+	for(var/obj/machinery/door/firedoor/possible_firelock in loc)
+		if(istype(possible_firelock))
+			fire_door = possible_firelock
+			break
+
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay(closed_icon_state, icon)
 			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
+			if(fire_door)
+				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
+					lit_stripes_underlay = get_airlock_overlay("alarm_closed", overlays_file)
+					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_closed_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -499,6 +514,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			if(!arePowerSystemsOn())
 				return
 			frame_overlay = get_airlock_overlay(closed_icon_state, icon)
+			if(fire_door)
+				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
+					lit_stripes_underlay = get_airlock_overlay("alarm_closed", overlays_file)
+					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_closed_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -527,6 +546,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
 			sparks_overlay = get_airlock_overlay("sparks", overlays_file)
 			sparks_underlay = get_airlock_emissive_underlay("sparks_lightmask", overlays_file)
+			if(fire_door)
+				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
+					lit_stripes_underlay = get_airlock_overlay("alarm_open", overlays_file)
+					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_open_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -569,6 +592,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 		if(AIRLOCK_OPEN)
 			frame_overlay = get_airlock_overlay(open_icon_state, icon)
+			if(fire_door)
+				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
+					lit_stripes_underlay = get_airlock_overlay("alarm_open", overlays_file)
+					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_open_lightmask", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_open", overlays_file)
 			else
@@ -621,7 +648,16 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	overlays += check_unres()
 
+	if(lit_stripes_underlay != old_lit_stripes_underlay)
+		underlays -= old_lit_stripes_underlay
+		underlays += old_lit_stripes_underlay
+		old_lit_stripes_underlay = lit_stripes_underlay
+
 	//EMISSIVE ICONS
+	if(lit_stripes_lightmask_underlay != old_lit_stripes_lightmask_underlay)
+		underlays -= old_lit_stripes_lightmask_underlay
+		underlays += old_lit_stripes_lightmask_underlay
+		old_lit_stripes_lightmask_underlay = lit_stripes_lightmask_underlay
 	if(buttons_underlay != old_buttons_underlay)
 		underlays -= old_buttons_underlay
 		underlays += buttons_underlay

@@ -25,7 +25,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	cares_about_temperature = TRUE
 	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
-	/// How long does opening by hand take, in deciseconds.
+	/// How long does opening by hand take?
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
 	var/nextstate = null
@@ -147,8 +147,10 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.visible_message(SPAN_NOTICE("[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."), \
-						SPAN_NOTICE("You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts."))
+	user.visible_message(
+		SPAN_NOTICE("[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."),
+		SPAN_NOTICE("You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.")
+	)
 	boltslocked = !boltslocked
 
 /obj/machinery/door/firedoor/wrench_act(mob/user, obj/item/I)
@@ -162,12 +164,16 @@
 	if(boltslocked)
 		to_chat(user, SPAN_NOTICE("There are screws locking the bolts in place!"))
 		return
-	user.visible_message(SPAN_NOTICE("[user] starts undoing [src]'s bolts..."), \
-						SPAN_NOTICE("You start unfastening [src]'s floor bolts..."))
+	user.visible_message(
+		SPAN_NOTICE("[user] starts undoing [src]'s bolts..."),
+		SPAN_NOTICE("You start unfastening [src]'s floor bolts...")
+	)
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || boltslocked)
 		return
-	user.visible_message(SPAN_NOTICE("[user] unfastens [src]'s bolts."), \
-							SPAN_NOTICE("You undo [src]'s floor bolts."))
+	user.visible_message(
+		SPAN_NOTICE("[user] unfastens [src]'s bolts."),
+		SPAN_NOTICE("You undo [src]'s floor bolts.")
+	)
 	deconstruct(TRUE)
 
 /obj/machinery/door/firedoor/welder_act(mob/user, obj/item/I)
@@ -220,12 +226,20 @@
 	open()
 
 /obj/machinery/door/firedoor/do_animate(animation)
+	// Do we play the animation with no back door?
+	var/obscured_animation = FALSE
+	if(locate(/obj/machinery/door/airlock) in loc.contents)
+		obscured_animation = TRUE
 	switch(animation)
 		if("opening")
-			flick("door_opening", src)
+			flick("door_opening[obscured_animation ? "_obscured" : ""]", src)
+			if(obscured_animation)
+				new /obj/effect/temp_visual/dir_setting/firedoor_back_opening(get_turf(src), dir)
 			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
 		if("closing")
-			flick("door_closing", src)
+			flick("door_closing[obscured_animation ? "_obscured" : ""]", src)
+			if(obscured_animation)
+				new /obj/effect/temp_visual/dir_setting/firedoor_back_closing(get_turf(src), dir)
 			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
 
 /obj/machinery/door/firedoor/update_icon_state()
@@ -236,12 +250,13 @@
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
+	overlays.Cut()
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
-		if(light)
-			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
-		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+		if(light && !operating)
+			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]_lightmask")
+			. += image('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]")
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
@@ -265,13 +280,15 @@
 	latetoggle()
 	if(active_alarm)
 		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/close()
-	. = ..()
 	var/direction = get_current_direction()
 	dir = direction ? direction : NORTH
 	update_icon()
+	. = ..()
 	latetoggle()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/autoclose()
 	if(active_alarm)
@@ -334,11 +351,11 @@
 
 /obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
 	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/machinery/door/firedoor/border_only/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
@@ -423,14 +440,18 @@
 				if(P.get_amount() < 2)
 					to_chat(user, SPAN_WARNING("You need more plasteel to reinforce [src]."))
 					return ITEM_INTERACT_COMPLETE
-				user.visible_message(SPAN_NOTICE("[user] begins reinforcing [src]..."), \
-									SPAN_NOTICE("You begin reinforcing [src]..."))
+				user.visible_message(
+					SPAN_NOTICE("[user] begins reinforcing [src]..."),
+					SPAN_NOTICE("You begin reinforcing [src]...")
+				)
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(do_after(user, 60 * C.toolspeed, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return ITEM_INTERACT_COMPLETE
-					user.visible_message(SPAN_NOTICE("[user] reinforces [src]."), \
-										SPAN_NOTICE("You reinforce [src]."))
+					user.visible_message(
+						SPAN_NOTICE("[user] reinforces [src]."),
+						SPAN_NOTICE("You reinforce [src].")
+					)
 					playsound(get_turf(src), C.usesound, 50, 1)
 					P.use(2)
 					reinforced = 1
@@ -441,14 +462,18 @@
 				if(B.get_amount() < 5)
 					to_chat(user, SPAN_WARNING("You need more wires to add wiring to [src]."))
 					return ITEM_INTERACT_COMPLETE
-				user.visible_message(SPAN_NOTICE("[user] begins wiring [src]..."), \
-									SPAN_NOTICE("You begin adding wires to [src]..."))
+				user.visible_message(
+					SPAN_NOTICE("[user] begins wiring [src]..."),
+					SPAN_NOTICE("You begin adding wires to [src]...")
+				)
 				playsound(get_turf(src), B.usesound, 50, 1)
 				if(do_after(user, 60 * B.toolspeed, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return ITEM_INTERACT_COMPLETE
-					user.visible_message(SPAN_NOTICE("[user] adds wires to [src]."), \
-										SPAN_NOTICE("You wire [src]."))
+					user.visible_message(
+						SPAN_NOTICE("[user] adds wires to [src]."),
+						SPAN_NOTICE("You wire [src].")
+					)
 					playsound(get_turf(src), B.usesound, 50, 1)
 					B.use(5)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
@@ -456,8 +481,10 @@
 				return ITEM_INTERACT_COMPLETE
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(istype(C, /obj/item/firelock_electronics))
-				user.visible_message(SPAN_NOTICE("[user] starts adding [C] to [src]..."), \
-									SPAN_NOTICE("You begin adding a circuit board to [src]..."))
+				user.visible_message(
+					SPAN_NOTICE("[user] starts adding [C] to [src]..."),
+					SPAN_NOTICE("You begin adding a circuit board to [src]...")
+				)
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(!do_after(user, 40 * C.toolspeed, target = src))
 					return ITEM_INTERACT_COMPLETE
@@ -465,8 +492,10 @@
 					return ITEM_INTERACT_COMPLETE
 				user.drop_item()
 				qdel(C)
-				user.visible_message(SPAN_NOTICE("[user] adds a circuit to [src]."), \
-									SPAN_NOTICE("You insert and secure [C]."))
+				user.visible_message(
+					SPAN_NOTICE("[user] adds a circuit to [src]."),
+					SPAN_NOTICE("You insert and secure [C].")
+				)
 				playsound(get_turf(src), C.usesound, 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
@@ -480,34 +509,46 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(constructionStep == CONSTRUCTION_WIRES_EXPOSED)
-		user.visible_message(SPAN_NOTICE("[user] starts prying a metal plate into [src]..."), \
-							SPAN_NOTICE("You begin prying the cover plate back onto [src]..."))
+		user.visible_message(
+			SPAN_NOTICE("[user] starts prying a metal plate into [src]..."),
+			SPAN_NOTICE("You begin prying the cover plate back onto [src]...")
+		)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
 		if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 			return
-		user.visible_message(SPAN_NOTICE("[user] pries the metal plate into [src]."), \
-							SPAN_NOTICE("You pry [src]'s cover plate into place, hiding the wires."))
+		user.visible_message(
+			SPAN_NOTICE("[user] pries the metal plate into [src]."),
+			SPAN_NOTICE("You pry [src]'s cover plate into place, hiding the wires.")
+		)
 		constructionStep = CONSTRUCTION_PANEL_OPEN
 	else if(constructionStep == CONSTRUCTION_PANEL_OPEN)
-		user.visible_message(SPAN_NOTICE("[user] starts prying something out from [src]..."), \
-							SPAN_NOTICE("You begin prying out the wire cover..."))
+		user.visible_message(
+			SPAN_NOTICE("[user] starts prying something out from [src]..."),
+			SPAN_NOTICE("You begin prying out the wire cover...")
+		)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
 		if(constructionStep != CONSTRUCTION_PANEL_OPEN)
 			return
-		user.visible_message(SPAN_NOTICE("[user] pries out a metal plate from [src], exposing the wires."), \
-							SPAN_NOTICE("You remove the cover plate from [src], exposing the wires."))
+		user.visible_message(
+			SPAN_NOTICE("[user] pries out a metal plate from [src], exposing the wires."),
+			SPAN_NOTICE("You remove the cover plate from [src], exposing the wires.")
+		)
 		constructionStep = CONSTRUCTION_WIRES_EXPOSED
 	else if(constructionStep == CONSTRUCTION_GUTTED)
-		user.visible_message(SPAN_NOTICE("[user] begins removing the circuit board from [src]..."), \
-							SPAN_NOTICE("You begin prying out the circuit board from [src]..."))
+		user.visible_message(
+			SPAN_NOTICE("[user] begins removing the circuit board from [src]..."),
+			SPAN_NOTICE("You begin prying out the circuit board from [src]...")
+		)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return
 		if(constructionStep != CONSTRUCTION_GUTTED)
 			return
-		user.visible_message(SPAN_NOTICE("[user] removes [src]'s circuit board."), \
-							SPAN_NOTICE("You remove the circuit board from [src]."))
+		user.visible_message(
+			SPAN_NOTICE("[user] removes [src]'s circuit board."),
+			SPAN_NOTICE("You remove the circuit board from [src].")
+		)
 		new /obj/item/firelock_electronics(get_turf(src))
 		constructionStep = CONSTRUCTION_NOCIRCUIT
 	update_icon()
@@ -519,14 +560,18 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 
-	user.visible_message(SPAN_NOTICE("[user] starts cutting the wires from [src]..."), \
-						SPAN_NOTICE("You begin removing [src]'s wires..."))
+	user.visible_message(
+		SPAN_NOTICE("[user] starts cutting the wires from [src]..."),
+		SPAN_NOTICE("You begin removing [src]'s wires...")
+	)
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 		return
-	user.visible_message(SPAN_NOTICE("[user] removes the wires from [src]."), \
-						SPAN_NOTICE("You remove the wiring from [src], exposing the circuit board."))
+	user.visible_message(
+		SPAN_NOTICE("[user] removes the wires from [src]."),
+		SPAN_NOTICE("You remove the wiring from [src], exposing the circuit board.")
+	)
 	var/obj/item/stack/cable_coil/B = new(get_turf(src))
 	B.amount = 5
 	constructionStep = CONSTRUCTION_GUTTED
@@ -541,14 +586,18 @@
 		return
 	if(!I.tool_start_check(src, user, 0))
 		return
-	user.visible_message(SPAN_NOTICE("[user] starts bolting down [src]..."), \
-						SPAN_NOTICE("You begin bolting [src]..."))
+	user.visible_message(
+		SPAN_NOTICE("[user] starts bolting down [src]..."),
+		SPAN_NOTICE("You begin bolting [src]...")
+	)
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
 		return
-	user.visible_message(SPAN_NOTICE("[user] finishes the firelock."), \
-						SPAN_NOTICE("You finish the firelock."))
+	user.visible_message(
+		SPAN_NOTICE("[user] finishes the firelock."),
+		SPAN_NOTICE("You finish the firelock.")
+	)
 	if(reinforced)
 		new /obj/machinery/door/firedoor/heavy(get_turf(src))
 	else
