@@ -333,7 +333,6 @@
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/vox_miner,
-		/datum/ai_planning_subtree/target_retaliate,
 		/datum/ai_planning_subtree/simple_find_nearest_target_to_flee,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
 		/datum/ai_planning_subtree/flee_target,
