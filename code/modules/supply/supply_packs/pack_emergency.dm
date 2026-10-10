@@ -109,8 +109,10 @@
 					/mob/living/basic/bot/medbot,
 					/mob/living/basic/bot/medbot,
 					/obj/item/storage/box/foam_grenades,
+					/obj/item/storage/box/foam_grenades,
+					/obj/item/storage/box/oxygen_grenades,
 					/obj/item/storage/box/oxygen_grenades)
-	cost = 100
+	cost = 200
 	containertype = /obj/structure/closet/crate/engineering
 	containername = "emergency damage control crate"
 
