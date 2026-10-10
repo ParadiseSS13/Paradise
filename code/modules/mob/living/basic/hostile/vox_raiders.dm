@@ -164,6 +164,12 @@
 
 	return ..()
 
+/mob/living/basic/vox/marauder/check_eye_prot()
+	return 2
+
+/mob/living/basic/vox/marauder/check_ear_prot()
+	return 2
+
 /mob/living/basic/vox/marauder/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
@@ -193,6 +199,12 @@
 			/obj/effect/decal/cleanable/blood/innards/vox,
 			/obj/effect/decal/cleanable/blood/vox,
 			/obj/effect/gibspawner/vox)
+
+/mob/living/basic/vox/raider/check_eye_prot()
+	return 2
+
+/mob/living/basic/vox/raider/check_ear_prot()
+	return 2
 
 /mob/living/basic/vox/raider/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
@@ -240,6 +252,12 @@
 
 /mob/living/basic/vox/medic/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
+
+/mob/living/basic/vox/medic/check_eye_prot()
+	return 2
+
+/mob/living/basic/vox/medic/check_ear_prot()
+	return 2
 
 /mob/living/basic/vox/medic/proc/heal_ally(mob/living/basic/ally)
 	face_atom(ally)
