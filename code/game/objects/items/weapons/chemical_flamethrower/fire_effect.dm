@@ -144,4 +144,20 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	if(duration <= 0)
 		fizzle()
 
+/obj/effect/fire/electrical
+
+/obj/effect/fire/electrical/Initialize(mapload)
+	. = ..(mapload, T0C + 400, 5 MINUTES, 2)
+	set_light(4, 3, LIGHT_COLOR_LAVA)
+
+/obj/effect/fire/electrical/process()
+	..()
+	if(prob(10))
+		var/datum/effect_system/smoke_spread/bad/smoke = new /datum/effect_system/smoke_spread
+		smoke.set_up(1, FALSE, get_turf(src))
+		smoke.start()
+
+/obj/effect/fire/electrical/water_act(volume, temperature, source, method)
+	return TRUE // It's an electrical fire - of course water doesn't work!
+
 #undef MAX_FIRE_EXIST_TIME
