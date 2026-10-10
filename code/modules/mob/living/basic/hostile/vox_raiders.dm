@@ -1,6 +1,5 @@
 /mob/living/basic/vox
 	name = "Vox"
-	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/mob/simple_human.dmi'
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	response_help_continuous = "pushes the"
@@ -32,7 +31,6 @@
 /mob/living/basic/vox/miner
 	name = "vox miner"
 	desc = "A vox primalis wearing a strange suit and wielding a plasma cutter."
-	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "vox_miner"
 	icon_living = "vox_miner"
 	icon_dead = "vox_miner" // Does not actually exist. del_on_death.
