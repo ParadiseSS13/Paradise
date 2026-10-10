@@ -14,11 +14,6 @@
 	var/hacking = FALSE
 	/// Is the console authenticated?
 	var/auth = FALSE
-	// Custom Message Properties
-	/// Sender of a custom message
-	var/customsender = "System Administrator"
-	/// Recipient of a custom message
-	var/obj/item/pda/customrecepient = null
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
