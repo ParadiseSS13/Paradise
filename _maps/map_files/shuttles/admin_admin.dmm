@@ -2,6 +2,9 @@
 "aa" = (
 /turf/space,
 /area/space)
+"ac" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/administration)
 "ag" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -514,15 +517,15 @@ aa
 aa
 aa
 vg
-vg
+ac
 aD
 aD
+ac
 vg
-vg
-vg
+ac
 aD
 aD
-vg
+ac
 vg
 aa
 aa
@@ -631,7 +634,7 @@ aa
 aa
 "}
 (8,1,1) = {"
-vg
+ac
 vg
 vg
 vg
@@ -691,7 +694,7 @@ aa
 aa
 "}
 (11,1,1) = {"
-vg
+ac
 vg
 vg
 aB
@@ -784,7 +787,7 @@ vg
 bk
 bq
 bv
-vg
+ac
 vg
 aa
 aa

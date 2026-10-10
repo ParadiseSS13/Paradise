@@ -670,6 +670,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
+"Dw" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/administration)
 "Jz" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
@@ -807,7 +810,7 @@ aw
 aw
 aw
 aw
-ab
+Dw
 ab
 bD
 zD
@@ -847,7 +850,7 @@ aP
 aT
 aP
 bb
-ab
+Dw
 MI
 aw
 aw
@@ -1061,22 +1064,22 @@ ab
 "}
 (18,1,1) = {"
 ab
-ab
+Dw
 aL
 aL
+Dw
 ab
 ab
-ab
-ab
+Dw
 aL
 aL
+Dw
 ab
 ab
-ab
-ab
+Dw
 aL
 aL
-ab
+Dw
 ab
 "}
 (19,1,1) = {"

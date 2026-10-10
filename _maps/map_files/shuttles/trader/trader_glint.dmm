@@ -425,7 +425,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "Ze" = (
-/turf/simulated/wall/mineral/titanium/survival,
+/turf/simulated/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/trade/sol)
 "ZH" = (
 /obj/effect/turf_decal/siding{

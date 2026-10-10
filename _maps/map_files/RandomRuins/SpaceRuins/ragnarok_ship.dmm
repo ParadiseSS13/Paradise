@@ -2645,7 +2645,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/powered/ragnarok/bakery)
 "IC" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/triple/manual_rotation{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	name = "Princess's Hold";
 	id_tag = "KIDAN_BOSS_STORAGE"
 	},
@@ -3204,7 +3204,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/powered/ragnarok/teleporter)
 "Ri" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/triple/manual_rotation{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	name = "Throneroom";
 	id_tag = "KIDAN_THRONEROOM"
 	},

@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
-	icon = 'icons/obj/wallbumps/alarm.dmi'
+	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
 	idle_power_consumption = 4
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		buildstage = AIR_ALARM_FRAME
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(32, -32, 32, -32)
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 	GLOB.air_alarms += src
 	alarm_area.air_alarms += src
@@ -1238,13 +1238,13 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	req_access = null
 	req_one_access = null
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 32, 32)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/ruin, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/ruin, 24, 24)
 
 /*
 AIR ALARM CIRCUIT
