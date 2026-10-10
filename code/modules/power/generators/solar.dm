@@ -49,20 +49,17 @@
 	switch(S.glass_type)
 		if(/obj/item/stack/sheet/rglass)
 			max_integrity *= RGLASS_SOLAR_MULT
-			obj_integrity = max_integrity
 			solar_type = "solar_panel"
 		if(/obj/item/stack/sheet/plasmaglass)
 			max_integrity *= PLASMAGLASS_SOLAR_MULT
-			obj_integrity = max_integrity
 			solar_type = "solar_panel_p"
 		if(/obj/item/stack/sheet/plasmarglass)
 			max_integrity *= PLASMARGLASS_SOLAR_MULT
-			obj_integrity = max_integrity
 			solar_type = "solar_panel_p"
 		if(/obj/item/stack/sheet/plastitaniumglass)
 			max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
-			obj_integrity = max_integrity
 			solar_type = "solar_panel_t"
+	obj_integrity = max_integrity
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/solar/examine(mob/user)
