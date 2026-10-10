@@ -187,7 +187,7 @@
 		if("decrypt")
 			var/obj/machinery/message_server/chosen_server = locateUID(params["server"])
 			if(!istype(chosen_server, /obj/machinery/message_server))
-				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report."))
+				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report, decrypt action."))
 				return
 			var/chosen_password = params["password"]
 			if(chosen_server.decryptkey == chosen_password)

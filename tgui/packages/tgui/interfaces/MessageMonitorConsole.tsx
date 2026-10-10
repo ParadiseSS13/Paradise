@@ -67,7 +67,6 @@ type RecipientsData = {
 export const MessageMonitorConsole = (properties) => {
   const { act, data } = useBackend<ServerData>();
   const { authenticated } = data;
-  const [tabIndex, setTabIndex] = useState(0);
 
   const PickPage = (pageIndex) => {
     switch (pageIndex) {
@@ -76,7 +75,7 @@ export const MessageMonitorConsole = (properties) => {
       case 1:
         return <MainPage />;
       default:
-        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickPage error';// `PickPage error` so we get a bit more info from the error meesage.
+        return 'SOMETHING WENT VERY WRONG PLEASE AHELP, PickPage error';// `PickPage error` so we get a bit more info from the error meesage.
     }
   };
 
