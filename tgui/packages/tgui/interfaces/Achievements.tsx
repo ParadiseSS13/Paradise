@@ -197,8 +197,15 @@ const AchievementTable = (props) => {
                   <Box bold style={{ whiteSpace: 'normal', overflowWrap: 'anywhere' }}>
                     {achievement.name}
                   </Box>
-                  <Box color={earned ? 'good' : 'label'} fontSize={0.85} mt={0.25}>
-                    {earned ? 'Earned' : 'Locked'}
+                  <Box
+                    color={earned ? 'good' : undefined}
+                    bold
+                    fontSize={0.9}
+                    mt={0.25}
+                    style={{ color: earned ? undefined : '#ffb4b4' }}
+                  >
+                    <Icon name={earned ? 'check' : 'lock'} mr={0.5} />
+                    {earned ? 'UNLOCKED' : 'LOCKED'}
                   </Box>
                 </Flex>
               </Button>

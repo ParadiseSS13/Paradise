@@ -695,7 +695,7 @@ CREATE TABLE `bug_reports` (
 DROP TABLE IF EXISTS `achievements`;
 CREATE TABLE `achievements` (
 	`ckey` VARCHAR(32) NOT NULL,
-	`achievement_key` VARCHAR(32)  NOT NULL,
+	 `achievement_key` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL,
 	`value` INT NULL,
 	`last_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`ckey`,`achievement_key`)
