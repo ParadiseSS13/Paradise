@@ -13,7 +13,7 @@
 	var/ndir = SOUTH // target dir
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
-	var/solar_type = "solar_panel"
+	var/solar_type = SOLAR_TYPE_GLASS
 
 	var/default_glass = /obj/item/stack/sheet/glass
 
@@ -43,23 +43,12 @@
 /obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
-		S.glass_type = default_glass
+		S.glass_type = new default_glass(src)
 		S.anchored = TRUE
 	S.loc = src
-	switch(S.glass_type)
-		if(/obj/item/stack/sheet/rglass)
-			max_integrity *= RGLASS_SOLAR_MULT
-			solar_type = "solar_panel"
-		if(/obj/item/stack/sheet/plasmaglass)
-			max_integrity *= PLASMAGLASS_SOLAR_MULT
-			solar_type = "solar_panel_p"
-		if(/obj/item/stack/sheet/plasmarglass)
-			max_integrity *= PLASMARGLASS_SOLAR_MULT
-			solar_type = "solar_panel_p"
-		if(/obj/item/stack/sheet/plastitaniumglass)
-			max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
-			solar_type = "solar_panel_t"
+	max_integrity *= S.glass_type.solar_mult
 	obj_integrity = max_integrity
+	solar_type = S.glass_type.solar_type
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/solar/examine(mob/user)
@@ -111,6 +100,8 @@
 
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
+	if(!solar_type)
+		solar_type = SOLAR_TYPE_GLASS
 	if(stat & BROKEN)
 		. += image('icons/obj/solars.dmi', icon_state = "[solar_type]-b", layer = FLY_LAYER)
 	else
@@ -200,7 +191,7 @@
 	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
 	var/tracker = FALSE
-	var/glass_type = null
+	var/obj/item/stack/sheet/glass_type = null
 	new_attack_chain = TRUE
 
 /obj/item/solar_assembly/attack_hand(mob/user)
@@ -210,8 +201,9 @@
 // Give back the glass type we were supplied with
 /obj/item/solar_assembly/proc/give_glass()
 	if(glass_type)
-		var/obj/item/stack/sheet/S = new glass_type(src.loc)
+		var/obj/item/stack/sheet/S = glass_type
 		S.amount = 2
+		S.forceMove(src.loc)
 		glass_type = null
 
 /obj/item/solar_assembly/examine(mob/user)
@@ -242,20 +234,19 @@
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/stack/sheet/glass) || \
-			istype(used, /obj/item/stack/sheet/rglass) || \
-			istype(used, /obj/item/stack/sheet/plasmaglass) || \
-			istype(used, /obj/item/stack/sheet/plasmarglass) || \
-			istype(used, /obj/item/stack/sheet/plastitaniumglass))
+	if(istype(used, /obj/item/stack/sheet))
+		var/obj/item/stack/sheet/sheets = used
+		if(!sheets.solar_mult)
+			to_chat(user, SPAN_WARNING("You cannot use this to make a solar panel!"))
+			return ITEM_INTERACT_COMPLETE
 		if(!anchored || !isturf(loc))
 			to_chat(user, SPAN_WARNING("You need to anchor [src] with a wrench before you can add glass!"))
 			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/stack/sheet/sheets = used
 		if(!sheets.use(2))
 			to_chat(user, SPAN_WARNING("You need two sheets of glass to finish [src]."))
 			return ITEM_INTERACT_COMPLETE
-		glass_type = sheets.merge_type
+		glass_type = new sheets.merge_type(src)
 		playsound(loc, sheets.usesound, 50, 1)
 		user.visible_message(
 			SPAN_NOTICE("[user] places [used] on [src]."),
