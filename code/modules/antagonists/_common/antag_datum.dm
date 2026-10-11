@@ -475,6 +475,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!isnull(organization) && length(organization.unique_targets) && prob(organization.focus) && !has_unique_obj)
 		has_unique_obj = TRUE
 		objective_to_add = pick(organization.unique_targets)
+		if(objective_to_add == /datum/objective/unique_objective/free_ai && length(active_ais()) == 0)
+			objective_to_add = roll_single_human_objective()
 	else if(!isnull(organization) && length(organization.objectives) && prob(organization.focus))
 		objective_to_add = pick(organization.objectives)
 	else
