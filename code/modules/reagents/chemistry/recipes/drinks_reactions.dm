@@ -212,8 +212,8 @@
 	name = "Bloody Mary"
 	id = "bloodymary"
 	result = "bloodymary"
-	required_reagents = list("vodka" = 1, "tomatojuice" = 2, "limejuice" = 1)
-	result_amount = 4
+	required_reagents = list("vodka" = 2, "tomatojuice" = 3, "lemonjuice" = 1)
+	result_amount = 6
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/gargle_blaster
@@ -246,8 +246,8 @@
 	name = "Tequila Sunrise"
 	id = "tequilasunrise"
 	result = "tequilasunrise"
-	required_reagents = list("tequila" = 2, "orangejuice" = 1)
-	result_amount = 3
+	required_reagents = list("tequila" = 2, "orangejuice" = 1, "berryjuice" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/toxins_special
@@ -327,16 +327,16 @@
 	name = "Margarita"
 	id = "margarita"
 	result = "margarita"
-	required_reagents = list("tequila" = 2, "limejuice" = 1)
-	result_amount = 3
+	required_reagents = list("tequila" = 2, "triple_sec" = 1, "limejuice" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/longislandicedtea
 	name = "Long Island Iced Tea"
 	id = "longislandicedtea"
 	result = "longislandicedtea"
-	required_reagents = list("vodka" = 1, "gin" = 1, "tequila" = 1, "cubalibre" = 1)
-	result_amount = 4
+	required_reagents = list("vodka" = 1, "tequila" = 1, "cubalibre" = 1, "gin" = 1, "triple_sec" = 1)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/threemileisland
@@ -359,16 +359,16 @@
 	name = "Black Russian"
 	id = "blackrussian"
 	result = "blackrussian"
-	required_reagents = list("vodka" = 3, "kahlua" = 2)
-	result_amount = 5
+	required_reagents = list("vodka" = 2, "kahlua" = 1)
+	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/manhattan
 	name = "Manhattan"
 	id = "manhattan"
 	result = "manhattan"
-	required_reagents = list("whiskey" = 2, "vermouth" = 1)
-	result_amount = 3
+	required_reagents = list("whiskey" = 2, "vermouth" = 1, "angostura_bitters" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/manhattan_proj
@@ -391,16 +391,16 @@
 	name = "Gin Fizz"
 	id = "ginfizz"
 	result = "ginfizz"
-	required_reagents = list("gin" = 2, "sodawater" = 1, "limejuice" = 1)
-	result_amount = 4
+	required_reagents = list("gin" = 2, "sodawater" = 1, "lemonjuice" = 1, "sugar" = 1)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/bahama_mama
 	name = "Bahama mama"
 	id = "bahama_mama"
 	result = "bahama_mama"
-	required_reagents = list("rum" = 2, "orangejuice" = 2, "limejuice" = 1, "ice" = 1)
-	result_amount = 6
+	required_reagents = list("rum" = 2, "pineapplejuice" = 2, "kahlua" = 1, "limejuice" = 1, "ice" = 1)
+	result_amount = 7
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/singulo
@@ -488,7 +488,7 @@
 	name = "Sbiten"
 	id = "sbiten"
 	result = "sbiten"
-	required_reagents = list("vodka" = 10, "capsaicin" = 1)
+	required_reagents = list("wine" = 10, "honey" = 1,"capsaicin" = 1)
 	result_amount = 10
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -593,8 +593,8 @@
 	name = "Andalusia"
 	id = "andalusia"
 	result = "andalusia"
-	required_reagents = list("rum" = 1, "whiskey" = 1, "lemonjuice" = 1)
-	result_amount = 3
+	required_reagents = list("wine" = 2, "cognac" = 1, "rum" = 1, "angostura_bitters" = 1)
+	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/neurotoxin
@@ -609,7 +609,7 @@
 	name = "Snow White"
 	id = "snowwhite"
 	result = "snowwhite"
-	required_reagents = list("beer" = 1, "lemon_lime" = 1)
+	required_reagents = list("lager" = 1, "lemon_lime" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -740,8 +740,8 @@
 	name = "jackrose"
 	id = "jackrose"
 	result = "jackrose"
-	required_reagents = list("applejack" = 4, "lemonjuice" = 1)
-	result_amount = 5
+	required_reagents = list("applejack" = 4, "lemonjuice" = 1, "berryjuice" = 1)
+	result_amount = 6
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/synthanol
@@ -999,16 +999,16 @@
 	name = "Gimlet"
 	id = "gimlet"
 	result = "gimlet"
-	required_reagents = list("gin" = 1, "limejuice" = 1, "sugar" = 1)
-	result_amount = 3
+	required_reagents = list("gin" = 2, "limejuice" = 1, "sugar" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/sidecar
 	name = "Sidecar"
 	id = "sidecar"
 	result = "sidecar"
-	required_reagents = list("cognac" = 1, "orangejuice" = 1, "lemonjuice" = 1)
-	result_amount = 3
+	required_reagents = list("cognac" = 2, "lemonjuice" = 1, "triple_sec" = 1)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/whiskey_sour
@@ -1476,12 +1476,12 @@
 	mix_message = "Mariachi sounds loudly in the container."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/acapulco_de_noche /// By mazapan
+/datum/chemical_reaction/acapulco_de_noche
 	name = "Acapulco de Noche"
 	id = "acapulco_de_noche"
 	result = "acapulco_de_noche"
-	required_reagents = list("tequila" = 1, "rum" = 1, "sugar" = 1, "ice" = 1)
-	result_amount = 4
+	required_reagents = list("pineapplejuice" = 3, "tequila" = 2, "orangejuice" = 2, "rum" = 1, "sugar" = 1, "ice" = 1)
+	result_amount = 10
 	mix_message = "The party has officially begun."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -1498,8 +1498,8 @@
 	name = "Hanky Panky"
 	id = "hanky_panky"
 	result = "hanky_panky"
-	required_reagents = list("fernet" = 1, "vermouth" = 1, "gin" = 1, "orangejuice" = 1)
-	result_amount = 4
+	required_reagents = list("fernet" = 1, "vermouth" = 1, "gin" = 1)
+	result_amount = 3
 	mix_message = "The ingredients mix into a dark brown substance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -1512,12 +1512,12 @@
 	mix_message = "The ingredients blend together smoothly."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/peach_bellini
-	name= "Peach Bellini"
-	id = "peach_bellini"
+/datum/chemical_reaction/bellini
+	name = "Bellini"
+	id = "bellini"
 	result = "peach_bellini"
-	required_reagents = list("peachjuice" = 1, "wine" = 1, "tonic" = 1)
-	result_amount = 3
+	required_reagents = list("peachjuice" = 2, "white_wine" = 4, "tonic" = 1)
+	result_amount = 7
 	mix_message = "You hear Pachelbel's opus in the distance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 

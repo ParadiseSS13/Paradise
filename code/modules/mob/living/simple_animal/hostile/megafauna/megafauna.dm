@@ -178,6 +178,9 @@
 		if(3)
 			adjustBruteLoss(50)
 
+/mob/living/simple_animal/hostile/megafauna/ex_throw()
+	return // No, you cannot launch the megafauna.
+
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + 2.5 DECISECONDS
 	ranged_cooldown = world.time + buffer_time

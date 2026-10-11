@@ -140,6 +140,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
+	if(!iscarbon(user) && !issilicon(user))
+		return
+
 	ToggleBroadcast()
 	to_chat(user, SPAN_NOTICE("You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic."))
 	add_fingerprint(user)

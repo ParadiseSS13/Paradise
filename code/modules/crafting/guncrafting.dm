@@ -51,7 +51,7 @@
 
 /obj/item/weaponcrafting/gunkit/ion
 	name = "ion carbine parts kit"
-	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into a ion carbine."
+	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into an ion carbine."
 	origin_tech = "combat=4;magnets=4"
 	materials = list(MAT_SILVER = 6000, MAT_METAL = 8000, MAT_URANIUM = 2000)
 	outcome = /obj/item/gun/energy/ionrifle/carbine

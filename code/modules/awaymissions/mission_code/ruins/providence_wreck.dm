@@ -136,7 +136,7 @@
 			P.open()
 	atom_say("Lockdown lifted. Have a secure daayayyyayyy... -ZZZT!")
 	visible_message(SPAN_USERDANGER("[src] starts beeping ominously!"))
-	for(var/i in 1 to 4)
+	for(var/i in 1 to 10)
 		playsound(loc, 'sound/items/timer.ogg', 30, 0)
 		sleep(1 SECONDS)
 	explosion(loc, 2, 5, 10, 16, flame_range = 20, cause = name)

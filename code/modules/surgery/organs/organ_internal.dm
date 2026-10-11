@@ -16,7 +16,7 @@
 	/// How much is this organ worth in the xenobiology organ analyzer?
 	var/analyzer_price = 10
 	/// what quality is this organ? Only useful for xeno organs
-	var/organ_quality = ORGAN_NORMAL
+	var/organ_quality = ORGAN_PRISTINE
 	/// Does this organ originate from the xenobiology dissection loop?
 	var/is_xeno_organ = FALSE
 	/// Does this organ give a warning upon being inserted?
