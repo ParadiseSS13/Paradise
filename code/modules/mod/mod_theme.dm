@@ -1357,7 +1357,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_corporate
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1405,7 +1405,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_debug
-	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 
 /datum/mod_theme/administrative
@@ -1450,9 +1450,8 @@
 	)
 
 /// considering this should not be used, it's getting just DS armor, not infinity in everything.
-// haha as if
 /obj/item/mod/armor/mod_theme_administrative
-	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/ninja
 	name = "'Shinobi' stealthsuit"
