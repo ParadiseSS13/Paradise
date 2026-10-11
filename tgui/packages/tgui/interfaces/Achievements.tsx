@@ -1,5 +1,17 @@
 import { useState } from 'react';
-import { Box, Flex, Icon, Image, ProgressBar, Table, Tabs, Tooltip } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Input,
+  ProgressBar,
+  Section,
+  Table,
+  Tabs,
+  Tooltip,
+} from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
@@ -17,7 +29,6 @@ type Achievement = {
   name: string;
   desc: string;
   category: string;
-  icon_class: string;
   value: number;
   score: BooleanLike;
   achieve_info: string;
@@ -83,35 +94,119 @@ const AchievementTable = (props) => {
   const { data } = useBackend<Data>();
   const { achievements } = data;
   const { category } = props;
-  const filtered_achievements = achievements.filter((x) => x.category === category);
+  const [searchText, setSearchText] = useState('');
+  const [selectedName, setSelectedName] = useState<string | null>(null);
+  const filteredAchievements = achievements.filter((achievement) => {
+    if (achievement.category !== category) {
+      return false;
+    }
+    const search = searchText.trim().toLowerCase();
+    return (
+      !search || achievement.name.toLowerCase().includes(search) || achievement.desc.toLowerCase().includes(search)
+    );
+  });
+  const selectedAchievement = filteredAchievements.find((achievement) => achievement.name === selectedName);
+  const earnedCount = filteredAchievements.filter((achievement) =>
+    achievement.score ? achievement.value > 0 : !!achievement.value
+  ).length;
+
+  if (filteredAchievements.length === 0) {
+    return (
+      <Flex direction="column" height="100%">
+        <Section title={`${category} Archive`}>
+          <Input fluid value={searchText} placeholder="Search achievements" onChange={setSearchText} />
+        </Section>
+        <Section fill>
+          <Box color="label" textAlign="center" mt={3}>
+            No achievements match this search.
+          </Box>
+        </Section>
+      </Flex>
+    );
+  }
+
   return (
-    <Table>
-      {filtered_achievements.map((achievement) => (
-        <Table.Row key={achievement.name}>
-          <Table.Cell collapsing>
-            <Box m={1} className={achievement.icon_class} />
-          </Table.Cell>
-          <Table.Cell verticalAlign="top">
-            <h1>{achievement.name}</h1>
-            {achievement.desc}
-            {(achievement.score && (
-              <Box color={achievement.value > 0 ? 'good' : 'bad'}>
-                {achievement.value > 0 ? `Recieved ${achievement.value} once` : 'Not Recieved'}
-              </Box>
-            )) || (
-              <Box color={achievement.value ? 'good' : 'bad'}>{achievement.value ? 'Recieved' : 'Not Recieved'}</Box>
-            )}
-            {!!achievement.achieve_info && (
-              <Tooltip position="bottom" content={achievement.achieve_tooltip}>
-                <Box fontSize={0.9} opacity={0.8}>
-                  {achievement.achieve_info}
+    <Flex direction="column" height="100%" minHeight={0}>
+      <Section title={`${category} Archive`} mb={1}>
+        <Flex align="center" justify="space-between" mb={1}>
+          <Box color="label">Collection progress</Box>
+          <Box bold>
+            {earnedCount} / {filteredAchievements.length} earned
+          </Box>
+        </Flex>
+        <ProgressBar
+          ranges={{
+            good: [0, 1],
+          }}
+          value={earnedCount / filteredAchievements.length}
+        />
+        <Input fluid mt={1} value={searchText} placeholder="Search achievements" onChange={setSearchText} />
+      </Section>
+      <Section
+        title={selectedAchievement ? 'Award Details' : `List of Achievements (${filteredAchievements.length})`}
+        fill
+        scrollable={!selectedAchievement}
+        buttons={
+          selectedAchievement && (
+            <Button icon="arrow-left" content="All achievements" onClick={() => setSelectedName(null)} />
+          )
+        }
+      >
+        {selectedAchievement ? (
+          <>
+            <Box fontSize="18px" bold mb={1}>
+              {selectedAchievement.name}
+            </Box>
+            <Box color="label" mb={2}>
+              {selectedAchievement.desc}
+            </Box>
+            <Box
+              color={
+                (selectedAchievement.score ? selectedAchievement.value > 0 : !!selectedAchievement.value)
+                  ? 'good'
+                  : 'bad'
+              }
+              bold
+            >
+              {(selectedAchievement.score && selectedAchievement.value > 0) ||
+              (!selectedAchievement.score && !!selectedAchievement.value)
+                ? 'Earned'
+                : 'Not earned'}
+            </Box>
+            {!!selectedAchievement.achieve_info && <Box mt={2}>{selectedAchievement.achieve_info}</Box>}
+            {!!selectedAchievement.achieve_tooltip && (
+              <Tooltip position="bottom" content={selectedAchievement.achieve_tooltip}>
+                <Box mt={1} color="label" fontSize={0.9}>
+                  Unlock rarity
                 </Box>
               </Tooltip>
             )}
-          </Table.Cell>
-        </Table.Row>
-      ))}
-    </Table>
+          </>
+        ) : (
+          filteredAchievements.map((achievement) => {
+            const earned = achievement.score ? achievement.value > 0 : !!achievement.value;
+            return (
+              <Button
+                key={achievement.name}
+                fluid
+                textAlign="left"
+                mb={0.5}
+                onClick={() => setSelectedName(achievement.name)}
+              >
+                <Flex justify="space-between" align="center" minWidth={0}>
+                  <Box overflow="hidden" style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                    {achievement.name}
+                  </Box>
+                  <Box color={earned ? 'good' : 'label'} ml={1}>
+                    {earned ? 'Earned' : 'Locked'}
+                  </Box>
+                </Flex>
+              </Button>
+            );
+          })
+        )}
+      </Section>
+    </Flex>
   );
 };
 

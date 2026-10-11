@@ -311,4 +311,3 @@
 	if(thankscount != 50)
 		return
 	for(var/mob/mob as anything in return_drivers())
-		mob.client.give_award(/datum/award/achievement/misc/the_best_driver, mob)

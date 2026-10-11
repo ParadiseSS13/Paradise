@@ -18,7 +18,6 @@
 	desc = "Why are you getting that close to a being wanting to kill you?"
 	database_id = "boss_slap"
 
-
 /datum/award/achievement/boss/blood_miner_kill
 	name = "The Blood-Drunk Miner Killer"
 	desc = "I'll drink to this fight."

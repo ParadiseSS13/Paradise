@@ -302,7 +302,6 @@
 	SSblackbox.record_feedback("amount", "his_grace_ascended", 1)
 	update_icon()
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
-	master.client?.give_award(/datum/award/achievement/misc/ascension, master)
 	if(istype(master))
 		master.visible_message("<span class='his_grace big bold'>Gods will be watching.</span>")
 		name = "[master]'s mythical toolbox of three powers"
