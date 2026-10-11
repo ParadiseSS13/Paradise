@@ -23,4 +23,5 @@ CREATE TABLE `achievement_metadata` (
 )
 COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
+ALTER TABLE `player` DROP COLUMN IF EXISTS `achievements_sound`;
 ALTER TABLE `player` ADD COLUMN `achievements_sound` VARCHAR(50) NOT NULL DEFAULT 'Success Ping' COLLATE 'utf8mb4_general_ci';
