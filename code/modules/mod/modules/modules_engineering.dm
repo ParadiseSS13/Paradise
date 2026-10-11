@@ -110,8 +110,10 @@
 	.["usertoxins"] = mod.wearer?.getToxLoss() || 0
 	.["usermaxtoxins"] = mod.wearer?.getMaxHealth() || 0
 
-/obj/item/mod/module/rad_protection/inbuilt // inbuilt version, for the CE zero complexity since you cant remove it
+/// inbuilt version, for the CE zero complexity since you cant remove it
+/obj/item/mod/module/rad_protection/inbuilt
 	complexity = 0
+	removable = FALSE
 
 ///Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
 /obj/item/mod/module/tether
