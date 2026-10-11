@@ -77,16 +77,31 @@
 	complexity = 0
 	slowdown_active = 0
 
-///Radiation Protection - Gives the user rad info in the ui, currently
+/// Radiation Protection, now giving actual protection
 /obj/item/mod/module/rad_protection
-	name = "MOD radiation detector module"
-	desc = "A protoype module that improves the sensors on the modsuit to detect radiation on the user. \
-	Currently due to time restraints and a lack of lead on lavaland, it does not have a built in geiger counter or radiation protection."
-	icon_state = "radshield"
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
+	name = "MOD radiation shield module"
+	desc = "A module utilizing polymers and reflective shielding to protect the user against ionizing radiation. \
+	Comes with software to scan the user if they've been irradiated prior to wearing the suit."
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"
-	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
+	materials = list(MAT_IRIDIUM = 2500, MAT_GLASS = 5000)
+	var/original_armor = null // coppied from the CBRN module, unsure if this is the "correct" way todo this
+
+/obj/item/mod/module/rad_protection/on_suit_activation()
+	. = ..()
+	var/list/parts = mod.mod_parts + mod
+	for(var/obj/item/part as anything in parts)
+		original_armor = part.armor
+		part.armor = part.armor.modifyRating(rad_value = INFINITY) // definining the specific value feels better rather than 0, 0, 0, 0, 0, INFINITY
+		part.flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+
+/obj/item/mod/module/rad_protection/on_suit_deactivation(deleting = FALSE)
+	. = ..()
+	var/list/parts = mod.mod_parts + mod
+	for(var/obj/item/part as anything in parts)
+		part.armor = original_armor
+		part.flags_2 = initial(part.flags_2)
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
