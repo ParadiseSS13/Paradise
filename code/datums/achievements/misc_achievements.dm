@@ -35,11 +35,30 @@
 	desc = "If you saw someone smack themselves with a toolbox ANYWHERE else in the galaxy, you'd be very concerned for them."
 	database_id = MEDAL_SELFOUCH
 
-/datum/award/achievement/misc/speed_round
-	name = "A Long Shift"
-	desc = "Well, that didn't take too long."
-	database_id = MEDAL_LONGSHIFT
-	icon_state = "longshift"
+/datum/award/achievement/misc/survived_round
+	name = "Still Standing"
+	desc = "Make it to the end of the shift ALIVE."
+	database_id = MEDAL_SURVIVED_ROUND
+
+/datum/award/achievement/misc/high_roller
+	name = "High Roller"
+	desc = "Have more than 3,000 credits in your bank account."
+	database_id = MEDAL_HIGH_ROLLER
+
+/datum/award/achievement/misc/zero_balance
+	name = "Where'd It All Go?"
+	desc = "Spend every last credit you have."
+	database_id = MEDAL_ZERO_BALANCE
+
+/datum/award/achievement/misc/secondary_goal
+	name = "Great Leadership"
+	desc = "Request a secondary goal and then celebrate probably not contributing to the actual station goal."
+	database_id = MEDAL_SECONDARY_GOAL
+
+/datum/award/achievement/misc/rps_winner
+	name = "Best Two Out of Three"
+	desc = "Win a game of rock-paper-scissors."
+	database_id = MEDAL_RPS_WIN
 
 /datum/award/achievement/misc/ascension
 	name = "Ascension"
@@ -102,6 +121,11 @@
 	desc = "Blessed with a kickass katana, you get the feeling you probably shouldn't die..."
 	database_id = MEDAL_DARK_SHARD
 
+/datum/award/achievement/misc/mech_punch
+	name = "Metal Gear? More Like Metal Punch"
+	desc = "Punch an exosuit with your bare hands."
+	database_id = MEDAL_MECH_PUNCH
+
 /datum/award/achievement/misc/incursion_portal
 	name = "Back to Where You Came"
 	desc = "Send those demons back to their red space by destroying an incursion portal."
@@ -111,3 +135,8 @@
 	name = "Pipe Dream"
 	desc = "Be flung by a pressurized pipe."
 	database_id = MEDAL_PRESSURIZED_PIPE
+
+/datum/award/achievement/misc/silicon_style
+	name = "Hats Off to You"
+	desc = "Give a hat to a cyborg, AI, or maintenance drone."
+	database_id = MEDAL_SILICON_STYLE

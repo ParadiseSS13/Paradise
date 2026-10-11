@@ -592,14 +592,10 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>"
 	end_of_round_info += "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
 	end_of_round_info += "<BR>"
-	var/speed_round = FALSE
-	if(world.time - SSticker.round_start_time <= SPEEDRUN_ROUND_TIME)
-		speed_round = TRUE
 
 	for(var/client/client as anything in GLOB.clients)
-		if(!speed_round)
-			continue
-		client.give_award(/datum/award/achievement/misc/speed_round, client.mob)
+		if(client.mob && isliving(client.mob) && client.mob.stat != DEAD)
+			client.give_award(/datum/award/achievement/misc/survived_round, client.mob)
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.ai_list)

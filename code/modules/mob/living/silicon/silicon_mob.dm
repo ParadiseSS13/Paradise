@@ -581,6 +581,8 @@
 	var/datum/action/A = new /datum/action/innate/drop_silicon_hat(src)
 	A.Grant(src)
 	update_icons()
+	if((isrobot(src) || is_ai(src)) && HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/misc/silicon_style, user)
 
 	return TRUE
 
@@ -672,7 +674,7 @@
 	// So this doesn't override borg plushify.
 	if(!isrobot(src))
 		. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
-	
+
 	return ..(plushie_override, curse_time)
 
 /mob/living/silicon/rust_heretic_act()
