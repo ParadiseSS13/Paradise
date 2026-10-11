@@ -83,6 +83,7 @@
 	desc = "A module utilizing polymers and reflective shielding to protect the user against ionizing radiation. \
 	Comes with software to scan the user if they've been irradiated prior to wearing the suit."
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	complexity = 2 // shielding, large and chunky. sorry CE!
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"
 	materials = list(MAT_IRIDIUM = 2500, MAT_GLASS = 5000)
