@@ -1449,8 +1449,6 @@
 		),
 	)
 
-/// considering this should not be used, it's getting just DS armor, not infinity in everything.
-// as if
 /obj/item/mod/armor/mod_theme_administrative
 	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
