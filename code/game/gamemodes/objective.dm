@@ -46,6 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	/// What is the text we show when our objective is delayed?
 	var/delayed_objective_text = "Someone forgot to set a delayed objective text! Report it on the github and ask an admin what type of objective this is!"
+	/// Variable used to make sure we don't get recursive delayed objectives
+	var/is_delayed = FALSE
 	/// If the objective needs another person with a paired objective
 	var/needs_pair = FALSE
 
@@ -1580,6 +1582,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/delayed
 	needs_target = FALSE
+	is_delayed = TRUE
 	var/datum/objective/objective_to_replace_with
 
 /datum/objective/delayed/New(datum/objective/delayed_objective)

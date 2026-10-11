@@ -535,7 +535,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 				else
 					objective_to_add = /datum/objective/protect
 
-	if(delayed_objectives)
+	if(delayed_objectives && !objective_to_add.is_delayed)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
 
 	return objective_to_add
