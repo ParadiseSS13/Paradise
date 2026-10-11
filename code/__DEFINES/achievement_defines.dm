@@ -28,6 +28,7 @@
 #define MEDAL_MECH_PUNCH "Metal Punch"
 #define MEDAL_SECONDARY_GOAL "Secondary Goal"
 #define MEDAL_RPS_WIN "RPS Winner"
+#define MEDAL_BUTCHER_CREATURE "Butcher a Creature"
 #define MEDAL_VENDORSQUISH "Teenage Anarchist"
 #define MEDAL_SWIRLIE "Bowl-d"
 #define MEDAL_SELFOUCH "Hands???"

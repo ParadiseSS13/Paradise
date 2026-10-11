@@ -54,6 +54,11 @@
 	desc = "Win a game of rock-paper-scissors."
 	database_id = MEDAL_RPS_WIN
 
+/datum/award/achievement/misc/butcher_creature
+	name = "Meat Your Maker"
+	desc = "Butcher a creature for its meat and hide."
+	database_id = MEDAL_BUTCHER_CREATURE
+
 /datum/award/achievement/misc/loudmouth
 	name = "Loudmouth"
 	desc = "Speak with AUTHORITY as Captain."
