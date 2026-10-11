@@ -770,6 +770,8 @@
 /datum/reagent/consumable/ethanol/adminfreeze/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
 	..()
 	if(method == REAGENT_INGEST)
+		if(HAS_CONNECTED_PLAYER(M))
+			M.client.give_award(/datum/award/achievement/misc/adminfreeze, M)
 		M.apply_status_effect(/datum/status_effect/freon/watcher)
 		M.adjust_bodytemperature(-110)
 
@@ -1800,6 +1802,11 @@
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"
 	yuck_description = "scoured surfaces"
+
+/datum/reagent/consumable/ethanol/bacchus_blessing/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	..()
+	if(method == REAGENT_INGEST && HAS_CONNECTED_PLAYER(M))
+		M.client.give_award(/datum/award/achievement/misc/bacchus_blessing, M)
 
 /datum/reagent/consumable/ethanol/fernet
 	name = "Fernet"

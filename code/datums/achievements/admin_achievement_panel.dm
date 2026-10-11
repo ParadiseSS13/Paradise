@@ -38,7 +38,6 @@ RESTRICT_TYPE(/datum/ui_module/admin/achievement_admin_panel)
 
 /datum/ui_module/admin/achievement_admin_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-
 	if(.)
 		return
 
@@ -56,7 +55,6 @@ RESTRICT_TYPE(/datum/ui_module/admin/achievement_admin_panel)
 			return TRUE
 
 /datum/ui_module/admin/achievement_admin_panel/proc/cleanup_outdated_achievement(achievement_key)
-	// ensure key is actually orphaned just in case
 	if(!(achievement_key in orphaned_keys))
 		return
 
@@ -67,20 +65,15 @@ RESTRICT_TYPE(/datum/ui_module/admin/achievement_admin_panel)
 	), warn = TRUE, qdel = TRUE)
 
 /datum/ui_module/admin/achievement_admin_panel/proc/archive_achievement(achievement_key)
-	// ensure key is actually orphaned just in case
 	if(!(achievement_key in orphaned_keys))
 		return
 
 	log_and_message_admins("has archived orphaned achievement metadata for key [achievement_key].")
 	SSdbcore.MassExecute(list(
-		SSdbcore.NewQuery("UPDATE [format_table_name("achievement_metadata")] SET achievement_version = :version WHERE achievement_key = :key", list("key" = achievement_key, "version" = ACHIEVEMENT_ARCHIVED_VERSION)),
+		SSdbcore.NewQuery("UPDATE [format_table_name("achievement_metadata")] SET achievement_version = :version WHERE achievement_key = :key", list("version" = ACHIEVEMENT_ARCHIVED_VERSION, "key" = achievement_key)),
 	), warn = TRUE, qdel = TRUE)
 
 USER_VERB(achievement_admin_panel, R_ADMIN, "Achievements Admin Panel", "View achievements management panel", VERB_CATEGORY_ADMIN)
-
 	message_admins("[key_name_admin(client)] is using the Achievement Admin Management panel")
-
 	var/datum/ui_module/admin/achievement_admin_panel/AAP = get_admin_ui_module(/datum/ui_module/admin/achievement_admin_panel)
 	AAP.ui_interact(client.mob)
-
-

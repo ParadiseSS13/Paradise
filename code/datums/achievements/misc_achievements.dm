@@ -59,6 +59,26 @@
 	desc = "Butcher a creature for its meat and hide."
 	database_id = MEDAL_BUTCHER_CREATURE
 
+/datum/award/achievement/misc/library_checkout
+	name = "Support Your Local Library!"
+	desc = "Check out a book from the library."
+	database_id = MEDAL_LIBRARY_CHECKOUT
+
+/datum/award/achievement/misc/goliath_cloak
+	name = "Hermits' Hide"
+	desc = "Use leather, sinew, and goliath plates to make a Goliath cloak."
+	database_id = MEDAL_GOLIATH_CLOAK
+
+/datum/award/achievement/misc/bacchus_blessing
+	name = "Bacchus' Blessing"
+	desc = "Celebrate like there's no tomorrow. After drinking this, there probably WILL be no tomorrow."
+	database_id = MEDAL_BACCHUS_BLESSING
+
+/datum/award/achievement/misc/adminfreeze
+	name = "Get Admin Frozen Without Getting In Trouble"
+	desc = "Enjoy getting frozen without any consequences."
+	database_id = MEDAL_ADMINFREEZE
+
 /datum/award/achievement/misc/loudmouth
 	name = "Loudmouth"
 	desc = "Speak with AUTHORITY as Captain."
@@ -102,6 +122,11 @@
 	desc = "Use an IPC plushie to make toast."
 	database_id = MEDAL_IPC_TOAST
 
+/datum/award/achievement/misc/abandoned_crate
+	name = "Crate Expectations"
+	desc = "Unlock an abandoned crate."
+	database_id = MEDAL_ABANDONED_CRATE
+
 /datum/award/achievement/misc/mech_punch
 	name = "Metal Gear? More Like Metal Punch"
 	desc = "Punch an exosuit with your bare hands."
@@ -116,3 +141,8 @@
 	name = "Hats Off to You"
 	desc = "Give a hat to a cyborg, AI, or maintenance drone."
 	database_id = MEDAL_SILICON_STYLE
+
+/datum/award/achievement/misc/modsuit_deploy
+	name = "Suit Up!"
+	desc = "Fully deploy every part of a MODsuit."
+	database_id = MEDAL_MODSUIT_DEPLOY

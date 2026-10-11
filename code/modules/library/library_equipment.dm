@@ -468,6 +468,8 @@
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, SPAN_NOTICE("[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'"))
+				if(HAS_CONNECTED_PLAYER(user))
+					user.client.give_award(/datum/award/achievement/misc/library_checkout, user)
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				to_chat(user, SPAN_NOTICE("[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'"))

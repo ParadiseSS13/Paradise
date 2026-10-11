@@ -8,7 +8,7 @@ type Data = {
   archived_keys: string[];
 };
 
-export const AchievementsAdminPanel = (props) => {
+export const AchievementsAdminPanel = (_props) => {
   const { act, data } = useBackend<Data>();
   const { orphaned_keys, archived_keys } = data;
   return (
@@ -16,12 +16,8 @@ export const AchievementsAdminPanel = (props) => {
       <Window.Content scrollable>
         <Section title="Orphaned achievements">
           <NoticeBox>
-            {`
-            These achievements are present in the database but are missing
-            definitions in code. Most likely these were removed and can be
-            cleaned up safely. If you're sharing the same database on multiple
-            servers it's possible these come from a server with later version of
-            the code than this one.`}
+            These achievement keys are in the database but have no matching code definition. If the database is shared
+            between servers, a key may belong to a server running newer code.
           </NoticeBox>
           <LabeledList>
             {orphaned_keys.map((key) => (
@@ -30,8 +26,8 @@ export const AchievementsAdminPanel = (props) => {
                 label=""
                 buttons={
                   <>
-                    <Button.Confirm onClick={() => act('archive', { key: key })}>Archive</Button.Confirm>
-                    <Button.Confirm onClick={() => act('cleanup_orphan', { key: key })}>Cleanup</Button.Confirm>
+                    <Button.Confirm onClick={() => act('archive', { key })}>Archive</Button.Confirm>
+                    <Button.Confirm onClick={() => act('cleanup_orphan', { key })}>Cleanup</Button.Confirm>
                   </>
                 }
               >
@@ -41,13 +37,13 @@ export const AchievementsAdminPanel = (props) => {
           </LabeledList>
         </Section>
         <Section title="Archived achievements">
-          <NoticeBox>Archived achievements in the database.</NoticeBox>
+          <NoticeBox>Archived achievement metadata remains in the database until cleaned up.</NoticeBox>
           <LabeledList>
             {archived_keys.map((key) => (
               <LabeledList.Item
                 key={key}
                 label=""
-                buttons={<Button.Confirm onClick={() => act('cleanup_orphan', { key: key })}>Cleanup</Button.Confirm>}
+                buttons={<Button.Confirm onClick={() => act('cleanup_orphan', { key })}>Cleanup</Button.Confirm>}
               >
                 {key}
               </LabeledList.Item>

@@ -241,6 +241,58 @@ USER_VERB(player_panel, R_ADMIN|R_MOD, "Player Panel", "Opens the player panel."
 	client.holder.player_panel_new()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+USER_VERB(manage_achievements, R_ADMIN, "Manage Player Achievements", "Grant or revoke achievements for online players.", VERB_CATEGORY_ADMIN)
+	if(!SSachievements.achievements_enabled)
+		to_chat(client, SPAN_WARNING("Achievements are not currently available."))
+		return
+
+	var/list/target_options = list()
+	for(var/client/target_client as anything in GLOB.clients)
+		if(!target_client.mob || !target_client.persistent?.achievements?.initialized)
+			continue
+		target_options["[target_client.ckey] ([target_client.mob])"] = target_client
+	if(!length(target_options))
+		to_chat(client, SPAN_NOTICE("No online players have any achievement data."))
+		return
+
+	var/target_option = input(client, "Select a player", "Manage Achievements") as null|anything in target_options
+	if(isnull(target_option))
+		return
+	var/client/target_client = target_options[target_option]
+	var/list/achievement_options = list()
+	for(var/achievement_type in SSachievements.achievements)
+		var/datum/award/achievement/achievement = SSachievements.achievements[achievement_type]
+		if(achievement?.name)
+			achievement_options["[achievement.name] ([achievement.database_id])"] = achievement_type
+
+	var/achievement_option = input(client, "Select an achievement", "Manage Achievements") as null|anything in achievement_options
+	if(isnull(achievement_option))
+		return
+	var/achievement_type = achievement_options[achievement_option]
+	var/action = input(client, "Choose an action", "Manage Achievements") as null|anything in list("Give", "Take")
+	if(isnull(action))
+		return
+
+	var/datum/achievement_data/achievement_data = target_client.persistent.achievements
+	var/datum/award/achievement/selected_achievement = SSachievements.achievements[achievement_type]
+	var/is_unlocked = achievement_data.get_achievement_status(achievement_type)
+	if(action == "Give")
+		if(is_unlocked)
+			to_chat(client, SPAN_NOTICE("[target_client.ckey] already has [selected_achievement.name]."))
+			return
+		target_client.persistent.give_award(achievement_type, target_client.mob)
+	else
+		if(!is_unlocked)
+			to_chat(client, SPAN_NOTICE("[target_client.ckey] does not have [selected_achievement.name]."))
+			return
+		achievement_data.data[achievement_type] = FALSE
+		selected_achievement.times_achieved = max(selected_achievement.times_achieved - 1, 0)
+
+	var/log_message = "[key_name_admin(client)] [action == "Give" ? "gave" : "took"] [selected_achievement.name] [action == "Give" ? "to" : "from"] [key_name_admin(target_client.mob)]."
+	log_admin(log_message)
+	message_admins(SPAN_WARNING(log_message), 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Achievements")
+
 USER_VERB(check_antagonists, R_ADMIN, "Check Antagonists", "Open the Antagonists panel.", VERB_CATEGORY_ADMIN)
 	client.holder.check_antagonists()
 	log_admin("[key_name(client)] checked antagonists")

@@ -135,6 +135,8 @@
 	source.desc = "An active gibtonite reserve. Run!"
 	stage = GIBTONITE_ACTIVE
 	source.visible_message(SPAN_DANGER("There was gibtonite inside! It's going to explode!"))
+	if(!triggered_by_explosion && user && HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/jobs/gibtonite_explode, user)
 
 	if(!is_mining_level(source.z))
 		notify_admins = TRUE

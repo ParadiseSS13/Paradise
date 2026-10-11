@@ -193,11 +193,11 @@ const AchievementTable = (props) => {
                 mb={0.5}
                 onClick={() => setSelectedName(achievement.name)}
               >
-                <Flex justify="space-between" align="center" minWidth={0}>
-                  <Box overflow="hidden" style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                <Flex direction="column" align="stretch" minWidth={0}>
+                  <Box bold style={{ whiteSpace: 'normal', overflowWrap: 'anywhere' }}>
                     {achievement.name}
                   </Box>
-                  <Box color={earned ? 'good' : 'label'} ml={1}>
+                  <Box color={earned ? 'good' : 'label'} fontSize={0.85} mt={0.25}>
                     {earned ? 'Earned' : 'Locked'}
                   </Box>
                 </Flex>

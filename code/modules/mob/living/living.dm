@@ -1029,7 +1029,7 @@
 		return
 	if(butcher_results)
 		if(isanimal_or_basicmob(src) && HAS_CONNECTED_PLAYER(user))
-			user.client.give_award(/datum/award/achievement/misc/butcher_animal, user)
+			user.client.give_award(/datum/award/achievement/misc/butcher_creature, user)
 		for(var/path in butcher_results)
 			var/amount_to_drop = floor(butcher_results[path] * I.bit_productivity_mod)
 			for(var/i = 1, i <= amount_to_drop, i++)

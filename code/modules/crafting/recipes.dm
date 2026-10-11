@@ -796,6 +796,7 @@
 /datum/crafting_recipe/goliathcloak
 	name = "Goliath Cloak"
 	result = list(/obj/item/clothing/suit/hooded/goliath)
+	achievement_type = /datum/award/achievement/misc/goliath_cloak
 	time = 50
 	reqs = list(/obj/item/stack/sheet/leather = 2,
 				/obj/item/stack/sheet/sinew = 2,
