@@ -815,6 +815,8 @@
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, SPAN_NOTICE("You insert bread into the toaster."))
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		if(HAS_CONNECTED_PLAYER(user))
+			user.client.give_award(/datum/award/achievement/misc/ipc_toast, user)
 		qdel(attacking)
 		return FINISH_ATTACK
 

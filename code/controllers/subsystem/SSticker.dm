@@ -593,6 +593,10 @@ SUBSYSTEM_DEF(ticker)
 	end_of_round_info += "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
 	end_of_round_info += "<BR>"
 
+	for(var/client/client as anything in GLOB.clients)
+		if(client.mob && isliving(client.mob) && client.mob.stat != DEAD)
+			client.give_award(/datum/award/achievement/misc/survived_round, client.mob)
+
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.ai_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
@@ -647,6 +651,8 @@ SUBSYSTEM_DEF(ticker)
 		end_of_round_info += "<br>"
 
 	mode.declare_completion()//To declare normal completion.
+
+	end_of_round_info += cheevo_report()
 
 	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
 
@@ -820,6 +826,47 @@ SUBSYSTEM_DEF(ticker)
 	QDEL_LIST_ASSOC_VAL(load_queries)
 	records.Cut()
 	flagged_antag_rollers.Cut()
+
+/datum/controller/subsystem/ticker/proc/cheevo_report()
+	var/list/parts = list()
+	if(!length(GLOB.achievements_unlocked))
+		return
+	var/static/style = "<style scoped>\
+		.panel {\
+			background-color: #313131;\
+			padding: 10px;\
+			border-radius: 10px;\
+			margin-bottom: 5px;\
+		}\
+		li {\
+			margin-bottom: 0.2rem;\
+		}\
+		.greenborder {\
+			border-bottom: 2px solid #90ee90;\
+		}\
+		.header {\
+			font-size: 24px;\
+			font-weight: bold;\
+		}\
+	</style>"
+	parts += SPAN_HEADER("Achievements Unlocked!<br>")
+	parts += "The following achievements were earned this round: [SPAN_BOLD(length(GLOB.achievements_unlocked))]!<br>"
+	parts += "<ul class='playerlist'>"
+	for(var/datum/achievement_report/cheevo_report in GLOB.achievements_unlocked)
+		parts += "<br>[cheevo_report.winner_key] was [SPAN_BOLD(cheevo_report.winner)] and earned an achievement [SPAN_GREENTEXT("\"[cheevo_report.cheevo]\"")] at [cheevo_report.award_location]!<br>"
+	parts += "</ul>"
+	return "<div>[style]<div class='panel greenborder'><ul>[parts.Join()]</ul></div></div>"
+
+///A datum containing the info necessary for an achievement readout, reported and added to the global list in /datum/award/achievement/on_unlock(mob/user)
+/datum/achievement_report
+	///The winner of this achievement.
+	var/winner
+	///The achievement that was won.
+	var/cheevo
+	///The ckey of our winner
+	var/winner_key
+	///The name of the area we earned this cheevo in
+	var/award_location
 
 /// This proc is for recording biohazard events, and blackboxing if they lived,
 /// died, or ended the round. This currently applies to: Terror spiders,

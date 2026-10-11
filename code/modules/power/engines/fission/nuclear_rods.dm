@@ -239,6 +239,11 @@
 	)
 	materials = list(MAT_METAL = 4000, MAT_URANIUM = 4000)
 
+/obj/item/nuclear_rod/fuel/uranium_235/pickup(mob/user)
+	. = ..()
+	grant_pickup_achievement(user, /datum/award/achievement/jobs/enrich_uranium)
+	return TRUE
+
 /obj/item/nuclear_rod/fuel/thorium_salts
 	name = "thorium salts fuel rod"
 	desc = "A specialized fuel rod refined from uranium 235. While this rod doesn't have any notable power boosts, its amazingly large integrity makes it virtually impossible to deplete in a single shift, if one can manage its heat."
@@ -303,6 +308,11 @@
 		/obj/item/nuclear_rod/fuel,
 	)
 
+/obj/item/nuclear_rod/fuel/americium/pickup(mob/user)
+	. = ..()
+	grant_pickup_achievement(user, /datum/award/achievement/jobs/americium_rod)
+	return TRUE
+
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
 	desc = "The funniest of all fuel rods with no solidified properties. Who knows what you might get out of it!"
@@ -319,6 +329,11 @@
 	power_amount = rand(10 KW, 200 KW)
 	heat_amount = rand(10, 500)
 	return ..()
+
+/obj/item/nuclear_rod/fuel/bananium/pickup(mob/user)
+	. = ..()
+	grant_pickup_achievement(user, /datum/award/achievement/jobs/bananium_rod)
+	return TRUE
 
 /obj/item/nuclear_rod/fuel/meltdown
 	name = "meltdown rod"

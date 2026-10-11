@@ -64,6 +64,9 @@
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
+
+	src.client?.give_award(/datum/award/achievement/misc/die, src)
+
 	reset_perspective(null)
 	reload_fullscreen()
 	update_sight()

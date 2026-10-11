@@ -109,6 +109,8 @@
 		L.open()
 	depotarea.shields_down()
 	for(var/mob/living/M in range(30, T))
+		if(M.stat != DEAD && HAS_CONNECTED_PLAYER(M))
+			M.client.give_award(/datum/award/achievement/misc/depot_self_destruct, M)
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
 		E.take_damage(E.max_integrity)
