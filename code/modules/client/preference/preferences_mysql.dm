@@ -35,6 +35,7 @@
 		viewrange = query.item[27]
 		raw_fptp = query.item[28]
 		toggles3 = text2num(query.item[29])
+		achivements_sound = query.item[30]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -58,6 +59,7 @@
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
 	colourblind_mode = sanitize_inlist(colourblind_mode, list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT), COLOURBLIND_MODE_NONE)
+	achivements_sound = sanitize_inlist(achivements_sound, list(CHEEVO_SOUND_TADA, CHEEVO_SOUND_JINGLE, CHEEVO_SOUND_PING, CHEEVO_SOUND_OFF), initial(achivements_sound))
 
 	if(length(raw_muted_admins))
 		try
@@ -117,7 +119,8 @@
 		server_region=:server_region,
 		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
 		viewrange=:viewrange,
-		map_vote_pref_json=:map_vote_pref_json
+		map_vote_pref_json=:map_vote_pref_json,
+		achievements_sound=:achievements_sound
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -148,7 +151,8 @@
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
 			"viewrange" = viewrange,
-			"map_vote_pref_json" = json_encode(map_vote_pref_json)
+			"map_vote_pref_json" = json_encode(map_vote_pref_json),
+			"achievements_sound" = achivements_sound
 		))
 
 	if(!query.warn_execute())
