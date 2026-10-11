@@ -236,7 +236,7 @@
 	siemens_coefficient = 0
 	slowdown_inactive = 1
 	slowdown_active = 0.45
-	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
+	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced, /obj/item/mod/module/rad_protection/inbuilt)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/rcd,
