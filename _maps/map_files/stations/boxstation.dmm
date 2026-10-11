@@ -44,7 +44,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
 	dir = 9
 	},
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /turf/simulated/floor/catwalk/black,
 /area/station/turret_protected/aisat/interior)
 "aai" = (
@@ -1388,9 +1388,7 @@
 	codes_txt = "patrol;next_patrol=Armory_North";
 	location = "Armory_South"
 	},
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ahW" = (
@@ -2290,9 +2288,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
@@ -7216,7 +7212,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "aCp" = (
@@ -15393,11 +15389,12 @@
 	c_tag = "Office Supplies";
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/status_display{
 	layer = 4;
-	pixel_y = 32
+	pixel_y = 1;
+	pixel_x = -32
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/office)
 "bgt" = (
@@ -15815,7 +15812,7 @@
 "bhI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/woodsiding{
-	dir = 9
+	dir = 10
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -51456,6 +51453,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/camera{
+	dir = 6;
+	network = list("Engineering","SS13");
+	c_tag = "Power Transmission Laser"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "gGQ" = (
@@ -51805,7 +51807,7 @@
 "gNX" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/woodsiding{
-	dir = 5
+	dir = 6
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -54514,11 +54516,6 @@
 /turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "hXA" = (
-/obj/machinery/camera{
-	dir = 6;
-	network = list("Engineering","SS13");
-	c_tag = "Power Transmission Laser"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -58353,9 +58350,7 @@
 /obj/item/flashlight/lamp/green{
 	pixel_y = 8
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 1
-	},
+/obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "jGd" = (
@@ -84936,9 +84931,7 @@
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "vpC" = (
-/mob/living/simple_animal/bot/cleanbot{
-	on = 0
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
 /area/station/aisat/service)
@@ -112536,7 +112529,7 @@ cNB
 rjt
 cQy
 sTc
-sTc
+scI
 jEc
 tjG
 tHE
@@ -112793,7 +112786,7 @@ pMH
 wcG
 cQy
 onZ
-onZ
+scI
 kgK
 tdO
 sDe

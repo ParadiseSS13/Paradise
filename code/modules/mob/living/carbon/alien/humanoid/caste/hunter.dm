@@ -77,7 +77,11 @@
 			if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
 				blocked = TRUE
 		if(!blocked)
-			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
+			L.visible_message(
+				SPAN_DANGER("[src] pounces on [L]!"),
+				SPAN_USERDANGER("[src] pounces on you!"),
+				SPAN_DANGER("You hear the loud thump of a large creature pouncing!")
+			)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(armor_type = MELEE))
@@ -92,7 +96,10 @@
 
 		toggle_leap(FALSE)
 	else if(A.density && !A.CanPass(src))
-		visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
+		visible_message(
+			SPAN_DANGER("[src] smashes into [A]!"),
+			SPAN_ALERTALIEN("[src] smashes into [A]!")
+		)
 		Weaken(2 SECONDS, TRUE)
 		playsound(get_turf(src), 'sound/effects/bang.ogg', 50, FALSE, 0) // owwie
 		..()
