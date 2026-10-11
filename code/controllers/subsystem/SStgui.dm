@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/update_uis(datum/src_object, full_update = FALSE)
 	var/count = 0
-	// Opening a UI gives src_object a UID, so no UID means no UIs to update
+	// If this object has no UID, it's guaranteed to not have any UIs open. UIDs are created when a UI is opened.
 	if(!src_object.unique_datum_id)
 		return count
 	var/key = "[src_object.UID()]"
@@ -230,7 +230,7 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/close_uis(datum/src_object)
 	. = 0
-	// Opening a UI gives src_object a UID, so no UID means no UIs to close.
+	// If this object has no UID, it's guaranteed to not have any UIs open. UIDs are created when a UI is opened.
 	// Every datum calls this in Destroy(), so don't make one here.
 	if(!src_object.unique_datum_id)
 		return
