@@ -309,10 +309,12 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	else //Turf, leave speech bubbles to the mob
 		speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
-	for(var/obj/O in listening_obj)
-		spawn(0) // KILL THIS
-			if(O) //It's possible that it could be deleted in the meantime.
-				O.hear_talk(src, message_pieces, verb)
+	if(length(listening_obj))
+		// One spawn for all of them. It used to be one each, for a few hundred objects a line.
+		spawn(0)
+			for(var/obj/O as anything in listening_obj)
+				if(O) //It's possible that it could be deleted in the meantime.
+					O.hear_talk_no_wait(src, message_pieces, verb)
 
 	return TRUE
 
@@ -431,10 +433,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			listening |= M
 
 	//pass on the message to objects that can hear us.
+	var/list/listening_obj = list()
 	for(var/obj/O in view(message_range, whisper_loc))
+		listening_obj += O
+	if(length(listening_obj))
 		spawn(0)
-			if(O)
-				O.hear_talk(src, message_pieces, verb)
+			for(var/obj/O as anything in listening_obj)
+				if(O)
+					O.hear_talk_no_wait(src, message_pieces, verb)
 
 	var/list/eavesdropping = hearers(eavesdropping_range, whisper_loc)
 	eavesdropping -= src
