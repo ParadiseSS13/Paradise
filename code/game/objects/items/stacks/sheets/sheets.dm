@@ -18,6 +18,11 @@
 	var/wall_allowed = TRUE	//determines if sheet can be used in wall construction or not.
 	dynamic_icon_state = TRUE
 
+	/// Power multiplier when this sheet is used in a solar panel, leave blank if you shouldn't be able to make a solar out of this.
+	var/solar_mult
+	/// Icon state a solar takes on with this sheet inserted.
+	var/solar_type = SOLAR_TYPE_GLASS
+
 /obj/item/stack/sheet/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("<b>Use it in hand</b> to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.")
