@@ -403,4 +403,3 @@
 		return
 	var/mob/clown = pick(drivers)
 	owner.say("Thank you for the fun ride, [clown.name]!")
-	clown_car.increment_thanks_counter()
