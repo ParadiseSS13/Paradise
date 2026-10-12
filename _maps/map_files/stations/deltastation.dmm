@@ -13099,10 +13099,8 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/cargotech,
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bba" = (
@@ -20389,9 +20387,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bFc" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/machinery/economy/vending/cigarette,
 /obj/machinery/light{
 	dir = 4
@@ -20399,6 +20394,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 5
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bFd" = (
@@ -26248,10 +26244,13 @@
 	pixel_x = -24;
 	pixel_y = 8
 	},
-/obj/machinery/computer/guestpass/hop,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
+	},
+/obj/machinery/computer/guestpass/hop{
+	dir = 1;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
@@ -38578,15 +38577,13 @@
 "cVe" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cVf" = (
@@ -69105,6 +69102,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "mjt" = (
@@ -82500,9 +82498,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "rsY" = (
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
