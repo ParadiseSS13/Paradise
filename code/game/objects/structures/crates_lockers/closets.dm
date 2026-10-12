@@ -4,6 +4,8 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "generic"
 	density = TRUE
+	// A light that's shut inside doesn't shine out
+	flags_2 = BLOCKS_LIGHT_2
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
