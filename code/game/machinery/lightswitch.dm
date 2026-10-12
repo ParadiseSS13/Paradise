@@ -126,5 +126,47 @@
 	. = ..()
 	set_area_lightswitch(FALSE)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 25, 25)
-BUTTON_HELPERS(/obj/machinery/light_switch, 25, 5)
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/light_switch, 32, -1, 32, -32)
+
+// Light switch sprites have varied offsets in both orientations and
+// BUTTON_HELPERS can't be used here. You could try to write a macro for it but
+// it would require like six parameters and would be confusing as hell.
+/obj/machinery/light_switch/offset/northwest
+	dir = NORTHWEST
+	pixel_x = 5
+	pixel_y = 32
+
+/obj/machinery/light_switch/offset/north
+	dir = NORTH
+	pixel_x = -5
+	pixel_y = 32
+
+/obj/machinery/light_switch/offset/northeast
+	dir = NORTHEAST
+	pixel_x = 32
+	pixel_y = 4
+
+/obj/machinery/light_switch/offset/east
+	dir = EAST
+	pixel_x = 32
+	pixel_y = -4
+
+/obj/machinery/light_switch/offset/southeast
+	dir = SOUTHEAST
+	pixel_x = 5
+	pixel_y = -1
+
+/obj/machinery/light_switch/offset/south
+	dir = SOUTH
+	pixel_x = -5
+	pixel_y = -1
+
+/obj/machinery/light_switch/offset/southwest
+	dir = SOUTHWEST
+	pixel_x = -32
+	pixel_y = -4
+
+/obj/machinery/light_switch/offset/west
+	dir = WEST
+	pixel_x = -32
+	pixel_y = 4

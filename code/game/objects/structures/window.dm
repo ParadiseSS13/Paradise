@@ -711,8 +711,50 @@
 /obj/machinery/button/windowtint/update_icon_state()
 	icon_state = "light[active]"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/windowtint, 25, 25)
-BUTTON_HELPERS(/obj/machinery/button/windowtint, 25, 5)
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/button/windowtint, 32, -1, 32, -32)
+
+// Light switch sprites have varied offsets in both orientations and
+// BUTTON_HELPERS can't be used here. You could try to write a macro for it but
+// it would require like six parameters and would be confusing as hell.
+/obj/machinery/button/windowtint/offset/northwest
+	dir = NORTHWEST
+	pixel_x = 5
+	pixel_y = 32
+
+/obj/machinery/button/windowtint/offset/north
+	dir = NORTH
+	pixel_x = -5
+	pixel_y = 32
+
+/obj/machinery/button/windowtint/offset/northeast
+	dir = NORTHEAST
+	pixel_x = 32
+	pixel_y = 4
+
+/obj/machinery/button/windowtint/offset/east
+	dir = EAST
+	pixel_x = 32
+	pixel_y = -4
+
+/obj/machinery/button/windowtint/offset/southeast
+	dir = SOUTHEAST
+	pixel_x = 5
+	pixel_y = -1
+
+/obj/machinery/button/windowtint/offset/south
+	dir = SOUTH
+	pixel_x = -5
+	pixel_y = -1
+
+/obj/machinery/button/windowtint/offset/southwest
+	dir = SOUTHWEST
+	pixel_x = -32
+	pixel_y = -4
+
+/obj/machinery/button/windowtint/offset/west
+	dir = WEST
+	pixel_x = -32
+	pixel_y = 4
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"
