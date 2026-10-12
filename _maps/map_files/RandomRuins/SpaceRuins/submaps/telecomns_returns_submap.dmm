@@ -168,9 +168,7 @@
 /turf/template_noop,
 /area/template_noop)
 "nC" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/template_noop,
 /area/template_noop)
 "ok" = (
@@ -181,9 +179,7 @@
 /area/template_noop)
 "oT" = (
 /obj/item/cigbutt,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/template_noop,
 /area/template_noop)
 "oU" = (
@@ -398,9 +394,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "Lx" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "LC" = (
@@ -414,9 +408,7 @@
 /turf/template_noop,
 /area/template_noop)
 "NS" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "NZ" = (
