@@ -22,6 +22,7 @@ GLOBAL_LIST_INIT(wordle_words, list(
 	"UNITY", "UPPER", "UNION", "UPSET",
 	"VALID", "VAPOR", "VIVID", "VOICE",
 	"WATER", "WHEAT", "WHITE", "WORLD", "WAVES", "WITCH", "WORST",
+	"XENON", "XEBEC", // theres not many x words that aren't shit like "xylan" or "xysts" or my favorate, "xylyl"
 	"YOUNG", "YIELD", "YEARN",
 	"ZEBRA", "ZONES", "ZILCH", "ZESTY",
 	))
