@@ -36,6 +36,21 @@
 /datum/worldgen_modifier/proc/coord2value(x, y, list/longlist)
 	return text2num(longlist[((size * y) + (x + 1))])
 
+/datum/caves_theme/proc/can_safe_place(turf/T)
+	if(T.flags & NO_LAVA_GEN)
+		return FALSE
+	if(istype(T, /turf/template_noop))
+		return TRUE
+	if(!istype(get_area(T), /area/lavaland/surface/outdoors/unexplored))
+		return FALSE
+	if(istype(T, /turf/simulated/floor/chasm))
+		return FALSE
+	if(istype(T, /turf/simulated/floor/lava/lava_land_surface))
+		return FALSE
+	if(istype(T, /turf/simulated/floor/lava/mapping_lava))
+		return FALSE
+
+	return TRUE
 
 /// Default noise subtype for generating some noise over a section of map
 /datum/worldgen_modifier/noise
@@ -110,11 +125,15 @@
 	upper_range = 9 // only the wettest areas!
 	frequency = 0.1
 	octaves = 2
+	var/mix = 0.5
 	generation_data_expected = list("liquid_type")
 
 /datum/worldgen_modifier/noise/humidity/generate()
 	..()
 	. = list("humidity" = result_map)
+
+/datum/worldgen_modifier/noise/humidity/generate_noise()
+	result_map = rustlibs_perlin_generate_advanced_dlerp("[seed]", "[size]", "[frequency]", "[divisor]", "[octaves]", "[mix]")
 
 /datum/worldgen_modifier/noise/humidity/apply_value(turf/T)
 	//if(0 == 1) // various importanta checks go here
@@ -156,6 +175,8 @@
 
 /datum/worldgen_modifier/fauna/apply()
 	for(var/turf/T in block(location_x, location_y, location_z, (size + location_x) - 1, (size + location_y) - 1, location_z))
+		if(!can_safe_place(T))
+				continue
 		if(prob(generation_data["fauna_chance"]) * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2)
 			var/chosen_fauna = pickweight(generation_data["fauna_weights"])
 			new chosen_fauna(T) // go on! be free! kill people!
@@ -168,6 +189,8 @@
 
 /datum/worldgen_modifier/flora/apply()
 	for(var/turf/T in block(location_x, location_y, location_z, (size + location_x) - 1, (size + location_y) - 1, location_z))
+		if(!can_safe_place(T))
+			continue
 		if(prob(generation_data["flora_chance"]) * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2)
 			var/chosen_flora = pickweight(generation_data["flora_weights"])
 			new chosen_flora(T)

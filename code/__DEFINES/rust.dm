@@ -184,7 +184,7 @@
 /proc/rustlibs_json_is_valid(text)
 	return (RUSTLIB_CALL(json_is_valid, text) == "true")
 
-
+#warn TODO: change this btw
 // MARK: Grid Perlin Noise
 /**
  * This proc generates a grid of perlin-like noise
@@ -199,17 +199,18 @@
  * * lower_range: lower bound of values selected for. (inclusive)
  * * upper_range: upper bound of values selected for. (exclusive)
  */
-/proc/rustlibs_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
-	return RUSTLIB_CALL(dbp_generate, seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+/proc/rustlibs_dbp_generate(r_seed, r_accuracy, r_stamp_size, r_world_size, r_lower_range, r_upper_range)
+    return RUSTLIB_CALL(dbp_generate, r_seed, r_accuracy, r_stamp_size, r_world_size, r_lower_range, r_upper_range)
 
-/proc/rustlibs_perlin_generate_binary(seed, stamp_size, world_size, lower_range, upper_range)
-	return RUSTLIB_CALL(perlin_generate_binary, seed, stamp_size, world_size, lower_range, upper_range)
+/proc/rustlibs_perlin_generate_binary(r_seed, r_stamp_size, r_world_size, r_lower_range, r_upper_range)
+    return RUSTLIB_CALL(perlin_generate_binary, r_seed, r_stamp_size, r_world_size, r_lower_range, r_upper_range)
 
-/proc/rustlibs_perlin_generate_advanced(seed, world_size, frequency, divisor, octaves)
-	return RUSTLIB_CALL(perlin_generate_advanced, seed, world_size, frequency, divisor, octaves)
+/proc/rustlibs_perlin_generate_advanced(r_seed, r_world_size, r_frequency, r_divisor, r_octaves)
+    return RUSTLIB_CALL(perlin_generate_advanced, r_seed, r_world_size, r_frequency, r_divisor, r_octaves)
+
 #warn TODO: autodoc here mix 0.5 etc etc octaves 3
-/proc/rustlibs_perlin_generate_advanced_dlerp(seed, world_size, frequency, divisor, octaves, mix)
-	return RUSTLIB_CALL(perlin_generate_advanced_dlerp, seed, world_size, frequency, divisor, octaves, mix)
+/proc/rustlibs_perlin_generate_advanced_dlerp(r_seed, r_world_size, r_frequency, r_divisor, r_octaves, r_mix)
+    return RUSTLIB_CALL(perlin_generate_advanced_dlerp, r_seed, r_world_size, r_frequency, r_divisor, r_octaves, r_mix)
 
 // MARK: Redis
 #define RUSTLIBS_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"

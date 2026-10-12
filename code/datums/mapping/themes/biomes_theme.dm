@@ -61,7 +61,6 @@
 		for(var/turf/check in block(placement_attempt.x + MAX_OVERLAP, placement_attempt.y + MAX_OVERLAP, z, placement_attempt.x + size - MAX_OVERLAP, placement_attempt.y + size - MAX_OVERLAP, z))
 			if(istype(get_area(check), /area/lavaland/surface/biome))
 				valid = FALSE
-		// while placement_attempt is still in scope :)
 		if(valid)
 			x = placement_attempt.x
 			y = placement_attempt.y
@@ -87,7 +86,6 @@
 		my_worldgen.location_z = z
 		my_worldgen.size = size
 		generation_data += my_worldgen.generate() // Run it and push the generated data to the list
-
 
 
 /datum/biome_theme/test_biome
