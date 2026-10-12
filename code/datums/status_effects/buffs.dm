@@ -1066,12 +1066,12 @@
 	..()
 
 /datum/status_effect/overclock/on_apply()
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
 	owner.next_move_modifier -= 0.3 // Same attack speed buff as mephedrone
 	return TRUE
 
 /datum/status_effect/overclock/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
 	owner.next_move_modifier += 0.3
 
 /datum/status_effect/overclock/tick()

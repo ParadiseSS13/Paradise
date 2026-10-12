@@ -18,7 +18,7 @@ var KEYWORDS =
   'sleep spawn break continue do else for in step goto if return switch while try catch throw';
 var BUILTINS =
   'usr src world args ' +
-  'list datum area turf obj mob atom movable client database exception ' +
+  'alist list datum area turf obj mob atom movable client database exception ' +
   'icon image matrix mutable_appearance savefile sound regex operator';
 var LITERAL = 'null';
 var SUBST = {

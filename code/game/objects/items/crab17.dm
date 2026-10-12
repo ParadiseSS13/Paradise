@@ -91,6 +91,7 @@
 	thief = user
 	moneybox = money_box
 	accounts_to_rob = accounts
+	SSeconomy.crab_machine = TRUE
 
 /obj/structure/checkoutmachine/examine(mob/living/user)
 	. = ..()
@@ -215,6 +216,7 @@
 
 /obj/structure/checkoutmachine/Destroy()
 	STOP_PROCESSING(SSmachines, src)
+	SSeconomy.crab_machine = FALSE
 	if(held_credits)
 		expel_cash()
 	explosion(src, 0, 0, 1, 2, flame_range = 2, cause = "CRAB-17 Shutdown")
@@ -249,6 +251,8 @@
 		Destroy()
 
 /obj/structure/checkoutmachine/process()
+	if(!SSeconomy.crab_machine)
+		SSeconomy.crab_machine = TRUE // JUST IN CASE we somehow get multiple CRAB machines running at the same time.
 	dump()
 	var/anydir = pick(GLOB.cardinal)
 	if(Process_Spacemove(anydir))
