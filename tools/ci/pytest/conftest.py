@@ -123,6 +123,13 @@ def dmi_files(request: FixtureRequest) -> list[Path]:
     """
     return get_codebase_file("dmi")
 
+@pytest.fixture(scope="session")
+def dmm_files(request: FixtureRequest) -> list[Path]:
+    repo_root = get_repo_root()
+    # We want to ignore non-mapped files like the rust/src/mapmanip/test directory
+    subdir = "_maps/map_files"
+    return [file.relative_to(repo_root) for file in (repo_root / subdir).rglob(f"*.dmm")]
+
 @pytest.fixture
 def lint(request: FixtureRequest) -> Lint:
     marker = request.node.get_closest_marker("lint")
