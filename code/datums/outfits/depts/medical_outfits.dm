@@ -44,7 +44,7 @@
 	name = "Coroner"
 	jobtype = /datum/job/coroner
 
-	uniform = /obj/item/clothing/under/rank/medical/scrubs/coroner
+	uniform = /obj/item/clothing/under/rank/medical/coroner
 	suit = /obj/item/clothing/suit/storage/labcoat/mortician
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med

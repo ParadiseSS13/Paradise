@@ -356,10 +356,50 @@
 	path = /obj/item/clothing/under/rank/medical/chemist/skirt
 	allowed_roles = list("Chief Medical Officer","Chemist")
 
+/datum/gear/uniform/medical/chem_alt
+	display_name = "Uniform, chemist corporate"
+	path = /obj/item/clothing/under/rank/medical/chemist/corporate
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/uniform/skirt/job/chem_alt
+	display_name = "Skirt, chemist corporate"
+	path = /obj/item/clothing/under/rank/medical/chemist/skirt/corporate
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/uniform/medical/chem_orange
+	display_name = "Uniform, chemist orange"
+	path = /obj/item/clothing/under/rank/medical/chemist/alt
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/uniform/skirt/job/chem_orange
+	display_name = "Skirt, chemist orange"
+	path = /obj/item/clothing/under/rank/medical/chemist/skirt/alt
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
 /datum/gear/uniform/skirt/job/viro
 	display_name = "Skirt, virologist"
 	path = /obj/item/clothing/under/rank/medical/virologist/skirt
-	allowed_roles = list("Virologist")
+	allowed_roles = list("Chief Medical Officer", "Virologist")
+
+/datum/gear/uniform/medical/viro_alt
+	display_name = "Uniform, virologist corporate"
+	path = /obj/item/clothing/under/rank/medical/virologist/corporate
+	allowed_roles = list("Chief Medical Officer", "Virologist")
+
+/datum/gear/uniform/skirt/job/viro_alt
+	display_name = "Skirt, virologist corporate"
+	path = /obj/item/clothing/under/rank/medical/virologist/skirt/corporate
+	allowed_roles = list("Chief Medical Officer", "Virologist")
+
+/datum/gear/uniform/medical/viro_green
+	display_name = "Uniform, virologist green"
+	path = /obj/item/clothing/under/rank/medical/virologist/alt
+	allowed_roles = list("Chief Medical Officer", "Virologist")
+
+/datum/gear/uniform/skirt/job/viro_green
+	display_name = "Skirt, virologist green"
+	path = /obj/item/clothing/under/rank/medical/virologist/skirt/alt
+	allowed_roles = list("Chief Medical Officer", "Virologist")
 
 /datum/gear/uniform/skirt/job/para
 	display_name = "Skirt, paramedic"
@@ -369,7 +409,72 @@
 /datum/gear/uniform/skirt/job/med
 	display_name = "Skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/doctor/skirt
-	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Paramedic", "Coroner")
+
+/datum/gear/uniform/medical/med_alt
+	display_name = "Uniform, medical corporate"
+	path = /obj/item/clothing/under/rank/medical/doctor/corporate
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Paramedic", "Coroner")
+
+/datum/gear/uniform/skirt/job/med_alt
+	display_name = "Skirt, medical corporate"
+	path = /obj/item/clothing/under/rank/medical/doctor/skirt/corporate
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Paramedic", "Coroner")
+
+/datum/gear/uniform/skirt/job/psych
+	display_name = "Skirt, psychiatrist"
+	path = /obj/item/clothing/under/rank/medical/psych/skirt
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/uniform/medical/psych_alt
+	display_name = "Uniform, psychiatrist corporate"
+	path = /obj/item/clothing/under/rank/medical/psych/corporate
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/uniform/skirt/job/psych_alt
+	display_name = "Skirt, psychiatrist corporate"
+	path = /obj/item/clothing/under/rank/medical/psych/skirt/corporate
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/uniform/medical/psych_teal
+	display_name = "Uniform, psychiatrist teal"
+	path = /obj/item/clothing/under/rank/medical/psych/alt
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/uniform/skirt/job/psych_teal
+	display_name = "Skirt, psychiatrist teal"
+	path = /obj/item/clothing/under/rank/medical/psych/skirt/alt
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/uniform/turtleneck/job/psych
+	display_name = "Turtleneck, psychiatrist"
+	path = /obj/item/clothing/under/rank/medical/psych/turtleneck
+	allowed_roles = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/gear/uniform/skirt/job/coroner
+	display_name = "Skirt, coroner"
+	path = /obj/item/clothing/under/rank/medical/coroner/skirt
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/uniform/medical/coroner_alt
+	display_name = "Uniform, psychiatrist corporate"
+	path = /obj/item/clothing/under/rank/medical/coroner/corporate
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/uniform/skirt/job/coroner_alt
+	display_name = "Skirt, psychiatrist corporate"
+	path = /obj/item/clothing/under/rank/medical/coroner/skirt/corporate
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/uniform/medical/coroner_black
+	display_name = "Uniform, coroner black"
+	path = /obj/item/clothing/under/rank/medical/coroner/alt
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/uniform/skirt/job/coronor_black
+	display_name = "Skirt, coroner black"
+	path = /obj/item/clothing/under/rank/medical/coroner/skirt/alt
+	allowed_roles = list("Chief Medical Officer", "Coroner")
 
 /datum/gear/uniform/skirt/job/cmo
 	display_name = "Skirt, cmo"
@@ -529,6 +634,11 @@
 /datum/gear/uniform/medical
 	main_typepath = /datum/gear/uniform/medical
 
+/datum/gear/uniform/medical/bscrubs
+	display_name = "Medical scrubs, blue"
+	path = /obj/item/clothing/under/rank/medical/scrubs
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
 /datum/gear/uniform/medical/pscrubs
 	display_name = "Medical scrubs, purple"
 	path = /obj/item/clothing/under/rank/medical/scrubs/purple
@@ -538,6 +648,11 @@
 	display_name = "Medical scrubs, green"
 	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/medical/cscrubs
+	display_name = "Medical scrubs, coroner"
+	path = /obj/item/clothing/under/rank/medical/scrubs/coroner
+	allowed_roles = list("Chief Medical Officer", "Coroner")
 
 /datum/gear/uniform/cargo
 	main_typepath = /datum/gear/uniform/cargo
