@@ -140,6 +140,7 @@
 
 /datum/supply_packs/medical/vending/clothingvendor
 	name = "Medical Clothing Vendors Crate"
+	cost = 50
 	contains = list(/obj/item/vending_refill/medidrobe,
 					/obj/item/vending_refill/chemdrobe,
 					/obj/item/vending_refill/virodrobe)
