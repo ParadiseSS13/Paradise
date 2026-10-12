@@ -27,12 +27,23 @@
 	item = /obj/item/mod/control/pre_equipped/ninja
 	cost = 45
 
+/datum/uplink_item/ninja/assassin_holoparasite
+	name = "Assassin Holoparasite"
+	desc = "A specialized holoparasite that excels in stealth takedowns."
+	reference = "ASSHOLO"
+	item = /obj/item/guardiancreator/tech/ninja
+	cost = 45
+	refund_path = /obj/item/guardiancreator/tech/ninja
+	refundable = TRUE
+	can_discount = FALSE
+
 /datum/uplink_item/ninja/energy_katana
 	name = "Energy Katana"
 	desc = "A plastitanium katana with a reinforced emitter edge. A ninja's most reliable tool."
 	reference = "EKAT"
 	item = /obj/item/katana/energy
 	cost = 20
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/energy_net
 	name = "Energy Net Projector"
@@ -40,6 +51,15 @@
 	reference = "ENET"
 	item = /obj/item/gun/energy/kinetic_accelerator/energy_net
 	cost = 30
+	can_discount = FALSE
+
+/datum/uplink_item/ninja/ninja_scanner
+	name = "Spider Scanner"
+	desc = "An advanced multi-use scanning device used by the spider clan to confirm bounty completion."
+	reference = "SPSCN"
+	item = /obj/item/ninja_scanner
+	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/spider_bomb
 	name = "Spider Bomb"
@@ -54,6 +74,7 @@
 	reference = "NJSC"
 	item = /obj/item/clothing/head/helmet/space_ninja
 	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/mask
 	name = "Ninja Mask"
@@ -61,6 +82,7 @@
 	reference = "NJMSK"
 	item = /obj/item/clothing/mask/gas/space_ninja
 	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/gloves
 	name = "Ninja Gloves"
@@ -68,6 +90,7 @@
 	reference = "NJGL"
 	item = /obj/item/clothing/gloves/space_ninja
 	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/shoes
 	name = "Ninja Shoes"
@@ -75,6 +98,7 @@
 	reference = "NJSH"
 	item = /obj/item/clothing/shoes/space_ninja
 	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/suit
 	name = "Ninja Kabuto"
@@ -82,6 +106,7 @@
 	reference = "NJKB"
 	item = /obj/item/clothing/suit/space_ninja
 	cost = 10
+	can_discount = FALSE
 
 /datum/uplink_item/ninja/suit_bundle
 	name = "Full Ninja Outfit"
@@ -89,3 +114,4 @@
 	reference = "NJST"
 	item = /obj/item/clothing/suit/space_ninja
 	cost = 40
+	can_discount = FALSE
