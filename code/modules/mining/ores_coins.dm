@@ -334,6 +334,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg',50,1)
 		primed = 1
 		icon_state = "Gibtonite active"
+		if(!triggered_by && user && HAS_CONNECTED_PLAYER(user))
+			user.client.give_award(/datum/award/achievement/jobs/gibtonite_explode, user)
 		var/turf/bombturf = get_turf(src)
 		var/notify_admins = 0
 		if(!is_mining_level(z))//Only annoy the admins ingame if we're triggered off the mining zlevel

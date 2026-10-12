@@ -241,6 +241,8 @@
 
 /obj/item/mod/control/proc/on_mod_deployed(mob/user)
 	SEND_SIGNAL(src, COMSIG_MOD_DEPLOYED, user)
+	if(HAS_CONNECTED_PLAYER(wearer))
+		wearer.client.give_award(/datum/award/achievement/misc/modsuit_deploy, wearer)
 
 /obj/item/mod/control/proc/on_mod_retracted(mob/user)
 	SEND_SIGNAL(src, COMSIG_MOD_RETRACTED, user)

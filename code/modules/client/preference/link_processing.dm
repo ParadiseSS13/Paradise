@@ -860,6 +860,17 @@
 					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/special_toggle/set_glow_level]
 					toggle.set_toggles(user.client)
 
+				if("achievement_sound")
+					switch(achivements_sound)
+						if(CHEEVO_SOUND_TADA)
+							achivements_sound = CHEEVO_SOUND_JINGLE
+						if(CHEEVO_SOUND_JINGLE)
+							achivements_sound = CHEEVO_SOUND_PING
+						if(CHEEVO_SOUND_PING)
+							achivements_sound = CHEEVO_SOUND_OFF
+						else
+							achivements_sound = CHEEVO_SOUND_TADA
+
 				if("exposure")
 					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamp_exposure]
 					toggle.set_toggles(user.client)

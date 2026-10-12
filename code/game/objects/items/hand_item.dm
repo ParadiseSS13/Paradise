@@ -18,6 +18,9 @@
 		var/mob/living/carbon/C = M
 		if(C.IsSleeping())
 			C.AdjustSleeping(-15 SECONDS)
+	// yes technically there's no basic megafauna that can be found but just for future proofing
+	if((istype(M, /mob/living/simple_animal/hostile/megafauna) || istype(M, /mob/living/basic/megafauna)) && HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/boss/boss_slap, user)
 	if(force)
 		return ..()
 

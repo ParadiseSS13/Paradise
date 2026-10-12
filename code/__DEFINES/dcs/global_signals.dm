@@ -30,3 +30,6 @@
 
 /// sent after world.maxx and/or world.maxy are expanded: (has_expanded_world_maxx, has_expanded_world_maxy)
 #define COMSIG_GLOB_EXPANDED_WORLD_BOUNDS "!expanded_world_bounds"
+
+///Sent after awards are saved in the database (/datum/controller/subsystem/achievements/save_achievements_to_db)
+#define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"

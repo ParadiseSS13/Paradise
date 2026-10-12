@@ -205,6 +205,9 @@
 
 /obj/structure/spawner/nether/demon_incursion/deconstruct(disassembled)
 	var/datum/component/spawner/spawn_comp = GetComponent(/datum/component/spawner)
+	for(var/mob/living/M in range(7, src))
+		if(M.stat != DEAD && HAS_CONNECTED_PLAYER(M))
+			M.client.give_award(/datum/award/achievement/misc/incursion_portal, M)
 	for(var/mob/living/basic/summoned_mob in spawn_comp.spawned_mobs)
 		if(prob(50))
 			playsound(src, 'sound/magic/lightningbolt.ogg', 60, TRUE)

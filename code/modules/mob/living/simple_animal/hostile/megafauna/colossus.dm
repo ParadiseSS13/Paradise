@@ -44,8 +44,9 @@ Difficulty: Very Hard
 	pixel_x = -32
 	universal_speak = TRUE
 	internal_gps = /obj/item/gps/internal/colossus
-	medal_type = BOSS_MEDAL_COLOSSUS
-	score_type = COLOSSUS_SCORE
+	achievement_type = /datum/award/achievement/boss/colossus_kill
+	crusher_achievement_type = /datum/award/achievement/boss/colossus_crusher
+	score_achievement_type = /datum/award/score/colossus_score
 	crusher_loot = list(/obj/item/crusher_trophy/blaster_tubes)
 	deathmessage = "flakes away into innumerable pieces with the wind. It's metallic arm graft staying behind, falling to the ground with a loud thud."
 	difficulty_ore_modifier = 3

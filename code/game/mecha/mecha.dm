@@ -600,6 +600,8 @@
 	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message(SPAN_NOTICE("[user] hits [name]. Nothing happens"), SPAN_NOTICE("You hit [name] with no visible effect."))
 	log_message("Attack by hand/paw. Attacker - [user].")
+	if(user.a_intent == INTENT_HARM && HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/misc/mech_punch, user)
 
 
 /obj/mecha/attack_alien(mob/living/user)

@@ -363,6 +363,8 @@
 	to_chat(itemUser, SPAN_NOTICE("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
 
 	activated(itemUser)
+	if(HAS_CONNECTED_PLAYER(itemUser))
+		itemUser.client.give_award(/datum/award/achievement/jobs/asclepius_oath, itemUser)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rod_of_asclepius/Destroy()
@@ -457,6 +459,8 @@
 
 	user.drop_item()
 	insert(user)
+	if(HAS_CONNECTED_PLAYER(user))
+		user.client.give_award(/datum/award/achievement/misc/dark_shard, user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff

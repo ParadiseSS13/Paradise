@@ -241,13 +241,19 @@
 	var/datum/status_effect/high_five/rps/their_status_effect = highfived.has_status_effect(type)
 	var/outcome = get_move_status(move, their_status_effect.move)
 	var/outcome_msg
+	var/mob/living/carbon/winner
 	switch(outcome)
 		if(RPS_EMOTE_TIE)
 			outcome_msg = "It's a tie!"
 		if(RPS_EMOTE_WE_WIN)
 			outcome_msg = "[user] wins!"
+			winner = user
 		if(RPS_EMOTE_THEY_WIN)
 			outcome_msg = "[highfived] wins!"
+			winner = highfived
+
+	if(winner && HAS_CONNECTED_PLAYER(winner))
+		winner.client.give_award(/datum/award/achievement/misc/rps_winner, winner)
 
 	user.visible_message(
 		SPAN_NOTICE("[user] plays <b>[move]</b>, and [highfived] plays <b>[their_status_effect.move]</b>."),
