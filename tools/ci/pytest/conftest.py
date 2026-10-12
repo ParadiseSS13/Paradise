@@ -4,9 +4,9 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Optional, cast
 
+import pytest
 from avulto import DME
 from avulto.ast import SourceLoc
-import pytest
 from pytest import FixtureRequest, Function, Item
 
 GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
