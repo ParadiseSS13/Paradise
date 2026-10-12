@@ -39,10 +39,10 @@
 	src.post_untipped_callback = post_untipped_callback
 
 /datum/component/tippable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(interact_with_tippable))
+	RegisterSignal(parent, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, PROC_REF(interact_with_tippable))
 
 /datum/component/tippable/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_ATOM_ATTACK_HAND)
+	UnregisterSignal(parent, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY)
 
 /datum/component/tippable/Destroy()
 	pre_tipped_callback = null
@@ -57,16 +57,14 @@
  * user - the mob interacting with source
  */
 /datum/component/tippable/proc/interact_with_tippable(mob/living/source, mob/user)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY
 
-	if(is_tipped)
-		if(user.a_intent == INTENT_HELP)
-			INVOKE_ASYNC(src, PROC_REF(try_untip), source, user)
-	else
-		if(user.a_intent == INTENT_DISARM)
-			INVOKE_ASYNC(src, PROC_REF(try_tip), source, user)
-
-	return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(is_tipped && user.a_intent == INTENT_HELP)
+		INVOKE_ASYNC(src, PROC_REF(try_untip), source, user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	else if((!is_tipped) && user.a_intent == INTENT_DISARM)
+		INVOKE_ASYNC(src, PROC_REF(try_tip), source, user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
  * Try to tip over [tipped_mob].
