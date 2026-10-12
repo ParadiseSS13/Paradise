@@ -63,7 +63,7 @@
 		timer = world.time + cooldown_time
 		user.visible_message(SPAN_DANGER("[user]'s hierophant club malfunctions!"))
 		do_sparks(5, FALSE, user)
-		return ITEM_INTERACT_COMPLETE
+		return NONE
 
 	var/turf/T = get_turf(target)
 	if(isstorage(target) || is_surface(target))
