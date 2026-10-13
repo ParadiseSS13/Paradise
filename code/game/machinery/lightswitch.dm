@@ -3,27 +3,14 @@
 /obj/machinery/light_switch
 	name = "light switch"
 	desc = "A switch for turning the lights on and off for an entire room."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/machines/light_switch.dmi'
 	icon_state = "light1"
 	anchored = TRUE
+	layer = FLY_LAYER
 	power_channel = PW_CHANNEL_LIGHTING
 
-/obj/machinery/light_switch/Initialize(mapload, build_dir)
+/obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
-	name = "light switch" // Needed to remove the "(dir) bump" naming
-	switch(build_dir)
-		if(NORTH)
-			pixel_y = -1
-			dir = NORTH
-		if(SOUTH)
-			pixel_y = 32
-			dir = SOUTH
-		if(EAST)
-			pixel_x = -32
-			dir = EAST
-		if(WEST)
-			pixel_x = 32
-			dir = WEST
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	var/area/A = get_area(src)
