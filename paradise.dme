@@ -786,6 +786,7 @@
 #include "code\datums\mapping\templates\space_map_templates.dm"
 #include "code\datums\mapping\themes\biomes_theme.dm"
 #include "code\datums\mapping\themes\caves_theme.dm"
+#include "code\datums\mapping\themes\fracture_biome.dm"
 #include "code\datums\mapping\themes\lavaland_theme.dm"
 #include "code\datums\mapping\worldgen\worldgen_modifier.dm"
 #include "code\datums\outfits\outfit.dm"

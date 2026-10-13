@@ -164,6 +164,74 @@ fn gen_perlin_advanced_dlerp(
     Ok(result)
 }
 
+/// Generate a perlin noise map stretched and rotated
+#[byondapi::bind]
+fn perlin_generate_advanced_rotated_streched(
+    seed: ByondValue,
+    world_size: ByondValue,
+    frequency_x: ByondValue,
+    frequency_y: ByondValue,
+    divisor: ByondValue,
+    octaves: ByondValue,
+    rotation: ByondValue,
+) -> eyre::Result<ByondValue> {
+    Ok(gen_perlin_advanced_rotated_stretched(
+        seed.get_string()?.parse::<u32>()?,
+        world_size.get_string()?.parse::<u32>()?,
+        frequency_x.get_string()?.parse::<f32>()?,
+        frequency_y.get_string()?.parse::<f32>()?,
+        divisor.get_string()?.parse::<f32>()?,
+        octaves.get_string()?.parse::<u32>()?,
+        rotation.get_string()?.parse::<f32>()?,
+    )?
+    .try_into()?)
+}
+
+fn gen_perlin_advanced_rotated_stretched(
+    seed: u32,
+    world_size: u32,
+    frequency_x: f32,
+    frequency_y: f32,
+    mut divisor: f32,
+    octaves: u32,
+    rotation: f32,
+) -> eyre::Result<String> {
+    let noise: Perlin = Perlin::new(seed);
+    if divisor == 0.0 {
+        divisor = 2.0 - 2.0_f32.powi(1 - octaves as i32); // 1.0, 1.5, 1.75, ...
+    }
+
+    let cos_theta = rotation.cos();
+    let sin_theta = rotation.sin();
+
+    let mut result: String = String::with_capacity((world_size * world_size) as usize);
+
+    for x in 0..world_size {
+        for y in 0..world_size {
+            let mut sum = 0.0;
+
+            for octave in 0..octaves{
+                let scale = 2_f64.powi(octave as i32);
+                let amplitude = 1.0 / scale;
+
+                let xr = x as f32 * cos_theta + y as f32 * sin_theta;
+                let yr = -(x as f32) * sin_theta + y as f32 * cos_theta;
+
+                let xn = ((xr as f64 + OFFSET as f64) * scale) * frequency_x as f64;
+                let yn = ((yr as f64 + OFFSET as f64) * scale) * frequency_y as f64;
+
+                sum += amplitude * noise.get([xn, yn]);
+            }
+
+            let normalized = (sum / divisor as f64 + 1.0) / 2.0;
+            let value = (normalized * 9.0).round() as u8;
+
+            result.push((b'0' + value) as char);
+        }
+    }
+    Ok(result)
+}
+
 #[byondapi::bind]
 fn dbp_generate(
     seed: ByondValue,

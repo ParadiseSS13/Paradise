@@ -176,7 +176,7 @@
 /datum/worldgen_modifier/fauna/apply()
 	for(var/turf/T in block(location_x, location_y, location_z, (size + location_x) - 1, (size + location_y) - 1, location_z))
 		if(!can_safe_place(T))
-				continue
+			continue
 		if(prob(generation_data["fauna_chance"]) * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2)
 			var/chosen_fauna = pickweight(generation_data["fauna_weights"])
 			new chosen_fauna(T) // go on! be free! kill people!

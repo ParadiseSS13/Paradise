@@ -212,6 +212,9 @@
 /proc/rustlibs_perlin_generate_advanced_dlerp(r_seed, r_world_size, r_frequency, r_divisor, r_octaves, r_mix)
     return RUSTLIB_CALL(perlin_generate_advanced_dlerp, r_seed, r_world_size, r_frequency, r_divisor, r_octaves, r_mix)
 
+/proc/rustlibs_perlin_generate_advanced_rotated_stretched(r_seed, r_world_size, r_frequency_x, r_frequency_y, r_divisor, r_octaves, r_rotation)
+    return RUSTLIB_CALL(perlin_generate_advanced_rotated_stretched, r_seed, r_world_size, r_frequency_x, r_frequency_y, r_divisor, r_octaves, r_rotation)
+
 // MARK: Redis
 #define RUSTLIBS_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
 
