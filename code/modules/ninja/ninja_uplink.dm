@@ -112,6 +112,6 @@
 	name = "Full Ninja Outfit"
 	desc = "A bulk purchase of a full ninja outfit. Good for if you somehow lost the other set of highly advanced Spider Clan equipment."
 	reference = "NJST"
-	item = /obj/item/clothing/suit/space_ninja
+	item = /obj/item/storage/bag/garment/syndie/ninja_suit
 	cost = 40
 	can_discount = FALSE
