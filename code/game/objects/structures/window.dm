@@ -625,9 +625,10 @@
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/machines/light_switch.dmi'
 	icon_state = "light0"
 	anchored = TRUE
+	layer = FLY_LAYER
 	desc = "A remote control switch for polarized windows."
 	/// The area where the button is located.
 	var/area/button_area
@@ -637,18 +638,6 @@
 	var/id = TINT_CONTROL_GROUP_NONE
 	/// The button toggle state. If range equals TINT_CONTROL_RANGE_AREA and id equals TINT_CONTROL_GROUP_NONE or is same with other button, it is shared between all such buttons in its area.
 	var/active = FALSE
-
-/obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
-	. = ..()
-	switch(w_dir)
-		if(NORTH)
-			pixel_y = 32
-		if(SOUTH)
-			pixel_y = -1
-		if(EAST)
-			pixel_x = 32
-		if(WEST)
-			pixel_x = -32
 
 /obj/machinery/button/windowtint/New(turf/loc, direction)
 	..()
@@ -710,6 +699,51 @@
 
 /obj/machinery/button/windowtint/update_icon_state()
 	icon_state = "light[active]"
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/button/windowtint, 32, -1, 32, -32)
+
+// Light switch sprites have varied offsets in both orientations and
+// BUTTON_HELPERS can't be used here. You could try to write a macro for it but
+// it would require like six parameters and would be confusing as hell.
+/obj/machinery/button/windowtint/offset/northwest
+	dir = NORTHWEST
+	pixel_x = 5
+	pixel_y = 32
+
+/obj/machinery/button/windowtint/offset/north
+	dir = NORTH
+	pixel_x = -5
+	pixel_y = 32
+
+/obj/machinery/button/windowtint/offset/northeast
+	dir = NORTHEAST
+	pixel_x = 32
+	pixel_y = 4
+
+/obj/machinery/button/windowtint/offset/east
+	dir = EAST
+	pixel_x = 32
+	pixel_y = -4
+
+/obj/machinery/button/windowtint/offset/southeast
+	dir = SOUTHEAST
+	pixel_x = 5
+	pixel_y = -1
+
+/obj/machinery/button/windowtint/offset/south
+	dir = SOUTH
+	pixel_x = -5
+	pixel_y = -1
+
+/obj/machinery/button/windowtint/offset/southwest
+	dir = SOUTHWEST
+	pixel_x = -32
+	pixel_y = -4
+
+/obj/machinery/button/windowtint/offset/west
+	dir = WEST
+	pixel_x = -32
+	pixel_y = 4
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"
