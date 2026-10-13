@@ -175,10 +175,15 @@
 	icon_state = "minedronecube"
 	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 
-/obj/item/mining_drone_cube/attack_self__legacy__attackchain(mob/user)
-	user.visible_message(SPAN_WARNING("\The [src] suddenly expands into a fully functional mining drone!"), \
-	SPAN_WARNING("You press center button on [src]. The device suddenly expands into a fully functional mining drone!"))
+/obj/item/mining_drone_cube/activate_self(mob/user)
+	user.visible_message(
+		SPAN_WARNING("[src] suddenly expands into a fully functional mining drone!"),
+		SPAN_WARNING("You press the center button on [src]. The device suddenly expands into a fully functional mining drone!")
+	)
 	var/mob/living/basic/mining_drone/drone = new(get_turf(src))
 	drone.befriend(user)
+	transfer_fingerprints_to(drone)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
