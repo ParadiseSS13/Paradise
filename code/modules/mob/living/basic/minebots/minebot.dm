@@ -178,6 +178,8 @@
 	new_attack_chain = TRUE
 
 /obj/item/mining_drone_cube/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	user.visible_message(
 		SPAN_WARNING("[src] suddenly expands into a fully functional mining drone!"),
 		SPAN_WARNING("You press the center button on [src]. The device suddenly expands into a fully functional mining drone!")
