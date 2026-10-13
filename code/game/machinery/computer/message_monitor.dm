@@ -217,10 +217,10 @@
 				to_chat(ui.user, SPAN_WARNING("No server found"))
 				return
 			var/datum/data_rc_msg/msg = locateUID(params["Rmessage"])
-			var/datum/data_rc_msg/R = locate(msg) in linkedServer.rc_msgs
-			if(!istype(R, /datum/data_rc_msg))
+			if(!istype(msg, /datum/data_rc_msg))
 				to_chat(ui.user, SPAN_ALERT("Uh oh something went wrong please Ahelp or file a bug report, DeleteR error."))
 				return
+			linkedServer.rc_msgs =- msg
 			to_chat(ui.user, SPAN_NOTICE("Request message deleted!"))
 
 		// Deletes a specific PDA messages
