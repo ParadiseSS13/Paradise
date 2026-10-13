@@ -166,7 +166,7 @@
 		log_game("Depot visit: started")
 		alert_log += "Code GREEN: visitor mode started."
 		ghostlog("The syndicate depot has visitors")
-		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
+		for(var/mob/living/basic/bot/medbot/syndicate/B in src)
 			qdel(B)
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HELP
@@ -224,7 +224,7 @@
 		if(length(possible_bot_spawns))
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
 			new /obj/effect/portal(get_turf(S))
-			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
+			var/mob/living/basic/bot/secbot/ed209/syndicate/B = new /mob/living/basic/bot/secbot/ed209/syndicate(get_turf(S))
 			list_add(B, guard_list)
 			B.depotarea = src
 	update_icon(UPDATE_ICON_STATE)

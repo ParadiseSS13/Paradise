@@ -14,7 +14,7 @@
 /mob/living/basic/bee/bee_friendly()
 	return TRUE
 
-/mob/living/simple_animal/bot/bee_friendly()
+/mob/living/basic/bot/bee_friendly()
 	if(paicard)
 		return FALSE
 	return TRUE

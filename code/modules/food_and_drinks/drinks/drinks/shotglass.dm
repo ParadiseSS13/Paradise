@@ -60,7 +60,11 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))
 		return
-	user.visible_message("<span class = 'warning'>[user] pours [src] all over [user.p_themselves()]!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
+	user.visible_message(
+		SPAN_WARNING("[user] pours [src] all over [user.p_themselves()]!"),
+		SPAN_DANGER("You pour [src] all over yourself!"),
+		SPAN_WARNING("You hear a 'whoompf' and a sizzle.")
+	)
 	extinguish(TRUE)
 	reagents.reaction(user, REAGENT_TOUCH)
 	reagents.clear_reagents()
@@ -78,14 +82,14 @@
 		return
 	..()
 	set_light(light_intensity, null, light_color)
-	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
+	visible_message(SPAN_NOTICE("[src] begins to burn with a blue hue!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light(0)
 	if(!silent)
-		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
+		visible_message(SPAN_NOTICE("The dancing flame on [src] dies out."))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
@@ -113,7 +117,10 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
+		user.visible_message(
+			SPAN_NOTICE("[user] places [user.p_their()] hand over [src] to put it out!"),
+			SPAN_NOTICE("You use your hand to extinguish [src]!")
+		)
 		extinguish()
 
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)

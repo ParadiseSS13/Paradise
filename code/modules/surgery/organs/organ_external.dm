@@ -60,7 +60,7 @@
 	var/malfdamage
 
 	var/splinted_count = 0 //Time when this organ was last splinted
-	///If this organ's max HP is reduced by the IPC magnetic joints implant
+	///If this organ's max HP is reduced by the IPC magnetic joints implant or by the Frail Trait for IPCs
 	var/fragile = FALSE
 	///The level of false skin used to cover robotic organs on the limb. Updated when too damaged, when installed, or when an organ with it is installed.
 	var/augmented_skin_cover_level = 0
@@ -230,7 +230,10 @@
 	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(owner && HAS_TRAIT(owner, TRAIT_FRAIL))
-		max_limb_damage /= 2
+		if(ismachineperson(owner) && !fragile) //check for the upper and lower body when it's an IPC
+			max_limb_damage = max_damage //keep upper and lower body health the same to prevent immortality
+		else
+			max_limb_damage /= 2
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
