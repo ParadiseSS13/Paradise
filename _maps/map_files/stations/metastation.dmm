@@ -20092,7 +20092,7 @@
 "cnp" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/turf_decal/tiles/department/cargo/side,
-/obj/structure/closet/crate/cookware,
+/obj/structure/closet/crate/catering/cookware,
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "cnq" = (
