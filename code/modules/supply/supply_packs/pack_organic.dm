@@ -441,7 +441,7 @@
 					/obj/item/seeds/cocoapod,
 					/obj/item/seeds/cocoapod/vanillapod,
 					/obj/item/seeds/sugarcane)
-	cost = 10 // This competes with the hydro vending refill, which has a far greater quanity and variety of seeds.
+	cost = 30 // This competes with the hydro vending refill, which has a far greater quanity and variety of seeds.
 	containertype = /obj/structure/closet/crate/catering
 	containername = "cullinary seeds crate"
 	announce_beacons = list("Kitchen" = list("Kitchen")) // This crate is for the chef when botany isn't making food.
