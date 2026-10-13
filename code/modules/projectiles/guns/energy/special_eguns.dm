@@ -721,7 +721,7 @@
 			to_chat(user, SPAN_NOTICE("[src] already has a [core]!"))
 			return ITEM_INTERACT_COMPLETE
 
-		if(!user.transfer_item_to(src))
+		if(!user.transfer_item_to(used, src))
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 
