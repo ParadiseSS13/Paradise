@@ -13,7 +13,6 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm_active"
-	new_attack_chain = TRUE
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/target, mob/living/silicon/robot/user, params)
@@ -48,7 +47,6 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	base_icon_state = "broom"
 	force = 6
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
-	new_attack_chain = TRUE
 	var/braced = FALSE
 
 /obj/item/borg/push_broom/activate_self(mob/user)
