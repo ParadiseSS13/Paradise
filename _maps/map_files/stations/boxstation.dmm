@@ -62985,11 +62985,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"lGp" = (
-/obj/structure/lattice,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
-/turf/space,
-/area/space/nearstation)
 "lGw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -80968,9 +80963,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "tAD" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -118981,7 +118973,7 @@ fbR
 aaa
 aaa
 aaa
-lGp
+aab
 aaa
 aaa
 aaa

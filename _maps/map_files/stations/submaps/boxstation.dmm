@@ -2136,9 +2136,6 @@
 /turf/simulated/floor/noslip,
 /area/station/engineering/control)
 "Av" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},

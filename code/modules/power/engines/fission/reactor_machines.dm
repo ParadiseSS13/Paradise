@@ -180,12 +180,21 @@
 	var/list/category_coolant = list()
 	/// Is the rod fabricator currently upgraded from science
 	var/upgraded = FALSE
+	/// Does this fabricator form a list of ALL rods, and not take mineral costs?
+	var/debug = FALSE
 	/// What is the current item being produced
 	var/schematic
 	/// The time it takes for the machine to process a rod
 	var/work_time
 
 	COOLDOWN_DECLARE(fabrication_timer)
+
+/obj/machinery/nuclear_rod_fabricator/upgraded
+	upgraded = TRUE
+
+/obj/machinery/nuclear_rod_fabricator/debug
+	name = "Nuclear Rod Fabricator Chernoble Edition"
+	debug = TRUE
 
 /obj/machinery/nuclear_rod_fabricator/Initialize(mapload)
 	. = ..()
@@ -210,7 +219,6 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
-	upgraded = TRUE
 
 /obj/machinery/nuclear_rod_fabricator/RefreshParts()
 	var/temp_coeff = 12
@@ -305,10 +313,10 @@
 		var/datum/nuclear_rod_design/D = new /datum/nuclear_rod_design()
 		D.build_metadata_list(rod_path)
 
-		if(!D.metadata["craftable"])
+		if(!D.metadata["craftable"] && !debug)
 			continue
 
-		if(D.metadata["upgrade_required"] && !upgraded)
+		if(D.metadata["upgrade_required"] && !upgraded && !debug)
 			continue
 
 		if(ispath(rod_path, /obj/item/nuclear_rod/fuel))
@@ -403,6 +411,9 @@
 			if(!required_materials || !length(required_materials))
 				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report!"))
 				return FALSE
+
+			if(debug) // No spending materials.
+				return TRUE
 
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff

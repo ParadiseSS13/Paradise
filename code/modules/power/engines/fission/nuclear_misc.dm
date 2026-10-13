@@ -4,19 +4,11 @@
 	name = "reactor output terminal"
 	desc = "A bundle of heavy watt power cables for managing power output from the reactor."
 	icon_state = "term"
+	dir = NORTH
 	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER // A bit above wires
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
-
-/obj/machinery/power/reactor_power/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-// Needs lateload to prevent reactor not being initialized yet and thus not able to set the link.
-/obj/machinery/power/reactor_power/LateInitialize()
-	. = ..()
-	linked_reactor = GLOB.main_fission_reactor
 
 /obj/machinery/power/reactor_power/process()
 	if(linked_reactor && linked_reactor.can_create_power)
@@ -35,6 +27,8 @@
 	var/last_status
 	/// Reference to the active reactor
 	var/obj/machinery/atmospherics/fission_reactor/active
+	/// Holds the old_turf for the active reactor, in case it moves.
+	var/turf/old_turf
 	/// Is this monitor a controller? Affected by visibility from the reactor
 	var/controller = TRUE
 
@@ -71,6 +65,10 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	if(!active || active.stat & BROKEN)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		to_chat(user, SPAN_WARNING("No active unbroken reactor found. A new reactor may be linked via multitool."))
+		return
 	ui_interact(user)
 
 /obj/machinery/computer/fission_monitor/ui_state(mob/user)
@@ -80,22 +78,32 @@
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
-	if(active)
-		var/new_status = active.get_status()
-		if(last_status != new_status)
-			last_status = new_status
-			icon_screen = "smmon_[last_status]"
-			update_icon()
+	if(!active)
+		return FALSE
+
+	if(QDELETED(active))
+		active = null
+		return FALSE
+
+	if(active.loc != old_turf)
+		determine_control()
+
+	var/new_status = active.get_status()
+	if(last_status != new_status)
+		last_status = new_status
+		icon_screen = "smmon_[last_status]"
+		update_icon()
 
 	return TRUE
 
 /obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
 	if(!I.multitool_check_buffer(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/obj/item/multitool/multitool = I
 	if(istype(multitool.buffer, /obj/machinery/atmospherics/fission_reactor))
 		active = multitool.buffer
 		to_chat(user, SPAN_NOTICE("You load the buffer's linking data to [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -108,7 +116,7 @@
 /obj/machinery/computer/fission_monitor/ui_data(mob/user)
 	var/list/data = list()
 	// If we somehow dont have an engine anymore, handle it here.
-	if(!active)
+	if(!active || isnull(active))
 		return
 	if(active.stat & BROKEN)
 		active = null
@@ -125,8 +133,22 @@
 	data["NGCR_coefficient"] = active.reactivity_multiplier
 	data["NGCR_overheat_level"] = active.heat_damage_threshold
 	data["NGCR_overpressure_level"] = active.pressure_maximum
-	data["NGCR_mols_created"] = active.total_gas_spawned
-	data["NGCR_instability_level"] = active.reactivity_multiplier
+	data["NGCR_mols_created"] = round(active.total_gas_spawned, 0.1)
+	data["NGCR_instability_level"] = active.gas_event_mod
+	data["NGCR_history"] = active.power_history
+	data["NGCR_heat_minimum"] = active.minimum_operating_temp
+	data["NGCR_coolant_degrade_mod"] = active.gas_coolant_degrade_mod
+	data["NGCR_coolant_mod"] = active.gas_coolant_mod
+	data["NGCR_moderator_degrade_mod"] = active.gas_moderator_degrade_mod
+	data["NGCR_moderator_mod"] = active.gas_moderator_mod
+	data["NGCR_scrub_o2"] = active.scrub_O2
+	data["NGCR_scrub_n2"] = active.scrub_N2
+	data["NGCR_scrub_co2"] = active.scrub_CO2
+	data["NGCR_scrub_toxins"] = active.scrub_Toxins
+	data["NGCR_scrub_n2o"] = active.scrub_N2O
+	data["NGCR_scrub_h2"] = active.scrub_H2
+	data["NGCR_scrub_h2o"] = active.scrub_H2O
+
 	if(active.control_lockout)
 		data["NGCR_throttle"] = 0
 	else
@@ -164,24 +186,47 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	if(active.control_lockout)
+		visible_message(SPAN_WARNING("Error: Reactor is unresponsive."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
+
+	if(active.down_for_maintenance)
+		visible_message(SPAN_WARNING("Error: Reactor is unresponsive."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
+
+	if(!controller)
+		visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
+
 	if(action == "set_throttle")
-		if(!controller)
-			visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			return
 		var/temp_number = text2num(params["NGCR_throttle"])
-		active.desired_power = 100 - temp_number
+		active.desired_power = clamp(round(100 - temp_number), 0, 100)
+		investigate_log("[usr] has set [active] to throttle level: [active.desired_power].", INVESTIGATE_REACTOR)
 
 	if(action == "toggle_vent")
-		if(!controller)
-			visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			return
 		if(active.vent_lockout)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			visible_message(SPAN_WARNING("ERROR: Vent servos unresponsive. Manual closure required."))
 		else
 			active.venting = !active.venting
+			investigate_log("[usr] has toggled the vent to [active.venting ? "open" : "closed"].", INVESTIGATE_REACTOR)
+	if(action == "toggle_o2")
+		active.scrub_O2 = !active.scrub_O2
+	if(action == "toggle_n2")
+		active.scrub_N2 = !active.scrub_N2
+	if(action == "toggle_co2")
+		active.scrub_CO2 = !active.scrub_CO2
+	if(action == "toggle_toxins")
+		active.scrub_Toxins = !active.scrub_Toxins
+	if(action == "toggle_n2o")
+		active.scrub_N2O = !active.scrub_N2O
+	if(action == "toggle_h2")
+		active.scrub_H2 = !active.scrub_H2
+	if(action == "toggle_h2o")
+		active.scrub_H2O = !active.scrub_H2O
 
 // MARK: Slag
 

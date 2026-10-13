@@ -57344,9 +57344,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "hxb" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},

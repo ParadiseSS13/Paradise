@@ -5615,7 +5615,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "aRf" = (
-/obj/machinery/power/reactor_power,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)

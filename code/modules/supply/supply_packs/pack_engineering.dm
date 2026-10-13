@@ -238,13 +238,20 @@
 	containername = "supermatter shard crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 
+/datum/supply_packs/engineering/engine/reactor
+	name = "Nuclear Fission Reactor Crate"
+	contains = list(/obj/machinery/atmospherics/fission_reactor/mobile)
+	cost = 750 //So cargo thinks twice before killing themselves with it
+	containername = "nuclear fission reactor Crate"
+	containertype = /obj/structure/closet/crate/secure/radiation
+
 /datum/supply_packs/engineering/engine/nuclear_supermatter_rod
 	name = "Nuclear Supermatter Rod Crate"
 	contains = list(
 	/obj/item/nuclear_rod/fuel/supermatter,
 	/obj/item/nuclear_rod/fuel/supermatter,
 	)
-	cost = 400
+	cost = 300
 	containername = "nuclear supermatter rod crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 
@@ -258,7 +265,7 @@
 	/obj/item/nuclear_rod/moderator/plasma_agitator,
 	/obj/item/nuclear_rod/moderator/plasma_agitator
 	)
-	cost = 800
+	cost = 500
 	containername = "nuclear supermatter starter crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 
@@ -270,7 +277,7 @@
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/moderator/aluminum_reflector
 	)
-	cost = 600
+	cost = 300
 	containername = "Forged Nuclear Moderator crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 
@@ -282,7 +289,7 @@
 		/obj/item/nuclear_rod/coolant/molten_salt,
 		/obj/item/nuclear_rod/coolant/molten_salt
 	)
-	cost = 600
+	cost = 300
 	containername = "Forged Nuclear Coolant crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 
@@ -291,10 +298,14 @@
 	contains = list(
 		/obj/item/nuclear_rod/moderator/platinum_plating,
 		/obj/item/nuclear_rod/moderator/platinum_plating,
+		/obj/item/nuclear_rod/moderator/platinum_plating,
+		/obj/item/nuclear_rod/moderator/platinum_plating,
+		/obj/item/nuclear_rod/coolant/iridium_conductor,
+		/obj/item/nuclear_rod/coolant/iridium_conductor,
 		/obj/item/nuclear_rod/coolant/iridium_conductor,
 		/obj/item/nuclear_rod/coolant/iridium_conductor,
 	)
-	cost = 1500
+	cost = 500
 	containername = "Forged Premium Nuclear Rods crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 

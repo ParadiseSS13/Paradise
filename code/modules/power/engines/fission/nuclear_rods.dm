@@ -424,6 +424,12 @@
 		/obj/item/nuclear_rod/fuel,
 	)
 
+/obj/item/nuclear_rod/moderator/meaty
+	name = "meat-based rod"
+	desc = "This should not be visible. Contact a developer."
+	max_durability = INFINITY
+	heat_amount = 50
+
 /obj/item/nuclear_rod/moderator/platinum_plating
 	name = "platinum reflector plating"
 	desc = "An advanced moderator similar to diamond plates, but improved with precious space metals."
