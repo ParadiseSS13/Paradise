@@ -3,6 +3,7 @@
 ***********************************************************************/
 /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
+	new_attack_chain = TRUE
 	var/powerneeded // Percentage of power remaining required to run item
 
 /*
