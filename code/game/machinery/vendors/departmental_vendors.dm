@@ -402,7 +402,6 @@
 /obj/machinery/economy/vending/medical/all_access
 	req_access = list()
 
-
 /obj/machinery/economy/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
