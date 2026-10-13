@@ -462,7 +462,7 @@
 /obj/item/guardiancreator/tech/choose
 
 /obj/item/guardiancreator/tech/ninja
-	fixed_type = "ASSASSIN"
+	fixed_type = "Assassin"
 
 /obj/item/guardiancreator/biological
 	name = "scarab egg cluster"
