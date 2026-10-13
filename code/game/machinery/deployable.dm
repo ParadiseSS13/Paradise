@@ -204,8 +204,8 @@
 	icon_state = "woodenbarricade-snow-old"
 
 /obj/structure/barricade/sandbags
-	name = "sandbags"
-	desc = "Bags of sand. Self explanatory."
+	name = "sandbag wall"
+	desc = "Sand-filled bags built up into a wall. A robust barricade that provides good cover against small arms fire."
 	icon = 'icons/obj/smooth_structures/sandbags.dmi'
 	icon_state = "sandbags-0"
 	base_icon_state = "sandbags"
@@ -217,7 +217,31 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SANDBAGS)
 	canSmoothWith = list(SMOOTH_GROUP_SANDBAGS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SECURITY_BARRICADE)
-	stacktype = null
+	stacktype = /obj/item/stack/sheet/mineral/sandbags
+	drop_amount = 1
+
+/obj/structure/barricade/sandbags/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-click</b> to disassemble [src].")
+
+/obj/structure/barricade/sandbags/AltClick(mob/user, modifiers)
+	user.visible_message(
+		SPAN_WARNING("[user] begins to dismantle [src]!"),
+		SPAN_NOTICE("You begin to dismantle [src].")
+	)
+	if(!do_after_once(user, 10 SECONDS, target = src))
+		user.visible_message(
+			SPAN_WARNING("[user] stops dismantling [src]!"),
+			SPAN_NOTICE("You stop dismantling [src].")
+		)
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] finishes dismantling [src]!"),
+		SPAN_NOTICE("You finish dismantling [src].")
+	)
+	make_debris()
+	deconstruct()
 
 /obj/structure/barricade/security
 	name = "security barrier"
