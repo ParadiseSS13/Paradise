@@ -104,6 +104,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/mutable_appearance/old_sparks_underlay
 	var/mutable_appearance/old_lit_stripes_underlay
 	var/mutable_appearance/old_lit_stripes_lightmask_underlay
+	var/image/old_north_wall_underlay
 
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
@@ -460,6 +461,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/image/sparks_overlay
 	var/image/note_overlay
 	var/image/lit_stripes_underlay
+	var/image/north_wall_underlay
 	var/notetype = note_type()
 	var/mutable_appearance/buttons_underlay
 	var/mutable_appearance/lights_underlay
@@ -473,6 +475,18 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			fire_door = possible_firelock
 			break
 
+	var/turf/north_turf = get_step(src, NORTH)
+	var/smooth_with_north = FALSE
+	if(SMOOTH_GROUP_AIRLOCK in north_turf.canSmoothWith)
+		smooth_with_north = TRUE
+	else
+		for(var/obj/structure/each_obj in north_turf.contents)
+			if(!istype(each_obj))
+				continue
+			if(SMOOTH_GROUP_AIRLOCK in each_obj.canSmoothWith)
+				smooth_with_north = TRUE
+				break
+
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay(closed_icon_state, icon)
@@ -481,6 +495,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
 					lit_stripes_underlay = get_airlock_overlay("alarm_closed", overlays_file)
 					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_closed_lightmask", overlays_file)
+			else if(smooth_with_north)
+				north_wall_underlay = get_airlock_overlay("north_wall_underlay", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -518,6 +534,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
 					lit_stripes_underlay = get_airlock_overlay("alarm_closed", overlays_file)
 					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_closed_lightmask", overlays_file)
+			else if(smooth_with_north)
+				north_wall_underlay = get_airlock_overlay("north_wall_underlay", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -550,6 +568,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
 					lit_stripes_underlay = get_airlock_overlay("alarm_open", overlays_file)
 					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_open_lightmask", overlays_file)
+			else if(smooth_with_north)
+				north_wall_underlay = get_airlock_overlay("north_wall_underlay", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -574,6 +594,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(AIRLOCK_CLOSING)
 			frame_overlay = get_airlock_overlay(closing_icon_state, icon)
 			buttons_underlay = get_airlock_emissive_underlay("closing_lightmask", overlays_file)
+			if(!fire_door && smooth_with_north)
+				north_wall_underlay = get_airlock_overlay("north_wall_underlay", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closing", overlays_file)
 			else
@@ -596,6 +618,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				if(!fire_door.density && !fire_door.operating && fire_door.active_alarm)
 					lit_stripes_underlay = get_airlock_overlay("alarm_open", overlays_file)
 					lit_stripes_underlay = get_airlock_emissive_underlay("alarm_open_lightmask", overlays_file)
+			else if(smooth_with_north)
+				north_wall_underlay = get_airlock_overlay("north_wall_underlay", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_open", overlays_file)
 			else
@@ -614,6 +638,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(AIRLOCK_OPENING)
 			frame_overlay = get_airlock_overlay(opening_icon_state, icon)
 			buttons_underlay = get_airlock_emissive_underlay("opening_lightmask", overlays_file)
+			if(!fire_door && smooth_with_north)
+				north_wall_underlay = get_airlock_overlay("north_wall_underlay", overlays_file)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_opening", overlays_file)
 			else
@@ -648,15 +674,20 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	overlays += check_unres()
 
+	if(north_wall_underlay != old_north_wall_underlay)
+		underlays -= old_north_wall_underlay
+		underlays += north_wall_underlay
+		old_north_wall_underlay = north_wall_underlay
+
 	if(lit_stripes_underlay != old_lit_stripes_underlay)
 		underlays -= old_lit_stripes_underlay
-		underlays += old_lit_stripes_underlay
+		underlays += lit_stripes_underlay
 		old_lit_stripes_underlay = lit_stripes_underlay
 
 	//EMISSIVE ICONS
 	if(lit_stripes_lightmask_underlay != old_lit_stripes_lightmask_underlay)
 		underlays -= old_lit_stripes_lightmask_underlay
-		underlays += old_lit_stripes_lightmask_underlay
+		underlays += lit_stripes_lightmask_underlay
 		old_lit_stripes_lightmask_underlay = lit_stripes_lightmask_underlay
 	if(buttons_underlay != old_buttons_underlay)
 		underlays -= old_buttons_underlay

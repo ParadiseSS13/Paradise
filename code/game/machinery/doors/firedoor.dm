@@ -257,6 +257,25 @@
 		if(light && !operating)
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]_lightmask")
 			. += image('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]")
+	var/turf/north_turf = get_step(src, NORTH)
+	var/smooth_with_north = FALSE
+	if(SMOOTH_GROUP_AIRLOCK in north_turf.canSmoothWith)
+		smooth_with_north = TRUE
+	else
+		for(var/obj/structure/each_obj in north_turf.contents)
+			if(!istype(each_obj))
+				continue
+			if(SMOOTH_GROUP_AIRLOCK in each_obj.canSmoothWith)
+				smooth_with_north = TRUE
+				break
+	if(smooth_with_north)
+		. += image('icons/obj/doors/doorfire.dmi', "north_wall_underlay")
+	else
+		if(!operating && !density)
+			. += image('icons/obj/doors/doorfire.dmi', "door_open_underlay")
+			if(light && !(locate(/obj/machinery/door/airlock) in loc))
+				. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlight_underlay_lightmask")
+				. += image('icons/obj/doors/doorfire.dmi', "alarmlight_underlay")
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
