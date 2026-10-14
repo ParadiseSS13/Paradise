@@ -334,6 +334,9 @@
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/activate_self(mob/user)
+	if(!reskinned)
+		return ..()
+
 	if(possessed)
 		return ITEM_INTERACT_COMPLETE
 
@@ -360,7 +363,7 @@
 	else
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/scythe/talking/Destroy()
 	for(var/mob/living/simple_animal/shade/sword/S in contents)
@@ -522,6 +525,9 @@
 	var/used_blessing = FALSE
 
 /obj/item/nullrod/carp/activate_self(mob/user)
+	if(!reskinned)
+		return ..()
+		
 	if(used_blessing)
 		return ITEM_INTERACT_COMPLETE
 
@@ -531,8 +537,7 @@
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
 	used_blessing = TRUE
-	
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /// May as well make it a "claymore" and inherit the blocking
 /obj/item/nullrod/claymore/bostaff
@@ -775,7 +780,7 @@
 		to_chat(user, SPAN_NOTICE("You are already ringing [src]."))
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message_message(
+	user.visible_message(
 		SPAN_NOTICE("[user] rings [src], and what an auspicious sound it is."),
 		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings."),
 		SPAN_NOTICE("[user] taps [src] once and stands very still.")
@@ -949,6 +954,9 @@
 	var/ghostcall_CD = 0
 
 /obj/item/nullrod/salt/activate_self(mob/user)
+	if(!reskinned)
+		return ..()
+
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
 		return ITEM_INTERACT_COMPLETE
@@ -962,7 +970,7 @@
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, SPAN_NOTICE("You need to wait before using [src] again."))
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/cleansing/rosary/bread
 	name = "prayer bread"
