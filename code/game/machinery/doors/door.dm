@@ -65,7 +65,7 @@
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("<b>Alt-Click</b> to knock on it.")
+	. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to knock on it.")
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -254,11 +254,11 @@
 		return
 	..()
 
-/obj/machinery/door/AltClick(mob/user)
+/obj/machinery/door/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(src, 'sound/magic/hereticknock.ogg', 50, 1)
+	playsound(src, 'sound/magic/hereticknock.ogg', 100, 1)
 	user.visible_message(
 		SPAN_NOTICE("[user] knocks on [src]."),
 		SPAN_NOTICE("You knock on [src]."),

@@ -2,6 +2,7 @@
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey, and with a sturdier reinforced chassis, too."
 	health = 45
+	bot_mode_flags = BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED | BOT_MODE_ROUNDSTART_POSSESSION | BOT_MODE_AUTOPATROL
 
 /mob/living/basic/bot/secbot/beepsky/ofitser
 	name = "Prison Ofitser"

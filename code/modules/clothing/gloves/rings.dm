@@ -7,7 +7,7 @@
 	transfer_prints = TRUE
 	var/fluff_material = FALSE	//If true, will ignore the material when examining
 	var/material = "iron"
-	var/stud = 0
+	var/stud = FALSE
 	var/ring_color = "iron"
 
 /obj/item/clothing/gloves/ring/Initialize(mapload)
@@ -109,3 +109,6 @@
 	name = "white diamond ring"
 	desc = "A small silver ring with a large light blue diamond. Someone's a big spender."
 	icon_state = "d_whitering"
+	material = "silver"
+	stud = TRUE
+	ring_color = "white"

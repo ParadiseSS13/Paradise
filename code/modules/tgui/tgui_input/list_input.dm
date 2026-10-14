@@ -154,7 +154,6 @@
 			SStgui.close_uis(src)
 			return TRUE
 
-
 /datum/tgui_list_input/proc/handle_submit_action(params)
 	if(!(params["entry"] in items))
 		return FALSE

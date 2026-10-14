@@ -75,11 +75,12 @@
 	clear_blackboard_key(BB_CURRENT_CRIMINAL_ASSESSMENT)
 
 /datum/ai_planning_subtree/arrest_target
+
 	///what behavior do we use when arresting?
 	var/datum/ai_behavior/arrest_behavior = /datum/ai_behavior/basic_melee_attack/bot
 
 /datum/ai_planning_subtree/arrest_target/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
-	if(!controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+	if(!controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET) || !controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET])
 		return
 	var/mob/living/carbon/my_target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 	var/mob/living/basic/bot/secbot/my_bot = controller.pawn
