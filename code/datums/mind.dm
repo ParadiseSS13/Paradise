@@ -760,7 +760,8 @@
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
 			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
-			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security", "custom")
+			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security",
+			"free ai", "harvest kidneys", "steal guns", "plant malware", "test implant", "test chem", "kidnap pet", "sabotage power", "custom")
 		if(!new_obj_type)
 			return
 
@@ -809,13 +810,22 @@
 					new_objective:target = new_target:mind
 					new_objective.update_explanation_text()
 
-			if("destroy")
+			if("destroy", "free ai")
 				var/list/possible_targets = active_ais(1)
 				if(length(possible_targets))
-					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
-					new_objective = new /datum/objective/destroy
-					new_objective.target = new_target.mind
-					new_objective.update_explanation_text()
+					var/mob/new_target
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					else
+						new_target = pick(possible_targets)
+					if(new_obj_type == "destroy")
+						new_objective = new /datum/objective/destroy
+						new_objective.target = new_target.mind
+						new_objective.update_explanation_text()
+					else if(new_obj_type == "free ai")
+						new_objective = new /datum/objective/unique_objective/free_ai
+						new_objective.target = new_target.mind
+						new_objective.update_explanation_text()
 				else
 					to_chat(usr, "No active AIs with minds")
 
@@ -893,6 +903,67 @@
 
 			if("infiltrate security")
 				new_objective = /datum/objective/infiltrate_sec
+
+			if("harvest kidneys")
+				new_objective = /datum/objective/unique_objective/get_five/kidneys
+
+			if("steal guns")
+				new_objective = /datum/objective/unique_objective/get_five/guns
+
+			if("plant malware")
+				var/list/possible_targets = list("RND", "Telecomms", "PDAs", "CC Comms")
+				var/new_target
+				if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+					new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+				else
+					new_target = pick(possible_targets)
+				switch(new_target)
+					if("RND")
+						new_objective = new /datum/objective/unique_objective/plant_malware/hack_rnd
+					if("Telecomms")
+						new_objective = new /datum/objective/unique_objective/plant_malware/hack_tcomms
+					if("PDAs")
+						new_objective = new /datum/objective/unique_objective/plant_malware/hack_pda
+					if("CC Comms")
+						new_objective = new /datum/objective/unique_objective/plant_malware/hack_cc_comms
+
+			if("test implant")
+				new_objective = /datum/objective/unique_objective/experiment/implant
+
+			if("test chem")
+				new_objective = /datum/objective/unique_objective/experiment/chemical
+
+			if("kidnap pet")
+				var/list/possible_targets = GLOB.station_pets
+				var/mob/new_target
+				if(length(possible_targets) > 0)
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					else
+						new_target = pick(possible_targets)
+
+					new_objective = new /datum/objective/unique_objective/kidnap_pet
+					new_objective.target = new_target
+					new_objective.update_explanation_text()
+				else
+					to_chat(usr, "No station pets found")
+
+			if("sabotage power")
+				var/list/possible_targets = list("Security", "Medical", "Science", "Cargo")
+				var/new_target
+				if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+					new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+				else
+					new_target = pick(possible_targets)
+				switch(new_target)
+					if("Security")
+						new_objective = new /datum/objective/unique_objective/sabotage_power/security
+					if("Medical")
+						new_objective = new /datum/objective/unique_objective/sabotage_power/medical
+					if("Science")
+						new_objective = new /datum/objective/unique_objective/sabotage_power/science
+					if("Cargo")
+						new_objective = new /datum/objective/unique_objective/sabotage_power/cargo
 
 			if("custom")
 				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))

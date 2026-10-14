@@ -1776,11 +1776,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Plant malware on Nanotrasen's Telecommunications Core so they can be monitored remotely. Use your malware injector on the server to give us a way inside."
 
 /datum/objective/unique_objective/plant_malware/hack_pda
-	name = "Hack Telecomms"
+	name = "Hack PDAs"
 	explanation_text = "Plant malware on Nanotrasen's PDA servers so they can be monitored remotely. Use your malware injector on the server or monitoring console to give us a way inside."
 
 /datum/objective/unique_objective/plant_malware/hack_cc_comms
-	name = "Hack Telecomms"
+	name = "Hack CC Comms"
 	explanation_text = "Plant malware on Nanotrasen's long-range communications network so they can be monitored remotely. Use your malware injector on the Communications Console to give us a way inside."
 
 /datum/objective/unique_objective/experiment
