@@ -7977,10 +7977,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"Ck" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "Cl" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
@@ -64304,7 +64300,7 @@ Jy
 Jy
 Jy
 Jy
-Ck
+Jy
 rk
 rU
 xV
