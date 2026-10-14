@@ -1068,6 +1068,8 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
+				if(usr.type != /mob/dead/observer)
+					addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
 				return TRUE
 			if(1)
 				to_chat(usr, SPAN_WARNING("Invalid shuttle requested."))
