@@ -4,7 +4,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "generic"
 	density = TRUE
-	// A light that's shut inside doesn't shine out
+	// A light that's shut inside doesn't shine out.
 	flags_2 = BLOCKS_LIGHT_2
 	max_integrity = 200
 	integrity_failure = 50
