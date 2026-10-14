@@ -23256,8 +23256,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/asteroid_filtering)
 "eGP" = (
-/obj/structure/musician/piano,
 /obj/effect/spawner/random/cobweb/left/rare,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "eGU" = (
@@ -73666,7 +73666,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "oIj" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/theatre)
 "oIo" = (
@@ -111170,11 +111170,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "vZB" = (
-/obj/structure/musician/piano,
 /obj/structure/window/reinforced{
 	dir = 8;
 	pixel_x = -4
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/carpet,
 /area/station/service/bar)
 "vZC" = (

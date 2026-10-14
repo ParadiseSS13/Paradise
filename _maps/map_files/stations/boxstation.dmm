@@ -17803,10 +17803,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bok" = (
-/obj/structure/musician/piano,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bol" = (

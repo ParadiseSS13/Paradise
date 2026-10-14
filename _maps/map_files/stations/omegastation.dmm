@@ -40389,12 +40389,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "pMw" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/carpet,
 /area/station/service/theatre)
 "pMU" = (
