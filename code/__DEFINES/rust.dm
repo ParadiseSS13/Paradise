@@ -163,6 +163,12 @@
 /proc/rustlibs_generate_uuid()
 	return RUSTLIB_CALL(misc_new_uuid)
 
+/proc/rustlibs_unix_timestamp()
+	return RUSTLIB_CALL(misc_unix_timestamp)
+
+/proc/rustlibs_ed25519_sign(key, message)
+	return RUSTLIB_CALL(misc_ed25519_sign, key, message)
+
 // MARK: TOML
 /proc/rustlibs_read_toml_file(path)
 	var/list/output = json_decode(RUSTLIB_CALL(toml_file_to_json, path) || "null")
