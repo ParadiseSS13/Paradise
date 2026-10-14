@@ -18,7 +18,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	if(!user.client)
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
 		mineral_scan_pulse(get_turf(user))
