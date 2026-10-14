@@ -232,14 +232,14 @@
 		obscured_animation = TRUE
 	switch(animation)
 		if("opening")
-			flick("door_opening[obscured_animation ? "_obscured" : ""]", src)
 			if(obscured_animation)
 				new /obj/effect/temp_visual/dir_setting/firedoor_back_opening(get_turf(src), dir)
+			flick("door_opening[obscured_animation ? "_obscured" : ""]", src)
 			playsound(src, 'sound/machines/airlock_ext_open.ogg', 30, 1)
 		if("closing")
-			flick("door_closing[obscured_animation ? "_obscured" : ""]", src)
 			if(obscured_animation)
 				new /obj/effect/temp_visual/dir_setting/firedoor_back_closing(get_turf(src), dir)
+			flick("door_closing[obscured_animation ? "_obscured" : ""]", src)
 			playsound(src, 'sound/machines/airlock_ext_close.ogg', 30, 1)
 
 /obj/machinery/door/firedoor/update_icon_state()
