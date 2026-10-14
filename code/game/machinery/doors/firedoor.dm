@@ -251,25 +251,30 @@
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
 	overlays.Cut()
+	underlays.Cut()
+	handle_underlay()
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
 		if(light && !operating)
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]_lightmask")
 			. += image('icons/obj/doors/doorfire.dmi', "alarmlights[density ? "_closed" : "_open"]")
+
+/obj/machinery/door/firedoor/proc/handle_underlay()
 	var/turf/north_turf = get_step(src, NORTH)
 	var/smooth_with_north = FALSE
-	if(SMOOTH_GROUP_AIRLOCK in north_turf.canSmoothWith)
+	if(iswallturf(north_turf)) // All walls should smooth with airlocks.
 		smooth_with_north = TRUE
 	else
 		for(var/obj/structure/each_obj in north_turf.contents)
 			if(!istype(each_obj))
 				continue
-			if(SMOOTH_GROUP_AIRLOCK in each_obj.canSmoothWith)
+			if(istype(each_obj, /obj/structure/window/full) && each_obj.density) // All fulltile windows smooth with airlocks.
 				smooth_with_north = TRUE
 				break
 	if(smooth_with_north)
-		. += image('icons/obj/doors/doorfire.dmi', "north_wall_underlay")
+		if(!locate(/obj/machinery/door/airlock) in loc)
+			underlays += image('icons/obj/doors/doorfire.dmi', "north_wall_underlay")
 	else
 		if(!operating && !density)
 			. += image('icons/obj/doors/doorfire.dmi', "door_open_underlay")
@@ -292,7 +297,7 @@
 /obj/machinery/door/firedoor/open()
 	var/direction = get_current_direction()
 	dir = direction ? direction : NORTH
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(welded)
 		return
 	. = ..()
@@ -304,7 +309,7 @@
 /obj/machinery/door/firedoor/close()
 	var/direction = get_current_direction()
 	dir = direction ? direction : NORTH
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 	latetoggle()
 	update_icon(UPDATE_OVERLAYS)
