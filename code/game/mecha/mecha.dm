@@ -777,20 +777,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/mecha_parts/mecha_equipment))
-		var/obj/item/mecha_parts/mecha_equipment/equipment = used
-		spawn()
-			if(!equipment.can_attach(src))
-				to_chat(user, SPAN_WARNING("You were unable to attach [equipment] to [src]!"))
-				return ITEM_INTERACT_COMPLETE
-			if(!user.drop_item())
-				to_chat(user, SPAN_WARNING("[equipment] is stuck to your hand!"))
-				return ITEM_INTERACT_COMPLETE
-			equipment.attach(src)
-			user.visible_message(
-				SPAN_NOTICE("[user] attaches [equipment] to [src]."),
-				SPAN_NOTICE("You attach [equipment] to [src].")
-			)
-			add_fingerprint(user)
+		addtimer(CALLBACK(src, PROC_REF(async_add_mech_part), user, used), 0 DECISECONDS)
 		return ITEM_INTERACT_COMPLETE
 
 	if(used.GetID())
@@ -817,13 +804,13 @@
 			return ..()
 
 		var/obj/item/stack/cable_coil/cable = used
-		if(cable.get_amount() > 1)
-			cable.use(2)
-			clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
-			to_chat(user, SPAN_NOTICE("You replace the fused wires."))
-			add_fingerprint(user)
-		else
+		if(!cable.use(2))
 			to_chat(user, SPAN_WARNING("There's not enough wire to finish the task!"))
+			return ITEM_INTERACT_COMPLETE
+
+		clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
+		to_chat(user, SPAN_NOTICE("You replace the fused wires."))
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/stock_parts/cell))
@@ -920,6 +907,20 @@
 		add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [used]")
 	return ..()
 
+/obj/mecha/proc/async_add_mech_part(mob/user, obj/item/mecha_parts/mecha_equipment/equipment)
+	if(!equipment.can_attach(src))
+		to_chat(user, SPAN_WARNING("You were unable to attach [equipment] to [src]!"))
+		return FALSE
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[equipment] is stuck to your hand!"))
+		return FALSE
+	equipment.attach(src)
+	user.visible_message(
+		SPAN_NOTICE("[user] attaches [equipment] to [src]."),
+		SPAN_NOTICE("You attach [equipment] to [src].")
+	)
+	add_fingerprint(user)
+	return TRUE
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
 	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
