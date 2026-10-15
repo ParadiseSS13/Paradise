@@ -377,7 +377,7 @@
 /obj/item/firelock_electronics
 	name = "firelock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
-	icon_state = "door_electronics"
+	icon_state = "firelock_electronics"
 	desc = "A circuit board used in construction of firelocks."
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)

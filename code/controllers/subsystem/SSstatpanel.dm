@@ -71,7 +71,9 @@ SUBSYSTEM_DEF(statpanels)
 			set_status_tab(target)
 
 		if(!target.holder || !(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB))
-			target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
+			// The panel tells us which tabs it has, so only send this when it actually has the MC tab
+			if("MC" in target.panel_tabs)
+				target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
 
 		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob) && target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB)
 			if(!("MC" in target.panel_tabs))

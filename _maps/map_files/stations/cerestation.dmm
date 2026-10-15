@@ -4010,7 +4010,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "aEU" = (
 /turf/simulated/floor/carpet/black,
@@ -19059,7 +19059,7 @@
 	id_tag = "turbinevent";
 	name = "Turbine Vent"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cVx" = (
 /obj/effect/turf_decal/tiles/department/command/corner{
@@ -41051,7 +41051,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "hHy" = (
 /obj/structure/chair/wood{
@@ -46744,7 +46744,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "iQJ" = (
 /obj/structure/filingcabinet,
@@ -72494,7 +72494,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "ort" = (
 /obj/structure/cable/extra_insulated{
@@ -74336,7 +74336,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "oLM" = (
 /obj/structure/sign/poster/official/random/directional/north,
@@ -104756,7 +104756,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "vsh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
