@@ -63,7 +63,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
 		/obj/item/mod/module/tether,
@@ -299,6 +298,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/noslip,
@@ -320,6 +320,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/noslip,
@@ -343,6 +344,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/dna_lock/emp_shield,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/noslip,
@@ -365,6 +367,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/dna_lock/emp_shield,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
@@ -405,6 +408,7 @@
 		/obj/item/mod/module/storage/syndicate, //Yes yes syndicate tech in ert but they need the storage
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced,
