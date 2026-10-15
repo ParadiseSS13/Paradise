@@ -9808,8 +9808,10 @@
 /obj/item/gavelhammer,
 /obj/machinery/button/windowtint{
 	id = "Courtroom";
-	pixel_x = -8;
-	req_one_access = list(74,3)
+	pixel_x = 8;
+	req_one_access = list(74,3);
+	dir = 4;
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)

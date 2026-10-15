@@ -110906,9 +110906,9 @@
 	},
 /obj/machinery/button/windowtint{
 	id = "bridge";
-	dir = 1;
-	pixel_y = 7;
-	req_one_access = list(19,41)
+	pixel_y = -2;
+	req_one_access = list(19,41);
+	dir = 1
 	},
 /obj/item/ashtray/bronze,
 /obj/structure/table/glass/reinforced,

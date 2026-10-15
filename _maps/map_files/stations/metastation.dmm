@@ -6472,7 +6472,6 @@
 /area/station/command/office/captain/bedroom)
 "aWF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "aWG" = (
@@ -8436,11 +8435,6 @@
 "bhf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -9058,6 +9052,7 @@
 "bjH" = (
 /obj/structure/filingcabinet/chestdrawer,
 /mob/living/simple_animal/parrot/poly,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bjI" = (
@@ -18832,12 +18827,6 @@
 	pixel_x = 31;
 	pixel_y = 30
 	},
-/obj/machinery/button/windowtint{
-	id = "RD";
-	pixel_x = -24;
-	pixel_y = 26;
-	req_access = list(30)
-	},
 /obj/machinery/door_control{
 	id = "rdbreak";
 	name = "Breakroom Closure Control";
@@ -23760,6 +23749,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/button/windowtint/offset/northwest,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "cGQ" = (
@@ -54282,6 +54272,7 @@
 "lES" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/shaft_miner,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/miningdock)
 "lFl" = (
@@ -72855,11 +72846,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -85483,6 +85469,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "vZH" = (

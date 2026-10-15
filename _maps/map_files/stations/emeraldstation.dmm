@@ -1583,15 +1583,11 @@
 	pixel_y = 33;
 	req_access = list(40)
 	},
-/obj/machinery/button/windowtint{
-	id = "CMO";
-	pixel_x = -23;
-	pixel_y = 42;
-	dir = 4;
-	req_access = list(40)
-	},
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
+	},
+/obj/machinery/button/windowtint/offset/north{
+	pixel_x = -37
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
@@ -24404,7 +24400,6 @@
 "eUW" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "eVa" = (
@@ -25924,7 +25919,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light_switch/directional/east,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -25937,16 +25931,6 @@
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"fiV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/carpet/grimey,
-/area/station/service/bar)
 "fje" = (
 /obj/structure/grille/broken,
 /obj/effect/spawner/random/oil/maybe,
@@ -37873,6 +37857,7 @@
 	pixel_y = 6
 	},
 /obj/machinery/light,
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "hAx" = (
@@ -47955,6 +47940,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "jDO" = (
@@ -68053,12 +68039,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "nHe" = (
-/obj/machinery/button/windowtint{
-	id = "Courtroom";
-	pixel_x = -6;
-	range = 10;
-	req_one_access = list(74,3)
-	},
 /obj/item/megaphone{
 	pixel_y = -11
 	},
@@ -68072,10 +68052,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 6
 	},
 /obj/machinery/door_control{
 	id = "courtentrance";
@@ -86780,6 +86756,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/light_switch/offset/east,
+/obj/machinery/button/windowtint/offset/northeast,
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "rnI" = (
@@ -86989,6 +86967,7 @@
 "rqe" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
 "rqf" = (
@@ -87127,6 +87106,7 @@
 	pixel_x = -15;
 	pixel_y = 4
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -88016,7 +87996,6 @@
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "rBq" = (
-/obj/machinery/light_switch/directional/south,
 /obj/machinery/requests_console/directional/south,
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -158560,7 +158539,7 @@ uIc
 ryw
 ozY
 rqe
-fiV
+axz
 maF
 vKF
 qcV

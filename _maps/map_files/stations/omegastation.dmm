@@ -28417,7 +28417,6 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "jej" = (
@@ -55678,6 +55677,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/hammer,
 /obj/item/hammer,
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "xPB" = (
