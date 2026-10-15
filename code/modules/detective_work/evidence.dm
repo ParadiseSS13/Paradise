@@ -12,6 +12,9 @@
 	if(loc == target)
 		return ITEM_INTERACT_COMPLETE
 
+	if(is_surface(target))
+		return NONE
+
 	if(isstorage(target))
 		var/obj/item/storage/target_storage = target
 		if(istype(target_storage, /obj/item/storage/box) || target_storage.w_class > WEIGHT_CLASS_NORMAL)

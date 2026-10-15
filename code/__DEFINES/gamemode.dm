@@ -34,6 +34,7 @@
 #define SPECIAL_ROLE_BLOB_OVERMIND "Blob Overmind"
 #define SPECIAL_ROLE_CHANGELING "Changeling"
 #define SPECIAL_ROLE_CULTIST "Cultist"
+#define SPECIAL_ROLE_ACOLYTE "Acolyte"
 #define SPECIAL_ROLE_DEATHSQUAD "Deathsquad Commando"
 #define SPECIAL_ROLE_ERT "Response Team"
 #define SPECIAL_ROLE_FREE_GOLEM "Free Golem"
@@ -93,4 +94,4 @@
 #define RULESET_FAILURE_ANTAG_BUDGET "Not enough antag budget"
 #define RULESET_FAILURE_NO_PLAYERS "No drafted players"
 #define RULESET_FAILURE_MUTUAL_RULESET "No banned mutual rulesets"
-#define RULESET_FAILURE_CHANGELING_SECONDARY_RULESET "Needs a secondary ruleset in rotation"
+#define RULESET_FAILURE_SECONDARY_RULESET "Needs a secondary ruleset in rotation"
