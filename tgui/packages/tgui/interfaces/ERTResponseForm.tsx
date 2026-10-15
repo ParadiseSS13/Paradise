@@ -19,7 +19,7 @@ export const ERTResponseForm = () => {
     data;
 
   return (
-    <Window width={600} height={600}>
+    <Window width={460} height={500}>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
@@ -54,7 +54,9 @@ export const ERTResponseForm = () => {
             </LabeledList>
           </Stack.Item>
           <Stack.Item height={100}>
-            <Section title="Role Preferences">Please order ERT roles from most to least preferred.</Section>
+            <Section title="Role Preferences">
+              Please order ERT roles from most to least preferred, by dragging and dropping.
+            </Section>
             <ListDisplay filteredItems={ranked_roles} setEditedItems={(items) => act('set_roles', { items })} />
           </Stack.Item>
         </Stack>
