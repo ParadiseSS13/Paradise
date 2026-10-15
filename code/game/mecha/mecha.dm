@@ -785,7 +785,7 @@
 			to_chat(user, SPAN_WARNING("Maintenance protocols disabled by operator."))
 			return ITEM_INTERACT_COMPLETE
 
-		if(internals_access_allowed(usr))
+		if(!internals_access_allowed(usr))
 			to_chat(user, SPAN_WARNING("Invalid ID: Access denied."))
 			return ITEM_INTERACT_COMPLETE
 
