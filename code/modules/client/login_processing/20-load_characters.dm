@@ -65,7 +65,8 @@
 		cyborg_brain_type,
 		body_type,
 		pda_ringtone,
-		quirks
+		quirks,
+		exploitable_info
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

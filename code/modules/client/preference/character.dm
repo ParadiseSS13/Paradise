@@ -76,6 +76,7 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
+	var/exploitable_info = ""
 	var/disabilities = 0
 
 	var/nanotrasen_relation = "Neutral"
@@ -226,6 +227,7 @@
 					body_type=:body_type,
 					pda_ringtone=:pda_ringtone,
 					quirks=:quirks
+					exploitable_info=:exploitable_info
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -291,7 +293,8 @@
 						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
 						"slot" = slot_number,
-						"quirks" = quirks
+						"quirks" = quirks,
+						"exploitable_info" = exploitable_info
 					))
 
 			if(!query.warn_execute())
@@ -330,7 +333,8 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks,
+			exploitable_info)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -357,7 +361,8 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks,
+			:exploitable_info)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -422,7 +427,8 @@
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
 		"pda_ringtone" = pda_ringtone,
-		"quirks" = quirks
+		"quirks" = quirks,
+		"exploitable_info" = exploitable_info
 	))
 
 	if(!query.warn_execute())
@@ -519,6 +525,9 @@
 	pda_ringtone = query.item[61]
 
 	quirks = query.item[62]
+
+	if(findtext(exploitable_info, "<"))
+		exploitable_info = html_encode(exploitable_info)
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -1602,6 +1611,13 @@
 	else
 		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
 
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=exploitable_info\"Exploitable Info</a><br>"
+
+	if(length(exploitable_info) <= 40)
+		HTML += "[exploitable_info]<br>"
+	else
+		HTML += "[copytext_char(exploitable_info, 1, 37)]...<br>"
+
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
 
@@ -1839,6 +1855,7 @@
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+	character.exploitable_info = exploitable_info
 
 	character.age = age
 
