@@ -15,7 +15,7 @@
 	round_time = 60*10
 	headline = "Paycuts Suspected at Nanotrasen"
 	message = {"Reports have leaked that Nanotrasen Inc. is planning to put pay cuts into
-				effect on many of its Research Stations in Tau Ceti. Apparently these research
+				effect on many of its Research Stations in Epsilon Eridani. Apparently these research
 				stations haven't been able to yield the expected revenue, and thus adjustments
 				have to be made."}
 	author = "Unauthorized"
@@ -23,7 +23,7 @@
 /datum/news_announcement/revolution_inciting_event/paycuts_confirmation
 	round_time = 60*40
 	headline = "Paycuts Confirmed at Nanotrasen"
-	message = {"Earlier rumours about pay cuts on Research Stations in the Tau Ceti system have
+	message = {"Earlier rumours about pay cuts on Research Stations in the Epsilon Eridani system have
 				been confirmed. Shockingly, however, the cuts will only affect lower tier
 				personnel. Heads of Staff will, according to our sources, not be affected."}
 	author = "Unauthorized"
@@ -32,7 +32,7 @@
 	round_time = 60*90
 	headline = "Human Experimentation Alleged at Nanotrasen"
 	message = {"Unbelievable reports about human experimentation have reached our ears. According
-				to a refugee from one of the Tau Ceti Research Stations, their station, in order
+				to a refugee from one of the Epsilon Eridani Research Stations, their station, in order
 				to increase revenue, has refactored several of their facilities to perform experiments
 				on live humans, including virology research, genetic manipulation, and \"feeding them
 				to the slimes to see what happens\". Allegedly, these test subjects were neither
@@ -45,7 +45,7 @@
 	headline = "Bluespace Research Advances"
 	message = {"The new field of research trying to explain several interesting spacetime oddities,
 				also known as \"Bluespace Research\", has reached new heights. Of the several
-				hundred space stations now orbiting in Tau Ceti, fifteen are now specially equipped
+				hundred space stations now orbiting Epsilon Eridani, five are now specially equipped
 				to experiment with and research Bluespace effects. Rumours have it some of these
 				stations even sport functional \"travel gates\" that can instantly move a whole research
 				team to an alternate reality."}

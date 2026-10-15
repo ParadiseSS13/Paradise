@@ -99,6 +99,20 @@
 			playsound(M.loc, 'sound/effects/bamf.ogg', 50, 0)
 	return 1
 
+/obj/projectile/blizzard
+	name = "blizzard shard"
+	icon_state = "cryoshot"
+	damage = 6
+	damage_type = BURN
+	flag = "energy"
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+
+/obj/projectile/blizzard/on_hit(atom/target, blocked = 0)
+	..()
+	if(isliving(target))
+		var/mob/living/M = target
+		M.bodytemperature = max(M.bodytemperature - 50, 120)
+
 /obj/projectile/meteor
 	name = "meteor"
 	icon = 'icons/obj/meteor.dmi'

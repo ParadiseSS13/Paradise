@@ -385,6 +385,10 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!(disease_flags & VIRUS_CURABLE))
 		return 0
 
+	for(var/datum/reagent/vaccine in affected_mob.reagents.reagent_list)
+		if(GetDiseaseID() in vaccine.data)
+			return TRUE
+
 	var/cures_found = 0
 	for(var/C_id in cures)
 		if(C_id == "ethanol")

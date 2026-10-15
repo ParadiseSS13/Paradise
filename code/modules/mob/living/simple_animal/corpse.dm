@@ -17,12 +17,6 @@
 		mob_name = "[syndicate_name()] [name_to_add] #[num_to_add]"
 		name_changed = TRUE
 	brute_damage = rand(0, 200)
-	var/hcolor = pick("#000000", "#8B4513", "#FFD700")
-	var/ecolor = pick("#000000", "#8B4513", "#1E90FF")
-	hair_color = hcolor
-	facial_hair_color = hcolor
-	eyes_color = ecolor
-	skin_tone = pick(-50, -30, -10, 0, 0, 0, 10)
 	return ..()
 
 /datum/outfit/syndicatecorpse
@@ -121,8 +115,6 @@
 /obj/effect/mob_spawn/human/corpse/pirate
 	name = "Pirate"
 	mob_name = "Pirate"
-	hair_style = "bald"
-	facial_hair_style = "shaved"
 	outfit = /datum/outfit/piratecorpse
 
 /datum/outfit/piratecorpse
@@ -172,8 +164,6 @@
 /obj/effect/mob_spawn/human/corpse/soviet
 	name = "Soviet"
 	mob_name = "Soviet"
-	hair_style = "bald"
-	facial_hair_style = "shaved"
 	outfit = /datum/outfit/sovietcorpse
 
 /datum/outfit/sovietcorpse
@@ -194,8 +184,6 @@
 	name = "Soviet Nian"
 	mob_name = "Soviet Nian"
 	mob_species = /datum/species/moth
-	hair_style = "bald"
-	facial_hair_style = "shaved"
 	outfit = /datum/outfit/soviet_nian
 
 /datum/outfit/soviet_nian

@@ -498,6 +498,7 @@
 	if(obj_window)
 		QDEL_NULL(obj_window)
 
+	SSmouse_entered.hovers -= src
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
 	SSping.current_run -= src

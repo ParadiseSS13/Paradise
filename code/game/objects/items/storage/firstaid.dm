@@ -20,16 +20,36 @@
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
-	var/med_bot_skin = null
+	var/med_bot_skin = "generic"
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
+	/// Defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
+	var/damagetype_healed
 
+/obj/item/storage/firstaid/attackby__legacy__attackchain(obj/item/used, mob/user, params)
+	if(!(istype(used, /obj/item/robot_parts/l_arm) || istype(used, /obj/item/robot_parts/r_arm)))
+		return ..()
+
+	if(length(contents))
+		to_chat(user, SPAN_NOTICE("You cannot attach [used] with items still in [src]."))
+		return TRUE
+
+	to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+	var/obj/item/bot_assembly/medbot/assembly = new(drop_location())
+	assembly.set_skin(med_bot_skin)
+	assembly.robot_arm = used.type
+	assembly.medkit_type = type
+	qdel(used)
+	qdel(src)
+	user.put_in_hands(assembly)
+	return TRUE
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_regular"
 	inhand_icon_state = "firstaid_regular"
+	med_bot_skin = "regular"
 
 /obj/item/storage/firstaid/regular/populate_contents()
 	new /obj/item/reagent_containers/patch/styptic(src)
@@ -47,6 +67,18 @@
 	desc = "A medical kit designed for Nanotrasen medical personnel."
 
 /obj/item/storage/firstaid/regular/doctor/populate_contents()
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
+	new /obj/item/reagent_containers/patch/styptic(src)
+	new /obj/item/reagent_containers/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/firstaid/regular/doctor/cmo
+	desc = "A medical kit designed for Nanotrasen Chief Medical Officers."
+
+/obj/item/storage/firstaid/regular/doctor/cmo/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/patch/styptic(src)
@@ -60,11 +92,12 @@
 	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_burn"
 	inhand_icon_state = "firstaid_burn"
-	med_bot_skin = "ointment"
+	med_bot_skin = "burn"
+	damagetype_healed = BURN
 
 /obj/item/storage/firstaid/fire/populate_contents()
-	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
-	new /obj/item/stack/medical/suture/regen_mesh(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
+	new /obj/item/stack/medical/adv/regen_mesh(src)
 	new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -79,6 +112,7 @@
 	icon_state = "firstaid_toxin"
 	inhand_icon_state = "firstaid_toxin"
 	med_bot_skin = "tox"
+	damagetype_healed = TOX
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	for(var/I in 1 to 3)
@@ -94,7 +128,8 @@
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "firstaid_o2"
 	inhand_icon_state = "firstaid_o2"
-	med_bot_skin = "o2"
+	med_bot_skin = "oxy"
+	damagetype_healed = OXY
 
 /obj/item/storage/firstaid/o2/populate_contents()
 	new /obj/item/reagent_containers/pill/salbutamol(src)
@@ -112,10 +147,11 @@
 	icon_state = "firstaid_brute"
 	inhand_icon_state = "firstaid_brute"
 	med_bot_skin = "brute"
+	damagetype_healed = BRUTE
 
 /obj/item/storage/firstaid/brute/populate_contents()
-	new /obj/item/stack/medical/suture/medicated(src)
-	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/adv/suture(src)
 	new /obj/item/reagent_containers/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -130,6 +166,7 @@
 	icon_state = "firstaid_advanced"
 	inhand_icon_state = "firstaid_advanced"
 	med_bot_skin = "adv"
+	damagetype_healed = HEAL_ALL_DAMAGE
 
 /obj/item/storage/firstaid/adv/populate_contents()
 	new /obj/item/stack/medical/bruise_pack(src)
@@ -170,8 +207,9 @@
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	req_one_access = list(ACCESS_SYNDICATE)
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 	syndicate_aligned = TRUE
+	damagetype_healed = HEAL_ALL_DAMAGE
 
 /obj/item/storage/firstaid/tactical/populate_contents()
 	new /obj/item/reagent_containers/hypospray/combat(src)
@@ -193,6 +231,7 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
+	med_bot_skin = "surgery"
 	can_hold = list(/obj/item/roller,/obj/item/bonesetter,/obj/item/bonegel, /obj/item/scalpel, /obj/item/hemostat,
 		/obj/item/cautery, /obj/item/retractor, /obj/item/fix_o_vein, /obj/item/surgicaldrill, /obj/item/circular_saw)
 
@@ -213,7 +252,7 @@
 	desc = "A medical kit used by Nanotrasen emergency response team personnel."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/ert/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -229,7 +268,7 @@
 	desc = "A medical kit used by Amber level emergency response team personnel."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -245,7 +284,7 @@
 	desc = "I hope you've got insurance. The paint is still wet."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
-	med_bot_skin = "bezerk"
+	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/fake_tactical/populate_contents()
 	return
@@ -400,6 +439,24 @@
 	for(var/I in 1 to 8)
 		new /obj/item/reagent_containers/pill/salicylic(src)
 
+/obj/item/storage/pill_bottle/salbutamol
+	name = "Pill Bottle (Salbutamol)"
+	desc = "Contains pills used to open up the airways in cases of pulmonary distress."
+	wrapper_color = COLOR_LIGHT_CYAN
+
+/obj/item/storage/pill_bottle/salbutamol/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/reagent_containers/pill/salbutamol(src)
+
+/obj/item/storage/pill_bottle/spaceacillin
+	name = "Pill Bottle (Spaceacillin)"
+	desc = "Contains pills used to treat bactieral infections."
+	wrapper_color = COLOR_LUMINOL
+
+/obj/item/storage/pill_bottle/spaceacillin/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/reagent_containers/pill/spaceacillin(src)
+
 /obj/item/storage/pill_bottle/fakedeath
 	allow_wrap = FALSE
 
@@ -446,8 +503,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture, /obj/item/suture_needle)
-	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	can_hold = list(/obj/item/stack/medical/adv/suture, /obj/item/suture_needle)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14
@@ -462,7 +518,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture/regen_mesh, /obj/item/biomesh)
+	can_hold = list(/obj/item/stack/medical/adv/regen_mesh, /obj/item/biomesh)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14

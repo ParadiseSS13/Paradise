@@ -746,7 +746,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
+	new /obj/item/stack/cable_coil/rcl(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /////////////////////////////////////////

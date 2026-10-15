@@ -10,6 +10,8 @@
 	icon_gib = "carp_gib"
 	butcher_results = list(/obj/item/food/meat = 30,
 		/obj/item/stack/sheet/leather = 30) // In the future might add more unique loot,
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/whale
 	speak_emote = list("calls")
 	melee_attack_cooldown_min = 1 SECONDS
 	damage_coeff = list(BRUTE = 0.75, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -28,6 +30,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/space_whale
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/space_whale/charge = BB_WHALE_CHARGE_ACTION)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE,  TRAIT_SPACEWALK)
 
 	/// List of stuff (space fish) that we want to eat
 	var/static/list/edibles = list(
