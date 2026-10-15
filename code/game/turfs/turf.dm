@@ -376,7 +376,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		recalculate_directional_opacity()
 
 		// Keep the old lighting object, but space doesn't get one and everything else lit needs one
-		if(IS_DYNAMIC_LIGHTING(W) && IS_DYNAMIC_LIGHTING(W.loc))
+		var/area/A = W.loc
+		if(IS_DYNAMIC_LIGHTING(W) && IS_DYNAMIC_LIGHTING(A))
 			if(!lighting_object)
 				lighting_build_overlay()
 		else if(lighting_object)
