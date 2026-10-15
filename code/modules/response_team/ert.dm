@@ -4,11 +4,11 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
-GLOBAL_LIST_EMPTY(response_team_members)
 GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
 GLOBAL_DATUM(active_team, /datum/response_team)
 GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, FALSE)
+GLOBAL_DATUM_INIT(ert_manager, /datum/ert_response_manager, new)
 GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /mob/proc/JoinResponseTeam()
@@ -34,7 +34,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		return FALSE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
-	GLOB.response_team_members = list()
 	GLOB.active_team = response_team_type
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
@@ -51,77 +50,19 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
 			continue
 		if((HAS_TRAIT(M, TRAIT_RESPAWNABLE)) && M.JoinResponseTeam())
-			GLOB.response_team_members |= M
-			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)
+			GLOB.ert_manager.add_candidate(M)
 
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/M in (ert_candidates - GLOB.response_team_members))
+	for(var/mob/M in (ert_candidates - GLOB.ert_manager.players))
 		if(M.JoinResponseTeam())
-			GLOB.response_team_members |= M
-			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)
+			GLOB.ert_manager.add_candidate(M)
 
-	if(!length(GLOB.response_team_members))
+	if(!length(GLOB.ert_manager.players))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
 
-	var/list/ert_gender_prefs = list()
-	for(var/mob/M in GLOB.response_team_members)
-		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_species_prefs), GLOB.response_team_members, ert_gender_prefs), 10 SECONDS)
-
-/proc/get_ert_species_prefs(list/response_team_members, list/ert_gender_prefs)
-	for(var/datum/async_input/A in ert_gender_prefs)
-		A.close()
-	var/list/ert_species_prefs = list()
-	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin", "Random")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
-
-/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
-	var/list/ert_role_prefs = list()
-	for(var/datum/async_input/A in ert_species_prefs)
-		A.close()
-	for(var/mob/M in response_team_members)
-		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 20 SECONDS)
-
-/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_species_prefs, list/datum/async_input/ert_role_prefs)
-	var/spawn_index = 1
-
-	for(var/i = 1, i <= length(response_team_members), i++)
-		if(spawn_index > length(GLOB.emergencyresponseteamspawn))
-			break
-		if(!length(GLOB.active_team.get_slot_list()))
-			break
-		var/gender_pref = ert_gender_prefs[i].result
-		var/species_pref = ert_species_prefs[i].result
-		var/role_pref = ert_role_prefs[i].close()
-		var/mob/M = response_team_members[i]
-		if(!M || !M.client)
-			continue
-		if(!gender_pref || !role_pref)
-			// Player was afk and did not select
-			continue
-		for(var/role in role_pref)
-			if(GLOB.active_team.check_slot_available(role))
-				var/mob/living/new_commando = M.client.create_response_team_part_1(gender_pref, species_pref, role, GLOB.emergencyresponseteamspawn[spawn_index])
-				GLOB.active_team.reduceSlots(role)
-				spawn_index++
-				if(!M || !new_commando)
-					break
-				new_commando.mind.key = M.key
-				new_commando.key = M.key
-				dust_if_respawnable(M)
-				new_commando.update_icons()
-				break
-	GLOB.send_emergency_team = FALSE
-
-	if(GLOB.active_team.count)
-		GLOB.active_team.announce_team()
-		return
-	// Everyone who said yes was afk
-	GLOB.active_team.cannot_send_team()
+	GLOB.ert_manager.send_surveys()
 
 /client/proc/create_response_team_part_1(new_gender, new_species, role, turf/spawn_location)
 	if(role == "Cyborg")
@@ -131,20 +72,25 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		return R
 
 	var/mob/living/carbon/human/M = new(spawn_location)
-
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
 		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin")
+	if(!new_gender)
+		new_gender = "Random"
+	if(new_gender == "Random")
+		new_gender = pick("Male", "Female", "Genderless")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
+
+
 	M.dna.ready_dna(M)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
 
-	M.generate_random_appearance(prosthesis_prob = 0)
-
+	var/static/list/genders = list("Male" = MALE, "Female" = FEMALE, "Genderless" = NEUTER)
+	M.generate_random_appearance(prosthesis_prob = 0, use_gender = genders[new_gender])
 	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(S.get_random_name(M.gender))]")
 	M.age = rand(23,35)
 	M.update_dna()
@@ -166,10 +112,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.equip_officer(role, M)
 
 	return M
-
-/mob/proc/remove_from_ert_list(ghost)
-	SIGNAL_HANDLER
-	GLOB.response_team_members -= src
 
 /datum/response_team
 	var/list/slots = list(
