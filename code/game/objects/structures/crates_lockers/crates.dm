@@ -677,13 +677,16 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
-/obj/structure/closet/crate/cookware
-	name = "cookware crate"
+/obj/structure/closet/crate/catering
+	name = "catering crate"
 	icon_state = "cookware"
 	icon_opened = "cookware_open"
 	icon_closed = "cookware"
 
-/obj/structure/closet/crate/cookware/populate_contents()
+/obj/structure/closet/crate/catering/cookware
+	name = "cookware crate"
+
+/obj/structure/closet/crate/catering/cookware/populate_contents()
 	// Ice cream mixer containers
 	new /obj/item/reagent_containers/cooking/icecream_bowl(src)
 	// Oven containers
