@@ -131,21 +131,26 @@
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
 	icon_state = "bookmime"
 
-/obj/item/spellbook/oneuse/mime/attack_self__legacy__attackchain(mob/user)
+/obj/item/spellbook/oneuse/mime/activate_self(mob/user)
+	if(!user)
+		return ..()
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
 				to_chat(user, SPAN_NOTICE("You've already read this one."))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 	if(used)
 		recoil(user)
-	else
-		user.mind.AddSpell(S)
-		to_chat(user, SPAN_NOTICE("You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!"))
-		user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
-		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
-		onlearned(user)
+		return ITEM_INTERACT_COMPLETE
+
+	user.mind.AddSpell(S)
+	to_chat(user, SPAN_NOTICE("You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!"))
+	user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
+	user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
+	onlearned(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/spellbook/oneuse/mime/recoil(mob/user)
 	to_chat(user, SPAN_NOTICE("You flip through the pages. Nothing of interest to you."))

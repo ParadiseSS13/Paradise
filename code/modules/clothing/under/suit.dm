@@ -92,3 +92,17 @@
 /obj/item/clothing/under/suit/victsuit/red
 	name = "red victorian suit"
 	icon_state = "victorianredvest"
+
+/obj/item/clothing/under/suit/dress_shirt
+	name = "white dress shirt"
+	desc = "A plain, professional white dress shirt, with matching black tie and slacks."
+	icon = 'icons/obj/clothing/under/procedure.dmi'
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/procedure.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/procedure.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/procedure.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/procedure.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/procedure.dmi'
+	)
+	worn_icon = 'icons/mob/clothing/under/procedure.dmi'
+	icon_state = "iaa"
