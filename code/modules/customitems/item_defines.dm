@@ -150,8 +150,12 @@
 	icon = 'icons/obj/custom_items.dmi'
 
 /obj/item/fluff/bird_painter/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!ishuman(user))
 		return NONE
+
 	var/mob/living/carbon/human/H = user
 	if(H.dna.species.bodyflags & (HAS_SKIN_TONE | HAS_ICON_SKIN_TONE))
 		H.change_skin_tone(-115, TRUE)
@@ -1116,6 +1120,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/pinapplehairgel/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !isslimeperson(target))
 		return ITEM_INTERACT_COMPLETE
@@ -1532,6 +1539,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/zekemirror/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !isskrell(target)) // It'd be strange to see other races with head tendrils.
 		return ITEM_INTERACT_COMPLETE
