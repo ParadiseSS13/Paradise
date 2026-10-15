@@ -217,7 +217,7 @@
 	name = "Radiation Protection Module"
 	id = "mod_rad_protection"
 	req_tech = list("materials" = 4, "magnets" = 4, "combat" = 5)
-	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
+	materials = list(MAT_IRIDIUM = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/rad_protection
 
 /datum/design/module/mod_emp_shield
