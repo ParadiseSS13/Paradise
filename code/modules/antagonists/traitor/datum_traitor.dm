@@ -130,9 +130,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/give_objectives()
-	if(is_ai(owner.current))
-		forge_ai_objectives()
-	else
 		forge_human_objectives()
 
 /datum/antagonist/traitor/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
@@ -206,11 +203,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
-	if(is_ai(owner.current))
-		add_law_zero()
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-		var/mob/living/silicon/ai/A = owner.current
-		A.show_laws()
 	else
 		if(give_uplink)
 			give_uplink()
@@ -239,20 +231,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
 	return messages
-
-/**
- * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.
- */
-/datum/antagonist/traitor/proc/add_law_zero()
-	var/mob/living/silicon/ai/killer = owner.current
-	killer.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
-	killer.set_syndie_radio()
-	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
-	killer.add_malf_picker()
-	var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
-	H.add_hud_to(killer, src)
-	for(var/mob/living/silicon/robot/borg in killer.connected_robots)
-		H.add_hud_to(borg, src)
 
 /**
  * Gives a traitor human their uplink, and uplink code.
