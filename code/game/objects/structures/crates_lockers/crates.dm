@@ -565,7 +565,7 @@
 
 /obj/structure/closet/crate/secure/robo
 	name = "secure robotics crate"
-	desc = "A crate with a lock on it, for holding very expensive robotics parts."
+	desc = "A crate with a lock on it for holding very expensive robotics parts."
 	icon_state = "scicrate_mech_secure"
 	icon_opened = "scicrate_mech_secure_open"
 	icon_closed = "scicrate_mech_secure"
