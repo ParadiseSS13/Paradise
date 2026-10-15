@@ -14,6 +14,7 @@
 #define USED_MOD_SUIT 2
 
 /obj/item/fluff
+	new_attack_chain = TRUE
 	var/used = FALSE
 
 /obj/item/clothing/suit/hooded/hoodie/fluff
@@ -43,51 +44,66 @@
 	var/tattoo_b = 1
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/fluff/tattoo_gun/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/fluff/tattoo_gun/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return NONE
+
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message(SPAN_WARNING("[user] stabs [M] with [src]!"), SPAN_WARNING("You stab [M] with [src]!"))
-		to_chat(M, "[SPAN_USERDANGER("[user] stabs you with [src]!")] [SPAN_WARNING("You feel a tiny prick!")]")
-		return
+		user.visible_message(
+			SPAN_WARNING("[user] stabs [target] with [src]!"),
+			SPAN_WARNING("You stab [target] with [src]!")
+		)
+		to_chat(target, "[SPAN_USERDANGER("[user] stabs you with [src]!")] [SPAN_WARNING("You feel a tiny prick!")]")
+		return NONE
 
 	if(used)
 		to_chat(user, SPAN_WARNING("[src] is out of ink."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(!ishuman(M))
-		to_chat(user, SPAN_WARNING("You don't think tattooing [M] is the best idea."))
-		return
+	if(!ishuman(target))
+		to_chat(user, SPAN_WARNING("You don't think tattooing [target] is the best idea."))
+		return ITEM_INTERACT_COMPLETE
 
-	var/mob/living/carbon/human/target = M
+	var/mob/living/carbon/human/human_target = target
 
 	if(ismachineperson(target))
-		to_chat(user, SPAN_WARNING("[target] has no skin, how do you expect to tattoo [target.p_them()]?"))
-		return
+		to_chat(user, SPAN_WARNING("[human_target] has no skin, how do you expect to tattoo [human_target.p_them()]?"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(target.m_styles["body"] != "None")
-		to_chat(user, SPAN_WARNING("[target] already has body markings, any more would look silly!"))
-		return
+	if(human_target.m_styles["body"] != "None")
+		to_chat(user, SPAN_WARNING("[human_target] already has body markings, any more would look silly!"))
+		return ITEM_INTERACT_COMPLETE
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
-	if(!(target.dna.species.name in temp_tatt.species_allowed))
-		to_chat(user, SPAN_WARNING("You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type."))
-		return
+	if(!(human_target.dna.species.name in temp_tatt.species_allowed))
+		to_chat(user, SPAN_WARNING("You can't think of a way to make the [tattoo_name] design work on [human_target == user ? "your" : "[human_target]'s"] body type."))
+		return ITEM_INTERACT_COMPLETE
 
 	if(target == user)
 		to_chat(user, SPAN_NOTICE("You use [src] to apply a [tattoo_name] to yourself!"))
 
 	else
-		user.visible_message(SPAN_NOTICE("[user] begins to apply a [tattoo_name] [target] with [src]."), SPAN_NOTICE("You begin to tattoo [target] with [src]!"))
-		if(!do_after(user, 30 * toolspeed, target = M))
-			return
-		user.visible_message(SPAN_NOTICE("[user] finishes the [tattoo_name] on [target]."), SPAN_NOTICE("You finish the [tattoo_name]."))
+		user.visible_message(
+			SPAN_NOTICE("[user] begins to apply a [tattoo_name] to [human_target] with [src]."),
+			SPAN_NOTICE("You begin to tattoo [human_target] with [src]!")
+		)
+		if(!do_after_once(user, 30 * toolspeed, target = human_target))
+			return ITEM_INTERACT_COMPLETE
+		user.visible_message(
+			SPAN_NOTICE("[user] finishes the [tattoo_name] on [human_target]."),
+			SPAN_NOTICE("You finish the [tattoo_name].")
+		)
 
-	if(!used) // No exploiting do_after to tattoo multiple folks.
-		target.change_markings(tattoo_icon, "body")
-		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
+	if(used) // No exploiting do_after to tattoo multiple folks.
+		return ITEM_INTERACT_COMPLETE
 
-		playsound(src.loc, usesound, 20, 1)
-		used = TRUE
-		update_icon()
+	human_target.change_markings(tattoo_icon, "body")
+	human_target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
+
+	playsound(src.loc, usesound, 20, 1)
+	used = TRUE
+	update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fluff/tattoo_gun/update_overlays()
 	. = ..()
@@ -108,20 +124,23 @@
 	tattoo_g = 138
 	tattoo_b = 176
 
-/obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self__legacy__attackchain(mob/user as mob)
-	if(!used)
-		var/ink_color = tgui_input_color(user, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
-		if(!isnull(ink_color) && !(user.incapacitated() || used))
-			tattoo_r = color2R(ink_color)
-			tattoo_g = color2G(ink_color)
-			tattoo_b = color2B(ink_color)
+/obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/activate_self(mob/user as mob)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-			to_chat(user, SPAN_NOTICE("You change the color setting on [src]."))
-
-			update_icon()
-
-	else
+	if(used)
 		to_chat(user, SPAN_NOTICE("[src] is out of ink!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/ink_color = tgui_input_color(user, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
+	if(!isnull(ink_color) && !(user.incapacitated() || used))
+		tattoo_r = color2R(ink_color)
+		tattoo_g = color2G(ink_color)
+		tattoo_b = color2B(ink_color)
+
+		to_chat(user, SPAN_NOTICE("You change the color setting on [src]."))
+
+		update_icon()
 
 /// BirdtTalon: Kahkiri
 /obj/item/fluff/bird_painter
@@ -130,19 +149,21 @@
 	icon_state = "bird_orb"
 	icon = 'icons/obj/custom_items.dmi'
 
-/obj/item/fluff/bird_painter/attack_self__legacy__attackchain(mob/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.dna.species.bodyflags & (HAS_SKIN_TONE | HAS_ICON_SKIN_TONE))
-			H.change_skin_tone(-115, TRUE)
-		else if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
-			var/list/hsl = rgb2hsl(hex2num(copytext(H.skin_colour, 2, 4)), hex2num(copytext(H.skin_colour, 4, 6)), hex2num(copytext(color, 6, 8)))
-			hsl[3] = min(hsl[3], 0.15) // makes their current skin color dark, setting its lightness to max of 15%
-			var/list/rgb = hsl2rgb(arglist(hsl))
-			var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
-			H.change_skin_color(new_color)
-		to_chat(user, "You use [src] on yourself.")
-		qdel(src)
+/obj/item/fluff/bird_painter/activate_self(mob/user)
+	if(!ishuman(user))
+		return NONE
+	var/mob/living/carbon/human/H = user
+	if(H.dna.species.bodyflags & (HAS_SKIN_TONE | HAS_ICON_SKIN_TONE))
+		H.change_skin_tone(-115, TRUE)
+	else if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+		var/list/hsl = rgb2hsl(hex2num(copytext(H.skin_colour, 2, 4)), hex2num(copytext(H.skin_colour, 4, 6)), hex2num(copytext(color, 6, 8)))
+		hsl[3] = min(hsl[3], 0.15) // makes their current skin color dark, setting its lightness to max of 15%
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		H.change_skin_color(new_color)
+	to_chat(user, SPAN_NOTICE("You use [src] on yourself."))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /// MrBarrelrolll: Maximus Greenwood
 /obj/item/claymore/fluff
@@ -152,7 +173,7 @@
 	sharp = FALSE
 
 /obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	return 0
+	return FALSE
 
 /// Xydonus: Rsik Ugsharki Atan
 /obj/item/fluff/rsik_katana
@@ -210,22 +231,26 @@
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/rapid_wheelchair_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
 
-	if(istype(target, /obj/structure/chair/wheelchair))
-		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
-		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon = 'icons/obj/custom_items.dmi'
-		chair.icon_state = "vox_wheelchair"
-		chair.name = "vox wheelchair"
-		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
-		chair.handle_rotation()
-		qdel(src)
-		return
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+	if(!istype(target, /obj/structure/chair/wheelchair))
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
+	var/obj/structure/chair/wheelchair/chair = target
+	chair.icon = 'icons/obj/custom_items.dmi'
+	chair.icon_state = "vox_wheelchair"
+	chair.name = "vox wheelchair"
+	chair.desc = "A luxurious Vox Wheelchair, weathered from use."
+	chair.handle_rotation()
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // Custom zippo lighters
 /obj/item/lighter/zippo/fluff
@@ -270,9 +295,15 @@
 	icon_state = "dogwhistle"
 	force = 2
 
-/obj/item/fluff/dogwhistle/attack_self__legacy__attackchain(mob/user)
-	user.visible_message(SPAN_NOTICE("[user] blows on the whistle, but no sound comes out."),  SPAN_NOTICE("You blow on the whistle, but don't hear anything."))
+/obj/item/fluff/dogwhistle/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	user.visible_message(
+		SPAN_NOTICE("[user] blows on the whistle, but no sound comes out."),
+		SPAN_NOTICE("You blow on the whistle, but don't hear anything.")
+	)
 	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
@@ -312,17 +343,21 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/wingler_comb/attack_self__legacy__attackchain(mob/user)
+/obj/item/fluff/wingler_comb/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(used)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !istajaran(target)) // Only catbeasts, kthnx.
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
 		to_chat(target, SPAN_NOTICE("You comb your tail with [src]."))
 		used = TRUE
+		return ITEM_INTERACT_COMPLETE
 
 /// DesolateG: Micheal Smith
 /obj/item/fluff/desolate_coat_kit
@@ -331,13 +366,16 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_coat_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/desolate_coat_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
+
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
 		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
 	var/obj/item/clothing/suit/armor/jacket = target
@@ -350,11 +388,12 @@
 		if(istype(A, /datum/action/item_action/openclose))
 			has_action = TRUE
 	if(!has_action)
-		new /datum/action/item_action/openclose(jacket)//this actually works
+		new /datum/action/item_action/openclose(jacket) // This actually works
 	jacket.adjust_flavour = "unbutton"
 	jacket.sprite_sheets = null
 	user.update_inv_wear_suit()
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /// Fei Hazelwood: Tariq Yon-Dale
 /obj/item/fluff/fei_gasmask_kit
@@ -363,25 +402,29 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/fei_gasmask_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/fei_gasmask_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
 
-	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
-		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
-		var/obj/item/clothing/mask/gas/M = target
-		M.name = "Prescription Gas Mask"
-		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words \"Property of Yon-Dale\" can be seen on the inner band."
-		M.icon = 'icons/obj/custom_items.dmi'
-		M.icon_state = "gas_tariq"
-		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
-			)
-		user.update_icons()
-		qdel(src)
-		return
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+	if(!(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding)))
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
+	var/obj/item/clothing/mask/gas/M = target
+	M.name = "Prescription Gas Mask"
+	M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words \"Property of Yon-Dale\" can be seen on the inner band."
+	M.icon = 'icons/obj/custom_items.dmi'
+	M.icon_state = "gas_tariq"
+	M.sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
+		)
+	user.update_icons()
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /// DesolateG: Micheal Smith
 /obj/item/fluff/desolate_baton_kit
@@ -391,23 +434,27 @@
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_baton_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/desolate_baton_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
 
-	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
-		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
-		var/obj/item/melee/baton/the_baton = target
-		the_baton.icon = 'icons/obj/custom_items.dmi'
-		the_baton.base_icon = "desolate_baton"
-		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-		the_baton.update_icon()
-		user.update_icons()
-		qdel(src)
-		return
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+	if(!(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod)))
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
+	var/obj/item/melee/baton/the_baton = target
+	the_baton.icon = 'icons/obj/custom_items.dmi'
+	the_baton.base_icon = "desolate_baton"
+	the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	the_baton.update_icon()
+	user.update_icons()
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /// captain cardgage: Richard Ulery
 /obj/item/fluff/cardgage_helmet_kit
@@ -416,19 +463,23 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/cardgage_helmet_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/cardgage_helmet_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
 
-	if(istype(target, /obj/item/clothing/head/welding))
-		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
-		target.transfer_fingerprints_to(P)
-		qdel(target)
-		qdel(src)
-		return
-	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+	if(!istype(target, /obj/item/clothing/head/welding))
+		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
+	var/obj/item/clothing/head/welding/flamedecal/P = new(get_turf(target))
+	target.transfer_fingerprints_to(P)
+	qdel(target)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /// Travelling Merchant: Trav Noble. This is what they spawn in with
 /obj/item/fluff/merchant_sallet_modkit
@@ -437,40 +488,45 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/merchant_sallet_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/merchant_sallet_modkit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
+
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
 
 	var/mob/living/carbon/human/H = user
-	if(istype(target, /obj/item/clothing/head/helmet) && !istype(target, /obj/item/clothing/head/helmet/space))
-		var/obj/item/clothing/head/helmet/helm = target
-		var/obj/item/clothing/head/helmet/fluff/merchant_sallet/sallet = new(get_turf(target))
-		sallet.flags = helm.flags
-		sallet.flags_cover = helm.flags_cover
-		sallet.armor = helm.armor
-		sallet.flags_inv = helm.flags_inv
-		sallet.cold_protection = helm.cold_protection
-		sallet.min_cold_protection_temperature = helm.min_cold_protection_temperature
-		sallet.heat_protection = helm.heat_protection
-		sallet.max_heat_protection_temperature = helm.max_heat_protection_temperature
-		sallet.strip_delay = helm.strip_delay
-		sallet.put_on_delay = helm.put_on_delay
-		sallet.resistance_flags = helm.resistance_flags
-		sallet.flags_cover = helm.flags_cover
-		sallet.visor_flags = helm.visor_flags
-		sallet.visor_flags_inv = helm.visor_flags_inv
-		if(!(BLOCKHAIR in sallet.flags))
-			sallet.flags |= BLOCKHAIR
-
-		sallet.add_fingerprint(H)
-		target.transfer_fingerprints_to(sallet)
-		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
-		to_chat(user, SPAN_NOTICE("You modify [target] with [src]."))
-		H.update_inv_head()
-		qdel(target)
-		qdel(src)
-	else
+	if(!(istype(target, /obj/item/clothing/head/helmet) && !istype(target, /obj/item/clothing/head/helmet/space)))
 		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/clothing/head/helmet/helm = target
+	var/obj/item/clothing/head/helmet/fluff/merchant_sallet/sallet = new(get_turf(target))
+	sallet.flags = helm.flags
+	sallet.flags_cover = helm.flags_cover
+	sallet.armor = helm.armor
+	sallet.flags_inv = helm.flags_inv
+	sallet.cold_protection = helm.cold_protection
+	sallet.min_cold_protection_temperature = helm.min_cold_protection_temperature
+	sallet.heat_protection = helm.heat_protection
+	sallet.max_heat_protection_temperature = helm.max_heat_protection_temperature
+	sallet.strip_delay = helm.strip_delay
+	sallet.put_on_delay = helm.put_on_delay
+	sallet.resistance_flags = helm.resistance_flags
+	sallet.flags_cover = helm.flags_cover
+	sallet.visor_flags = helm.visor_flags
+	sallet.visor_flags_inv = helm.visor_flags_inv
+	if(!(BLOCKHAIR in sallet.flags))
+		sallet.flags |= BLOCKHAIR
+
+	sallet.add_fingerprint(H)
+	target.transfer_fingerprints_to(sallet)
+	playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
+	to_chat(user, SPAN_NOTICE("You modify [target] with [src]."))
+	H.update_inv_head()
+	qdel(target)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /// IK3I: Yakikatachi
 /obj/item/fluff/k3_webbing_modkit
@@ -479,21 +535,26 @@
 	icon_state = "modkit"
 	w_class = 2
 
-/obj/item/fluff/k3_webbing_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
+/obj/item/fluff/k3_webbing_modkit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
 
-	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/clothing/suit/storage/S = target
-		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
-		webbing.allowed = S.allowed
-		to_chat(user, SPAN_NOTICE("You modify [S] with [src]."))
-		H.update_inv_wear_suit()
-		qdel(S)
-		qdel(src)
-	else
+	if(!ishuman(user) || user.incapacitated())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest)))
 		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/clothing/suit/storage/S = target
+	var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
+	webbing.allowed = S.allowed
+	to_chat(user, SPAN_NOTICE("You modify [S] with [src]."))
+	H.update_inv_wear_suit()
+	qdel(S)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // These two fluff items are commented out due to the transfer to MODsuits breaking these. Sprites are still in custom_items.dmi , but they need a resprite to work with MODsuits.
 /// DarkLordpyro: Valthorne Haliber
@@ -1054,13 +1115,14 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/pinapplehairgel/attack_self__legacy__attackchain(mob/user)
+/obj/item/fluff/pinapplehairgel/activate_self(mob/user)
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !isslimeperson(target))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(target.change_hair("Sasook Hair", 1))
 		to_chat(target, SPAN_NOTICE("You dump some of [src] on your head and style it around."))
+		return ITEM_INTERACT_COMPLETE
 
 /// MrSynnester : Shesi Skaklas
 /obj/item/clothing/suit/hooded/wintercoat/fluff/shesi
@@ -1469,13 +1531,14 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/zekemirror/attack_self__legacy__attackchain(mob/user)
+/obj/item/fluff/zekemirror/activate_self(mob/user)
 	var/mob/living/carbon/human/target = user
 	if(!istype(target) || !isskrell(target)) // It'd be strange to see other races with head tendrils.
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(target.change_hair("Zekes Tentacles", 1))
 		to_chat(target, SPAN_NOTICE("You take time to admire yourself in [src], brushing your tendrils down and revealing their true length."))
+		return ITEM_INTERACT_COMPLETE
 
 /// Fethas: Sefra'neem
 /obj/item/clothing/accessory/locket/fluff/fethasnecklace
@@ -1516,15 +1579,19 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/lighty_plasman_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
-		return
+/obj/item/fluff/lighty_plasman_modkit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_surface(target) || isstorage(target))
+		return NONE
+
+	if(!ishuman(user) || user.incapacitated() || !isitem(target))
+		return ITEM_INTERACT_COMPLETE
+
 	var/mob/living/carbon/human/H = user
 
 	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
 		if(used & USED_MOD_HELM)
 			to_chat(H, SPAN_WARNING("The kit's helmet modifier has already been used!"))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
 		used |= USED_MOD_HELM
@@ -1536,11 +1603,12 @@
 			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(target, /obj/item/clothing/under/plasmaman))
+	if(istype(target, /obj/item/clothing/under/plasmaman))
 		if(used & USED_MOD_SUIT)
 			to_chat(user, SPAN_WARNING("The kit's suit modifier has already been used!"))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/clothing/under/plasmaman/P = target
 		used |= USED_MOD_SUIT
@@ -1551,9 +1619,10 @@
 
 		if(P == H.w_uniform)
 			H.update_inv_w_uniform()
+		return ITEM_INTERACT_COMPLETE
 
-	else
-		to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+	to_chat(user, SPAN_WARNING("You can't modify [target]!"))
+	return ITEM_INTERACT_COMPLETE
 
 /// LightFire53: Ikelos
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff
