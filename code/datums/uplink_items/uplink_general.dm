@@ -219,6 +219,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DSRD"
 	item = /obj/item/dualsaber
 	cost = 60
+	can_discount = FALSE // Already discounted by buying in bulk.
 
 /datum/uplink_item/dangerous/snakefang
 	name = "Snakesfang"
