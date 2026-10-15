@@ -328,7 +328,6 @@
 	explanation_text = "We want to reverse engineer the technology in the Captain's Spacesuit Helmet. It is typically found in the Captain's Office, or may otherwise be found in the possession of the Captain."
 	needs_target = FALSE
 	onlyone = TRUE
-	reward_tc = NINJA_OBJECTIVE_EASY
 
 /datum/objective/ninja/sabotage_cloning
 	name = "Sabotage the Cloning Pod"
