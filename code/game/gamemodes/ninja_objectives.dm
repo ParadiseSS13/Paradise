@@ -309,6 +309,34 @@
 		return FALSE
 	return TRUE
 
+/datum/objective/ninja/sabotage_gravity
+	name = "Sabotage the Gravity Generator"
+	explanation_text = "A benefactor of ours desires data readouts from a failing gravity generator. Use your scanner on it to overload it for us. You will receive your pay if and when it detonates."
+	needs_target = FALSE
+	onlyone = TRUE
+	reward_tc = NINJA_OBJECTIVE_NORMAL
+
+/datum/objective/ninja/steal_champ_belt
+	name = "Steal the Champion Belt"
+	explanation_text = "One of our clients wants to be a champion. Steal the champion belt. It is typically found in the Vault or otherwise may usually be found in the possession of the Captain or Quartermaster."
+	needs_target = FALSE
+	onlyone = TRUE
+	reward_tc = NINJA_OBJECTIVE_NORMAL
+
+/datum/objective/ninja/steal_captains_helmet
+	name = "Steal the Captain's Spacesuit Helmet"
+	explanation_text = "We want to reverse engineer the technology in the Captain's Spacesuit Helmet. It is typically found in the Captain's Office, or may otherwise be found in the possession of the Captain."
+	needs_target = FALSE
+	onlyone = TRUE
+	reward_tc = NINJA_OBJECTIVE_EASY
+
+/datum/objective/ninja/sabotage_cloning
+	name = "Sabotage the Cloning Pod"
+	explanation_text = "A client wants Nanotrasen's cloning facilities inoperable. Remove its functionality with your scanner."
+	needs_target = FALSE
+	onlyone = TRUE
+	reward_tc = NINJA_OBJECTIVE_NORMAL
+
 /datum/objective/ninja/steal_supermatter
 	name = "Steal Supermatter"
 	explanation_text = "Steal the supermatter crystal, using the net gun we have modified for you. The crystal will sell well to the highest bidder."
