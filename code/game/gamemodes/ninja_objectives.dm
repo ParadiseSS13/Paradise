@@ -1,6 +1,6 @@
-#define NINJA_OBJECTIVE_EASY 10
-#define NINJA_OBJECTIVE_NORMAL 20
-#define NINJA_OBJECTIVE_HARD 40
+#define NINJA_OBJECTIVE_EASY 15
+#define NINJA_OBJECTIVE_NORMAL 30
+#define NINJA_OBJECTIVE_HARD 50
 
 /datum/objective/ninja
 	/// Can you only roll this objective once?
