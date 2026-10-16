@@ -36,7 +36,7 @@
 /datum/worldgen_modifier/proc/coord2value(x, y, list/longlist)
 	return text2num(longlist[((size * y) + (x + 1))])
 
-/datum/caves_theme/proc/can_safe_place(turf/T)
+/datum/worldgen_modifier/proc/can_safe_place(turf/T)
 	if(T.flags & NO_LAVA_GEN)
 		return FALSE
 	if(istype(T, /turf/template_noop))
