@@ -228,7 +228,7 @@
 	name = "Malfunctioning AI"
 	ruleset_weight = 7
 	antag_cost = 12
-	antagonist_type = /datum/antagonist/traitor/malf
+	antagonist_type = /datum/antagonist/malf
 	latespawns_enabled = FALSE
 	banned_jobs = list("AI")
 	banned_jobs_only = TRUE

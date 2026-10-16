@@ -586,7 +586,7 @@
 
 /datum/mind/proc/memory_edit_ai()
 	. = _memory_edit_header("malf")
-	var/datum/antagonist/traitor/malf/AI = has_antag_datum(/datum/antagonist/traitor/malf)
+	var/datum/antagonist/malf/AI = has_antag_datum(/datum/antagonist/malf)
 	if(AI)
 		. += "<b><font color='red'>MALFUNCTIONING</font></b>|<a href='byond://?src=[UID()];malf=clear'>no</a>"
 	else
@@ -1518,13 +1518,13 @@
 	else if(href_list["malf"])
 		switch(href_list["malf"])
 			if("clear")
-				if(has_antag_datum(/datum/antagonist/traitor/malf))
-					remove_antag_datum(/datum/antagonist/traitor/malf)
+				if(has_antag_datum(/datum/antagonist/malf))
+					remove_antag_datum(/datum/antagonist/malf)
 					log_admin("[key_name(usr)] has de-malfed [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-malfed [key_name_admin(current)]")
 			if("malf")
-				if(!(has_antag_datum(/datum/antagonist/traitor/malf)))
-					add_antag_datum(/datum/antagonist/traitor/malf)
+				if(!(has_antag_datum(/datum/antagonist/malf)))
+					add_antag_datum(/datum/antagonist/malf)
 					log_admin("[key_name(usr)] has malfed [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has malfed [key_name_admin(current)]")
 	else if(href_list["contractor"])
@@ -1986,8 +1986,8 @@
 		SSticker.mode.heretics |= src
 
 /datum/mind/proc/make_malf()
-	if(!has_antag_datum(/datum/antagonist/traitor/malf))
-		add_antag_datum(/datum/antagonist/traitor/malf)
+	if(!has_antag_datum(/datum/antagonist/malf))
+		add_antag_datum(/datum/antagonist/malf)
 		SSticker.mode.malf_AIs |= src
 
 /datum/mind/proc/make_Abductor()
