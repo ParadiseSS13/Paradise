@@ -26,8 +26,22 @@
 	floor_tile = null
 	real_layer = PLATING_LAYER
 	rust_resistance = RUST_RESISTANCE_ABSOLUTE
+	#warn TODO: fix this shit up
+	/// The liquid below, applied in Initialize()
+	var/liquid_icon = 'icons/turf/floors/lava.dmi'
+	var/liquid_icon_state = "lava-255"
+	/// The border type, seen around and above the turf
+	var/border_icon = 'icons/turf/floors/basalt_outline.dmi'
+	var/border_icon_state = "basalt_outline"
 
-
+/turf/simulated/floor/lava/Initialize()
+	. = ..()
+	#warn TODO: grab border type area in mapping variant
+	icon = image(icon = border_icon, icon_state = border_icon_state)
+	base_icon_state = border_icon_state // i hate this a lot
+	#warn TODO: set the liquid type based on a var above
+	underlays += image(icon = liquid_icon, icon_state = liquid_icon_state)
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/floor/lava/ex_act()
 	return
