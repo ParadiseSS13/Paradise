@@ -423,16 +423,16 @@
 	var/list/all_items = L.GetAllContents()
 	for(var/obj/item/radio/R in all_items)
 		R.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), R), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE | TIMER_DELETE_ME)
-		R.on = FALSE
-		R.listening = FALSE
-		R.broadcasting = FALSE
+		R.set_on(FALSE)
+		R.set_listening(FALSE)
+		R.set_broadcasting(FALSE)
 		L.visible_message(SPAN_WARNING("[R] buzzes loudly as it short circuits!"), blind_message = SPAN_NOTICE("You hear a loud, electronic buzzing."))
 
 /obj/item/melee/baton/flayerprod/proc/enable_radio(obj/item/radio/R)
 	if(QDELETED(R))
 		return
-	R.on = TRUE
-	R.listening = TRUE
+	R.set_on(TRUE)
+	R.set_listening(TRUE)
 
 /obj/item/melee/baton/flayerprod/deductcharge(amount)
 	if(cell.charge < hitcost)

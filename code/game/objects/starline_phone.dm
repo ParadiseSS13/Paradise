@@ -119,12 +119,12 @@
 
 /obj/machinery/phone/proc/start_call()
 	phone_state = ACTIVE_CALL
-	handheld.listening = TRUE
-	connected_line.handheld.listening = TRUE
+	handheld.set_listening(TRUE)
+	connected_line.handheld.set_listening(TRUE)
 	connected_line.audible_message(SPAN_INFORMATION("The receiver clicks as the other line picks up."), hearing_distance = 3)
 
 /obj/machinery/phone/proc/end_call()
-	handheld.listening = FALSE
+	handheld.set_listening(FALSE)
 	phone_state = NO_CALLS
 	if(connected_line)
 		connected_line.audible_message(SPAN_INFORMATION("The receiver clicks as the other line hangs up"), hearing_distance = 3)
@@ -133,7 +133,7 @@
 			connected_line.phone_state = NO_CALLS
 		else
 			connected_line.phone_state = CALL_ENDED
-			connected_line.handheld.listening = FALSE
+			connected_line.handheld.set_listening(FALSE)
 		connected_line = null
 
 

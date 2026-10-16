@@ -25,7 +25,7 @@
 	account_database = GLOB.station_money_database
 	linked_account = account_database.get_account_by_department(DEPARTMENT_SECURITY)
 	radio = new /obj/item/radio(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.config(list("Security" = 0))
 	radio.follow_target = src
 
