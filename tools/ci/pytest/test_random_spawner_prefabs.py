@@ -1,7 +1,6 @@
+import pytest
 from avulto import DME, Dmlist
 from avulto.ast import Prefab
-import pytest
-
 from conftest import Lint
 
 
