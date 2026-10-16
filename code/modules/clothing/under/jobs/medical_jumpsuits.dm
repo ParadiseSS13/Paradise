@@ -40,8 +40,16 @@
 
 /obj/item/clothing/under/rank/medical/doctor/skirt
 	name = "medical doctor's jumpskirt"
-	icon_state = "medicalf"
+	icon_state = "medical_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/rank/medical/doctor/corporate
+	name = "medical doctor's corporate jumpsuit"
+	icon_state = "medical_corporate"
+
+/obj/item/clothing/under/rank/medical/doctor/skirt/corporate
+	name = "medical doctor's corporate jumpskirt"
+	icon_state = "medical_corp_skirt"
 
 /obj/item/clothing/under/rank/medical/virologist
 	name = "virologist's jumpsuit"
@@ -51,8 +59,24 @@
 
 /obj/item/clothing/under/rank/medical/virologist/skirt
 	name = "virologist's jumpskirt"
-	icon_state = "virologyf"
+	icon_state = "virology_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/rank/medical/virologist/corporate
+	name = "virologist's corporate jumpsuit"
+	icon_state = "virology_corporate"
+
+/obj/item/clothing/under/rank/medical/virologist/skirt/corporate
+	name = "virologist's corporate jumpskirt"
+	icon_state = "virology_corp_skirt"
+
+/obj/item/clothing/under/rank/medical/virologist/alt
+	name = "virologist's green jumpsuit"
+	icon_state = "virology_alt"
+
+/obj/item/clothing/under/rank/medical/virologist/skirt/alt
+	name = "virologist's green jumpskirt"
+	icon_state = "virology_alt_skirt"
 
 /obj/item/clothing/under/rank/medical/nursesuit
 	name = "nurse's suit"
@@ -103,8 +127,50 @@
 
 /obj/item/clothing/under/rank/medical/chemist/skirt
 	name = "chemist's jumpskirt"
-	icon_state = "chemistryf"
+	icon_state = "chemistry_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/rank/medical/chemist/corporate
+	name = "chemist's corporate jumpsuit"
+	icon_state = "chemistry_corporate"
+
+/obj/item/clothing/under/rank/medical/chemist/skirt/corporate
+	name = "chemist's corporate jumpskirt"
+	icon_state = "chemistry_corp_skirt"
+
+/obj/item/clothing/under/rank/medical/chemist/alt
+	name = "chemist's orange jumpsuit"
+	icon_state = "chemistry_alt"
+
+/obj/item/clothing/under/rank/medical/chemist/skirt/alt
+	name = "chemist's orange jumpskirt"
+	icon_state = "chemistry_alt_skirt"
+
+/obj/item/clothing/under/rank/medical/coroner
+	name = "coroner's jumpsuit"
+	desc = "A basic blue jumpsuit. It has black markings that denote the wearer as a coroner."
+	icon_state = "coroner"
+
+/obj/item/clothing/under/rank/medical/coroner/skirt
+	name = "coroner's jumpskirt"
+	desc = "A basic blue jumpskirt. It has black markings that denote the wearer as a coroner."
+	icon_state = "coroner_skirt"
+
+/obj/item/clothing/under/rank/medical/coroner/corporate
+	name = "coroner's corporate jumpsuit"
+	icon_state = "coroner_corporate"
+
+/obj/item/clothing/under/rank/medical/coroner/skirt/corporate
+	name = "coroner's corporate jumpskirt"
+	icon_state = "coroner_corp_skirt"
+
+/obj/item/clothing/under/rank/medical/coroner/alt
+	name = "coroner's black jumpsuit"
+	icon_state = "coroner_alt"
+
+/obj/item/clothing/under/rank/medical/coroner/skirt/alt
+	name = "coroner's black jumpskirt"
+	icon_state = "coroner_alt_skirt"
 
 /obj/item/clothing/under/rank/medical/paramedic
 	name = "paramedic's jumpsuit"
@@ -119,12 +185,33 @@
 
 /obj/item/clothing/under/rank/medical/psych
 	name = "psychiatrist's jumpsuit"
-	desc = "A basic white jumpsuit. It has turqouise markings that denote the wearer as a psychiatrist."
+	desc = "A basic blue jumpsuit. It has teal markings that denote the wearer as a psychiatrist."
 	icon_state = "psych"
+
+/obj/item/clothing/under/rank/medical/psych/skirt
+	name = "psychiatrist's jumpskirt"
+	desc = "A basic blue jumpskirt. It has teal markings that denote the wearer as a psychiatrist."
+	icon_state = "psych_skirt"
+
+/obj/item/clothing/under/rank/medical/psych/corporate
+	name = "psychiatrist's corporate jumpsuit"
+	icon_state = "psych_corporate"
+
+/obj/item/clothing/under/rank/medical/psych/skirt/corporate
+	name = "psychiatrist's corporate jumpskirt"
+	icon_state = "psych_corp_skirt"
+
+/obj/item/clothing/under/rank/medical/psych/alt
+	name = "psychiatrist's teal jumpsuit"
+	icon_state = "psych_alt"
+
+/obj/item/clothing/under/rank/medical/psych/skirt/alt
+	name = "psychiatrist's teal jumpskirt"
+	icon_state = "psych_alt_skirt"
 
 /obj/item/clothing/under/rank/medical/psych/turtleneck
 	name = "psychologist's turtleneck"
-	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."
+	desc = "A teal turtleneck and a pair of black slacks, belonging to a psychologist."
 	icon_state = "psychturtle"
 
 /// Seems like it should be here for organisational purposes

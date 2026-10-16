@@ -187,6 +187,8 @@
 	products = list(
 		/obj/item/clothing/under/rank/medical/doctor = 3,
 		/obj/item/clothing/under/rank/medical/doctor/skirt = 3,
+		/obj/item/clothing/under/rank/medical/doctor/corporate = 3,
+		/obj/item/clothing/under/rank/medical/doctor/skirt/corporate = 3,
 		/obj/item/clothing/under/rank/medical/scrubs = 3,
 		/obj/item/clothing/under/rank/medical/scrubs/green = 3,
 		/obj/item/clothing/under/rank/medical/scrubs/purple = 3,
@@ -227,6 +229,8 @@
 	prices = list(
 		/obj/item/clothing/under/rank/medical/doctor = 50,
 		/obj/item/clothing/under/rank/medical/doctor/skirt = 50,
+		/obj/item/clothing/under/rank/medical/doctor/corporate = 50,
+		/obj/item/clothing/under/rank/medical/doctor/skirt/corporate = 50,
 		/obj/item/clothing/under/rank/medical/scrubs = 50,
 		/obj/item/clothing/under/rank/medical/scrubs/green = 50,
 		/obj/item/clothing/under/rank/medical/scrubs/purple = 50,
@@ -278,6 +282,10 @@
 	products = list(
 		/obj/item/clothing/under/rank/medical/virologist = 2,
 		/obj/item/clothing/under/rank/medical/virologist/skirt = 2,
+		/obj/item/clothing/under/rank/medical/virologist/corporate = 2,
+		/obj/item/clothing/under/rank/medical/virologist/skirt/corporate = 2,
+		/obj/item/clothing/under/rank/medical/virologist/alt = 2,
+		/obj/item/clothing/under/rank/medical/virologist/skirt/alt = 2,
 		/obj/item/clothing/head/beret/viro = 2,
 		/obj/item/clothing/head/beret/viro_alt = 2,
 		/obj/item/clothing/head/beret/viro_green = 2,
@@ -299,6 +307,10 @@
 	prices = list(
 		/obj/item/clothing/under/rank/medical/virologist = 50,
 		/obj/item/clothing/under/rank/medical/virologist/skirt = 50,
+		/obj/item/clothing/under/rank/medical/virologist/corporate = 50,
+		/obj/item/clothing/under/rank/medical/virologist/skirt/corporate = 50,
+		/obj/item/clothing/under/rank/medical/virologist/alt = 50,
+		/obj/item/clothing/under/rank/medical/virologist/skirt/alt = 50,
 		/obj/item/clothing/head/beret/viro = 20,
 		/obj/item/clothing/head/beret/viro_alt = 20,
 		/obj/item/clothing/head/beret/viro_green = 20,
@@ -330,6 +342,10 @@
 	products = list(
 		/obj/item/clothing/under/rank/medical/chemist = 2,
 		/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
+		/obj/item/clothing/under/rank/medical/chemist/corporate = 2,
+		/obj/item/clothing/under/rank/medical/chemist/skirt/corporate = 2,
+		/obj/item/clothing/under/rank/medical/chemist/alt = 2,
+		/obj/item/clothing/under/rank/medical/chemist/skirt/alt = 2,
 		/obj/item/clothing/head/beret/chem = 2,
 		/obj/item/clothing/head/beret/chem_alt = 2,
 		/obj/item/clothing/head/beret/chem_orange = 2,
@@ -352,6 +368,10 @@
 	prices = list(
 		/obj/item/clothing/under/rank/medical/chemist = 50,
 		/obj/item/clothing/under/rank/medical/chemist/skirt = 50,
+		/obj/item/clothing/under/rank/medical/chemist/corporate = 50,
+		/obj/item/clothing/under/rank/medical/chemist/skirt/corporate = 50,
+		/obj/item/clothing/under/rank/medical/chemist/alt = 50,
+		/obj/item/clothing/under/rank/medical/chemist/skirt/alt = 50,
 		/obj/item/clothing/head/beret/chem = 20,
 		/obj/item/clothing/head/beret/chem_alt = 20,
 		/obj/item/clothing/head/beret/chem_orange = 20,
