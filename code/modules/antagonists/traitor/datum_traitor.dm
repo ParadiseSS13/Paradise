@@ -115,7 +115,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/give_objectives()
-		forge_human_objectives()
+	forge_human_objectives()
 
 /datum/antagonist/traitor/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
 	if(isplasmaman(extractor))

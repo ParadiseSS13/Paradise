@@ -13,10 +13,10 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 	var/is_roundstart = TRUE
 
 /datum/antagonist/malf/add_owner_to_gamemode()
-	SSticker.mode.malf_AIs += owner
+	SSticker.mode.malf_ais += owner
 
 /datum/antagonist/malf/remove_owner_from_gamemode()
-	SSticker.mode.malf_AIs -= owner
+	SSticker.mode.malf_ais -= owner
 
 /datum/antagonist/malf/Destroy(force, ...)
 	var/mob/living/silicon/ai/A = owner.current
