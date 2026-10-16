@@ -75,9 +75,6 @@
 			if(ishuman(player))
 				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.persistent.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 					possible_traitors += player.mind
-			if(is_ai(player))
-				if((ROLE_MALF in player.client.prefs.be_special) && !player.client.persistent.skip_antag && !jobban_isbanned(player, ROLE_MALF) && !jobban_isbanned(player, ROLE_SYNDICATE))
-					possible_traitors += player.mind
 	for(var/datum/mind/player in possible_traitors)
 		for(var/job in restricted_jobs)
 			if(player.assigned_role == job)
