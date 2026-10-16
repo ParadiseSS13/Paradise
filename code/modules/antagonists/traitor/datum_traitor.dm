@@ -185,15 +185,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
-#warn might need removing
-/**
- * Create and assign a full set of AI traitor objectives.
-/datum/antagonist/traitor/proc/forge_ai_objectives()
-	add_antag_objective(/datum/objective/block)
-	add_antag_objective(/datum/objective/assassinate)
-	add_antag_objective(/datum/objective/survive)
-*/
-
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
  */

@@ -44,7 +44,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor/malf)
 		H.add_hud_to(borg, src)
 
 /datum/antagonist/traitor/malf/Destroy(force, ...)
-		// Remove all associated malf AI abilities.
+	// Remove all associated malf AI abilities.
 	if(is_ai(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.clear_zeroth_law()

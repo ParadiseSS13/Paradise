@@ -131,7 +131,8 @@
 	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
-	if(EXCLUSIVE_OR(antag_client., banned_jobs_only))
+	if(EXCLUSIVE_OR(antag.assigned_role in banned_jobs, banned_jobs_only))
+		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_JOBS)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
 		return FALSE
