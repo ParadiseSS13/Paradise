@@ -15,9 +15,10 @@ RESTRICT_TYPE(/datum/antagonist/traitor/malf)
 	SSticker.mode.malf_AIs += owner
 
 /datum/antagonist/traitor/malf/remove_owner_from_gamemode()
-	SSticker.mode.malf_AIs +- owner
+	SSticker.mode.malf_AIs -= owner
 
 /datum/antagonist/traitor/malf/finalize_antag()
+	var/list/messages = list()
 	if(is_ai(owner.current))
 		add_law_zero()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -25,6 +26,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor/malf)
 		A.show_laws()
 	if(give_codewords)
 		messages.Add(give_codewords())
+
+	return messages
 
 /**
  * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.

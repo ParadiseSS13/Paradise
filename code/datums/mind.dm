@@ -584,6 +584,16 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_ai()
+	. = _memory_edit_header("malf")
+	var/datum/antagonist/traitor/malf/AI = has_antag_datum(/datum/antagonist/traitor/malf)
+	if(AI)
+		. += "<b><font color='red'>MALFUNCTIONING</font></b>|<a href='byond://?src=[UID()];malf=clear'>no</a>"
+	else
+		. += "<a href='byond://?src=[UID()];malf=malf'>malfunctioning</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_MALF)
+
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/robot/robot = current
@@ -636,6 +646,7 @@
 		"mind_flayer",
 		"heretic",
 		"nuclear",
+		"malf",
 		"traitor", // "traitorchan",
 	)
 	var/mob/living/carbon/human/H = current
@@ -677,6 +688,9 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
+	/** MALF AI ***/
+	if(is_ai(current))
+		sections["malf"] = memory_edit_ai()
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
@@ -1501,6 +1515,18 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
+	else if(href_list["malf"])
+		switch(href_list["malf"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/traitor/malf))
+					remove_antag_datum(/datum/antagonist/traitor/malf)
+					log_admin("[key_name(usr)] has de-malfed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-malfed [key_name_admin(current)]")
+			if("malf")
+				if(!(has_antag_datum(/datum/antagonist/traitor/malf)))
+					add_antag_datum(/datum/antagonist/traitor/malf)
+					log_admin("[key_name(usr)] has malfed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has malfed [key_name_admin(current)]")
 	else if(href_list["contractor"])
 		var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
 		switch(href_list["contractor"])

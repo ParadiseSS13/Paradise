@@ -19,6 +19,8 @@
 
 	/// These roles 100% cannot be this antagonist
 	var/list/banned_jobs = list("Cyborg")
+	/// If true, the jobs blacklist is now a jobs whitelist
+	var/banned_jobs_only = FALSE
 	/// These roles can't be antagonists because mindshielding or are command staff (this can be disabled via config)
 	var/list/protected_jobs = list(
 		"Security Officer",
@@ -129,6 +131,8 @@
 	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
+	if(EXCLUSIVE_OR(antag_client., banned_jobs_only))
+		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
 		return FALSE
 	return TRUE
@@ -173,7 +177,7 @@
 	if(!(antagonist_type::job_rank in player.client.prefs.be_special))
 		return FALSE
 	// Make sure they're not in a banned job
-	if(player.mind.assigned_role in banned_jobs)
+	if(EXCLUSIVE_OR(player.mind.assigned_role in banned_jobs, banned_jobs_only))
 		return FALSE
 	return TRUE
 
@@ -225,6 +229,8 @@
 	antag_cost = 12
 	antagonist_type = /datum/antagonist/traitor/malf
 	latespawns_enabled = FALSE
+	banned_jobs = list("AI")
+	banned_jobs_only = TRUE
 
 
 /datum/ruleset/traitor/roundstart_post_setup(datum/game_mode/dynamic)
