@@ -263,6 +263,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!current_runlevel)
 		SetRunLevel(RUNLEVEL_LOBBY)
 
+	// Done starting up, so build the interface assets now instead of on first use
+	SSassets.load_assets()
+
 	// Sort subsystems by display setting for easy access.
 	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_display))
 	// Set world options.
