@@ -195,7 +195,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 		affecting[AM] = TRUE
 		LAZYADD(new_movables, AM)
 	var/still_stuff_to_move = length(new_movables)
-	if(still_stuff_to_move)
+	if(length(new_movables))
 		// One timer for everything that got on, not one each
 		addtimer(CALLBACK(src, PROC_REF(move_things), new_movables), slow_factor)
 
