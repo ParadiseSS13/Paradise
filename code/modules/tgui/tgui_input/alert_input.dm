@@ -105,8 +105,7 @@
  */
 /datum/tgui_alert/proc/wait()
 	while(!choice && !closed && !QDELETED(src))
-		// Every tick, so the answer gets picked up as soon as it's in
-		sleep(world.tick_lag)
+		stoplag()
 
 /datum/tgui_alert/ui_state(mob/user)
 	return state

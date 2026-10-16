@@ -240,9 +240,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			else
 				next_check = world.time + check_delay
 		// if you're wondering why your radial menus aren't clickable while debugging:
-		// it's probably the sleep here, try it again without any breakpoints
-		// Every tick, so a pick gets acted on as soon as it's made
-		sleep(world.tick_lag)
+		// it's probably the stoplag call here, try it again without any breakpoints
+		stoplag()
 
 /datum/radial_menu/Destroy()
 	Reset()

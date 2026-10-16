@@ -82,8 +82,7 @@
  */
 /datum/tgui_input_color/proc/wait()
 	while(!choice && !closed && !QDELETED(src))
-		// Every tick, so the answer gets picked up as soon as it's in
-		sleep(world.tick_lag)
+		stoplag()
 
 /datum/tgui_input_color/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

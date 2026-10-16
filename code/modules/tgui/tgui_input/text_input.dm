@@ -107,8 +107,7 @@
  */
 /datum/tgui_input_text/proc/wait()
 	while(!entry && !closed && !QDELETED(src))
-		// Every tick, so the answer gets picked up as soon as it's in
-		sleep(world.tick_lag)
+		stoplag()
 
 /datum/tgui_input_text/ui_state(mob/user)
 	return state

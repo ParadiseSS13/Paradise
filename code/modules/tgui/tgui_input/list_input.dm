@@ -106,8 +106,7 @@
  */
 /datum/tgui_list_input/proc/wait()
 	while(!choice && !closed)
-		// Every tick, so the answer gets picked up as soon as it's in
-		sleep(world.tick_lag)
+		stoplag()
 
 /datum/tgui_list_input/ui_state(mob/user)
 	return state

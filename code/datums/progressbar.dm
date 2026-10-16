@@ -28,9 +28,7 @@
 	bars.Add(src)
 	listindex = length(bars)
 	// Show it right away, do_after() doesn't get to its first update() until two ticks from now
-	if(client)
-		client.images += bar
-		shown = 1
+	update(0)
 	animate(bar, pixel_y = 32 + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = 5, easing = SINE_EASING)
 
 /datum/progressbar/proc/update(progress)
