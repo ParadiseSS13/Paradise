@@ -318,6 +318,17 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[RB.name]</code> from the network <code>[network_name]</code>"))
 						return
 
+/obj/machinery/computer/rnd_network_controller/proc/malware_disconnect()
+	for(var/uid in consoles)
+		var/obj/machinery/computer/rdconsole/RDC = locateUID(uid)
+		consoles -= uid
+		if(RDC)
+			RDC.unlink()
+	for(var/uid in mechfabs)
+		var/obj/machinery/mecha_part_fabricator/MPF = locateUID(uid)
+		mechfabs -= uid
+		if(MPF)
+			MPF.unlink()
 
 // Presets
 /obj/machinery/computer/rnd_network_controller/station
