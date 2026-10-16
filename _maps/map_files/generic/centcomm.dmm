@@ -7343,10 +7343,10 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/economy/vending/medical,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/economy/vending/medical/all_access,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "zW" = (
