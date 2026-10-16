@@ -186,28 +186,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return messages
 
 /**
- * Notify the traitor of their codewords and write them to `antag_memory` (notes).
- */
-/datum/antagonist/traitor/proc/give_codewords()
-	if(!owner.current)
-		return
-
-	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
-	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-	var/list/messages = list()
-	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: [SPAN_CODEPHRASES("[phrases]")]</span>")
-	messages.Add("<span class='bold body'>Code Response: [SPAN_CODERESPONSES("[responses]")]</span>")
-
-	antag_memory += "<b>Code Phrase</b>: [SPAN_RED("[phrases]")]<br>"
-	antag_memory += "<b>Code Response</b>: [SPAN_RED("[responses]")]<br>"
-
-	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
-
-	return messages
-
-/**
  * Gives a traitor human their uplink, and uplink code.
  */
 /datum/antagonist/traitor/proc/give_uplink()
