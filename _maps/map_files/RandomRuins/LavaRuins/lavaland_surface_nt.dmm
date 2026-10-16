@@ -6136,12 +6136,10 @@
 /area/mine/outpost/hallway/west)
 "Hu" = (
 /obj/machinery/computer/crew,
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "Hv" = (

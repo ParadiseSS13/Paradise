@@ -1933,6 +1933,7 @@
 /obj/structure/sign/command/head{
 	pixel_y = 32
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ajX" = (
@@ -2425,9 +2426,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -4607,15 +4605,13 @@
 /area/station/security/armory/secure)
 "ate" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/guestpass/hop{
-	pixel_x = -28
-	},
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Personnel's Office";
 	pixel_y = 4
 	},
 /obj/item/toy/figure/crew/hop,
+/obj/machinery/computer/guestpass/hop/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "atg" = (
@@ -7846,9 +7842,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "aHl" = (
@@ -33590,9 +33584,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/reception)
 "mbm" = (
@@ -41985,9 +41977,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "qFV" = (
