@@ -20,6 +20,26 @@
 			if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
 				flags |= BLOCKHAIR
 
+/obj/item/clothing/head/helmet/space/capspace/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/ninja_scanner))
+		var/list/obj_list = user.mind.get_all_objectives()
+		for(var/datum/objective/ninja/ninja_obj in obj_list)
+			if(ninja_obj.completed)
+				continue
+			if(!istype(ninja_obj, /datum/objective/ninja/steal_captains_helmet))
+				continue
+
+			to_chat(user, SPAN_NOTICE("You begin to teleport [src]!"))
+			if(!do_after_once(user, 10 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You stop triangulating a teleport for [src]."))
+				return ITEM_INTERACT_COMPLETE
+			do_sparks(3, TRUE, src)
+			qdel(src)
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
+			ninja_obj.completed = TRUE
+			ninja_obj.complete_objective()
+			return ITEM_INTERACT_COMPLETE
+	. = ..()
+
 /obj/item/clothing/suit/space/captain
 	name = "captain's space suit"
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
