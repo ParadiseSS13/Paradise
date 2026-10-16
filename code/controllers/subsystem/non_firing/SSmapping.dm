@@ -126,6 +126,10 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
+	// Load the engineering site
+	loadConstructionSite()
+
+	// Now load extra maps
 	generate_zlevels()
 
 	var/empty_z_traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY)
@@ -365,6 +369,22 @@ SUBSYSTEM_DEF(mapping)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
+
+
+
+// Loads in the construction site
+/datum/controller/subsystem/mapping/proc/loadConstructionSite()
+	var/watch = start_watch()
+	log_startup_progress("Loading construction site...")
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(
+		CONSTRUCTION_SITE,
+		linkage = CROSSLINKED,
+		traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
+		transition_tag = TRANSITION_TAG_SPACE
+	)
+	GLOB.maploader.load_map(file("_maps/map_files/generic/engineering_satellite.dmm"), z_offset = map_z_level)
+	log_startup_progress("Loaded construction site in [stop_watch(watch)]s")
+
 
 /datum/controller/subsystem/mapping/proc/procgen_lavaland()
 	var/theme_watch = start_watch()

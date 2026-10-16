@@ -17691,6 +17691,9 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "bnS" = (
@@ -17714,6 +17717,10 @@
 /obj/item/pen/multi/fountain{
 	pixel_x = 13;
 	pixel_y = 6
+	},
+/obj/item/book/manual/wiki/sop_command{
+	pixel_x = -13;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -18159,8 +18166,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "bpo" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 1
+/obj/structure/chair/office{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -47781,7 +47788,9 @@
 /area/station/hallway/secondary/entry/north)
 "feO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "feQ" = (
@@ -52001,6 +52010,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"gRF" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 3;
+	height = 5;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 7
+	},
+/turf/space,
+/area/space)
 "gRU" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass,
@@ -54088,16 +54108,6 @@
 	},
 /turf/space,
 /area/space)
-"hMT" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/item/reagent_containers/drinks/bottle/beer{
-	pixel_x = 9;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "hMV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62563,6 +62573,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
+"lvo" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "engineering_home";
+	name = "Engineering Dock Airlock";
+	req_one_access = list(10, 24)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "lvs" = (
 /obj/structure/closet/crate{
 	name = "Silver Crate"
@@ -64258,17 +64277,12 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/sop_command{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/multitool/command{
-	pixel_x = 8;
-	pixel_y = 4
-	},
 /obj/machinery/ai_status_display{
 	pixel_x = -32
+	},
+/obj/effect/turf_decal/tiles/department/engineering,
+/obj/machinery/computer/shuttle/engineering{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -71705,6 +71719,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"pxe" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Engineering Shuttle Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "pxv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
@@ -75979,7 +76000,14 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/assembly/signaler,
-/obj/item/radio/off,
+/obj/item/radio/off{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/multitool/command{
+	pixel_x = 8;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "rkS" = (
@@ -77323,17 +77351,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"rPm" = (
-/obj/item/reagent_containers/drinks/cans/synthanol{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/drinks/cans/synthanol{
-	pixel_x = -6;
-	pixel_y = -2
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "rPs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -77544,6 +77561,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "rUQ" = (
@@ -83516,13 +83534,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uEO" = (
-/obj/item/reagent_containers/drinks/bottle/beer{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/drinks/bottle/beer{
-	pixel_x = -3;
-	pixel_y = 1
+/obj/machinery/computer/shuttle/engineering{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -83985,17 +83998,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison/cell_block/a)
-"uTV" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/item/reagent_containers/drinks/cans/synthanol{
-	pixel_x = 10;
-	pixel_y = -7
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "uTX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -89308,9 +89310,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
-/obj/structure/chair/office{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "xig" = (
@@ -90161,7 +90160,6 @@
 /area/station/medical/storage/secondary)
 "xDp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/beerkeg,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -113065,7 +113063,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aab
 aaa
 aaa
 aaa
@@ -113321,8 +113319,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+afX
+afX
 aaa
 aaa
 aaa
@@ -113567,21 +113565,21 @@ mnN
 aab
 aab
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+aab
+aab
+dmD
+afX
+afX
+aab
 aaa
 aaa
 aaa
@@ -113824,20 +113822,20 @@ bFC
 bFC
 bFC
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+afX
+dmD
+dmD
+dmD
+dmD
+dmD
+dmD
+dmD
+afX
+aab
+aab
+dmD
+dmD
+afX
 aaa
 aaa
 aaa
@@ -114081,19 +114079,19 @@ wwz
 jEq
 bFC
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+aab
+aab
+aab
+aab
 aaa
 aaa
 aaa
@@ -114348,9 +114346,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+aab
+aab
+aab
 aaa
 aaa
 aaa
@@ -114605,9 +114603,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+afX
+afX
+afX
 aaa
 aaa
 aaa
@@ -114851,7 +114849,6 @@ qis
 oXq
 bFE
 bFC
-aab
 aaa
 aaa
 aaa
@@ -114863,8 +114860,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+afX
+dmD
+afX
 aaa
 aaa
 aaa
@@ -115108,7 +115106,6 @@ jou
 xMn
 bFE
 bFC
-aab
 aaa
 aaa
 aaa
@@ -115120,8 +115117,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aab
+afX
+dmD
+afX
 aaa
 aaa
 aaa
@@ -115365,19 +115363,19 @@ bFC
 bFC
 bFC
 bFC
-aab
-aab
-aab
 aaa
 aaa
 aaa
 aaa
-aab
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
 aaa
 afX
+dmD
 afX
 aaa
 aaa
@@ -115617,27 +115615,27 @@ uVX
 rUM
 rYt
 bhO
-uFD
-tmS
-rna
+cLi
+cNB
+lvo
 feO
-cQy
-aab
+lvo
+gRF
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-aab
 dmD
 afX
-afX
-aab
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -115874,26 +115872,26 @@ xWd
 siw
 cZw
 cNB
-cNB
+pxe
 cZw
-cNB
-cZw
-cQy
-aab
+cLi
+cLi
+cLi
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 afX
 dmD
-dmD
-dmD
-dmD
-dmD
-dmD
-dmD
-dmD
 afX
-aab
-dmD
-dmD
-afX
+aaa
 aaa
 aaa
 aaa
@@ -116129,27 +116127,27 @@ cNB
 cZw
 xWd
 cZw
-cZw
+uFD
 llo
 cLi
 mYe
-uTV
-hMT
+cNB
+wXb
 pOC
-aab
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 afX
+dmD
 afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-aab
-aab
-aab
 aaa
 aaa
 aaa
@@ -116390,10 +116388,13 @@ ydO
 rxs
 rEZ
 xDp
-rPm
+cNB
 uEO
 pOC
-aab
+aaa
+aaa
+aaa
+aaa
 aaa
 aab
 aaa
@@ -116401,12 +116402,9 @@ aaa
 aab
 aaa
 aaa
-aab
-aaa
-aaa
-aab
-aaa
-aaa
+afX
+dmD
+afX
 aaa
 aaa
 aaa
@@ -116650,9 +116648,9 @@ cQy
 pOC
 pOC
 pOC
-aab
 aaa
-aab
+aaa
+aaa
 aaa
 aaa
 aab
@@ -116662,7 +116660,7 @@ aab
 aaa
 aaa
 afX
-afX
+dmD
 afX
 aaa
 aaa
