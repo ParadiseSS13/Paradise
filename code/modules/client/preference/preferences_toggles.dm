@@ -320,6 +320,16 @@
 	disable_message = "You will no longer see post-round credits."
 	blackbox_message = "Toggle Post-Round Credits"
 
+/datum/preference_toggle/toggle_bloopers
+	name = "Toggle Bloopers (Chat Sounds)"
+	description = "Toggle hearing chat sounds."
+	preftoggle_bitflag = PREFTOGGLE_3_HEAR_BLOOPERS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now hear chat sounds."
+	disable_message = "You will no longer hear chat sounds."
+	blackbox_message = "Toggle Bloopers (Chat Sounds)"
+
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Toggle Ghost PDA messages"
 	description = "Toggle seeing PDA messages as an observer"
@@ -644,3 +654,4 @@
 		return
 	for(var/atom/movable/screen/plane_master/lamps_glare/glare_master in user.screen)
 		glare_master.backdrop(user.mob)
+

@@ -574,6 +574,32 @@
 					if(new_height in GLOB.character_heights)
 						active_character.height = new_height
 
+				if("blooper_id")
+					var/new_blooperid = tgui_input_list(user, "Choose your voice!", "Voice Modification", GLOB.blooper_list)
+					if(new_blooperid in GLOB.blooper_list)
+						active_character.blooper_id = new_blooperid
+
+				if("blooper_speed")
+					var/new_blooperspeed = tgui_input_number(user, "Set your voice speed.", "Voice Speed", active_character.blooper_speed, BLOOPER_DEFAULT_MAXSPEED, BLOOPER_DEFAULT_MINSPEED, round_value = FALSE)
+					if(new_blooperspeed)
+						active_character.blooper_speed = new_blooperspeed
+
+				if("blooper_pitch")
+					var/new_blooperpitch = tgui_input_number(user, "Set your voice pitch.", "Voice Pitch", active_character.blooper_pitch, BLOOPER_DEFAULT_MAXPITCH, BLOOPER_DEFAULT_MINPITCH, round_value = FALSE)
+					if(new_blooperpitch)
+						active_character.blooper_pitch = new_blooperpitch
+
+				if("blooper_pitch_range")
+					var/new_blooperpitchrange = tgui_input_number(user, "Set your voice pitch range. 0 is no variation, 1 is too much variation.", "Voice Pitch", active_character.blooper_pitch_range, BLOOPER_DEFAULT_MAXVARY, BLOOPER_DEFAULT_MINVARY, round_value = FALSE)
+					if(new_blooperpitchrange)
+						active_character.blooper_pitch_range = new_blooperpitchrange
+
+				if("blooper_preview")
+					var/preview_text = tgui_input_text(user, "Enter a test message to preview your character's voice.", "Voice Preview", "The captain may be a traitor! I am SO startled right now...", max_length = 200, multiline = FALSE)
+					if(isnull(preview_text))
+						return
+					active_character.preview_blooper_voice(user, preview_text)
+
 				if("flavor_text")
 					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", active_character.flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 					if(isnull(msg))
