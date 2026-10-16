@@ -8,8 +8,9 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	wiki_page_name = "Traitor"
-	give_codewords = TRUE
-	is_roundstart = TRUE
+	organization = /datum/antag_org/syndicate/self // It makes sense that SELF would be the only one sending malf AIs to NT stations.
+	var/give_codewords = TRUE
+	var/is_roundstart = TRUE
 
 /datum/antagonist/malf/add_owner_to_gamemode()
 	SSticker.mode.malf_AIs += owner
@@ -17,15 +18,35 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 /datum/antagonist/malf/remove_owner_from_gamemode()
 	SSticker.mode.malf_AIs -= owner
 
-/datum/antagonist/traitor/finalize_antag()
+/datum/antagonist/malf/finalize_antag()
 	var/list/messages = list()
-	if(is_ai(owner.current))
-		add_law_zero()
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-		var/mob/living/silicon/ai/A = owner.current
-		A.show_laws()
+	add_law_zero()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	var/mob/living/silicon/ai/A = owner.current
+	A.show_laws()
+	antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
+
+	return messages
+
+// Shamelessly stole from traitor.
+/datum/antagonist/malf/proc/give_codewords()
+	if(!owner.current)
+		return
+
+	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
+	var/responses = jointext(GLOB.syndicate_code_response, ", ")
+	var/list/messages = list()
+	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
+	messages.Add("<span class='bold body'>Code Phrase: [SPAN_CODEPHRASES("[phrases]")]</span>")
+	messages.Add("<span class='bold body'>Code Response: [SPAN_CODERESPONSES("[responses]")]</span>")
+
+	antag_memory += "<b>Code Phrase</b>: [SPAN_RED("[phrases]")]<br>"
+	antag_memory += "<b>Code Response</b>: [SPAN_RED("[responses]")]<br>"
+
+	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
 	return messages
 
@@ -70,6 +91,15 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 	add_antag_objective(/datum/objective/assassinate)
 	add_antag_objective(/datum/objective/survive)
 
+/datum/antagonist/malf/proc/get_living_security_players_count()
+	var/count = 0
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(!player.mind || player.stat == DEAD || !player.client)
+			continue
+		if(player.mind.assigned_role in GLOB.active_security_positions)
+			count++
+	return count
+
 // Malf AI is considered a hijacker sp this is needed
 /datum/antagonist/malf/can_assign_hijack_objective()
 	var/total_players
@@ -81,7 +111,28 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 	total_players = get_living_players_count()
 	if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
 		return FALSE
-	var/security_count = get_living_security_players_count()
+	var/security_count
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(!player.mind || player.stat == DEAD || !player.client)
+			continue
+		if(player.mind.assigned_role in GLOB.active_security_positions)
+			security_count++
 	if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
 		return FALSE
 	return TRUE
+
+/datum/antagonist/malf/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
+
+/datum/antagonist/malf/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
+		component.delete_if_from_source(src)
+
+/datum/antagonist/malf/add_antag_hud(mob/living/antag_mob)
+	antag_hud_name = "hudsyndicate"
+	return ..()

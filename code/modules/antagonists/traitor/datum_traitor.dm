@@ -45,21 +45,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		component.delete_if_from_source(src)
 
 /datum/antagonist/traitor/Destroy(force, ...)
-	// Remove all associated malf AI abilities.
-	if(is_ai(owner.current))
-		var/mob/living/silicon/ai/A = owner.current
-		A.clear_zeroth_law()
-		var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
-		radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
-		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
-		A.show_laws()
-		A.remove_malf_abilities()
-		QDEL_NULL(A.malf_picker)
-		var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
-		H.remove_hud_from(usr, src)
-		for(var/mob/living/silicon/robot/borg in A.connected_robots)
-			H.remove_hud_from(borg, src)
-
 	// Leave the mindslave hud.
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som

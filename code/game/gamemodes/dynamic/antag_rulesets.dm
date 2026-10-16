@@ -19,8 +19,10 @@
 
 	/// These roles 100% cannot be this antagonist
 	var/list/banned_jobs = list("Cyborg")
-	/// If true, the jobs blacklist is now a jobs whitelist
+	/// If `TRUE`, the jobs blacklist is now a jobs whitelist
 	var/banned_jobs_only = FALSE
+	/// If `TRUE` adds `protected_jobs` to `banned_jobs`, by default `TRUE`
+	var/assign_protected_jobs = TRUE
 	/// These roles can't be antagonists because mindshielding or are command staff (this can be disabled via config)
 	var/list/protected_jobs = list(
 		"Security Officer",
@@ -101,7 +103,7 @@
 		refund("No possible players for [src] ruleset.") // we allocate antag budget before we allocate players, and previous rulesets can steal our players
 		return antag_cost * antag_amount // shitty refund for now
 
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags && assign_protected_jobs)
 		banned_jobs += protected_jobs
 
 	if(!can_assign_hijack_objective())
@@ -226,11 +228,11 @@
 
 /datum/ruleset/malf
 	name = "Malfunctioning AI"
-	ruleset_weight = 7
+	ruleset_weight = 5
 	antag_cost = 12
 	antagonist_type = /datum/antagonist/malf
-	latespawns_enabled = FALSE
 	banned_jobs = list("AI")
+	assign_protected_jobs = FALSE // Without this the whitelist would include protected jobs
 	banned_jobs_only = TRUE
 
 
@@ -408,5 +410,25 @@
 		to_chat(world, SPAN_WARNING("<FONT size = 3>The staff managed to stop the cult!</FONT>"))
 
 /// Helper functions for Malf AI pop checks.
-/datum/ruleset/traitor/can_assign_hijack_objective()
-	return (GLOB.roundstart_ready_players >= GLOB.configuration.gamemode.min_players_hijack_roundstart)
+/datum/ruleset/malf/can_assign_hijack_objective()
+	var/datum/antagonist/malf/malf
+	if(istype(antagonist_type, /datum/antagonist/malf))
+		malf = antagonist_type
+	var/total_players
+	if(malf.is_roundstart)
+		total_players = GLOB.roundstart_ready_players
+		if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
+			return FALSE
+		return TRUE
+	total_players = get_living_players_count()
+	if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
+		return FALSE
+	var/security_count
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(!player.mind || player.stat == DEAD || !player.client)
+			continue
+		if(player.mind.assigned_role in GLOB.active_security_positions)
+			security_count++
+	if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
+		return FALSE
+	return TRUE
