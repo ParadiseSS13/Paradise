@@ -93,6 +93,15 @@
 /proc/get_tracked_pressure_tiles()
 	return RUSTLIB_CALL(milla_get_tracked_pressure_tiles)
 
+/proc/milla_watch_tile(turf/T)
+	return RUSTLIB_CALL(milla_watch_tile, T)
+
+/proc/milla_unwatch_tile(slot)
+	return RUSTLIB_CALL(milla_unwatch_tile, slot)
+
+/proc/get_watched_atmos_tiles()
+	return RUSTLIB_CALL(milla_get_watched_tiles)
+
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
 	var/east = superconductivity[2]
@@ -322,6 +331,25 @@
 #define MILLA_INTERESTING_REASON_HOT		(1 << 1)
 /// Interesting because it has wind that can push stuff around.
 #define MILLA_INTERESTING_REASON_WIND		(1 << 2)
+
+// Indexes for watched tiles, from get_watched_atmos_tiles()
+// Must match the order in milla/src/api.rs
+#define MILLA_WATCHED_PRESSURE				1
+#define MILLA_WATCHED_GASES					2
+
+/// The number of values per watched tile.
+#define MILLA_WATCHED_TILE_SIZE				MILLA_WATCHED_GASES
+
+// Bits of MILLA_WATCHED_GASES, set when the tile has enough of that gas for a scrubber to care
+// Must match the gas order in milla/src/constants.rs
+#define MILLA_WATCHED_GAS_OXYGEN			(1 << 0)
+#define MILLA_WATCHED_GAS_CARBON_DIOXIDE	(1 << 1)
+#define MILLA_WATCHED_GAS_NITROGEN			(1 << 2)
+#define MILLA_WATCHED_GAS_TOXINS			(1 << 3)
+#define MILLA_WATCHED_GAS_SLEEPING_AGENT	(1 << 4)
+#define MILLA_WATCHED_GAS_AGENT_B			(1 << 5)
+#define MILLA_WATCHED_GAS_HYDROGEN			(1 << 6)
+#define MILLA_WATCHED_GAS_WATER_VAPOR		(1 << 7)
 
 #define MILLA_NORTH	(1 << 0)
 #define MILLA_EAST	(1 << 1)

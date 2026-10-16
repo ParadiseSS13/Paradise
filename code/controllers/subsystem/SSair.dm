@@ -82,6 +82,9 @@ SUBSYSTEM_DEF(air)
 	/// The set of tiles that are still experiencing wind after this tick.
 	var/list/new_windy_tiles
 
+	/// The pressure and gases of every watched tile, straight from MILLA. Only set while atmos machinery is processing.
+	var/list/watched_tiles
+
 	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
 
@@ -247,7 +250,10 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
 
+		// Fetched again every time we come back here, other things may have changed tiles while we were paused.
+		watched_tiles = get_watched_atmos_tiles()
 		process_atmos_machinery(resumed)
+		watched_tiles = null
 
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
@@ -729,6 +735,17 @@ SUBSYSTEM_DEF(air)
 	B.dirty = FALSE
 	B.synchronized = FALSE
 
+
+/// Asks MILLA to put this tile in watched_tiles. Returns where its values start in that list, minus one.
+/datum/controller/subsystem/air/proc/watch_tile(turf/T)
+	// MILLA reuses slots, so what we fetched for this run can't be trusted any more.
+	watched_tiles = null
+	return (milla_watch_tile(T) - 1) * MILLA_WATCHED_TILE_SIZE
+
+/// Stops watching a tile, takes what watch_tile() returned.
+/datum/controller/subsystem/air/proc/unwatch_tile(offset)
+	watched_tiles = null
+	milla_unwatch_tile(offset / MILLA_WATCHED_TILE_SIZE + 1)
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/CB)
