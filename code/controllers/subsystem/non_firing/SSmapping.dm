@@ -377,7 +377,7 @@ SUBSYSTEM_DEF(mapping)
 			var/biome_count = 1
 			for(var/i = 0 to biome_count)
 				var/biome_type = pick(subtypesof(/datum/biome_theme))
-				ASSERT(biome_type) 
+				ASSERT(biome_type)
 				var/datum/biome_theme/curr_biome = new biome_type(curr_zlevel)
 				if(!QDELETED(curr_biome)) // qdel'd if failed placement
 					curr_biome.setup() // run that shit
@@ -387,6 +387,8 @@ SUBSYSTEM_DEF(mapping)
 		//lavaland_theme.setup()
 	//if(caves_theme)
 		//caves_theme.setup()
+	if(lavaland_theme)
+		lavaland_theme.replace_mapping_lava()
 	log_startup_progress("Loaded lavaland themes in [stop_watch(theme_watch)]s")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()

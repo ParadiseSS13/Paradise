@@ -6,10 +6,10 @@ from conftest import Lint
 
 
 @pytest.mark.lint("Same File Name")
-def test_file_names(lint: Lint):
+def test_file_names(lint: Lint, dm_files: list[Path]):
     file_name_map: dict[str, list[Path]] = defaultdict(list)
 
-    for file in Path(".").glob("**/*.dm"):
+    for file in dm_files:
         file_name_map[file.name].append(file)
 
     duplicate_files = {

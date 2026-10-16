@@ -7,6 +7,7 @@ from typing import Optional
 import pytest
 from conftest import Lint
 
+
 def get_config_sql(lint: Lint, config_path: Path) -> Optional[int]:
     if not os.path.exists(config_path):
         lint.error(f"File containing config the SQL version does not exist ({config_path}).")
