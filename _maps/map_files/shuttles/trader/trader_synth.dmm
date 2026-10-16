@@ -111,6 +111,9 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
+"r" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/trade/sol)
 "s" = (
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "trader_starboard";
@@ -387,7 +390,7 @@ E
 i
 z
 U
-a
+r
 a
 "}
 (3,1,1) = {"
@@ -406,17 +409,17 @@ H
 "}
 (4,1,1) = {"
 a
-a
+r
 j
-a
-a
+r
+r
 M
 E
 v
 m
 n
-a
-a
+r
+r
 "}
 (5,1,1) = {"
 a
@@ -476,17 +479,17 @@ H
 "}
 (9,1,1) = {"
 a
-a
+r
 s
-a
-a
+r
+r
 L
 E
 C
 Z
 A
-a
-a
+r
+r
 "}
 (10,1,1) = {"
 W
@@ -513,7 +516,7 @@ E
 q
 J
 g
-a
+r
 a
 "}
 (12,1,1) = {"

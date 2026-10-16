@@ -13,6 +13,9 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/powered)
+"dC" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/powered)
 "dN" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/disco,
@@ -1067,7 +1070,7 @@ ZH
 LW
 LW
 LW
-LW
+dC
 uk
 zL
 LW
@@ -1097,7 +1100,7 @@ Kh
 LW
 LW
 LW
-LW
+dC
 xJ
 xJ
 La
