@@ -184,9 +184,7 @@
 	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/floor/engine/update_icon_state()
-	if(!broken && !burnt)
-		icon_state = icon_regular_floor
-	if(icon_regular_floor != icon_states(icon))
+	if(!broken && !burnt && !icon_exists(icon, icon_regular_floor))
 		icon_state = "engine"
 
 /turf/simulated/floor/engine/break_tile()
@@ -242,7 +240,7 @@
 /turf/simulated/floor/engine/cult/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
-	if(icon_regular_floor != icon_states(icon))
+	if(!icon_exists(icon, icon_regular_floor))
 		icon_state = "cult"
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
