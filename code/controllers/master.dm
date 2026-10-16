@@ -263,8 +263,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!current_runlevel)
 		SetRunLevel(RUNLEVEL_LOBBY)
 
-	// Done starting up, so build the interface assets now instead of on first use
-	SSassets.load_assets()
+	// Done starting up, so let subsystems do whatever can wait for the lobby
+	for(var/datum/controller/subsystem/SS as anything in subsystems)
+		INVOKE_ASYNC(SS, TYPE_PROC_REF(/datum/controller/subsystem, LateInitialize))
 
 	// Sort subsystems by display setting for easy access.
 	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_display))
