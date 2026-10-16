@@ -212,7 +212,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/keycard_auth{
-	pixel_x = 27;
+	pixel_x = 32;
 	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel,
@@ -3605,7 +3605,6 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/machinery/light_switch/offset/north,
 /obj/machinery/door_control{
 	id = "ceblast";
 	name = "Engineering Lockdown Control";
@@ -3613,6 +3612,7 @@
 	pixel_y = 27
 	},
 /obj/item/stack/cable_coil/rcl,
+/obj/machinery/light_switch/offset/northwest,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "apr" = (
@@ -8507,7 +8507,6 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/light_switch/offset/southeast,
 /turf/simulated/floor/carpet/black,
 /area/station/service/library)
 "aKe" = (
@@ -8516,6 +8515,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/directional/east,
+/obj/machinery/light_switch/offset/southeast,
 /turf/simulated/floor/carpet/black,
 /area/station/service/library)
 "aKg" = (
@@ -10540,8 +10540,9 @@
 /obj/machinery/light_switch/offset/southwest,
 /obj/machinery/holosign_switch{
 	id = "surgery2";
-	pixel_x = -24;
-	dir = 4
+	pixel_x = -32;
+	dir = 8;
+	pixel_y = -15
 	},
 /obj/machinery/button/windowtint/offset/west{
 	id = "rnd"
@@ -20287,7 +20288,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/light_switch/offset/east,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "eLj" = (
@@ -47174,13 +47174,13 @@
 /obj/item/clipboard,
 /obj/item/pen,
 /obj/item/reagent_containers/drinks/bottle/tequila,
-/obj/machinery/light_switch/offset/northwest,
 /obj/machinery/driver_button{
 	id_tag = "toxinsdriver";
 	pixel_x = 6;
 	pixel_y = 24;
 	range = 18
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
 "tmt" = (
@@ -52690,6 +52690,10 @@
 /obj/effect/turf_decal/trimline/department/security/line,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"wpT" = (
+/obj/machinery/light_switch/directional/west,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/chapel)
 "wqt" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
@@ -86665,7 +86669,7 @@ mdm
 nZM
 rpQ
 nZM
-nZM
+wpT
 aHS
 uYo
 aae

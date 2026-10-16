@@ -736,10 +736,6 @@
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
-/obj/machinery/button/windowtint/offset/east{
-	id = "HoS";
-	req_access = list(58)
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "aeE" = (
@@ -820,7 +816,6 @@
 /area/station/security/permabrig)
 "aeU" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/light_switch/directional/west,
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -2674,6 +2669,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/machinery/button/windowtint/directional/west,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amv" = (
@@ -2703,6 +2699,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
 "amB" = (
@@ -2769,10 +2766,10 @@
 	},
 /obj/item/flash,
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/light_switch/offset/north,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
+/obj/machinery/light_switch/offset/northwest,
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
 "amI" = (
@@ -5096,11 +5093,7 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
-/obj/machinery/button/windowtint/offset/southwest{
-	id = "Processing";
-	name = "processing tint control";
-	req_access = list(63)
-	},
+/obj/machinery/button/windowtint/offset/west,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "auU" = (
@@ -7292,6 +7285,7 @@
 	code = 6;
 	frequency = 1445
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
 "aCJ" = (
@@ -14434,6 +14428,7 @@
 /obj/item/flashlight/lamp/bananalamp,
 /obj/item/food/pie,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "bdq" = (
@@ -14454,6 +14449,7 @@
 "bds" = (
 /obj/item/flag/mime,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
@@ -15553,7 +15549,6 @@
 	c_tag = "Clown's Office";
 	dir = 4
 	},
-/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "bhj" = (
@@ -15578,7 +15573,6 @@
 	dir = 4
 	},
 /obj/structure/statue/tranquillite/mime,
-/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
@@ -22988,13 +22982,11 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
-/obj/machinery/button/windowtint/offset/southwest{
-	id = "rnd"
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
 /obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/button/windowtint/offset/west,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "bJs" = (
@@ -26060,6 +26052,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical,
+/obj/machinery/light_switch/offset/southwest,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "bXI" = (
@@ -27324,7 +27317,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/light_switch/offset/southwest,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
@@ -30449,16 +30441,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/medical/storage/secondary)
 "cqN" = (
-/obj/machinery/holosign_switch{
-	id = "surgery1";
-	pixel_y = -24;
-	dir = 1;
-	pixel_x = -8
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/machinery/light_switch/directional/south,
 /obj/machinery/button/windowtint/offset/southeast{
 	id = "Surgery 1";
 	req_access = list(45)
@@ -30467,6 +30452,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
 	},
+/obj/machinery/light_switch/offset/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "cqS" = (
@@ -31470,6 +31456,10 @@
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
+	},
+/obj/machinery/holosign_switch{
+	id = "surgery1";
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
@@ -55065,7 +55055,7 @@
 	id = "ntrepofficedoor";
 	name = "Office Door";
 	normaldoorcontrol = 1;
-	pixel_x = -1;
+	pixel_x = 14;
 	pixel_y = 26;
 	req_access = list(73)
 	},
@@ -60164,10 +60154,10 @@
 	range = 18
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/light_switch/offset/northwest,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
 "kCg" = (
@@ -61256,7 +61246,6 @@
 /area/station/engineering/solar/fore_port)
 "lbb" = (
 /obj/machinery/disposal,
-/obj/machinery/light_switch/directional/north,
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/button/windowtint/offset/northwest{
 	id = "CE";
@@ -61268,6 +61257,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 5
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "lbd" = (
@@ -65772,13 +65762,13 @@
 /area/station/maintenance/aft2)
 "nbE" = (
 /obj/machinery/newscaster/directional/west,
-/obj/machinery/light_switch/directional/south,
 /obj/machinery/button/windowtint/offset/southeast{
 	id = "coroner"
 	},
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
+/obj/machinery/light_switch/offset/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "ncf" = (
@@ -67698,9 +67688,6 @@
 	pixel_y = 24;
 	pixel_x = -6
 	},
-/obj/machinery/button/windowtint/offset/north{
-	id = "conference"
-	},
 /obj/machinery/door_control{
 	id = "conference";
 	name = "Door Bolt Control";
@@ -67709,6 +67696,7 @@
 	pixel_y = 34
 	},
 /obj/item/lighter/zippo/engraved,
+/obj/machinery/button/windowtint/offset/northwest,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "nUu" = (
@@ -78084,8 +78072,9 @@
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/holosign_switch{
 	id = "surgery2";
-	pixel_x = -24;
-	dir = 4
+	pixel_x = -32;
+	dir = 8;
+	pixel_y = -15
 	},
 /obj/machinery/light_switch/offset/southwest,
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -78884,7 +78873,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/light_switch/directional/north,
 /obj/machinery/button/windowtint/offset/northwest{
 	id = "gravity";
 	name = "radiation shielding control"
@@ -78892,6 +78880,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "sOF" = (
@@ -80687,9 +80676,9 @@
 	desc = "A remote control switch for polarized windows. For culling the sight of the equipment-starved masses.";
 	id = "rdrobosurgery";
 	name = "Surgery Window Tint Control";
-	pixel_x = -24;
+	pixel_x = -32;
 	pixel_y = 4;
-	dir = 4;
+	dir = 8;
 	range = 2
 	},
 /obj/machinery/button/windowtint/offset/southwest{
@@ -90521,7 +90510,6 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/machinery/light_switch/offset/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
 "xVM" = (

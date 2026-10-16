@@ -4512,22 +4512,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "aXu" = (
-/obj/machinery/button/windowtint/offset/northwest{
-	id = "CE";
-	req_access = list(56)
-	},
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "CE";
-	pixel_x = -24;
-	pixel_y = 9;
-	range = 12;
-	req_access = list(56)
-	},
-/obj/machinery/light_switch/directional/west,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/light_switch/offset/southwest,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "aXv" = (
@@ -9079,6 +9068,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},
+/obj/machinery/light_switch/offset/south,
 /turf/simulated/floor/plasteel,
 /area/station/science/break_room)
 "bPa" = (
@@ -25928,7 +25918,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "fje" = (
@@ -33485,16 +33474,16 @@
 	id = "Surgery 1";
 	req_access = list(45)
 	},
-/obj/machinery/light_switch/directional/west,
 /obj/machinery/holosign_switch{
 	id = "surgery1";
-	pixel_y = -8;
-	dir = 4;
-	pixel_x = -24
+	pixel_y = -15;
+	dir = 8;
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/light_switch/offset/southwest,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "gId" = (
@@ -35893,7 +35882,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/light_switch/offset/north,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
 	},
@@ -37069,6 +37057,11 @@
 /obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
+"hub" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light_switch/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/medical/break_room)
 "hui" = (
 /obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plating,
@@ -40724,7 +40717,8 @@
 	},
 /obj/machinery/button/windowtint/offset/northeast{
 	id = "TheatreCurtain";
-	name = "Theatre Curtain"
+	name = "Theatre Curtain";
+	pixel_y = -12
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/theatre)
@@ -45843,13 +45837,13 @@
 	network = list("Toxins");
 	pixel_x = 32
 	},
-/obj/machinery/light_switch/offset/northwest,
 /obj/machinery/driver_button{
 	id_tag = "toxinsdriver";
 	pixel_x = 6;
 	pixel_y = 24;
 	range = 18
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "jgf" = (
@@ -50507,9 +50501,6 @@
 	pixel_y = 24;
 	pixel_x = -6
 	},
-/obj/machinery/button/windowtint/offset/north{
-	id = "conference"
-	},
 /obj/machinery/door_control{
 	id = "conference";
 	name = "Door Bolt Control";
@@ -50523,6 +50514,7 @@
 /obj/machinery/camera{
 	c_tag = "Bridge Conference Room"
 	},
+/obj/machinery/button/windowtint/offset/northwest,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "kdk" = (
@@ -57104,7 +57096,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch/offset/southwest,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
@@ -61293,10 +61284,10 @@
 /obj/machinery/button/windowtint/offset/north{
 	id = "coroner"
 	},
-/obj/machinery/light_switch/directional/north,
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
 	pixel_x = -15
 	},
+/obj/machinery/light_switch/offset/northwest,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "mrk" = (
@@ -62580,6 +62571,7 @@
 /area/station/medical/break_room)
 "mED" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonlockers)
 "mEI" = (
@@ -64772,7 +64764,6 @@
 	c_tag = "Medbay Treatment Center South-West";
 	dir = 1
 	},
-/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
@@ -65611,9 +65602,6 @@
 	dir = 4
 	},
 /obj/machinery/light_switch/offset/west,
-/obj/machinery/button/windowtint/directional/west{
-	id = "genetics"
-	},
 /obj/machinery/door_control{
 	id = "geneticsprivacy";
 	name = "Genetics Privacy Control";
@@ -65623,6 +65611,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/machinery/button/windowtint/offset/southwest,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "nks" = (
@@ -67670,6 +67659,7 @@
 "nDG" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/ids,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "nDM" = (
@@ -67873,7 +67863,6 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/obj/machinery/light_switch/offset/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -68851,7 +68840,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light_switch/offset/south,
 /obj/effect/turf_decal/tiles/dark/corner,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
@@ -69078,7 +69066,7 @@
 	id = "gravity";
 	name = "radiation shielding control"
 	},
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch/offset/southwest,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "nQT" = (
@@ -75115,16 +75103,16 @@
 	id = "Surgery 2";
 	req_access = list(45)
 	},
-/obj/machinery/light_switch/directional/east,
 /obj/machinery/holosign_switch{
 	id = "surgery2";
-	pixel_y = -8;
-	dir = 8;
-	pixel_x = 24
+	pixel_y = -6;
+	dir = 4;
+	pixel_x = 32
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/obj/machinery/light_switch/offset/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "oYG" = (
@@ -76259,10 +76247,10 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/light_switch/offset/southwest,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "piC" = (
@@ -78008,11 +77996,11 @@
 /obj/machinery/button/windowtint/offset/southeast{
 	id = "med1"
 	},
-/obj/machinery/light_switch/directional/south,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/tiles/department/medical/side,
+/obj/machinery/light_switch/offset/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms_secondary)
 "pBP" = (
@@ -84096,7 +84084,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/light,
-/obj/machinery/light_switch/offset/southeast,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonlockers)
 "qPr" = (
@@ -88522,7 +88509,6 @@
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "rHj" = (
 /obj/machinery/light,
-/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel,
 /area/station/medical/break_room)
@@ -94400,7 +94386,6 @@
 /area/station/engineering/atmos/storage)
 "sPF" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/light_switch/directional/west,
 /obj/machinery/button/windowtint/offset/southwest{
 	id = "rd";
 	name = "Office Window Tint Control"
@@ -94408,6 +94393,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/light_switch/offset/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
 "sPL" = (
@@ -95212,6 +95198,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
 "sXw" = (
@@ -97751,17 +97738,13 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "tvp" = (
 /obj/structure/table,
 /obj/item/storage/surgical_tray,
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "RoboSurgery";
-	pixel_x = -24;
-	range = 8
-	},
+/obj/machinery/button/windowtint/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -99778,6 +99761,16 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"tRv" = (
+/obj/structure/bed/roller,
+/obj/item/roller{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tiles/department/medical,
+/obj/machinery/light_switch/directional/west,
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/sleeper)
 "tRz" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -100753,6 +100746,7 @@
 /area/station/maintenance/security/aft_port)
 "uaW" = (
 /obj/machinery/economy/vending/cart,
+/obj/machinery/light_switch/offset/southwest,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "ubc" = (
@@ -108510,7 +108504,6 @@
 /area/station/public/park)
 "vFk" = (
 /obj/machinery/requests_console/directional/east,
-/obj/machinery/light_switch/offset/north,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
@@ -108518,6 +108511,7 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 5
 	},
+/obj/machinery/light_switch/offset/northwest,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "vFm" = (
@@ -110397,7 +110391,6 @@
 	},
 /obj/item/multitool,
 /obj/machinery/light,
-/obj/machinery/light_switch/offset/south,
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel,
 /area/station/science/break_room)
@@ -110688,7 +110681,8 @@
 /area/station/service/chapel)
 "vZW" = (
 /obj/machinery/keycard_auth{
-	pixel_y = 28
+	pixel_y = 28;
+	pixel_x = 8
 	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -116758,6 +116752,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "xpg" = (
@@ -117596,9 +117591,6 @@
 	pixel_x = -8;
 	pixel_y = -3
 	},
-/obj/machinery/button/windowtint/directional/east{
-	id = "robo"
-	},
 /obj/machinery/door_control{
 	id = "robotics";
 	name = "Robotics Privacy Shutters";
@@ -117610,6 +117602,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/button/windowtint/offset/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "xxj" = (
@@ -163910,7 +163903,7 @@ pHD
 aRt
 qAx
 kdG
-mnm
+tRv
 qUR
 rgI
 wJH
@@ -170087,7 +170080,7 @@ ilV
 sto
 whI
 whI
-whI
+hub
 aDI
 mXw
 mXw

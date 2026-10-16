@@ -7648,10 +7648,10 @@
 /obj/machinery/barsign{
 	pixel_y = 32
 	},
-/obj/machinery/light_switch/directional/west,
 /obj/machinery/button/windowtint/offset/southwest{
 	id = "bar"
 	},
+/obj/machinery/light_switch/offset/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aGB" = (
@@ -12163,6 +12163,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
+/obj/machinery/button/windowtint/offset/northeast,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aWP" = (
@@ -22115,10 +22116,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "bLt" = (
-/obj/machinery/button/windowtint/offset/northwest{
-	id = "Detective";
-	req_access = list(4)
-	},
+/obj/machinery/button/windowtint/offset/north,
 /turf/simulated/floor/carpet/black,
 /area/station/security/detective)
 "bLv" = (
@@ -25040,14 +25038,6 @@
 	pixel_y = -8;
 	req_access = list(11)
 	},
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "CE";
-	pixel_x = -24;
-	pixel_y = 9;
-	range = 12;
-	req_access = list(56)
-	},
 /obj/machinery/computer/security/engineering{
 	dir = 4
 	},
@@ -25058,6 +25048,7 @@
 	req_access = list(24);
 	pixel_x = -24
 	},
+/obj/machinery/button/windowtint/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bWm" = (
@@ -25896,7 +25887,7 @@
 	id = "BS";
 	req_access = list(67)
 	},
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch/offset/west,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "caj" = (
@@ -26096,7 +26087,9 @@
 	pixel_x = -38;
 	pixel_y = -6
 	},
-/obj/machinery/light_switch/offset/west,
+/obj/machinery/light_switch/offset/west{
+	pixel_y = 10
+	},
 /obj/machinery/door_control{
 	id = "hop";
 	name = "Privacy Shutters";
@@ -43307,13 +43300,11 @@
 	pixel_x = -5
 	},
 /obj/structure/table,
-/obj/machinery/button/windowtint/directional/north{
-	id = "robo"
-	},
 /obj/machinery/light_switch/offset/northwest,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/machinery/button/windowtint/offset/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dug" = (
@@ -49150,16 +49141,16 @@
 	id = "sr2";
 	req_access = list(45)
 	},
-/obj/machinery/light_switch/directional/east,
 /obj/machinery/holosign_switch{
-	dir = 8;
+	dir = 4;
 	id = "surgery2";
-	pixel_x = 24;
-	pixel_y = 7
+	pixel_x = 32;
+	pixel_y = -6
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/light_switch/offset/northeast,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "etf" = (
@@ -59208,8 +59199,8 @@
 /obj/machinery/button/windowtint/offset/southeast{
 	id = "morgue"
 	},
-/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/light_switch/offset/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "ipZ" = (
@@ -67906,10 +67897,10 @@
 	pixel_y = 26;
 	range = 18
 	},
-/obj/machinery/light_switch/offset/north,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/light_switch/offset/northwest,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
 "lQg" = (
@@ -69679,7 +69670,9 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/machinery/light_switch/offset/southwest,
+/obj/machinery/light_switch/offset/southwest{
+	pixel_y = -8
+	},
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "medbayfoyer";
@@ -72103,6 +72096,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/storage)
 "nwt" = (
@@ -75884,12 +75878,11 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/holosign_switch{
-	dir = 4;
+	dir = 8;
 	id = "surgery1";
-	pixel_x = -24;
-	pixel_y = 7
+	pixel_x = -32;
+	pixel_y = 9
 	},
-/obj/machinery/light_switch/directional/west,
 /obj/machinery/button/windowtint/offset/southwest{
 	id = "sr1";
 	req_access = list(45)
@@ -75897,6 +75890,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/obj/machinery/light_switch/offset/west,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "oWI" = (
@@ -79215,6 +79209,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "qoo" = (
@@ -81028,14 +81023,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
-"qYf" = (
-/obj/machinery/button/windowtint/directional/west{
-	id = "qm";
-	req_access = list(41)
-	},
-/obj/effect/turf_decal/tiles/neutral,
-/turf/simulated/floor/plasteel,
-/area/station/supply/qm)
 "qYo" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/virology/side,
@@ -81867,7 +81854,6 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
-/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/storage)
 "rms" = (
@@ -85242,9 +85228,7 @@
 /area/station/science/misc_lab)
 "syY" = (
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/directional/west{
-	id = "stage"
-	},
+/obj/machinery/button/windowtint/offset/west,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "szb" = (
@@ -88666,12 +88650,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/requests_console/directional/east,
-/obj/machinery/button/windowtint{
-	pixel_y = -27;
-	dir = 1;
-	id = "CHAP";
-	range = 20
-	},
+/obj/machinery/button/windowtint/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "tNx" = (
@@ -95596,9 +95575,6 @@
 	pixel_y = 10;
 	pixel_x = -10
 	},
-/obj/machinery/button/windowtint/directional/east{
-	id = "genetics"
-	},
 /obj/machinery/door_control{
 	id = "genetics_shutters";
 	name = "Genetics Privacy Shutters";
@@ -95609,6 +95585,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/button/windowtint/offset/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
 "wqU" = (
@@ -96804,7 +96781,6 @@
 	},
 /area/station/medical/surgery)
 "wMV" = (
-/obj/machinery/light_switch/offset/east,
 /obj/machinery/camera{
 	c_tag = "Brig Perma Panopticon";
 	dir = 8
@@ -146908,7 +146884,7 @@ bdh
 dlN
 jkW
 aTD
-qYf
+aYg
 aWI
 fOa
 aZC

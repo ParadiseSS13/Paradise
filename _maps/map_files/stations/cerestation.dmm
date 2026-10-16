@@ -13948,10 +13948,10 @@
 /area/station/hallway/primary/fore/north)
 "cgv" = (
 /obj/machinery/holosign_switch{
-	dir = 8;
+	dir = 4;
 	id = "surgery2";
-	pixel_x = 24;
-	pixel_y = 4
+	pixel_x = 32;
+	pixel_y = 10
 	},
 /obj/machinery/light_switch/offset/east,
 /obj/structure/table/tray,
@@ -30171,9 +30171,6 @@
 	pixel_x = -2;
 	pixel_y = 10
 	},
-/obj/machinery/button/windowtint/directional/east{
-	id = "genetics"
-	},
 /obj/machinery/door_control{
 	id = "genetics";
 	name = "Genetics Privacy Shutters";
@@ -30184,6 +30181,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/button/windowtint/offset/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "fmr" = (
@@ -40804,17 +40802,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "hGi" = (
-/obj/machinery/button/windowtint{
-	dir = 8;
-	id = "Interrogation";
-	pixel_x = 24;
-	range = 3;
-	req_access = list(63)
-	},
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/machinery/alarm/directional/north,
+/obj/machinery/button/windowtint/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation)
 "hGq" = (
@@ -50651,13 +50643,7 @@
 	pixel_y = -24;
 	req_access = list(67)
 	},
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "bs";
-	pixel_x = -5;
-	pixel_y = -23;
-	range = 5
-	},
+/obj/machinery/button/windowtint/directional/south,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jGJ" = (
@@ -67327,11 +67313,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "noo" = (
-/obj/machinery/light_switch/directional/west,
 /obj/machinery/button/windowtint/offset/southwest{
 	id = "Courtroom";
 	req_one_access = list(74,3)
 	},
+/obj/machinery/light_switch/offset/west,
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "nop" = (
@@ -72798,9 +72784,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "ovU" = (
-/obj/machinery/button/windowtint/directional/north{
-	id = "coroner"
-	},
 /obj/machinery/light_switch/offset/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -72814,6 +72797,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/button/windowtint/offset/northwest,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "ovW" = (
@@ -87961,16 +87945,15 @@
 /obj/machinery/door_control{
 	id = "MiningWarehouse";
 	name = "Mining Warehouse Shutters";
-	pixel_x = 25;
-	pixel_y = 4
+	pixel_x = 25
 	},
-/obj/machinery/light_switch/offset/east,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
+/obj/machinery/light_switch/offset/northeast,
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/office)
 "rPR" = (
@@ -91331,7 +91314,6 @@
 	id = "CE";
 	req_access = list(56)
 	},
-/obj/machinery/light_switch/directional/north,
 /obj/item/paper_bin/nanotrasen{
 	pixel_y = 2;
 	pixel_x = -11
@@ -91347,6 +91329,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/obj/machinery/light_switch/offset/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "sCx" = (
@@ -97306,13 +97289,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/west)
 "tSu" = (
-/obj/machinery/button/windowtint/directional/west{
-	id = "med1"
-	},
 /obj/machinery/light_switch/offset/west,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/obj/machinery/button/windowtint/offset/southwest,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms1)
 "tSz" = (
@@ -101139,16 +101120,10 @@
 	pixel_y = -24;
 	req_access = list(73)
 	},
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "ntr";
-	pixel_x = -5;
-	pixel_y = -23;
-	range = 10
-	},
 /obj/machinery/computer/secure_data{
 	dir = 1
 	},
+/obj/machinery/button/windowtint/directional/south,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "uGf" = (
@@ -106294,13 +106269,11 @@
 	},
 /area/station/maintenance/maintcentral)
 "vKQ" = (
-/obj/machinery/button/windowtint/directional/east{
-	id = "med2"
-	},
 /obj/machinery/light_switch/offset/northeast,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/button/windowtint/offset/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms_secondary)
 "vKU" = (
@@ -117463,9 +117436,9 @@
 "yhU" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/holosign_switch{
-	dir = 4;
+	dir = 8;
 	id = "surgery1";
-	pixel_x = -24;
+	pixel_x = -32;
 	pixel_y = 4
 	},
 /obj/machinery/light_switch/offset/southwest,
