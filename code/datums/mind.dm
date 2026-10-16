@@ -1988,7 +1988,7 @@
 /datum/mind/proc/make_malf()
 	if(!has_antag_datum(/datum/antagonist/malf))
 		add_antag_datum(/datum/antagonist/malf)
-		SSticker.mode.malf_AIs |= src
+		SSticker.mode.malf_ais |= src
 
 /datum/mind/proc/make_Abductor()
 	if(alert(usr, "Are you sure you want to turn this person into an abductor? This can't be undone!", "New Abductor?", "Yes", "No") != "Yes")

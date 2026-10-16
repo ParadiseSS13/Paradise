@@ -372,14 +372,8 @@
 	return 0
 
 /datum/admins/proc/makeMalf()
-	var/datum/game_mode/traitor/temp = new
-
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		temp.restricted_jobs += temp.protected_jobs
-
 	var/input_num = input(owner, "How many Malfunctioning AIs you want to create? Enter 0 to cancel","Amount:", 0) as num|null
 	if(input_num <= 0 || isnull(input_num))
-		qdel(temp)
 		return FALSE
 
 	log_admin("[key_name(owner)] tried making [input_num] Malfunctioning AIs with One-Click-Antag")

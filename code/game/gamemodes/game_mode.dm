@@ -82,7 +82,7 @@
 	/// A list of all minds that are ninjas
 	var/list/datum/mind/ninjas = list()
 	/// A list of all minds that are malfunctioning AIs
-	var/list/datum/mind/malf_AIs = list()
+	var/list/datum/mind/malf_ais = list()
 
 	/// The cult team datum
 	var/datum/team/cult/cult_team

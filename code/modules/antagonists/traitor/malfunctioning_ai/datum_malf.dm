@@ -18,6 +18,22 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 /datum/antagonist/malf/remove_owner_from_gamemode()
 	SSticker.mode.malf_AIs -= owner
 
+/datum/antagonist/malf/Destroy(force, ...)
+	var/mob/living/silicon/ai/A = owner.current
+	A.clear_zeroth_law()
+	var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
+	radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
+	A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
+	A.show_laws()
+	A.remove_malf_abilities()
+	QDEL_NULL(A.malf_picker)
+	var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+	H.remove_hud_from(usr, src)
+	for(var/mob/living/silicon/robot/borg in A.connected_robots)
+		H.remove_hud_from(borg, src)
+
+	return ..()
+
 /datum/antagonist/malf/finalize_antag()
 	var/list/messages = list()
 	add_law_zero()
@@ -64,62 +80,12 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 	for(var/mob/living/silicon/robot/borg in killer.connected_robots)
 		H.add_hud_to(borg, src)
 
-/datum/antagonist/malf/Destroy(force, ...)
-	var/mob/living/silicon/ai/A = owner.current
-	A.clear_zeroth_law()
-	var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
-	radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
-	A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
-	A.show_laws()
-	A.remove_malf_abilities()
-	QDEL_NULL(A.malf_picker)
-	var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
-	H.remove_hud_from(usr, src)
-	for(var/mob/living/silicon/robot/borg in A.connected_robots)
-		H.remove_hud_from(borg, src)
 
-	return ..()
 
 /datum/antagonist/malf/give_objectives()
-	forge_ai_objectives()
-
-/**
- * Create and assign a full set of AI traitor objectives.
- */
-/datum/antagonist/malf/proc/forge_ai_objectives()
 	add_antag_objective(/datum/objective/block)
 	add_antag_objective(/datum/objective/assassinate)
 	add_antag_objective(/datum/objective/survive)
-
-/datum/antagonist/malf/proc/get_living_security_players_count()
-	var/count = 0
-	for(var/mob/living/carbon/human/player in GLOB.human_list)
-		if(!player.mind || player.stat == DEAD || !player.client)
-			continue
-		if(player.mind.assigned_role in GLOB.active_security_positions)
-			count++
-	return count
-
-// Malf AI is considered a hijacker sp this is needed
-/datum/antagonist/malf/can_assign_hijack_objective()
-	var/total_players
-	if(is_roundstart)
-		total_players = GLOB.roundstart_ready_players
-		if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
-			return FALSE
-		return TRUE
-	total_players = get_living_players_count()
-	if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
-		return FALSE
-	var/security_count
-	for(var/mob/living/carbon/human/player in GLOB.human_list)
-		if(!player.mind || player.stat == DEAD || !player.client)
-			continue
-		if(player.mind.assigned_role in GLOB.active_security_positions)
-			security_count++
-	if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
-		return FALSE
-	return TRUE
 
 /datum/antagonist/malf/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -132,7 +98,3 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 	var/mob/living/datum_owner = mob_override || owner.current
 	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
 		component.delete_if_from_source(src)
-
-/datum/antagonist/malf/add_antag_hud(mob/living/antag_mob)
-	antag_hud_name = "hudsyndicate"
-	return ..()
