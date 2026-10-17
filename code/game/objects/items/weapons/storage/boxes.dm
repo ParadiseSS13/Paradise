@@ -449,7 +449,7 @@
 		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/weldingtool/mini(src)
-		new /obj/item/stack/cable_coil/ten(src)
+		new /obj/item/stack/cable_coil/twenty(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_ipc/empty/populate_contents()
