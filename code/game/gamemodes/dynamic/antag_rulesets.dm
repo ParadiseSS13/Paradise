@@ -206,7 +206,7 @@
 		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
 			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 			break
-		if(EXCLUSIVE_OR(antag.assigned_role in banned_jobs, banned_jobs_only))
+		if(EXCLUSIVE_OR(player.mind.assigned_role in banned_jobs, banned_jobs_only))
 			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_JOBS)
 			break
 		player.mind.add_antag_datum(antagonist_type)
