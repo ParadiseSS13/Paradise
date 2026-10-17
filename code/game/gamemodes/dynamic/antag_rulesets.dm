@@ -8,10 +8,8 @@
 	var/ruleset_cost = 1
 	/// The weight to roll this ruleset, the higher the more likely this will roll
 	var/ruleset_weight = 1
-	/*
-	 The cost to roll an antagonist of this ruleset, basicly how many other players need to be redied up for this to roll
-	 for more info on how the budget is set see:`/datum/game_mode/dynamic/proc/calculate_budget(players)`
-	 */
+	/// The cost to roll an antagonist of this ruleset, basicly how many other players need to be redied up for this to roll
+	/// for more info on how the budget is set see:`/datum/game_mode/dynamic/proc/calculate_budget(players)`
 	var/antag_cost = 1
 	/// The weight to roll an antagonist of this ruleset
 	var/antag_weight = 1
