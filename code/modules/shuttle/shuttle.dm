@@ -1068,7 +1068,7 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
-				if(usr.type != /mob/dead/observer)
+				if(usr.type != /mob/dead/observer && ("ferry" in shuttleIds) || ("admin" in shuttleIds))
 					addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
 				return TRUE
 			if(1)
