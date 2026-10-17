@@ -984,7 +984,7 @@
 		return
 	if(getOxyLoss())
 		adjustBrainLoss(3)
-	else if(prob(10))
+	else
 		adjustBrainLoss(1)
 	Weaken(10 SECONDS)
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)

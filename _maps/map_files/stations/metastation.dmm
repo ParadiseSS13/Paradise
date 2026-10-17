@@ -12470,7 +12470,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "bzg" = (
@@ -12825,9 +12825,7 @@
 "bAA" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/light/small,
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
@@ -13463,9 +13461,7 @@
 /area/space/nearstation)
 "bDi" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/bot/cleanbot{
-	on = 0
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
@@ -15999,7 +15995,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "bQB" = (
 /obj/item/radio/intercom{
@@ -17478,7 +17474,7 @@
 /obj/machinery/power/turbine,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "bYj" = (
 /obj/structure/table/wood,
@@ -21267,7 +21263,7 @@
 	id_tag = "turbinevent";
 	name = "Turbine Vent"
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cty" = (
 /obj/machinery/alarm/directional/north,
@@ -21607,7 +21603,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 9
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cuP" = (
 /obj/structure/cable{
@@ -21629,7 +21625,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cuR" = (
 /obj/machinery/hologram/holopad,
@@ -21955,7 +21951,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "cwC" = (
 /obj/structure/closet/crate,
@@ -23260,10 +23256,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "cDr" = (
-/obj/item/toolbox_tiles{
-	desc = "Why won't it work?";
-	name = "FloorDiffBot"
-	},
+/obj/item/bot_assembly/repairbot,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "cDs" = (
@@ -23707,11 +23700,11 @@
 /turf/simulated/wall,
 /area/station/maintenance/fsmaint2)
 "cFF" = (
-/obj/structure/closet/l3closet/general,
-/obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 10
 	},
+/obj/structure/closet/l3closet/virology,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "cFH" = (
@@ -30456,8 +30449,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "dYX" = (
-/obj/structure/closet/l3closet/general,
-/obj/item/clothing/mask/gas,
 /obj/machinery/camera{
 	c_tag = "Virology Airlock";
 	dir = 8
@@ -30465,6 +30456,8 @@
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 6
 	},
+/obj/structure/closet/l3closet/virology,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "dZd" = (
@@ -36577,9 +36570,7 @@
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "fWJ" = (
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -65693,7 +65684,7 @@
 	codes_txt = "patrol;next_patrol=1-BrigCells";
 	location = "0-SecurityDesk"
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -69680,7 +69671,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "qMk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,

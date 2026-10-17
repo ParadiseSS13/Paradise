@@ -161,7 +161,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
-	var/icon/broken_outline = icon('icons/obj/drinks/misc_drinks.dmi', "broken")
+	var/icon/broken_outline = icon('icons/obj/drinks/bottles.dmi', "broken")
 	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -489,6 +489,6 @@
 	name = "Corton-Charlemagne Grand Cru"
 	desc = "A bottle straight from Sol's most famous wine-making region... or a very convincing knock-off."
 	icon_state = "white_wine_bottle"
-	list_reagents = list("whitewine" = 100)
+	list_reagents = list("white_wine" = 100)
 
 // ----------- END of imports from Hispania!

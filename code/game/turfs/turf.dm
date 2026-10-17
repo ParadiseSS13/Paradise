@@ -405,17 +405,19 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	initialize_milla()
 	recalculate_atmos_connectivity()
 
-	//update firedoor adjacency
-	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
-	for(var/turf/T in turfs_to_check)
-		for(var/obj/machinery/door/firedoor/FD in T)
-			FD.CalculateAffectingAreas()
+	// Firedoors and weeds set themselves up in Initialize(), so skip this while the map is still loading
+	if(SSatoms.initialized != INITIALIZATION_INSSATOMS)
+		//update firedoor adjacency
+		var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+		for(var/turf/T in turfs_to_check)
+			for(var/obj/machinery/door/firedoor/FD in T)
+				FD.CalculateAffectingAreas()
 
-	// Check for weeds and either update, create or delete wall weeds
-	turfs_to_check = AdjacentTurfs(open_only = TRUE, cardinal_only = FALSE)
-	for(var/turf/T in turfs_to_check)
-		for(var/obj/structure/alien/weeds/W in T)
-			W.check_surroundings()
+		// Check for weeds and either update, create or delete wall weeds
+		turfs_to_check = AdjacentTurfs(open_only = TRUE, cardinal_only = FALSE)
+		for(var/turf/T in turfs_to_check)
+			for(var/obj/structure/alien/weeds/W in T)
+				W.check_surroundings()
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
@@ -815,14 +817,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	// This is a horrible (but fast) way to do this. Don't copy it.
 	// It's only used here because we know we're in safe code and this method is called a ton.
-	var/datum/gas_mixture/air
+	var/moles
 	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
-		air = get_readonly_air()
+		// Nothing has touched this tile's air this tick, so it still has what MILLA sent along with the wind.
+		moles = wind_moles
 	else
-		air = bound_air
+		moles = bound_air.total_moles()
 
 	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
-	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
+	var/wind_strength = wind * moles / MOLES_CELLSTANDARD
 	wind_effect.alpha = min(255, 5 + wind_strength * 25)
 	return TRUE
 

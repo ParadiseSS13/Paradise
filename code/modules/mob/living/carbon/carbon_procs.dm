@@ -281,6 +281,9 @@
 	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
 		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
 		return
+	if(istype(effect, STATUS_EFFECT_OFFERING_BARCODE_SCANNER))
+		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
+		return
 	else if(effect)
 		M.apply_status_effect(effect.type)
 		return

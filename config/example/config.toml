@@ -638,17 +638,17 @@ enable_lavaland = true
 # Globally enable and disable placing of all ruins across lavaland and space.
 enable_ruins = true
 # Minimum number of extra space zlevels to generate
-minimum_space_zlevels = 2
+minimum_space_zlevels = 4
 # Maximum number of extra space zlevels to generate
-maximum_space_zlevels = 4
+maximum_space_zlevels = 6
 # Minimum number of extra lavaland zlevels to generate
 minimum_lavaland_zlevels = 2
 # Maximum number of extra lavaland zlevels to generate
 maximum_lavaland_zlevels = 2
 # Minimum space ruin budget.
-space_ruin_budget_min = 750
+space_ruin_budget_min = 1250
 # Maximum space ruin budget.
-space_ruin_budget_max = 1000
+space_ruin_budget_max = 1750
 # Minimum lavaland ruin budget.
 lavaland_ruin_budget_min = 500
 # Maximum lavaland ruin budget.
@@ -656,6 +656,7 @@ lavaland_ruin_budget_max = 650
 # List of all space ruins that can generate in the world
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
+  "_maps/map_files/RandomRuins/SpaceRuins/explorer_mining_outpost.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm",

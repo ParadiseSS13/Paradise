@@ -629,6 +629,9 @@
 /obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
 
+/obj/projectile/ex_throw()
+	return // The vector kinda already does this, but to prevent any unintended behaviour might aswell.
+
 /**
  * Is this projectile considered "hostile"?
  *
