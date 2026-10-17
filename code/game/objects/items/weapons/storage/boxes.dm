@@ -445,6 +445,7 @@
 /obj/item/storage/box/survival_ipc/populate_contents()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/stack/nanopaste(src)
+		new /obj/item/stack/nanopaste(src)
 		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/weldingtool/mini(src)
