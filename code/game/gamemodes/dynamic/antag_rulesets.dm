@@ -4,11 +4,12 @@
 /datum/ruleset
 	/// What this ruleset is called
 	var/name = "BASE RULESET"
-	/// The cost to roll this ruleset
+	/// The cost to roll this ruleset, subtracted from `ruleset_budget`
 	var/ruleset_cost = 1
-	/// The weight to roll this ruleset
+	/// The weight to roll this ruleset, the higher the more likely this will roll
 	var/ruleset_weight = 1
-	/// The cost to roll an antagonist of this ruleset
+	/// The cost to roll an antagonist of this ruleset, basicly how many other players need to be redied up for this to roll
+	/// for more info on how the budget is set see:`/datum/game_mode/dynamic/proc/calculate_budget(players)`
 	var/antag_cost = 1
 	/// The weight to roll an antagonist of this ruleset
 	var/antag_weight = 1
@@ -19,6 +20,8 @@
 
 	/// These roles 100% cannot be this antagonist
 	var/list/banned_jobs = list("Cyborg")
+	/// If `TRUE`, the jobs blacklist is now a jobs whitelist, also prevents `protected_jobs` from getting into `banned_jobs`
+	var/banned_jobs_only = FALSE
 	/// These roles can't be antagonists because mindshielding or are command staff (this can be disabled via config)
 	var/list/protected_jobs = list(
 		"Security Officer",
@@ -99,7 +102,7 @@
 		refund("No possible players for [src] ruleset.") // we allocate antag budget before we allocate players, and previous rulesets can steal our players
 		return antag_cost * antag_amount // shitty refund for now
 
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags && !banned_jobs_only)
 		banned_jobs += protected_jobs
 
 	if(!can_assign_hijack_objective())
@@ -115,7 +118,8 @@
 		if(assign_job_role)
 			antag.assigned_role = antagonist_type::special_role
 		antag.special_role = antagonist_type::special_role
-		antag.restricted_roles = banned_jobs
+		if(!banned_jobs_only)
+			antag.restricted_roles = banned_jobs
 		antag_amount -= 1
 
 	if(antag_amount > 0)
@@ -128,6 +132,9 @@
 		CRASH("Null client for key [antag.key] during dynamic antag assignment.")
 	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
+		return FALSE
+	if(EXCLUSIVE_OR(antag.assigned_role in banned_jobs, banned_jobs_only))
+		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_JOBS)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
 		return FALSE
@@ -173,7 +180,7 @@
 	if(!(antagonist_type::job_rank in player.client.prefs.be_special))
 		return FALSE
 	// Make sure they're not in a banned job
-	if(player.mind.assigned_role in banned_jobs)
+	if(EXCLUSIVE_OR(player.mind.assigned_role in banned_jobs, banned_jobs_only))
 		return FALSE
 	return TRUE
 
@@ -197,6 +204,9 @@
 		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
 			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 			break
+		if(EXCLUSIVE_OR(player.mind.assigned_role in banned_jobs, banned_jobs_only))
+			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_JOBS)
+			break
 		player.mind.add_antag_datum(antagonist_type)
 		antag_amount -= 1
 		antags_rolled += 1
@@ -218,6 +228,15 @@
 	antag_cost = 7
 	antag_weight = 2
 	antagonist_type = /datum/antagonist/traitor
+
+/datum/ruleset/malf
+	name = "Malfunctioning AI"
+	ruleset_weight = 5
+	antag_cost = 30 // same as min_players_hijack_roundstart
+	antagonist_type = /datum/antagonist/malf
+	banned_jobs = list("AI")
+	banned_jobs_only = TRUE
+
 
 /datum/ruleset/traitor/roundstart_post_setup(datum/game_mode/dynamic)
 	latespawn_time = rand(5 MINUTES, 15 MINUTES)
@@ -391,7 +410,3 @@
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, SPAN_WARNING("<FONT size = 3>The staff managed to stop the cult!</FONT>"))
-
-/// Helper functions for Malf AI pop checks.
-/datum/ruleset/traitor/can_assign_hijack_objective()
-	return (GLOB.roundstart_ready_players >= GLOB.configuration.gamemode.min_players_hijack_roundstart)
