@@ -644,6 +644,7 @@
 /datum/game_mode/proc/get_end_of_round_antagonist_statistics()
 	. = list()
 	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_malf()
 	. += auto_declare_completion_vampire()
 	. += auto_declare_completion_enthralled()
 	. += auto_declare_completion_mindflayer()

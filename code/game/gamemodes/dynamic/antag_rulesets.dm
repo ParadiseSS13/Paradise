@@ -43,10 +43,8 @@
 		"Chief Engineer",
 		"Quartermaster"
 	)
-	/// Roles that shouldn't be an antag if hijack isn't allowed.
-	var/list/hijack_only_jobs = list(
-		"AI"
-	)
+	/// Roles that shouldn't be an antag if hijack isn't allowed, currntly unused.
+	var/list/hijack_only_jobs = list()
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
 	/// A blacklist of species names that cannot play this antagonist
