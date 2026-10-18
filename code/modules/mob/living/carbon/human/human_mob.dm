@@ -1718,7 +1718,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// Check for ID
 	var/obj/item/card/id/idcard = get_idcard(TRUE)
 	if((judgement_criteria & JUDGE_IDCHECK) && !idcard && name == "Unknown")
-		threatcount += 4
+		threatcount += 5
 
 	// Check for weapons
 	if(judgement_criteria & SECBOT_CHECK_WEAPONS)
