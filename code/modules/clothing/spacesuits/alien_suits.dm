@@ -292,5 +292,4 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/head.dmi'
 	)
