@@ -15,31 +15,31 @@
 
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/flee_target/minebot_gibtonite,
-		/datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/minebot,
+		/datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/abandoned_minebot,
 		/datum/ai_planning_subtree/simple_find_target/not_while_observed,
 		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/minebot,
+		/datum/ai_planning_subtree/basic_ranged_attack_subtree/abandoned_minebot,
 		/datum/ai_planning_subtree/minebot_mining
 	)
 
 /// store ores in our body
-/datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/minebot
+/datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/abandoned_minebot
 	hunting_behavior = /datum/ai_behavior/hunt_target/interact_with_target/consume_ores/minebot
 	hunt_chance = 100
 	hunt_range = 4
 
-/datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/minebot/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+/datum/ai_planning_subtree/find_and_hunt_target/hunt_ores/abandoned_minebot/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	// if we're not mining, don't pick up ores
 	if(!controller.blackboard[BB_AUTOMATED_MINING])
 		return
 
 	return ..()
 
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/minebot
+/datum/ai_planning_subtree/basic_ranged_attack_subtree/abandoned_minebot
 	operational_datums = null
 	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/minebot
 
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/minebot/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+/datum/ai_planning_subtree/basic_ranged_attack_subtree/abandoned_minebot/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/atom/target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 	if(QDELETED(target))
 		return
