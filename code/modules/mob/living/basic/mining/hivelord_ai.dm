@@ -38,7 +38,7 @@
 /datum/ai_controller/basic_controller/hivelord_brood
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
+		BB_TARGET_MINIMUM_STAT = DEAD,
 		BB_AGGRO_RANGE = 10,
 	)
 	ai_movement = /datum/ai_movement/jps // Not gonna get stuck on walls now, are ya?
@@ -65,7 +65,7 @@
 /datum/ai_controller/basic_controller/big_legion
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_TARGET_MINIMUM_STAT = DEAD,
+		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 		BB_AGGRO_RANGE = 5,
 	)
 	ai_movement = /datum/ai_movement/basic_avoidance
