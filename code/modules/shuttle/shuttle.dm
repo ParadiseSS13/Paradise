@@ -1070,7 +1070,8 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
-				if(usr.type != /mob/dead/observer && loud_shuttle == TRUE && ((destination == "ferry_home") || (destination == "admin_home")) && usr.lastarea.type == /area/shuttle)
+				var/where = usr.get_area(loc)
+				if(usr.type != /mob/dead/observer && loud_shuttle == TRUE && ((destination == "ferry_home") || (destination == "admin_home")) && istype(where, /area/shuttle))
 					addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
 				return TRUE
 			if(1)
