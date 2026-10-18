@@ -19,6 +19,21 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/teleporter)
+"aD" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/southeast,
+/turf/simulated/floor/plating,
+/area/mine/space_outpost)
+"aV" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/access_button/offset/south,
+/turf/simulated/floor/plating,
+/area/mine/space_outpost)
 "bf" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Main Airlock";
@@ -57,14 +72,8 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/airless,
 /area/mine/space_outpost/life_support)
-"cj" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/mine/unexplored/space_asteroid)
 "cu" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -98,9 +107,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/space_outpost/life_support)
-"dr" = (
-/turf/simulated/floor/plating/asteroid,
-/area/mine/unexplored/space_asteroid)
 "dw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -168,6 +174,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/life_support)
 "eu" = (
@@ -176,12 +183,6 @@
 "ex" = (
 /turf/simulated/mineral/random/low_chance/space,
 /area/mine/unexplored/space_asteroid)
-"eX" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/space_outpost)
 "ft" = (
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 1
@@ -235,13 +236,25 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/mine/space_outpost/teleporter)
+"hH" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/turf/simulated/floor/plating,
+/area/mine/space_outpost)
 "ib" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/teleporter)
-"ie" = (
-/obj/effect/spawner/airlock/long/square,
-/turf/simulated/wall/r_wall,
+"in" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/access_button/offset/west,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/turf/simulated/floor/plating,
 /area/mine/space_outpost)
 "iz" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -315,6 +328,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/life_support)
+"lf" = (
+/obj/effect/map_effect/dynamic_airlock/door,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8
+	},
+/obj/machinery/airlock_controller/air_cycler/directional/south,
+/turf/simulated/floor/plating,
+/area/mine/space_outpost)
 "lG" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/economy/vending/snack,
@@ -355,6 +376,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/space_outpost/life_support)
 "nx" = (
@@ -395,6 +417,18 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/mine/space_outpost)
+"oQ" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored/space_asteroid)
+"oZ" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored/space_asteroid)
 "qh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -466,6 +500,17 @@
 "so" = (
 /turf/space,
 /area/space)
+"sr" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_x = -32
+	},
+/obj/effect/map_effect/dynamic_airlock/door,
+/turf/simulated/floor/plating,
+/area/mine/space_outpost)
 "sV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -514,7 +559,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost)
 "vN" = (
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/machinery/access_button/offset/southwest,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/turf/simulated/floor/plating,
 /area/mine/space_outpost)
 "vY" = (
 /obj/structure/disposalpipe/segment{
@@ -572,6 +622,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost)
 "xT" = (
@@ -627,6 +680,16 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plasteel,
+/area/mine/space_outpost)
+"zn" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored/space_asteroid)
+"zF" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 1
+	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost)
 "Aj" = (
@@ -779,9 +842,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost)
 "FE" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
-/turf/simulated/floor/plating/lavaland_air,
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/airless,
 /area/mine/space_outpost/life_support)
 "Gx" = (
 /obj/machinery/power/apc/directional/west,
@@ -830,12 +893,21 @@
 /area/mine/space_outpost)
 "Ia" = (
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/airlock_controller/air_cycler/directional/west,
+/obj/effect/map_effect/dynamic_airlock/door,
+/turf/simulated/floor/plating,
 /area/mine/space_outpost)
 "Id" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
+/area/mine/space_outpost)
+"IJ" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/turf/simulated/floor/plating,
 /area/mine/space_outpost)
 "JH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -868,6 +940,14 @@
 	},
 /turf/space,
 /area/space)
+"Lp" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door,
+/turf/simulated/floor/plating,
+/area/mine/space_outpost)
 "Mb" = (
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/bluegrid,
@@ -1008,11 +1088,11 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost/life_support)
-"Qf" = (
-/obj/structure/sign/cargo/xenos{
-	pixel_x = 32
-	},
-/turf/simulated/wall/r_wall,
+"Qg" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/effect/map_effect/dynamic_airlock/door,
+/turf/simulated/floor/plating,
 /area/mine/space_outpost)
 "QA" = (
 /obj/effect/spawner/random/dirt/maybe,
@@ -1034,12 +1114,6 @@
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/space_outpost)
-"RR" = (
-/obj/machinery/light/exterior/outdoors{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/mine/unexplored/space_asteroid)
 "RU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -1057,9 +1131,11 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/effect/turf_decal/tiles/department/cargo/corner,
 /obj/effect/spawner/random/dirt/maybe,
+/obj/structure/sign/cargo/xenos{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/space_outpost)
 "SA" = (
@@ -1171,10 +1247,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/space_outpost)
-"WL" = (
-/obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall/r_wall,
 /area/mine/space_outpost)
 "Xi" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -6703,7 +6775,7 @@ so
 so
 so
 so
-dr
+zn
 ex
 ex
 ex
@@ -6805,7 +6877,7 @@ so
 so
 so
 so
-dr
+zn
 ex
 ex
 ex
@@ -6907,8 +6979,8 @@ so
 so
 so
 so
-dr
-dr
+zn
+zn
 ex
 ex
 ex
@@ -7009,8 +7081,8 @@ so
 so
 so
 so
-dr
-dr
+zn
+zn
 ex
 ex
 ex
@@ -7111,9 +7183,9 @@ so
 so
 so
 so
-dr
-dr
-dr
+zn
+zn
+zn
 ex
 ex
 ex
@@ -7213,10 +7285,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -7315,10 +7387,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -7417,11 +7489,11 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -7520,10 +7592,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -7622,11 +7694,11 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
 so
 ex
 ex
@@ -7724,11 +7796,11 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
 so
 so
 ex
@@ -7826,10 +7898,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -7928,9 +8000,9 @@ so
 so
 so
 so
-dr
-dr
-dr
+zn
+zn
+zn
 so
 so
 so
@@ -8030,9 +8102,9 @@ so
 so
 so
 so
-dr
-dr
-dr
+zn
+zn
+zn
 so
 so
 so
@@ -8131,10 +8203,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8233,10 +8305,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8335,10 +8407,10 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8436,11 +8508,11 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8538,11 +8610,11 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8640,11 +8712,11 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8741,13 +8813,13 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8846,10 +8918,10 @@ so
 ex
 ex
 ex
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -8950,8 +9022,8 @@ ex
 ex
 ex
 ex
-dr
-dr
+zn
+zn
 so
 so
 so
@@ -9052,8 +9124,8 @@ BA
 BA
 ex
 ex
-dr
-dr
+zn
+zn
 so
 so
 so
@@ -9154,8 +9226,8 @@ BA
 BA
 BA
 ex
-dr
-dr
+zn
+zn
 so
 so
 so
@@ -9257,7 +9329,7 @@ BA
 BA
 ex
 ex
-dr
+zn
 so
 so
 so
@@ -9359,7 +9431,7 @@ BA
 BA
 ex
 ex
-dr
+zn
 so
 so
 so
@@ -9461,7 +9533,7 @@ eu
 BA
 ex
 ex
-dr
+zn
 so
 so
 so
@@ -9521,9 +9593,9 @@ Dl
 OA
 tx
 ex
-dr
-dr
-dr
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9563,7 +9635,7 @@ eu
 BA
 ex
 ex
-dr
+zn
 so
 so
 so
@@ -9623,9 +9695,9 @@ Aj
 cX
 tx
 ex
-dr
-dr
-dr
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9718,17 +9790,17 @@ ft
 ft
 sj
 ES
-aq
+zF
 jX
 wW
 wW
 XJ
 tx
 ex
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9826,12 +9898,12 @@ MK
 CU
 uH
 tx
-RR
-dr
-dr
-dr
-dr
-dr
+oZ
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -9924,17 +9996,17 @@ aq
 aq
 SZ
 yM
-Qf
 tx
 tx
-ie
-cj
-dr
-dr
-dr
-dr
-dr
-dr
+tx
+tx
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10026,17 +10098,17 @@ xY
 sl
 kh
 AL
-vN
+in
+sr
 Ia
-Ia
 vN
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10115,7 +10187,7 @@ Dm
 tx
 xi
 Zi
-eX
+Dl
 tx
 Dm
 tx
@@ -10128,17 +10200,17 @@ gr
 ra
 BJ
 Sg
-vN
-Ia
-Ia
-vN
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+IJ
+Lp
+Qg
+hH
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10216,8 +10288,8 @@ so
 so
 tx
 tx
-Dl
-WL
+aV
+tx
 tx
 so
 ol
@@ -10234,13 +10306,13 @@ ol
 tx
 tx
 tx
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+oQ
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10318,7 +10390,7 @@ so
 so
 so
 Dm
-Dl
+lf
 Dm
 so
 so
@@ -10336,13 +10408,13 @@ ol
 ex
 ex
 ex
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10420,7 +10492,7 @@ so
 so
 so
 tx
-Dl
+aD
 tx
 so
 so
@@ -10438,12 +10510,12 @@ ol
 ex
 ex
 ex
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -10543,8 +10615,8 @@ ex
 ex
 ex
 ex
-dr
-dr
+zn
+zn
 ex
 ex
 ex
@@ -11600,8 +11672,8 @@ BA
 BA
 BA
 ex
-dr
-dr
+zn
+zn
 so
 so
 so
@@ -11701,10 +11773,10 @@ ex
 ex
 ex
 ex
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -11802,12 +11874,12 @@ so
 so
 ex
 ex
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
 so
 so
 so
@@ -11904,12 +11976,12 @@ so
 so
 so
 so
-dr
-dr
-dr
-dr
-dr
-dr
+zn
+zn
+zn
+zn
+zn
+zn
 ex
 ex
 ex
@@ -12008,8 +12080,8 @@ so
 so
 so
 so
-dr
-dr
+zn
+zn
 ex
 ex
 BA
@@ -12111,7 +12183,7 @@ so
 so
 so
 so
-dr
+zn
 ex
 BA
 BA
