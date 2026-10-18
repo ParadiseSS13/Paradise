@@ -1154,8 +1154,8 @@
 /datum/reagent/medicine/antihol
 	name = "Antihol"
 	id = "antihol"
-	description = "Antihol is a substance that was developed centuries ago by the Skrell. It agressively binds with and chemically inactivates alcohol in the body through enzyme-driven reactions, \
-	removing it from the bloodstream and stripping it away from any chemical receptors it has bound to. Administraion will rapidly reverse the effects of alcohol intoxication. \
+	description = "Antihol is a substance that was developed centuries ago by the Skrell. It aggressively binds with and chemically inactivates alcohol in the body through enzyme-driven reactions, \
+	removing it from the bloodstream and stripping it away from any chemical receptors it has bound to. Administration will rapidly reverse the effects of alcohol intoxication. \
 	In addition, it can bolster the body's ability to heal from damage caused by toxins, provided that the damage is not too extensive."
 	color = "#009CA8"
 	taste_description = "sobriety"
