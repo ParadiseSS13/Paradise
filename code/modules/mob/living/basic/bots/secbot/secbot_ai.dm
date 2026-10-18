@@ -42,9 +42,9 @@
 		return FALSE
 	var/assess_flags = my_bot.judgement_criteria()
 	var/assessed_threat = human_target.assess_threat(assess_flags)
-	if(assessed_threat > THREAT_ASSESS_DANGEROUS)
+	if(assessed_threat >= THREAT_ASSESS_DANGEROUS)
 		my_controller.set_blackboard_key(BB_CURRENT_CRIMINAL_ASSESSMENT, assessed_threat)
-	return (assessed_threat > THREAT_ASSESS_DANGEROUS)
+	return (assessed_threat >= THREAT_ASSESS_DANGEROUS)
 
 
 /datum/ai_controller/basic_controller/bot/secbot/try_possess_pawn(atom/new_pawn)
