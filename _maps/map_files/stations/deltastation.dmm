@@ -54058,6 +54058,7 @@
 /obj/machinery/door/window/classic/normal{
 	name = "Monkey Pen"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
 /turf/simulated/floor/grass,
 /area/station/science/genetics)
 "gdr" = (
@@ -77518,7 +77519,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/fsmaint)
 "pxi" = (
-/obj/structure/closet/secure_closet/medical1,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
