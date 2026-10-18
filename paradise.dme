@@ -2940,6 +2940,7 @@
 #include "code\modules\mob\living\basic\lavaland\goliath\goliath_ai.dm"
 #include "code\modules\mob\living\basic\lavaland\goliath\tentacle.dm"
 #include "code\modules\mob\living\basic\minebots\abandoned_minebot.dm"
+#include "code\modules\mob\living\basic\minebots\abandoned_minebot_ai.dm"
 #include "code\modules\mob\living\basic\minebots\minebot.dm"
 #include "code\modules\mob\living\basic\minebots\minebot_abilities.dm"
 #include "code\modules\mob\living\basic\minebots\minebot_ai.dm"

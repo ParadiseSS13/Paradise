@@ -7,6 +7,9 @@
 	mob_biotypes = MOB_ROBOTIC
 	status_flags = CANPUSH
 	weather_immunities = list("ash")
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = INFINITY
 	maxHealth = 75
 	health = 75
 	melee_damage_lower = 15
@@ -21,16 +24,16 @@
 	light_range = 4
 	light_color = LIGHT_COLOR_RED
 	death_message = "blows apart!"
-	loot = list(/obj/effect/gibspawner/robot, /obj/item/pickaxe/drill)
-	faction = list("hostile")
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_ranged
+	faction = list("hostile", "ashwalker", "mining") // no infighting with the local fauna
+	ai_controller = /datum/ai_controller/basic_controller/minebot/abandoned_minebot_ranged
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/kinetic/abandoned_minebot
 	projectile_sound = 'sound/weapons/kenetic_accel.ogg'
 	ranged_cooldown = 3 SECONDS
+	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
 	/// the modkit that the minebot is upgraded with and will drop on death
-	var/modkit_drop
+	var/obj/item/modkit_drop
 
 /mob/living/basic/abandoned_minebot/Initialize(mapload)
 	if(!modkit_drop)
@@ -55,9 +58,10 @@
 		if(/obj/item/borg/upgrade/modkit/range)
 			projectile_type = /obj/projectile/kinetic/abandoned_minebot/range
 
+	stored_gun = new(src)
 	return ..()
 
-/mob/living/basic/abandoned_minebot/drop_loot()
+/mob/living/basic/abandoned_minebot/drop_loot(message = TRUE)
 	var/ore = pick(/obj/item/stack/ore/iron, /obj/item/stack/ore/plasma, /obj/item/stack/ore/glass/basalt)
 	new ore(loc, rand(5, 15))
 	new modkit_drop(loc)
@@ -73,16 +77,28 @@
 		return FALSE
 	return ..()
 
+/mob/living/basic/abandoned_minebot/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+    . = ..()
+
+    if(!. || !proximity_flag || (a_intent == INTENT_HARM))
+        return
+
+    if(istype(attack_target, /obj/item/stack/ore))
+        var/obj/item/stack/ore/target_ore = attack_target
+        target_ore.forceMove(src)
+
+    return ..()
+
 /mob/living/basic/abandoned_minebot/examine(mob/user)
-	. = ..()
-	if(health < maxHealth)
-		if(health >= maxHealth * 0.5)
-			. += SPAN_WARNING("It looks slightly dented.")
-		else
-			. += SPAN_BOLDWARNING("It looks severely dented!")
-	// randomizing these percentages for the sake of double takes and not gaming what upgrade is installed
-	. += SPAN_NOTICE("<b>[rand(-35, 110)]%</b> mod capacity remaining.")
-	. += SPAN_NOTICE("There is a module installed, using <b>[rand(-5, 35)]%</b> capacity.")
+    . = ..()
+    if(health < maxHealth)
+        if(health >= maxHealth * 0.5)
+            . += SPAN_WARNING("It looks slightly dented.")
+        else
+            . += SPAN_BOLDWARNING("It looks severely dented!")
+    // randomizing these percentages for the sake of double takes and not gaming what upgrade is installed
+    . += SPAN_NOTICE("<b>[rand(-35, 110)]%</b> mod capacity remaining.")
+    . += SPAN_NOTICE("There is a module installed, using <b>[rand(-5, 35)]%</b> capacity.")
 
 /mob/living/basic/abandoned_minebot/CanPass(atom/movable/O)
 	if(istype(O, /obj/projectile/kinetic))
@@ -101,7 +117,7 @@
 /obj/projectile/kinetic/abandoned_minebot/on_hit(atom/target)
 	var/mob/living/basic/abandoned_minebot/minebot = firer
 	var/mob/living/victim = target
-	if(istype(minebot) && victim?.client)
+	if(istype(minebot) && istype(victim, /mob/living/carbon/human) && victim.client)
 		// these are pulled from minebot_ai.dm, we're an old, worn-out minebot that has lost its ability to know what to say
 		INVOKE_ASYNC(minebot, TYPE_PROC_REF(/atom, atom_say), pick("Sorry.", "My fault.", "Oops.", "Please stop hurting yourself.", "There is no need to do that.", "Your actions are illogical.", "Please make better choices.", "Remember, you have beaten your worst days before.",))
 	return ..()
@@ -111,3 +127,17 @@
 
 /obj/projectile/kinetic/abandoned_minebot/range
 	range = 4
+
+/mob/living/basic/abandoned_minebot/Destroy()
+	QDEL_NULL(stored_gun)
+	return ..()
+
+/mob/living/basic/abandoned_minebot/death()
+	robogibs(loc)
+	new /obj/item/pickaxe/drill(loc)
+	if(modkit_drop)
+		new modkit_drop(loc)
+	for(var/obj/item/stack/ore/O in contents)
+		if(istype(O, /obj/item/stack/ore))
+			O.forceMove(loc)
+	return ..()
