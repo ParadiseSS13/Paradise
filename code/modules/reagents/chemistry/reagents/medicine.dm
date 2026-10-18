@@ -1154,9 +1154,13 @@
 /datum/reagent/medicine/antihol
 	name = "Antihol"
 	id = "antihol"
-	description = "A medicine which quickly eliminates alcohol in the body."
+	description = "Antihol is a substance that was developed centuries ago by the Skrell. It agressively binds with and chemically inactivates alcohol in the body through enzyme-driven reactions, \
+	removing it from the bloodstream and stripping it away from any chemical receptors it has bound to. Administraion will rapidly reverse the effects of alcohol intoxication. \
+	In addition, it can bolster the body's ability to heal from damage caused by toxins, provided that the damage is not too extensive."
 	color = "#009CA8"
 	taste_description = "sobriety"
+	drink_name = "Glass of Antihol"
+	drink_desc = "Be very careful, this glass contains the concentrated essence of pure sobriety! It'll kill your buzz faster than a pay cut, and leave you with the same empty feeling in your gut."
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)

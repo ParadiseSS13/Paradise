@@ -1667,3 +1667,14 @@
 	return ..() | update_flags
 
 // ----------- END of imports from Hispania!
+
+/datum/reagent/medicine/antihol/leviathan_ink
+	name = "Leviathan's Ink"
+	id = "leviathan_ink"
+	description = "A Skrellian whisky brewed from kelp and flavored by various other botanicals along with ink harvested from the leviathans of Qerballak's abyssal zones. \
+	The brew is matured for many years in casks of various Qerballaki timbers to further develop the body and taste. Unlike most drinks found in a bar, \
+	this one contains antihol in the place of ethanol, and will rapidly sober up anyone that drinks it."
+	color = "#000000"
+	drink_name = "Glass of Leviathan's Ink"
+	drink_desc = "Skrellian whisky, as black as the depths of the Querballaki abyss. Though it tastes similar to a sweet whisky, it is brewed with antihol, and will keep you sober."
+	taste_description = "sweet whisky with a refreshing but subtle undertone of mint"
