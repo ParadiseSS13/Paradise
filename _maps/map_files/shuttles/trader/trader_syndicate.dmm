@@ -402,6 +402,9 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
+"JI" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/trade/sol)
 "KA" = (
 /obj/machinery/flasher_button{
 	id = "trader_flash";
@@ -558,12 +561,12 @@ bZ
 bZ
 bZ
 LQ
-LQ
-LQ
-LQ
-LQ
-LQ
-LQ
+JI
+JI
+JI
+JI
+JI
+JI
 bZ
 "}
 (2,1,1) = {"
@@ -580,9 +583,9 @@ bZ
 bZ
 bZ
 LQ
-LQ
+JI
 VQ
-LQ
+JI
 kx
 tH
 nc
@@ -605,7 +608,7 @@ bZ
 LQ
 gD
 xz
-LQ
+JI
 hn
 HA
 nc
@@ -613,43 +616,43 @@ Jn
 bZ
 "}
 (4,1,1) = {"
-LQ
-LQ
+JI
+JI
 TU
-LQ
-LQ
-LQ
+JI
+JI
+JI
 ip
 CP
-LQ
+JI
 LQ
 bZ
 LQ
 LQ
 TK
 eK
-LQ
+JI
 kc
 sH
-LQ
-LQ
-LQ
+JI
+JI
+JI
 "}
 (5,1,1) = {"
-LQ
+JI
 zm
 kc
 CU
-LQ
+JI
 gI
 kc
 kc
 Xj
-LQ
-LQ
-LQ
-LQ
-LQ
+JI
+JI
+JI
+JI
+JI
 Fd
 LQ
 kc
@@ -659,7 +662,7 @@ nc
 Jn
 "}
 (6,1,1) = {"
-LQ
+JI
 Ia
 kc
 sA
@@ -670,7 +673,7 @@ kc
 zY
 ID
 du
-LQ
+JI
 lk
 sz
 kc
@@ -701,8 +704,8 @@ kc
 kc
 xR
 kE
-LQ
-LQ
+JI
+JI
 "}
 (8,1,1) = {"
 lB
@@ -724,11 +727,11 @@ kc
 kc
 vM
 kE
-LQ
-LQ
+JI
+JI
 "}
 (9,1,1) = {"
-LQ
+JI
 wq
 kc
 sA
@@ -739,7 +742,7 @@ kc
 Hn
 PN
 ps
-LQ
+JI
 jd
 gl
 kc
@@ -751,20 +754,20 @@ nc
 Jn
 "}
 (10,1,1) = {"
-LQ
+JI
 fN
 kc
 nY
-LQ
+JI
 KA
 kc
 kc
 tl
-LQ
-LQ
-LQ
-LQ
-LQ
+JI
+JI
+JI
+JI
+JI
 Fd
 LQ
 kc
@@ -774,27 +777,27 @@ nc
 Jn
 "}
 (11,1,1) = {"
-LQ
-LQ
+JI
+JI
 Gr
-LQ
-LQ
-LQ
+JI
+JI
+JI
 ip
 WV
-LQ
+JI
 LQ
 bZ
 LQ
-LQ
+JI
 TK
 eK
-LQ
+JI
 kc
 sH
-LQ
-LQ
-LQ
+JI
+JI
+JI
 "}
 (12,1,1) = {"
 LQ
@@ -809,10 +812,10 @@ LQ
 bZ
 bZ
 bZ
-LQ
+JI
 gD
 xz
-LQ
+JI
 km
 km
 nc
@@ -833,9 +836,9 @@ bZ
 bZ
 bZ
 LQ
-LQ
+JI
 av
-LQ
+JI
 za
 Qk
 nc
@@ -857,11 +860,11 @@ bZ
 bZ
 bZ
 LQ
-LQ
-LQ
-LQ
-LQ
-LQ
-LQ
+JI
+JI
+JI
+JI
+JI
+JI
 bZ
 "}

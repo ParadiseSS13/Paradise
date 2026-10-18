@@ -183,7 +183,7 @@
 /area/ruin/space/unpowered)
 "J" = (
 /obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/unpowered)
 "K" = (
 /obj/structure/shuttle/engine/heater{
