@@ -983,6 +983,8 @@
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or when SSlate_mapping fires (variable)
 	var/find_destinations_in_late_mapping = FALSE
+	/// Should this shuttle have the option to announce its arrival?
+	var/loud_shuttle = FALSE
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
@@ -1068,7 +1070,7 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
-				if(usr.type != /mob/dead/observer && ("ferry" in shuttleIds) || ("admin" in shuttleIds))
+				if(usr.type != /mob/dead/observer && loud_shuttle == TRUE && ((destination == "ferry_home") || (destination == "admin_home")) && usr.lastarea.type == /area/shuttle)
 					addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
 				return TRUE
 			if(1)
@@ -1098,6 +1100,7 @@
 	circuit = /obj/item/circuitboard/ferry
 	shuttleIds = list("ferry")
 	possibleDestinations2 = alist("ferry" = list("ferry_home", "ferry_away"))
+	loud_shuttle = TRUE
 
 
 /obj/machinery/computer/shuttle/ferry/request
@@ -1151,6 +1154,7 @@
 	shuttleIds = list("admin")
 	possibleDestinations2 = alist("admin" = list("admin_home", "admin_away", "admin_custom"))
 	resistance_flags = INDESTRUCTIBLE
+	loud_shuttle = TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
