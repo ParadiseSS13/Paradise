@@ -17,8 +17,9 @@
 		return ..()
 
 	if(isitem(target))
-		if(target.GetComponent(/datum/component/ducttape))
-			to_chat(user, SPAN_NOTICE("[target] already has some tape attached!"))
+		var/obj/item/I = target
+		if(I.GetComponent(/datum/component/ducttape))
+			to_chat(user, SPAN_NOTICE("[I] already has some tape attached!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/x_offset = text2num(modifiers["icon-x"])
@@ -28,10 +29,10 @@
 			to_chat(user, SPAN_NOTICE("You don't have enough tape to do that!"))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, SPAN_NOTICE("You apply some tape to [target]."))
-		target.AddComponent(/datum/component/ducttape, target, user, x_offset, y_offset)
-		target.anchored = TRUE
-		user.transfer_fingerprints_to(target)
+		to_chat(user, SPAN_NOTICE("You apply some tape to [I]."))
+		I.AddComponent(/datum/component/ducttape, I, user, x_offset, y_offset)
+		I.anchored = TRUE
+		user.transfer_fingerprints_to(I)
 		return ITEM_INTERACT_COMPLETE
 
 	if(!ishuman(target)) // What good is a duct tape mask if you are unable to speak?
