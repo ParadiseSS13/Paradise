@@ -81,10 +81,10 @@
 	. = ..()
 
 	if(!. || !proximity_flag || (a_intent == INTENT_HARM))
-	return
+		return
 
 	if(istype(attack_target, /obj/item/stack/ore))
-	var/obj/item/stack/ore/target_ore = attack_target
+		var/obj/item/stack/ore/target_ore = attack_target
 		target_ore.forceMove(src)
 
 	return ..()
