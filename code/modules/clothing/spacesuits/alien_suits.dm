@@ -246,3 +246,51 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+
+// Grey Uniform
+
+/obj/item/clothing/under/grey
+	icon = 'icons/obj/clothing/species/grey/uniforms.dmi'
+	worn_icon = 'icons/mob/clothing/species/grey/under/misc.dmi'
+	inhand_icon_state = "bl_suit"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
+	)
+
+/obj/item/clothing/under/grey/clonesuit
+	name = "Grey clonesuit"
+	desc = "A breathable skin-tight uniform bearing the flag of the Technocracy. Worn by Greys when ejected from cloning pods, some find them efficient enough to never take them off."
+	icon_state = "clonesuit"
+	worn_icon_state = "clonesuit"
+	species_restricted = list("Grey")
+
+/obj/item/clothing/suit/hooded/technocracy_robes
+	name = "technocracy robes"
+	desc = "Black robes with an excessively large hood. Made to be worn by devotees or workers of the Technocracy, it bears the flag of the Technocracy on either side."
+	icon = 'icons/obj/clothing/species/grey/suits.dmi'
+	icon_state = "technocracy_robes"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	hoodtype = /obj/item/clothing/head/hooded/technocracy_hood
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+	)
+
+/obj/item/clothing/head/hooded/technocracy_hood
+	name = "technocracy hood"
+	desc = "An enormous black hood made from thin material to cover the largest of heads."
+	icon = 'icons/obj/clothing/species/grey/hats.dmi'
+	icon_state = "technocracy_hood"
+	flags = BLOCKHAIR
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/head.dmi'
+	)
