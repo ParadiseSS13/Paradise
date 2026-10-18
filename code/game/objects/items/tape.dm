@@ -19,7 +19,7 @@
 	if(isitem(target))
 		return tape_item(target, user, modifiers)
 
-	if(!ishuman(target)) // What good is a duct tape mask if you are unable to speak?
+	if(ishuman(target)) // What good is a duct tape mask if you are unable to speak?
 		return tape_human(target, user)
 
 /obj/item/stack/tape_roll/proc/tape_item(obj/item/target, mob/living/user, list/modifiers)
