@@ -99,7 +99,7 @@ RESTRICT_TYPE(/datum/antagonist/malf)
 		else
 			text += SPAN_BOLD("had [malf.p_their()] body destroyed!")
 
-		var/list/all_objectives = malf.get_antag_objectives(include_team = FALSE)
+		var/list/all_objectives = malf.get_all_objectives(include_team = FALSE)
 		if(length(all_objectives))
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
