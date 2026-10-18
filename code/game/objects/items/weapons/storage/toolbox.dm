@@ -83,7 +83,7 @@
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
-	desc = "A very robust-looking red toolbox used to carry electrical maintainance tools."
+	desc = "A robust-looking red toolbox used to carry electrical maintenance tools."
 	icon_state = "yellow"
 	inhand_icon_state = "toolbox_yellow"
 
