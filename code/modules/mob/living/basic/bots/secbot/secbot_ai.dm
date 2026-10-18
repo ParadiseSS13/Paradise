@@ -57,7 +57,7 @@
 /datum/ai_controller/basic_controller/bot/secbot/proc/on_target_set()
 	SIGNAL_HANDLER
 	var/datum/action/cooldown/bot_announcement/announcement = blackboard[BB_ANNOUNCE_ABILITY]
-	var/threat_level = ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT] || 5
+	var/threat_level = blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT] || 5
 	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), "Level [threat_level] infraction alert!")
 	playsound(pawn, pick(
 		'sound/voice/beepsky/criminal.ogg',
