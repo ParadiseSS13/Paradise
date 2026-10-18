@@ -13,6 +13,27 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target))
+		return ..()
+
+	if(isitem(target))
+		if(target.GetComponent(/datum/component/ducttape))
+			to_chat(user, SPAN_NOTICE("[target] already has some tape attached!"))
+			return ITEM_INTERACT_COMPLETE
+
+		var/x_offset = text2num(modifiers["icon-x"])
+		var/y_offset = text2num(modifiers["icon-y"])
+
+		if(!use(1))
+			to_chat(user, SPAN_NOTICE("You don't have enough tape to do that!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You apply some tape to [target]."))
+		target.AddComponent(/datum/component/ducttape, target, user, x_offset, y_offset)
+		target.anchored = TRUE
+		user.transfer_fingerprints_to(target)
+		return ITEM_INTERACT_COMPLETE
+
 	if(!ishuman(target)) // What good is a duct tape mask if you are unable to speak?
 		return ..()
 
