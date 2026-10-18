@@ -78,27 +78,27 @@
 	return ..()
 
 /mob/living/basic/abandoned_minebot/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
-    . = ..()
+	. = ..()
 
-    if(!. || !proximity_flag || (a_intent == INTENT_HARM))
-        return
+	if(!. || !proximity_flag || (a_intent == INTENT_HARM))
+	return
 
-    if(istype(attack_target, /obj/item/stack/ore))
-        var/obj/item/stack/ore/target_ore = attack_target
-        target_ore.forceMove(src)
+	if(istype(attack_target, /obj/item/stack/ore))
+	var/obj/item/stack/ore/target_ore = attack_target
+		target_ore.forceMove(src)
 
-    return ..()
+	return ..()
 
 /mob/living/basic/abandoned_minebot/examine(mob/user)
-    . = ..()
-    if(health < maxHealth)
-        if(health >= maxHealth * 0.5)
-            . += SPAN_WARNING("It looks slightly dented.")
-        else
-            . += SPAN_BOLDWARNING("It looks severely dented!")
-    // randomizing these percentages for the sake of double takes and not gaming what upgrade is installed
-    . += SPAN_NOTICE("<b>[rand(-35, 110)]%</b> mod capacity remaining.")
-    . += SPAN_NOTICE("There is a module installed, using <b>[rand(-5, 35)]%</b> capacity.")
+	. = ..()
+	if(health < maxHealth)
+		if(health >= maxHealth * 0.5)
+			. += SPAN_WARNING("It looks slightly dented.")
+		else
+			. += SPAN_BOLDWARNING("It looks severely dented!")
+	// randomizing these percentages for the sake of double takes and not gaming what upgrade is installed
+	. += SPAN_NOTICE("<b>[rand(-35, 110)]%</b> mod capacity remaining.")
+	. += SPAN_NOTICE("There is a module installed, using <b>[rand(-5, 35)]%</b> capacity.")
 
 /mob/living/basic/abandoned_minebot/CanPass(atom/movable/O)
 	if(istype(O, /obj/projectile/kinetic))
