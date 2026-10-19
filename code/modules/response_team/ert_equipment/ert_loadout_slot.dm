@@ -58,6 +58,11 @@
 /datum/ert_loadout_slot/proc/copy_into(datum/ert_loadout_slot/slot)
 	return
 
+/// Reset this slot's var on the outfit so the outfit type's defaults don't leak through.
+/datum/ert_loadout_slot/proc/clear_outfit(datum/outfit/outfit)
+	if(outfit_var)
+		outfit.vars[outfit_var] = null
+
 /datum/ert_loadout_slot/ui_data(mob/user)
 	. = list()
 	.["name"] = slot_name

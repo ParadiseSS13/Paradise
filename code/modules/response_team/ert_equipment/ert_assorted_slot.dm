@@ -28,6 +28,10 @@
 /datum/ert_loadout_slot/assorted/copy_into(datum/ert_loadout_slot/assorted/slot)
 	slot.chosen_item_quantities = chosen_item_quantities.Copy()
 
+/datum/ert_loadout_slot/assorted/clear_outfit(datum/outfit/outfit)
+	if(outfit_var)
+		outfit.vars[outfit_var] = list()
+
 /datum/ert_loadout_slot/assorted/serialize()
 	. = ..()
 	.["chosen_item_quantities"] = list()

@@ -20,6 +20,10 @@
 		for(var/item_type in chosen_items)
 			register_item(item_type)
 
+/datum/ert_loadout_slot/multiple/clear_outfit(datum/outfit/outfit)
+	if(outfit_var)
+		outfit.vars[outfit_var] = list()
+
 /datum/ert_loadout_slot/multiple/serialize()
 	. = ..()
 	.["chosen_items"] = list()
