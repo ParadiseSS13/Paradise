@@ -61,6 +61,10 @@
 	slot_name = "Suit"
 	outfit_var = "suit"
 
+/datum/ert_loadout_slot/single/suit_store
+	slot_name = "Suit Storage"
+	outfit_var = "suit_store"
+
 /datum/ert_loadout_slot/single/gloves
 	slot_name = "Gloves"
 	outfit_var = "gloves"

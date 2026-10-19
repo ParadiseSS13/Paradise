@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(ert_loadout_slot_types, list(
 	/datum/ert_loadout_slot/single/mask,
 	/datum/ert_loadout_slot/single/uniform,
 	/datum/ert_loadout_slot/single/suit,
+	/datum/ert_loadout_slot/single/suit_store,
 	/datum/ert_loadout_slot/single/gloves,
 	/datum/ert_loadout_slot/single/shoes,
 	/datum/ert_loadout_slot/single/id,
