@@ -37924,6 +37924,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/railing/cap/reversed,
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "cSv" = (
@@ -54058,6 +54059,7 @@
 /obj/machinery/door/window/classic/normal{
 	name = "Monkey Pen"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
 /turf/simulated/floor/grass,
 /area/station/science/genetics)
 "gdr" = (
@@ -71460,6 +71462,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/railing/cap/normal,
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "nct" = (
@@ -77518,7 +77521,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/fsmaint)
 "pxi" = (
-/obj/structure/closet/secure_closet/medical1,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
@@ -77968,18 +77970,11 @@
 /area/station/maintenance/solar_maintenance/fore_port)
 "pGk" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/railing{
-	dir = 6;
-	pixel_x = 6;
-	pixel_y = -4
-	},
 /obj/item/kirbyplants/large{
 	pixel_y = 7
 	},
-/obj/structure/railing/corner{
-	dir = 9;
-	pixel_x = 2;
-	pixel_y = -28
+/obj/structure/railing{
+	dir = 6
 	},
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
@@ -99242,15 +99237,6 @@
 /obj/structure/sign/medical/chemistry,
 /turf/simulated/wall/r_wall,
 /area/station/medical/chemistry)
-"xAc" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/lobby)
 "xAz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -99285,18 +99271,11 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "xBJ" = (
-/obj/structure/railing{
-	dir = 10;
-	pixel_x = -6;
-	pixel_y = -4
-	},
 /obj/item/kirbyplants/large{
 	pixel_y = 7
 	},
-/obj/structure/railing/corner{
-	dir = 5;
-	pixel_x = -2;
-	pixel_y = -28
+/obj/structure/railing{
+	dir = 10
 	},
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
@@ -138154,7 +138133,7 @@ cKA
 cKT
 cSu
 pGk
-xAc
+ckH
 cSp
 cTR
 cTR
@@ -138668,7 +138647,7 @@ cKC
 cKT
 ncs
 xBJ
-kWO
+ckH
 xKn
 cTR
 cVt

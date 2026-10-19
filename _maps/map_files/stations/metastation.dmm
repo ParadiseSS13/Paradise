@@ -1469,9 +1469,6 @@
 /area/station/public/fitness)
 "aqc" = (
 /obj/structure/table/reinforced,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
-	dir = 1
-	},
 /obj/machinery/door/window/classic/normal{
 	name = "Reception Window"
 	},
@@ -1500,6 +1497,9 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "aqh" = (
