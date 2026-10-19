@@ -170,10 +170,10 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 
 /datum/ui_module/ert_loadout_manager/proc/export_loadout(datum/tgui/ui)
 	var/json_data = json_encode(selected_loadout.serialize())
-	tgui_input_text(ui.user, "Your loadout is in JSON format below. Copy and paste somewhere safe.", "Export Loadout to JSON", json_data, max_length = 4096, multiline = TRUE)
+	tgui_input_text(ui.user, "Your loadout is in JSON format below. Copy and paste somewhere safe.", "Export Loadout to JSON", json_data, max_length = 8192, multiline = TRUE)
 
 /datum/ui_module/ert_loadout_manager/proc/import_loadout(datum/tgui/ui)
-	var/import_data = tgui_input_text(ui.user, "Paste your loadout JSON here.", "Import Loadout", "", max_length = 4096)
+	var/import_data = tgui_input_text(ui.user, "Paste your loadout JSON here.", "Import Loadout", "", max_length = 8192)
 	if(import_data)
 		try
 			var/json = json_decode(html_decode(import_data))
