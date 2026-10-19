@@ -6,8 +6,8 @@ GLOBAL_LIST_EMPTY(ert_loadout_item_pools)
 GLOBAL_LIST_EMPTY(ert_custom_loadouts)
 /// Concrete slot types that make up a loadout, in UI order.
 GLOBAL_LIST_INIT(ert_loadout_slot_types, list(
-	/datum/ert_loadout_slot/single/left_hand,
-	/datum/ert_loadout_slot/single/right_hand,
+	/datum/ert_loadout_slot/single/hand/left,
+	/datum/ert_loadout_slot/single/hand/right,
 	/datum/ert_loadout_slot/single/glasses,
 	/datum/ert_loadout_slot/single/head,
 	/datum/ert_loadout_slot/single/l_ear,

@@ -43,7 +43,7 @@ export const ERTLoadoutManager = () => {
   const { loadouts, allowed_items, selected_loadout, loadout_roles, tabIndex } = data;
 
   return (
-    <Window width={650} height={650}>
+    <Window width={650} height={760}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

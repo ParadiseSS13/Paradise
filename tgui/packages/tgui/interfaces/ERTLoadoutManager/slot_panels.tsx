@@ -109,7 +109,7 @@ export const ERTAugmentsPanel = (props: { allowedItems: AllowedItems; loadout: E
 
   return (
     <Stack scrollable>
-      <Stack.Item grow>
+      <Stack.Item grow maxWidth="50%">
         <Section title="Cybernetic Implants">
           <Stack vertical>
             {allowed_items[loadout.cybernetic_implants.slot_type].map((item) => (
@@ -127,7 +127,7 @@ export const ERTAugmentsPanel = (props: { allowedItems: AllowedItems; loadout: E
           </Stack>
         </Section>
       </Stack.Item>
-      <Stack.Item>
+      <Stack.Item grow maxWidth="50%">
         <Section title="Bio-Chips">
           <Stack vertical>
             {allowed_items[loadout.bio_chips.slot_type].map((item) => (
@@ -153,7 +153,7 @@ export const ERTLoadoutPanel = (props: { loadout: ERTLoadout; allowedItems: Allo
   const { loadout, allowedItems: allowed_items } = props;
 
   return (
-    <Section title="Loadout Slots" scrollable fill height="430px">
+    <Section title="Loadout Slots" scrollable fill height="575px">
       <LabeledList>
         {Object.values(loadout.single_slots).map((slot) => (
           <ERTLoadoutSingleSlotPanel key={slot.name} loadout={loadout} allowed={allowed_items} slot={slot} />

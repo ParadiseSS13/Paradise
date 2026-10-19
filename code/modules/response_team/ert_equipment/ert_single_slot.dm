@@ -36,16 +36,16 @@
 	. = ..()
 	chosen_item = text2path(data["chosen_item"])
 
-/datum/ert_loadout_slot/single/left_hand
+/datum/ert_loadout_slot/single/hand
 
-/datum/ert_loadout_slot/single/left_hand
+/datum/ert_loadout_slot/single/hand/left
 	slot_name = "Left hand"
-	item_pool = /datum/ert_loadout_slot/single/firearm
+	item_pool = /datum/ert_loadout_slot/single/hand
 	outfit_var = "l_hand"
 
-/datum/ert_loadout_slot/single/right_hand
+/datum/ert_loadout_slot/single/hand/right
 	slot_name = "Right hand"
-	item_pool = /datum/ert_loadout_slot/single/firearm
+	item_pool = /datum/ert_loadout_slot/single/hand
 	outfit_var = "r_hand"
 
 /datum/ert_loadout_slot/single/head
