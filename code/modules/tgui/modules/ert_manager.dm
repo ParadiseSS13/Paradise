@@ -151,42 +151,7 @@
 		if("toggle_secborg")
 			cyborg_security = !cyborg_security
 		if("dispatch_ert")
-			var/datum/response_team/D = new response_team_type
-			D.command_outfit = commander_loadout?.to_outfit()
-			D.security_outfit = security_loadout?.to_outfit()
-			D.medical_outfit = medical_loadout?.to_outfit()
-			D.engineering_outfit = engineering_loadout?.to_outfit()
-			D.janitor_outfit = janitor_loadout?.to_outfit()
-			D.paranormal_outfit = paranormal_loadout?.to_outfit()
-
-			GLOB.ert_request_answered = TRUE
-			var/slots_list = list()
-			if(commander_slots > 0)
-				slots_list += "commander: [commander_slots]"
-			if(security_slots > 0)
-				slots_list += "security: [security_slots]"
-			if(medical_slots > 0)
-				slots_list += "medical: [medical_slots]"
-			if(engineering_slots > 0)
-				slots_list += "engineering: [engineering_slots]"
-			if(janitor_slots > 0)
-				slots_list += "janitor: [janitor_slots]"
-			if(paranormal_slots > 0)
-				slots_list += "paranormal: [paranormal_slots]"
-			if(cyborg_slots > 0)
-				slots_list += "cyborg: [cyborg_slots]"
-
-			var/silenced = (params["silent"])
-			D.silent = silenced
-
-			var/slot_text = english_list(slots_list)
-			notify_ghosts("An ERT is being dispatched. Type: [ert_type]. Open positions: [slot_text]")
-			message_admins("[key_name_admin(usr)] dispatched a [silenced ? "silent " : ""][ert_type] ERT. Slots: [slot_text]", 1)
-			log_admin("[key_name(usr)] dispatched a [silenced ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
-			if(!silenced)
-				GLOB.major_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
-			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
-
+			dispatch_ert(params["silent"])
 		if("view_player_panel")
 			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/show_player_panel, locate(params["uid"]))
 
@@ -204,6 +169,42 @@
 			get_loadouts_per_role()
 		else
 			return FALSE
+
+/datum/ui_module/ert_manager/proc/dispatch_ert(silent)
+	var/datum/response_team/D = new response_team_type
+	D.command_outfit = commander_loadout?.to_outfit()
+	D.security_outfit = security_loadout?.to_outfit()
+	D.medical_outfit = medical_loadout?.to_outfit()
+	D.engineering_outfit = engineering_loadout?.to_outfit()
+	D.janitor_outfit = janitor_loadout?.to_outfit()
+	D.paranormal_outfit = paranormal_loadout?.to_outfit()
+
+	GLOB.ert_request_answered = TRUE
+	var/slots_list = list()
+	if(commander_slots > 0)
+		slots_list += "commander: [commander_slots]"
+	if(security_slots > 0)
+		slots_list += "security: [security_slots]"
+	if(medical_slots > 0)
+		slots_list += "medical: [medical_slots]"
+	if(engineering_slots > 0)
+		slots_list += "engineering: [engineering_slots]"
+	if(janitor_slots > 0)
+		slots_list += "janitor: [janitor_slots]"
+	if(paranormal_slots > 0)
+		slots_list += "paranormal: [paranormal_slots]"
+	if(cyborg_slots > 0)
+		slots_list += "cyborg: [cyborg_slots]"
+
+	D.silent = silent
+
+	var/slot_text = english_list(slots_list)
+	notify_ghosts("An ERT is being dispatched. Type: [ert_type]. Open positions: [slot_text]")
+	message_admins("[key_name_admin(usr)] dispatched a [silent ? "silent " : ""][ert_type] ERT. Slots: [slot_text]", 1)
+	log_admin("[key_name(usr)] dispatched a [silent ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
+	if(!silent)
+		GLOB.major_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
+	trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 
 /datum/ui_module/ert_manager/proc/choose_custom_loadout(datum/tgui/ui, role_name)
 	var/list/loadouts = loadouts_per_role[role_name]
