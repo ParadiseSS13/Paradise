@@ -1,6 +1,6 @@
 /datum/action/cooldown/flock/gatecrash
 	name = "Gatecrash"
-	desc = "Transmit an override signal to open every door within range."
+	desc = "Transmit an override signal to open every door and exosuit cockpit within range."
 	button_icon_state = "open_door"
 
 	cooldown_time = 40 SECONDS
