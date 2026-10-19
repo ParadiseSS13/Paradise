@@ -86,3 +86,7 @@
 		A.Grant(src)
 
 	flock.start()
+
+	spawn()
+		sleep(4000)
+		GLOB.major_announcement.Announce("A rift in reality has opened aboard [station_name()], allowing the Divine Flock to manifest in our realm.", "Flockmind Rift Detected", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak7.ogg')
