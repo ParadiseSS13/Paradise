@@ -34,6 +34,9 @@
 	ui_interact(user)
 
 /obj/machinery/computer/station_alert/ui_state(mob/user)
+	if(stat & (BROKEN|NOPOWER))
+		return GLOB.never_state
+
 	return GLOB.default_state
 
 /obj/machinery/computer/station_alert/ui_interact(mob/user, datum/tgui/ui = null)
@@ -41,6 +44,11 @@
 	if(!ui)
 		ui = new(user, src, "StationAlertConsole", name)
 		ui.open()
+
+/obj/machinery/computer/station_alert/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/nanomaps)
+	)
 
 /obj/machinery/computer/station_alert/ui_data(mob/user)
 	var/list/data = list()
@@ -54,7 +62,12 @@
 			for(var/thing in GLOB.alarm_manager.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
 				if(A && ((get_area(A)).type in areas) && A.z == z)
-					data["alarms"][class] += area
+					data["alarms"][class] += list(alist(
+						"area" = area,
+						"x" = A.x,
+						"y" = A.y,
+						"uid" = thing
+					))
 
 	return data
 
