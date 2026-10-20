@@ -11,7 +11,7 @@
 	subcategory = CAT_MEAT
 
 /datum/crafting_recipe/raw_ash_kebab_bone
-	name = "Uncooked Ash Kebab"
+	name = "Uncooked Ash Kebab (bone skewers)"
 	reqs = list(
 		/obj/item/stack/bone_rods = 1,
 		/obj/item/food/grown/ash_flora/mushroom_leaf = 1,

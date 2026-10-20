@@ -101,6 +101,10 @@
 "qc" = (
 /turf/simulated/floor/plasteel,
 /area/game_test)
+"qI" = (
+/obj/machinery/button/windowtint/directional/north,
+/turf/simulated/floor/plasteel,
+/area/game_test)
 "qN" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -252,10 +256,6 @@
 /obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
 /area/game_test)
-"SZ" = (
-/obj/machinery/button/windowtint,
-/turf/simulated/wall/r_wall,
-/area/game_test)
 "TH" = (
 /obj/machinery/computer/scan_consolenew,
 /turf/simulated/floor/plasteel,
@@ -340,8 +340,8 @@ qc
 qc
 oh
 qc
-SZ
-qc
+Au
+qI
 hL
 qc
 AM
