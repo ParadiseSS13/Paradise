@@ -67,6 +67,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/boss_title = "Operations"
 	/// If the antagonist has been chosen for either side on an exchange objective
 	var/in_exchange = FALSE
+	/// A reference to the mind who mindslaved us.
+	var/datum/mind/master
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
