@@ -27,7 +27,7 @@
 	},
 /area/shuttle/transport)
 "i" = (
-/obj/machinery/computer/shuttle/ferry/request,
+/obj/machinery/computer/shuttle/ferry/request/onboard,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
