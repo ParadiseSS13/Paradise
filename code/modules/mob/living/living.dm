@@ -48,6 +48,7 @@
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	GLOB.station_pets -= src
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
