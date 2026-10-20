@@ -1,7 +1,7 @@
 /datum/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
-
+	action_icon_state = "blind"
 	message = SPAN_NOTICE("You glare your eyes.")
 	base_cooldown = 600
 	clothes_req = FALSE

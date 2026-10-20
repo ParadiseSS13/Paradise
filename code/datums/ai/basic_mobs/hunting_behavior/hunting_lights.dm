@@ -13,7 +13,7 @@
 /datum/ai_behavior/find_hunt_target/light_fixtures
 
 /datum/ai_behavior/find_hunt_target/light_fixtures/valid_dinner(mob/living/source, obj/machinery/light/dinner, radius)
-	if(dinner.status == LIGHT_BROKEN) //light is already broken
+	if(dinner.status != LIGHT_OK)
 		return FALSE
 
 	return can_see(source, dinner, radius)

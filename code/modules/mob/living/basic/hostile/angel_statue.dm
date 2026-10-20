@@ -127,6 +127,11 @@
 	creator = null
 	return ..()
 
+/mob/living/basic/hostile/statue/melee_attack(atom/target, list/modifiers)
+	if(can_be_seen(null))
+		return FALSE
+	return ..()
+
 /mob/living/basic/hostile/statue/Move(turf/NewLoc)
 	if(can_be_seen(NewLoc))
 		if(client)
