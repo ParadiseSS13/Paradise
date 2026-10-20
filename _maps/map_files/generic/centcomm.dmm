@@ -10281,9 +10281,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "KC" = (
-/obj/machinery/button/windowtint{
-	pixel_y = 24
-	},
+/obj/machinery/button/windowtint/directional/north,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KD" = (
