@@ -45,7 +45,6 @@
 	icon_state = "angel"
 	icon_living = "angel"
 	icon_dead = "angel"
-	gender = NEUTER
 	a_intent = INTENT_HARM
 	mob_biotypes = MOB_HUMANOID
 	ai_controller = /datum/ai_controller/basic_controller/statue

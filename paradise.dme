@@ -2865,6 +2865,7 @@
 #include "code\modules\mob\living\basic\friendly\snake.dm"
 #include "code\modules\mob\living\basic\friendly\spiderbot.dm"
 #include "code\modules\mob\living\basic\hostile\angel_statue.dm"
+#include "code\modules\mob\living\basic\hostile\angel_statue_actions.dm"
 #include "code\modules\mob\living\basic\hostile\bats.dm"
 #include "code\modules\mob\living\basic\hostile\bear.dm"
 #include "code\modules\mob\living\basic\hostile\carp.dm"
