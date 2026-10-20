@@ -91,6 +91,8 @@
 /obj/machinery/sleeper/Destroy()
 	for(var/mob/M in contents)
 		M.forceMove(get_turf(src))
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
 	return ..()
 
 /obj/machinery/sleeper/relaymove(mob/user as mob)
@@ -104,6 +106,9 @@
 			continue
 		else
 			M.forceMove(loc)
+
+	if(!has_power())
+		return
 
 	if(occupant)
 		if(auto_eject_dead && occupant.stat == DEAD)

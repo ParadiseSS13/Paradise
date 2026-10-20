@@ -23,8 +23,8 @@
 	name = "Mining Shuttle Console"
 	desc = "Used to call and send the mining shuttle."
 	circuit = /obj/item/circuitboard/mining_shuttle
-	shuttleId = "mining"
-	possible_destinations = "mining_home;mining_away"
+	shuttleIds = list("mining")
+	possibleDestinations2 = alist("mining" = list("mining_home", "mining_away"))
 
 /******************************Lantern*******************************/
 

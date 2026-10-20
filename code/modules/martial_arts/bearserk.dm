@@ -25,12 +25,12 @@
 /datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary = 0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
-		to_chat(H, "<span class='warning'>You feel otherworldly rage flicker briefly in your mind, before you reject such violent thoughts and calm down. \
-		At the very least, the weighty pelt still protects your body.</span>")
+		to_chat(H, SPAN_WARNING("You feel otherworldly rage flicker briefly in your mind, before you reject such violent thoughts and calm down. \
+		At the very least, the weighty pelt still protects your body."))
 		return
 	to_chat(H, SPAN_USERDANGER("Like a berserker of old, you harness the Rage of the Space Bear!"))
-	to_chat(H, "<span class='warning'>The occultic, ursine might and anger of Foh'Sie and Smoh'Kie flows through your body, making you far more dangerous in unarmed combat. \
-	You can learn more about this newfound strength in the Recall Teachings verb in the martial arts tab.</span>")
+	to_chat(H, SPAN_WARNING("The occultic, ursine might and anger of Foh'Sie and Smoh'Kie flows through your body, making you far more dangerous in unarmed combat. \
+	You can learn more about this newfound strength in the Recall Teachings verb in the martial arts tab."))
 
 /datum/martial_art/bearserk/remove(mob/living/carbon/human/H)
 	..()
@@ -74,5 +74,5 @@
 /obj/item/clothing/head/bearpelt/bearserk/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>Wearing this armored pelt grants you the strength of the space bear. \
-		It also makes wild bears and wild communists neutral towards you.</span>"
+		. += SPAN_WARNING("Wearing this armored pelt grants you the strength of the space bear. \
+		It also makes wild bears and wild communists neutral towards you.")

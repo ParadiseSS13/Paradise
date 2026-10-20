@@ -137,13 +137,14 @@
 /datum/cooking/recipe_step/add_item/deep_fried_anything
 
 /datum/cooking/recipe_step/add_item/deep_fried_anything/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/item/food/food_item = added_item
-	if(!istype(food_item))
-		return PCWJ_CHECK_INVALID
+	if(!tracker.frying_exception)
+		var/obj/item/food/food_item = added_item
+		if(!istype(food_item))
+			return PCWJ_CHECK_INVALID
 
-	if("deep fried" in food_item.cooktype)
-		tracker.step_reaction_message = "That is already deep-fried!"
-		return PCWJ_CHECK_INVALID
+		if("deep fried" in food_item.cooktype)
+			tracker.step_reaction_message = "That is already deep-fried!"
+			return PCWJ_CHECK_INVALID
 
 	// check to see if this is something that belongs to another deep fryer
 	// recipe with only one item
@@ -167,7 +168,6 @@
 	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
 	if(!istype(container))
 		stack_trace("couldn't find container for deep fried everything recipe")
-
 	var/obj/item/food/food_item = container.contents[1]
 	var/obj/item/food/result = new(container)
 	result.icon = food_item.icon
@@ -176,7 +176,10 @@
 	result.name = "deep-fried [food_item.name]"
 	result.desc = "It has been deep-fried."
 	result.cooktype["deep fried"] = TRUE
-	food_item.reagents.trans_to(result, food_item.reagents.total_volume)
+	if(istype(container.contents[1], /obj/item/food)) // Just in case we're deep frying something inedible.
+		food_item.reagents.trans_to(result, food_item.reagents.total_volume)
+	else
+		result.reagents.add_reagent("nutriment", 5)
 	qdel(food_item)
 
 /datum/cooking/recipe/jellybean_red

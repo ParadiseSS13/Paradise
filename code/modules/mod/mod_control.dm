@@ -8,6 +8,7 @@
 	desc = "You should not see this, yell at a coder!"
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	new_attack_chain = TRUE
 
 /obj/item/mod/control
 	name = "MOD control unit"
@@ -450,49 +451,61 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby__legacy__attackchain(obj/item/attacking_item, mob/living/user, params)
-	if(istype(attacking_item, /obj/item/mod/module))
+/obj/item/mod/control/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/mod/module))
 		if(!open)
 			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
-		install(attacking_item, user)
+			return ITEM_INTERACT_COMPLETE
+
+		install(used, user)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_ADDED, user)
-		return TRUE
-	else if(istype(attacking_item, /obj/item/mod/core))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mod/core))
 		if(!open)
 			to_chat(user, SPAN_WARNING("Open the cover first!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
+
 		if(core)
 			to_chat(user, SPAN_WARNING("Core already installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
-		var/obj/item/mod/core/attacking_core = attacking_item
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/mod/core/attacking_core = used
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		user.drop_item()
 		attacking_core.install(src)
 		update_charge_alert()
-		return TRUE
-	else if(open && attacking_item.GetID())
-		update_access(user, attacking_item.GetID())
-		return TRUE
-	else if(istype(attacking_item, /obj/item/stock_parts/cell))
+		return ITEM_INTERACT_COMPLETE
+
+	if(open && used.GetID())
+		update_access(user, used.GetID())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stock_parts/cell))
+		if(!core)
+			to_chat(user, SPAN_WARNING("There is no core installed!"))
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return ITEM_INTERACT_COMPLETE
+		core.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/ore/plasma) || istype(used, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			to_chat(user, SPAN_WARNING("There is no core installed!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
-		core.on_attackby(attacking_item, user, params)
-	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
-		if(!core)
-			to_chat(user, SPAN_WARNING("There is no core installed!"))
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
-		core.on_attackby(attacking_item, user, params)
-	else if(istype(attacking_item, /obj/item/mod/skin_applier))
+		core.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mod/skin_applier))
 		return ..()
-	else if(bag && istype(attacking_item))
-		bag.attackby__legacy__attackchain(attacking_item, user, params)
+
+	if(bag && istype(used))
+		bag.attackby__legacy__attackchain(used, user, list2params(modifiers))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -541,19 +554,19 @@
 
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
-	to_chat(user, "<span class='warning'>Suit access [locked ? "locked" : "unlocked"]")
+	to_chat(user, SPAN_WARNING("Suit access [locked ? "locked" : "unlocked"]"))
 	return TRUE
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(wearer, "<span class='warning'>[severity > EMP_HEAVY ? "Light" : "Strong"] electromagnetic pulse detected!")
+	to_chat(wearer, SPAN_WARNING("[severity > EMP_HEAVY ? "Light" : "Strong"] electromagnetic pulse detected!"))
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
 	wearer.apply_damage(10 / severity, BURN, spread_damage = TRUE) //Test this with ion shotguns.
-	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
+	to_chat(wearer, SPAN_DANGER("You feel [src] heat up from the EMP, burning you slightly!"))
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
 	core.emp_act(severity)
@@ -665,14 +678,14 @@
 	for(var/obj/item/mod/module/old_module as anything in modules)
 		if(is_type_in_list(new_module, old_module.incompatible_modules) || is_type_in_list(old_module, new_module.incompatible_modules))
 			if(user)
-				to_chat(user, "<span class='warning'>[new_module] incompatible with [old_module]!")
+				to_chat(user, SPAN_WARNING("[new_module] incompatible with [old_module]!"))
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 	var/complexity_with_module = complexity
 	complexity_with_module += new_module.complexity
 	if(complexity_with_module > complexity_max)
 		if(user)
-			to_chat(user, "<span class='warning'>[new_module] would make [src] too complex!")
+			to_chat(user, SPAN_WARNING("[new_module] would make [src] too complex!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(user)
@@ -690,7 +703,7 @@
 	if(active)
 		new_module.on_suit_activation()
 	if(user)
-		to_chat(user, "<span class='notice'>[new_module] added!")
+		to_chat(user, SPAN_NOTICE("[new_module] added!"))
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /obj/item/mod/control/proc/uninstall(obj/item/mod/module/old_module, deleting = FALSE)
@@ -712,11 +725,11 @@
 
 /obj/item/mod/control/proc/update_access(mob/user, obj/item/card/id/card)
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Insufficient access!")
+		to_chat(user, SPAN_WARNING("Insufficient access!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	req_access = card.access.Copy()
-	to_chat(user, "<span class='notice'>Access updated!")
+	to_chat(user, SPAN_NOTICE("Access updated!"))
 
 /obj/item/mod/control/proc/update_mod_overlays(full_removal = FALSE)
 	if(!wearer)
@@ -764,7 +777,7 @@
 		part.slowdown = (active ? slowdown_active : slowdown_inactive) / length(all_parts)
 
 /obj/item/mod/control/proc/power_off()
-	to_chat(wearer, "<span class='warning'>Power cells depleted!")
+	to_chat(wearer, SPAN_WARNING("Power cells depleted!"))
 	toggle_activate(wearer, force_deactivate = TRUE)
 
 /obj/item/mod/control/proc/set_mod_color(new_color)

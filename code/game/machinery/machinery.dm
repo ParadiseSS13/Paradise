@@ -33,6 +33,7 @@
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	COOLDOWN_DECLARE(sparks_cooldown)
 
 	new_attack_chain = TRUE
 
@@ -535,7 +536,9 @@
 		return FALSE
 	if(!prob(prb))
 		return FALSE
-	do_sparks(5, 1, src)
+	if(COOLDOWN_FINISHED(src, sparks_cooldown))
+		do_sparks(5, 1, src)
+		COOLDOWN_START(src, sparks_cooldown, 1 SECONDS)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
 		return TRUE
 	return FALSE

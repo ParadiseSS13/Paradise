@@ -164,8 +164,8 @@
 
 /obj/item/gun/medbeam/damaged/examine(mob/user) //The 8 Trials of Asclepius
 	. = ..()
-	. += "<span class= 'warning'>This ones cooling systems are damaged beyond repair, and will overheat rapidly. \
-	Despite the damaged cooling system, it's still mostly functional. However, if overheated, it will need to be repaired.</span>"
+	. += SPAN_WARNING("This one's cooling systems are damaged beyond repair, and will overheat rapidly. \
+	Despite the damaged cooling system, it's still mostly functional. However, if overheated, it will need to be repaired.")
 	if(broken)
 		. += SPAN_NOTICE("It is broken, and will not function without repairs.")
 	switch(broken)
@@ -180,7 +180,7 @@
 		if(INSTALL_ELECTRONICS)
 			. += SPAN_NOTICE("It needs new <b>cabling</b> for the electronics.")
 		if(INSTALL_CELL)
-			. += "<span class='notice'>It needs a fully charged specialized <b>battery</b> to function."
+			. += SPAN_NOTICE("It needs a fully charged specialized <b>battery</b> to function.")
 		if(MULTITOOL_ELECTRONICS)
 			. += SPAN_NOTICE("The electronics need to be tested and reactivated with a <b>multitool</b>.")
 		if(SCREWDRIVER_CLOSED)

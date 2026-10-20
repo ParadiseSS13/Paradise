@@ -13,22 +13,22 @@
 	if(!length(candidates))
 		return kill()
 
-	var/mob/C
+	var/mob/M
 	while(length(candidates))
-		C = pick_n_take(candidates)
-		if(jobban_isbanned(C, ROLE_TRAITOR))
+		M = pick_n_take(candidates)
+		if(jobban_isbanned(M, ROLE_TRAITOR))
 			continue
 		break
-	if(!C)
+	if(!M)
 		kill()
 		return
-	var/player_key = C.key
+	var/player_key = M.key
 
 	if(!player_key)
 		kill()
 		return
 
-	dust_if_respawnable(C)
+	dust_if_respawnable(M)
 	var/list/spawn_locs = list()
 	for(var/obj/effect/landmark/spawner/flock/spawn_site in GLOB.landmarks_list)
 		spawn_locs += get_turf(spawn_site)
@@ -36,16 +36,18 @@
 		kill()
 		return
 	var/mob/camera/flock/overmind/flockmind = new /mob/camera/flock/overmind(pick(spawn_locs))
-	flockmind.key = C.key
+	flockmind.key = M.key
 	flockmind.mind = new
 	flockmind.mind.bind_to(flockmind)
 	flockmind.mind.set_original_mob(flockmind)
-	flockmind.mind.assigned_role = SPECIAL_ROLE_FLOCK
-	flockmind.mind.special_role = SPECIAL_ROLE_FLOCK
+	flockmind.mind.make_Flockmind()
 	var/list/messages = list()
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("Outside of our innate subsystems, we can take manual control of drones (using alt-click). Doing so will be more effective than allowing their simple partitions to work autonomously.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("You live through your drones - should all your drones perish, all hope of constructing the relay is lost! Do not allow all your drones to die, lest you yourself fade!", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Capturing living mobs allows your flock to spread, using their living bodies as conduits to create new drones and bits.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Drones can create new drones by consuming matter. Likewise, they use that matter to build structures you designate! All structures require Compute, which can only be gotten by converting computer terminals.", "#3cb5a3", "#1e806e") + "</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("For more information, we have decrypted an information manifest: ([GLOB.configuration.url.wiki_url]/index.php/The_Divine_Flock)", "#3cb5a3", "#1e806e") + "</div>"
 	to_chat(flockmind, chat_box_red(messages.Join("<br>")))
 	flockmind.playsound_local(flockmind, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)

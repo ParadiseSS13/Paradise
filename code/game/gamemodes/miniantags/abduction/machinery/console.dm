@@ -113,7 +113,7 @@
 	if(href_list["teleporter_send"])
 		TeleporterSend()
 	else if(href_list["teleporter_retrieve"])
-		TeleporterRetrieve()
+		TeleporterRetrieve(usr)
 	else if(href_list["flip_vest"])
 		FlipVest()
 	else if(href_list["toggle_vest"])
@@ -140,9 +140,20 @@
 	updateUsrDialog()
 
 
-/obj/machinery/abductor/console/proc/TeleporterRetrieve()
-	if(pad && gizmo && gizmo.marked)
-		return pad.Retrieve(gizmo.marked)
+/obj/machinery/abductor/console/proc/TeleporterRetrieve(mob/user)
+	if(!pad)
+		to_chat(user, SPAN_WARNING("You don't have a working Telepad to retrieve to!"))
+		return FALSE
+
+	if(!gizmo)
+		to_chat(user, SPAN_WARNING("You don't have a working science tool to mark your target with!"))
+		return FALSE
+
+	if(!gizmo.marked)
+		to_chat(user, SPAN_WARNING("Mark the creature you want to teleport before retrieving it!"))
+		return FALSE
+
+	return pad.Retrieve(gizmo.marked, user)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad)

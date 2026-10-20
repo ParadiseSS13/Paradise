@@ -15,6 +15,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_BUILD_MODE, "Toggle Build Mode")
 	VV_DROPDOWN_OPTION(VV_HK_DIRECT_CONTROL, "Assume Direct Control")
 	VV_DROPDOWN_OPTION(VV_HK_OFFER_CONTROL, "Offer Control to Ghosts")
+	VV_DROPDOWN_OPTION(VV_HK_ADD_AI_CONTROLLER, "Add AI Controller")
 	VV_DROPDOWN_OPTION(VV_HK_DROP_EVERYTHING, "Drop Everything")
 	VV_DROPDOWN_OPTION(VV_HK_REGENERATEICONS, "Regenerate Icons")
 	VV_DROPDOWN_OPTION(VV_HK_ADDLANGUAGE, "Add Language")
@@ -162,3 +163,18 @@
 			remove_verb(src, verb)
 			message_admins("[key_name_admin(usr)] has removed verb [verb] from [key_name_admin(src)]")
 			log_admin("[key_name(usr)] has removed verb [verb] from [key_name(src)]")
+	if(href_list[VV_HK_ADD_AI_CONTROLLER])
+		var/static/list/controllers = subtypesof(/datum/admin_ai_template)
+		var/static/list/controllers_by_name = list()
+		if(!length(controllers_by_name))
+			for(var/datum/admin_ai_template/template as anything in controllers)
+				controllers_by_name["[initial(template.name)]"] = template
+
+		var/chosen = tgui_input_list(usr, "Which template should we apply?", "Select Template", controllers_by_name)
+		if(isnull(chosen))
+			return
+
+		var/chosen_type = controllers_by_name[chosen]
+		var/datum/admin_ai_template/using_template = new chosen_type
+		using_template.apply(src, usr)
+		href_list["datumrefresh"] = UID()

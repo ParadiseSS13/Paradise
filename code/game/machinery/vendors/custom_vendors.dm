@@ -82,7 +82,10 @@
 					bag.remove_from_storage(used)
 				used.forceMove(src)
 				if(!quiet)
-					user.visible_message(SPAN_NOTICE("[user] puts [used] into [src]."), "<span class='notice>'You put [used] into [src].</span>")
+					user.visible_message(
+						SPAN_NOTICE("[user] puts [used] into [src]."),
+						SPAN_NOTICE("You put [used] into [src].")
+					)
 				return INSERT_DONE
 
 	if(!can_wait)

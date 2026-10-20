@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	blocks_emissive = FALSE
+	stationary = TRUE
 	var/circuitry_installed = 1
 	var/buildstage = 0
 	var/custom_name

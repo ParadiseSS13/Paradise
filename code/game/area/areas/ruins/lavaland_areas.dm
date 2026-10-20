@@ -5,51 +5,41 @@
 	icon_state = "beach"
 
 /area/ruin/powered/clownplanet
-	icon_state = "yellow"
+	area_icon_text = "CLOWN\nPLANET"
+	area_icon_color = AREA_COLOR_AWAY4
 	ambientsounds = list('sound/music/clown.ogg')
 
 /area/ruin/powered/snow_biodome
-	icon_state = "yellow"
+	area_icon_text = "SNOW\nPLANET"
+	area_icon_color = AREA_COLOR_AWAY5
 
 /area/ruin/powered/snow_cabin
 	icon_state = "bar"
 
 /area/ruin/powered/gluttony
-	icon_state = "yellow"
 
 /area/ruin/powered/providence
-	icon_state = "yellow"
 	tele_proof = TRUE
 
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
-	icon_state = "yellow"
 
 /area/ruin/powered/greed
-	icon_state = "yellow"
 
 /area/ruin/powered/envy
-	icon_state = "yellow"
 
 /area/ruin/powered/sloth
-	icon_state = "yellow"
 
 /area/ruin/powered/fountain_hall
-	icon_state = "yellow"
 
 /area/ruin/powered/pizza_party
-	icon_state = "yellow"
 
 /area/ruin/unpowered/hierophant
 	name = "Hierophant's Arena"
-	icon_state = "yellow"
 
 /area/ruin/powered/pride
-	icon_state = "yellow"
 
 /area/ruin/powered/seedvault
-	icon_state = "yellow"
-
 
 //Xeno Nest
 
@@ -60,7 +50,6 @@
 
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
-	icon_state = "red"
 
 /area/ruin/unpowered/althland_processing
 	name = "Processing Facility"
@@ -85,6 +74,8 @@
 /area/ruin/lavaland_relay
 	name = "Nanotrasen Lavaland Relay"
 	icon_state = "lava_relay"
+	area_icon_text = "LAVA\nRELAY"
+	area_icon_color = AREA_COLOR_AWAY4
 
 /area/ruin/lavaland_relay/Initialize(mapload)
 	name = "Nanotrasen Lavaland Relay #[rand(1, 1000)]" //Give it a random relay name

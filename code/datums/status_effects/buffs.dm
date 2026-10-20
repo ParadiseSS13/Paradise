@@ -337,7 +337,7 @@
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
+	H.add_hud_to(owner, src)
 	owner.permanent_huds |= H
 	return ..()
 
@@ -345,7 +345,7 @@
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	owner.permanent_huds ^= H
-	H.remove_hud_from(owner)
+	H.remove_hud_from(owner, src)
 
 /datum/status_effect/hippocratic_oath/tick()
 	// Death transforms you into a snake after a short grace period
@@ -516,8 +516,7 @@
 	tolerance += 1
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 	if(freezing)
-		to_chat(owner, "<span class='warning'>Our healing's effectiveness is reduced \
-			by our cold body!</span>")
+		to_chat(owner, SPAN_WARNING("Our healing's effectiveness is reduced by our cold body!"))
 	active_instances += instance_duration
 
 /datum/status_effect/fleshmend/tick()
@@ -1067,12 +1066,12 @@
 	..()
 
 /datum/status_effect/overclock/on_apply()
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
 	owner.next_move_modifier -= 0.3 // Same attack speed buff as mephedrone
 	return TRUE
 
 /datum/status_effect/overclock/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
 	owner.next_move_modifier += 0.3
 
 /datum/status_effect/overclock/tick()

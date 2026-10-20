@@ -29,13 +29,6 @@ rustlibs_515_prod.dll @AffectedArc07
 rustlibs_516_prod.dll @AffectedArc07
 
 
-### Burzah
-# TGUI stuff
-/tgui/bin @Burzah
-/tgui/docs @Burzah
-/tgui/yarn.lock @Burzah
-
-
 ### Multiple Owners
 # Config Stuff
-/config/ @AffectedArc07 @Burzah @DGamerL @PollardTheDragon
+/config/ @AffectedArc07 @DGamerL @PollardTheDragon

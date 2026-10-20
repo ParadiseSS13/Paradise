@@ -18,7 +18,11 @@
 /datum/martial_art/adminfu/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
-	D.Stun(50 SECONDS)
+	D.Weaken(50 SECONDS, TRUE)
+	D.visible_message(
+		SPAN_WARNING("[A] pinches [D] in a flurry of places, rendering them helpless!"),
+		SPAN_USERDANGER("[A] pinches you at lightning speed! Your body gives out!")
+	)
 	return TRUE
 
 /datum/martial_art/adminfu/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -38,17 +42,17 @@
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = FALSE
+	new_attack_chain = TRUE
 
-/obj/item/adminfu_scroll/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/adminfu_scroll/activate_self(mob/living/carbon/human/user)
 	if(!ishuman(user))
-		return
-	if(!used)
-		var/mob/living/carbon/human/H = user
-		var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
-		F.teach(H)
-		to_chat(H, SPAN_BOLDANNOUNCEIC("You have learned the ancient martial art of the Admins."))
-		used = TRUE
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+		return ..()
+
+	var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
+	F.teach(user)
+	to_chat(user, SPAN_BOLDANNOUNCEIC("You have learned the ancient martial art of the Admins."))
+	user.drop_item_to_ground(src, TRUE)
+	visible_message(SPAN_WARNING("You eat [src] to ensure that no-one else can access its power!"))
+	playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE

@@ -109,11 +109,11 @@
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
 		to_chat(new_spawn, "<big>[SPAN_WARNING("You are not an antagonist, do not build an AI without explicit admin permission. Do not board the station without explicit admin permission.")]<big>")
-		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
-		Adamantine golems are the only golems that can resonate to all golems.</span>")
+		to_chat(new_spawn, SPAN_NOTICE("It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
+			Adamantine golems are the only golems that can resonate to all golems."))
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
-		to_chat(new_spawn, "<span class='warning'>You may interact or trade with crew you come across, aswell as defend yourself and your ship \
-		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
+		to_chat(new_spawn, SPAN_WARNING("You may interact or trade with crew you come across, aswell as defend yourself and your ship \
+		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station."))
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		if(owner.mind.special_role)

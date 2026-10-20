@@ -163,7 +163,7 @@
 /obj/item/robot_parts/robot_suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/stack/sheet/metal/M = used
-		var/obj/item/ed209_assembly/B = new /obj/item/ed209_assembly
+		var/obj/item/bot_assembly/ed209/B = new /obj/item/bot_assembly/ed209
 		B.forceMove(get_turf(src))
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
@@ -343,6 +343,40 @@
 			to_chat(user, SPAN_WARNING("The MMI must go in after everything else!"))
 			return ITEM_INTERACT_COMPLETE
 
+	if(istype(used, /obj/item/borg/upgrade/ai))
+		var/obj/item/borg/upgrade/ai/M = used
+		if(check_completion())
+			if(!isturf(loc))
+				to_chat(user, SPAN_WARNING("You cannot install [M], the frame has to be standing on the ground to be perfectly precise!"))
+				return ITEM_INTERACT_COMPLETE
+			if(!user.drop_item())
+				to_chat(user, SPAN_WARNING("[M] is stuck to your hand!"))
+				return ITEM_INTERACT_COMPLETE
+			qdel(M)
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/shell(get_turf(src))
+
+			if(!aisync)
+				lawsync = FALSE
+				O.connected_ai = null
+			else
+				if(forced_ai)
+					O.connected_ai = forced_ai
+				O.notify_ai(AI_SHELL)
+			if(!lawsync)
+				O.lawupdate = FALSE
+				O.make_laws()
+
+			var/datum/robot_component/cell_component = O.components["power cell"]
+			cell_component.install(chest.cell)
+			chest.cell = null
+			O.locked = panel_locked
+			O.job = "Cyborg"
+			forceMove(O)
+			O.robot_suit = src
+			if(!locomotion)
+				O.lockcharge = TRUE
+				O.update_stamina_hud()
+			return ITEM_INTERACT_COMPLETE
 	if(is_pen(used))
 		to_chat(user, SPAN_WARNING("You need to use a multitool to name [src]!"))
 		return ITEM_INTERACT_COMPLETE

@@ -106,10 +106,10 @@
 
 /obj/item/analyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	..()
-	if(!isturf(target.loc))
+	if(!isturf(target.loc) && !isturf(target))
 		return NONE
 
-	if(isstorage(target))
+	if(isstorage(target) || is_surface(target))
 		return NONE
 
 	if(target.return_analyzable_air())

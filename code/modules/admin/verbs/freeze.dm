@@ -13,7 +13,7 @@ USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.
 /atom/movable/proc/admin_Freeze(client/admin)
-	to_chat(admin, "<span class='warning'>Freeze is not able to be called on this type of object.</span")
+	to_chat(admin, SPAN_WARNING("Freeze is not able to be called on this type of object."))
 	return
 
 ///mob freeze procs

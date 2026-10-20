@@ -57,7 +57,6 @@
 	if(QDELING(src))
 		return
 
-	flock_talk(src, "ALERT: No substrate remaining.", flock, involuntary = TRUE)
 	update_appearance(UPDATE_ICON_STATE)
 
 //

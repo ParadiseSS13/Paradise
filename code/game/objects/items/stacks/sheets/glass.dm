@@ -48,9 +48,17 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 	point_value = 1
 	table_type = /obj/structure/table/glass
 
+	solar_mult = 1
+
 /obj/item/stack/sheet/glass/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
+
+/obj/item/stack/sheet/glass/two
+	amount = 2
+
+/obj/item/stack/sheet/glass/five
+	amount = 5
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -130,6 +138,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	point_value = 4
 	table_type = /obj/structure/table/glass/reinforced
 
+	solar_mult = 1.1
+
 /obj/item/stack/sheet/rglass/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Reinforced glass is much stronger against damage than normal glass, otherwise it functions like normal glass does.")
@@ -143,8 +153,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 
 GLOBAL_LIST_INIT(pglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
-	new /datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 4 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))
 
 /obj/item/stack/sheet/rglass/cyborg
@@ -177,6 +187,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	full_window = /obj/structure/window/full/plasmabasic
 	point_value = 19
 	table_type = /obj/structure/table/glass/plasma
+
+	solar_mult = 1.7
+	solar_type = SOLAR_TYPE_PLASMA
 
 /obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
 	. = ..()
@@ -217,8 +230,8 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 
 GLOBAL_LIST_INIT(prglass_recipes, list (
 	new /datum/stack_recipe("plasma shard", /obj/item/shard/plasma, time = 0 SECONDS),
-	new /datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 4 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE)
 ))
 
 /obj/item/stack/sheet/plasmarglass
@@ -234,6 +247,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	full_window = /obj/structure/window/full/plasmareinforced
 	point_value = 23
 	table_type = /obj/structure/table/glass/reinforced/plasma
+
+	solar_mult = 1.8
+	solar_type = SOLAR_TYPE_PLASMA
 
 /obj/item/stack/sheet/plasmarglass/examine_more(mob/user)
 	. = ..()
@@ -253,7 +269,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	recipes = GLOB.prglass_recipes
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
-	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 5 SECONDS, on_floor = TRUE, window_checks = TRUE)
+	new /datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE)
 	))
 
 //////////////////////////////
@@ -286,8 +302,8 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new /datum/stack_recipe("plastitanium shard", /obj/item/shard/plastitanium, time = 0 SECONDS),
-	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 3 SECONDS, on_floor = TRUE, window_checks = TRUE),
-	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 5 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("directional plastitanium window", /obj/structure/window/plastitanium, 1, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile plastitanium window", /obj/structure/window/full/plastitanium, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	))
 
 //////////////////////////////
@@ -305,6 +321,9 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	created_window = /obj/structure/window/plastitanium
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
+
+	solar_mult = 2.4
+	solar_type = SOLAR_TYPE_PLASTITANIUM
 
 /obj/item/stack/sheet/plastitaniumglass/examine_more(mob/user)
 	. = ..()

@@ -71,12 +71,15 @@
 	new_ghostbird.mind = new
 	new_ghostbird.mind.bind_to(new_ghostbird)
 	new_ghostbird.mind.set_original_mob(new_ghostbird)
-	new_ghostbird.mind.assigned_role = SPECIAL_ROLE_FLOCK
-	new_ghostbird.mind.special_role = SPECIAL_ROLE_FLOCK
+	new_ghostbird.mind.make_Flockmind()
 	var/list/messages = list()
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("We have been partitioned by our overmind to further their goals of propogating The Signal. It is our task to assist in managing their drones to achieve their goals. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("Our powers are more limited than that of our overmind, but we can utilize gatecrash subsystems and take manual control of drones (using alt-click).", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Capturing living mobs allows your flock to spread, using their living bodies as conduits to create new drones and bits.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Drones can create new drones by consuming matter. Likewise, they use that matter to build structures you designate! All structures require Compute, which can only be gotten by converting computer terminals.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("You live through your drones - should all your drones perish, all hope of constructing the relay is lost! Do not allow all your drones to die, lest you yourself fade!", "#3cb5a3", "#1e806e") + "</div>"
+
 	messages += "<div style='text-align: center'>" + gradient_text("For more information, we have decrypted an information manifest: ([GLOB.configuration.url.wiki_url]/index.php/The_Divine_Flock)", "#3cb5a3", "#1e806e") + "</div>"
 	to_chat(new_ghostbird, chat_box_red(messages.Join("<br>")))
 	new_ghostbird.playsound_local(new_ghostbird, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)

@@ -74,6 +74,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/salvageable/autolathe,
 /turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
 "iQ" = (

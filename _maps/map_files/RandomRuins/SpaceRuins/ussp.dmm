@@ -828,10 +828,7 @@
 /area/ruin/space/derelict/arrival)
 "co" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	desc = "It's Comrade Blyatsky! Powered by vodka, communism, and hardbass.";
-	name = "Comrade Blyatsky"
-	},
+/mob/living/basic/bot/secbot/buzzsky,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cp" = (
@@ -1612,7 +1609,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "ex" = (
 /obj/machinery/power/smes/engineering{
-	charge = 1e+006;
 	input_attempt = 0;
 	input_level = 0;
 	inputting = 0;
@@ -1891,6 +1887,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/structure/salvageable/protolathe,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fj" = (
@@ -2764,6 +2761,7 @@
 "hx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/structure/salvageable/server,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hy" = (
@@ -4371,6 +4369,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/salvageable/seed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "lQ" = (
@@ -4771,7 +4770,7 @@
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nk" = (
-/obj/item/firstaid_arm_assembly,
+/obj/item/bot_assembly/medbot,
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "nl" = (
@@ -5271,6 +5270,7 @@
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 10
 	},
+/obj/structure/salvageable/seed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary)
 "oL" = (
@@ -6795,6 +6795,13 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/crew_quarters)
+"ME" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/salvageable/computer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white/airless,
+/area/ruin/space/derelict/arrival)
 "Nu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6821,6 +6828,11 @@
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/crew_quarters)
+"Pn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/salvageable/machine,
+/turf/simulated/floor/plasteel/white/airless,
+/area/ruin/space/derelict/arrival)
 "PR" = (
 /mob/living/basic/pirate,
 /turf/simulated/floor/plasteel/white/airless,
@@ -8068,7 +8080,7 @@ nj
 mS
 nF
 nY
-nx
+ME
 oE
 oc
 ac
@@ -8345,7 +8357,7 @@ iV
 iz
 mx
 aW
-mU
+Pn
 nl
 nx
 nI

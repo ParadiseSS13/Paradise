@@ -17,6 +17,7 @@
 	var/static/list/excluded_areas = list(/area/space)
 	///This is a list of turfs currently being targeted.
 	var/list/targeted_turfs = list()
+	new_attack_chain = TRUE
 
 /obj/item/storm_staff/Destroy()
 	targeted_turfs = null
@@ -29,7 +30,7 @@
 	. += SPAN_NOTICE("Use it on targets to summon thunderbolts from the sky.")
 	. += SPAN_NOTICE("The thunderbolts are boosted if in an area with weather effects.")
 
-/obj/item/storm_staff/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/storm_staff/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
 		return TRUE
 
@@ -61,12 +62,14 @@
 	thunder_charges--
 	return TRUE
 
-/obj/item/storm_staff/attack_self__legacy__attackchain(mob/user)
+/obj/item/storm_staff/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
 	if(!user_area || !user_turf)
 		to_chat(user, SPAN_WARNING("Something is preventing you from using the staff here."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
@@ -74,24 +77,26 @@
 			A = W
 			break
 
-	if(A)
-		if(A.stage != WEATHER_END_STAGE)
-			if(A.stage == WEATHER_WIND_DOWN_STAGE)
-				to_chat(user, SPAN_WARNING("The storm is already ending! It would be a waste to use the staff now."))
-				return
-			user.visible_message(
-				SPAN_WARNING("[user] holds [src] skywards as an orange beam travels into the sky!"),
-				SPAN_NOTICE("You hold [src] skyward, dispelling the storm!")
-			)
-			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
-			A.wind_down()
-			var/old_color = user.color
-			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-			var/old_transform = user.transform
-			user.transform *= 1.2
-			animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
+	if(!A)
+		return ITEM_INTERACT_COMPLETE
+	if(A.stage == WEATHER_END_STAGE)
+		return ITEM_INTERACT_COMPLETE
+	if(A.stage == WEATHER_WIND_DOWN_STAGE)
+		to_chat(user, SPAN_WARNING("The storm is already ending! It would be a waste to use the staff now."))
+		return ITEM_INTERACT_COMPLETE
+	user.visible_message(
+		SPAN_WARNING("[user] holds [src] skywards as an orange beam travels into the sky!"),
+		SPAN_NOTICE("You hold [src] skyward, dispelling the storm!")
+	)
+	playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
+	A.wind_down()
+	var/old_color = user.color
+	user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
+	var/old_transform = user.transform
+	user.transform *= 1.2
+	animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
 
-/obj/item/storm_staff/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/storm_staff/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
 	if(iscarbon(target))
 		var/mob/living/carbon/cig_haver = target
@@ -102,19 +107,19 @@
 	. = ..()
 	if(!thunder_charges)
 		to_chat(user, SPAN_WARNING("The staff needs to recharge."))
-		return
+		return FINISH_ATTACK
 	var/turf/target_turf = get_turf(target)
 	var/area/target_area = get_area(target)
 	var/area/user_area = get_area(user)
 	if(!target_turf || !target_area || (is_type_in_list(target_area, excluded_areas)) || !user_area || (is_type_in_list(user_area, excluded_areas)))
 		to_chat(user, SPAN_WARNING("The staff will not work here."))
-		return
+		return FINISH_ATTACK
 	if(target_turf in targeted_turfs)
 		to_chat(user, SPAN_WARNING("That SPOT is already being shocked!"))
-		return
+		return FINISH_ATTACK
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_WARNING("You don't want to hurt anyone!"))
-		return
+		return FINISH_ATTACK
 	var/power_boosted = FALSE
 	if(iswizard(user) || is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
 		power_boosted = TRUE

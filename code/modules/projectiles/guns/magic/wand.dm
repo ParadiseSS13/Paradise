@@ -274,10 +274,21 @@ CONTENTS:
 /obj/item/gun/magic/wand/chaos/zap_self(mob/living/user)
 	if(!ishuman(user))
 		return
-	to_chat(user, "<span class='chaosneutral'>[pick("Chaos chaos!", "You can do anything!", "You hear a mariachi band playing in the distance.", \
-		"Would you like a glass of water?", "What fun is there in making sense?", "Maybe you ought to go back home and crawl under your bed.", \
-		"Time to dual wield chaos wands!", "Sixty percent of the time, it works every time.", "Cheese for everyone!", "You hear a deep voice cackling.", \
-		"Xom bursts into laughter!", "Xom thinks this is hilarious!")]</span>")
+	var/chaos_messages = list(
+		"Chaos chaos!",
+		"You can do anything!",
+		"You hear a mariachi band playing in the distance.",
+		"Would you like a glass of water?",
+		"What fun is there in making sense?",
+		"Maybe you ought to go back home and crawl under your bed.",
+		"Time to dual wield chaos wands!",
+		"Sixty percent of the time, it works every time.",
+		"Cheese for everyone!",
+		"You hear a deep voice cackling.",
+		"Xom bursts into laughter!",
+		"Xom thinks this is hilarious!"
+	)
+	to_chat(user, SPAN_CHAOSNEUTRAL(pick(chaos_messages)))
 	var/obj/projectile/magic/chaos/proj = new /obj/projectile/magic/chaos(src)
 	proj.chaos_chaos(user)
 	qdel(proj)

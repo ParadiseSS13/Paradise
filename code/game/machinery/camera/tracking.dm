@@ -1,9 +1,9 @@
 /mob/living/silicon/ai/proc/InvalidTurf(turf/T as turf)
 	if(!T)
-		return 1
+		return TRUE
 	if(!is_level_reachable(T.z))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/silicon/ai/proc/get_camera_list()
 
@@ -38,7 +38,7 @@
 		return
 
 	if(!camera || camera == "Cancel")
-		return 0
+		return FALSE
 
 	var/obj/machinery/camera/C = track.cameras[camera]
 	src.eyeobj.set_loc(C)
@@ -67,11 +67,6 @@
 		if(!M.can_track(usr))
 			continue
 
-		// Human check
-		var/human = 0
-		if(ishuman(M))
-			human = 1
-
 		var/name = M.name
 		if(name in track.names)
 			track.namecounts[name]++
@@ -79,7 +74,7 @@
 		else
 			track.names.Add(name)
 			track.namecounts[name] = 1
-		if(human)
+		if(ishuman(M))
 			track.humans[name] = M
 		else
 			track.others[name] = M
@@ -172,14 +167,14 @@
 
 /proc/near_camera(mob/living/M)
 	if(!isturf(M.loc))
-		return 0
+		return FALSE
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(!(R.camera && R.camera.can_use()) && !GLOB.cameranet.check_camera_vis(M))
-			return 0
+			return FALSE
 	else if(!GLOB.cameranet.check_camera_vis(M))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/machinery/camera/attack_ai(mob/living/silicon/ai/user)
 	if(!istype(user))

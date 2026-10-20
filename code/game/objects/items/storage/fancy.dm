@@ -339,8 +339,8 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_random/examine(mob/user)
 	. = ..()
-	. += "<span class = 'warning'>Warning: Not all substances used have undergone regulatory testing, smoke at your own risk. \
-	The Embellished Enigma Tobacco Company does not accept liability for proper or negligent use of its products. Consult your doctor before use.</span>"
+	. += SPAN_WARNING("Warning: Not all substances used have undergone regulatory testing, smoke at your own risk. \
+	The Embellished Enigma Tobacco Company does not accept liability for proper or negligent use of its products. Consult your doctor before use.")
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
@@ -379,7 +379,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_candy/examine(mob/user)
 	. = ..()
-	. += "<span class = 'warning'>*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>"
+	. += SPAN_WARNING("*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.")
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims packet"
@@ -590,7 +590,7 @@
 	storage_slots = 12
 	// Fancier storage slots for that haphazardly-picked-over look
 	var/list/storage_slot_list[12]
-	icon = 'icons/obj/juice_box.dmi'
+	icon = 'icons/obj/drinks/juice_box.dmi'
 	icon_state = "juice_box_box"
 	icon_type = "juice carton"
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
@@ -604,7 +604,7 @@
 
 /obj/item/storage/fancy/juice_boxes/update_overlays()
 	. = ..()
-	. += image('icons/obj/juice_box.dmi', "juice_box_box")
+	. += image('icons/obj/drinks/juice_box.dmi', "juice_box_box")
 	for(var/index in 1 to length(storage_slot_list))
 		var/obj/item/reagent_containers/drinks/carton/juice_type = storage_slot_list[index]
 		if(!istype(juice_type))

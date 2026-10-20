@@ -7,6 +7,7 @@
 	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	can_attack_items = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_EPIC
 	obj_damage = 400
 	light_range = 3
@@ -135,8 +136,9 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		"<span class='danger'>[src] devours [L]!</span>",
-		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
+		SPAN_DANGER("[src] devours [L]!"),
+		SPAN_USERDANGER("You feast on [L], restoring your health!")
+	)
 	if(!is_station_level(z) || client) // NPC monsters won't heal while on station
 		adjustBruteLoss(-L.maxHealth/2)
 	L.gib()
@@ -152,6 +154,9 @@
 
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
+
+/mob/living/basic/megafauna/ex_throw()
+	return // No, you cannot launch the megafauna.
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
 /mob/living/basic/megafauna/proc/enrage()
@@ -175,7 +180,7 @@
 	loot = list() // disable loot drops form the target to prevent cheese
 	if(10 * output_level * damage_coeff[BURN] / (1 MW) > health) // If we would kill the target dust it.
 		health = 0 // We need this so can_die() won't prevent dusting
-		visible_message("<span class='danger'>\The [src] is reduced to dust by the beam!</span>")
+		visible_message(SPAN_DANGER("\The [src] is reduced to dust by the beam!"))
 		dust()
 	else
 		adjustFireLoss(10 * output_level / (1 MW))
@@ -205,6 +210,6 @@
 		return
 	var/obj/tgvehicle/scooter/skateboard/hoverboard/cursed_board = L.buckled
 	// Not a visible message, as walls or such may be in the way
-	to_chat(L, "<span class='userdanger'><b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b></span>")
+	to_chat(L, SPAN_USERDANGER("<b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b>"))
 	playsound(get_turf(src), 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	cursed_board.necropolis_curse()

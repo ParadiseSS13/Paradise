@@ -154,6 +154,14 @@
 /datum/money_account_database/main_station/proc/get_account_by_department(department)
 	return department_accounts[department]
 
+/datum/money_account_database/main_station/proc/get_all_accounts()
+	var/list/account_list = list()
+	for(var/datum/money_account/account in user_accounts)
+		account_list += account
+	for(var/department in department_accounts)
+		account_list += department_accounts[department]
+	return account_list
+
 /datum/money_account_database/main_station/proc/get_all_user_accounts()
 	var/list/account_list = list()
 	for(var/datum/money_account/account in user_accounts)

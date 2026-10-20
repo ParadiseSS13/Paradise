@@ -217,10 +217,7 @@
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
-	if(uses > 0)
-		return 1
-	else
-		return 0
+	return (uses > 0)
 
 /obj/item/lightreplacer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(..())
@@ -232,6 +229,9 @@
 		if(fill_replacer(user, target))
 			return ITEM_INTERACT_COMPLETE
 		return ..()
+
+	if(is_surface(target))
+		return NONE
 
 	var/turf/replace_turf = get_turf(target)
 	if(!istype(replace_turf))

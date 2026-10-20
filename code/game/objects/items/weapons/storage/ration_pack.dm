@@ -72,22 +72,22 @@
 		opened = TRUE
 		icon_state = "ration_solgov_open"
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -5)
-		to_chat(user, "<span class='notice'>You tear open the packaging of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You tear open the packaging of [src]."))
 	..()
 
 /obj/item/storage/mre/can_be_inserted(obj/item/I as obj, stop_messages = FALSE)
 	if(!opened)
-		to_chat(usr, "<span class='warning'>You need to open [src] before you can put things inside it.</span>")
+		to_chat(usr, SPAN_WARNING("You need to open [src] before you can put things inside it."))
 		return FALSE
 
 	return ..()
 
 /obj/item/storage/mre/examine()
 	. = ..()
-	. += "<span class = 'notice'>This one contains the [menu_option] menu.</span>"
+	. += SPAN_NOTICE("This one contains the [menu_option] menu.")
 	if(menu_option == "Cheese & Veggie Omlette")
 		// The Cheese & Veggie Omlette is widely considered to be the most vile, disgusting MRE menu in history.
-		. += "<span class = 'warning'>Looks like you'll be going hungry tonight...</span>"
+		. += SPAN_WARNING("Looks like you'll be going hungry tonight...")
 
 /obj/item/storage/mre/examine_more(mob/user)
 	. = ..()
@@ -108,7 +108,7 @@ Frequently bought by preppers, explorers, and colonists heading out to the front
 	new /obj/item/storage/fancy/matches(src)
 
 /**
-  * Selects one of several MRE menus based on the menu_option of the MRE. 
+  * Selects one of several MRE menus based on the menu_option of the MRE.
   *
   * Arguments:
   * * menu_item_list - Static list containing the food items associated with each MRE menu option.

@@ -1028,6 +1028,7 @@
 	materials = list(MAT_GLASS = 200)
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/light/Initialize(mapload)
 	. = ..()
@@ -1101,38 +1102,44 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.
-/obj/item/light/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
-
-		if(!length(S.reagents.reagent_list))
-			return
-
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-			to_chat(user, SPAN_DANGER("You inject the solution into [src], rigging it to explode!"))
-			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
-			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
-
-			rigged = TRUE
-			S.reagents.clear_reagents()
-
-		else // If it has a reagent, but it's not plasma
-			to_chat(user, SPAN_WARNING("You fail to rig [src] with the solution."))
-
-	else // If it's not a syringe
+/obj/item/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/reagent_containers/syringe))
 		return ..()
 
-/obj/item/light/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	..()
-	shatter()
+	var/obj/item/reagent_containers/syringe/syringe = used
 
-/obj/item/light/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
+	if(!length(syringe.reagents.reagent_list))
+		to_chat(user, SPAN_WARNING("[syringe] is empty, it can't rig the light!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5)))
+		to_chat(user, SPAN_WARNING("You fail to rig [src] with the solution!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_DANGER("You inject the solution into [src], rigging it to explode!"))
+	log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
+	message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
+
+	rigged = TRUE
+	syringe.reagents.clear_reagents()
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/light/attack(mob/living/target, mob/living/carbon/human/user)
 	..()
 	shatter()
+	return FINISH_ATTACK
+
+/obj/item/light/attack_obj(obj/attacked_obj, mob/living/user, params)
+	..()
+	shatter()
+	return FINISH_ATTACK
 
 /obj/item/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		visible_message(SPAN_WARNING("[src] shatters."), SPAN_WARNING("You hear a small glass object shatter."))
+		visible_message(
+			SPAN_WARNING("[src] shatters."),
+			SPAN_WARNING("You hear a small glass object shatter.")
+		)
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE

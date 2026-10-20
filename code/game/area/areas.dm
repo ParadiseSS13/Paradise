@@ -8,6 +8,10 @@
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
+	/// Text shown on the area's icon for map editors.
+	var/area_icon_text = null
+	/// Background color drawn on the area's icon for map editors.
+	var/area_icon_color = null
 	layer = AREA_LAYER
 	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0

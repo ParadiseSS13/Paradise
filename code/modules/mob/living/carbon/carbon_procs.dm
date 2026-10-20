@@ -281,6 +281,9 @@
 	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
 		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
 		return
+	if(istype(effect, STATUS_EFFECT_OFFERING_BARCODE_SCANNER))
+		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
+		return
 	else if(effect)
 		M.apply_status_effect(effect.type)
 		return
@@ -400,7 +403,7 @@
 
 	to_chat(src, chat_box_examine(status_list.Join("<br>")))
 
-	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETONIZED)) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || isplasmaman(H) || HAS_TRAIT(H, TRAIT_SKELETONIZED)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 /mob/living/carbon/can_be_flashed(intensity = 1, override_blindness_check = 0)
@@ -1213,6 +1216,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return FALSE
 
 	consume(to_eat, bitesize_override)
+
 	SSticker.score.score_food_eaten++
 	return TRUE
 
@@ -1294,6 +1298,20 @@ so that different stomachs can handle things in different ways VB*/
 		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
 		to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
 		to_eat.reagents.trans_to(src, this_bite)
+
+	if(HAS_TRAIT(src, TRAIT_GLUTTONOUS_GLORY))
+		if(istype(to_eat, /obj/item/food/burger/superbite))
+			to_chat(src, SPAN_BLOB("Finally, some good fucking food."))
+			adjustFireLoss(-2)
+			adjustBruteLoss(-2)
+		else if(to_eat.slice_path) // Stuff your face with a whole pizza/cake.
+			to_chat(src, SPAN_BLOB("Sharing is for chumps. All for me!"))
+			adjustFireLoss(-1)
+			adjustBruteLoss(-1)
+
+		// Don't let them eat enough to OD themselves.
+		reagents.check_and_add("kelotane", 20, 1)
+		reagents.check_and_add("bicaridine", 20, 1)
 
 /mob/living/carbon/get_access()
 	. = ..()

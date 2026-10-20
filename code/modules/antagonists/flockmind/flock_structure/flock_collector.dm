@@ -86,7 +86,7 @@
 	var/area/A = get_area(src)
 	var/obj/machinery/power/apc/apc
 	if(A.apc)
-		apc = A.apc[0]
+		apc = A.get_apc()
 	return apc
 
 /// Recalculate the turf connections and tracking.

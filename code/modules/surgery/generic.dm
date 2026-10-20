@@ -163,7 +163,7 @@
 		var/self_msg = SPAN_NOTICE("You keep the incision open on [target]'s [affected.name] with \the [tool].")
 		if(target_zone == BODY_ZONE_CHEST)
 			msg = SPAN_NOTICE("[user] keeps the ribcage open on [target]'s torso with \the [tool].")
-			self_msg = "<span class='notice'>You keep the ribcage open on [target]'s torso with \the [tool]."
+			self_msg = SPAN_NOTICE("You keep the ribcage open on [target]'s torso with \the [tool].")
 		if(target_zone == BODY_ZONE_PRECISE_GROIN)
 			msg = SPAN_NOTICE("[user] keeps the incision open on [target]'s lower abdomen with \the [tool].")
 			self_msg = SPAN_NOTICE("You keep the incision open on [target]'s lower abdomen with \the [tool].")

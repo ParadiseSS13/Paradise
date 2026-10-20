@@ -51,7 +51,7 @@
 	if(!isturf(target.loc))
 		return NONE
 
-	if(isstorage(target))
+	if(isstorage(target) || is_surface(target))
 		return NONE
 
 	laser_act(target, user, modifiers)

@@ -4,6 +4,8 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "generic"
 	density = TRUE
+	// A light that's shut inside doesn't shine out.
+	flags_2 = BLOCKS_LIGHT_2
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
@@ -266,6 +268,11 @@
 			break
 		if(!I.anchored)
 			I.forceMove(src)
+			var/list/all_contents = I.get_all_contents()
+			for(var/obj/item/storage/one_content in all_contents)
+				if(isstorage(one_content))
+					for(var/mob/player in one_content.mobs_viewing)
+						one_content.hide_from(player)
 			itemcount++
 
 	for(var/mob/M in loc)
@@ -342,6 +349,8 @@
 		emag_act(user)
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/stack/package_wrap))
+		return
+	else if(istype(W, /obj/item/extraction_pack))
 		return
 	else if(user.a_intent != INTENT_HARM)
 		closed_item_click(user)

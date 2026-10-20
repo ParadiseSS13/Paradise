@@ -13,8 +13,7 @@
 /datum/action/changeling/fleshmend/sting_action(mob/living/user)
 	to_chat(user, SPAN_NOTICE("We begin to heal rapidly."))
 	if(user.has_status_effect(STATUS_EFFECT_FLESHMEND))
-		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
-			by quick repeated use!</span>")
+		to_chat(user, SPAN_WARNING("Our healing's effectiveness is reduced by quick repeated use!"))
 
 	user.apply_status_effect(STATUS_EFFECT_FLESHMEND)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

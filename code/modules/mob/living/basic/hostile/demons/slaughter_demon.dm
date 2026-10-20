@@ -46,7 +46,7 @@
 	if(mind)
 		var/list/messages = list()
 		messages.Add(playstyle_string)
-		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
+		messages.Add(SPAN_NOTICE("<b>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</b>"))
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!vialspawned)
 			SSticker.mode.traitors |= mind
@@ -94,10 +94,10 @@
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
-	playstyle_string = "<b><span class='userdanger'>You are a Harbinger of the Slaughter.</span> Brought forth by the servants of Nar'Sie, you have a single purpose: slaughter the heretics \
+	playstyle_string = SPAN_USERDANGER("<b>You are a Harbinger of the Slaughter.</span> Brought forth by the servants of Nar'Sie, you have a single purpose: slaughter the heretics \
 	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
-	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
+	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</b>")
 
 /mob/living/basic/demon/slaughter/cult/New()
 	..()

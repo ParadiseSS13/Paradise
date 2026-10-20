@@ -16,6 +16,8 @@
 	faction = list("flockmind")
 	ai_controller = /datum/ai_controller/flock
 
+	can_attack_items = TRUE
+
 	sentience_type = SENTIENCE_OTHER
 
 	minimum_survivable_temperature = 0
@@ -97,9 +99,6 @@
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list -= src
 	qdel(src)
-	return TRUE
-
-/mob/living/basic/flock/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/basic/flock/set_stat(new_stat)

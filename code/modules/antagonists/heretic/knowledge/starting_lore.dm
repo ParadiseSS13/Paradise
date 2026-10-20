@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		selected_atoms += nearby_organ
 		return TRUE
 
-	to_chat(user, "<span class='hierophant'>The ritual failed, you need a replacement [our_heretic.living_heart_organ_slot]!") // "need a replacement heart!"
+	to_chat(user, SPAN_HIEROPHANT("The ritual failed, you need a replacement [our_heretic.living_heart_organ_slot]!")) // "need a replacement heart!"
 	return FALSE
 
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)

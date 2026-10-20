@@ -131,6 +131,6 @@
 	name = "barbed crystalline spike"
 	desc = "A hollow teal crystal, like some sort of weird alien syringe. It has a barbed tip. Nasty!"
 
-/obj/projectile/bullet/dart/piercing/gnesis/Initialize(mapload)
+/obj/projectile/bullet/dart/piercing/gnesis/New()
 	. = ..()
-	reagents.add_reagent(/datum/reagent/gnesis, 2)
+	reagents.add_reagent("gnesis_tox", 2)

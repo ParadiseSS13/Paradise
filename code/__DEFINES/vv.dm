@@ -79,6 +79,7 @@
 #define VV_HK_GIB "gib"
 #define VV_HK_ADDQUIRK "addquirk"
 #define VV_HK_REMQUIRK "remquirk"
+#define VV_HK_ADD_AI_CONTROLLER "add_ai_controller"
 
 #define GET_VV_TARGET locateUID(href_list[VV_HK_TARGET])
 

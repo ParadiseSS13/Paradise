@@ -170,6 +170,7 @@
 			if(D.department in announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, RQ_NORMALPRIORITY)
 
+// MARK: Secure crate
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
 	name = "Secure crate"
@@ -291,6 +292,7 @@
 			req_access += pick(get_all_accesses())
 	..()
 
+// MARK: Personal crate
 /obj/structure/closet/crate/secure/personal
 	name = "personal crate"
 	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it."
@@ -349,6 +351,7 @@
 
 	return ITEM_INTERACT_COMPLETE
 
+// MARK: Crate types
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
 	desc = "A rectangular plastic crate."
@@ -357,7 +360,7 @@
 	icon_closed = "plasticcrate"
 	material_drop = /obj/item/stack/sheet/plastic
 	material_drop_amount = 4
-	crate_value = 3 // You can mass produce plastic crates, this is needed to prevent cargo from making tons of money too easily
+	crate_value = 3 // You can mass produce plastic crates, this is needed to prevent cargo from making tons of money too easily.
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
@@ -370,6 +373,13 @@
 	icon_state = "n2crate"
 	icon_opened = "n2crate_open"
 	icon_closed = "n2crate"
+
+/obj/structure/closet/crate/secure/plasma
+	desc = "A secure plasma crate."
+	name = "plasma crate"
+	icon_state = "plasmacrate"
+	icon_opened = "plasmacrate_open"
+	icon_closed = "plasmacrate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
@@ -390,6 +400,13 @@
 	icon_state = "medicalcrate"
 	icon_opened = "medicalcrate_open"
 	icon_closed = "medicalcrate"
+
+/obj/structure/closet/crate/secure/medisec
+	desc = "A secure medical crate."
+	name = "secure medical crate"
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
@@ -466,54 +483,6 @@
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
 
-/obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_unfasten_wrench(user, I, 40)
-
-/obj/structure/closet/crate/radiation
-	desc = "A crate with a radiation sign on it."
-	name = "radioactive gear crate"
-	icon_state = "radiation"
-	icon_opened = "radiation_open"
-	icon_closed = "radiation"
-
-/obj/structure/closet/crate/secure/weapon
-	desc = "A secure weapons crate."
-	name = "weapons crate"
-	icon_state = "weaponcrate"
-	icon_opened = "weaponcrate_open"
-	icon_closed = "weaponcrate"
-
-/obj/structure/closet/crate/secure/plasma
-	desc = "A secure plasma crate."
-	name = "plasma crate"
-	icon_state = "plasmacrate"
-	icon_opened = "plasmacrate_open"
-	icon_closed = "plasmacrate"
-
-/obj/structure/closet/crate/secure/gear
-	desc = "A secure gear crate."
-	name = "gear crate"
-	icon_state = "secgearcrate"
-	icon_opened = "secgearcrate_open"
-	icon_closed = "secgearcrate"
-
-/obj/structure/closet/crate/secure/hydrosec
-	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
-	name = "secure hydroponics crate"
-	icon_state = "hydrosecurecrate"
-	icon_opened = "hydrosecurecrate_open"
-	icon_closed = "hydrosecurecrate"
-
-/obj/structure/closet/crate/secure/medisec
-	desc = "A secure medical crate."
-	name = "secure medical crate"
-	icon_state = "medicalsecurecrate"
-	icon_opened = "medicalsecurecrate_open"
-	icon_closed = "medicalsecurecrate"
-
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
@@ -525,6 +494,33 @@
 	emag = "largebinemag"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
+
+/obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 40)
+
+/obj/structure/closet/crate/secure/gear
+	desc = "A secure gear crate."
+	name = "gear crate"
+	icon_state = "secgearcrate"
+	icon_opened = "secgearcrate_open"
+	icon_closed = "secgearcrate"
+
+/obj/structure/closet/crate/secure/weapon
+	desc = "A secure weapons crate."
+	name = "weapons crate"
+	icon_state = "weaponcrate"
+	icon_opened = "weaponcrate_open"
+	icon_closed = "weaponcrate"
+
+/obj/structure/closet/crate/secure/hydrosec
+	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
+	name = "secure hydroponics crate"
+	icon_state = "hydrosecurecrate"
+	icon_opened = "hydrosecurecrate_open"
+	icon_closed = "hydrosecurecrate"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
@@ -576,23 +572,72 @@
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	desc = "An engineering crate."
-	icon_state = "engicrate"
-	icon_opened = "engicrate_open"
-	icon_closed = "engicrate"
+	icon_state = "engi_crate"
+	icon_opened = "engi_crate_open"
+	icon_closed = "engi_crate"
 
 /obj/structure/closet/crate/secure/engineering
 	name = "secure engineering crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
-	icon_state = "engisecurecrate"
-	icon_opened = "engisecurecrate_open"
-	icon_closed = "engisecurecrate"
+	icon_state = "engi_crate_secure"
+	icon_opened = "engi_crate_secure_open"
+	icon_closed = "engi_crate_secure"
+
+/obj/structure/closet/crate/radiation
+	desc = "A crate with a radiation symbol on it."
+	name = "radioactive gear crate"
+	icon_state = "radiation"
+	icon_opened = "radiation_open"
+	icon_closed = "radiation"
+
+/obj/structure/closet/crate/secure/radiation
+	desc = "A crate with a lock on it, painted in the scheme of the station's engineers. It has a radiation symbol on it."
+	name = "radioactive gear crate"
+	icon_state = "radiation_secure"
+	icon_opened = "radiation_secure_open"
+	icon_closed = "radiation_secure"
 
 /obj/structure/closet/crate/engineering/electrical
 	name = "electrical engineering crate"
 	desc = "An electrical engineering crate."
-	icon_state = "electricalcrate"
-	icon_opened = "electricalcrate_open"
-	icon_closed = "electricalcrate"
+	icon_state = "electrical_crate"
+	icon_opened = "electrical_crate_open"
+	icon_closed = "electrical_crate"
+
+/obj/structure/closet/crate/secure/electrical
+	name = "secure electrical engineering crate"
+	desc = "A crate with a lock on it, painted in the scheme of the station's engineers. It has an electrical symbol on it."
+	icon_state = "electrical_crate_secure"
+	icon_opened = "electrical_crate_secure_open"
+	icon_closed = "electrical_crate_secure"
+
+/obj/structure/closet/crate/cargo
+	name = "cargo crate"
+	desc = "A crate painted in the scheme of Cargonia."
+	icon_state = "cargo_crate"
+	icon_opened = "cargo_crate_open"
+	icon_closed = "cargo_crate"
+
+/obj/structure/closet/crate/janitorial
+	name = "janitorial crate"
+	desc = "A crate painted in the scheme of Janitalia."
+	icon_state = "janitorial_crate"
+	icon_opened = "janitorial_crate_open"
+	icon_closed = "janitorial_crate"
+
+/obj/structure/closet/crate/secure/janitorial
+	name = "secure janitorial crate"
+	desc = "A crate with a lock on it, painted in the scheme of Janitalia."
+	icon_state = "janitorial_crate_secure"
+	icon_opened = "janitorial_crate_secure_open"
+	icon_closed = "janitorial_crate_secure"
+
+/obj/structure/closet/crate/secure/cargo
+	name = "secure cargo crate"
+	desc = "A crate with a lock on it, painted in the scheme of Cargonia."
+	icon_state = "cargo_crate_secure"
+	icon_opened = "cargo_crate_secure_open"
+	icon_closed = "cargo_crate_secure"
 
 /obj/structure/closet/crate/nanotrasen
 	name = "corporate crate"
@@ -617,34 +662,16 @@
 	icon_closed = "mailsealed"
 	material_drop = /obj/item/stack/sheet/plastic
 	material_drop_amount = 4
-	var/list/possible_contents = list(/obj/item/envelope/security = DEP_MAIL_LIST_SECURITY,
-										/obj/item/envelope/science = DEP_MAIL_LIST_SCIENCE,
-										/obj/item/envelope/supply = DEP_MAIL_LIST_SUPPLY,
-										/obj/item/envelope/medical = DEP_MAIL_LIST_MEDICAL,
-										/obj/item/envelope/engineering = DEP_MAIL_LIST_ENGINEERING,
-										/obj/item/envelope/bread = DEP_MAIL_LIST_BREAD,
-										/obj/item/envelope/circuses = DEP_MAIL_LIST_SERVICE,
-										/obj/item/envelope/command = DEP_MAIL_LIST_COMMAND,
-										/obj/item/envelope/misc = DEP_MAIL_LIST_MISC)
+	var/list/envelope_types = list()
+
+/obj/structure/closet/crate/mail/Initialize(mapload, envelope_types_)
+	envelope_types = envelope_types_
+	. = ..()
 
 /obj/structure/closet/crate/mail/populate_contents()
 	. = ..()
-	var/list/narrowed_contents = possible_contents.Copy()
-	for(var/envelope_type in narrowed_contents)
-		var/found = FALSE
-		for(var/datum/mind/recipient in SSticker.minds)
-			var/turf/recipient_turf = get_turf(recipient.current)
-			if(recipient.offstation_role || !ishuman(recipient.current) || is_admin_level(recipient_turf.z))
-				continue
-			if(recipient.assigned_role in narrowed_contents[envelope_type])
-				found = TRUE
-				break
-		if(!found)
-			narrowed_contents -= envelope_type
-
-	for(var/i in 1 to (ceil(length(GLOB.crew_list) / 20) + rand(1, 5))) // Scale number of letters with number of crew.
-		var/item = pick(narrowed_contents)
-		new item(src)
+	for(var/envelope_type in envelope_types)
+		new envelope_type(src)
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))

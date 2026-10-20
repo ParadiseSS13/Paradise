@@ -615,9 +615,9 @@ USER_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jo
 		var/totalpositiontally
 		to_chat(client, SPAN_NOTICE("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"))
 		for(var/datum/job/job in SSjobs.occupations)
-			to_chat(client, "<span class='notice'>[job.title]: [job.current_positions] / \
+			to_chat(client, SPAN_NOTICE("[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
-			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b>"))
 			if(job.total_positions != -1) // Only count position that isn't unlimited
 				currentpositiontally += job.current_positions
 				totalpositiontally += job.total_positions

@@ -90,8 +90,8 @@
 		return
 	var/obj/machinery/abductor/console/console = target
 
-	if(!console.TeleporterRetrieve())
-		to_chat(owner, SPAN_WARNING("Error, unable to recall target. Please ensure they are not buckled, and that you have waited the required 10000 milliseconds!"))
+	if(!console.TeleporterRetrieve(owner))
+		to_chat(owner, SPAN_WARNING("Error, unable to recall target."))
 		playsound(owner, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /datum/action/innate/teleport_self

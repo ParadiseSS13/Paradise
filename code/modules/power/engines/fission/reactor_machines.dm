@@ -77,6 +77,9 @@
 	if(power_state == ACTIVE_POWER_USE) // dont start a new cycle when on
 		to_chat(user, SPAN_WARNING("There is already a fuel rod being processed!"))
 		return ITEM_INTERACT_COMPLETE
+	if(held_rod)
+		to_chat(user, SPAN_WARNING("There is already a rod inside [src]!"))
+		return ITEM_INTERACT_COMPLETE
 	var/obj/item/nuclear_rod/fuel/rod = used
 	var/list/enrichment_to_name = list()
 	var/list/radial_list = list()

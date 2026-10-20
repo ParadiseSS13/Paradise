@@ -179,29 +179,33 @@
 	desc = "You're not actually going to drink this, are you?"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
+	new_attack_chain = TRUE
 
-/obj/item/dragons_blood/attack_self__legacy__attackchain(mob/living/carbon/human/user)
+/obj/item/dragons_blood/activate_self(mob/living/carbon/human/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!istype(user))
 		return
 
-	var/mob/living/carbon/human/H = user
 	var/random = rand(1, 3)
 
 	switch(random)
 		if(1)
 			to_chat(user, SPAN_DANGER("Your flesh begins to melt! Miraculously, you seem fine otherwise."))
-			H.set_species(/datum/species/skeleton)
+			user.set_species(/datum/species/skeleton)
 		if(2)
-			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
+			to_chat(user, SPAN_DANGER("Power courses through you! You can now shift your form at will."))
 			if(user.mind)
 				var/datum/spell/shapeshift/dragon/D = new
 				user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, SPAN_DANGER("You feel like you could walk straight through lava now."))
-			H.weather_immunities |= "lava"
+			user.weather_immunities |= "lava"
 
 	playsound(user.loc, 'sound/items/drink.ogg', rand(10, 50), 1)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /datum/disease/transformation/dragon
 	name = "dragon transformation"
@@ -210,8 +214,8 @@
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
-	stage1	= list("Your bones ache.")
-	stage2	= list("Your skin feels scaley.")
+	stage1	= list(SPAN_WARNING("Your bones ache."))
+	stage2	= list(SPAN_WARNING("Your skin feels scaley."))
 	stage3	= list(SPAN_DANGER("You have an overwhelming urge to terrorize some peasants."), SPAN_DANGER("Your teeth feel sharper."))
 	stage4	= list(SPAN_DANGER("Your blood burns."))
 	stage5	= list(SPAN_DANGER("You're a fucking dragon. However, any previous allegiances you held still apply. It'd be incredibly rude to eat your still human friends for no reason."))

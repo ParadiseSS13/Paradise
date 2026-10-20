@@ -59,9 +59,9 @@ SUBSYSTEM_DEF(afk)
 								H.create_log(MISC_LOG, "Put into cryostorage by the AFK subsystem")
 								afk_players[H.ckey] = AFK_CRYOD
 								log_afk_action(H, mins_afk, T, "put into cryostorage")
-								warn(H, "<span class='danger'>You are AFK for [mins_afk] minutes and have been moved to cryostorage. \
+								warn(H, SPAN_DANGER("You are AFK for [mins_afk] minutes and have been moved to cryostorage. \
 									After being AFK for another [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. \
-									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
+									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned."))
 						else
 							var/area/our_area = get_area(T)
 							message_admins("[key_name_admin(H)] at ([our_area.name] [ADMIN_JMP(T)]) is AFK for [mins_afk] and can't be automatically cryod due to it's antag status: ([H.mind.special_role]).")

@@ -37,6 +37,13 @@
 	welcome_sound = 'sound/AI/welcome_diagoras.ogg'
 	voteable = FALSE
 
+/datum/map/omegastation
+	fluff_name = "NSS Legaria"
+	technical_name = "OmegaStation"
+	map_path = "_maps/map_files/stations/omegastation.dmm"
+	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/omegastation/"
+	max_players_random = 25
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"
@@ -47,4 +54,10 @@
 	fluff_name = "test_tgui"
 	technical_name = "test_tgui"
 	map_path = "_maps/map_files/test_tiny/test_tgui.dmm"
+	voteable = FALSE
+
+/datum/map/test_kitchen
+	fluff_name = "test_kitchen"
+	technical_name = "test_kitchen"
+	map_path = "_maps/map_files/test_tiny/test_kitchen.dmm"
 	voteable = FALSE

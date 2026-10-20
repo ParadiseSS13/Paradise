@@ -142,9 +142,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 252),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 9),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 7),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 7),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 14),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 11),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 10),
@@ -200,7 +199,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/anomalous_particulate_event, 60, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/market_crash, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3),
+		// new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3), // Out of Rotation for now, current version does not work as an event.
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_irradiated_mouse, 20),
 	)
 

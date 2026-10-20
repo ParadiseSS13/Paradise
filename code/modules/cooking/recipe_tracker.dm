@@ -45,6 +45,8 @@
 	/// completion.
 	var/list/recipes_applied_step_data = list()
 	var/step_reaction_message
+	/// A boolean for checking for special deep frier behavior.
+	var/frying_exception = FALSE
 
 /datum/cooking/recipe_tracker/New(obj/item/reagent_containers/cooking/container)
 	container_uid = container.UID()

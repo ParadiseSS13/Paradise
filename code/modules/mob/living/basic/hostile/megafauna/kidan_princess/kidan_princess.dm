@@ -27,7 +27,7 @@
 	move_force = MOVE_FORCE_NORMAL
 	see_in_dark = 20 // I see you
 	step_type = FOOTSTEP_MOB_SHOE
-	initial_traits = list(TRAIT_NOFIRE)
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 	blood_color = "#FB9800"
 	loot = list(
 		/obj/item/kidan_princess_halberd,
@@ -112,8 +112,8 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		"<span class='danger'>[src] brings down her halberd, obliterating [L] with a heavy blow!</span>",
-		"<span class='userdanger'>You bring down your halberd, obliterating [L] with a heavy blow!</span>")
+		SPAN_DANGER("[src] brings down her halberd, obliterating [L] with a heavy blow!"),
+		SPAN_USERDANGER("You bring down your halberd, obliterating [L] with a heavy blow!"))
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 	L.dust()
 	return TRUE

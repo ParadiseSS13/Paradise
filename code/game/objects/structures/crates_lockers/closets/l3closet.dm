@@ -8,6 +8,11 @@
 	new /obj/item/clothing/suit/bio_suit/general( src )
 	new /obj/item/clothing/head/bio_hood/general( src )
 
+/obj/structure/closet/l3closet/empty
+
+/obj/structure/closet/l3closet/empty/populate_contents()
+	return
+
 /obj/structure/closet/l3closet/general
 
 /obj/structure/closet/l3closet/general/populate_contents()

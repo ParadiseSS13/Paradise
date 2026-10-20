@@ -9,10 +9,8 @@
 	},
 /obj/structure/table,
 /obj/item/paper_bin,
-/obj/machinery/button/windowtint{
-	id = "smith_workshop";
-	pixel_x = 6;
-	pixel_y = 24
+/obj/machinery/button/windowtint/offset/north{
+	id = "smith_workshop"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
@@ -331,10 +329,8 @@
 "cB" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
+/obj/machinery/light_switch/directional/west{
+	name = "West Switch"
 	},
 /obj/machinery/defibrillator_mount/loaded/locked{
 	pixel_y = -32
@@ -826,9 +822,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/machinery/light_switch/directional/north{
+	name = "North Switch"
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white{
@@ -1013,11 +1008,8 @@
 	pixel_y = 5;
 	req_access = list(54)
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8;
-	pixel_y = -5
+/obj/machinery/light_switch/offset/east{
+	name = "East Switch"
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -1352,10 +1344,7 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "hv" = (
-/mob/living/simple_animal/bot/secbot/beepsky{
-	desc = "Powered by the tears and sweat of laborers.";
-	name = "Prison Ofitser"
-	},
+/mob/living/basic/bot/secbot/beepsky,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
 "hw" = (
@@ -2620,16 +2609,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "ph" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8;
-	pixel_y = -5
+/obj/machinery/light_switch/offset/east{
+	name = "East Switch"
 	},
-/obj/machinery/button/windowtint{
-	dir = 8;
-	pixel_x = 24;
-	pixel_y = 5;
+/obj/machinery/button/windowtint/offset/northeast{
 	id = "mining qm"
 	},
 /obj/machinery/camera{
@@ -3034,10 +3017,8 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "rI" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
+/obj/machinery/light_switch/directional/west{
+	name = "West Switch"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -4117,10 +4098,8 @@
 /area/mine/laborcamp/security)
 "ww" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
+/obj/machinery/light_switch/directional/west{
+	name = "West Switch"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
@@ -5476,9 +5455,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/machinery/light_switch/directional/north{
+	name = "North Switch"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -6027,10 +6005,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "GV" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8
+/obj/machinery/light_switch/directional/east{
+	name = "East Switch"
 	},
 /obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel/dark,
@@ -7269,9 +7245,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
 "MW" = (
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/machinery/light_switch/directional/north{
+	name = "North Switch"
 	},
 /obj/machinery/alarm/directional/east,
 /obj/structure/closet/secure_closet/miner,
@@ -8301,7 +8276,7 @@
 /obj/structure/table,
 /obj/item/deck/cards,
 /obj/item/paper{
-	info = "What is the barometer?<br><br>Barometer is a scientific instrument used in meteorology to measure atmospheric pressure, and is widely used by miners to know when the next ash storm will happen.<br><br>Our Nanotrasen technology managed to implement the barometer functions in just one instrument, the Analyzer. The Analyzer can measure pipes with various useful information, as well as measure atmospheric pressure.<br><br>How to use the barometer?<br><br>To use the barometer, go to a space with relatively low pressure and press the button indicated on the instrument. When you press it, the analyzer will immediately measure the environment and give you the information.";
+	info = "What is the barometer?<br><br>Barometer is a scientific instrument used in meteorology to measure atmospheric pressure, and is widely used by miners to know when the next weather event (Ash Storm, High-Velocity Winds, Acid Rain, or Volcanic Eruption) will happen.<br><br>Our Nanotrasen technology managed to implement the barometer functions in just one instrument: the analyzer. The analyzer can measure pipes with various useful information, as well as measure atmospheric pressure.<br><br>How to use the barometer?<br><br>To use the barometer, go to a space with relatively low pressure and press the button indicated on the instrument. When you press it, the analyzer will immediately measure the environment and give you the information on the approximate time when the next weather event will occur.<br><br>To find the Barometer button on the Analyser, you may need to properly examine it.";
 	name = "A guide for your safety";
 	pixel_x = -6;
 	pixel_y = 8
@@ -8417,10 +8392,8 @@
 /obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8
+/obj/machinery/light_switch/directional/east{
+	name = "East Switch"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/airlock)

@@ -520,12 +520,12 @@
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	new_attack_chain = TRUE
 	var/drew_blood = FALSE
 	var/timerid
 	var/list/input_list = list()
 	var/list/combo_strings = list()
 	var/list/combo_list = list()
-
 
 /obj/item/cursed_katana/Initialize(mapload)
 	. = ..()
@@ -551,16 +551,24 @@
 	. = ..()
 	reset_inputs(null, TRUE)
 
-/obj/item/cursed_katana/attack_self__legacy__attackchain(mob/user)
-	. = ..()
-	reset_inputs(user, TRUE)
+/obj/item/cursed_katana/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/cursed_katana/attack__legacy__attackchain(mob/living/target, mob/user, click_parameters)
-	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
+	reset_inputs(user, TRUE)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/cursed_katana/pre_attack(mob/living/target, mob/user, params)
+	if(!istype(target))
 		return ..()
+
+	if(target.stat == DEAD || target == user) // No, you can not stab yourself to cloak / not take the penalty for not drawing blood
+		return ..()
+
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_WARNING("You don't want to harm [target]!"))
-		return TRUE
+		return FINISH_ATTACK
+
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
 		input_list += DISARM_SLASH
@@ -576,7 +584,7 @@
 		reset_inputs(user, TRUE)
 	if(check_input(target, user))
 		reset_inputs(null, TRUE)
-		return TRUE
+		return FINISH_ATTACK
 	else
 		timerid = addtimer(CALLBACK(src, PROC_REF(reset_inputs), user, FALSE), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
 		return ..()

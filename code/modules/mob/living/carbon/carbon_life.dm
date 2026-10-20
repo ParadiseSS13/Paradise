@@ -69,6 +69,9 @@
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
 
+	if(istype(loc, /obj/machinery/cryopod)) // Do not suffocate in cryogenic storage. What the hell.
+		return
+
 	var/datum/gas_mixture/breath
 
 	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())

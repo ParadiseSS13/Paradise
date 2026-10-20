@@ -111,3 +111,31 @@
 		H.adjustFireLoss(1)
 		return TRUE
 	return ..()
+
+/datum/species/grey/skin_tone_from_body_color(body_color)
+	var/list/body_rgb = rgb2num(body_color)
+	if(body_rgb[1] == body_rgb[2] && body_rgb[2] == body_rgb[3])
+		return 1
+	if(body_rgb[1] > body_rgb[2] && body_rgb[1] > body_rgb[3])
+		return 4
+	if(body_rgb[2] > body_rgb[3])
+		return 2
+	return 3
+
+/datum/species/grey/skin_tone_to_hex(skin_tone)
+	var/list/tone_colors = list("#575757", "#576b57", "#57576b", "#6b5757")
+	return tone_colors[skin_tone]
+
+/datum/species/grey/randomize_eye_color()
+	if(prob(1))
+		return rand_hex_color()
+	// random dark, muted color
+	return rgb(rand(0, 360), rand(0, 60), rand(0, 35), space = COLORSPACE_HSL)
+
+/datum/species/grey/randomize_body_markings(prob_to_apply = 35)
+	return ..()
+
+/datum/species/grey/randomize_body_markings_color(body_markings, body_color = null, skin_tone = 1)
+	if(body_markings == "None")
+		return COLOR_BLACK
+	return rgb(rand(0, 360), rand(0, 60), rand(0, 40), space = COLORSPACE_HSL)

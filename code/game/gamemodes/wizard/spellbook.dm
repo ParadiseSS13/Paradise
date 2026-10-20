@@ -582,7 +582,7 @@
 /datum/spellbook_entry/item/oozebottle
 	name = "Bottle of Ooze"
 	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with and even casting some very basic spells. Be careful though, as Morph diet includes Wizards."
-	item_path = /obj/item/antag_spawner/morph
+	item_path = /obj/item/antag_spawner/monster/morph
 	category = "Summons"
 	limit = 3
 	cost = 1
@@ -597,7 +597,7 @@
 		to be released on the demon's death. Chaotic, but not ultimately \
 		damaging. The crew's reaction to the other hand could be very \
 		destructive."
-	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
+	item_path = /obj/item/antag_spawner/monster/slaughter_demon/laughter
 	category = "Summons"
 	limit = 3
 	cost = 1 // Non-destructive; it's just a jape, sibling!
@@ -605,7 +605,7 @@
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
 	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon
+	item_path = /obj/item/antag_spawner/monster/slaughter_demon
 	category = "Summons"
 	limit = 3
 	is_ragin_restricted = TRUE
@@ -613,7 +613,7 @@
 /datum/spellbook_entry/item/shadowbottle
 	name = "Bottle of Shadows"
 	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+	item_path = /obj/item/antag_spawner/monster/slaughter_demon/shadow
 	category = "Summons"
 	limit = 3
 	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
@@ -621,7 +621,7 @@
 /datum/spellbook_entry/item/revenantbottle
 	name = "Bottle of Ectoplasm"
 	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/revenant
+	item_path = /obj/item/antag_spawner/monster/revenant
 	category = "Summons"
 	limit = 3
 	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
@@ -629,7 +629,7 @@
 /datum/spellbook_entry/item/pulsedemonbottle
 	name = "Living Lightbulb"
 	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim. It is *heavily* advised not to summon it in maintenance areas."
-	item_path = /obj/item/antag_spawner/pulse_demon
+	item_path = /obj/item/antag_spawner/monster/pulse_demon
 	category = "Summons"
 	limit = 3
 	cost = 1 // Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
@@ -709,6 +709,7 @@
 	icon_state = "spellbook"
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/uses = 10
 	var/temp = null
 	var/op = 1
@@ -739,25 +740,26 @@
 	. = ..()
 	create_spellbook()
 
-/obj/item/spellbook/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/contract))
-		var/obj/item/contract/contract = O
+/obj/item/spellbook/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/contract))
+		var/obj/item/contract/contract = used
 		if(contract.used)
-			to_chat(user, SPAN_WARNING("The contract has been used, you can't get your points back now!"))
-		else
-			to_chat(user, SPAN_NOTICE("You feed the contract back into the spellbook, refunding your points."))
-			uses+=2
-			qdel(O)
-		return
+			to_chat(user, SPAN_WARNING("[contract] has been used, you can't get your points back now!"))
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
+		to_chat(user, SPAN_NOTICE("You feed [contract] back into [src], refunding your points."))
+		uses += 2
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/antag_spawner/monster/slaughter_demon))
 		to_chat(user, SPAN_NOTICE("On second thought, maybe summoning a demon is a bad idea. You refund your points."))
-		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
+		if(istype(used, /obj/item/antag_spawner/monster/slaughter_demon/laughter))
 			uses += 1
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
-		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+		else if(istype(used, /obj/item/antag_spawner/monster/slaughter_demon/shadow))
 			uses += 1
 			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
 				if(!isnull(SB.limit))
@@ -767,26 +769,26 @@
 			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
 				if(!isnull(BB.limit))
 					BB.limit++
-		qdel(O)
-		return
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/antag_spawner/morph))
+	if(istype(used, /obj/item/antag_spawner/monster/morph))
 		to_chat(user, SPAN_NOTICE("On second thought, maybe awakening a morph is a bad idea. You refund your points."))
 		uses += 1
 		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
 			if(!isnull(OB.limit))
 				OB.limit++
-		qdel(O)
+		qdel(used)
 		return
 
-	if(istype(O, /obj/item/antag_spawner/revenant))
+	if(istype(used, /obj/item/antag_spawner/monster/revenant))
 		to_chat(user, SPAN_NOTICE("On second thought, maybe the ghosts have been salty enough today. You refund your points."))
 		uses += 1
 		for(var/datum/spellbook_entry/item/revenantbottle/RB in entries)
 			if(!isnull(RB.limit))
 				RB.limit++
-		qdel(O)
-		return
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/item/spellbook/proc/GetCategoryHeader(category)
@@ -855,14 +857,19 @@
 	dat += {"[content]</body></html>"}
 	return dat
 
-/obj/item/spellbook/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/spellbook/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!owner)
 		to_chat(user, SPAN_NOTICE("You bind the spellbook to yourself."))
 		owner = user
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(user != owner)
-		to_chat(user, SPAN_WARNING("[src] does not recognize you as it's owner and refuses to open!"))
-		return
+		to_chat(user, SPAN_WARNING("[src] does not recognize you as its owner and refuses to open!"))
+		return ITEM_INTERACT_COMPLETE
+
 	user.set_machine(src)
 	var/dat = ""
 
@@ -915,19 +922,19 @@
 
 	user << browse(wrap(dat), "window=spellbook;size=800x600")
 	onclose(user, "spellbook")
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/spellbook/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 	var/mob/living/carbon/human/H = usr
 
 	if(!ishuman(H))
-		return 1
+		return TRUE
 
 	if(H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 		temp = "If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
-		return 1
+		return TRUE
 
 	var/datum/spellbook_entry/E = null
 	if(loc == H || (in_range(src, H) && isturf(loc)))
@@ -958,8 +965,8 @@
 				tab = loadout_categories[1]
 		else if(href_list["page"])
 			tab = sanitize(href_list["page"])
-	attack_self__legacy__attackchain(H)
-	return 1
+	activate_self(H)
+	return TRUE
 
 //Single Use Spellbooks
 /obj/item/spellbook/oneuse
@@ -968,13 +975,15 @@
 	var/used = FALSE
 	name = "spellbook of "
 	uses = 1
-	desc = "This template spellbook was never meant for the eyes of man..."
+	desc = ABSTRACT_TYPE_DESC
 
 /obj/item/spellbook/oneuse/Initialize(mapload)
 	. = ..()
 	name += spellname
 
-/obj/item/spellbook/oneuse/attack_self__legacy__attackchain(mob/user)
+/obj/item/spellbook/oneuse/activate_self(mob/user)
+	if(!user)
+		return ..()
 	var/datum/spell/S = new spell
 	for(var/datum/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == S.type)
@@ -983,15 +992,17 @@
 					to_chat(user, SPAN_NOTICE("You're already far more versed in this spell than this flimsy how-to book can provide."))
 				else
 					to_chat(user, SPAN_NOTICE("You've already read this one."))
-			return
+			return ITEM_INTERACT_COMPLETE
 	if(used)
 		recoil(user)
-	else
-		user.mind.AddSpell(S)
-		to_chat(user, SPAN_NOTICE("you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!"))
-		user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
-		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
-		onlearned(user)
+		return ITEM_INTERACT_COMPLETE
+
+	user.mind.AddSpell(S)
+	to_chat(user, SPAN_NOTICE("you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!"))
+	user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
+	user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
+	onlearned(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/spellbook/oneuse/proc/recoil(mob/user)
 	user.visible_message(SPAN_WARNING("[src] glows in a black light!"))
@@ -1000,8 +1011,8 @@
 	used = TRUE
 	user.visible_message(SPAN_CAUTION("[src] glows dark for a second!"))
 
-/obj/item/spellbook/oneuse/attackby__legacy__attackchain()
-	return
+/obj/item/spellbook/oneuse/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return NONE
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /datum/spell/fireball

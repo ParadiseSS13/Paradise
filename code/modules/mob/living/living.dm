@@ -48,6 +48,7 @@
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	GLOB.station_pets -= src
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -59,6 +60,16 @@
 	if(mind?.current == src)
 		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(FALSE)
+		qdel(s) // If the owner is `destroy()`'d, the soul link is `destroy()`'d.
+	ownedSoullinks = null
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(FALSE)
+		S.removeSoulsharer(src) // If a sharer is `destroy()`'d, they are simply removed.
+	sharedSoullinks = null
 	return ..()
 
 /mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
@@ -1008,18 +1019,19 @@
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
 			if(do_mob(user, src, butcher_time / 2) && Adjacent(I))
-				harvest(user)
+				harvest(user, I)
 		else
 			if(do_mob(user, src, butcher_time) && Adjacent(I))
-				harvest(user)
+				harvest(user, I)
 		return TRUE
 
-/mob/living/proc/harvest(mob/living/user)
+/mob/living/proc/harvest(mob/living/user, obj/item/I)
 	if(QDELETED(src))
 		return
 	if(butcher_results)
 		for(var/path in butcher_results)
-			for(var/i = 1, i <= butcher_results[path], i++)
+			var/amount_to_drop = floor(butcher_results[path] * I.bit_productivity_mod)
+			for(var/i = 1, i <= amount_to_drop, i++)
 				new path(loc)
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message(SPAN_NOTICE("[user] butchers [src]."))

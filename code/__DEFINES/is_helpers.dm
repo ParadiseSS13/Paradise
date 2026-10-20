@@ -108,6 +108,13 @@
 
 #define istable(S) (istype(S, /obj/structure/table))
 
+GLOBAL_LIST_INIT(placeable_surface_types, typecacheof(list(
+	/obj/structure/table,
+	/obj/structure/rack,
+	/obj/structure/shelf,)))
+
+#define is_surface(W) (is_type_in_typecache(W, GLOB.placeable_surface_types))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -171,6 +178,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
 #define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
+#define is_color_rgb(thing) (islist(thing) && length(thing) < 5 && length(thing) > 2 && isnum(thing[1]) && isnum(thing[2]) && isnum(thing[3]))
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)

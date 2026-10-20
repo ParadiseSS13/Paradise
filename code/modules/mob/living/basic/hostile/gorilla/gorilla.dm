@@ -180,10 +180,7 @@
 	. = ..()
 	var/num_crates = LAZYLEN(crates_in_hand)
 	if(num_crates)
-		. += "<span class='notice'>[p_theyre(TRUE)] carrying the following:"
-		for(var/atom/movable/crate in crates_in_hand)
-			. += "[crate]."
-		. += "</span>"
+		. += SPAN_NOTICE("[p_theyre(TRUE)] carrying the following: [english_list(crates_in_hand)].")
 
 /mob/living/basic/gorilla/drop_item_v()
 	drop_random_crate(drop_location())

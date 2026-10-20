@@ -40,7 +40,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.add_hud_to(src, "guardian healer")
 
 /mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
 	var/list/status_tab_data = ..()

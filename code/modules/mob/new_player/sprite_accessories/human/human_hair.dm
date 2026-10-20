@@ -359,6 +359,77 @@
 	icon_state = "elephanttrunk"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
 
+/datum/sprite_accessory/hair/pigcute
+	name = "Cute Pigtails"
+	icon_state = "pigcute"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/bowlovereyes
+	name = "Bowlcut Over Eyes"
+	icon_state = "bowlovereyes"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/drillidol
+	name = "Drill Idol"
+	icon_state = "drillidol"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/longdreads
+	name = "Long Dreads"
+	icon_state = "longdreads"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/longdreadsup
+	name = "Long Dreads Ponytail"
+	icon_state = "longdreadsup"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/ponyfro
+	name = "Afro Ponytail"
+	icon_state = "ponyfro"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/cupidpigtails
+	name = "Cupid Pigtails"
+	icon_state = "cupidpigtails"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/coily
+	name = "Coily"
+	icon_state = "coily"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/tayama
+	name = "Tayama"
+	icon_state = "tayama"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/pigcool
+	name = "Cool Pigtails"
+	icon_state = "pigcool"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/pigsinged
+	name = "Singed Pigtails"
+	icon_state = "pigsinged"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/fluffywolf
+	name = "Fluffy Wolfcut"
+	icon_state = "fluffywolf"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/mullet
+	name = "Mullet"
+	icon_state = "mullet"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/afroovereyes
+	name = "Afro Over Eyes"
+	icon_state = "afroovereyes"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
@@ -877,6 +948,20 @@
 
 ///Ume hairs end here///
 
+/datum/sprite_accessory/hair/liberator
+	name = "Liberator"
+	icon_state = "liberator_long"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/liberator_short
+	name = "Liberator Short"
+	icon_state = "liberator_short"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
+/datum/sprite_accessory/hair/liberator_tied
+	name = "Liberator Tied"
+	icon_state = "liberator_tied"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
 
 ///Fluff HairStyles//
 /// Pineapple Salad hair fluff its for a slime..has to go under human

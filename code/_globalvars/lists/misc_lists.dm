@@ -1,3 +1,19 @@
+GLOBAL_LIST_INIT(wordle_words, list(
+	"APPLE", "BERRY", "BREAD", "BRING", "CANDY", "CHAIR", "CHESS", "CLOUD", "CRANE", "CRATE",
+	"DANCE", "DECKS", "EARTH", "EAGLE", "FLAME", "FROST", "GHOST", "GRAPE", "GRAIN", "GREEN",
+	"HONEY", "HORSE", "HOUSE", "JELLY", "KNIFE", "LEMON", "LIGHT", "MANGO", "MUSIC", "NEXUS",
+	"OCEAN", "ORANGE", "PEARL", "PIZZA", "PLANT", "RAVEN", "ROBOT", "RIVER", "SHINE", "SMILE",
+	"SNOWY", "SOLAR", "SPARK", "STONE", "STORM", "SUGAR", "SUNRISE", "TIGER", "TIGER", "TRAIN",
+	"TRUCK", "UNITY", "VIVID", "WATER", "WHEAT", "WHITE", "WITCH", "WORLD", "YOUNG", "ZEBRA",
+	"ALBUM", "ANGEL", "BLOOM", "BLUES", "BONUS", "BREAD", "BRICK", "BRIDE", "BROOK", "BROWN",
+	"CARGO", "CATCH", "CIVIL", "CLACK", "CLAWS", "COVER", "CROWN", "DREAM", "DRIFT", "FABLE",
+	"FLEET", "FLUID", "FROTH", "GLASS", "GLOVE", "GRACE", "GROVE", "HAVEN", "HEART", "HONEY",
+	"IVORY", "JOKER", "LASER", "LAYER", "LOCAL", "MAGIC", "MARCH", "MELON", "MERIT", "METAL",
+	"MONEY", "MOTOR", "NOBLE", "NORTH", "PATIO", "PILOT", "PINEA", "PULSE", "QUEEN", "QUICK",
+	"RATIO", "RHYME", "ROAST", "SHEEP", "SHORE", "SLEEP", "SLOPE", "SOLID", "SOUTH", "SPACE",
+	"STEEL", "STONE", "STRAW", "SWORD", "TABLE", "THINK", "TITAN", "TOAST", "TREAD", "TRICE",
+	"TWEAK", "UPPER", "VALID", "VAPOR", "VECTOR", "VIVID", "VOICE", "WAVES", "WITCH", "WORST"
+))
 GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"))
 GLOBAL_LIST_INIT(alphabet_uppercase, list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"))
 GLOBAL_LIST_INIT(vowels_lower, list("a","e","i","o","u"))
@@ -110,3 +126,35 @@ GLOBAL_LIST_INIT(blacklisted_heretic_areas, list(
 	))
 
 GLOBAL_LIST_EMPTY(starlight) // Turfs that emit starlight
+
+GLOBAL_LIST_INIT(false_alarm_types, list(
+	/datum/event/alien_infestation, \
+	/datum/event/apc_overload, \
+	/datum/event/apc_short, \
+	/datum/event/blob, \
+	/datum/event/brand_intelligence, \
+	/datum/event/bureaucratic_error, \
+	/datum/event/communications_blackout, \
+	/datum/event/electrical_storm, \
+	/datum/event/immovable_rod, \
+	/datum/event/infestation, \
+	/datum/event/ion_storm, \
+	/datum/event/mass_hallucination, \
+	/datum/event/meteor_wave, \
+	/datum/event/prison_break, \
+	/datum/event/rogue_drone, \
+	/datum/event/solar_flare, \
+	/datum/event/spider_infestation, \
+	/datum/event/spider_terror, \
+	/datum/event/tear, \
+	/datum/event/tear/honk, \
+	/datum/event/traders, \
+	/datum/event/market_crash, \
+	/datum/event/disease_outbreak, \
+	/datum/event/vent_clog, \
+	/datum/event/disposals_clog, \
+	/datum/event/demon_incursion, \
+	/datum/event/shuttle_loan, \
+	/datum/event/grid_check, \
+	) + subtypesof(/datum/event/anomaly) + subtypesof(/datum/event/carp_migration) \
+)

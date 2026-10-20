@@ -63,6 +63,9 @@
 	/// Blocks the door from making sparks when on cooldown. Lag preventor, disabled by disable_door_sparks for 3 seconds
 	COOLDOWN_DECLARE(spark_block_cooldown)
 
+/obj/machinery/door/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to knock on it.")
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -79,13 +82,20 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	update_nearby_icons()
+	update_icon()
+	recalculate_atmos_connectivity()
+
+/obj/machinery/door/proc/update_nearby_icons()
 	if(manual_dir == FALSE)
 		for(var/d in GLOB.cardinal)
 			var/turf/T = get_step(src, d)
-			if(iswallturf(T) || locate(/obj/structure/window/full) in T)
+			if(iswallturf(T))
 				QUEUE_SMOOTH(T)
-	update_icon()
-	recalculate_atmos_connectivity()
+			else
+				var/obj/structure/window/full/W = locate(/obj/structure/window/full) in T
+				if(W)
+					QUEUE_SMOOTH(W)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -195,9 +205,6 @@
 				cmag_switch(FALSE, user)
 				return
 			open()
-			if(isbot(user))
-				var/mob/living/simple_animal/bot/B = user
-				B.door_opened(src)
 		else
 			if(pry_open_check(user))
 				return
@@ -253,6 +260,18 @@
 	if(!allowed(null))
 		return
 	..()
+
+/obj/machinery/door/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(src, 'sound/magic/hereticknock.ogg', 100, 1)
+	user.visible_message(
+		SPAN_NOTICE("[user] knocks on [src]."),
+		SPAN_NOTICE("You knock on [src]."),
+		SPAN_HEAR("You hear a knocking sound.")
+	)
+	add_fingerprint(user)
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
@@ -336,18 +355,23 @@
 /obj/machinery/door/emag_act(mob/user)
 	if(density)
 		flick("door_spark", src)
-		sleep(6)
-		open()
-		emagged = TRUE
+		addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 0.6 SECONDS)
 		return TRUE
+
+/obj/machinery/door/proc/finish_emag_act()
+	open()
+	emagged = TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
 		return FALSE
 	flick("door_spark", src)
-	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	// The cmag doesn't automatically open doors. It inverts access, not provides it!
+	addtimer(CALLBACK(src, PROC_REF(finish_cmag_act)), 0.6 SECONDS)
 	return TRUE
+
+/obj/machinery/door/proc/finish_cmag_act()
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
@@ -516,11 +540,18 @@
 		if(iswallturf(get_step(src, direction)))
 			return direction
 	for(var/direction in GLOB.cardinal)
+		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
+		if(W?.useFull)
+			return direction
+	for(var/direction in GLOB.cardinal)
 		if((locate(/obj/structure/window/full) in get_step(src, direction)))
 			return direction
 	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/machinery/door) in get_step(src, direction)))
-			return direction
+		var/turf/T = get_step(src, direction)
+		for(var/obj/machinery/door/airlock/A in T.contents)
+			if(A != src)
+				return direction
+	return dir // Fallback from mapping.
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))

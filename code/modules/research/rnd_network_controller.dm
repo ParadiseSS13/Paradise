@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					servers -= params["uid"]
 					if(S)
 						S.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[S.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[S.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 				if("RDC")
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					consoles -= params["uid"]
 					if(RDC)
 						RDC.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[RDC.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[RDC.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 				if("MFB")
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					mechfabs -= params["uid"]
 					if(MPF)
 						MPF.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[MPF.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, SPAN_NOTICE("Successfully unlinked <code>[MPF.name]</code> from the network <code>[network_name]</code>"))
 						return
 
 				if("BCK")

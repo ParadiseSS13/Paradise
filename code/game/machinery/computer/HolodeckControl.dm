@@ -316,6 +316,7 @@
 
 /obj/item/holo
 	damtype = STAMINA
+	new_attack_chain = TRUE
 
 //override block check, we don't want to block anything that's not a holo object
 /obj/item/holo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby)
@@ -384,7 +385,9 @@
 		return ..()
 	return 0
 
-/obj/item/holo/esword/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/holo/esword/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	active = !active
 	if(active)
 		force = 30
@@ -404,6 +407,7 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

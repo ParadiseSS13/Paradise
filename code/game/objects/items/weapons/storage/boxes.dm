@@ -395,10 +395,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival/empty/populate_contents()
 	return
@@ -412,9 +414,11 @@
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_vox/empty/populate_contents()
 	return
@@ -444,10 +448,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/engineer/empty/populate_contents()
 	return
@@ -461,10 +467,12 @@
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/flashlight/flare(src)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
+		new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/box/survival_mining/empty/populate_contents()
 	return
@@ -480,6 +488,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 /obj/item/storage/box/survival_syndie/empty/populate_contents()
 	return
@@ -916,8 +925,8 @@
 	return
 
 /obj/item/storage/box/autoinjectors
-	name = "box of injectors"
-	desc = "Contains autoinjectors."
+	name = "box of epinephrine autoinjectors"
+	desc = "Contains autoinjectors pre-loaded with epinephrine."
 	icon_state = "injector_box"
 
 /obj/item/storage/box/autoinjectors/populate_contents()
@@ -1543,6 +1552,11 @@
 /obj/item/storage/box/fakesyndiesuit/empty/populate_contents()
 	return
 
+/obj/item/storage/box/crab_box
+	name = "market profit box"
+	desc = "A sleek, sturdy box with a miniature teleporter beacon inside, linked to a remote market device."
+	icon_state = "doom_box"
+
 /obj/item/storage/box/enforcer_rubber
 	name = "\improper Enforcer pistol kit (rubber)"
 	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
@@ -1842,7 +1856,21 @@
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown."
 	icon_state = "clown_box"
-	var/robot_arm // This exists for bot construction
+
+/obj/item/storage/box/clown/attackby__legacy__attackchain(obj/item/used, mob/user, params)
+	if(!(istype(used, /obj/item/robot_parts/l_arm) || istype(used, /obj/item/robot_parts/r_arm)))
+		return ..()
+
+	if(length(contents))
+		to_chat(user, SPAN_NOTICE("You cannot attach [used] with items still in [src]."))
+		return TRUE
+
+	to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+	var/obj/item/bot_assembly/honkbot/assembly = new(drop_location())
+	qdel(used)
+	qdel(src)
+	user.put_in_hands(assembly)
+	return TRUE
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"

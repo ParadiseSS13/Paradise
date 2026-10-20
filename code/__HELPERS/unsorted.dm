@@ -280,7 +280,7 @@
 	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || A.shell)
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -1636,7 +1636,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/mob/living/silicon/robot = "CYBORG",
 			/mob/living/silicon/ai = "AI",
 			/mob/living/silicon = "SILICON",
-			/mob/living/simple_animal/bot = "BOT",
+			/mob/living/basic/bot = "BOT",
 			/mob/living/simple_animal = "SIMPLE",
 			/mob/living = "LIVING",
 			/mob = "M"

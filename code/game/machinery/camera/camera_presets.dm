@@ -86,7 +86,7 @@
 
 /obj/machinery/camera/tracking_head/proc/prime_the_camera()
 	SIGNAL_HANDLER //COMSIG_CAMERA_OFF
-	visible_message("<span class='danger'>[src] begins to spark violently!")
+	visible_message(SPAN_DANGER("[src] begins to spark violently!"))
 	do_sparks(4, 0, src)
 	addtimer(CALLBACK(src, PROC_REF(explode_the_camera)), 2.5 SECONDS)
 
@@ -139,26 +139,34 @@
 // UPGRADE PROCS
 
 /obj/machinery/camera/proc/upgradeEmpProof()
+	if(isEmpProof())
+		return
 	assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(assembly))
-	setPowerUsage()
+	apply_upgrades()
 
 /obj/machinery/camera/proc/upgradeXRay()
+	if(isXRay())
+		return
 	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
-	setPowerUsage()
-	//Update what it can see.
-	GLOB.cameranet.update_visibility(src, 0)
+	apply_upgrades()
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
 	if(isMotion())
 		return
-	if(name == initial(name))
-		name = "motion-sensitive security camera"
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
-	proximity_monitor = new(src, CAMERA_VIEW_DISTANCE)
+	apply_upgrades()
+
+/obj/machinery/camera/proc/apply_upgrades()
 	setPowerUsage()
-	// Add it to machines that process
-	START_PROCESSING(SSmachines, src)
+	if(isMotion())
+		if(name == initial(name))
+			name = "motion-sensitive security camera"
+		set_area_motion(get_area(src))
+		if(!isprocessing)
+			START_PROCESSING(SSmachines, src)
+	if(isXRay())
+		GLOB.cameranet.update_visibility(src, 0)
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

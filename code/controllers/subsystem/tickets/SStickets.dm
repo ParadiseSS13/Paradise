@@ -265,7 +265,7 @@ SUBSYSTEM_DEF(tickets)
 	var/client/C = usr.client
 	var/client/owner = get_client_by_ckey(T.client_ckey)
 	if(!owner)
-		to_chat(C, "<span class='notice'>Can't convert the ticket of a disconnected user.")
+		to_chat(C, SPAN_WARNING("Can't convert the ticket of a disconnected user."))
 		return
 	T.ticketState = TICKET_CLOSED
 	T.ticket_converted = TRUE
@@ -295,7 +295,7 @@ SUBSYSTEM_DEF(tickets)
 	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sorted_responses
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	if(!ticket_owner)
-		to_chat(C, "<span class='notice'>Can't respond to the ticket of a disconnected user.")
+		to_chat(C, SPAN_WARNING("Can't respond to the ticket of a disconnected user."))
 		return
 	switch(message_key)
 		if(null) //they cancelled

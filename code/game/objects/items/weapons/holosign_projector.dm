@@ -19,7 +19,7 @@
 	new_attack_chain = TRUE
 
 /obj/item/holosign_creator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isstorage(target))
+	if(isstorage(target) || is_surface(target))
 		return ..()
 
 	if(!check_allowed_items(target, 1))
