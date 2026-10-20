@@ -112,7 +112,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/spaceinfected/default",
         "/mob/living/simple_animal/hostile/spaceinfected/default/ranged",
         "/mob/living/simple_animal/hostile/spaceinfected/gateopener",
-        "/mob/living/simple_animal/hostile/statue",
         "/mob/living/simple_animal/hostile/syndicate",
         "/mob/living/simple_animal/hostile/syndicate/depot",
         "/mob/living/simple_animal/hostile/syndicate/depot/modsuit",

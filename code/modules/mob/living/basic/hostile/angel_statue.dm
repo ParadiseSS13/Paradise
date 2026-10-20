@@ -18,7 +18,7 @@
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 		/datum/ai_planning_subtree/find_and_hunt_target/prowl,
-		)
+	)
 
 /datum/ai_planning_subtree/targeted_mob_ability/cause_darkness
 	#warn this might need to be increased but testing is required
@@ -35,7 +35,7 @@
 			return
 		ability_key = pick_n_take(ability_keys)
 		selected_action = controller.blackboard[ability_key]
-	controller.set_blackboard_key(BB_STATUE_SPELL_COOLDOWN, world.time + darkness_spellcasting_delay)
+		controller.set_blackboard_key(BB_STATUE_SPELL_COOLDOWN, world.time + darkness_spellcasting_delay)
 	return ..()
 
 /mob/living/basic/hostile/statue
@@ -84,6 +84,34 @@
 	var/cannot_be_seen = TRUE
 	var/mob/living/creator = null
 
+/mob/living/basic/hostile/statue/proc/can_be_seen(turf/destination)
+	if(!cannot_be_seen)
+		return null
+	// Check for darkness
+	var/turf/T = get_turf(loc)
+	if(T && destination && T.lighting_object)
+		if(T.get_lumcount() * 10 < 1 && destination.get_lumcount() * 10 < 1) // No one can see us in the darkness, right?
+			return null
+		if(T == destination)
+			destination = null
+
+	// We aren't in darkness, loop for viewers.
+	var/list/check_list = list(src)
+	if(destination)
+		check_list += destination
+
+	// This loop will, at most, loop twice.
+	for(var/atom/check in check_list)
+		for(var/mob/living/M in viewers(world.view + 1, check) - src)
+			if(M.client && !is_ai(M)) // AI cannot use their infinite view to stop us.
+				if(M.has_vision())
+					return M
+		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
+			if(M.occupant && M.occupant.client)
+				if(M.occupant.has_vision())
+					return M.occupant
+	return null
+
 /mob/living/basic/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
 	// Give spells
@@ -99,8 +127,8 @@
 	creator = null
 	return ..()
 
-/mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
-	if(can_see(NewLoc))
+/mob/living/basic/hostile/statue/Move(turf/NewLoc)
+	if(can_be_seen(NewLoc))
 		if(client)
 			to_chat(src, SPAN_WARNING("You cannot move, there are eyes on you!"))
 		return 0
