@@ -1011,9 +1011,9 @@
 	ui_interact(user)
 
 /obj/machinery/computer/shuttle/examine()
-  . = ..()
-  if(loud_console)
-    . += SPAN_NOTICE("Swipe an ID with Centcomm access to change the arrival announcement settings.")
+	. = ..()
+	if(loud_console)
+		. += SPAN_NOTICE("Swipe an ID with Centcomm access to change the arrival announcement settings.")
 
 /obj/machinery/computer/shuttle/ui_state(mob/user)
 	return GLOB.default_state
