@@ -1114,19 +1114,20 @@
 	if(!user)
 		return
 
-	if(!id_card.access) //no access
-		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+	if(!id_card.access) // No access.
+		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
 		return ITEM_INTERACT_COMPLETE
 
 	var/list/cardaccess = id_card.access
-	if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
-		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+	if(!istype(cardaccess, /list) || !length(cardaccess)) // No access.
+		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(!(ACCESS_CENT_COMMANDER in id_card.access)) //doesn't have this access
-		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+	if(!(ACCESS_CENT_COMMANDER in id_card.access)) // Doesn't have this access.
+		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
 		return ITEM_INTERACT_COMPLETE
-	var/choice = tgui_alert(user, "Would you like to announce your arrival? Use Pilot for just you, or All for you and your passengers.", "Shuttle Announcer", list("Pilot", "All", "None"))
+
+	var/choice = tgui_alert(user, "Would you like to announce your arrival? Use 'Pilot' for just you, or 'All' for you and your passengers.", "Shuttle Announcer", list("Pilot", "All", "None"))
 
 	switch(choice)
 		if("Pilot")
