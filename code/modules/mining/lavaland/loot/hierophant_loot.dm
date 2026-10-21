@@ -112,18 +112,18 @@
 		return NONE
 	calculate_anger_mod(user)
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
-	if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
+	if(ismineralturf(target) && get_dist(user, target) < 6) // Target is minerals, we can hit it (even if we can't see it).
 		INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user)
 		timer = world.time + cooldown_time
 		INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 		return ITEM_INTERACT_COMPLETE
-	if(!(target in view(5, get_turf(user)))) //if the target is in view, hit it
+	if(!(target in view(5, get_turf(user)))) // If the target is in view, hit it.
 		to_chat(user, SPAN_WARNING("That target is out of range!") )
 		timer = world.time
 		INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 		return ITEM_INTERACT_COMPLETE
 	timer = world.time + cooldown_time
-	if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
+	if(isliving(target) && chaser_timer <= world.time) // Living and chasers off cooldown? Fire one!
 		chaser_timer = world.time + chaser_cooldown
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
 		C.damage = 30
