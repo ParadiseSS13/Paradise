@@ -1123,7 +1123,7 @@
 		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(!(ACCESS_CENT_COMMANDER in id_card.access)) // Doesn't have this access.
+	if(!has_access(req_access = list(ACCESS_CENT_COMMANDER), accesses = id_card.access))
 		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
 		return ITEM_INTERACT_COMPLETE
 
