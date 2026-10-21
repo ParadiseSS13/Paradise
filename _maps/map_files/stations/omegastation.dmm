@@ -9613,14 +9613,6 @@
 "aOM" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench/medical,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 9;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -7;
-	pixel_y = 1
-	},
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
@@ -10765,10 +10757,6 @@
 	dir = 5
 	},
 /obj/structure/shelf/medbay,
-/obj/item/clothing/head/helmet/space/plasmaman{
-	pixel_x = -3;
-	pixel_y = 2
-	},
 /obj/item/clothing/under/plasmaman/enviroslacks,
 /obj/item/clothing/head/helmet/space/plasmaman/white,
 /obj/item/clothing/under/plasmaman{
@@ -13120,10 +13108,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 9
 	},
-/obj/item/storage/box/iv_bags{
-	pixel_x = -9;
-	pixel_y = 7
-	},
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "bjj" = (
@@ -17372,11 +17357,6 @@
 /obj/effect/turf_decal/tiles/department/medical/corner,
 /obj/structure/table/glass,
 /obj/machinery/kitchen_machine/microwave,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -19413,7 +19393,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/machinery/economy/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "elq" = (
@@ -22412,19 +22397,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
-"fQf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/item/clothing/neck/stethoscope{
-	pixel_x = -33;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/reception)
 "fQC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -23257,27 +23229,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "gpQ" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/beakers{
-	pixel_x = 7;
-	pixel_y = 11
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = -10;
-	pixel_y = 9
-	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
-/obj/item/storage/box/pillbottles{
-	layer = 4;
-	pixel_x = -7;
-	pixel_y = -5
-	},
-/obj/item/storage/box/patch_packs{
-	pixel_x = 9;
-	pixel_y = -4
-	},
+/obj/structure/closet/secure_closet/medical1,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "gpY" = (
@@ -25061,6 +25016,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "hoa" = (
@@ -29009,6 +28965,7 @@
 	pixel_x = 9;
 	pixel_y = -2
 	},
+/obj/item/reagent_containers/dropper/precision,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "jtO" = (
@@ -31900,13 +31857,11 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/mob/living/basic/bot/cleanbot{
-	name = "Scrubs, MD"
-	},
 /obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
 	},
+/mob/living/basic/bot/cleanbot/medbay,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "lmj" = (
@@ -34305,16 +34260,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/stack/sheet/mineral/plasma,
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = -3;
 	pixel_y = 6
 	},
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 6
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -34322,6 +34272,7 @@
 	pixel_x = 8;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/dropper/precision,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "myP" = (
@@ -34875,31 +34826,10 @@
 /turf/space,
 /area/space/nearstation)
 "mPO" = (
-/obj/structure/closet/secure_closet/medical1,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/pillbottles,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "mQt" = (
@@ -38374,8 +38304,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "oMY" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/medical/cryo)
 "oNn" = (
@@ -44052,21 +43982,25 @@
 /area/station/maintenance/service/starboard)
 "rZX" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_y = 6
+	},
 /obj/machinery/alarm/directional/west,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = 6
+	},
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "saw" = (
@@ -50079,7 +50013,9 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 5
 	},
-/obj/item/toy/figure/crew/chemist,
+/obj/item/toy/figure/crew/chemist{
+	pixel_x = -8
+	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -90053,7 +89989,7 @@ etL
 bSH
 new
 mlA
-fQf
+uCf
 uCf
 hSw
 rDs
