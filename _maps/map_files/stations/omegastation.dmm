@@ -19513,7 +19513,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphanumeric/center_4{
+/obj/effect/turf_decal/alphanumeric/center_3{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -21878,8 +21878,8 @@
 	},
 /obj/docking_port/mobile/pod{
 	dir = 4;
-	id = "pod3";
-	name = "escape pod 3"
+	id = "pod4";
+	name = "escape pod 4"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
@@ -43439,7 +43439,7 @@
 /area/station/science/hallway)
 "rGG" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod 4 Airlock";
+	name = "Escape Pod 3 Airlock";
 	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plasteel,
@@ -55912,7 +55912,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/station/hallway/secondary/exit)
 "xUZ" = (
-/obj/effect/turf_decal/alphanumeric/center_3{
+/obj/effect/turf_decal/alphanumeric/center_4{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
