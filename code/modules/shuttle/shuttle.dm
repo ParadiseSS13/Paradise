@@ -1088,10 +1088,10 @@
 						if(ANNOUNCE_NONE)
 							return TRUE
 						if(ANNOUNCE_PILOT)
-							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
+							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!", "Attention", 'sound/AI/cc_on_station.ogg'), 9 SECONDS)
 						if(ANNOUNCE_ALL)
 							var/list/passengers = get_mobs_in_view(11, usr)
-							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officers [english_list(passengers)] on deck!"), 9 SECONDS)
+							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officers [english_list(passengers)] on deck!", "Attention", 'sound/AI/cc_on_station.ogg'), 9 SECONDS)
 				return TRUE
 			if(1)
 				to_chat(usr, SPAN_WARNING("Invalid shuttle requested."))
