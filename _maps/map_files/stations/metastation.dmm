@@ -15608,9 +15608,6 @@
 	dir = 10
 	},
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
