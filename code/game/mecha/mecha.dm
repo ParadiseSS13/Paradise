@@ -769,7 +769,7 @@
 /obj/mecha/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/mmi))
 		if(!mmi_move_inside(used, user))
-			to_chat(user, SPAN_NOTICE("[src]-MMI interface initialization failed."))
+			to_chat(user, SPAN_WARNING("[src]-MMI interface initialization failed!"))
 			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, SPAN_NOTICE("[src]-MMI interface initialized successfully"))
@@ -896,7 +896,7 @@
 
 		var/obj/item/mecha_modkit/kit = used
 		if(!do_after_once(user, kit.install_time, target = src))
-			to_chat(user, SPAN_NOTICE("You stop installing [kit]."))
+			to_chat(user, SPAN_WARNING("You stop installing [kit]."))
 			return ITEM_INTERACT_COMPLETE
 
 		kit.install(src, user)
@@ -1333,7 +1333,7 @@
 			to_chat(user, SPAN_WARNING("Beta-rhythm below acceptable level."))
 			return FALSE
 		if(!user.drop_item_to_ground(mmi_as_oc))
-			to_chat(user, SPAN_NOTICE("[mmi_as_oc] is stuck to your hand, you cannot put it in [src]"))
+			to_chat(user, SPAN_WARNING("[mmi_as_oc] is stuck to your hand, you cannot put it in [src]!"))
 			return FALSE
 		var/mob/living/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
