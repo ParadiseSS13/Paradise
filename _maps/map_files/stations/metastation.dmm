@@ -15597,9 +15597,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/spacehut)
 "bPd" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -15610,14 +15607,7 @@
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
 	},
-/obj/structure/closet/secure_closet/reagents,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table/glass,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
 /obj/machinery/power/apc/directional/west,
@@ -15633,10 +15623,6 @@
 	name = "Chemistry Cleaner";
 	pixel_x = 8;
 	pixel_y = 5
-	},
-/obj/machinery/light_switch/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
@@ -75033,47 +75019,20 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "sEM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -24;
-	pixel_y = -6
-	},
-/obj/machinery/economy/vending/chemdrobe,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/storage/box/iv_bags{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/box/beakers{
-	pixel_y = 2
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = -4;
-	pixel_y = -2
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/effect/spawner/random/cobweb/left/rare,
-/obj/structure/rack,
 /obj/effect/turf_decal/tiles/department/chemistry,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/machinery/economy/vending/chemdrobe,
+/obj/machinery/light_switch/offset/northwest,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "sES" = (
@@ -117541,7 +117500,7 @@ vdn
 dSK
 daP
 eFH
-umX
+bRb
 sEM
 kWt
 bPd
@@ -118052,7 +118011,7 @@ hEW
 opu
 cwq
 cwY
-bRb
+umX
 eRZ
 xeA
 bRb
