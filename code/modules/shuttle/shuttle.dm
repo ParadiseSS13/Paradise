@@ -1108,13 +1108,6 @@
 		return
 
 	var/obj/item/card/id/id_card = used.GetID()
-	/*if(istype(used, /obj/item/card/id))
-		id_card = used
-	else if(istype(used, /obj/item/pda))
-		var/obj/item/pda/pda = used
-		id_card = pda.id
-	else
-		return*/
 
 	if(isnull(id_card))
 		return
