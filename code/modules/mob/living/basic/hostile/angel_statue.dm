@@ -12,31 +12,60 @@
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	max_target_distance = 15
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/find_and_hunt_target/look_for_light_fixtures,
+		/datum/ai_planning_subtree/targeted_mob_ability/statue_cast_darkness_spells,
 		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/targeted_mob_ability/cause_darkness,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/find_and_hunt_target/look_for_light_fixtures,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 		/datum/ai_planning_subtree/find_and_hunt_target/prowl,
 	)
 
-/datum/ai_planning_subtree/targeted_mob_ability/cause_darkness
+/datum/ai_planning_subtree/targeted_mob_ability/statue_cast_darkness_spells
 	#warn this might need to be increased but testing is required
-	var/darkness_spellcasting_delay = 5 SECONDS
+	var/darkness_spellcasting_delay = 2 SECONDS
+	use_ability_behaviour = /datum/ai_behavior/targeted_mob_ability/statue_spell
 
-/datum/ai_planning_subtree/targeted_mob_ability/cause_darkness/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard[BB_STATUE_SPELL_COOLDOWN] >= world.time)
+/datum/ai_planning_subtree/targeted_mob_ability/statue_cast_darkness_spells/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	// Always try to cast flicker_lights or blindness to create darkness
+	var/mob/living/basic/hostile/statue/pawn = controller.pawn
+	if(!pawn)
 		return
-	var/list/ability_keys = list(BB_STATUE_FLICKER_LIGHTS_ACTION, BB_STATUE_BLINDNESS_ACTION, BB_STATUE_NIGHT_VISION_ACTION)
+
+	// Only cast if we're being watched (can't move/attack)
+	var/being_watched = pawn.can_be_seen(null)
+	if(!being_watched)
+		return // Not being watched, can move/attack normally
+	// Being watched - prioritize flicker_lights and blindness
+	var/list/ability_keys = list(BB_STATUE_FLICKER_LIGHTS_ACTION, BB_STATUE_BLINDNESS_ACTION)
 	var/ability_key = pick_n_take(ability_keys)
 	var/datum/action/cooldown/mob_cooldown/selected_action = controller.blackboard[ability_key]
 	while(selected_action && !selected_action.IsAvailable())
-		if(!ability_keys.len)
+		if(!length(ability_keys))
 			return
 		ability_key = pick_n_take(ability_keys)
 		selected_action = controller.blackboard[ability_key]
+
+	if(selected_action)
 		controller.set_blackboard_key(BB_STATUE_SPELL_COOLDOWN, world.time + darkness_spellcasting_delay)
-	return ..()
+		return ..()
+
+	// No spells available, but we're being watched
+	if(pawn && istype(pawn, /mob/living/basic/hostile/statue) && pawn.can_be_seen(null))
+		controller.set_blackboard_key(BB_STATUE_SPELL_COOLDOWN, world.time + 1 SECONDS)
+	return
+
+/datum/ai_behavior/targeted_mob_ability/statue_spell
+	/datum/ai_behavior/targeted_mob_ability/statue_spell/perform(seconds_per_tick, datum/ai_controller/controller, ability_key, target_key)
+		. = ..()
+		var/datum/action/cooldown/ability = controller.blackboard[ability_key]
+		var/mob/living/target = controller.blackboard[target_key]
+		if(QDELETED(ability) || QDELETED(target))
+			return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
+
+		var/result = ability.Trigger(target = target)
+		if(result)
+			return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 /mob/living/basic/hostile/statue
 	name = "statue" // matches the name of the statue with the flesh-to-stone spell
@@ -84,16 +113,23 @@
 	var/cannot_be_seen = TRUE
 	var/mob/living/creator = null
 
+	var/list/innate_actions = list(
+		/datum/action/cooldown/mob_cooldown/statue/flicker_lights = BB_STATUE_FLICKER_LIGHTS_ACTION,
+		/datum/action/cooldown/mob_cooldown/statue/blindness = BB_STATUE_BLINDNESS_ACTION,
+		/datum/action/cooldown/mob_cooldown/statue/night_vision = BB_STATUE_NIGHT_VISION_ACTION,
+	)
+
 /mob/living/basic/hostile/statue/proc/can_be_seen(turf/destination)
 	if(!cannot_be_seen)
 		return null
 	// Check for darkness
 	var/turf/T = get_turf(loc)
-	if(T && destination && T.lighting_object)
-		if(T.get_lumcount() * 10 < 1 && destination.get_lumcount() * 10 < 1) // No one can see us in the darkness, right?
-			return null
-		if(T == destination)
-			destination = null
+	var/turf/D = destination
+	if(!D)
+		D = T
+	// if both our current and destination turfs are dark, no one can see us
+	if(T.get_lumcount() * 10 < 1 && D.get_lumcount() * 10 < 1)
+		return null
 
 	// We aren't in darkness, loop for viewers.
 	var/list/check_list = list(src)
@@ -114,10 +150,7 @@
 
 /mob/living/basic/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
-	// Give spells
-	AddSpell(new /datum/spell/aoe/flicker_lights(null))
-	AddSpell(new /datum/spell/aoe/blindness(null))
-	AddSpell(new /datum/spell/night_vision(null))
+	grant_actions_by_list(innate_actions)
 
 	// Set creator
 	if(creator)
@@ -138,3 +171,7 @@
 			to_chat(src, SPAN_WARNING("You cannot move, there are eyes on you!"))
 		return 0
 	return ..()
+
+/mob/living/basic/hostile/statue/face_atom()
+	if(!can_be_seen(get_turf(loc)))
+		return ..()
