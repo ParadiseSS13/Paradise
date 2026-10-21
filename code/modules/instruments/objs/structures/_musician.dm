@@ -19,8 +19,8 @@
 	ui_interact(user)
 
 /obj/structure/musician/attack_ai(mob/user) // Plug into the MIDI port!
-	if(Adjacent)
-		attack_hand()
+	if(Adjacent(user))
+		attack_hand(user)
 
 /obj/structure/musician/ui_data(mob/user)
 	return song.ui_data(user)
