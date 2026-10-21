@@ -1010,6 +1010,11 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+/obj/machinery/computer/shuttle/examine()
+  . = ..()
+  if(loud_console)
+    . += SPAN_NOTICE("Swipe an ID with Centcomm access to change the arrival announcement settings.")
+
 /obj/machinery/computer/shuttle/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -1161,7 +1166,6 @@
 
 /obj/machinery/computer/shuttle/ferry/request/onboard
 	loud_console = TRUE
-	desc = "Swipe an ID with Centcomm access to change the arrival announcement settings."
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
@@ -1218,7 +1222,6 @@
 
 /obj/machinery/computer/shuttle/admin/onboard
 	loud_console = TRUE
-	desc = "Swipe an ID with Centcomm access to change the arrival announcement settings."
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
