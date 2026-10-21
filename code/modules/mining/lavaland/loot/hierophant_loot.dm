@@ -133,7 +133,7 @@
 		else
 			add_attack_logs(user, target, "Fired a chaser at [src]", ATKLOG_ALL)
 	else
-		INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user) //otherwise, just do cardinal blast
+		INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user) // Otherwise, just do cardinal blast
 		if(is_station_level(T.z))
 			add_attack_logs(user, target, "Fired cardinal blast at [src]")
 		else
