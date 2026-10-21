@@ -1122,12 +1122,7 @@
 	if(!user)
 		return
 
-	if(!id_card.access) // No access.
-		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
-		return ITEM_INTERACT_COMPLETE
-
-	var/list/cardaccess = id_card.access
-	if(!istype(cardaccess, /list) || !length(cardaccess)) // No access.
+	if(!length(id_card.access)) // No access.
 		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
 		return ITEM_INTERACT_COMPLETE
 
