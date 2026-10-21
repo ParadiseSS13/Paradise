@@ -987,6 +987,8 @@
 	var/loud_shuttle = FALSE
 	/// Should this shuttle console have the announcer functionality?
 	var/loud_console = FALSE
+	/// Whether or not this shuttle will announce its arrival. 0 is no, 1 is just the pilot, 2 is all passengers
+	var/announce_arrival = 0
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
@@ -1073,7 +1075,14 @@
 					moved = TRUE
 				add_fingerprint(usr)
 				if(usr.type != /mob/dead/observer && loud_shuttle && loud_console && ((destination == "ferry_home") || (destination == "admin_home")))
-					addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
+					switch(announce_arrival)
+						if(0)
+							return TRUE
+						if(1)
+							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
+						if(2)
+							var/list/passengers = get_mobs_in_view(11, usr)
+							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officers [english_list(passengers)] on deck!"), 9 SECONDS)
 				return TRUE
 			if(1)
 				to_chat(usr, SPAN_WARNING("Invalid shuttle requested."))
@@ -1085,6 +1094,51 @@
 				atom_say("Shuttle is currently en-route. The shuttle cannot be rerouted at this time.")
 			if(5)
 				atom_say("Shuttle is currently departing. Please wait...")
+
+/obj/machinery/computer/shuttle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	if(loud_console == FALSE)
+		return
+
+	var/obj/item/card/id/id_card
+	if(istype(used, /obj/item/card/id))
+		id_card = used
+	else if(istype(used, /obj/item/pda))
+		var/obj/item/pda/pda = used
+		id_card = pda.id
+	else
+		return
+
+	if(!user)
+		return
+
+	if(!id_card.access) //no access
+		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+		return ITEM_INTERACT_COMPLETE
+
+	var/list/cardaccess = id_card.access
+	if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
+		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(ACCESS_CENT_COMMANDER in id_card.access)) //doesn't have this access
+		to_chat(user, "The access level of [id_card.registered_name]\'s card is not high enough. ")
+		return ITEM_INTERACT_COMPLETE
+	var/choice = tgui_alert(user, "Would you like to announce your arrival? Use Pilot for just you, or All for you and your passengers.", "Shuttle Announcer", list("Pilot", "All", "None"))
+
+	switch(choice)
+		if("Pilot")
+			announce_arrival = 1
+
+		if("All")
+			announce_arrival = 2
+
+		if("None")
+			announce_arrival = 0
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
