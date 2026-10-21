@@ -1160,6 +1160,7 @@
 
 /obj/machinery/computer/shuttle/ferry/request/onboard
 	loud_console = TRUE
+	desc = "Swipe an ID with Centcomm access to change the arrival announcement settings."
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
@@ -1216,6 +1217,7 @@
 
 /obj/machinery/computer/shuttle/admin/onboard
 	loud_console = TRUE
+	desc = "Swipe an ID with Centcomm access to change the arrival announcement settings."
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
