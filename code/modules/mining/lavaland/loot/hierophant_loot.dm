@@ -101,7 +101,7 @@
 		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
+	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) // Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + cooldown_time
 		user.visible_message(SPAN_DANGER("[user]'s hierophant club malfunctions!"))
 		do_sparks(5, FALSE, user)
