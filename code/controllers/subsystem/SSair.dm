@@ -440,6 +440,12 @@ SUBSYSTEM_DEF(air)
 			if(istype(S))
 				S.update_visuals()
 
+		// Water condensed on it this tick
+		if(reasons & (MILLA_INTERESTING_REASON_WET | MILLA_INTERESTING_REASON_ICY))
+			var/turf/simulated/floor/wet_floor = T
+			if(istype(wet_floor))
+				wet_floor.MakeSlippery((reasons & MILLA_INTERESTING_REASON_ICY) ? TURF_WET_ICE : TURF_WET_WATER)
+
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
 			var/fuel_burnt = currentrun[offset + MILLA_INDEX_FUEL_BURNT]
@@ -449,8 +455,10 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.active_hotspot))
-					// Wasn't an active hotspot before, add it.
-					hotspots += S
+					// Wasn't an active hotspot before, add it if something is burning.
+					// MILLA also sends tiles that are only hot, and a hotspot there would just get deleted again in update_hotspot().
+					if(fuel_burnt >= 0.001)
+						hotspots += S
 				else
 					S.active_hotspot.temperature = temperature
 					S.active_hotspot.fuel_burnt = fuel_burnt
@@ -479,6 +487,8 @@ SUBSYSTEM_DEF(air)
 				S.wind_tick = milla_tick
 				S.wind_x = x_flow
 				S.wind_y = y_flow
+				// Same order as total_moles(), so update_wind() gets the number it would from reading the tile.
+				S.wind_moles = currentrun[offset + MILLA_INDEX_OXYGEN] + currentrun[offset + MILLA_INDEX_CARBON_DIOXIDE] + currentrun[offset + MILLA_INDEX_NITROGEN] + currentrun[offset + MILLA_INDEX_TOXINS] + currentrun[offset + MILLA_INDEX_SLEEPING_AGENT] + currentrun[offset + MILLA_INDEX_AGENT_B] + currentrun[offset + MILLA_INDEX_HYDROGEN] + currentrun[offset + MILLA_INDEX_WATER_VAPOR]
 			T.high_pressure_movements(x_flow, y_flow)
 
 		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
@@ -826,13 +836,6 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/S in SSair.hotspots)
 		QDEL_NULL(S.active_hotspot)
-
-/// condenses water on a tile at the specified coordinates
-/proc/condense_water(water_phase, x, y, z)
-	var/turf/simulated/floor/tile =  locate(x, y, z)
-	if(!istype(tile))
-		return
-	tile.MakeSlippery(water_phase)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe
