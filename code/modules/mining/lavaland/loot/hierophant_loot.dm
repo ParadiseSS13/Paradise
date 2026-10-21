@@ -72,7 +72,7 @@
 		else if((istype(target, /obj/structure/rack) || istype(target, /obj/structure/shelf)) && !(user.a_intent == INTENT_HARM))
 			return NONE
 		else 
-			timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
+			timer = world.time + CLICK_CD_MELEE // By default, melee attacks only cause melee blasts, and have an accordingly short cooldown.
 			INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user)
 			if(is_station_level(T.z))
 				add_attack_logs(user, target, "Fired 3x3 blast at [src]")
