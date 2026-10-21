@@ -230,14 +230,13 @@
 	default_skin = "advanced"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_advanced
 	resistance_flags = FIRE_PROOF
-	flag_2_flags = RAD_PROTECT_CONTENTS_2
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	siemens_coefficient = 0
 	slowdown_inactive = 1
 	slowdown_active = 0.45
-	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
+	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced, /obj/item/mod/module/rad_protection/inbuilt)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/rcd,
@@ -278,7 +277,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_advanced
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 25, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/mining
 	name = "'Pioneer' mining"
@@ -1038,7 +1037,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_syndicate
-	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = INFINITY, FIRE = 50, ACID = 450)
+	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = 25, FIRE = 50, ACID = 450)
 	//melee = 40 with booster
 	//bullet = 50
 	//laser = 20 with booster
@@ -1101,7 +1100,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	//melee = 50 // 75 with booster
 	//bullet = 45 // 75 same as
 	//laser = 35 //50 same as
@@ -1175,7 +1174,6 @@
 	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
 
 	resistance_flags = FIRE_PROOF
-	flag_2_flags = RAD_PROTECT_CONTENTS_2
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 0.5
@@ -1243,7 +1241,7 @@
 
 /// This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
 /obj/item/mod/armor/mod_theme_responsory
-	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = 25, FIRE = 200, ACID = 200)
 
 /datum/mod_theme/apocryphal
 	name = "'Charon' absolver"
@@ -1449,9 +1447,8 @@
 		),
 	)
 
-/// considering this should not be used, it's getting just DS armor, not infinity in everything.
 /obj/item/mod/armor/mod_theme_administrative
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/ninja
 	name = "'Shinobi' stealthsuit"
