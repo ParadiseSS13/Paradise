@@ -2,6 +2,10 @@
 // also uncomment the #undef at the bottom of the file
 //#define DOCKING_PORT_HIGHLIGHT
 
+#define ANNOUNCE_NONE 0
+#define ANNOUNCE_PILOT 1
+#define ANNOUNCE_ALL 2
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = 101
@@ -1079,13 +1083,13 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
-				if(istype(usr.type, /mob/dead/observer) && loud_shuttle && loud_console && ((destination == "ferry_home") || (destination == "admin_home")))
+				if(!istype(usr, /mob/dead/observer) && loud_shuttle && loud_console && ((destination == "ferry_home") || (destination == "admin_home")))
 					switch(announce_arrival)
-						if(0)
+						if(ANNOUNCE_NONE)
 							return TRUE
-						if(1)
+						if(ANNOUNCE_PILOT)
 							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!"), 9 SECONDS)
-						if(2)
+						if(ANNOUNCE_ALL)
 							var/list/passengers = get_mobs_in_view(11, usr)
 							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officers [english_list(passengers)] on deck!"), 9 SECONDS)
 				return TRUE
@@ -1124,17 +1128,15 @@
 		return ITEM_INTERACT_COMPLETE
 
 	var/choice = tgui_alert(user, "Would you like to announce your arrival? Use 'Pilot' for just you, or 'All' for you and your passengers.", "Shuttle Announcer", list("Pilot", "All", "None"))
-
 	switch(choice)
 		if("Pilot")
-			announce_arrival = 1
+			announce_arrival = ANNOUNCE_PILOT
 
 		if("All")
-			announce_arrival = 2
+			announce_arrival = ANNOUNCE_ALL
 
 		if("None")
-			announce_arrival = 0
-
+			announce_arrival = ANNOUNCE_NONE
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
@@ -1253,3 +1255,7 @@
 		T.setDir(dir)
 	TransferComponents(T)
 	return T
+
+#undef ANNOUNCE_NONE
+#undef ANNOUNCE_PILOT
+#undef ANNOUNCE_ALL
