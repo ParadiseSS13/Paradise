@@ -429,7 +429,7 @@
 		. += SPAN_NOTICE("Occupies <b>[cost]%</b> of mod capacity.")
 
 /obj/item/borg/upgrade/modkit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!(istype(used, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user)))
+	if(issilicon(user) || !istype(used, /obj/item/gun/energy/kinetic_accelerator))
 		return ..()
 	var/obj/item/gun/energy/kinetic_accelerator/accelerator = used
 	if(!accelerator.max_mod_capacity)
