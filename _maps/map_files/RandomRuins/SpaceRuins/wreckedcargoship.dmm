@@ -1076,9 +1076,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/button/windowtint{
-	pixel_y = -32
-	},
+/obj/machinery/button/windowtint/directional/south,
 /obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /obj/effect/turf_decal/tiles/dark/corner{

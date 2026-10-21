@@ -9,10 +9,8 @@
 	},
 /obj/structure/table,
 /obj/item/paper_bin,
-/obj/machinery/button/windowtint{
-	id = "smith_workshop";
-	pixel_x = 6;
-	pixel_y = 24
+/obj/machinery/button/windowtint/offset/north{
+	id = "smith_workshop"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
@@ -331,10 +329,8 @@
 "cB" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
+/obj/machinery/light_switch/directional/west{
+	name = "West Switch"
 	},
 /obj/machinery/defibrillator_mount/loaded/locked{
 	pixel_y = -32
@@ -826,9 +822,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/machinery/light_switch/directional/north{
+	name = "North Switch"
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white{
@@ -1013,11 +1008,8 @@
 	pixel_y = 5;
 	req_access = list(54)
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8;
-	pixel_y = -5
+/obj/machinery/light_switch/offset/east{
+	name = "East Switch"
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -2617,16 +2609,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "ph" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8;
-	pixel_y = -5
+/obj/machinery/light_switch/offset/east{
+	name = "East Switch"
 	},
-/obj/machinery/button/windowtint{
-	dir = 8;
-	pixel_x = 24;
-	pixel_y = 5;
+/obj/machinery/button/windowtint/offset/northeast{
 	id = "mining qm"
 	},
 /obj/machinery/camera{
@@ -3031,10 +3017,8 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "rI" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
+/obj/machinery/light_switch/directional/west{
+	name = "West Switch"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -4114,10 +4098,8 @@
 /area/mine/laborcamp/security)
 "ww" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	name = "West Switch";
-	dir = 4
+/obj/machinery/light_switch/directional/west{
+	name = "West Switch"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
@@ -5473,9 +5455,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/machinery/light_switch/directional/north{
+	name = "North Switch"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -6024,10 +6005,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "GV" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8
+/obj/machinery/light_switch/directional/east{
+	name = "East Switch"
 	},
 /obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel/dark,
@@ -7266,9 +7245,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
 "MW" = (
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/machinery/light_switch/directional/north{
+	name = "North Switch"
 	},
 /obj/machinery/alarm/directional/east,
 /obj/structure/closet/secure_closet/miner,
@@ -8414,10 +8392,8 @@
 /obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8
+/obj/machinery/light_switch/directional/east{
+	name = "East Switch"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/airlock)
