@@ -15607,7 +15607,6 @@
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
 	},
-/obj/machinery/power/apc/directional/west,
 /obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
@@ -75004,10 +75003,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "sEM" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
@@ -75015,9 +75010,8 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/effect/turf_decal/tiles/department/chemistry,
-/obj/machinery/economy/vending/chemdrobe,
 /obj/machinery/light_switch/offset/northwest,
+/obj/machinery/economy/vending/chemdrobe,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "sES" = (
