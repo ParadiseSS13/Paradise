@@ -274,6 +274,12 @@
 		light_color = null
 		set_light(0)
 
+/obj/structure/engineeringcart/extinguish_light(force = FALSE)
+	if(my_flashlight && my_flashlight.on)
+		my_flashlight.on = FALSE
+		my_flashlight.update_brightness()
+		update_flashlight_light()
+
 /obj/structure/engineeringcart/examine(mob/user)
 	. = ..()
 	if(my_flashlight && my_flashlight.on)
