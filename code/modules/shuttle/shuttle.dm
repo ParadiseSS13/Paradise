@@ -1079,7 +1079,7 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
-				if(usr.type != /mob/dead/observer && loud_shuttle && loud_console && ((destination == "ferry_home") || (destination == "admin_home")))
+				if(istype(usr.type, /mob/dead/observer) && loud_shuttle && loud_console && ((destination == "ferry_home") || (destination == "admin_home")))
 					switch(announce_arrival)
 						if(0)
 							return TRUE
@@ -1107,13 +1107,16 @@
 	if(loud_console == FALSE)
 		return
 
-	var/obj/item/card/id/id_card
-	if(istype(used, /obj/item/card/id))
+	var/obj/item/card/id/id_card = used.GetID()
+	/*if(istype(used, /obj/item/card/id))
 		id_card = used
 	else if(istype(used, /obj/item/pda))
 		var/obj/item/pda/pda = used
 		id_card = pda.id
 	else
+		return*/
+
+	if(isnull(id_card))
 		return
 
 	if(!user)
