@@ -73576,7 +73576,7 @@
 /obj/structure/table/reinforced,
 /obj/item/desk_bell,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
+/area/station/engineering/shipwright/hangar)
 "qmw" = (
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
@@ -81091,10 +81091,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
@@ -81105,6 +81101,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "tCq" = (
