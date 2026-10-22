@@ -63961,12 +63961,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
-"meb" = (
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "med" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -125124,7 +125118,7 @@ aaa
 aaa
 aaa
 aaa
-meb
+aaa
 aaa
 aaa
 aaa
