@@ -1386,7 +1386,7 @@
 	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		return
 	if(method == REAGENT_INGEST)
-		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
+		to_chat(M, SPAN_DANGER(pick("That was awful!", "Yuck!")))
 
 /datum/reagent/consumable/ethanol/synthanol/robottears
 	name = "Robot Tears"
@@ -1791,15 +1791,16 @@
 /datum/reagent/consumable/ethanol/bacchus_blessing
 	name = "Bacchus' Blessing"
 	id = "bacchus_blessing"
-	description = "Unidentifiable mixture. Unmeasurably high alcohol content."
+	description = "ERR://300A%#/: cannot resolve molecular composition. Latent bluespace energies detected."
 	color = rgb(51, 19, 3) //Sickly brown
+	process_flags = ORGANIC | SYNTHETIC // No one will escape...
 	dizzy_adj = 42 SECONDS
-	alcohol_perc = 3 //I warned you
+	alcohol_perc = 3 // I warned you.
 	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"
-	yuck_description = "scoured surfaces"
+	yuck_description = "a wall of bricks"
 
 /datum/reagent/consumable/ethanol/fernet
 	name = "Fernet"

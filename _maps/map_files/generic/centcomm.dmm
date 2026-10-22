@@ -918,7 +918,7 @@
 	},
 /area/holodeck/source_snowfield)
 "dC" = (
-/obj/structure/bed,
+/obj/structure/bed/dirty,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dD" = (
@@ -7977,10 +7977,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"Ck" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "Cl" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/airless,
@@ -9850,6 +9846,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Jj" = (
+/obj/structure/bed/dirty,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "Jl" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/food/grown/potato,
@@ -10285,9 +10285,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "KC" = (
-/obj/machinery/button/windowtint{
-	pixel_y = 24
-	},
+/obj/machinery/button/windowtint/directional/north,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KD" = (
@@ -64304,7 +64302,7 @@ Jy
 Jy
 Jy
 Jy
-Ck
+Jy
 rk
 rU
 xV
@@ -70128,13 +70126,13 @@ lf
 lW
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 aN
 aN
@@ -72184,13 +72182,13 @@ kU
 kU
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 Lc
-kZ
+Jj
 Zk
 aN
 aN

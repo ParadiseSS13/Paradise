@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
-		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target) && !targets_allies)
 			continue
 		valid_found = TRUE
 		break
@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
-		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target) && !targets_allies)
 			continue
 		accepted_targets += maybe_target
 
