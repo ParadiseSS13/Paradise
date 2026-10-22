@@ -344,7 +344,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks, blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -371,7 +371,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks, :blooper_id, :blooper_speed, :blooper_pitch, :blooper_pitch_range)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -436,11 +436,7 @@
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
 		"pda_ringtone" = pda_ringtone,
-		"quirks" = quirks,
-		"blooper_id" = blooper_id,
-		"blooper_speed" = blooper_speed,
-		"blooper_pitch" = blooper_pitch,
-		"blooper_pitch_range" = blooper_pitch_range,
+		"quirks" = quirks
 	))
 
 	if(!query.warn_execute())
