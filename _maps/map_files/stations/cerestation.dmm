@@ -22101,12 +22101,10 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/clothing/mask/muzzle,
-/obj/machinery/computer/guestpass{
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 6
 	},
+/obj/machinery/computer/guestpass/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "dzc" = (
@@ -22792,12 +22790,10 @@
 /area/station/maintenance/disposal)
 "dEy" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/computer/guestpass{
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
 "dEz" = (
@@ -45942,9 +45938,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 9
 	},
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "iJW" = (
@@ -56237,12 +56231,10 @@
 /obj/machinery/computer/card/minor/ce{
 	dir = 8
 	},
-/obj/machinery/computer/guestpass{
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "kRx" = (
@@ -69607,12 +69599,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "nNM" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "nNP" = (
@@ -74165,10 +74155,8 @@
 	},
 /area/station/maintenance/service/fore_port)
 "oMG" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = -30
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/office)
 "oMO" = (
@@ -82722,12 +82710,10 @@
 	pixel_y = 32;
 	req_access = list(57)
 	},
-/obj/machinery/computer/guestpass/hop{
-	pixel_x = 28
-	},
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
+/obj/machinery/computer/guestpass/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "qHf" = (
@@ -89896,12 +89882,10 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "smf" = (
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "smj" = (
