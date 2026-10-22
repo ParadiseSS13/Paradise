@@ -51,7 +51,11 @@
 	if(!ishuman(src))
 		return
 	volume = min(volume, 100)
-	playsound(src, blooper, volume, TRUE, frequency = pitch, ignore_walls = FALSE, channel = CHANNEL_BLOOPERS)
+	var/turf/source_turf = get_turf(src)
+	for(var/mob/listener as anything in blooper_listeners)
+		if(QDELETED(listener) || !(listener.client?.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS))
+			continue
+		listener.playsound_local(source_turf, blooper, volume, TRUE, frequency = pitch, channel = CHANNEL_BLOOPERS)
 
 /mob/living/proc/set_blooper_id(id)
 	if(!id)

@@ -167,3 +167,5 @@
 	var/blooper_last_start_time
 	/// LAZYLIST
 	var/list/blooper_queue // Subsystem related, theory is that for mobs, we store what they hear in this queue and have a subsystem tick over it. Possible? I think.
+    /// LAZYLIST
+	var/list/blooper_listeners // Who can hear the blooper, for muting.

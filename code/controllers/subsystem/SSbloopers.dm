@@ -12,6 +12,7 @@ SUBSYSTEM_DEF(bloopers)
 		char.process_bloopers(char)
 		if(LAZYLEN(char.blooper_queue) <= 0)
 			mob_queue -= char
+			char.blooper_listeners = null
 		if(MC_TICK_CHECK)
 			return
 

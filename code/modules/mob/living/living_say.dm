@@ -314,17 +314,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message_pieces, verb)
 
-
-	if(!(client?.prefs?.toggles3 & PREFTOGGLE_3_HEAR_BLOOPERS))
-		return TRUE
-
 	if(!ishuman(src))
 		return TRUE
 
 	var/mob/living/carbon/human/bloop_source = src
 	if(bloop_source.dna.blooper_id || bloop_source.blooper)
+		bloop_source.blooper_listeners = listening.Copy()
+
 		var/datum/multilingual_say_piece/message_inst = message_pieces[1]
 		var/datum/blooper/bloop_datum = GLOB.blooper_list[bloop_source.dna.blooper_id]
+		if(!bloop_datum)
+			return TRUE
 		var/bloop_count_multiplier = initial(bloop_datum.bloop_count_multiplier)
 		var/blooper_count = min(round(((length_char(message_inst.message) / bloop_source.dna.blooper_speed)) + 1) * bloop_count_multiplier, BLOOPER_MAX_BLOOPERS)
 		var/total_delay = 0
