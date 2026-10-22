@@ -106,7 +106,7 @@
 		var/obj/machinery/firealarm/fire_alarm = machine
 		wiresexposed = fire_alarm.wiresexposed
 
-	// If we cant access the wires.
+	// If we can't access the wires.
 	if(!machine.panel_open && !wiresexposed)
 		return ITEM_INTERACT_COMPLETE
 
@@ -258,7 +258,7 @@
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
-	desc = "A large rectangular knife designed for chopping through meat and bone. This includes clowns and clown-by-products."
+	desc = "A large rectangular knife designed for chopping through meat and bone. This includes clowns and clown by-products."
 	icon_state = "butch"
 	force = 15
 	throwforce = 8
@@ -337,7 +337,7 @@
 
 /obj/item/kitchen/rollingpin
 	name = "rolling pin"
-	desc = "A cylindrical kitchen utensel used to shape and flatten dough. Also sometimes used to smash skulls."
+	desc = "A cylindrical kitchen utensil used to shape and flatten dough. Also sometimes used to smash skulls."
 	icon_state = "rolling_pin"
 	force = 8
 	throwforce = 10
