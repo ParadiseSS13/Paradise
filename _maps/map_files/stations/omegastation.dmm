@@ -19156,7 +19156,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera{
-	c_tag = "AI Chamber - Core";
+	c_tag = "AI Chamber - Aft Core";
 	name = "core camera";
 	network = list("SS13", "MiniSat")
 	},
@@ -20906,7 +20906,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/power/apc/directional/south,
 /obj/machinery/camera{
-	c_tag = "AI Chamber - Core";
+	c_tag = "AI Chamber - Fore Core";
 	name = "core camera";
 	dir = 10;
 	network = list("SS13", "MiniSat")
