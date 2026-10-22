@@ -1,7 +1,6 @@
 // MARK: Space Pods
 // Based on Space Pods from Ark-Station, which was based on Vectorcrafts from SPLURT
 
-// TODO: Allow fuel tank to be filled with a reagent container
 // TODO: Add extensions (weapon systems, cargo bay)
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod
@@ -62,19 +61,30 @@
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/obj/item/reagent_containers/container = used
-	if(!istype(used))
+
+	if(!istype(container))
 		return ..()
 
 	if(!container.is_open_container())
 		to_chat(user, SPAN_NOTICE("You must open [container] before using it to refill the tank."))
 		return ITEM_INTERACT_COMPLETE
 
+	if(!container.reagents.total_volume)
+		to_chat(user, SPAN_NOTICE("[container] is empty!"))
+		return ITEM_INTERACT_COMPLETE
+
 	// check to ensure that only plasma is in the container
-	if(container.reagents.get_reagents() != "Plasma")
+	if(length(container.reagents.reagent_list) != 1 || !container.reagents.has_reagent("plasma"))
 		to_chat(user, SPAN_NOTICE("[src] can only be refuelled with pure liquid plasma."))
 		return ITEM_INTERACT_COMPLETE
 
-	return container.normal_act(pod_fueltank, user)
+	if(pod_fueltank.reagents.holder_full())
+		to_chat(user, SPAN_NOTICE("[src]'s fuel tank is full."))
+		return ITEM_INTERACT_COMPLETE
+
+	var/transferred = container.reagents.trans_to(pod_fueltank, container.amount_per_transfer_from_this)
+	to_chat(user, SPAN_NOTICE("You transfer [transferred] unit\s of plasma into [src]'s fuel tank."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/mob_try_enter(mob/M)
 	if(!ishuman(M))

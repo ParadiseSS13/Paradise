@@ -100,15 +100,15 @@
 
 		if(POD_PLATE_INSERT)
 			if(istype(tool, /obj/item/spacepod_plate))
-				if(istype(tool, /obj/item/spacepod_plate))
-					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod
-					to_chat(user, SPAN_NOTICE("You install the standard plating."))
-				else if(istype(tool, /obj/item/spacepod_plate/sci))
+				if(istype(tool, /obj/item/spacepod_plate/sci))
 					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod/sci
 					to_chat(user, SPAN_NOTICE("You install the expedition plating."))
 				else if(istype(tool, /obj/item/spacepod_plate/sec))
 					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod/sec
 					to_chat(user, SPAN_NOTICE("You install the security plating."))
+				else
+					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod
+					to_chat(user, SPAN_NOTICE("You install the standard plating."))
 				state = POD_ALL_WELD
 				icon_state = "raptor6"
 				update_icon(UPDATE_ICON_STATE)

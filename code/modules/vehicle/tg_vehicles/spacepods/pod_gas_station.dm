@@ -70,10 +70,16 @@
 		nozzle.snap_back(user)
 		return ITEM_INTERACT_COMPLETE
 
+	if(stat & (BROKEN|NOPOWER))
+		return ITEM_INTERACT_COMPLETE
+
 	if(istype(tool, /obj/item/card/id))
 		var/obj/item/card/id/id = tool
 		var/datum/money_account/account = id.get_card_account()
-		if(account.try_withdraw_credits(50))
+
+		if(!istype(account))
+			to_chat(user, SPAN_NOTICE("[id] is not linked to an account!"))
+		else if(account.try_withdraw_credits(50))
 			balance += 50
 			to_chat(user, SPAN_NOTICE("50 credits deposited."))
 		else
