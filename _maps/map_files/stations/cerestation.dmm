@@ -11587,6 +11587,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "bOY" = (
@@ -37321,7 +37324,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "gSJ" = (
@@ -42601,9 +42606,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison/cell_block/a)
 "hWp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -62916,9 +62918,6 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "meY" = (
@@ -67428,6 +67427,9 @@
 /area/station/public/locker)
 "nkh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -78780,7 +78782,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
@@ -114596,9 +114598,6 @@
 	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
