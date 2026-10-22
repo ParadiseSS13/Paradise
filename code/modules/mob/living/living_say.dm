@@ -335,7 +335,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				break
 			blooper_queue += new /datum/bloop_queue_entry(
 				world.time + total_delay,
-				max(blooper_volume, 100),
+				min(blooper_volume, 100),
 				BLOOPER_DO_VARY(bloop_source.get_blooper_pitch(), bloop_source.get_blooper_pitch_range()),
 				blooper_last_start_time,
 			)
