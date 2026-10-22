@@ -277,6 +277,28 @@
 /proc/rustlibs_sql_check_query(datum/db_query/query)
 	return RUSTLIB_CALL(sql_check_query, query)
 
+// MARK: Radiation
+/// Starts a radiation wave from a tile. Returns the wave's number.
+/proc/rustlibs_rad_wave_start(x, y, z, intensity, emission_type, weight)
+	return RUSTLIB_CALL(rad_wave_start, x, y, z, intensity, emission_type, weight)
+
+/// Works out every wave's next step. Returns the ended waves, then the tiles to look at.
+/proc/rustlibs_rad_waves_begin(max_x, max_y)
+	return RUSTLIB_CALL(rad_waves_begin, max_x, max_y)
+
+/// Takes whether each tile from rustlibs_rad_waves_begin() has anything radiation acts on.
+/// Returns the wave, tile and strength for each wave reaching one of those.
+/proc/rustlibs_rad_waves_resolve(list/occupied)
+	return RUSTLIB_CALL(rad_waves_resolve, occupied)
+
+/// Takes how much got through on each, and moves every wave on a step.
+/proc/rustlibs_rad_waves_finish(list/passed)
+	return RUSTLIB_CALL(rad_waves_finish, passed)
+
+/// Forgets every wave.
+/proc/rustlibs_rad_waves_reset()
+	return RUSTLIB_CALL(rad_waves_reset)
+
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles
