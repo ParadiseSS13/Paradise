@@ -1183,8 +1183,8 @@
 	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
 	if(emission_type > ALPHA_RAD)
 		amount /=  (1 - RAD_MOB_INSULATION)
-	// Alpha sources outside the body don't do much
-	else if(!is_inside_mob(source))
+	// Alpha sources outside the body don't do much. Contamination on our own body isn't outside it.
+	else if(source != src && !is_inside_mob(source))
 		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
