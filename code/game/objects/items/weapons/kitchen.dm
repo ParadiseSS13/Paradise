@@ -78,7 +78,7 @@
 
 /obj/item/kitchen/utensil/fork
 	name = "fork"
-	desc = "A multi-pronged eating utensel. Sure is pointy. Keep away from outlets."
+	desc = "A multi-pronged eating utensil. Sure is pointy. Keep away from outlets."
 	icon_state = "fork"
 
 /obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
