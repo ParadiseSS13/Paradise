@@ -587,9 +587,9 @@
 	job_medsci_high = sanitize_integer(job_medsci_high, 0, 65535, initial(job_medsci_high))
 	job_medsci_med = sanitize_integer(job_medsci_med, 0, 65535, initial(job_medsci_med))
 	job_medsci_low = sanitize_integer(job_medsci_low, 0, 65535, initial(job_medsci_low))
-	job_engsec_high = sanitize_integer(job_engsec_high, 0, 131071, initial(job_engsec_high))
-	job_engsec_med = sanitize_integer(job_engsec_med, 0, 65535, initial(job_engsec_med))
-	job_engsec_low = sanitize_integer(job_engsec_low, 0, 65535, initial(job_engsec_low))
+	job_engsec_high = sanitize_integer(job_engsec_high, 0, 262143, initial(job_engsec_high))
+	job_engsec_med = sanitize_integer(job_engsec_med, 0, 262143, initial(job_engsec_med))
+	job_engsec_low = sanitize_integer(job_engsec_low, 0, 262143, initial(job_engsec_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 
 	socks			= sanitize_text(socks, initial(socks))
