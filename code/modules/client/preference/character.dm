@@ -302,7 +302,7 @@
 						"ckey" = C.ckey,
 						"slot" = slot_number,
 						"quirks" = quirks,
-						"blooperid" = blooper_id,
+						"blooper_id" = blooper_id,
 						"blooper_speed" = blooper_speed,
 						"blooper_pitch" = blooper_pitch,
 						"blooper_pitch_range" = blooper_pitch_range,
@@ -344,7 +344,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks, blooperid, blooper_speed, blooper_pitch, blooper_pitch_range)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks, blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
