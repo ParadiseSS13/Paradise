@@ -461,7 +461,7 @@ GLOBAL_VAR(bomb_set)
 		return
 
 	if(wires.is_cut(WIRE_NUKE_CONTROL))
-		to_chat(usr, SPAN_DANGER("The control panel isn't responding! Something must be wrong with its wiring!"))
+		to_chat(usr, SPAN_WARNING("The control panel isn't responding! Something must be wrong with its wiring!"))
 		return FALSE
 
 	switch(action)
@@ -470,7 +470,7 @@ GLOBAL_VAR(bomb_set)
 				anchored = TRUE
 				visible_message(SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"))
 			else
-				visible_message(SPAN_DANGER("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
+				visible_message(SPAN_DANGER("[src] makes a highly unpleasant crunching noise! It looks like the anchoring bolts have been cut!"))
 			if(!wires.is_cut(WIRE_NUKE_LIGHT))
 				flick(sprite_prefix + "nuclearbombc", src)
 				icon_state = sprite_prefix + "nuclearbomb1"
@@ -522,7 +522,7 @@ GLOBAL_VAR(bomb_set)
 				return
 
 			if(!anchored && isinspace())
-				to_chat(usr, SPAN_DANGER("There is nothing to anchor to!"))
+				to_chat(usr, SPAN_WARNING("There is nothing to anchor to!"))
 				return FALSE
 
 			if(!yes_code && anchored && timing)
@@ -551,7 +551,7 @@ GLOBAL_VAR(bomb_set)
 
 		if("toggle_safety")
 			if(wires.is_cut(WIRE_NUKE_SAFETY))
-				to_chat(usr, SPAN_DANGER("The safety isn't responding! Something must be wrong with its wiring!"))
+				to_chat(usr, SPAN_WARNING("The safety isn't responding! Something must be wrong with its wiring!"))
 				return FALSE
 
 			safety = !(safety)
@@ -565,16 +565,16 @@ GLOBAL_VAR(bomb_set)
 
 		if("toggle_armed")
 			if(safety)
-				to_chat(usr, SPAN_DANGER("The safety is still on!"))
+				to_chat(usr, SPAN_WARNING("The safety is still on!"))
 				return
 
 			if(!core && !training)
-				to_chat(usr, SPAN_DANGER("[src]'s screen blinks red! There is no plutonium core in [src]!"))
+				to_chat(usr, SPAN_WARNING("[src]'s screen blinks red! There is no plutonium core in [src]!"))
 				return
 
 			if(!timing)
 				if(wires.is_cut(WIRE_NUKE_DETONATOR))
-					to_chat(usr, SPAN_DANGER("[src] isn't arming! Something must be wrong with its wiring!"))
+					to_chat(usr, SPAN_WARNING("[src] isn't arming! Something must be wrong with its wiring!"))
 					return FALSE
 
 				timing = TRUE
