@@ -308,7 +308,7 @@
 	icon_state = "bone_dagger"
 	inhand_icon_state = "bone_dagger"
 	materials = list()
-	origin_tech = "materials=2;biotech=2" // Same as bones.
+	origin_tech = "materials=2;biotech=2;combat=4" // Includes the tech levels of the bone it's made from.
 	flags = NONE
 
 /obj/item/kitchen/knife/combat/cyborg
