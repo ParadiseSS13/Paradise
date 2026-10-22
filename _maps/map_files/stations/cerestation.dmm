@@ -4446,6 +4446,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
+"aJZ" = (
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "aKd" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/sofa/corp{
@@ -11590,6 +11597,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "bOY" = (
@@ -27521,6 +27529,9 @@
 	dir = 6
 	},
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "eGB" = (
@@ -58865,6 +58876,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "lpg" = (
@@ -76833,6 +76847,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -78783,6 +78800,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
@@ -80884,14 +80904,14 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/disposalpipe/junction/y{
+	dir = 1
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -97097,9 +97117,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
@@ -101533,6 +101550,13 @@
 /obj/effect/mapping_helpers/sortjunc_helper/atmospherics,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine_foyer)
+"uEk" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "uEm" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4
@@ -109553,16 +109577,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
-"wrl" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/brig)
 "wru" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced/indestructible{
@@ -114489,6 +114503,18 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/security/fore_starboard)
+"xsn" = (
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
+	},
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "xsA" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/disposalpipe/segment{
@@ -127616,10 +127642,10 @@ eFs
 lzH
 scZ
 bSk
-xjQ
+bSk
 jYe
 dtI
-bNT
+xjQ
 iLk
 dtI
 bNT
@@ -133014,14 +133040,14 @@ eDr
 nWS
 iWW
 mFT
-sVC
+aJZ
 xEp
 daG
 dpu
 dpu
 bqV
 yhN
-wrl
+iGx
 iHo
 lDb
 kNQ
@@ -133271,7 +133297,7 @@ jug
 mFT
 apb
 mFT
-drz
+uEk
 xEp
 kCx
 dpu
@@ -133528,7 +133554,7 @@ pVD
 wIl
 sVC
 kBa
-xGe
+xsn
 wEd
 hHm
 szH
