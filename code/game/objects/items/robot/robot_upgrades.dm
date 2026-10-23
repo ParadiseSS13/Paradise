@@ -126,11 +126,9 @@
 /obj/item/borg/upgrade/rename/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
-
 	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	if(!new_heldname)
 		return ITEM_INTERACT_COMPLETE
-
 	heldname = new_heldname
 	return ITEM_INTERACT_COMPLETE
 

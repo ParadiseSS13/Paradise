@@ -161,7 +161,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
-	var/icon/broken_outline = icon('icons/obj/drinks/misc_drinks.dmi', "broken")
+	var/icon/broken_outline = icon('icons/obj/drinks/bottles.dmi', "broken")
 	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
