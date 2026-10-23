@@ -2,7 +2,7 @@
 	return message // no autohiss at this level
 
 /mob/living/carbon/human/handle_autohiss(message, datum/language/L)
-	if(!mind || mind.autohiss_mode == AUTOHISS_OFF) // no need to process if there's no client or they have autohiss off
+	if(!mind || mind.autohiss_mode == AUTOHISS_OFF) // no need to process if there's no mind or they have autohiss off
 		return message
 	return dna.species.handle_autohiss(message, L, mind.autohiss_mode)
 
