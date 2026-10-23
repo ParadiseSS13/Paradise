@@ -380,22 +380,26 @@
 	var/sling = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used, /obj/item/stack/cable_coil) && !sawn_state)
+	if(!istype(used, /obj/item/stack/cable_coil))
 		return ..()
+
+	if(sawn_state)
+		to_chat(user, SPAN_WARNING("[src] is too short to add a sling to!"))
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/stack/cable_coil/C = used
 	if(sling)
-		to_chat(user, SPAN_WARNING("The shotgun already has a sling!"))
+		to_chat(user, SPAN_WARNING("[src] already has a sling!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(C.use(10))
-		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, SPAN_NOTICE("You tie the lengths of cable to the shotgun, making a sling."))
-		sling = TRUE
-		update_icon()
+	if(!C.use(10))
+		to_chat(user, SPAN_WARNING("You need at least ten lengths of cable if you want to make a sling!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You need at least ten lengths of cable if you want to make a sling!"))
+	to_chat(user, SPAN_NOTICE("You tie the lengths of cable to [src], making a sling."))
+	slot_flags = ITEM_SLOT_BACK
+	sling = TRUE
+	update_icon()
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
