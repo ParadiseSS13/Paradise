@@ -71,6 +71,11 @@
 	blooper_id = id
 	return blooper
 
+/proc/get_blooper_type(id)
+	if(!istext(id))
+		return null
+	return GLOB.blooper_list[id]
+
 /mob/living/proc/process_bloopers(mob/living/char)
 	var/now = world.time
 	for(var/datum/bloop_queue_entry/entry in char.blooper_queue)

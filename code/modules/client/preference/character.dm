@@ -569,7 +569,7 @@
 		blooper_pitch = initial(blooper_pitch)
 
 	if(isnull(blooper_pitch_range))
-		blooper_pitch = initial(blooper_pitch)
+		blooper_pitch_range = initial(blooper_pitch_range)
 
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
