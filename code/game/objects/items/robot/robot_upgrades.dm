@@ -8,7 +8,6 @@
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
 	materials = list(MAT_METAL = 10000)
-	new_attack_chain = TRUE
 	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
 	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
