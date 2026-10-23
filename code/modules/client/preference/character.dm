@@ -231,11 +231,7 @@
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
 					pda_ringtone=:pda_ringtone,
-					quirks=:quirks,
-					blooper_id=:blooper_id,
-					blooper_speed=:blooper_speed,
-					blooper_pitch=:blooper_pitch,
-					blooper_pitch_range=:blooper_pitch_range
+					quirks=:quirks
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -301,11 +297,11 @@
 						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
 						"slot" = slot_number,
-						"quirks" = quirks,
-						"blooper_id" = blooper_id,
-						"blooper_speed" = blooper_speed,
-						"blooper_pitch" = blooper_pitch,
-						"blooper_pitch_range" = blooper_pitch_range,
+						"quirks" = quirks
+						// "blooper_id" = blooper_id,
+						// "blooper_speed" = blooper_speed,
+						// "blooper_pitch" = blooper_pitch,
+						// "blooper_pitch_range" = blooper_pitch_range,
 					))
 
 			if(!query.warn_execute())
@@ -532,10 +528,10 @@
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
 	quirks = query.item[62]
-	blooper_id = query.item[63]
-	blooper_speed = query.item[64]
-	blooper_pitch = query.item[65]
-	blooper_pitch_range = query.item[66]
+	// blooper_id = query.item[63]
+	// blooper_speed = query.item[64]
+	// blooper_pitch = query.item[65]
+	// blooper_pitch_range = query.item[66]
 
 
 	//Sanitize
