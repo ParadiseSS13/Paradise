@@ -87,7 +87,8 @@
 		return
 
 	var/soundpath = initial(voice_type.soundpath)
-
+	if(!soundpath)
+		return
 	var/preview_volume = min(blooper_volume, 100)
 	var/blooper_count = min(round((length_char(message) / blooper_speed)) + 1, BLOOPER_MAX_BLOOPERS / 4) // Limit this for performance. Less timers.
 	var/total_delay = 0

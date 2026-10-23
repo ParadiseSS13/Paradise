@@ -1,3 +1,9 @@
+/datum/blooper/none
+	bloopername = "None"
+	blooperid = "none"
+	soundpath = null
+	allow_random = FALSE
+
 /datum/blooper/mutedc2
 	bloopername = "Muted String (Low)"
 	blooperid = "mutedc2"
