@@ -15018,9 +15018,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "cYh" = (
@@ -19602,6 +19599,24 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
+"dUD" = (
+/obj/effect/turf_decal/tiles/department/security/checker{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prison)
 "dUF" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_North";
@@ -25059,6 +25074,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "eZF" = (
@@ -39019,10 +39037,6 @@
 "hKC" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/test)
-"hKD" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "hKF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -55843,6 +55857,9 @@
 	name = "Labor Camp Transfer"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "lgn" = (
@@ -94683,15 +94700,6 @@
 	icon_state = "cult"
 	},
 /area/station/legal/lawoffice)
-"sMX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/prison)
 "sMZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/item/shard{
@@ -102218,6 +102226,12 @@
 "ulI" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
+"ulU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prison)
 "ulW" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Cloning"
@@ -116024,9 +116038,6 @@
 	name = "Engineering"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -116034,9 +116045,6 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/hangar,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
@@ -168733,7 +168741,7 @@ aZS
 jnP
 jnP
 jnP
-hKD
+aZS
 jnP
 kuo
 kyH
@@ -171307,8 +171315,8 @@ sBC
 gOw
 fjJ
 bDs
-kqR
-drX
+dUD
+ulU
 kjq
 bkj
 kBy
@@ -173106,7 +173114,7 @@ yiq
 vHR
 fjJ
 cYg
-sMX
+sJJ
 gpE
 oTT
 dCr
