@@ -436,11 +436,6 @@
 /obj/item/borg/upgrade/modkit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(issilicon(user) || !istype(used, /obj/item/gun/energy/kinetic_accelerator))
 		return ..()
-	var/obj/item/gun/energy/kinetic_accelerator/accelerator = used
-	if(!accelerator.max_mod_capacity)
-		return ..()
-	install(used, user)
-	return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/gun/energy/kinetic_accelerator/gun = used
 	if((gun.get_remaining_mod_capacity() - cost) < 0)
