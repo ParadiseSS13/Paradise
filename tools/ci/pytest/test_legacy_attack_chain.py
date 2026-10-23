@@ -133,9 +133,9 @@ NEW_PROCS = [
 
 @pytest.mark.lint("Legacy Attack Chain")
 def test_legacy_attack_chain(dme: DME, lint: Lint):
-    LEGACY_PROCS: dict[p, list[ProcDecl]] = defaultdict(list)
-    MODERN_PROCS: dict[p, list[ProcDecl]] = defaultdict(list)
-    SETTING_CACHE: dict[p, bool] = dict()
+    legacy_procs: dict[p, list[ProcDecl]] = defaultdict(list)
+    modern_procs: dict[p, list[ProcDecl]] = defaultdict(list)
+    setting_cache: dict[p, bool] = dict()
 
     for pth in dme.subtypesof("/"):
         if pth in IGNORED_TYPES:
@@ -144,32 +144,32 @@ def test_legacy_attack_chain(dme: DME, lint: Lint):
         td = dme.types[pth]
         if any([pth.child_of(assisted_type, strict=True) for assisted_type in ASSISTED_TYPES]):
             try:
-                SETTING_CACHE[pth] = bool(td.var_decl("new_attack_chain", parents=True).const_val)
+                setting_cache[pth] = bool(td.var_decl("new_attack_chain", parents=True).const_val)
             except:
-                SETTING_CACHE[pth] = False
+                setting_cache[pth] = False
         for proc_name in td.proc_names(modified=True):
             if "__legacy__attackchain" in proc_name:
                 for proc_decl in td.proc_decls(proc_name):
-                    LEGACY_PROCS[pth].append(proc_decl)
+                    legacy_procs[pth].append(proc_decl)
             elif proc_name in NEW_PROCS:
                 for proc_decl in td.proc_decls(proc_name):
-                    MODERN_PROCS[pth].append(proc_decl)
+                    modern_procs[pth].append(proc_decl)
         for proc_decl in td.proc_decls():
             walker = AttackChainCallWalker(td, proc_decl)
             proc_decl.walk(walker)
 
-    for pth in sorted(SETTING_CACHE.keys()):
-        new_attack_chain = SETTING_CACHE[pth]
+    for pth in sorted(setting_cache.keys()):
+        new_attack_chain = setting_cache[pth]
         cursor = pth
         if new_attack_chain:
-            for proc_decl in sorted(LEGACY_PROCS[pth], key=lambda x: x.name):
+            for proc_decl in sorted(legacy_procs[pth], key=lambda x: x.name):
                 lint.error_source(
                     f"migrated type with legacy proc {pth}/{proc_decl.name}(...)",
                     proc_decl.source_loc,
                 )
 
             while cursor not in ASSISTED_TYPES and not cursor.is_root:
-                if LEGACY_PROCS[cursor] and not SETTING_CACHE[cursor]:
+                if legacy_procs[cursor] and not setting_cache[cursor]:
                     lint.error(f"new_attack_chain on {pth} but related type {cursor} is not")
                 cursor = cursor.parent
             if pth in CALLS and any([x.legacy for x in CALLS[pth]]):
@@ -178,8 +178,8 @@ def test_legacy_attack_chain(dme: DME, lint: Lint):
                         lint.error_source(call.make_error_message(), call.source_loc)
 
         elif pth not in ASSISTED_TYPES:
-            if MODERN_PROCS[pth]:
-                for proc_decl in sorted(MODERN_PROCS[pth], key=lambda x: x.name):
+            if modern_procs[pth]:
+                for proc_decl in sorted(modern_procs[pth], key=lambda x: x.name):
                     lint.error_source(
                         f"legacy type with migrated proc {pth}/{proc_decl.name}(...)",
                         proc_decl.source_loc
