@@ -781,7 +781,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	user.audible_message(
-		SPAN_NOTICE("[user] rings [src], and what an auspicious sound it is."),
+		SPAN_NOTICE("[src] rings, and what an auspicious sound it is."),
 		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings."),
 		SPAN_NOTICE("[user] taps [src] once and stands very still.")
 	)
