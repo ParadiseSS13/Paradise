@@ -560,7 +560,7 @@
 		height = initial(height)
 
 	if(isnull(blooper_id))
-		blooper_id = initial(blooper_id)
+		blooper_id = "mutedc4"
 
 	if(isnull(blooper_speed))
 		blooper_speed = initial(blooper_speed)
