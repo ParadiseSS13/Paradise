@@ -42,9 +42,9 @@
 		return FALSE
 	var/assess_flags = my_bot.judgement_criteria()
 	var/assessed_threat = human_target.assess_threat(assess_flags)
-	if(assessed_threat > THREAT_ASSESS_DANGEROUS)
+	if(assessed_threat >= THREAT_ASSESS_DANGEROUS)
 		my_controller.set_blackboard_key(BB_CURRENT_CRIMINAL_ASSESSMENT, assessed_threat)
-	return (assessed_threat > THREAT_ASSESS_DANGEROUS)
+	return (assessed_threat >= THREAT_ASSESS_DANGEROUS)
 
 
 /datum/ai_controller/basic_controller/bot/secbot/try_possess_pawn(atom/new_pawn)
@@ -57,7 +57,7 @@
 /datum/ai_controller/basic_controller/bot/secbot/proc/on_target_set()
 	SIGNAL_HANDLER
 	var/datum/action/cooldown/bot_announcement/announcement = blackboard[BB_ANNOUNCE_ABILITY]
-	var/threat_level = 5 || blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
+	var/threat_level = blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT] || 5
 	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), "Level [threat_level] infraction alert!")
 	playsound(pawn, pick(
 		'sound/voice/beepsky/criminal.ogg',
@@ -75,11 +75,12 @@
 	clear_blackboard_key(BB_CURRENT_CRIMINAL_ASSESSMENT)
 
 /datum/ai_planning_subtree/arrest_target
+
 	///what behavior do we use when arresting?
 	var/datum/ai_behavior/arrest_behavior = /datum/ai_behavior/basic_melee_attack/bot
 
 /datum/ai_planning_subtree/arrest_target/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
-	if(!controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+	if(!controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET) || !controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET])
 		return
 	var/mob/living/carbon/my_target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 	var/mob/living/basic/bot/secbot/my_bot = controller.pawn

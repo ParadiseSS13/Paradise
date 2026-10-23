@@ -2,9 +2,8 @@ from typing import Any
 
 from avulto import DME, Dmlist, Path as p
 from avulto.ast import Prefab
-import pytest
-
 from conftest import Lint
+import pytest
 
 
 def print_prefab(prefab: Prefab) -> str:

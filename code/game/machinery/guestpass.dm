@@ -37,11 +37,11 @@
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
 	desc = "This console allows staff to give out temporary access to their coworkers."
+	icon = 'icons/obj/wallbumps/guest_pass_terminal.dmi'
 	icon_state = "guest"
 	icon_screen = "pass"
 	icon_keyboard = null
 	density = FALSE
-
 
 	var/obj/item/card/id/scan
 	var/list/accesses = list()
@@ -59,6 +59,8 @@
 /obj/machinery/computer/guestpass/Initialize(mapload)
 	. = ..()
 	my_terminal_id = ++global_terminal_id
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/computer/guestpass, 32, -2, 32, -32)
 
 /obj/machinery/computer/guestpass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/card/id/nct_data_chip))
@@ -240,6 +242,8 @@
 /obj/machinery/computer/guestpass/hop
 	name = "\improper HoP guest pass terminal"
 	desc = "The Head of Personnel's guest pass terminal allows the HoP to temporarily allow anyone into places they probably shouldn't be."
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/computer/guestpass/hop, 32, -2, 32, -32)
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
