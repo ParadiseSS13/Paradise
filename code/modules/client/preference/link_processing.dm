@@ -575,7 +575,11 @@
 						active_character.height = new_height
 
 				if("blooper_id")
-					var/new_blooperid = tgui_input_list(user, "Choose your voice!", "Voice Modification", GLOB.blooper_list)
+					var/list/choices = list()
+					for(var/id in GLOB.blooper_list)
+						if(species_whitelisted_for_bloopers(id, active_character.species))
+							choices += id
+					var/new_blooperid = tgui_input_list(user, "Choose your voice!", "Voice Modification", choices)
 					if(new_blooperid in GLOB.blooper_list)
 						active_character.blooper_id = new_blooperid
 

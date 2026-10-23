@@ -4,6 +4,8 @@
 	var/blooperid = "No Voice" // The internal ID of the blooper used for matching.
 	var/soundpath // The path to the sound file to play.
 
+	var/list/species_whitelist // A list for preventing species from using a bloop. Empty means no whitelist.
+
 	/// Used for sanitization of the values before saving it and applying it. Keeps in bounds. Per sound.
 	var/minpitch = BLOOPER_DEFAULT_MINPITCH // The minimum pitch to be saved for a sound.
 	var/maxpitch = BLOOPER_DEFAULT_MAXPITCH	// The maximum pitch to be saved for a sound.
@@ -36,6 +38,8 @@
 	for(var/sound_blooper_path in subtypesof(/datum/blooper))
 		var/datum/blooper/B = new sound_blooper_path()
 		GLOB.blooper_list[B.blooperid] = sound_blooper_path
+		if(B.species_whitelist)
+			GLOB.blooper_whitelist[B.blooperid] = B.species_whitelist
 		if(B.allow_random)
 			GLOB.blooper_random_list[B.blooperid] = sound_blooper_path
 
@@ -107,3 +111,7 @@
 	bloop_sound.frequency = pitch
 	bloop_sound.volume =  volume * user.client.prefs.get_channel_volume(CHANNEL_BLOOPERS)
 	SEND_SOUND(user, bloop_sound)
+
+/proc/species_whitelisted_for_bloopers(id, species_name)
+	var/list/whitelist = GLOB.blooper_whitelist[id]
+	return !whitelist || (species_name in whitelist)

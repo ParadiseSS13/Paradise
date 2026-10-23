@@ -1,5 +1,4 @@
 /datum/blooper/none
-	allow_random = FALSE
 
 /datum/blooper/mutedc2
 	bloopername = "Muted String (Low)"
@@ -31,6 +30,7 @@
 	soundpath = 'sound/voice/shriek1.ogg'
 	allow_random = TRUE
 	bloop_count_multiplier = 0.5
+	species_whitelist = list("Vox")
 
 /datum/blooper/draskdrone
 	bloopername = "Drask Drone"
@@ -38,6 +38,7 @@
 	soundpath = 'sound/voice/drasktalk.ogg'
 	allow_random = TRUE
 	bloop_count_multiplier = 0.5
+	species_whitelist = list("Drask")
 
 /datum/blooper/dionaroot
 	bloopername = "Diona Root"
@@ -45,3 +46,4 @@
 	soundpath = 'sound/voice/dionatalk1.ogg' //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	allow_random = TRUE
 	bloop_count_multiplier = 0.5
+	species_whitelist = list("Diona")

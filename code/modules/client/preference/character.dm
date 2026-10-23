@@ -634,7 +634,13 @@
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
-	blooper_id = sanitize_inlist(blooper_id, GLOB.blooper_list, initial(blooper_id))
+
+	// Sanitization, no need to make a new function.
+	if(!species_whitelisted_for_bloopers(blooper_id, species))
+		blooper_id = initial(blooper_id)
+
+	blooper_id = species_whitelisted_for_bloopers(blooper_id, GLOB.blooper_list, initial(blooper_id))
+
 	var/datum/blooper/blooper_type = GLOB.blooper_list[blooper_id]
 	blooper_speed = sanitize_float(blooper_speed, initial(blooper_type.minspeed), initial(blooper_type.maxspeed), initial(blooper_speed))
 	blooper_pitch = sanitize_float(blooper_pitch, initial(blooper_type.minpitch), initial(blooper_type.maxpitch), initial(blooper_pitch))

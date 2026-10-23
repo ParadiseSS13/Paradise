@@ -83,4 +83,5 @@ GLOBAL_LIST_INIT(pda_ringtone_choices, list("beep" = 'sound/machines/twobeep.ogg
 
 GLOBAL_LIST_EMPTY(blooper_list)
 GLOBAL_LIST_EMPTY(blooper_random_list)
+GLOBAL_LIST_EMPTY(blooper_whitelist)
 GLOBAL_VAR_INIT(blooper_allowed, TRUE) // For administrators
