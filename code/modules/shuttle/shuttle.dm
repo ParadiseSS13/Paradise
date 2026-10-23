@@ -992,7 +992,7 @@
 	/// Should this shuttle console have the announcer functionality?
 	var/loud_console = FALSE
 	/// Whether or not this shuttle will announce its arrival. 0 is no, 1 is just the pilot, 2 is all passengers
-	var/announce_arrival = 0
+	var/announce_arrival = ANNOUNCE_NONE
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
