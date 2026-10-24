@@ -600,7 +600,6 @@
 			<span class='danger'>It would be a <b>VERY BAD IDEA</b> to put two of these next to eachother.</span>"
 	icon_state = "mod_antimatter"
 	max_durability = INFINITY
-	heat_amp_mod = 1
 	power_amp_mod = 0 // Yummy, eating all your power!
 	neighbor_decay_mod = 2
 	alpha_rad = 250
