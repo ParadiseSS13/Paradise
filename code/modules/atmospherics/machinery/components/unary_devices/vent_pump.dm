@@ -1,5 +1,7 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
+/// A vent only pumps when it's more than 0.5 kPa off. Anything under this going by MILLA's pressure is safely short of that.
+#define IDLE_PRESSURE_DELTA 0.49
 
 /obj/machinery/atmospherics/unary/vent_pump
 	name = "air vent"
@@ -131,6 +133,12 @@
 			update_icon()
 		return FALSE
 
+	if(releasing && pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+		// MILLA already told us this tile's pressure, so a vent with nothing to do doesn't have to read its air.
+		var/offset = watched_tile_offset(T)
+		if(!isnull(offset) && external_pressure_bound - SSair.watched_tiles[offset + MILLA_WATCHED_PRESSURE] < IDLE_PRESSURE_DELTA)
+			return TRUE
+
 	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(releasing) //internal -> external
 		var/pressure_delta = 10000
@@ -257,3 +265,4 @@
 
 #undef EXTERNAL_PRESSURE_BOUND
 #undef INTERNAL_PRESSURE_BOUND
+#undef IDLE_PRESSURE_DELTA

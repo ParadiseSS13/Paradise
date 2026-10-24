@@ -1,3 +1,6 @@
+/// The gases should_scrub() looks for no matter how the scrubber is set up
+#define ALWAYS_SCRUBBED_GASES (MILLA_WATCHED_GAS_SLEEPING_AGENT | MILLA_WATCHED_GAS_AGENT_B | MILLA_WATCHED_GAS_HYDROGEN | MILLA_WATCHED_GAS_WATER_VAPOR)
+
 /obj/machinery/atmospherics/unary/vent_scrubber
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it."
@@ -130,6 +133,15 @@
 	//broadcast_status()
 	if(!on)
 		return 0
+
+	if(scrubbing && !widenet)
+		// MILLA already told us which gases are on this tile, so a scrubber with nothing to scrub doesn't have to read its air.
+		var/offset = watched_tile_offset(T)
+		if(!isnull(offset))
+			var/gases = SSair.watched_tiles[offset + MILLA_WATCHED_GASES]
+			// Same gases as should_scrub()
+			if(!(gases & ALWAYS_SCRUBBED_GASES) && !(scrub_O2 && (gases & MILLA_WATCHED_GAS_OXYGEN)) && !(scrub_N2 && (gases & MILLA_WATCHED_GAS_NITROGEN)) && !(scrub_CO2 && (gases & MILLA_WATCHED_GAS_CARBON_DIOXIDE)) && !(scrub_Toxins && (gases & MILLA_WATCHED_GAS_TOXINS)))
+				return
 
 	scrub(loc)
 	if(widenet)
@@ -287,3 +299,5 @@
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer."))
+
+#undef ALWAYS_SCRUBBED_GASES

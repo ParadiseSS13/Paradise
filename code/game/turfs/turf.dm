@@ -723,6 +723,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /datum/milla_safe/initialize_turf/on_run(turf/T)
 	if(!isnull(T))
 		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+		// This writes straight to MILLA, so anything fetched from it before now may be out of date.
+		SSair.watched_tiles = null
 
 /// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
 /turf/proc/private_unsafe_get_air()
