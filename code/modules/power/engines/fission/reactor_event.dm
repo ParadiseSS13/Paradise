@@ -33,6 +33,9 @@
 	reactor.generate_extra_gas = FALSE
 	reactor.event_active = null
 
+/datum/engi_event/reactor_event/proc/begin_async_event()
+	return
+
 /datum/engi_event/reactor_event/proc/reactor_radio_say(text)
 	if(!text)
 		return
@@ -148,6 +151,9 @@
 	reactor_radio_say("Abnormal reactor conditions detected! Activity class: [name]. Raising Nuclear Containment Chamber due to fault.")
 
 /datum/engi_event/reactor_event/bravo_tier/raise_chamber/on_start()
+	INVOKE_ASYNC(src, PROC_REF(begin_async_event))
+
+/datum/engi_event/reactor_event/bravo_tier/raise_chamber/begin_async_event()
 	var/list/full_chambers = list()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in reactor.connected_chambers)
 		if(chamber.held_rod && chamber.chamber_state == CHAMBER_DOWN)
@@ -189,6 +195,9 @@
 	duration = 20 SECONDS
 
 /datum/engi_event/reactor_event/bravo_tier/control_rod_failure/on_start()
+	INVOKE_ASYNC(src, PROC_REF(begin_async_event))
+
+/datum/engi_event/reactor_event/bravo_tier/control_rod_failure/begin_async_event()
 	sleep(5 SECONDS)
 	var/amount_of_failures = rand(1, 3)
 	while(amount_of_failures)
@@ -210,6 +219,9 @@
 	end_message = FALSE
 
 /datum/engi_event/reactor_event/alpha_tier/eject_rod/on_start()
+	INVOKE_ASYNC(src, PROC_REF(begin_async_event))
+
+/datum/engi_event/reactor_event/alpha_tier/eject_rod/begin_async_event()
 	sleep(5 SECONDS) // a short warning
 	var/list/full_chambers = list()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in reactor.connected_chambers)
