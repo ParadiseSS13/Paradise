@@ -8,5 +8,5 @@ PyYaml==6.0.2 # maplint also
 beautifulsoup4==4.13.4
 
 # various CI checks
-avulto==0.3.0
+avulto==0.4.3
 pytest==9.1.1
