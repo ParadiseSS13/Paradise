@@ -506,6 +506,7 @@
 /area/ruin/space/gas_station)
 "EI" = (
 /obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/fuel_pump,
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/gas_station)
 "FZ" = (

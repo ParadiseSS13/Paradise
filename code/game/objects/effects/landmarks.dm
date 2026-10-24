@@ -310,6 +310,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Botanist"
 	icon_state = "Botanist"
 
+/obj/effect/landmark/start/brig_pilot
+	name = "Brig Pilot"
+	icon_state = "Sec"
+
 /obj/effect/landmark/start/chief_engineer
 	name = "Chief Engineer"
 	icon_state = "CE"
@@ -429,6 +433,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/start/scientist
 	name = "Scientist"
 	icon_state = "Sci"
+
+/obj/effect/landmark/start/shipwright
+	name = "Shipwright"
+	icon_state = "Engi"
 
 /obj/effect/landmark/start/xenobiologist
 	name = "Xenobiologist"

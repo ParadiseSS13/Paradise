@@ -166,6 +166,7 @@ As the Smith, your apron and bomber jacket can carry more plates than normal, al
 As an Explorer, you may find rare items that will unlock normally unobtainable technologies when broken down at R&D.
 As an Explorer, you may find rare ore exclusive to space-bound asteroids. This ore is quite valuable, as it is worth many points to smelt, and can be used to create advanced modifications by the smith!
 As an Explorer, the whiteship's docking area signaller can be alt-clicked to send the ship to any available port. Create a port and use the signaller to instantly call the ship to you from anywhere!
+As the Shipwright, fuel pumps take credits from your ID. Use the UI to choose the amount of fuel you want after depositing credits, then Alt-Click to take the nozzle off the pump.
 As a Traitor, the cryptographic sequencer (emag) can not only open doors, but also lockers, crates, APCs and more. It can hack cyborgs, and even cause bots to go berserk. Use it on the right machines, and you can even order more traitor gear or contact the Syndicate. Experiment!
 As a Traitor, subverting the AI to serve you can make it an extremely powerful ally. However, be careful of the wording in the laws you give it, as it may use your poorly written laws against you!
 As a Traitor, the Captain and the Head of Security are two of the most difficult to kill targets on the station. If either one is your target, plan carefully.

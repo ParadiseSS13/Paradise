@@ -2,7 +2,30 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Nanotrasen Career Trainer",  "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
+	protected_jobs = list(
+		"Blueshield",
+		"Brig Pilot",
+		"Captain",
+		"Chaplain",
+		"Chief Engineer",
+		"Chief Medical Officer",
+		"Detective",
+		"Head of Personnel",
+		"Head of Security",
+		"Internal Affairs Agent",
+		"Magistrate",
+		"Nanotrasen Career Trainer",
+		"Nanotrasen Career Trainer",
+		"Nanotrasen Navy Officer",
+		"Nanotrasen Representative",
+		"Quartermaster",
+		"Research Director",
+		"Security Officer",
+		"Special Operations Officer",
+		"Syndicate Officer",
+		"Trans-Solar Federation General",
+		"Warden",
+	)
 	species_to_mindflayer = list("Machine")
 	required_players = 15
 	required_enemies = 1

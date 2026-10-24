@@ -331,6 +331,16 @@
 	build_path = /obj/item/circuitboard/circuit_imprinter
 	category = list("Research Machinery")
 
+/datum/design/pod_board_etcher
+	name = "Machine Board (Pod Board Etcher)"
+	desc = "The circuit board for a Pod Board Etcher."
+	id = "pod_board_etcher"
+	req_tech = list("programming" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/pod_board_etcher
+	category = list("Research Machinery")
+
 /datum/design/cyborgrecharger
 	name = "Machine Board (Cyborg Recharger)"
 	desc = "The circuit board for a Cyborg Recharger."

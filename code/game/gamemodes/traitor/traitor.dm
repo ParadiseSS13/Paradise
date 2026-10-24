@@ -2,7 +2,28 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Nanotrasen Career Trainer", "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
+	protected_jobs = list(
+		"Blueshield",
+		"Brig Pilot",
+		"Captain",
+		"Chief Engineer",
+		"Chief Medical Officer",
+		"Detective",
+		"Head of Personnel",
+		"Head of Security",
+		"Internal Affairs Agent",
+		"Magistrate",
+		"Nanotrasen Career Trainer",
+		"Nanotrasen Navy Officer",
+		"Nanotrasen Representative",
+		"Quartermaster",
+		"Research Director",
+		"Security Officer",
+		"Special Operations Officer",
+		"Syndicate Officer",
+		"Trans-Solar Federation General",
+		"Warden",
+	)
 	required_enemies = 1
 	recommended_enemies = 4
 	/// Hard limit on traitors if scaling is turned off.
