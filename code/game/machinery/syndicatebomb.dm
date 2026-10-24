@@ -521,8 +521,15 @@
 			RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, 1, 1, 1)
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
+		// Clearing adminlog means only the first release messages the admins.
+		if(adminlog)
+			message_admins(adminlog)
+			log_game(adminlog)
+			adminlog = null
+
 		// Detonate it again in one second, until it's out of juice.
 		addtimer(CALLBACK(src, PROC_REF(detonate)), 10)
+		return
 
 	// If it's not a time release bomb, do normal explosion
 
