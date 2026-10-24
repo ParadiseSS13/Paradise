@@ -130,7 +130,7 @@ export const NuclearRodFabricator = (props) => {
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell bold>Power Amplification:</Table.Cell>
-                              <Table.Cell>{selectedRod.power_amp_mod || 1}</Table.Cell>
+                              <Table.Cell>{selectedRod.power_amp_mod || 1}x</Table.Cell>
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
@@ -141,7 +141,25 @@ export const NuclearRodFabricator = (props) => {
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell bold>Heat Amplification:</Table.Cell>
-                              <Table.Cell>{selectedRod.heat_amp_mod || 1}</Table.Cell>
+                              <Table.Cell>{selectedRod.heat_amp_mod || 1}x</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell bold>Neighbor Decay Modifier:</Table.Cell>
+                              <Table.Cell>{selectedRod.neighbor_decay_mod || 1}x</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell bold>Reactor Overheat Bonus:</Table.Cell>
+                              <Table.Cell>{selectedRod.reactor_overheat_modifier || 0}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell bold>Reactor Min. Temp modifier:</Table.Cell>
+                              <Table.Cell>{selectedRod.minimum_temp_modifier || 0}</Table.Cell>
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />

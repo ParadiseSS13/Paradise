@@ -9,6 +9,7 @@
 	max_integrity = 2000
 	target_pressure = 100000 // Maximum pressure in KPA
 	flags_2 = NO_MALF_EFFECT_2
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 
 	/// Hold which reactor the intake is connected to.
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
@@ -49,6 +50,7 @@
 		return FALSE
 	if(linked_reactor.safety_override) // We dont want to cool down an intentional runaway reactor
 		return FALSE
+
 	var/datum/gas_mixture/network1
 	var/datum/gas_mixture/network2
 
@@ -75,7 +77,40 @@
 
 		// Actually transfer the gas
 		var/datum/gas_mixture/removed = network2.remove(transfer_moles)
-		network1.merge(removed)
+		if(isnull(removed)) // We drew a total vacuum
+			return TRUE
+
+		//Filter it
+		var/datum/gas_mixture/filtered_out = new
+		filtered_out.set_temperature(removed.temperature())
+
+		if(linked_reactor.scrub_O2)
+			filtered_out.set_oxygen(removed.oxygen())
+			removed.set_oxygen(0)
+		if(linked_reactor.scrub_N2)
+			filtered_out.set_nitrogen(removed.nitrogen())
+			removed.set_nitrogen(0)
+		if(linked_reactor.scrub_Toxins)
+			filtered_out.set_toxins(removed.toxins())
+			removed.set_toxins(0)
+		if(linked_reactor.scrub_CO2)
+			filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+			removed.set_carbon_dioxide(0)
+		if(removed.agent_b()) // womp, cant choose not to scrub it.
+			filtered_out.set_agent_b(removed.agent_b())
+			removed.set_agent_b(0)
+		if(linked_reactor.scrub_N2O)
+			filtered_out.set_sleeping_agent(removed.sleeping_agent())
+			removed.set_sleeping_agent(0)
+		if(linked_reactor.scrub_H2)
+			filtered_out.set_hydrogen(removed.hydrogen())
+			removed.set_hydrogen(0)
+		if(linked_reactor.scrub_H2O)
+			filtered_out.set_water_vapor(removed.water_vapor())
+			removed.set_water_vapor(0)
+
+		linked_reactor.air_contents.merge(removed)
+		network1.merge(filtered_out)
 
 		parent.update = TRUE
 
@@ -83,11 +118,15 @@
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/screwdriver_act(mob/living/user, obj/item/I)
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return CONTINUE_ATTACK
 	to_chat(user, SPAN_INFORMATION("You begin to pry out the internal piping..."))
 	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		default_deconstruction_crowbar(user, I)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
@@ -114,18 +153,23 @@
 	linked_reactor = null
 	var/turf/T = get_step(src, REVERSE_DIR(dir))
 	for(var/obj/machinery/atmospherics/fission_reactor/reactor in T)
+		if(reactor.is_mini && reactor.down_for_maintenance)
+			continue
 		linked_reactor = reactor
+		linked_reactor.connected_gas_nodes += src
 	for(var/obj/structure/filler/filler in T)
 		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 			linked_reactor = filler.parent
+			linked_reactor.connected_gas_nodes += src
 	if(silent)
 		return
 	if(!linked_reactor)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		audible_message(SPAN_INFO("The gas node buzzes as it fails to connect to a reactor."))
-	else
-		playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-		audible_message(SPAN_INFO("The gas node pings as it connects to the reactor."))
+		return
+
+	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
+	audible_message(SPAN_INFO("The gas node pings as it connects to the reactor."))
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
 	to_chat(user, SPAN_INFORMATION("You begin to reverse the gas flow direction..."))
@@ -135,6 +179,6 @@
 			name = "Reactor Gas Intake"
 		else
 			name = "Reactor Gas Extractor"
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 #undef MINIMUM_MOLES

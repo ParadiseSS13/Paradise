@@ -2057,10 +2057,10 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "GP" = (
-/obj/machinery/computer/fission_monitor{
+/obj/effect/turf_decal/trimline/misc/toxins/filled/line,
+/obj/machinery/computer/reactor_monitor{
 	dir = 1
 	},
-/obj/effect/turf_decal/trimline/misc/toxins/filled/line,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "GY" = (
@@ -2788,9 +2788,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "TL" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
+/obj/machinery/power/reactor_power,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
