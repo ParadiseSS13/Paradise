@@ -98,6 +98,7 @@
 
 		my_flashlight = used
 		update_icon(UPDATE_OVERLAYS)
+		update_flashlight_light()
 		return
 
 	if(istype(used, /obj/item/storage/toolbox/mechanical))
@@ -216,6 +217,7 @@
 			user.put_in_hands(my_flashlight)
 			to_chat(user, SPAN_NOTICE("You take [my_flashlight] from [src]."))
 			my_flashlight = null
+			update_flashlight_light()
 
 		if("Mechanical Toolbox")
 			if(!my_blue_toolbox)
@@ -262,3 +264,23 @@
 		. += "cart_redtoolbox"
 	if(my_yellow_toolbox)
 		. += "cart_yellowtoolbox"
+	update_flashlight_light()
+
+/obj/structure/engineeringcart/proc/update_flashlight_light()
+	if(my_flashlight && my_flashlight.on)
+		light_color = my_flashlight.light_color
+		set_light(my_flashlight.brightness_on)
+	else
+		light_color = null
+		set_light(0)
+
+/obj/structure/engineeringcart/extinguish_light(force = FALSE)
+	if(my_flashlight && my_flashlight.on)
+		my_flashlight.on = FALSE
+		my_flashlight.update_brightness()
+		update_flashlight_light()
+
+/obj/structure/engineeringcart/examine(mob/user)
+	. = ..()
+	if(my_flashlight && my_flashlight.on)
+		. += SPAN_WARNING("The flashlight is currently <b>on</b>!")
