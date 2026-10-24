@@ -1480,10 +1480,10 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "sS" = (
-/obj/machinery/computer/fission_monitor{
+/obj/effect/turf_decal/trimline/misc/toxins/line,
+/obj/machinery/computer/reactor_monitor{
 	dir = 1
 	},
-/obj/effect/turf_decal/trimline/misc/toxins/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "sW" = (

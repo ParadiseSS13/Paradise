@@ -6269,11 +6269,11 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/computer/fission_monitor{
-	dir = 8
-	},
 /obj/effect/turf_decal/trimline/misc/toxins/line{
 	dir = 4
+	},
+/obj/machinery/computer/reactor_monitor{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)

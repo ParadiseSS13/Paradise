@@ -11,6 +11,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	armor = list(melee = 25, bullet = 10, laser = 30, energy = 0, bomb = 0, rad = INFINITY, fire = INFINITY, acid = 70)
 
 	/// The time it takes for the machine to process a rod
@@ -164,8 +165,10 @@
 	icon_state = "rod_fab"
 	idle_power_consumption = 50
 	active_power_consumption = 3000
+	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	armor = list(melee = 25, bullet = 10, laser = 30, energy = 0, bomb = 0, rad = INFINITY, fire = INFINITY, acid = 70)
 
 	/// Our holder for materials
@@ -408,16 +411,13 @@
 			var/list/required_materials = temp_rod.materials
 			qdel(temp_rod)
 
-			if(!required_materials || !length(required_materials))
+			if(!debug && !required_materials || !length(required_materials))
 				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report!"))
 				return FALSE
 
-			if(debug) // No spending materials.
-				return TRUE
-
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff
-				if(materials.amount(mat_id) < required_amount)
+				if(!debug materials.amount(mat_id) < required_amount)
 					to_chat(usr, SPAN_WARNING("Not enough materials! Need [required_amount] units of [mat_id]!"))
 					return FALSE
 
@@ -426,7 +426,7 @@
 			for(var/mat_id in required_materials)
 				materials_to_use[mat_id] = required_materials[mat_id] * efficiency_coeff
 
-			if(!materials.use_amount(materials_to_use))
+			if(!debug && !materials.use_amount(materials_to_use))
 				to_chat(usr, SPAN_WARNING("Failed to deduct materials!"))
 				return FALSE
 

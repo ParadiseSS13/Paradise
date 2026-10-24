@@ -16,41 +16,41 @@
 
 // MARK: Monitor
 
-/obj/machinery/computer/fission_monitor
+/obj/machinery/computer/reactor_monitor
 	name = "NGCR monitoring console"
 	desc = "Used to monitor the Nanotrasen Gas Cooled Fission Reactor."
 	icon_keyboard = "power_key"
 	icon_screen = "smmon_0"
-	circuit = /obj/item/circuitboard/fission_monitor
+	circuit = /obj/item/circuitboard/reactor_monitor
 	light_color = LIGHT_COLOR_YELLOW
 	/// Last status of the active reactor for caching purposes
 	var/last_status
 	/// Reference to the active reactor
-	var/obj/machinery/atmospherics/fission_reactor/active
+	var/obj/machinery/atmospherics/reactor_reactor/active
 	/// Holds the old_turf for the active reactor, in case it moves.
 	var/turf/old_turf
 	/// Is this monitor a controller? Affected by visibility from the reactor
 	var/controller = TRUE
 
-/obj/machinery/computer/fission_monitor/Initialize(mapload)
+/obj/machinery/computer/reactor_monitor/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/computer/fission_monitor/LateInitialize()
+/obj/machinery/computer/reactor_monitor/LateInitialize()
 	. = ..()
 	active = GLOB.main_fission_reactor
 	determine_control()
 
-/obj/machinery/computer/fission_monitor/Destroy()
+/obj/machinery/computer/reactor_monitor/Destroy()
 	active = null
 	return ..()
 
 // This can normally never happen, but just in case.
-/obj/machinery/computer/fission_monitor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+/obj/machinery/computer/reactor_monitor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	determine_control()
 
-/obj/machinery/computer/fission_monitor/proc/determine_control()
+/obj/machinery/computer/reactor_monitor/proc/determine_control()
 	if(!active)
 		return
 	if(active in oview(12, src))
@@ -58,10 +58,10 @@
 	else
 		controller = FALSE
 
-/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
+/obj/machinery/computer/reactor_monitor/attack_ai(mob/user)
 	attack_hand(user)
 
-/obj/machinery/computer/fission_monitor/attack_hand(mob/user)
+/obj/machinery/computer/reactor_monitor/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -71,10 +71,10 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/fission_monitor/ui_state(mob/user)
+/obj/machinery/computer/reactor_monitor/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/fission_monitor/process()
+/obj/machinery/computer/reactor_monitor/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
@@ -96,7 +96,7 @@
 
 	return TRUE
 
-/obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/reactor_monitor/multitool_act(mob/living/user, obj/item/I)
 	if(!I.multitool_check_buffer(user))
 		return ITEM_INTERACT_COMPLETE
 	var/obj/item/multitool/multitool = I
@@ -105,7 +105,7 @@
 		to_chat(user, SPAN_NOTICE("You load the buffer's linking data to [src]."))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/reactor_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ReactorMonitor", name)
@@ -113,7 +113,7 @@
 
 	return TRUE
 
-/obj/machinery/computer/fission_monitor/ui_data(mob/user)
+/obj/machinery/computer/reactor_monitor/ui_data(mob/user)
 	var/list/data = list()
 	// If we somehow dont have an engine anymore, handle it here.
 	if(!active || isnull(active))
@@ -179,7 +179,7 @@
 
 	return data
 
-/obj/machinery/computer/fission_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/computer/reactor_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 

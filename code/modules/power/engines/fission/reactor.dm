@@ -1,9 +1,3 @@
-#warn to-do: RE-INTRODUCE ENGINEERING SUBMAPPING BEFORE COMITTING
-
-#warn test-do: TGUI menu
-#warn test-do: New gas interactions
-#warn test-do: Event system
-
 // The steps for repairing the reactor
 #define REACTOR_NEEDS_DIGGING 		1
 #define REACTOR_NEEDS_CROWBAR 		2
@@ -928,37 +922,38 @@
 
 	var/active_chambers
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
-		if(chamber.held_rod)
-			if(chamber.chamber_state == CHAMBER_DOWN)
-				chamber.calculate_stats(operating_rate)
-				active_chambers++
-				if(chamber.held_mob)
-					if(HAS_TRAIT(chamber.held_mob, TRAIT_RESISTHEAT) && HAS_TRAIT(chamber.held_mob, TRAIT_RADIMMUNE)) // Are you somehow heat AND rad immune? Sure, enjoy your spa.
-						if(prob(0.5))
-							to_chat(chamber.held_mob, SPAN_WARNING("All the spinning machinery is making you dizzy..."))
-					else if(HAS_TRAIT(chamber.held_mob, TRAIT_RESISTHEAT) || HAS_TRAIT(chamber.held_mob, TRAIT_RADIMMUNE)) // You dont get a pass, but it hurts a bit less.
-						chamber.held_mob.adjustFireLoss(1 * reactivity_multiplier)
-					else
-						chamber.held_mob.adjustFireLoss(2 * reactivity_multiplier)
-					contaminate_target(chamber.held_mob, src, 100 * reactivity_multiplier, GAMMA_RAD)
-				continue
-			if(chamber.chamber_state == CHAMBER_UP)
-				active_chambers++
-				continue
+		if(!chamber.held_rod)
+			continue
+		if(chamber.chamber_state == CHAMBER_DOWN)
+			chamber.calculate_stats(operating_rate)
+			active_chambers++
+			if(chamber.held_mob)
+				if(HAS_TRAIT(chamber.held_mob, TRAIT_RESISTHEAT) && HAS_TRAIT(chamber.held_mob, TRAIT_RADIMMUNE)) // Are you somehow heat AND rad immune? Sure, enjoy your spa.
+					if(prob(0.5))
+						to_chat(chamber.held_mob, SPAN_WARNING("All the spinning machinery is making you dizzy..."))
+				else if(HAS_TRAIT(chamber.held_mob, TRAIT_RESISTHEAT) || HAS_TRAIT(chamber.held_mob, TRAIT_RADIMMUNE)) // You dont get a pass, but it hurts a bit less.
+					chamber.held_mob.adjustFireLoss(1 * reactivity_multiplier)
+				else
+					chamber.held_mob.adjustFireLoss(2 * reactivity_multiplier)
+				contaminate_target(chamber.held_mob, src, 100 * reactivity_multiplier, GAMMA_RAD)
+			continue
+		if(chamber.chamber_state == CHAMBER_UP)
+			active_chambers++
+			continue
 	if(!active_chambers) // for average heat generation calculations not to divide by 0
-		active_chambers = 0.5
+		active_chambers = 0.1
 
 	// Gather all our data from the chambers, and enrich if we need to
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
-		var/power_total
-		var/heat_total
+		var/power_total = 0
+		var/heat_total = 0
 		if(!chamber.held_rod)
 			continue
 		if(chamber.chamber_state == CHAMBER_OPEN)
 			continue
 		var/durability_mod = chamber.held_rod.get_durability_mod()
 		if(chamber.chamber_state == CHAMBER_DOWN)
-			if(chamber.operational) // We generate heat but not power while its down.
+			if(chamber.operational && !chamber.suppressed) // We generate heat but not power while its down.
 				power_total = chamber.power_total * durability_mod // Some things have negative power, so we put this before fuel rod checks
 			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
 				var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
@@ -972,13 +967,13 @@
 
 		if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant))
 			heat_total = chamber.heat_total * durability_mod * gas_coolant_mod
-			chamber.held_rod.durability = max(chamber.held_rod.durability - (durability_loss * gas_coolant_degrade_mod), 0)
+			chamber.held_rod.durability = max(chamber.held_rod.durability - (durability_loss * gas_coolant_degrade_mod * chamber.decay_mod_total), 0)
 		else if(istype(chamber.held_rod, /obj/item/nuclear_rod/moderator))
 			heat_total = chamber.heat_total * durability_mod * gas_moderator_mod
-			chamber.held_rod.durability -= durability_loss * gas_moderator_degrade_mod
+			chamber.held_rod.durability = max(chamber.held_rod.durability - (durability_loss * gas_moderator_degrade_mod * chamber.decay_mod_total), 0)
 		else
 			heat_total = chamber.heat_total * durability_mod
-			chamber.held_rod.durability -= durability_loss
+			chamber.held_rod.durability = max(chamber.held_rod.durability - (durability_loss * chamber.decay_mod_total), 0)
 
 		final_heat += heat_total
 		final_power += power_total
@@ -1121,12 +1116,16 @@
 	switch(get_status())
 		if(REACTOR_WARNING)
 			radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(REACTOR_DANGER)
 			radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(REACTOR_EMERGENCY)
 			radio.autosay(SPAN_BIG("[warning_alert] Integrity: [get_integrity()]%"), name, null)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(REACTOR_MELTDOWN)
 			radio.autosay(SPAN_BIG("[emergency_alert] Integrity: [get_integrity()]%"), name, null)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 /obj/machinery/atmospherics/fission_reactor/proc/get_status()
 	var/integrity = get_integrity()

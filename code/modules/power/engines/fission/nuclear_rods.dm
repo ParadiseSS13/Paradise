@@ -13,8 +13,6 @@
 	var/durability
 	/// The maximum amount of durability for this rod. Used for percentage calculations
 	var/max_durability = 3000
-	/// How fast does this rod degrade? higher = faster
-	var/degradation_speed = 1
 	/// How much heat does this rod add by default
 	var/heat_amount = 0
 	/// How does this rod affect its neighbors heating
@@ -27,6 +25,8 @@
 	var/power_amp_mod = 1
 	/// Holds the current power mod after durability loss
 	var/current_power_mod
+	/// How fast does this rod decay its neighbors
+	var/neighbor_decay_mod = 1
 	/// How much Alpha Rad is emitted by this rod
 	var/alpha_rad = 0
 	/// How much Beta Rad is emitted by this rod
@@ -105,7 +105,18 @@
 	else if(!rad_component)
 		start_rads()
 
+/// After all status have been in determined the main reactor process(), this runs.
 /obj/item/nuclear_rod/proc/do_special_effect()
+	return
+
+/// Called when the rod chamber updates its statistics for any reason
+/obj/item/nuclear_rod/proc/on_calculate_stats(obj/machinery/atmospherics/reactor_chamber/chamber)
+	return FALSE
+
+/obj/item/nuclear_rod/proc/on_lower(obj/machinery/atmospherics/reactor_chamber/chamber)
+	return
+
+/obj/item/nuclear_rod/proc/on_raise(obj/machinery/atmospherics/reactor_chamber/chamber)
 	return
 
 /obj/item/nuclear_rod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
@@ -130,6 +141,8 @@
 	var/heat_enrich_progress = 0
 	/// What heat enrichment results in
 	var/heat_enrich_result
+	/// Have we proc'd the on_enrich process?
+	var/enriched = FALSE
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
@@ -146,7 +159,14 @@
 		if(heat_mod > heat_enrich_threshold && heat_enrich_progress < enrichment_cycles)
 			heat_enrich_progress++
 			successful_enrichment = TRUE
+	if(!enriched && power_enrich_progress >= enrichment_cycles || heat_enrich_progress >= enrichment_cycles)
+		enriched = TRUE
+		on_enrich()
 	return successful_enrichment
+
+/// Called when the a rod has successfully been enriched
+/obj/item/nuclear_rod/fuel/proc/on_enrich()
+	return
 
 // MARK: Fuel Rods
 
@@ -184,17 +204,32 @@
 	icon_state = "fuel_weakthor"
 	heat_amount = 5
 	power_amount = 20 KW
-	heat_amp_mod = 1.6
+	heat_amp_mod = 1.4
 	power_amp_mod = 1.1
 	max_durability = 5000
 	beta_rad = 100
 	gamma_rad = 100
+	heat_enrich_threshold = 20
+	heat_enrich_result = /obj/item/nuclear_rod/fuel/neptunium
 	power_enrich_threshold = 8
 	power_enrich_result = /obj/item/nuclear_rod/fuel/uranium_235
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
 	)
+
+/obj/item/nuclear_rod/fuel/neptunium
+	name = "neptunium fuel rod"
+	desc = "Although not powerful on its own, the stability of neptunium makes it a wonderful rod for any stable reaction chains."
+	icon_state = "fuel_nept"
+	heat_amount = 30
+	power_amount = 40 KW
+	heat_amp_mod = 2.1
+	power_amp_mod = 1.8
+	neighbor_decay_mod = 0.85
+	max_durability = 8000
+	beta_rad = 100
+	gamma_rad = 100
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
@@ -249,11 +284,25 @@
 	power_amp_mod = 1.3
 	max_durability = 15000
 	beta_rad = 250
+	heat_enrich_threshold = 40
+	heat_enrich_result = /obj/item/nuclear_rod/fuel/protactinium
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/fuel/uranium_235,
 		/obj/item/nuclear_rod/fuel,
 	)
+
+/obj/item/nuclear_rod/fuel/protactinium
+	name = "protactinium fuel rod"
+	desc = "A highly efficient nuclear fuel, protactinium boasts very high overall stats while being able to assist with keeping many reactors highly stable."
+	icon_state = "fuel_prot"
+	heat_amount = 40
+	power_amount = 70 KW
+	heat_amp_mod = 2.4
+	power_amp_mod = 1.5
+	neighbor_decay_mod = 0.8
+	max_durability = 20000
+	beta_rad = 250
 
 /obj/item/nuclear_rod/fuel/enriched_plutonium
 	name = "enriched plutonium fuel rod"
@@ -265,12 +314,28 @@
 	power_amp_mod = 1.6
 	max_durability = 5000
 	beta_rad = 250
-	power_enrich_threshold = 25
+	heat_enrich_threshold = 80
+	heat_enrich_result = /obj/item/nuclear_rod/fuel/weapons_grade_plutonium
+	power_enrich_threshold = 40
 	power_enrich_result = /obj/item/nuclear_rod/fuel/americium
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
 	)
+
+/obj/item/nuclear_rod/fuel/weapons_grade_plutonium
+	name = "weapons grade plutonium fuel"
+	desc = "A highly dangerous fuel commonly used to create cores for nuclear devices. While not the most powerful on its own, its high neutron count makes it ideal for agitating other fuel rods!"
+	icon_state = "fuel_wg_plut"
+	heat_amount = 150
+	power_amount = 120 KW
+	max_durability = 6000
+	gamma_rad = 300
+	beta_rad = 250
+	heat_amp_mod = 10
+	power_amp_mod = 5
+	neighbor_decay_mod = 1.3
+	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/weapons_grade_plutonium)
 
 /obj/item/nuclear_rod/fuel/supermatter
 	name = "supermatter fuel rod"
@@ -280,6 +345,7 @@
 	power_amount = 800 KW
 	heat_amp_mod = 8
 	power_amp_mod = 0.1
+	neighbor_decay_mod = 1.5
 	max_durability = INFINITY
 	gamma_rad = 300
 	adjacent_requirements = list(
@@ -287,6 +353,47 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
 	)
+
+// Supermatter has a special enrichment process
+/obj/item/nuclear_rod/fuel/supermatter/enrich(power_mod, heat_mod)
+	var/successful_enrichment = FALSE
+	var/needed_supermatters = 2
+	var/needed_francium = 2
+
+	if(!istype(loc, /obj/machinery/atmospherics/reactor_chamber))
+		return
+
+	var/obj/machinery/atmospherics/reactor_chamber/source_chamber = loc
+	for(var/obj/machinery/atmospherics/reactor_chamber/neighbor in source_chamber.neighbors)
+		if(istype(neighbor.held_rod, /obj/item/nuclear_rod/fuel/supermatter))
+			needed_supermatters--
+		if(istype(neighbor.held_rod, /obj/item/nuclear_rod/fuel/francium))
+			needed_francium--
+
+	if(!needed_supermatters && !needed_francium)
+		power_enrich_progress++
+		heat_enrich_progress++
+		successful_enrichment = TRUE
+
+	if(!enriched && power_enrich_progress >= enrichment_cycles || heat_enrich_progress >= enrichment_cycles)
+		enriched = TRUE
+		on_enrich()
+		return TRUE
+
+	if(successful_enrichment)
+		return TRUE
+
+	return FALSE
+
+/obj/item/nuclear_rod/fuel/supermatter/on_enrich()
+	goonchem_vortex(get_turf(loc), FALSE, 50)
+	if(!istype(loc, /obj/machinery/atmospherics/reactor_chamber))
+		return
+	var/obj/machinery/atmospherics/reactor_chamber/chamber = loc
+	var/obj/item/nuclear_rod/moderator/antimatter/new_rod = new(chamber)
+	chamber.held_rod = new_rod
+	chamber.raise() // This is way easier than forcing everything to manually update.
+	qdel(src)
 
 /obj/item/nuclear_rod/fuel/americium
 	name = "americium fuel rod"
@@ -296,12 +403,28 @@
 	power_amount = 200 KW
 	heat_amp_mod = 6
 	power_amp_mod = 3
-	max_durability = 4000
+	max_durability = 5000
 	gamma_rad = 300
+	neighbor_decay_mod = 1.2
+	power_enrich_threshold = 120
+	power_enrich_result = /obj/item/nuclear_rod/fuel/francium
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 	)
+
+/obj/item/nuclear_rod/fuel/francium
+	name = "francium fuel rod"
+	desc = "A highly refined isotopse that can only be described as 'screamingly radioactive' over anything else. Its high radioactivity comes at the cost of a very short lifespan."
+	icon_state = "fuel_franc"
+	max_durability = 1800
+	gamma_rad = 1000
+	heat_amount = 600
+	power_amount = 3000 KW
+	heat_amp_mod = 8
+	power_amp_mod = 4
+	neighbor_decay_mod = 1.3
+	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
 
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
@@ -318,6 +441,7 @@
 	heat_amp_mod = rand(5, 80) / 10
 	power_amount = rand(10 KW, 200 KW)
 	heat_amount = rand(10, 500)
+	neighbor_decay_mod = rand(1, 4) / 10
 	return ..()
 
 /obj/item/nuclear_rod/fuel/meltdown
@@ -345,6 +469,7 @@
 	power_amp_mod = 1.4
 	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	neighbor_decay_mod = 0.9
 
 /obj/item/nuclear_rod/moderator/graphite
 	name = "graphite moderator"
@@ -366,14 +491,56 @@
 	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 2000)
 
+/obj/item/nuclear_rod/moderator/steel
+	name = "steel moderator"
+	desc = "A crude and cheap moderator rod. Its not very good at much and is harsh on other nearby rods, however it does not have many requirements to operate."
+	icon_state = "mod_steel"
+	max_durability = 8000
+	heat_amp_mod = 3
+	power_amp_mod = 1.2
+	neighbor_decay_mod = 1.6
+	craftable = TRUE
+	materials = list(MAT_METAL = 1000)
+
+/obj/item/nuclear_rod/moderator/lead
+	name = "lead moderator"
+	desc = "An exceptionally dense, toxic rod that is highly effective at halting nuclear reactions. It is not likely to find much use in most nuclear setups due to its effect on neutron chain reactions."
+	icon_state = "mod_lead"
+	max_durability = 5500
+	heat_amp_mod = 0.1
+	power_amp_mod = 0.3
+	neighbor_decay_mod = 0.2
+	craftable = TRUE
+	upgrade_required = TRUE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 2000)
+	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
+
+/obj/item/nuclear_rod/moderator/beryllium
+	name = "beryllium moderator"
+	desc = "A common standard for nuclear enrichment and fission processes, known for its use in processing uranium isotopes."
+	icon_state = "mod_beryllium"
+	heat_amount = 40
+	max_durability = 6000
+	heat_amp_mod = 7.2
+	power_amp_mod = 3.4
+	craftable = TRUE
+	materials = list(MAT_METAL = 4000, MAT_SILVER = 2000, MAT_TITANIUM = 4000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel/uranium_238,
+		/obj/item/nuclear_rod/fuel/uranium_238,
+		/obj/item/nuclear_rod/fuel/uranium_235,
+		/obj/item/nuclear_rod/coolant,
+		)
+
 /obj/item/nuclear_rod/moderator/plasma_agitator
 	name = "plasma agitator"
 	desc = "A specialized moderator rod capable of inducing higher fission rates in fuel rods through a series of micro-burns. It doesn't last long."
 	icon_state = "mod_plasma"
-	max_durability = 2250
+	max_durability = 2000
 	heat_amount = 20
-	heat_amp_mod = 5
-	power_amp_mod = 3
+	heat_amp_mod = 6
+	power_amp_mod = 4
+	neighbor_decay_mod = 1.8
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -390,6 +557,7 @@
 	power_amp_mod = 3
 	minimum_temp_modifier = 400
 	reactor_overheat_modifier = 100
+	neighbor_decay_mod = 1.1
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
 		/obj/item/nuclear_rod/moderator,
@@ -403,6 +571,7 @@
 	power_amount = -30 KW
 	heat_amp_mod = 12
 	power_amp_mod = 5
+	neighbor_decay_mod = 1.2
 	upgrade_required = TRUE
 	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_BLUESPACE = 1000)
@@ -415,6 +584,7 @@
 	heat_amp_mod = 6.5
 	power_amp_mod = 3.3
 	reactor_overheat_modifier = 100
+	neighbor_decay_mod = 1.1
 	craftable = TRUE
 	upgrade_required = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
@@ -423,6 +593,72 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 	)
+
+/obj/item/nuclear_rod/moderator/antimatter
+	name = "antimatter cluster"
+	desc = "A product of unstable supermatter enrichment processes, antimatter holds untold amounts of energy at the cost of nullifying most other reactions near it. Should it be released from its casing, the result would likely demolish half a station.<br> \
+			<span class='danger'>It would be a <b>VERY BAD IDEA</b> to put two of these next to eachother.</span>"
+	icon_state = "mod_antimatter"
+	max_durability = INFINITY
+	heat_amp_mod = 1
+	power_amp_mod = 0 // Yummy, eating all your power!
+	neighbor_decay_mod = 2
+	alpha_rad = 250
+	beta_rad = 250
+	gamma_rad = 250
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+	)
+
+/obj/item/nuclear_rod/moderator/antimatter/Initialize(mapload)
+	. = ..()
+	if(istype(loc, /obj/machinery/atmospherics/reactor_chamber)) // This shouldnt be possible but check anyways
+		collision_check(loc)
+
+/obj/item/nuclear_rod/moderator/antimatter/on_calculate_stats(obj/machinery/atmospherics/reactor_chamber/chamber)
+	chamber.power_mod_total = chamber.power_mod_total ** 1.5 // EXPONENTIAL GOODNESS
+	chamber.heat_mod_total =  chamber.heat_mod_total ** 1.75 // Uh oh exponential goodness
+	return TRUE
+
+/obj/item/nuclear_rod/moderator/antimatter/on_lower(obj/machinery/atmospherics/reactor_chamber/chamber)
+	collision_check(chamber)
+
+/obj/item/nuclear_rod/moderator/antimatter/proc/collision_check(obj/machinery/atmospherics/reactor_chamber/chamber)
+	for(var/obj/machinery/atmospherics/reactor_chamber/neighbor in chamber.neighbors)
+		neighbor.suppressed = TRUE
+		if(neighbor.chamber_state == CHAMBER_DOWN && neighbor.held_rod && istype(neighbor.held_rod, /obj/item/nuclear_rod/moderator/antimatter))
+			QDEL_NULL(neighbor.held_rod) // uh oh big bad swirly time
+			neighbor.weld_shut()
+			chamber.weld_shut()
+			var/obj/effect/temp_visual/telekinesis/antimatter_rod/effect = new(get_turf(chamber))
+			effect.duration = 20 SECONDS
+			addtimer(CALLBACK(src, PROC_REF(detonate), chamber), 20 SECONDS)
+			playsound(loc, 'sound/effects/eleczap.ogg', 60, TRUE)
+			if(chamber.linked_reactor)
+				playsound(chamber.linked_reactor, 'sound/machines/engine_alert1.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+				chamber.linked_reactor.radio.autosay(SPAN_BIG("ALERT! Antimatter collision detected in chamber housing. Event Horizon formation expected in 20 seconds without intervention."), name, null)
+
+/obj/item/nuclear_rod/moderator/antimatter/proc/detonate(obj/machinery/atmospherics/reactor_chamber/chamber)
+	if(chamber.held_rod != src)
+		return
+	var/turf/T = get_turf(src)
+	var/antimatter_collapse_sound = sound('sound/magic/charge.ogg')
+	for(var/player in GLOB.player_list)
+		var/mob/M = player
+		var/turf/mob_turf = get_turf(M)
+		if(atoms_share_level(T, mob_turf))
+			SEND_SOUND(M, antimatter_collapse_sound)
+	investigate_log("has collapsed into a singularity from having an antimatter neighbor.", INVESTIGATE_REACTOR)
+	var/obj/singularity/S = new(T)
+	S.energy = 250 // Lets get it started!
+	S.consume(chamber)
+
+
+/obj/item/nuclear_rod/moderator/antimatter/on_raise(obj/machinery/atmospherics/reactor_chamber/chamber)
+	for(var/obj/machinery/atmospherics/reactor_chamber/neighbor in chamber.neighbors)
+		neighbor.suppressed = FALSE
 
 /obj/item/nuclear_rod/moderator/meaty
 	name = "meat-based rod"
@@ -437,6 +673,7 @@
 	max_durability = 8000
 	heat_amp_mod = 8
 	power_amp_mod = 3.9
+	neighbor_decay_mod = 1.3
 	reactor_overheat_modifier = 300
 	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
 
@@ -452,6 +689,7 @@
 	heat_amount = -10
 	power_amount = -10 KW
 	reactor_overheat_modifier = 25
+	neighbor_decay_mod = 0.9
 	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
@@ -459,7 +697,7 @@
 /obj/item/nuclear_rod/coolant/co2_regulator
 	name = "carbon dioxide regulator"
 	desc = "A specialized coolant rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, it's very energy inefficient."
-	icon_state = "coolant_carbon"
+	icon_state = "coolant_co2"
 	heat_amount = -4
 	heat_amp_mod = 0.6
 	power_amount = -15 KW
@@ -474,9 +712,35 @@
 	max_durability = 1900
 	heat_amp_mod = 0.5
 	power_amp_mod = 1.5
+	neighbor_decay_mod = 0.75
 	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+
+/obj/item/nuclear_rod/coolant/boron
+	name = "boron-doped graphite rod"
+	desc = "While similar in appearance to a graphite moderator, this rod has been doped with incredibly heavy boron molecules. Added to a reactor, it can break the chain of nearby fissile reactions."
+	icon_state = "coolant_boron"
+	max_durability = 6000
+	heat_amp_mod = 0.1
+	power_amp_mod = 0.4
+	neighbor_decay_mod = 0.2
+	craftable = TRUE
+	upgrade_required = TRUE
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000, MAT_GLASS = 2000)
+
+/obj/item/nuclear_rod/coolant/graphene
+	name = "graphene coolant rod"
+	desc = "A more advanced form of graphite, graphene is incredibly stable and highly durable. However, unlike graphite, graphene's strong structure make it more hesitant to excite neutrons."
+	icon_state = "coolant_boron"
+	max_durability = 10000
+	heat_amp_mod = 1.3
+	power_amp_mod = 1.5
+	neighbor_decay_mod = 0.5
+	craftable = TRUE
+	upgrade_required = TRUE
+	materials = list(MAT_METAL = 4000, MAT_GOLD = 1000, MAT_GLASS = 4000)
 
 /obj/item/nuclear_rod/coolant/nitrogen_circulator
 	name = "nitrogen circulator"
@@ -486,6 +750,7 @@
 	heat_amount = -10
 	power_amp_mod = 0.9
 	heat_amp_mod = 0.7
+	neighbor_decay_mod = 0.85
 	craftable = TRUE
 	reactor_overheat_modifier = 50
 	power_amount = -5 KW
@@ -496,11 +761,12 @@
 	desc = "A specialized coolant rod that circulates molten salts through the core of the reactor. Despite forcing the reactor to run exceptionally hot, this rod provides top-notch cooling potential above its resting temperature."
 	icon_state = "coolant_salt"
 	power_amount = -20 KW
-	heat_amount = -60
-	heat_amp_mod = 0.8
+	heat_amount = -200
+	heat_amp_mod = 0.7
 	max_durability = 8000
 	minimum_temp_modifier = 750
-	reactor_overheat_modifier = 100
+	reactor_overheat_modifier = 300
+	neighbor_decay_mod = 1.2
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
@@ -519,6 +785,7 @@
 	max_durability = 6000
 	minimum_temp_modifier = 450
 	reactor_overheat_modifier = 100
+	neighbor_decay_mod = 0.9
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/light_water,
 		/obj/item/nuclear_rod/coolant/light_water,
@@ -531,7 +798,8 @@
 	power_amount = -40 KW
 	heat_amount = -100
 	heat_amp_mod = 0.8
-	power_amp_mod = 1.3
+	power_amp_mod = 1.5
+	neighbor_decay_mod = 0.8
 	max_durability = INFINITY
 	reactor_overheat_modifier = 200
 	craftable = TRUE
@@ -557,10 +825,37 @@
 	icon_state = "coolant_spacematter"
 	heat_amount = -1500
 	heat_amp_mod = 0.2
+	neighbor_decay_mod = 1.5
 	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
 	craftable = TRUE
 	upgrade_required = TRUE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel/enriched_plutonium,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
+	)
+
+/obj/item/nuclear_rod/coolant/hydrogen
+	name = "hydrogen circulator"
+	desc = "A swirling container of pure hydrogen. Its high thermal conductivity allow it to easily rip away heat from the core, though most reactions phase straight through its light atomic mass."
+	icon_state = "coolant_hydrogen"
+	heat_amount = -5000
+	heat_amp_mod = 0.9
+	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
+	craftable = TRUE
+	upgrade_required = TRUE
+	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/uranium_235)
+
+/obj/item/nuclear_rod/coolant/tritium
+	name = "tritium circulator"
+	desc = "While almost entirely similar to hydrogen, placing it near an intense radiation source can unlock its true potential."
+	icon_state = "coolant_tritium"
+	heat_amount = -10000
+	heat_amp_mod = 0.8
+	neighbor_decay_mod = 0.8
+	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
+	craftable = TRUE
+	upgrade_required = TRUE
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel/francium,
+		/obj/item/nuclear_rod/fuel/francium,
 	)

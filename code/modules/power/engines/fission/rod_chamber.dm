@@ -12,7 +12,7 @@
 	max_integrity = 400
 	armor = list(melee = 80, bullet = 30, laser = 30, energy = 10, bomb = 40, rad = INFINITY, fire = INFINITY, acid = INFINITY) // Fairly robust
 	idle_power_consumption = 100
-	flags_2 = NO_MALF_EFFECT_2
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | NO_MALF_EFFECT_2
 
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
@@ -40,6 +40,8 @@
 	var/power_mod_total = 1
 	/// Holds the current accumulated heat mod value from its neighbors
 	var/heat_mod_total = 1
+	/// Holds the current accumulated decay modifier from its neighbors
+	var/decay_mod_total = 1
 	/// A simple binary to prevent open/close spam mucking up the anims
 	var/lockout = FALSE
 	/// Holds our durability bar overlay level. Updates overlays if it changes
@@ -54,6 +56,9 @@
 	var/requirement_delay_interval = 10 SECONDS
 	/// Allows us to check an area after cooldown is set before we start it
 	var/after_cooldown_check = FALSE
+	/// Is this rod suppressed, and giving no modifier effects?
+	var/suppressed = FALSE
+
 	COOLDOWN_DECLARE(requirement_check_delay)
 
 /obj/machinery/atmospherics/reactor_chamber/Initialize(mapload)
@@ -490,6 +495,10 @@
 			message += SPAN_NOTICE("[held_rod] has been heat enriched")
 		else
 			message += SPAN_NOTICE("[held_rod] has not yet finished a heat enrichment process.")
+	if(operational)
+		message += ""
+		message += SPAN_NOTICE("The chamber has a deterioration rate of [decay_mod_total].")
+
 
 	return message
 
@@ -517,15 +526,19 @@
 	layer = ABOVE_MOB_LAYER
 	power_total = 0
 	check_minimum_modifier()
-	if(held_rod && held_rod.reactor_overheat_modifier)
-		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	if(!held_rod)
+		return
+	if(held_rod && held_rod.reactor_overheat_modifier)
+		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		if(linked_reactor.offline)
 			held_rod.start_rads()
 		else
 			held_rod.start_rads(linked_reactor.reactivity_multiplier)
+
+	held_rod.on_raise(src)
 
 	update_icon()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
@@ -569,7 +582,9 @@
 		requirements_met = TRUE
 	else
 		requirements_met = FALSE
+
 	check_minimum_modifier()
+	held_rod.on_lower(src)
 	update_icon()
 
 /obj/machinery/atmospherics/reactor_chamber/proc/finish_down_anim()
@@ -686,7 +701,6 @@
 		return FALSE
 	if(held_rod.durability <= 0)
 		return FALSE
-
 	var/list/temp_requirements = list()
 	temp_requirements += held_rod.adjacent_requirements // A temporary modable holder
 	if(!temp_requirements)
@@ -783,16 +797,18 @@
 			chamber.visible_message(SPAN_WARNING("[chamber] melts through [T]!"))
 		return
 
-	var/heat_capacity = environment.heat_capacity()
-	var/heat_change = max(chamber.heat_total / heat_capacity) * HEAT_MODIFIER // the hotter the rod, the hotter the air
+	var/heat_capacity = max(10, environment.heat_capacity())
+	var/heat_change = (chamber.heat_total / heat_capacity) * HEAT_MODIFIER // the hotter the rod, the hotter the air
 	var/temp = environment.temperature()
 	if(chamber.chamber_state == CHAMBER_UP) // Its not fully exposed yet, and heating the reactor
 		heat_change *= 0.25
-	heat_change = max(heat_change, 1) // Always heat up at least a little
+	heat_change = clamp(heat_change, 10, 1000) // Always heat up at least a little but not too much
 	environment.set_temperature(temp + heat_change)
 
 /// Calculate how much heat and energy we should be making
 /obj/machinery/atmospherics/reactor_chamber/proc/calculate_stats(operating_rate = 0)
+	if(!held_rod)
+		return
 	power_total = (held_rod.power_amount * operating_rate)
 	heat_total = (held_rod.heat_amount * operating_rate)
 
@@ -806,8 +822,13 @@
 		else if(held_rod.heat_amount > 0) // Do not multiply negative heat.
 			heat_mod_total *= chamber.held_rod.current_heat_mod // We generate heat even when its not operational
 		if(operational && chamber.chamber_state == CHAMBER_DOWN)
+			if(istype(held_rod, /obj/item/nuclear_rod/moderator/antimatter)) // Slurp up power from our neighbor
+				power_total += chamber.power_total
 			if(held_rod.power_amount > 0) // Do not multiply negative power.
 				power_mod_total *= chamber.held_rod.current_power_mod
+			decay_mod_total *= chamber.held_rod.neighbor_decay_mod
+
+	held_rod.on_calculate_stats(src)
 
 	power_total *= power_mod_total
 	heat_total *= heat_mod_total
