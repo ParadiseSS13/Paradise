@@ -84,6 +84,12 @@
 
 	var/height = "average height"
 
+	var/blooper_id = "mutedc4"
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.2
+	var/blooper_speed = 4
+	var/blooper_volume = 50
+
 	// OOC Metadata:
 	var/metadata = ""
 
@@ -292,6 +298,10 @@
 						"ckey" = C.ckey,
 						"slot" = slot_number,
 						"quirks" = quirks
+						// "blooper_id" = blooper_id,
+						// "blooper_speed" = blooper_speed,
+						// "blooper_pitch" = blooper_pitch,
+						// "blooper_pitch_range" = blooper_pitch_range,
 					))
 
 			if(!query.warn_execute())
@@ -517,8 +527,12 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
-
 	quirks = query.item[62]
+	// blooper_id = query.item[63]
+	// blooper_speed = query.item[64]
+	// blooper_pitch = query.item[65]
+	// blooper_pitch_range = query.item[66]
+
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -544,6 +558,18 @@
 
 	if(isnull(height))
 		height = initial(height)
+
+	if(isnull(blooper_id))
+		blooper_id = "mutedc4"
+
+	if(isnull(blooper_speed))
+		blooper_speed = initial(blooper_speed)
+
+	if(isnull(blooper_pitch))
+		blooper_pitch = initial(blooper_pitch)
+
+	if(isnull(blooper_pitch_range))
+		blooper_pitch_range = initial(blooper_pitch_range)
 
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
@@ -608,6 +634,17 @@
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
+
+	// Sanitization, no need to make a new function.
+	if(!species_whitelisted_for_bloopers(blooper_id, species))
+		blooper_id = initial(blooper_id)
+
+	blooper_id = species_whitelisted_for_bloopers(blooper_id, GLOB.blooper_list, initial(blooper_id))
+
+	var/datum/blooper/blooper_type = GLOB.blooper_list[blooper_id]
+	blooper_speed = sanitize_float(blooper_speed, initial(blooper_type.minspeed), initial(blooper_type.maxspeed), initial(blooper_speed))
+	blooper_pitch = sanitize_float(blooper_pitch, initial(blooper_type.minpitch), initial(blooper_type.maxpitch), initial(blooper_pitch))
+	blooper_pitch_range = sanitize_float(blooper_pitch_range, initial(blooper_type.minvariance), initial(blooper_type.maxvariance), initial(blooper_pitch_range))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
@@ -1839,6 +1876,8 @@
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+
+	character.change_blooper_data(blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
 
 	character.age = age
 
