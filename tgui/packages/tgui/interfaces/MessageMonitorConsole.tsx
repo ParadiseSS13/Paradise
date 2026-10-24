@@ -65,7 +65,7 @@ type RecipientsData = {
 };
 
 export const MessageMonitorConsole = (properties) => {
-  const { act, data } = useBackend<ServerData>();
+  const { data } = useBackend<ServerData>();
   const { authenticated } = data;
 
   const PickPage = (pageIndex) => {
@@ -75,7 +75,7 @@ export const MessageMonitorConsole = (properties) => {
       case 1:
         return <MainPage />;
       default:
-        return 'SOMETHING WENT VERY WRONG PLEASE AHELP, PickPage error'; // `PickPage error` so we get a bit more info from the error meesage.
+        return 'SOMETHING WENT VERY WRONG PLEASE AHELP, PickPage error'; // `PickPage error` so we get a bit more info from the error message.
     }
   };
 
@@ -100,7 +100,7 @@ const MainPage = (_properties) => {
       case 2:
         return <CustomMessage />;
       default:
-        return 'SMETHING WENT VERY WRONG PLEASE AHELP, PickTab error'; // `PickTab error` so we get a bit more info from the error meesage.
+        return 'SOMETHING WENT VERY WRONG PLEASE AHELP, PickTab error'; // `PickTab error` so we get a bit more info from the error message.
     }
   };
 
@@ -203,7 +203,7 @@ const MessageLog = (_properties) => {
         <Table.Cell>Message</Table.Cell>
       </Table.Row>
       {PDALog.map((P) => (
-        <Table.Row key={P.sender}>
+        <Table.Row key={P.uid}>
           <Table.Cell>
             <Button color="red" content="Delete" icon="trash" onClick={() => act('deleteP', { Pmessage: P.uid })} />
           </Table.Cell>
