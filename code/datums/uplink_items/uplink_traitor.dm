@@ -368,7 +368,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
@@ -438,6 +438,16 @@
 	item = /obj/item/cryoregenerative_enhancer
 	cost = 25
 	species = list("Drask")
+	surplus = 0
+
+// Slime
+/datum/uplink_item/species_restricted/subdermal_applicator
+	name = "Thermal Protein Applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface membrane and inner organelles to provide insulation against the cold and greatly improved resistance to extreme temperatures."
+	reference = "IPA"
+	item = /obj/item/subdermal_applicator
+	cost = 15
+	species = list("Slime People")
 	surplus = 0
 
 // Vulpkanin
@@ -710,7 +720,7 @@
 	reference = "SPC"
 	item = /obj/item/deck/cards/syndicate
 	cost = 2
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
 /datum/uplink_item/badass/plasticbag

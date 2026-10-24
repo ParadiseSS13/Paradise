@@ -154,7 +154,7 @@
 				message_say = "FOR THE SYNDICATE!"
 			else if(role == ROLE_CHANGELING)
 				message_say = "FOR THE HIVE!"
-			else if(role == ROLE_CULTIST)
+			else if(role == ROLE_CULTIST || role == ROLE_ACOLYTE)
 				message_say = "FOR NARSIE!"
 			else if(role == ROLE_WIZARD)
 				message_say = "FOR THE FEDERATION!"

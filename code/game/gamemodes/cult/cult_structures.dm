@@ -86,7 +86,7 @@
 		return
 
 
-	var/list/pickable_items = get_choosable_items()
+	var/list/pickable_items = get_choosable_items(user)
 	var/choice = show_radial_menu(user, src, pickable_items, require_near = TRUE)
 	var/picked_type = pickable_items[choice]
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
@@ -101,7 +101,7 @@
   *
   * Override on children for logic regarding game state.
   */
-/obj/structure/cult/functional/proc/get_choosable_items()
+/obj/structure/cult/functional/proc/get_choosable_items(mob/living/user)
 	return choosable_items.Copy() // Copied incase its modified on children
 
 /**
@@ -159,7 +159,7 @@
 							"Construct Shell" = /obj/structure/constructshell)
 	mansus_conversion_path = /obj/effect/heretic_rune/big
 
-/obj/structure/cult/functional/altar/get_choosable_items()
+/obj/structure/cult/functional/altar/get_choosable_items(mob/living/user)
 	. = ..()
 
 	if(!SSticker.mode.cult_team?.unlocked_heretic_items[PROTEON_ORB_UNLOCKED])
@@ -188,7 +188,7 @@
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe)
 	mansus_conversion_path = /obj/structure/eldritch_crucible
 
-/obj/structure/cult/functional/forge/get_choosable_items()
+/obj/structure/cult/functional/forge/get_choosable_items(mob/living/user)
 	. = ..()
 	if(SSticker.mode.cult_team.mirror_shields_active)
 		// Both lines here are needed. If you do it without, youll get issues.
@@ -353,13 +353,15 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
 	creation_message = SPAN_CULTITALIC("You invoke the dark magic of the tomes creating a %ITEM%!")
-	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
+	choosable_items = list("Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift, "Reality sunderer" = /obj/item/portal_amulet, "Blank Tarot Card" = /obj/item/blank_tarot_card)
 	mansus_conversion_path = /obj/item/codex_cicatrix
 
-/obj/structure/cult/functional/archives/get_choosable_items()
+/obj/structure/cult/functional/archives/get_choosable_items(mob/living/user)
 	. = ..()
-
+	if(!IS_ACOLYTE(user))
+		. += "Shuttle Curse"
+		.["Shuttle Curse"] = /obj/item/shuttle_curse
 	if(!SSticker.mode.cult_team?.unlocked_heretic_items[CRIMSON_MEDALLION_UNLOCKED])
 		return
 	. += "Crimson Medallion"

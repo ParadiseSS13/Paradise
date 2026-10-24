@@ -3,6 +3,7 @@
 	name = "ID Upgrade Machine"
 	icon_state = "guest"
 	icon_screen = "pass"
+	icon_keyboard = null
 	/// Access to give
 	var/list/access_to_give = list(ACCESS_AWAY01)
 	/// Have we been used?

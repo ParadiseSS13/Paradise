@@ -112,6 +112,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 	var/rating = 1
 	usesound = 'sound/items/deconstruct.ogg'
 

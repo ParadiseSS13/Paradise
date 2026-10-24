@@ -21,10 +21,12 @@ SUBSYSTEM_DEF(economy)
 	var/space_credits_created = 0
 	///The amount of transfers (that are worth more than a few credits) that have been accepted during the round
 	var/total_credit_transfers = 0
-	///the amount of venor purchases during the round
+	/// The amount of vendor purchases during the round.
 	var/total_vendor_transactions = 0
-	///amount of money spent in this 15 minute slot during the round
+	/// Amount of money spent in this 15 minute slot during the round.
 	var/current_10_minute_spending = 0
+	/// `TRUE` if there is currently a CRAB-17 machine blocking transactions.
+	var/crab_machine = FALSE
 
 	///list of vars that will be tracked throughout the round (a new entry for each key list will be added every 15 minutes)
 	var/list/economy_data = list(
