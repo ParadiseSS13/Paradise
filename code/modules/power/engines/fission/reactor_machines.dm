@@ -417,7 +417,7 @@
 
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff
-				if(!debug materials.amount(mat_id) < required_amount)
+				if(!debug && materials.amount(mat_id) < required_amount)
 					to_chat(usr, SPAN_WARNING("Not enough materials! Need [required_amount] units of [mat_id]!"))
 					return FALSE
 

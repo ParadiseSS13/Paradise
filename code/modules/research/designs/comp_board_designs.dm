@@ -319,7 +319,7 @@
 	req_tech = list("programming" = 2, "powerstorage" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/fission_monitor
+	build_path = /obj/item/circuitboard/reactor_monitor
 	category = list("Computer Boards")
 
 /datum/design/ordercomp

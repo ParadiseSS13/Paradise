@@ -26,7 +26,7 @@
 	/// Last status of the active reactor for caching purposes
 	var/last_status
 	/// Reference to the active reactor
-	var/obj/machinery/atmospherics/reactor_reactor/active
+	var/obj/machinery/atmospherics/fission_reactor/active
 	/// Holds the old_turf for the active reactor, in case it moves.
 	var/turf/old_turf
 	/// Is this monitor a controller? Affected by visibility from the reactor
