@@ -69,6 +69,14 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 /obj/machinery/cooking/proc/clickpos_to_surface(modifiers)
 	return
 
+/obj/machinery/cooking/on_deconstruction()
+	for(var/datum/cooking_surface/surface in surfaces)
+		surface.container.forceMove(get_turf(src))
+		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
+		surface.container.surface = null
+		surface.container.unmake_mini()
+		surface.container = null
+
 /obj/machinery/cooking/wrench_act(mob/living/user, obj/item/used)
 	return default_unfasten_wrench(user, used, time = 4 SECONDS)
 
