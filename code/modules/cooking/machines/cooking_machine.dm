@@ -71,6 +71,8 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking/on_deconstruction()
 	for(var/datum/cooking_surface/surface in surfaces)
+		if(!surface.container)
+			continue
 		surface.container.forceMove(get_turf(src))
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
 		surface.container.surface = null
