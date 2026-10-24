@@ -43,12 +43,7 @@ CONTENTS:
 /obj/item/gun/magic/wand/update_icon_state()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
 
-/obj/item/gun/magic/wand/attack__legacy__attackchain(atom/target, mob/living/user)
-	if(target == user)
-		return
-	..()
-
-/obj/item/gun/magic/wand/afterattack__legacy__attackchain(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -72,8 +67,6 @@ CONTENTS:
 	add_attack_logs(user, user, "zapped [user.p_themselves()] with a [src]", ATKLOG_ALL)
 
 // WAND OF DEATH
-
-
 /obj/item/gun/magic/wand/death
 	name = "wand of death"
 	desc = "This deadly wand overwhelms the victim's body with pure energy, slaying them without fail."
@@ -97,7 +90,6 @@ CONTENTS:
 	user.death(FALSE)
 
 // WAND OF HEALING
-
 /obj/item/gun/magic/wand/resurrection
 	name = "wand of resurrection"
 	desc = "This wand uses healing magics to heal and revive. They are rarely utilized within the Wizard Federation for some reason."
@@ -119,8 +111,6 @@ CONTENTS:
 	to_chat(user, SPAN_NOTICE("You feel great!"))
 
 // WAND OF POLYMORPH
-
-
 /obj/item/gun/magic/wand/polymorph
 	name = "wand of polymorph"
 	desc = "This wand is attuned to chaos and will radically alter the victim's form."
@@ -136,8 +126,6 @@ CONTENTS:
 	charges--
 
 // WAND OF TELEPORTATION
-
-
 /obj/item/gun/magic/wand/teleport
 	name = "wand of teleportation"
 	desc = "This wand will wrench targets through space and time to move them somewhere else."
@@ -157,8 +145,6 @@ CONTENTS:
 	..()
 
 // WAND OF DOOR CREATION
-
-
 /obj/item/gun/magic/wand/door
 	name = "wand of door creation"
 	desc = "This particular wand can create doors in any wall for the unscrupulous wizard who shuns teleportation magics."
@@ -175,8 +161,6 @@ CONTENTS:
 	..()
 
 // WAND OF FIREBALL
-
-
 /obj/item/gun/magic/wand/fireball
 	name = "wand of fireball"
 	desc = "This wand shoots scorching balls of fire that explode into destructive flames."
@@ -191,15 +175,15 @@ CONTENTS:
 	charges--
 	..()
 
-/obj/item/gun/magic/wand/fireball/attack__legacy__attackchain(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/fireball/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!iscarbon(target))
 		return ..()
 
 	var/mob/living/M = target
 	if(cigarette_lighter_act(user, M))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(M != user)	// Do not blow yourself up!
+	if(target != user)	// Do not blow yourself up!
 		return ..()	// Blow everyone else up!
 
 /obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
@@ -245,7 +229,6 @@ CONTENTS:
 	. = ..()
 
 // WAND OF SLIPPING
-
 /obj/item/gun/magic/wand/slipping
 	name = "wand of slipping"
 	desc = "This wand shoots... banana peels?"
@@ -260,7 +243,6 @@ CONTENTS:
 	..()
 
 // WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
-
 /obj/item/gun/magic/wand/chaos
 	name = "wand of chaos"
 	desc = "Payback time!"

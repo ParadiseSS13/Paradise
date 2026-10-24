@@ -39,12 +39,17 @@
 				. |= SPAN_NOTICE("You can use a crowbar on it to remove it's installed mod kits.")
 				. += SPAN_NOTICE("There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.")
 
-/obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
-		var/obj/item/borg/upgrade/modkit/MK = I
-		MK.install(src, user)
-	else
+/obj/item/gun/energy/kinetic_accelerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/borg/upgrade/modkit))
 		return ..()
+
+	var/obj/item/borg/upgrade/modkit/mod = used
+	if((get_remaining_mod_capacity() - mod.cost) < 0)
+		to_chat(user, SPAN_WARNING("[src] hasn't got enough mod capacity to install [used]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	mod.install(src, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -431,10 +436,10 @@
 /obj/item/borg/upgrade/modkit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(issilicon(user) || !istype(used, /obj/item/gun/energy/kinetic_accelerator))
 		return ..()
-	var/obj/item/gun/energy/kinetic_accelerator/accelerator = used
-	if(!accelerator.max_mod_capacity)
-		return ..()
-	install(used, user)
+
+	var/obj/item/gun/energy/kinetic_accelerator/gun = used
+	if((gun.get_remaining_mod_capacity() - cost) < 0)
+		install(used, user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg/upgrade/modkit/action(mob/user, mob/living/silicon/robot/R)
@@ -451,10 +456,10 @@
 		return FALSE
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/basic/mining_drone))
-			to_chat(user, SPAN_NOTICE("The modkit you're trying to install is only rated for minebot use."))
+			to_chat(user, SPAN_WARNING("The modkit you're trying to install is only rated for minebot use!"))
 			return FALSE
 	else if(istype(KA.loc, /mob/living/basic/mining_drone))
-		to_chat(user, SPAN_NOTICE("The modkit you're trying to install is not rated for minebot use."))
+		to_chat(user, SPAN_WARNING("The modkit you're trying to install is not rated for minebot use!"))
 		return FALSE
 	if(denied_type)
 		var/number_of_denied = 0
@@ -473,9 +478,9 @@
 			forceMove(KA)
 			KA.modkits += src
 		else
-			to_chat(user, SPAN_NOTICE("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))
+			to_chat(user, SPAN_WARNING("The modkit you're trying to install would conflict with an already installed modkit! Use a crowbar to remove existing modkits."))
 	else
-		to_chat(user, SPAN_NOTICE("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits."))
+		to_chat(user, SPAN_WARNING("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit! Use a crowbar to remove existing modkits."))
 		. = FALSE
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
@@ -791,5 +796,6 @@
 /obj/item/borg/upgrade/modkit/tracer/adjustable/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
+
 	bolt_color = tgui_input_color(user, "Please select a tracer color", "PKA Tracer Color", bolt_color)
 	return ITEM_INTERACT_COMPLETE

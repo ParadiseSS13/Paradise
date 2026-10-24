@@ -13,13 +13,16 @@
 */
 
 /obj/item/gun/projectile/automatic
-	var/alarmed = 0
-	var/select = 1
+	name = "generic automatic gun"
 	can_tactical = TRUE
 	can_suppress = TRUE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	/// If `TRUE`, the gun will play a warning sound when the gun's magazine is depleted. Gun procs usually turn this `FALSE` afterwards, until a new magazine is loaded.
+	var/alarmed = FALSE
+	/// What firing mode is the gun currently in? Usually this is a choice between semi auto and burst fire, but any number of special fire modes can be included.
+	var/select = 1
 
 /obj/item/gun/projectile/automatic/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
@@ -31,33 +34,43 @@
 	if(select == 1)
 		. += "[initial(icon_state)]burst"
 
-/obj/item/gun/projectile/automatic/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(.)
 		if(alarmed) // Did the empty clip alarm go off already?
-			alarmed = 0 // Reset the alarm once a magazine is loaded
-		return
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(magazine)
-				to_chat(user, SPAN_NOTICE("You perform a tactical reload on \the [src], replacing the magazine."))
-				magazine.loc = get_turf(loc)
-				magazine.update_icon()
-				magazine = null
-			else
-				to_chat(user, SPAN_NOTICE("You insert the magazine into \the [src]."))
-			if(alarmed)
-				alarmed = 0
-			user.unequip(AM)
-			magazine = AM
-			magazine.loc = src
-			chamber_round()
-			A.update_icon()
-			update_icon()
-			return 1
+			alarmed = FALSE // Reset the alarm once a magazine is loaded
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/gun/projectile/automatic/ui_action_click()
+	if(!istype(used, /obj/item/ammo_box/magazine))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/ammo_box/magazine/new_mag = used
+	if(!istype(new_mag, mag_type))
+		to_chat(user, SPAN_WARNING("[used] doesn't fit in [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.transfer_item_to(used, src))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(magazine)
+		to_chat(user, SPAN_NOTICE("You perform a tactical reload on [src], replacing the magazine."))
+		magazine.loc = get_turf(loc)
+		magazine.update_icon()
+		magazine = null
+	else
+		to_chat(user, SPAN_NOTICE("You insert [new_mag] into [src]."))
+	if(alarmed)
+		alarmed = FALSE
+	magazine = new_mag
+	chamber_round()
+	used.update_icon()
+	update_icon()
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/gun/projectile/automatic/AltClick(mob/user)
+	if(initial(burst_size) < 2)	// I hate this so much. This exists because of guns that should not be in this typepath being in this typepath, 
+		return					// and therefore have selection options of "semi auto" and "1 round burst"!!!
 	burst_select()
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
@@ -85,9 +98,7 @@
 		update_icon()
 		alarmed = 1
 
-//////////////////////////////
 // MARK: SABER SMG
-//////////////////////////////
 /obj/item/gun/projectile/automatic/proto
 	name = "\improper NF10 'Saber' SMG"
 	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
@@ -97,9 +108,7 @@
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 
-//////////////////////////////
 // MARK: C-20R SMG
-//////////////////////////////
 /obj/item/gun/projectile/automatic/c20r
 	name = "\improper C-20R SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20R'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
@@ -117,16 +126,14 @@
 	. = ..()
 	update_icon()
 
-/obj/item/gun/projectile/automatic/c20r/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
-	..()
+/obj/item/gun/projectile/automatic/c20r/try_to_shoot_gun(atom/target, mob/living/user, proximity)
+	..(target, user, proximity)
 	empty_alarm()
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
-//////////////////////////////
 // MARK: WT-550 PDW
-//////////////////////////////
 /obj/item/gun/projectile/automatic/wt550
 	name = "\improper WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
@@ -147,9 +154,7 @@
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE) / 4, 1) * 4]" : ""]"
 	inhand_icon_state = "wt550-[CEILING(get_ammo(FALSE) / 6.7, 1)]"
 
-//////////////////////////////
 // MARK: TYPE U3 UZI
-//////////////////////////////
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
@@ -165,13 +170,13 @@
 	can_holster = TRUE // it's a mini-uzi after all
 
 /obj/item/gun/projectile/automatic/mini_uzi/update_overlays()
-	. = ..()
 	if(suppressed)
 		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
 
-//////////////////////////////
+/obj/item/gun/projectile/automatic/mini_uzi/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
+
 // MARK: M-90GL CARBINE
-//////////////////////////////
 /obj/item/gun/projectile/automatic/m90
 	name = "\improper M-90GL Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90GL'. Has an attached underbarrel grenade launcher which can be toggled on and off."
@@ -194,20 +199,20 @@
 	qdel(underbarrel)
 	return ..()
 
-/obj/item/gun/projectile/automatic/m90/afterattack__legacy__attackchain(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if(select == 2)
-		underbarrel.afterattack__legacy__attackchain(target, user, flag, params)
-	else
-		..()
+		underbarrel.try_to_shoot_gun(target, user, proximity)
 		return
+		
+	..(target, user, proximity)
 
-/obj/item/gun/projectile/automatic/m90/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_casing))
-		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self__legacy__attackchain(user)
-			underbarrel.attackby__legacy__attackchain(A, user, params)
-	else
-		return ..()
+/obj/item/gun/projectile/automatic/m90/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if((istype(used, /obj/item/ammo_casing) && istype(used, underbarrel.magazine.ammo_type)) || istype(used, /obj/item/ammo_box/a40mm))
+		underbarrel.handle_activate_self(user)
+		underbarrel.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
@@ -244,9 +249,7 @@
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
 
-//////////////////////////////
 // MARK: THOMPSON SMG
-//////////////////////////////
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
@@ -264,9 +267,7 @@
 	. = ..()
 	AddComponent(/datum/component/automatic_fire, 2 DECISECONDS, allow_akimbo = FALSE)
 
-//////////////////////////////
 // MARK: M26A2 ASSAULT RIFLE
-//////////////////////////////
 /obj/item/gun/projectile/automatic/ar
 	name = "\improper M26A2 assault rifle"
 	desc = "A robust assault rifle used by Trans-Solar Federation forces. Chambered in 5.56mm."
@@ -281,9 +282,7 @@
 	can_suppress = FALSE
 	fire_delay = 1
 
-//////////////////////////////
 // MARK: AK-814 ASSAULT RIFLE
-//////////////////////////////
 /obj/item/gun/projectile/automatic/ak814
 	name = "\improper AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Chambered in 7.62x54mm."
@@ -301,9 +300,7 @@
 	burst_size = 2
 	fire_delay = 1
 
-//////////////////////////////
 // MARK: AS-14 'BULLDOG' SHOTGUN
-//////////////////////////////
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper AS-14 'Bulldog' Shotgun"
 	desc = "A compact semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
@@ -338,26 +335,27 @@
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby__legacy__attackchain(obj/item/A as obj, mob/user as mob, params)
-	if(istype(A, /obj/item/ammo_box/magazine/m12g/xtr_lrg))
-		if(isstorage(loc))	// To prevent inventory exploits
-			var/obj/item/storage/Strg = loc
-			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
-				to_chat(user, SPAN_WARNING("You can't reload [src], with a XL mag, while it's in a normal bag."))
-				return
+/obj/item/gun/projectile/automatic/shotgun/bulldog/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/ammo_box/magazine/m12g/xtr_lrg))
+		return ..()
+
+	if(isstorage(loc))	// To prevent inventory exploits.
+		var/obj/item/storage/Strg = loc
+		if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
+			to_chat(user, SPAN_WARNING("You can't reload [src] with [used] while it's stuffed in a bag!"))
+			return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
-	..()
+/obj/item/gun/projectile/automatic/shotgun/bulldog/try_to_shoot_gun(atom/target, mob/living/user, proximity)
+	..(target, user, proximity)
 	empty_alarm()
 
 // Standard traitor uplink variant
 /obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
 	mag_type = /obj/item/ammo_box/magazine/m12g/rubbershot
 
-//////////////////////////////
 // MARK: IK-M2 LASER CARBINE
-//////////////////////////////
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-M2 laser carbine"
 	desc = "A compact Warp-Tac Industries fully automatic laser carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's response teams for combat operations."
@@ -398,9 +396,7 @@
 		icon_state = "lasercarbine"
 		inhand_icon_state = "lasercarbine"
 
-//////////////////////////////
 // MARK: IK-M1 LASER RIFLE
-//////////////////////////////
 /obj/item/gun/projectile/automatic/laserrifle
 	name = "\improper IK-M1 laser rifle"
 	desc = "A sleek, Warp-Tac Industries laser rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."

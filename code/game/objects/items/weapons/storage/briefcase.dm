@@ -43,7 +43,7 @@
 	..()
 	if(stored_item && isgun(stored_item))
 		var/obj/item/gun/stored_gun = stored_item
-		stored_gun.afterattack__legacy__attackchain(A, user, flag, params)
+		stored_gun.ranged_interact_with_atom(A, user, params2list(params))
 
 /obj/item/storage/briefcase/false_bottomed/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(bottom_open)
