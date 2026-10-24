@@ -14816,10 +14816,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "bSQ" = (
-/obj/machinery/computer/fission_monitor{
+/obj/effect/turf_decal/trimline/misc/toxins/filled/line,
+/obj/machinery/computer/reactor_monitor{
 	dir = 1
 	},
-/obj/effect/turf_decal/trimline/misc/toxins/filled/line,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "bSZ" = (
@@ -23111,9 +23111,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "glj" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
+/obj/machinery/power/reactor_power,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -48934,9 +48932,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = 32
 	},
-/obj/machinery/computer/account_database{
-	dir = 2
-	},
+/obj/machinery/computer/account_database,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "ulr" = (
