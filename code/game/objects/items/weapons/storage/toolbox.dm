@@ -38,6 +38,7 @@
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
+	desc = "A robust-looking red toolbox used to carry compact emergency tools."
 	icon_state = "red"
 	inhand_icon_state = "toolbox_red"
 
@@ -53,11 +54,13 @@
 
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty red toolbox"
+	desc = "A robust-looking red toolbox used to carry compact emergency tools. It looks extremely old."
 	icon_state = "toolbox_red_old"
 	has_latches = FALSE
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
+	desc = "A very robust-looking blue toolbox used to mechanical tools."
 	icon_state = "blue"
 	inhand_icon_state = "toolbox_blue"
 
@@ -74,11 +77,13 @@
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"
+	desc = "A robust-looking blue toolbox used to mechanical tools. It looks extremely old."
 	icon_state = "toolbox_blue_old"
 	has_latches = FALSE
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
+	desc = "A robust-looking red toolbox used to carry electrical maintenance tools."
 	icon_state = "yellow"
 	inhand_icon_state = "toolbox_yellow"
 
@@ -97,6 +102,7 @@
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
+	desc = "An extremely robust-looking black and red toolbox."
 	icon_state = "syndicate"
 	inhand_icon_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
@@ -107,7 +113,7 @@
 /obj/item/storage/toolbox/syndicate/populate_contents()
 	new /obj/item/screwdriver/nuke(src)
 	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/weldingtool/hugetank/syndicate(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/red(src)
@@ -122,7 +128,7 @@
 	name = "suspicous looking toolbox"
 	icon_state = "syndicate"
 	inhand_icon_state = "toolbox_syndi"
-	desc = "Danger. Very Robust. The paint is still wet."
+	desc = "An extremely robust-looking black and red toolbox. The paint is still wet."
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
