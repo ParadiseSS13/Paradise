@@ -439,6 +439,22 @@
 /obj/item/storage/box/survival_plasmaman/empty/populate_contents()
 	return
 
+/obj/item/storage/box/survival_ipc
+	icon_state = "ipc_box"
+
+/obj/item/storage/box/survival_ipc/populate_contents()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/stack/nanopaste(src)
+		new /obj/item/stack/nanopaste(src)
+		new /obj/item/flashlight/flare(src)
+	else
+		new /obj/item/weldingtool/mini(src)
+		new /obj/item/stack/cable_coil/twenty(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
+/obj/item/storage/box/survival_ipc/empty/populate_contents()
+	return
+
 /obj/item/storage/box/engineer
 	icon_state = "eng_box"
 
