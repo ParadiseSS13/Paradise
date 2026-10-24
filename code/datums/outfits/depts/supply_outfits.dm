@@ -85,7 +85,7 @@
 		return
 	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit
-		S.ToggleHood()
+		SEND_SIGNAL(S, COMSIG_HOOD_TOGGLE)
 
 /datum/outfit/job/mining/equipped/modsuit
 	name = "Shaft Miner (Equipment + MODsuit)"

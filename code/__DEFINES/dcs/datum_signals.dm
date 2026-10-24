@@ -74,6 +74,8 @@
 ///from base of /datum/component/forces_doors_open/proc/force_open_door(obj/item): (datum/source, mob/user, atom/target)
 #define COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT "twohanded_wielded_try_wield_interact"
 
+// /datum/component/hood_component
+#define COMSIG_HOOD_TOGGLE "hood_toggle"
 
 // /datum/action
 
