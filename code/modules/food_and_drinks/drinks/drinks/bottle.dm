@@ -302,6 +302,13 @@
 	volume = 50
 	list_reagents = list("ale" = 50)
 
+/obj/item/reagent_containers/drinks/bottle/anti_whisky
+	name = "Leviathan's Ink Brew"
+	desc = "A popular Skrellian whisky brewed to a secret recipe. The brew is named after the ink of the leviathans found on the Skrellian homeworld of Qerballak, which many say is part of the recipe. \
+	This is an antiholic brew, approved by the space temperance movement for its sobering effects on the body and soul!"
+	icon_state = "anti_whisky_bottle"
+	list_reagents = list("leviathan_ink" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/drinks/bottle/orangejuice
