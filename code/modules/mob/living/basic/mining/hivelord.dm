@@ -250,7 +250,7 @@
 	. = ..()
 	if(!ishuman(target))
 		return
-	if((target.stat == DEAD && can_infest_dead) || target.stat == UNCONSCIOUS)
+	if(target.stat == DEAD && (can_infest_dead || target.mind))
 		infest(target)
 
 /mob/living/basic/mining/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
@@ -332,6 +332,8 @@
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 		var/armor = L.run_armor_check(def_zone = limb_to_hit, armor_type = MELEE, armor_penetration_percentage = 50)
 		L.apply_damage(40, BRUTE, limb_to_hit, armor)
+	var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
+	changeNext_move(melee_attack_cooldown)
 
 // Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
