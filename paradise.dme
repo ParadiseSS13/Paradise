@@ -2446,6 +2446,7 @@
 #include "code\modules\events\revenant_spawn_event.dm"
 #include "code\modules\events\rogue_drones.dm"
 #include "code\modules\events\sentience.dm"
+#include "code\modules\events\short_circuit.dm"
 #include "code\modules\events\slaughterevent.dm"
 #include "code\modules\events\solarflare.dm"
 #include "code\modules\events\space_ninja.dm"
