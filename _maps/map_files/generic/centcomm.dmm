@@ -11168,7 +11168,7 @@
 /turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/ghost_bar)
 "NK" = (
-/obj/machinery/computer/shuttle/admin{
+/obj/machinery/computer/shuttle/admin/onboard{
 	dir = 8;
 	name = "NTV Argos shuttle console"
 	},
@@ -14709,7 +14709,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ZO" = (
-/obj/machinery/computer/shuttle/ferry/request{
+/obj/machinery/computer/shuttle/ferry/request/onboard{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
