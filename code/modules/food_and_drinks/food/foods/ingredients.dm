@@ -351,14 +351,12 @@
 /obj/item/food/rawcookies/oat
 	name = "raw oatmeal cookies"
 	desc = "Ready for oven! They smell like oats."
-	icon_state = "unbaked_cookies"
 	list_reagents = list("nutriment" = 5, "sugar" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "oatmeal" = 1)
 
 /obj/item/food/rawcookies/peanut_butter
 	name = "raw peanut butter cookies"
 	desc = "Ready for oven! They have peanut butter mixed into the batter."
-	icon_state = "unbaked_cookies"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "peanutbutter" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "peanut butter" = 1)
 
