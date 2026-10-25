@@ -74,6 +74,7 @@
 				to_chat(burn_victim, SPAN_DANGER("You burn your hand a little taking [burner.container] off of the stove."))
 		user.put_in_hands(burner.container)
 		burner.UnregisterSignal(burner.container, COMSIG_PARENT_EXAMINE)
+		burner.container.surface = null
 		burner.container = null
 		update_appearance(UPDATE_ICON)
 
