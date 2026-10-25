@@ -39,6 +39,11 @@
 /datum/objective/ninja/proc/check_objective_conditions()
 	return TRUE
 
+/datum/objective/ninja/on_target_cryo()
+	if(completed)
+		return
+	. = ..()
+
 /datum/objective/ninja/kill
 	name = "Kill a Target"
 	reward_tc = NINJA_OBJECTIVE_NORMAL

@@ -38,7 +38,7 @@
 	var/parent_stack = FALSE
 	/// Whether this stack can be split into multiple independent stacks.
 	var/allow_splitting = TRUE
-	/// Whether this stack deletes itself when `amount` reaches 0. 
+	/// Whether this stack deletes itself when `amount` reaches 0.
 	var/destroy_upon_empty = TRUE
 
 /obj/item/stack/examine(mob/user)
@@ -160,7 +160,7 @@
 		return FALSE
 	if(is_cyborg) // No merging cyborg stacks into other stacks
 		return FALSE
-	if(ismob(loc) && !inhand) // no merging with items that are on the mob
+	if(ismob(loc) && !inhand && !istype(loc, /mob/living/basic/bot/repairbot)) // no merging with items that are on the mob with exception to repairbots
 		return FALSE
 	return TRUE
 

@@ -943,9 +943,8 @@
 	network = list("SyndicateCaves");
 	dir = 6
 	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/vault,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "fM" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -1315,10 +1314,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "hM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "hN" = (
@@ -1397,11 +1393,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/item/rpd{
 	pixel_y = 3
 	},
@@ -2143,10 +2135,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
@@ -2335,11 +2324,7 @@
 "nX" = (
 /obj/item/flag/syndi,
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -2378,11 +2363,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/costume/random,
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "oe" = (
@@ -2607,11 +2588,7 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/meter,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pF" = (
@@ -2887,10 +2864,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "rs" = (
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/hydroponics/constructable/upgraded,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
@@ -2945,10 +2919,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "rS" = (
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel/dark,
@@ -2971,11 +2942,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/structure/cable/green{
 	icon_state = "4-8"
 	},
@@ -3097,10 +3064,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -3263,11 +3227,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "uk" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "ul" = (
@@ -3410,11 +3370,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/structure/cable/green{
 	icon_state = "1-2"
 	},
@@ -3473,11 +3429,7 @@
 /obj/item/pen/multi/syndicate,
 /obj/item/paper_bin,
 /obj/item/stamp/syndicate,
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "vf" = (
@@ -3695,11 +3647,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "wb" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/structure/cable/green{
 	icon_state = "4-8"
 	},
@@ -3814,11 +3762,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "wL" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "wP" = (
@@ -4072,10 +4016,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "yL" = (
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "yR" = (
@@ -4087,11 +4028,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "zb" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "zc" = (
@@ -4460,11 +4397,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "Bq" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 4
 	},
@@ -4629,11 +4562,7 @@
 "CC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/shaker,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/unpowered/syndicate_space_base/service)
 "CI" = (
@@ -4756,11 +4685,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/control)
 "Dy" = (
@@ -4969,11 +4894,7 @@
 /obj/machinery/sleeper/syndie{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
@@ -5167,11 +5088,7 @@
 /obj/structure/rack{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/item/vending_refill/shoedispenser,
 /obj/item/vending_refill/suitdispenser,
 /obj/item/vending_refill/autodrobe,
@@ -5292,11 +5209,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Gp" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_space_base/service)
@@ -5945,11 +5858,7 @@
 /turf/simulated/mineral,
 /area/ruin/unpowered/syndicate_space_base/outer)
 "Kw" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "Ky" = (
@@ -5977,10 +5886,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "KL" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/item/rpd{
 	pixel_y = 3
 	},
@@ -6604,11 +6510,7 @@
 "Pb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/structure/cable/green{
 	icon_state = "1-2"
 	},
@@ -6810,11 +6712,7 @@
 "QO" = (
 /obj/item/storage/box/monkeycubes/syndicate,
 /obj/structure/sink/directional/east,
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/virology)
@@ -6851,11 +6749,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/structure/cable/green{
 	icon_state = "1-8"
 	},
@@ -7531,10 +7425,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
@@ -8268,10 +8159,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "ZV" = (
-/obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "ZX" = (
@@ -11410,7 +11298,7 @@ xW
 kE
 AD
 Mf
-kE
+AD
 kE
 kE
 Ri
@@ -11776,7 +11664,7 @@ kE
 kE
 AD
 AD
-kE
+AD
 kE
 kE
 Ri
@@ -11847,7 +11735,7 @@ pk
 Vl
 kE
 kE
-kE
+AD
 AD
 Mf
 kE
@@ -11920,10 +11808,10 @@ nv
 Vl
 Vl
 kE
-kE
 AD
 AD
-Ri
+AD
+QM
 kE
 kE
 Ri
@@ -11993,7 +11881,7 @@ nv
 nv
 Vl
 Vl
-kE
+Mf
 Mf
 AD
 kE
@@ -12140,7 +12028,7 @@ nv
 nv
 Vl
 Vl
-kE
+Mf
 Mf
 Mf
 kE
@@ -12213,8 +12101,8 @@ nv
 nv
 qT
 Vl
-kE
-kE
+QM
+QM
 AD
 kE
 Ri
@@ -12287,7 +12175,7 @@ nv
 Vl
 Vl
 Vl
-kE
+QM
 Mf
 kE
 kE
