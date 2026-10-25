@@ -117,9 +117,11 @@
 	var/combustion_temp = T0C + 200
 
 /datum/reagent/fuel/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(M.on_fire)
 		M.adjust_fire_stacks(0.4)
-	return ..()
+	update_flags |= M.adjustToxLoss(0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE) // Acetyline is actually a lot less dangerous to drink than you'd think. Still, don't do it!
+	return ..() | update_flags
 
 /datum/reagent/fuel/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > combustion_temp)
@@ -180,6 +182,8 @@
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	if(M.on_fire)
+		M.adjust_fire_stacks(1)
 	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
@@ -193,6 +197,38 @@
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
+/datum/reagent/plasma_dust
+	name = "Plasma Dust"
+	id = "plasma_dust"
+	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
+	color = "#500064" // rgb: 80, 0, 100
+	taste_description = "corporate assets going to waste"
+	taste_flag = ORGANIC | SYNTHETIC
+	taste_mult = 1.5
+
+/datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature >= T0C + 100)
+		var/turf/T = get_turf(holder.my_atom)
+		fire_flash_log(holder, id)
+		if(holder)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+		fireflash(T, min(max(0, volume / 10), 8))
+
+/datum/reagent/plasma_dust/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(3, FALSE)
+	if(M.on_fire)
+		M.adjust_fire_stacks(2)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.add_plasma(20)
+	return ..() | update_flags
+
+/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
+	if(method == REAGENT_TOUCH)
+		M.adjust_fire_stacks(volume / 5)
+		return
+	return ..()
 
 /datum/reagent/thermite
 	name = "Thermite"
@@ -454,37 +490,6 @@
 		return
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
 	T.quench(1000, 3) // more effective than water
-
-/datum/reagent/plasma_dust
-	name = "Plasma Dust"
-	id = "plasma_dust"
-	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
-	color = "#500064" // rgb: 80, 0, 100
-	taste_description = "corporate assets going to waste"
-	taste_flag = ORGANIC | SYNTHETIC
-	taste_mult = 1.5
-
-/datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
-	if(exposed_temperature >= T0C + 100)
-		var/turf/T = get_turf(holder.my_atom)
-		fire_flash_log(holder, id)
-		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
-		fireflash(T, min(max(0, volume / 10), 8))
-
-/datum/reagent/plasma_dust/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(3, FALSE)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		C.add_plasma(20)
-	return ..() | update_flags
-
-/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(method == REAGENT_TOUCH)
-		M.adjust_fire_stacks(volume / 5)
-		return
-	..()
 
 /datum/reagent/confetti
 	name = "Confetti"

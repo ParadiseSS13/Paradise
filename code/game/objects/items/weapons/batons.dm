@@ -90,7 +90,7 @@
 	else if(isbot(target))
 		user.visible_message(SPAN_DANGER("[user] pulses [target]'s sensors with [src]!"),\
 							SPAN_DANGER("You pulse [target]'s sensors with [src]!"))
-		var/mob/living/simple_animal/bot/H = target
+		var/mob/living/basic/bot/H = target
 		H.disable(stun_time_silicon)
 	// Visuals and sound
 	user.do_attack_animation(target)

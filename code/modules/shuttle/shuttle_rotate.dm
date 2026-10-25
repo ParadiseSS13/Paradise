@@ -106,3 +106,11 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 /obj/structure/door_assembly/multi_tile/shuttleRotate(rotation, params)
 	..()
 	update_bounds()
+
+/obj/machinery/light_construct/shuttleRotate(rotation, params)
+	. = ..()
+	offset_by_dir()
+
+/obj/machinery/light/shuttleRotate(rotation, params)
+	. = ..()
+	offset_by_dir()

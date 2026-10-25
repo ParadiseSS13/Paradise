@@ -301,7 +301,8 @@
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
-		ricochet_chance *= ricochet_decay_chance // Note: I should impliment ricohet decay damage. I'm not doing that during heretic as balance scope
+		ricochet_chance *= ricochet_decay_chance
+		damage *= ricochet_decay_damage
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
 			permutated.Cut()
@@ -627,6 +628,9 @@
 
 /obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
+
+/obj/projectile/ex_throw()
+	return // The vector kinda already does this, but to prevent any unintended behaviour might aswell.
 
 /**
  * Is this projectile considered "hostile"?
