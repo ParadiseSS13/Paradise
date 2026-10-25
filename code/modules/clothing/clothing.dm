@@ -92,18 +92,6 @@
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
 
-// /obj/item/clothing/proc/refit_for_species(target_species)
-// 	//Set icon
-// 	if(sprite_sheets && (target_species in sprite_sheets))
-// 		icon_override = sprite_sheets[target_species]
-// 	else
-// 		icon_override = initial(icon_override)
-
-// 	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
-// 		icon = sprite_sheets_obj[target_species]
-// 	else
-// 		icon = initial(icon)
-
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
 		return FALSE
