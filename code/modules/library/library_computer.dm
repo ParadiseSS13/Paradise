@@ -698,11 +698,11 @@ While we here at the Nanotrasen Main Library Branch do enjoy our employees utili
 
 	var/datum/money_account/linked_account = account_database.get_account_by_department(DEPARTMENT_SERVICE)
 	if(!linked_account)
-		log_debug("The Service account does not exist.")
+		log_debug("The library computer attempted to find the Service Department account but it did not exist.")
 		return
 
 	var/fine = OVERDUE_FINE_AMOUNT
-	if(!account_database.charge_account(patron_account, fine, "Overdue library book fine - '[book.bookname]'", src.name, FALSE, FALSE))
+	if(!account_database.charge_account(patron_account, fine, "Overdue library book fine - '[book.bookname]'", name, FALSE, FALSE))
 		return
 
 	account_database.credit_account(linked_account, fine, "Overdue library book fine - '[book.bookname]'", "Nanotrasen Library Servies", FALSE)
