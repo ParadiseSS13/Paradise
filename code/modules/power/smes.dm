@@ -108,14 +108,14 @@
 
 	. += new_overlays
 
-	for(var/I in .)
-		var/lightmask = "[I]_lightmask"
-		if(lightmask in icon_states(icon))
-			underlays += emissive_appearance(icon, lightmask)
+	underlays += emissive_appearance(icon, "smes-op[outputting]_lightmask")
+	underlays += emissive_appearance(icon, "smes-oc[inputting]_lightmask")
+
+	if(charge_level > 0)
+		underlays += emissive_appearance(icon, "smes-og[charge_level]_lightmask")
 
 	if(icon_state == "[initial(icon_state)]-o")
-		if("smes-o_lightmask" in icon_states(icon))
-			underlays += emissive_appearance(icon, "smes-o_lightmask")
+		underlays += emissive_appearance(icon, "smes-o_lightmask")
 
 /obj/machinery/power/smes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Opening using screwdriver
