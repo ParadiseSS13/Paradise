@@ -6,6 +6,10 @@
 #define LOGIN_PUBLIC 2
 ///Wait time before printing another book, used to prevent spam
 #define PRINTING_COOLDOWN (5 SECONDS)
+///The name of the branch that sends the overdue radio messages
+#define LIBRARY_BRANCH_NAME "Nanotrasen Main Library Branch"
+///How much a patron is charged for an overdue book
+#define OVERDUE_FINE_AMOUNT 25
 
 /**
   * # Library Computer
@@ -60,24 +64,31 @@
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Service" = 0))
+	RegisterSignal(radio, COMSIG_PARENT_QDELETING, PROC_REF(on_radio_deleted))
+
+
+/obj/machinery/computer/library/proc/on_radio_deleted()
+	SIGNAL_HANDLER
+	radio = null
 
 /obj/machinery/computer/library/process()
-	///The computer that is sending the radio message
-	var/branch_name = "Nanotrasen Main Library Branch"
 	if(!COOLDOWN_FINISHED(src, overdue_check))
 		return
-	// we're checking every 5 minutes for overdue books, no need to constantly check
+	// We're checking every 5 minutes for overdue books, no need to constantly check
 	COOLDOWN_START(src, overdue_check, 5 MINUTES)
 	for(var/datum/borrowbook/book in checkouts)
 		if(world.time > book.duedate && !book.announced_overdue)
 			book.announced_overdue = TRUE
-			radio.autosay("Attention! The book checked out by [book.patron_name] is now overdue!", branch_name, "Service")
+			radio?.autosay("Attention! The book checked out by [book.patron_name] is now overdue!", LIBRARY_BRANCH_NAME, "Service")
 			print_overdue_notice(book)
 			charge_overdue_fine(book)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 15, TRUE)
 
 /obj/machinery/computer/library/Destroy() // no need to track overdue books if the computer is destroyed
 	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(radio)
+	QDEL_NULL(user_data)
+	cached_booklist = null
 	return ..()
 
 /obj/machinery/computer/library/examine(mob/user)
@@ -573,7 +584,7 @@
 	P.bookname = sanitize(B.title)
 	P.libraryid = B.libraryid
 	P.patron_name = sanitize(user_data.patron_name)
-	P.patron_account = user_data.patron_account
+	P.patron_account = text2num(sanitize("[user_data.patron_account]"))
 	P.duedate = world.time + (checkoutperiod)
 	checkouts.Add(P)
 	return TRUE
@@ -690,7 +701,7 @@ While we here at the Nanotrasen Main Library Branch do enjoy our employees utili
 		log_debug("The Service account does not exist.")
 		return
 
-	var/fine = 25
+	var/fine = OVERDUE_FINE_AMOUNT
 	if(!account_database.charge_account(patron_account, fine, "Overdue library book fine - '[book.bookname]'", src.name, FALSE, FALSE))
 		return
 
@@ -714,3 +725,5 @@ While we here at the Nanotrasen Main Library Branch do enjoy our employees utili
 #undef LOGIN_FULL
 #undef LOGIN_PUBLIC
 #undef PRINTING_COOLDOWN
+#undef LIBRARY_BRANCH_NAME
+#undef OVERDUE_FINE_AMOUNT
