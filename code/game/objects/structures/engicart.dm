@@ -98,7 +98,7 @@
 
 		my_flashlight = used
 		update_icon(UPDATE_OVERLAYS)
-		update_flashlight_light()
+		my_flashlight.update_light()
 		return
 
 	if(istype(used, /obj/item/storage/toolbox/mechanical))
@@ -277,10 +277,10 @@
 /obj/structure/engineeringcart/extinguish_light(force = FALSE)
 	if(my_flashlight && my_flashlight.on)
 		my_flashlight.on = FALSE
-		my_flashlight.update_brightness()
+		my_flashlight.extinguish_light()
 		update_flashlight_light()
 
 /obj/structure/engineeringcart/examine(mob/user)
 	. = ..()
 	if(my_flashlight && my_flashlight.on)
-		. += SPAN_WARNING("The flashlight is currently <b>on</b>!")
+		. += SPAN_NOTICE("The [my_flashlight.name] is currently [my_flashlight.on ? "on" : "off"].")
