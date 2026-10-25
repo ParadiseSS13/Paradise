@@ -42,13 +42,13 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
-	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
-		slowdown = slowdown_passive
-		detach_clothing_traits(active_clothing_traits)
-	else
+	magpulse = !magpulse
+	if(magpulse)
 		slowdown = slowdown_active
 		attach_clothing_traits(active_clothing_traits)
-	magpulse = !magpulse
+	else
+		slowdown = slowdown_passive
+		detach_clothing_traits(active_clothing_traits)
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
 	if(!no_message)
