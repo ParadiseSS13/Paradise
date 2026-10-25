@@ -232,6 +232,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(can_pass_self)
 		var/atom/mover_loc = mover.loc
 		for(var/atom/movable/thing as anything in contents)
+			// A non-dense item never blocks, so don't ask every item in a pile
+			if(!thing.density && isitem(thing))
+				continue
 			if(thing == mover || thing == mover_loc) // Multi tile objects and moving out of other objects
 				continue
 			if(!thing.Cross(mover))
@@ -348,14 +351,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
 	var/carryover_turf_flags = turf_flags & (RESERVATION_TURF|UNUSED_RESERVATION_TURF)
 	var/turf/W = new path(src)
 	W.turf_flags |= carryover_turf_flags
 	if(old_comp_lookup)
 		LAZYOR(W.comp_lookup, old_comp_lookup)
-	if(old_signal_procs)
-		LAZYOR(W.signal_procs, old_signal_procs)
 
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
@@ -370,15 +370,18 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	lighting_corner_SW = old_lighting_corner_SW
 	lighting_corner_NW = old_lighting_corner_NW
 
-	if(!W.dynamic_lighting)
-		W.lighting_build_overlay()
-	else
-		W.lighting_clear_overlay()
-
 	if(SSlighting.initialized)
 		W.lighting_object = old_lighting_object
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
+
+		// Keep the old lighting object, but space doesn't get one and everything else lit needs one
+		var/area/A = W.loc
+		if(IS_DYNAMIC_LIGHTING(W) && IS_DYNAMIC_LIGHTING(A))
+			if(!lighting_object)
+				lighting_build_overlay()
+		else if(lighting_object)
+			lighting_clear_overlay()
 
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
@@ -883,7 +886,10 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	return pressure_overlay
 
 /turf/_clear_signal_refs()
-	return
+	// Things listening to this turf carry over to the new one in ChangeTurf(), so leave those.
+	// Stop listening to things ourselves though, the new turf might not have the same procs.
+	for(var/target in signal_procs)
+		UnregisterSignal(target, signal_procs[target])
 
 /turf/proc/set_transition_north(dest_z)
 	destination_x = x

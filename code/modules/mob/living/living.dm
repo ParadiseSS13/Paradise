@@ -48,6 +48,7 @@
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	GLOB.station_pets -= src
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -703,7 +704,7 @@
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
 		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL))
+	if(pulling && (restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL)))
 		stop_pulling()
 
 	. = ..()
