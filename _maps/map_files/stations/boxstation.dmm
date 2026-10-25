@@ -17678,10 +17678,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "bok" = (
-/obj/structure/musician/piano,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bol" = (
@@ -22974,17 +22974,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/catwalk/white,
 /area/station/maintenance/starboard)
-"bJr" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 9
-	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
-/obj/machinery/button/windowtint/offset/west,
-/turf/simulated/floor/plasteel,
-/area/station/science/rnd)
 "bJs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -26349,10 +26338,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tiles/department/cargo/corner,
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bYI" = (
@@ -32316,7 +32303,6 @@
 /area/station/engineering/tech_storage)
 "cyx" = (
 /obj/structure/table,
-/obj/machinery/computer/guestpass,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cyy" = (
@@ -34208,6 +34194,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cGs" = (
@@ -45676,10 +45663,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/computer/guestpass/hop{
-	pixel_x = -28
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "eoT" = (
@@ -63013,13 +62998,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/interrogation)
 "lQf" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "lQm" = (
@@ -74787,6 +74770,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
+"qUx" = (
+/obj/machinery/computer/guestpass/directional/north,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/button/windowtint/offset/west,
+/turf/simulated/floor/plasteel,
+/area/station/science/rnd)
 "qUH" = (
 /turf/simulated/floor/plasteel/stairs/right,
 /area/station/command/bridge)
@@ -140430,7 +140422,7 @@ bFH
 bHU
 bwv
 bED
-bJr
+qUx
 bLo
 bNt
 qvO

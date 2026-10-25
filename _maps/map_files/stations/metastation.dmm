@@ -11381,9 +11381,7 @@
 /obj/item/storage/secure/safe{
 	pixel_x = 32
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
+/obj/machinery/computer/guestpass/hop/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bvr" = (
@@ -15229,11 +15227,10 @@
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
 "bNj" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = -30;
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/tiles/department/medical/side,
+/obj/machinery/computer/guestpass/directional/east{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "bNk" = (
@@ -19910,7 +19907,7 @@
 "cnp" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/turf_decal/tiles/department/cargo/side,
-/obj/structure/closet/crate/cookware,
+/obj/structure/closet/crate/catering/cookware,
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "cnq" = (
@@ -52539,9 +52536,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "lcc" = (
@@ -52724,9 +52719,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "leR" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/machinery/door_control{
 	id = "rndlab2";
 	name = "Research Shutters Control";
@@ -52738,6 +52730,7 @@
 	dir = 9
 	},
 /obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "leT" = (
@@ -74105,13 +74098,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "spf" = (
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/structure/filingcabinet,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "spj" = (
