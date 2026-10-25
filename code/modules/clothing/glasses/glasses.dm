@@ -91,7 +91,6 @@
 	prescription_upgradable = TRUE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	clothing_traits = list(TRAIT_MESON_VISION)
-	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/night
 	name = "night vision optical meson scanner"
