@@ -596,6 +596,7 @@
 	icon_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
+	clothing_traits = list(TRAIT_GOTTAGOFAST)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -612,13 +613,6 @@
 		user.drop_item_to_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == ITEM_SLOT_OUTER_SUIT)
-		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
-
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"

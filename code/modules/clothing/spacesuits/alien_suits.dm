@@ -190,6 +190,7 @@
 
 	if(magpulse)
 		set_nodrop(FALSE, loc)
+		detach_clothing_traits(active_clothing_traits)
 		to_chat(user, SPAN_NOTICE("You relax your deathgrip on the flooring."))
 	else
 		//make sure these can only be turned on when equipped.
@@ -199,6 +200,7 @@
 			return ITEM_INTERACT_COMPLETE
 
 		set_nodrop(TRUE, loc) //kinda hard to take off magclaws when you are gripping them tightly.
+		attach_clothing_traits(active_clothing_traits)
 		to_chat(user, SPAN_NOTICE("You dig your claws deeply into the flooring, bracing yourself."))
 		to_chat(user, SPAN_NOTICE("It would be hard to take off [src] without relaxing your grip first."))
 	return ..()
@@ -209,7 +211,7 @@
 	if(magpulse)
 		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		magpulse = FALSE
-		no_slip = FALSE
+		detach_clothing_traits(active_clothing_traits)
 		set_nodrop(FALSE, loc)
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)

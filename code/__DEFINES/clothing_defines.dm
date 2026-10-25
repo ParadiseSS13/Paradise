@@ -112,3 +112,7 @@
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
 
+/// Wrapper for adding clothing based traits
+#define ADD_CLOTHING_TRAIT(mob, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(src)]")
+/// Wrapper for removing clothing based traits
+#define REMOVE_CLOTHING_TRAIT(mob, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(src)]")

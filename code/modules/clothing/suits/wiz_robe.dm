@@ -190,6 +190,7 @@
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	inhand_icon_state = "wiz_hardsuit"
+	clothing_traits = list(TRAIT_ANTIMAGIC, TRAIT_ANTIMAGIC_NO_SELFBLOCK)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 0
@@ -198,16 +199,6 @@
 
 /obj/item/clothing/suit/space/hardsuit/wizard/setup_shielding()
 	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS)
-
-/obj/item/clothing/suit/space/hardsuit/wizard/equipped(mob/user, slot)
-	. = ..()
-	ADD_TRAIT(user, TRAIT_ANTIMAGIC, "[UID()]")
-	ADD_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID()]")
-
-/obj/item/clothing/suit/space/hardsuit/wizard/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC, "[UID()]")
-	REMOVE_TRAIT(user, TRAIT_ANTIMAGIC_NO_SELFBLOCK, "[UID()]")
 
 /obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
