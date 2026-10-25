@@ -373,6 +373,8 @@ SUBSYSTEM_DEF(mapping)
 		lavaland_theme.setup()
 	if(caves_theme)
 		caves_theme.setup()
+	if(lavaland_theme)
+		lavaland_theme.replace_mapping_lava()
 	log_startup_progress("Loaded lavaland themes in [stop_watch(theme_watch)]s")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()

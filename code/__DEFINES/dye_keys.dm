@@ -14,6 +14,7 @@
 #define DYE_REGISTRY_VOID_SUIT "void_suit"
 #define DYE_REGISTRY_VOID_HELMET "void_helmet"
 #define DYE_REGISTRY_HEADSCARF "headscarf"
+#define DYE_REGISTRY_OVERSUIT "oversuit"
 
 #define DYE_RED "red"
 #define DYE_ORANGE "orange"

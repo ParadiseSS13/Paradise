@@ -312,8 +312,8 @@
 	item = /obj/item/ammo_box/magazine/sniper_rounds
 
 /datum/uplink_item/ammo/sniper/antimatter
-	name = "Sniper - .50 Antimatter Magazine"
-	desc = "A 6-round magazine of antimatter ammo for use with .50 sniper rifles. \
+	name = "Sniper - .50 High Explosive Magazine"
+	desc = "A 5-round magazine of high explosive ammo for use with .50 sniper rifles. \
 	Able to heavily damage objects, and delimb people. Requires zooming in for accurate aiming."
 	reference = "50A"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/antimatter
@@ -551,6 +551,7 @@
 	item = /obj/item/bio_chip_implanter/krav_maga
 	cost = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
+	excludefrom = list()
 
 /datum/uplink_item/bio_chips/uplink/nuclear
 	name = "Nuclear Uplink Bio-chip"

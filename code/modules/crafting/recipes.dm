@@ -310,7 +310,7 @@
 
 /datum/crafting_recipe/ed209
 	name = "ED209"
-	result = list(/mob/living/simple_animal/bot/ed209)
+	result = list(/mob/living/basic/bot/secbot/ed209)
 	reqs = list(/obj/item/robot_parts/robot_suit = 1,
 				/obj/item/clothing/head/helmet = 1,
 				/obj/item/clothing/suit/armor/vest = 1,
@@ -327,7 +327,7 @@
 
 /datum/crafting_recipe/secbot
 	name = "Secbot"
-	result = list(/mob/living/simple_animal/bot/secbot)
+	result = list(/mob/living/basic/bot/secbot)
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
 				/obj/item/melee/baton = 1,
@@ -339,7 +339,7 @@
 
 /datum/crafting_recipe/griefsky
 	name = "General Griefsky"
-	result = list(/mob/living/simple_animal/bot/secbot/griefsky)
+	result = list(/mob/living/basic/bot/secbot/griefsky)
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
 				/obj/item/melee/energy/sword = 4,
@@ -353,7 +353,7 @@
 
 /datum/crafting_recipe/cleanbot
 	name = "Cleanbot"
-	result = list(/mob/living/simple_animal/bot/cleanbot)
+	result = list(/mob/living/basic/bot/cleanbot)
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
@@ -362,7 +362,7 @@
 
 /datum/crafting_recipe/honkbot
 	name = "Honkbot"
-	result = list(/mob/living/simple_animal/bot/honkbot)
+	result = list(/mob/living/basic/bot/secbot/honkbot)
 	reqs = list(/obj/item/robot_parts/r_arm = 1,
 				/obj/item/bikehorn = 1,
 				/obj/item/assembly/prox_sensor = 1,
@@ -371,9 +371,9 @@
 	time = 40
 	category = CAT_ROBOT
 
-/datum/crafting_recipe/floorbot
-	name = "Floorbot"
-	result = list(/mob/living/simple_animal/bot/floorbot)
+/datum/crafting_recipe/repairbot
+	name = "Repairbot"
+	result = list(/mob/living/basic/bot/repairbot)
 	reqs = list(/obj/item/storage/toolbox = 1,
 				/obj/item/stack/tile/plasteel = 10,
 				/obj/item/assembly/prox_sensor = 1,
@@ -381,9 +381,19 @@
 	time = 40
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/firebot
+	name = "Firebot"
+	result = list(/mob/living/basic/bot/firebot)
+	reqs = list(/obj/item/extinguisher = 1,
+				/obj/item/clothing/head/hardhat = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/robot_parts/r_arm = 1)
+	time = 40
+	category = CAT_ROBOT
+
 /datum/crafting_recipe/medbot
 	name = "Medbot"
-	result = list(/mob/living/simple_animal/bot/medbot)
+	result = list(/mob/living/basic/bot/medbot)
 	reqs = list(/obj/item/healthanalyzer = 1,
 				/obj/item/storage/firstaid = 1,
 				/obj/item/assembly/prox_sensor = 1,
@@ -620,6 +630,7 @@
 /datum/crafting_recipe/blackcarpet
 	name = "Black Carpet"
 	result = list(/obj/item/stack/tile/carpet/black)
+	blacklist = list(/obj/item/stack/tile/carpet/black)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/black)
@@ -628,6 +639,7 @@
 /datum/crafting_recipe/bluecarpet
 	name = "Blue Carpet"
 	result = list(/obj/item/stack/tile/carpet/blue)
+	blacklist = list(/obj/item/stack/tile/carpet/blue)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue)
@@ -636,6 +648,7 @@
 /datum/crafting_recipe/cyancarpet
 	name = "Cyan Carpet"
 	result = list(/obj/item/stack/tile/carpet/cyan)
+	blacklist = list(/obj/item/stack/tile/carpet/cyan)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
@@ -644,6 +657,7 @@
 /datum/crafting_recipe/greencarpet
 	name = "Green Carpet"
 	result = list(/obj/item/stack/tile/carpet/green)
+	blacklist = list(/obj/item/stack/tile/carpet/green)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/green)
@@ -652,6 +666,7 @@
 /datum/crafting_recipe/orangecarpet
 	name = "Orange Carpet"
 	result = list(/obj/item/stack/tile/carpet/orange)
+	blacklist = list(/obj/item/stack/tile/carpet/orange)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/orange)
@@ -660,6 +675,7 @@
 /datum/crafting_recipe/purplecarpet
 	name = "Purple Carpet"
 	result = list(/obj/item/stack/tile/carpet/purple)
+	blacklist = list(/obj/item/stack/tile/carpet/purple)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/purple)
@@ -668,6 +684,7 @@
 /datum/crafting_recipe/redcarpet
 	name = "Red Carpet"
 	result = list(/obj/item/stack/tile/carpet/red)
+	blacklist = list(/obj/item/stack/tile/carpet/red)
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/red)
@@ -676,6 +693,7 @@
 /datum/crafting_recipe/royalblackcarpet
 	name = "Royal Black Carpet"
 	result = list(/obj/item/stack/tile/carpet/royalblack/ten)
+	blacklist = list(/obj/item/stack/tile/carpet/royalblack)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet/black = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)
@@ -684,6 +702,7 @@
 /datum/crafting_recipe/royalbluecarpet
 	name = "Royal Blue Carpet"
 	result = list(/obj/item/stack/tile/carpet/royalblue/ten)
+	blacklist = list(/obj/item/stack/tile/carpet/royalblue)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet/blue = 10,
 				/obj/item/stack/sheet/mineral/gold = 1)

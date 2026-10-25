@@ -334,8 +334,8 @@
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!reskinned)
+		return ..()
 
 	if(possessed)
 		return ITEM_INTERACT_COMPLETE
@@ -525,9 +525,9 @@
 	var/used_blessing = FALSE
 
 /obj/item/nullrod/carp/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
+	if(!reskinned)
+		return ..()
+		
 	if(used_blessing)
 		return ITEM_INTERACT_COMPLETE
 
@@ -537,6 +537,7 @@
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
 	used_blessing = TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /// May as well make it a "claymore" and inherit the blocking
 /obj/item/nullrod/claymore/bostaff
@@ -779,7 +780,7 @@
 		to_chat(user, SPAN_NOTICE("You are already ringing [src]."))
 		return ITEM_INTERACT_COMPLETE
 
-	user.audible_message(
+	user.visible_message(
 		SPAN_NOTICE("[user] rings [src], and what an auspicious sound it is."),
 		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings."),
 		SPAN_NOTICE("[user] taps [src] once and stands very still.")
@@ -835,6 +836,11 @@
 			var/mob/living/carbon/human/H = target
 
 			if(H.mind)
+				if(IS_ACOLYTE(H))
+					H.mind.remove_antag_datum(/datum/antagonist/acolyte)
+					cleansing = FALSE
+					return
+
 				if(IS_CULTIST(H))
 					var/datum/antagonist/cultist/cultist = IS_CULTIST(H)
 					cultist.remove_gear_on_removal = TRUE
@@ -948,8 +954,8 @@
 	var/ghostcall_CD = 0
 
 /obj/item/nullrod/salt/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!reskinned)
+		return ..()
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))

@@ -61,6 +61,9 @@
 /area/mine/unexplored/omega/medical
 	name = "Medical Rocks"
 
+/area/mine/unexplored/space_asteroid
+	name = "Mineral Rich Asteroid"
+
 /**********************Outpost areas**************************/
 
 /area/mine/outpost
@@ -77,6 +80,23 @@
 
 /area/mine/outpost/cafeteria
 	name = "Mining Station Cafeteria"
+	icon_state = "mining_living"
+	area_icon_text = "MINING\nLIVING"
+
+/area/mine/space_outpost
+	name = "Asteroid Outpost"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	request_console_name = "Mining Outpost"
+	request_console_flags = RC_SUPPLY
+	airlock_wires = /datum/wires/airlock/cargo
+
+/area/mine/space_outpost/life_support
+	name = "Asteroid Outpost Life Support"
+	icon_state = "mining_eva"
+	area_icon_text = "MINING\nEVA"
+
+/area/mine/space_outpost/teleporter
+	name = "Asteroid Outpost Teleporter"
 	icon_state = "mining_living"
 	area_icon_text = "MINING\nLIVING"
 
