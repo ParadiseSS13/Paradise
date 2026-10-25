@@ -77,6 +77,17 @@
 		burner.container = null
 		update_appearance(UPDATE_ICON)
 
+/obj/machinery/cooking/stovetop/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/mask/cigarette))
+		var/obj/item/clothing/mask/cigarette/cig = used
+		user.visible_message(
+			SPAN_NOTICE("[user] lights [used] with a burner on the [src]."),
+			SPAN_NOTICE("You light [used] with a burner on the [src].")
+		)
+		cig.light(user, user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
 /obj/machinery/cooking/stovetop/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
