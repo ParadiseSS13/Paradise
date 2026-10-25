@@ -610,17 +610,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/havana/equipped(mob/user, slot, initial)
 	. = ..()
-	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID(src)]"))
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID()]"))
 		to_chat(user, SPAN_NOTICE("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/cigarette/cigar/havana/light(mob/living/user)
 	. = ..()
 	attach_clothing_traits(active_clothing_traits)
-	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID(src)]"))
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID()]"))
 		to_chat(user, SPAN_NOTICE("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/cigarette/cigar/havana/dropped(mob/user, silent)
-	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID(src)]"))
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID()]"))
 		to_chat(user, SPAN_NOTICE("You feel less badass."))
 	. = ..()
 
