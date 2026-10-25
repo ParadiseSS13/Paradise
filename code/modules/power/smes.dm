@@ -108,7 +108,7 @@
 
 	. += new_overlays
 
-	for(var/I in new_overlays)
+	for(var/I in .)
 		var/lightmask = "[I]_lightmask"
 		if(lightmask in icon_states(icon))
 			underlays += emissive_appearance(icon, lightmask)
