@@ -264,23 +264,20 @@
 	if(prob(bonus_value) && target.stat != DEAD)
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(get_turf(target), user)
 
-/obj/item/crusher_trophy/broodmother_tongue/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+/obj/item/crusher_trophy/broodmother_tongue/attack_self__legacy__attackchain(mob/user)
 	if(!isliving(user))
-		return ITEM_INTERACT_COMPLETE
+		return
 	var/mob/living/living_user = user
 	if(use_time > world.time)
 		to_chat(living_user, "<b>The tongue looks dried out. You'll need to wait longer to use it again.</b>")
-		return ITEM_INTERACT_COMPLETE
+		return
 	else if("lava" in living_user.weather_immunities)
 		to_chat(living_user, "<b>You stare at the tongue. You don't think this is any use to you.</b>")
-		return ITEM_INTERACT_COMPLETE
+		return
 	living_user.weather_immunities += "lava"
 	to_chat(living_user, "<b>You squeeze the tongue, and some transluscent liquid shoots out all over you.</b>")
 	addtimer(CALLBACK(src, PROC_REF(remove_lava), living_user), 20 SECONDS)
 	use_time = world.time + 60 SECONDS
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/crusher_trophy/broodmother_tongue/proc/remove_lava(mob/living/user)
 	user.weather_immunities -= "lava"

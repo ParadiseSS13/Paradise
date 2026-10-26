@@ -280,7 +280,7 @@
 		/obj/item/reagent_containers/cooking/pot,
 		/obj/item/reagent_containers/cooking/pot,
 	)
-	containertype = /obj/structure/closet/crate/catering
+	containertype = /obj/structure/closet/crate/cookware
 	containername = "cookware crate"
 
 /datum/supply_packs/misc/barberkit

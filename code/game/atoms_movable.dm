@@ -442,8 +442,7 @@
 /atom/movable/proc/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
 
-	// Nothing drifts where there's gravity, so don't ask
-	if(!inertia_moving && momentum_change && !has_gravity(src))
+	if(!inertia_moving && momentum_change)
 		newtonian_move(movement_dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()

@@ -31,9 +31,9 @@ jobs:
           python-version: '3.13'
           cache: 'pip'
 
-      - uses: actions/setup-node@v7.1.0
+      - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 24
+          node-version: 20
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
@@ -63,9 +63,9 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v6
+        uses: actions/setup-dotnet@v5.4.0
         with:
-          dotnet-version: 10.0.100
+          dotnet-version: 9.x
       - name: Run OD
         run: |
           bash tools/ci/run_od.sh

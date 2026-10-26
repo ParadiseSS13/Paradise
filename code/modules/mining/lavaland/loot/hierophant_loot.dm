@@ -16,7 +16,6 @@
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	new_attack_chain = TRUE
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
 	var/chaser_timer = 0 //what our current chaser cooldown is
@@ -47,99 +46,58 @@
 	qdel(user)
 	return OBLITERATION
 
-/obj/item/hierophant_club/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	. = ..()
+
+/obj/item/hierophant_club/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+	..()
 	if(world.time < timer)
 		return
 
-	if(isliving(target))
-		return NONE
-
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + cooldown_time
 		user.visible_message(SPAN_DANGER("[user]'s hierophant club malfunctions!"))
 		do_sparks(5, FALSE, user)
-		return NONE
-
-	var/turf/T = get_turf(target)
-	if(isstorage(target) || is_surface(target))
-		if(user.a_intent == INTENT_HELP)
-			return NONE
-		else if((istype(target, /obj/structure/rack) || istype(target, /obj/structure/shelf)) && !(user.a_intent == INTENT_HARM))
-			return NONE
-		else 
-			timer = world.time + CLICK_CD_MELEE // By default, melee attacks only cause melee blasts, and have an accordingly short cooldown.
-			INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user)
-			if(is_station_level(T.z))
-				add_attack_logs(user, target, "Fired 3x3 blast at [src]")
-			else
-				add_attack_logs(user, target, "Fired 3x3 blast at [src]", ATKLOG_ALL)
-				return NONE
-
-	if(!T)
-		return NONE
-	calculate_anger_mod(user)
-	timer = world.time + CLICK_CD_MELEE // By default, melee attacks only cause melee blasts, and have an accordingly short cooldown.
-	INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user)
-	if(is_station_level(T.z))
-		add_attack_logs(user, target, "Fired 3x3 blast at [src]")
-	else
-		add_attack_logs(user, target, "Fired 3x3 blast at [src]", ATKLOG_ALL)
-	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-	return ITEM_INTERACT_COMPLETE
-
-/obj/item/hierophant_club/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	. = ..()
-	if(world.time < timer)
 		return
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
-		return ITEM_INTERACT_COMPLETE
-
-	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) // Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
-		timer = world.time + cooldown_time
-		user.visible_message(SPAN_DANGER("[user]'s hierophant club malfunctions!"))
-		do_sparks(5, FALSE, user)
-		return ITEM_INTERACT_COMPLETE
-
 	var/turf/T = get_turf(target)
 	if(!T)
-		return NONE
+		return
 	calculate_anger_mod(user)
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
-	if(ismineralturf(target) && get_dist(user, target) < 6) // Target is minerals, we can hit it (even if we can't see it).
-		INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user)
-		timer = world.time + cooldown_time
-		INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-		return ITEM_INTERACT_COMPLETE
-	if(!(target in view(5, get_turf(user)))) // If the target is in view, hit it.
-		to_chat(user, SPAN_WARNING("That target is out of range!") )
-		timer = world.time
-		INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-		return ITEM_INTERACT_COMPLETE
-	timer = world.time + cooldown_time
-	if(isliving(target) && chaser_timer <= world.time) // Living and chasers off cooldown? Fire one!
-		chaser_timer = world.time + chaser_cooldown
-		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
-		C.damage = 30
-		C.monster_damage_boost = FALSE
+	if(proximity_flag)
+		INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user)
 		if(is_station_level(T.z))
-			add_attack_logs(user, target, "Fired a chaser at [src]")
+			add_attack_logs(user, target, "Fired 3x3 blast at [src]")
 		else
-			add_attack_logs(user, target, "Fired a chaser at [src]", ATKLOG_ALL)
+			add_attack_logs(user, target, "Fired 3x3 blast at [src]", ATKLOG_ALL)
 	else
-		INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user) // Otherwise, just do cardinal blast
-		if(is_station_level(T.z))
-			add_attack_logs(user, target, "Fired cardinal blast at [src]")
+		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
+			INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user)
+			timer = world.time + cooldown_time
+		else if(target in view(5, get_turf(user))) //if the target is in view, hit it
+			timer = world.time + cooldown_time
+			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
+				chaser_timer = world.time + chaser_cooldown
+				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
+				C.damage = 30
+				C.monster_damage_boost = FALSE
+				if(is_station_level(T.z))
+					add_attack_logs(user, target, "Fired a chaser at [src]")
+				else
+					add_attack_logs(user, target, "Fired a chaser at [src]", ATKLOG_ALL)
+			else
+				INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user) //otherwise, just do cardinal blast
+				if(is_station_level(T.z))
+					add_attack_logs(user, target, "Fired cardinal blast at [src]")
+				else
+					add_attack_logs(user, target, "Fired cardinal blast at [src]", ATKLOG_ALL)
 		else
-			add_attack_logs(user, target, "Fired cardinal blast at [src]", ATKLOG_ALL)
+			to_chat(user, SPAN_WARNING("That target is out of range!") )
+			timer = world.time
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-	return ITEM_INTERACT_COMPLETE
 
 /obj/item/hierophant_club/proc/calculate_anger_mod(mob/user) //we get stronger as the user loses health
 	chaser_cooldown = initial(chaser_cooldown)

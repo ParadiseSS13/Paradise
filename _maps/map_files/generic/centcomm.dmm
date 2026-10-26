@@ -918,7 +918,7 @@
 	},
 /area/holodeck/source_snowfield)
 "dC" = (
-/obj/structure/bed/dirty,
+/obj/structure/bed,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dD" = (
@@ -7343,10 +7343,10 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
+/obj/machinery/economy/vending/medical,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
-/obj/machinery/economy/vending/medical/all_access,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "zW" = (
@@ -7798,7 +7798,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
 "BH" = (
-/obj/effect/spawner/random/instrument/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "BJ" = (
@@ -9846,10 +9846,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Jj" = (
-/obj/structure/bed/dirty,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "Jl" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/food/grown/potato,
@@ -10285,7 +10281,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "KC" = (
-/obj/machinery/button/windowtint/directional/north,
+/obj/machinery/button/windowtint{
+	pixel_y = 24
+	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KD" = (
@@ -70126,13 +70124,13 @@ lf
 lW
 Zk
 Lc
-Jj
+kZ
 Zk
 Lc
-Jj
+kZ
 Zk
 Lc
-Jj
+kZ
 Zk
 aN
 aN
@@ -72182,13 +72180,13 @@ kU
 kU
 Zk
 Lc
-Jj
+kZ
 Zk
 Lc
-Jj
+kZ
 Zk
 Lc
-Jj
+kZ
 Zk
 aN
 aN

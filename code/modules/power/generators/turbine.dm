@@ -171,14 +171,6 @@
 	RegisterSignal(inturf, COMSIG_ATOM_ENTERED, PROC_REF(enter_inlet_turf))
 	RegisterSignal(inturf, COMSIG_ATOM_EXIT, PROC_REF(leave_inlet_turf))
 
-/obj/machinery/power/compressor/Destroy()
-	if(turbine)
-		turbine.compressor = null
-		turbine.stat |= BROKEN
-		turbine = null
-	QDEL_NULL(radio)
-	return ..()
-
 /obj/machinery/power/compressor/proc/check_broken()
 	if(turbine && bearing_damage < BEARING_DAMAGE_MAX)
 		stat &= ~BROKEN
@@ -527,13 +519,6 @@
 	outturf = loc
 	locate_machinery()
 
-/obj/machinery/power/turbine/Destroy()
-	if(compressor)
-		compressor.turbine = null
-		compressor.check_broken()
-		compressor = null
-	return ..()
-
 /obj/machinery/power/turbine/RefreshParts()
 	var/P = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -667,13 +652,7 @@
 
 /obj/machinery/computer/turbine_computer/proc/disconnect()
 	//this disconnects the computer from the turbine, good for resets.
-	if(compressor)
-		UnregisterSignal(compressor, COMSIG_PARENT_QDELETING)
 	compressor = null
-
-/obj/machinery/computer/turbine_computer/proc/on_compressor_deleted()
-	SIGNAL_HANDLER
-	disconnect()
 
 /obj/machinery/computer/turbine_computer/attack_hand(mob/user)
 	. = ..()
@@ -682,13 +661,7 @@
 /obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	var/obj/item/multitool/M = I
-	if(!istype(M.buffer, /obj/machinery/power/compressor))
-		to_chat(user, SPAN_WARNING("There's no turbine compressor in [I]'s buffer."))
-		return
-	disconnect()
 	compressor = M.buffer
-	// Forget the compressor if it gets deleted
-	RegisterSignal(compressor, COMSIG_PARENT_QDELETING, PROC_REF(on_compressor_deleted))
 	to_chat(user, SPAN_NOTICE("You link [src] to the turbine compressor in [I]'s buffer."))
 
 /obj/machinery/computer/turbine_computer/ui_state(mob/user)

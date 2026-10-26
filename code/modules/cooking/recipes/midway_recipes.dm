@@ -137,9 +137,6 @@
 /datum/cooking/recipe_step/add_item/deep_fried_anything
 
 /datum/cooking/recipe_step/add_item/deep_fried_anything/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
-	if(!istype(added_item, /obj/item) || (added_item.flags & ABSTRACT)) // Not an item, cant super fry it.
-		return PCWJ_CHECK_INVALID
-
 	if(!tracker.frying_exception)
 		var/obj/item/food/food_item = added_item
 		if(!istype(food_item))

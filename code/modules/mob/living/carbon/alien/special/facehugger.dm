@@ -238,7 +238,3 @@
 /obj/item/clothing/mask/facehugger/lamarr/Initialize(mapload)
 	. = ..()
 	GLOB.station_pets += src
-
-/obj/item/clothing/mask/facehugger/lamarr/Destroy()
-	GLOB.station_pets -= src
-	return ..()

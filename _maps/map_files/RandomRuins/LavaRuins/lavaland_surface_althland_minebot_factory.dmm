@@ -174,7 +174,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "eJ" = (
@@ -597,7 +597,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -684,7 +684,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "pT" = (
@@ -1027,7 +1027,7 @@
 "yH" = (
 /obj/effect/turf_decal/box/red,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1110,7 +1110,7 @@
 "As" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "AO" = (
@@ -1454,7 +1454,7 @@
 "JV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Kf" = (
@@ -1738,7 +1738,7 @@
 "Rh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1769,7 +1769,7 @@
 /obj/item/stack/ore,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "RN" = (
@@ -1781,7 +1781,7 @@
 "RU" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Sq" = (
@@ -1795,7 +1795,7 @@
 /obj/effect/decal/cleanable/blood/gibs/robot/gib,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Tl" = (

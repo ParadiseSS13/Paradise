@@ -738,17 +738,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(lit)
 		extinguish_cigarette(user)
 
-/obj/item/clothing/mask/cigarette/pipe/catch_fire()
-	if(smoketime)
-		return ..()
-	else
-		visible_message(SPAN_WARNING("[src] goes up in flames!"))
-		if(istype(loc, /mob/living))
-			var/mob/holder = loc
-			holder.drop_item_to_ground(src, force = TRUE)
-		new /obj/effect/decal/cleanable/ash(get_turf(src))
-		qdel(src)
-
 /obj/item/clothing/mask/cigarette/pipe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/food/grown))
 		return ..()

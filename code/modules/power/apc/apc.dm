@@ -742,8 +742,6 @@
 		if(cell.charge >= cell.maxcharge)
 			cell.charge = cell.maxcharge
 			charging = APC_FULLY_CHARGED
-		else if(charging == APC_FULLY_CHARGED)
-			charging = APC_NOT_CHARGING // Something drained the cell, so start charging again
 
 		if(chargemode)
 			if(charging == APC_NOT_CHARGING)

@@ -310,8 +310,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	for(var/obj/O in listening_obj)
-		if(O) //It's possible that it could be deleted in the meantime.
-			O.hear_talk_no_wait(src, message_pieces, verb)
+		spawn(0) // KILL THIS
+			if(O) //It's possible that it could be deleted in the meantime.
+				O.hear_talk(src, message_pieces, verb)
 
 	return TRUE
 
@@ -431,8 +432,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	//pass on the message to objects that can hear us.
 	for(var/obj/O in view(message_range, whisper_loc))
-		if(O)
-			O.hear_talk_no_wait(src, message_pieces, verb)
+		spawn(0)
+			if(O)
+				O.hear_talk(src, message_pieces, verb)
 
 	var/list/eavesdropping = hearers(eavesdropping_range, whisper_loc)
 	eavesdropping -= src

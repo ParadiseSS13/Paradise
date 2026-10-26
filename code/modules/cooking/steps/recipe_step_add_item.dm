@@ -62,7 +62,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 	if(container)
 		if(istype(user) && user.Adjacent(container))
 			var/obj/item/stack/stack = used_item
-			if(istype(stack) && !tracker.frying_exception) // We dont want to only take one item if we're super frying.
+			if(istype(stack))
 				if(stack.use(1))
 					var/stack_type = stack.type
 					new stack_type(container, 1)

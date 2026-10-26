@@ -81,8 +81,6 @@
 
 	var/list/learned_recipes //List of learned recipe TYPES.
 
-	var/autohiss_mode = AUTOHISS_OFF
-
 /datum/mind/New(new_key)
 	key = new_key
 	objective_holder = new(src)

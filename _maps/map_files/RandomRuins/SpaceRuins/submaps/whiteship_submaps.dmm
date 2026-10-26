@@ -278,7 +278,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "qi" = (
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /obj/machinery/door_control{
 	id = "whiteminingshutter";
 	name = "Mining Bay Shutters Access Control";
@@ -535,7 +535,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Fz" = (
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
@@ -731,7 +731,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "TD" = (
-/mob/living/basic/abandoned_minebot,
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /obj/effect/turf_decal/caution/red{
 	pixel_y = -19
 	},

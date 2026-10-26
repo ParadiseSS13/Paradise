@@ -86,7 +86,7 @@
  */
 /datum/tgui_input_keycombo/proc/wait()
 	while(!entry && !closed && !QDELETED(src))
-		stoplag()
+		stoplag(1)
 
 /datum/tgui_input_keycombo/ui_state(mob/user)
 	return state

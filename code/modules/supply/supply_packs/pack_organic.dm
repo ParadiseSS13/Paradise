@@ -4,7 +4,7 @@
 	containertype = /obj/structure/closet/crate/freezer
 	department_restrictions = list(DEPARTMENT_SERVICE)
 
-// MARK: Food
+
 /datum/supply_packs/organic/food
 	name = "Food Crate"
 	contains = list(/obj/item/reagent_containers/condiment/flour,
@@ -33,8 +33,7 @@
 					/obj/item/food/rations/liquidfood,
 					/obj/item/food/rations/liquidfood,
 					/obj/item/food/rations/liquidfood)
-	cost = 150 // It tastes awful, it makes you vomit, people need an incentive to buy it over pizza.
-	containertype = /obj/structure/closet/crate/catering // Only food rots.
+	cost = 500
 	containername = "Ration crate"
 
 /datum/supply_packs/organic/pizza
@@ -46,7 +45,6 @@
 					/obj/item/pizzabox/hawaiian,
 					/obj/item/kitchen/knife/pizza_cutter)
 	cost = 500
-	containertype = /obj/structure/closet/crate/catering // We don't want COLD PIZZA!!!
 	containername = "Pizza crate"
 
 /datum/supply_packs/organic/fancyparty
@@ -60,8 +58,7 @@
 					/obj/item/food/caviar,
 					/obj/item/food/caviar,
 					/obj/item/reagent_containers/drinks/drinkingglass,
-					/obj/item/reagent_containers/drinks/drinkingglass,
-					/obj/item/kitchen/knife/cheese)
+					/obj/item/reagent_containers/drinks/drinkingglass)
 	cost = 1000
 	containername = "Executive Party crate"
 	containertype = /obj/structure/closet/crate/freezer/deluxe
@@ -87,7 +84,6 @@
 	group = SUPPLY_ORGANIC
 	containertype = /obj/structure/closet/crate/freezer
 	department_restrictions = list(DEPARTMENT_SERVICE)
-	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 /datum/supply_packs/organic/condiments
 	name = "Condiment Crate"
@@ -103,9 +99,8 @@
 					/obj/item/reagent_containers/condiment/capsaicin,
 					/obj/item/reagent_containers/condiment/wasabi,
 					/obj/item/reagent_containers/condiment/vinegar)
-	cost = 50
+	cost = 300
 	containername = "condiment crate"
-	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 /datum/supply_packs/organic/seafood
 	name = "Seafood Crate"
@@ -121,9 +116,8 @@
 		/obj/item/food/shrimp,
 		/obj/item/food/shrimp
 	)
-	cost = 200
+	cost = 300
 	containername = "seafood crate"
-	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 /datum/supply_packs/organic/donuts
 	name = "Donuts Crate"
@@ -149,50 +143,50 @@
 	cost = 400
 	containername = "donk-pockets crate"
 
-/datum/supply_packs/organic/juice_boxes
-	name = "Stationside Juice Boxes Variety Pack"
-	contains = list(/obj/item/storage/fancy/juice_boxes/full,
-					/obj/item/storage/fancy/juice_boxes/full,
-					/obj/item/storage/fancy/juice_boxes/full,
-	)
-	cost = 200
-	containername = "juice box box box"
-
-// MARK: Monkey boxes
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/storage/box/monkeycubes)
 	cost = 200
-	containertype = /obj/structure/closet/crate/sci
 	containername = "monkey crate"
 	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
-/datum/supply_packs/organic/monkey/nian_worme
+/datum/supply_packs/organic/nian_worme
 	name = "Nian Worme Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/nian_worme_cubes)
+	cost = 200
 	containername = "nian worme crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
-/datum/supply_packs/organic/monkey/farwa
+/datum/supply_packs/organic/farwa
 	name = "Farwa Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/farwacubes)
+	cost = 200
 	containername = "farwa crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
-/datum/supply_packs/organic/monkey/wolpin
+
+/datum/supply_packs/organic/wolpin
 	name = "Wolpin Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes)
+	cost = 200
 	containername = "wolpin crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
-/datum/supply_packs/organic/monkey/neaera
+
+/datum/supply_packs/organic/skrell
 	name = "Neaera Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/neaeracubes)
+	cost = 200
 	containername = "neaera crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
-/datum/supply_packs/organic/monkey/stok
+/datum/supply_packs/organic/stok
 	name = "Stok Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/stokcubes)
+	cost = 200
 	containername = "stok crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
-// MARK: Bar crates
 /datum/supply_packs/organic/party
 	name = "Party Equipment Crate"
 	contains = list(/obj/item/storage/box/drinkingglasses,
@@ -218,19 +212,19 @@
 					/obj/item/circuitboard/chem_dispenser/beer,
 					/obj/item/barsign_electronics)
 	cost = 250
-	containertype = /obj/structure/closet/crate/catering
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
 
-/datum/supply_packs/organic/bottler
-	name = "Bottler Unit Crate"
-	contains = list(/obj/machinery/bottler)
-	cost = 150
-	containertype = /obj/structure/closet/crate/catering
-	containername = "Bottler Unit Crate"
-	announce_beacons = list("Bar" = list("Bar"))
+/datum/supply_packs/organic/juice_boxes
+	name = "Stationside Juice Boxes Variety Pack"
+	contains = list(/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+	)
+	cost = 400
+	containername = "juice box box box"
 
-// MARK: Livestock
+//////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
 	cost = 100
@@ -393,7 +387,9 @@
 	containername = "cargorilla crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
-// MARK: Hydroponics crates
+////// hippy gear
+
+/// -- Skie
 /datum/supply_packs/organic/hydroponics
 	name = "Hydroponics Supply Crate"
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
@@ -411,19 +407,19 @@
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/organic/hydroponics/hydrotank
-	name = "Backpack Water Tank Crate"
+	name = "Hydroponics Watertank Crate"
 	contains = list(/obj/item/watertank)
 	cost = 50
-	containertype = /obj/structure/closet/crate/secure/hydrosec
-	containername = "backpack water tank crate"
+	containertype = /obj/structure/closet/crate/secure
+	containername = "hydroponics watertank crate"
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/organic/hydroponics/seeds
-	name = "Cullinary Seeds Crate"
-	contains = list(/obj/item/seeds/chili,
-					/obj/item/seeds/garlic,
-					/obj/item/seeds/mint,
+	name = "Seeds Crate"
+	contains = list(/obj/item/seeds/tower,
+					/obj/item/seeds/chili,
+					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
 					/obj/item/seeds/eggplant,
@@ -436,15 +432,10 @@
 					/obj/item/seeds/lettuce,
 					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
-					/obj/item/seeds/plump,
 					/obj/item/seeds/potato,
-					/obj/item/seeds/cocoapod,
-					/obj/item/seeds/cocoapod/vanillapod,
 					/obj/item/seeds/sugarcane)
-	cost = 30 // This competes with the hydro vending refill, which has a far greater quanity and variety of seeds.
-	containertype = /obj/structure/closet/crate/catering
-	containername = "culinary seeds crate"
-	announce_beacons = list("Kitchen" = list("Kitchen")) // This crate is for the chef when botany isn't making food.
+	cost = 100
+	containername = "seeds crate"
 
 /datum/supply_packs/organic/vending/hydro_refills
 	name = "Hydroponics Vending Machines Refills"
@@ -489,8 +480,16 @@
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
 	name = "Beekeeper Suits"
 	contains = list(/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
+
+/datum/supply_packs/organic/bottler
+	name = "Bottler Unit Crate"
+	contains = list(/obj/machinery/bottler)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "Bottler Unit Crate"
+

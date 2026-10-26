@@ -111,10 +111,10 @@
 
 	// Changing direction using wrench
 	if(default_change_direction_wrench(user, used))
-		disconnect_terminal()
+		terminal = null
 		var/turf/T = get_step(src, dir)
 		for(var/obj/machinery/power/terminal/term in T)
-			if(term && term.dir == turn(dir, 180) && !term.master)
+			if(term && term.dir == turn(dir, 180))
 				terminal = term
 				terminal.master = src
 				to_chat(user, SPAN_NOTICE("Terminal found."))

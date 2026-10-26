@@ -5,7 +5,15 @@
 	containertype = /obj/structure/closet/crate/sci
 	department_restrictions = list(DEPARTMENT_SCIENCE)
 
-// MARK: Robotics
+/datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
+	name = "Research & Development Crate"
+	contains = list(/obj/item/storage/box/large/rnd_parts)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "research & development crate"
+	access = ACCESS_RESEARCH
+	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
+
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
 	contains = list(/obj/item/assembly/prox_sensor,
@@ -15,8 +23,8 @@
 					/obj/item/storage/box/flashes,
 					/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high)
-	cost = 50
-	containertype = /obj/structure/closet/crate/secure/robo
+	cost = 300
+	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
@@ -27,7 +35,7 @@
 					/obj/item/mod/core/standard,
 					/obj/item/mod/core/standard)
 	cost = 450
-	containertype = /obj/structure/closet/crate/secure/robo
+	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "\improper MOD core crate"
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics"))
@@ -37,7 +45,7 @@
 	name = "Mech Power Core Crate"
 	contains = list(/obj/item/mecha_parts/core)
 	cost = 1500
-	containertype = /obj/structure/closet/crate/secure/robo
+	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "mech power core crate"
 	access = ACCESS_RD
 
@@ -64,29 +72,6 @@
 	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper \"Odysseus\" construction crate"
 	department_restrictions = list(DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE) // medical mech for medical shenanigans
-
-/datum/supply_packs/science/robotics/mecha_nkarrdem
-	name = "Construction Crate (Nkarrdem)"
-	contains = list(/obj/item/circuitboard/mecha/nkarrdem/peripherals,
-					/obj/item/circuitboard/mecha/nkarrdem/main,
-					/obj/item/borg/upgrade/floorbuffer,
-					/obj/item/mecha_parts/mecha_equipment/janitor/mega_mop,
-					/obj/item/mecha_parts/mecha_equipment/janitor/light_replacer,
-					/obj/item/stack/sheet/plasteel/five)
-	cost = 350
-	containertype = /obj/structure/closet/crate/sci/robo
-	containername = "\improper \"Nkarrdem\" construction crate"
-	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_SCIENCE) // The time has come... TO CLEAN UP THIS MESS!
-
-// MARK: Science
-/datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
-	name = "Research & Development Crate"
-	contains = list(/obj/item/storage/box/large/rnd_parts)
-	cost = 1000
-	containertype = /obj/structure/closet/crate/secure/scisec
-	containername = "research & development crate"
-	access = ACCESS_RESEARCH
-	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
 
 /datum/supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
@@ -144,7 +129,6 @@
 	containername = "raw anomaly core crate"
 	access = ACCESS_RESEARCH
 
-// MARK: Misc
 /datum/supply_packs/science/oil
 	name = "Oil Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/oil,

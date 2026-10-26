@@ -39,8 +39,9 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			// Running burns twice as much
-			adjust_nutrition(-(hunger_drain * (m_intent == MOVE_INTENT_RUN ? 0.2 : 0.1)))
+			adjust_nutrition(-(hunger_drain * 0.1))
+			if(m_intent == MOVE_INTENT_RUN)
+				adjust_nutrition(-(hunger_drain * 0.1))
 		if(HAS_TRAIT(src, TRAIT_FAT) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 

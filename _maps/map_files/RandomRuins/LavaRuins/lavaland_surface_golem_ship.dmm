@@ -46,7 +46,7 @@
 	dir = 4;
 	icon_state = "burst_l"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
 "cr" = (
 /turf/template_noop,
@@ -270,7 +270,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
 "wN" = (
 /obj/effect/turf_decal/tiles/white/side{

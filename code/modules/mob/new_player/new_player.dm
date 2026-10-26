@@ -569,7 +569,6 @@
 		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
-	mind.autohiss_mode = client.prefs.active_character.autohiss_mode
 	mind.set_original_mob(new_character)
 	mind.transfer_to(new_character)
 

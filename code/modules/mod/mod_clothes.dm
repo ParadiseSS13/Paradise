@@ -21,8 +21,6 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 	)
-	can_have_hats = TRUE
-	can_be_hat = FALSE // This.. shouldnt even be possible but any hat that can have hats shouldnt be able to be a hat hat
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"

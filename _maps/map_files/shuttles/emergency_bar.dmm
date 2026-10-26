@@ -464,7 +464,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/spawner/random/instrument/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "mj" = (

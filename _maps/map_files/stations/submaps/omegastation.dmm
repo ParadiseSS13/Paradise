@@ -112,9 +112,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "bL" = (
-/obj/machinery/camera/autoname{
-	network = list("SS13", "Engineering")
-	},
+/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -682,9 +680,7 @@
 "la" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/camera/autoname{
-	network = list("SS13", "Engineering")
-	},
+/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -976,8 +972,7 @@
 /area/station/engineering/control)
 "qv" = (
 /obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("SS13", "Engieneering")
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1678,9 +1673,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/camera/autoname{
-	network = list("SS13", "Engineering")
-	},
+/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -2037,7 +2030,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Supermatter Chamber";
-	network = list("engine", "Engineering");
+	network = list("engine");
 	pixel_x = 23
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -2492,16 +2485,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk/black,
-/area/station/engineering/engine/reactor)
-"Oa" = (
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("SS13", "Engineering")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Ov" = (
 /obj/machinery/atmospherics/trinary/filter{
@@ -3847,7 +3830,7 @@ ia
 kU
 sb
 Zn
-Oa
+qv
 Ds
 Ph
 qL

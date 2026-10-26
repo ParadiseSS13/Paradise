@@ -10,8 +10,7 @@ SUBSYSTEM_DEF(throwing)
 	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
 
-	/// Not null by default, since `/datum/thrownthing/Destroy()` removes from this and can run during init, before `fire()` has set it.
-	var/list/currentrun = list()
+	var/list/currentrun
 	var/list/processing = list()
 
 	/// How many throw impact sounds have happened this tick.

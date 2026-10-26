@@ -417,7 +417,7 @@
 
 /obj/item/reagent_containers/cooking/deep_basket/update_overlays()
 	. = ..()
-	if(frying && istype(loc, /obj/machinery/cooking/deepfryer))
+	if(frying)
 		. += image(icon = icon, icon_state = "fryerbasket_on")
 
 /obj/item/reagent_containers/cooking/grill_grate

@@ -52,7 +52,6 @@
 	if(surface && surface.container)
 		user.put_in_hands(surface.container)
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
-		surface.container.surface = null
 		surface.container = null
 		update_appearance(UPDATE_ICON)
 

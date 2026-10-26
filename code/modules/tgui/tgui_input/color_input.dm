@@ -82,7 +82,7 @@
  */
 /datum/tgui_input_color/proc/wait()
 	while(!choice && !closed && !QDELETED(src))
-		stoplag()
+		stoplag(1)
 
 /datum/tgui_input_color/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

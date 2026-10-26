@@ -1,6 +1,6 @@
 /datum/action/cooldown/flock/radio_blast
 	name = "Radio Stun Burst"
-	desc = "Overwhelm the radio headsets of everyone within 3m of your target, knocking them down and confusing them. Will not work on broken or non-existent headsets."
+	desc = "Overwhelm the radio headsets of everyone within 3m of your target. Will not work on broken or non-existent headsets."
 	button_icon_state = "radio_stun"
 	cooldown_time = 20 SECONDS
 	click_to_activate = TRUE

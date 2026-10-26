@@ -1,6 +1,6 @@
 /datum/action/cooldown/flock/create_rift
 	name = "Spawn Rift"
-	desc = "Spawn an rift where you are. A number of drones and flockbits will emerge, alongside a pulse of gnesis conversion. From there, begin your work to assemble the relay."
+	desc = "Spawn an rift where you are, and from there, begin."
 	button_icon_state = "spawn_egg"
 
 /datum/action/cooldown/flock/create_rift/is_valid_target(atom/cast_on)

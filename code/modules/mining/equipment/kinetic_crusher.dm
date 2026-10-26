@@ -242,7 +242,6 @@
 	desc = "A strange spike with no usage."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "tail_spike"
-	new_attack_chain = TRUE
 	var/bonus_value = 10 //if it has a bonus effect, this is how much that effect is
 	var/denied_type = /obj/item/crusher_trophy
 
@@ -253,10 +252,11 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-/obj/item/crusher_trophy/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/kinetic_crusher))
-		add_to(used, user)
-		return ITEM_INTERACT_COMPLETE
+/obj/item/crusher_trophy/attackby__legacy__attackchain(obj/item/A, mob/living/user)
+	if(istype(A, /obj/item/kinetic_crusher))
+		add_to(A, user)
+	else
+		..()
 
 /obj/item/crusher_trophy/proc/add_to(obj/item/kinetic_crusher/H, mob/living/user)
 	for(var/t in H.trophies)

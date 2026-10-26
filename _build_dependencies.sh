@@ -2,7 +2,7 @@
 # For dreamchecker
 export SPACEMANDMM_TAG="suite-1.11"
 # For TGUI
-export NODE_VERSION="24"
+export NODE_VERSION="20"
 # Stable Byond Major
 export STABLE_BYOND_MAJOR="516"
 # Stable Byond Minor

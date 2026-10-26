@@ -268,8 +268,8 @@
 	if(organ_to_eat)
 		user.drop_item()
 		user.put_in_active_hand(organ_to_eat)
+		organ_to_eat.interact_with_atom(user, user)
 		qdel(src)
-		return organ_to_eat.interact_with_atom(user, user)
 
 /obj/item/organ/internal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!(is_robotic() && istype(used, /obj/item/stack/synthetic_skin)))

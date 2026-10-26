@@ -30,6 +30,11 @@
 
 	//Bloody footprints
 	var/turf/T = get_turf(src)
+	var/obj/item/organ/external/l_foot = get_organ("l_foot")
+	var/obj/item/organ/external/r_foot = get_organ("r_foot")
+	var/hasfeet = TRUE
+	if(!l_foot && !r_foot)
+		hasfeet = FALSE
 
 	if(shoes)
 		if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
@@ -41,9 +46,8 @@
 			if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(shoes, dir, T)
 			update_inv_shoes()
-	else if(bloody_feet && bloody_feet[blood_state])
-		// No feet, no footprints. Only looked up when there's blood, since this runs every step
-		if(get_organ("l_foot") || get_organ("r_foot"))
+	else if(hasfeet)
+		if(bloody_feet && bloody_feet[blood_state])
 			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
 				if(oldFP && oldFP.blood_state == blood_state && oldFP.basecolor == feet_blood_color)
 					return
