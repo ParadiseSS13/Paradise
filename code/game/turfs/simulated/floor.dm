@@ -36,6 +36,43 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	else
 		icon_regular_floor = icon_state
 
+/turf/simulated/floor/attack_hand(mob/user)
+	. = ..()
+	operate_doors(user)
+
+/turf/simulated/floor/attack_ai(mob/user)
+	. = ..()
+	operate_doors(user)
+
+/turf/simulated/floor/attack_robot(mob/user)
+	. = ..()
+	operate_doors(user)
+
+/// Operate (most likely open) doors by clicking on their turf, makes open doors just as easy to use as closed ones.
+/turf/simulated/floor/proc/operate_doors(mob/user)
+	// Don't look any further, there's nothing to examine.
+	if(!contents)
+		return
+
+	// Procs handle their own adjacency/powered/barricaded/etc. checks, no need to do that here.
+	for(var/obj/machinery/door/airlock/airlock in contents)
+		airlock.try_to_activate_door(user)
+		return
+
+	for(var/obj/structure/mineral_door/mineral_door in contents)
+		mineral_door.try_to_operate(user)
+		return
+
+	for(var/obj/machinery/door/firedoor/firedoor in contents)
+		if(!issilicon(user)) // Carbons can't close open firedoors with their bare hands or I'd let them do this here.
+			return
+		firedoor.forcetoggle()
+		return
+
+	for(var/obj/structure/falsewall/falsewall in contents)
+		falsewall.toggle(user)
+		return
+
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
 		return
