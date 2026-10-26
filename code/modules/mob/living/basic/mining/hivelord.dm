@@ -250,8 +250,8 @@
 	. = ..()
 	if(!ishuman(target))
 		return
-	if(target.stat == DEAD && (can_infest_dead || target.mind))
-		infest(target)
+	if((target.stat == DEAD && can_infest_dead) || (target.stat == UNCONSCIOUS && target.get_total_damage > 150))
+		infest(target) // HRD-MDE legion or passed out and 50 points points til hard crit = legion'd
 
 /mob/living/basic/mining/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	if(H?.dna?.species && !H.dna.species.can_be_legion_infested())
