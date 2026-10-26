@@ -104,7 +104,7 @@ Difficulty: Medium
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/L = target
-		if(target.stat == UNCONSCIOUS && target.get_total_damage > 150)
+		if(L.stat == UNCONSCIOUS && L.get_total_damage() > 150)
 			var/mob/living/basic/mining/hivelordbrood/legion/A = new(loc)
 			A.infest(L)
 
