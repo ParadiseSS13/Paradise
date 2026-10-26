@@ -181,6 +181,11 @@
 /obj/proc/hear_talk(mob/M, list/message_pieces)
 	return
 
+/// Tells this object about speech without waiting for it, in case its hear_talk() takes its time
+/obj/proc/hear_talk_no_wait(mob/M, list/message_pieces, verb)
+	set waitfor = FALSE
+	hear_talk(M, message_pieces, verb)
+
 /obj/proc/hear_message(mob/M, text)
 	return
 
