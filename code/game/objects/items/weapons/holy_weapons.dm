@@ -1076,7 +1076,7 @@
 		to_chat(missionary, SPAN_WARNING("You must be wearing the missionary robes you wish to link with this staff."))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/nullrod/missionary_staff/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+/obj/item/nullrod/missionary_staff/ranged_interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
 	if(!ishuman(target))
 		return ..()
 
