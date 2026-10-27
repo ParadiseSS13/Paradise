@@ -1,4 +1,4 @@
-/*
+d/*
 CONTENTS:
 1. Wand of Nothing
 2. Wand of Death
@@ -47,6 +47,7 @@ CONTENTS:
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
+
 	if(target == user)
 		if(no_den_usage)
 			var/area/A = get_area(user)
