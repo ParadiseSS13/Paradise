@@ -60,7 +60,6 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/exploitable_info = ""
 	var/lying_prev = 0
 	var/lastpuke = 0
 	var/list/languages = list()         // For speaking/listening.

@@ -85,13 +85,6 @@
 			active_character.gen_record = genmsg
 			active_character.SetRecords(user)
 
-		if(href_list["task"] == "exploitable_info")
-			var/expmsg = tgui_input_text(usr, "Set your exploitable info here.", "Exploitable Info", active_character.exploitable_info, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
-			if(isnull(expmsg))
-				return
-			active_character.exploitable_info = expmsg
-			active_character.SetRecords(user)
-
 	switch(href_list["task"])
 		if("random")
 			var/datum/robolimb/robohead
