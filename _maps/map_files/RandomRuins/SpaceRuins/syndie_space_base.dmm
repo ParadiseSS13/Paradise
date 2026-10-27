@@ -2931,7 +2931,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/closet/crate/cookware,
+/obj/structure/closet/crate/catering/cookware,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_space_base/service)

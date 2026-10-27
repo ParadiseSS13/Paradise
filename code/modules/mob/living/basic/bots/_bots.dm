@@ -362,6 +362,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot/AltClick(mob/user, modifiers)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	unlock_with_id(user)
 
 /mob/living/basic/bot/proc/unlock_with_id(mob/living/user)

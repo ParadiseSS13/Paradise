@@ -712,4 +712,4 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot
-	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
+	mobtype = /mob/living/basic/abandoned_minebot
