@@ -277,10 +277,10 @@
 			underlays += image('icons/obj/doors/doorfire.dmi', "north_wall_underlay")
 	else
 		if(!operating && !density)
-			. += image('icons/obj/doors/doorfire.dmi', "door_open_underlay")
+			underlays += image('icons/obj/doors/doorfire.dmi', "door_open_underlay")
 			if(light && !(locate(/obj/machinery/door/airlock) in loc))
-				. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlight_underlay_lightmask")
-				. += image('icons/obj/doors/doorfire.dmi', "alarmlight_underlay")
+				underlays += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlight_underlay_lightmask")
+				underlays += image('icons/obj/doors/doorfire.dmi', "alarmlight_underlay")
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
