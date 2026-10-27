@@ -217,7 +217,7 @@
 	name = "Radiation Protection Module"
 	id = "mod_rad_protection"
 	req_tech = list("materials" = 4, "magnets" = 4, "combat" = 5)
-	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
+	materials = list(MAT_IRIDIUM = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/rad_protection
 
 /datum/design/module/mod_emp_shield
@@ -347,6 +347,13 @@
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/active_sonar
+
+/datum/design/module/mod_springlock
+	name = "Springlock Module"
+	id = "mod_springlock"
+	req_tech = list("engineering" = 4, "combat" = 4, "syndicate" = 3)
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/springlock
 
 /datum/design/module/pathfinder
 	name = "Pathfinder Module"

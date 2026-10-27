@@ -219,6 +219,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DSRD"
 	item = /obj/item/dualsaber
 	cost = 60
+	can_discount = FALSE // Already discounted by buying in bulk.
 
 /datum/uplink_item/dangerous/snakefang
 	name = "Snakesfang"
@@ -474,6 +475,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ANG"
 	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	cost = 40
+	excludefrom = list()
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and bio-chip implanter Kit"
@@ -702,6 +704,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CFOAM"
 	item = /obj/item/gun/projectile/c_foam_launcher
 	cost = 25
+	excludefrom = list()
 
 /datum/uplink_item/device_tools/tar_spray
 	name = "Sticky Tar Applicator"

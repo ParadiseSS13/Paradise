@@ -105,7 +105,7 @@
  */
 /datum/tgui_alert/proc/wait()
 	while(!choice && !closed && !QDELETED(src))
-		stoplag(1)
+		stoplag()
 
 /datum/tgui_alert/ui_state(mob/user)
 	return state

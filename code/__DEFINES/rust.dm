@@ -154,6 +154,12 @@
 /proc/rustlibs_generate_uuid()
 	return RUSTLIB_CALL(misc_new_uuid)
 
+/proc/rustlibs_unix_timestamp()
+	return RUSTLIB_CALL(misc_unix_timestamp)
+
+/proc/rustlibs_ed25519_sign(key, message)
+	return RUSTLIB_CALL(misc_ed25519_sign, key, message)
+
 // MARK: TOML
 /proc/rustlibs_read_toml_file(path)
 	var/list/output = json_decode(RUSTLIB_CALL(toml_file_to_json, path) || "null")
@@ -316,6 +322,10 @@
 #define MILLA_INTERESTING_REASON_HOT		(1 << 1)
 /// Interesting because it has wind that can push stuff around.
 #define MILLA_INTERESTING_REASON_WIND		(1 << 2)
+/// Interesting because water condensed on it this tick.
+#define MILLA_INTERESTING_REASON_WET		(1 << 3)
+/// Interesting because water condensed on it this tick and froze.
+#define MILLA_INTERESTING_REASON_ICY		(1 << 4)
 
 #define MILLA_NORTH	(1 << 0)
 #define MILLA_EAST	(1 << 1)

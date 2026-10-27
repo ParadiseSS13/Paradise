@@ -38,6 +38,7 @@
 
 /mob/living/basic/mining/hivelord/space
 	brood_type = /mob/living/basic/mining/hivelordbrood/space
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/hivelord/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
@@ -107,6 +108,7 @@
 		return TRUE
 
 /mob/living/basic/mining/hivelordbrood/space
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/hivelordbrood/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE

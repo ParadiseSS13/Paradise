@@ -167,7 +167,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(shock(user, 50))
 		return
 	if(strengthened)
-		to_chat(user, "<span class = 'danger'>The cable resists your attempts to cut it!")
+		to_chat(user, SPAN_DANGER("The cable resists your attempts to cut it!"))
 		return
 	user.visible_message("[user] cuts the cable.", SPAN_NOTICE("You cut the cable."))
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
@@ -371,10 +371,10 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(d2&(d2-1)) //diagonal direction, must check the 4 possibles adjacents tiles
 		T = get_step(src, d2 & (NORTH|SOUTH)) // go north/south
 		if(T)
-			. += T.power_list(src, FLIP_DIR_VERTICALLY(d1)) //get diagonally matching cables
+			. += T.power_list(src, FLIP_DIR_VERTICALLY(d2)) //get diagonally matching cables
 		T = get_step(src, d2 & (EAST|WEST)) // go east/west
 		if(T)
-			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1)) //get diagonally matching cables
+			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d2)) //get diagonally matching cables
 	T = get_turf(src)
 	. += T.power_list(src, d2) //get on turf matching cables
 
@@ -394,14 +394,15 @@ By design, d1 is the smallest direction and d2 is the highest
 
 // cut the cable's powernet at this cable and updates the powergrid
 /obj/structure/cable/proc/cut_cable_from_powernet(remove = TRUE)
-	var/turf/T1 = get_turf(src)
+	var/turf/our_turf = get_turf(src)
+	var/turf/T1 = our_turf
 	var/list/P_list
 	if(!T1)
 		return
 	if(d1) //if d1 is not a node
 		T1 = get_step(T1, d1)
 		P_list = T1.power_list(src, turn(d1, 180), cable_only = TRUE)	// what adjacently joins on to cut cable...
-	P_list += T1.power_list(loc, d1, cable_only = TRUE) //... and on turf
+	P_list += our_turf.power_list(src, d1, cable_only = TRUE) //... and on turf
 	if(!length(P_list))//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
 
@@ -480,6 +481,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	connect_type = CABLE_HIGH_POWER
 	cable_coil_type = /obj/item/stack/cable_coil/extra_insulated
 	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
+	color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0)
+
+/obj/structure/cable/extra_insulated/Initialize(mapload)
+	. = ..()
+	color = null
 
 /// A pre unlocked bridge cable for mapping
 /obj/structure/cable/extra_insulated/pre_connect

@@ -1,4 +1,4 @@
-# TODO: This file reads the WHOLE codebase, this should be done at the same time as other operations that read the whole codebase, like check_grep2
+# TODO: This file reads the WHOLE codebase, this should be done at the same time as other operations that read the whole codebase, like test_grep
 
 import glob
 import sys

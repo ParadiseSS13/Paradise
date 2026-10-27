@@ -172,6 +172,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 12),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/short_circuit, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/grid_check, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 10, TRUE),
@@ -199,7 +200,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/anomalous_particulate_event, 60, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/market_crash, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3),
+		// new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3), // Out of Rotation for now, current version does not work as an event.
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_irradiated_mouse, 20),
 	)
 
