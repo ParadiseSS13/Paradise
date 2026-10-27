@@ -3195,7 +3195,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "Pm" = (
-/obj/item/ai_module/toy_ai,
+/obj/item/toy/ai,
 /turf/template_noop,
 /area/template_noop)
 "Po" = (
