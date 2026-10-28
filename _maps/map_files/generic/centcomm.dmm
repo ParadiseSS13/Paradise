@@ -12118,9 +12118,7 @@
 	},
 /area/holodeck/source_desert)
 "OU" = (
-/obj/structure/toilet/directional/north{
-	dir = 2
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
