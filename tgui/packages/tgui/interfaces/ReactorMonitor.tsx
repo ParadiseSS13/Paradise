@@ -59,10 +59,6 @@ interface FissionReactorData {
 type DataHistory = {
   generation: number[];
 };
-function roundToDecimal(num: number, decimalPlaces: number): number {
-  const factor = Math.pow(10, decimalPlaces);
-  return Math.round(num * factor) / factor;
-}
 
 export const ReactorMonitor = (props) => {
   const logScale = (value: number): number => Math.log2(16 + Math.max(0, value)) - 4;
@@ -100,39 +96,46 @@ export const ReactorMonitor = (props) => {
   const generation = NGCR_history.generation[NGCR_history.generation.length - 1] || 0;
   const powerData = NGCR_history.generation.map((value, i) => [i, value]);
   const maxValue = Math.max(PEAK_GEN, ...NGCR_history.generation);
+
+  const isMegawatts = NGCR_power >= 2000; // Give it a bit extra leeway before turning over.
+  const displayPower = isMegawatts ? NGCR_power / 1000 : NGCR_power;
+  const powerUnit = isMegawatts ? 'MW' : 'kW';
+
+  const maxOverheatLevel = NGCR_overheat_level * 1.2;
+  const heatDangerZone = NGCR_overheat_level * 0.7;
+
+  const overPressureLevel = NGCR_overpressure_level * 1.2;
+  const pressureDangerZone = NGCR_overpressure_level * 0.7;
+
   return (
     <Window width={725} height={875}>
       <Window.Content>
         <Stack height="200px">
           <Stack.Item width="50%" minHeight="140px" minWidth="200px">
-            <Section fill scrollable title="Power Metrics">
+            <Section fill title="Power Metrics">
               <ProgressBar
                 value={NGCR_power}
                 minValue={0}
                 maxValue={2000}
-                ranges={
-                  NGCR_power <= 10000
-                    ? {
-                        blue: [1000, Infinity],
-                        good: [400, 1000],
-                        average: [200, 400],
-                        bad: [-Infinity, 200],
-                      }
-                    : {
-                        good: [-Infinity, Infinity],
-                      }
-                }
+                ranges={{
+                  blue: [2000, Infinity],
+                  good: [400, 2000],
+                  average: [200, 400],
+                  bad: [-Infinity, 200],
+                }}
               >
-                {toFixed(NGCR_power < 10000 ? NGCR_power : NGCR_power / 1000) + (NGCR_power < 10000 ? ' KW' : ' MW')}
+                {`${toFixed(displayPower)} ${powerUnit}`}
               </ProgressBar>
-              <Chart.Line
-                fillPositionedParent
-                data={powerData}
-                rangeX={[0, powerData.length - 1]}
-                rangeY={[0, maxValue]}
-                strokeColor="rgba(32, 177, 66, 1)"
-                fillColor="rgba(32, 177, 66, 0.25)"
-              />
+              <Section fill style={{ paddingTop: '8px' }}>
+                <Chart.Line
+                  fillPositionedParent
+                  data={powerData}
+                  rangeX={[0, powerData.length - 1]}
+                  rangeY={[0, maxValue]}
+                  strokeColor="rgba(32, 177, 66, 1)"
+                  fillColor="rgba(32, 177, 66, 0.25)"
+                />
+              </Section>
             </Section>
           </Stack.Item>
           <Stack.Item grow basis={0}>
@@ -187,7 +190,7 @@ export const ReactorMonitor = (props) => {
                       average: [1.5, 2],
                       bad: [2, 3],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)}x`}
+                    format={(v) => v.toFixed(2) + 'x'}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Rod Limiter" align-self>
@@ -227,12 +230,12 @@ export const ReactorMonitor = (props) => {
                     size={4}
                     value={NGCR_ambienttemp}
                     minValue={0}
-                    maxValue={NGCR_overheat_level * 1.2}
+                    maxValue={maxOverheatLevel}
                     alertAfter={NGCR_overheat_level}
                     ranges={{
-                      good: [0, NGCR_overheat_level * 0.7],
-                      average: [NGCR_overheat_level * 0.7, NGCR_overheat_level],
-                      bad: [NGCR_overheat_level, NGCR_overheat_level * 1.2],
+                      good: [0, heatDangerZone],
+                      average: [heatDangerZone, NGCR_overheat_level],
+                      bad: [NGCR_overheat_level, maxOverheatLevel],
                     }}
                     format={(v) => `${Math.round(v)} K`}
                   />
@@ -261,12 +264,12 @@ export const ReactorMonitor = (props) => {
                     size={2}
                     value={NGCR_ambientpressure}
                     minValue={0}
-                    maxValue={NGCR_overpressure_level * 1.2}
+                    maxValue={overPressureLevel}
                     alertAfter={NGCR_overpressure_level}
                     ranges={{
-                      good: [0, NGCR_overpressure_level * 0.7],
-                      average: [NGCR_overpressure_level * 0.7, NGCR_overpressure_level],
-                      bad: [NGCR_overpressure_level, NGCR_overpressure_level * 1.2],
+                      good: [0, pressureDangerZone],
+                      average: [pressureDangerZone, NGCR_overpressure_level],
+                      bad: [NGCR_overpressure_level, overPressureLevel],
                     }}
                     format={(v) => `${Math.round(v)} KPA`}
                   />
@@ -282,7 +285,7 @@ export const ReactorMonitor = (props) => {
                       blue: [5, 20],
                       purple: [20, 30],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)}x`}
+                    format={(v) => v.toFixed(2) + 'x'}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Waste" align-self>
@@ -296,7 +299,7 @@ export const ReactorMonitor = (props) => {
                       blue: [25, 40],
                       purple: [40, 50],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)} mols`}
+                    format={(v) => `${v.toFixed(2)} mols`}
                   />
                 </LabeledControls.Item>
               </LabeledControls>
@@ -319,7 +322,7 @@ export const ReactorMonitor = (props) => {
                       average: [1.3, 2],
                       bad: [2, 3],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)}x`}
+                    format={(v) => v.toFixed(2) + 'x'}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Coolant Efficiency" align-self>
@@ -335,7 +338,7 @@ export const ReactorMonitor = (props) => {
                       average: [0.6, 0.9],
                       bad: [0, 0.6],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)}x`}
+                    format={(v) => v.toFixed(2) + 'x'}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Moderator Degredation" align-self>
@@ -350,7 +353,7 @@ export const ReactorMonitor = (props) => {
                       average: [1.3, 2],
                       bad: [2, 3],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)}x`}
+                    format={(v) => v.toFixed(2) + 'x'}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Moderator Efficiency" align-self>
@@ -366,7 +369,7 @@ export const ReactorMonitor = (props) => {
                       average: [0.6, 0.9],
                       bad: [0, 0.6],
                     }}
-                    format={(v) => `${roundToDecimal(v, 2)}x`}
+                    format={(v) => v.toFixed(2) + 'x'}
                   />
                 </LabeledControls.Item>
               </LabeledControls>
@@ -402,7 +405,7 @@ export const ReactorMonitor = (props) => {
               color="transparent"
               onClick={() =>
                 act('set_throttle', {
-                  NGCR_throttle: NGCR_throttle - 1,
+                  NGCR_throttle: Math.max(0, NGCR_throttle - 1),
                 })
               }
             />
@@ -429,7 +432,7 @@ export const ReactorMonitor = (props) => {
               color="transparent"
               onClick={() =>
                 act('set_throttle', {
-                  NGCR_throttle: NGCR_throttle + 1,
+                  NGCR_throttle: Math.min(100, NGCR_throttle + 1),
                 })
               }
             />
