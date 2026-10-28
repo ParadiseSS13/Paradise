@@ -2,7 +2,7 @@
 	{
 		// Randomly picks an engine to place, keeping engineering on their toes
 		"type": "SubmapExtractInsert",
-		"submap_size_x": 18,
+		"submap_size_x": 19,
 		"submap_size_y": 23,
 		"submap_size_z": 1,
 		"submaps_dmm": "submaps/boxstation.dmm",
