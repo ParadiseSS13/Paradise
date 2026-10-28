@@ -7441,11 +7441,11 @@
 /area/syndicate_mothership)
 "yZ" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
-/obj/machinery/door/airlock/external{
-	name = "Supply Shuttle";
-	opacity = 0
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_away"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
 "zc" = (
@@ -8546,9 +8546,9 @@
 /area/ghost_bar)
 "CM" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/shuttles,
-/obj/machinery/door/airlock/external{
-	name = "Supply Shuttle";
-	opacity = 0
+/obj/machinery/door/airlock/external/glass{
+	name = "Cargo Docking Hatch";
+	id_tag = "supply_away"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
