@@ -1,6 +1,3 @@
-/// The gases should_scrub() looks for no matter how the scrubber is set up
-#define ALWAYS_SCRUBBED_GASES (MILLA_WATCHED_GAS_SLEEPING_AGENT | MILLA_WATCHED_GAS_AGENT_B | MILLA_WATCHED_GAS_HYDROGEN | MILLA_WATCHED_GAS_WATER_VAPOR)
-
 /obj/machinery/atmospherics/unary/vent_scrubber
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it."
@@ -136,12 +133,9 @@
 
 	if(scrubbing && !widenet)
 		// MILLA already told us which gases are on this tile, so a scrubber with nothing to scrub doesn't have to read its air.
-		var/offset = watched_tile_offset(T)
-		if(!isnull(offset))
-			var/gases = SSair.watched_tiles[offset + MILLA_WATCHED_GASES]
-			// Same gases as should_scrub()
-			if(!(gases & ALWAYS_SCRUBBED_GASES) && !(scrub_O2 && (gases & MILLA_WATCHED_GAS_OXYGEN)) && !(scrub_N2 && (gases & MILLA_WATCHED_GAS_NITROGEN)) && !(scrub_CO2 && (gases & MILLA_WATCHED_GAS_CARBON_DIOXIDE)) && !(scrub_Toxins && (gases & MILLA_WATCHED_GAS_TOXINS)))
-				return
+		var/gases = watched_tile_value(T, MILLA_WATCHED_GASES)
+		if(!isnull(gases) && !scrubs_any(gases))
+			return
 
 	scrub(loc)
 	if(widenet)
@@ -167,21 +161,45 @@
 	milla.invoke_async(src, tile)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/should_scrub(datum/gas_mixture/environment)
-	if(scrub_O2 && environment.oxygen() > 0.001)
-		return TRUE
-	if(scrub_N2 && environment.nitrogen() > 0.001)
-		return TRUE
-	if(scrub_CO2 && environment.carbon_dioxide() > 0.001)
-		return TRUE
-	if(scrub_Toxins && environment.toxins() > 0.001)
-		return TRUE
+	return scrubs_any(gases_present(environment))
+
+/// Which gases this air has enough of to scrub, as the same MILLA_WATCHED_GAS_* bits MILLA gives us
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/gases_present(datum/gas_mixture/environment)
+	. = 0
+	if(environment.oxygen() > 0.001)
+		. |= MILLA_WATCHED_GAS_OXYGEN
+	if(environment.carbon_dioxide() > 0.001)
+		. |= MILLA_WATCHED_GAS_CARBON_DIOXIDE
+	if(environment.nitrogen() > 0.001)
+		. |= MILLA_WATCHED_GAS_NITROGEN
+	if(environment.toxins() > 0.001)
+		. |= MILLA_WATCHED_GAS_TOXINS
 	if(environment.sleeping_agent() > 0.001)
-		return TRUE
+		. |= MILLA_WATCHED_GAS_SLEEPING_AGENT
 	if(environment.agent_b() > 0.001)
-		return TRUE
+		. |= MILLA_WATCHED_GAS_AGENT_B
 	if(environment.hydrogen() > 0.001)
-		return TRUE
+		. |= MILLA_WATCHED_GAS_HYDROGEN
 	if(environment.water_vapor() > 0.001)
+		. |= MILLA_WATCHED_GAS_WATER_VAPOR
+
+/// Whether we'd scrub any of these gases, given as MILLA_WATCHED_GAS_* bits
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrubs_any(gases)
+	if(scrub_O2 && (gases & MILLA_WATCHED_GAS_OXYGEN))
+		return TRUE
+	if(scrub_N2 && (gases & MILLA_WATCHED_GAS_NITROGEN))
+		return TRUE
+	if(scrub_CO2 && (gases & MILLA_WATCHED_GAS_CARBON_DIOXIDE))
+		return TRUE
+	if(scrub_Toxins && (gases & MILLA_WATCHED_GAS_TOXINS))
+		return TRUE
+	if(gases & MILLA_WATCHED_GAS_SLEEPING_AGENT)
+		return TRUE
+	if(gases & MILLA_WATCHED_GAS_AGENT_B)
+		return TRUE
+	if(gases & MILLA_WATCHED_GAS_HYDROGEN)
+		return TRUE
+	if(gases & MILLA_WATCHED_GAS_WATER_VAPOR)
 		return TRUE
 
 	return FALSE
@@ -299,5 +317,3 @@
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer."))
-
-#undef ALWAYS_SCRUBBED_GASES
