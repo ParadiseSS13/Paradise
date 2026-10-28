@@ -930,13 +930,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
-"dz" = (
-/obj/effect/turf_decal/tiles/jobs/bar/checker,
-/obj/item/storage/fancy/cigars{
-	pixel_y = 8
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel,
+"dy" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "dA" = (
 /obj/structure/flora/tree/dead,
@@ -1275,8 +1272,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "eW" = (
-/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/structure/sink/kitchen/directional/west,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "eX" = (
@@ -2775,6 +2772,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"jI" = (
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "jJ" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/dark,
@@ -2906,11 +2910,6 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
-"kd" = (
-/obj/machinery/economy/vending/cola,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/wood,
-/area/tdome/tdomeobserve)
 "ke" = (
 /obj/mecha/combat/gygax/dark/loaded,
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -3639,9 +3638,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "mr" = (
-/obj/machinery/shower/directional/south,
-/obj/structure/curtain/open/shower/centcom,
 /obj/item/soap/deluxe,
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/noslip,
 /area/centcom/evac)
 "ms" = (
@@ -4422,6 +4421,14 @@
 /obj/machinery/cooking/deepfryer/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"oL" = (
+/obj/structure/chair,
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "oN" = (
 /obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/plasteel/dark,
@@ -5052,7 +5059,10 @@
 /turf/simulated/wall/indestructible,
 /area/ghost_bar)
 "qS" = (
-/obj/item/kirbyplants/large,
+/obj/item/flag,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "qT" = (
@@ -5652,10 +5662,10 @@
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "sT" = (
-/obj/structure/table/wood,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
-/obj/machinery/reagentgrinder/upgraded{
-	pixel_y = 6
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
@@ -6949,14 +6959,14 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "xd" = (
-/obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ants,
-/obj/item/clothing/suit/cardborg{
-	pixel_y = -6
-	},
+/obj/structure/chair/old,
 /obj/item/clothing/head/cardborg{
 	pixel_y = 12
+	},
+/obj/item/clothing/suit/cardborg{
+	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -6990,6 +7000,12 @@
 /obj/structure/chair/sofa/bench,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"xi" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "xj" = (
 /obj/structure/flora/tree/pine{
 	pixel_x = 1
@@ -7302,11 +7318,6 @@
 /obj/effect/turf_decal/tiles/department/security/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"yu" = (
-/obj/machinery/economy/vending/snack,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/wood,
-/area/tdome/tdomeobserve)
 "yv" = (
 /obj/structure/dresser,
 /obj/machinery/light/small,
@@ -7710,6 +7721,14 @@
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"Ab" = (
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/structure/table/wood,
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/tdomeobserve)
 "Ac" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/radio/uplink/admin{
@@ -8163,6 +8182,13 @@
 /obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"BI" = (
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "BJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -8299,6 +8325,7 @@
 	network = list("Thunderdome")
 	},
 /obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "Ch" = (
@@ -8468,10 +8495,10 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "CG" = (
-/obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/newscaster/directional/north,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "CH" = (
@@ -8497,9 +8524,10 @@
 	pixel_x = 24;
 	req_access = list(101)
 	},
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/white/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "CK" = (
@@ -8592,6 +8620,13 @@
 /obj/structure/marker_beacon/dock_marker,
 /turf/space,
 /area/space/centcomm)
+"Dc" = (
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "Dd" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space_ninja,
@@ -8748,6 +8783,12 @@
 /obj/effect/turf_decal/tiles/department/cargo/side,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
+"DF" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/control)
 "DG" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -8927,8 +8968,8 @@
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
 "Er" = (
-/obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/machinery/economy/vending/cigarette/beach/centcomm,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Es" = (
@@ -9158,12 +9199,12 @@
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 4
 	},
-/obj/machinery/shower/directional/south,
-/obj/structure/curtain/open/shower/centcom,
 /obj/item/soap/deluxe{
 	pixel_x = -3;
 	pixel_y = -2
 	},
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/noslip,
 /area/centcom/evac)
 "Fp" = (
@@ -9684,6 +9725,9 @@
 	pixel_y = 32
 	},
 /obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "GU" = (
@@ -10001,6 +10045,13 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"Ib" = (
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "Ic" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -10026,6 +10077,7 @@
 "If" = (
 /obj/structure/chair,
 /obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "Ig" = (
@@ -10382,10 +10434,12 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Jq" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/shell/beanbag,
+/obj/item/storage/fancy/shell/beanbag{
+	pixel_y = 12
+	},
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Jr" = (
@@ -11243,6 +11297,10 @@
 /obj/item/storage/box/trackimp,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Mo" = (
+/obj/item/flag,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/control)
 "Mp" = (
 /obj/structure/mirror{
 	pixel_x = 32
@@ -11574,14 +11632,14 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "Nu" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 8
+	},
+/obj/structure/chair/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
@@ -11718,6 +11776,18 @@
 /obj/machinery/power/port_gen/pacman/super/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"NV" = (
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Thunderdome.";
+	name = "Thunderdome Telescreen";
+	network = list("Thunderdome")
+	},
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "NX" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ghost_bar)
@@ -11845,9 +11915,10 @@
 /area/wizard_station)
 "Op" = (
 /obj/effect/landmark/spawner/tdomeobserve,
-/obj/effect/turf_decal/tiles/department/chemistry,
-/obj/effect/turf_decal/tiles/department/security/checker,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "Or" = (
 /obj/item/flag/sec,
@@ -12111,6 +12182,11 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/tdomeadmin)
+"Pe" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/economy/vending/cola/free,
+/turf/simulated/floor/wood,
+/area/tdome/tdomeobserve)
 "Pg" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/oxygen,
@@ -12183,6 +12259,13 @@
 	dir = 1
 	},
 /area/ghost_bar)
+"Pr" = (
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "Ps" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
@@ -12329,6 +12412,13 @@
 /obj/structure/table/tray,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
+"PO" = (
+/obj/effect/landmark/spawner/tdomeobserve,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "PP" = (
 /obj/structure/railing{
 	dir = 4
@@ -12888,13 +12978,6 @@
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
-"RG" = (
-/obj/item/flag/command,
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "RH" = (
 /obj/structure/sign/public/restroom{
 	pixel_y = -32
@@ -12942,9 +13025,10 @@
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "RP" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/white/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/medical/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "RQ" = (
@@ -38416,8 +38500,8 @@ vV
 iJ
 iJ
 xL
-BT
-Op
+BI
+Ib
 Op
 kg
 bG
@@ -38655,14 +38739,14 @@ JZ
 qS
 ZC
 ZC
-RG
 Ui
 Ui
 Ui
-RG
+Ui
+Ui
 ZC
 ZC
-ZC
+Mo
 YA
 MO
 GF
@@ -38674,7 +38758,7 @@ XE
 FS
 ZT
 GT
-Op
+BT
 If
 kg
 Nf
@@ -38909,7 +38993,7 @@ sk
 sk
 sk
 co
-ZC
+DF
 ZC
 Qx
 Qx
@@ -38930,8 +39014,8 @@ YE
 WG
 YE
 ZT
-If
-Op
+oL
+BT
 If
 kg
 No
@@ -39166,7 +39250,7 @@ Jn
 xI
 xI
 Jn
-ZC
+DF
 TY
 YN
 YN
@@ -39187,8 +39271,8 @@ Ky
 Ky
 Ky
 GK
-Cg
-Op
+NV
+BT
 Cg
 kg
 rQ
@@ -39444,8 +39528,8 @@ st
 om
 Ri
 ZT
-If
-Op
+oL
+BT
 If
 kg
 rQ
@@ -39690,7 +39774,7 @@ Xq
 Yl
 YN
 ID
-ZC
+EU
 YA
 YA
 YA
@@ -39701,8 +39785,8 @@ Ky
 Ky
 Ky
 ZT
-If
-Op
+oL
+BT
 If
 kg
 rQ
@@ -39958,8 +40042,8 @@ oS
 oS
 QG
 ZT
-If
-Op
+oL
+BT
 If
 kg
 rQ
@@ -40208,15 +40292,15 @@ EU
 DY
 EV
 DY
-Xb
+xi
 Xb
 Xb
 Xb
 Xb
 RR
 xL
+Pr
 BT
-Op
 If
 kg
 rQ
@@ -40472,8 +40556,8 @@ pb
 pb
 tT
 ZT
-If
-Op
+oL
+BT
 If
 kg
 rQ
@@ -40718,7 +40802,7 @@ Gt
 Yy
 YN
 ID
-ZC
+EU
 YA
 YA
 YA
@@ -40729,8 +40813,8 @@ Ky
 Ky
 Ky
 ZT
-If
-Op
+oL
+BT
 If
 kg
 rQ
@@ -40986,8 +41070,8 @@ gb
 mV
 WO
 ZT
-If
-Op
+oL
+BT
 If
 kg
 rQ
@@ -41243,8 +41327,8 @@ Ky
 Ky
 Ky
 GK
-Cg
-Op
+NV
+BT
 Cg
 kg
 rQ
@@ -41501,7 +41585,7 @@ YE
 WG
 ZT
 GT
-Op
+BT
 If
 kg
 No
@@ -41736,7 +41820,7 @@ YA
 CK
 Fy
 YA
-qS
+Mo
 ZC
 ZC
 CJ
@@ -41746,7 +41830,7 @@ RP
 RP
 ZC
 ZC
-qS
+Mo
 YA
 GC
 ZC
@@ -41757,8 +41841,8 @@ rz
 PP
 Ns
 ZT
-If
-Op
+oL
+BT
 If
 kg
 Nf
@@ -42014,9 +42098,9 @@ sT
 Tf
 Tf
 xL
-BT
-Op
-Op
+jI
+Dc
+PO
 kg
 bG
 rQ
@@ -42520,7 +42604,7 @@ YN
 YN
 YA
 IX
-ZC
+Qx
 Qk
 FE
 ZT
@@ -42781,7 +42865,7 @@ Bw
 Ut
 YA
 GK
-dz
+Tf
 Tf
 Tf
 Tf
@@ -43034,14 +43118,14 @@ fe
 xv
 sc
 An
-Zx
+An
 ve
 YA
 Er
 Tf
 Tf
 Tf
-Tf
+Ab
 ib
 zF
 kY
@@ -43296,12 +43380,12 @@ hZ
 YA
 ZT
 ZT
-ZT
-ZT
 Fs
 ZT
 ZT
 GK
+ZT
+ZT
 ZT
 Ta
 rQ
@@ -43551,14 +43635,14 @@ Zx
 Zx
 oF
 YA
-aN
-ZT
-yu
+dy
 XU
 XU
 XU
 XY
 ZT
+aN
+aN
 aN
 Ta
 rQ
@@ -43808,14 +43892,14 @@ Zx
 Zx
 zd
 YA
-aN
-ZT
-kd
+Pe
 HO
 rs
 Vl
 XU
 ZT
+aN
+aN
 aN
 Ta
 Ox
@@ -44065,14 +44149,14 @@ Zx
 Zx
 wK
 YA
-aN
-ZT
 XU
 vq
 nG
 Pl
 XU
 ZT
+aN
+aN
 aN
 Ta
 Yt
@@ -44322,14 +44406,14 @@ Zx
 Zx
 jd
 YA
-aN
-ZT
 XU
 vq
 rT
 Pl
 XU
 ZT
+aN
+aN
 aN
 Ta
 Ta
@@ -44579,14 +44663,14 @@ er
 rK
 vb
 YA
-aN
-ZT
 XU
 PX
 wG
 QF
 XU
 ZT
+aN
+aN
 aN
 aN
 aN
@@ -44836,14 +44920,14 @@ YA
 YN
 YN
 YA
+XU
+XU
+XU
+XU
+XU
+ZT
 aN
-ZT
-XU
-XU
-XU
-XU
-XU
-ZT
+aN
 aN
 aN
 aN
@@ -45093,14 +45177,14 @@ Hg
 fW
 ea
 YA
+XY
+FU
+XY
+FU
+XY
+ZT
 aN
-ZT
-XY
-FU
-XY
-FU
-XY
-ZT
+aN
 aN
 aN
 aN
@@ -45356,9 +45440,9 @@ Hg
 Hg
 Hg
 Hg
-Hg
-Hg
-Hg
+Hh
+Hh
+Hh
 Hg
 Db
 aN
@@ -46382,8 +46466,8 @@ Ng
 vh
 Ng
 pA
+qF
 Ua
-Ny
 zt
 xh
 uO
@@ -48438,8 +48522,8 @@ Ng
 Ng
 Ng
 pA
+qF
 Ua
-Ny
 zt
 xh
 uO
@@ -49466,11 +49550,11 @@ Hb
 XN
 oh
 Hg
-Hh
-Hh
-Hh
-Hh
 Hg
+Hg
+Hh
+Hh
+Hh
 Hg
 Db
 aN
