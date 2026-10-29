@@ -250,8 +250,9 @@
 	. = ..()
 	if(!ishuman(target))
 		return
-	if((target.stat == DEAD && can_infest_dead) || target.stat == UNCONSCIOUS)
-		infest(target)
+	var/mob/living/human_target = target // i hate this language sometimes, why cant ishuman just recast it : (
+	if((human_target.stat == DEAD && can_infest_dead) || (human_target.stat == UNCONSCIOUS && human_target.get_total_damage() > 150))
+		infest(target) // HRD-MDE legion or passed out and 50 points points til hard crit = legion'd
 
 /mob/living/basic/mining/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	if(H?.dna?.species && !H.dna.species.can_be_legion_infested())
@@ -332,6 +333,8 @@
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 		var/armor = L.run_armor_check(def_zone = limb_to_hit, armor_type = MELEE, armor_penetration_percentage = 50)
 		L.apply_damage(40, BRUTE, limb_to_hit, armor)
+	var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
+	changeNext_move(melee_attack_cooldown)
 
 // Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton

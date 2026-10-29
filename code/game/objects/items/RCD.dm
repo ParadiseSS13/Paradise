@@ -690,7 +690,7 @@
  * Creates a delayed explosion centered around the RCD.
  */
 /obj/item/rcd/proc/detonate_pulse()
-	audible_message(SPAN_DANGER("<b>[src] begins to vibrate and buzz loudly!</b>"), SPAN_DANGER("<b>[src] begins vibrating violently!</b>"))
+	audible_message(SPAN_DANGER("<b>[src] begins to vibrate and buzz loudly!</b>"), deaf_message = SPAN_DANGER("<b>[src] begins vibrating violently!</b>"))
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
