@@ -1615,6 +1615,72 @@
 				</html>
 		"})
 
+/obj/item/book/manual/shipwright_basics
+	name = "Podbuilding 101"
+	desc = "Instructions on how to build your first space pod."
+	icon_state = "sop_engineering"
+	author = "Nanotrasen"
+	title = "Podbuilding 101"
+	pages = list({"<html>
+		<head>
+		<style>
+		li {margin: 2px 0px 2px 15px;}
+		ul {list-style: none; margin: 5px; padding: 0px;}
+		ol {margin: 5px; padding: 0px 15px;}
+		</style>
+		</head>
+		<body>
+		<h1><U><B>Podbuilding 101</B></U></h1><BR>
+		<p>
+			This manual provides basic instructions on how to build your first space pod.
+		</p>
+
+		<h2>Required Materials</h2>
+		<p>
+			First, make sure you have the proper materials in your <i>space pod fabricator</i> and <i>pod circuit etcher</i>.
+			You are going to be building two boards -- the main board and peripherals control module -- and several hull parts:
+			<ol>
+				<li>1x hull frame</li>
+				<li>1x hull cockpit</li>
+				<li>2x hull wings</li>
+				<li>2x hull nacelles</li>
+				<li>2x hull engines</li>
+				<li>1x Space Pod Standard plate</li>
+			</ol>
+		</p>
+		</body>
+		</html>"}, {"<html>
+		<head>
+		<style>
+		h1 {font-size: 15px; margin: 15px 0px 5px;}
+		h2 {font-size: 14px; margin: 10px 0px 2px;}
+		li {margin: 2px 0px 2px 15px;}
+		ul {list-style: none; margin: 5px; padding: 0px;}
+		ol {margin: 5px; padding: 0px 15px;}
+		</style>
+		</head>
+		<body>
+		<h2>Instructions</h2>
+
+		<p>Once you have built these parts, drag the <i>hull frame</i> to a clear 3x3 area.</p>
+
+		<p>Install parts onto the <i>hull frame</i> by <i>dragging</i> them onto it. Parts can be installed in any order.</p>
+
+		<p>Once all pod parts are installed onto the frame:</p>
+
+		<ol>
+			<li>Install the main board.</li>
+			<li>Install the peripherals control module.</li>
+			<li>Use <i>15 cable</i> to wire the boards to the hull.</li>
+			<li>Install <i>10 glass</i> into the cockpit.</li>
+			<li><i>Use a wrench</i> to secure the cockpit glass into place.</li>
+			<li>Install the Space Pod Standard plate.</li>
+			<li><i>Use a welder</i> to weld the plating into place.</li>
+		</ol>
+
+		</body>
+		</html>"})
+
  //* MANUAL SPAWNERS *// (and space Law)
 
 /obj/item/book/manual/random

@@ -67,3 +67,41 @@
 		/obj/item/storage/toolbox/emergency,
 		/obj/item/storage/toolbox/artistic,
 	)
+
+/obj/effect/spawner/random/engineering/design_materials
+	name = "Design materials spawner"
+	spawn_all_loot = TRUE
+
+/obj/effect/spawner/random/engineering/design_materials/make_item(spawn_loc, type_path_to_make)
+	var/list/result = list()
+	if(!ispath(type_path_to_make, /datum/design))
+		return
+
+	var/datum/design/D = GLOB.designs_by_type[type_path_to_make]
+
+	for(var/mat_type in D.materials)
+		if(!(mat_type in GLOB.materials_by_id))
+			continue
+		var/datum/material/material_type = GLOB.materials_by_id[mat_type]
+		var/sheet_type = material_type::sheet_type
+		if(!ispath(sheet_type))
+			continue
+		var/obj/item/stack/sheet/sheet = new sheet_type(loc, D.materials[mat_type] / MINERAL_MATERIAL_AMOUNT)
+		result.Add(sheet)
+
+	return result
+
+/obj/effect/spawner/random/engineering/design_materials/pod_materials
+	loot = list(
+		/datum/design/plate_basic,
+		/datum/design/spacepod_main,
+		/datum/design/spacepod_peri,
+		/datum/design/space_pod_wing,
+		/datum/design/space_pod_wing,
+		/datum/design/space_pod_nacelle,
+		/datum/design/space_pod_nacelle,
+		/datum/design/space_pod_engine,
+		/datum/design/space_pod_engine,
+		/datum/design/space_pod_frame,
+		/datum/design/space_pod_cockpit,
+	)

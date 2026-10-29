@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	/obj/machinery/porta_turret,
 	/obj/machinery/power/emitter,
 	/obj/mecha,
+	/obj/tgvehicle/sealed/vectorcraft/spacepod,
 )))
 
 /datum/ai_behavior/find_potential_targets

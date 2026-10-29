@@ -123,3 +123,17 @@
 	new /obj/item/clothing/glasses/meson/engine/atmos(src)
 	new /obj/item/rpd(src)
 	new /obj/item/dest_tagger(src)
+
+/obj/structure/closet/secure_closet/shipwright
+	name = "shipwright's locker"
+	req_access = list(ACCESS_SHIPWRIGHT)
+	icon_state = "eng_secure"
+
+/obj/structure/closet/secure_closet/shipwright/populate_contents()
+	new /obj/item/clothing/under/rank/engineering/engineer(src)
+	new /obj/item/clothing/under/rank/engineering/engineer/skirt(src)
+	new /obj/item/clothing/under/rank/engineering/engineer/overalls(src)
+	new /obj/item/storage/toolbox/mechanical(src)
+	new /obj/item/storage/toolbox/electrical(src)
+	new /obj/item/clothing/head/welding(src)
+	new /obj/item/radio/headset/headset_eng(src)
