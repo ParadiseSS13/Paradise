@@ -254,6 +254,12 @@
 /obj/effect/portal/advanced/kidnap/proc/pass_extraction(mob/living/M)
 	// Handle syndicate barification
 	kidnap_success = TRUE
+	var/obj/item/radio/radio = new
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Security" = 0))
+	radio.autosay("<b>--ZZZT!- There you are, [M]. Let's get you away from those -^%&!-ZZT!-</b>", "Syndicate Operations", "Security")
+	qdel(radio)
 	prepare_ghosting(M)
 
 /obj/effect/portal/advanced/kidnap/proc/prepare_ghosting(mob/living/carbon/human/extractor)
