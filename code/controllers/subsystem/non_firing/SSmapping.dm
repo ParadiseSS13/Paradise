@@ -22,9 +22,6 @@ SUBSYSTEM_DEF(mapping)
 	var/list/existing_station_areas
 	/// Types of areas that exist on the station this shift
 	var/list/existing_station_areas_types
-	/// What lavaland biomes are we generating
-	var/list/lavaland_biomes
-	#warn TODO: change the above
 	/// The type of the Lavaland theme for the next round, if selected.
 	var/next_lavaland_theme
 	/// The type of the current Lavaland theme.
