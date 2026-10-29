@@ -329,7 +329,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
-	set_light(0)
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
@@ -339,7 +338,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
 
+	// After BeforeChange(), so /turf/space/BeforeChange() still sees its starlight and takes itself off GLOB.starlight
 	BeforeChange()
+	set_light(0)
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 
 	var/old_baseturf = baseturf

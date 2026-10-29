@@ -26,7 +26,8 @@
 		return
 
 	var/turf/T = get_turf(src)
-	if(T.blocks_air)
+	// Space is always the same temperature, so there's no need to read its air from MILLA
+	if(T.blocks_air || isspaceturf(T))
 		environment_temperature = T.temperature
 	else
 		var/datum/gas_mixture/environment = T.get_readonly_air()
