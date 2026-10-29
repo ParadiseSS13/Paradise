@@ -80,7 +80,7 @@
 		if(isnull(removed)) // We drew a total vacuum
 			return TRUE
 
-		//Filter it
+		// Filter it
 		var/datum/gas_mixture/filtered_out = new
 		filtered_out.set_temperature(removed.temperature())
 
