@@ -898,13 +898,13 @@
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 
 	else if(job_support_high)
-		var/datum/job/job_datum = SSjobs.define_occupations[job_support_high]
+		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][job_support_high]
 		var/datum/outfit/job_outfit = new job_datum.outfit
 		clothes_s = job_outfit.preview_outfit_icon(current_species.name, preview_body_parts, backbag, monitor_head)
 		qdel(job_outfit)
 
 	else if(job_medsci_high)
-		var/datum/job/job_datum = SSjobs.define_occupations[job_medsci_high]
+		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_MEDSCI][job_medsci_high]
 		var/datum/outfit/job_outfit = new job_datum.outfit
 		clothes_s = job_outfit.preview_outfit_icon(current_species.name, preview_body_parts, backbag, monitor_head)
 		qdel(job_outfit)
@@ -931,7 +931,7 @@
 			else if(backbag == 3 || backbag == 4)
 				clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 		else
-			var/datum/job/job_datum = SSjobs.define_occupations[job_engsec_high]
+			var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_ENGSEC][job_engsec_high]
 			var/datum/outfit/job_outfit = new job_datum.outfit
 			clothes_s = job_outfit.preview_outfit_icon(current_species.name, preview_body_parts, backbag, monitor_head)
 			qdel(job_outfit)

@@ -30,6 +30,9 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job_selector/job_selector
 
 /datum/controller/subsystem/jobs/Initialize()
+	define_occupations[JOBCAT_SUPPORT] = alist()
+	define_occupations[JOBCAT_MEDSCI] = alist()
+	define_occupations[JOBCAT_ENGSEC] = alist()
 	if(!length(occupations))
 		SetupOccupations()
 	for(var/department_type in subtypesof(/datum/station_department))
@@ -58,8 +61,8 @@ SUBSYSTEM_DEF(jobs)
 		occupations += job
 		name_occupations[job.title] = job
 		type_occupations[J] = job
-		if(job.flag)
-			define_occupations[job.flag] = job
+		if(job.department_flag == JOBCAT_SUPPORT || job.department_flag == JOBCAT_ENGSEC || job.department_flag == JOBCAT_MEDSCI)
+			define_occupations[job.department_flag][job.flag] = job
 
 	return 1
 
