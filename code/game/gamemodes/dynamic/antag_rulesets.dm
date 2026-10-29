@@ -127,7 +127,7 @@
 	if(!antag_client)
 		CRASH("Null client for key [antag.key] during dynamic antag assignment.")
 	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
-		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
+		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES, antag)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
 		return FALSE
@@ -305,7 +305,6 @@
 	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		banned_jobs += protected_jobs
-	return ..()
 
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
@@ -317,8 +316,11 @@
 	banned_species = list("Machine")
 	banned_species_only = TRUE
 
-/datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier)
+/datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier, datum/mind/antag)
 	log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
+	pre_antags += antag
+	antag.special_role = antagonist_type::special_role
+	antag.restricted_roles = banned_jobs
 	implier.antag_amount -= 1
 	antag_amount += 1
 	was_triggered = TRUE
