@@ -179,7 +179,7 @@
 			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(get_turf(M), loc))]</i>."))
 
 /obj/structure/flock/relay/proc/announce_relay()
-	var/message = Gibberish("The Signal is coming.", 70, replace_rate = 50)
+	var/message = Gibberish("The Signal is coming from [get_area_name(src, TRUE)]!", 70, replace_rate = 20)
 	GLOB.major_announcement.Announce(message,
 		"Hijacked Signal",
 		'sound/effects/siren-spooky.ogg',

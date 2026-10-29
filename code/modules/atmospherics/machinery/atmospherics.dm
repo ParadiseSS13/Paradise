@@ -190,6 +190,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/nullifyPipenet(datum/pipeline/P)
 	if(P)
 		P.other_atmosmch -= src
+		P.reconcile_machinery -= src
 
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/wrench/W)
 	var/turf/T = get_turf(src)
