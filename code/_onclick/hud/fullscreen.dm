@@ -155,6 +155,10 @@
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
 
+/atom/movable/screen/fullscreen/curse
+	icon_state = "curse"
+	layer = CURSE_LAYER
+
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/stretch/lighting_backdrop/lit
 	invisibility = INVISIBILITY_LIGHTING

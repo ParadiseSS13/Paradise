@@ -56,6 +56,11 @@
 	if(real_progress.check_complete(manifest))
 		goal.completed = TRUE
 		SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal.name, "times completed"))
+		if(goal.personal_account)
+			for(var/client/account_owner as anything in GLOB.clients)
+				var/mob/living/account_mob = account_owner.mob
+				if(account_mob?.mind?.initial_account == goal.personal_account)
+					account_owner.give_award(/datum/award/achievement/misc/secondary_goal, account_mob)
 		unregister(SSshuttle.supply)
 
 

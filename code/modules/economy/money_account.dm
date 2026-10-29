@@ -84,16 +84,30 @@
 	if(!allow_overdraft && credit_balance - amount < 0)
 		return FALSE
 	credit_balance -= amount
+	check_credit_balance_achievement()
 	return TRUE
 
 ///set proc for depositing money, changing credit_balance should always be done through procs
 /datum/money_account/proc/deposit_credits(amount = 0)
 	credit_balance += amount
+	check_credit_balance_achievement()
 	return TRUE
 
 ///sets the credit balance to specified value, changing credit_balance should always be done through procs
 /datum/money_account/proc/set_credits(amount)
 	credit_balance = max(0, amount)
+	check_credit_balance_achievement()
+
+/datum/money_account/proc/check_credit_balance_achievement()
+	if(account_type != ACCOUNT_TYPE_PERSONAL)
+		return
+	for(var/client/account_owner as anything in GLOB.clients)
+		var/mob/living/account_mob = account_owner.mob
+		if(account_mob?.mind?.initial_account == src)
+			if(credit_balance > 3000)
+				account_owner.give_award(/datum/award/achievement/misc/high_roller, account_mob)
+			else if(credit_balance == 0)
+				account_owner.give_award(/datum/award/achievement/misc/zero_balance, account_mob)
 
 /*
   * # authenticate_login()

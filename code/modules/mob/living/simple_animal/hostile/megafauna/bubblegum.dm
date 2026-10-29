@@ -69,8 +69,9 @@ Difficulty: Hard
 	/// Enraged healing recived
 	var/enraged_healing = 0
 	internal_gps = /obj/item/gps/internal/bubblegum
-	medal_type = BOSS_MEDAL_BUBBLEGUM
-	score_type = BUBBLEGUM_SCORE
+	achievement_type = /datum/award/achievement/boss/bubblegum_kill
+	crusher_achievement_type = /datum/award/achievement/boss/bubblegum_crusher
+	score_achievement_type = /datum/award/score/bubblegum_score
 	deathmessage = "sinks into a pile of grotesque viscera, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
 	contains_xeno_organ = TRUE
@@ -603,8 +604,9 @@ Difficulty: Hard
 	maxHealth = 1
 	alpha = 127.5
 	crusher_loot = null
-	medal_type = null
-	score_type = null
+	achievement_type = null
+	crusher_achievement_type = null
+	score_achievement_type = null
 	deathmessage = "Explodes into a pool of blood!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE

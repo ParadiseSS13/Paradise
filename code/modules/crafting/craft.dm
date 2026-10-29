@@ -192,6 +192,8 @@
 		craft_result.CheckParts(parts)
 		if(isitem(craft_result))
 			user.put_in_hands(craft_result)
+		if(recipe.achievement_type && HAS_CONNECTED_PLAYER(user))
+			user.client.give_award(recipe.achievement_type, user)
 
 		if(send_feedback)
 			SSblackbox.record_feedback("tally", "object_crafted", 1, craft_result.type)

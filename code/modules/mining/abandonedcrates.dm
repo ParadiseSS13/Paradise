@@ -100,6 +100,8 @@
 	if(input == code)
 		if(!spawned_loot)
 			spawn_loot()
+		if(HAS_CONNECTED_PLAYER(user))
+			user.client.give_award(/datum/award/achievement/misc/abandoned_crate, user)
 		tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 		togglelock(user)
 		SStgui.close_user_uis(user, src)
