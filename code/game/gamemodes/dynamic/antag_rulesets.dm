@@ -305,6 +305,7 @@
 	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		banned_jobs += protected_jobs
+	return ..()
 
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
