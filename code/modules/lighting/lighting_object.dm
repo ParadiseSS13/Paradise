@@ -1,6 +1,6 @@
 /datum/lighting_object
-	/// the underlay we are currently applying to our turf to apply light
-	var/mutable_appearance/current_underlay
+	/// The lighting underlay appearance we put on our turf, so we can take it back off
+	var/applied_underlay
 	/// whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
 	/// the turf that our light is applied to
@@ -12,7 +12,6 @@
 		stack_trace("a lighting object was assigned to [source], a non turf!")
 		return
 	. = ..()
-	current_underlay = mutable_appearance(LIGHTING_ICON, "transparent", -LIGHTING_LAYER, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
 
 	affected_turf = source
 	if(affected_turf.lighting_object)
@@ -35,7 +34,8 @@
 	if(isturf(affected_turf))
 		affected_turf.lighting_object = null
 		affected_turf.luminosity = 1
-		affected_turf.underlays -= current_underlay
+		if(applied_underlay)
+			affected_turf.underlays -= applied_underlay
 	affected_turf = null
 	return ..()
 
@@ -49,6 +49,8 @@
 	// Including with these comments.
 
 	var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
+	// One mutable appearance for every lighting object, keeping one each took a lot of memory
+	var/static/mutable_appearance/underlay = mutable_appearance(LIGHTING_ICON, "transparent", -LIGHTING_LAYER, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
 
 	var/datum/lighting_corner/red_corner = affected_turf.lighting_corner_SW || dummy_lighting_corner
 	var/datum/lighting_corner/green_corner = affected_turf.lighting_corner_SE || dummy_lighting_corner
@@ -83,25 +85,25 @@
 
 	if((rr & gr & br & ar) && (rg + gg + bg + ag + rb + gb + bb + ab == 8))
 		// anything that passes the first case is very likely to pass the second, and addition is a little faster in this case
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = "lighting_transparent"
-		current_underlay.color = null
-		affected_turf.underlays += current_underlay
+		underlay.icon_state = "lighting_transparent"
+		underlay.color = null
 	else if(!set_luminosity)
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = "lighting_dark"
-		current_underlay.color = null
-		affected_turf.underlays += current_underlay
+		underlay.icon_state = "lighting_dark"
+		underlay.color = null
 	else
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = null
-		current_underlay.color = list(
+		underlay.icon_state = null
+		underlay.color = list(
 			rr, rg, rb, 00,
 			gr, gg, gb, 00,
 			br, bg, bb, 00,
 			ar, ag, ab, 00,
 			00, 00, 00, 01
 		)
-		affected_turf.underlays += current_underlay
+
+	if(applied_underlay)
+		affected_turf.underlays -= applied_underlay
+	affected_turf.underlays += underlay
+	// BYOND just made this appearance putting it on, so reading it back is cheap
+	applied_underlay = underlay.appearance
 
 	affected_turf.luminosity = set_luminosity
