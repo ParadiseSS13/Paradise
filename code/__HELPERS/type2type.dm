@@ -36,6 +36,12 @@
 
 //Splits the text of a file at separator and returns them in a list.
 /proc/file2list(filename, separator = "\n", no_empty = TRUE)
+	if(IsAdminAdvancedProcCall())
+		// Admins shouldnt fuck with this
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("File load blocked: Advanced ProcCall detected."))
+		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
+		return
 	var/list/result = list()
 	for(var/line in splittext(return_file_text(filename), separator))
 		var/text = trim(line)
