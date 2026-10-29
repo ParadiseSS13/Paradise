@@ -66,11 +66,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		mineral_door.try_to_operate(user)
 		return
 
-	for(var/obj/machinery/door/firedoor/firedoor in contents)
-		if(!issilicon(user)) // Carbons can't close open firedoors with their bare hands or I'd let them do this here.
+	if(issilicon(user)) // Carbons can't close open firedoors with their bare hands
+		for(var/obj/machinery/door/firedoor/firedoor in contents)
+			firedoor.forcetoggle()
 			return
-		firedoor.forcetoggle()
-		return
 
 	for(var/obj/structure/falsewall/falsewall in contents)
 		falsewall.toggle(user)
