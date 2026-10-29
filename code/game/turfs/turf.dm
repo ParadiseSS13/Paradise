@@ -18,6 +18,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	/// What radiation finds on this tile. Cleared when anything enters or leaves.
+	var/list/rad_contents_cache
+
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
 	var/oxygen = 0
@@ -251,8 +254,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		return FALSE
 	return TRUE
 
+/turf/Exited(atom/movable/AM, direction)
+	rad_contents_cache = null
+	return ..()
+
 /turf/Entered(atom/movable/A, atom/OL, ignoreRest = FALSE)
 	..()
+	rad_contents_cache = null
 	if(ismob(A))
 		var/mob/O = A
 		if(!O.lastarea)
