@@ -4,19 +4,11 @@
 	name = "reactor output terminal"
 	desc = "A bundle of heavy watt power cables for managing power output from the reactor."
 	icon_state = "term"
+	dir = NORTH
 	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER // A bit above wires
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
-
-/obj/machinery/power/reactor_power/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-// Needs lateload to prevent reactor not being initialized yet and thus not able to set the link.
-/obj/machinery/power/reactor_power/LateInitialize()
-	. = ..()
-	linked_reactor = GLOB.main_fission_reactor
 
 /obj/machinery/power/reactor_power/process()
 	if(linked_reactor && linked_reactor.can_create_power)
@@ -24,39 +16,41 @@
 
 // MARK: Monitor
 
-/obj/machinery/computer/fission_monitor
+/obj/machinery/computer/reactor_monitor
 	name = "NGCR monitoring console"
 	desc = "Used to monitor the Nanotrasen Gas Cooled Fission Reactor."
 	icon_keyboard = "power_key"
 	icon_screen = "smmon_0"
-	circuit = /obj/item/circuitboard/fission_monitor
+	circuit = /obj/item/circuitboard/reactor_monitor
 	light_color = LIGHT_COLOR_YELLOW
 	/// Last status of the active reactor for caching purposes
 	var/last_status
 	/// Reference to the active reactor
 	var/obj/machinery/atmospherics/fission_reactor/active
+	/// Holds the old_turf for the active reactor, in case it moves.
+	var/turf/old_turf
 	/// Is this monitor a controller? Affected by visibility from the reactor
 	var/controller = TRUE
 
-/obj/machinery/computer/fission_monitor/Initialize(mapload)
+/obj/machinery/computer/reactor_monitor/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/computer/fission_monitor/LateInitialize()
+/obj/machinery/computer/reactor_monitor/LateInitialize()
 	. = ..()
 	active = GLOB.main_fission_reactor
 	determine_control()
 
-/obj/machinery/computer/fission_monitor/Destroy()
+/obj/machinery/computer/reactor_monitor/Destroy()
 	active = null
 	return ..()
 
 // This can normally never happen, but just in case.
-/obj/machinery/computer/fission_monitor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+/obj/machinery/computer/reactor_monitor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	determine_control()
 
-/obj/machinery/computer/fission_monitor/proc/determine_control()
+/obj/machinery/computer/reactor_monitor/proc/determine_control()
 	if(!active)
 		return
 	if(active in oview(12, src))
@@ -64,40 +58,54 @@
 	else
 		controller = FALSE
 
-/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
+/obj/machinery/computer/reactor_monitor/attack_ai(mob/user)
 	attack_hand(user)
 
-/obj/machinery/computer/fission_monitor/attack_hand(mob/user)
+/obj/machinery/computer/reactor_monitor/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	if(!active || active.stat & BROKEN)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		to_chat(user, SPAN_WARNING("No active unbroken reactor found. A new reactor may be linked via multitool."))
+		return
 	ui_interact(user)
 
-/obj/machinery/computer/fission_monitor/ui_state(mob/user)
+/obj/machinery/computer/reactor_monitor/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/fission_monitor/process()
+/obj/machinery/computer/reactor_monitor/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
-	if(active)
-		var/new_status = active.get_status()
-		if(last_status != new_status)
-			last_status = new_status
-			icon_screen = "smmon_[last_status]"
-			update_icon()
+	if(!active)
+		return FALSE
+
+	if(QDELETED(active))
+		active = null
+		return FALSE
+
+	if(active.loc != old_turf)
+		determine_control()
+
+	var/new_status = active.get_status()
+	if(last_status != new_status)
+		last_status = new_status
+		icon_screen = "smmon_[last_status]"
+		update_icon()
 
 	return TRUE
 
-/obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/reactor_monitor/multitool_act(mob/living/user, obj/item/I)
 	if(!I.multitool_check_buffer(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/obj/item/multitool/multitool = I
 	if(istype(multitool.buffer, /obj/machinery/atmospherics/fission_reactor))
 		active = multitool.buffer
 		to_chat(user, SPAN_NOTICE("You load the buffer's linking data to [src]."))
+	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/reactor_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ReactorMonitor", name)
@@ -105,10 +113,10 @@
 
 	return TRUE
 
-/obj/machinery/computer/fission_monitor/ui_data(mob/user)
+/obj/machinery/computer/reactor_monitor/ui_data(mob/user)
 	var/list/data = list()
 	// If we somehow dont have an engine anymore, handle it here.
-	if(!active)
+	if(!active || isnull(active))
 		return
 	if(active.stat & BROKEN)
 		active = null
@@ -123,6 +131,24 @@
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
 	data["NGCR_coefficient"] = active.reactivity_multiplier
+	data["NGCR_overheat_level"] = active.heat_damage_threshold
+	data["NGCR_overpressure_level"] = active.pressure_maximum
+	data["NGCR_mols_created"] = round(active.total_gas_spawned, 0.1)
+	data["NGCR_instability_level"] = active.gas_event_mod
+	data["NGCR_history"] = active.power_history
+	data["NGCR_heat_minimum"] = active.minimum_operating_temp
+	data["NGCR_coolant_degrade_mod"] = active.gas_coolant_degrade_mod
+	data["NGCR_coolant_mod"] = active.gas_coolant_mod
+	data["NGCR_moderator_degrade_mod"] = active.gas_moderator_degrade_mod
+	data["NGCR_moderator_mod"] = active.gas_moderator_mod
+	data["NGCR_scrub_o2"] = active.scrub_O2
+	data["NGCR_scrub_n2"] = active.scrub_N2
+	data["NGCR_scrub_co2"] = active.scrub_CO2
+	data["NGCR_scrub_toxins"] = active.scrub_Toxins
+	data["NGCR_scrub_n2o"] = active.scrub_N2O
+	data["NGCR_scrub_h2"] = active.scrub_H2
+	data["NGCR_scrub_h2o"] = active.scrub_H2O
+
 	if(active.control_lockout)
 		data["NGCR_throttle"] = 0
 	else
@@ -153,31 +179,54 @@
 
 	return data
 
-/obj/machinery/computer/fission_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/computer/reactor_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	if(active.control_lockout)
+		visible_message(SPAN_WARNING("Error: Reactor is unresponsive."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
+
+	if(active.down_for_maintenance)
+		visible_message(SPAN_WARNING("Error: Reactor is unresponsive."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
+
+	if(!controller)
+		visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
+
 	if(action == "set_throttle")
-		if(!controller)
-			visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			return
 		var/temp_number = text2num(params["NGCR_throttle"])
-		active.desired_power = 100 - temp_number
+		active.desired_power = clamp(round(100 - temp_number), 0, 100)
+		investigate_log("[usr] has set [active] to throttle level: [active.desired_power].", INVESTIGATE_REACTOR)
 
 	if(action == "toggle_vent")
-		if(!controller)
-			visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			return
 		if(active.vent_lockout)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			visible_message(SPAN_WARNING("ERROR: Vent servos unresponsive. Manual closure required."))
 		else
 			active.venting = !active.venting
+			investigate_log("[usr] has toggled the vent to [active.venting ? "open" : "closed"].", INVESTIGATE_REACTOR)
+	if(action == "toggle_o2")
+		active.scrub_O2 = !active.scrub_O2
+	if(action == "toggle_n2")
+		active.scrub_N2 = !active.scrub_N2
+	if(action == "toggle_co2")
+		active.scrub_CO2 = !active.scrub_CO2
+	if(action == "toggle_toxins")
+		active.scrub_Toxins = !active.scrub_Toxins
+	if(action == "toggle_n2o")
+		active.scrub_N2O = !active.scrub_N2O
+	if(action == "toggle_h2")
+		active.scrub_H2 = !active.scrub_H2
+	if(action == "toggle_h2o")
+		active.scrub_H2O = !active.scrub_H2O
 
 // MARK: Slag
 

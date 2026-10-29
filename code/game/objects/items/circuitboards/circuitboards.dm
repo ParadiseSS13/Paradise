@@ -310,10 +310,10 @@
 	build_path = /obj/machinery/computer/singulo_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
-/obj/item/circuitboard/fission_monitor
+/obj/item/circuitboard/reactor_monitor
 	board_name = "\improper NGCR Monitoring Console"
 	icon_state = "engineering"
-	build_path = /obj/machinery/computer/fission_monitor
+	build_path = /obj/machinery/computer/reactor_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
