@@ -31,8 +31,8 @@
 	/// Ordered worldgen_modifier steps to perform on the biome area
 	var/list/generation_steps = list(
 		/datum/worldgen_modifier/noise/biome,
-		/datum/worldgen_modifier/noise/ore,
 		/datum/worldgen_modifier/noise/humidity,
+		/datum/worldgen_modifier/ore,
 		/datum/worldgen_modifier/flora,
 		/datum/worldgen_modifier/fauna
 	)

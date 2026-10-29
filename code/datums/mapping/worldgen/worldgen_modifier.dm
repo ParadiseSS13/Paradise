@@ -97,24 +97,6 @@
 	return
 
 
-/// World generation modifier for ore generation
-/datum/worldgen_modifier/noise/ore
-	name = "worldgen ore"
-	lower_range = 2
-	upper_range = 5
-	frequency = 10
-	octaves = 1
-	generation_data_expected = list("ore_weights", "biome", "ore_chance")
-
-#warn TODO: change this to be a regular random chance weighted against how biome it is * 2 and then do random spread chance instead of a noise map
-/datum/worldgen_modifier/noise/ore/apply_value(turf/simulated/mineral/T)
-	if(!ismineralturf(T)) // minerals only!
-		return
-	// multiply our base ore chance by how biome our biome is * 2
-	if(prob(generation_data["ore_chance"] * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2))
-		T.set_ore(pickweight(generation_data["ore_weights"]))
-		T.color = COLOR_RED
-	return
 
 
 /// World generation modifier for lakes, be it sulpherous or lavapherous
@@ -194,6 +176,19 @@
 		if(prob(generation_data["flora_chance"]) * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2)
 			var/chosen_flora = pickweight(generation_data["flora_weights"])
 			new chosen_flora(T)
+
+/// World generation modifier for ore generation
+/datum/worldgen_modifier/ore
+	name = "worldgen ore"
+	generation_data_expected = list("ore_weights", "biome", "ore_chance")
+
+/datum/worldgen_modifier/noise/ore/apply()
+	for(var/turf/simulated/mineral/T in block(location_x, location_y, location_z, (size + location_x) - 1, (size + location_y) - 1, location_z))
+		// multiply our base ore chance by how biome our biome is * 2
+		if(prob(generation_data["ore_chance"] * coord2value(T.x - location_x, T.y - location_y, generation_data["biome"]) * 2))
+			T.set_ore(pickweight(generation_data["ore_weights"]))
+			T.color = COLOR_RED
+		return
 
 #warn TODO: river gen
 #warn TODO: mineshaft gen
