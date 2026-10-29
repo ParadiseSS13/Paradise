@@ -56,7 +56,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 	// Procs handle their own adjacency/powered/barricaded/etc. checks, no need to do that here.
 	for(var/obj/machinery/door/airlock/airlock in contents)
-		airlock.try_to_activate_door(user)
+		if(!issilicon(user))
+			airlock.try_to_activate_door(user)
+		else
+			airlock.open_close(user) // I hate that there's two of these procs, but this is how actual airlocks handle it.
 		return
 
 	for(var/obj/structure/mineral_door/mineral_door in contents)
