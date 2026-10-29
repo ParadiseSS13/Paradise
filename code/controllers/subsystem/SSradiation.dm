@@ -82,6 +82,10 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 
 /// Hands a new wave to the Rust side to spread
 /datum/controller/subsystem/processing/radiation/proc/start_wave(datum/radiation_wave/wave, turf/place, weight)
+	// Only alpha, beta and gamma spread. Anything else never got past its first step before, so it stops here
+	if(wave.emission_type != ALPHA_RAD && wave.emission_type != BETA_RAD && wave.emission_type != GAMMA_RAD)
+		qdel(wave)
+		return
 	if(!waves_reset)
 		rustlibs_rad_waves_reset()
 		waves_reset = TRUE
