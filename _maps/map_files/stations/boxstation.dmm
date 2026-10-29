@@ -16661,6 +16661,10 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/item/pen/multi,
+/obj/item/toner{
+	pixel_x = 6;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -18694,7 +18698,9 @@
 /area/station/service/library)
 "brx" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bry" = (
@@ -56099,7 +56105,7 @@
 /area/station/security/lobby)
 "iPz" = (
 /obj/structure/table,
-/obj/machinery/computer/library,
+/obj/machinery/computer/library/perma,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "iPU" = (
@@ -61216,6 +61222,7 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 25
 	},
+/obj/item/toner,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "laU" = (
