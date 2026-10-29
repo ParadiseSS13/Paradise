@@ -1384,7 +1384,7 @@
  * * transformation - If true, don't apply new species traits to the mob. A false value should be used when creating a new mob instead of transforming into a new species.
  * * keep_missing_bodyparts - If true, any bodyparts (legs, head, etc.) that were missing on the mob before species change will be missing post-change as well.
  */
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE, keep_implants = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1451,76 +1451,82 @@
 			if(isnull(bodyparts_by_name[organ_name]))
 				missing_bodyparts |= organ_name
 
-	if(retain_damage)
+	if(retain_damage || keep_implants)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
-		var/bodypart_damages = list()
+		var/bodypart_stats = list()
 
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
-			if(E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) //If there's no damage we don't bother remembering it.
+			var/stats = list(6)
+			if(keep_implants)
+				stats[5] = E.hidden
+				var/list/implants = list()
+				for(var/I in E.contents)
+					if(!istype(I, /obj/item/organ) && I != E.hidden)
+						implants += I
+				stats[6] = implants
+
+			if((E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) || !retain_damage) //If there's no damage we don't bother remembering it.
 				continue
-			var/brute = E.brute_dam
-			var/burn = E.burn_dam
-			var/IB = (E.status & ORGAN_INT_BLEEDING)
-			var/obj/item/organ/external/OE = new E.type()
-			var/hidden_item = E.hidden
-			var/list/implants = list()
-			for(var/I in E.contents)
-				if(!istype(I, /obj/item/organ) && I != E.hidden)
-					implants += I
-			var/stats = list(OE, brute, burn, IB, hidden_item, implants)
-			bodypart_damages += list(stats)
+			stats[2] = E.brute_dam
+			stats[3] = E.burn_dam
+			stats[4] = (E.status & ORGAN_INT_BLEEDING)
+			stats[1] = new E.type()
+			bodypart_stats += list(stats)
 
 		//Now we do the same for internal organs via the same proceedure.
 		var/internal_damages = list()
-		for(var/obj/item/organ/internal/I in internal_organs)
-			if(I.damage == 0)
-				continue
-			var/obj/item/organ/internal/OI = new I.type()
-			var/damage = I.damage
-			var/broken = I.is_broken()
-			var/stats = list(OI, damage, broken)
-			internal_damages += list(stats)
+		if(retain_damage)
+			for(var/obj/item/organ/internal/I in internal_organs)
+				if(I.damage == 0)
+					continue
+				var/obj/item/organ/internal/OI = new I.type()
+				var/damage = I.damage
+				var/broken = I.is_broken()
+				var/stats = list(OI, damage, broken)
+				internal_damages += list(stats)
 
 		//Create the new organs for the species change
 		dna.species.create_organs(src, missing_bodyparts)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/obj/item/organ/external/E as anything in bodyparts)
-			for(var/list/part in bodypart_damages)
+			for(var/list/part in bodypart_stats)
 				var/obj/item/organ/external/OE = part[1]
 				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
-					var/brute = part[2]
-					var/burn = part[3]
-					var/IB = part[4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
-					if(IB)
-						E.status |= ORGAN_INT_BLEEDING
-					E.hidden = part[5]
-					for(var/obj/item/I in part[6])
-						if(I != part[5] && mind.has_antag_datum(/datum/antagonist/changeling))
-							continue
-						I.forceMove(E)
-					E.receive_damage(brute, burn, ignore_resists = TRUE)
+					if(retain_damage)
+						var/brute = part[2]
+						var/burn = part[3]
+						var/IB = part[4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+						if(IB)
+							E.status |= ORGAN_INT_BLEEDING
+						E.receive_damage(brute, burn, ignore_resists = TRUE)
+					if(keep_implants)
+						E.hidden = part[5]
+						if(!IS_CHANGELING(src))
+							for(var/obj/item/I in part[6])
+								I.forceMove(E)
 					qdel(part)
 
-		for(var/O in internal_organs)
-			var/obj/item/organ/internal/I = O
-			for(var/list/part in internal_damages)
-				var/obj/item/organ/internal/OI = part[1]
-				var/organ_type
+		if(retain_damage)
+			for(var/O in internal_organs)
+				var/obj/item/organ/internal/I = O
+				for(var/list/part in internal_damages)
+					var/obj/item/organ/internal/OI = part[1]
+					var/organ_type
 
-				if(OI.parent_type == /obj/item/organ/internal) //Dealing with species organs
-					organ_type = OI.type
-				else
-					organ_type = OI.parent_type
+					if(OI.parent_type == /obj/item/organ/internal) //Dealing with species organs
+						organ_type = OI.type
+					else
+						organ_type = OI.parent_type
 
-				if(istype(I, organ_type))
-					var/damage = part[2]
-					var/broken = part[3]
-					I.receive_damage(damage, 1)
-					if(broken && !(I.status & ORGAN_BROKEN))
-						I.status |= ORGAN_BROKEN
-					qdel(part)
+					if(istype(I, organ_type))
+						var/damage = part[2]
+						var/broken = part[3]
+						I.receive_damage(damage, 1)
+						if(broken && !(I.status & ORGAN_BROKEN))
+							I.status |= ORGAN_BROKEN
+						qdel(part)
 
 	else
 		dna.species.create_organs(src, missing_bodyparts)
