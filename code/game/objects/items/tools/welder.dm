@@ -326,6 +326,13 @@
 /obj/item/weldingtool/hugetank/empty
 	prefilled = FALSE
 
+/obj/item/weldingtool/hugetank/syndicate
+	name = "suspicious welding tool"
+	desc = "A large industrial welding tool with an evil-looking colour scheme. It has a very large fuel reservoir."
+	icon_state = "upindwelder_syndi"
+	inhand_icon_state = "welder"
+	belt_icon = "welder_upg_syndi"
+
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
 	desc = "A prototype welding tool which uses an experimental fuel breeder to create a near-infinite reserve of fuel. The unusual fuel mixture also means that the flame is less intense on the eyes."

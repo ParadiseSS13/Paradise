@@ -342,18 +342,21 @@
 	A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 	A.faction = user.faction.Copy()
 
-/obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
+/obj/item/crusher_trophy/legionnaire_spine/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!isliving(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
 		LivingUser.visible_message(SPAN_WARNING("[LivingUser] shakes the [src], but nothing happens..."))
 		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	LivingUser.visible_message(SPAN_WARNING("[LivingUser] shakes the [src] and summons a legion skull!"))
 	var/mob/living/basic/mining/hivelordbrood/legion/LegionSkull = new /mob/living/basic/mining/hivelordbrood/legion(LivingUser.loc)
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
+	return ITEM_INTERACT_COMPLETE
 
 #undef LEGIONNAIRE_CHARGE
 #undef HEAD_DETACH

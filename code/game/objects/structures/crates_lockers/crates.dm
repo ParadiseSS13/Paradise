@@ -557,10 +557,18 @@
 	icon_closed = "scicrate"
 
 /obj/structure/closet/crate/sci/robo
-	desc = "A science crate. Contain various mech parts."
+	name = "robotics crate"
+	desc = "A robotics crate."
 	icon_state = "scicrate_mech"
 	icon_opened = "scicrate_mech_open"
 	icon_closed = "scicrate_mech"
+
+/obj/structure/closet/crate/secure/robo
+	name = "secure robotics crate"
+	desc = "A crate with a lock on it for holding very expensive robotics parts."
+	icon_state = "scicrate_mech_secure"
+	icon_opened = "scicrate_mech_secure_open"
+	icon_closed = "scicrate_mech_secure"
 
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
@@ -677,13 +685,16 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
-/obj/structure/closet/crate/cookware
-	name = "cookware crate"
+/obj/structure/closet/crate/catering
+	name = "catering crate"
 	icon_state = "cookware"
 	icon_opened = "cookware_open"
 	icon_closed = "cookware"
 
-/obj/structure/closet/crate/cookware/populate_contents()
+/obj/structure/closet/crate/catering/cookware
+	name = "cookware crate"
+
+/obj/structure/closet/crate/catering/cookware/populate_contents()
 	// Ice cream mixer containers
 	new /obj/item/reagent_containers/cooking/icecream_bowl(src)
 	// Oven containers
