@@ -154,6 +154,5 @@
 /datum/security_level/delta/reactor_overload
 	name = "delta (AZ5)"
 	number_level = SEC_LEVEL_DELTA_REACTOR
-	ai_announcement_sound = 'sound/AI/delta.ogg'
 	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"
-	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs. This is not a drill."
+	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. All crew are instructed to ensure detonation of the station fission reactor at all costs. This is not a drill."
