@@ -377,7 +377,7 @@
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
 	if(direction == dir)
-		return !density
+		return operating || !density
 	return TRUE
 
 /obj/machinery/door/firedoor/border_only/get_superconductivity(direction)

@@ -42,8 +42,7 @@
 	if(fulltile)
 		new_window = new /obj/structure/window/flock/fulltile(T)
 	else
-		new_window = new /obj/structure/window/flock(T)
-		new_window.dir = dir
+		new_window = new /obj/structure/window/flock(T, dir)
 
 	new_window.AddComponent(/datum/component/flock_interest, flock)
 	return new_window

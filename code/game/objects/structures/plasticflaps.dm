@@ -106,5 +106,10 @@
 	. = ..()
 	T.recalculate_atmos_connectivity()
 
+/obj/structure/plasticflaps/mining/Move()
+	var/turf/T = loc
+	. = ..()
+	move_update_air(T)
+
 /obj/structure/plasticflaps/mining/CanAtmosPass(direction)
 	return FALSE

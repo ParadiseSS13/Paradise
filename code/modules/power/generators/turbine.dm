@@ -177,6 +177,7 @@
 		turbine.stat |= BROKEN
 		turbine = null
 	QDEL_NULL(radio)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/machinery/power/compressor/proc/check_broken()

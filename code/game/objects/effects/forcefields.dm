@@ -10,6 +10,14 @@
 	if(lifetime)
 		QDEL_IN(src, lifetime)
 
+/obj/effect/forcefield/Initialize(mapload)
+	. = ..()
+	recalculate_atmos_connectivity()
+
+/obj/effect/forcefield/Destroy()
+	recalculate_atmos_connectivity()
+	return ..()
+
 /obj/effect/forcefield/CanAtmosPass(direction)
 	return !density
 

@@ -104,8 +104,14 @@
 		layer = initial(layer)
 
 /obj/machinery/door/setDir(newdir)
+	var/list/old_locs = width > 1 ? locs.Copy() : null
 	..()
 	update_bounds()
+	// Wide doors cover different tiles after turning.
+	if(old_locs)
+		for(var/turf/T as anything in old_locs)
+			T.recalculate_atmos_connectivity()
+		recalculate_atmos_connectivity()
 
 /obj/machinery/door/power_change()
 	if(!..())
