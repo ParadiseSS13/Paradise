@@ -468,9 +468,15 @@ GLOBAL_VAR(bomb_set)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
 				anchored = TRUE
-				visible_message(SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"))
+				visible_message(
+					SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"),
+					SPAN_DANGER("You hear a steely snap!")
+				)
 			else
-				visible_message(SPAN_DANGER("[src] makes a highly unpleasant crunching noise! It looks like the anchoring bolts have been cut!"))
+				visible_message(
+					SPAN_DANGER("[src] makes a highly unpleasant crunching noise! It looks like the anchoring bolts have been cut!"),
+					SPAN_DANGER("You hear a highly unpleasant crunching noise!")
+				)
 			if(!wires.is_cut(WIRE_NUKE_LIGHT))
 				flick(sprite_prefix + "nuclearbombc", src)
 				icon_state = sprite_prefix + "nuclearbomb1"
@@ -518,7 +524,10 @@ GLOBAL_VAR(bomb_set)
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
 				update_icon(UPDATE_OVERLAYS)
-				visible_message(SPAN_DANGER("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
+				visible_message(
+					SPAN_DANGER("[src] makes a highly unpleasant crunching noise! It looks like the anchoring bolts have been cut!"),
+					SPAN_DANGER("You hear a highly unpleasant crunching noise!")
+				)
 				return
 
 			if(!anchored && isinspace())
@@ -532,11 +541,17 @@ GLOBAL_VAR(bomb_set)
 			anchored = !(anchored)
 			update_icon(UPDATE_OVERLAYS)
 			if(anchored)
-				visible_message(SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"))
+				visible_message(
+					SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"),
+					SPAN_DANGER("You hear a steely snap!")
+				)
 				return
 
 			requires_NAD_to_unbolt = FALSE
-			visible_message(SPAN_NOTICE("The anchoring bolts slide back into the depths of [src]."))
+			visible_message(
+				SPAN_NOTICE("The anchoring bolts slide back into the depths of [src]."),
+				SPAN_HEAR("You hear metal sliding.")
+			)
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
