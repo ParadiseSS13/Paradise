@@ -88,7 +88,17 @@
 /datum/ruleset/proc/can_assign_hijack_objective()
 	return FALSE
 
+/datum/ruleset/proc/configure()
+	SHOULD_CALL_PARENT(TRUE)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		banned_jobs += protected_jobs
+
+	if(!can_assign_hijack_objective())
+		banned_jobs += hijack_only_jobs
+
 /datum/ruleset/proc/roundstart_pre_setup()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	configure()
 	if(antag_amount == 0)
 		return
 	if(antag_amount < 0)
@@ -98,12 +108,6 @@
 	if(!length(possible_antags))
 		refund("No possible players for [src] ruleset.") // we allocate antag budget before we allocate players, and previous rulesets can steal our players
 		return antag_cost * antag_amount // shitty refund for now
-
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs
-
-	if(!can_assign_hijack_objective())
-		banned_jobs += hijack_only_jobs
 
 	shuffle_inplace(possible_antags)
 	for(var/datum/mind/antag as anything in possible_antags)
@@ -301,11 +305,6 @@
 /datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	stack_trace("[type]/on_implied() not implemented!")
 
-/datum/ruleset/implied/roundstart_pre_setup()
-	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs
-
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
 	antagonist_type = /datum/antagonist/mindflayer
@@ -316,11 +315,8 @@
 	banned_species = list("Machine")
 	banned_species_only = TRUE
 
-/datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier, datum/mind/antag)
+/datum/ruleset/implied/mindflayer/on_implied(datum/ruleset/implier)
 	log_dynamic("Rolled implied [name]: +1 [name], -1 [implier.name].")
-	pre_antags += antag
-	antag.special_role = antagonist_type::special_role
-	antag.restricted_roles = banned_jobs
 	implier.antag_amount -= 1
 	antag_amount += 1
 	was_triggered = TRUE
