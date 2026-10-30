@@ -131,7 +131,7 @@
 	if(!antag_client)
 		CRASH("Null client for key [antag.key] during dynamic antag assignment.")
 	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
-		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES, antag)
+		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
 		return FALSE
