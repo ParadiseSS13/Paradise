@@ -147,7 +147,7 @@
 /datum/security_level/delta/hostile
 	name = "delta (hostile)"
 	number_level = SEC_LEVEL_DELTA_HOSTILE_ACTION
-	ai_announcement_sound = 'sound/AI/hostile_nuclear_activation.ogg'
+	ai_announcement_sound = 'sound/AI/delta_hostile.ogg'
 	elevating_to_announcement_title = "Attention! Delta-H security level reached!"
 	elevating_to_announcement_text = "Unauthorized nuclear weapon activation detected on the station! All crew are instructed to neutralize it at all costs, before the station is destroyed. This is not a drill."
 
