@@ -144,23 +144,16 @@
 	elevating_to_announcement_title = "Attention! Delta security level reached!"
 	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to abandon the station immediately. This is not a drill."
 
-/datum/security_level/delta_hostile
-	name = "delta"
+/datum/security_level/delta/hostile
+	name = "delta (hostile)"
 	number_level = SEC_LEVEL_DELTA_HOSTILE_ACTION
-	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/hostile_nuclear_activation.ogg'
-	color = "orangered"
-	status_display_mode = STATUS_DISPLAY_ALERT
-	status_display_data = "deltaalert"
-	elevating_to_announcement_title = "Attention! Delta security level reached!"
+	elevating_to_announcement_title = "Attention! Delta-H security level reached!"
 	elevating_to_announcement_text = "Unauthorized nuclear weapon activation detected on the station! All crew are instructed to neutralize it at all costs, before the station is destroyed. This is not a drill."
 
-/datum/security_level/delta_overload
+/datum/security_level/delta/reactor_overload
+	name = "delta (AZ5)"
 	number_level = SEC_LEVEL_DELTA_REACTOR
-	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'
-	color = "orangered"
-	status_display_mode = STATUS_DISPLAY_ALERT
-	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"
-	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs."
+	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs. This is not a drill."
