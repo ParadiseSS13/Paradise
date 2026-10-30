@@ -85,10 +85,11 @@
 #define PREFTOGGLE_3_COGBAR_ANIMATIONS				(1<<0) // 1
 #define PREFTOGGLE_3_DARK_FLASH						(1<<1) // 2
 #define PREFTOGGLE_3_POSTCREDS 						(1<<2) // 4
+#define PREFTOGGLE_3_HEAR_BLOOPERS 					(1<<3) // 8
 
-#define TOGGLES_3_TOTAL 							7 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL 							15 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS|PREFTOGGLE_3_HEAR_BLOOPERS)
 
 // Sanity checks
 // I should really convert these to a JSON list at some point hnnnnnng

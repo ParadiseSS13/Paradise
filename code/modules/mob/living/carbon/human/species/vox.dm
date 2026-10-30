@@ -6,8 +6,6 @@
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"
 	tail = "voxtail_lime"
-	speech_sounds = list('sound/voice/shriek1.ogg')
-	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
 	blurb = "The Vox are remnants of an ancient race, that originate from arkships. \
