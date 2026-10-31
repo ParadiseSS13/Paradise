@@ -85955,7 +85955,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "wao" = (
-/obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
