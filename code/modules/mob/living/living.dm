@@ -48,6 +48,7 @@
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
+	GLOB.station_pets -= src
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -703,7 +704,7 @@
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
 		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL))
+	if(pulling && (restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL)))
 		stop_pulling()
 
 	. = ..()
@@ -1182,8 +1183,8 @@
 	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
 	if(emission_type > ALPHA_RAD)
 		amount /=  (1 - RAD_MOB_INSULATION)
-	// Alpha sources outside the body don't do much
-	else if(!is_inside_mob(source))
+	// Alpha sources outside the body don't do much. Contamination on our own body isn't outside it.
+	else if(source != src && !is_inside_mob(source))
 		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
