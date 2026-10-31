@@ -24,6 +24,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	power_state = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2
+	/// Are we overloaded?
+	var/overloaded = FALSE
 
 /obj/machinery/gravity_generator/ex_act(severity)
 	if(severity == EXPLODE_DEVASTATE) // Very sturdy.
@@ -38,6 +40,16 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
+/obj/machinery/gravity_generator/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(overloaded)
+		to_chat(user, "You start to stabilize [src]!")
+		if(!do_after_once(user, 3 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You fail to stop the overload."))
+			return
+		to_chat(user, "You manage to stabilize [src]!")
+		overloaded = FALSE
+
+
 /obj/machinery/gravity_generator/proc/get_status()
 	return "off"
 
@@ -51,6 +63,19 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/proc/set_fix()
 	stat &= ~BROKEN
+
+/obj/machinery/gravity_generator/proc/overload()
+	overloaded = TRUE
+	visible_message(SPAN_USERDANGER("[src] starts beeping ominously!"))
+	for(var/i in 1 to 60)
+		if(!overloaded)
+			return FALSE
+		playsound(get_turf(src), 'sound/items/timer.ogg', 50, 0)
+		sleep(1 SECONDS)
+	explosion(get_turf(src), 1, 5, 10, 15, flame_range = 10, cause = "Ninja Overload")
+	set_broken()
+	overloaded = FALSE
+	return TRUE
 
 //
 // Generator which spawns with the station.
