@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/occupations = list()
 	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
+	var/alist/define_occupations = alist() //Dict of all jobs with defines, keys are defines
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
 	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
@@ -29,6 +30,9 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job_selector/job_selector
 
 /datum/controller/subsystem/jobs/Initialize()
+	define_occupations[JOBCAT_SUPPORT] = alist()
+	define_occupations[JOBCAT_MEDSCI] = alist()
+	define_occupations[JOBCAT_ENGSEC] = alist()
 	if(!length(occupations))
 		SetupOccupations()
 	for(var/department_type in subtypesof(/datum/station_department))
@@ -57,6 +61,8 @@ SUBSYSTEM_DEF(jobs)
 		occupations += job
 		name_occupations[job.title] = job
 		type_occupations[J] = job
+		if(job.department_flag == JOBCAT_SUPPORT || job.department_flag == JOBCAT_ENGSEC || job.department_flag == JOBCAT_MEDSCI)
+			define_occupations[job.department_flag][job.flag] = job
 
 	return 1
 
