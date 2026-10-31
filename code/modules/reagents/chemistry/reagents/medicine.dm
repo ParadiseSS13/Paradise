@@ -905,6 +905,7 @@
 	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest. Overdose may cause weakness, vomiting, and dizziness."
 	reagent_state = LIQUID
 	color = "#96B1AE"
+
 	metabolization_rate = 0.2
 	overdose_threshold = 20
 	harmless = FALSE
@@ -946,6 +947,74 @@
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
 			M.visible_message(SPAN_WARNING("[M] staggers and drools, [M.p_their()] eyes bloodshot!"))
+			M.Dizzy(4 SECONDS)
+			M.Weaken(6 SECONDS)
+		if(effect <= 15)
+			M.emote("collapse")
+	return list(effect, update_flags)
+
+/datum/reagent/medicine/emr_microbots
+	name = "EMR microbots"
+	id = "emr_microbots"
+	description = "Emergency Mechanical Repair microbots, designed for use in synthetics. These are cheap microscopic repair machines that lack the capabilities of contemporary nanomachines, \
+	but make up for it in economics and ease of mass production. They autonomously migrate to critical systems and attempt to stabilize them before irreparable damage occurs. \
+	Due to their limited capabilities, they cannot affect full repairs on their own, and will instead attempt to sustain the user and restore enough locomotive function to allow them to seek further repair. \
+	WARNING: Buildup of significant amounts of active EMR microbots on cogngnition components may cause temporary malfunctions in cognitive processing due to interference from intra-swarm communication."
+	reagent_state = SOLID
+	color = "#48545a"
+	process_flags = SYNTHETIC
+	taste_flag = SYNTHETIC
+	metabolization_rate = 0.2
+	overdose_threshold = 20
+	harmless = FALSE
+	taste_description = "borrowed time"
+	yuck_description = "iron filings"
+	goal_difficulty = REAGENT_GOAL_SKIP
+
+/datum/reagent/medicine/emr_microbots/on_mob_add(mob/living/L)
+	. = ..()
+	if(!ismachineperson(L))
+		return
+
+	var/mob/living/carbon/human/machine/H = L
+	if(H.health <= HEALTH_THRESHOLD_CRIT)
+		to_chat(H, SPAN_USERDANGER("You feel a jolt across your actuators as they regain some function!"))
+
+/datum/reagent/medicine/emr_microbots/on_mob_delete(mob/living/M)
+	. = ..()
+	if(!ismachineperson(M))
+		return
+
+	var/mob/living/carbon/human/machine/H = M
+	if(H.health <= HEALTH_THRESHOLD_CRIT)
+		to_chat(H, SPAN_USERDANGER("Your actuators suddenly give out!"))
+
+/datum/reagent/medicine/emr_microbots/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/H = M
+	H.AdjustDrowsy(-10 SECONDS)
+	if(prob(5))
+		H.SetSleeping(0)
+	if(prob(5))
+		update_flags |= H.adjustBrainLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	holder.remove_reagent("surge", 15)
+	if(M.health <= HEALTH_THRESHOLD_CRIT)
+		update_flags |= H.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = TRUE) // Heals 2 because oldcrit damage.
+		update_flags |= H.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = TRUE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/emr_microbots/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 3)
+			M.emote(pick("groan", "moan"))
+		if(effect <= 8)
+			M.emote("collapse")
+	else if(severity == 2)
+		if(effect <= 5)
+			M.visible_message(SPAN_WARNING("[M] staggers and unpleasently whirrs, unable to keep their focus on a single point!"))
 			M.Dizzy(4 SECONDS)
 			M.Weaken(6 SECONDS)
 		if(effect <= 15)

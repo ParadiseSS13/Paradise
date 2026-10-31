@@ -444,12 +444,13 @@
 
 /obj/item/storage/box/survival_ipc/populate_contents()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/reagent_containers/hypospray/autoinjector/emr_microbots(src)
 		new /obj/item/stack/nanopaste(src)
 		new /obj/item/stack/nanopaste(src)
 		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/weldingtool/mini(src)
-		new /obj/item/stack/cable_coil/twenty(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/emr_microbots(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_ipc/empty/populate_contents()
