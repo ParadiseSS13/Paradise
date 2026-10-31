@@ -126,6 +126,11 @@
 	xenobiology_compatible = TRUE
 	parallax_move_direction = WEST
 
+/area/shuttle/patient
+	name = "Patient Transport"
+	icon_state = "shuttle"
+	parallax_move_direction = EAST
+
 /// Currently disabled as our shuttle system does not support TG-shuttle areas yet
 // /area/shuttle/transit
 // 	name = "Hyperspace"

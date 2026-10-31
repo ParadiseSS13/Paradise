@@ -488,6 +488,37 @@ SUBSYSTEM_DEF(shuttle)
 
 	return trade_shuttle
 
+/datum/controller/subsystem/shuttle/proc/set_patient_shuttle(datum/map_template/shuttle/patient/template)
+	var/obj/docking_port/mobile/patient/patient_shuttle = getShuttle("patient")
+	if(patient_shuttle)
+		var/obj/docking_port/stationary/docked_id = patient_shuttle.get_docked()
+		if(docked_id?.id != "patient_away")
+			CRASH("Attempted to load a new patient shuttle while the existing one was not at its home base.")
+		// Dispose of the old shuttle.
+		patient_shuttle.jumpToNullSpace()
+
+	var/obj/docking_port/mobile/patient/dock = getDock("patient_away")
+	if(!dock)
+		CRASH("Unable to load patient shuttle, no patient dock found.")
+
+	// Load in the new shuttle.
+	patient_shuttle = load_template(template)
+	var/result = patient_shuttle.canDock(dock)
+	if(result == SHUTTLE_SOMEONE_ELSE_DOCKED)
+		patient_shuttle.jumpToNullSpace()
+		CRASH("A non-patient shuttle is blocking the dock.")
+	if(result != SHUTTLE_CAN_DOCK)
+		patient_shuttle.jumpToNullSpace()
+		CRASH("New patient shuttle unable to dock at the patient dock: [result]")
+
+	patient_shuttle.dock(dock)
+	patient_shuttle.register()
+
+	// TODO indicate to the user that success happened, rather than just
+	// blanking the modification tab
+
+	return patient_shuttle
+
 /datum/controller/subsystem/shuttle/proc/load_initial_gamma_armory_shuttle(gamma_armory_shuttle_id)
 	var/obj/docking_port/mobile/gamma_armory/gamma_armory = getShuttle("gamma_armory")
 	if(gamma_armory)

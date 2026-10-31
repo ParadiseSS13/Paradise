@@ -5223,6 +5223,9 @@
 "rU" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
+"rV" = (
+/turf/simulated/floor/noslip,
+/area/space/nearstation/centcom)
 "rW" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/mineral/titanium,
@@ -7593,6 +7596,10 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"AT" = (
+/obj/docking_port/stationary/patient/centcom,
+/turf/simulated/floor/noslip,
+/area/space/nearstation/centcom)
 "AV" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
@@ -8877,6 +8884,14 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"FE" = (
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	id_tag = "specopsoffice";
+	name = "Privacy Shield";
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation/centcom)
 "FF" = (
 /obj/structure/table/holotable,
 /obj/effect/turf_decal/tiles/department/virology/side{
@@ -9325,6 +9340,9 @@
 /obj/item/clothing/suit/chef/classic,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"Hl" = (
+/turf/space,
+/area/space/nearstation/centcom)
 "Hm" = (
 /obj/effect/spawner/window,
 /obj/structure/sign/public/doors,
@@ -10698,6 +10716,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"Mb" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/space/nearstation/centcom)
 "Mc" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
@@ -49027,6 +49048,7 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
@@ -49037,8 +49059,7 @@ aN
 aN
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -53910,18 +53931,18 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
+Mb
+AT
+rV
+Mb
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -54171,10 +54192,10 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
+Mb
+Hl
+FE
+Mb
 aN
 aN
 aN
@@ -54428,10 +54449,10 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
+Mb
+Mb
+Mb
+Mb
 aN
 aN
 aN
