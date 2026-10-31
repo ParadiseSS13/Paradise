@@ -281,9 +281,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bC" = (
-/obj/machinery/computer/shuttle/admin{
-	name = "NHV Asclepius shuttle console";
-	dir = 4
+/obj/machinery/computer/shuttle/admin/onboard{
+	dir = 4;
+	name = "NHV Asclepius shuttle console"
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)

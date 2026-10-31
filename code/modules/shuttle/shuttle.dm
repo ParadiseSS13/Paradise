@@ -2,6 +2,10 @@
 // also uncomment the #undef at the bottom of the file
 //#define DOCKING_PORT_HIGHLIGHT
 
+#define ANNOUNCE_NONE 0
+#define ANNOUNCE_PILOT 1
+#define ANNOUNCE_ALL 2
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = 101
@@ -983,6 +987,12 @@
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or when SSlate_mapping fires (variable)
 	var/find_destinations_in_late_mapping = FALSE
+	/// Should this shuttle have the option to announce its arrival?
+	var/loud_shuttle = FALSE
+	/// Should this shuttle console have the announcer functionality?
+	var/loud_console = FALSE
+	/// Whether or not this shuttle will announce its arrival. 0 is no, 1 is just the pilot, 2 is all passengers
+	var/announce_arrival = ANNOUNCE_NONE
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
@@ -1003,6 +1013,11 @@
 	connect() // Refreshes whiteship docks on interact
 	add_fingerprint(user)
 	ui_interact(user)
+
+/obj/machinery/computer/shuttle/examine()
+	. = ..()
+	if(loud_console)
+		. += SPAN_NOTICE("Swipe an ID with Centcomm access to change the arrival announcement settings.")
 
 /obj/machinery/computer/shuttle/ui_state(mob/user)
 	return GLOB.default_state
@@ -1068,6 +1083,15 @@
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
+				if(!istype(usr, /mob/dead/observer) && loud_shuttle && loud_console && ((destination == "ferry_home") || (destination == "admin_home")))
+					switch(announce_arrival)
+						if(ANNOUNCE_NONE)
+							return TRUE
+						if(ANNOUNCE_PILOT)
+							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officer [usr.real_name] on deck!", "Attention", 'sound/AI/cc_on_station.ogg'), 9 SECONDS)
+						if(ANNOUNCE_ALL)
+							var/list/passengers = get_mobs_in_view(11, usr)
+							addtimer(CALLBACK(GLOB.minor_announcement, TYPE_PROC_REF(/datum/announcer, Announce), "All hands to attention! Central Command Officers [english_list(passengers)] on deck!", "Attention", 'sound/AI/cc_on_station.ogg'), 9 SECONDS)
 				return TRUE
 			if(1)
 				to_chat(usr, SPAN_WARNING("Invalid shuttle requested."))
@@ -1079,6 +1103,41 @@
 				atom_say("Shuttle is currently en-route. The shuttle cannot be rerouted at this time.")
 			if(5)
 				atom_say("Shuttle is currently departing. Please wait...")
+
+/obj/machinery/computer/shuttle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	if(loud_console == FALSE)
+		return
+
+	var/obj/item/card/id/id_card = used.GetID()
+
+	if(isnull(id_card))
+		return
+
+	if(!user)
+		return
+
+	if(!length(id_card.access)) // No access.
+		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!has_access(req_access = list(ACCESS_CENT_COMMANDER), accesses = id_card.access))
+		to_chat(user, SPAN_WARNING("[used] lacks the required access to send an announcement!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/choice = tgui_alert(user, "Would you like to announce your arrival? Use 'Pilot' for just you, or 'All' for you and your passengers.", "Shuttle Announcer", list("Pilot", "All", "None"))
+	switch(choice)
+		if("Pilot")
+			announce_arrival = ANNOUNCE_PILOT
+
+		if("All")
+			announce_arrival = ANNOUNCE_ALL
+
+		if("None")
+			announce_arrival = ANNOUNCE_NONE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
@@ -1096,7 +1155,10 @@
 	circuit = /obj/item/circuitboard/ferry
 	shuttleIds = list("ferry")
 	possibleDestinations2 = alist("ferry" = list("ferry_home", "ferry_away"))
+	loud_shuttle = TRUE
 
+/obj/machinery/computer/shuttle/ferry/request/onboard
+	loud_console = TRUE
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
@@ -1149,6 +1211,10 @@
 	shuttleIds = list("admin")
 	possibleDestinations2 = alist("admin" = list("admin_home", "admin_away", "admin_custom"))
 	resistance_flags = INDESTRUCTIBLE
+	loud_shuttle = TRUE
+
+/obj/machinery/computer/shuttle/admin/onboard
+	loud_console = TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
@@ -1189,3 +1255,7 @@
 		T.setDir(dir)
 	TransferComponents(T)
 	return T
+
+#undef ANNOUNCE_NONE
+#undef ANNOUNCE_PILOT
+#undef ANNOUNCE_ALL
