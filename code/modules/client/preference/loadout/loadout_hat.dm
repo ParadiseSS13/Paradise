@@ -408,17 +408,17 @@
 /datum/gear/hat/beret_job/viro
 	display_name = "Beret, virologist"
 	path = /obj/item/clothing/head/beret/viro
-	allowed_roles = list("Virologist")
+	allowed_roles = list("Chief Medical Officer", "Virologist")
 
 /datum/gear/hat/beret_job/viro_alt
 	display_name = "Beret, virologist corporate"
 	path = /obj/item/clothing/head/beret/viro_alt
-	allowed_roles = list("Virologist")
+	allowed_roles = list("Chief Medical Officer", "Virologist")
 
 /datum/gear/hat/beret_job/viro_green
 	display_name = "Beret, virologist green"
 	path = /obj/item/clothing/head/beret/viro_green
-	allowed_roles = list("Virologist")
+	allowed_roles = list("Chief Medical Officer", "Virologist")
 
 /datum/gear/hat/beret_job/cmo
 	display_name = "Beret, chief medical officer"
