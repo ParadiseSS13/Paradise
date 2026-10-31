@@ -215,8 +215,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2, cause = "[Proj.type] fired by [key_name(Proj.firer)] (hit turf)")
 	..()
 	return FALSE
 

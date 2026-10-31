@@ -334,7 +334,7 @@ field_generator energy level display
 			fields += CF
 			G.fields += CF
 			for(var/mob/living/L in T)
-				CF.Crossed(L, null)
+				CF.shock_field(L)
 
 	connected_gens |= G
 	G.connected_gens |= src

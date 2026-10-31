@@ -87,7 +87,7 @@
 
 /obj/item/bio_chip/explosive/proc/do_booms(wait_delay, stage)
 	if(stage == 1)
-		if(imp_in && imp_in.stat)
+		if(imp_in && !imp_in.stat)
 			imp_in.visible_message(SPAN_WARNING("[imp_in] doubles over in pain!"))
 			imp_in.Weaken(14 SECONDS)
 	else if(stage == 4)
