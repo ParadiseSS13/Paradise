@@ -303,8 +303,8 @@
 		return
 
 	var/list/datum/reagents/reactants = list()
-	for(var/obj/item/reagent_containers/glass/G in beakers)
-		reactants += G.reagents
+	for(var/obj/item/reagent_containers/container in beakers)
+		reactants += container.reagents
 
 	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
 		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
@@ -366,8 +366,8 @@
 
 	for(var/obj/item/slime_extract/S in beakers)
 		if(S.Uses)
-			for(var/obj/item/reagent_containers/glass/G in beakers)
-				G.reagents.trans_to(S, G.reagents.total_volume)
+			for(var/obj/item/reagent_containers/container in beakers)
+				container.reagents.trans_to(S, container.reagents.total_volume)
 
 			//If there is still a core (sometimes it's used up)
 			//and there are reagents left, behave normally,
@@ -375,8 +375,8 @@
 
 			if(S)
 				if(S.reagents && S.reagents.total_volume)
-					for(var/obj/item/reagent_containers/glass/G in beakers)
-						S.reagents.trans_to(G, S.reagents.total_volume)
+					for(var/obj/item/reagent_containers/container in beakers)
+						S.reagents.trans_to(container, S.reagents.total_volume)
 				else
 					S.forceMove(get_turf(src))
 					no_splash = TRUE

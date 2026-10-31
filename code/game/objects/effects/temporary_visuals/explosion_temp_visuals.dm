@@ -10,7 +10,7 @@
 	/// Sparks particle holder
 	var/obj/effect/abstract/particle_holder/sparks
 
-/obj/effect/temp_visual/explosion/Initialize(mapload, radius, color, small = FALSE, large = FALSE)
+/obj/effect/temp_visual/explosion/Initialize(mapload, radius, small = FALSE, large = FALSE)
 	. = ..()
 	set_light(radius, radius, LIGHT_COLOR_ORANGE)
 	generate_particles(radius, small, large)
