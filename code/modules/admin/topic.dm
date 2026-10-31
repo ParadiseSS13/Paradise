@@ -83,6 +83,10 @@
 				log_admin("[key_name(usr)] has spawned acolytes.")
 				if(!makeAcolytes())
 					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
+			if("12")
+				log_admin("[key_name(usr)] has spawned malfs.")
+				if(!makeMalf())
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -3145,7 +3149,7 @@
 						T.add_antag_objective(custom_objective, custom_objective_expl)
 
 					H.mind.add_antag_datum(T)
-					
+
 				for(var/mob/living/silicon/A in GLOB.player_list)
 					A.mind.add_antag_datum(/datum/antagonist/traitor)
 

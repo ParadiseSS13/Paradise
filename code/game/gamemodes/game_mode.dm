@@ -81,6 +81,8 @@
 	var/list/datum/mind/apprentices = list()
 	/// A list of all minds that are ninjas
 	var/list/datum/mind/ninjas = list()
+	/// A list of all minds that are malfunctioning AIs
+	var/list/datum/mind/malf_ais = list()
 
 	/// The cult team datum
 	var/datum/team/cult/cult_team
@@ -642,6 +644,7 @@
 /datum/game_mode/proc/get_end_of_round_antagonist_statistics()
 	. = list()
 	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_malf()
 	. += auto_declare_completion_vampire()
 	. += auto_declare_completion_enthralled()
 	. += auto_declare_completion_mindflayer()
