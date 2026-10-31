@@ -409,9 +409,8 @@
 		current_syringes++
 		process_chamber()
 
-//Cannot manually remove syringes
-/obj/item/gun/syringemalf/attack_self__legacy__attackchain(mob/living/user)
-	return
+/obj/item/gun/syringemalf/handle_activate_self(mob/user)
+	return // Cannot manually remove syringes.
 
 //Load syringe into the chamber
 /obj/item/gun/syringemalf/process_chamber()
