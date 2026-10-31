@@ -2042,6 +2042,8 @@
 #include "code\modules\antagonists\traitor\contractor\items\contractor_pinpointer.dm"
 #include "code\modules\antagonists\traitor\contractor\items\contractor_uplink.dm"
 #include "code\modules\antagonists\traitor\contractor\items\extraction_items.dm"
+#include "code\modules\antagonists\traitor\malfunctioning_ai\datum_malf.dm"
+#include "code\modules\antagonists\traitor\malfunctioning_ai\malf_gamemode.dm"
 #include "code\modules\antagonists\uplifted_primitive\datum_uplifted_primitive.dm"
 #include "code\modules\antagonists\uplifted_primitive\team_uplifted_primitive.dm"
 #include "code\modules\antagonists\vampire\vamp_datum.dm"

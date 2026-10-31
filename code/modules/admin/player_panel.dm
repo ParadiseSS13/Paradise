@@ -451,6 +451,9 @@
 		if(length(SSticker.mode.implanted))
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 
+		if(length(SSticker.mode.malf_ais))
+			dat += check_role_table("Malfunctioning AIs", SSticker.mode.malf_ais)
+
 		if(length(SSticker.mode.abductors))
 			dat += check_role_table("Abductors", SSticker.mode.abductors)
 

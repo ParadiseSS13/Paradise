@@ -50,6 +50,7 @@
 #define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"
+#define SPECIAL_ROLE_MALF "Malfunctioning AI"
 #define SPECIAL_ROLE_VAMPIRE "Vampire"
 #define SPECIAL_ROLE_MIND_FLAYER "Mind Flayer"
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
