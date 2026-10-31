@@ -288,23 +288,77 @@
 	list_reagents = list("nutriment" = 5, "sugar" = 5)
 
 /obj/item/food/rawcookies/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/food/choc_pile))
-		if(isturf(loc))
-			new /obj/item/food/rawcookies/chocochips(loc)
-			to_chat(user, SPAN_NOTICE("You sprinkle [used] all over the cookies."))
-			qdel(src)
-			qdel(used)
-		else
-			to_chat(user, SPAN_WARNING("You need to put [src] on a surface to add [used]!"))
+	if(!istype(used, /obj/item/food) && !istype(used, /obj/item/reagent_containers))
+		return NONE
+
+	if(!isturf(loc))
+		to_chat(user, SPAN_WARNING("You need to put [src] on a surface before adding [used]!"))
 		return ITEM_INTERACT_COMPLETE
 
+	if(istype(used, /obj/item/food/choc_pile))
+		new /obj/item/food/rawcookies/chocochips(loc)
+		to_chat(user, SPAN_NOTICE("You sprinkle [used] all over the cookies."))
+		qdel(src)
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/food/grown/oat))
+		var/obj/item/food/rawcookies/oat/new_cookies = new(loc)
+		used.reagents.trans_to(new_cookies, amount = used.reagents.total_volume)
+		to_chat(user, SPAN_NOTICE("You add [used] to the cookie batter."))
+		qdel(src)
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/food/no_raisin))
+		new /obj/item/food/rawcookies/raisin(loc)
+		to_chat(user, SPAN_NOTICE("You sprinkle [used] all over the cookies."))
+		qdel(src)
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/jar = used
+		if(jar.reagents.get_master_reagent_id() != "peanutbutter")
+			return ..()
+		if(length(jar.reagents.reagent_list) > 1)
+			to_chat(user, SPAN_WARNING("The peanut butter seems contaminated. You don't think this will make a good batter."))
+			return ITEM_INTERACT_COMPLETE
+		if(jar.reagents.total_volume < 5)
+			to_chat(user, SPAN_WARNING("There's not enough peanut butter left to make cookies with!"))
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_NOTICE("You mix peanut butter into the batter."))
+		new /obj/item/food/rawcookies/peanut_butter(loc)
+		jar.reagents.remove_reagent("peanutbutter", 5)
+		qdel(src)
+		return ITEM_INTERACT_COMPLETE
 	return NONE
 
 /obj/item/food/rawcookies/chocochips
-	desc = "Ready for oven! They have little pieces of chocolate all over them"
+	name = "raw chocolate chip cookies"
+	desc = "Ready for oven! They have little pieces of chocolate all over them."
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
+
+/obj/item/food/rawcookies/raisin
+	name = "raw raisin cookies"
+	desc = "Ready for oven! They have raisins all over them."
+	icon_state = "unbaked_cookies_choco"
+	list_reagents = list("nutriment" = 5, "sugar" = 5, "grapejuice" = 2)
+	tastes = list("dough" = 1, "sugar" = 1, "raisins" = 1)
+
+/obj/item/food/rawcookies/oat
+	name = "raw oatmeal cookies"
+	desc = "Ready for oven! They smell like oats."
+	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	tastes = list("dough" = 1, "sugar" = 1, "oatmeal" = 1)
+
+/obj/item/food/rawcookies/peanut_butter
+	name = "raw peanut butter cookies"
+	desc = "Ready for oven! They have peanut butter mixed into the batter."
+	list_reagents = list("nutriment" = 5, "sugar" = 5, "peanutbutter" = 5)
+	tastes = list("dough" = 1, "sugar" = 1, "peanut butter" = 1)
 
 /obj/item/food/tapiocadough
 	name = "uncooked tapioca dough"
