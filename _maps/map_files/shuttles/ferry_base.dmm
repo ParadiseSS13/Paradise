@@ -25,7 +25,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "i" = (
-/obj/machinery/computer/shuttle/ferry/request,
+/obj/machinery/computer/shuttle/ferry/request/onboard,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "j" = (

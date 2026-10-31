@@ -273,7 +273,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aX" = (
-/obj/machinery/computer/shuttle/admin{
+/obj/machinery/computer/shuttle/admin/onboard{
 	name = "NTV Argos shuttle console";
 	dir = 8
 	},

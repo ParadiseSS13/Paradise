@@ -593,9 +593,9 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Ir" = (
-/obj/machinery/computer/shuttle/admin{
-	name = "NRV Sparta shuttle console";
-	dir = 4
+/obj/machinery/computer/shuttle/admin/onboard{
+	dir = 4;
+	name = "NRV Sparta shuttle console"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
