@@ -232,3 +232,10 @@
 /area/lavaland/surface/outdoors/explored
 
 /area/lavaland/surface/outdoors/targetable
+
+/**********************Biome Areas**************************/
+///base type for biomes,
+/area/lavaland/surface/biome
+	name = "base biome"
+
+
