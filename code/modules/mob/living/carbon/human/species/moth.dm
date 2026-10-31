@@ -1,5 +1,7 @@
 #define COCOON_HARM_AMOUNT 50
 #define COCOON_NUTRITION_AMOUNT -200
+#define COCOON_HEAL_AMOUNT 25
+#define COCOON_OCULINE_AMOUNT 10
 
 /datum/species/moth
 	name = "Nian"
@@ -243,7 +245,10 @@
 
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
+		H.adjustBruteLoss(-COCOON_HEAL_AMOUNT)
+		H.adjustFireLoss(-COCOON_HEAL_AMOUNT)
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
+		H.reagents.add_reagent("oculine", COCOON_OCULINE_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
 		H.create_log(MISC_LOG, "has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
@@ -270,6 +275,8 @@
 
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+#undef COCOON_HEAL_AMOUNT
+#undef COCOON_OCULINE_AMOUNT
 
 /datum/species/moth/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null, use_gender = null)
 	if(!istype(appearance))
