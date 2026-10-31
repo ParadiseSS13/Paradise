@@ -592,6 +592,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "\improper Premium Havanian Cigar"
 	desc = "A luxury cigar imported straight from Sol. Only fit for the best of the best. You feel badass merely glimpsing it..."
 	icon_state = "gold_cigar"
+	var/list/active_clothing_traits = list(TRAIT_BADASS)
 	smoketime = 450
 	chem_volume = 200
 	list_reagents = list("nicotine" = 180)
@@ -609,24 +610,19 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/havana/equipped(mob/user, slot, initial)
 	. = ..()
-	if(lit && slot == ITEM_SLOT_MASK)
-		grant_badass(user)
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID()]"))
+		to_chat(user, SPAN_NOTICE("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/cigarette/cigar/havana/light(mob/living/user)
-	..()
-	if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-		grant_badass(user)
-
-/obj/item/clothing/mask/cigarette/cigar/havana/proc/grant_badass(mob/user)
-	if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-		ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+	. = ..()
+	attach_clothing_traits(active_clothing_traits)
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID()]"))
 		to_chat(user, SPAN_NOTICE("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/cigarette/cigar/havana/dropped(mob/user, silent)
-	. = ..()
-	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, "TRAIT_BADASS_[UID()]"))
 		to_chat(user, SPAN_NOTICE("You feel less badass."))
+	. = ..()
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
@@ -652,6 +648,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi')
+	var/list/active_clothing_traits = list(TRAIT_BADASS)
 	/// Is the holo-cigar lit?
 	var/enabled = FALSE
 	/// Tracks if this is the first cycle smoking the cigar.
@@ -663,10 +660,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(enabled)
 		enabled = FALSE
+		attach_clothing_traits(active_clothing_traits)
 		to_chat(user, SPAN_NOTICE("You disable the holo-cigar."))
 		STOP_PROCESSING(SSobj, src)
 	else
 		enabled = TRUE
+		detach_clothing_traits(active_clothing_traits)
 		to_chat(user, SPAN_NOTICE("You enable the holo-cigar."))
 		START_PROCESSING(SSobj, src)
 
@@ -708,15 +707,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
 	if(enabled && slot == ITEM_SLOT_MASK)
-		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		if(!HAS_TRAIT(user, TRAIT_BADASS))
 			to_chat(user, SPAN_NOTICE("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/holo_cigar/dropped(mob/user, silent)
 	. = ..()
 	has_smoked = FALSE
-	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+	if(HAS_TRAIT(user, TRAIT_BADASS))
 		to_chat(user, SPAN_NOTICE("You feel less badass."))
 
 //////////////////////////////

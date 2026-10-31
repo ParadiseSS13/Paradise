@@ -90,17 +90,7 @@
 	origin_tech = "magnets=1;engineering=2"
 	prescription_upgradable = TRUE
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
-	var/active_on_equip = TRUE
-
-/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(active_on_equip && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+	clothing_traits = list(TRAIT_MESON_VISION)
 
 /obj/item/clothing/glasses/meson/night
 	name = "night vision optical meson scanner"
