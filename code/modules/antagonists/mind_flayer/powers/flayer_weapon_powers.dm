@@ -277,11 +277,11 @@
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/gun/projectile/revolver/doublebarrel/flayer/attack_self__legacy__attackchain(mob/living/user)
-	return FALSE // Not getting those shrapnel rounds out of there.
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/handle_activate_self(mob/user)
+	return // Not getting those shells out of there.
 
-/obj/item/gun/projectile/revolver/doublebarrel/flayer/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	return FALSE // No loading your gun
+/obj/item/gun/projectile/revolver/doublebarrel/flayer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return ITEM_INTERACT_COMPLETE // Not using anything on your gun.
 
 /obj/item/gun/projectile/revolver/doublebarrel/flayer/sleight_of_handling(mob/living/carbon/human/user)
 	return FALSE // Also no loading like this
