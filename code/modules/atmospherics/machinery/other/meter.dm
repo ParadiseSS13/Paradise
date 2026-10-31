@@ -13,6 +13,10 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	idle_power_consumption = 2
 	active_power_consumption = 5
 	var/obj/machinery/atmospherics/pipe/target = null
+	/// What we last showed: the air, its version, and our broken or unpowered bits
+	var/datum/gas_mixture/shown_air
+	var/shown_version
+	var/shown_stat
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..()
@@ -21,11 +25,21 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter/Destroy()
 	target = null
+	shown_air = null
 	GLOB.gas_meters -= src
 	return ..()
 
 /obj/machinery/atmospherics/meter/process_atmos()
+	var/datum/gas_mixture/environment = target?.return_obj_air()
+	if(environment && environment == shown_air && environment.version == shown_version && (stat & (BROKEN|NOPOWER)) == shown_stat)
+		atmos_napping = TRUE
+		return
+	atmos_napping = FALSE
 	update_icon(UPDATE_ICON_STATE)
+	shown_air = environment
+	// No network hands back 0, not an air
+	shown_version = environment ? environment.version : null
+	shown_stat = stat & (BROKEN|NOPOWER)
 
 /obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)

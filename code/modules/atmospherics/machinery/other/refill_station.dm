@@ -119,6 +119,8 @@
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return
+	if(!on || !holding_tank)
+		return
 	var/datum/milla_safe/refill_station_process/milla = new()
 	milla.invoke_async(src)
 

@@ -93,14 +93,22 @@
 /proc/get_tracked_pressure_tiles()
 	return RUSTLIB_CALL(milla_get_tracked_pressure_tiles)
 
-/proc/milla_watch_tile(turf/T)
-	return RUSTLIB_CALL(milla_watch_tile, T)
+/// The turfs whose air has changed since this was last called, out of the ones that have been read with get_tile_atmos() since they last changed.
+/// If we've said we finish MILLA's ticks, this is also what makes the tick that just got worked out the current one.
+/proc/get_changed_atmos_tiles()
+	return RUSTLIB_CALL(milla_get_changed_tiles)
 
-/proc/milla_unwatch_tile(slot)
-	return RUSTLIB_CALL(milla_unwatch_tile, slot)
+/// Says whether a MILLA tick becomes the current one when we call get_changed_atmos_tiles(), not as soon as MILLA is done with it.
+/proc/set_milla_tick_finishing(by_us)
+	return RUSTLIB_CALL(milla_set_byond_finishes_ticks, by_us)
 
-/proc/get_watched_atmos_tiles()
-	return RUSTLIB_CALL(milla_get_watched_tiles)
+/// Asks MILLA to tell us when this tile's pressure goes under pressure_below, in kPa. Returns FALSE if it can't.
+/proc/set_tile_tripwire(turf/T, pressure_below)
+	return RUSTLIB_CALL(milla_set_tile_tripwire, T, pressure_below)
+
+/// The turfs whose tripwires went off in the frame that just came in
+/proc/get_tripped_tiles()
+	return RUSTLIB_CALL(milla_get_tripped_tiles)
 
 /proc/reduce_superconductivity(turf/T, list/superconductivity)
 	var/north = superconductivity[1]
@@ -122,10 +130,12 @@
 	return RUSTLIB_CALL(milla_set_tile_airtight, T, north, east, south, west)
 
 /proc/create_hotspot(turf/T, hotspot_temperature, hotspot_volume)
-	return RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
+	. = RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
+	T.milla_tile_written()
 
 /proc/extinguish_hotspot(turf/T)
 	RUSTLIB_CALL(milla_extinguish_hotspot, T)
+	T.milla_tile_written()
 
 /proc/track_pressure_tiles(atom/A, radius)
 	var/turf/T = get_turf(A)
@@ -286,6 +296,21 @@
 /proc/rustlibs_sql_check_query(datum/db_query/query)
 	return RUSTLIB_CALL(sql_check_query, query)
 
+/// Has MILLA scrub a turf every tick, or changes how it does. Pass 0 for a new scrubber, or the number this gave back before.
+/// starts_for and takes are MILLA_WATCHED_GAS_* bits: it only does anything while there's more than a trace of a gas in starts_for,
+/// and then takes that share of each gas in takes. Returns the number MILLA knows it by.
+/proc/milla_set_scrubber(id, turf/T, starts_for, takes, share)
+	return RUSTLIB_CALL(milla_set_scrubber, id, T, starts_for, takes, share)
+
+/// Stops MILLA scrubbing for the scrubber with this number.
+/proc/milla_remove_scrubber(id)
+	return RUSTLIB_CALL(milla_remove_scrubber, id)
+
+/// What MILLA's scrubbers have taken off their turfs since this was last called.
+/// Ten values for each one that took anything: its number, the moles of each gas in MILLA's order, and the thermal energy that gas had.
+/proc/milla_collect_scrubbed()
+	return RUSTLIB_CALL(milla_collect_scrubbed)
+
 #undef RUSTLIB_CALL
 
 // Indexes for Tiles and InterestingTiles
@@ -336,16 +361,7 @@
 /// Interesting because water condensed on it this tick and froze.
 #define MILLA_INTERESTING_REASON_ICY		(1 << 4)
 
-// Indexes for watched tiles, from get_watched_atmos_tiles()
-// Must match the order in milla/src/api.rs
-#define MILLA_WATCHED_PRESSURE				1
-#define MILLA_WATCHED_GASES					2
-
-/// The number of values per watched tile.
-#define MILLA_WATCHED_TILE_SIZE				MILLA_WATCHED_GASES
-
-// Bits of MILLA_WATCHED_GASES, set when the tile has enough of that gas for a scrubber to care
-// Must match the gas order in milla/src/constants.rs
+// One bit for each gas, in MILLA's order. Must match the gas order in milla/src/constants.rs
 #define MILLA_WATCHED_GAS_OXYGEN			(1 << 0)
 #define MILLA_WATCHED_GAS_CARBON_DIOXIDE	(1 << 1)
 #define MILLA_WATCHED_GAS_NITROGEN			(1 << 2)

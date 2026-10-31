@@ -1,3 +1,4 @@
+use crate::milla::constants::MAP_SIZE;
 use crate::milla::model::*;
 use crate::milla::simulate;
 use crate::milla::statics::*;
@@ -65,7 +66,64 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
 
     result?;
 
+    // The new frame is worked out. Its interesting tiles wait with it until it's the current one.
+    let mut waiting: Vec<InterestingTile> = Vec::new();
+    waiting.extend(new_interesting_tiles);
+    *FINISHED_INTERESTING_TILES.lock().unwrap() = Some(waiting);
+    drop(prev);
+    drop(next);
+
+    if !BYOND_FINISHES_TICKS.load(std::sync::atomic::Ordering::Relaxed) {
+        finish_tick(buffers);
+    }
+
+    Ok(())
+}
+
+/// Makes the frame the last tick worked out the current one, the one BYOND reads and writes.
+/// Does nothing if that's already been done.
+pub(crate) fn finish_tick(buffers: &Buffers) {
+    let new_interesting_tiles = match FINISHED_INTERESTING_TILES.lock().unwrap().take() {
+        Some(tiles) => tiles,
+        None => return,
+    };
+
     buffers.flip();
+
+    // Now that BYOND can see the new frame, add what changed in it to the list it's waiting on.
+    {
+        let current = buffers.get_active().read().unwrap();
+        let mut changed_tiles = CHANGED_TILES.lock().unwrap();
+        for z in 0..current.0.len() {
+            let z_level = current.0[z].read().unwrap();
+            while changed_tiles.len() <= z {
+                changed_tiles.push(TileSet::new());
+            }
+            changed_tiles[z].add_all(&z_level.changed_for_byond);
+        }
+
+        // And which tripwires it set off. All of them get looked at, so a tile written to
+        // directly can't slip past.
+        let mut tripwires = TRIPWIRES.lock().unwrap();
+        let mut tripped = TRIPPED_TILES.lock().unwrap();
+        for (z, wires) in tripwires.iter_mut().enumerate() {
+            if wires.is_empty() || z >= current.0.len() {
+                continue;
+            }
+            let z_level = current.0[z].read().unwrap();
+            wires.retain(|&index, wire| {
+                if !wire.tripped_by(z_level.get_tile(index)) {
+                    return true;
+                }
+                tripped.push((
+                    (index / MAP_SIZE) as i32,
+                    (index % MAP_SIZE) as i32,
+                    z as i32,
+                ));
+                false
+            });
+        }
+    }
 
     let mut interesting_tiles = INTERESTING_TILES.lock().unwrap();
     // drake_no: Last tick's interesting tiles.
@@ -73,7 +131,7 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     // drake_yes: This tick's interesting tiles.
     interesting_tiles.extend(new_interesting_tiles);
 
-    Ok(())
+    TICK_UNFINISHED.store(false, std::sync::atomic::Ordering::Relaxed);
 }
 
 /// Runs a single tick of one Z level's atmospherics model.
@@ -92,14 +150,25 @@ pub(crate) fn tick_z_level(
     let prev = prev_atmos_lock.read().unwrap();
     let mut next = next_atmos_lock.write().unwrap();
 
-    // Initialize the new frame as a copy of the old one.
-    next.copy_from(&prev);
+    // Get the new frame ready: pick the tiles that need working on and copy them over from the
+    // old one. Every other tile is already the same in both.
+    next.begin_tick(&prev);
 
     if !prev.frozen {
-        simulate::find_walls(&mut next);
+        simulate::find_walls(&prev, &mut next);
         simulate::update_wind(&prev, &mut next);
         simulate::flow_air(&prev, &mut next)?;
-        simulate::post_process(&prev, &mut next, &environments, new_interesting_tiles, z)?;
+        {
+            let mut scrubbers = SCRUBBERS[z as usize].lock().unwrap();
+            simulate::post_process(
+                &prev,
+                &mut next,
+                &environments,
+                new_interesting_tiles,
+                z,
+                &mut scrubbers,
+            )?;
+        }
 
         next.active_pressure_chunks.clear();
     }

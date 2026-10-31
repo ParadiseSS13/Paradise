@@ -724,8 +724,16 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /datum/milla_safe/initialize_turf/on_run(turf/T)
 	if(!isnull(T))
 		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
-		// This writes straight to MILLA, so anything fetched from it before now may be out of date.
-		SSair.watched_tiles = null
+		T.milla_tile_written()
+
+/// Something's been written straight to our tile in MILLA, so the copy of it we hold doesn't match any more.
+/turf/proc/milla_tile_written()
+	// Until MILLA's first tick comes in there's nothing it could have handed us
+	if(SSair.milla_frame)
+		SSair.written_tiles[src] = TRUE
+	if(bound_air)
+		bound_air.good_until = -1
+		bound_air.wakes++
 
 /// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
 /turf/proc/private_unsafe_get_air()
@@ -737,17 +745,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /// Gets a read-only version of this tile's air. Do not use if you intend to modify the air later, implement /datum/milla_safe instead.
 /turf/proc/get_readonly_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	// This is one of two intended places to call this otherwise-unsafe proc.
-	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
-	if(air.lastread < SSair.milla_tick)
-		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
-		get_tile_atmos(src, milla_tile)
-		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.milla_tick
-		air.readonly = null
-		air.dirty = FALSE
+	var/datum/gas_mixture/bound_to_turf/air = bound_air
+	if(isnull(air))
+		// This is one of two intended places to call this otherwise-unsafe proc.
+		air = private_unsafe_get_air()
+	// A copy with changes still to write back is the newest there is. Any other gets fetched again once it's out of date.
+	else if(air.good_until < SSair.milla_frame && !air.dirty)
+		air.fetch()
 		air.synchronized = FALSE
-	return air.get_readonly()
+	return air.readonly || air.get_readonly()
 
 /// Blindly releases air to this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
 /turf/proc/blind_release_air(datum/gas_mixture/air)
@@ -780,7 +786,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
 
 	if(active_hotspot.data_tick != SSair.milla_tick)
-		if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+		if(isnull(bound_air) || bound_air.good_until < SSair.milla_frame)
 			air = get_readonly_air()
 		else
 			air = bound_air
@@ -824,8 +830,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	// This is a horrible (but fast) way to do this. Don't copy it.
 	// It's only used here because we know we're in safe code and this method is called a ton.
 	var/moles
-	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
-		// Nothing has touched this tile's air this tick, so it still has what MILLA sent along with the wind.
+	if(isnull(bound_air) || bound_air.good_until < SSair.milla_frame)
+		// This tile's copy of its air is out of date, but MILLA sent its moles along with the wind.
 		moles = wind_moles
 	else
 		moles = bound_air.total_moles()

@@ -21,6 +21,13 @@ SUBSYSTEM_DEF(air)
 	var/was_paused = FALSE
 	/// And that means we also nee a replacement for times_fired.
 	var/milla_tick = 0
+	/// Goes up every time a tick MILLA has worked out becomes the current one. Copies of tiles are marked with it, see /datum/gas_mixture/bound_to_turf/var/good_until.
+	var/milla_frame = 0
+	/// Turfs something's written straight to in MILLA since its last tick came in. What MILLA handed us at the end of that tick is out of date for these.
+	var/list/turf/written_tiles = list()
+	/// Copies we've written back to MILLA since its last tick started. MILLA keeps heat, not temperature, so what it hands back can be a hair off what we wrote.
+	/// Once its next tick starts, these get read from it again, like they always were.
+	var/list/datum/gas_mixture/bound_to_turf/written_back = list()
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
@@ -73,6 +80,8 @@ SUBSYSTEM_DEF(air)
 	var/list/pipenets = list()
 	/// The set of active atmos machinery. Length shown in SS Info as AM.
 	var/list/atmos_machinery = list()
+	/// The scrubbers MILLA is scrubbing turfs for, by the number MILLA knows each of those by.
+	var/list/obj/machinery/atmospherics/unary/vent_scrubber/milla_scrubbers = list()
 	/// The set of tiles that are currently on fire.
 	var/list/hotspots
 	/// The set of tiles that are still on fire after this tick.
@@ -81,9 +90,6 @@ SUBSYSTEM_DEF(air)
 	var/list/windy_tiles
 	/// The set of tiles that are still experiencing wind after this tick.
 	var/list/new_windy_tiles
-
-	/// The pressure and gases of every watched tile, straight from MILLA. Only set while atmos machinery is processing.
-	var/list/watched_tiles
 
 	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
@@ -174,6 +180,8 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/Initialize()
 	in_milla_safe_code = TRUE
+	// A tick only becomes the current one when mark_changed_tiles() asks what it changed
+	set_milla_tick_finishing(TRUE)
 
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_turfs()
@@ -250,10 +258,8 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
 
-		// Fetched again every time we come back here, other things may have changed tiles while we were paused.
-		watched_tiles = get_watched_atmos_tiles()
+		collect_scrubbed()
 		process_atmos_machinery(resumed)
-		watched_tiles = null
 
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
@@ -334,6 +340,9 @@ SUBSYSTEM_DEF(air)
 		spawn_milla_tick_thread()
 		milla_tick++
 		milla_idle = FALSE
+		for(var/datum/gas_mixture/bound_to_turf/air as anything in written_back)
+			air.good_until = -1
+		written_back.Cut()
 
 		cost_milla_tick = MC_AVERAGE(cost_milla_tick, get_milla_tick_time())
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
@@ -384,9 +393,13 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/list/supermatters = list()
+	var/cycle = milla_tick
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/M = currentrun[length(currentrun)]
 		currentrun.len--
+		// Machines with nothing to do take turns, a quarter of them each cycle
+		if(((cycle + length(currentrun)) & 3) && M?.atmos_napping)
+			continue
 		if(istype(M, /obj/machinery/atmospherics/supermatter_crystal))
 			supermatters += M
 		else if(isnull(M) || (M.process_atmos(seconds) == PROCESS_KILL))
@@ -426,14 +439,15 @@ SUBSYSTEM_DEF(air)
 
 		// Bind the MILLA tile we got, if needed.
 		if(reasons & MILLA_INTERESTING_REASON_DISPLAY)
-			var/milla_tile = currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1)
+			// What we got is the tile as the tick left it. If something's written to it since, we have to ask again.
+			// Only copied when it's used, our copy is usually current
 			if(isnull(T.bound_air))
-				bind_turf(T, milla_tile)
-			else if(T.bound_air.lastread < milla_tick)
-				T.bound_air.copy_from_milla(milla_tile)
-				T.bound_air.lastread = milla_tick
-				T.bound_air.readonly = null
-				T.bound_air.dirty = FALSE
+				bind_turf(T, written_tiles[T] ? null : currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1))
+			else if(T.bound_air.good_until < milla_frame && !T.bound_air.dirty)
+				if(written_tiles[T])
+					T.bound_air.fetch()
+				else
+					T.bound_air.take_milla_tile(currentrun.Copy(offset + 1, offset + 1 + MILLA_TILE_SIZE + 1))
 				T.bound_air.synchronized = FALSE
 
 			var/turf/simulated/S = T
@@ -664,6 +678,7 @@ SUBSYSTEM_DEF(air)
 			// This is one of two places expected to call this otherwise-unsafe method.
 			mixture.private_unsafe_write()
 			mixture.dirty = FALSE
+			written_back += mixture
 		if(MC_TICK_CHECK)
 			last_bound_mixtures = length(bound_mixtures)
 			return
@@ -735,25 +750,11 @@ SUBSYSTEM_DEF(air)
 	T.bound_air = B
 	B.bound_turf = T
 	if(isnull(milla_tile))
-		milla_tile = new/list(MILLA_TILE_SIZE)
-		get_tile_atmos(T, milla_tile)
-	B.copy_from_milla(milla_tile)
-	B.lastread = src.milla_tick
-	B.readonly = null
-	B.dirty = FALSE
+		B.fetch()
+	else
+		B.take_milla_tile(milla_tile)
 	B.synchronized = FALSE
 
-
-/// Asks MILLA to put this tile in watched_tiles. Returns where its values start in that list, minus one.
-/datum/controller/subsystem/air/proc/watch_tile(turf/T)
-	// MILLA reuses slots, so what we fetched for this run can't be trusted any more.
-	watched_tiles = null
-	return (milla_watch_tile(T) - 1) * MILLA_WATCHED_TILE_SIZE
-
-/// Stops watching a tile, takes what watch_tile() returned.
-/datum/controller/subsystem/air/proc/unwatch_tile(offset)
-	watched_tiles = null
-	milla_unwatch_tile(offset / MILLA_WATCHED_TILE_SIZE + 1)
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/CB)
@@ -788,9 +789,59 @@ SUBSYSTEM_DEF(air)
 	return in_milla_safe_code || length(sleepers) > 0
 
 /datum/controller/subsystem/air/proc/on_milla_tick_finished()
+	// Before anything gets a look at the air, the callbacks below included.
+	mark_changed_tiles()
 	milla_idle = TRUE
 	run_sleepless_callbacks()
 	run_sleeping_callbacks()
+
+/// Notes which scrubber MILLA is scrubbing a turf for.
+/datum/controller/subsystem/air/proc/add_scrubber(id, obj/machinery/atmospherics/unary/vent_scrubber/scrubber)
+	if(length(milla_scrubbers) < id)
+		milla_scrubbers.len = id
+	milla_scrubbers[id] = scrubber
+
+/// Has MILLA stop scrubbing a turf.
+/datum/controller/subsystem/air/proc/remove_scrubber(id)
+	milla_remove_scrubber(id)
+	if(id <= length(milla_scrubbers))
+		milla_scrubbers[id] = null
+
+/// Puts the gas MILLA's taken off the scrubbers' turfs since last time into their pipes.
+/datum/controller/subsystem/air/proc/collect_scrubbed()
+	var/list/scrubbed = milla_collect_scrubbed()
+	if(!length(scrubbed))
+		return
+	var/datum/gas_mixture/taken = new()
+	for(var/i in 1 to length(scrubbed) step 10)
+		var/id = scrubbed[i]
+		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = id <= length(milla_scrubbers) ? milla_scrubbers[id] : null
+		if(QDELETED(scrubber))
+			continue
+		if(!taken.take_milla_gases(scrubbed, i))
+			continue
+		scrubber.air_contents.merge(taken)
+		if(!QDELETED(scrubber.parent))
+			scrubber.parent.update = 1
+
+/// MILLA's worked out a tick. This makes it the current one, and MILLA tells us which of the tiles it was watching for us changed in it.
+/// Nothing gets to read the air between the two.
+/datum/controller/subsystem/air/proc/mark_changed_tiles()
+	var/list/changed = get_changed_atmos_tiles()
+	// Every copy that was only good for the tick it was made in is out of date now
+	milla_frame++
+	// Whatever got written before now is in what MILLA hands us from here on
+	written_tiles.Cut()
+	// And so are these
+	for(var/turf/T as anything in changed)
+		var/datum/gas_mixture/bound_to_turf/air = T.bound_air
+		if(air)
+			air.good_until = -1
+	// Wake anything waiting on these
+	for(var/turf/T as anything in get_tripped_tiles())
+		var/datum/gas_mixture/bound_to_turf/air = T.bound_air
+		if(air)
+			air.wakes++
 
 /datum/controller/subsystem/air/proc/run_sleepless_callbacks()
 	// Just in case someone is naughty and decides to sleep, make sure that this method runs fully anyway.
@@ -868,13 +919,8 @@ SUBSYSTEM_DEF(air)
 	soft_assert_safe()
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
-	if(air.lastread < SSair.milla_tick)
-		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
-		get_tile_atmos(T, milla_tile)
-		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.milla_tick
-		air.readonly = null
-		air.dirty = FALSE
+	if(air.good_until < SSair.milla_frame && !air.dirty)
+		air.fetch()
 	if(!air.synchronized)
 		air.synchronized = TRUE
 		SSair.bound_mixtures += air
@@ -918,13 +964,8 @@ SUBSYSTEM_DEF(air)
 	soft_assert_safe()
 	// This is one of two intended places to call this otherwise-unsafe proc.
 	var/datum/gas_mixture/bound_to_turf/air = T.private_unsafe_get_air()
-	if(air.lastread < SSair.milla_tick)
-		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
-		get_tile_atmos(T, milla_tile)
-		air.copy_from_milla(milla_tile)
-		air.lastread = SSair.milla_tick
-		air.readonly = null
-		air.dirty = FALSE
+	if(air.good_until < SSair.milla_frame && !air.dirty)
+		air.fetch()
 	if(!air.synchronized)
 		air.synchronized = TRUE
 		SSair.bound_mixtures += air
