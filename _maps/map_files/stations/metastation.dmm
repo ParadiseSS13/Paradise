@@ -20197,7 +20197,9 @@
 	pixel_x = -4
 	},
 /obj/machinery/light_switch/offset/northeast,
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "CMO"
+	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "coF" = (
@@ -20354,7 +20356,9 @@
 	req_access = list(74)
 	},
 /obj/machinery/light_switch/offset/northeast,
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "Magistrate"
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cpL" = (
@@ -23733,7 +23737,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "RD"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "cGQ" = (
@@ -33741,7 +33747,9 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 24
 	},
-/obj/machinery/button/windowtint/offset/northeast,
+/obj/machinery/button/windowtint/offset/northeast{
+	id = "HoS"
+	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "fdc" = (
@@ -80702,7 +80710,9 @@
 	pixel_x = 9
 	},
 /obj/machinery/light_switch/offset/northwest,
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "Detective"
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "uzt" = (
