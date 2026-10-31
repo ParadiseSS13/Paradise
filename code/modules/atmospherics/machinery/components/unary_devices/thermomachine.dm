@@ -300,7 +300,7 @@
 	icon_state = "heater_1"
 
 /obj/machinery/atmospherics/unary/thermomachine/upgraded/Initialize(mapload)
-	..()
+	. = ..()
 	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
