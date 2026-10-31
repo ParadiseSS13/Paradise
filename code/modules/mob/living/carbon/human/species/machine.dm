@@ -81,6 +81,8 @@
 		"is dropping tables!",
 		"just remembered they have no I/O shield!")
 
+	speciesbox = /obj/item/storage/box/survival_ipc
+
 	plushie_type = /obj/item/toy/plushie/ipcplushie
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
