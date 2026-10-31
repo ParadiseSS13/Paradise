@@ -7,6 +7,7 @@
 	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality."
 	icon_state = "tajblind"
 	inhand_icon_state = "blindfold"
+	var/list/active_clothing_traits = list()
 	actions_types = list(/datum/action/item_action/toggle)
 	color_view = MATRIX_STANDARD
 	correct_wires = TRUE
@@ -19,6 +20,10 @@
 	/// Used to toggle features of specialised veils
 	var/electronics = TRUE
 
+/obj/item/clothing/glasses/hud/tajblind/Initialize(mapload)
+	. = ..()
+	if(electronics)
+		clothing_traits += active_clothing_traits
 
 /obj/item/clothing/glasses/hud/tajblind/examine()
 	. = ..()
@@ -90,6 +95,7 @@
 /obj/item/clothing/glasses/hud/tajblind/meson
 	name = "\improper Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
+	active_clothing_traits = list(TRAIT_MESON_VISION) 
 
 /obj/item/clothing/glasses/hud/tajblind/meson/Initialize(mapload)
 	. = ..()
@@ -98,26 +104,16 @@
 /obj/item/clothing/glasses/hud/tajblind/meson/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
-		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
-			REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		detach_clothing_traits(active_clothing_traits)
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)		
 			user.update_sight()
 		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		return
 	electronics = TRUE
+	attach_clothing_traits(active_clothing_traits)
 	if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 		user.update_sight()
 	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
-
-/obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(slot == ITEM_SLOT_EYES && electronics)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/tajblind/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/tajblind/meson/cargo
 	name = "\improper Tajaran mining meson veil"
@@ -213,6 +209,7 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
+	active_clothing_traits = list(TRAIT_MESON_VISION)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize(mapload)
 	. = ..()
@@ -221,14 +218,14 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
+		detach_clothing_traits(active_clothing_traits)
 		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
-			REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 			user.update_sight()
 		to_chat(user, SPAN_NOTICE("You toggle electronics in [src] off."))
 		return
 	electronics = TRUE
+	attach_clothing_traits(active_clothing_traits)
 	if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 		user.update_sight()
 	to_chat(user, SPAN_NOTICE("You toggle electronics in [src] on."))
 

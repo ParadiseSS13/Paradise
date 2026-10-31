@@ -3,6 +3,7 @@
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
 	inhand_icon_state = "magboots"
+	var/list/active_clothing_traits = list(TRAIT_NOSLIP, TRAIT_MAGPULSE)
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	dyeable = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
@@ -27,13 +28,11 @@
 	. = ..()
 	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
 		return
-	check_mag_pulse(user)
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
 	if(!ishuman(user))
 		return
-	check_mag_pulse(user, removing = TRUE)
 
 /obj/item/clothing/shoes/magboots/activate_self(mob/user)
 	if(..())
@@ -43,15 +42,13 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
-	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
-		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
-		slowdown = slowdown_passive
-	else
-		if(user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
-			ADD_TRAIT(user, TRAIT_NOSLIP, UID())
-		slowdown = slowdown_active
 	magpulse = !magpulse
-	no_slip = !no_slip
+	if(magpulse)
+		slowdown = slowdown_active
+		attach_clothing_traits(active_clothing_traits)
+	else
+		slowdown = slowdown_passive
+		detach_clothing_traits(active_clothing_traits)
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
 	if(!no_message)
@@ -59,16 +56,6 @@
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	update_action_buttons()
-	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
-
-/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
-	if(!user)
-		return
-	if(magpulse && !removing)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
-		return
-	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots[UID()]")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()

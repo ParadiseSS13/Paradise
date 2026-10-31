@@ -585,7 +585,7 @@
 	chameleon_action.emp_randomise()
 
 /obj/item/clothing/shoes/chameleon/noslip
-	no_slip = TRUE
+	clothing_traits = list(TRAIT_NOSLIP)
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
 	. = ..()
