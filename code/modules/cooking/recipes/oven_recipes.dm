@@ -363,7 +363,8 @@
 
 /datum/cooking/recipe/cookies
 	container_type = /obj/item/reagent_containers/cooking/oven
-	product_type = /obj/item/storage/bag/tray/cookies_tray
+	product_type = /obj/item/food/cookie
+	product_count = 2
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/rawcookies/chocochips),
@@ -789,12 +790,10 @@
 /datum/cooking/recipe/oatmeal_cookie
 	container_type = /obj/item/reagent_containers/cooking/oven
 	product_type = /obj/item/food/oatmeal_cookie
+	product_count = 2
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/oat),
-		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/rawcookies/oat),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
@@ -815,12 +814,10 @@
 /datum/cooking/recipe/peanut_butter_cookie
 	container_type = /obj/item/reagent_containers/cooking/oven
 	product_type = /obj/item/food/peanut_butter_cookie
+	product_count = 2
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_ADD_REAGENT("sugar", 5),
-		PCWJ_ADD_REAGENT("peanutbutter", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/rawcookies/peanut_butter),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
@@ -966,12 +963,10 @@
 /datum/cooking/recipe/raisin_cookie
 	container_type = /obj/item/reagent_containers/cooking/oven
 	product_type = /obj/item/food/raisin_cookie
+	product_count = 2
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_ADD_ITEM(/obj/item/food/no_raisin),
-		PCWJ_ADD_REAGENT("milk", 5),
-		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/rawcookies/raisin),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
@@ -1008,10 +1003,11 @@
 
 /datum/cooking/recipe/sugarcookies
 	container_type = /obj/item/reagent_containers/cooking/oven
-	product_type = /obj/item/storage/bag/tray/cookies_tray/sugarcookie
+	product_type = /obj/item/food/sugarcookie
+	product_count = 2
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/rawcookies),
+		PCWJ_ADD_ITEM(/obj/item/food/rawcookies, exact = TRUE),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
