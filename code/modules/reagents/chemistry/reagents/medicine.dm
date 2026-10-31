@@ -960,7 +960,6 @@
 	but make up for it in economics and ease of mass production. They autonomously migrate to critical systems and attempt to stabilize them before irreparable damage occurs. \
 	Due to their limited capabilities, they cannot affect full repairs on their own, and will instead attempt to sustain the user and restore enough locomotive function to allow them to seek further repair. \
 	WARNING: Buildup of significant amounts of active EMR microbots on cogngnition components may cause temporary malfunctions in cognitive processing due to interference from intra-swarm communication."
-	reagent_state = SOLID
 	color = "#48545a"
 	process_flags = SYNTHETIC
 	taste_flag = SYNTHETIC
@@ -969,7 +968,6 @@
 	harmless = FALSE
 	taste_description = "borrowed time"
 	yuck_description = "iron filings"
-	goal_difficulty = REAGENT_GOAL_SKIP
 
 /datum/reagent/medicine/emr_microbots/on_mob_add(mob/living/L)
 	. = ..()
