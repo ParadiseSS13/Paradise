@@ -459,22 +459,31 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(exploded)
 		return
+
 	if(wires.is_cut(WIRE_NUKE_CONTROL))
 		to_chat(usr, SPAN_WARNING("The control panel isn't responding! Something must be wrong with its wiring!"))
 		return FALSE
+
 	switch(action)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
 				anchored = TRUE
-				visible_message(SPAN_WARNING("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"))
+				visible_message(
+					SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"),
+					SPAN_DANGER("You hear a steely snap!")
+				)
 			else
-				visible_message(SPAN_WARNING("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
+				visible_message(
+					SPAN_DANGER("[src] makes a highly unpleasant crunching noise! It looks like the anchoring bolts have been cut!"),
+					SPAN_DANGER("You hear a highly unpleasant crunching noise!")
+				)
 			if(!wires.is_cut(WIRE_NUKE_LIGHT))
 				flick(sprite_prefix + "nuclearbombc", src)
 				icon_state = sprite_prefix + "nuclearbomb1"
 			update_icon(UPDATE_OVERLAYS)
 			extended = TRUE
 			return
+
 		if("auth")
 			if(auth)
 				if(!usr.get_active_hand() && Adjacent(usr))
@@ -515,7 +524,10 @@ GLOBAL_VAR(bomb_set)
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
 				update_icon(UPDATE_OVERLAYS)
-				visible_message(SPAN_WARNING("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
+				visible_message(
+					SPAN_DANGER("[src] makes a highly unpleasant crunching noise! It looks like the anchoring bolts have been cut!"),
+					SPAN_DANGER("You hear a highly unpleasant crunching noise!")
+				)
 				return
 
 			if(!anchored && isinspace())
@@ -523,17 +535,23 @@ GLOBAL_VAR(bomb_set)
 				return FALSE
 
 			if(!yes_code && anchored && timing)
-				to_chat(usr, SPAN_WARNING("The code is required to unanchor [src] when armed!"))
+				to_chat(usr, SPAN_USERDANGER("The code is required to unanchor [src] when armed!"))
 				return
 
 			anchored = !(anchored)
 			update_icon(UPDATE_OVERLAYS)
 			if(anchored)
-				visible_message(SPAN_WARNING("With a steely snap, bolts slide out of [src] and anchor it to the flooring."))
+				visible_message(
+					SPAN_DANGER("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"),
+					SPAN_DANGER("You hear a steely snap!")
+				)
 				return
 
 			requires_NAD_to_unbolt = FALSE
-			visible_message(SPAN_WARNING("The anchoring bolts slide back into the depths of [src]."))
+			visible_message(
+				SPAN_NOTICE("The anchoring bolts slide back into the depths of [src]."),
+				SPAN_HEAR("You hear metal sliding.")
+			)
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
@@ -542,13 +560,15 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("set_time")
 			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
-			if(isnull(time))
-				return
-			timeleft = time
+			if(!isnull(time))
+				timeleft = time
+			return
+
 		if("toggle_safety")
 			if(wires.is_cut(WIRE_NUKE_SAFETY))
 				to_chat(usr, SPAN_WARNING("The safety isn't responding! Something must be wrong with its wiring!"))
 				return FALSE
+
 			safety = !(safety)
 			if(safety)
 				if(!is_syndicate && !training)
@@ -556,42 +576,54 @@ GLOBAL_VAR(bomb_set)
 				timing = FALSE
 				if(!training)
 					GLOB.bomb_set = FALSE
+			return
+
 		if("toggle_armed")
 			if(safety)
-				to_chat(usr, SPAN_NOTICE("The safety is still on."))
+				to_chat(usr, SPAN_WARNING("The safety is still on!"))
 				return
+
 			if(!core && !training)
-				to_chat(usr, SPAN_DANGER("[src]'s screen blinks red! There is no plutonium core in [src]!"))
+				to_chat(usr, SPAN_WARNING("[src]'s screen blinks red! There is no plutonium core in [src]!"))
 				return
+
 			if(!timing)
 				if(wires.is_cut(WIRE_NUKE_DETONATOR))
 					to_chat(usr, SPAN_WARNING("[src] isn't arming! Something must be wrong with its wiring!"))
 					return FALSE
+
 				timing = TRUE
 				if(!wires.is_cut(WIRE_NUKE_LIGHT))
 					icon_state = sprite_prefix + "nuclearbomb2"
 					update_icon(UPDATE_OVERLAYS)
+
 				if(!safety && !training)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
+					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke.
+					// NT's own nuke, without the Deathsquad.
 					if(!is_syndicate && SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_EPSILON)
 						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
-					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
+					// Deathsquad activation.
 					if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
 						radio.autosay(SPAN_REALLYBIG("The Nuclear Bomb has been armed, retreat from the station immediately!"), name, "Special Ops")
+					// Nuclear Operative activation.
+					if(is_syndicate)
+						SSsecurity_level.set_level(SEC_LEVEL_DELTA_HOSTILE_ACTION)
 				else if(!training)
 					GLOB.bomb_set = TRUE
-			else
-				if(wires.is_cut(WIRE_NUKE_DISARM))
-					to_chat(usr, SPAN_WARNING("[src] isn't disarming! Something must be wrong with its wiring!"))
-					return FALSE
-				timing = FALSE
-				if(!is_syndicate && !training)
-					SSsecurity_level.set_level(previous_level)
-				if(!training)
-					GLOB.bomb_set = FALSE
-				if(!wires.is_cut(WIRE_NUKE_LIGHT))
-					icon_state = sprite_prefix + "nuclearbomb1"
-					update_icon(UPDATE_OVERLAYS)
+				return
+
+			if(wires.is_cut(WIRE_NUKE_DISARM))
+				to_chat(usr, SPAN_WARNING("[src] isn't disarming! Something must be wrong with its wiring!"))
+				return FALSE
+			timing = FALSE
+			if(!training)
+				SSsecurity_level.set_level(previous_level)
+			if(!training)
+				GLOB.bomb_set = FALSE
+			if(!wires.is_cut(WIRE_NUKE_LIGHT))
+				icon_state = sprite_prefix + "nuclearbomb1"
+				update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(training)
