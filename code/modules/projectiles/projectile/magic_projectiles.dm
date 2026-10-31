@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
 	"carp" = /mob/living/basic/carp,
 	"bear" = /mob/living/basic/bear,
 	"mushroom" = /mob/living/simple_animal/hostile/mushroom,
-	"statue" = /mob/living/simple_animal/hostile/statue,
+	"statue" = /mob/living/basic/hostile/statue,
 	"bat" = /mob/living/basic/scarybat,
 	"goat" = /mob/living/basic/goat,
 	"kangaroo" = /mob/living/basic/kangaroo,
@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
-				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)
+				var/mob/living/basic/hostile/statue/S = new /mob/living/basic/hostile/statue(change.loc, firer)
 				S.name = "statue of [H.name]"
 				S.faction = list("\ref[firer]")
 				S.icon = change.icon
