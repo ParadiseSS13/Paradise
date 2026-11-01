@@ -929,7 +929,7 @@
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 		to_chat(user, SPAN_NOTICE("You repair the damaged temperature controller."))
 	else if(state == MECHA_OPEN_HATCH && cell)
-		cell.forceMove(loc)
+		user.put_in_hands(cell)
 		cell = null
 		state = MECHA_BATTERY_UNSCREW
 		to_chat(user, SPAN_NOTICE("You unscrew and pry out the powercell."))
