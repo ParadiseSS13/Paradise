@@ -118,6 +118,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
 	add_language("Cygni Standard", 1)
+	add_language("Spacer", 1)
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)

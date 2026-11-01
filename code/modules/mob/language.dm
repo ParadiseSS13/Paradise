@@ -505,6 +505,18 @@
 					"lyu","lye","vna","vne","vno","ayat'","shcha","shche","mne","mno","mni","kam","tam","lam","kap","kop","sup","rip","kong",
 					"tong","aan","aay","aam","klon","chorn")
 
+/datum/language/spacer
+	name = "Spacer"
+	desc = "A language drawing influence from a mixture of various solar, skrellian, and other minor dialects, with a healthy sprinkling of archaic slang and profanity. \
+	It has a robust vocabulary and grammatical structure that makes it easier to understand in the cramped, noisy conditions often found in early spacecraft (and many modern ones). \
+	It initially arose as a pigdin that spread among multispecies ship and station crews before the development of Galactic Common. \
+	Despite the huge success of Galactic Common, Spacer has been famously ressilient to being eliminated, and is still commonly found to this day."
+	exclaim_verbs = list("yells", "accentuates", "snaps", "growls", "shouts", "exclaims", "exclaims loudly", "exclaims extremely loudly")
+	colour = "spacer"
+	key = "s"
+	space_chance = 65
+	syllables = list("ah","buh","kuh","duh","ehh","fuk","grr","heh","i","jay","koo","lou","mmm","nay","ohh","pee","qyo","arr","sht","twt","u","vee","veevee","ks","why","zay")
+
 /datum/language/xenocommon
 	name = "Xenomorph"
 	colour = "alien"
