@@ -286,7 +286,7 @@
 	R.add_language("Tradeband", TRUE)
 	R.add_language("Gutter", FALSE)
 	R.add_language("Cygni Standard", TRUE)
-	R.add_language("Spacer", FALSE)
+	R.add_language("Spacer", TRUE)
 	R.add_language("Sinta'unathi", FALSE)
 	R.add_language("Siik'tajr", FALSE)
 	R.add_language("Canilunzt", FALSE)
