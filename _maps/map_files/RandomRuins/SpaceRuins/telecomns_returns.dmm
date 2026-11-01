@@ -290,7 +290,9 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "fq" = (
-/obj/machinery/light_switch/directional/north,
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -376,7 +378,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "gR" = (
@@ -952,7 +956,9 @@
 /area/ruin/space/telecomms)
 "qM" = (
 /obj/structure/table,
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
@@ -1285,7 +1291,9 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "vJ" = (
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
 	},
@@ -1384,7 +1392,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "wW" = (
-/obj/machinery/light_switch/directional/north,
+/obj/machinery/light_switch{
+	pixel_y = 28
+	},
 /obj/machinery/computer/message_monitor,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
@@ -1619,7 +1629,9 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/bluespace/trapped,
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "Aj" = (

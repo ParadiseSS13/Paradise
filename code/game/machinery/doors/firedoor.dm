@@ -24,7 +24,6 @@
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	cares_about_temperature = TRUE
-	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -38,34 +37,6 @@
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	CalculateAffectingAreas()
-	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
-	update_icon()
-
-/obj/machinery/door/firedoor/get_current_direction()
-	// Prioritize walls to avoid adjacent airlock shenanigans.
-	if(manual_dir == TRUE)
-		return
-	for(var/direction in GLOB.cardinal)
-		if(iswallturf(get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
-		if(W?.useFull)
-			return direction
-	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/structure/window/full) in get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		for(var/obj/machinery/door/airlock/A in T.contents)
-			if(A != src)
-				return direction
-	var/turf/T = get_turf(src)
-	for(var/obj/machinery/door/D in T.contents)
-		if(D != src)
-			return D.dir
-	return dir // Fallback from mapping.
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
@@ -281,9 +252,6 @@
 	update_icon()
 
 /obj/machinery/door/firedoor/open()
-	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
-	update_icon()
 	if(welded)
 		return
 	. = ..()
@@ -293,9 +261,6 @@
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
-	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
-	update_icon()
 	latetoggle()
 
 /obj/machinery/door/firedoor/autoclose()

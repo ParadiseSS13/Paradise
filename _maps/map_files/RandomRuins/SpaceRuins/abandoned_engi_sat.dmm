@@ -1,6 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ao" = (
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "aN" = (
@@ -92,7 +96,11 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "dq" = (
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /obj/item/kirbyplants/large/dead,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 0
@@ -522,7 +530,11 @@
 /area/ruin/space/abandoned_engi_sat)
 "oG" = (
 /obj/structure/closet/wardrobe/atmospherics_yellow/empty,
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -630,7 +642,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "sm" = (
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "st" = (
@@ -1275,7 +1291,11 @@
 /area/ruin/space/abandoned_engi_sat)
 "Ro" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/machinery/light_switch/directional/south,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
 "Rq" = (
@@ -1289,7 +1309,10 @@
 /turf/template_noop,
 /area/space/nearstation)
 "RP" = (
-/obj/machinery/light_switch/directional/north,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/abandoned_engi_sat)
@@ -1306,7 +1329,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "SI" = (
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "SX" = (

@@ -393,6 +393,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
+"CK" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/mech_transport)
 "CL" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -715,7 +718,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Zn" = (
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "Zu" = (
@@ -1093,7 +1100,7 @@ Uf
 sH
 kI
 di
-vo
+CK
 vo
 vo
 vo
@@ -1243,7 +1250,7 @@ VS
 VS
 VS
 di
-vo
+CK
 jd
 vo
 vo
