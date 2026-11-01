@@ -3289,8 +3289,7 @@
 /obj/machinery/button/windowtint{
 	pixel_y = -1;
 	pixel_x = 7;
-	id = "DScmoffice";
-	dir = 1
+	id = "DScmoffice"
 	},
 /obj/machinery/door_control{
 	pixel_x = 7;

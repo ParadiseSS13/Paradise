@@ -2013,7 +2013,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "zk" = (
-/obj/machinery/light_switch/directional/west,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "zl" = (
