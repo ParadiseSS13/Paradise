@@ -77,7 +77,7 @@
 		user.add_language("Orluum")
 		user.add_language("Clownish")
 		user.add_language("Cygni Standard")
-		user.remove_language("Spacer")
+		user.add_language("Spacer")
 		user.add_language("Tkachi")
 		user.add_language("Skkula-Runespeak")
 	else
