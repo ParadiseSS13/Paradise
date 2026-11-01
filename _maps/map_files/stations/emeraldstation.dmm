@@ -3839,7 +3839,9 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/machinery/computer/guestpass/hop/directional/west,
+/obj/machinery/computer/guestpass/hop{
+	pixel_x = -28
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "aQf" = (
@@ -45492,7 +45494,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
-/obj/machinery/computer/guestpass/directional/north,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "jcs" = (
@@ -51597,7 +51601,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
-/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "kpm" = (
@@ -67267,7 +67270,6 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
-/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "nAi" = (
@@ -91774,6 +91776,9 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
+/obj/machinery/computer/guestpass{
+	pixel_x = 30
+	},
 /obj/machinery/camera{
 	c_tag = "Engineering Foyer East";
 	dir = 8
@@ -100399,6 +100404,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/qm)
 "tXO" = (
+/obj/machinery/computer/guestpass{
+	pixel_x = 30
+	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -110872,10 +110880,12 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/glasses/welding,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "wcG" = (
