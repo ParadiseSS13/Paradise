@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 
 /obj/item/stack/sheet/glass/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
+	. += SPAN_NOTICE("Using glass on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
 
 /obj/item/stack/sheet/glass/two
 	amount = 2
@@ -90,12 +90,17 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 
 		CC.use(5)
 		to_chat(user, SPAN_NOTICE("You attach wire to [src]."))
-		new /obj/item/stack/light_w(user.loc)
+		var/obj/item/stack/light_w/wired_tile = new (user.loc)
+		wired_tile.add_fingerprint(user)
 		use(1)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = used
+		if(V.get_amount() < 1)
+			to_chat(user, SPAN_WARNING("You need at least one rod to do this!"))
+			return ITEM_INTERACT_COMPLETE
+
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
 		V.use(1)

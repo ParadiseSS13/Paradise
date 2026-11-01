@@ -1915,6 +1915,7 @@
 /obj/structure/sign/command/head{
 	pixel_y = 32
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ajX" = (
@@ -2378,33 +2379,6 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
-"alo" = (
-/obj/effect/turf_decal/tiles/department/cargo/corner,
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
-	},
-/obj/machinery/light_switch/offset/south,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 8;
-	location = "QM #1"
-	},
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #1";
-	suffix = "#1"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -2937,7 +2911,8 @@
 	},
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 6;
+	network = list("SS13", "Prison")
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -4567,15 +4542,13 @@
 /area/station/security/armory/secure)
 "ate" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/guestpass/hop{
-	pixel_x = -28
-	},
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Personnel's Office";
 	pixel_y = 4
 	},
 /obj/item/toy/figure/crew/hop,
+/obj/machinery/computer/guestpass/hop/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "atg" = (
@@ -7793,9 +7766,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "aHl" = (
@@ -11326,7 +11297,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "aYg" = (
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("SS13", "Research")
+	},
 /obj/machinery/economy/vending/plasmaresearch,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
@@ -12833,7 +12806,8 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("SS13", "Research")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -14092,7 +14066,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("SS13", "Engineering")
+	},
 /obj/item/stack/sheet/metal{
 	amount = 50;
 	pixel_x = -5;
@@ -18920,7 +18896,8 @@
 	},
 /obj/effect/turf_decal/tiles/department/security/corner,
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	network = list("SS13", "Prison")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -19149,9 +19126,9 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera{
-	c_tag = "AI Chamber - Core";
+	c_tag = "AI Chamber - Aft Core";
 	name = "core camera";
-	network = list("rd")
+	network = list("SS13", "MiniSat")
 	},
 /turf/simulated/floor/greengrid,
 /area/station/turret_protected/ai)
@@ -19513,7 +19490,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 8
 	},
-/obj/effect/turf_decal/alphanumeric/center_4{
+/obj/effect/turf_decal/alphanumeric/center_3{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -19902,7 +19879,9 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("SS13", "Research")
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "eyu" = (
@@ -20576,7 +20555,9 @@
 "eRs" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("SS13", "Engineering")
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -20689,7 +20670,8 @@
 	using_irrigation = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 10;
+	network = list("SS13", "Prison")
 	},
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
@@ -20894,10 +20876,10 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/power/apc/directional/south,
 /obj/machinery/camera{
-	c_tag = "AI Chamber - Core";
+	c_tag = "AI Chamber - Fore Core";
 	name = "core camera";
-	network = list("rd");
-	dir = 10
+	dir = 10;
+	network = list("SS13", "MiniSat")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
@@ -21878,8 +21860,8 @@
 	},
 /obj/docking_port/mobile/pod{
 	dir = 4;
-	id = "pod3";
-	name = "escape pod 3"
+	id = "pod4";
+	name = "escape pod 4"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
@@ -22932,8 +22914,8 @@
 	c_tag = "AI Satellite - Antechamber";
 	dir = 4;
 	name = "ai camera";
-	network = list("rd");
-	start_active = 1
+	start_active = 1;
+	network = list("SS13", "MiniSat")
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/turf_decal/stripes/line{
@@ -26452,6 +26434,30 @@
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
+"hWr" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner,
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/machinery/light_switch/offset/south,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "QM #1"
+	},
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #1";
+	suffix = "#1"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "hWZ" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Power Transmission Laser"
@@ -30549,18 +30555,14 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "ksi" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Engine.";
-	dir = 1;
-	name = "Engine Monitor";
-	network = list("engine");
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner,
 /obj/structure/dispenser/oxygen,
+/obj/machinery/computer/security/telescreen/engine{
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "ksz" = (
@@ -33425,9 +33427,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/reception)
 "mbm" = (
@@ -34916,7 +34916,6 @@
 	c_tag = "AI Satellite - Maintenance";
 	dir = 8;
 	name = "ai camera";
-	network = list("rd");
 	start_active = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -38039,8 +38038,8 @@
 	c_tag = "AI Satellite - Access";
 	dir = 8;
 	name = "ai camera";
-	network = list("rd");
-	start_active = 1
+	start_active = 1;
+	network = list("SS13", "MiniSat")
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/ai)
@@ -39635,7 +39634,8 @@
 /obj/effect/turf_decal/tiles/department/security/corner,
 /obj/item/kirbyplants/large,
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("SS13", "Prison")
 	},
 /obj/structure/sign/public/arcade{
 	pixel_y = 32
@@ -40240,12 +40240,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "pMw" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/carpet,
 /area/station/service/theatre)
 "pMU" = (
@@ -41796,9 +41794,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "qFV" = (
@@ -41952,7 +41948,8 @@
 /area/shuttle/arrival/station)
 "qJv" = (
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("SS13", "Research")
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -43439,7 +43436,7 @@
 /area/station/science/hallway)
 "rGG" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod 4 Airlock";
+	name = "Escape Pod 3 Airlock";
 	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plasteel,
@@ -44796,7 +44793,8 @@
 	dir = 9
 	},
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	network = list("SS13", "Research")
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -45886,7 +45884,7 @@
 	c_tag = "AI Satellite Port";
 	dir = 9;
 	start_active = 1;
-	network = list("rd")
+	network = list("SS13", "MiniSat")
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/ai)
@@ -46502,8 +46500,8 @@
 	c_tag = "AI Satellite - Access";
 	dir = 5;
 	name = "ai camera";
-	network = list("minisat");
-	start_active = 1
+	start_active = 1;
+	network = list("SS13", "MiniSat")
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/ai)
@@ -47641,8 +47639,7 @@
 /obj/machinery/camera/motion{
 	c_tag = "AI Satellite Starboard";
 	dir = 5;
-	start_active = 1;
-	network = list("rd")
+	start_active = 1
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/ai)
@@ -47976,7 +47973,8 @@
 "tIn" = (
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	network = list("SS13", "Research")
 	},
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -48072,7 +48070,8 @@
 /area/station/engineering/break_room)
 "tKL" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("SS13", "Engineering")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -48985,7 +48984,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("SS13", "Research")
 	},
 /obj/machinery/ai_node/network_node,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -49271,8 +49271,8 @@
 	c_tag = "AI Satellite - Access";
 	dir = 4;
 	name = "ai camera";
-	network = list("rd");
-	start_active = 1
+	start_active = 1;
+	network = list("SS13", "MiniSat")
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -52087,8 +52087,7 @@
 "vUy" = (
 /obj/machinery/camera/motion{
 	c_tag = "AI Satellite Fore";
-	start_active = 1;
-	network = list("rd")
+	start_active = 1
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/ai)
@@ -53696,7 +53695,8 @@
 "wNK" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("SS13", "Research")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
@@ -55912,7 +55912,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/station/hallway/secondary/exit)
 "xUZ" = (
-/obj/effect/turf_decal/alphanumeric/center_3{
+/obj/effect/turf_decal/alphanumeric/center_4{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -97981,7 +97981,7 @@ ahR
 fMj
 ajs
 akv
-alo
+hWr
 qdD
 ana
 anT

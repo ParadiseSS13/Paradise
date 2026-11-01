@@ -4,6 +4,8 @@
 
 	var/list/obj/machinery/atmospherics/pipe/members = list()
 	var/list/obj/machinery/atmospherics/other_atmosmch = list()
+	/// The valves and connectors in other_atmosmch, the only machinery reconcile_air() needs to look at
+	var/list/obj/machinery/atmospherics/reconcile_machinery = list()
 
 	var/update = TRUE
 
@@ -29,6 +31,7 @@
 	other_airs.Cut()
 	members.Cut()
 	other_atmosmch.Cut()
+	reconcile_machinery.Cut()
 	return ..()
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
@@ -95,6 +98,8 @@
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/A)
 	other_atmosmch |= A
+	if(istype(A, /obj/machinery/atmospherics/binary/valve) || istype(A, /obj/machinery/atmospherics/trinary/tvalve) || istype(A, /obj/machinery/atmospherics/unary/portables_connector))
+		reconcile_machinery |= A
 	var/datum/gas_mixture/G = A.returnPipenetAir(src)
 	other_airs |= G
 
@@ -125,9 +130,11 @@
 	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
 		A.replacePipenet(E, src)
 	other_atmosmch.Add(E.other_atmosmch)
+	reconcile_machinery.Add(E.reconcile_machinery)
 	other_airs.Add(E.other_airs)
 	E.members.Cut()
 	E.other_atmosmch.Cut()
+	E.reconcile_machinery.Cut()
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
@@ -144,8 +151,6 @@
 /datum/milla_safe/pipeline_temperature_interact
 
 /datum/milla_safe/pipeline_temperature_interact/on_run(datum/pipeline/pipeline, turf/target, share_volume, thermal_conductivity)
-	var/datum/gas_mixture/environment = get_turf_air(target)
-
 	var/total_heat_capacity = pipeline.air.heat_capacity()
 	var/partial_heat_capacity = total_heat_capacity*(share_volume/pipeline.air.volume)
 
@@ -167,6 +172,8 @@
 				modeled_location.temperature += heat/modeled_location.heat_capacity
 
 		else
+			// Only open tiles share heat with their air, walls and space use the turf's own temperature
+			var/datum/gas_mixture/environment = get_turf_air(target)
 			var/delta_temperature = 0
 			var/sharer_heat_capacity = 0
 
@@ -217,13 +224,13 @@
 		GL += P.air
 		GL += P.other_airs
 
-		for(var/obj/machinery/atmospherics/binary/valve/V in P.other_atmosmch)
+		for(var/obj/machinery/atmospherics/binary/valve/V in P.reconcile_machinery)
 			if(QDELETED(V))
 				continue
 			if(V.open)
 				PL |= V.parent1
 				PL |= V.parent2
-		for(var/obj/machinery/atmospherics/trinary/tvalve/T in P.other_atmosmch)
+		for(var/obj/machinery/atmospherics/trinary/tvalve/T in P.reconcile_machinery)
 			if(QDELETED(T))
 				continue
 			if(!T.state)
@@ -234,7 +241,7 @@
 				if(src != T.parent3)
 					PL |= T.parent1
 					PL |= T.parent2
-		for(var/obj/machinery/atmospherics/unary/portables_connector/C in P.other_atmosmch)
+		for(var/obj/machinery/atmospherics/unary/portables_connector/C in P.reconcile_machinery)
 			if(QDELETED(C))
 				continue
 			if(C.connected_device)

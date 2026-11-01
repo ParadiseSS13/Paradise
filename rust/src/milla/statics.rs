@@ -15,5 +15,9 @@ pub(crate) static INTERESTING_TILES: Mutex<Vec<InterestingTile>> = Mutex::new(Ve
 /// Read from and cleared via BYOND call.
 pub(crate) static TRACKED_PRESSURE_TILES: Mutex<Vec<(i32, i32, usize)>> = Mutex::new(Vec::new());
 
+/// The tiles BYOND wants a quick summary of whenever it asks, by slot.
+/// Freed slots are None, and get reused by the next tile watched.
+pub(crate) static WATCHED_TILES: Mutex<Vec<Option<(i32, i32, usize)>>> = Mutex::new(Vec::new());
+
 /// How long the last tick took, in milliseconds.
 pub(crate) static TICK_TIME: AtomicUsize = AtomicUsize::new(0);
