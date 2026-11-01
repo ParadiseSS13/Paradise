@@ -513,7 +513,7 @@
 	Despite the huge success of Galactic Common, Spacer has been famously ressilient to being eliminated, and is still commonly found to this day."
 	exclaim_verbs = list("yells", "accentuates", "snaps", "growls", "shouts", "exclaims", "exclaims loudly", "exclaims extremely loudly")
 	colour = "spacer"
-	key = "s"
+	key = "sp"
 	space_chance = 65
 	syllables = list("ah","buh","kuh","duh","ehh","fuk","grr","heh","i","jay","koo","lou","mmm","nay","ohh","pee","qyo","arr","sht","twt","u","vee","veevee","ks","why","zay")
 
