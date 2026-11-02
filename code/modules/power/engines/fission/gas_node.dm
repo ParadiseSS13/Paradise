@@ -77,10 +77,10 @@
 
 		// Actually transfer the gas
 		var/datum/gas_mixture/removed = network2.remove(transfer_moles)
-		if(isnull(removed)) // We drew a total vacuum
+		if(isnull(removed)) // We drew a total vacuum.
 			return TRUE
 
-		// Filter it
+		// Filter it.
 		var/datum/gas_mixture/filtered_out = new
 		filtered_out.set_temperature(removed.temperature())
 
@@ -96,7 +96,7 @@
 		if(linked_reactor.scrub_CO2)
 			filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
 			removed.set_carbon_dioxide(0)
-		if(removed.agent_b()) // womp, cant choose not to scrub it.
+		if(removed.agent_b()) // Womp, cant choose not to scrub it.
 			filtered_out.set_agent_b(removed.agent_b())
 			removed.set_agent_b(0)
 		if(linked_reactor.scrub_N2O)

@@ -49,7 +49,6 @@
 // Below this are procs used for the Reactor events, in order of severity.
 
 // MARK: D class events
-
 /datum/engi_event/reactor_event/delta_tier
 	threat_level = SM_EVENT_THREAT_D
 	duration = 10 SECONDS
@@ -65,7 +64,6 @@
 	reactor.extra_gas_amount = rand(8, 12)
 	reactor.extra_gas_type = SPAWN_GAS_NITROGEN
 
-
 /datum/engi_event/reactor_event/delta_tier/generate_sleepy_gas_minor
 	name = "D-2"
 
@@ -73,7 +71,6 @@
 	reactor.generate_extra_gas = TRUE
 	reactor.extra_gas_amount = rand(8, 12)
 	reactor.extra_gas_type = SPAWN_GAS_N2O
-
 
 /datum/engi_event/reactor_event/delta_tier/generate_co2_minor
 	name = "D-3"
@@ -83,7 +80,6 @@
 	reactor.extra_gas_amount = rand(8, 12)
 	reactor.extra_gas_type = SPAWN_GAS_CO2
 
-
 /datum/engi_event/reactor_event/delta_tier/generate_water_minor
 	name = "D-4"
 
@@ -92,9 +88,7 @@
 	reactor.extra_gas_amount = rand(8, 12)
 	reactor.extra_gas_type = SPAWN_GAS_WATER
 
-
 // MARK: C class events
-
 /datum/engi_event/reactor_event/charlie_tier
 	threat_level = SM_EVENT_THREAT_C
 	duration = 15 SECONDS
@@ -135,7 +129,6 @@
 	reactor.extra_gas_type = SPAWN_GAS_HYDROGEN
 
 // MARK: B class events
-
 /datum/engi_event/reactor_event/bravo_tier
 	threat_level = SM_EVENT_THREAT_B
 	duration = 1 MINUTES
@@ -206,7 +199,6 @@
 		sleep(2 SECONDS)
 
 // MARK: A class events
-
 /datum/engi_event/reactor_event/alpha_tier
 	threat_level = SM_EVENT_THREAT_A
 	duration = 2 MINUTES
@@ -255,7 +247,7 @@
 	end_message = FALSE
 
 /datum/engi_event/reactor_event/alpha_tier/adjust_throttle/on_start()
-	if(prob(30) && reactor.desired_power < 90) // chance to just near-max it...
+	if(prob(30) && reactor.desired_power < 90) // Chance to just near-max it...
 		reactor.desired_power = rand(90, 100)
 	else
 		reactor.desired_power = rand(10, 100)
@@ -265,15 +257,14 @@
 	end_message = FALSE
 
 /datum/engi_event/reactor_event/alpha_tier/integrity_hit/on_start()
-	reactor.damage = clamp(reactor.damage + rand(350, 650), 0, 950) // no exploding for you
+	reactor.damage = clamp(reactor.damage + rand(350, 650), 0, 950) // No exploding for you.
 	reactor.event_reactivity_additive = 3
 
 // MARK: S class events
 // S-tier events are special. They are very dangerous, but give a 5 minute warning to the engis.
-
 /datum/engi_event/reactor_event/sierra_tier
 	threat_level = SM_EVENT_THREAT_S
-	duration = 7 MINUTES // 5 minute leadup timer
+	duration = 7 MINUTES // 7 minute lead-up timer.
 
 /datum/engi_event/reactor_event/sierra_tier/on_start()
 	addtimer(CALLBACK(src, PROC_REF(start_sierra_event)), 5 MINUTES)
@@ -302,7 +293,7 @@
 
 /datum/engi_event/reactor_event/sierra_tier/waste_flood
 	name = "S-FLOOD"
-	duration = 6 MINUTES // a little shorter than the others
+	duration = 6 MINUTES // A little shorter than the others.
 
 /datum/engi_event/reactor_event/sierra_tier/waste_flood/start_sierra_event()
 	..()
@@ -328,6 +319,6 @@
 /datum/engi_event/reactor_event/sierra_tier/malfunction/start_sierra_event()
 	..()
 	reactor.event_reactivity_additive = 5
-	reactor.event_meltdown_chance = 3 // The primary focus
+	reactor.event_meltdown_chance = 3 // The primary focus.
 	reactor.event_gas_multiplier = 5
 	reactor.event_heat_multiplier = 10

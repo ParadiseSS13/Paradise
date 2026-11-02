@@ -187,17 +187,17 @@
 		return
 
 	if(active.control_lockout)
-		visible_message(SPAN_WARNING("Error: Reactor is unresponsive."))
+		visible_message(SPAN_WARNING("Error: Reactor is unresponsive!"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 
 	if(active.down_for_maintenance)
-		visible_message(SPAN_WARNING("Error: Reactor is unresponsive."))
+		visible_message(SPAN_WARNING("Error: Reactor is unresponsive!"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 
 	if(!controller)
-		visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control."))
+		visible_message(SPAN_WARNING("Error: Reactor is out of sight from laser guidance control!"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 

@@ -109,7 +109,7 @@
 /obj/item/nuclear_rod/proc/do_special_effect()
 	return
 
-/// Called when the rod chamber updates its statistics for any reason
+/// Called when the rod chamber updates its statistics for any reason.
 /obj/item/nuclear_rod/proc/on_calculate_stats(obj/machinery/atmospherics/reactor_chamber/chamber)
 	return FALSE
 
@@ -164,7 +164,7 @@
 		on_enrich()
 	return successful_enrichment
 
-/// Called when the a rod has successfully been enriched
+/// Called when the a rod has successfully been enriched.
 /obj/item/nuclear_rod/fuel/proc/on_enrich()
 	return
 
@@ -354,7 +354,7 @@
 		/obj/item/nuclear_rod/moderator,
 	)
 
-// Supermatter has a special enrichment process
+// Supermatter has a special enrichment process.
 /obj/item/nuclear_rod/fuel/supermatter/enrich(power_mod, heat_mod)
 	var/successful_enrichment = FALSE
 	var/needed_supermatters = 2
@@ -613,12 +613,12 @@
 
 /obj/item/nuclear_rod/moderator/antimatter/Initialize(mapload)
 	. = ..()
-	if(istype(loc, /obj/machinery/atmospherics/reactor_chamber)) // This shouldnt be possible but check anyways
+	if(istype(loc, /obj/machinery/atmospherics/reactor_chamber)) // This shouldn’t be possible but check anyway.
 		collision_check(loc)
 
 /obj/item/nuclear_rod/moderator/antimatter/on_calculate_stats(obj/machinery/atmospherics/reactor_chamber/chamber)
-	chamber.power_mod_total = chamber.power_mod_total ** 1.5 // EXPONENTIAL GOODNESS
-	chamber.heat_mod_total =  chamber.heat_mod_total ** 1.75 // Uh oh exponential goodness
+	chamber.power_mod_total = chamber.power_mod_total ** 1.5 // EXPONENTIAL GOODNESS!
+	chamber.heat_mod_total =  chamber.heat_mod_total ** 1.75 // Uh oh exponential goodness...
 	return TRUE
 
 /obj/item/nuclear_rod/moderator/antimatter/on_lower(obj/machinery/atmospherics/reactor_chamber/chamber)
@@ -628,7 +628,7 @@
 	for(var/obj/machinery/atmospherics/reactor_chamber/neighbor in chamber.neighbors)
 		neighbor.suppressed = TRUE
 		if(neighbor.chamber_state == CHAMBER_DOWN && neighbor.held_rod && istype(neighbor.held_rod, /obj/item/nuclear_rod/moderator/antimatter))
-			QDEL_NULL(neighbor.held_rod) // uh oh big bad swirly time
+			QDEL_NULL(neighbor.held_rod) // Uh oh! Big bad swirly time!
 			neighbor.weld_shut()
 			chamber.weld_shut()
 			var/obj/effect/temp_visual/telekinesis/antimatter_rod/effect = new(get_turf(chamber))

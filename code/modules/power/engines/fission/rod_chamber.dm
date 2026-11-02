@@ -40,7 +40,7 @@
 	var/power_mod_total = 1
 	/// Holds the current accumulated heat mod value from its neighbors
 	var/heat_mod_total = 1
-	/// Holds the current accumulated decay modifier from its neighbors
+	/// Holds the current accumulated decay modifier from its neighbors.
 	var/decay_mod_total = 1
 	/// A simple binary to prevent open/close spam mucking up the anims
 	var/lockout = FALSE
@@ -54,7 +54,7 @@
 	var/mob/living/carbon/held_mob
 	/// Sets a delay between losing requirements for a chamber and turning off.
 	var/requirement_delay_interval = 10 SECONDS
-	/// Allows us to check an area after cooldown is set before we start it
+	/// Allows us to check an area after cooldown is set before we start it.
 	var/after_cooldown_check = FALSE
 	/// Is this rod suppressed, and giving no modifier effects?
 	var/suppressed = FALSE
@@ -315,11 +315,18 @@
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_DANGER("Forcing [target] into [src] might hurt them!"))
+		return
 
 	if(user == target)
-		user.visible_message(SPAN_WARNING("[user] begins to climb into [src]]!"), SPAN_WARNING("You begin to squeeze yourself into [src]!"))
+		user.visible_message(
+			SPAN_WARNING("[user] begins to climb into [src]]!"),
+			SPAN_WARNING("You begin to squeeze yourself into [src]!")
+		)
 	else
-		user.visible_message(SPAN_WARNING("[user] begins to force [target] into [src]]!"), SPAN_WARNING("You begin to force [target] into [src]!"))
+		user.visible_message(
+			SPAN_WARNING("[user] begins to force [target] into [src]]!"),
+			SPAN_WARNING("You begin to force [target] into [src]!")
+		)
 
 	if(!do_mob(user, target, 3 SECONDS))
 		return
@@ -362,7 +369,10 @@
 			return ITEM_INTERACT_COMPLETE
 
 		var/mob/living/carbon/target = G.affecting
-		user.visible_message(SPAN_WARNING("[user] begins to force [target] into [src]]!"), SPAN_WARNING("You begin to force [target] into [src]!"))
+		user.visible_message(
+			SPAN_WARNING("[user] begins to force [target] into [src]]!"),
+			SPAN_WARNING("You begin to force [target] into [src]!")
+		)
 		while(do_after_once(user, 5 SECONDS, target = target))
 			target.visible_message(
 				SPAN_DANGER("[user] shoves [target] into [src]!"),
