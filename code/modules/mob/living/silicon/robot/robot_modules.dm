@@ -286,7 +286,7 @@
 	R.add_language("Tradeband", TRUE)
 	R.add_language("Gutter", FALSE)
 	R.add_language("Cygni Standard", TRUE)
-	R.add_language("Spacer", TRUE)
+	R.add_language("Voidfarer", TRUE)
 	R.add_language("Sinta'unathi", FALSE)
 	R.add_language("Siik'tajr", FALSE)
 	R.add_language("Canilunzt", FALSE)
@@ -644,7 +644,7 @@
 	R.add_language("Bubblish", TRUE)
 	R.add_language("Clownish", TRUE)
 	R.add_language("Cygni Standard", TRUE)
-	R.add_language("Spacer", TRUE)
+	R.add_language("Voidfarer", TRUE)
 	R.add_language("Tkachi", TRUE)
 	R.add_language("Skkula-Runespeak", TRUE)
 
