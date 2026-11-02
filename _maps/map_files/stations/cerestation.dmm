@@ -17901,8 +17901,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "cOa" = (
-/obj/structure/musician/piano,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plasteel,
 /area/station/service/theatre)
 "cOc" = (
@@ -79085,7 +79085,7 @@
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "pPQ" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "pQa" = (

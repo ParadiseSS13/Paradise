@@ -31952,10 +31952,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "cxe" = (
-/obj/structure/musician/piano,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cxf" = (
@@ -58796,10 +58796,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/transmission_laser)
 "iiM" = (
-/obj/structure/musician/piano,
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "iiO" = (
@@ -75554,8 +75554,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "oPU" = (
-/obj/structure/musician/piano,
 /obj/structure/sign/poster/official/soul/directional/north,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "oPW" = (
