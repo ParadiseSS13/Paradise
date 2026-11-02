@@ -32,8 +32,10 @@
 	var/patient_origin = "a secret underground supermatter assembly plant"
 	/// The disaster description, used in several announcements.
 	var/disaster_desc = "Something went really wrong in "
+	/// Our event shuttle.
+	var/obj/docking_port/mobile/patient/patient_shuttle
 
-/datum/event/patient_arrivals/New(mapload, event_type = null)
+/datum/event/patient_arrivals/New(datum/event_meta/EM, skeleton = FALSE, _severity, event_type = null)
 	if(!event_type)
 		return ..()
 	if(!(event_type in valid_patient_types))
@@ -45,7 +47,7 @@
 /datum/event/patient_arrivals/setup()
 	if(!(patient_type in valid_patient_types))
 		patient_type = pick(valid_patient_types)
-	disease_ref = new disease_ref(skeleton = TRUE)
+	disease_ref = new(skeleton = TRUE)
 	if(isemptylist(disease_ref.diseases_minor) || isemptylist(disease_ref.diseases_moderate_major))
 		disease_ref.populate_diseases()
 	if(patient_type == "disease")
@@ -79,6 +81,8 @@
 		EC.next_event_time = world.time + 1 MINUTES
 		log_debug("Patient Arrivals roll canceled due to heightened alert. Rolling another midround in 60 seconds.")
 		return
+	var/template = new /datum/map_template/shuttle/patient()
+	patient_shuttle = SSshuttle.set_patient_shuttle(template)
 	var/list/spawnlocs = list()
 	for(var/obj/effect/landmark/spawner/patient/spawnloc in GLOB.landmarks_list)
 		spawnlocs += get_turf(spawnloc)
@@ -112,7 +116,7 @@
 		patient_human.generate_random_appearance(prosthesis_prob = 5)
 		patient_human.equipOutfit(patient_picked.patient_outfit)
 		GLOB.data_core.manifest_inject(patient_human) // Proc checks if they have a special role before adding to the manifest, if they do, they aren't added. This needs to be done before adding the special role.
-		patient_human.mind.special_role = SPECIAL_ROLE_TOURIST
+		patient_human.mind.special_role = SPECIAL_ROLE_PATIENT
 		// Rolls a 5% probability, checks if we haven't already made a tot, and checks if there's space for a new tot!
 		// If any is false, we don't make a new patient tot
 		if(prob(chance) && tot_number < 1 && antag_count < max_antag && (ROLE_TRAITOR in patient_human.client.prefs.be_special) && !jobban_isbanned(patient_human, ROLE_TRAITOR))
@@ -142,8 +146,10 @@
 			"They begged and begged us to provide transport out of that disaster",
 		)
 		GLOB.minor_announcement.Announce("[disaster_desc], we have been inundated with patients. [transport_reason], so we're sending them to you. We trust that you will care for them in their time of need and provide work to the able after their recovery.")
+		SSshuttle.moveShuttle("patient", "trader_home")
 
 /datum/event/patient_arrivals/proc/populate_announcement()
+	patient_origin = pick("Kayani Station", "Belastrav Station", "New Gibson", "Luthien", "Reade")
 	switch(patient_type)
 		if("explosion")
 			disaster_desc = "After a catastrophic explosion on [patient_origin]"

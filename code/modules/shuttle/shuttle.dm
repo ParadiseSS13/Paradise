@@ -1177,7 +1177,7 @@
 	name = "Transport Console"
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
-	shuttleId = "trader"
+	shuttleId = "patient"
 
 //#undef DOCKING_PORT_HIGHLIGHT
 
