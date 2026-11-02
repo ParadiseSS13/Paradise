@@ -37,6 +37,8 @@
 	return text2num(longlist[((size * y) + (x + 1))])
 
 /datum/worldgen_modifier/proc/can_safe_place(turf/T)
+	if(!isfloorturf(T))
+		return FALSE
 	if(T.flags & NO_LAVA_GEN)
 		return FALSE
 	if(istype(T, /turf/template_noop))

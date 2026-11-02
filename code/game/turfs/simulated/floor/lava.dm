@@ -7,7 +7,7 @@
 	name = "lava"
 	desc = "Extremely hot liquefied rock, exceptionally dangerous to anything without proper protection. It's very viscous and will slow down anything going through it."
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "lava-255"
+	icon_state = "lava"
 	base_icon_state = "lava"
 	gender = PLURAL //"That's some lava."
 	baseturf = /turf/simulated/floor/lava //lava all the way down
@@ -31,6 +31,10 @@
 	var/border_icon_state = "basalt_outline"
 
 /turf/simulated/floor/lava/Initialize()
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/floor/lava/LateInitialize()
 	. = ..()
 	// Set the icon to be an underlay
 	underlays += image(icon = icon, icon_state = icon_state)
@@ -202,7 +206,7 @@
 	name = "liquid plasma"
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
-	icon_state = "liquidplasma-255"
+	icon_state = "liquidplasma"
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 
@@ -309,7 +313,7 @@
 	name = "liquid plasma"
 	desc = "A swirling pit of liquid plasma. It bubbles ominously."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
-	icon_state = "liquidplasma-255"
+	icon_state = "liquidplasma"
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma
 	light_range = 3
