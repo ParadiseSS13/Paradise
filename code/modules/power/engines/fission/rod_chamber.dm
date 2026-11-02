@@ -316,6 +316,7 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_DANGER("Forcing [target] into [src] might hurt them!"))
 		return
+		return
 
 	if(user == target)
 		user.visible_message(
@@ -842,8 +843,6 @@
 
 	power_total *= power_mod_total
 	heat_total *= heat_mod_total
-
-
 
 /obj/machinery/atmospherics/reactor_chamber/proc/eject_rod()
 	raise(FALSE)

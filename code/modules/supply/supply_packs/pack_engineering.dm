@@ -234,7 +234,7 @@
 /datum/supply_packs/engineering/engine/reactor
 	name = "Nuclear Fission Reactor Crate"
 	contains = list(/obj/machinery/atmospherics/fission_reactor/mobile)
-	cost = 750 //So cargo thinks twice before killing themselves with it
+	cost = 750 // So cargo thinks twice before killing themselves with it.
 	containername = "nuclear fission reactor Crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
 
