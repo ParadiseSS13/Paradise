@@ -316,7 +316,6 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_DANGER("Forcing [target] into [src] might hurt them!"))
 		return
-		return
 
 	if(user == target)
 		user.visible_message(
