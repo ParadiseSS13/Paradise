@@ -30264,13 +30264,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/secure_storage)
 "crd" = (
-/obj/machinery/computer/fission_monitor{
-	dir = 4
-	},
 /obj/effect/turf_decal/trimline/misc/toxins/filled/line{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/computer/reactor_monitor{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -57044,9 +57044,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "hxb" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
