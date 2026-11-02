@@ -842,7 +842,7 @@
 
 // MARK: Main Process
 /obj/machinery/atmospherics/fission_reactor/process()
-	if(!isturf(loc)) // We're either in ac trate or somethings FUCKED
+	if(!isturf(loc)) // We're either in a crate or something's FUCKED.
 		return
 
 	if(stat & BROKEN)
