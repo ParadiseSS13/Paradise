@@ -81,6 +81,10 @@
 		EC.next_event_time = world.time + 1 MINUTES
 		log_debug("Patient Arrivals roll canceled due to heightened alert. Rolling another midround in 60 seconds.")
 		return
+
+	INVOKE_ASYNC(src, PROC_REF(finish_start))
+
+/datum/event/patient_arrivals/proc/finish_start()
 	var/template = new /datum/map_template/shuttle/patient()
 	patient_shuttle = SSshuttle.set_patient_shuttle(template)
 	var/list/spawnlocs = list()
