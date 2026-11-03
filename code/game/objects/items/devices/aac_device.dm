@@ -6,9 +6,9 @@
 
 /obj/item/aac_device
 	name = "\improper AAC device"
-	desc = "A small device with a number of buttons and a speaker. It can unfold to reveal a keyboard and screen used to configure what each button says when pressed."
-	icon = 'icons/obj/device.dmi' // Temp
-	icon_state = "enginepicker" // Temp
+	desc = "A pocket-sized, folding device with a number of buttons on its cover."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "aac_device"
 	w_class = WEIGHT_CLASS_SMALL
 	new_attack_chain = TRUE
 
@@ -22,13 +22,14 @@
 	// Whether the device is opened or closed. When opened, using it customizes the quick buttons or directly says input text; when closed, using it opens a radial menu to quickly say one of the buttons.
 	var/opened = FALSE
 
+	// Which language is selected.
+	var/language = "Galactic Common"
+
 /obj/item/aac_device/examine(mob/user)
 	. = ..()
 	. += ""
-	. += SPAN_NOTICE("[opened ? "It is currently opened, allowing for custom messages to be input." : "It is closed, reducing its size and allowing for quick responses to be used."]")
-	. += ""
 	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to [opened ? "close" : "open"] it.")
-	. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> [src] to change its name.")
+	. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> [src] to change its name.")
 
 /obj/item/aac_device/proc/pick_button(mob/user)
 	var/list/options = list(BUTTON_GREEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_green"),
@@ -37,18 +38,17 @@
 								BUTTON_YELLOW = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_yellow"),
 								BUTTON_PURPLE = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_purple"))
 
-	var/choice = show_radial_menu(user, src, options)
-
-	if(!choice || user.stat || QDELETED(src))
-		return
-
-	return choice
+	return show_radial_menu(user, src, options)
 
 /obj/item/aac_device/proc/do_speech(mob/user, message)
 	audible_message("[SPAN_NAME("[src]")] beeps, \"[message]\"")
 	playsound(src, 'sound/machines/twobeep.ogg', 50, FALSE)
+
 	log_say("(AAC device) [message]", user)
 	user.create_log(SAY_LOG, "(AAC device) '[message]'")
+
+	for(var/obj/O in view(7, get_turf(src)))
+		O.hear_talk(src, message_to_multilingual("[message]"))
 
 	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
@@ -60,6 +60,7 @@
 
 	if(opened)
 		var/list/options = list("Custom Message" = image(icon = 'icons/obj/device.dmi', icon_state = "megaphone"),
+									"Change Channel" = image(icon = 'icons/obj/radio.dmi', icon_state = "walkietalkie"),
 									"Edit Button" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"))
 
 		var/choice = show_radial_menu(user, src, options)
@@ -78,13 +79,34 @@
 			return
 
 		var/button = pick_button(user)
+
+		if(!button || user.stat || QDELETED(src))
+			return
+
 		var/new_message = tgui_input_text(user, "Type a message:", "[src]")
 
 		buttons[button] = new_message
-		to_chat(user, SPAN_NOTICE("You change the [button.toLowerCase()]'s text to [new_message].")
+		to_chat(user, SPAN_NOTICE("You change the [lowertext(buttons[button])]'s text to [new_message]."))
 
 		return
 
 	var/button = pick_button(user)
+
+	if(!button || user.stat || QDELETED(src))
+		return
+
 	do_speech(user, buttons[button])
+
+/obj/item/aac_device/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	if(do_after(user, 1 SECONDS, target = src))
+		opened = !opened
+		icon_state = "aac_device[opened ? "_open" : ""]"
+		w_class = opened ? WEIGHT_CLASS_NORMAL : WEIGHT_CLASS_SMALL
+		to_chat(user, SPAN_NOTICE("You [opened ? "open" : "close"] [src]."))
+
+/obj/item/aac_device/AltShiftClick(mob/user)
+	rename_interactive(user, use_prefix = FALSE)
 
