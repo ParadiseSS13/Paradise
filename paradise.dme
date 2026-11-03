@@ -1326,6 +1326,7 @@
 #include "code\game\objects\effects\temporary_visuals\projectile\muzzle.dm"
 #include "code\game\objects\effects\temporary_visuals\projectile\projectile_effects.dm"
 #include "code\game\objects\effects\temporary_visuals\projectile\tracer.dm"
+#include "code\game\objects\items\aac_device.dm"
 #include "code\game\objects\items\agent_id.dm"
 #include "code\game\objects\items\AI_modules.dm"
 #include "code\game\objects\items\ashtray.dm"
