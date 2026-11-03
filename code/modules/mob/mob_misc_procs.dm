@@ -117,6 +117,7 @@
 	var/list/crew_roles = list(
 		SPECIAL_ROLE_BLOB,
 		SPECIAL_ROLE_CULTIST,
+		SPECIAL_ROLE_ACOLYTE,
 		SPECIAL_ROLE_CHANGELING,
 		SPECIAL_ROLE_ERT,
 		SPECIAL_ROLE_HEAD_REV,
@@ -360,7 +361,7 @@
 
 		var/letter = copytext_char(t, i, i + 1)
 		if(prob(replace_rate))
-			if(p >= 70)
+			if(p >= 70) // This could be just a TRUE/FALSE check but im too scared to break it.
 				letter = ""
 
 			for(var/j = 1, j <= rand(0, 2), j++)
@@ -380,7 +381,15 @@
 	message = bad_char.Replace(message, repl_char, 1, 2) // prevents the gibbered message from emoting
 
 	return message
-
+/**
+ * Garbles a massage
+ *
+ *Arguments:
+ *
+ * * message pieces - The message we want to make into gibberish
+ * * p - Any value higher than 70 will cause letters to be replaced instead of added
+ * * replace_rate - The chance a letter will be corrupted
+*/
 /proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = Gibberish(S.message, p, replace_rate)

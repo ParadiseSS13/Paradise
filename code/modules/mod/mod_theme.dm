@@ -118,9 +118,9 @@
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 25, FIRE = 33, ACID = 33)
 
 /datum/mod_theme/engineering
-	name = "'Spark' engineering"
+	name = "'Icarus' engineering"
 	desc = "A standard industrial modsuit. Fire-resistant, shockproof, and fitted with lead insulation for additional radiation protection."
-	extended_desc = "The flagship product of Cybersun Industries's industrial modsuit lineup, the CS-15 'Spark' is an EVA-capable engineering suit designed to provide personal protection in all manner of hostile work environments. \
+	extended_desc = "The flagship product of Cybersun Industries's industrial modsuit lineup, the CS-15 'Icarus' is an EVA-capable engineering suit designed to provide personal protection in all manner of hostile work environments. \
 		The double-insulated carapace renders the user immune to most electrical hazards, while an additional layer of lead plating massively reduces (but does not eliminate) radiation exposure from high-intensity sources, permitting work to be performed in \
 		active radiological zones as long as exposure is properly managed. An inner layer of nomex provides some protection against exposure to the radiant heat of active fires, \
 		but is not rated for full fire engulfment. It also offers some minor protection against low-grade explosive detonations."
@@ -168,9 +168,9 @@
 /datum/mod_theme/atmospheric
 	name = "'Canary' atmospheric"
 	desc = "A reinforced atmospherics modsuit meant for extreme environments. Completely fireproof, but somewhat lacking in modification potential and power efficiency."
-	extended_desc = "Developed from the popular 'Spark' chassis, the CS-16 'Canary' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
+	extended_desc = "Developed from the popular 'Icarus' chassis, the CS-16 'Canary' utility modsuit is specialised for use by atmospherics specialists. The outer carapace is made of highly insulating thermally-reflective composites \
 		underlain with multiple layers of insulating fiberglass, which, in combination with a high-powered thermal regulation system, provides the user complete protection from even full engulfment inside a raging plasma fire. \
-		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the 'Spark' suit. \
+		The helmet contains integrated filtration systems that protect the user from sudden releases of harmful gasses, - a feature not present in the 'Icarus' suit. \
 		Cybersun Industries reminds users that this model features minimal radiation shielding - it is not suitable PPE for use in radiological hazard zones."
 	default_skin = "atmospheric"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
@@ -230,14 +230,13 @@
 	default_skin = "advanced"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_advanced
 	resistance_flags = FIRE_PROOF
-	flag_2_flags = RAD_PROTECT_CONTENTS_2
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	siemens_coefficient = 0
 	slowdown_inactive = 1
 	slowdown_active = 0.45
-	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
+	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced, /obj/item/mod/module/rad_protection/inbuilt)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/rcd,
@@ -278,7 +277,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_advanced
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 25, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/mining
 	name = "'Pioneer' mining"
@@ -1038,7 +1037,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_syndicate
-	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = INFINITY, FIRE = 50, ACID = 450)
+	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = 25, FIRE = 50, ACID = 450)
 	//melee = 40 with booster
 	//bullet = 50
 	//laser = 20 with booster
@@ -1101,7 +1100,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	//melee = 50 // 75 with booster
 	//bullet = 45 // 75 same as
 	//laser = 35 //50 same as
@@ -1175,7 +1174,6 @@
 	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
 
 	resistance_flags = FIRE_PROOF
-	flag_2_flags = RAD_PROTECT_CONTENTS_2
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 0.5
@@ -1243,7 +1241,7 @@
 
 /// This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
 /obj/item/mod/armor/mod_theme_responsory
-	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = 25, FIRE = 200, ACID = 200)
 
 /datum/mod_theme/apocryphal
 	name = "'Charon' absolver"
@@ -1449,9 +1447,8 @@
 		),
 	)
 
-/// considering this should not be used, it's getting just DS armor, not infinity in everything.
 /obj/item/mod/armor/mod_theme_administrative
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/ninja
 	name = "'Shinobi' stealthsuit"

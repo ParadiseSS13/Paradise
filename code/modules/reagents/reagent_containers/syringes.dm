@@ -71,6 +71,8 @@
 				return
 			if(L.reagents.total_volume >= L.reagents.maximum_volume)
 				return
+			if(!reagents.total_volume)
+				return
 			L.visible_message(SPAN_DANGER("[user] injects [L] with the syringe!"), \
 							SPAN_USERDANGER("[user] injects [L] with the syringe!"))
 
@@ -187,6 +189,8 @@
 				finish_injection(target, user)
 
 /obj/item/reagent_containers/syringe/proc/finish_injection(atom/target, mob/living/user)
+	if(reagents.total_volume <= 0) // If we somehow get here with no reagents, abort.
+		return
 	var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 	reagents.reaction(target, REAGENT_INGEST, fraction)
 	reagents.trans_to(target, amount_per_transfer_from_this)

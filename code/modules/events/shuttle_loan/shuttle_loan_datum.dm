@@ -27,7 +27,7 @@
 
 /datum/shuttle_loan_situation/department_resupply/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
 	var/static/list/crate_types = list(
-		/datum/supply_packs/emergency/evac,
+		/datum/supply_packs/emergency/damage_control,
 		/datum/supply_packs/security/supplies,
 		/datum/supply_packs/organic/food,
 		/datum/supply_packs/emergency/weedcontrol,

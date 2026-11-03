@@ -290,9 +290,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "fq" = (
-/obj/machinery/light_switch{
-	pixel_y = 28
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -378,9 +376,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "gR" = (
@@ -956,9 +952,7 @@
 /area/ruin/space/telecomms)
 "qM" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
@@ -1291,9 +1285,7 @@
 	},
 /area/ruin/space/telecomms/chamber)
 "vJ" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
 	},
@@ -1392,9 +1384,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "wW" = (
-/obj/machinery/light_switch{
-	pixel_y = 28
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/computer/message_monitor,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
@@ -1629,9 +1619,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/bluespace/trapped,
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
 "Aj" = (
@@ -2806,7 +2794,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/mob/living/basic/bot/secbot/buzzsky/telecomms,
 /obj/machinery/alarm/server/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
@@ -3020,7 +3008,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
+/mob/living/basic/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "YA" = (

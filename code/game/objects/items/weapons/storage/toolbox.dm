@@ -38,6 +38,7 @@
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
+	desc = "A robust-looking red toolbox used to carry compact emergency tools."
 	icon_state = "red"
 	inhand_icon_state = "toolbox_red"
 
@@ -53,11 +54,13 @@
 
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty red toolbox"
+	desc = "A robust-looking red toolbox used to carry compact emergency tools. It looks extremely old."
 	icon_state = "toolbox_red_old"
 	has_latches = FALSE
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
+	desc = "A very robust-looking blue toolbox used to mechanical tools."
 	icon_state = "blue"
 	inhand_icon_state = "toolbox_blue"
 
@@ -74,11 +77,13 @@
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"
+	desc = "A robust-looking blue toolbox used to mechanical tools. It looks extremely old."
 	icon_state = "toolbox_blue_old"
 	has_latches = FALSE
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
+	desc = "A robust-looking red toolbox used to carry electrical maintenance tools."
 	icon_state = "yellow"
 	inhand_icon_state = "toolbox_yellow"
 
@@ -97,6 +102,7 @@
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
+	desc = "An extremely robust-looking black and red toolbox."
 	icon_state = "syndicate"
 	inhand_icon_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
@@ -107,7 +113,7 @@
 /obj/item/storage/toolbox/syndicate/populate_contents()
 	new /obj/item/screwdriver/nuke(src)
 	new /obj/item/wrench(src)
-	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/weldingtool/hugetank/syndicate(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/red(src)
@@ -122,7 +128,7 @@
 	name = "suspicous looking toolbox"
 	icon_state = "syndicate"
 	inhand_icon_state = "toolbox_syndi"
-	desc = "Danger. Very Robust. The paint is still wet."
+	desc = "An extremely robust-looking black and red toolbox. The paint is still wet."
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
@@ -159,3 +165,39 @@
 	new /obj/item/stack/cable_coil/orange(src)
 	new /obj/item/stack/cable_coil/cyan(src)
 	new /obj/item/stack/cable_coil/white(src)
+
+// repairbot assembly
+/obj/item/storage/toolbox/tool_act(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/prox_sensor))
+		return ..()
+	var/static/list/allowed_toolbox = list(
+		/obj/item/storage/toolbox/artistic,
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/toolbox/emergency,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/syndicate,
+	)
+
+	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))
+		return FINISH_ATTACK
+	if(contents.len >= 1)
+		to_chat(user, SPAN_NOTICE("[src] isn't empty!"))
+		return FINISH_ATTACK
+
+	var/static/list/toolbox_colors = list(
+		/obj/item/storage/toolbox = "#445eb3",
+		/obj/item/storage/toolbox/emergency = "#b34444",
+		/obj/item/storage/toolbox/electrical = "#b77931",
+		/obj/item/storage/toolbox/artistic = "#378752",
+		/obj/item/storage/toolbox/syndicate = "#3d3d3d",
+	)
+
+	var/obj/item/bot_assembly/repairbot/repair = new(drop_location())
+	repair.toolbox = type
+	var/new_color = toolbox_colors[type] || "#445eb3"
+	repair.set_color(new_color)
+	repair.update_appearance()
+	to_chat(user, SPAN_NOTICE("You add [used] to [src]."))
+	qdel(used)
+	qdel(src)
+	return FINISH_ATTACK

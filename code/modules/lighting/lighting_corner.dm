@@ -14,7 +14,7 @@
 	var/turf/master_SW
 	var/turf/master_NW
 
-	// "raw" color values, changed by update_lumcount()
+	// "raw" color values, changed by ADD_CORNER_LUM()
 	var/lum_r = 0
 	var/lum_g = 0
 	var/lum_b = 0
@@ -29,6 +29,9 @@
 
 	/// whether we are to be added to SSlighting's corners_queue list for an update
 	var/needs_update = FALSE
+
+	/// Stamp of the last light source update that visited us, so it can skip us if we come up again. See [/datum/controller/subsystem/lighting/proc/get_update_stamp]
+	var/update_stamp = 0
 
 /datum/lighting_corner/New(turf/new_turf, diagonal)
 	. = ..()
@@ -87,26 +90,15 @@
 	for(var/datum/light_source/light_source as anything in affecting)
 		light_source.recalc_corner(src)
 
-// God that was a mess, now to do the rest of the corner code! Hooray!
-/datum/lighting_corner/proc/update_lumcount(delta_r, delta_g, delta_b)
-
-	if(!(delta_r || delta_g || delta_b)) // 0 is falsey ok
-		return
-
-	lum_r += delta_r
-	lum_g += delta_g
-	lum_b += delta_b
-
-	if(!needs_update)
-		needs_update = TRUE
-		SSlighting.corners_queue += src
-
 /datum/lighting_corner/proc/update_objects()
 	// Cache these values ahead of time so 4 individual lighting objects don't all calculate them individually.
 	var/lum_r = src.lum_r
 	var/lum_g = src.lum_g
 	var/lum_b = src.lum_b
 	var/largest_color_luminosity = max(lum_r, lum_g, lum_b) // Scale it so one of them is the strongest lum, if it is above 1.
+	var/old_r = cache_r
+	var/old_g = cache_g
+	var/old_b = cache_b
 	. = 1 // factor
 	if(largest_color_luminosity > 1)
 		. = 1 / largest_color_luminosity
@@ -125,6 +117,11 @@
 	#endif
 
 	src.largest_color_luminosity = round(largest_color_luminosity, LIGHTING_ROUND_VALUE)
+
+	// Lighting objects only use the rounded values, so if those didn't change there's no need to update them
+	if(old_r == cache_r && old_g == cache_g && old_b == cache_b)
+		self_destruct_if_idle()
+		return
 
 	var/datum/lighting_object/lighting_object = master_NE?.lighting_object
 	if(lighting_object && !lighting_object.needs_update)

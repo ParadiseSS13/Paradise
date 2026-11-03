@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"cryogenic_liquid", "liquid_dark_matter", "b_sorium",
 							"reagent", "drink", "medicine", "plantnutrient", "consumable", "dragonsbreath",
 							"nanocalcium", "xenomicrobes", "nanomachines", "gibbis", "prions",
-							"spidereggs", "heartworms", "bacon_grease",
+							"spidereggs", "heartworms", "bacon_grease", "gnesis_tox",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2",
 							"curare", "gluttonytoxin", "smoke_powder", "stimulative_cling",

@@ -9,3 +9,4 @@ beautifulsoup4==4.13.4
 
 # various CI checks
 avulto==0.3.0
+pytest==9.1.1

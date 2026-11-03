@@ -25,25 +25,31 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	inhand_icon_state = "radio"
-	var/shuttle_id = "steel_rain"
+	new_attack_chain = TRUE
+	var/target_shuttle_id = "steel_rain"
 	var/dwidth = 3
 	var/dheight = 0
 	var/width = 7
 	var/height = 7
 	var/lz_dir = NORTH
 
-/obj/item/assault_pod/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/assault_pod/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	if(!length(SSmapping.teleportlocs))
+		to_chat(user, SPAN_WARNING("There are no valid landing zones!"))
+		return ITEM_INTERACT_COMPLETE
 	var/target_area
 	target_area = tgui_input_list(user, "Area to land", "Select a Landing Zone", SSmapping.teleportlocs)
 	if(!target_area)
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/area/picked_area = SSmapping.teleportlocs[target_area]
 	if(!src || QDELETED(src))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/turf/T = safepick(get_area_turfs(picked_area))
 	if(!T)
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/obj/docking_port/stationary/landing_zone = new /obj/docking_port/stationary(T)
 	landing_zone.id = "assault_pod(\ref[src])"
 	landing_zone.name = "Landing Zone"
@@ -55,9 +61,11 @@
 	landing_zone.register() //new docking ports must be registered
 
 	for(var/obj/machinery/computer/shuttle/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle))
-		if(S.shuttleId == shuttle_id)
-			S.possible_destinations = "[landing_zone.id]"
+		for(var/shuttle_id2 in S.shuttleIds)
+			if(shuttle_id2 == target_shuttle_id)
+				S.possibleDestinations2[target_shuttle_id] += "[landing_zone.id]"
 
 	to_chat(user, "Landing zone set.")
 
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE

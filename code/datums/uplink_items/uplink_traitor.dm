@@ -368,7 +368,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA) // Stops the job specific category appearing for nukies
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
@@ -439,6 +439,26 @@
 	cost = 25
 	species = list("Drask")
 	surplus = 0
+
+// Slime
+/datum/uplink_item/species_restricted/subdermal_applicator
+	name = "Thermal Protein Applicator"
+	desc = "This device contains specially-formulated proteins that bond with a slime person's surface membrane and inner organelles to provide insulation against the cold and greatly improved resistance to extreme temperatures."
+	reference = "IPA"
+	item = /obj/item/subdermal_applicator
+	cost = 15
+	species = list("Slime People")
+	surplus = 0
+
+// Vulpkanin
+/datum/uplink_item/species_restricted/drekseh
+	name = "Dreksehgewehr Marksman Rifle"
+	desc = "A highly advanced vulpkanin-made beam rifle that fires high velocity energy payloads. These payloads are known to be particularly stable, and benefit from disruptions gained from ricochettes. \
+	Requires two hands to fire."
+	reference = "DMR"
+	item = /obj/item/gun/energy/drekseh
+	cost = 45
+	species = list("Vulpkanin")
 
 // Nian
 /datum/uplink_item/species_restricted/crab17
@@ -700,7 +720,7 @@
 	reference = "SPC"
 	item = /obj/item/deck/cards/syndicate
 	cost = 2
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
 /datum/uplink_item/badass/plasticbag

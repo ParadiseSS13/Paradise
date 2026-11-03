@@ -140,13 +140,13 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
-/mob/living/carbon/alien/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
-	if(judgebot.emagged)
-		return 10 //Everyone is a criminal!
+/mob/living/carbon/alien/assess_threat(judgement_criteria, lasercolor)
+	if(judgement_criteria & JUDGE_EMAGGED)
+		return 10 // Everyone is a criminal!
 	var/threatcount = 0
 
-	//Securitrons can't identify aliens
-	if(!lasercolor && judgebot.idcheck)
+	// Securitrons can't identify aliens
+	if(!lasercolor)
 		threatcount += 4
 
 	//Lasertag bullshit
@@ -161,11 +161,11 @@
 
 		return threatcount
 
-	//Check for weapons
-	if(judgebot.weapons_check)
-		if(judgebot.check_for_weapons(l_hand))
+	// Check for weapons
+	if(judgement_criteria & SECBOT_CHECK_WEAPONS)
+		if(l_hand.needs_permit)
 			threatcount += 4
-		if(judgebot.check_for_weapons(r_hand))
+		if(r_hand.needs_permit)
 			threatcount += 4
 
 	//Mindshield implants imply trustworthyness

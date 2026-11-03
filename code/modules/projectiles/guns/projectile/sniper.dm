@@ -42,9 +42,10 @@
 	else
 		icon_state = "sniper"
 
-//Normal Boolets
+// MARK: Ball ammo
 /obj/item/ammo_box/magazine/sniper_rounds
-	name = "sniper rounds (.50)"
+	name = "SR-31C sniper rifle magazine (.50 BMG)"
+	desc = "A 6-round magazine for the SR-31C sniper rifle that holds .50 BMG rounds."
 	icon_state = ".50mag"
 	origin_tech = "combat=6;syndicate=2"
 	ammo_type = /obj/item/ammo_casing/point50
@@ -75,15 +76,16 @@
 	speed = 0.5
 	var/non_zoom_spread = 0
 
+// MARK: HE ammo
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
-	name = "sniper rounds (Antimatter)"
-	desc = "Antimatter sniper rounds, for when you really don't like something. Requires zooming in to fire accurately."
+	name = "SR-31C sniper rifle magazine (.50 BMG HE)"
+	desc = "A 6-round magazine for the SR-31C sniper rifle that holds .50 BMG rounds. Pre-loaded with high explosive rounds that can destroy armoured limbs."
 	icon_state = "antimatter"
 	ammo_type = /obj/item/ammo_casing/antimatter
 
 /obj/item/ammo_casing/antimatter
-	name = ".50 BMG anti-matter round"
-	desc = "A .50 BMG high-explosive cartridge. Does not actually contain antimatter."
+	name = ".50 BMG high-explosive round"
+	desc = "A .50 BMG cartridge filled with high-explosive."
 	icon_state = "heavy_steel_incin"
 	caliber = ".50"
 	projectile_type = /obj/projectile/bullet/sniper/antimatter
@@ -99,10 +101,11 @@
 
 	return ..()
 
-//Sleepy ammo
+// MARK: Sleep ammo
 /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	name = "sniper rounds (Zzzzz)"
-	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
+	name = "SR-31C sniper rifle magazine (.50 BMG Soporific)"
+	desc = "A 3-round magazine for the SR-31C sniper rifle that holds .50 BMG rounds. \
+	Pre-loaded with special low-power hypodermic rounds filled with fast-acting soporific drugs that will instantly put a target to sleep without causing damage."
 	icon_state = "soporific"
 	origin_tech = "combat=6;syndicate=3"
 	ammo_type = /obj/item/ammo_casing/soporific
@@ -118,7 +121,7 @@
 
 /obj/projectile/bullet/sniper/soporific
 	armor_penetration_flat = 0
-	nodamage = 1
+	nodamage = TRUE
 	weaken = 0
 
 /obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
@@ -128,10 +131,10 @@
 
 	return ..()
 
-//hemorrhage ammo
+// MARK: Bleed ammo
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
-	name = "sniper rounds (Bleed)"
-	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain."
+	name = "SR-31C sniper rifle magazine (.50 BMG Shredder)"
+	desc = "A 5-round magazine for the SR-31C sniper rifle that holds .50 BMG rounds. Pre-loaded with serrated rounds designed to cause major bleeding."
 	icon_state = "haemorrhage"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
 	max_ammo = 5
@@ -155,18 +158,19 @@
 
 	return ..()
 
-//penetrator ammo
+// MARK: X-ray ammo
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator
-	name = "sniper rounds (penetrator)"
-	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
+	name = "SR-31C sniper rifle magazine (.50 BMG SAP)"
+	desc = "A 5-round magazine for the SR-31C sniper rifle that holds .50 BMG rounds. Pre-loaded with tungsten penetrator rounds wrapped with a plastic sabot. \
+	Capable of passing through multiple targets, glass, walls, and basically anything else."
 	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
 	origin_tech = "combat=6;syndicate=3"
 	max_ammo = 5
 
 /obj/item/ammo_casing/penetrator
-	name = ".50 BMG sabot round"
-	desc = "A .50 BMG Sabot Penetrator cartridge, capable of punching through just about anything."
+	name = ".50 BMG SAP round"
+	desc = "A .50 BMG Sabot Armor Penetrator cartridge, capable of punching through just about anything."
 	icon_state = "heavy_steel_ap"
 	caliber = ".50"
 	projectile_type = /obj/projectile/bullet/sniper/penetrator
@@ -180,9 +184,10 @@
 	speed = 0.75
 	pass_flags = PASSTABLE //damage glass
 
-//toy magazine
+// MARK: Toy ammo
 /obj/item/ammo_box/magazine/toy/sniper_rounds
-	name = "donksoft Sniper magazine"
+	name = "\improper Donksoft Sniper magazine"
+	desc = "A 6-round magazine for a Donksoft sniper rifle. While the design is based off the SR-31C sniper rifle, it can neither accept real .50 BMG rounds, nor will it fit inside a real SR-31C sniper rifle. "
 	icon_state = ".50mag"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	max_ammo = 6

@@ -27,7 +27,7 @@
 	move_force = MOVE_FORCE_NORMAL
 	see_in_dark = 20 // I see you
 	step_type = FOOTSTEP_MOB_SHOE
-	initial_traits = list(TRAIT_NOFIRE)
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 	blood_color = "#FB9800"
 	loot = list(
 		/obj/item/kidan_princess_halberd,

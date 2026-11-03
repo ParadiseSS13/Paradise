@@ -736,3 +736,12 @@
 	)
 
 // ----------- END of recipe imports from Hispania!
+
+/datum/cooking/recipe/friedriceegg
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/friedriceegg
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/friedrice),
+		PCWJ_ADD_ITEM(/obj/item/food/friedegg),
+	)

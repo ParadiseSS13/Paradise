@@ -70,7 +70,7 @@
 #define GET_CULT_DATA(var_or_proc, default) (SSticker.cult_data ? SSticker.cult_data.var_or_proc : default)
 
 /// Checks that the given element is living an has a cult antag datum
-#define IS_CULTIST(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/cultist)) // for someone TODO, move all antag checks over to TG's `IS_TRAITOR` defines. Also remove `isliving()` from this call someday
+#define IS_CULTIST(mob) (isliving(mob) && (mob?:mind?:has_antag_datum(/datum/antagonist/cultist) || mob?:mind?:has_antag_datum(/datum/antagonist/acolyte) )) // for someone TODO, move all antag checks over to TG's `IS_TRAITOR` defines. Also remove `isliving()` from this call someday
 
 // Used to keep track of items rewarded after a heretic is sacked.
 #define CURSED_BLADE_UNLOCKED "Cursed Blade"

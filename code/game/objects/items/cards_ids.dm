@@ -188,6 +188,14 @@
 		victim.remove_status_effect(STATUS_EFFECT_OFFERING_EFTPOS)
 		eftpos.scan_card(src, user)
 		return ITEM_INTERACT_COMPLETE
+	if(victim.has_status_effect(STATUS_EFFECT_OFFERING_BARCODE_SCANNER))
+		var/obj/item/barcodescanner/scanner = victim.is_holding_item_of_type(/obj/item/barcodescanner)
+		if(!scanner)
+			to_chat(user, SPAN_WARNING("They don't seem to have it in hand anymore."))
+			return ITEM_INTERACT_COMPLETE
+		victim.remove_status_effect(STATUS_EFFECT_OFFERING_BARCODE_SCANNER)
+		scanner.scanID(src, user)
+		return ITEM_INTERACT_COMPLETE
 	return NONE
 
 /obj/item/card/id/proc/UpdateName()

@@ -29,6 +29,7 @@
 
 /datum/gear/uniform/turtleneck/job
 	main_typepath = /datum/gear/uniform/turtleneck/job
+	subtype_selection_cost = FALSE
 
 //there's a lot more colors than I thought there were @_@
 
@@ -376,7 +377,7 @@
 	allowed_roles = list("Chief Medical Officer")
 
 /datum/gear/uniform/turtleneck/job/cmo
-	display_name = "Skirt, cmo"
+	display_name = "Turtleneck, cmo"
 	path = /obj/item/clothing/under/rank/medical/cmo/turtleneck
 	allowed_roles = list("Chief Medical Officer")
 

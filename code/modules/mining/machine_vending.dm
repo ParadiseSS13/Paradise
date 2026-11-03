@@ -398,6 +398,9 @@
 		EQUIPMENT("\"Prospector\" Turret Grenade", /obj/item/grenade/turret/mining, 1500),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
+		EQUIPMENT("Mining Charge", /obj/item/grenade/plastic/miningcharge/lesser, 150),
+		EQUIPMENT("Industrial Mining Charge", /obj/item/grenade/plastic/miningcharge, 500),
+		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
 	)
