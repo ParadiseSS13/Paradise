@@ -21,6 +21,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	usesound = 'sound/items/rped.ogg'
+	origin_tech = "engineering=1"
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000)
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
@@ -84,6 +85,7 @@
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.5
+	origin_tech = "engineering=4;bluespace=3"
 	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_SILVER = 2500)
 
 /obj/item/storage/part_replacer/bluespace/tier4/populate_contents()
@@ -236,7 +238,7 @@
 	name = "quadratic capacitor"
 	desc = "An ultra-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "quadratic_capacitor"
-	origin_tech = "powerstorage=5;materials=4;engineering=4"
+	origin_tech = "powerstorage=5;materials=4;engineering=4;bluespace=4"
 	rating = 4
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100, MAT_DIAMOND = 100)
 
@@ -244,27 +246,27 @@
 	name = "triphasic scanning module"
 	desc = "A compact, ultra resolution triphasic scanning module used in the construction of certain devices."
 	icon_state = "triphasic_scan_module"
-	origin_tech = "magnets=5;materials=4;engineering=4"
+	origin_tech = "magnets=5;materials=4;engineering=4;bluespace=4"
 	rating = 4
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_DIAMOND = 30, MAT_BLUESPACE = 30)
 
 /obj/item/stock_parts/manipulator/femto
 	name = "femto-manipulator"
 	icon_state = "femto_mani"
-	origin_tech = "materials=6;programming=4;engineering=4"
+	origin_tech = "materials=6;programming=4;engineering=4;bluespace=4"
 	rating = 4
 	materials = list(MAT_METAL = 200, MAT_DIAMOND = 30, MAT_TITANIUM = 30)
 
 /obj/item/stock_parts/micro_laser/quadultra
 	name = "quad-ultra micro-laser"
 	icon_state = "quadultra_micro_laser"
-	origin_tech = "magnets=5;materials=4;engineering=4"
+	origin_tech = "magnets=5;materials=4;engineering=4;bluespace=4"
 	rating = 4
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 100, MAT_DIAMOND = 60)
 
 /obj/item/stock_parts/matter_bin/bluespace
 	name = "bluespace matter bin"
 	icon_state = "bluespace_matter_bin"
-	origin_tech = "materials=6;programming=4;engineering=4"
+	origin_tech = "materials=6;engineering=4;bluespace=4"
 	rating = 4
 	materials = list(MAT_METAL = 250, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)
