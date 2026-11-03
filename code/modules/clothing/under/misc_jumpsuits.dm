@@ -87,6 +87,7 @@
 	desc = "A floral shirt of unknown color as of yet."
 
 /obj/item/clothing/under/misc/randomhawaiianshirt/Initialize(mapload)
+	. = ..()
 	var/obj/item/clothing/under/misc/chosen_shirt = pick(list(
 		/obj/item/clothing/under/misc/redhawaiianshirt,
 		/obj/item/clothing/under/misc/pinkhawaiianshirt,
