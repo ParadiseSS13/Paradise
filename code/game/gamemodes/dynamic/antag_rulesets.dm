@@ -9,7 +9,7 @@
 	/// The weight to roll this ruleset, the higher the more likely this will roll
 	var/ruleset_weight = 1
 	/// The cost to roll an antagonist of this ruleset, basicly how many other players need to be redied up for this to roll
-	/// for more info on how the budget is set see:`/datum/game_mode/dynamic/proc/calculate_budget(players)`
+	/// for more info on how the budget is set see: [/datum/game_mode/dynamic/proc/calculate_budget]
 	var/antag_cost = 1
 	/// The weight to roll an antagonist of this ruleset
 	var/antag_weight = 1
@@ -43,7 +43,7 @@
 		"Chief Engineer",
 		"Quartermaster"
 	)
-	/// Roles that shouldn't be an antag if hijack isn't allowed, currntly unused.
+	/// Roles that shouldn't be an antag if hijack isn't allowed, currently unused.
 	var/list/hijack_only_jobs = list()
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
@@ -91,7 +91,7 @@
 
 /datum/ruleset/proc/configure()
 	SHOULD_CALL_PARENT(TRUE)
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags && !banned_jobs_only)
 		banned_jobs += protected_jobs
 
 	if(!can_assign_hijack_objective())
