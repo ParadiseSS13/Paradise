@@ -643,12 +643,8 @@
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
 
-	// Sanitization, no need to make a new function.
-	if(!species_whitelisted_for_bloopers(blooper_id, species))
+	if(!(blooper_id in GLOB.blooper_list) || !species_whitelisted_for_bloopers(blooper_id, species))
 		blooper_id = initial(blooper_id)
-
-	blooper_id = species_whitelisted_for_bloopers(blooper_id, GLOB.blooper_list, initial(blooper_id))
-
 	var/datum/blooper/blooper_type = GLOB.blooper_list[blooper_id]
 	blooper_speed = sanitize_float(blooper_speed, initial(blooper_type.minspeed), initial(blooper_type.maxspeed), initial(blooper_speed))
 	blooper_pitch = sanitize_float(blooper_pitch, initial(blooper_type.minpitch), initial(blooper_type.maxpitch), initial(blooper_pitch))
