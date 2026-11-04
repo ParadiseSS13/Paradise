@@ -539,6 +539,7 @@ SUBSYSTEM_DEF(jobs)
 
 			if(C.mob.mind.special_role)
 				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
+				added_differential[EXP_TYPE_SPECIAL] += minutes
 				if(announce)
 					to_chat(C.mob, SPAN_NOTICE("You got: [minutes] Special EXP!"))
 
@@ -568,7 +569,7 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
 			INSERT INTO playtime_history (ckey, date, time_living, time_crew, time_special, time_ghost, time_command, time_engineering, time_medical, time_science, time_supply, time_security, time_silicon, time_service)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedcrew, :addedspecial, :addedghost, :addedcommand, :addedengineering, :addedmedical, :addedscience, :addedsupply, :addedsecurity, :addedsilicon, :addedservice)
-			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_crew=time_crew + VALUES(time_crew), time_crew=time_special + VALUES(time_special), time_ghost=time_ghost + VALUES(time_ghost), time_command=time_command + VALUES(time_command), time_engineering=time_engineering + VALUES(time_engineering), time_medical=time_medical + VALUES(time_medical), time_science=time_science + VALUES(time_science), time_supply=time_supply + VALUES(time_supply), time_security=time_security + VALUES(time_security), time_silicon=time_silicon + VALUES(time_silicon), time_service=time_service + VALUES(time_service)"},
+			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_crew=time_crew + VALUES(time_crew), time_special=time_special + VALUES(time_special), time_ghost=time_ghost + VALUES(time_ghost), time_command=time_command + VALUES(time_command), time_engineering=time_engineering + VALUES(time_engineering), time_medical=time_medical + VALUES(time_medical), time_science=time_science + VALUES(time_science), time_supply=time_supply + VALUES(time_supply), time_security=time_security + VALUES(time_security), time_silicon=time_silicon + VALUES(time_silicon), time_service=time_service + VALUES(time_service)"},
 			list(
 				"ckey" = C.ckey,
 				"addedliving" = added_differential[EXP_TYPE_LIVING],

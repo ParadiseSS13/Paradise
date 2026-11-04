@@ -109,6 +109,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 				return
 			admin_datum = new(rank, rights, admin_ckey)
 			qdel(get_admin)
+		else
+			// Not in the admin table at all
+			qdel(get_admin)
 	else
 		var/rank = GLOB.configuration.admin.ckey_rank_map[admin_ckey]
 

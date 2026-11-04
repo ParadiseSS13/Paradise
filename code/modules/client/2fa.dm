@@ -41,6 +41,7 @@
 			qdel(insert_qry)
 			alert(usr, "MFA failed to save to the DB - please inform the server host.")
 			return
+		qdel(insert_qry)
 
 		// Default to IP change only
 		prefs._2fa_status = _2FA_ENABLED_IP
@@ -109,6 +110,7 @@
 			// If we are here, they authed properly
 			var/datum/db_query/dbq = SSdbcore.NewQuery("DELETE FROM 2fa_secrets WHERE ckey=:ckey", list("ckey" = ckey))
 			dbq.warn_execute()
+			qdel(dbq)
 			prefs._2fa_status = _2FA_DISABLED
 			prefs.save_preferences(src)
 			prefs.ShowChoices(usr)
