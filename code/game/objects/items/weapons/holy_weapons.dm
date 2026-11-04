@@ -1113,6 +1113,13 @@
 		to_chat(user, SPAN_WARNING("Your concentration was broken!"))
 	return ITEM_INTERACT_COMPLETE
 
+/**
+  * Attempts to brainwash target to follow the missionary's orders
+  *
+  * Arguments:
+  * * target - Human traget to brainwash
+  * * missionary - Human performing the brainwashing
+  */
 /obj/item/nullrod/missionary_staff/proc/wololo(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 10 MINUTES
 
