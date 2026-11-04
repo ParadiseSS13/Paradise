@@ -101,6 +101,8 @@
 #define LIGHTING_CHECK_UPDATE 2
 #define LIGHTING_FORCE_UPDATE 3
 
+#define LIGHTING_MAX_UPDATE_STAMP 16777216 //! SSlighting.update_stamp wraps back to 1 before this. BYOND numbers lose integer precision past 2^24.
+
 #define FLASH_LIGHT_DURATION 2
 #define FLASH_LIGHT_POWER 3
 #define FLASH_LIGHT_RANGE 3.8

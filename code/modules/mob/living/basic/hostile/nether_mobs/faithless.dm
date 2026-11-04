@@ -15,6 +15,7 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	speed = 0
 	faction = "faithless"
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/netherworld/faithless/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE

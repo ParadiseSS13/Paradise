@@ -1,5 +1,3 @@
-
-
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar panel. Generates electricity when in contact with sunlight."
@@ -15,7 +13,9 @@
 	var/ndir = SOUTH // target dir
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
-	var/solar_type = "solar_panel"
+	var/solar_type = SOLAR_TYPE_GLASS
+
+	var/default_glass = /obj/item/stack/sheet/glass
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
@@ -43,27 +43,20 @@
 /obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
-		S.glass_type = /obj/item/stack/sheet/glass
+		S.glass_type = new default_glass(src)
 		S.anchored = TRUE
 	S.loc = src
-	if(S.glass_type == /obj/item/stack/sheet/rglass) // if the panel is made of reinforced glass
-		max_integrity *= RGLASS_SOLAR_MULT
-		obj_integrity = max_integrity
-		solar_type = "solar_panel"
-	if(S.glass_type == /obj/item/stack/sheet/plasmaglass) // if the panel is made of plasma glass
-		max_integrity *= PLASMAGLASS_SOLAR_MULT
-		obj_integrity = max_integrity
-		solar_type = "solar_panel_p"
-	if(S.glass_type == /obj/item/stack/sheet/plasmarglass) // if the panel is made of reinforced plasma glass
-		max_integrity *= PLASMARGLASS_SOLAR_MULT
-		obj_integrity = max_integrity
-		solar_type = "solar_panel_p"
-	if(S.glass_type == /obj/item/stack/sheet/plastitaniumglass) // if the panel is made of plastitanium glass
-		max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
-		obj_integrity = max_integrity
-		solar_type = "solar_panel_t"
+	max_integrity *= S.glass_type.solar_mult
+	obj_integrity = max_integrity
+	solar_type = S.glass_type.solar_type
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/power/solar/examine(mob/user)
+	. = ..()
+	var/obj/item/solar_assembly/S = locate() in src
+	if(S.glass_type)
+		var/obj/item/stack/sheet/G = S.glass_type
+		. += SPAN_NOTICE("It's constructed out of [G.name].")
 
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -107,6 +100,8 @@
 
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
+	if(!solar_type)
+		solar_type = SOLAR_TYPE_GLASS
 	if(stat & BROKEN)
 		. += image('icons/obj/solars.dmi', icon_state = "[solar_type]-b", layer = FLY_LAYER)
 	else
@@ -196,7 +191,7 @@
 	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
 	var/tracker = FALSE
-	var/glass_type = null
+	var/obj/item/stack/sheet/glass_type = null
 	new_attack_chain = TRUE
 
 /obj/item/solar_assembly/attack_hand(mob/user)
@@ -206,8 +201,9 @@
 // Give back the glass type we were supplied with
 /obj/item/solar_assembly/proc/give_glass()
 	if(glass_type)
-		var/obj/item/stack/sheet/S = new glass_type(src.loc)
+		var/obj/item/stack/sheet/S = glass_type
 		S.amount = 2
+		S.forceMove(src.loc)
 		glass_type = null
 
 /obj/item/solar_assembly/examine(mob/user)
@@ -238,20 +234,19 @@
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/stack/sheet/glass) || \
-			istype(used, /obj/item/stack/sheet/rglass) || \
-			istype(used, /obj/item/stack/sheet/plasmaglass) || \
-			istype(used, /obj/item/stack/sheet/plasmarglass) || \
-			istype(used, /obj/item/stack/sheet/plastitaniumglass))
+	if(istype(used, /obj/item/stack/sheet))
+		var/obj/item/stack/sheet/sheets = used
+		if(!sheets.solar_mult)
+			to_chat(user, SPAN_WARNING("You cannot use this to make a solar panel!"))
+			return ITEM_INTERACT_COMPLETE
 		if(!anchored || !isturf(loc))
 			to_chat(user, SPAN_WARNING("You need to anchor [src] with a wrench before you can add glass!"))
 			return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/stack/sheet/sheets = used
 		if(!sheets.use(2))
 			to_chat(user, SPAN_WARNING("You need two sheets of glass to finish [src]."))
 			return ITEM_INTERACT_COMPLETE
-		glass_type = sheets.merge_type
+		glass_type = new sheets.merge_type(src)
 		playsound(loc, sheets.usesound, 50, 1)
 		user.visible_message(
 			SPAN_NOTICE("[user] places [used] on [src]."),
@@ -537,10 +532,20 @@
 	stat |= BROKEN
 	update_icon()
 
-//
-// MISC
-//
+// MARK: Subtypes
+/obj/machinery/power/solar/r_glass
+	default_glass = /obj/item/stack/sheet/rglass
 
+/obj/machinery/power/solar/plasma
+	default_glass = /obj/item/stack/sheet/plasmaglass
+
+/obj/machinery/power/solar/plasma_r_glass
+	default_glass = /obj/item/stack/sheet/plasmarglass
+
+/obj/machinery/power/solar/plastitanium
+	default_glass = /obj/item/stack/sheet/plastitaniumglass
+
+// MARK: Misc
 /obj/item/paper/solar
 	name = "paper- 'Going green! Setup your own solar array instructions.'"
 	info = "<h1>Welcome</h1><p>At greencorps we love the environment, and space. With this package you are able to help mother nature and produce energy without any usage of fossil fuel or plasma! Singularity energy is dangerous while solar energy is safe, which is why it's better. Now here is how you setup your own solar array.</p><p>You can make a solar panel by wrenching the solar assembly onto a cable node. Adding a glass panel, reinforced or regular glass will do, will finish the construction of your solar panel. It is that easy!</p><p>Now after setting up 19 more of these solar panels you will want to create a solar tracker to keep track of our mother nature's gift, the sun. These are the same steps as before except you insert the tracker equipment circuit into the assembly before performing the final step of adding the glass. You now have a tracker! Now the last step is to add a computer to calculate the sun's movements and to send commands to the solar panels to change direction with the sun. Setting up the solar computer is the same as setting up any computer, so you should have no trouble in doing that. You do need to put a wire node under the computer, and the wire needs to be connected to the tracker.</p><p>Congratulations, you should have a working solar array. If you are having trouble, here are some tips. Make sure all solar equipment are on a cable node, even the computer. You can always deconstruct your creations if you make a mistake.</p><p>That's all to it, be safe, be green!</p>"

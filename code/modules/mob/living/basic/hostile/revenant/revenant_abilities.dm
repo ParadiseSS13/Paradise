@@ -433,11 +433,11 @@
 	if(cause_emp)
 		emp_act(EMP_HEAVY)
 
-/mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
+/mob/living/basic/bot/rev_malfunction(cause_emp = TRUE)
 	if(!emagged)
 		new /obj/effect/temp_visual/revenant(loc)
-		locked = FALSE
-		open = TRUE
+		bot_access_flags &= ~BOT_COVER_LOCKED
+		bot_access_flags |= BOT_COVER_MAINTS_OPEN
 		emag_act(usr)
 
 /obj/rev_malfunction(cause_emp = TRUE)

@@ -61,6 +61,9 @@
 /area/mine/unexplored/omega/medical
 	name = "Medical Rocks"
 
+/area/mine/unexplored/space_asteroid
+	name = "Mineral Rich Asteroid"
+
 /**********************Outpost areas**************************/
 
 /area/mine/outpost

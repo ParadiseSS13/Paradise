@@ -53,6 +53,11 @@
 				to_chat(user, SPAN_WARNING("You cannot find a way to feed [target]."))
 				return
 			var/mob/living/carbon/carb_mob = target
+			if(ishuman(target))
+				var/mob/living/carbon/human/human_target = target
+				if(!human_target.get_organ("head"))
+					to_chat(user, SPAN_WARNING("[target == user ? "You don't" : "[target] doesn't"] have a head to drink with!"))
+					return
 			if(carb_mob != user)
 				carb_mob.visible_message(SPAN_DANGER("[user] attempts to feed something to [carb_mob]."), \
 							SPAN_USERDANGER("[user] attempts to feed something to you."))
@@ -349,7 +354,7 @@
 	if(isprox(used))
 		to_chat(user, SPAN_NOTICE("You add [used] to [src]."))
 		qdel(used)
-		user.put_in_hands(new /obj/item/bucket_sensor)
+		user.put_in_hands(new /obj/item/bot_assembly/cleanbot)
 		user.unequip(src)
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE

@@ -297,10 +297,12 @@
 		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		sleep(6)
-		operating = NONE
-		open(2)
+		addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 0.6 SECONDS)
 		return TRUE
+
+/obj/machinery/door/window/finish_emag_act()
+	operating = NONE
+	open(2)
 
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -309,9 +311,11 @@
 	operating = DOOR_MALF
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	sleep(6)
-	operating = NONE
+	addtimer(CALLBACK(src, PROC_REF(finish_cmag_act)), 0.6 SECONDS)
 	return TRUE
+
+/obj/machinery/door/window/finish_cmag_act()
+	operating = NONE
 
 /obj/machinery/door/window/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//If it's in the process of opening/closing, ignore the click

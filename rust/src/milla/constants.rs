@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 /// How many Z levels we allow before being suspicious that the wrong number was sent.
 pub(crate) const MAX_Z_LEVELS: i32 = 15;
 
@@ -242,6 +244,13 @@ pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 /// The smallest temperature allowed for the purpose of caluclating pressure.
 /// Prevents weirdness from absolute-zero gas having no pressure at all.
 pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;
+
+/// How many values a watched tile's summary takes up.
+pub(crate) const WATCHED_TILE_SIZE: usize = 2;
+
+/// How many moles of a gas a watched tile needs for us to say the gas is there.
+/// BYOND cares about 0.001, this is a little under so it never misses any.
+pub(crate) const WATCHED_GAS_PRESENT_MOLES: f32 = 0.0009;
 
 /// How much of the excess temperature in a hotspot should be lost to the tile every tick.
 /// Makes hotspots die out if they're not burning fast enough.

@@ -16,6 +16,8 @@
 	faction = list("flockmind")
 	ai_controller = /datum/ai_controller/flock
 
+	can_attack_items = TRUE
+
 	sentience_type = SENTIENCE_OTHER
 
 	minimum_survivable_temperature = 0

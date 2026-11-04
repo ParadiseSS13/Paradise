@@ -106,7 +106,7 @@
 	/// Inhabited cyborg, only maintained while inside the cyborg.
 	var/mob/living/silicon/robot/current_robot
 	/// Inhabited bot, only maintained while inside the bot.
-	var/mob/living/simple_animal/bot/current_bot
+	var/mob/living/basic/bot/current_bot
 
 	/// Delay tracker for movement inside bots.
 	var/bot_movedelay = 0
@@ -714,7 +714,7 @@
 			do_sparks(rand(2, 4), FALSE, src)
 			dealt = L.electrocute_act(30, src, siemens_coeff = 1, flags = SHOCK_NOGLOVES) //bypass that nasty shock resistance
 		else
-			to_chat(src, "<span class = 'danger'>You dont have enough charge to bypass their insulation! You need at least 50KJ of energy!")
+			to_chat(src, SPAN_DANGER("You dont have enough charge to bypass their insulation! You need at least 50KJ of energy!"))
 
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
 

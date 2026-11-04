@@ -341,7 +341,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 /proc/icon2base64(icon/icon)
 	if(!isicon(icon))
 		return FALSE
-	var/savefile/dummySave = get_dummy_savefile()
+	// The same savefile is used for every icon, as getting a new one takes far longer than the rest of this
+	var/static/savefile/dummySave
+	if(!dummySave)
+		dummySave = get_dummy_savefile()
 	WRITE_FILE(dummySave["dummy"], icon)
 	var/iconData = dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")
