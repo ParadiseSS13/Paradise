@@ -51,8 +51,6 @@
 	/// How many levels of foam do we have on us? Capped at 5
 	var/foam_level = 0
 
-	/// Is this door prevented from autorotating?
-	var/manual_dir = FALSE
 	/// Is this door barricaded?
 	var/barricaded = FALSE
 	/// How much this door reduces superconductivity to when closed.
@@ -82,20 +80,8 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	update_nearby_icons()
 	update_icon()
 	recalculate_atmos_connectivity()
-
-/obj/machinery/door/proc/update_nearby_icons()
-	if(manual_dir == FALSE)
-		for(var/d in GLOB.cardinal)
-			var/turf/T = get_step(src, d)
-			if(iswallturf(T))
-				QUEUE_SMOOTH(T)
-			else
-				var/obj/structure/window/full/W = locate(/obj/structure/window/full) in T
-				if(W)
-					QUEUE_SMOOTH(W)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -126,10 +112,6 @@
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
-	for(var/d in GLOB.cardinal)
-		var/turf/T = get_step(src, d)
-		if(iswallturf(T) || locate(/obj/structure/window/full) in T)
-			QUEUE_SMOOTH(T)
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
@@ -468,9 +450,6 @@
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = DOOR_OPENING
-	var/direction = get_current_direction()
-	dir = direction
-	update_icon()
 	recalculate_atmos_connectivity()
 	do_animate("opening")
 	set_opacity(FALSE)
@@ -521,9 +500,6 @@
 		if(width > 1)
 			set_fillers_opacity(TRUE)
 	operating = NONE
-	var/direction = get_current_direction()
-	dir = direction
-	update_icon()
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
@@ -531,27 +507,6 @@
 	else
 		crush()
 	return TRUE
-
-/obj/machinery/door/proc/get_current_direction()
-	// Prioritize walls to avoid adjacent airlock shenanigans
-	if(manual_dir == TRUE)
-		return
-	for(var/direction in GLOB.cardinal)
-		if(iswallturf(get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
-		if(W?.useFull)
-			return direction
-	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/structure/window/full) in get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		for(var/obj/machinery/door/airlock/A in T.contents)
-			if(A != src)
-				return direction
-	return dir // Fallback from mapping.
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))
@@ -626,10 +581,6 @@
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
 	icon_state = "door1"
-
-
-/obj/machinery/door/morgue/manual_rotation
-	manual_dir = TRUE
 
 /obj/machinery/door/proc/lock()
 	return

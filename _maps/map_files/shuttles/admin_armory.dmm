@@ -242,6 +242,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
+"rA" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/administration)
 "sq" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife/combat{
@@ -598,6 +602,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Iv" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/administration)
 "Jt" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -997,7 +1004,7 @@ vk
 xH
 NQ
 NQ
-kf
+rA
 "}
 (6,1,1) = {"
 vk
@@ -1241,22 +1248,22 @@ vk
 "}
 (18,1,1) = {"
 vk
-vk
+Iv
 uW
 uW
+Iv
 vk
 vk
-vk
-vk
+Iv
 uW
 uW
+Iv
 vk
 vk
-vk
-vk
+Iv
 uW
 uW
-vk
+Iv
 vk
 "}
 (19,1,1) = {"

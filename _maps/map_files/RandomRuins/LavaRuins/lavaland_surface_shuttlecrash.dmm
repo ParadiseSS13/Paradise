@@ -514,6 +514,9 @@
 "NG" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Oe" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
 "Oq" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/reagent_dispensers/fueltank,
@@ -1359,7 +1362,7 @@ NG
 dD
 dD
 Aj
-It
+Oe
 It
 It
 It
@@ -1371,7 +1374,7 @@ vA
 It
 It
 It
-It
+Oe
 dD
 NG
 "}
@@ -1380,7 +1383,7 @@ NG
 dD
 dD
 Gt
-It
+Oe
 tH
 tH
 It
@@ -1392,7 +1395,7 @@ oD
 It
 tH
 tH
-It
+Oe
 dD
 NG
 "}
@@ -1404,13 +1407,13 @@ Gt
 Aj
 ma
 ma
+Oe
+Oe
 It
 It
 It
-It
-It
-It
-It
+Oe
+Oe
 ma
 Aj
 Yf
@@ -1425,13 +1428,13 @@ dD
 SH
 Aj
 Aj
-It
+Oe
 tH
 tH
 tH
 tH
 tH
-It
+Oe
 Aj
 SH
 SH

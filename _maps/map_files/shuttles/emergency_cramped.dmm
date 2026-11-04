@@ -183,6 +183,9 @@
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"G" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
 "I" = (
 /obj/item/storage/firstaid/regular{
 	pixel_x = -5
@@ -220,27 +223,27 @@
 (1,1,1) = {"
 h
 b
-b
-b
+G
+G
 i
-b
+G
 D
-b
+G
 c
 c
 c
-b
+G
 i
-b
+G
 i
-b
-b
+G
+G
 b
 h
 "}
 (2,1,1) = {"
 b
-b
+G
 I
 P
 m
@@ -282,7 +285,7 @@ C
 "}
 (4,1,1) = {"
 b
-b
+G
 l
 x
 k
@@ -304,21 +307,21 @@ C
 (5,1,1) = {"
 h
 b
-b
-b
+G
+G
 c
-b
+G
 c
-b
+G
 c
 c
 c
-b
+G
 c
-b
+G
 c
-b
-b
+G
+G
 b
 h
 "}

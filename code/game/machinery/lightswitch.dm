@@ -3,14 +3,27 @@
 /obj/machinery/light_switch
 	name = "light switch"
 	desc = "A switch for turning the lights on and off for an entire room."
-	icon = 'icons/obj/machines/light_switch.dmi'
+	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
-	layer = FLY_LAYER
 	power_channel = PW_CHANNEL_LIGHTING
 
-/obj/machinery/light_switch/Initialize(mapload)
+/obj/machinery/light_switch/Initialize(mapload, build_dir)
 	. = ..()
+	name = "light switch" // Needed to remove the "(dir) bump" naming
+	switch(build_dir)
+		if(NORTH)
+			pixel_y = -25
+			dir = NORTH
+		if(SOUTH)
+			pixel_y = 25
+			dir = SOUTH
+		if(EAST)
+			pixel_x = -25
+			dir = EAST
+		if(WEST)
+			pixel_x = 25
+			dir = WEST
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	var/area/A = get_area(src)
@@ -46,7 +59,7 @@
 		return
 	var/area/our_area = get_area(src)
 	. += "light[our_area.lightswitch]"
-	underlays += emissive_appearance(icon, "light[our_area.lightswitch]_lightmask")
+	underlays += emissive_appearance(icon, "light_lightmask")
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
@@ -112,48 +125,3 @@
 /obj/machinery/light_switch/off/Initialize(mapload, build_dir)
 	. = ..()
 	set_area_lightswitch(FALSE)
-
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/light_switch, 32, -1, 32, -32)
-
-// Light switch sprites have varied offsets in both orientations and
-// BUTTON_HELPERS can't be used here. You could try to write a macro for it but
-// it would require like six parameters and would be confusing as hell.
-/obj/machinery/light_switch/offset/northwest
-	dir = NORTHWEST
-	pixel_x = 5
-	pixel_y = 32
-
-/obj/machinery/light_switch/offset/north
-	dir = NORTH
-	pixel_x = -5
-	pixel_y = 32
-
-/obj/machinery/light_switch/offset/northeast
-	dir = NORTHEAST
-	pixel_x = 32
-	pixel_y = 4
-
-/obj/machinery/light_switch/offset/east
-	dir = EAST
-	pixel_x = 32
-	pixel_y = -4
-
-/obj/machinery/light_switch/offset/southeast
-	dir = SOUTHEAST
-	pixel_x = 5
-	pixel_y = -1
-
-/obj/machinery/light_switch/offset/south
-	dir = SOUTH
-	pixel_x = -5
-	pixel_y = -1
-
-/obj/machinery/light_switch/offset/southwest
-	dir = SOUTHWEST
-	pixel_x = -32
-	pixel_y = -4
-
-/obj/machinery/light_switch/offset/west
-	dir = WEST
-	pixel_x = -32
-	pixel_y = 4

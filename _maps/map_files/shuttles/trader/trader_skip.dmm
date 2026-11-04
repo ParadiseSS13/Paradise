@@ -242,6 +242,9 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
+"Cg" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/trade/sol)
 "CH" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
@@ -348,7 +351,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
 "Le" = (
-/turf/simulated/wall/mineral/titanium/survival,
+/turf/simulated/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/trade/sol)
 "Lk" = (
 /obj/effect/turf_decal/siding{
@@ -486,12 +489,12 @@ zQ
 zQ
 zQ
 aE
-aE
-aE
-aE
-aE
-aE
-aE
+Cg
+Cg
+Cg
+Cg
+Cg
+Cg
 aE
 zQ
 PY
@@ -543,8 +546,8 @@ ZI
 (4,1,1) = {"
 zQ
 aE
-aE
-aE
+Cg
+Cg
 ze
 bX
 bX

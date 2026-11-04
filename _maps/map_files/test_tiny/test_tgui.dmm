@@ -492,8 +492,10 @@
 	dir = 1
 	},
 /obj/machinery/doppler_array,
+/obj/machinery/computer/guestpass{
+	pixel_y = 32
+	},
 /obj/machinery/camera/autoname,
-/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "zb" = (

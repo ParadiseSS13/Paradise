@@ -28,36 +28,13 @@
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
-	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
-	update_icon()
 
 /obj/structure/door_assembly/Destroy()
 	QDEL_NULL(electronics)
 	return ..()
 
-/obj/structure/door_assembly/proc/get_current_direction()
-	for(var/direction in GLOB.cardinal)
-		if(iswallturf(get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
-		if(W?.useFull)
-			return direction
-	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/structure/window/full) in get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		for(var/obj/machinery/door/airlock/A in T.contents)
-			if(A != src)
-				return direction
-	return dir // Fallback from mapping.
-
 /obj/structure/door_assembly/examine(mob/user)
 	. = ..()
-	if(!anchored)
-		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to rotate it.")
 	var/doorname = ""
 	if(created_name)
 		doorname = ", written on it is '[created_name]'"
@@ -77,17 +54,6 @@
 		. += SPAN_NOTICE("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.")
 	else
 		. += SPAN_NOTICE("There is a small <i>paper</i> placard on the assembly[doorname].")
-
-/obj/structure/door_assembly/AltClick(mob/user)
-	if(src.anchored)
-		return
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || is_ventcrawling(user))
-		return
-
-	rotate()
-
-/obj/structure/door_assembly/proc/rotate()
-	setDir(turn(dir, 90))
 
 /obj/structure/door_assembly/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	. = ITEM_INTERACT_COMPLETE

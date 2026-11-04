@@ -6451,8 +6451,7 @@
 /obj/machinery/button/windowtint{
 	pixel_y = -1;
 	pixel_x = -7;
-	id = "mo19rdoffice";
-	dir = 1
+	id = "mo19rdoffice"
 	},
 /obj/effect/turf_decal/tiles/dark/checker{
 	dir = 5

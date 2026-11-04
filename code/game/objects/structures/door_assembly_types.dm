@@ -154,34 +154,16 @@
 	. = ..()
 	update_bounds()
 
-/obj/structure/door_assembly/multi_tile/get_current_direction()
-	for(var/direction in GLOB.cardinal)
-		if(iswallturf(get_step(src, direction)))
-			return turn(direction, 180)
-	for(var/direction in GLOB.cardinal)
-		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
-		if(W?.useFull)
-			return turn(direction, 180)
-	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/structure/window/full) in get_step(src, direction)))
-			return turn(direction, 180)
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		for(var/obj/machinery/door/airlock/A in T.contents)
-			if(A != src)
-				return turn(direction, 180)
-	return dir // fallback from mapping.
-
 /obj/structure/door_assembly/multi_tile/proc/update_bounds()
 	if(width <= 1)
 		return
 
-	if(dir in list(EAST, WEST))
+	if(dir in list(SOUTH, NORTH))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 		bound_y = 0
 		pixel_y = 0
-		if(dir == WEST)
+		if(dir == NORTH)
 			bound_x = -(width - 1) * world.icon_size
 			pixel_x = -(width - 1) * world.icon_size
 		else
@@ -193,7 +175,7 @@
 		bound_height = width * world.icon_size
 		bound_x = 0
 		pixel_x = 0
-		if(dir == SOUTH)
+		if(dir == WEST)
 			bound_y = -(width - 1) * world.icon_size
 			pixel_y = -(width - 1) * world.icon_size
 		else
