@@ -279,6 +279,12 @@
 /datum/controller/subsystem/Initialize()
 	CRASH("Initialize() not overridden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
 
+/// Called once every subsystem has initialized and the server is in the lobby.
+/// For work that doesn't need to be done before the round can start, so it doesn't add to init time.
+/// Each one runs in the background, so CHECK_TICK if it's a lot of work.
+/datum/controller/subsystem/proc/LateInitialize()
+	return
+
 /// Returns what to display as the ms cost for this subsystem.
 /datum/controller/subsystem/proc/get_cost()
 	return round(cost, 1)

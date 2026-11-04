@@ -44,7 +44,7 @@
 
 /obj/machinery/power/electrolyzer/upgraded/Initialize(mapload)
 	. = ..()
-	component_parts = list()
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/electrolyzer(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(src)

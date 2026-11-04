@@ -1079,7 +1079,8 @@
 								var/alt_mod = text2num(href_list["alt"]) ? "Alt" : ""
 								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
 								var/shift_mod = text2num(href_list["shift"]) ? "Shift" : ""
-								var/numpad = (text2num(href_list["numpad"]) && text2num(new_key)) ? "Numpad" : ""
+								var/is_numpad = text2num(href_list["numpad"])
+								var/numpad = (is_numpad && text2num(new_key)) ? "Numpad" : ""
 								var/clear = text2num(href_list["clear_key"])
 
 								if(new_key == "Unidentified") //There doesn't seem to be any any key!
@@ -1091,29 +1092,35 @@
 
 								// Map for JS keys
 								var/static/list/key_map = list(
-									"UP" = "North",
-									"RIGHT" = "East",
-									"DOWN" = "South",
-									"LEFT" = "West",
+									"ARROWUP" = "North",
+									"ARROWRIGHT" = "East",
+									"ARROWDOWN" = "South",
+									"ARROWLEFT" = "West",
 									"INSERT" = "Insert",
 									"HOME" = "Northwest",
 									"PAGEUP" = "Northeast",
-									"DEL" = "Delete",
+									"DELETE" = "Delete",
 									"END" = "Southwest",
 									"PAGEDOWN" = "Southeast",
-									"SPACEBAR" = "Space",
+									" " = "Space",
 									"ALT" = "Alt",
 									"SHIFT" = "Shift",
 									"CONTROL" = "Ctrl",
-									"DIVIDE" = "Divide",
-									"MULTIPLY" = "Multiply",
-									"ADD" = "Add",
-									"SUBTRACT" = "Subtract",
-									"DECIMAL" = "Decimal",
 									"CLEAR" = "Center"
 								)
 
+								// The numpad symbols come in as the plain symbol, so they need the numpad check
+								var/static/list/numpad_map = list(
+									"/" = "Divide",
+									"*" = "Multiply",
+									"+" = "Add",
+									"-" = "Subtract",
+									"." = "Decimal"
+								)
+
 								new_key = key_map[new_key] || new_key
+								if(is_numpad)
+									new_key = numpad_map[new_key] || new_key
 
 								var/full_key
 								switch(new_key)

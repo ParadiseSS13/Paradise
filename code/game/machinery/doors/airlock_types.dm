@@ -883,6 +883,89 @@
 /obj/machinery/door/airlock/multi_tile/manual_rotation
 	manual_dir = TRUE
 
+/obj/machinery/door/airlock/multi_tile/Initialize(mapload)
+	if((dir == SOUTH) || (dir == null))
+		dir = NORTH
+	. = ..()
+	update_bounds()
+
+/obj/machinery/door/airlock/multi_tile/get_current_direction()
+	// Prioritize walls to avoid adjacent airlock shenanigans.
+	if(manual_dir == TRUE)
+		return
+	for(var/direction in GLOB.cardinal)
+		if(iswallturf(get_step(src, direction)))
+			return turn(direction, 180)
+	for(var/direction in GLOB.cardinal)
+		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
+		if(W?.useFull)
+			return turn(direction, 180)
+	for(var/direction in GLOB.cardinal)
+		if((locate(/obj/structure/window/full) in get_step(src, direction)))
+			return turn(direction, 180)
+	for(var/direction in GLOB.cardinal)
+		var/turf/T = get_step(src, direction)
+		for(var/obj/machinery/door/airlock/A in T.contents)
+			if(A != src)
+				return turn(direction, 180)
+	return dir // fallback from mapping
+
+/obj/machinery/door/airlock/multi_tile/get_airlock_turfs()
+	var/list/airlock_turfs = list(get_turf(src))
+	if(width > 1)
+		var/turf/T = get_turf(src)
+		for(var/i in 1 to width - 1)
+			T = get_step(T, dir)
+			if(!T)
+				break
+			airlock_turfs += T
+	return airlock_turfs
+
+/obj/machinery/door/airlock/multi_tile/update_bounds()
+	if(width <= 1)
+		return
+
+	QDEL_LIST_CONTENTS(fillers)
+
+	if(dir in list(EAST, WEST))
+		bound_width = width * world.icon_size
+		bound_height = world.icon_size
+		bound_y = 0
+		pixel_y = 0
+		if(dir == WEST)
+			bound_x = -(width - 1) * world.icon_size
+			pixel_x = -(width - 1) * world.icon_size
+		else
+			bound_x = 0
+			pixel_x = 0
+
+	else
+		bound_width = world.icon_size
+		bound_height = width * world.icon_size
+		bound_x = 0
+		pixel_x = 0
+		if(dir == SOUTH)
+			bound_y = -(width - 1) * world.icon_size
+			pixel_y = -(width - 1) * world.icon_size
+		else
+			bound_y = 0
+			pixel_y = 0
+
+	LAZYINITLIST(fillers)
+
+	var/obj/last_filler = src
+	for(var/i in 1 to width - 1)
+		var/turf/target_turf = get_step(last_filler, dir)
+		if(!target_turf)
+			break
+		var/obj/airlock_filler_object/filler = new(target_turf)
+		filler.pair_airlock(src)
+		filler.density = density
+		filler.set_opacity(opacity)
+
+		fillers += filler
+		last_filler = filler
+
 /obj/machinery/door/airlock/multi_tile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	update_bounds()
