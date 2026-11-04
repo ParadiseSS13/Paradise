@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(bloopers)
 	name = "Bloopers"
 	flags = SS_BACKGROUND | SS_NO_INIT
 	wait = 1
-	offline_implications = "You will no longer hear bloopers. Not a big deal, but you may hear complaints about it."
+	offline_implications = "Bloopers will no longer be played. No immediate action is needed."
 
 	/// Mobs we're processing over. They add themselves to this.
 	var/list/mob_queue = list()
