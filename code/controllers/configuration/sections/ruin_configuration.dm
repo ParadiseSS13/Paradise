@@ -4,6 +4,12 @@
 	var/enable_space = TRUE
 	/// Enable lavaland generation.
 	var/enable_lavaland = TRUE
+	/// Enable lavaland biome generation
+	var/enable_biomes = TRUE
+	/// Minimum number of biome spawns to attempt per zlevel
+	var/minimum_biome_attempt = 2
+	/// Maximum number of biome spawns to attempt per zlevel
+	var/maximum_biome_attempt = 4
 	/// Globally enable and disable placing of all ruins across lavaland and space.
 	var/enable_ruins = TRUE
 	/// Minimum number of extra space zlevels to generate
@@ -31,6 +37,9 @@
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_BOOL(enable_space, data["enable_space"])
 	CONFIG_LOAD_BOOL(enable_lavaland, data["enable_lavaland"])
+	CONFIG_LOAD_BOOL(enable_biomes, data["enable_biomes"])
+	CONFIG_LOAD_NUM(minimum_biome_attempt, data["minimum_biome_attempt"])
+	CONFIG_LOAD_NUM(maximum_biome_attempt, data["maximum_biome_attempt"])
 	CONFIG_LOAD_BOOL(enable_ruins, data["enable_ruins"])
 	CONFIG_LOAD_NUM(minimum_space_zlevels, data["minimum_space_zlevels"])
 	CONFIG_LOAD_NUM(maximum_space_zlevels, data["maximum_space_zlevels"])
