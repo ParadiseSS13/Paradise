@@ -20,6 +20,7 @@
 	intro_desc = "You are a member of the Animal Rights Consortium, here to violently protest the cruel treatment of animals by megacorporations like Nanotrasen. \
 		Teach them a lesson!"
 	objectives = list(/datum/objective/assassinateonce/arc)
+	unique_targets = list(/datum/objective/unique_objective/kidnap_pet)
 	chaos_level = ORG_CHAOS_MILD // Violent but never needs to permakill
 
 /datum/antag_org/syndicate/waffle // Assassination variants only
@@ -41,6 +42,7 @@
 		/datum/theft_objective/captains_saber,
 		/datum/theft_objective/capmedal
 	)
+	unique_targets = list(/datum/objective/unique_objective/experiment/implant, /datum/objective/unique_objective/get_five/guns)
 
 /datum/antag_org/syndicate/interdyne // Mostly target Medical
 	name = "Interdyne Pharmaceuticals"
@@ -49,6 +51,7 @@
 	focus = 70
 	targeted_departments = list(DEPARTMENT_MEDICAL)
 	theft_targets = list(/datum/theft_objective/hypospray, /datum/theft_objective/defib, /datum/theft_objective/krav, /datum/theft_objective/engraved_dusters)
+	unique_targets = list(/datum/objective/unique_objective/get_five/kidneys, /datum/objective/unique_objective/experiment/chemical)
 
 /datum/antag_org/syndicate/self // Mostly target Science
 	name = "Silicon Engine Liberation Front"
@@ -57,6 +60,7 @@
 	focus = 70
 	targeted_departments = list(DEPARTMENT_SCIENCE)
 	theft_targets = list(/datum/theft_objective/reactive, /datum/theft_objective/documents, /datum/theft_objective/hand_tele, /datum/theft_objective/anomalous_particulate)
+	unique_targets = list(/datum/objective/unique_objective/free_ai)
 
 /datum/antag_org/syndicate/electra // Mostly target Engineering
 	name = "Electra Dynamics"
@@ -65,6 +69,8 @@
 	focus = 70
 	targeted_departments = list(DEPARTMENT_ENGINEERING)
 	theft_targets = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit, /datum/theft_objective/magboots, /datum/theft_objective/anomalous_particulate)
+	unique_targets = list(/datum/objective/unique_objective/sabotage_power/security, /datum/objective/unique_objective/sabotage_power/medical, /datum/objective/unique_objective/sabotage_power/science,
+		/datum/objective/unique_objective/sabotage_power/cargo)
 
 /datum/antag_org/syndicate/spiderclan // Targets one syndicate agent and one non-mindshielded crewmember.
 	name = "Spider Clan"
@@ -77,8 +83,12 @@
 	name = "Federation Analytics and Intelligence Directorate"
 	intro_desc = "You are an undercover agent of the Federation Analytics and Intelligence Directorate, a Trans-Solar agency keeping tabs on the Corporate Wars, among other duties. \
 		Be quick, be efficient, and don't get caught. The Directorate will deny any involvement with your presence here."
-	forced_objectives = list(/datum/objective/assassinate/syndicate, /datum/objective/steal)
+	focus = 70 // FAID does other black ops too sometimes
+	forced_objectives = list(/datum/objective/assassinate/syndicate)
+	objectives = list(/datum/objective/steal)
 	theft_targets = list(/datum/theft_objective/blueprints, /datum/theft_objective/documents)
+	unique_targets = list(/datum/objective/unique_objective/plant_malware/hack_rnd, /datum/objective/unique_objective/plant_malware/hack_tcomms,
+		/datum/objective/unique_objective/plant_malware/hack_pda, /datum/objective/unique_objective/plant_malware/hack_cc_comms)
 	chaos_level = ORG_CHAOS_HUNTER
 
 /datum/antag_org/syndicate/gorlex // Hijack only
