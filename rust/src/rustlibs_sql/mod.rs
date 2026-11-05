@@ -1,7 +1,7 @@
 use crate::jobs;
 use byondapi::{prelude::ValueType, value::ByondValue};
 use dashmap::DashMap;
-use eyre::{eyre, Result};
+use eyre::Result;
 use mysql::{
     consts::{ColumnFlags, ColumnType::*},
     prelude::Queryable,
@@ -186,12 +186,13 @@ fn sql_check_query(mut query: ByondValue) -> Result<ByondValue> {
                 Ok(v) => {
                     // It decoded fine
                     let query_response: LocalResponse = v;
-                    query_data_to_byond(query_response, query);
+                    // Clear the error first so a "DB offline" set below isnt wiped
                     query.write_var("last_error", &ByondValue::null())?;
+                    query_data_to_byond(query_response, query);
                     query.write_var("in_progress", &ByondValue::new_num(0f32))?;
                     return Ok(ByondValue::null());
                 }
-                Err(e) => {
+                Err(_) => {
                     // It was not fine
                     if res.len() == 0 {
                         // But maybe it was
@@ -207,10 +208,11 @@ fn sql_check_query(mut query: ByondValue) -> Result<ByondValue> {
                         query.write_var("in_progress", &ByondValue::new_num(0f32))?;
                         return Ok(ByondValue::null());
                     } else {
-                        // But it probably wasnt
-                        query.write_var("last_error", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
+                        // The query failed and the job gave us its error message
+                        // Hand it back like a blocking query does, so DM can log it and clean up
+                        query.write_var("last_error", &ByondValue::new_str(res)?)?;
                         query.write_var("in_progress", &ByondValue::new_num(0f32))?;
-                        return Err(eyre!("{} - {}", e, &res));
+                        return Ok(ByondValue::null());
                     }
                 }
             },

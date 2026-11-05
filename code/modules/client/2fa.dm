@@ -37,7 +37,8 @@
 			"secret" = mfa_secret
 		))
 
-		if(!insert_qry.warn_execute())
+		// Don't log errors here, they would have the secret in them
+		if(!insert_qry.warn_execute(log_error = FALSE))
 			qdel(insert_qry)
 			alert(usr, "MFA failed to save to the DB - please inform the server host.")
 			return
