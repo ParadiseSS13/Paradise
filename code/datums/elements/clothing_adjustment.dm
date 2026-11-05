@@ -59,6 +59,9 @@
 		return
 
 	var/mutable_appearance/overlay = source.overlays_standing[cache_index]
+	if(isnull(overlay))
+		return
+
 	overlay.pixel_x = pixel_x
 	overlay.pixel_y = pixel_y
 
