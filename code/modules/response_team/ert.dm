@@ -46,10 +46,13 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		GLOB.send_emergency_team = FALSE
 		return
 
-	// Respawnable players get first dibs
+	// Take out players banned from these jobs first, so the second pass below can't add them back
 	for(var/mob/M in ert_candidates)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
-			continue
+			ert_candidates -= M
+
+	// Respawnable players get first dibs
+	for(var/mob/M in ert_candidates)
 		if((HAS_TRAIT(M, TRAIT_RESPAWNABLE)) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)

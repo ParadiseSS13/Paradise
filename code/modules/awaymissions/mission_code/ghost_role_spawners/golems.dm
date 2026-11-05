@@ -104,6 +104,13 @@
 		Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
 
+/obj/effect/mob_spawn/human/alive/golem/valid_to_spawn(mob/user)
+	// ban_type is the general ghost role ban, golems have their own ban too
+	if(jobban_isbanned(user, ROLE_GOLEM))
+		to_chat(user, SPAN_WARNING("You are jobbanned from playing as a golem!"))
+		return FALSE
+	return ..()
+
 /obj/effect/mob_spawn/human/alive/golem/special(mob/living/new_spawn)
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")

@@ -77,21 +77,18 @@
 
 
 	// If 2FA is enabled, makes sure they were authed within the last minute
-	if(check_2fa)
+	if(check_2fa && SSdbcore.IsConnected())
 		// First see if they exist at all
 		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM player WHERE ckey=:ckey", list("ckey" = ckey(key)))
-
-		if(!check_query.warn_execute())
-			message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
-			qdel(check_query)
-			return
-
 
 		// If a row is returned, the player exists
 		var/_2fa_enabled = FALSE
 		var/always_check = FALSE
 		var/last_ip
-		if(check_query.NextRow())
+		if(!check_query.warn_execute())
+			// Don't return here, the ban checks below still need to run
+			message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
+		else if(check_query.NextRow())
 			if(check_query.item[1] != _2FA_DISABLED)
 				_2fa_enabled = TRUE
 			if(check_query.item[1] == _2FA_ENABLED_ALWAYS)
@@ -108,11 +105,9 @@
 			))
 
 			if(!verify_query.warn_execute())
+				// Don't return here, the ban checks below still need to run
 				message_admins("Failed to do a DB 2FA check for [key]. You have been warned.")
-				qdel(verify_query)
-				return
-
-			if(!verify_query.NextRow())
+			else if(!verify_query.NextRow())
 				// If no row was returned, fail 2FA
 				qdel(verify_query)
 				return list("reason"="2fa check failed", "desc"="You have 2FA enabled but did not properly authenticate.")

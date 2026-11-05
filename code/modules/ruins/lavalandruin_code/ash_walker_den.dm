@@ -73,6 +73,13 @@
 	mob_species = /datum/species/unathi/ashwalker
 	outfit = /datum/outfit/ashwalker
 
+/obj/effect/mob_spawn/human/alive/ash_walker/valid_to_spawn(mob/user)
+	// ban_type is the general ghost role ban, ash walkers have their own ban too
+	if(jobban_isbanned(user, ROLE_ASH_WALKER))
+		to_chat(user, SPAN_WARNING("You are jobbanned from playing as an ash walker!"))
+		return FALSE
+	return ..()
+
 /obj/effect/mob_spawn/human/alive/ash_walker/special(mob/living/carbon/human/new_spawn)
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
 	to_chat(new_spawn, SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)"))
