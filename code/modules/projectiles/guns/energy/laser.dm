@@ -489,6 +489,7 @@
 		. += "drekseh_empty"
 
 /obj/item/ammo_casing/energy/laser/drekseh
+	e_cost = 62 // 16 shots
 	projectile_type = /obj/projectile/beam/laser/drekseh
 	muzzle_flash_color = LIGHT_COLOR_DARKGREEN
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
@@ -503,6 +504,7 @@
 	range = 255
 	speed = 0.5
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	armor_penetration_percentage = 50
 	forced_accuracy = TRUE
 	ricochet_chance = 100
 	ricochets_max = 8
