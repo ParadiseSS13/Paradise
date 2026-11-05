@@ -241,6 +241,7 @@
 	name = "hypernobilium weave gloves"
 	desc = "Sleek, white gloves woven from fabric doused in hypernobilium using a process known only to the Oblivion Order."
 	icon_state = "obliviongauntlets"
+	clothing_traits = list(TRAIT_SUPERMATTER_IMMUNE)
 	siemens_coefficient = 0
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -253,11 +254,3 @@
 /obj/item/clothing/gloves/color/white/supermatter_immune/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
-
-/obj/item/clothing/gloves/color/white/supermatter_immune/equipped(mob/user, slot, initial)
-	. = ..()
-	ADD_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)
-
-/obj/item/clothing/gloves/color/white/supermatter_immune/dropped(mob/user, silent)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)
