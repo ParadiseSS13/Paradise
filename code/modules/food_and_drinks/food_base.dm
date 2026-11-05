@@ -222,13 +222,12 @@
 			reagents.trans_to(collected, bitesize)
 		else
 			reagents.trans_to(collected, reagents.total_volume)
-			if(trash)
-				var/obj/item/TrashItem
-				if(ispath(trash,/obj/item))
-					TrashItem = new trash(src)
-				else if(isitem(trash))
-					TrashItem = trash
-				TrashItem.forceMove(loc)
+			var/obj/item/trash_item = generate_trash(user)
+			if(user.l_hand == src || user.r_hand == src)
+				user.drop_item_to_ground(src)
+				user.put_in_hands(trash_item)
+			else
+				trash_item.forceMove(get_turf(loc))
 			qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
