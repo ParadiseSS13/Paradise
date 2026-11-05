@@ -16,15 +16,16 @@
 	metadata["type_path"] = path
 
 	metadata["max_durability"] = initial(T.max_durability)
-	metadata["degradation_speed"] = initial(T.degradation_speed)
 	metadata["heat_amount"] = initial(T.heat_amount)
 	metadata["heat_amp_mod"] = initial(T.heat_amp_mod)
 	metadata["power_amount"] = initial(T.power_amount)
 	metadata["power_amp_mod"] = initial(T.power_amp_mod)
+	metadata["neighbor_decay_mod"] = initial(T.neighbor_decay_mod)
 	metadata["alpha_rad"] = initial(T.alpha_rad)
 	metadata["beta_rad"] = initial(T.beta_rad)
 	metadata["gamma_rad"] = initial(T.gamma_rad)
 	metadata["minimum_temp_modifier"] = initial(T.minimum_temp_modifier)
+	metadata["reactor_overheat_modifier"] = initial(T.reactor_overheat_modifier)
 	metadata["upgrade_required"] = initial(T.upgrade_required)
 
 	metadata["required_object"] = initial(T.required_object)

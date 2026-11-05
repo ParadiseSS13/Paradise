@@ -11,6 +11,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	armor = list(melee = 25, bullet = 10, laser = 30, energy = 0, bomb = 0, rad = INFINITY, fire = INFINITY, acid = 70)
 
 	/// The time it takes for the machine to process a rod
@@ -164,8 +165,10 @@
 	icon_state = "rod_fab"
 	idle_power_consumption = 50
 	active_power_consumption = 3000
+	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	armor = list(melee = 25, bullet = 10, laser = 30, energy = 0, bomb = 0, rad = INFINITY, fire = INFINITY, acid = 70)
 
 	/// Our holder for materials
@@ -180,12 +183,21 @@
 	var/list/category_coolant = list()
 	/// Is the rod fabricator currently upgraded from science
 	var/upgraded = FALSE
+	/// Does this fabricator form a list of ALL rods, and not take mineral costs?
+	var/debug = FALSE
 	/// What is the current item being produced
 	var/schematic
 	/// The time it takes for the machine to process a rod
 	var/work_time
 
 	COOLDOWN_DECLARE(fabrication_timer)
+
+/obj/machinery/nuclear_rod_fabricator/upgraded
+	upgraded = TRUE
+
+/obj/machinery/nuclear_rod_fabricator/debug
+	name = "Nuclear Rod Fabricator Chernoble Edition"
+	debug = TRUE
 
 /obj/machinery/nuclear_rod_fabricator/Initialize(mapload)
 	. = ..()
@@ -210,7 +222,6 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
-	upgraded = TRUE
 
 /obj/machinery/nuclear_rod_fabricator/RefreshParts()
 	var/temp_coeff = 12
@@ -305,10 +316,10 @@
 		var/datum/nuclear_rod_design/D = new /datum/nuclear_rod_design()
 		D.build_metadata_list(rod_path)
 
-		if(!D.metadata["craftable"])
+		if(!D.metadata["craftable"] && !debug)
 			continue
 
-		if(D.metadata["upgrade_required"] && !upgraded)
+		if(D.metadata["upgrade_required"] && !upgraded && !debug)
 			continue
 
 		if(ispath(rod_path, /obj/item/nuclear_rod/fuel))
@@ -400,13 +411,13 @@
 			var/list/required_materials = temp_rod.materials
 			qdel(temp_rod)
 
-			if(!required_materials || !length(required_materials))
+			if(!debug && !required_materials || !length(required_materials))
 				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report!"))
 				return FALSE
 
 			for(var/mat_id in required_materials)
 				var/required_amount = required_materials[mat_id] * efficiency_coeff
-				if(materials.amount(mat_id) < required_amount)
+				if(!debug && materials.amount(mat_id) < required_amount)
 					to_chat(usr, SPAN_WARNING("Not enough materials! Need [required_amount] units of [mat_id]!"))
 					return FALSE
 
@@ -415,7 +426,7 @@
 			for(var/mat_id in required_materials)
 				materials_to_use[mat_id] = required_materials[mat_id] * efficiency_coeff
 
-			if(!materials.use_amount(materials_to_use))
+			if(!debug && !materials.use_amount(materials_to_use))
 				to_chat(usr, SPAN_WARNING("Failed to deduct materials!"))
 				return FALSE
 

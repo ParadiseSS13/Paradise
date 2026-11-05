@@ -193,6 +193,9 @@
 	icon_state = "empdisable"
 	duration = 5
 
+/obj/effect/temp_visual/telekinesis/antimatter_rod
+	duration = 20 SECONDS
+
 /obj/effect/temp_visual/emp
 	name = "emp sparks"
 	icon_state = "empdisable"
