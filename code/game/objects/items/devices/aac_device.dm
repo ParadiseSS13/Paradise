@@ -104,3 +104,8 @@
 		w_class = opened ? WEIGHT_CLASS_NORMAL : WEIGHT_CLASS_SMALL
 		to_chat(user, SPAN_NOTICE("You [opened ? "open" : "close"] [src]."))
 
+#undef BUTTON_GREEN
+#undef BUTTON_RED
+#undef BUTTON_BLUE
+#undef BUTTON_YELLOW
+#undef BUTTON_PURPLE
