@@ -143,3 +143,6 @@
 	if(isturf(the_target))
 		return TRUE
 	return ..()
+
+/datum/targeting_strategy/basic/ignore_sight
+	ignore_sight = TRUE

@@ -57,8 +57,8 @@
 		qdel(src)
 
 /obj/structure/closet/statue/dump_contents()
-	if(istype(loc, /mob/living/simple_animal/hostile/statue))
-		var/mob/living/simple_animal/hostile/statue/S = loc
+	if(istype(loc, /mob/living/basic/hostile/statue))
+		var/mob/living/basic/hostile/statue/S = loc
 		forceMove(S.loc)
 		if(S.mind)
 			for(var/mob/M in contents)
