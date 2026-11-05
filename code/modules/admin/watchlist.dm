@@ -51,7 +51,9 @@
 	if(!query_watchadd.Execute())
 		var/err = query_watchadd.ErrorMsg()
 		log_game("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
+		qdel(query_watchadd)
 		return
+	qdel(query_watchadd)
 	log_admin("[key_name(usr)] has added [target_ckey] to the watchlist - Reason: [reason]")
 	message_admins("[key_name_admin(usr)] has added [target_ckey] to the watchlist - Reason: [reason]", 1)
 	if(GLOB.directory[target_ckey])
@@ -91,6 +93,7 @@
 		var/watch_reason = query_watchreason.item[1]
 		var/new_reason = input("Input the new reason", "New Reason", "[watch_reason]") as message|null
 		if(!new_reason || new_reason == watch_reason)
+			qdel(query_watchreason)
 			return
 		var/sql_ckey = usr.ckey
 		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from \"[watch_reason]\" to \"[new_reason]\""

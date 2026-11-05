@@ -30,6 +30,7 @@
 	while(query.NextRow())
 		jobs += query.item[1]
 
+	qdel(query)
 	return jobs
 
 /**

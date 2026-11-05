@@ -150,8 +150,10 @@
 			))
 
 			if(!query.warn_execute())
+				qdel(query)
 				to_chat(usr, "Well, this is embarassing. We tried to save your ToS withdrawal but the DB failed. Please contact the server host")
 				return
+			qdel(query)
 
 			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
 			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
@@ -789,7 +791,7 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from notes WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from notes WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY > NOW()", list(
 		"ckey" = ckey,
 		"adminckey" = adminckey
 	))
@@ -819,7 +821,8 @@
 			return
 
 	qdel(query_get_note)
-	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = FALSE)
+	// No rights check, the connecting player is not an admin
+	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = FALSE, checkrights = FALSE)
 
 /client/proc/cid_check_reconnect()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
