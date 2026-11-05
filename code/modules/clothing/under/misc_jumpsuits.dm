@@ -82,6 +82,23 @@
 	desc = "Traditional burial garments from the early 22nd century."
 	icon_state = "burial"
 
+/obj/item/clothing/under/misc/randomhawaiianshirt
+	name = "generic hawaiian shirt"
+	desc = "A floral shirt of unknown color as of yet."
+
+/obj/item/clothing/under/misc/randomhawaiianshirt/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/under/misc/chosen_shirt = pick(list(
+		/obj/item/clothing/under/misc/redhawaiianshirt,
+		/obj/item/clothing/under/misc/pinkhawaiianshirt,
+		/obj/item/clothing/under/misc/orangehawaiianshirt,
+		/obj/item/clothing/under/misc/bluehawaiianshirt
+	))
+
+	name = chosen_shirt::name
+	desc = chosen_shirt::desc
+	icon_state = chosen_shirt::icon_state
+
 /obj/item/clothing/under/misc/redhawaiianshirt
 	name = "red hawaiian shirt"
 	desc = "A floral shirt worn to most vacation destinations."

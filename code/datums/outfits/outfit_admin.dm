@@ -1621,7 +1621,7 @@
 
 /datum/outfit/admin/tourist
 	name = "Tourist"
-	uniform = /obj/item/clothing/under/misc/redhawaiianshirt
+	uniform = /obj/item/clothing/under/misc/randomhawaiianshirt
 	back = /obj/item/storage/backpack/satchel/withwallet
 	belt = /obj/item/storage/belt/fannypack
 	head = /obj/item/clothing/head/boaterhat
