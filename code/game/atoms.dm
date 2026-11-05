@@ -1046,6 +1046,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		add_filter("blood_splatter", 1, params)
 
 /atom/proc/clean_blood(radiation_clean = FALSE)
+	SEND_SIGNAL(src, COMSIG_ITEM_CLEAN, radiation_clean)
 	germ_level = 0
 	if(radiation_clean)
 		clean_radiation()
