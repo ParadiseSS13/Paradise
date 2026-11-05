@@ -245,13 +245,33 @@ pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 /// Prevents weirdness from absolute-zero gas having no pressure at all.
 pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;
 
-/// How many values a watched tile's summary takes up.
-pub(crate) const WATCHED_TILE_SIZE: usize = 2;
-
-/// How many moles of a gas a watched tile needs for us to say the gas is there.
-/// BYOND cares about 0.001, this is a little under so it never misses any.
-pub(crate) const WATCHED_GAS_PRESENT_MOLES: f32 = 0.0009;
-
 /// How much of the excess temperature in a hotspot should be lost to the tile every tick.
 /// Makes hotspots die out if they're not burning fast enough.
 pub(crate) const HOTSPOT_CONDUCTION: f32 = 0.1;
+
+/// A tile whose gas or heat would change by less than this fraction in a tick doesn't change at
+/// all. Without this, rounding keeps every tile shifting in its last digits forever, and nothing
+/// ever counts as still.
+pub(crate) const SETTLE_FRACTION: f32 = 0.000_001;
+
+/// The same, for amounts too small for a fraction to mean much. In moles, and in joules.
+pub(crate) const SETTLE_MOLES: f32 = 0.000_000_001;
+pub(crate) const SETTLE_THERMAL_ENERGY: f32 = 0.000_001;
+
+/// Wind that would change by less than this in a tick doesn't change at all.
+pub(crate) const SETTLE_WIND: f32 = 0.000_001;
+
+/// Any amount of a gas from this up has a partial pressure above zero whatever the temperature,
+/// so it doesn't need working out to know the gas is there. Far below anything that matters.
+pub(crate) const GAS_SURELY_PRESENT: f32 = 1e-30;
+
+/// A tripwire goes off a little early, so rounding can't hide a crossing: this fraction of the
+/// line, plus this many kPa.
+pub(crate) const TRIPWIRE_ROOM_FRACTION: f32 = 0.000_01;
+pub(crate) const TRIPWIRE_ROOM: f32 = 0.001;
+
+/// A scrubber leaves a gas alone at this much or less. Must match should_scrub() in BYOND.
+pub(crate) const SCRUBBER_TRACE_MOLES: f32 = 0.001;
+
+/// The smallest amount of gas BYOND's gas mixtures move. Must match QUANTIZE() in BYOND.
+pub(crate) const SCRUBBER_STEP_MOLES: f32 = 0.0001;

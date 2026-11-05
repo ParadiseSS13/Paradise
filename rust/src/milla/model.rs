@@ -243,7 +243,11 @@ pub(crate) struct Tile {
     pub(crate) wind: [f32; AXES.len()],
     /// Is there a wall in this direction?
     pub(crate) wall: [bool; AXES.len()],
-    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
+    /// How much flows in and out across the +X and +Y sides each tick, as a share of what's
+    /// there. Every gas that flows across a side flows by the same amount.
+    pub(crate) flow: [[f32; 2]; AXES.len()],
+    /// Which gases flow across each of those sides, a bit for each gas.
+    pub(crate) flow_gases: [u8; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
 }
@@ -261,7 +265,8 @@ impl Tile {
             hotspot_volume: 0.0,
             wind: [0.0, 0.0],
             wall: [false, false],
-            gas_flow: [[[0.0; 2]; GAS_COUNT]; AXES.len()],
+            flow: [[0.0; 2]; AXES.len()],
+            flow_gases: [0; AXES.len()],
             fuel_burnt: 0.0,
         }
     }
@@ -294,16 +299,23 @@ impl Tile {
             * R_IDEAL_GAS_EQUATION
             / TILE_VOLUME
     }
-    /// Calculates the partial pressure of a gas in a tile.
-    pub(crate) fn partial_pressure(&self, gas: usize) -> f32 {
-        if self.gases.values[gas] <= 0.0 {
-            return 0.0;
+    /// The tile's pressure, and the temperature its partial pressures get worked out with, in one
+    /// go. The same two numbers `pressure()` and `temperature()` give, the second held to the
+    /// minimum.
+    pub(crate) fn pressure_and_pressure_temperature(&self) -> (f32, f32) {
+        let heat_capacity = self.heat_capacity();
+        if heat_capacity <= 0.0 {
+            return (0.0, (0.0f32).max(MINIMUM_TEMPERATURE_FOR_PRESSURE));
         }
-
-        self.gases.values[gas]
-            * self.temperature().max(MINIMUM_TEMPERATURE_FOR_PRESSURE)
-            * R_IDEAL_GAS_EQUATION
-            / TILE_VOLUME
+        let pressure_temperature =
+            (self.thermal_energy / heat_capacity).max(MINIMUM_TEMPERATURE_FOR_PRESSURE);
+        if let AtmosMode::Space = self.mode {
+            return (0.0, pressure_temperature);
+        }
+        (
+            self.gases.moles() * pressure_temperature * R_IDEAL_GAS_EQUATION / TILE_VOLUME,
+            pressure_temperature,
+        )
     }
 
     #[allow(clippy::needless_range_loop)]
@@ -319,10 +331,8 @@ impl Tile {
         for axis in 0..AXES.len() {
             self.wind[axis] = other.wind[axis];
             self.wall[axis] = other.wall[axis];
-            for gas in 0..GAS_COUNT {
-                self.gas_flow[axis][gas][GAS_FLOW_IN] = other.gas_flow[axis][gas][GAS_FLOW_IN];
-                self.gas_flow[axis][gas][GAS_FLOW_OUT] = other.gas_flow[axis][gas][GAS_FLOW_OUT];
-            }
+            self.flow[axis] = other.flow[axis];
+            self.flow_gases[axis] = other.flow_gases[axis];
         }
         self.fuel_burnt = other.fuel_burnt;
     }
@@ -417,11 +427,228 @@ impl From<&InterestingTile> for Vec<ByondValue> {
     }
 }
 
+/// What BYOND is waiting for on a tile: its pressure going under a line.
+#[derive(Debug, Clone, Copy)]
+pub(crate) struct Tripwire {
+    /// Goes off when the pressure is under this.
+    pub(crate) pressure_below: f32,
+}
+
+impl Tripwire {
+    /// Goes off when either this or the other one would.
+    pub(crate) fn join(&mut self, other: &Tripwire) {
+        self.pressure_below = self.pressure_below.max(other.pressure_below);
+    }
+
+    /// Has this tile's air set it off? Pressure is worked out the way BYOND does it.
+    pub(crate) fn tripped_by(&self, tile: &Tile) -> bool {
+        let mut moles = 0.0;
+        for gas in 0..GAS_COUNT {
+            moles += tile.gases.values[gas];
+        }
+        let pressure = moles * R_IDEAL_GAS_EQUATION * tile.temperature() / TILE_VOLUME;
+        pressure
+            < self.pressure_below
+                + self.pressure_below.abs() * TRIPWIRE_ROOM_FRACTION
+                + TRIPWIRE_ROOM
+    }
+}
+
+/// A scrubber working on one tile. What it takes off the tile each tick piles up here until BYOND
+/// comes for it.
+#[derive(Clone)]
+pub(crate) struct Scrubber {
+    /// What BYOND knows it by.
+    pub(crate) id: u32,
+    /// Which tile it's on.
+    pub(crate) tile: usize,
+    /// It only does anything while there's more than a trace of one of these gases, a bit each.
+    pub(crate) starts_for: u8,
+    /// The gases it takes, a bit each.
+    pub(crate) takes: u8,
+    /// How much of what's there it takes each tick.
+    pub(crate) share: f32,
+    /// The gas it's taken since BYOND last collected.
+    pub(crate) taken: [f32; GAS_COUNT],
+    /// The heat that gas carried.
+    pub(crate) taken_thermal_energy: f32,
+}
+
+impl Scrubber {
+    /// Takes this tick's gas off the tile. The tile keeps its temperature.
+    pub(crate) fn scrub(&mut self, tile: &mut Tile) {
+        let mut wanted = false;
+        for gas in 0..GAS_COUNT {
+            if self.starts_for & (1 << gas) != 0 && tile.gases.values[gas] > SCRUBBER_TRACE_MOLES {
+                wanted = true;
+            }
+        }
+        if !wanted {
+            return;
+        }
+        let temperature = tile.temperature();
+        let mut taken_heat_capacity = 0.0;
+        let mut took_any = false;
+        for gas in 0..GAS_COUNT {
+            if self.takes & (1 << gas) == 0 {
+                continue;
+            }
+            // BYOND's gas mixtures move gas around in ten-thousandths of a mole, so this does too.
+            let amount = ((tile.gases.values[gas] * self.share) / SCRUBBER_STEP_MOLES + 0.5)
+                .floor()
+                * SCRUBBER_STEP_MOLES;
+            if !(amount > 0.0) {
+                continue;
+            }
+            let amount = amount.min(tile.gases.values[gas]);
+            tile.gases.values[gas] -= amount;
+            self.taken[gas] += amount;
+            taken_heat_capacity += amount * SPECIFIC_HEATS[gas];
+            took_any = true;
+        }
+        if took_any {
+            tile.gases.set_dirty();
+            tile.thermal_energy = temperature * tile.heat_capacity();
+            self.taken_thermal_energy += temperature * taken_heat_capacity;
+        }
+    }
+}
+
+/// A set of tiles on one Z level, one bit per tile, so walking it always goes in index order.
+#[derive(Clone)]
+pub(crate) struct TileSet {
+    words: Box<[usize]>,
+}
+
+const TILE_SET_WORD_BITS: usize = usize::BITS as usize;
+
+impl TileSet {
+    pub(crate) fn new() -> Self {
+        TileSet {
+            words: vec![0; (MAP_SIZE * MAP_SIZE).div_ceil(TILE_SET_WORD_BITS)].into_boxed_slice(),
+        }
+    }
+
+    /// Adds a tile. Returns true if it wasn't in the set already.
+    pub(crate) fn insert(&mut self, index: usize) -> bool {
+        let word = &mut self.words[index / TILE_SET_WORD_BITS];
+        let bit = 1 << (index % TILE_SET_WORD_BITS);
+        let is_new = *word & bit == 0;
+        *word |= bit;
+        is_new
+    }
+
+    pub(crate) fn contains(&self, index: usize) -> bool {
+        self.words[index / TILE_SET_WORD_BITS] & (1 << (index % TILE_SET_WORD_BITS)) != 0
+    }
+
+    /// Takes a tile out. Returns true if it was in the set.
+    pub(crate) fn remove(&mut self, index: usize) -> bool {
+        let word = &mut self.words[index / TILE_SET_WORD_BITS];
+        let bit = 1 << (index % TILE_SET_WORD_BITS);
+        let was_there = *word & bit != 0;
+        *word &= !bit;
+        was_there
+    }
+
+    /// Adds every tile from another set.
+    pub(crate) fn add_all(&mut self, other: &TileSet) {
+        for (word, other_word) in self.words.iter_mut().zip(other.words.iter()) {
+            *word |= *other_word;
+        }
+    }
+
+    pub(crate) fn clear(&mut self) {
+        self.words.fill(0);
+    }
+
+    /// Puts every tile in the set.
+    pub(crate) fn fill(&mut self) {
+        self.words.fill(!0);
+        let spare_bits = self.words.len() * TILE_SET_WORD_BITS - MAP_SIZE * MAP_SIZE;
+        if spare_bits > 0 {
+            let last = self.words.len() - 1;
+            self.words[last] = !0 >> spare_bits;
+        }
+    }
+
+    /// The first tile in the set at or after `from`. Walking with this picks up tiles that get
+    /// added ahead of where the walk has got to.
+    pub(crate) fn next_from(&self, from: usize) -> Option<usize> {
+        if from >= MAP_SIZE * MAP_SIZE {
+            return None;
+        }
+        let mut word_index = from / TILE_SET_WORD_BITS;
+        let mut word = self.words[word_index] & (!0 << (from % TILE_SET_WORD_BITS));
+        loop {
+            if word != 0 {
+                return Some(word_index * TILE_SET_WORD_BITS + word.trailing_zeros() as usize);
+            }
+            word_index += 1;
+            if word_index >= self.words.len() {
+                return None;
+            }
+            word = self.words[word_index];
+        }
+    }
+}
+
+/// Each tile's pressure as of the start of the tick, worked out the first time it's asked for.
+#[derive(Default)]
+pub(crate) struct PressureCache {
+    pressures: Vec<f32>,
+    pressure_temperatures: Vec<f32>,
+    stamps: Vec<u32>,
+    stamp: u32,
+}
+
+impl PressureCache {
+    /// Forgets everything, ready for a new tick.
+    pub(crate) fn start_tick(&mut self) {
+        if self.stamps.is_empty() {
+            self.pressures = vec![0.0; MAP_SIZE * MAP_SIZE];
+            self.pressure_temperatures = vec![0.0; MAP_SIZE * MAP_SIZE];
+            self.stamps = vec![0; MAP_SIZE * MAP_SIZE];
+        }
+        self.stamp = self.stamp.wrapping_add(1);
+        if self.stamp == 0 {
+            self.stamps.fill(0);
+            self.stamp = 1;
+        }
+    }
+
+    /// A tile's pressure, and the temperature its partial pressures use.
+    pub(crate) fn get(&mut self, level: &ZLevel, index: usize) -> (f32, f32) {
+        if self.stamps[index] != self.stamp {
+            let (pressure, pressure_temperature) =
+                level.get_tile(index).pressure_and_pressure_temperature();
+            self.pressures[index] = pressure;
+            self.pressure_temperatures[index] = pressure_temperature;
+            self.stamps[index] = self.stamp;
+        }
+        (self.pressures[index], self.pressure_temperatures[index])
+    }
+}
+
 /// A single Z level in the atmos model.
 pub(crate) struct ZLevel {
     tiles: Box<[Tile; MAP_SIZE * MAP_SIZE]>,
     pub(crate) active_pressure_chunks: HashSet<(u8, u8)>,
     pub(crate) frozen: bool,
+    /// The tiles being worked on this tick. Everything else hasn't changed lately and is the
+    /// same in both buffers, so it gets left alone.
+    pub(crate) awake: TileSet,
+    /// The tiles that changed at some point this tick. They and the tiles next to them are the
+    /// ones to work on next tick.
+    pub(crate) active: TileSet,
+    /// The tiles BYOND has written to since the last tick.
+    pub(crate) written: TileSet,
+    /// The tiles whose air BYOND can tell is different after this tick.
+    pub(crate) changed_for_byond: TileSet,
+    /// The tiles whose blocked sides need working out again this tick, because BYOND wrote to
+    /// them or to the tile on one of those sides.
+    pub(crate) walls_to_find: TileSet,
+    pub(crate) pressure_cache: PressureCache,
 }
 
 impl ZLevel {
@@ -430,10 +657,117 @@ impl ZLevel {
         for _ in 0..MAP_SIZE * MAP_SIZE {
             unbuilt.push(Tile::new());
         }
+        // A new level starts with every tile counted as changed and as written to, so the first
+        // tick looks at all of them.
+        let mut active = TileSet::new();
+        active.fill();
+        let mut written = TileSet::new();
+        written.fill();
         ZLevel {
             tiles: unbuilt.into_boxed_slice().try_into().unwrap(),
             active_pressure_chunks: HashSet::new(),
             frozen: false,
+            awake: TileSet::new(),
+            active,
+            written,
+            changed_for_byond: TileSet::new(),
+            walls_to_find: TileSet::new(),
+            pressure_cache: PressureCache::default(),
+        }
+    }
+
+    /// Gets the tile for BYOND to write to, and remembers that it did.
+    pub(crate) fn get_tile_mut_for_write(&mut self, index: usize) -> &mut Tile {
+        self.written.insert(index);
+        &mut self.tiles[index]
+    }
+
+    /// Starts working on a tile this tick. It hasn't changed lately, so this buffer's copy of it
+    /// already matches, but it's copied again anyway so nothing rides on that.
+    pub(crate) fn wake(&mut self, prev: &ZLevel, index: usize) {
+        if self.awake.insert(index) {
+            self.tiles[index].copy_from(&prev.tiles[index]);
+        }
+    }
+
+    /// Notes that a tile changed this tick, which means the tiles next to it need working on too.
+    pub(crate) fn mark_changed(&mut self, prev: &ZLevel, index: usize) {
+        if !self.active.insert(index) {
+            return;
+        }
+        let x = (index / MAP_SIZE) as i32;
+        let y = (index % MAP_SIZE) as i32;
+        for (dx, dy) in DIRECTIONS {
+            if let Some(neighbor_index) = ZLevel::maybe_get_index(x + dx, y + dy) {
+                self.wake(prev, neighbor_index);
+            }
+        }
+    }
+
+    /// Gets this buffer ready to hold the next tick: picks the tiles to work on and copies them
+    /// over from the current buffer.
+    pub(crate) fn begin_tick(&mut self, prev: &ZLevel) {
+        self.active_pressure_chunks = prev.active_pressure_chunks.clone();
+        self.frozen = prev.frozen;
+        self.written.clear();
+        self.changed_for_byond.clear();
+        self.awake.clear();
+        // This buffer last held the tick before last, so its list of what changed is from then.
+        // Those tiles have only been copied into the other buffer since, so do them once more
+        // to leave both buffers with a fresh copy.
+        self.awake.add_all(&self.active);
+        if self.frozen {
+            // Nothing gets worked on while frozen. These only need copying across.
+            self.awake.add_all(&prev.active);
+            self.awake.add_all(&prev.written);
+        } else {
+            // Whatever changed last tick or got written to by BYOND since, and the tiles next to
+            // those. Nothing else can come out any different than it did last time.
+            for source in [&prev.active, &prev.written] {
+                let mut cursor = 0;
+                while let Some(index) = source.next_from(cursor) {
+                    cursor = index + 1;
+                    self.awake.insert(index);
+                    let x = (index / MAP_SIZE) as i32;
+                    let y = (index % MAP_SIZE) as i32;
+                    for (dx, dy) in DIRECTIONS {
+                        if let Some(neighbor_index) = ZLevel::maybe_get_index(x + dx, y + dy) {
+                            self.awake.insert(neighbor_index);
+                        }
+                    }
+                }
+            }
+        }
+        self.active.clear();
+        let mut cursor = 0;
+        while let Some(index) = self.awake.next_from(cursor) {
+            cursor = index + 1;
+            self.tiles[index].copy_from(&prev.tiles[index]);
+        }
+        // BYOND already knows what it wrote, but it gets told anyway, in case the tick leaves the
+        // tile exactly as written and BYOND's copy isn't quite that.
+        self.changed_for_byond.add_all(&prev.written);
+        self.walls_to_find.clear();
+        if self.frozen {
+            // Keep everything that was waiting to be worked on waiting, for when the level thaws.
+            self.active.add_all(&prev.active);
+            self.written.add_all(&prev.written);
+        } else {
+            // A tile keeps whether its +X and +Y sides are blocked, and that goes by what BYOND
+            // says about it and about the tiles on those sides. So a write to a tile matters to
+            // it and to the tiles on its -X and -Y sides.
+            let mut cursor = 0;
+            while let Some(index) = prev.written.next_from(cursor) {
+                cursor = index + 1;
+                self.walls_to_find.insert(index);
+                let x = (index / MAP_SIZE) as i32;
+                let y = (index % MAP_SIZE) as i32;
+                for (dx, dy) in AXES {
+                    if let Some(neighbor_index) = ZLevel::maybe_get_index(x - dx, y - dy) {
+                        self.walls_to_find.insert(neighbor_index);
+                    }
+                }
+            }
         }
     }
 
@@ -470,14 +804,6 @@ impl ZLevel {
                 ptr.add(index2).as_mut().unwrap(),
             )
         }
-    }
-
-    pub(crate) fn copy_from(&mut self, other: &ZLevel) {
-        for i in 0..self.tiles.len() {
-            self.tiles[i].copy_from(&other.tiles[i]);
-        }
-        self.active_pressure_chunks = other.active_pressure_chunks.clone();
-        self.frozen = other.frozen;
     }
 }
 
@@ -591,6 +917,36 @@ mod tests {
         assert_eq!(tile.superconductivity.south, OPEN_HEAT_TRANSFER_COEFFICIENT);
         assert_eq!(tile.superconductivity.west, OPEN_HEAT_TRANSFER_COEFFICIENT);
         assert_eq!(tile.innate_heat_capacity, 0.0);
+    }
+
+    /// A tripwire should go off once the pressure gets to its line, and not before. One joined
+    /// with another goes off when either would.
+    #[test]
+    fn tripwires() {
+        let mut tile = Tile::new();
+        tile.mode = AtmosMode::Sealed;
+        tile.gases.set_oxygen(20.0);
+        tile.gases.set_nitrogen(80.0);
+        tile.thermal_energy = tile.heat_capacity() * T20C;
+        let pressure = 100.0 * R_IDEAL_GAS_EQUATION * tile.temperature() / TILE_VOLUME;
+
+        let mut wire = Tripwire {
+            pressure_below: pressure - 0.5,
+        };
+        assert!(!wire.tripped_by(&tile));
+        wire.pressure_below = pressure;
+        assert!(wire.tripped_by(&tile));
+        // Goes off a little early.
+        wire.pressure_below = pressure - TRIPWIRE_ROOM / 2.0;
+        assert!(wire.tripped_by(&tile));
+
+        let mut wire = Tripwire {
+            pressure_below: pressure - 0.5,
+        };
+        wire.join(&Tripwire {
+            pressure_below: pressure,
+        });
+        assert!(wire.tripped_by(&tile));
     }
 
     /// flip_buffers() should alternate us betweeen two buffers, and changes should be preserved

@@ -80,6 +80,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	interact_offline = TRUE
 	var/release_log = ""
 	var/current_pressure_appearance
+	/// Our air, last time it sat there without reacting
+	var/datum/gas_mixture/idle_air
+	/// idle_air's version then. Until it changes there's nothing to do
+	var/idle_version
 
 /obj/machinery/atmospherics/portable/canister/Initialize(mapload)
 	. = ..()
@@ -113,6 +117,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	color_index = list()
 
 	update_icon()
+
+/obj/machinery/atmospherics/portable/canister/Destroy()
+	idle_air = null
+	return ..()
 
 /obj/machinery/atmospherics/portable/canister/examine(mob/user)
 	. = ..()
@@ -211,7 +219,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		update_icon()
 
 /obj/machinery/atmospherics/portable/canister/process_atmos()
-	..()
+	// Nothing's touched our air since it last sat there
+	if(idle_air == air_contents && idle_version == air_contents.version && !valve_open && !connected_port)
+		return
+	idle_air = null
+	atmos_napping = FALSE
+	var/reacted = ..()
 	sync_pressure_appearance()
 	if(stat & BROKEN)
 		return
@@ -224,6 +237,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		can_label = TRUE
 	else
 		can_label = FALSE
+
+	// Too cool for hydrogen to burn, so no reaction next time either
+	if(!reacted && !valve_open && !connected_port && air_contents.temperature() <= HYDROGEN_MIN_IGNITE_TEMP)
+		idle_air = air_contents
+		idle_version = air_contents.version
+		atmos_napping = TRUE
 
 /datum/milla_safe/canister_release
 

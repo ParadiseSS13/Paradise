@@ -129,9 +129,17 @@
 		force_needed *= MOVE_FORCE_PUSH_RATIO
 
 	var/turf/my_turf = get_turf(src)
-	var/datum/gas_mixture/my_air = my_turf.get_readonly_air()
+	var/moles
+	var/turf/simulated/windy = my_turf
+	var/datum/gas_mixture/bound_to_turf/bound = my_turf.bound_air
+	if(istype(windy) && windy.wind_tick == SSair.milla_tick && !SSair.written_tiles[windy] && (isnull(bound) || (bound.good_until < SSair.milla_frame && !bound.dirty)))
+		// Out-of-date copy, but MILLA sent the moles with the wind
+		moles = windy.wind_moles
+	else
+		var/datum/gas_mixture/my_air = my_turf.get_readonly_air()
+		moles = my_air.total_moles()
 
-	var/air = my_air.total_moles() / MOLES_CELLSTANDARD
+	var/air = moles / MOLES_CELLSTANDARD
 	var/wind = sqrt(flow_x ** 2 + flow_y ** 2)
 	var/force = wind * air * (MOVE_FORCE_DEFAULT / 5)
 
