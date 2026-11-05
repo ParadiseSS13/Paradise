@@ -95,7 +95,8 @@
 	do_speech(user, buttons[button])
 
 /obj/item/aac_device/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!user.is_holding(src))
+		to_chat(user, SPAN_NOTICE("You need to be holding [src] to [opened ? "close" : "open"] it."))
 		return
 
 	if(do_after(user, 1 SECONDS, target = src))
