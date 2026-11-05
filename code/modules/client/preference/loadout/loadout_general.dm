@@ -332,6 +332,10 @@
 	display_name = "Blind cane"
 	path = /obj/item/blindcane
 
+/datum/gear/aac_device
+	display_name = "AAC device"
+	path = /obj/item/aac_device
+
 /datum/gear/cards
 	display_name = "Deck of standard cards"
 	path = /obj/item/deck/cards

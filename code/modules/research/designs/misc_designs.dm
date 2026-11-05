@@ -193,3 +193,13 @@
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/autochef_remote
 	category = list("Miscellaneous")
+
+/datum/design/aac_device
+	name = "AAC Device"
+	desc = "A device meant to assist people with impaired communication."
+	id = "aac_device"
+	req_tech = list("programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_GLASS = 250, MAT_METAL = 1000)
+	build_path = /obj/item/aac_device
+	category = list("Miscellaneous")

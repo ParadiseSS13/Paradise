@@ -22,14 +22,9 @@
 	// Whether the device is opened or closed. When opened, using it customizes the quick buttons or directly says input text; when closed, using it opens a radial menu to quickly say one of the buttons.
 	var/opened = FALSE
 
-	// Which language is selected.
-	var/language = "Galactic Common"
-
 /obj/item/aac_device/examine(mob/user)
 	. = ..()
-	. += ""
 	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to [opened ? "close" : "open"] it.")
-	. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> [src] to change its name.")
 
 /obj/item/aac_device/proc/pick_button(mob/user)
 	var/list/options = list(BUTTON_GREEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_green"),
@@ -47,9 +42,6 @@
 	log_say("(AAC device) [message]", user)
 	user.create_log(SAY_LOG, "(AAC device) '[message]'")
 
-	for(var/obj/O in view(7, get_turf(src)))
-		O.hear_talk(src, message_to_multilingual("[message]"))
-
 	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
 			M.create_chat_message(user, message)
@@ -60,7 +52,7 @@
 
 	if(opened)
 		var/list/options = list("Custom Message" = image(icon = 'icons/obj/device.dmi', icon_state = "megaphone"),
-									"Change Channel" = image(icon = 'icons/obj/radio.dmi', icon_state = "walkietalkie"),
+									"Change Name" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "labeler0"),
 									"Edit Button" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"))
 
 		var/choice = show_radial_menu(user, src, options)
@@ -78,6 +70,11 @@
 
 			return
 
+		if(choice == "Change Name")
+			rename_interactive(user, use_prefix = FALSE)
+			to_chat(user, SPAN_NOTICE("You rename \the [src]."))
+			return
+
 		var/button = pick_button(user)
 
 		if(!button || user.stat || QDELETED(src))
@@ -86,7 +83,7 @@
 		var/new_message = tgui_input_text(user, "Type a message:", "[src]")
 
 		buttons[button] = new_message
-		to_chat(user, SPAN_NOTICE("You change the [lowertext(buttons[button])]'s text to [new_message]."))
+		to_chat(user, SPAN_NOTICE("You configure the [lowertext(button)] to say \"[new_message]\"."))
 
 		return
 
@@ -106,7 +103,4 @@
 		icon_state = "aac_device[opened ? "_open" : ""]"
 		w_class = opened ? WEIGHT_CLASS_NORMAL : WEIGHT_CLASS_SMALL
 		to_chat(user, SPAN_NOTICE("You [opened ? "open" : "close"] [src]."))
-
-/obj/item/aac_device/AltShiftClick(mob/user)
-	rename_interactive(user, use_prefix = FALSE)
 
