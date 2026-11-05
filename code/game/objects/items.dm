@@ -429,25 +429,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src, user)
-	else if(istype(I, /obj/item/stack/tape_roll))
-		if(isstorage(src)) // Don't tape the bag if we can put the duct tape inside it instead
-			var/obj/item/storage/bag = src
-			if(bag.can_be_inserted(I))
-				return
-		var/obj/item/stack/tape_roll/TR = I
-		var/list/clickparams = params2list(params)
-		var/x_offset = text2num(clickparams["icon-x"])
-		var/y_offset = text2num(clickparams["icon-y"])
-		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, SPAN_NOTICE("[src] already has some tape attached!"))
-			return
-		if(TR.use(1))
-			to_chat(user, SPAN_NOTICE("You apply some tape to [src]."))
-			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
-			anchored = TRUE
-			user.transfer_fingerprints_to(src)
-		else
-			to_chat(user, SPAN_NOTICE("You don't have enough tape to do that!"))
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)

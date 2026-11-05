@@ -13,10 +13,35 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!ishuman(target)) // What good is a duct tape mask if you are unable to speak?
+	if(isstorage(target))
 		return ..()
 
-	var/mob/living/carbon/human/H = target
+	if(isitem(target))
+		return tape_item(target, user, modifiers)
+
+	if(ishuman(target)) // What good is a duct tape mask if you are unable to speak?
+		return tape_human(target, user)
+
+/obj/item/stack/tape_roll/proc/tape_item(obj/item/target, mob/living/user, list/modifiers)
+	var/obj/item/I = target
+	if(I.GetComponent(/datum/component/ducttape))
+		to_chat(user, SPAN_NOTICE("[I] already has some tape attached!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/x_offset = text2num(modifiers["icon-x"])
+	var/y_offset = text2num(modifiers["icon-y"])
+
+	if(!use(1))
+		to_chat(user, SPAN_NOTICE("You don't have enough tape to do that!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You apply some tape to [I]."))
+	I.AddComponent(/datum/component/ducttape, I, user, x_offset, y_offset)
+	I.anchored = TRUE
+	user.transfer_fingerprints_to(I)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/tape_roll/proc/tape_human(mob/living/carbon/human/H, mob/living/user)
 	if(H.wear_mask)
 		to_chat(user, SPAN_WARNING("Remove [H.p_their()] mask first!"))
 		return ITEM_INTERACT_COMPLETE
@@ -52,6 +77,7 @@
 	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
 	H.equip_to_slot(G, ITEM_SLOT_MASK)
 	G.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/tape_roll/update_icon_state()
 	var/amount = get_amount()
