@@ -12,14 +12,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	new_attack_chain = TRUE
 
-	// What the 'quick' buttons are set to.
+	/// What the 'quick' buttons are set to.
 	var/list/buttons = list(BUTTON_GREEN = "Yes.",
 							BUTTON_RED = "No.",
 							BUTTON_BLUE = "Hello!",
 							BUTTON_YELLOW = "I don't know.",
 							BUTTON_PURPLE = "What?")
 
-	// Whether the device is opened or closed. When opened, using it customizes the quick buttons or directly says input text; when closed, using it opens a radial menu to quickly say one of the buttons.
+	/// Whether the device is opened or closed. When opened, using it customizes the quick buttons or directly says input text; when closed, using it opens a radial menu to quickly say one of the buttons.
 	var/opened = FALSE
 
 /obj/item/aac_device/examine(mob/user)
