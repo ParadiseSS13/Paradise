@@ -8,6 +8,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/cargo)
 
 /datum/outfit/job/cargo_tech/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -25,6 +26,7 @@
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
 	box = /obj/item/storage/box/survival_mining
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/smith)
 
 /datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -52,6 +54,7 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/mining)
 
 /datum/outfit/job/mining/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -111,6 +114,7 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/expedition)
 
 /datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

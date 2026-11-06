@@ -34,6 +34,9 @@
 
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
+	/// if some species replace outfit parts, those sub-outfits go here.
+	var/list/species_outfits = list("Plasmaman", /datum/outfit/plasmaman)
+
 /datum/outfit/naked
 	name = "Naked"
 
@@ -69,31 +72,34 @@
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
 
+	var/datum/outfit/species_outfit = null
+	if(H.dna.species.name in species_outfits)
+		species_outfit = new species_outfits[H.dna.species.name]
 	//Start with uniform,suit,backpack for additional slots
-	if(uniform)
-		equip_item(H, uniform, ITEM_SLOT_JUMPSUIT)
-	if(suit)
-		equip_item(H, suit, ITEM_SLOT_OUTER_SUIT)
-	if(back)
-		equip_item(H, back, ITEM_SLOT_BACK)
-	if(belt)
-		equip_item(H, belt, ITEM_SLOT_BELT)
-	if(gloves)
-		equip_item(H, gloves, ITEM_SLOT_GLOVES)
-	if(shoes)
-		equip_item(H, shoes, ITEM_SLOT_SHOES)
-	if(head)
-		equip_item(H, head, ITEM_SLOT_HEAD)
-	if(mask)
-		equip_item(H, mask, ITEM_SLOT_MASK)
-	if(neck)
-		equip_item(H, neck, ITEM_SLOT_NECK)
-	if(l_ear)
-		equip_item(H, l_ear, ITEM_SLOT_LEFT_EAR)
-	if(r_ear)
-		equip_item(H, r_ear, ITEM_SLOT_RIGHT_EAR)
-	if(glasses)
-		equip_item(H, glasses, ITEM_SLOT_EYES)
+	if(uniform || species_outfit?.uniform)
+		equip_item(H, species_outfit?.uniform || uniform, ITEM_SLOT_JUMPSUIT)
+	if(suit || species_outfit?.suit)
+		equip_item(H, species_outfit?.suit || suit, ITEM_SLOT_OUTER_SUIT)
+	if(back || species_outfit?.back)
+		equip_item(H, species_outfit?.back || back, ITEM_SLOT_BACK)
+	if(belt || species_outfit?.belt)
+		equip_item(H, species_outfit?.belt || belt, ITEM_SLOT_BELT)
+	if(gloves || species_outfit?.gloves)
+		equip_item(H, species_outfit?.gloves || gloves, ITEM_SLOT_GLOVES)
+	if(shoes || species_outfit?.shoes)
+		equip_item(H, species_outfit?.shoes || shoes, ITEM_SLOT_SHOES)
+	if(head || species_outfit?.head)
+		equip_item(H, species_outfit?.head || head, ITEM_SLOT_HEAD)
+	if(mask || species_outfit?.mask)
+		equip_item(H, species_outfit?.mask || mask, ITEM_SLOT_MASK)
+	if(neck || species_outfit?.neck)
+		equip_item(H, species_outfit?.neck || neck, ITEM_SLOT_NECK)
+	if(l_ear || species_outfit?.l_ear)
+		equip_item(H, species_outfit?.l_ear || l_ear, ITEM_SLOT_LEFT_EAR)
+	if(r_ear || species_outfit?.r_ear)
+		equip_item(H, species_outfit?.r_ear || r_ear, ITEM_SLOT_RIGHT_EAR)
+	if(glasses || species_outfit?.glasses)
+		equip_item(H, species_outfit?.glasses || glasses, ITEM_SLOT_EYES)
 	if(id)
 		equip_item(H, id, ITEM_SLOT_ID)
 
@@ -104,43 +110,47 @@
 		var/obj/item/mod/control/C = H.back
 		C.quick_activation()
 
-	if(suit_store)
-		equip_item(H, suit_store, ITEM_SLOT_SUIT_STORE)
+	if(suit_store || species_outfit?.suit_store)
+		equip_item(H, species_outfit?.suit_store || suit_store, ITEM_SLOT_SUIT_STORE)
 
-	if(l_hand)
-		H.put_in_l_hand(new l_hand(H))
-	if(r_hand)
-		H.put_in_r_hand(new r_hand(H))
+	if(l_hand || species_outfit?.l_hand)
+		var/hand_path = species_outfit?.l_hand || l_hand
+		H.put_in_l_hand(new hand_path(H))
+	if(r_hand || species_outfit?.r_hand)
+		var/hand_path = species_outfit?.r_hand || r_hand
+		H.put_in_r_hand(new hand_path(H))
 
-	if(pda)
-		equip_item(H, pda, ITEM_SLOT_PDA)
+	if(pda || species_outfit?.pda)
+		equip_item(H, species_outfit?.pda || pda, ITEM_SLOT_PDA)
 
-	if(uniform)
+	if(uniform || species_outfit?.uniform)
 		for(var/path in accessories)
 			var/obj/item/clothing/accessory/A = new path()
 			var/obj/item/clothing/under/U = uniform
 			U.attach_accessory(A, H)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
-		if(l_pocket)
-			equip_item(H, l_pocket, ITEM_SLOT_LEFT_POCKET)
-		if(r_pocket)
-			equip_item(H, r_pocket, ITEM_SLOT_RIGHT_POCKET)
+		if(l_pocket || species_outfit?.l_pocket)
+			equip_item(H, species_outfit?.l_pocket || l_pocket, ITEM_SLOT_LEFT_POCKET)
+		if(r_pocket || species_outfit?.r_pocket)
+			equip_item(H, species_outfit?.r_pocket || r_pocket, ITEM_SLOT_RIGHT_POCKET)
 
-		if(box)
+		if(box || species_outfit?.box)
 			if(!backpack_contents)
 				backpack_contents = list()
-			backpack_contents.Insert(1, box)
-			backpack_contents[box] = 1
+			backpack_contents.Insert(1, species_outfit?.box || box)
+			backpack_contents[species_outfit?.box || box] = 1
 
-		for(var/path in backpack_contents)
-			var/number = backpack_contents[path]
+		var/list/backpack_to_populate = species_outfit?.backpack_contents || backpack_contents
+		for(var/path in backpack_to_populate)
+			var/number = backpack_to_populate[path]
 			if(!number)
 				number = 1
 			for(var/i in 1 to number)
 				H.equip_or_collect(new path(H), ITEM_SLOT_IN_BACKPACK)
 
-		for(var/path in cybernetic_implants)
+		var/list/implants_to_populate = species_outfit?.cybernetic_implants || cybernetic_implants
+		for(var/path in implants_to_populate)
 			var/obj/item/organ/internal/O = new path
 			O.insert(H)
 
@@ -152,8 +162,9 @@
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
 
-	if(bio_chips)
-		for(var/bio_chip_type in bio_chips)
+	if(bio_chips || species_outfit?.bio_chips)
+		var/list/biochips_to_populate = species_outfit?.bio_chips || bio_chips
+		for(var/bio_chip_type in biochips_to_populate)
 			var/obj/item/bio_chip/I = new bio_chip_type(H)
 			I.implant(H, null)
 
@@ -307,42 +318,54 @@
 
 /datum/outfit/proc/preview_outfit_icon(species, body_parts, backpack_choice = 2, monitor_head = FALSE)
 	var/icon/outfit_icon = new /icon('icons/blanks/32x32.dmi', "nothing")
-	if(uniform)
-		outfit_icon.Blend(preview_uniform_icon(species, body_parts), ICON_OVERLAY)
-	if(id)
-		outfit_icon.Blend(preview_id_icon(species, body_parts), ICON_OVERLAY)
-	if(shoes)
-		outfit_icon.Blend(preview_shoes_icon(species, body_parts), ICON_OVERLAY)
-	if(gloves)
-		outfit_icon.Blend(preview_gloves_icon(species, body_parts), ICON_OVERLAY)
-	if(l_ear)
-		outfit_icon.Blend(preview_l_ear_icon(species, body_parts, monitor_head), ICON_OVERLAY)
-	if(r_ear)
-		outfit_icon.Blend(preview_r_ear_icon(species, body_parts, monitor_head), ICON_OVERLAY)
-	if(belt)
-		outfit_icon.Blend(preview_belt_icon(species, body_parts), ICON_OVERLAY)
-	if(suit)
-		outfit_icon.Blend(preview_suit_icon(species, body_parts), ICON_OVERLAY)
-	if(neck)
-		outfit_icon.Blend(preview_neck_icon(species, body_parts), ICON_OVERLAY)
-	if(back)
-		outfit_icon.Blend(preview_back_icon(species, body_parts, backpack_choice), ICON_OVERLAY)
-	if(glasses)
-		outfit_icon.Blend(preview_glasses_icon(species, body_parts, monitor_head), ICON_OVERLAY)
-	if(mask)
-		outfit_icon.Blend(preview_mask_icon(species, body_parts, monitor_head), ICON_OVERLAY)
-	if(head)
-		outfit_icon.Blend(preview_uniform_icon(species, body_parts, monitor_head), ICON_OVERLAY)
-	if(l_hand)
-		outfit_icon.Blend(preview_l_hand_icon(species, body_parts), ICON_OVERLAY)
-	if(r_hand)
-		outfit_icon.Blend(preview_r_hand_icon(species, body_parts), ICON_OVERLAY)
+
+	var/datum/outfit/species_outfit = null
+	if(species in species_outfits)
+		species_outfit = species_outfits[species]
+		species_outfit = new species_outfit()
+		message_admins(species_outfit.uniform)
+
+	if(uniform || species_outfit?.uniform)
+		outfit_icon.Blend(preview_uniform_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(id || species_outfit?.id)
+		outfit_icon.Blend(preview_id_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(shoes || species_outfit?.shoes)
+		outfit_icon.Blend(preview_shoes_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(gloves || species_outfit?.gloves)
+		outfit_icon.Blend(preview_gloves_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(l_ear || species_outfit?.l_ear)
+		outfit_icon.Blend(preview_l_ear_icon(species, body_parts, species_outfit, monitor_head), ICON_OVERLAY)
+	if(r_ear || species_outfit?.r_ear)
+		outfit_icon.Blend(preview_r_ear_icon(species, body_parts, species_outfit, monitor_head), ICON_OVERLAY)
+	if(belt || species_outfit?.belt)
+		outfit_icon.Blend(preview_belt_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(suit || species_outfit?.suit)
+		outfit_icon.Blend(preview_suit_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(neck || species_outfit?.neck)
+		outfit_icon.Blend(preview_neck_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(back || species_outfit?.back)
+		outfit_icon.Blend(preview_back_icon(species, body_parts, species_outfit, backpack_choice), ICON_OVERLAY)
+	if(glasses || species_outfit?.glasses)
+		outfit_icon.Blend(preview_glasses_icon(species, body_parts, species_outfit, monitor_head), ICON_OVERLAY)
+	if(mask || species_outfit?.mask)
+		outfit_icon.Blend(preview_mask_icon(species, body_parts, species_outfit, monitor_head), ICON_OVERLAY)
+	if(head || species_outfit?.head)
+		outfit_icon.Blend(preview_uniform_icon(species, body_parts, species_outfit, monitor_head), ICON_OVERLAY)
+	if(l_hand || species_outfit?.l_hand)
+		outfit_icon.Blend(preview_l_hand_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	if(r_hand || species_outfit?.r_hand)
+		outfit_icon.Blend(preview_r_hand_icon(species, body_parts, species_outfit), ICON_OVERLAY)
+	qdel(species_outfit)
 	return outfit_icon
 
-/datum/outfit/proc/preview_uniform_icon(species, body_parts)
-	if(!uniform)
+/datum/outfit/proc/preview_uniform_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!uniform && !species_outfit?.uniform)
 		return null
-	var/obj/item/clothing/worn_item = new uniform(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.uniform)
+		worn_item = new species_outfit.uniform(null)
+	else
+		worn_item = new uniform(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -351,10 +374,14 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_suit_icon(species, body_parts)
-	if(!suit)
+/datum/outfit/proc/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!suit && !species_outfit?.suit)
 		return null
-	var/obj/item/clothing/worn_item = new suit(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.suit)
+		worn_item = new species_outfit.suit(null)
+	else
+		worn_item = new suit(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -363,10 +390,14 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_back_icon(species, body_parts)
-	if(!back)
+/datum/outfit/proc/preview_back_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!back && !species_outfit?.back)
 		return null
-	var/obj/item/clothing/worn_item = new back(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.back)
+		worn_item = new species_outfit.back(null)
+	else
+		worn_item = new back(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -375,10 +406,14 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_belt_icon(species, body_parts)
-	if(!belt)
+/datum/outfit/proc/preview_belt_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!belt && !species_outfit?.belt)
 		return null
-	var/obj/item/clothing/worn_item = new belt(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.belt)
+		worn_item = new species_outfit.belt(null)
+	else
+		worn_item = new belt(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -387,12 +422,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_gloves_icon(species, body_parts)
-	if(!gloves)
+/datum/outfit/proc/preview_gloves_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!gloves && !species_outfit?.gloves)
 		return null
 	if(!("r_hand" in body_parts) || !("l_hand" in body_parts))
 		return null
-	var/obj/item/clothing/worn_item = new gloves(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.gloves)
+		worn_item = new species_outfit.gloves(null)
+	else
+		worn_item = new gloves(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -401,12 +440,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_shoes_icon(species, body_parts)
-	if(!shoes)
+/datum/outfit/proc/preview_shoes_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!shoes && !species_outfit?.shoes)
 		return null
 	if(!("l_foot" in body_parts) || !("r_foot" in body_parts))
 		return null
-	var/obj/item/clothing/worn_item = new shoes(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.shoes)
+		worn_item = new species_outfit.shoes(null)
+	else
+		worn_item = new shoes(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -415,12 +458,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_head_icon(species, body_parts, monitor_head = FALSE)
-	if(!head)
+/datum/outfit/proc/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!head && !species_outfit?.head)
 		return null
 	if(!("head" in body_parts))
 		return null
-	var/obj/item/clothing/head/worn_item = new head(null)
+	var/obj/item/clothing/head/worn_item
+	if(species_outfit?.head)
+		worn_item = new species_outfit.head(null)
+	else
+		worn_item = new head(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(monitor_head && worn_item.icon_monitor)
 		. = new /icon(worn_item.icon_monitor, worn_icon_state)
@@ -431,12 +478,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_mask_icon(species, body_parts, monitor_head = FALSE)
-	if(!mask)
+/datum/outfit/proc/preview_mask_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!mask && !species_outfit?.mask)
 		return null
 	if(!("head" in body_parts))
 		return null
-	var/obj/item/clothing/mask/worn_item = new mask(null)
+	var/obj/item/clothing/mask/worn_item
+	if(species_outfit?.mask)
+		worn_item = new species_outfit.mask(null)
+	else
+		worn_item = new mask(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(monitor_head && worn_item.icon_monitor)
 		. = new /icon(worn_item.icon_monitor, worn_icon_state)
@@ -447,10 +498,14 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_neck_icon(species, body_parts)
-	if(!neck)
+/datum/outfit/proc/preview_neck_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!neck && !species_outfit?.neck)
 		return null
-	var/obj/item/clothing/worn_item = new neck(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.neck)
+		worn_item = new species_outfit.neck(null)
+	else
+		worn_item = new neck(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -459,12 +514,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_l_ear_icon(species, body_parts, monitor_head = FALSE)
-	if(!l_ear)
+/datum/outfit/proc/preview_l_ear_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!l_ear && !species_outfit?.l_ear)
 		return null
 	if(!("head" in body_parts))
 		return null
-	var/obj/item/clothing/worn_item = new l_ear(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.l_ear)
+		worn_item = new species_outfit.l_ear(null)
+	else
+		worn_item = new l_ear(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(monitor_head && worn_item.icon_monitor)
 		. = new /icon(worn_item.icon_monitor, worn_icon_state)
@@ -475,12 +534,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_r_ear_icon(species, body_parts, monitor_head = FALSE)
-	if(!r_ear)
+/datum/outfit/proc/preview_r_ear_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!r_ear && !species_outfit?.r_ear)
 		return null
 	if(!("head" in body_parts))
 		return null
-	var/obj/item/clothing/worn_item = new r_ear(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.r_ear)
+		worn_item = new species_outfit.r_ear(null)
+	else
+		worn_item = new r_ear(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(monitor_head && worn_item.icon_monitor)
 		. = new /icon(worn_item.icon_monitor, worn_icon_state)
@@ -491,12 +554,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_glasses_icon(species, body_parts, monitor_head = FALSE)
-	if(!glasses)
+/datum/outfit/proc/preview_glasses_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!glasses && !species_outfit?.glasses)
 		return null
 	if(!("head" in body_parts))
 		return null
-	var/obj/item/clothing/glasses/worn_item = new glasses(null)
+	var/obj/item/clothing/glasses/worn_item
+	if(species_outfit?.glasses)
+		worn_item = new species_outfit.glasses(null)
+	else
+		worn_item = new glasses(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(monitor_head && worn_item.icon_monitor)
 		. = new /icon(worn_item.icon_monitor, worn_icon_state)
@@ -507,10 +574,14 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_id_icon(species, body_parts)
-	if(!id)
+/datum/outfit/proc/preview_id_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!id && !species_outfit?.id)
 		return null
-	var/obj/item/clothing/worn_item = new id(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.id)
+		worn_item = new species_outfit.id(null)
+	else
+		worn_item = new id(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets)
 		. = new /icon(worn_item.sprite_sheets[species], worn_icon_state)
@@ -519,12 +590,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_l_hand_icon(species, body_parts)
-	if(!l_hand)
+/datum/outfit/proc/preview_l_hand_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!l_hand && !species_outfit?.l_hand)
 		return null
 	if(!("l_hand" in body_parts))
 		return null
-	var/obj/item/clothing/worn_item = new l_hand(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.l_hand)
+		worn_item = new species_outfit.l_hand(null)
+	else
+		worn_item = new l_hand(null)
 	var/worn_icon_state = worn_item.inhand_icon_state ? worn_item.inhand_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets_inhand)
 		. = new /icon(worn_item.sprite_sheets_inhand[species], "[worn_icon_state]_l")
@@ -533,12 +608,16 @@
 	qdel(worn_item)
 	return
 
-/datum/outfit/proc/preview_r_hand_icon(species, body_parts)
-	if(!r_hand)
+/datum/outfit/proc/preview_r_hand_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!r_hand && !species_outfit?.r_hand)
 		return null
 	if(!("r_hand" in body_parts))
 		return null
-	var/obj/item/clothing/worn_item = new r_hand(null)
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.r_hand)
+		worn_item = new species_outfit.r_hand(null)
+	else
+		worn_item = new r_hand(null)
 	var/worn_icon_state = worn_item.inhand_icon_state ? worn_item.inhand_icon_state : worn_item.icon_state
 	if(species in worn_item.sprite_sheets_inhand)
 		. = new /icon(worn_item.sprite_sheets_inhand[species], "[worn_icon_state]_r")
