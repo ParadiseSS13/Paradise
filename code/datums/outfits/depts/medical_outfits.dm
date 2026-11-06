@@ -14,6 +14,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/medical)
 
 /datum/outfit/job/doctor/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -64,6 +65,7 @@
 		/obj/item/healthanalyzer = 1,
 		/obj/item/storage/box/bodybags = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/medical)
 
 /datum/outfit/job/coroner/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -85,6 +87,7 @@
 	backpack = /obj/item/storage/backpack/chemistry
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/chemist)
 
 /datum/outfit/job/chemist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -107,6 +110,7 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/viro)
 
 /datum/outfit/job/virologist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -156,6 +160,7 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/medical)
 
 /datum/outfit/job/paramedic/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

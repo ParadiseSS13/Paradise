@@ -22,6 +22,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/warden)
 
 /datum/outfit/job/warden/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -47,6 +48,7 @@
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/classic_baton/telescopic = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/detective)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
@@ -92,6 +94,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/security)
 
 /datum/outfit/job/officer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
