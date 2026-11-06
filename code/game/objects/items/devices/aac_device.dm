@@ -26,6 +26,10 @@
 	. = ..()
 	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to [opened ? "close" : "open"] it.")
 
+/obj/item/aac_device/examine_more(mob/user)
+	. = ..()
+	. += "AAC devices - AAC being short for 'augmentative (and) alternative communication' - are designed for crewmembers who, for whatever reason, cannot speak or otherwise struggle to communicate. While non-verbal communication can come in many forms, like PDA messages, gestures, or writing, purpose-built devices like these give an audible, clear voice to those who need one. Unfortunately, as a side effect of its compact size, this particular model isn't loud enough for radio equipment to pick up..."
+
 /obj/item/aac_device/proc/pick_button(mob/user)
 	var/list/options = list(BUTTON_GREEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_green"),
 								BUTTON_RED = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_red"),
