@@ -64,10 +64,11 @@
 	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
 	return ..()
 
-/obj/item/melee/energy/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/melee/energy/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
-		return
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/melee/energy/pre_attack(mob/living/target, mob/living/carbon/human/user, params)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/F in target.faction)
@@ -76,9 +77,9 @@
 				force += faction_bonus_force
 				nemesis_effects(user, target)
 				break
-	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
+	return ..()
 
 /obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(is_a_cleaving_saw)
@@ -116,7 +117,13 @@
 						SPAN_SUICIDE("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/melee/energy/attack_self__legacy__attackchain(mob/living/carbon/user)
+/obj/item/melee/energy/activate_self(mob/living/carbon/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	toggle_blade()
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/melee/energy/proc/toggle_blade(mob/living/carbon/user, supress_message_text = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, SPAN_WARNING("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_organ_damage(5,5)
@@ -156,7 +163,6 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	return
 
 /obj/item/melee/energy/get_heat()
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
@@ -241,15 +247,18 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack__legacy__attackchain(mob/M, mob/living/silicon/robot/R)
-	if(R.cell)
-		var/obj/item/stock_parts/cell/C = R.cell
-		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) && !(C.use(hitcost)))
-			attack_self__legacy__attackchain(R)
-			to_chat(R, SPAN_NOTICE("It's out of charge!"))
-			return
-		..()
-	return
+/obj/item/melee/energy/sword/cyborg/pre_attack(atom/target, mob/living/silicon/robot/user, params)
+	if(!user.cell)
+		to_chat(user, SPAN_WARNING("You don't have the energy to use this!"))
+		return FINISH_ATTACK
+
+	var/obj/item/stock_parts/cell/cell = user.cell
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) && !(cell.use(hitcost)))
+		toggle_blade(user)
+		to_chat(user, SPAN_NOTICE("It's out of charge!"))
+		return FINISH_ATTACK
+
+	return ..()
 
 /obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return FALSE
@@ -269,40 +278,44 @@
 /obj/item/melee/energy/sword/saber/red
 	blade_color = "red"
 
-/obj/item/melee/energy/sword/saber/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
-	..()
-	if(istype(W, /obj/item/melee/energy/sword/saber))
-		if(W == src)
+/obj/item/melee/energy/sword/saber/item_interaction(mob/living/carbon/human/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/melee/energy/sword/saber))
+		if(used == src)
 			to_chat(user, SPAN_NOTICE("You try to attach the end of the energy sword to... itself. You're not very smart, are you?"))
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
-		else
-			to_chat(user, SPAN_NOTICE("You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool."))
-			var/obj/item/dualsaber/newSaber = new /obj/item/dualsaber(user.loc)
-			if(src.hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = TRUE
-				newSaber.blade_color = "rainbow"
-			qdel(W)
-			qdel(src)
-			user.put_in_hands(newSaber)
-	else if(istype(W, /obj/item/multitool))
-		if(!hacked)
-			hacked = TRUE
-			blade_color = "rainbow"
-			to_chat(user, SPAN_WARNING("RNBW_ENGAGE"))
+			return ITEM_INTERACT_COMPLETE
 
-			if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-				icon_state = "swordrainbow"
-				// Updating overlays, copied from welder code.
-				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
-				if(user.r_hand == src)
-					user.update_inv_r_hand()
-				else if(user.l_hand == src)
-					user.update_inv_l_hand()
+		to_chat(user, SPAN_NOTICE("You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool."))
+		var/obj/item/dualsaber/new_saber = new /obj/item/dualsaber(user.loc)
+		if(src.hacked) // That's right, we'll only check the "original" esword.
+			new_saber.hacked = TRUE
+			new_saber.blade_color = "rainbow"
+		used.transfer_fingerprints_to(new_saber)
+		transfer_fingerprints_to(new_saber)
+		qdel(used)
+		qdel(src)
+		user.put_in_hands(new_saber)
+		return ITEM_INTERACT_COMPLETE
 
-		else
+	if(istype(used, /obj/item/multitool))
+		if(hacked)
 			to_chat(user, SPAN_WARNING("It's already fabulous!"))
+			return ITEM_INTERACT_COMPLETE
 
+		hacked = TRUE
+		blade_color = "rainbow"
+		to_chat(user, SPAN_WARNING("RNBW_ENGAGE"))
+
+		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+			icon_state = "swordrainbow"
+			// Updating overlays, copied from welder code.
+			// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
+			if(user.r_hand == src)
+				user.update_inv_r_hand()
+			else if(user.l_hand == src)
+				user.update_inv_l_hand()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
@@ -376,7 +389,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, ROUNDSTART_TRAIT)
 
-/obj/item/melee/energy/blade/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/energy/blade/toggle_blade(mob/user)
 	return
 
 /obj/item/melee/energy/blade/hardlight
@@ -425,10 +438,7 @@
 	else
 		B.add_bleed(B.bleed_buildup)
 
-/obj/item/melee/energy/cleaving_saw/attack_self__legacy__attackchain(mob/living/carbon/user)
-	transform_weapon(user)
-
-/obj/item/melee/energy/cleaving_saw/proc/transform_weapon(mob/living/user, supress_message_text)
+/obj/item/melee/energy/cleaving_saw/toggle_blade(mob/living/user, supress_message_text)
 	if(transform_cooldown > world.time)
 		return FALSE
 
@@ -487,7 +497,7 @@
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	transform_cooldown = 0
-	transform_weapon(user, TRUE)
+	toggle_blade(user, TRUE)
 	return BRUTELOSS
 
 /obj/item/melee/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)

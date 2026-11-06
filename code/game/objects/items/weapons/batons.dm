@@ -35,29 +35,34 @@
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
-/obj/item/melee/classic_baton/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/pre_attack(atom/target, mob/living/carbon/human/user, params)
+	. = ..()
 	if(!on)
-		return ..()
+		return CONTINUE_ATTACK
 
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message(SPAN_DANGER("[user] accidentally clubs [user.p_themselves()] with [src]!"), \
-							SPAN_USERDANGER("You accidentally club yourself with [src]!"))
+		user.visible_message(
+			SPAN_DANGER("[user] accidentally clubs [user.p_themselves()] with [src]!"),
+			SPAN_USERDANGER("You accidentally club yourself with [src]!"),
+			SPAN_HEAR("You hear a clumsy bonk and a thud!")
+		)
 		user.KnockDown(knockdown_duration)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(force * 2, BRUTE, "head")
 		else
 			user.take_organ_damage(force * 2)
-		return
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return CONTINUE_ATTACK
 	if(on_cooldown)
-		return
+		return FINISH_ATTACK
 	if((issilicon(target) || isbot(target)) && !affect_silicon)
-		return ..()
+		return CONTINUE_ATTACK
 	baton_knockdown(target, user)
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 /**
   * Called when a target is about to be hit non-lethally.
@@ -188,7 +193,9 @@
 	force = force_off
 	attack_verb = on ? attack_verb_on : attack_verb_off
 
-/obj/item/melee/classic_baton/telescopic/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/classic_baton/telescopic/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	on = !on
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)
@@ -212,3 +219,4 @@
 		H.update_inv_r_hand()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
