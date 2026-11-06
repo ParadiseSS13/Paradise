@@ -140,19 +140,20 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/changeling_corrosive_acid/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling_corrosive_acid/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(target == user)
 		to_chat(user, SPAN_NOTICEALIEN("You withdraw your readied acid."))
 		parent_action.remove_hand_spell(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(isliving(target))
-		to_chat(user, SPAN_ALERT("We dont have enough acid to assault living target!"))
-		return
-	if(!proximity || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
-		return
+		to_chat(user, SPAN_WARNING("We don't have enough acid to assault living target!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
+		return ITEM_INTERACT_COMPLETE
 	if(target.acid_act(200, 100))
 		visible_message(SPAN_ALERT("[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"))
 		add_attack_logs(user, target, "Applied corrosive acid") // Want this logged
 	else
-		to_chat(user, SPAN_NOTICEALIEN("You cannot dissolve this object."))
+		to_chat(user, SPAN_WARNING("You cannot dissolve this object."))
 	parent_action.remove_hand_spell(user)
+	return ITEM_INTERACT_COMPLETE

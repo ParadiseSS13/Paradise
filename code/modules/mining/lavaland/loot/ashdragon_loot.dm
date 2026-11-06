@@ -54,15 +54,18 @@
 	else
 		. += "It glows weakly."
 
-/obj/item/melee/ghost_sword/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/ghost_sword/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(summon_cooldown > world.time)
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
-		return
+		return ITEM_INTERACT_COMPLETE
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
 	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = user, action = NOTIFY_FOLLOW)
 
 	summon_cooldown = world.time + 600
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/ghost_sword/Topic(href, href_list)
 	if(href_list["follow"])
@@ -148,13 +151,13 @@
 			break
 
 
-/obj/item/melee/ghost_sword/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/ghost_sword/pre_attack(atom/target, mob/living/user, params)
 	force = 0
 	var/ghost_counter = length(orbs)
 
 	force = clamp((ghost_counter * 3), 0, 50)
 	user.visible_message(SPAN_DANGER("[user] strikes with the force of [ghost_counter] vengeful spirit\s!"))
-	..()
+	return CONTINUE_ATTACK
 
 /obj/effect/wisp/ghost
 	name = "mischievous wisp"
