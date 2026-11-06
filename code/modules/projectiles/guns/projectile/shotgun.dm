@@ -258,7 +258,7 @@
 		. = 1
 
 /obj/item/gun/projectile/shotgun/boltaction/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!bolt_open)
+	if(istype(used, /obj/item/ammo_casing) && !bolt_open)
 		to_chat(user, SPAN_DANGER("The bolt is closed!"))
 		return ITEM_INTERACT_COMPLETE
 
