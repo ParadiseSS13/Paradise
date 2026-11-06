@@ -323,7 +323,6 @@
 	if(species in species_outfits)
 		species_outfit = species_outfits[species]
 		species_outfit = new species_outfit()
-		message_admins(species_outfit.uniform)
 
 	if(uniform || species_outfit?.uniform)
 		outfit_icon.Blend(preview_uniform_icon(species, body_parts, species_outfit), ICON_OVERLAY)
