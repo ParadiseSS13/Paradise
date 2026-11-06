@@ -333,7 +333,7 @@
 	path = /obj/item/blindcane
 
 /datum/gear/aac_device
-	display_name = "AAC device"
+	display_name = "Alternative communication device"
 	path = /obj/item/aac_device
 
 /datum/gear/cards

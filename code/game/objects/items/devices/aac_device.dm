@@ -6,7 +6,7 @@
 
 /obj/item/aac_device
 	name = "\improper AAC device"
-	desc = "A pocket-sized, folding device with a number of buttons on its cover."
+	desc = "A pocket-sized alternative communication device. It has a number of buttons on its cover which play customizable messages when pressed."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "aac_device"
 	w_class = WEIGHT_CLASS_SMALL
@@ -25,6 +25,14 @@
 /obj/item/aac_device/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to [opened ? "close" : "open"] it.")
+
+	if(!opened)
+		return
+
+	. += ""
+	. += SPAN_NOTICE("It is opened, allowing you to read the buttons' configurations:")
+	for(var/button in buttons)
+		. += SPAN_NOTICE("[button]: \"[buttons[button]]\"")
 
 /obj/item/aac_device/examine_more(mob/user)
 	. = ..()
@@ -54,41 +62,36 @@
 	if(..())
 		return
 
-	if(opened)
-		var/list/options = list("Custom Message" = image(icon = 'icons/obj/device.dmi', icon_state = "megaphone"),
-									"Change Name" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "labeler0"),
-									"Edit Button" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"))
-
-		var/choice = show_radial_menu(user, src, options)
-
-		if(!choice || user.stat || QDELETED(src))
-			return
-
-		if(choice == "Custom Message")
-			var/message = tgui_input_text(user, "Type a message:", "[src]")
-
-			if(!message)
-				return
-
-			do_speech(user, message)
-
-			return
-
-		if(choice == "Change Name")
-			rename_interactive(user, use_prefix = FALSE)
-			to_chat(user, SPAN_NOTICE("You rename \the [src]."))
-			return
-
+	if(!opened)
 		var/button = pick_button(user)
 
 		if(!button || user.stat || QDELETED(src))
 			return
 
-		var/new_message = tgui_input_text(user, "Type a message:", "[src]")
+		do_speech(user, buttons[button])
+		return
 
-		buttons[button] = new_message
-		to_chat(user, SPAN_NOTICE("You configure the [lowertext(button)] to say \"[new_message]\"."))
+	var/list/options = list("Custom Message" = image(icon = 'icons/obj/device.dmi', icon_state = "megaphone"),
+								"Change Name" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "labeler0"),
+								"Edit Button" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"))
 
+	var/choice = show_radial_menu(user, src, options)
+
+	if(!choice || user.stat || QDELETED(src))
+		return
+
+	if(choice == "Custom Message")
+		var/message = tgui_input_text(user, "Type a message:", "[src]")
+
+		if(!message)
+			return
+
+		do_speech(user, message)
+		return
+
+	if(choice == "Change Name")
+		rename_interactive(user, use_prefix = FALSE)
+		to_chat(user, SPAN_NOTICE("You rename \the [src]."))
 		return
 
 	var/button = pick_button(user)
@@ -96,18 +99,25 @@
 	if(!button || user.stat || QDELETED(src))
 		return
 
-	do_speech(user, buttons[button])
+	var/new_message = tgui_input_text(user, "Type a message:", "[src]")
+	buttons[button] = new_message
+	to_chat(user, SPAN_NOTICE("You configure the [lowertext(button)] to say \"[new_message]\"."))
 
 /obj/item/aac_device/AltClick(mob/user)
 	if(!user.is_holding(src))
 		to_chat(user, SPAN_NOTICE("You need to be holding [src] to [opened ? "close" : "open"] it."))
 		return
 
-	if(do_after(user, 1 SECONDS, target = src))
-		opened = !opened
-		icon_state = "aac_device[opened ? "_open" : ""]"
-		w_class = opened ? WEIGHT_CLASS_NORMAL : WEIGHT_CLASS_SMALL
-		to_chat(user, SPAN_NOTICE("You [opened ? "open" : "close"] [src]."))
+	if(!do_after(user, 1 SECONDS, target = src))
+		return
+
+	opened = !opened
+	update_appearance(UPDATE_ICON_STATE)
+	w_class = opened ? WEIGHT_CLASS_NORMAL : WEIGHT_CLASS_SMALL
+	to_chat(user, SPAN_NOTICE("You [opened ? "open" : "close"] [src]."))
+
+/obj/item/aac_device/update_icon_state()
+	icon_state = "aac_device[opened ? "_open" : ""]"
 
 #undef BUTTON_GREEN
 #undef BUTTON_RED
