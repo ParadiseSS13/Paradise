@@ -1,13 +1,17 @@
-from glob import glob
-from time import time
 from collections import defaultdict
+from pathlib import Path
+from typing import cast
 
-from avulto import DMI
+from avulto import DMI, IconState
+from conftest import Lint
+
 
 def check_duplicate_names(dmi: DMI) -> list[str]:
-    states = set()
-    failures = []
+    states: set[tuple[str, bool]] = set()
+    failures: list[str] = []
     for state in dmi.states:
+        # TODO, remove this once avulto has complete type casting
+        state: IconState = cast(IconState, state)
         # Movement states have the same name as their non-movement counterparts
         if (state.name, state.movement) in states:
             failures.append(f"duplicate state name `{state.name}`")
@@ -15,7 +19,7 @@ def check_duplicate_names(dmi: DMI) -> list[str]:
     return failures
 
 def check_conflicted(dmi: DMI) -> list[str]:
-    failures = []
+    failures: list[str] = []
     for state in dmi.state_names():
         if '!CONFLICT!' in state:
             failures.append(f"conflicted state {state}")
@@ -26,31 +30,18 @@ ICON_CHECKS = [
     check_conflicted,
 ]
 
-if __name__ == "__main__":
-    print("check_icons started")
+def test_icons(lint: Lint, dmi_files: list[Path]):
+    findings: dict[Path, list[str]] = defaultdict(list)
 
-    count = 0
-    exit_code = 0
-    start = time()
-
-    findings = defaultdict(list)
-
-    for dmi_path in glob("**/*.dmi", recursive=True):
+    for dmi_path in dmi_files:
         dmi = DMI.from_file(dmi_path)
         for check in ICON_CHECKS:
             if failures := check(dmi):
                 findings[dmi_path].extend(failures)
-        count += 1
 
     if findings:
-        exit_code = 1
-
         for filename in sorted(findings.keys()):
             failures = findings[filename]
             for failure in sorted(failures):
-                print(f"{filename}: {failure}")
+                lint.error(failure, filename)
 
-    end = time()
-    print(f"\ncheck_icons checked {count} files in {end - start:.2f}s")
-
-    exit(exit_code)

@@ -843,7 +843,7 @@ What are the archived variables for?
 
 	// Collect all the cheap data and check if there's a significant temperature difference.
 	var/temperature = null
-	for(var/datum/gas_mixture/G in mixtures)
+	for(var/datum/gas_mixture/G as anything in mixtures)
 		if(QDELETED(G))
 			continue
 		total_volume += G.volume
@@ -870,7 +870,7 @@ What are the archived variables for?
 
 	// If we don't have a significant temperature difference, check for a significant gas amount difference.
 	if(!must_share)
-		for(var/datum/gas_mixture/G in mixtures)
+		for(var/datum/gas_mixture/G as anything in mixtures)
 			if(QDELETED(G))
 				continue
 			if(abs(G.private_oxygen - total_oxygen * G.volume / total_volume) > 0.1)
@@ -905,10 +905,10 @@ What are the archived variables for?
 	// Collect the more expensive data.
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0
-	for(var/datum/gas_mixture/G in mixtures)
+	for(var/datum/gas_mixture/G as anything in mixtures)
 		if(QDELETED(G))
 			continue
-		var/heat_capacity = G.heat_capacity()
+		var/heat_capacity = HEAT_CAPACITY_CALCULATION(G.private_oxygen, G.private_carbon_dioxide, G.private_nitrogen, G.private_toxins, G.private_sleeping_agent, G.private_agent_b, G.private_hydrogen, G.private_water_vapor, G.innate_heat_capacity)
 		total_heat_capacity += heat_capacity
 		total_thermal_energy += G.private_temperature * heat_capacity
 
@@ -921,7 +921,7 @@ What are the archived variables for?
 		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
 	// Update individual gas_mixtures by volume ratio.
-	for(var/datum/gas_mixture/G in mixtures)
+	for(var/datum/gas_mixture/G as anything in mixtures)
 		if(QDELETED(G))
 			continue
 		G.private_oxygen = total_oxygen * G.volume / total_volume

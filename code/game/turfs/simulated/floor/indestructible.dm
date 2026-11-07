@@ -7,7 +7,7 @@
 /turf/simulated/floor/indestructible/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
-	if(icon_regular_floor != icon_states(icon))
+	if(!icon_exists(icon, icon_regular_floor))
 		icon_state = "plating"
 
 /turf/simulated/floor/indestructible/Initialize(mapload)

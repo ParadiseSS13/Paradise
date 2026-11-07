@@ -8,7 +8,7 @@
 /turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
-	if(icon_regular_floor != icon_states(icon))
+	if(!icon_exists(icon, icon_regular_floor))
 		icon_state = "tile_standard"
 
 /turf/simulated/floor/plasteel/get_broken_states()

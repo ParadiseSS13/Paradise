@@ -207,11 +207,7 @@
 /area/ruin/space/syndicate_druglab)
 "wD" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "xF" = (

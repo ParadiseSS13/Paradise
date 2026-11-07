@@ -392,11 +392,11 @@
 				return FALSE
 			fuel_amount += to_load
 			qdel(I)
-			return 0
+			return FALSE
 
 		if(fuel_amount >= max_fuel)
 			occupant_message("Unit is full.")
-			return 0
+			return FALSE
 
 		var/obj/item/stack/sheet/P = I
 		var/to_load = max_fuel - fuel_amount
@@ -419,10 +419,11 @@
 
 	else
 		occupant_message(SPAN_WARNING("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
-		return 0
+		return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby__legacy__attackchain(weapon,mob/user, params)
-	load_fuel(weapon)
+/obj/item/mecha_parts/mecha_equipment/generator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	load_fuel(used)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)

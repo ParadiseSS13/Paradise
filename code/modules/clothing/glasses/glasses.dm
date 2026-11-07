@@ -130,7 +130,6 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	icon_monitor = null
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE

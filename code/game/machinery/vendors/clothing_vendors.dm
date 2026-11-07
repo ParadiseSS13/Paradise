@@ -346,6 +346,8 @@
 		/obj/item/clothing/neck/cloak/old = 1,
 		/obj/item/clothing/neck/cloak/regal = 2,
 		/obj/item/clothing/neck/cloak = 2,
+		/obj/item/clothing/under/suit/dress_shirt = 3,
+		/obj/item/clothing/suit/oversuit = 3,
 	)
 
 	contraband = list(
@@ -447,6 +449,8 @@
 		/obj/item/clothing/neck/cloak = 20,
 		/obj/item/clothing/suit/pimpcoat/white = 500,
 		/obj/item/clothing/under/misc/mailman = 100,
+		/obj/item/clothing/under/suit/dress_shirt = 50,
+		/obj/item/clothing/suit/oversuit = 50,
 	)
 
 	refill_canister = /obj/item/vending_refill/clothing

@@ -82,6 +82,9 @@ SUBSYSTEM_DEF(air)
 	/// The set of tiles that are still experiencing wind after this tick.
 	var/list/new_windy_tiles
 
+	/// The pressure and gases of every watched tile, straight from MILLA. Only set while atmos machinery is processing.
+	var/list/watched_tiles
+
 	/// A list of atmos machinery to set up in Initialize.
 	var/list/machinery_to_construct = list()
 
@@ -247,7 +250,10 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_ATMOSMACHINERY)
 		timer = TICK_USAGE_REAL
 
+		// Fetched again every time we come back here, other things may have changed tiles while we were paused.
+		watched_tiles = get_watched_atmos_tiles()
 		process_atmos_machinery(resumed)
+		watched_tiles = null
 
 		cost_atmos_machinery.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
 		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
@@ -434,6 +440,12 @@ SUBSYSTEM_DEF(air)
 			if(istype(S))
 				S.update_visuals()
 
+		// Water condensed on it this tick
+		if(reasons & (MILLA_INTERESTING_REASON_WET | MILLA_INTERESTING_REASON_ICY))
+			var/turf/simulated/floor/wet_floor = T
+			if(istype(wet_floor))
+				wet_floor.MakeSlippery((reasons & MILLA_INTERESTING_REASON_ICY) ? TURF_WET_ICE : TURF_WET_WATER)
+
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
 			var/fuel_burnt = currentrun[offset + MILLA_INDEX_FUEL_BURNT]
@@ -443,8 +455,10 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = T
 			if(istype(S))
 				if(isnull(S.active_hotspot))
-					// Wasn't an active hotspot before, add it.
-					hotspots += S
+					// Wasn't an active hotspot before, add it if something is burning.
+					// MILLA also sends tiles that are only hot, and a hotspot there would just get deleted again in update_hotspot().
+					if(fuel_burnt >= 0.001)
+						hotspots += S
 				else
 					S.active_hotspot.temperature = temperature
 					S.active_hotspot.fuel_burnt = fuel_burnt
@@ -473,6 +487,8 @@ SUBSYSTEM_DEF(air)
 				S.wind_tick = milla_tick
 				S.wind_x = x_flow
 				S.wind_y = y_flow
+				// Same order as total_moles(), so update_wind() gets the number it would from reading the tile.
+				S.wind_moles = currentrun[offset + MILLA_INDEX_OXYGEN] + currentrun[offset + MILLA_INDEX_CARBON_DIOXIDE] + currentrun[offset + MILLA_INDEX_NITROGEN] + currentrun[offset + MILLA_INDEX_TOXINS] + currentrun[offset + MILLA_INDEX_SLEEPING_AGENT] + currentrun[offset + MILLA_INDEX_AGENT_B] + currentrun[offset + MILLA_INDEX_HYDROGEN] + currentrun[offset + MILLA_INDEX_WATER_VAPOR]
 			T.high_pressure_movements(x_flow, y_flow)
 
 		currentrun.len -= MILLA_INTERESTING_TILE_SIZE
@@ -728,6 +744,17 @@ SUBSYSTEM_DEF(air)
 	B.synchronized = FALSE
 
 
+/// Asks MILLA to put this tile in watched_tiles. Returns where its values start in that list, minus one.
+/datum/controller/subsystem/air/proc/watch_tile(turf/T)
+	// MILLA reuses slots, so what we fetched for this run can't be trusted any more.
+	watched_tiles = null
+	return (milla_watch_tile(T) - 1) * MILLA_WATCHED_TILE_SIZE
+
+/// Stops watching a tile, takes what watch_tile() returned.
+/datum/controller/subsystem/air/proc/unwatch_tile(offset)
+	watched_tiles = null
+	milla_unwatch_tile(offset / MILLA_WATCHED_TILE_SIZE + 1)
+
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/CB)
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -809,13 +836,6 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/S in SSair.hotspots)
 		QDEL_NULL(S.active_hotspot)
-
-/// condenses water on a tile at the specified coordinates
-/proc/condense_water(water_phase, x, y, z)
-	var/turf/simulated/floor/tile =  locate(x, y, z)
-	if(!istype(tile))
-		return
-	tile.MakeSlippery(water_phase)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe

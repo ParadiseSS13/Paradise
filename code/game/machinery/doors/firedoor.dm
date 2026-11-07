@@ -42,6 +42,31 @@
 	dir = direction ? direction : NORTH
 	update_icon()
 
+/obj/machinery/door/firedoor/get_current_direction()
+	// Prioritize walls to avoid adjacent airlock shenanigans.
+	if(manual_dir == TRUE)
+		return
+	for(var/direction in GLOB.cardinal)
+		if(iswallturf(get_step(src, direction)))
+			return direction
+	for(var/direction in GLOB.cardinal)
+		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
+		if(W?.useFull)
+			return direction
+	for(var/direction in GLOB.cardinal)
+		if((locate(/obj/structure/window/full) in get_step(src, direction)))
+			return direction
+	for(var/direction in GLOB.cardinal)
+		var/turf/T = get_step(src, direction)
+		for(var/obj/machinery/door/airlock/A in T.contents)
+			if(A != src)
+				return direction
+	var/turf/T = get_turf(src)
+	for(var/obj/machinery/door/D in T.contents)
+		if(D != src)
+			return D.dir
+	return dir // Fallback from mapping.
+
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
 	if(!density)
@@ -377,7 +402,7 @@
 /obj/item/firelock_electronics
 	name = "firelock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
-	icon_state = "door_electronics"
+	icon_state = "firelock_electronics"
 	desc = "A circuit board used in construction of firelocks."
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
