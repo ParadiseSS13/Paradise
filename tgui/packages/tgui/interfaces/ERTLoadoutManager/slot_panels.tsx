@@ -19,7 +19,7 @@ export const ERTLoadoutSingleSlotPanel = (props: {
 }) => {
   const { act } = useBackend();
   const { loadout, slot, allowed } = props;
-  const entries = itemsToDropdownEntries(allowed[slot.slot_type]);
+  const entries = [{ displayText: 'None', value: '' }, ...itemsToDropdownEntries(allowed[slot.slot_type])];
 
   return (
     <LabeledList.Item label={slot.name}>
@@ -156,7 +156,7 @@ export const ERTLoadoutPanel = (props: { loadout: ERTLoadout; allowedItems: Allo
     <Section title="Loadout Slots" scrollable fill height="575px">
       <LabeledList>
         {Object.values(loadout.single_slots).map((slot) => (
-          <ERTLoadoutSingleSlotPanel key={slot.name} loadout={loadout} allowed={allowed_items} slot={slot} />
+          <ERTLoadoutSingleSlotPanel key={slot.uid} loadout={loadout} allowed={allowed_items} slot={slot} />
         ))}
       </LabeledList>
     </Section>

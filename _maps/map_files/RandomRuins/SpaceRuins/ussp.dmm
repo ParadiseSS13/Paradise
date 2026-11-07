@@ -1521,8 +1521,8 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/musician/piano,
 /obj/machinery/power/apc/off_station/directional/north,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "em" = (

@@ -120,6 +120,9 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 		if("set_loadout_role")
 			selected_loadout.role = params["loadout_role"]
 		if("set_single_slot", "add_item_into_slot")
+			if(params["item_type"] == "")
+				return clear_item_from_slot(ui, params["slot_uid"])
+
 			var/item_path = text2path(params["item_type"])
 			if(item_path)
 				return add_item_into_slot(ui, params["slot_uid"], item_path)
@@ -163,6 +166,15 @@ RESTRICT_TYPE(/datum/ui_module/ert_loadout_manager)
 	else
 		to_chat(ui.user, SPAN_WARNING("Could not find slot to place item in: [slot_uid]"))
 		return FALSE
+
+	update_static_data(ui.user, ui)
+	ui_modal_clear(src)
+	return TRUE
+
+/datum/ui_module/ert_loadout_manager/proc/clear_item_from_slot(datum/tgui/ui, slot_uid)
+	var/datum/ert_loadout_slot/slot = locateUID(slot_uid)
+	if(istype(slot))
+		slot.clear_item()
 
 	update_static_data(ui.user, ui)
 	ui_modal_clear(src)

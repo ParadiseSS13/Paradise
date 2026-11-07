@@ -46,6 +46,9 @@
 	register_item(item_type)
 	return
 
+/datum/ert_loadout_slot/proc/clear_item()
+	return
+
 /// Take this loadout slot and apply the item(s) in it to the instance of the outfit passed in.
 /datum/ert_loadout_slot/proc/apply_to_outfit(datum/outfit/outfit)
 	return

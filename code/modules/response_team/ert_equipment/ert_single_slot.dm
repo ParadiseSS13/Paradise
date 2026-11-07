@@ -24,6 +24,9 @@
 	. = ..()
 	chosen_item = item_type
 
+/datum/ert_loadout_slot/single/clear_item()
+	chosen_item = null
+
 /datum/ert_loadout_slot/single/ui_data(mob/user)
 	. = ..()
 	.["chosen_item"] = chosen_item
