@@ -84,29 +84,10 @@
 	// These species all have overrides, see below
 	species_type_blacklist_typecache = list(/datum/species/slime, /datum/species/machine, /datum/species/plasmaman, /datum/species/skeleton, /datum/species/diona)
 
-/datum/emote/living/carbon/human/cry
-	key = "cry"
-	key_third_person = "cries"
-	message = "cries."
-	muzzled_noises = list("weak", "pathetic", "sad")
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "raises an eyebrow."
 	message_param = "raises an eyebrow at %t."
-
-/datum/emote/living/carbon/human/wince
-	key = "wince"
-	key_third_person = "winces"
-	message = "winces."
-	message_param = "winces at %t."
-
-/datum/emote/living/carbon/human/squint
-	key = "squint"
-	key_third_person = "squints"
-	message = "squints."
-	message_param = "squints at %t."
 
 /datum/emote/living/carbon/human/facepalm
 	key = "facepalm"
@@ -152,12 +133,6 @@
 	message_mime = "seems to be speaking sweet nothings!"
 	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
-/datum/emote/living/carbon/human/nod
-	key = "nod"
-	key_third_person = "nods"
-	message = "nods their head."
-	message_param = "nods their head at %t."
 
 /datum/emote/living/carbon/human/scream
 	key = "scream"
@@ -243,21 +218,9 @@
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
 	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user), ignore_walls = !isnull(user.mind))
 
-/datum/emote/living/carbon/human/shake
-	key = "shake"
-	key_third_person = "shakes"
-	message = "shakes their head."
-	message_param = "shakes their head at %t."
-
 /datum/emote/living/carbon/human/pale
 	key = "pale"
 	message = "goes pale for a second."
-
-/datum/emote/living/carbon/human/raise
-	key = "raise"
-	key_third_person = "raises"
-	message = "raises a hand."
-	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/salute
 	key = "salute"
@@ -277,17 +240,6 @@
 		return 'sound/effects/salute.ogg'
 	if(is_type_in_list(H.shoes, funny_shoes))
 		return 'sound/items/toysqueak1.ogg'
-
-/datum/emote/living/carbon/human/shrug
-	key = "shrug"
-	key_third_person = "shrugs"
-	message = "shrugs."
-
-/datum/emote/living/carbon/human/sniff
-	key = "sniff"
-	key_third_person = "sniff"
-	message = "sniffs."
-	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/johnny
 	key = "johnny"
@@ -335,21 +287,6 @@
 		return TRUE
 	return ..()
 
-/datum/emote/living/carbon/human/sneeze
-	key = "sneeze"
-	key_third_person = "sneezes"
-	message = "sneezes."
-	muzzled_noises = list("strange", "sharp")
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	volume = 70
-
-/datum/emote/living/carbon/human/sneeze/get_sound(mob/user)
-	var/mob/living/carbon/human/H = user
-	if(H.gender == FEMALE)
-		return H.dna.species.female_sneeze_sound
-	else
-		return H.dna.species.male_sneeze_sound
-
 /datum/emote/living/carbon/human/slap
 	key = "slap"
 	key_third_person = "slaps"
@@ -369,11 +306,6 @@
 		to_chat(user, SPAN_NOTICE("You ready your slapping hand."))
 	else
 		to_chat(user, SPAN_WARNING("You're incapable of slapping in your current state."))
-
-/datum/emote/living/carbon/human/wink
-	key = "wink"
-	key_third_person = "winks"
-	message = "winks."
 
 /datum/emote/living/carbon/human/highfive
 	key = "highfive"
@@ -506,20 +438,6 @@
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
 	return ..()
-
-/datum/emote/living/carbon/human/fart
-	key = "fart"
-	key_third_person = "farts"
-	message = "farts."
-	message_param = "farts in %t's general direction."
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
-	var/farted_on_something = FALSE
-	for(var/atom/A in get_turf(user))
-		farted_on_something = A.fart_act(user) || farted_on_something
-	if(!farted_on_something)
-		return ..()
 
 /datum/emote/living/carbon/sign/signal
 	key = "signal"

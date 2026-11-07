@@ -1,8 +1,7 @@
 /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
-		/mob/living/brain,	// nice try
-		/mob/living/silicon,
+		/mob/living/brain,	// Nice try!
 		/mob/living/basic/bot
 	)
 	message_postfix = "at %t."
@@ -11,6 +10,26 @@
 	. = ..()
 	if(user.mind?.miming)
 		return FALSE  // shh
+
+// MARK: Visible
+/datum/emote/living/blink
+	key = "blink"
+	key_third_person = "blinks"
+	message = "blinks."
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/basic/bot, // No eyes.
+		/mob/living/carbon/alien // Also no eyes.
+	)
+
+/datum/emote/living/blink_r
+	key = "blink_r"
+	message = "blinks rapidly."
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/basic/bot, // No eyes.
+		/mob/living/carbon/alien // Also no eyes.
+	)
 
 /datum/emote/living/blush
 	key = "blush"
@@ -23,35 +42,21 @@
 	message = "bows."
 	message_param = "bows to %t."
 	message_postfix = "to %t."
-
-/datum/emote/living/sing_tune
-	key = "tunesing"
-	key_third_person = "sings a tune"
-	message = "sings a tune."
-	message_mime = "opens their mouth rather obnoxiously."
-	emote_type = EMOTE_AUDIBLE
-	muzzled_noises = list("melodic")
-
-/datum/emote/living/burp
-	key = "burp"
-	key_third_person = "burps"
-	message = "burps."
-	message_mime = "opens their mouth rather obnoxiously."
-	emote_type = EMOTE_AUDIBLE
-	muzzled_noises = list("peculiar")
-
-/datum/emote/living/choke
-	key = "choke"
-	key_third_person = "chokes"
-	message = "chokes!"
-	message_mime = "clutches their throat desperately!"
-	emote_type = EMOTE_AUDIBLE
-	muzzled_noises = list("gagging", "strong")
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/silicon/ai, // They're a cube.
+		/mob/living/basic/bot
+	)
 
 /datum/emote/living/collapse
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses!"
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/silicon, // Can't fall over.
+		/mob/living/basic/bot
+	)
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -63,17 +68,387 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily."
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/silicon/ai, // It can shake, it can sway, it can shudder, but it has no limbs to dance with.
+	)
+
+/datum/emote/living/drool
+	key = "drool"
+	key_third_person = "drools"
+	message = "drools."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/frown
+	key = "frown"
+	key_third_person = "frowns"
+	message = "frowns."
+	message_param = "frowns at %t."
+
+/datum/emote/living/glare
+	key = "glare"
+	key_third_person = "glares"
+	message = "glares."
+	message_param = "glares at %t."
+
+/datum/emote/living/grin
+	key = "grin"
+	key_third_person = "grins"
+	message = "grins."
+
+/datum/emote/living/grimace
+	key = "grimace"
+	key_third_person = "grimaces"
+	message = "grimaces."
+
+/datum/emote/living/look
+	key = "look"
+	key_third_person = "looks"
+	message = "looks."
+	message_param = "looks at %t."
+
+/datum/emote/living/nightmare
+	key = "nightmare"
+	message = "writhes in their sleep."
+	message_AI = "dreams of electric sheep, but the sheep are evil!"
+	stat_allowed = UNCONSCIOUS
+	max_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/nightmare/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	user.dir = pick(GLOB.cardinal)
+
+/datum/emote/living/nod
+	key = "nod"
+	key_third_person = "nods"
+	message = "nods their head."
+	message_param = "nods their head at %t."
+
+/datum/emote/living/point
+	key = "point"
+	key_third_person = "points"
+	message = "points."
+	message_param = "points at %t."
+	message_AI = "displays an arrow pointing at %t"
+	hands_use_check = TRUE
+
+/datum/emote/living/point/act_on_target(mob/user, target)
+	if(!target)
+		return
+
+	user.pointed(target)
+
+/datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
+	// Again, /tg/ has some flavor when pointing (like if you only have one leg) that applies debuffs.
+	// But it's so common that seems unnecessary for here.
+	message_param = initial(message_param) // Reset.
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.has_left_hand() && !H.has_right_hand())
+			if(H.get_num_legs() != 0 && !HAS_TRAIT(H, TRAIT_PARAPLEGIC))
+				message_param = "tries to point at %t with a leg."
+			else
+				// nugget
+				message_param = "[SPAN_USERDANGER("bumps [user.p_their()] head on the ground")] trying to motion towards %t."
+
+	return ..()
+
+/datum/emote/living/shudder
+	key = "shudder"
+	key_third_person = "shudders"
+	message = "shudders."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/shake
+	key = "shake"
+	key_third_person = "shakes"
+	message = "shakes their head."
+	message_param = "shakes their head at %t."
+
+/datum/emote/living/bshake // Shake body instead of head.
+	key = "bshake"
+	key_third_person = "bshakes"
+	message = "shakes."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/scowl
+	key = "scowl"
+	key_third_person = "scowls"
+	message = "scowls."
+
+/datum/emote/living/shiver
+	key = "shiver"
+	key_third_person = "shiver"
+	message = "shivers."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/shrug
+	key = "shrug"
+	key_third_person = "shrugs"
+	message = "shrugs."
+
+/datum/emote/living/sit
+	key = "sit"
+	key_third_person = "sits"
+	message = "sits down."
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/silicon/ai, // Cube with no legs to rest.
+		/mob/living/basic/bot
+	)
+
+/datum/emote/living/stare
+	key = "stare"
+	key_third_person = "stares"
+	message = "stares."
+	message_param = "stares at %t."
+
+/datum/emote/living/strech
+	key = "stretch"
+	key_third_person = "stretches"
+	message = "stretches their arms."
+	message_robot = "tests their actuators."
+	message_AI = "tests their servos." // Gotta make sure those rolling servos are ready for the big day!
+
+/datum/emote/living/sulk
+	key = "sulk"
+	key_third_person = "sulks"
+	message = "sulks down sadly."
+	mob_type_blacklist_typecache = list(
+		/mob/living/brain,
+		/mob/living/silicon/ai, // Low-powered rolling servos cannot explain this.
+	)
+
+/datum/emote/living/sway
+	key = "sway"
+	key_third_person = "sways"
+	message = "sways around dizzily."
+	mob_type_blacklist_typecache = list(/mob/living/brain)
+
+/datum/emote/living/tilt
+	key = "tilt"
+	key_third_person = "tilts"
+	message = "tilts their head to the side."
+
+/datum/emote/living/tremble
+	key = "tremble"
+	key_third_person = "trembles"
+	message = "trembles in fear!"
+
+/datum/emote/living/twitch
+	key = "twitch"
+	key_third_person = "twitches"
+	message = "twitches violently."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/twitch_s
+	key = "twitch_s"
+	message = "twitches."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/quiver
+	key = "quiver"
+	key_third_person = "quivers"
+	message = "quivers."
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/wave
+	key = "wave"
+	key_third_person = "waves"
+	message = "waves."
+	message_param = "waves at %t."
+	hands_use_check = TRUE
+
+/datum/emote/living/wink
+	key = "wink"
+	key_third_person = "winks"
+	message = "winks."
+
+// MARK: Visible (mouth)
+/datum/emote/living/pout
+	key = "pout"
+	key_third_person = "pouts"
+	message = "pouts."
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH
+
+/datum/emote/living/smile
+	key = "smile"
+	key_third_person = "smiles"
+	message = "smiles."
+	message_param = "smiles at %t."
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH
+
+/datum/emote/living/wsmile
+	key = "wsmile"
+	key_third_person = "wsmiles"
+	message = "smiles weakly."
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH
+
+/datum/emote/living/smug
+	key = "smug"
+	key_third_person = "smugs"
+	message = "grins smugly."
+	message_param = "grins smugly at %t."
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH
+
+/datum/emote/living/squint
+	key = "squint"
+	key_third_person = "squints"
+	message = "squints."
+	message_param = "squints at %t."
+
+/datum/emote/living/wince
+	key = "wince"
+	key_third_person = "winces"
+	message = "winces."
+	message_param = "winces at %t."
+
+// MARK: Audible
+/datum/emote/living/chuckle
+	key = "chuckle"
+	key_third_person = "chuckles"
+	message = "chuckles."
+	message_mime = "appears to chuckle."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/fart
+	key = "fart"
+	key_third_person = "farts"
+	message = "farts."
+	message_param = "farts in %t's general direction."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/fart/run_emote(mob/user, params, type_override, intentional)
+	var/farted_on_something = FALSE
+	for(var/atom/A in get_turf(user))
+		farted_on_something = A.fart_act(user) || farted_on_something
+	if(!farted_on_something)
+		return ..()
+
+/datum/emote/living/gag
+	key = "gag"
+	key_third_person = "gags"
+	message = "gags."
+	message_mime = "appears to gag."
+	message_param = "gags at %t."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/giggle
+	key = "giggle"
+	key_third_person = "giggles"
+	message = "giggles."
+	message_mime = "giggles silently!"
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/gulp
+	key = "gulp"
+	key_third_person = "gulps"
+	message = "nervously gulps."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/groan
+	key = "groan"
+	key_third_person = "groans"
+	message = "groans!"
+	message_mime = "appears to groan!"
+	message_param = "groans at %t."
+	emote_type = EMOTE_AUDIBLE
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/moan
+	key = "moan"
+	key_third_person = "moans"
+	message = "moans!"
+	message_mime = "appears to moan!"
+	emote_type = EMOTE_AUDIBLE
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/sniff
+	key = "sniff"
+	key_third_person = "sniffs"
+	message = "sniffs."
+	emote_type = EMOTE_AUDIBLE
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/snore
+	key = "snore"
+	key_third_person = "snores"
+	message = "snores."
+	message_mime = "sleeps soundly."
+	message_simple = "stirs in their sleep."
+	message_robot = "dreams of electric sheep..."
+	emote_type = EMOTE_AUDIBLE
+	// lock it so these emotes can only be used while unconscious
+	stat_allowed = UNCONSCIOUS
+	max_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
+
+// MARK: Audible (mouth)
+/datum/emote/living/burp
+	key = "burp"
+	key_third_person = "burps"
+	message = "burps."
+	message_mime = "opens their mouth rather obnoxiously."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("peculiar")
+
+/datum/emote/living/choke
+	key = "choke"
+	key_third_person = "chokes"
+	message = "chokes!"
+	message_mime = "clutches their throat desperately!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("gagging", "strong")
+
+/datum/emote/living/cough
+	key = "cough"
+	key_third_person = "coughs"
+	message = "coughs!"
+	message_mime = "appears to cough!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	vary = TRUE
+	age_based = TRUE
+	volume = 120
+	unintentional_stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/cough/get_sound(mob/living/user)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			if(H.dna.species.female_cough_sounds)
+				return pick(H.dna.species.female_cough_sounds)
+		else
+			if(H.dna.species.male_cough_sounds)
+				return pick(H.dna.species.male_cough_sounds)
+	if(issilicon(user))
+		if(user.gender == FEMALE)
+			return pick('sound/effects/mob_effects/f_machine_cougha.ogg','sound/effects/mob_effects/f_machine_coughb.ogg')
+		else
+			return pick('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
+
+/datum/emote/living/cry
+	key = "cry"
+	key_third_person = "cries"
+	message = "cries."
+	muzzled_noises = list("weak", "pathetic", "sad")
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
 	key_third_person = "deathgasps"
-	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE  // make sure deathgasp gets runechatted regardless
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE // Make sure deathgasp gets runechatted regardless.
 	age_based = TRUE
 	cooldown = 10 SECONDS
 	volume = 40
 	unintentional_stat_allowed = DEAD
-	muzzle_ignore = TRUE // makes sure that sound is played upon death
-	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
+	muzzle_ignore = TRUE // Makes sure that sound is played upon death.
+	bypass_unintentional_cooldown = TRUE  // Again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	message_robot = "shudders violently for a moment before falling still, their eyes slowly darkening."
@@ -119,101 +494,25 @@
 	var/mob/living/carbon/human/H = user
 	if(!istype(H))
 		return ..()
-	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
+	// Special handling here: we don't want monkeys' gasps to sound through walls, so you can actually walk past xenobio.
 	playsound(user.loc, sound_path, sound_volume, TRUE, -8, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user), ignore_walls = !isnull(user.mind))
 
-/datum/emote/living/drool
-	key = "drool"
-	key_third_person = "drools"
-	message = "drools."
+/datum/emote/living/gurgle
+	key = "gurgle"
+	key_third_person = "gurgles"
+	message = "makes an uncomfortable gurgle."
+	muzzled_noises = list("unpleasant", "guttural")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
 
-/datum/emote/living/quiver
-	key = "quiver"
-	key_third_person = "quivers"
-	message = "quivers."
-	unintentional_stat_allowed = UNCONSCIOUS
-
-/datum/emote/living/frown
-	key = "frown"
-	key_third_person = "frowns"
-	message = "frowns."
-	message_param = "frowns at %t."
-
-/datum/emote/living/gag
-	key = "gag"
-	key_third_person = "gags"
-	message = "gags."
-	message_mime = "appears to gag."
-	message_param = "gags at %t."
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/glare
-	key = "glare"
-	key_third_person = "glares"
-	message = "glares."
-	message_param = "glares at %t."
-
-/datum/emote/living/grin
-	key = "grin"
-	key_third_person = "grins"
-	message = "grins."
-
-/datum/emote/living/grimace
-	key = "grimace"
-	key_third_person = "grimaces"
-	message = "grimaces."
-
-/datum/emote/living/look
-	key = "look"
-	key_third_person = "looks"
-	message = "looks."
-	message_param = "looks at %t."
-
-/datum/emote/living/bshake
-	key = "bshake"
-	key_third_person = "bshakes"
-	message = "shakes."
-	unintentional_stat_allowed = UNCONSCIOUS
-
-/datum/emote/living/shudder
-	key = "shudder"
-	key_third_person = "shudders"
-	message = "shudders."
-	unintentional_stat_allowed = UNCONSCIOUS
-
-/datum/emote/living/point
-	key = "point"
-	key_third_person = "points"
-	message = "points."
-	message_param = "points at %t."
-	hands_use_check = TRUE
-
-/datum/emote/living/point/act_on_target(mob/user, target)
-	if(!target)
-		return
-
-	user.pointed(target)
-
-/datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
-	// again, /tg/ has some flavor when pointing (like if you only have one leg) that applies debuffs
-	// but it's so common that seems unnecessary for here
-	message_param = initial(message_param) // reset
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H.has_left_hand() && !H.has_right_hand())
-			if(H.get_num_legs() != 0 && !HAS_TRAIT(H, TRAIT_PARAPLEGIC))
-				message_param = "tries to point at %t with a leg."
-			else
-				// nugget
-				message_param = "[SPAN_USERDANGER("bumps [user.p_their()] head on the ground")] trying to motion towards %t."
-
-	return ..()
-
-/datum/emote/living/pout
-	key = "pout"
-	key_third_person = "pouts"
-	message = "pouts."
+/datum/emote/living/laugh
+	key = "laugh"
+	key_third_person = "laughs"
+	message = "laughs."
+	message_mime = "laughs silently!"
+	message_param = "laughs at %t."
+	muzzled_noises = list("happy", "joyful")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/scream
 	key = "scream"
@@ -236,17 +535,6 @@
 	if(isalien(user))
 		return "sound/voice/hiss5.ogg"
 
-/datum/emote/living/shake
-	key = "shake"
-	key_third_person = "shakes"
-	message = "shakes their head."
-
-/datum/emote/living/shiver
-	key = "shiver"
-	key_third_person = "shiver"
-	message = "shivers."
-	unintentional_stat_allowed = UNCONSCIOUS
-
 /datum/emote/living/sigh
 	key = "sigh"
 	key_third_person = "sighs"
@@ -262,79 +550,35 @@
 	message_mime = "appears to sigh contentedly"
 	muzzled_noises = list("chill", "relaxed")
 
-/datum/emote/living/sit
-	key = "sit"
-	key_third_person = "sits"
-	message = "sits down."
-
-/datum/emote/living/smile
-	key = "smile"
-	key_third_person = "smiles"
-	message = "smiles."
-	message_param = "smiles at %t."
-
-/datum/emote/living/smug
-	key = "smug"
-	key_third_person = "smugs"
-	message = "grins smugly."
-	message_param = "grins smugly at %t."
-
-/datum/emote/living/sniff
-	key = "sniff"
-	key_third_person = "sniffs"
-	message = "sniffs."
-	emote_type = EMOTE_AUDIBLE
-	unintentional_stat_allowed = UNCONSCIOUS
-
-/datum/emote/living/snore
-	key = "snore"
-	key_third_person = "snores"
-	message = "snores."
-	message_mime = "sleeps soundly."
-	message_simple = "stirs in their sleep."
-	message_robot = "dreams of electric sheep..."
+/datum/emote/living/sing_tune
+	key = "singtune"
+	key_third_person = "sings a tune"
+	message = "sings a tune."
+	message_mime = "opens their mouth rather obnoxiously."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	// lock it so these emotes can only be used while unconscious
-	stat_allowed = UNCONSCIOUS
-	max_stat_allowed = UNCONSCIOUS
-	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
+	muzzled_noises = list("melodic")
 
-/datum/emote/living/nightmare
-	key = "nightmare"
-	message = "writhes in their sleep."
-	stat_allowed = UNCONSCIOUS
-	max_stat_allowed = UNCONSCIOUS
-	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
+/datum/emote/living/sneeze
+	key = "sneeze"
+	key_third_person = "sneezes"
+	message = "sneezes."
+	muzzled_noises = list("strange", "sharp")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	volume = 70
 
-/datum/emote/living/nightmare/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(!.)
-		return FALSE
-	user.dir = pick(GLOB.cardinal)
-
-/datum/emote/living/stare
-	key = "stare"
-	key_third_person = "stares"
-	message = "stares."
-	message_param = "stares at %t."
-
-/datum/emote/living/strech
-	key = "stretch"
-	key_third_person = "stretches"
-	message = "stretches their arms."
-	message_robot = "tests their actuators."
-
-/datum/emote/living/sulk
-	key = "sulk"
-	key_third_person = "sulks"
-	message = "sulks down sadly."
-
-/datum/emote/living/sway
-	key = "sway"
-	key_third_person = "sways"
-	message = "sways around dizzily."
+/datum/emote/living/sneeze/get_sound(mob/user)
+	if(iscarbon(user))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			return H.dna.species.female_sneeze_sound
+		else
+			return H.dna.species.male_sneeze_sound
+	if(issilicon(user))
+		if(user.gender == FEMALE)
+			return 'sound/effects/mob_effects/f_machine_sneeze.ogg'
+		else
+			return 'sound/effects/mob_effects/machine_sneeze.ogg'
+	return ..()
 
 /datum/emote/living/swear
 	key = "swear"
@@ -346,31 +590,7 @@
 	message_robot = "makes a particularly offensive series of beeps!"
 	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
-	mob_type_blacklist_typecache = list(
-		/mob/living/brain,
-	)
-
-/datum/emote/living/tilt
-	key = "tilt"
-	key_third_person = "tilts"
-	message = "tilts their head to the side."
-
-/datum/emote/living/tremble
-	key = "tremble"
-	key_third_person = "trembles"
-	message = "trembles in fear!"
-
-/datum/emote/living/twitch
-	key = "twitch"
-	key_third_person = "twitches"
-	message = "twitches violently."
-	unintentional_stat_allowed = UNCONSCIOUS
-
-/datum/emote/living/twitch_s
-	key = "twitch_s"
-	message = "twitches."
-	unintentional_stat_allowed = UNCONSCIOUS
+	mob_type_blacklist_typecache = list(/mob/living/brain)
 
 /datum/emote/living/whimper
 	key = "whimper"
@@ -380,17 +600,20 @@
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	muzzled_noises = list("weak", "pathetic")
 
-/datum/emote/living/wsmile
-	key = "wsmile"
-	key_third_person = "wsmiles"
-	message = "smiles weakly."
+/datum/emote/living/yawn
+	key = "yawn"
+	key_third_person = "yawns"
+	message = "yawns."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("tired", "lazy", "sleepy")
 
+// MARK: Custom
 /datum/emote/living/custom
 	key = "me"
 	key_third_person = "custom"
 	message = null
 	mob_type_blacklist_typecache = list(
-		/mob/living/brain,	// nice try
+		/mob/living/brain,	// Nice try!
 	)
 
 	// Custom emotes should be able to be forced out regardless of context.
