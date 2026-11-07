@@ -475,6 +475,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ANG"
 	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	cost = 40
+	excludefrom = list()
 
 /datum/uplink_item/explosives/emp
 	name = "EMP Grenades and bio-chip implanter Kit"
@@ -658,7 +659,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"
-	desc = "The syndicate toolbox is a suspicious black and red. Aside from tools, it comes with insulated gloves and a multitool."
+	desc = "The syndicate toolbox is a suspicious black and red, and is specially designed to be a robust melee and throwing weapon. \
+	It's loaded with wirecutters, a wrench, a miniature titanium crowbar, an upgraded welding tool, a compact multitool, a thin-tipped screwdriver, \
+	and armored combat gloves that are insulated against heat and electricity."
 	reference = "FLTB"
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 5
@@ -703,6 +706,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CFOAM"
 	item = /obj/item/gun/projectile/c_foam_launcher
 	cost = 25
+	excludefrom = list()
 
 /datum/uplink_item/device_tools/tar_spray
 	name = "Sticky Tar Applicator"

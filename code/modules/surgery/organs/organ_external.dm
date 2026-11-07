@@ -879,7 +879,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner && !silent)
 		owner.audible_message(
 			SPAN_WARNING("You hear a sickening crack coming from \the [owner]."),
-			SPAN_DANGER("[owner]'s [name] appears to buckle unnaturally!")
+			deaf_message = SPAN_DANGER("[owner]'s [name] appears to buckle unnaturally!")
 		)
 		to_chat(owner, SPAN_USERDANGER("Something feels like it shattered in your [name]!"))
 		playsound(owner, "bonebreak", 150, 1)

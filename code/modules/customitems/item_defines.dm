@@ -749,7 +749,7 @@
 /// V-Force_Bomber: E.L.O.
 /obj/item/clothing/head/fluff/elo
 	name = "E.L.O.'s medical beret"
-	desc = "E.L.O.s personal medical beret, issued by Nanotrassen and awarded along with her medal."
+	desc = "E.L.O.s personal medical beret, issued by Nanotrasen and awarded along with her medal."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elo-beret"
 

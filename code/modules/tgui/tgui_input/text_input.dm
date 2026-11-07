@@ -107,7 +107,7 @@
  */
 /datum/tgui_input_text/proc/wait()
 	while(!entry && !closed && !QDELETED(src))
-		stoplag(1)
+		stoplag()
 
 /datum/tgui_input_text/ui_state(mob/user)
 	return state
