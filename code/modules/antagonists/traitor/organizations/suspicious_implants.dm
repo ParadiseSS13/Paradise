@@ -20,7 +20,7 @@
 		synthesizing = TRUE
 		to_chat(owner, SPAN_NOTICE("You feel less hungry..."))
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 5 SECONDS)
 
 /obj/item/organ/internal/cyberimp/arm/gun/laser/suspicious // Arm laser that doesn't self-charge
 	name = "suspicious implant"
@@ -65,4 +65,4 @@
 		qdel(a)
 
 		synthesizing = TRUE
-		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 5 SECONDS)
