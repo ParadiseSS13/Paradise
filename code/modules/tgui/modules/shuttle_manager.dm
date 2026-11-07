@@ -82,6 +82,10 @@ RESTRICT_TYPE(/datum/ui_module/admin/shuttle_manager)
 			var/y = params["y"]
 			var/z = params["z"]
 
+			if(!isnum(x) || !isnum(y) || !isnum(z))
+				to_chat(usr, SPAN_WARNING("One of the coordinates ([x], [y], [z]) was invalid."))
+				return
+
 			usr.client.jumptocoord(x, y, z)
 
 		if("vv")
@@ -98,7 +102,11 @@ RESTRICT_TYPE(/datum/ui_module/admin/shuttle_manager)
 
 		if("fast_travel")
 			var/obj/docking_port/mobile/port = locateUID(params["uid"])
-			port.setTimer(50)
+			if(!port)
+				to_chat(usr, SPAN_WARNING("Could not find docking port with UID [params["uid"]]."))
+				return
+
+			port.setTimer(5 SECONDS)
 			log_and_message_admins("fast travelled [port]")
 
 		if("force_send_eshuttle")
