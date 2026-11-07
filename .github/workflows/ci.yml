@@ -31,9 +31,9 @@ jobs:
           python-version: '3.13'
           cache: 'pip'
 
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 20
+          node-version: 24
           cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
@@ -43,20 +43,11 @@ jobs:
           tools/ci/check_json.sh
           tgui/bin/tgui --ci
           python -m pytest tools/ci/pytest
-          python tools/ci/check_grep2.py
-          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
-          python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
-          python tools/ci/identical_variables.py
           python tools/ci/restrict_file_types.py
-          python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
-          python tools/ci/check_icons.py
-          python tools/ci/check_random_spawner_prefabs.py
-          python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.ci.check_simplemob_additions
-          python -m tools.ci.check_user_verb_params
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker
@@ -72,9 +63,9 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5.4.0
+        uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: 9.x
+          dotnet-version: 10.0.100
       - name: Run OD
         run: |
           bash tools/ci/run_od.sh

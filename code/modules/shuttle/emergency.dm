@@ -147,11 +147,12 @@
 	if(!..())
 		return
 	if(!AI.malf_picker)
-		return FALSE //If you put an AI that isn't malf in it I'm shooting you
-	if(interaction == AI_TRANS_TO_CARD) //No patrick you can't card the AI out of the computer.
+		return FALSE // If you put an AI that isn't malf in it I'm shooting you.
+	if(interaction == AI_TRANS_TO_CARD) // No patrick you can't card the AI out of the computer.
 		return
 	AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 	ai_enter_emergency_computer(AI)
+	card.held_ai = null
 
 /obj/machinery/computer/emergency_shuttle/proc/ai_enter_emergency_computer(mob/living/silicon/ai/AI)
 	AI.aiRestorePowerRoutine = 0

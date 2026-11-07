@@ -48,9 +48,11 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 	point_value = 1
 	table_type = /obj/structure/table/glass
 
+	solar_mult = 1
+
 /obj/item/stack/sheet/glass/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
+	. += SPAN_NOTICE("Using glass on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
 
 /obj/item/stack/sheet/glass/two
 	amount = 2
@@ -88,12 +90,17 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 
 		CC.use(5)
 		to_chat(user, SPAN_NOTICE("You attach wire to [src]."))
-		new /obj/item/stack/light_w(user.loc)
+		var/obj/item/stack/light_w/wired_tile = new (user.loc)
+		wired_tile.add_fingerprint(user)
 		use(1)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = used
+		if(V.get_amount() < 1)
+			to_chat(user, SPAN_WARNING("You need at least one rod to do this!"))
+			return ITEM_INTERACT_COMPLETE
+
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
 		V.use(1)
@@ -135,6 +142,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	merge_type = /obj/item/stack/sheet/rglass
 	point_value = 4
 	table_type = /obj/structure/table/glass/reinforced
+
+	solar_mult = 1.1
 
 /obj/item/stack/sheet/rglass/examine(mob/user)
 	. = ..()
@@ -183,6 +192,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	full_window = /obj/structure/window/full/plasmabasic
 	point_value = 19
 	table_type = /obj/structure/table/glass/plasma
+
+	solar_mult = 1.7
+	solar_type = SOLAR_TYPE_PLASMA
 
 /obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
 	. = ..()
@@ -240,6 +252,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	full_window = /obj/structure/window/full/plasmareinforced
 	point_value = 23
 	table_type = /obj/structure/table/glass/reinforced/plasma
+
+	solar_mult = 1.8
+	solar_type = SOLAR_TYPE_PLASMA
 
 /obj/item/stack/sheet/plasmarglass/examine_more(mob/user)
 	. = ..()
@@ -311,6 +326,9 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	created_window = /obj/structure/window/plastitanium
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
+
+	solar_mult = 2.4
+	solar_type = SOLAR_TYPE_PLASTITANIUM
 
 /obj/item/stack/sheet/plastitaniumglass/examine_more(mob/user)
 	. = ..()

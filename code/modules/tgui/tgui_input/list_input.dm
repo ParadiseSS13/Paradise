@@ -106,7 +106,7 @@
  */
 /datum/tgui_list_input/proc/wait()
 	while(!choice && !closed)
-		stoplag(1)
+		stoplag()
 
 /datum/tgui_list_input/ui_state(mob/user)
 	return state
@@ -153,7 +153,6 @@
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
-
 
 /datum/tgui_list_input/proc/handle_submit_action(params)
 	if(!(params["entry"] in items))

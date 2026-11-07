@@ -62,7 +62,7 @@
 			forced_mob.reagents.del_reagent("dublindrop")
 			if(reagent_amount >= 30)
 				message_admins("[ADMIN_LOOKUPFLW(forced_mob)] was forced into a clown car with [reagent_amount] unit(s) of Irish Car Bomb, causing an explosion.")
-				audible_message(SPAN_WARNING("You hear a rattling sound coming from the engine. That can't be good..."), null, 1)
+				audible_message(SPAN_WARNING("You hear a rattling sound coming from the engine. That can't be good..."), hearing_distance = 1)
 				addtimer(CALLBACK(src, PROC_REF(irish_car_bomb)), 5 SECONDS)
 
 // We don't want everything in the clown car to get dusted when it touches the supermatter, so dump the mobs.
@@ -195,7 +195,7 @@
 
 /obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice(mob/user)
 	if(last_emag_button_use + dice_cooldown_time > world.time)
-		to_chat(user, "<span class=notice'>The button panel is currently recharging.</span>")
+		to_chat(user, SPAN_WARNING("The button panel is currently recharging."))
 		return
 	last_emag_button_use = world.time
 	switch(rand(1,6))

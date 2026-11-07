@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/sandbags
 
 GLOBAL_LIST_INIT(sandbag_recipes, list (
-	new /datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("sandbag wall", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
 /obj/item/stack/sheet/mineral/sandbags/Initialize(mapload, new_amount, merge)

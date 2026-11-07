@@ -21,7 +21,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile",
         "/mob/living/simple_animal/hostile/ancient_robot_leg",
         "/mob/living/simple_animal/hostile/asteroid",
-        "/mob/living/simple_animal/hostile/asteroid/abandoned_minebot",
         "/mob/living/simple_animal/hostile/asteroid/elite",
         "/mob/living/simple_animal/hostile/asteroid/elite/broodmother",
         "/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child",

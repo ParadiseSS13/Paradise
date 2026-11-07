@@ -8,26 +8,33 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
+	new_attack_chain = TRUE
 	var/cooldown = 35
 	var/current_cooldown = 0
 
 	origin_tech = "engineering=1;magnets=1"
 
-/obj/item/mining_scanner/attack_self__legacy__attackchain(mob/user)
+/obj/item/mining_scanner/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!user.client)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
 		mineral_scan_pulse(get_turf(user))
+		return ITEM_INTERACT_COMPLETE
 
 //Debug item to identify all ore spread quickly
 /obj/item/mining_scanner/admin
 
-/obj/item/mining_scanner/admin/attack_self__legacy__attackchain(mob/user)
+/obj/item/mining_scanner/admin/activate_self(mob/user)
+	if(!user.client)
+		return ..()
 	for(var/turf/simulated/mineral/M in world)
 		if(M.ore?.scan_icon_state)
 			M.icon_state = M.ore.scan_icon_state
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/t_scanner/adv_mining_scanner
 	name = "advanced automatic mining scanner"
