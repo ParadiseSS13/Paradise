@@ -476,6 +476,29 @@
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/food/sugarcookie
 
+/obj/item/storage/bag/tray/cookies_tray/oatmeal
+	cookie = /obj/item/food/oatmeal_cookie
+
+/obj/item/storage/bag/tray/cookies_tray/raisin
+	cookie = /obj/item/food/raisin_cookie
+
+/obj/item/storage/bag/tray/cookies_tray/peanut_butter
+	cookie = /obj/item/food/peanut_butter_cookie
+
+/obj/item/storage/bag/tray/cookies_tray/assorted/populate_contents()
+	var/list/cookie_types = list(
+			/obj/item/food/cookie,
+			/obj/item/food/sugarcookie,
+			/obj/item/food/oatmeal_cookie,
+			/obj/item/food/raisin_cookie,
+			/obj/item/food/peanut_butter_cookie
+	)
+	for(var/i in 1 to 6)
+		var/cookie_type = pick(cookie_types)
+		var/obj/item/C = new cookie_type(src)
+		C.in_inventory = TRUE
+	update_icon(UPDATE_OVERLAYS)
+
 ////////////////////////////////////////
 // MARK:	Chemistry bag
 ////////////////////////////////////////
