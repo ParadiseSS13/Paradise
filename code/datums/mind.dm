@@ -851,7 +851,7 @@
 						new_objective.target = new_target.mind
 						new_objective.update_explanation_text()
 				else
-					to_chat(usr, "No active AIs with minds")
+					to_chat(usr, SPAN_WARNING("No active AIs with minds"))
 
 			if("prevent")
 				new_objective = /datum/objective/block // we can place paths here because they will be created as needed in the objective holder
@@ -964,7 +964,7 @@
 					new_objective.target = new_target
 					new_objective.update_explanation_text()
 				else
-					to_chat(usr, "No station pets found")
+					to_chat(usr, SPAN_WARNING("No station pets found"))
 
 			if("sabotage power")
 				var/list/possible_targets = list("Security", "Medical", "Science", "Cargo")
