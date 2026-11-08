@@ -46,7 +46,7 @@
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
-	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with a wide variety of medical supplies for treating patients. Comes with a health analyzer for checking the condition of the patient."
 	icon_state = "firstaid_regular"
 	inhand_icon_state = "firstaid_regular"
 	med_bot_skin = "regular"
@@ -60,11 +60,15 @@
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
+/obj/item/storage/firstaid/regular/empty
+	desc = "A plastic box for carrying medical supplies."
+
 /obj/item/storage/firstaid/regular/empty/populate_contents()
 	return
 
 /obj/item/storage/firstaid/regular/doctor
-	desc = "A medical kit designed for Nanotrasen medical personnel."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with a wide variety of medical supplies for treating patients, issued to Nanotrasen medical personnel. \
+	Comes with an advanced health analyzer for checking the condition of the patient and the reagents in their blood."
 
 /obj/item/storage/firstaid/regular/doctor/populate_contents()
 	new /obj/item/stack/medical/adv/suture/medicated(src)
@@ -76,7 +80,8 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/regular/doctor/cmo
-	desc = "A medical kit designed for Nanotrasen Chief Medical Officers."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with a wide variety of advanced medical supplies for treating patients, issued to Nanotrasen Chief Medical Officers. \
+	Comes with an advanced health analyzer for checking the condition of the patient and the reagents in their blood."
 
 /obj/item/storage/firstaid/regular/doctor/cmo/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
@@ -89,7 +94,8 @@
 
 /obj/item/storage/firstaid/fire
 	name = "fire first-aid kit"
-	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with specialized medical supplies designed for treating burns. \
+	Comes with a health analyzer for checking the condition of the patient."
 	icon_state = "firstaid_burn"
 	inhand_icon_state = "firstaid_burn"
 	med_bot_skin = "burn"
@@ -97,27 +103,29 @@
 
 /obj/item/storage/firstaid/fire/populate_contents()
 	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
-	new /obj/item/stack/medical/adv/regen_mesh(src)
+	new /obj/item/stack/medical/adv/regen_mesh/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/reagent_containers/patch/silver_sulf/small(src)
-	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/fire/empty/populate_contents()
 	return
 
 /obj/item/storage/firstaid/toxin
 	name = "toxin first aid kit"
-	desc = "A medical kit designed to counter poisoning by common toxins. Contains three pills and syringes, and a health analyzer to determine the health of the patient."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with charcoal for treating poisoning, and an epinephrine autoinjector to aid in emergency resuccitation. \
+	Comes with a health analyzer for checking the condition of the patient."
 	icon_state = "firstaid_toxin"
 	inhand_icon_state = "firstaid_toxin"
 	med_bot_skin = "tox"
 	damagetype_healed = TOX
 
 /obj/item/storage/firstaid/toxin/populate_contents()
-	for(var/I in 1 to 3)
-		new /obj/item/reagent_containers/syringe/charcoal(src)
+	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/toxin/empty/populate_contents()
@@ -125,17 +133,17 @@
 
 /obj/item/storage/firstaid/o2
 	name = "oxygen deprivation first aid kit"
-	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with salbutamol for treating hypoxia, along with an epinephrine autoinjector to aid in emergency resuccitation. \
+	Comes with a health analyzer for checking the condition of the patient."
 	icon_state = "firstaid_o2"
 	inhand_icon_state = "firstaid_o2"
 	med_bot_skin = "oxy"
 	damagetype_healed = OXY
 
 /obj/item/storage/firstaid/o2/populate_contents()
-	new /obj/item/reagent_containers/pill/salbutamol(src)
-	new /obj/item/reagent_containers/pill/salbutamol(src)
-	new /obj/item/reagent_containers/pill/salbutamol(src)
-	new /obj/item/reagent_containers/pill/salbutamol(src)
+	for(var/I in 1 to 5)
+		new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/o2/empty/populate_contents()
@@ -143,7 +151,8 @@
 
 /obj/item/storage/firstaid/brute
 	name = "brute trauma treatment kit"
-	desc = "A medical kit that contains several medical patches and pills for treating brute injuries. Contains one epinephrine syringe for emergency use and a health analyzer."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with specialized medical supplies designed for treating lacerations and blunt force truma. \
+	Comes with a health analyzer for checking the condition of the patient."
 	icon_state = "firstaid_brute"
 	inhand_icon_state = "firstaid_brute"
 	med_bot_skin = "brute"
@@ -151,18 +160,20 @@
 
 /obj/item/storage/firstaid/brute/populate_contents()
 	new /obj/item/stack/medical/adv/suture/medicated(src)
-	new /obj/item/stack/medical/adv/suture(src)
+	new /obj/item/stack/medical/adv/suture/medicated(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/reagent_containers/patch/styptic/small(src)
-	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/brute/empty/populate_contents()
 	return
 
 /obj/item/storage/firstaid/adv
 	name = "advanced first-aid kit"
-	desc = "Contains advanced medical treatments."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with advanced medical supplies for rapidly treating major burns and trumatic injuries. \
+	Comes with a health analyzer for checking the condition of the patient."
 	icon_state = "firstaid_advanced"
 	inhand_icon_state = "firstaid_advanced"
 	med_bot_skin = "adv"
@@ -182,7 +193,8 @@
 
 /obj/item/storage/firstaid/machine
 	name = "machine repair kit"
-	desc = "A kit that contains supplies to repair IPCs on the go."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with supplies for diagnosing and treating damaged robotics. \
+	Comes with a machine analyzer for checking the condition of the patient."
 	icon_state = "firstaid_machine"
 	inhand_icon_state = "firstaid_machine"
 	med_bot_skin = "machine"
@@ -200,7 +212,7 @@
 
 /obj/item/storage/firstaid/tactical
 	name = "tactical first-aid kit"
-	desc = "I hope you've got insurance."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with military-grade medical supplies for use on the battlefield. I hope you've got insurance."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
 	treatment_oxy = "perfluorodecalin"
@@ -225,18 +237,20 @@
 
 /obj/item/storage/firstaid/surgery
 	name = "field surgery kit"
-	desc = "A kit for surgery in the field."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with equipment for performing emergency surgery in the field. \
+	It's bulkier than a normal first-aid kit and the internal cutouts can only hold surgical equipment."
 	icon_state = "firstaid_surgery"
 	inhand_icon_state = "firstaid_o2"
 	max_w_class = WEIGHT_CLASS_BULKY
-	max_combined_w_class = 21
-	storage_slots = 10
+	max_combined_w_class = 23
+	storage_slots = 11
 	med_bot_skin = "surgery"
-	can_hold = list(/obj/item/roller,/obj/item/bonesetter,/obj/item/bonegel, /obj/item/scalpel, /obj/item/hemostat,
+	can_hold = list(/obj/item/roller, /obj/item/surgical_drapes, /obj/item/bonesetter,/obj/item/bonegel, /obj/item/scalpel, /obj/item/hemostat,
 		/obj/item/cautery, /obj/item/retractor, /obj/item/fix_o_vein, /obj/item/surgicaldrill, /obj/item/circular_saw)
 
 /obj/item/storage/firstaid/surgery/populate_contents()
 	new /obj/item/roller(src)
+	new /obj/item/surgical_drapes(src)
 	new /obj/item/bonesetter(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/scalpel(src)
@@ -249,39 +263,41 @@
 
 /obj/item/storage/firstaid/ert
 	name = "ert first-aid kit"
-	desc = "A medical kit used by Nanotrasen emergency response team personnel."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with highly advanced medical supplies for rapidly treating major burns and trumatic injuries. \
+	Issued to Nanotrasen's Emergency Response Team personnel. Comes with an advanced health analyzer for checking the condition of the patient and the reagents in their blood."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
 	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/ert/populate_contents()
-	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/stack/medical/splint(src)
 	new /obj/item/reagent_containers/applicator/dual(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/healthanalyzer/advanced(src)
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
-	desc = "A medical kit used by Amber level emergency response team personnel."
+	desc = "A plastic box for carrying medical supplies. Pre-stocked with advanced medical supplies for rapidly treating major burns and trumatic injuries. \
+	Issued to Nanotrasen's Amber level Emergency Response Team personnel. Comes with an advanced health analyzer for checking the condition of the patient and the reagents in their blood."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
 	med_bot_skin = "elite"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
-	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/storage/pill_bottle/ert_amber(src)
 	new /obj/item/storage/pill_bottle/patch_pack/ert_amber(src)
+	new /obj/item/healthanalyzer/advanced(src)
 
 /obj/item/storage/firstaid/fake_tactical
 	name = "tactical first-aid kit"
-	desc = "I hope you've got insurance. The paint is still wet."
+	desc = "A plastic box for carrying medical supplies. I hope you've got insurance. The paint is still wet."
 	icon_state = "firstaid_elite"
 	inhand_icon_state = "firstaid_elite"
 	med_bot_skin = "elite"
