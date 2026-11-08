@@ -224,6 +224,13 @@
 			if(!borg.is_component_functioning("radio"))
 				continue //No power.
 
+		// Prevent mobs on the same tile of a 0 range radio from hearing
+		if(radio.canhear_range <= 0)
+			for(var/atom/movable/hearer as anything in get_hearers_in_LOS(0, radio))
+				if(is_same_root_atom(hearer, radio))
+					. |= hearer
+			continue
+
 		. |= get_hearers_in_LOS(radio.canhear_range, radio)
 
 /proc/is_in_sight(atom/first_atom, atom/second_atom)

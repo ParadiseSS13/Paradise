@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			if(has_channel_access(usr, num2text(freq)))
 				set_frequency(freq)
 		if("listen")
-			set_listening(listening)
+			set_listening(!listening)
 		if("broadcast")
 			if((ui.user.get_active_hand() != src && ui.user.get_inactive_hand() != src) && !issilicon(ui.user) && !stationary) // I'm pretty sure there is a easier way to check this, but i'm no tgui wizard.
 				to_chat(ui.user, SPAN_WARNING("[src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]!"))
