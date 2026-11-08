@@ -149,9 +149,9 @@
 
 /obj/item/radio/phone_receiver/Initialize(mapload)
 	. = ..()
-	on = TRUE
-	listening = FALSE
-	broadcasting = TRUE
+	set_on(TRUE)
+	set_listening(FALSE)
+	set_broadcasting(TRUE)
 	loudspeaker = TRUE
 	set_frequency(STARLINE_FREQ)
 	requires_tcomms = FALSE

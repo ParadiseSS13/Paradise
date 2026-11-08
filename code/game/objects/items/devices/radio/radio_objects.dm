@@ -133,15 +133,15 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
-/// Simple getter for the on variable. necessary due to VAR_PROTECTED
+/// Simple getter for the on variable. necessary due to VAR_PRIVATE
 /obj/item/radio/proc/is_on()
 	return on
 
-/// Simple getter for the broadcasting variable. necessary due to VAR_PROTECTED
+/// Simple getter for the broadcasting variable. necessary due to VAR_PRIVATE
 /obj/item/radio/proc/get_broadcasting()
 	return broadcasting
 
-/// Simple getter for the listening variable. necessary due to VAR_PROTECTED
+/// Simple getter for the listening variable. necessary due to VAR_PRIVATE
 /obj/item/radio/proc/get_listening()
 	return listening
 
@@ -281,12 +281,12 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			if(has_channel_access(usr, num2text(freq)))
 				set_frequency(freq)
 		if("listen")
-			listening = !listening
+			set_listening(listening)
 		if("broadcast")
 			if((ui.user.get_active_hand() != src && ui.user.get_inactive_hand() != src) && !issilicon(ui.user) && !stationary) // I'm pretty sure there is a easier way to check this, but i'm no tgui wizard.
 				to_chat(ui.user, SPAN_WARNING("[src] needs to be in your hands to switch its hotmic [broadcasting ? "off" : "on"]!"))
 				return
-			broadcasting = !broadcasting
+			set_broadcasting(!get_broadcasting())
 		if("channel") // For keyed channels on headset radios only
 			var/channel = params["channel"]
 			if(!(channel in channels))
@@ -348,12 +348,12 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
-	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
-	if(broadcasting)
+	set_broadcasting(!get_broadcasting() && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL)))
+	if(get_broadcasting())
 		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
 /obj/item/radio/proc/ToggleReception()
-	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	set_listening(!get_listening() && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL)))
 
 /obj/item/radio/proc/autosay(message, from, channel, follow_target_override, is_emote = FALSE, sender_job = null, vname = null) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
@@ -597,7 +597,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
 
-	if(!is_listening())
+	if(!can_receive())
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
@@ -621,7 +621,9 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			return -1
 	return canhear_range
 
-/obj/item/radio/proc/is_listening()
+/// Whether or not the radio can receive incoming messages. Includes all
+/// relevant state such as whether its receiver wire is cut, whether it's on, etc.
+/obj/item/radio/proc/can_receive()
 	var/is_listening = TRUE
 	if(!on)
 		is_listening = FALSE
@@ -677,15 +679,14 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	interact(user)
 
 /obj/item/radio/emp_act(severity)
-	on = FALSE
-	disable_timer++
-	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
-
 	if(listening)
 		visible_message(SPAN_WARNING("[src] buzzes violently!"))
 
-	broadcasting = FALSE
-	listening = FALSE
+	set_on(FALSE)
+	disable_timer++
+	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
+	set_broadcasting(FALSE)
+	set_listening(FALSE)
 	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	..()
@@ -694,7 +695,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(disable_timer > 0)
 		disable_timer--
 	if(!disable_timer)
-		on = TRUE
+		set_on(TRUE)
 
 /obj/item/radio/proc/recalculateChannels()
 	/// Exists so that borg radios and headsets can override it.
@@ -830,7 +831,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 
 /obj/item/radio/borg/interact(mob/user)
-	if(!on)
+	if(!is_on())
 		return
 	. = ..()
 
@@ -890,7 +891,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	return
 
 /obj/item/radio/headset/deadsay/attempt_send_deadsay_message(mob/subject, message)
-	if(!listening)
+	if(!get_listening())
 		return
 	var/mob/hearer = loc // if people want dchat to shut up, they shouldn't need to deal with other people's headsets
 	if(!istype(hearer) || hearer.stat || !hearer.can_hear())

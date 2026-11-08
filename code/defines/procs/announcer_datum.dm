@@ -92,7 +92,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	else
 		// The announcement comes out of every radio that is on, so find everyone who can hear one
 		for(var/obj/item/radio/R in GLOB.global_radios)
-			if(!R.is_listening())
+			if(!R.can_receive())
 				continue
 			for(var/atom/movable/hearer as anything in get_hearers_in_LOS(R.canhear_range, R))
 				if(is_ai_eye(hearer))
