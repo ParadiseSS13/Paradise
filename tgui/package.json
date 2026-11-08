@@ -45,6 +45,7 @@
     "@types/node": "^22.18.8",
     "@types/webpack-env": "^1.18.8",
     "@types/wicg-file-system-access": "^2023.10.7",
-    "vitest": "^3.2.6"
+    "vite": "^7.3.5",
+    "vitest": "^5.0.5"
   }
 }

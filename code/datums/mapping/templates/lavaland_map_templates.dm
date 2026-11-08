@@ -45,6 +45,7 @@
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
 	allow_duplicates = FALSE
+	always_place = TRUE
 	megafauna_safe_range = TRUE
 
 /datum/map_template/ruin/lavaland/ash_walker_siege
