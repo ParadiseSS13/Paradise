@@ -757,13 +757,34 @@
 			def_value = copytext(temp_obj_type, 18)//Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
-			else if(findtext("[def_value]", "/"))
-				while(findtext("[def_value]", "/"))
-					def_value = copytext(def_value, 2)
+			while(findtext("[def_value]", "/"))
+				def_value = copytext(def_value, 2)
+			switch(def_value)
+				if("free_ai")
+					def_value = "free ai"
+				if("nuclear")
+					def_value = "nuclear operations"
+				if("kill_pet")
+					def_value = "kill pet"
+				if("escape_with_identity")
+					def_value = "identity theft"
+				if("infiltrate_sec")
+					def_value = "infiltrate security"
+				if("hack_rnd", "hack_tcomms", "hack_pda", "hack_rnd")
+					def_value = "plant malware"
+				if("implant")
+					def_value = "test implant"
+				if("chemical")
+					def_value = "test chem"
+				if("kindap_pet")
+					def_value = "kindap_pet"
+				if("security", "medical", "science", "cargo")
+					def_value = "sabotage power"
+
 
 		var/list/obj_types = list("assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
 			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security",
-			"free ai", "harvest kidneys", "steal guns", "plant malware", "test implant", "test chem", "kidnap pet", "sabotage power", "custom")
+			"free ai", "plant malware", "test implant", "test chem", "kidnap pet", "sabotage power", "custom")
 		var/new_obj_type = tgui_input_list(usr, "Select objective type:", "Objective type", obj_types, def_value)
 		if(!new_obj_type)
 			return
@@ -906,12 +927,6 @@
 
 			if("infiltrate security")
 				new_objective = /datum/objective/infiltrate_sec
-
-			if("harvest kidneys")
-				new_objective = /datum/objective/unique_objective/get_five/kidneys
-
-			if("steal guns")
-				new_objective = /datum/objective/unique_objective/get_five/guns
 
 			if("plant malware")
 				var/list/possible_targets = list("RND", "Telecomms", "PDAs", "CC Comms")
