@@ -1794,6 +1794,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!needs_target)
 		return
 	var/list/possible_targets = GLOB.station_pets - target_blacklist
+	for(var/obj/lamarr in possible_targets)
+		possible_targets -= lamarr
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 

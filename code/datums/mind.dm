@@ -953,6 +953,8 @@
 
 			if("kidnap pet")
 				var/list/possible_targets = GLOB.station_pets
+				for(var/obj/lamarr in possible_targets)
+					possible_targets -= lamarr
 				var/mob/new_target
 				if(length(possible_targets) > 0)
 					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
