@@ -755,9 +755,11 @@
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
 			def_value = copytext(temp_obj_type, 18)//Convert last part of path into an objective keyword.
-			message_admins("[def_value]")
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
+			else if(findtext("[def_value]", "/"))
+				while(findtext("[def_value]", "/"))
+					def_value = copytext(def_value, 2)
 
 		var/list/obj_types = list("assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
 			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security",
