@@ -60370,11 +60370,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"kGR" = (
-/obj/structure/lattice,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
-/turf/space,
-/area/space/nearstation)
 "kHb" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -63910,6 +63905,11 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"mjB" = (
+/obj/structure/grille,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "mjE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
@@ -116345,7 +116345,7 @@ aab
 aab
 afX
 dmD
-afX
+mjB
 aaa
 aaa
 aaa
@@ -118400,7 +118400,7 @@ fbR
 aaa
 aaa
 aaa
-kGR
+aab
 aaa
 aaa
 aaa

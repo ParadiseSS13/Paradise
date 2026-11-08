@@ -115,7 +115,7 @@
 		if(1.0)
 			for(var/atom/movable/A in src)
 				A.forceMove(loc)
-				ex_act(severity)
+				A.ex_act(severity)
 			qdel(src)
 			return
 
@@ -123,7 +123,7 @@
 			if(prob(50))
 				for(var/atom/movable/A in src)
 					A.forceMove(loc)
-					ex_act(severity)
+					A.ex_act(severity)
 				qdel(src)
 				return
 
@@ -131,7 +131,7 @@
 			if(prob(5))
 				for(var/atom/movable/A in src)
 					A.forceMove(loc)
-					ex_act(severity)
+					A.ex_act(severity)
 				qdel(src)
 				return
 
