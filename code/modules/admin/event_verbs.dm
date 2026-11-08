@@ -565,6 +565,12 @@ USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 	var/datum/ui_module/ert_manager/E = new()
 	E.ui_interact(client.mob)
 
+USER_VERB(ert_loadout_manager, R_EVENT, "ERT Loadout Manager", \
+		"Configure ERT loadouts.", \
+		VERB_CATEGORY_EVENT)
+	var/datum/ui_module/ert_loadout_manager/E = new()
+	E.ui_interact(client.mob)
+
 USER_VERB_VISIBILITY(grant_full_access, VERB_VISIBILITY_FLAG_MOREDEBUG)
 USER_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-access.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
