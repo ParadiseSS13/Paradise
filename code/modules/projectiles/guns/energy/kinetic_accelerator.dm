@@ -428,15 +428,14 @@
 	if(in_range(user, src))
 		. += SPAN_NOTICE("Occupies <b>[cost]%</b> of mod capacity.")
 
-/obj/item/borg/upgrade/modkit/attackby__legacy__attackchain(obj/item/A, mob/user)
-	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
-		var/obj/item/gun/energy/kinetic_accelerator/KA = A
-		if(KA.max_mod_capacity)
-			install(A, user)
-		else
-			return ..()
-	else
+/obj/item/borg/upgrade/modkit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(issilicon(user) || !istype(used, /obj/item/gun/energy/kinetic_accelerator))
 		return ..()
+	var/obj/item/gun/energy/kinetic_accelerator/accelerator = used
+	if(!accelerator.max_mod_capacity)
+		return ..()
+	install(used, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg/upgrade/modkit/action(mob/user, mob/living/silicon/robot/R)
 	if(!..())
@@ -789,5 +788,8 @@
 	name = "adjustable tracer bolts"
 	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
 
-/obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self__legacy__attackchain(mob/user)
+/obj/item/borg/upgrade/modkit/tracer/adjustable/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	bolt_color = tgui_input_color(user, "Please select a tracer color", "PKA Tracer Color", bolt_color)
+	return ITEM_INTERACT_COMPLETE

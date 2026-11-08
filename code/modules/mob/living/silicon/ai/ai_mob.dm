@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcer/announcer
-	var/mob/living/simple_animal/bot/Bot
+	var/mob/living/basic/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = FALSE //Waypoint mode is for selecting a turf via clicking.
 	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
@@ -948,7 +948,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
+		var/mob/living/basic/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
 		if(istype(target))
 			ai_actual_track(target)
 		else
@@ -1047,7 +1047,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, SPAN_DANGER("Interface error. Unit is already in use."))
 		return
 
-	Bot.call_bot(src, waypoint)
+	Bot.summon_bot(src, waypoint)
 
 /mob/living/silicon/ai/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))
@@ -1543,30 +1543,35 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
-	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
-		disconnect_shell() // If the AI is controlling a borg, force the player back to core.
-		if(!mind)
-			to_chat(user, SPAN_WARNING("No intelligence patterns detected."))//No more magical carding of empty cores, AI RETURN TO BODY!!!11
+
+	if(interaction != AI_TRANS_TO_CARD) // The only possible interaction. Upload AI mob to a card.
+		return
+
+	disconnect_shell()
+
+	if(!mind)
+		to_chat(user, SPAN_WARNING("No intelligence patterns detected.")) // No more magical carding of empty cores, AI RETURN TO BODY!!!11
+		return
+
+	if(stat != DEAD)
+		to_chat(user, SPAN_NOTICE("Beginning active intelligence transfer: please wait."))
+
+		if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
+			to_chat(user, SPAN_WARNING("Intelligence transfer aborted."))
 			return
 
-		if(stat != DEAD)
-			to_chat(user, SPAN_NOTICE("Beginning active intelligence transfer: please wait."))
-
-			if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
-				to_chat(user, SPAN_WARNING("Intelligence transfer aborted."))
-				return
-
-		new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
-		aiRestorePowerRoutine = 0//So the AI initially has power.
-		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
-		if(GetComponent(/datum/component/ducttape))
-			QDEL_NULL(builtInCamera)
-		if(program_picker)
-			program_picker.reset_programs()
-		forceMove(card) //Throw AI into the card.
-		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
-		to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+	new /obj/structure/ai_core/deactivated(loc) // Spawns a deactivated terminal at AI location.
+	aiRestorePowerRoutine = 0 // So the AI initially has power.
+	control_disabled = TRUE // Can't control things remotely if you're stuck in a card!
+	aiRadio.disabledAi = TRUE // No talking on the built-in radio for you either!
+	if(GetComponent(/datum/component/ducttape))
+		QDEL_NULL(builtInCamera)
+	if(program_picker)
+		program_picker.reset_programs()
+	forceMove(card) // Throw AI into the card.
+	card.held_ai = src
+	to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
+	to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 /mob/living/silicon/ai/can_buckle()
 	return FALSE

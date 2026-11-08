@@ -2,6 +2,7 @@
 /// present, the ai will cancel all of it's actions.
 /datum/ai_behavior/frustration
 	action_cooldown = 0.1 SECONDS
+	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/frustration/setup(datum/ai_controller/controller, frustration_key, duration)
 	. = ..()

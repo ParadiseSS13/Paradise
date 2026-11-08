@@ -1,5 +1,5 @@
 /datum/spawn_pool/spaceloot
-	available_points = 1700
+	available_points = 2000
 
 /obj/effect/spawner/random/pool/spaceloot
 	spawn_pool = /datum/spawn_pool/spaceloot
@@ -106,7 +106,6 @@
 		/obj/item/clothing/mask/chameleon/voice_change,
 		/obj/item/flash/cameraflash,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot,
-		/obj/item/lighter/zippo/gonzofist,
 		/obj/item/mod/module/chameleon,
 		/obj/item/mod/module/holster/hidden,
 		/obj/item/mod/module/noslip,
@@ -118,7 +117,6 @@
 		/obj/item/stack/sheet/mineral/plasma/twenty,
 		/obj/item/stack/sheet/mineral/silver/twenty,
 		/obj/item/stack/sheet/mineral/uranium/twenty,
-		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
 		/obj/item/storage/belt/military,
@@ -141,7 +139,6 @@
 		/obj/item/clothing/mask/chameleon/voice_change,
 		/obj/item/flash/cameraflash,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot,
-		/obj/item/lighter/zippo/gonzofist,
 		/obj/item/mod/module/chameleon,
 		/obj/item/mod/module/holster/hidden,
 		/obj/item/mod/module/noslip,
@@ -153,7 +150,6 @@
 		/obj/item/stack/sheet/mineral/plasma/twenty,
 		/obj/item/stack/sheet/mineral/silver/twenty,
 		/obj/item/stack/sheet/mineral/uranium/twenty,
-		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
 		/obj/item/storage/belt/military,
@@ -164,7 +160,7 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/officer
 	name = "syndicate depot loot, officer"
-	point_value = 110
+	point_value = 100
 	// Primarily utility items with occasional low damage weaponry, and a blood-red, because that's too good for rare-tier.
 	loot = list(
 		/obj/item/borg/upgrade/syndicate,
@@ -258,8 +254,8 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed
 	loot = list(
-		/obj/effect/spawner/random/pool/spaceloot/syndicate/common = 30,
-		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare = 20,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/common = 15,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/rare = 10,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/officer = 5,
 		/obj/effect/spawner/random/pool/spaceloot/syndicate/armory = 1,
 	)

@@ -605,7 +605,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/start_exchange()
 	if(in_exchange)
 		return
-	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
+	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers + SSticker.mode.acolytes
 	possible_opponents -= owner
 	if(!length(possible_opponents))
 		log_debug("[owner] was picked to start a document exchange but there were no other antagonists.")

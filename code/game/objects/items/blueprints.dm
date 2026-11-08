@@ -113,7 +113,8 @@
 		clear_viewer(usr)
 		set_viewer(usr)
 
-	attack_self__legacy__attackchain(usr)
+	if(!QDELETED(src))
+		attack_self__legacy__attackchain(usr)
 
 /obj/item/areaeditor/blueprints/proc/get_images(turf/central_turf, viewsize)
 	. = list()

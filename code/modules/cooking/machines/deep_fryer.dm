@@ -20,6 +20,41 @@
 	for(var/i in 1 to 2)
 		surfaces += new/datum/cooking_surface/deepfryer_basin(src)
 
+/obj/machinery/cooking/deepfryer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(istype(used, /obj/item/grab))
+		user.changeNext_move(CLICK_CD_MELEE)
+		var/obj/item/grab/G = used
+
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, SPAN_DANGER("Deep frying [G.affecting] might hurt them!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!G.confirm())
+			return ITEM_INTERACT_COMPLETE
+		if(!isliving(G.affecting))
+			return ITEM_INTERACT_COMPLETE
+
+		var/mob/living/target = G.affecting
+		if(G.state < GRAB_AGGRESSIVE)
+			to_chat(user, SPAN_WARNING("You need a tighter grip!"))
+			return ITEM_INTERACT_COMPLETE
+		user.visible_message(SPAN_WARNING("[user] begins to force [target] into the deep frier!"), SPAN_WARNING("You begin to force [target] into the burning hot oil!"))
+		while(do_after_once(user, 5 SECONDS, target = target))
+			target.visible_message(
+				SPAN_DANGER("[user] sears [target]'s face with scalding hot oil!"),
+				SPAN_USERDANGER("Your face is seared with scalding hot oil!"),
+				SPAN_DANGER("You hear struggling and the sound of scalding hot oil searing something!")
+			)
+			playsound(src, 'sound/machines/kitchen/deep_fryer_evil.ogg', 50, TRUE)
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				H.emote("scream")
+				H.adjustFireLossByPart(rand(20, 30), BODY_ZONE_HEAD)
+				H.UpdateDamageIcon()
+			else
+				target.adjustFireLoss(25)
+		user.changeNext_move(CLICK_CD_MELEE)
+
 /obj/machinery/cooking/deepfryer/proc/InitializeParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/deep_fryer(null)

@@ -64,9 +64,13 @@
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
 				continue
+			// Only add it once, this gets called every time a turf next to us changes
+			if(!light)
+				GLOB.starlight += src
 			set_light(2)
-			GLOB.starlight += src
 			return
+		if(light)
+			GLOB.starlight -= src
 		set_light(0)
 
 /turf/space/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -244,3 +248,12 @@
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
+
+/turf/space/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(crossing, TRAIT_SPACEWALK)
+
+/turf/space/proc/has_valid_support()
+	for(var/direction in GLOB.cardinal)
+		if(istype(get_step(src, direction), /turf/simulated/floor))
+			return TRUE
+	return FALSE

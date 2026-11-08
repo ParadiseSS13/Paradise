@@ -185,18 +185,19 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	if(!IS_OPERATING)
 		return
 	use_power(100)
-	var/new_movables = loc.contents - affecting - src
-	var/still_stuff_to_move = FALSE
-	for(var/atom/movable/AM in new_movables)
-		if(AM.anchored)
+	var/list/new_movables
+	for(var/atom/movable/AM as anything in loc)
+		if(AM.anchored || affecting[AM])
 			continue
-		still_stuff_to_move = TRUE
 		// Keep track of the things we area already moving, so that we don't
 		// spawn hundreds of callbacks for the same thing.
 		// (they don't behave weirdly or anything, just eat CPU)
-		affecting.Add(AM)
-		addtimer(CALLBACK(src, PROC_REF(move_thing), AM), slow_factor)
-		CHECK_TICK
+		affecting[AM] = TRUE
+		LAZYADD(new_movables, AM)
+	var/still_stuff_to_move = length(new_movables)
+	if(still_stuff_to_move)
+		// One timer for everything that got on, not one each
+		addtimer(CALLBACK(src, PROC_REF(move_things), new_movables), slow_factor)
 
 	// Use speedy process only if the belt is actually in use, and use normal process otherwise.
 	// Saves power - both that of Nanotrasen and of Paradise server.
@@ -209,19 +210,22 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	if(!speed_process && !entered.anchored)
 		makeSpeedProcess()
 
-/obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
-	affecting.Remove(AM)
-	if(move_force < (AM.move_resist))
-		return
-	if(AM.anchored)
-		return
-	if(AM.loc != loc) // They stepped off the conveyor while we weren't looking
-		return
-
+/obj/machinery/conveyor/proc/move_things(list/movables)
+	affecting -= movables
 	var/move_time = 0
 	if(slow_factor>1) // yes, 1 is special
 		move_time=CEILING(slow_factor, 2) // yes.
-	AM.Move(get_step(loc, forwards), forwards, move_time)
+	var/turf/destination = get_step(loc, forwards)
+	// Last on goes first, like when each thing had its own timer
+	for(var/i in length(movables) to 1 step -1)
+		var/atom/movable/AM = movables[i]
+		if(move_force < (AM.move_resist))
+			continue
+		if(AM.anchored)
+			continue
+		if(AM.loc != loc) // They stepped off the conveyor while we weren't looking
+			continue
+		AM.Move(destination, forwards, move_time)
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
 	if(stat & BROKEN)

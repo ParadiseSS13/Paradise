@@ -207,13 +207,13 @@
 	else if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
 		examine_list += SPAN_NOTICE("Type a command into chat to perform. You may do this once every [input_cooldown * 0.1] second\s.")
 
-	var/extended_examine = "<span class='notice'>Command list:"
+	var/extended_examine = "Command list:"
 
 	extended_examine += english_list(inputs)
 
-	extended_examine += ".</span>"
+	extended_examine += "."
 
-	examine_list += extended_examine
+	examine_list += SPAN_NOTICE(extended_examine)
 
 /// Removes the ghost from the ckey_to_cooldown list and lets them know they are free to submit a command for the parent again.
 /datum/component/deadchat_control/proc/end_cooldown(ghost_ckey)

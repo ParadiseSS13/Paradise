@@ -161,6 +161,29 @@
 		to_chat(attacker, SPAN_WARNING("You need to have your ID in hand to scan it!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
+/datum/status_effect/high_five/offering_barcode_scanner
+	id = "offering_barcode_scanner"
+	request = "holds out a barcode scanner."
+	item_path = /obj/item/barcodescanner
+
+/datum/status_effect/high_five/offering_barcode_scanner/get_missed_message()
+	return "pulls back the barcode scanner."
+
+/datum/status_effect/high_five/offering_barcode_scanner/on_apply()
+	owner.custom_emote(EMOTE_VISIBLE, request)
+	owner.create_point_bubble_from_path(item_path, FALSE)
+	RegisterSignal(owner, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
+	return TRUE
+
+/datum/status_effect/high_five/offering_barcode_scanner/on_remove()
+	UnregisterSignal(owner, COMSIG_ATOM_RANGED_ATTACKED)
+
+/datum/status_effect/high_five/offering_barcode_scanner/proc/on_ranged_attack(mob/living/me, mob/living/carbon/human/attacker)
+	SIGNAL_HANDLER
+	if(get_dist(me, attacker) <= 2)
+		to_chat(attacker, SPAN_WARNING("You need to have your ID in hand to scan it!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
 /datum/status_effect/high_five/handshake
 	id = "handshake"
 	critical_success = "give each other an EPIC handshake!"

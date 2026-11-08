@@ -90,8 +90,19 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 				receivers -= M
 				garbled_receivers |= M
 	else
+		// The announcement comes out of every radio that is on, so find everyone who can hear one
 		for(var/obj/item/radio/R in GLOB.global_radios)
-			receivers |= R.send_announcement()
+			if(!R.is_listening())
+				continue
+			for(var/atom/movable/hearer as anything in get_hearers_in_LOS(R.canhear_range, R))
+				if(is_ai_eye(hearer))
+					var/mob/camera/eye/ai/eye = hearer
+					if(eye.relay_speech && eye.ai)
+						receivers |= eye.ai
+					continue
+				if(ismob(hearer))
+					receivers |= hearer
+
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M

@@ -62,7 +62,7 @@
 	plantname = "Earthcado Tree"
 	product = /obj/item/food/grown/avocado/earthcado
 	mutatelist = list(/obj/item/seeds/avocado, /obj/item/seeds/avocado/firecado, /obj/item/seeds/avocado/aircado)
-	reagents_add = list("carbon" = 0.05, "plantmatter" = 0.1)
+	reagents_add = list("iron" = 0.05, "plantmatter" = 0.1)
 	rarity = 20
 
 /obj/item/food/grown/avocado/aircado

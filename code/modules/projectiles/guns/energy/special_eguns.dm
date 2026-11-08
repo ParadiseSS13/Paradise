@@ -6,19 +6,20 @@
 * 5. METEOR GUN
 * 6. MIND FLAYER
 * 7. ENERGY CROSSBOW
-* 8. PLASMA CUTTER
-* 9. WORMHOLE PROJECTOR
-* 10. CYBORG LMG
-* 11. INSTAGIB RIFLE
-* 12. HONK RIFLE
-* 13. PLASMA PISTOL
-* 14. THE BSG
-* 15. TEMPERATURE GUN
-* 16. MIMIC GUN
-* 17. DETECTIVE ENERGY REVOLVER
-* 18. VOX SPIKETHROWER
-* 19. VORTEX SHOTGUN
-* 20. Model 2495
+* 8. CFL-3 "Blizzard"
+* 9. PLASMA CUTTER
+* 10. WORMHOLE PROJECTOR
+* 11. CYBORG LMG
+* 12. INSTAGIB RIFLE
+* 13. HONK RIFLE
+* 14. PLASMA PISTOL
+* 15. THE BSG
+* 16. TEMPERATURE GUN
+* 17. MIMIC GUN
+* 18. DETECTIVE ENERGY REVOLVER
+* 19. VOX SPIKETHROWER
+* 20. VORTEX SHOTGUN
+* 21. Model 2495
 */
 //////////////////////////////
 // MARK: ION RIFLE
@@ -230,6 +231,30 @@
 	user.visible_message(SPAN_SUICIDE("[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
+
+//////////////////////////////
+// MARK: CFL-3 "Blizzard"
+//////////////////////////////
+/obj/item/gun/energy/kinetic_accelerator/blizzard
+	name = "CFL-3 \"Blizzard\""
+	desc = "A weapon hailing from Ahdomai, this tajaran-designed flechette pistol fires small groups of cryogenic shards. It slowly generates a new shard on its own."
+	icon_state = "cryopistol"
+	inhand_icon_state = "cryopistol"
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL=2000)
+	origin_tech = "combat=5;magnets=4;syndicate=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/blizzard)
+	overheat_time = 15 SECONDS
+	holds_charge = TRUE
+	unique_frequency = TRUE
+	can_flashlight = FALSE
+	max_mod_capacity = 0
+	empty_state = "cryopistol_empty"
+	can_holster = TRUE
+
+/obj/item/gun/energy/kinetic_accelerator/blizzard/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
 
 //////////////////////////////
 // MARK: PLASMA CUTTER

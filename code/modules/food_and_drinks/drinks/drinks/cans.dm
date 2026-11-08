@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/drinks/cans
+	icon = 'icons/obj/drinks/cans.dmi'
 	container_type = NONE
 	var/can_opened = FALSE
 	var/is_glass = FALSE
@@ -161,6 +162,7 @@
 /obj/item/reagent_containers/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "adminbooze"
 	is_glass = TRUE
 	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
@@ -168,6 +170,7 @@
 /obj/item/reagent_containers/drinks/cans/madminmalt
 	name = "madmin malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "madminmalt"
 	is_glass = TRUE
 	list_reagents = list("hell_water" = 20, "neurotoxin" = 15, "thirteenloko" = 15)
@@ -175,6 +178,7 @@
 /obj/item/reagent_containers/drinks/cans/badminbrew
 	name = "badmin brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
+	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "badminbrew"
 	is_glass = TRUE
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
@@ -262,6 +266,7 @@
 /obj/item/reagent_containers/drinks/cans/bottler
 	name = "generic beverage container"
 	desc = ABSTRACT_TYPE_DESC
+	icon = 'icons/obj/drinks/paradise_punch.dmi'
 	icon_state = "glass_bottle"
 
 /obj/item/reagent_containers/drinks/cans/bottler/on_reagent_change()

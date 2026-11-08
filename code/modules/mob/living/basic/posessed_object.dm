@@ -90,8 +90,6 @@
 
 
 /mob/living/basic/possessed_object/Initialize(mapload)
-	. = ..()
-
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins(SPAN_ADMINNOTICE("Possessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		stack_trace("[src] spawned manually, no object to assign attributes to.")
@@ -104,11 +102,12 @@
 		qdel(src)
 
 	possessed_item = loc
+	update_icon()
+	. = ..()
+
 	forceMove(possessed_loc)
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
-
-	update_icon(UPDATE_NAME)
 	throwforce = possessed_item.throwforce
 	armor_penetration_flat = possessed_item.armor_penetration_flat
 	armor_penetration_percentage = possessed_item.armor_penetration_percentage
@@ -146,7 +145,10 @@
 	name = spirit_name
 
 	if(A == src) // If we're clicking ourself we should not attack ourself.
-		possessed_item.attack_self__legacy__attackchain(src)
+		if(possessed_item.new_attack_chain)
+			possessed_item.activate_self(src)
+		else
+			possessed_item.attack_self__legacy__attackchain(src)
 	else
 		..()
 
@@ -181,7 +183,7 @@
 
 /mob/living/basic/possessed_object/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/nullrod))
-		visible_message("<span type='notice'>[O] dispels the spooky aura!</span>")
+		visible_message(SPAN_NOTICE("[O] dispels the spooky aura!"))
 		death()
 
 		return ITEM_INTERACT_COMPLETE

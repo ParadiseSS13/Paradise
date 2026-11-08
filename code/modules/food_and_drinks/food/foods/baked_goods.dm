@@ -1177,7 +1177,7 @@
 	. = ..()
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
-		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
+		desc = "The oven is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Dorf Fortress reference
 		reagents.add_reagent("omnizine", 5)
 
 /obj/item/food/appletart

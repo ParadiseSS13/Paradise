@@ -11,6 +11,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=5;magnets=4;syndicate=4"
+	new_attack_chain = TRUE
 	var/can_use = TRUE
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_item = /obj/item/cigbutt
@@ -26,27 +27,33 @@
 /obj/item/chameleon/equipped()
 	disrupt()
 
-/obj/item/chameleon/attack_self__legacy__attackchain()
+/obj/item/chameleon/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	toggle()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/chameleon/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/chameleon/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!check_sprite(target))
-		return
+		return NONE
 	if(target.alpha < 255)
-		return
+		return NONE
 	if(target.invisibility != 0)
-		return
-	if(!active_dummy)
-		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
-			to_chat(user, SPAN_NOTICE("Scanned [target]."))
-			saved_item = target.type
-			saved_icon = target.icon
-			saved_icon_state = target.icon_state
-			saved_overlays = target.overlays
-			saved_underlays = target.underlays
+		return NONE
+	if(active_dummy)
+		return NONE
+
+	if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
+		to_chat(user, SPAN_NOTICE("Scanned [target]."))
+		add_fingerprint(user)
+		saved_item = target.type
+		saved_icon = target.icon
+		saved_icon_state = target.icon_state
+		saved_overlays = target.overlays
+		saved_underlays = target.underlays
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	return (target.icon_state in icon_states(target.icon))
@@ -185,6 +192,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 	var/active = FALSE
 	var/activation_cost = 300
 	var/activation_upkeep = 50
@@ -204,14 +212,20 @@
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/attack_self__legacy__attackchain(mob/living/silicon/robot/syndicate/saboteur/user)
-	if(user && user.cell && user.cell.charge > activation_cost)
-		if(isturf(user.loc))
-			toggle(user)
-		else
-			to_chat(user, SPAN_WARNING("You can't use [src] while inside something!"))
-	else
+/obj/item/borg_chameleon/activate_self(mob/living/silicon/robot/syndicate/saboteur/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(user?.cell?.charge > activation_cost))
 		to_chat(user, SPAN_WARNING("You need at least [activation_cost] charge in your cell to use [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!isturf(user.loc))
+		to_chat(user, SPAN_WARNING("You can't use [src] while inside something!"))
+		return ITEM_INTERACT_COMPLETE
+
+	toggle(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)

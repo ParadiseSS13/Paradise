@@ -203,7 +203,8 @@
 		return hear
 
 	for(var/atom/A in hear(R, T))
-		if(isobj(A) || ismob(A))
+		// An object with nothing inside it can't have a mob in it, so don't bother looking
+		if(ismob(A) || (isobj(A) && length(A.contents)))
 			collect_nested_mobs(A, hear, 3, !include_clientless, ai_eyes)
 
 	return hear

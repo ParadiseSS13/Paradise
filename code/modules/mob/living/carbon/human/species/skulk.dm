@@ -147,4 +147,64 @@
 	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)
 	to_chat(user, SPAN_WARNING("You spin a small amount of silk."))
 
+/datum/species/skulk/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#0a0a0b", "#200b0d", "#3a1027", "#393e5a", "#344234", "#867479")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/skulk/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#0a0a0b", "#200b0d", "#3a1027", "#393e5a", "#344234", "#867479")
+	return skin_tones[skin_tone]
+
+/datum/species/skulk/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = 1)
+	var/list/hair_colors = list()
+	switch(skin_tone)
+		if(1)
+			hair_colors["h1"] = pick(
+				rgb(rand(245, 265), rand(0, 20), rand(0, 5), space = COLORSPACE_HSL), // blacker
+				rgb(rand(245, 265), rand(80, 100), rand(10, 25), space = COLORSPACE_HSL), // purpler
+				)
+		if(2)
+			hair_colors["h1"] = rgb(rand(30, 100), rand(80, 100), rand(5, 25), space = COLORSPACE_HSL) // brown-olive-green
+		if(3)
+			hair_colors["h1"] = pick(
+				rgb(5, rand(90, 100), rand(10, 30), space = COLORSPACE_HSL), // red
+				rgb(40, rand(70, 90), rand(15, 30), space = COLORSPACE_HSL), // yellow
+				)
+		if(4)
+			hair_colors["h1"] = pick(
+				rgb(rand(180, 220), rand(0, 10), rand(10, 30), space = COLORSPACE_HSL), // bluer
+				rgb(rand(180, 220), rand(70, 90), rand(40, 50), space = COLORSPACE_HSL), // whiter
+				)
+		if(5)
+			hair_colors["h1"] = rgb(pick(125, 220), rand(50, 90), rand(5, 15), space = COLORSPACE_HSL) // blue or green
+		if(6)
+			hair_colors["h1"] = pick(
+				rgb(5, rand(90, 100), rand(10, 30), space = COLORSPACE_HSL), // red
+				rgb(rand(0, 15), rand(0, 10), rand(40, 50), space = COLORSPACE_HSL), // whitish
+				)
+
+	hair_colors["f1"] = hair_colors["h1"]
+	hair_colors["h2"] = rand_hex_color()
+	hair_colors["f2"] = rand_hex_color()
+
+	return hair_colors
+
+/datum/species/skulk/randomize_body_markings_color(body_markings = "None", body_color = null, skin_tone = 1)
+	switch(skin_tone)
+		if(1)
+			return rgb(280, 90, 20, space = COLORSPACE_HSL)
+		if(2)
+			return rgb(130, 90, 20, space = COLORSPACE_HSL)
+		if(3)
+			return rgb(35, 90, 20, space = COLORSPACE_HSL)
+		if(4)
+			return rgb(44, 10, 30, space = COLORSPACE_HSL)
+		if(5)
+			return rgb(210, 90, 20, space = COLORSPACE_HSL)
+		if(6)
+			return rgb(5, 100, 20, space = COLORSPACE_HSL)
+
+/datum/species/skulk/randomize_body_accessory(prob_to_apply = 100)
+	return ..()
+
 #undef SILK_NUTRITION_AMOUNT

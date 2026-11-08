@@ -249,6 +249,37 @@
 	dna.chat_color = colour
 	update_dna()
 
+/mob/living/carbon/human/get_blooper_id()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_id
+
+/mob/living/carbon/human/get_blooper_speed()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_speed
+/mob/living/carbon/human/get_blooper_pitch()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_pitch
+/mob/living/carbon/human/get_blooper_pitch_range()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_pitch_range
+
+/mob/living/carbon/human/proc/change_blooper_data(id = null, speed = null, pitch = null, pitch_range = null)
+	if(!dna)
+		return
+	if(!isnull(id) && blooper_id == dna.blooper_id)
+		dna.blooper_id = id
+	if(!isnull(speed) && blooper_speed == dna.blooper_speed)
+		dna.blooper_speed = speed
+	if(!isnull(pitch) && blooper_pitch == dna.blooper_pitch)
+		dna.blooper_pitch = pitch
+	if(!isnull(pitch_range) && blooper_pitch_range == dna.blooper_pitch_range)
+		dna.blooper_pitch_range = pitch_range
+	update_dna()
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
@@ -426,19 +457,11 @@
 	return sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_alt_heads()
-	var/list/valid_alt_heads = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no alt heads.
-	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
-	for(var/alternate_head in GLOB.alt_heads_list)
-		var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
-		if(!(H.dna.species.name in head.species_allowed))
-			continue
 
-		valid_alt_heads += alternate_head
-
-	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+	return list_valid_alt_heads(dna.species.name)
 
 /mob/living/carbon/human/proc/get_blood_color()
 	var/bloodcolor = "#A10808"
@@ -446,3 +469,7 @@
 	if(b_data)
 		bloodcolor = b_data["blood_color"]
 	return bloodcolor
+
+/mob/living/carbon/human/proc/generate_random_appearance(prosthesis_prob = null, use_gender = null)
+	var/datum/character_save/appearance = dna.species.generate_random_appearance(prosthesis_prob, use_gender = use_gender)
+	appearance.apply_appearance(src)

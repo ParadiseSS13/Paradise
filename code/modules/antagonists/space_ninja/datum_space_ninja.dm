@@ -50,6 +50,7 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 		new_ninja.equipOutfit(/datum/outfit/space_ninja/vox)
 	else
 		new_ninja.equipOutfit(/datum/outfit/space_ninja)
+	new_ninja.mind.assigned_role = "Ninja"
 
 /datum/antagonist/space_ninja/proc/forge_objectives()
 	var/list/moderate_objectives = list(

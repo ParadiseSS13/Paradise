@@ -142,6 +142,12 @@ USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", V
 											to_chat(usr, "[temp] rejected your varedit.")
 										break
 									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || isclient(temp.vars[v])))
+										if(!temp.can_vv_get(v))
+											to_chat(usr, SPAN_DANGER("You are not allowed to read that variable with SDQL"))
+											message_admins("[SPAN_DANGER("ALERT")] - [key_name_admin(usr)] attempted to read protected variables with SDQL!")
+											log_admin("[key_name_log(usr)] attempted to read protected variables with SDQL!")
+											return null
+
 										temp = temp.vars[v]
 									else
 										break
@@ -405,6 +411,12 @@ USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", V
 		start++
 
 	else if((!long || expression[start + 1] == "." || expression[start + 1] == "\[") && (expression[start] in object.vars))
+		if(!object.can_vv_get(expression[start]))
+			to_chat(usr, SPAN_DANGER("You are not allowed to read that variable with SDQL"))
+			message_admins("[SPAN_DANGER("ALERT")] - [key_name_admin(usr)] attempted to read protected variables with SDQL!")
+			log_admin("[key_name_log(usr)] attempted to read protected variables with SDQL!")
+			return null
+
 		v = object.vars[expression[start]]
 
 	else if(long && expression[start + 1] == ":" && hascall(object, expression[start]))

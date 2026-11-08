@@ -16,7 +16,7 @@
 	Nanotrasen Science Directorate"}
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_packs/engineering/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/bluespace_tap]"]
+	var/datum/supply_packs/engineering/goal/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/goal/bluespace_tap]"]
 	P.cost = 1000
 
 /datum/station_goal/bluespace_tap/check_completion()

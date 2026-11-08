@@ -45,25 +45,22 @@
 	name = "paper dispenser"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
+	new_attack_chain = TRUE
 
-/obj/item/form_printer/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	return
-
-/obj/item/form_printer/afterattack__legacy__attackchain(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-
-	if(!target || !flag)
-		return
-
-	if(istype(target,/obj/structure/table))
+/obj/item/form_printer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/structure/table))
 		deploy_paper(get_turf(target))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/form_printer/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/form_printer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	deploy_paper(get_turf(src))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/form_printer/proc/deploy_paper(turf/T)
-	T.visible_message(SPAN_NOTICE("\The [src.loc] dispenses a sheet of crisp white paper."))
+	T.visible_message(SPAN_NOTICE("[src.loc] dispenses a sheet of crisp white paper."))
 	new /obj/item/paper(T)
-
 
 //Personal shielding for the combat module.
 

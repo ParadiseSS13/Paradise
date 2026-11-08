@@ -79,6 +79,8 @@ GLOBAL_LIST(contractors)
 
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
 
+#define IS_ACOLYTE(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/acolyte))
+
 /**
  * Heretic checks
  */

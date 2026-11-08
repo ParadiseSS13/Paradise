@@ -88,7 +88,17 @@
 /datum/ruleset/proc/can_assign_hijack_objective()
 	return FALSE
 
+/datum/ruleset/proc/configure()
+	SHOULD_CALL_PARENT(TRUE)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		banned_jobs += protected_jobs
+
+	if(!can_assign_hijack_objective())
+		banned_jobs += hijack_only_jobs
+
 /datum/ruleset/proc/roundstart_pre_setup()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	configure()
 	if(antag_amount == 0)
 		return
 	if(antag_amount < 0)
@@ -98,12 +108,6 @@
 	if(!length(possible_antags))
 		refund("No possible players for [src] ruleset.") // we allocate antag budget before we allocate players, and previous rulesets can steal our players
 		return antag_cost * antag_amount // shitty refund for now
-
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs
-
-	if(!can_assign_hijack_objective())
-		banned_jobs += hijack_only_jobs
 
 	shuffle_inplace(possible_antags)
 	for(var/datum/mind/antag as anything in possible_antags)
@@ -214,7 +218,7 @@
 
 /datum/ruleset/traitor
 	name = "Traitor"
-	ruleset_weight = 11
+	ruleset_weight = 15
 	antag_cost = 7
 	antag_weight = 2
 	antagonist_type = /datum/antagonist/traitor
@@ -232,7 +236,7 @@
 
 /datum/ruleset/heretic
 	name = "Heretic"
-	ruleset_weight = 10
+	ruleset_weight = 6
 	antag_cost = 10
 	antagonist_type = /datum/antagonist/heretic
 
@@ -265,7 +269,24 @@
 	// We're the first ruleset, but we can afford another ruleset
 	if(ruleset_budget > 1)
 		return ..()
-	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
+	return RULESET_FAILURE_SECONDARY_RULESET
+
+/datum/ruleset/acolyte
+	name = "Acolyte"
+	ruleset_weight = 8
+	antag_cost = 15
+	antagonist_type = /datum/antagonist/acolyte
+
+	banned_jobs = list("Cyborg", "AI", "Chaplain")
+
+/datum/ruleset/acolyte/ruleset_possible(ruleset_budget, rulesets, antag_budget)
+	// Theres already a ruleset, we're good to go
+	if(length(rulesets))
+		return ..()
+	// We're the first ruleset, but we can afford another ruleset
+	if(ruleset_budget > 1)
+		return ..()
+	return RULESET_FAILURE_SECONDARY_RULESET
 
 // This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
 /datum/ruleset/implied
@@ -283,11 +304,6 @@
 
 /datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	stack_trace("[type]/on_implied() not implemented!")
-
-/datum/ruleset/implied/roundstart_pre_setup()
-	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs
 
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
@@ -350,7 +366,8 @@
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
 		/datum/ruleset/vampire,
-		/datum/ruleset/changeling
+		/datum/ruleset/changeling,
+		/datum/ruleset/acolyte
 	)
 	banned_jobs = list("Cyborg", "AI", "Chaplain", "Head of Personnel")
 

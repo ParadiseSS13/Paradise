@@ -461,7 +461,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
-		/obj/item/rpd/bluespace
+		/obj/item/rpd/bluespace,
+		/obj/item/stack/cable_coil/rcl,
 	)
 
 /obj/item/storage/belt/military/sst

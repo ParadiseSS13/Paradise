@@ -303,7 +303,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "br" = (
-/mob/living/simple_animal/bot/secbot,
+/mob/living/basic/bot/secbot,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bs" = (

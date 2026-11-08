@@ -46,7 +46,7 @@
 	spawned_mouse.give_intro_text()
 
 /datum/objective/irradiated_mouse_objective
-	explanation_text = "Enjoy the remainder of your life the best you can! Whether by gorging on cheese, pestering the crew or exploring the station."
+	explanation_text = "Punish the tall ones who have hunted you with mousetraps for so long!"
 	completed = TRUE
 	needs_target = FALSE
 
@@ -61,30 +61,51 @@
 	mouse_color = "green"
 	icon_state = "mouse_green"
 	a_intent = INTENT_HARM
+	melee_damage_lower = 3
+	melee_damage_upper = 5
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSDOOR
+	appearance_flags = LONG_GLIDE | PIXEL_SCALE
+	attack_verb_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
+	can_be_scooped = FALSE
+
+	/// How many times have we bitten a valid mob (for upgrades).
+	var/mousebites = 0
+	/// How many bites are required per available upgrade.
+	var/mousebites_per_upgrade = 8
+	/// How many additional mousebites required we require on every levelup
+	var/mousebite_increment = 1
+	/// How much health do we gain/restore per upgrade.
+	var/health_increase = 20
+	/// How much do we resize per level gained.
+	var/resize_factor = 1.1
 
 	var/available_upgrades = 0
-	var/upgrade_cooldown_in_seconds = 120
+
+	/// The highest level a spell may be upgraded.
+	var/level_cap = 4
 	var/radiation_upgrades = 0
 	var/speed_upgrades = 0
 	var/damage_upgrades = 0
-	var/level_cap = 3
 
-	var/alpha_rad = 0
-	var/beta_rad = 0
-	var/gamma_rad = 0
-	var/alpha_rad_per_level = 400
-	var/beta_rad_per_level = 400
-	var/gamma_rad_per_level = 0
-	var/radiation_cooldown = 0.1
-	var/produce_radioactive_sludge = FALSE
+	/// What type of radiation are we currently giving off.
+	var/radiation_level = ALPHA_RAD
+	/// How intense is our radiation?
+	var/radiation_amount = 10
 
-	var/speed_per_level = -0.5
-	var/speed_capstone_alpha = 125
+	/// How much speed is increased (bigger negative = faster).
+	var/speed_per_level = -0.4
+	/// How much damage is increased ever level.
+	var/damage_per_level = 3
 
-	var/has_exited_vents = FALSE
-	var/seconds_time_till_death = 60 * 15
-
+	/// How much does cheese heal us?
 	var/cheese_heal = 2
+
+	/// contains a list of UIDs of mobs who have been bitten and their ammount.
+	var/list/bitten_mobs = list()
+	/// The maximum mousebite points one mob will provide
+	var/max_bites_per_mob = 10
 
 	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
@@ -102,96 +123,95 @@
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
 
+// irradiate anyone we bite
+/mob/living/basic/mouse/irradiated_mouse/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/L = target
+		contaminate_target(target, src, radiation_amount, radiation_level)
+		if(ishuman(L) && L.mind && !(L.stat & DEAD)) // Only living, sentient crew should qualify for this
+			var/mob_UID = L.UID()
+			if(!(mob_UID in bitten_mobs))
+				bitten_mobs.Add(mob_UID)
+				mousebites++
+			else if(bitten_mobs[mob_UID] < max_bites_per_mob)
+				bitten_mobs[mob_UID] += 1
+				mousebites++
+			else
+				to_chat(src, SPAN_DANGER("You have obtained all the useful biomatter from this one!"))
+		else
+			to_chat(src, SPAN_WARNING("You wont be able to obtain any usable biomatter from this one."))
+		if(mousebites >= mousebites_per_upgrade)
+			mousebites -= mousebites_per_upgrade
+			available_upgrades++
+
+/mob/living/basic/mouse/irradiated_mouse/attack_hand(mob/living/carbon/human/M as mob)
+	if(M.a_intent == INTENT_HELP)
+		to_chat(M, SPAN_DANGER("Your hand burns as you try to grab onto the mouse!"))
+		M.adjustFireLoss(5)
+	..()
+
 /mob/living/basic/mouse/irradiated_mouse/try_consume_cheese(obj/item/food/sliced/cheesewedge/cheese)
-	if(health >= maxHealth)
-		return
 
 	visible_message(
 		SPAN_NOTICE("[src] gorges on [cheese]."),
 		SPAN_NOTICE("You gorge on [cheese][health < maxHealth ? ", restoring your health" : ""].")
 	)
 
-	adjustBruteLoss(-cheese_heal)
 	qdel(cheese)
+
+	// One can gorge on cheese without healing if they wish.
+	if(health >= maxHealth)
+		return
+	adjustBruteLoss(-cheese_heal)
 
 /mob/living/basic/mouse/irradiated_mouse/update_desc()
 	. = ..()
-	desc = initial(desc) // we dont want the standard description auto added by mice
+	desc = initial(desc) // we dont want the standard description auto added by mice.
+
+/mob/living/basic/mouse/irradiated_mouse/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Upgrades available:", "[format_si_suffix(available_upgrades)]")
+	status_tab_data[++status_tab_data.len] = list("Bites until next upgrade:", "[format_si_suffix(mousebites_per_upgrade - mousebites)] bites")
 
 /mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
 	var/list/messages = list()
 	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
-	messages.Add("<center>[SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life: [SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live.")]")]</center>")
+	messages.Add(SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! You're slowly growing larger, meaner, and angrier! Its time to take it out on the crew for the years of being hunted by mousetraps!"))
+	messages.Add(SPAN_SPECIALNOTICE("Your radioactive nature has made your body unstable! Bite crew to irradiate them and gain points towards useful upgrades."))
+	messages.Add(SPAN_SPECIALNOTICE("Mindless bodies or corpses will not benefit you towards your upgrades."))
+	messages.Add(SPAN_SPECIALNOTICE("As you upgrade yourself, you will slowly grow in size and health."))
+	messages.Add(SPAN_SPECIALNOTICE("At a certian size, guns will no longer shoot over you and require more evasion to avoid!"))
+	messages.Add(SPAN_SPECIALNOTICE("Be wary of mousetraps! They will kill you instantly."))
+	messages.Add(SPAN_SPECIALNOTICE("Use your 'hide' ability to make yourself appear underneath objects, and allow you to pass under doors unobstructed."))
 	messages.Add(mind.prepare_announce_objectives(FALSE))
-	messages.Add("<center>[SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse) ")]</center>")
+	messages.Add(SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse)"))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
-
-/mob/living/basic/mouse/irradiated_mouse/remove_ventcrawl()
-	. = ..()
-	start_death_countdown()
-
-/mob/living/basic/mouse/irradiated_mouse/proc/start_death_countdown()
-	if(!has_exited_vents)
-		upgrade_radiation()
-		upgrade_speed()
-		upgrade_damage()
-	has_exited_vents = TRUE
-
-/mob/living/basic/mouse/irradiated_mouse/Life(seconds, times_fired)
-	. = ..()
-	if(stat != CONSCIOUS)
-		return
-
-	if(!has_exited_vents)
-		if(admin_spawned)
-			start_death_countdown()
-		else
-			return
-
-	// telegraph the radiation by giving tiles harmless alpha radiation
-	for(var/turf/turf in range(1, src))
-		contaminate_target(turf, src, alpha_rad, ALPHA_RAD)
-
-	// reduce health by a constant so the mouse eventually dies
-	adjustBruteLoss(maxHealth * seconds / seconds_time_till_death)
-
-	// subtract time after you've left a vent
-	upgrade_cooldown_in_seconds -= seconds
-	if(upgrade_cooldown_in_seconds <= 0)
-		upgrade_cooldown_in_seconds += initial(upgrade_cooldown_in_seconds)
-		available_upgrades++
-		to_chat(src, SPAN_NOTICE("You have [available_upgrades] upgrades available."))
-
-	if(!produce_radioactive_sludge)
-		return
-
-	var/chance = 50 - (health/maxHealth * 50)  // more likely as health drops, fastest you can get this is after 6 minutes, giving a 20% spawn chance per 2 seconds
-	if(prob(chance))
-		new /obj/effect/decal/cleanable/radioactive_sludge(get_turf(src))
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
-	alpha_rad = alpha_rad_per_level * radiation_upgrades
-	beta_rad = beta_rad_per_level * radiation_upgrades
-	gamma_rad = gamma_rad_per_level * radiation_upgrades
-
-	// update your radiation component
-	DeleteComponentsType(/datum/component/inherent_radioactivity)
-	AddComponent(/datum/component/inherent_radioactivity, alpha_rad, beta_rad, gamma_rad, radiation_cooldown)
+	on_upgrade()
+	radiation_amount += 10
+	if(radiation_level < GAMMA_RAD)
+		radiation_level = round_down(1 + (radiation_upgrades / 2)) // One level up every two levels.
+	if(!(radiation_level % 2))
+		to_chat(src, SPAN_NOTICE("Your radiation becomes more lethal!"))
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_speed()
 	speed_upgrades++
-	speed = initial(speed) + speed_per_level * speed_upgrades // this will tend towards a negative value (due to speed_per_level being negative) which is faster
-	if(speed_upgrades > level_cap)
-		alpha = speed_capstone_alpha
-		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement)) // handles afterimages
+	on_upgrade()
+	speed = initial(speed) + speed_per_level * speed_upgrades // This will tend towards a negative value (due to speed_per_level being negative) which is faster
+	if(speed_upgrades == level_cap)
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement)) // Handles afterimages.
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_damage()
 	damage_upgrades++
-	melee_damage_lower = damage_upgrades * 5
+	on_upgrade()
+	melee_damage_lower += damage_per_level
 	melee_damage_upper = melee_damage_lower + 5
-	if(damage_upgrades > level_cap)
-		environment_smash = ENVIRONMENT_SMASH_WALLS // what allows wall smashing
+	if(damage_upgrades == level_cap) // Allows wall smashing at max level.
+		environment_smash = ENVIRONMENT_SMASH_WALLS
 
 /mob/living/basic/mouse/irradiated_mouse/proc/on_movement(mob/living/mob, atom/old_loc)
 	if(stat != CONSCIOUS)
@@ -204,5 +224,20 @@
 
 /obj/effect/temp_visual/decoy/irradiated_mouse_afterimage/Initialize(mapload, atom/mimiced_atom)
 	. = ..()
-	animate(src, alpha = 0, time = duration, easing = EASE_OUT) // gradually fading out after image
+	animate(src, alpha = 0, time = duration, easing = EASE_OUT) // Gradually fading out after image.
 
+/mob/living/basic/mouse/irradiated_mouse/proc/on_upgrade()
+	maxHealth += health_increase
+	health += health_increase
+	mousebites_per_upgrade += mousebite_increment
+	update_health_hud()
+	if(radiation_upgrades + speed_upgrades + damage_upgrades == 6) // Make rad easier to shoot
+		density = TRUE
+		pass_flags &= ~PASSMOB
+		to_chat(src, SPAN_BOLDNOTICE("You feel as if you've grown large enough to be easier to shoot at!"))
+	var/matrix/mouse_transform = matrix(transform)
+	mouse_transform.Scale(resize_factor)
+	animate(src, transform = mouse_transform, time = 1, pixel_y = pixel_y += 2, easing = EASE_IN|EASE_OUT)
+	if(radiation_upgrades == level_cap && speed_upgrades == level_cap && damage_upgrades == level_cap)
+		to_chat(src, SPAN_BOLDNOTICE("You feel like your fur is trying to slough off your body!"))
+		AddSpell(new /datum/spell/mouse_sludge_ejection)

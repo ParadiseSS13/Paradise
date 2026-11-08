@@ -164,6 +164,16 @@
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
 
+/atom/movable/proc/ex_throw(severity, turf/epicenter, ex_range)
+	if(epicenter && !anchored && !throwing && severity >= 1)
+		var/real_epi = get_turf(epicenter) // We cant just use the loc of epicenter as it may get destroyed in the explosion, resulting in infinity.
+		var/real_dir = get_dir(real_epi, loc)
+		if(!real_dir)
+			real_dir = pick(GLOB.alldirs)
+		var/ex_distance = abs(get_dist(real_epi, loc))
+		var/throw_dist = abs((ex_range - ex_distance) * (3 / severity))
+		throw_at(get_edge_target_turf(src, real_dir), throw_dist, 5)
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
@@ -432,7 +442,8 @@
 /atom/movable/proc/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
 
-	if(!inertia_moving && momentum_change)
+	// Nothing drifts where there's gravity, so don't ask
+	if(!inertia_moving && momentum_change && !has_gravity(src))
 		newtonian_move(movement_dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
@@ -1001,23 +1012,6 @@
 /// Easy way to remove the component when the fun has been played out
 /atom/movable/proc/stop_deadchat_plays()
 	DeleteComponent(/datum/component/deadchat_control)
-
-//Update the screentip to reflect what we're hovering over
-/atom/movable/MouseEntered(location, control, params)
-	if(invisibility > usr.see_invisible)
-		return
-	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	var/screentip_mode = usr.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
-	usr.client.moused_over = UID()
-
-/atom/movable/MouseExited(location, control, params)
-	usr.hud_used.screentip_text.maptext = ""
-	usr.client.moused_over = null
 
 /atom/movable/proc/choose_crush_crit(mob/living/carbon/victim)
 	if(!length(GLOB.tilt_crits))

@@ -1,7 +1,7 @@
 /obj/item/airlock_electronics
 	name = "airlock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
-	icon_state = "door_electronics"
+	icon_state = "airlock_electronics"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
@@ -118,7 +118,7 @@
 
 /obj/item/airlock_electronics/destroyed
 	name = "burned-out airlock electronics"
-	icon_state = "door_electronics_smoked"
+	icon_state = "airlock_electronics_smoked"
 
 /obj/item/airlock_electronics/destroyed/Initialize(mapload)
 	. = ..()

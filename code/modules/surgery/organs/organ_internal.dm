@@ -16,7 +16,7 @@
 	/// How much is this organ worth in the xenobiology organ analyzer?
 	var/analyzer_price = 10
 	/// what quality is this organ? Only useful for xeno organs
-	var/organ_quality = ORGAN_NORMAL
+	var/organ_quality = ORGAN_PRISTINE
 	/// Does this organ originate from the xenobiology dissection loop?
 	var/is_xeno_organ = FALSE
 	/// Does this organ give a warning upon being inserted?
@@ -268,8 +268,8 @@
 	if(organ_to_eat)
 		user.drop_item()
 		user.put_in_active_hand(organ_to_eat)
-		organ_to_eat.interact_with_atom(user, user)
 		qdel(src)
+		return organ_to_eat.interact_with_atom(user, user)
 
 /obj/item/organ/internal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!(is_robotic() && istype(used, /obj/item/stack/synthetic_skin)))

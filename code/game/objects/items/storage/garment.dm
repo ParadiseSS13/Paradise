@@ -124,6 +124,7 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/brown	(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/cmo(src)
 	new /obj/item/clothing/under/plasmaman/cmo(src)
 

@@ -38,6 +38,7 @@
 
 /mob/living/basic/mining/hivelord/space
 	brood_type = /mob/living/basic/mining/hivelordbrood/space
+	initial_traits = list(TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/hivelord/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
@@ -107,6 +108,7 @@
 		return TRUE
 
 /mob/living/basic/mining/hivelordbrood/space
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE, TRAIT_SPACEWALK)
 
 /mob/living/basic/mining/hivelordbrood/space/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
@@ -221,9 +223,9 @@
 		else if(HAS_TRAIT(src, TRAIT_FROM_TENDRIL))
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
 		else if(dwarf_mob)
-			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf(T)
+			new /obj/effect/mob_spawn/human/corpse/charredskeleton/legioninfested/dwarf(T)
 		else
-			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested(T)
+			new /obj/effect/mob_spawn/human/corpse/charredskeleton/legioninfested(T)
 	..(gibbed)
 
 // Legion skull
@@ -248,8 +250,9 @@
 	. = ..()
 	if(!ishuman(target))
 		return
-	if((target.stat == DEAD && can_infest_dead) || target.stat == UNCONSCIOUS)
-		infest(target)
+	var/mob/living/human_target = target // i hate this language sometimes, why cant ishuman just recast it : (
+	if((human_target.stat == DEAD && can_infest_dead) || (human_target.stat == UNCONSCIOUS && human_target.get_total_damage() > 150))
+		infest(target) // HRD-MDE legion or passed out and 50 points points til hard crit = legion'd
 
 /mob/living/basic/mining/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	if(H?.dna?.species && !H.dna.species.can_be_legion_infested())
@@ -330,6 +333,8 @@
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 		var/armor = L.run_armor_check(def_zone = limb_to_hit, armor_type = MELEE, armor_penetration_percentage = 50)
 		L.apply_damage(40, BRUTE, limb_to_hit, armor)
+	var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
+	changeNext_move(melee_attack_cooldown)
 
 // Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
@@ -343,17 +348,16 @@
 
 // Legion infested mobs
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/corpse/charredskeleton/legioninfested/dwarf/equip(mob/living/carbon/human/H)
 	. = ..()
 	H.dna.SetSEState(GLOB.smallsizeblock, TRUE, TRUE)
 	singlemutcheck(H, GLOB.smallsizeblock, MUTCHK_FORCED)
 	H.update_mutations()
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
+/obj/effect/mob_spawn/human/corpse/charredskeleton/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick("Shadow", "YeOlde", "Cultist") = 4))
 	switch(type)
 		if("Miner")
-			mob_species = pickweight(list(/datum/species/human = 72, /datum/species/unathi = 28))
 			uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 			if(prob(4))
 				belt = pickweight(list(/obj/item/storage/belt/mining = 2, /obj/item/storage/belt/mining/alt = 2))
@@ -372,7 +376,6 @@
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/stack/spacecash/c200 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
 		if("Ashwalker")
-			mob_species = /datum/species/unathi/ashwalker
 			uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
@@ -402,7 +405,6 @@
 			if(prob(10))
 				r_pocket = /obj/item/bio_chip_implanter/sad_trombone
 		if("Golem")
-			mob_species = pick(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium)
 			if(prob(30))
 				glasses = pickweight(list(/obj/item/clothing/glasses/meson = 2, /obj/item/clothing/glasses/hud/health = 2, /obj/item/clothing/glasses/hud/diagnostic =2, /obj/item/clothing/glasses/science = 2, /obj/item/clothing/glasses/welding = 2, /obj/item/clothing/glasses/night = 1))
 			if(prob(10))
