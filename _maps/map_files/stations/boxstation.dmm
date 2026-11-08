@@ -2665,7 +2665,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/button/windowtint/directional/west,
+/obj/machinery/button/windowtint/directional/west{
+	id = "HoS"
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amv" = (
@@ -5089,7 +5091,9 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "Processing"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "auU" = (
@@ -67675,7 +67679,9 @@
 	pixel_y = 34
 	},
 /obj/item/lighter/zippo/engraved,
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "conference"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "nUu" = (
@@ -74776,7 +74782,9 @@
 	dir = 9
 	},
 /obj/machinery/r_n_d/circuit_imprinter/loaded,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "rnd"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "qUH" = (
