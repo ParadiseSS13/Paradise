@@ -81,6 +81,8 @@
 		"is dropping tables!",
 		"just remembered they have no I/O shield!")
 
+	speciesbox = /obj/item/storage/box/survival_ipc
+
 	plushie_type = /obj/item/toy/plushie/ipcplushie
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
@@ -258,6 +260,7 @@
 /mob/living/carbon/human/machine/get_spooked()
 	to_chat(src, SPAN_WHISPER("[pick(GLOB.boo_phrases_robot)]"))
 	return TRUE
+
 /datum/species/machine/generate_random_appearance(prosthesis_prob = 100, appearance = null, use_gender = null)
 	return ..()
 
