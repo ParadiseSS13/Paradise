@@ -103,6 +103,11 @@
 			return FALSE
 		to_chat(user, SPAN_WARNING("You already have retracted there!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+	if(istype(part, /obj/item/clothing/head/mod))
+		var/obj/item/clothing/head/mod/helm = part
+		if(length(helm.attached_hats))
+			for(var/obj/item/clothing/head/H in helm.attached_hats)
+				helm.detach_hat(H, wearer)
 	part.set_nodrop(FALSE)
 	wearer.transfer_item_to(part, src, force = TRUE)
 	if(overslotting_parts[part])

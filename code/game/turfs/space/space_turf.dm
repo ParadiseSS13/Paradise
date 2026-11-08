@@ -64,9 +64,13 @@
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
 				continue
+			// Only add it once, this gets called every time a turf next to us changes
+			if(!light)
+				GLOB.starlight += src
 			set_light(2)
-			GLOB.starlight += src
 			return
+		if(light)
+			GLOB.starlight -= src
 		set_light(0)
 
 /turf/space/item_interaction(mob/living/user, obj/item/used, list/modifiers)
