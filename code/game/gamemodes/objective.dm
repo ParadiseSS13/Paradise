@@ -1037,16 +1037,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom" + "random"
-	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
+	var/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_items_all)
 	if(!new_target)
 		return
 
 	if(new_target == "custom")
-		var/obj/item/steal_target_path = input("Select type:","Type") as null|anything in typesof(/obj/item)
+		var/obj/item/steal_target_path = tgui_input_list(usr, "Select type:","Type", typesof(/obj/item))
 		if(!steal_target_path)
 			return
 
-		var/theft_objective_name = sanitize(copytext_char(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
+		var/theft_objective_name = sanitize(tgui_input_text(usr, "Enter target name:", "Objective target", initial(steal_target_path.name), MAX_NAME_LEN))
 		if(!theft_objective_name)
 			return
 

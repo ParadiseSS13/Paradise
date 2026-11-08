@@ -984,7 +984,7 @@
 						new_objective = new /datum/objective/unique_objective/sabotage_power/cargo
 
 			if("custom")
-				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : "", MAX_MESSAGE_LEN))
 				if(!expl)
 					return
 				new_objective = new /datum/objective
