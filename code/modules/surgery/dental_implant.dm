@@ -47,9 +47,9 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/New(Target, obj/item/tool)
-	button_icon = tool.icon
-	button_icon_state = tool.icon_state
+/datum/action/item_action/hands_free/activate_pill/New(obj/item/target)
+	button_icon = target.icon
+	button_icon_state = target.icon_state
 	return ..()
 
 /datum/action/item_action/hands_free/activate_pill/Trigger(left_click = TRUE)

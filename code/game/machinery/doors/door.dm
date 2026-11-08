@@ -82,13 +82,20 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	update_nearby_icons()
+	update_icon()
+	recalculate_atmos_connectivity()
+
+/obj/machinery/door/proc/update_nearby_icons()
 	if(manual_dir == FALSE)
 		for(var/d in GLOB.cardinal)
 			var/turf/T = get_step(src, d)
-			if(iswallturf(T) || locate(/obj/structure/window/full) in T)
+			if(iswallturf(T))
 				QUEUE_SMOOTH(T)
-	update_icon()
-	recalculate_atmos_connectivity()
+			else
+				var/obj/structure/window/full/W = locate(/obj/structure/window/full) in T
+				if(W)
+					QUEUE_SMOOTH(W)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -533,11 +540,18 @@
 		if(iswallturf(get_step(src, direction)))
 			return direction
 	for(var/direction in GLOB.cardinal)
+		var/obj/effect/spawner/window/W = locate(/obj/effect/spawner/window) in get_step(src, direction)
+		if(W?.useFull)
+			return direction
+	for(var/direction in GLOB.cardinal)
 		if((locate(/obj/structure/window/full) in get_step(src, direction)))
 			return direction
 	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/machinery/door) in get_step(src, direction)))
-			return direction
+		var/turf/T = get_step(src, direction)
+		for(var/obj/machinery/door/airlock/A in T.contents)
+			if(A != src)
+				return direction
+	return dir // Fallback from mapping.
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))

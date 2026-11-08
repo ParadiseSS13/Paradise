@@ -102,7 +102,7 @@
 		return ..()
 	var/mob/living/carbon/C = target
 	face_atom(C)
-	if(!emagged) // This keeps it from harm batonning
+	if(!(bot_access_flags & BOT_COVER_EMAGGED)) // This keeps it from harm batonning
 		a_intent = INTENT_HELP
 	if(istype(baton, /obj/item/melee/baton)) // We need to do this so beepsky can stun but things like honkbots will be fine
 		var/obj/item/melee/baton/stunner = baton
@@ -177,7 +177,7 @@
 
 /mob/living/basic/bot/secbot/proc/post_stun(mob/living/carbon/current_target, harm = FALSE)
 	flick("[base_icon_state]-c", src)
-	var/threat = 5 || ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
+	var/threat = ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT] || 5
 	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
 		var/area/location = get_area(src)
 		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag [current_target] in [location].", radio_channel)

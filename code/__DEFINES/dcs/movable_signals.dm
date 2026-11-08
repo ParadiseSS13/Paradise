@@ -10,9 +10,11 @@
 ///from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
+///Not sent for non-dense items, turf/Enter() doesn't ask them
 #define COMSIG_MOVABLE_CHECK_CROSS "movable_cross"
 	#define COMPONENT_BLOCK_CROSS (1<<0)
 ///from base of atom/movable/Move(): (/atom/movable)
+///Not sent for crossing non-dense items, turf/Enter() doesn't ask them
 #define COMSIG_MOVABLE_CHECK_CROSS_OVER "movable_cross_over"
 ///from base of atom/movable/Uncross(): (/atom/movable)
 #define COMSIG_MOVABLE_UNCROSS "movable_uncross"

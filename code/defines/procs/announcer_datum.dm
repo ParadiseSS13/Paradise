@@ -90,8 +90,29 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 				receivers -= M
 				garbled_receivers |= M
 	else
+		// The announcement comes out of every radio that is on, so find everyone who can hear one
+		var/list/obj/item/radio/radios = list()
 		for(var/obj/item/radio/R in GLOB.global_radios)
-			receivers |= R.send_announcement()
+			if(R.is_listening())
+				radios += R
+		// Note which turf each player is listening from
+		var/list/ears = list()
+		for(var/mob/M as anything in GLOB.player_list)
+			// Players inside something can still hear, up to two deep like get_mobs_in_view()
+			var/atom/on_turf = M
+			for(var/i in 1 to 2)
+				if(isturf(on_turf.loc) || !on_turf.loc)
+					break
+				on_turf = on_turf.loc
+			if(isturf(on_turf.loc))
+				LAZYADD(ears[on_turf.loc], M)
+			// AIs can get messages from their eye as well as themselves
+			if(is_ai(M))
+				var/mob/living/silicon/ai/AI = M
+				if(AI.eyeobj?.relay_speech && isturf(AI.eyeobj.loc))
+					LAZYOR(ears[AI.eyeobj.loc], M)
+		for(var/mob/M as anything in get_radio_hearers(radios, ears))
+			receivers += M
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
