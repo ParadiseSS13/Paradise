@@ -1453,11 +1453,11 @@
 
 	if(retain_damage || keep_implants)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
-		var/bodypart_stats = list()
+		var/list/bodypart_stats = list()
 
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
-			var/stats = list(6)
+			var/list/stats = list(6)
 			if(keep_implants)
 				stats[5] = E.hidden
 				var/list/implants = list()
@@ -1467,6 +1467,7 @@
 				stats[6] = implants
 
 			if((E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) || !retain_damage) //If there's no damage we don't bother remembering it.
+				bodypart_stats += list(stats)
 				continue
 			stats[2] = E.brute_dam
 			stats[3] = E.burn_dam
@@ -1475,7 +1476,7 @@
 			bodypart_stats += list(stats)
 
 		//Now we do the same for internal organs via the same proceedure.
-		var/internal_damages = list()
+		var/list/internal_damages = list()
 		if(retain_damage)
 			for(var/obj/item/organ/internal/I in internal_organs)
 				if(I.damage == 0)
