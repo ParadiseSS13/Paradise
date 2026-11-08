@@ -192,6 +192,7 @@
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/nanopaste(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/emr_microbots(src)
 	new /obj/item/robotanalyzer(src)
 	new /obj/item/stack/synthetic_skin(src, 3)
 
