@@ -1384,7 +1384,7 @@
  * * transformation - If true, don't apply new species traits to the mob. A false value should be used when creating a new mob instead of transforming into a new species.
  * * keep_missing_bodyparts - If true, any bodyparts (legs, head, etc.) that were missing on the mob before species change will be missing post-change as well.
  */
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE, keep_implants = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE, keep_implants = TRUE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
