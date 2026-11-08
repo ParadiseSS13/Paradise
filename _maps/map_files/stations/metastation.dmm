@@ -11382,9 +11382,7 @@
 /obj/item/storage/secure/safe{
 	pixel_x = 32
 	},
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
+/obj/machinery/computer/guestpass/hop/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bvr" = (
@@ -15230,11 +15228,10 @@
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
 "bNj" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = -30;
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/tiles/department/medical/side,
+/obj/machinery/computer/guestpass/directional/east{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "bNk" = (
@@ -19923,7 +19920,7 @@
 "cnp" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/turf_decal/tiles/department/cargo/side,
-/obj/structure/closet/crate/cookware,
+/obj/structure/closet/crate/catering/cookware,
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "cnq" = (
@@ -20213,7 +20210,9 @@
 	pixel_x = -4
 	},
 /obj/machinery/light_switch/offset/northeast,
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "CMO"
+	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "coF" = (
@@ -20370,7 +20369,9 @@
 	req_access = list(74)
 	},
 /obj/machinery/light_switch/offset/northeast,
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "Magistrate"
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "cpL" = (
@@ -23761,7 +23762,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "RD"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "cGQ" = (
@@ -31792,12 +31795,13 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/machinery/door/airlock/command/glass{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "NT"
+	},
+/obj/machinery/door/airlock/command/glass{
+	id_tag = "ntrepofficedoor";
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -33752,7 +33756,9 @@
 /obj/machinery/keycard_auth{
 	pixel_x = 24
 	},
-/obj/machinery/button/windowtint/offset/northeast,
+/obj/machinery/button/windowtint/offset/northeast{
+	id = "HoS"
+	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "fdc" = (
@@ -52542,9 +52548,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "lcc" = (
@@ -52727,9 +52731,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "leR" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/machinery/door_control{
 	id = "rndlab2";
 	name = "Research Shutters Control";
@@ -52741,6 +52742,7 @@
 	dir = 9
 	},
 /obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "leT" = (
@@ -74069,13 +74071,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "spf" = (
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/structure/filingcabinet,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "spj" = (
@@ -80680,7 +80680,9 @@
 	pixel_x = 9
 	},
 /obj/machinery/light_switch/offset/northwest,
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "Detective"
+	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "uzt" = (
