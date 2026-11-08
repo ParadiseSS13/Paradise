@@ -49,8 +49,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// Did inits finish with no one logged in
 	var/initializations_finished_with_no_players_logged_in
 
-	/// The last subsystem to be fire()'d.
+	/// The subsystem the MC is running right now. Null between turns, so a restart only blames a subsystem that broke the MC.
 	var/datum/controller/subsystem/last_processed
+
+	/// Lets the Failsafe see when Loop() has ended
+	var/datum/stack_end_detector/stack_end_detector
 
 	/// Cache for the loading screen - cleared after
 	var/list/ss_in_init_order = list()
@@ -141,10 +144,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	. = -1 //so if we runtime, things know we failed
 	if(world.time < Master.restart_timeout)
 		return 0
-	if(world.time < Master.restart_clear)
+	// No restarts for a while, so go easier on the next delay
+	if(world.time >= Master.restart_clear)
 		Master.restart_count *= 0.5
 
-	var/delay = 50 * ++Master.restart_count
+	var/delay = min(50 * ++Master.restart_count, 30 SECONDS)
 	Master.restart_timeout = world.time + delay
 	Master.restart_clear = world.time + (delay * 2)
 	if(Master) //Can only do this if master hasn't been deleted
@@ -177,16 +181,23 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(istype(BadBoy))
 		msg = null
 		LAZYINITLIST(BadBoy.failure_strikes)
-		switch(++BadBoy.failure_strikes[BadBoy.type])
+		// The third strike turns it off for 5 minutes, any more after that turn it off until an admin turns it back on
+		var/strikes = ++BadBoy.failure_strikes[BadBoy.type]
+		switch(strikes)
 			if(2)
-				msg = "The [BadBoy.name] subsystem was the last to fire for 2 controller restarts. It will be recovered now and disabled if it happens again."
+				msg = "The [BadBoy.name] subsystem stopped the MC for 2 controller restarts. It will be recovered now and taken offline if it happens again."
 				FireHim = TRUE
 			if(3)
-				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. [SPAN_NOTICE("The following implications are now in effect: [BadBoy.offline_implications]")]"
-				BadBoy.flags |= SS_NO_FIRE
+				msg = "The [BadBoy.name] subsystem keeps stopping the MC. It's offline for 5 minutes, then it gets one more chance. [SPAN_NOTICE("The following implications are now in effect: [BadBoy.offline_implications]")]"
+				BadBoy.take_offline(5 MINUTES)
+		if(strikes > 3)
+			msg = "The [BadBoy.name] subsystem stopped the MC again after its second chance. It stays offline until an admin sets its can_fire. [SPAN_NOTICE("The following implications are now in effect: [BadBoy.offline_implications]")]"
+			BadBoy.take_offline(0)
 		if(msg)
 			to_chat(GLOB.admins, SPAN_BOLDANNOUNCEOOC("[msg]"))
 			log_world(msg)
+	else
+		log_world("MC restarted with no subsystem to blame: it stopped outside every subsystem's fire().")
 
 	if(istype(Master.subsystems))
 		if(FireHim)
@@ -242,7 +253,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		update_ss_loadingscreen(SS.ss_id, i)
 
 		// Do the do
-		SS.call_init(REALTIMEOFDAY)
+		// A runtime in Initialize() stops it partway, and the subsystem still fires all round half set up
+		if(!SS.call_init(REALTIMEOFDAY))
+			var/msg = "The [SS.name] subsystem failed to initialize. It may not work properly this round."
+			to_chat(GLOB.admins, SPAN_BOLDANNOUNCEOOC(msg))
+			log_world(msg)
 		CHECK_TICK
 
 	// Clear init text stuff
@@ -363,7 +378,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	iteration = 1
 	var/error_level = 0
 	var/sleep_delta = 1
+	var/contention_skips = 0
 	var/list/subsystems_to_check
+
+	// The canary is only held by this local var, so it gets deleted when Loop() ends for any reason
+	stack_end_detector = new()
+	var/datum/stack_canary/canary = stack_end_detector.prime_canary()
+	canary.use_variable()
 
 	//the actual loop.
 	while(1)
@@ -377,11 +398,18 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		// Anti-tick-contention heuristics:
 		// if there are mutiple sleeping procs running before us hogging the cpu, we have to run later.
 		// (because sleeps are processed in the order received, longer sleeps are more likely to run first)
+		var/forced = FALSE
 		if(starting_tick_usage > TICK_LIMIT_MC) //if there isn't enough time to bother doing anything this tick, sleep a bit.
-			sleep_delta *= 2
-			current_ticklimit = TICK_LIMIT_RUNNING * 0.5
-			sleep(world.tick_lag * (processing * sleep_delta))
-			continue
+			// If the tick is used up every time, the MC would never run anything, so run anyway after 2 skips in a row
+			if(contention_skips < 2)
+				contention_skips++
+				// Capped, since doubling forever had the MC sleeping for most of a minute
+				sleep_delta = min(sleep_delta * 2, 8)
+				current_ticklimit = TICK_LIMIT_RUNNING * 0.5
+				sleep(world.tick_lag * (processing * sleep_delta))
+				continue
+			forced = TRUE
+		contention_skips = 0
 
 		//Byond resumed us late. assume it might have to do the same next tick
 		if(last_run + CEILING(world.tick_lag * (processing * sleep_delta), world.tick_lag) < world.time)
@@ -435,8 +463,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 
 		if(queue_head)
-			if(!RunQueue())
-				stack_trace("MC: RunQueue returned early during [last_processed.name] ([last_processed.last_task()]). Current error_level is [round(error_level, 0.25)].")
+			if(!RunQueue(forced))
+				stack_trace("MC: RunQueue returned early during [last_processed?.name] ([last_processed?.last_task()]). Current error_level is [round(error_level, 0.25)].")
 				if(error_level > 1) //skip the first error,
 					if(!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
 						error_level++
@@ -481,6 +509,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for(var/thing in subsystemstocheck)
 		if(!thing)
 			subsystemstocheck -= thing
+			continue
 		SS = thing
 		if(SS.state != SS_IDLE)
 			continue
@@ -504,7 +533,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /// RunQueue - Run thru the queue of subsystems to run, running them while balancing out their allocated tick precentage
 /// Returns 0 if runtimed, a negitive number for logic errors, and a positive number if the operation completed without errors
-/datum/controller/master/proc/RunQueue()
+/datum/controller/master/proc/RunQueue(forced = FALSE)
 	var/datum/controller/subsystem/queue_node
 	var/queue_node_flags
 	var/queue_node_priority
@@ -516,16 +545,22 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/ran = TRUE //this is right
 	var/bg_calc //have we swtiched current_tick_budget to background mode yet?
 	var/tick_usage
+	var/mc_limit = TICK_LIMIT_MC
+	var/run_limit = TICK_LIMIT_RUNNING
+	// The tick was already used up when the MC got its turn, so give it a normal tick's worth on top
+	if(forced)
+		mc_limit += TICK_USAGE
+		run_limit += TICK_USAGE
 
 	//keep running while we have stuff to run and we haven't gone over a tick
 	// this is so subsystems paused eariler can use tick time that later subsystems never used
-	while(ran && queue_head && TICK_USAGE < TICK_LIMIT_MC)
+	while(ran && queue_head && TICK_USAGE < mc_limit)
 		ran = FALSE
 		bg_calc = FALSE
 		current_tick_budget = queue_priority_count
 		queue_node = queue_head
 		while(queue_node)
-			if(ran && TICK_USAGE > TICK_LIMIT_RUNNING)
+			if(ran && TICK_USAGE > run_limit)
 				break
 			queue_node_flags = queue_node.flags
 			queue_node_priority = queue_node.queued_priority
@@ -533,6 +568,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			if(!(queue_node_flags & SS_TICKER) && skip_ticks)
 				queue_node = queue_node.queue_next
 				continue
+
+			last_processed = queue_node
 
 			if(queue_node_flags & SS_BACKGROUND)
 				if(!bg_calc)
@@ -547,7 +584,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				bg_calc = FALSE
 
 
-			tick_remaining = TICK_LIMIT_RUNNING - TICK_USAGE
+			tick_remaining = run_limit - TICK_USAGE
 
 			if(queue_node_priority >= 0 && current_tick_budget > 0 && current_tick_budget >= queue_node_priority)
 				//Give the subsystem a precentage of the remaining tick based on the remaining priority
@@ -566,7 +603,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			ran = TRUE
 
 			queue_node_paused = (queue_node.state == SS_PAUSED || queue_node.state == SS_PAUSING)
-			last_processed = queue_node
 
 			queue_node.state = SS_RUNNING
 
@@ -583,6 +619,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				tick_usage = 0
 			queue_node.tick_overrun = max(0, MC_AVG_FAST_UP_SLOW_DOWN(queue_node.tick_overrun, tick_usage - tick_precentage))
 			queue_node.state = state
+			last_processed = null
 
 			if(state == SS_PAUSED)
 				queue_node.paused_ticks++
@@ -786,3 +823,29 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 
 	GLOB.title_splash.maptext = "<span style='font-family: Courier New; background-color: rgba(39, 39, 39, 0.5);'>\n[output_rows.Join("\n")]\n</span>"
+
+/// Ported from tgstation. Tells you when a proc holding the canary in a local var has ended, since the canary gets deleted with it.
+/datum/stack_end_detector
+	var/_canary_uid
+	var/datum/stack_canary/_canary
+
+/datum/stack_end_detector/New()
+	_canary = new()
+	_canary_uid = _canary.UID()
+
+/// Hands the canary over: the caller must keep it in a local var for as long as its stack should be watched
+/datum/stack_end_detector/proc/prime_canary()
+	if(!_canary)
+		CRASH("prime_canary() called twice")
+	var/datum/stack_canary/canary = _canary
+	_canary = null
+	return canary
+
+/// TRUE while the stack that holds the canary is still there
+/datum/stack_end_detector/proc/check()
+	return !!locateUID(_canary_uid)
+
+/datum/stack_canary
+
+/// Does nothing, it just uses the local var so it doesn't look unused
+/datum/stack_canary/proc/use_variable()
