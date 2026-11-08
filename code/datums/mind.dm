@@ -755,13 +755,14 @@
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
 			def_value = copytext(temp_obj_type, 18)//Convert last part of path into an objective keyword.
+			message_admins("[def_value]")
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
+		var/list/obj_types = list("assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
 			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security",
 			"free ai", "harvest kidneys", "steal guns", "plant malware", "test implant", "test chem", "kidnap pet", "sabotage power", "custom")
+		var/new_obj_type = tgui_input_list(usr, "Select objective type:", "Objective type", obj_types, def_value)
 		if(!new_obj_type)
 			return
 
@@ -785,9 +786,9 @@
 
 				var/new_target
 				if(length(possible_targets))
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
 						possible_targets += "Free objective"
-						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets, def_target)
 					else
 						if(!length(possible_targets_random))
 							to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
@@ -814,8 +815,8 @@
 				var/list/possible_targets = active_ais(1)
 				if(length(possible_targets))
 					var/mob/new_target
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					else
 						new_target = pick(possible_targets)
 					if(new_obj_type == "destroy")
@@ -864,7 +865,7 @@
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
 
-				var/target_number = input("Input target number:", "Objective", def_num) as num|null
+				var/target_number = tgui_input_number(usr, "Input target number:", "Objective", def_num)
 				if(isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
 					return
 
@@ -883,7 +884,7 @@
 						possible_targets += possible_target
 				possible_targets = sortAtom(possible_targets)
 				possible_targets += "Free objective"
-				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+				var/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 				if(!new_target)
 					return
 				var/datum/mind/targ = new_target
@@ -913,8 +914,8 @@
 			if("plant malware")
 				var/list/possible_targets = list("RND", "Telecomms", "PDAs", "CC Comms")
 				var/new_target
-				if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-					new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+				if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+					new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 				else
 					new_target = pick(possible_targets)
 				switch(new_target)
@@ -937,8 +938,8 @@
 				var/list/possible_targets = GLOB.station_pets
 				var/mob/new_target
 				if(length(possible_targets) > 0)
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					else
 						new_target = pick(possible_targets)
 
@@ -951,8 +952,8 @@
 			if("sabotage power")
 				var/list/possible_targets = list("Security", "Medical", "Science", "Cargo")
 				var/new_target
-				if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-					new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+				if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+					new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 				else
 					new_target = pick(possible_targets)
 				switch(new_target)
