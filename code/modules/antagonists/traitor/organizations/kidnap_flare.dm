@@ -173,7 +173,7 @@
 	layer = BELOW_MOB_LAYER
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flare-contractor-on"
-	duration = 30.1 SECONDS
+	duration = 30 SECONDS
 	/// Sound that plays when activated
 	var/activation_sound = 'sound/goonstation/misc/matchstick_light.ogg'
 	/// Light emitted when activated

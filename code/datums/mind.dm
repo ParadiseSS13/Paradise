@@ -776,7 +776,7 @@
 					def_value = "test implant"
 				if("chemical")
 					def_value = "test chem"
-				if("kindap_pet")
+				if("kidnap_pet")
 					def_value = "kindap_pet"
 				if("security", "medical", "science", "cargo")
 					def_value = "sabotage power"
