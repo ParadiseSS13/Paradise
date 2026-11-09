@@ -7,7 +7,7 @@ import { MainData } from './types';
 
 export const Pod = () => {
   return (
-    <Window theme={'ntos'} width={800} height={300}>
+    <Window width={400} height={300}>
       <Window.Content>
         <Content />
       </Window.Content>
@@ -97,15 +97,12 @@ const IntegrityBar = (props) => {
 const LightsBar = (props) => {
   const { act, data } = useBackend<MainData>();
   const { mecha_flags, mechflag_keys } = data;
-  const lights_on = mecha_flags & mechflag_keys['LIGHTS_ON'];
+  const lights_on = mecha_flags & mechflag_keys['MECH_LIGHTS_ON'];
   return (
     <LabeledList.Item label="Lights">
-      <Button
-        icon="lightbulb"
-        content={lights_on ? 'On' : 'Off'}
-        selected={lights_on}
-        onClick={() => act('toggle_lights')}
-      />
+      <Button icon="lightbulb" selected={lights_on} onClick={() => act('toggle_lights')}>
+        {lights_on ? 'On' : 'Off'}
+      </Button>
     </LabeledList.Item>
   );
 };
@@ -118,11 +115,12 @@ const DNALock = (props) => {
       <Button
         onClick={() => act('dna_lock')}
         icon="syringe"
-        content={dna_lock ? 'Enabled' : 'Unset'}
         tooltip="Set new DNA key"
         selected={!!dna_lock}
         tooltipPosition="top"
-      />
+      >
+        {dna_lock ? 'Enabled' : 'Unset'}
+      </Button>
       {!!dna_lock && (
         <>
           <Button icon="key" tooltip={`Key enzyme: ${dna_lock}`} tooltipPosition="top" disabled={!dna_lock} />
