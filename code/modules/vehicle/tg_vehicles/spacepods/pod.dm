@@ -32,6 +32,8 @@
 	var/lights_power = 5
 	/// Range of built-in light.
 	var/lights_range = 5
+	/// Time of the last thrust input, used for properly displaying the ion trail
+	var/last_thrust_time = 0
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/Initialize(mapload)
 	. = ..()
@@ -169,19 +171,21 @@
 	if(pod_fueltank.reagents.has_reagent("plasma", 0.1))
 		fuel_waste()
 
-	if(trail)
-		// TODO: Trail may currently look off because the direction and offset
-		// of the pod doesn't always match the trail's location. 90% of the time
-		// it's not a big deal, but if noticeable, it should be straightforward
-		// to align the trail with the ship's direction and set an offset so that
-		// it always looks like it's coming out of the back engines.
-		trail.generate_effect()
+	last_thrust_time = world.time
 
 // Because the pixel-movement/drift behavior doesn't actually go through
 // the standard Moved proc, we have to do some cleanup manually.
 /obj/tgvehicle/sealed/vectorcraft/spacepod/after_move(direction)
 	. = ..()
 	update_light()
+
+	if(!trail)
+		return
+
+	if(world.time - last_thrust_time <= 2) // two tick's grace for holding down the thruster
+		trail.generate_effect()
+	else
+		trail.oldposition = get_turf(src)
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/proc/fuel_waste()
 	if(prob(50))
