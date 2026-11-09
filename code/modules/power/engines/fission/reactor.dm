@@ -64,7 +64,7 @@
 #define N2O_COOLANT_DEGRADE_MOD 1.4 //! How much faster does N2O degrade coolant rods? (1 = norml. Higher = faster degrade)
 
 #define CO2_EVENT_MODIFIER 1.1 //! The event modifier from CO2. Higher means more common events.
-#define CO2_OVERHEAT_BONUS 1.1 //! The flat overheat threshold bonus taken.
+#define CO2_OVERHEAT_BONUS 50 //! The flat overheat threshold bonus taken.
 #define CO2_REACTIVITY_BONUS 0.1 //! A flat bonus on the reactivity of the engine.
 #define CO2_MODERATOR_BONUS 1.1 //! The bonus effectiveness that moderators have. (1 = normal. Higher = more powerful)
 

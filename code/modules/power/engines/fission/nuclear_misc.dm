@@ -186,6 +186,10 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	var/mob/user = ui.user
+	if(!isliving(user))
+		return
+
 	if(active.control_lockout)
 		visible_message(SPAN_WARNING("Error: Reactor is unresponsive!"))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
