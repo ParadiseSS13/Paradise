@@ -44,7 +44,10 @@
 		if(istype(locloc, /obj/item/onetankbomb))
 			var/obj/item/onetankbomb/bomb = locloc
 			if(bomb?.bombtank)
-				bomb.bombtank.detonate()
+				if(bomb.status)
+					bomb.bombtank.detonate()
+				else
+					bomb.bombtank.release()
 
 		else if(istype(locloc, /obj/item/reagent_containers/glass/beaker))
 			var/obj/item/reagent_containers/glass/beaker/beakerbomb = locloc

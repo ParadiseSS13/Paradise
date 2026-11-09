@@ -12195,7 +12195,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/northeast,
+/obj/machinery/button/windowtint/offset/northeast{
+	id = "qm"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aWP" = (
@@ -13086,10 +13088,8 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/cargotech,
-/obj/machinery/computer/guestpass{
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/computer/guestpass/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bba" = (
@@ -20359,9 +20359,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bFc" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /obj/machinery/economy/vending/cigarette,
 /obj/machinery/light{
 	dir = 4
@@ -20369,6 +20366,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 5
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bFd" = (
@@ -22148,7 +22146,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "bLt" = (
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "Detective"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/security/detective)
 "bLv" = (
@@ -25080,7 +25080,9 @@
 	req_access = list(24);
 	pixel_x = -24
 	},
-/obj/machinery/button/windowtint/directional/west,
+/obj/machinery/button/windowtint/directional/west{
+	id = "CE"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bWm" = (
@@ -26112,40 +26114,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
-"caQ" = (
-/obj/structure/table/wood,
-/obj/machinery/flasher_button{
-	id = "hopflash";
-	pixel_x = -38;
-	pixel_y = -6
-	},
-/obj/machinery/light_switch/offset/west{
-	pixel_y = 10
-	},
-/obj/machinery/door_control{
-	id = "hop";
-	name = "Privacy Shutters";
-	pixel_x = -24;
-	pixel_y = -8;
-	req_access = list(18)
-	},
-/obj/machinery/door_control{
-	id = "hopqueueshutters";
-	name = "Queue Shutters";
-	pixel_x = -24;
-	req_access = list(18)
-	},
-/obj/machinery/door_control/ticket_machine_button{
-	pixel_x = -24;
-	pixel_y = 8
-	},
-/obj/machinery/computer/guestpass/hop,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/hop)
 "caV" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light{
@@ -26467,7 +26435,8 @@
 	req_access = list(73)
 	},
 /obj/machinery/button/windowtint/offset/west{
-	pixel_y = 36
+	pixel_y = 36;
+	id = "NT"
 	},
 /obj/machinery/light_switch/offset/southwest{
 	pixel_y = 28
@@ -32027,10 +31996,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "cxe" = (
-/obj/structure/musician/piano,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cxf" = (
@@ -38427,15 +38396,13 @@
 "cVe" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/machinery/computer/guestpass/directional/west,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cVf" = (
@@ -42647,7 +42614,9 @@
 	dir = 8
 	},
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "RD"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dpR" = (
@@ -43343,7 +43312,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "robo"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dug" = (
@@ -58958,10 +58929,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/transmission_laser)
 "iiM" = (
-/obj/structure/musician/piano,
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "iiO" = (
@@ -69028,6 +68999,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
 	},
+/obj/machinery/computer/guestpass/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "mjt" = (
@@ -72388,6 +72360,43 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
+"nxt" = (
+/obj/machinery/computer/guestpass/hop{
+	dir = 1;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/obj/machinery/flasher_button{
+	id = "hopflash";
+	pixel_x = -38;
+	pixel_y = -6
+	},
+/obj/machinery/light_switch/offset/west{
+	pixel_y = 10
+	},
+/obj/machinery/door_control{
+	id = "hop";
+	name = "Privacy Shutters";
+	pixel_x = -24;
+	pixel_y = -8;
+	req_access = list(18)
+	},
+/obj/machinery/door_control{
+	id = "hopqueueshutters";
+	name = "Queue Shutters";
+	pixel_x = -24;
+	req_access = list(18)
+	},
+/obj/machinery/door_control/ticket_machine_button{
+	pixel_x = -24;
+	pixel_y = 8
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/office/hop)
 "nxA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75827,8 +75836,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "oPU" = (
-/obj/structure/musician/piano,
 /obj/structure/sign/poster/official/soul/directional/north,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "oPW" = (
@@ -82492,9 +82501,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "rsY" = (
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -85586,7 +85592,9 @@
 /area/station/science/misc_lab)
 "syY" = (
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "stage"
+	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "szb" = (
@@ -89043,7 +89051,9 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/requests_console/directional/east,
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "CHAP"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "tNx" = (
@@ -96034,7 +96044,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "genetics"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
 "wqU" = (
@@ -137388,7 +137400,7 @@ bMP
 bOG
 bQG
 ciB
-caQ
+nxt
 bWQ
 bYq
 bZX
