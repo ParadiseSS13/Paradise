@@ -4,7 +4,7 @@ import sys
 import time
 
 from avulto import DME, Path as p
-from avulto.ast import SourceLoc
+from avulto import SourceLoc
 
 
 RED = "\033[0;31m"
