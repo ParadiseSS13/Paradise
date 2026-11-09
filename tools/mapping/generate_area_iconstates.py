@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from avulto import DME, Dir, DMI, IconState, Path as p
+from avulto import DME, Dir, DMI, IconState, TypePath as p
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 
 FONT_PATH = "tools/mapping/Microfont.ttf"

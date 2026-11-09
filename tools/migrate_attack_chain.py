@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 import sys
 
-from avulto import DME, Path as p
+from avulto import DME, TypePath as p
 
 
 @dataclass(frozen=True)

@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 import time
 
-from avulto import DME, Path as p
+from avulto import DME, TypePath as p
 from avulto import SourceLoc
 
 

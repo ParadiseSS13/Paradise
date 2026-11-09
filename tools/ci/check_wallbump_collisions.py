@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 import time
 
-from avulto import DMM, DME, Dir, Path as p
+from avulto import DMM, DME, Dir, TypePath as p
 
 
 @dataclass(frozen=True)
