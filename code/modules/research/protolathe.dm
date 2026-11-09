@@ -21,6 +21,7 @@ Note: Must be placed west/left of and R&D console to function.
 		"Mining",
 		"Miscellaneous",
 		"Power",
+		"Space Pods",
 		"Stock Parts",
 		"Weapons"
 	)
@@ -113,3 +114,15 @@ Note: Must be placed west/left of and R&D console to function.
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	materials.retrieve_all()
 	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/r_n_d/protolathe/pod_fabricator
+	name = "space pod fabricator"
+	desc = "Allows for building space pod parts."
+	categories = list("Space Pods")
+
+/obj/machinery/r_n_d/protolathe/pod_fabricator/RefreshParts()
+	. = ..()
+	// We are sneaky here and add the capacity for roundstart mats
+	// without giving them upgraded parts or anything
+	// Because space pods take a lot of mats
+	materials.max_amount += 50 * MINERAL_MATERIAL_AMOUNT

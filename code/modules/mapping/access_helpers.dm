@@ -20,8 +20,8 @@
 	LAZYINITLIST(airlock.req_access)
 	airlock.req_access |= access
 
-// -------------------- Req Any (Only requires ONE of the given accesses to open)
-// -------------------- Command access helpers
+// MARK: ANY COMMAND
+
 /obj/effect/mapping_helpers/airlock/access/any/command
 	icon_state = "access_helper_com"
 
@@ -55,7 +55,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/command/magistrate
 	access = ACCESS_MAGISTRATE
 
-// -------------------- Engineering access helpers
+// MARK: ANY ENGINEERING
+
 /obj/effect/mapping_helpers/airlock/access/any/engineering
 	icon_state = "access_helper_eng"
 
@@ -83,10 +84,14 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms
 	access = ACCESS_TCOMSAT
 
+/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar
+	access = ACCESS_SHIPWRIGHT
+
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce
 	access = ACCESS_CE
 
-// -------------------- Medical access helpers
+// MARK: ANY MEDICAL
+
 /obj/effect/mapping_helpers/airlock/access/any/medical
 	icon_state = "access_helper_med"
 
@@ -117,7 +122,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/medical/paramedic
 	access = ACCESS_PARAMEDIC
 
-// -------------------- Science access helpers
+// MARK: ANY SCI
+
 /obj/effect/mapping_helpers/airlock/access/any/science
 	icon_state = "access_helper_sci"
 
@@ -142,7 +148,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/science/rd
 	access = ACCESS_RD
 
-// -------------------- Security access helpers
+// MARK: ANY SEC
+
 /obj/effect/mapping_helpers/airlock/access/any/security
 	icon_state = "access_helper_sec"
 
@@ -173,7 +180,11 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/evidence
 	access = ACCESS_EVIDENCE
 
-// -------------------- Service access helpers
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar
+	access = ACCESS_BRIG_PILOT
+
+// MARK: ANY SERVICE
+
 /obj/effect/mapping_helpers/airlock/access/any/service
 	icon_state = "access_helper_serv"
 
@@ -207,7 +218,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/service/mime
 	access = ACCESS_MIME
 
-// -------------------- Supply access helpers
+// MARK: ANY SUPPLY
+
 /obj/effect/mapping_helpers/airlock/access/any/supply
 	icon_state = "access_helper_sup"
 
@@ -245,8 +257,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot
 	access = ACCESS_CARGO_BOT
 
-// -------------------- Req All (Requires ALL of the given accesses to open)
-// -------------------- Command access helpers
+// MARK: ALL COMMAND
+
 /obj/effect/mapping_helpers/airlock/access/all/command
 	icon_state = "access_helper_com"
 
@@ -280,7 +292,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/magistrate
 	access = ACCESS_MAGISTRATE
 
-// -------------------- Engineering access helpers
+// MARK: ALL ENGINEERING
+
 /obj/effect/mapping_helpers/airlock/access/all/engineering
 	icon_state = "access_helper_eng"
 
@@ -314,7 +327,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/ce
 	access = ACCESS_CE
 
-// -------------------- Medical access helpers
+// MARK: ALL MEDICAL
+
 /obj/effect/mapping_helpers/airlock/access/all/medical
 	icon_state = "access_helper_med"
 
@@ -345,7 +359,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics
 	access = ACCESS_GENETICS
 
-// -------------------- Science access helpers
+// MARK: ALL SCI
+
 /obj/effect/mapping_helpers/airlock/access/all/science
 	icon_state = "access_helper_sci"
 
@@ -370,7 +385,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/rd
 	access = ACCESS_RD
 
-// -------------------- Security access helpers
+// MARK: ALL SEC
+
 /obj/effect/mapping_helpers/airlock/access/all/security
 	icon_state = "access_helper_sec"
 
@@ -401,7 +417,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/evidence
 	access = ACCESS_EVIDENCE
 
-// -------------------- Service access helpers
+// MARK: ALL SERVICE
+
 /obj/effect/mapping_helpers/airlock/access/all/service
 	icon_state = "access_helper_serv"
 
@@ -436,7 +453,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/mime
 	access = ACCESS_MIME
 
-// -------------------- Supply access helpers
+// MARK: ALL SUPPLY
+
 /obj/effect/mapping_helpers/airlock/access/all/supply
 	icon_state = "access_helper_sup"
 
@@ -505,7 +523,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders
 	access = ACCESS_TRADE_SOL
 
-// -------------------- Procedure access helpers
+// MARK: ALL PROCEDURE
+
 /obj/effect/mapping_helpers/airlock/access/all/procedure
 	icon_state = "access_helper_pro"
 
