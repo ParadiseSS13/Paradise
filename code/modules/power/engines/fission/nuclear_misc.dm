@@ -187,7 +187,7 @@
 		return
 
 	var/mob/user = ui.user
-	if(!isliving(user))
+	if(!isliving(user) && !is_admin(user))
 		return
 
 	if(active.control_lockout)
