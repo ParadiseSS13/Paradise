@@ -825,6 +825,7 @@
 
 	power_mod_total = 1
 	heat_mod_total = 1
+	decay_mod_total = 1
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
 			continue

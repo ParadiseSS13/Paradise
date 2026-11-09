@@ -223,6 +223,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
 
+/obj/machinery/nuclear_rod_fabricator/debug/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/nuclear_rod_fabricator(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
+
 /obj/machinery/nuclear_rod_fabricator/RefreshParts()
 	var/temp_coeff = 12
 	var/average_component_rating = 0
@@ -411,7 +419,7 @@
 			var/list/required_materials = temp_rod.materials
 			qdel(temp_rod)
 
-			if(!debug && !required_materials || !length(required_materials))
+			if(!debug && (!required_materials || !length(required_materials)))
 				to_chat(usr, SPAN_WARNING("This rod design has no material requirements defined - please create an issue report!"))
 				return FALSE
 
