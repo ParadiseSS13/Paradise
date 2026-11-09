@@ -67,7 +67,7 @@ class AttackChainCallWalker:
                 return arg.arg_type
 
         try:
-            vd = self.type_decl.var_decl(name, parents=True)
+            vd = self.type_decl.vars[name]
             if vd.declared_type:
                 return vd.declared_type
         except:
@@ -179,7 +179,7 @@ if __name__ == "__main__":
         ):
             try:
                 SETTING_CACHE[pth] = bool(
-                    td.var_decl("new_attack_chain", parents=True).const_val
+                    td.vars["new_attack_chain"].const_val
                 )
             except:
                 SETTING_CACHE[pth] = False
