@@ -654,7 +654,6 @@ emcee
 empty
 enact
 endow
-enema
 enemy
 enjoy
 ennui
@@ -708,7 +707,6 @@ fault
 fauna
 favor
 feast
-fecal
 feign
 fella
 felon
@@ -853,7 +851,6 @@ ghost
 ghoul
 giant
 giddy
-gipsy
 girly
 girth
 given
@@ -943,7 +940,6 @@ gummy
 guppy
 gusto
 gusty
-gypsy
 habit
 hairy
 halve
@@ -989,7 +985,6 @@ homer
 honey
 honor
 horde
-horny
 horse
 hotel
 hotly
@@ -1007,7 +1002,6 @@ hunch
 hunky
 hurry
 husky
-hussy
 hutch
 hydro
 hyena
@@ -1188,7 +1182,6 @@ major
 maker
 mambo
 mamma
-mammy
 manga
 mange
 mango
