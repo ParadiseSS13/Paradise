@@ -25,16 +25,16 @@ if __name__ == "__main__":
     costs = {}
     for design in designs:
         td = dme.types[design]
-        build_type = td.var_decl("build_type").const_val
-        build_path = td.var_decl("build_path").const_val
-        materials = td.var_decl("materials").const_val
+        build_type = td.vars["build_type"].const_val
+        build_path = td.vars["build_path"].const_val
+        materials = td.vars["materials"].const_val
         if not build_type or not build_path or not build_path.child_of("/obj/item"):
             continue
         # ammo boxes update their materials dynamically based on contained ammo contents
         if build_path.child_of("/obj/item/ammo_box"):
             continue
         result_type = dme.types[build_path]
-        material_content = result_type.var_decl("materials").const_val
+        material_content = result_type.vars["materials"].const_val
         if result_type not in costs:
             costs[build_path] = ItemBOM(defaultdict(set), defaultdict(set))
 

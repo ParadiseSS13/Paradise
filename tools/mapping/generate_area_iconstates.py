@@ -27,13 +27,13 @@ class AreaRepo:
 
             if "icon_state" not in modified_vars:
                 continue
-            icon_state = td.var_decl("icon_state").const_val
+            icon_state = td.vars["icon_state"].const_val
 
             if "area_icon_text" not in modified_vars and "area_icon_color" not in modified_vars:
                 continue
 
-            area_icon_text = (td.var_decl("area_icon_text").const_val or "").replace("\\n", "\n")
-            area_icon_color = td.var_decl("area_icon_color").const_val
+            area_icon_text = (td.vars["area_icon_text"].const_val or "").replace("\\n", "\n")
+            area_icon_color = td.vars["area_icon_color"].const_val
 
             self._areas[pth] = AreaIconSpec(
                 pth, icon_state, area_icon_text, area_icon_color

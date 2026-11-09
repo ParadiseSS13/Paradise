@@ -64,8 +64,8 @@ def find_colliding_bumps(dmm: DMM, dme: DME) -> list[ResultRow]:
 
                 prefab_path = tile.prefab_path(found_bump)
                 typedecl = dme.types[prefab_path]
-                pixel_x = typedecl.var_decl("pixel_x").const_val
-                pixel_y = typedecl.var_decl("pixel_y").const_val
+                pixel_x = typedecl.vars["pixel_x"].const_val
+                pixel_y = typedecl.vars["pixel_y"].const_val
                 if "pixel_x" in tile.prefab_vars(found_bump):
                     pixel_x = tile.prefab_var(found_bump, "pixel_x")
                 if "pixel_y" in tile.prefab_vars(found_bump):
