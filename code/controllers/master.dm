@@ -849,3 +849,4 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /// Does nothing, it just uses the local var so it doesn't look unused
 /datum/stack_canary/proc/use_variable()
+	return
