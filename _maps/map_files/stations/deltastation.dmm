@@ -78982,6 +78982,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 3
 	},
+/obj/item/book/manual/shipwright_basics,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
 "qaq" = (

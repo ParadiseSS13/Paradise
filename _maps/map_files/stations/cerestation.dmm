@@ -37331,9 +37331,6 @@
 /area/station/medical/sleeper)
 "gSC" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_engineering{
-	pixel_x = -6
-	},
 /obj/item/radio{
 	pixel_x = 7;
 	pixel_y = 6
@@ -37343,6 +37340,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/item/book/manual/shipwright_basics{
+	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)

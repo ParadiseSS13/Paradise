@@ -35814,6 +35814,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
+"fNk" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark/full,
+/area/station/engineering/shipwright/hangar)
 "fNl" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/wood,
@@ -42468,6 +42475,9 @@
 /obj/item/radio{
 	pixel_x = 10;
 	pixel_y = 3
+	},
+/obj/item/book/manual/shipwright_basics{
+	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
@@ -74413,6 +74423,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
+"slk" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark/full,
+/area/station/engineering/shipwright/hangar)
 "sln" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -131820,7 +131837,7 @@ aaa
 aaa
 aaa
 msc
-rbJ
+fNk
 iLd
 lXN
 rbJ
@@ -132337,7 +132354,7 @@ rbJ
 rbJ
 rbJ
 rbJ
-rbJ
+slk
 rbJ
 fKk
 keg

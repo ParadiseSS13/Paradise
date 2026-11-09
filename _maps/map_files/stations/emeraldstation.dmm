@@ -15019,9 +15019,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "cYh" = (
@@ -40918,9 +40915,6 @@
 /area/station/maintenance/aft)
 "igv" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_engineering{
-	pixel_x = -6
-	},
 /obj/item/radio{
 	pixel_x = 7;
 	pixel_y = 6
@@ -40929,6 +40923,9 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
+/obj/item/book/manual/shipwright_basics{
+	pixel_x = -7
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright/hangar)
 "igw" = (
@@ -61536,9 +61533,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Perma Hall West";
@@ -93094,9 +93088,6 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "swK" = (
@@ -112545,9 +112536,6 @@
 /area/station/science/xenobiology)
 "wor" = (
 /obj/item/kirbyplants/large,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
@@ -118071,9 +118059,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "xwA" = (
@@ -119004,9 +118989,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/machinery/light{
 	dir = 1
