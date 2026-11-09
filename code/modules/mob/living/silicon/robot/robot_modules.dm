@@ -466,6 +466,8 @@
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
+		/obj/item/stack/sheet/wood/cyborg,
+		/obj/item/stack/tile/wood/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/rcl/robot,
