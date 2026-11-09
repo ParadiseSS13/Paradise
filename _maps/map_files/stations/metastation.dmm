@@ -52885,6 +52885,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"leH" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/obj/effect/landmark/start/brig_pilot,
+/turf/simulated/floor/plasteel,
+/area/station/security/main)
 "leO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -54337,6 +54344,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/equipmentstorage)
+"lCR" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/landmark/start/shipwright,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/shipwright/hangar)
 "lDa" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/main)
@@ -118714,7 +118726,7 @@ acY
 nfq
 tAX
 mEw
-vVR
+leH
 vVR
 xJE
 arP
@@ -132072,7 +132084,7 @@ rbJ
 rbJ
 rnQ
 sIP
-xRg
+lCR
 xRg
 rWb
 iBZ

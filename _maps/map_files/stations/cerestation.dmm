@@ -30368,6 +30368,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/break_room/secondary)
+"fmp" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security,
+/obj/effect/landmark/start/brig_pilot,
+/turf/simulated/floor/plasteel,
+/area/station/security/storage)
 "fmq" = (
 /obj/structure/table/glass,
 /obj/item/roller{
@@ -138199,7 +138207,7 @@ aKx
 kEx
 iul
 uEV
-iVv
+fmp
 gde
 dxN
 xrZ
