@@ -88898,15 +88898,15 @@
 "wSG" = (
 /obj/structure/sign/poster/official/soul/directional/north,
 /obj/structure/table,
-/obj/item/book/manual/wiki/sop_engineering{
-	pixel_x = -6
-	},
 /obj/machinery/camera{
 	c_tag = "Shipwright's Office"
 	},
 /obj/item/radio{
 	pixel_x = 7;
 	pixel_y = 6
+	},
+/obj/item/book/manual/shipwright_basics{
+	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright/hangar)
