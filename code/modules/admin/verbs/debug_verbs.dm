@@ -719,3 +719,6 @@ USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Intere
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+USER_VERB(open_event_logger, R_DEBUG, "Event Logger", "Open the event logger interface.", VERB_CATEGORY_DEBUG)
+	GLOB.event_logger.ui_interact(client.mob)

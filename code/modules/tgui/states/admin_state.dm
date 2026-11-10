@@ -10,3 +10,10 @@ GLOBAL_DATUM_INIT(admin_state, /datum/ui_state/admin_state, new)
 	if(check_rights_client(R_ADMIN, FALSE, user.client))
 		return UI_INTERACTIVE
 	return UI_CLOSE
+
+GLOBAL_DATUM_INIT(debugger_state, /datum/ui_state/debugger_state, new)
+
+/datum/ui_state/debugger_state/can_use_topic(src_object, mob/user)
+	if(check_rights_client(R_DEBUG, FALSE, user.client))
+		return UI_INTERACTIVE
+	return UI_CLOSE
