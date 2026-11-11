@@ -1,37 +1,43 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/simulated/floor/carpet/black,
-/area/centcom/diorama)
-"c" = (
-/obj/item/toy/plushie/plasmamanplushie,
-/obj/item/storage/bible{
-	pixel_x = 14;
-	pixel_y = -6
-	},
-/turf/simulated/floor/carpet/black,
-/area/centcom/diorama)
-"d" = (
-/obj/structure/window/plastitanium{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/centcom/diorama)
-"h" = (
-/obj/structure/window/plastitanium{
-	dir = 1
-	},
-/obj/structure/table/wood/fancy,
-/obj/item/decorations/sticky_decorations/flammable/heart_chain{
-	pixel_y = -15
-	},
-/turf/simulated/floor/wood,
-/area/centcom/diorama)
-"i" = (
 /obj/structure/chair/sofa/pew/right{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
+"d" = (
+/turf/simulated/floor/carpet/black,
+/area/centcom/diorama/wedding)
+"f" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/candle/eternal/lit,
+/obj/item/decorations/sticky_decorations/flammable/heart_chain{
+	pixel_y = -15
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/wedding)
+"g" = (
+/turf/simulated/floor/wood,
+/area/centcom/diorama/wedding)
+"j" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/wedding)
+"k" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/obj/item/toy/plushie/voxplushie,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/wedding)
 "m" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
@@ -41,18 +47,18 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
+"o" = (
+/obj/item/toy/plushie/plasmamanplushie,
+/obj/item/storage/bible{
+	pixel_x = 14;
+	pixel_y = -6
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/diorama/wedding)
 "q" = (
 /turf/template_noop,
 /area/template_noop)
-"s" = (
-/obj/structure/window/plastitanium,
-/obj/structure/chair/sofa/pew/left{
-	dir = 1
-	},
-/obj/item/toy/plushie/ipcplushie,
-/turf/simulated/floor/wood,
-/area/centcom/diorama)
 "t" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -61,15 +67,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
-"u" = (
-/obj/item/toy/plushie/borgplushie/engineering,
-/obj/item/clothing/head/cone{
-	pixel_y = 10;
-	pixel_x = 2
-	},
-/turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "w" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -78,18 +76,15 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
-"x" = (
-/obj/structure/window/plastitanium,
-/turf/simulated/floor/carpet/black,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "y" = (
 /obj/structure/window/plastitanium,
-/obj/structure/chair/sofa/pew/right{
+/obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
+/obj/item/toy/plushie/ipcplushie,
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "A" = (
 /obj/structure/diorama_sign,
 /turf/template_noop,
@@ -103,21 +98,32 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
-"F" = (
+/area/centcom/diorama/wedding)
+"D" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/wedding)
+"I" = (
+/obj/structure/window/plastitanium,
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/wedding)
+"K" = (
 /obj/item/toy/plushie/lizardplushie,
 /obj/item/clothing/head/collectable/tophat{
 	pixel_y = 11
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
-"H" = (
-/obj/structure/window/plastitanium{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/centcom/diorama)
-"I" = (
+/area/centcom/diorama/wedding)
+"L" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/carpet/black,
+/area/centcom/diorama/wedding)
+"N" = (
 /obj/structure/window/plastitanium{
 	dir = 4
 	},
@@ -126,36 +132,31 @@
 	},
 /obj/item/toy/plushie/nianplushie,
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
-"K" = (
-/obj/structure/chair/sofa/pew/left{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "S" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
-/obj/structure/chair/sofa/pew/left{
-	dir = 1
-	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "T" = (
 /obj/structure/window/plastitanium{
 	dir = 1
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/candle/eternal/lit,
 /obj/item/decorations/sticky_decorations/flammable/heart_chain{
 	pixel_y = -15
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "U" = (
+/obj/item/toy/plushie/borgplushie/engineering,
+/obj/item/clothing/head/cone{
+	pixel_y = 10;
+	pixel_x = 2
+	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "X" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -163,9 +164,8 @@
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
 	},
-/obj/item/toy/plushie/voxplushie,
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 "Z" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -174,49 +174,49 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/centcom/diorama)
+/area/centcom/diorama/wedding)
 
 (1,1,1) = {"
 w
-H
-H
+S
 S
 X
+k
 B
 q
 "}
 (2,1,1) = {"
-T
+f
+g
 U
-u
-i
-i
-y
+a
+a
+I
 q
 "}
 (3,1,1) = {"
-h
-c
-a
-a
-a
-x
+T
+o
+d
+d
+d
+L
 A
 "}
 (4,1,1) = {"
-T
-U
-F
+f
+g
 K
-K
-s
+D
+D
+y
 q
 "}
 (5,1,1) = {"
 Z
-d
-d
-I
+j
+j
+N
 t
 m
 q

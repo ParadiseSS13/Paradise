@@ -40,6 +40,26 @@
 	description = "'Tying The Knot' by AurouraPlays"
 	mappath = "_maps/map_files/dioramas/wedding_diorama.dmm"
 
+/datum/map_template/diorama/singulo
+	name = "Singularity Diorama"
+	description = "'Improper Containment' by AurouraPlays"
+	mappath = "_maps/map_files/dioramas/singulo_diorama.dmm"
+
+/datum/map_template/diorama/bar
+	name = "Bar Diorama"
+	description = "'Post-Shift Socializing' by AurouraPlays"
+	mappath = "_maps/map_files/dioramas/bar_diorama.dmm"
+
+/datum/map_template/diorama/tomato
+	name = "Killer Tomato Diorama"
+	description = "'Aftermath Of Botany' by AurouraPlays"
+	mappath = "_maps/map_files/dioramas/tomato_diorama.dmm"
+
+/datum/map_template/diorama/court
+	name = "Court Diorama"
+	description = "'Justice At Work' by AurouraPlays"
+	mappath = "_maps/map_files/dioramas/court_diorama.dmm"
+
 /obj/structure/diorama_sign
 	name = "Diorama Sign"
 	desc = ""
@@ -72,3 +92,15 @@
 
 /area/centcom/diorama/wedding
 	name = "Wedding Diorama"
+
+/area/centcom/diorama/singulo
+	name = "Singularity Diorama"
+
+/area/centcom/diorama/bar
+	name = "Bar Diorama"
+
+/area/centcom/diorama/tomato
+	name = "Killer Tomato Diorama"
+
+/area/centcom/diorama/court
+	name = "Court Diorama"

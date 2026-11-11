@@ -1,0 +1,183 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/mob_spawn/human/corpse/clown,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"d" = (
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"e" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"k" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"s" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/item/kitchen/knife,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/hydroponics/constructable/upgraded,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"y" = (
+/obj/structure/window/plastitanium,
+/obj/effect/decal/cleanable/tomato_smudge,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"A" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/machinery/hydroponics/constructable/upgraded,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"G" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/cook,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"H" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/item/food/grown/tomato/killer,
+/obj/machinery/hydroponics/constructable/upgraded,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"I" = (
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"N" = (
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"Q" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"R" = (
+/obj/item/food/grown/tomato/killer,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/item/melee/baton/cattleprod,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"U" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/machinery/hydroponics/constructable/upgraded,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"Y" = (
+/obj/item/spear,
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/centcom/diorama/tomato)
+
+(1,1,1) = {"
+w
+X
+X
+H
+X
+B
+q
+"}
+(2,1,1) = {"
+U
+R
+I
+I
+Y
+y
+q
+"}
+(3,1,1) = {"
+T
+I
+I
+d
+a
+e
+A
+"}
+(4,1,1) = {"
+k
+N
+I
+I
+I
+e
+q
+"}
+(5,1,1) = {"
+Z
+Q
+s
+G
+t
+m
+q
+"}

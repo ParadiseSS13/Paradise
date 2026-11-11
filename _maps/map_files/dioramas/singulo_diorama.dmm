@@ -1,0 +1,164 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/field/containment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"d" = (
+/turf/simulated/floor/fakespace,
+/area/centcom/diorama/singulo)
+"l" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/machinery/field/generator,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"p" = (
+/obj/structure/window/plastitanium,
+/obj/item/trash/chips,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"s" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/machinery/field/containment,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/machinery/field/containment,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"v" = (
+/obj/item/toy/spinningtoy,
+/turf/simulated/floor/fakespace,
+/area/centcom/diorama/singulo)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/field/generator,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"y" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"A" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/field/containment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"V" = (
+/obj/structure/window/plastitanium,
+/obj/item/toy/plushie/nianplushie/moonfly,
+/obj/item/clothing/glasses/welding/superior{
+	pixel_y = 4
+	},
+/obj/item/clothing/head/hardhat/white{
+	pixel_y = 15
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/machinery/field/generator,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/field/generator,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+
+(1,1,1) = {"
+w
+s
+s
+s
+X
+B
+q
+"}
+(2,1,1) = {"
+T
+d
+d
+d
+a
+y
+q
+"}
+(3,1,1) = {"
+T
+d
+v
+d
+a
+V
+A
+"}
+(4,1,1) = {"
+T
+d
+d
+d
+a
+p
+q
+"}
+(5,1,1) = {"
+Z
+t
+t
+t
+l
+m
+q
+"}
