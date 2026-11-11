@@ -1,0 +1,223 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/carpet/black,
+/area/centcom/diorama)
+"c" = (
+/obj/item/toy/plushie/plasmamanplushie,
+/obj/item/storage/bible{
+	pixel_x = 14;
+	pixel_y = -6
+	},
+/turf/simulated/floor/carpet/black,
+/area/centcom/diorama)
+"d" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"h" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/decorations/sticky_decorations/flammable/heart_chain{
+	pixel_y = -15
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"i" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"s" = (
+/obj/structure/window/plastitanium,
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/obj/item/toy/plushie/ipcplushie,
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"u" = (
+/obj/item/toy/plushie/borgplushie/engineering,
+/obj/item/clothing/head/cone{
+	pixel_y = 10;
+	pixel_x = 2
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"x" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/carpet/black,
+/area/centcom/diorama)
+"y" = (
+/obj/structure/window/plastitanium,
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"A" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"F" = (
+/obj/item/toy/plushie/lizardplushie,
+/obj/item/clothing/head/collectable/tophat{
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"H" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"I" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/obj/item/toy/plushie/nianplushie,
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"K" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"S" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/candle/eternal/lit,
+/obj/item/decorations/sticky_decorations/flammable/heart_chain{
+	pixel_y = -15
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"U" = (
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
+	},
+/obj/item/toy/plushie/voxplushie,
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama)
+
+(1,1,1) = {"
+w
+H
+H
+S
+X
+B
+q
+"}
+(2,1,1) = {"
+T
+U
+u
+i
+i
+y
+q
+"}
+(3,1,1) = {"
+h
+c
+a
+a
+a
+x
+A
+"}
+(4,1,1) = {"
+T
+U
+F
+K
+K
+s
+q
+"}
+(5,1,1) = {"
+Z
+d
+d
+I
+t
+m
+q
+"}

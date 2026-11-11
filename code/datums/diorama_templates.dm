@@ -35,6 +35,11 @@
 	description = "'Making Decisions' by Alfalfa Scout"
 	mappath = "_maps/map_files/dioramas/making_decisions_diorama.dmm"
 
+/datum/map_template/diorama/wedding
+	name = "Wedding Diorama"
+	description = "'Tying The Knot' by AurouraPlays"
+	mappath = "_maps/map_files/dioramas/wedding_diorama.dmm"
+
 /obj/structure/diorama_sign
 	name = "Diorama Sign"
 	desc = ""
@@ -63,4 +68,7 @@
 	name = "Vet Visit Diorama"
 
 /area/centcom/diorama/decisions
-	name = "Makign Decisions Diorama"
+	name = "Making Decisions Diorama"
+
+/area/centcom/diorama/wedding
+	name = "Wedding Diorama"
