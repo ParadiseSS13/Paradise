@@ -212,6 +212,14 @@
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	list_reagents = list("epinephrine" = 10)
 
+// IPC Epinephrine
+/obj/item/reagent_containers/hypospray/autoinjector/emr_microbots
+	name = "\improper EMR Microbot autoinjector"
+	desc = "A synthetic-compatable autoinjector pre-filled with cheap microscopic repair machines. \
+	Their limited repair protocols are only effective in emergency situations, but can allow users survive long enough to be seen by a maintenance provider."
+	icon_state = "ipc_pen"
+	list_reagents = list("emr_microbots" = 10)
+
 /// basilisks
 /obj/item/reagent_containers/hypospray/autoinjector/teporone
 	name = "teporone autoinjector"
