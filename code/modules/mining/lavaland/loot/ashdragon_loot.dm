@@ -157,7 +157,7 @@
 
 	force = clamp((ghost_counter * 3), 0, 50)
 	user.visible_message(SPAN_DANGER("[user] strikes with the force of [ghost_counter] vengeful spirit\s!"))
-	return CONTINUE_ATTACK
+	return ..()
 
 /obj/effect/wisp/ghost
 	name = "mischievous wisp"

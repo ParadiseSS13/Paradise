@@ -95,9 +95,11 @@
 		to_chat(user, SPAN_WARNING("[src]'s piston-ram lets out a weak hiss, it needs more gas!"))
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return FINISH_ATTACK
-	return CONTINUE_ATTACK
+	return ..()
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!istype(user))
+		return ..()
 	user.do_attack_animation(target)
 
 	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))

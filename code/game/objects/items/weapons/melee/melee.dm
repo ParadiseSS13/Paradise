@@ -46,7 +46,7 @@
 
 /obj/item/melee/saber/pre_attack(atom/target, mob/living/carbon/human/user, params)
 	if(user.a_intent != INTENT_HELP || !ishuman(target) || !ishuman(user))
-		return CONTINUE_ATTACK
+		return ..()
 	if(!COOLDOWN_FINISHED(src, slap_cooldown))
 		return FINISH_ATTACK
 	var/mob/living/carbon/human/H = target
