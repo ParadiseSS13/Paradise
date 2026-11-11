@@ -23,23 +23,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	to_chat(world, "<B>The current game mode is - Changeling!</B>")
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
 
-/datum/game_mode/changeling/get_players_for_role(role, override_jobbans = FALSE, species_exclusive = null)
-	var/list/candidates = ..()
-	if(!length(candidates))
-		return candidates
-
-	var/list/debrain_targets = list()
-	for(var/datum/objective/debrain/objective in GLOB.all_objectives)
-		if(QDELETED(objective) || !objective.holder || !objective.owner)
-			continue
-		if(istype(objective))
-			debrain_targets |= objective.target
-	for(var/datum/mind/player_mind in candidates)
-		if(player_mind in debrain_targets)
-			candidates -= player_mind
-
-	return candidates
-
 /datum/game_mode/changeling/pre_setup()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
