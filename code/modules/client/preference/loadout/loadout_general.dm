@@ -427,6 +427,11 @@
 	description = "A flask for drink transportation. You'll need to supply your own beverage, though."
 	path = /obj/item/reagent_containers/drinks/flask/barflask
 
+/datum/gear/mug/teacup
+	display_name = "Teacup"
+	description = "A simple porcelain teacup. You can put other liquids in too, they don't check."
+	path = /obj/item/reagent_containers/drinks/teacup
+
 /datum/gear/mug/department
 	main_typepath = /datum/gear/mug/department
 	subtype_selection_cost = FALSE
