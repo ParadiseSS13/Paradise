@@ -505,21 +505,22 @@
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
-/obj/item/melee/energy/cleaving_saw/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) || swiping || !target.density || get_turf(target) == get_turf(user))
 		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 			faction_bonus_force = 0
 		..()
 		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 			faction_bonus_force = initial(faction_bonus_force)
-	else
-		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(target))
-		swiping = TRUE
-		var/static/list/cleaving_saw_cleave_angles = list(0, -45, 45) //so that the animation animates towards the target clicked and not towards a side target
-		for(var/i in cleaving_saw_cleave_angles)
-			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
-			for(var/mob/living/L in T)
-				if(user.Adjacent(L) && L.density)
-					melee_attack_chain(user, L)
-		swiping = FALSE
+		return FINISH_ATTACK
+
+	var/turf/user_turf = get_turf(user)
+	var/dir_to_target = get_dir(user_turf, get_turf(target))
+	swiping = TRUE
+	var/static/list/cleaving_saw_cleave_angles = list(0, -45, 45) //so that the animation animates towards the target clicked and not towards a side target
+	for(var/i in cleaving_saw_cleave_angles)
+		var/turf/T = get_step(user_turf, turn(dir_to_target, i))
+		for(var/mob/living/L in T)
+			if(user.Adjacent(L) && L.density)
+				melee_attack_chain(user, L)
+	swiping = FALSE

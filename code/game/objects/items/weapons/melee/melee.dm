@@ -22,7 +22,6 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
-	new_attack_chain = TRUE
 	// values for slapping
 	var/slap_sound = 'sound/effects/woodhit.ogg'
 	COOLDOWN_DECLARE(slap_cooldown)
