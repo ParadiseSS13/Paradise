@@ -30175,7 +30175,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "genetics"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "fmr" = (
@@ -40798,7 +40800,9 @@
 	dir = 8
 	},
 /obj/machinery/alarm/directional/north,
-/obj/machinery/button/windowtint/directional/east,
+/obj/machinery/button/windowtint/directional/east{
+	id = "interrogation"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation)
 "hGq" = (
@@ -50631,7 +50635,9 @@
 	pixel_y = -24;
 	req_access = list(67)
 	},
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "bs"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jGJ" = (
@@ -72779,7 +72785,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "coroner"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "ovW" = (
@@ -97267,7 +97275,9 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
-/obj/machinery/button/windowtint/offset/southwest,
+/obj/machinery/button/windowtint/offset/southwest{
+	id = "med1"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms1)
 "tSz" = (
@@ -101097,7 +101107,9 @@
 /obj/machinery/computer/secure_data{
 	dir = 1
 	},
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "ntr"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "uGf" = (
@@ -106247,7 +106259,9 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "med2"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms_secondary)
 "vKU" = (

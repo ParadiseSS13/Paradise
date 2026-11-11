@@ -8,7 +8,6 @@
  *		Butcher's cleaver
  *		Rolling Pins
  *		Candy Moulds
- *		Sushi Mat
  *		Circular cutter
  */
 
@@ -27,7 +26,7 @@
 	name = "base type kitchen utensil"
 	lefthand_file = 'icons/mob/inhands/utensil_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/utensil_righthand.dmi'
-	force = 5.0
+	force = 5
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 5
@@ -79,14 +78,14 @@
 
 /obj/item/kitchen/utensil/fork
 	name = "fork"
-	desc = "It's a fork. Sure is pointy. Keep away from outlets. "
+	desc = "A multi-pronged eating utensil. Sure is pointy. Keep away from outlets."
 	icon_state = "fork"
 
 /obj/item/kitchen/utensil/fork/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/machinery))
 		return ..()
 
-	if(istype(target, /obj/machinery/nuclearbomb)) // we're trying to be a little silly, not very silly
+	if(istype(target, /obj/machinery/nuclearbomb)) // We're trying to be a little silly, not very silly.
 		return ..()
 
 	var/obj/machinery/machine = target
@@ -107,7 +106,7 @@
 		var/obj/machinery/firealarm/fire_alarm = machine
 		wiresexposed = fire_alarm.wiresexposed
 
-	// if we cant access the wires
+	// If we can't access the wires.
 	if(!machine.panel_open && !wiresexposed)
 		return ITEM_INTERACT_COMPLETE
 
@@ -117,14 +116,14 @@
 		uncut_wire_count = length(internal_wires.wires - internal_wires.cut_wires)
 
 	if(prob(50))
-		// if the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked
+		// If the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked.
 		if(!machine.has_power() || !(flags & CONDUCT))
 			to_chat(user, SPAN_NOTICE("You clumsily stick [src] into the open panel of [target]."))
 			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, SPAN_DANGER("You stick [src] into the open panel of [target]."))
 		do_sparks(3, TRUE, machine)
-		//electrocute the mob, we're not checking distance because some machines are bigger than 1x1
+		// Electrocute the mob, we're not checking distance because some machines are bigger than 1x1.
 		electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, FALSE)
 	else if(prob(50) && uncut_wire_count) // 50% of 50% = 25%
 		to_chat(user, SPAN_NOTICE("You stick [src] into the open panel of [target] and tear one of the wires."))
@@ -134,24 +133,26 @@
 
 	return ITEM_INTERACT_COMPLETE
 
-
 /obj/item/kitchen/utensil/pfork
 	name = "plastic fork"
-	desc = "Yay, no washing up to do."
+	desc = "A fork made of plastic, perfect for people that still haven't gotten over the urge to stick forks into electrical sockets."
 	icon_state = "pfork"
+	force = 3 // Not as rigid as a metal fork.
 	flags = NONE
 	materials = list(MAT_PLASTIC = 2000)
 
 /obj/item/kitchen/utensil/spoon
 	name = "spoon"
-	desc = "It's a spoon. You can see your own upside-down face in it."
+	desc = "Essentially a tiny bowl on a stick. You can see your own upside-down face in it."
 	icon_state = "spoon"
+	force = 2
 	attack_verb = list("attacked", "poked")
 
 /obj/item/kitchen/utensil/pspoon
 	name = "plastic spoon"
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
+	force = 1
 	attack_verb = list("attacked", "poked")
 	flags = NONE
 	materials = list(MAT_PLASTIC = 2000)
@@ -165,7 +166,7 @@
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
-	desc = "It's a spork. Marvel at its innovative design."
+	desc = "The powers of a spoon and a fork combined into one! Marvel at its innovative design."
 	icon_state = "spork"
 	attack_verb = list("attacked", "sporked")
 
@@ -173,6 +174,7 @@
 	name = "plastic spork"
 	desc = "It's a plastic spork. It's the fork side of the spoon!"
 	icon_state = "pspork"
+	force = 3
 	attack_verb = list("attacked", "sporked")
 	flags = NONE
 	materials = list(MAT_PLASTIC = 2000)
@@ -182,7 +184,7 @@
  */
 /obj/item/kitchen/knife
 	name = "kitchen knife"
-	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
+	desc = "A general purpose chef's knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
@@ -197,7 +199,13 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-	var/bayonet = FALSE	//Can this be attached to a gun?
+	// Can this be attached to a gun?
+	var/bayonet = FALSE
+
+/obj/item/kitchen/knife/examine()
+	. = ..()
+	if(bayonet)
+		. += SPAN_NOTICE("It has a socket for attaching to a gun's bayonet lug.")
 
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
@@ -213,10 +221,11 @@
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
-	desc = "The bluntest of blades."
+	desc = "A semi-flexible knife made of plastic. The blade is so thick and blunt that it has trouble cutting up food, let alone people."
 	icon_state = "pknife"
 	sharp = FALSE
 	flags = NONE
+	force = 3 // It's a floppy blunt knife suitable for prison usage. You want a good knife? Make a shiv.
 	materials = list(MAT_PLASTIC = 2000)
 
 /obj/item/kitchen/knife/ritual
@@ -228,7 +237,7 @@
 
 /obj/item/kitchen/knife/shiv
 	name = "glass shiv"
-	desc = "A haphazard sharp object wrapped in cloth, just like great-great-great-great grandma used to make."
+	desc = "An improvised knife made by haphazardly wrapping a sharp object in cloth, just like great-great-great-great grandma used to make."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "glass_shiv"
 	flags = NONE
@@ -240,7 +249,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "carrotshiv"
 	force = 8
-	throwforce = 12 //fuck git
+	throwforce = 12
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
@@ -249,7 +258,7 @@
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
-	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
+	desc = "A large rectangular knife designed for chopping through meat and bone. This includes clowns and clown by-products."
 	icon_state = "butch"
 	force = 15
 	throwforce = 8
@@ -259,10 +268,13 @@
 
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
+	desc = "A specially designed cleaver with an ultra-strong plasteel blade and fine-ground edge. This bad boy can chop through any meat you can find with ease!"
 	icon_state = "mcleaver"
 	inhand_icon_state = "butch"
 	force = 25
 	throwforce = 15
+	materials = list(MAT_METAL = 18000, MAT_PLASMA = 18000)
+	origin_tech = "materials=5;combat=5;syndicate=2"
 
 /obj/item/kitchen/knife/butcher/meatcleaver/Initialize(mapload)
 	. = ..()
@@ -270,29 +282,33 @@
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
-	desc = "A military combat utility survival knife."
+	desc = "A military-grade combat utility survival knife forged from plasteel. It has a wickedly sharp edge and a serrated spine."
 	icon_state = "combatknife"
 	worn_icon_state = "knife"
 	inhand_icon_state = "knife"
 	force = 20
 	throwforce = 20
-	origin_tech = "materials=3;combat=4"
+	materials = list(MAT_METAL = 12000, MAT_PLASMA = 12000)
+	origin_tech = "materials=5;combat=5"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	bayonet = TRUE
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
-	desc = "A hunting grade survival knife."
+	desc = "A versatile utility knife used in hunting and survival situations."
 	icon_state = "survivalknife"
 	force = 15
 	throwforce = 15
+	origin_tech = "materials=3;combat=4"
+	materials = list(MAT_METAL = 12000)
 
 /obj/item/kitchen/knife/combat/survival/bone
 	name = "bone dagger"
-	desc = "A sharpened bone. The bare minimum in survival."
+	desc = "A knife carved from an animal bone. Despite the crude appearance, it holds a surprisingly sharp edge."
 	icon_state = "bone_dagger"
 	inhand_icon_state = "bone_dagger"
 	materials = list()
+	origin_tech = "materials=2;biotech=2;combat=4" // Includes the tech levels of the bone it's made from.
 	flags = NONE
 
 /obj/item/kitchen/knife/combat/cyborg
@@ -300,18 +316,17 @@
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "knife"
-	origin_tech = null
 
 /obj/item/kitchen/knife/cheese
 	name = "cheese knife"
-	desc = "A blunt knife used to slice cheese."
+	desc = "A blunt knife used to cut cheese into presentable slices. A requirement for any true connoisseur of cheese."
 	icon_state = "knife-cheese"
 	materials = list(MAT_METAL = 4000)
 	force = 3
 
 /obj/item/kitchen/knife/pizza_cutter
 	name = "pizza cutter"
-	desc = "A simple circular blade on a handle, used to cut pizza."
+	desc = "A circular blade attached to its handle with an axle, allowing it to freely rotate. These are usually used to cut pizza, but it can cut other things too. Don't let the system hold you back!"
 	icon_state = "pizza_cutter"
 	materials = list(MAT_METAL = 10000)
 	force = 8
@@ -322,7 +337,7 @@
 
 /obj/item/kitchen/rollingpin
 	name = "rolling pin"
-	desc = "Used to knock out the Bartender."
+	desc = "A cylindrical kitchen utensil used to shape and flatten dough. Also sometimes used to smash skulls."
 	icon_state = "rolling_pin"
 	force = 8
 	throwforce = 10
@@ -330,15 +345,12 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	materials = list(MAT_WOOD = 10000)
 
-/* Trays moved to /obj/item/storage/bag */
-
 /*
  * Candy Moulds
  */
-
 /obj/item/reagent_containers/cooking/mould
 	name = "generic candy mould"
-	desc = "You aren't sure what it's supposed to be."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mould"
 	force = 5
@@ -395,10 +407,9 @@
 	icon_state = "mould_loli"
 
 /// circular cutter by Ume
-
 /obj/item/kitchen/cutter
-	name = "generic circular cutter"
-	desc = "A generic circular cutter for cookies and other things."
+	name = "circular cutter"
+	desc = "A circular cutter for cookies and other things."
 	icon_state = "circular_cutter"
 	force = 5
 	throwforce = 5

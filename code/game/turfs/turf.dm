@@ -215,8 +215,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2, cause = "[Proj.type] fired by [key_name(Proj.firer)] (hit turf)")
 	..()
 	return FALSE
 
@@ -329,7 +327,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
-	set_light(0)
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
@@ -339,7 +336,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
 
+	// After BeforeChange(), so /turf/space/BeforeChange() still sees its starlight and takes itself off GLOB.starlight
 	BeforeChange()
+	set_light(0)
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 
 	var/old_baseturf = baseturf
@@ -723,6 +722,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /datum/milla_safe/initialize_turf/on_run(turf/T)
 	if(!isnull(T))
 		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+		// This writes straight to MILLA, so anything fetched from it before now may be out of date.
+		SSair.watched_tiles = null
 
 /// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
 /turf/proc/private_unsafe_get_air()
