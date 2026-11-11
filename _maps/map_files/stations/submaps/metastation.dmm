@@ -191,7 +191,7 @@
 /area/station/engineering/engine/reactor)
 "cy" = (
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "cz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -269,10 +269,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "de" = (
@@ -313,9 +313,6 @@
 /area/station/engineering/engine/reactor)
 "dv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -555,11 +552,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
-"fM" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "fQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1372,6 +1364,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "pi" = (
@@ -1544,7 +1539,7 @@
 /obj/structure/grille/broken,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "qW" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
@@ -1560,11 +1555,7 @@
 /obj/structure/grille,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/space)
-"rc" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
+/area/space/nearstation)
 "rd" = (
 /obj/machinery/camera{
 	c_tag = "Engine Fabrication";
@@ -1994,7 +1985,6 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "vb" = (
@@ -2211,6 +2201,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "xD" = (
@@ -2290,7 +2281,7 @@
 	pixel_x = 2
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/space/nearstation)
 "xZ" = (
 /obj/machinery/door/airlock/engineering/glass{
 	heat_proof = 1;
@@ -2583,9 +2574,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
-"AW" = (
-/turf/space,
-/area/template_noop)
 "Bc" = (
 /obj/structure/railing/pool_lining,
 /obj/effect/turf_decal/stripes/line,
@@ -2721,10 +2709,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
-"BX" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/template_noop)
 "Ck" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
@@ -2746,14 +2730,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
-"Cv" = (
-/obj/structure/lattice,
-/turf/space,
-/area/template_noop)
-"Cx" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/control)
 "CK" = (
 /obj/structure/rack{
 	dir = 1
@@ -2888,9 +2864,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "DW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -2993,7 +2966,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -3381,7 +3353,7 @@
 /area/station/engineering/engine/reactor)
 "IB" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/space/nearstation)
 "ID" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -4023,7 +3995,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -4906,6 +4878,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "VF" = (
@@ -5046,7 +5021,7 @@
 "WX" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/space/nearstation)
 "Xa" = (
 /obj/structure/rack{
 	dir = 1
@@ -5281,7 +5256,6 @@
 /obj/structure/particle_accelerator/power_box{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "Zd" = (
@@ -5362,6 +5336,7 @@
 /obj/structure/particle_accelerator/end_cap{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "ZV" = (
@@ -7651,7 +7626,7 @@ XL
 fs
 vF
 vF
-Cx
+vF
 wY
 wY
 "}
@@ -7679,7 +7654,7 @@ fv
 kK
 fy
 vF
-rc
+RF
 wY
 wY
 "}
@@ -7713,9 +7688,9 @@ wY
 "}
 (84,1,1) = {"
 wY
-AW
-AW
-BX
+hs
+hs
+bS
 xX
 vF
 vF
@@ -7741,10 +7716,10 @@ wY
 "}
 (85,1,1) = {"
 wY
-Cv
-Cv
-BX
-BX
+RF
+RF
+bS
+bS
 vF
 fy
 Bo
@@ -8013,7 +7988,7 @@ vF
 vF
 vF
 vF
-rc
+RF
 hs
 hs
 hs
@@ -8026,25 +8001,25 @@ wY
 wY
 wY
 wY
-rc
-rc
-rc
-rc
-rc
-rc
-rc
+RF
+RF
+RF
+RF
+RF
+RF
+RF
 cy
 IB
 cy
-rc
-rc
-fM
-rc
-rc
-rc
-rc
-rc
-rc
+RF
+RF
+RF
+RF
+RF
+RF
+RF
+RF
+RF
 wY
 "}
 (96,1,1) = {"
@@ -8059,11 +8034,11 @@ IB
 IB
 IB
 IB
-rc
+RF
 hs
-rc
+RF
 cy
-rc
+RF
 hs
 hs
 cy
@@ -8086,7 +8061,7 @@ WX
 qQ
 qZ
 cy
-rc
+RF
 hs
 hs
 cy
