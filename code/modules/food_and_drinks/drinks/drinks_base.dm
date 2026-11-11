@@ -380,6 +380,13 @@
 	icon_state = "britcup"
 	volume = 30
 
+/obj/item/reagent_containers/drinks/teacup
+	name = "teacup"
+	desc = "A simple ceramic teacup."
+	icon_state = "teacup"
+	inhand_icon_state = "coffee"
+	volume = 30
+
 /obj/item/reagent_containers/drinks/bag
 	name = "drink bag"
 	desc = "Normally put in wine boxes, or down pants at stadium events."
