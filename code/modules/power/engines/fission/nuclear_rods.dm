@@ -304,7 +304,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 	)
-	origin_tech = "materials=7;engineering=4" // It takes a ton of effort to actually make this. You'll need to pry it out of an engineer's dead hands before you can analyze it.
+	origin_tech = "materials=7;engineering=7" // It takes a ton of effort to actually make this. You'll need to pry it out of an engineer's dead hands before you can analyze it.
 
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
@@ -381,7 +381,7 @@
 	heat_amp_mod = 5
 	power_amp_mod = 3
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
-	origin_tech = "materials=4;engineering=4;plasmatech=2"
+	origin_tech = "materials=4;engineering=4;plasmatech=4"
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -482,7 +482,7 @@
 	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
-	origin_tech = "materials=4;engineering=4;plasmatech=2"
+	origin_tech = "materials=4;engineering=4;plasmatech=4"
 
 /obj/item/nuclear_rod/coolant/nitrogen_circulator
 	name = "nitrogen circulator"
