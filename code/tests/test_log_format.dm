@@ -17,6 +17,8 @@
 	)
 
 	rustlibs_log_write(TEST_LOG_FILE, TEST_MESSAGE)
+	// Lines are written on their own thread. Closing the files waits for them.
+	rustlibs_log_close_all()
 
 	var/list/lines = file2list(TEST_LOG_FILE)
 	TEST_ASSERT(lines[1] in valid_lines, \
