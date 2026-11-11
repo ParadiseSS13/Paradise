@@ -22,7 +22,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
-	new_attack_chain = TRUE
 	/// Can anyone use this cult tool? If true, anyone can use it. If false, only cult
 	var/free_use = FALSE
 
