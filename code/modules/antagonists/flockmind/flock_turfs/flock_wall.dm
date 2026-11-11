@@ -3,6 +3,9 @@
 	icon = 'icons/goonstation/turf/flock.dmi'
 	icon_state = "flock-0"
 	base_icon_state = "flock"
+	sheet_type = /obj/item/stack/sheet/gnesis
+	sheet_amount = 4
+	girder_type = null
 
 	pathing_pass_method = TURF_PATHING_PASS_PROC
 
