@@ -1690,6 +1690,15 @@
 	},
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
+"sj" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 6
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "sq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/turf_decal/trimline/misc/toxins/line{
@@ -2054,6 +2063,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
+/area/station/engineering/control)
+"vN" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "vO" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3346,6 +3363,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
+"Ix" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/closet/radiation,
+/obj/machinery/airlock_controller/access_controller{
+	name = "Supermatter Access Console";
+	pixel_y = -25;
+	ext_door_link_id = "atmossm_door_ext";
+	int_door_link_id = "atmossm_door_int";
+	ext_button_link_id = "atmossm_btn_ext";
+	int_button_link_id = "atmossm_btn_int";
+	req_one_access = list(10,24);
+	pixel_x = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "Iy" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/structure/cable/yellow{
@@ -5044,6 +5078,24 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
+"WS" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/door/airlock/atmos/glass{
+	autoclose = 0;
+	id_tag = "atmossm_door_ext";
+	name = "Atmospherics Access Chamber";
+	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "atmossm_btn_ext";
+	name = "Atmospherics Access Button";
+	pixel_x = 24;
+	req_access = list(24)
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "WX" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
@@ -6529,9 +6581,9 @@ RB
 jk
 Dt
 vF
-wY
-wY
-wY
+OT
+OT
+OT
 wY
 wY
 wY
@@ -6557,9 +6609,9 @@ vc
 BC
 iL
 vF
-wY
-wY
-wY
+Dp
+sj
+WS
 wY
 wY
 wY
@@ -6585,9 +6637,9 @@ Hr
 To
 FD
 gV
-wY
-wY
-wY
+vN
+Ix
+vF
 wY
 wY
 wY
