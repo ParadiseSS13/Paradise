@@ -67989,7 +67989,7 @@
 /area/station/hallway/secondary/exit)
 "lSa" = (
 /obj/machinery/newscaster/directional/south,
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel/white,

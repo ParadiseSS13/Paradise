@@ -256,3 +256,79 @@
 
 /obj/machinery/economy/vending/cart/free
 	prices = list()
+
+/obj/machinery/economy/vending/dye_generator
+	name = "Dye Generator"
+	desc = "A machine that synthesizes dye and dispenses hairstyling tools. Simply insert a dye bottle and pick the color of your dreams to dispense dye."
+	icon_state = "barbervend"
+	icon_lightmask = "barbervend"
+	category = VENDOR_TYPE_SUPPLIES
+	vend_delay = 15
+	products = list(
+		/obj/item/scissors/barber = 3,
+		/obj/item/scissors = 5,
+		/obj/item/razor = 3,
+		/obj/item/hair_dye_bottle = 3,
+		/obj/item/reagent_containers/glass/bottle/reagent/hairgrownium = 1,
+		/obj/item/reagent_containers/glass/bottle/reagent/hair_dye = 1,
+		/obj/item/reagent_containers/dropper = 3,
+		/obj/item/storage/box/lip_stick = 2,
+	)
+	contraband = list(
+		/obj/item/clothing/mask/fakemoustache = 3,
+		/obj/item/clothing/mask/fake_beard = 3
+	)
+	prices = list(
+		/obj/item/scissors/barber = 50,
+		/obj/item/scissors = 20,
+		/obj/item/razor = 20,
+		/obj/item/hair_dye_bottle = 30,
+		/obj/item/reagent_containers/glass/bottle/reagent/hairgrownium = 30,
+		/obj/item/reagent_containers/glass/bottle/reagent/hair_dye = 30,
+		/obj/item/reagent_containers/dropper = 10,
+		/obj/item/storage/box/lip_stick = 20,
+		/obj/item/clothing/mask/fakemoustache = 20,
+		/obj/item/clothing/mask/fake_beard = 20,
+	)
+	refill_canister = /obj/item/vending_refill/dye
+	var/dye_color = "#FFFFFF"
+
+/obj/machinery/economy/vending/dye_generator/update_overlays()
+	. = ..()
+	if(light)
+		set_light(light_range_on, light_power_on, dye_color)
+
+/obj/machinery/economy/vending/dye_generator/power_change()
+	. = ..()
+	if(light)
+		set_light(light_range_on, light_power_on, dye_color)
+
+/obj/machinery/economy/vending/dye_generator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/hair_dye_bottle))
+		return ..()
+
+	if(stat & (BROKEN|NOPOWER))
+		to_chat(user, SPAN_WARNING("[src] can't dispense hair dye in this state!"))
+		return ..()
+
+	var/obj/item/hair_dye_bottle/dye_bottle = used
+	var/temp = tgui_input_color(user, "Please select a dye color", "Dye Color", dye_color)
+	if(isnull(temp)) // Decided not to.
+		return ITEM_INTERACT_COMPLETE
+	if(!Adjacent(user)) // No remote dye dispensing.
+		return ITEM_INTERACT_COMPLETE
+	if(user.l_hand != used && user.r_hand != used) // No magic tricks.
+		return ITEM_INTERACT_COMPLETE
+	if((stat & (BROKEN|NOPOWER)) || QDELETED(src)) // Missed your chance.
+		return ITEM_INTERACT_COMPLETE
+	dye_color = temp
+	set_light(light_range_on, light_power_on, dye_color)
+	user.visible_message(
+		SPAN_NOTICE("[src] fills up [used] with the chosen color of hair dye."),
+		SPAN_NOTICE("[src] fills up [used] with your chosen color of hair dye."),
+		SPAN_HEAR("[src] whirrs quietly as it dispenses some foam.")
+	)
+	dye_bottle.dye_color = dye_color
+	dye_bottle.update_icon()
+	dye_bottle.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE

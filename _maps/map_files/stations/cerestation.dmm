@@ -88817,7 +88817,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "rZl" = (
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/white,
