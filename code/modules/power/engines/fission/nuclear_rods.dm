@@ -343,7 +343,6 @@
 	icon_state = "mod_water"
 	origin_tech = "materials=4;engineering=4"
 
-
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
 	desc = "A basic moderation rod filled with a variant of water comprised of deuterium instead of hydrogen atoms."
