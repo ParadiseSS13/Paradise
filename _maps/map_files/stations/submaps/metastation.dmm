@@ -224,6 +224,10 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
+	name = "Singularity Radiation Shutters";
+	id_tag = "Singularity"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cU" = (
@@ -332,6 +336,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
+	name = "Singularity Radiation Shutters";
+	id_tag = "Singularity"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "dM" = (
@@ -429,6 +437,10 @@
 /area/station/engineering/engine/reactor)
 "ey" = (
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
+	name = "Singularity Radiation Shutters";
+	id_tag = "Singularity"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "eD" = (
@@ -7574,7 +7586,7 @@ Oe
 Oe
 Oe
 Oe
-hC
+vF
 vF
 mn
 Al
@@ -7592,7 +7604,7 @@ mn
 vF
 SR
 bV
-vF
+EU
 wY
 wY
 "}
