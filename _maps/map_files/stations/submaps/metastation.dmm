@@ -511,6 +511,15 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"fm" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk/black,
+/area/station/engineering/control)
 "fs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1817,7 +1826,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "tw" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/computer/sm_monitor{
 	dir = 1
 	},
@@ -3698,9 +3706,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "LF" = (
@@ -3794,6 +3799,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
+"Mv" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "Mx" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -4616,6 +4627,21 @@
 "TN" = (
 /obj/structure/cable,
 /turf/simulated/floor/plating,
+/area/station/engineering/control)
+"TQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "TT" = (
 /obj/effect/turf_decal/stripes/red/line{
@@ -6410,12 +6436,12 @@ PF
 ca
 oo
 Eu
-si
+TQ
 LE
-aq
-uS
-oA
-uW
+fm
+Mv
+oD
+oD
 oD
 tw
 vF
