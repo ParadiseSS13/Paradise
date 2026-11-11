@@ -48,3 +48,7 @@
 	if(!bird.can_flockphase())
 		return ..()
 	return TRUE
+
+// We don't want to leave behind metal from the non-existant girder.
+/turf/simulated/wall/flock/devastate_wall()
+	new sheet_type(src, sheet_amount)
