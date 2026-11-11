@@ -60,7 +60,7 @@
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
-	desc = "A very robust-looking blue toolbox used to mechanical tools."
+	desc = "A robust-looking blue toolbox used to carry mechanical tools."
 	icon_state = "blue"
 	inhand_icon_state = "toolbox_blue"
 
@@ -77,7 +77,7 @@
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"
-	desc = "A robust-looking blue toolbox used to mechanical tools. It looks extremely old."
+	desc = "A robust-looking blue toolbox used to carry mechanical tools. It looks extremely old."
 	icon_state = "toolbox_blue_old"
 	has_latches = FALSE
 

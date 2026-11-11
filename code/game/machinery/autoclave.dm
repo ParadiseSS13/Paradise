@@ -155,6 +155,9 @@
 	if(user.a_intent != INTENT_HELP)
 		return ..()
 
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(!is_open)
 		to_chat(user, SPAN_WARNING("The door on [src] is closed!"))
 		return ITEM_INTERACT_COMPLETE
