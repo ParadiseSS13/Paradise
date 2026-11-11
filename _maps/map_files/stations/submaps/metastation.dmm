@@ -273,10 +273,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "de" = (
@@ -445,6 +447,9 @@
 /area/station/engineering/control)
 "eD" = (
 /obj/item/toy/spinningtoy,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/maintenance/fsmaint2)
 "eE" = (
@@ -640,14 +645,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
-"gq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "gF" = (
 /obj/machinery/power/reactor_power,
@@ -1079,11 +1076,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"lp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
 "lu" = (
 /obj/effect/turf_decal/trimline/misc/toxins/line{
 	dir = 8
@@ -1394,6 +1386,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -2246,6 +2241,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/maintenance/fsmaint2)
 "xF" = (
@@ -2661,6 +2659,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"Bw" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint2)
 "BB" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -3069,6 +3077,9 @@
 /area/station/engineering/engine/reactor)
 "FN" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated/pre_connect{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/fsmaint2)
 "FT" = (
@@ -3132,11 +3143,9 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "Gl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "Gm" = (
@@ -3898,6 +3907,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "MX" = (
@@ -4084,24 +4096,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating/airless,
-/area/station/engineering/control)
-"OB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters/radiation/preopen{
-	name = "Singularity Radiation Shutters";
-	id_tag = "Singularity"
-	},
-/obj/machinery/door_control{
-	id = "Singularity";
-	name = "Singularity Radiation Shutters";
-	pixel_x = -24
-	},
-/turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "OI" = (
 /obj/machinery/camera{
@@ -4468,6 +4462,9 @@
 	},
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/maintenance/fsmaint2)
 "Si" = (
@@ -4534,12 +4531,6 @@
 /obj/structure/table/reinforced,
 /obj/item/screwdriver,
 /obj/item/geiger_counter,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
@@ -4726,6 +4717,7 @@
 /area/station/engineering/engine/reactor)
 "Ug" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "Uo" = (
@@ -7476,10 +7468,10 @@ wY
 wY
 PF
 Sz
-lp
+oD
 Gl
-gq
-OB
+pN
+BJ
 dc
 xz
 ZN
@@ -7752,7 +7744,7 @@ wY
 wY
 Oe
 Oe
-Ug
+Bw
 Ug
 vF
 fy
