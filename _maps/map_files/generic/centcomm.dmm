@@ -3038,12 +3038,12 @@
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = 5
 	},
-/obj/item/multitool{
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/multitool/red{
 	pixel_x = -7;
 	pixel_y = -1
 	},
-/obj/item/multitool,
-/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/multitool/red,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kT" = (
@@ -5432,10 +5432,6 @@
 /area/ghost_bar)
 "sQ" = (
 /obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
-"sR" = (
-/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sS" = (
@@ -71399,7 +71395,7 @@ XJ
 ie
 XJ
 XJ
-sR
+zI
 ks
 ky
 kM
