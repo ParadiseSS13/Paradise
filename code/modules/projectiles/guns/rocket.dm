@@ -1,6 +1,6 @@
 /obj/item/gun/rocketlauncher
 	name = "rocket launcher"
-	desc = "A rocket propelled grenade launcher. Holds one shell at a time."
+	desc = "A rocket propelled grenade launcher. Holds one rocket at a time."
 	icon_state = "rocket"
 	inhand_icon_state = "rocket"
 	w_class = WEIGHT_CLASS_BULKY
@@ -22,15 +22,18 @@
 	. = ..()
 	. += SPAN_NOTICE("It is currently [chambered ? "" : "un"]loaded.")
 
-/obj/item/gun/rocketlauncher/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/ammo_casing/rocket))
+/obj/item/gun/rocketlauncher/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/ammo_casing/rocket))
 		return ..()
-	if(!chambered)
-		user.transfer_item_to(I, src)
-		chambered = I
-		to_chat(user, SPAN_NOTICE("You put the rocket in [src]."))
-	else
-		to_chat(user, SPAN_NOTICE("[src] cannot hold another rocket."))
+
+	if(chambered)
+		to_chat(user, SPAN_NOTICE("[src] cannot hold another rocket!"))
+		return ITEM_INTERACT_COMPLETE
+
+	user.transfer_item_to(used, src)
+	chambered = used
+	to_chat(user, SPAN_NOTICE("You put the rocket in [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/rocketlauncher/process_chamber()
 	QDEL_NULL(chambered)

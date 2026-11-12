@@ -21,18 +21,34 @@
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 
-/obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
+// Allows you to shoot yourself by aiming at any bodypart. Useful for stuff like the wand of resurrection or teleportation.
+/obj/item/gun/magic/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(is_gun_busy(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+	if(target == user)
+		if(user.zone_selected == "mouth") // Allow the user to stick the wand in their mouth for dramatic effect if they want to.
+			handle_suicide(user, target, list2params(modifiers))
+		else
+			try_to_shoot_gun(target, user)
+		return ITEM_INTERACT_COMPLETE
+	
+	return ..()
+
+/obj/item/gun/magic/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
 			to_chat(user, SPAN_WARNING("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return
 		else
-			no_den_usage = 0
+			no_den_usage = FALSE
+
 	if(!user.can_cast_magic(antimagic_flags))
 		to_chat(user, SPAN_WARNING("[src] whizzles quietly."))
-		return FALSE
-	..()
+		return
+
+	return ..(target, user, proximity)
 
 /obj/item/gun/magic/can_shoot()
 	return charges
