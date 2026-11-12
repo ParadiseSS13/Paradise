@@ -74,10 +74,18 @@
 		active = FALSE
 		timer_set = initial(timer_set)
 		update_icon(UPDATE_ICON_STATE)
+		// Reset the wire-dependent vars, so that the bomb doesn't become unusuable if it's currently empty
+		if(!(WIRE_BOMB_PROCEED in wires.cut_wires))
+			explode_now = FALSE
+		if(!(WIRE_BOMB_DELAY in wires.cut_wires))
+			delayedbig = FALSE
+		if(!(WIRE_BOMB_ACTIVATE in wires.cut_wires))
+			delayedlittle = FALSE
 		try_detonate(TRUE)
-	//Counter terrorists win
+	// Counter-terrorists win
 	else if(defused)
 		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		if(payload in src)
 			payload.defuse()
 
@@ -115,17 +123,20 @@
 	if(istype(used, /obj/item/assembly/signaler))
 		if(panel_open)
 			wires.Interact(user)
-
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/bombcore))
-		if(!payload)
-			if(!user.drop_item())
-				return ITEM_INTERACT_COMPLETE
-			payload = used
-			to_chat(user, SPAN_NOTICE("You place [payload] into [src]."))
-			payload.forceMove(src)
-		else
+
+	if(istype(used, /obj/item/bombcore))
+		if(payload)
 			to_chat(user, SPAN_NOTICE("[payload] is already loaded into [src], you'll have to remove it first."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		payload = used
+		to_chat(user, SPAN_NOTICE("You place [payload] into [src]."))
+		payload.forceMove(src)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
