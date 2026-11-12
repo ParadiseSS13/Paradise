@@ -108,7 +108,7 @@
 	)
 
 	contraband = list(
-		/obj/item/reagent_containers/drinks/tea = 10,
+		/obj/item/reagent_containers/drinks/teacup/tea = 10,
 		/obj/item/reagent_containers/drinks/bottle/fernet = 5,
 		/obj/item/reagent_containers/drinks/bottle/vampire_bestfriend = 5,
 	)
@@ -174,7 +174,7 @@
 	category = VENDOR_TYPE_DRINK
 	products = list(
 		/obj/item/reagent_containers/drinks/coffee = 25,
-		/obj/item/reagent_containers/drinks/tea = 25,
+		/obj/item/reagent_containers/drinks/teacup/tea = 25,
 		/obj/item/reagent_containers/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/drinks/chocolate = 10,
 		/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 10,
@@ -188,7 +188,7 @@
 
 	prices = list(
 		/obj/item/reagent_containers/drinks/coffee = 80,
-		/obj/item/reagent_containers/drinks/tea = 80,
+		/obj/item/reagent_containers/drinks/teacup/tea = 80,
 		/obj/item/reagent_containers/drinks/h_chocolate = 64,
 		/obj/item/reagent_containers/drinks/chocolate = 120,
 		/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 64,

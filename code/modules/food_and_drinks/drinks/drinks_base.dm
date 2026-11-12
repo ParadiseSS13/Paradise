@@ -189,14 +189,18 @@
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
 
-/obj/item/reagent_containers/drinks/tea
-	name = "Duke Purple tea"
-	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
+/obj/item/reagent_containers/drinks/teacup
+	name = "teacup"
+	desc = "A simple ceramic teacup."
 	icon_state = "teacup"
 	inhand_icon_state = "coffee"
+
+/obj/item/reagent_containers/drinks/teacup/tea
+	name = "Duke Purple tea"
+	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	list_reagents = list("tea" = 30)
 
-/obj/item/reagent_containers/drinks/tea/Initialize(mapload)
+/obj/item/reagent_containers/drinks/teacup/tea/Initialize(mapload)
 	. = ..()
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
@@ -378,13 +382,6 @@
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
-	volume = 30
-
-/obj/item/reagent_containers/drinks/teacup
-	name = "teacup"
-	desc = "A simple ceramic teacup."
-	icon_state = "teacup"
-	inhand_icon_state = "coffee"
 	volume = 30
 
 /obj/item/reagent_containers/drinks/bag

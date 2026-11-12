@@ -7769,7 +7769,7 @@
 /area/ghost_bar)
 "By" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/tea,
+/obj/item/reagent_containers/drinks/teacup/tea,
 /turf/simulated/floor/bamboo,
 /area/ninja/outpost)
 "Bz" = (
