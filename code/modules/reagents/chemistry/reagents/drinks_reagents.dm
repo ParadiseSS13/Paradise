@@ -1678,3 +1678,4 @@
 	drink_name = "Glass of Leviathan's Ink"
 	drink_desc = "Skrellian whisky, as black as the depths of the Qerballaki abyss. Though it tastes similar to a sweet whisky, it is brewed with antihol, and will keep you sober."
 	taste_description = "sweet whisky with a refreshing but subtle undertone of mint"
+	goal_difficulty = REAGENT_GOAL_SKIP
