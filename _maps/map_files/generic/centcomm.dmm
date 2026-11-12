@@ -1742,7 +1742,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal,
 /obj/item/clothing/glasses/welding,
-/obj/item/weldingtool,
+/obj/item/weldingtool/hugetank/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "gW" = (
