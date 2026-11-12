@@ -11,7 +11,7 @@ use std::{
     ffi::OsString,
     fs::{self, File, OpenOptions},
     io::{BufWriter, Write},
-    path::Path,
+    path::{Path, PathBuf},
     sync::{mpsc, Condvar, Mutex, MutexGuard, OnceLock},
     thread,
     time::Duration,
@@ -84,8 +84,18 @@ fn log_write(path: ByondValue, data: ByondValue) -> eyre::Result<ByondValue> {
         .get_cstring()
         .map(|cstring| cstring.to_string_lossy().into_owned())
         .wrap_err(format!("UTF-8 decode error: {:#?}", data))?;
-    queue_line(path.into(), text, time)?;
+    queue_line(full_path(path), text, time)?;
     Ok(ByondValue::null())
+}
+
+/// BYOND moves the working folder around for a moment while it copies or makes files, and the writer can run right then.
+/// So the path is made full here on the game's thread, against the world's folder.
+fn full_path(path: String) -> OsString {
+    static BASE: OnceLock<Option<PathBuf>> = OnceLock::new();
+    match BASE.get_or_init(|| std::env::current_dir().ok()) {
+        Some(base) => base.join(path).into_os_string(),
+        None => path.into(),
+    }
 }
 
 /// Waits for everything queued to be written, then closes every file

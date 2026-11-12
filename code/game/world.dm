@@ -285,6 +285,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.runtime_summary_log)
 	// And back to sanity
 
+	// Config errors so far may still be queued, get them on the drive before the file is moved
+	rustlibs_log_close_all()
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
