@@ -57,6 +57,12 @@
 			SEND_SOUND(usr, preview)
 			return TRUE
 
+/datum/tgui_list_input/sound/handle_submit_action(params)
+	if(!(params["entry"] in items))
+		return FALSE
+	set_choice(params["entry"])
+	return TRUE
+
 /datum/tgui_list_input/sound/handle_new_items(list/_items)
 	var/list/repeat_items = list()
 	// Gets rid of illegal characters
