@@ -103,6 +103,7 @@
 		/obj/item/reagent_containers/drinks/cans/ginger_ale = 8,
 		/obj/item/reagent_containers/drinks/drinkingglass = 30,
 		/obj/item/reagent_containers/drinks/drinkingglass/shotglass = 30,
+		/obj/item/reagent_containers/drinks/teacup = 15,
 		/obj/item/reagent_containers/drinks/ice = 9,
 	)
 
