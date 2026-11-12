@@ -818,7 +818,10 @@
 				preview_icon.Blend(underlay, ICON_UNDERLAY)
 
 			ICON_SHIFT_XY(temp, offset_x, offset_y)
-			preview_icon.Blend(temp, ICON_OVERLAY)
+			if(istype(current_species, /datum/species/vox))  // Fixes vox 'front-tail' in preview
+				preview_icon.Blend(temp, ICON_UNDERLAY)
+			else
+				preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Markings
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
