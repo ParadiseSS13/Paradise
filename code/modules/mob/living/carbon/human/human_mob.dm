@@ -1421,6 +1421,10 @@
 		remove_language("Galactic Common")
 		set_default_language(languages[1])
 
+	if(HAS_TRAIT(src, TRAIT_NO_SPECIES_LANGUAGE))
+		remove_language(dna.species.language)
+		set_default_language(languages[1])
+
 	hunger_drain = dna.species.hunger_drain
 
 	if(dna.species.base_color && use_default_color)

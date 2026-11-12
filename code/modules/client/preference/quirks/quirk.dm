@@ -112,14 +112,17 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	if((to_add.species_flags & QUIRK_ORGANIC_INCOMPATIBLE) && (active_character.species != "Machine"))
 		to_chat(src.client, SPAN_WARNING("You can't put that quirk on an organic character."))
 		return FALSE
-	if((to_add.species_flags & QUIRK_SLIME_INCOMPATIBLE) && (active_character.species == "Slime People")) //Since they don't have eyes
-		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a slime character, you have no eyes or it would be free points!"))
+	if((to_add.species_flags & QUIRK_SLIME_INCOMPATIBLE) && (active_character.species == "Slime People")) // Since they don't have eyes
+		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a slime character, you have no eyes and this species' language is inherent."))
 		return FALSE
-	if((to_add.species_flags & QUIRK_PLASMAMAN_INCOMPATIBLE) && (active_character.species == "Plasmaman")) //If someone can figure out how to only let plasmaman with a secondary language take this feel free to do that
+	if((to_add.species_flags & QUIRK_PLASMAMAN_INCOMPATIBLE) && (active_character.species == "Plasmaman")) // If someone can figure out how to only let plasmaman with a secondary language take this feel free to do that
 		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a plasmaman, you have no species language!"))
 		return FALSE
 	if((to_add.species_flags & QUIRK_VOX_INCOMPATIBLE) && (active_character.species == "Vox"))
 		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a Vox, it would be free points!"))
+		return FALSE
+	if((to_add.species_flags & QUIRK_GREY_INCOMPATIBLE) && (active_character.species == "Grey"))
+		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a grey, you have no species language!"))
 		return FALSE
 	if(to_add.conflicting_quirks)
 		for(var/datum/quirk/existing_quirk in active_character.quirks)

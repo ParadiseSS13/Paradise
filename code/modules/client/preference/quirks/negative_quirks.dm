@@ -165,3 +165,22 @@
 	cost = -1
 	trait_to_apply = TRAIT_WORK_HARD_PARTY_HARDER
 	conflicting_quirks = list(/datum/quirk/temperate_partier)
+
+/datum/quirk/culturaldisconnect
+	name = "Culturally Disconnected"
+	desc = "For whatever reason, you do not know your species language. Grey, Plasmamen, and Slime People cannot take this."
+	cost = -2
+	trait_to_apply = TRAIT_NO_SPECIES_LANGUAGE
+	species_flags = QUIRK_SLIME_INCOMPATIBLE | QUIRK_PLASMAMAN_INCOMPATIBLE | QUIRK_GREY_INCOMPATIBLE
+
+/datum/quirk/culturaldisconnect/apply_quirk_effects(mob/living/quirky)
+	..()
+	owner.remove_language(owner.dna.species.language)
+	if(!length(owner.languages))
+		log_admin("[owner] set up a character with no known languages.")
+		return
+	owner.set_default_language(quirky.languages[1]) // set_default_language needs to be passed a direct reference to the user's language list
+
+/datum/quirk/foreigner/remove_quirk_effects()
+	owner.add_language(owner.dna.species.language)
+	..()
