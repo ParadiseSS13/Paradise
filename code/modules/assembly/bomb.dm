@@ -37,8 +37,10 @@
 	if(!istype(used, /obj/item/analyzer))
 		return ..()
 
-	used.afterattack__legacy__attackchain(bombtank, user, TRUE, list2params(modifiers))
-	return ITEM_INTERACT_COMPLETE
+	if(bombtank?.return_analyzable_air())
+		var/obj/item/analyzer/used_analyzer = used
+		atmos_scan(user, bombtank, detailed = used_analyzer.show_detailed)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/onetankbomb/wrench_act(mob/user, obj/item/I)	// This is basically bomb assembly code inverted. Apparently it works.
 	if(status)
