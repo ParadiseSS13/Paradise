@@ -75,11 +75,11 @@
 		timer_set = initial(timer_set)
 		update_icon(UPDATE_ICON_STATE)
 		// Reset the wire-dependent vars, so that the bomb doesn't become unusuable if it's currently empty
-		if(!(WIRE_BOMB_PROCEED in wires.cut_wires))
+		if(!wires.is_cut(WIRE_BOMB_PROCEED))
 			explode_now = FALSE
-		if(!(WIRE_BOMB_DELAY in wires.cut_wires))
+		if(!wires.is_cut(WIRE_BOMB_DELAY))
 			delayedbig = FALSE
-		if(!(WIRE_BOMB_ACTIVATE in wires.cut_wires))
+		if(!wires.is_cut(WIRE_BOMB_ACTIVATE))
 			delayedlittle = FALSE
 		try_detonate(TRUE)
 	// Counter-terrorists win
