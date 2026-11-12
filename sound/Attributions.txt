@@ -38,6 +38,10 @@ effects/sculptures/sand_buildfinish.ogg, sand_buildstart.ogg, sand_collapse.ogg,
 
 misc/announce_dig_reverb.ogg is a modification of misc/announce_dig.ogg introduced from PR #13634 at https://github.com/ParadiseSS13/Paradise/pull/13634
 
+"outbreak3.ogg", "outbreak5.ogg", and "outbreak7.ogg" were produced by CRUNCH-Borg. Licenced under CC 3.0 BY-NC-SA.
+
 "delta_az5.ogg" and "delta_hostile.ogg" were produced by CRUNCH-Borg. Licenced under CC 3.0 BY-NC-SA.
 
 "hallucination.ogg" was produced by CRUNCH-Borg. Licenced under CC 3.0 BY-NC-SA.
+
+"cargo_pod_impact.ogg" was produced by CRUNCH-Borg. Licenced under CC 3.0 BY-NC-SA.
