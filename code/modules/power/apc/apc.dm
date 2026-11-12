@@ -430,6 +430,14 @@
 
 /obj/machinery/power/apc/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
+		if((stat & BROKEN) && opened != APC_COVER_OFF)
+			opened = APC_COVER_OFF
+			cover_locked = FALSE
+			visible_message(
+				SPAN_WARNING("The cover falls off [src]!"),
+				SPAN_WARNING("You hear a small flat object falling to the floor!")
+				)
+			update_icon()
 		set_broken()
 
 // attack with hand - remove cell (if cover open) or interact with the APC
