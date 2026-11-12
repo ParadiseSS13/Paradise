@@ -166,7 +166,8 @@
 		user.unequip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(user)
-		user.put_in_hands(trash_item)
+		if(trash_item)
+			user.put_in_hands(trash_item)
 		qdel(src)
 
 /obj/item/food/proc/Post_Consume(mob/living/M)
@@ -223,10 +224,10 @@
 		else
 			reagents.trans_to(collected, reagents.total_volume)
 			var/obj/item/trash_item = generate_trash(user)
-			if(user.l_hand == src || user.r_hand == src)
+			if((user.l_hand == src || user.r_hand == src) && trash_item)
 				user.drop_item_to_ground(src)
 				user.put_in_hands(trash_item)
-			else
+			else if(trash_item)
 				trash_item.forceMove(get_turf(loc))
 			qdel(src)
 		return ITEM_INTERACT_COMPLETE
