@@ -2574,7 +2574,7 @@
 /area/space/centcomm)
 "jx" = (
 /obj/structure/table,
-/obj/item/screwdriver{
+/obj/item/screwdriver/nuke{
 	pixel_y = 9
 	},
 /obj/item/assembly/voice{
@@ -3609,7 +3609,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
-/obj/item/multitool,
+/obj/item/multitool/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "mG" = (
@@ -5618,8 +5618,8 @@
 /area/shuttle/syndicate)
 "tz" = (
 /obj/structure/table,
-/obj/item/weldingtool/largetank,
-/obj/item/multitool,
+/obj/item/weldingtool/hugetank/syndicate,
+/obj/item/multitool/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tA" = (
@@ -6000,7 +6000,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
 "uM" = (
-/obj/structure/computerframe,
+/obj/structure/computerframe{
+	dir = 1
+	},
 /obj/item/paper/synditele,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -7293,6 +7295,10 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"zI" = (
+/obj/machinery/economy/vending/synditool,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "zJ" = (
 /obj/structure/sign/service/kitchen,
 /turf/simulated/wall/indestructible/syndicate,
@@ -66788,7 +66794,7 @@ zf
 RY
 RY
 Sd
-sR
+zI
 XJ
 kD
 tX

@@ -29,6 +29,38 @@
 		/obj/item/reagent_containers/pill/tox = 1,
 	)
 
+/obj/machinery/economy/vending/synditool
+	name = "\improper Suspicious Tool Vendor"
+	desc = "Evil tools for tools."
+	icon_state = "tool"
+	icon_deny = "tool_deny"
+	icon_lightmask = "tool"
+	icon_panel = "generic"
+	category = VENDOR_TYPE_SUPPLIES
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF
+
+	products = list(
+		/obj/item/crowbar/small = 5,
+		/obj/item/crowbar/red = 5,
+		/obj/item/screwdriver/nuke = 5,
+		/obj/item/weldingtool/hugetank/syndicate = 3,
+		/obj/item/wirecutters = 5,
+		/obj/item/wrench = 5,
+		/obj/item/multitool/red = 5,
+		/obj/item/analyzer = 5,
+		/obj/item/t_scanner = 5,
+		/obj/item/stack/cable_coil = 10,
+		/obj/item/stack/cable_coil/extra_insulated = 10,
+		/obj/item/clothing/gloves/combat = 1,
+		/obj/item/crowbar/large = 1,
+	)
+
+	contraband = list(
+		/obj/item/clothing/gloves/color/fyellow = 2,
+		/obj/item/stack/cable_coil/rcl = 2,
+	)
+	
 /obj/machinery/economy/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
 	desc = "Smoke 'em if you've got 'em."
