@@ -23,6 +23,8 @@
 	//alt heads
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
+	init_blooper_sounds()
+
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 
 	// Different bodies

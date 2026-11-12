@@ -371,10 +371,10 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(d2&(d2-1)) //diagonal direction, must check the 4 possibles adjacents tiles
 		T = get_step(src, d2 & (NORTH|SOUTH)) // go north/south
 		if(T)
-			. += T.power_list(src, FLIP_DIR_VERTICALLY(d1)) //get diagonally matching cables
+			. += T.power_list(src, FLIP_DIR_VERTICALLY(d2)) //get diagonally matching cables
 		T = get_step(src, d2 & (EAST|WEST)) // go east/west
 		if(T)
-			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1)) //get diagonally matching cables
+			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d2)) //get diagonally matching cables
 	T = get_turf(src)
 	. += T.power_list(src, d2) //get on turf matching cables
 
@@ -394,14 +394,15 @@ By design, d1 is the smallest direction and d2 is the highest
 
 // cut the cable's powernet at this cable and updates the powergrid
 /obj/structure/cable/proc/cut_cable_from_powernet(remove = TRUE)
-	var/turf/T1 = get_turf(src)
+	var/turf/our_turf = get_turf(src)
+	var/turf/T1 = our_turf
 	var/list/P_list
 	if(!T1)
 		return
 	if(d1) //if d1 is not a node
 		T1 = get_step(T1, d1)
 		P_list = T1.power_list(src, turn(d1, 180), cable_only = TRUE)	// what adjacently joins on to cut cable...
-	P_list += T1.power_list(loc, d1, cable_only = TRUE) //... and on turf
+	P_list += our_turf.power_list(src, d1, cable_only = TRUE) //... and on turf
 	if(!length(P_list))//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
 

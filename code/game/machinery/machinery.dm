@@ -33,6 +33,8 @@
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	/// The `world.time` when we last short circuited.
+	var/time_shorted
 	COOLDOWN_DECLARE(sparks_cooldown)
 
 	new_attack_chain = TRUE
@@ -618,3 +620,49 @@
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, MELEE, 1)
+
+// Short circuit - when electronic machinery is exposed to water (or bad circuitry), short circuit.
+/obj/machinery/proc/short_circuit()
+	if(world.time < time_shorted + 1 MINUTES)
+		return FALSE
+	if(power_state == NO_POWER_USE || !has_power() || !power_initialized) // The machine is turned off, don't explode.
+		return FALSE
+	var/area/local_area = get_area(src)
+	var/obj/machinery/power/apc/apc = local_area?.get_apc()
+	if(!apc || !apc.cell)
+		return FALSE
+	do_sparks(6, FALSE, src)
+	visible_message(SPAN_DANGER("[src] sparks violently!"))
+	addtimer(CALLBACK(src, PROC_REF(do_short_circuit), apc), 2 SECONDS)
+	return TRUE
+
+/obj/machinery/proc/do_short_circuit(obj/machinery/power/apc/apc)
+	if(!apc || !apc.cell)
+		return
+	var/power_consumed = apc.cell.charge * 0.8
+	apc.cell.use(power_consumed)
+	apc.emag_act()
+
+	var/heavy_impact_range = max(floor(power_consumed / 5000), 1)
+	var/light_impact_range = max(floor(power_consumed / 750), 6)
+	var/flash_range = max(floor(power_consumed / 500), 10)
+	/// How many fires will we spawn?
+	var/fires = max(floor(power_consumed / 250), 25)
+	log_debug("Short circuit event created [fires] fires.")
+	explosion(get_turf(src), -1, heavy_impact_range, light_impact_range, flash_range, flame_range = light_impact_range , cause = "short circuit", breach = FALSE)
+	var/list/turfs = list()
+	for(var/turf/T in view(light_impact_range, get_turf(src)))
+		turfs += T
+	while(fires > 0 && length(turfs))
+		if(!length(turfs)) // No more turfs to pick from
+			break
+		var/turf/flamed = pick_n_take(turfs)
+		if(flamed.density)
+			continue
+		if(isspaceturf(flamed))
+			continue
+		if(flamed.is_blocked_turf())
+			continue
+		new /obj/effect/fire/electrical(flamed)
+		fires--
+	time_shorted = world.time

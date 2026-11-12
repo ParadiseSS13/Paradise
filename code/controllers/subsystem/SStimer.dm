@@ -709,6 +709,19 @@ USER_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently
 	return FALSE
 
 
+/proc/get_timer_remaining(id)
+	if(!id)
+		return
+	if(id == TIMER_ID_NULL)
+		CRASH("Tried to get time remaining on a null timerid.")
+
+	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
+	if(timer)
+		if(timer.spent)
+			return 0
+
+		return timer.timeToRun - world.time
+
 #undef BUCKET_LEN
 #undef BUCKET_POS
 #undef TIMER_MAX

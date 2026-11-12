@@ -86,3 +86,5 @@
 		A.Grant(src)
 
 	flock.start()
+
+	addtimer(CALLBACK(GLOB.major_announcement, /datum/announcer/proc/Announce, "Unknown radio-synthetic entities have manifested on [station_name()]. All personnel must contain the outbreak.", "Flockmind Rift Detected", 'sound/effects/siren-spooky.ogg', FALSE, null, 'sound/AI/outbreak_flockmind.ogg'), 4000)

@@ -324,10 +324,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		C.merge_connected_networks_on_turf()
 
 		if(C.d1 & (C.d1 - 1))// if the cable is layed diagonally, check the others 2 possible directions
-			C.merge_connected_networks(C.d1)
+			C.merge_diagonal_networks(C.d1)
 
 		if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
-			C.merge_connected_networks(C.d2)
+			C.merge_diagonal_networks(C.d2)
 
 		use(1, destroy_upon_empty)
 
@@ -371,6 +371,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/ten
 	amount = 10
+
+/obj/item/stack/cable_coil/twenty
+	amount = 20
 
 /obj/item/stack/cable_coil/pink
 	color = COLOR_PINK
