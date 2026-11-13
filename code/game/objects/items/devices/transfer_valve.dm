@@ -51,6 +51,16 @@
 		SStgui.update_uis(src) // Update all UIs attached to src.
 		return ITEM_INTERACT_COMPLETE
 
+	if(istype(used, /obj/item/analyzer))
+		var/obj/item/analyzer/used_analyzer = used
+		if(tank_one && tank_one.return_analyzable_air())
+			atmos_scan(user, tank_one, detailed = used_analyzer.show_detailed)
+		if(tank_two && tank_two.return_analyzable_air())
+			atmos_scan(user, tank_two, detailed = used_analyzer.show_detailed)
+		if(!tank_one && !tank_two)
+			to_chat(user, SPAN_WARNING("There are no tanks attached to this!"))
+		return ITEM_INTERACT_COMPLETE
+
 //TODO: Have this take an assemblyholder
 	if(!isassembly(used))
 		return ..()
