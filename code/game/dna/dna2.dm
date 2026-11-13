@@ -113,9 +113,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	if(!character.m_styles)
 		character.m_styles = DEFAULT_MARKING_STYLES
 
-	var/head_marks	= GLOB.marking_styles_list.Find(character.m_styles["head"])
-	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
-	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
+	var/head_marks	= GLOB.marking_styles_full_list.Find(character.m_styles["head"])
+	var/body_marks	= GLOB.marking_styles_full_list.Find(character.m_styles["body"])
+	var/tail_marks	= GLOB.marking_styles_full_list.Find(character.m_styles["tail"])
 
 	head_traits_to_dna(character, head)
 	eye_color_to_dna(eyes_organ)
@@ -138,9 +138,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	abs(35 - character.s_tone),	220,	TRUE)
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		TRUE)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		TRUE)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		TRUE)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_full_list),		TRUE)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_full_list),		TRUE)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_full_list),		TRUE)
 
 	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), TRUE)
 	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), TRUE)

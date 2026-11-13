@@ -74,7 +74,7 @@
 		to_chat(user, SPAN_WARNING("[human_target] already has body markings, any more would look silly!"))
 		return ITEM_INTERACT_COMPLETE
 
-	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
+	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_full_list[tattoo_icon]
 	if(!(human_target.dna.species.name in temp_tatt.species_allowed))
 		to_chat(user, SPAN_WARNING("You can't think of a way to make the [tattoo_name] design work on [human_target == user ? "your" : "[human_target]'s"] body type."))
 		return ITEM_INTERACT_COMPLETE
