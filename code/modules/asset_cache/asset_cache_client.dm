@@ -32,12 +32,11 @@
 /// This proc will return an untrue value if it had to return before confirming the send, such as timeout or the client going away.
 /client/proc/browse_queue_flush(timeout = 5 SECONDS)
 	var/job = ++last_asset_job
-	var/t = 0
-	var/timeout_time = timeout
+	// Go by the clock, not by how many times we waited. A wait is a tick, not a decisecond, so counting them gave up at half the timeout
+	var/give_up_at = world.time + timeout
 	src << browse({"<script>window.location.href='byond://?asset_cache_confirm_arrival=[job]'</script>"}, "window=asset_cache_browser&file=asset_cache_send_verify.htm")
 
-	while(!completed_asset_jobs["[job]"] && t < timeout_time) // Reception is handled in Topic()
+	while(!completed_asset_jobs["[job]"] && world.time < give_up_at) // Reception is handled in Topic()
 		stoplag(1) // Lock up the caller until this is received.
-		t++
-	if(t < timeout_time)
+	if(completed_asset_jobs["[job]"])
 		return TRUE
