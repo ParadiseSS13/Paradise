@@ -86,21 +86,15 @@
 
 	if(node1)
 		node1.disconnect(src)
-		node1.defer_build_network()
 		node1 = null
 	if(node2)
 		node2.disconnect(src)
-		node2.defer_build_network()
 		node2 = null
 
 /obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
-		if(istype(node1, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
 		node1 = null
 	if(reference == node2)
-		if(istype(node2, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
 		node2 = null
 	check_nodes_exist()
 	update_icon()

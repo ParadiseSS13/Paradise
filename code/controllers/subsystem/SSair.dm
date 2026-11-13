@@ -1,12 +1,11 @@
-#define SSAIR_DEFERREDPIPENETS 1
-#define SSAIR_PIPENETS 2
-#define SSAIR_ATMOSMACHINERY 3
-#define SSAIR_INTERESTING_TILES 4
-#define SSAIR_HOTSPOTS 5
-#define SSAIR_WINDY_TILES 6
-#define SSAIR_BOUND_MIXTURES 7
-#define SSAIR_PRESSURE_OVERLAY 8
-#define SSAIR_MILLA_TICK 9
+#define SSAIR_PIPENETS 1
+#define SSAIR_ATMOSMACHINERY 2
+#define SSAIR_INTERESTING_TILES 3
+#define SSAIR_HOTSPOTS 4
+#define SSAIR_WINDY_TILES 5
+#define SSAIR_BOUND_MIXTURES 6
+#define SSAIR_PRESSURE_OVERLAY 7
+#define SSAIR_MILLA_TICK 8
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -46,8 +45,6 @@ SUBSYSTEM_DEF(air)
 	var/datum/resumable_cost_counter/cost_windy_tiles = new()
 	/// The cost of a pass through pipenets, shown in SS Info's C block as PN.
 	var/datum/resumable_cost_counter/cost_pipenets = new()
-	/// The cost of a pass through building pipenets, shown in SS Info's C block as DPN.
-	var/datum/resumable_cost_counter/cost_pipenets_to_build = new()
 	/// The cost of a pass through atmos machinery, shown in SS Info's C block as AM.
 	var/datum/resumable_cost_counter/cost_atmos_machinery = new()
 	/// The cost of a pass through loading pressure tiles, shown in SS Info's C block as PT.
@@ -67,8 +64,6 @@ SUBSYSTEM_DEF(air)
 	var/hotspot_count = 0
 	/// The length of the most recent windy tiles list, shown in SS Info as WT.
 	var/windy_tile_count = 0
-	/// The set of pipenets that need to be built. Length shown in SS Info as PTB.
-	var/list/pipenets_to_build = list()
 	/// The set of active pipenets. Length shown in SS Info as PN.
 	var/list/pipenets = list()
 	/// The set of active atmos machinery. Length shown in SS Info as AM.
@@ -92,7 +87,7 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = list()
 
 	/// Which step we're currently on, used to let us resume if our time budget elapses.
-	var/currentpart = SSAIR_DEFERREDPIPENETS
+	var/currentpart = SSAIR_PIPENETS
 
 	/// Is MILLA currently idle? TRUE if the MILLA tick has finished, meaning data is fresh and changes can be made. FALSE if MILLA is currently running a tick, meaning data is from last tick and changes cannot be made.
 	var/milla_idle = TRUE
@@ -151,7 +146,6 @@ SUBSYSTEM_DEF(air)
 	msg += "HS:[cost_hotspots.to_string()]|"
 	msg += "WT:[cost_windy_tiles.to_string()]|"
 	msg += "PN:[cost_pipenets.to_string()]|"
-	msg += "PTB:[cost_pipenets_to_build.to_string()]|"
 	msg += "AM:[cost_atmos_machinery.to_string()]|"
 	msg += "PT:[cost_pressure_tiles.to_string()]"
 	msg += "} "
@@ -185,7 +179,6 @@ SUBSYSTEM_DEF(air)
 	in_milla_safe_code = FALSE
 
 /datum/controller/subsystem/air/Recover()
-	pipenets_to_build = SSair.pipenets_to_build
 	pipenets = SSair.pipenets
 	atmos_machinery = SSair.atmos_machinery
 	machinery_to_construct = SSair.machinery_to_construct
@@ -220,19 +213,6 @@ SUBSYSTEM_DEF(air)
 	was_paused = FALSE
 
 	var/timer = TICK_USAGE_REAL
-
-	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
-		timer = TICK_USAGE_REAL
-
-		build_pipenets(resumed)
-
-		cost_pipenets_to_build.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), state != SS_PAUSED && state != SS_PAUSING)
-		cost_full.record_progress(TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer), FALSE)
-		if(state == SS_PAUSED || state == SS_PAUSING)
-			in_milla_safe_code = FALSE
-			return
-		resumed = 0
-		currentpart = SSAIR_PIPENETS
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
 		timer = TICK_USAGE_REAL
@@ -342,25 +322,10 @@ SUBSYSTEM_DEF(air)
 			return
 		resumed = 0
 
-	currentpart = SSAIR_DEFERREDPIPENETS
+	currentpart = SSAIR_PIPENETS
 	last_complete_tick = world.timeofday + (world.tick_lag * world.tick_usage) / 100
 	cost_full.record_progress(0, TRUE)
 	in_milla_safe_code = FALSE
-
-/datum/controller/subsystem/air/proc/build_pipenets(resumed = 0)
-	if(!resumed)
-		src.currentrun = pipenets_to_build.Copy()
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	while(length(currentrun))
-		var/obj/machinery/atmospherics/A = currentrun[length(currentrun)]
-		currentrun.len--
-		if(A)
-			A.build_network(remove_deferral = TRUE)
-		else
-			pipenets_to_build.Remove(A)
-		if(MC_TICK_CHECK)
-			return
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
 	if(!resumed)
@@ -940,7 +905,6 @@ SUBSYSTEM_DEF(air)
 	var/datum/gas_mixture/turf_air = get_turf_air(T)
 	turf_air.copy_from(air)
 
-#undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
 #undef SSAIR_INTERESTING_TILES

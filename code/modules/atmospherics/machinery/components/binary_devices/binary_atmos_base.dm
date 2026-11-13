@@ -70,7 +70,7 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/binary/build_network(remove_deferral = FALSE)
+/obj/machinery/atmospherics/binary/build_network()
 	if(!parent1)
 		parent1 = new /datum/pipeline()
 		parent1.build_pipeline(src)
@@ -81,14 +81,21 @@
 	..()
 
 /obj/machinery/atmospherics/binary/disconnect(obj/machinery/atmospherics/reference)
+	// The pipe on that side is gone, so that side gets a pipenet of its own
 	if(reference == node1)
-		if(istype(node1, /obj/machinery/atmospherics/pipe))
-			qdel(parent1)
 		node1 = null
+		if(istype(reference, /obj/machinery/atmospherics/pipe))
+			var/datum/pipeline/old = parent1
+			parent1 = null
+			old?.machine_side_left(src, air1)
 	else if(reference == node2)
-		if(istype(node2, /obj/machinery/atmospherics/pipe))
-			qdel(parent2)
 		node2 = null
+		if(istype(reference, /obj/machinery/atmospherics/pipe))
+			var/datum/pipeline/old = parent2
+			parent2 = null
+			old?.machine_side_left(src, air2)
+	if((!parent1 || !parent2) && !QDELETED(src))
+		build_network()
 	update_icon()
 
 /obj/machinery/atmospherics/binary/nullifyPipenet(datum/pipeline/P)
