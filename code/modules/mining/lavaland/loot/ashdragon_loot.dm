@@ -237,6 +237,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	needs_permit = TRUE
+	new_attack_chain = TRUE
 	var/turf_type = /turf/simulated/floor/lava
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
@@ -251,9 +252,19 @@
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
-/obj/item/lava_staff/attack__legacy__attackchain(mob/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+/obj/item/lava_staff/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(cigarette_lighter_act(user, target))
+		return ITEM_INTERACT_COMPLETE
+
+	if(is_surface(target) || isstorage(target))
+		return NONE
+
+	make_floor_lava(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/lava_staff/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	make_floor_lava(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -273,8 +284,7 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/lava_staff/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
-	..()
+/obj/item/lava_staff/proc/make_floor_lava(atom/target, mob/user)
 	if(timer > world.time)
 		return
 
@@ -287,33 +297,37 @@
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.maxview(), get_turf(user)))
+	if(!(target in view(user.client.maxview(), get_turf(user))))
+		return
 
-		var/turf/simulated/T = get_turf(target)
-		if(!istype(T))
-			return
-		if(!istype(T, turf_type))
-			var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
-			L.alpha = 0
-			animate(L, alpha = 255, time = create_delay)
-			user.visible_message(SPAN_DANGER("[user] points [src] at [T]!"))
-			timer = world.time + create_delay + 1
-			if(do_after(user, create_delay, target = T))
-				user.visible_message(SPAN_DANGER("[user] turns \the [T] into [transform_string]!"))
-				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
-				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
-				T.TerraformTurf(turf_type, keep_icon = FALSE)
-				timer = world.time + create_cooldown
-				qdel(L)
-			else
-				timer = world.time
-				qdel(L)
-				return
-		else
-			user.visible_message(SPAN_DANGER("[user] turns \the [T] into [reset_string]!"))
-			T.TerraformTurf(reset_turf_type, keep_icon = FALSE)
-			timer = world.time + reset_cooldown
+	var/turf/simulated/T = get_turf(target)
+	if(!istype(T))
+		return
+
+	if(istype(T, turf_type))
+		user.visible_message(SPAN_DANGER("[user] turns \the [T] into [reset_string]!"))
+		T.TerraformTurf(reset_turf_type, keep_icon = FALSE)
+		timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/fireball.ogg', 200, 1)
+		return
+
+	var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
+	L.alpha = 0
+	animate(L, alpha = 255, time = create_delay)
+	user.visible_message(SPAN_DANGER("[user] points [src] at [T]!"))
+	timer = world.time + create_delay + 1
+	if(!do_after(user, create_delay, target = T))
+		timer = world.time
+		qdel(L)
+		return
+
+	user.visible_message(SPAN_DANGER("[user] turns \the [T] into [transform_string]!"))
+	message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
+	log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
+	T.TerraformTurf(turf_type, keep_icon = FALSE)
+	timer = world.time + create_cooldown
+	qdel(L)
+	playsound(T,'sound/magic/fireball.ogg', 200, 1)
 
 /obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"

@@ -118,7 +118,7 @@
 		visible_message(SPAN_WARNING("[src] points [held_gun] towards [possible_target]!"))
 		return
 	// for his neutral special, he wields a Gun
-	held_gun.afterattack__legacy__attackchain(possible_target, src)
+	held_gun.ranged_interact_with_atom(possible_target, src)
 	visible_message(SPAN_DANGER("[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]"))
 
 /mob/living/carbon/human/proc/dchat_step(dir)

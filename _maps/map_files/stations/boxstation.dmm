@@ -2665,7 +2665,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/button/windowtint/directional/west,
+/obj/machinery/button/windowtint/directional/west{
+	id = "HoS"
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amv" = (
@@ -5089,7 +5091,9 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "Processing"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "auU" = (
@@ -62560,11 +62564,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"lGp" = (
-/obj/structure/lattice,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
-/turf/space,
-/area/space/nearstation)
 "lGw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -63906,6 +63905,11 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"mjB" = (
+/obj/structure/grille,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "mjE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
@@ -67675,7 +67679,9 @@
 	pixel_y = 34
 	},
 /obj/item/lighter/zippo/engraved,
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "conference"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "nUu" = (
@@ -74776,7 +74782,9 @@
 	dir = 9
 	},
 /obj/machinery/r_n_d/circuit_imprinter/loaded,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "rnd"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "qUH" = (
@@ -116340,7 +116348,7 @@ aab
 aab
 afX
 dmD
-afX
+mjB
 aaa
 aaa
 aaa
@@ -118395,7 +118403,7 @@ fbR
 aaa
 aaa
 aaa
-lGp
+aab
 aaa
 aaa
 aaa

@@ -343,6 +343,5 @@
 /turf/simulated/floor/engine/cult/demon_incursion
 	name = "hellish flooring"
 
-/turf/simulated/floor/engine/cult/demon_incursion/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/engine/cult/demon_incursion/update_icon_state()
 	icon_state = "culthell" // Cult floors auto adjust. This forces it to be the hell variant

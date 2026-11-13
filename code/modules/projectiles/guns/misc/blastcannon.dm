@@ -14,14 +14,13 @@
 	QDEL_NULL(bomb)
 	return ..()
 
-/obj/item/gun/blastcannon/attack_self__legacy__attackchain(mob/user)
+/obj/item/gun/blastcannon/handle_activate_self(mob/user)
 	if(bomb)
 		bomb.forceMove(user.loc)
 		user.put_in_hands(bomb)
 		user.visible_message(SPAN_WARNING("[user] detaches [bomb] from [src]."))
 		bomb = null
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-	return ..()
 
 /obj/item/gun/blastcannon/update_name()
 	. = ..()
@@ -43,21 +42,24 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/gun/blastcannon/attackby__legacy__attackchain(obj/O, mob/user)
-	if(istype(O, /obj/item/transfer_valve))
-		var/obj/item/transfer_valve/T = O
-		if(!T.tank_one || !T.tank_two)
-			to_chat(user, SPAN_WARNING("What good would an incomplete bomb do?"))
-			return FALSE
-		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("[T] seems to be stuck to your hand!"))
-			return FALSE
-		user.visible_message(SPAN_WARNING("[user] attaches [T] to [src]!"))
-		T.forceMove(src)
-		bomb = T
-		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-		return TRUE
-	return ..()
+/obj/item/gun/blastcannon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/transfer_valve))
+		return NONE
+
+	var/obj/item/transfer_valve/T = used
+	if(!T.tank_one || !T.tank_two)
+		to_chat(user, SPAN_WARNING("What good would an incomplete bomb do?"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[T] seems to be stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(SPAN_WARNING("[user] attaches [T] to [src]!"))
+	T.forceMove(src)
+	bomb = T
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb)||!istype(bomb.tank_one)||!istype(bomb.tank_two))
@@ -74,7 +76,7 @@
 		return 0
 	return (pressure / TANK_FRAGMENT_SCALE)
 
-/obj/item/gun/blastcannon/afterattack__legacy__attackchain(atom/target, mob/user, flag, params)
+/obj/item/gun/blastcannon/try_to_shoot_gun(atom/target, mob/living/user, proximity)
 	if((!bomb) || (!target) || (get_dist(get_turf(target), get_turf(user)) <= 2))
 		return ..()
 	var/power = calculate_bomb()
@@ -90,7 +92,7 @@
 	message_admins("Blast wave fired from [ADMIN_COORDJMP(starting)] ([get_area_name(user, TRUE)]) at [ADMIN_COORDJMP(targturf)] ([target.name]) by [key_name_admin(user)] with power [heavy]/[medium]/[light].")
 	log_game("Blast wave fired from ([starting.x], [starting.y], [starting.z]) ([get_area_name(user, TRUE)]) at ([target.x], [target.y], [target.z]) ([target]) by [key_name(user)] with power [heavy]/[medium]/[light].")
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
-	BW.preparePixelProjectile(target, get_turf(src), params2list(params), 0)
+	BW.preparePixelProjectile(target, get_turf(src), deviation = 0)
 	BW.fire()
 
 /obj/projectile/blastwave

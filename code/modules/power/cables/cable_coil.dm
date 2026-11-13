@@ -372,6 +372,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/ten
 	amount = 10
 
+/obj/item/stack/cable_coil/twenty
+	amount = 20
+
 /obj/item/stack/cable_coil/pink
 	color = COLOR_PINK
 
