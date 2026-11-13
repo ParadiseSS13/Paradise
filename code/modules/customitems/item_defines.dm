@@ -358,7 +358,7 @@
 	if(!istype(target) || !istajaran(target)) // Only catbeasts, kthnx.
 		return ITEM_INTERACT_COMPLETE
 
-	if(target.change_body_accessory("Jay Wingler Tail"))
+	if(target.change_body_accessory("Striped Tail"))
 		to_chat(target, SPAN_NOTICE("You comb your tail with [src]."))
 		used = TRUE
 		return ITEM_INTERACT_COMPLETE
