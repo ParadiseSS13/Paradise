@@ -195,6 +195,15 @@
 	icon_state = "teacup"
 	inhand_icon_state = "coffee"
 
+/obj/item/reagent_containers/drinks/teacup/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/drinks/teacup/update_overlays()
+	. = ..()
+	var/image/drink_image = image('icons/obj/reagentfillings.dmi', src, "teacup")
+	drink_image.icon += mix_color_from_reagents(reagents.reagent_list)
+	. += drink_image
+
 /obj/item/reagent_containers/drinks/teacup/tea
 	name = "Duke Purple tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
