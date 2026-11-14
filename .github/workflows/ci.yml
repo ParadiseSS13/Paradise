@@ -98,38 +98,10 @@ jobs:
           tools/ci/generate_maplist.sh
           bash tools/ci/compile_dm.sh -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
-  # The other jobs already compile the game and build TGUI, so a PR only needs the Docker build if it changes the Docker setup
-  docker_changes:
-    name: Check Docker Changes
-    runs-on: ubuntu-latest
-    outputs:
-      build: ${{ steps.check.outputs.build }}
-    steps:
-      # No checkout, the file list comes from the GitHub API. Pushes to master and the merge queue always build
-      - name: Check Changed Files
-        id: check
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          CHANGED_FILES: ${{ github.event.pull_request.changed_files }}
-        run: |
-          build=true
-          # The API lists at most 3000 files, bigger PRs always build
-          if [ -n "$PR_NUMBER" ] && [ "$CHANGED_FILES" -le 3000 ]; then
-            # If the file list can't be read, it builds anyway
-            if files=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename'); then
-              if ! grep -qE '^(Dockerfile|\.dockerignore|_build_dependencies\.sh|rust/|tools/github-actions/|\.github/workflows/ci\.yml)' <<< "$files"; then
-                build=false
-                echo "This PR doesn't change the Docker build, so it is skipped."
-              fi
-            fi
-          fi
-          echo "build=$build" >> "$GITHUB_OUTPUT"
-
   docker_build:
     name: Build (Docker)
-    needs: docker_changes
-    if: needs.docker_changes.outputs.build == 'true'
+    # Only master pushes publish an image. The other jobs already compile the game and build TGUI for PRs
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
@@ -159,13 +131,10 @@ jobs:
           tags: |
             # branch event
             type=ref,event=branch
-            # pull request event
-            type=ref,event=pr
             # full length sha
             type=sha,format=long
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4.7.0
-        if: ${{ github.event_name != 'pull_request' }}
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -181,7 +150,7 @@ jobs:
           context: .
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           build-args: |
             NODE_VERSION=${{ steps.deps.outputs.NODE_VERSION }}
             RUST_VERSION=${{ steps.deps.outputs.RUST_VERSION }}
@@ -190,8 +159,7 @@ jobs:
             VCS_REF=${{ steps.deps.outputs.VCS_REF }}
             BUILD_DATE=${{ steps.deps.outputs.BUILD_DATE }}
           cache-from: type=gha
-          # Only master saves the cache. A PR's layers would only be used by that PR, and they push master's out of the cache
-          cache-to: ${{ github.event_name == 'push' && 'type=gha,mode=max' || '' }}
+          cache-to: type=gha,mode=max
 
   station_mapload_tests:
     name: Station Tests
