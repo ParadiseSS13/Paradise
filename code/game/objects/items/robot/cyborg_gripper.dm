@@ -171,6 +171,9 @@
 	if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
 		var/obj/machinery/atmospherics/reactor_chamber/chamber = target
 		if(chamber.chamber_state == CHAMBER_OPEN && chamber.held_rod)
+			if(chamber.held_mob)
+				chamber.force_eject_occupant()
+				return ITEM_INTERACT_COMPLETE
 			chamber.held_rod.forceMove(src)
 			gripped_item = chamber.held_rod
 			user.visible_message(
