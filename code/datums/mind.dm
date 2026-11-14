@@ -778,9 +778,9 @@
 					var/list/possible_targets_random = list()
 					for(var/datum/mind/possible_target in SSticker.minds)
 						if((possible_target != src) && ishuman(possible_target.current))
-							possible_targets += possible_target.current // Allows for admins to pick off station roles
+							possible_targets += possible_target.current // Allows for admins to pick off station roles.
 							if(!is_invalid_target(possible_target))
-								possible_targets_random += possible_target.current // For random picking, only valid targets
+								possible_targets_random += possible_target.current // For random picking, only valid targets.
 
 					var/mob/def_target = null
 					var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
@@ -871,9 +871,9 @@
 					var/list/possible_targets_random = list()
 					for(var/datum/mind/possible_target in SSticker.minds)
 						if((possible_target != src) && ishuman(possible_target.current))
-							possible_targets += possible_target.current // Allows for admins to pick off station roles
+							possible_targets += possible_target.current // Allows for admins to pick off station roles.
 							if(!is_invalid_target(possible_target))
-								possible_targets_random += possible_target.current // For random picking, only valid targets
+								possible_targets_random += possible_target.current // For random picking, only valid targets.
 
 					var/mob/def_target = null
 					var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
@@ -919,7 +919,7 @@
 						to_chat(usr, SPAN_WARNING("No active AIs with minds"))
 
 				if("prevent")
-					new_objective = /datum/objective/block // we can place paths here because they will be created as needed in the objective holder
+					new_objective = /datum/objective/block // We can place paths here because they will be created as needed in the objective holder.
 
 				if("hijack")
 					new_objective = /datum/objective/hijack
@@ -954,7 +954,7 @@
 						def_num = objective.target_amount
 
 					var/target_number = tgui_input_number(usr, "Input target number:", "Objective", def_num)
-					if(isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
+					if(isnull(target_number)) // Ordinarily, you wouldn't need `isnull()`. In this case, the value may already exist.
 						return
 
 					switch(new_obj_type)
