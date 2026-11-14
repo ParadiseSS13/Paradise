@@ -413,3 +413,4 @@
 
 /obj/item/reagent_containers/drinks/oilcan/full
 	list_reagents = list("oil" = 100)
+
