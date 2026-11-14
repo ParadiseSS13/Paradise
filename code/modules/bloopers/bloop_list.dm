@@ -143,3 +143,146 @@
 	blooperid = "wow"
 	soundpath = 'sound/voice/bloopers/Wow.ogg' /// Sound effect made by BlackDog
 	allow_random = TRUE
+
+/datum/blooper/peep
+	bloopername = "Peep"
+	blooperid = "peep"
+	soundpath = 'sound/creatures/chick_peep.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Skrell", "Tajaran")
+
+/datum/blooper/slime_pop
+	bloopername = "Slime Pop"
+	blooperid = "slime_pop"
+	soundpath = 'sound/effects/mob_effects/slime_pop.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Slime People")
+
+/datum/blooper/briefcase
+	bloopername = "Briefcase Click"
+	blooperid = "briefcase"
+	soundpath = 'sound/effects/briefcase.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Diona", "Kidan", "Plasmaman", "Skkulakin")
+
+/datum/blooper/fingersnap
+	bloopername = "Finger Snap"
+	blooperid = "fingersnap"
+	soundpath = 'sound/effects/fingersnap.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Diona", "Kidan", "Slime People")
+
+/datum/blooper/glassbang
+	bloopername = "Glass Hit"
+	blooperid = "glasshit"
+	soundpath = 'sound/effects/glassbang.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Grey", "Machine", "Plasmaman", "Skrell", "Slime People")
+
+/datum/blooper/pop
+	bloopername = "Pop"
+	blooperid = "pop"
+	soundpath = 'sound/effects/pop.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Grey", "Kidan", "Machine", "Slime People")
+
+/datum/blooper/pressureplate
+	bloopername = "Button Click"
+	blooperid = "button_click"
+	soundpath = 'sound/effects/pressureplate.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Machine", "Plasmaman")
+
+/datum/blooper/tong_pickup
+	bloopername = "Tong Pick-up"
+	blooperid = "tong_pickup"
+	soundpath = 'sound/effects/tong_pickup.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Machine", "Plasmaman", "Skkulakin")
+
+/datum/blooper/zzzt
+	bloopername = "Zzzt"
+	blooperid = "zzzt"
+	soundpath = 'sound/effects/zzzt.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Kidan", "Nian", "Unathi")
+
+/datum/blooper/lighter
+	bloopername = "Lighter"
+	blooperid = "lighter"
+	soundpath = 'sound/items/lighter.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Skkulakin")
+
+/datum/blooper/timer
+	bloopername = "Timer"
+	blooperid = "timer"
+	soundpath = 'sound/items/timer.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Machine")
+
+/datum/blooper/box_deploy
+	bloopername = "Box Deploy"
+	blooperid = "box_deploy"
+	soundpath = 'sound/misc/box_deploy.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Kidan", "Nian", "Skkulakin")
+
+/datum/blooper/empty_click
+	bloopername = "Empty Click"
+	blooperid = "empty_click"
+	soundpath = 'sound/weapons/emptyclick.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Machine")
+
+/datum/blooper/scope
+	bloopername = "Scope"
+	blooperid = "scope"
+	soundpath = 'sound/weapons/scope.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Diona")
+
+/datum/blooper/basscannon
+	bloopername = "Bass Cannon"
+	blooperid = "basscannon"
+	soundpath = 'sound/effects/basscannon.ogg'
+	allow_random = TRUE
+	bloop_count_multiplier = 0.05
+	species_whitelist = list("Drask")
+
+/datum/blooper/bone_break
+	bloopername = "Bone Break"
+	blooperid = "bone_break"
+	soundpath = 'sound/effects/bone_break_2.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Diona", "Kidan", "Plasmaman", "Skkulakin")
+
+/datum/blooper/chitter
+	bloopername = "Chitter"
+	blooperid = "chitter"
+	soundpath = 'sound/effects/chitter.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Nian", "Skkulakin")
+
+/datum/blooper/meatslap
+	bloopername = "Meat Slap"
+	blooperid = "meatslap"
+	soundpath = 'sound/effects/meatslap.ogg'
+	allow_random = TRUE
+	bloop_count_multiplier = 0.5
+	species_whitelist = list("Slime People")
+
+/datum/blooper/nymphchirp
+	bloopername = "Nymph Chirp"
+	blooperid = "nymphchirp"
+	soundpath = 'sound/creatures/nymphchirp.ogg'
+	allow_random = TRUE
+	species_whitelist = list("Diona")
+
+/datum/blooper/jug_empty_impact
+	bloopername = "Empty Jug Impact"
+	blooperid = "jug_empty_impact"
+	soundpath = 'sound/weapons/jug_empty_impact.ogg'
+	allow_random = TRUE
+	bloop_count_multiplier = 0.6
+	species_whitelist = list("Plasmaman")
