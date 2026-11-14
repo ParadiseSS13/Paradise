@@ -1457,7 +1457,7 @@
 
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
-			var/list/stats = list(6)
+			var/list/stats = new/list(6)
 			if(keep_implants)
 				stats[5] = E.hidden
 				var/list/implants = list()
