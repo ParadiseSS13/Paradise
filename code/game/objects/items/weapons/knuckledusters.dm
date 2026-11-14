@@ -67,12 +67,13 @@
 	return FINISH_ATTACK
 
 /obj/item/melee/knuckleduster/syndie
-	name = "syndicate knuckleduster"
-	desc = "For feeling like a real Syndicate Elite when threatening to punch someone to death."
+	name = "suspicious knuckleduster"
+	desc = "An evil-looking knuckleduster forged from plastitanium. The kind of tool an elite criminal would use to punch someone to death."
 	icon_state = "knuckleduster_syndie"
 	force = 15
 	throwforce = 5
-	origin_tech = "combat=2;syndicate=1"
+	origin_tech = "combat=5;syndicate=1"
+	materials = list(MAT_PLASMA = 500, MAT_TITANIUM = 500)
 	elite = TRUE
 
 /obj/item/melee/knuckleduster/nanotrasen
