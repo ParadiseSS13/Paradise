@@ -54,6 +54,8 @@ jobs:
           wait $tgui_pid || tgui_result=$?
           echo "TGUI checks:"
           cat "$RUNNER_TEMP/tgui.log"
+          # Files prettier would change are shown on the PR's changed files
+          sed -E 's/\x1b\[[0-9;]*m//g' "$RUNNER_TEMP/tgui.log" | sed -nE 's|^\[warn\] (packages/[^ ]+)$|::error file=tgui/\1::Code style issues found, run prettier --write on this file|p'
           exit $tgui_result
 
       - name: Run DreamChecker
@@ -94,10 +96,40 @@ jobs:
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
+          bash tools/ci/compile_dm.sh -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
+
+  # The other jobs already compile the game and build TGUI, so a PR only needs the Docker build if it changes the Docker setup
+  docker_changes:
+    name: Check Docker Changes
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.check.outputs.build }}
+    steps:
+      # No checkout, the file list comes from the GitHub API. Pushes to master and the merge queue always build
+      - name: Check Changed Files
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          CHANGED_FILES: ${{ github.event.pull_request.changed_files }}
+        run: |
+          build=true
+          # The API lists at most 3000 files, bigger PRs always build
+          if [ -n "$PR_NUMBER" ] && [ "$CHANGED_FILES" -le 3000 ]; then
+            # If the file list can't be read, it builds anyway
+            if files=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename'); then
+              if ! grep -qE '^(Dockerfile|\.dockerignore|_build_dependencies\.sh|rust/|tools/github-actions/|\.github/workflows/ci\.yml)' <<< "$files"; then
+                build=false
+                echo "This PR doesn't change the Docker build, so it is skipped."
+              fi
+            fi
+          fi
+          echo "build=$build" >> "$GITHUB_OUTPUT"
 
   docker_build:
     name: Build (Docker)
+    needs: docker_changes
+    if: needs.docker_changes.outputs.build == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
@@ -180,7 +212,7 @@ jobs:
       - name: Compile & Run Unit Tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          bash tools/ci/compile_dm.sh -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
           mkdir -p data
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
@@ -195,7 +227,13 @@ jobs:
           sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
           docker run -d --name mariadb -p 3306:3306 -e MARIADB_ROOT_PASSWORD=root mariadb:12.3.2 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci > "$RUNNER_TEMP/mariadb.log" 2>&1 &
 
+      # Only the SQL files and CI scripts are needed, the rest of the repo takes about 10 seconds to download
       - uses: actions/checkout@v7.0.0
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            SQL
+            tools/ci
 
       - name: Validate DB
         run: |
@@ -204,7 +242,7 @@ jobs:
           tools/ci/validate_sql.sh
 
   unit_tests:
-    name: Unit Tests (${{ matrix.shard }}/2)
+    name: Unit Tests (${{ matrix.shard }}/3)
     runs-on: ubuntu-22.04
     # Normally takes a few minutes, this stops a stuck test from holding a runner for hours
     timeout-minutes: 20
@@ -212,8 +250,8 @@ jobs:
       fail-fast: false
       matrix:
         byondtype: ['STABLE']
-        # The game tests are split over these jobs. If you change this, change GAME_TEST_SHARDS in the compile step too
-        shard: [1, 2]
+        # The game tests are split over these jobs. If you change this, change GAME_TEST_SHARDS in the compile step and the job name too
+        shard: [1, 2, 3]
     steps:
       # MariaDB takes about 30 seconds to be ready, so it starts in the background first and gets ready while the game compiles
       - name: Start MariaDB
@@ -231,7 +269,7 @@ jobs:
       - name: Compile
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DGAME_TESTS -DGAME_TEST_SHARD=${{ matrix.shard }} -DGAME_TEST_SHARDS=2 -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          bash tools/ci/compile_dm.sh -DGAME_TESTS -DGAME_TEST_SHARD=${{ matrix.shard }} -DGAME_TEST_SHARDS=3 -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
 
       # The SQL Validation job checks the update scripts, this only needs the finished schema
       - name: Set up DB

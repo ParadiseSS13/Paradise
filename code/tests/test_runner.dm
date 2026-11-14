@@ -69,9 +69,12 @@
 					test_logs[I] += "[file]:[line]: [text]"
 					#ifdef CIBUILDING
 					// Shows the failure on that line in the PR's changed files
+					var/message = replacetext(replacetext("[text]", "%", "%25"), "\n", "%0A")
 					if(file != "OUTDATED_TEST")
-						var/message = replacetext(replacetext("[text]", "%", "%25"), "\n", "%0A")
 						log_world("::error file=[file],line=[line],title=[I]::[message]")
+					else
+						// No line to show it on, so it goes on the run's summary
+						log_world("::error title=[I]::[message]")
 					#endif
 				else
 					test_logs[I] += fail_reason
@@ -107,6 +110,11 @@
 		if(!test.succeeded)
 			failed_any_test = TRUE
 			test_logs[test.type] += test.fail_reasons
+			#ifdef CIBUILDING
+			// Map failures have no code line, so they go on the run's summary, one per test
+			var/message = replacetext(replacetext(jointext(test.fail_reasons, "\n"), "%", "%25"), "\n", "%0A")
+			log_world("::error title=[test.type]::[message]")
+			#endif
 
 	QDEL_LIST_CONTENTS(tests)
 

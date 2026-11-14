@@ -38,9 +38,20 @@ fi
 # BYOND needs the 32-bit libcurl. The packages are kept in the BYOND cache, so cached runs skip apt-get update
 sudo dpkg --add-architecture i386
 if [ ! -d "$HOME/BYOND/i386_debs" ]; then
-  sudo apt-get update
-  sudo apt-get clean
-  sudo apt-get install -y --download-only libcurl4:i386
+  # The runner's package mirror sometimes can't be reached for a minute, so this tries a few times
+  for attempt in 1 2 3; do
+    sudo apt-get update || true
+    sudo apt-get clean
+    if sudo apt-get install -y --download-only libcurl4:i386; then
+      break
+    fi
+    if [ "$attempt" -eq 3 ]; then
+      echo "::error title=apt-get failed::Could not download the 32-bit libcurl BYOND needs. The Ubuntu package mirror was probably down, re-running the job should fix it."
+      exit 1
+    fi
+    echo "Downloading libcurl failed, trying again in 20 seconds"
+    sleep 20
+  done
   mkdir -p "$HOME/BYOND/i386_debs"
   cp /var/cache/apt/archives/*.deb "$HOME/BYOND/i386_debs/"
 fi
