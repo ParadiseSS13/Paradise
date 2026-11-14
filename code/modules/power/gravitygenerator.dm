@@ -43,10 +43,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(overloaded)
-		to_chat(user, "You start to stabilize [src]!")
+		to_chat(user, SPAN_NOTICE("You start to stabilize [src]!"))
 		if(!do_after_once(user, 3 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You fail to stop the overload."))
 			return
-		to_chat(user, "You manage to stabilize [src]!")
+		to_chat(user, SPAN_NOTICE("You manage to stabilize [src]!"))
 		overloaded = FALSE
 
 
@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	for(var/i in 1 to 60)
 		if(!overloaded)
 			return FALSE
-		playsound(get_turf(src), 'sound/items/timer.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/items/timer.ogg', 50, FALSE)
 		sleep(1 SECONDS)
 	explosion(get_turf(src), 1, 5, 10, 15, flame_range = 10, cause = "Ninja Overload")
 	set_broken()

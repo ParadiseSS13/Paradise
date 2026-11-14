@@ -764,7 +764,7 @@
 		if(has_antag_datum(/datum/antagonist/space_ninja))
 			obj_list = list("kill", "capture", "interrogate ai", "sabotage", "plant bomb", "steal", "custom")
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	obj_list
+		var/new_obj_type = tgui_input_list(usr, "Select Objective Type", "Objective Selection", obj_list, def_value)
 		if(!new_obj_type)
 			return
 
@@ -788,9 +788,9 @@
 
 					var/new_target
 					if(length(possible_targets))
-						if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
 							possible_targets += "Free objective"
-							new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+							new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets, def_target)
 						else
 							if(!length(possible_targets_random))
 								to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
@@ -817,7 +817,7 @@
 				if("sabotage")
 					var/obj_target
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						obj_target = input("Select target:", "Objective target") as null|anything in list("reactor", "cloning", "research", "gravity")
+						obj_target = tgui_input_list(usr, "Select target:", "Objective target", list("reactor", "cloning", "research", "gravity"))
 					else
 						obj_target = pick(list("reactor", "cloning", "research", "gravity"))
 					switch(obj_target)
@@ -832,7 +832,7 @@
 				if("steal")
 					var/obj_target
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						obj_target = input("Select target:", "Objective target") as null|anything in list("supermatter", "captain's helmet", "champion belt")
+						obj_target = tgui_input_list(usr, "Select target:", "Objective target", list("supermatter", "captain's helmet", "champion belt"))
 					else
 						obj_target = list("supermatter", "captain's helmet", "champion belt")
 					switch(obj_target)
@@ -845,7 +845,7 @@
 				if("plant bomb")
 					var/bomb_type
 					if(alert(usr, "Do you want to pick the bomb type yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						bomb_type = input("Select bomb:", "Objective target") as null|anything in list("explosive", "spiders", "emp")
+						bomb_type = tgui_input_list(usr, "Select bomb:", "Objective target", list("explosive", "spiders", "emp"))
 					else
 						bomb_type = list("explosive", "spiders", "emp")
 					switch(bomb_type)
@@ -856,7 +856,7 @@
 						if("emp")
 							new_objective = new /datum/objective/ninja/bomb_department/emp
 				if("custom")
-					var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
+					var/expl = tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : "", MAX_MESSAGE_LEN)
 					if(!expl)
 						return
 					new_objective = new /datum/objective
@@ -883,7 +883,7 @@
 					if(length(possible_targets))
 						if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 							possible_targets += "Free objective"
-							new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+							new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets, def_target)
 						else
 							if(!length(possible_targets_random))
 								to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
@@ -909,12 +909,12 @@
 				if("destroy")
 					var/list/possible_targets = active_ais(1)
 					if(length(possible_targets))
-						var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+						var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 						new_objective = new /datum/objective/destroy
 						new_objective.target = new_target.mind
 						new_objective.update_explanation_text()
 					else
-						to_chat(usr, "No active AIs with minds")
+						to_chat(usr, SPAN_WARNING("No active AIs with minds"))
 
 				if("prevent")
 					new_objective = /datum/objective/block // we can place paths here because they will be created as needed in the objective holder
@@ -951,7 +951,7 @@
 					if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 						def_num = objective.target_amount
 
-					var/target_number = input("Input target number:", "Objective", def_num) as num|null
+					var/target_number = tgui_input_number(usr, "Input target number:", "Objective", def_num)
 					if(isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
 						return
 
@@ -970,7 +970,7 @@
 							possible_targets += possible_target
 					possible_targets = sortAtom(possible_targets)
 					possible_targets += "Free objective"
-					var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					var/new_target = tgui_input_list(src, "Select target:", "Objective target", possible_targets)
 					if(!new_target)
 						return
 					var/datum/mind/targ = new_target
@@ -992,7 +992,7 @@
 					new_objective = /datum/objective/infiltrate_sec
 
 				if("custom")
-					var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
+					var/expl = tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : "", MAX_MESSAGE_LEN)
 					if(!expl)
 						return
 					new_objective = new /datum/objective
