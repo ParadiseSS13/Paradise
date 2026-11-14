@@ -86,7 +86,6 @@ jobs:
       # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
-          tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
           DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
@@ -150,7 +149,8 @@ jobs:
             VCS_REF=${{ steps.deps.outputs.VCS_REF }}
             BUILD_DATE=${{ steps.deps.outputs.BUILD_DATE }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Only master saves the cache. A PR's layers would only be used by that PR, and they push master's out of the cache
+          cache-to: ${{ github.event_name == 'push' && 'type=gha,mode=max' || '' }}
 
   station_mapload_tests:
     name: Station Tests
@@ -168,7 +168,6 @@ jobs:
           release: ${{ matrix.byondtype }}
       - name: Compile & Run Unit Tests
         run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
           mkdir -p data
@@ -183,6 +182,12 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
+      # MariaDB takes about 30 seconds to start up, so it's started first and gets ready while the game compiles
+      - name: Start MariaDB
+        run: |
+          sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
+          docker run -d --name mariadb -p 3306:3306 -e MARIADB_ROOT_PASSWORD=root mariadb:12.3.2 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+
       - uses: actions/checkout@v7.0.0
 
       - name: Restore BYOND from Cache
@@ -190,25 +195,21 @@ jobs:
         with:
           release: ${{ matrix.byondtype }}
 
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
-
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.11
-        with:
-          mariadb version: '12.3.2'
-          mysql root password: 'root'
+      - name: Compile
+        run: |
+          source $HOME/BYOND/byond/bin/byondsetup
+          DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
 
       - name: Setup & Validate DB
         run: |
+          # Wait for MariaDB to finish starting up
+          timeout 120 bash -c 'until mysql -h 127.0.0.1 -u root -proot -e "SELECT 1" > /dev/null 2>&1; do sleep 1; done' || { docker logs mariadb; exit 1; }
           python3 tools/ci/generate_sql_scripts.py
           tools/ci/validate_sql.sh
 
-      - name: Compile & Run Unit Tests
+      - name: Run Unit Tests
         run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
           mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh

@@ -1,10 +1,13 @@
 import argparse
 import glob
+import itertools
 import pathlib
 import traceback
 import yaml
+from concurrent.futures import ProcessPoolExecutor
 
-from . import dmm, lint
+from . import lint
+from .check import check_map
 from .error import MaplintError
 
 def green(text):
@@ -12,33 +15,6 @@ def green(text):
 
 def red(text):
     return "\033[31m" + str(text) + "\033[0m"
-
-def process_dmm(map_filename, lints: dict[str, lint.Lint]) -> list[MaplintError]:
-    problems: list[MaplintError] = []
-
-    with open(map_filename, "r") as file:
-        try:
-            map_data = dmm.parse_dmm(file)
-        except MaplintError as error:
-            problems.append(error)
-            # No structured data to lint.
-            return problems
-
-        map_path = pathlib.Path(map_filename)
-        for lint_name, lint in lints.items():
-            try:
-                if map_path in lint.exclude_files:
-                    continue
-                problems.extend(lint.run(map_data))
-            except KeyboardInterrupt:
-                raise
-            except Exception:
-                problems.append(MaplintError(
-                    f"An exception occurred, this is either a bug in maplint or a bug in a lint. \n{traceback.format_exc()}",
-                    lint_name,
-                ))
-
-    return problems
 
 def print_error(message: str, filename: str, line_number: int, github_error_style: bool):
     if github_error_style:
@@ -78,35 +54,22 @@ def main(args):
             traceback.print_exc()
             any_failed = True
 
-    for map_filename in (args.maps or glob.glob("_maps/**/*.dmm", recursive = True)):
-        print(map_filename, end = " ")
+    map_filenames = args.maps or glob.glob("_maps/**/*.dmm", recursive = True)
 
-        success = True
-        all_failures: list[MaplintError] = []
+    # Maps are checked in parallel, but the results still print in order
+    with ProcessPoolExecutor() as executor:
+        results = executor.map(check_map, map_filenames, itertools.repeat(lints))
+        for map_filename, all_failures in zip(map_filenames, results):
+            print(map_filename, end = " ")
 
-        try:
-            problems = process_dmm(map_filename, lints)
-            if len(problems) > 0:
-                success = False
-                all_failures.extend(problems)
-        except KeyboardInterrupt:
-            raise
-        except Exception:
-            success = False
+            if len(all_failures) == 0:
+                print(green("OK"))
+            else:
+                print(red("X"))
+                any_failed = True
 
-            all_failures.append(MaplintError(
-                f"An exception occurred, this is either a bug in maplint or a bug in a lint.' {traceback.format_exc()}",
-                map_filename,
-            ))
-
-        if success:
-            print(green("OK"))
-        else:
-            print(red("X"))
-            any_failed = True
-
-        for failure in all_failures:
-            print_maplint_error(failure, github_error_style)
+            for failure in all_failures:
+                print_maplint_error(failure, github_error_style)
 
     if any_failed:
         exit(1)
