@@ -18,7 +18,6 @@
 	var/elite = FALSE
 	/// How much organ damage can the weapon do?
 	var/trauma = 5
-	new_attack_chain = TRUE
 
 /obj/item/melee/knuckleduster/activate_self(mob/user)
 	if(..())

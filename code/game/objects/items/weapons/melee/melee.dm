@@ -3,6 +3,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	needs_permit = TRUE
+	new_attack_chain = TRUE
 	var/drawing_rune = FALSE
 
 // MARK: CAPTAIN'S SABER
@@ -43,20 +44,27 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	AddElement(/datum/element/high_value_item)
 
-/obj/item/melee/saber/attack__legacy__attackchain(mob/living/target, mob/living/user)
-	if(user.a_intent != INTENT_HELP || !ishuman(target))
+/obj/item/melee/saber/pre_attack(atom/target, mob/living/carbon/human/user, params)
+	if(user.a_intent != INTENT_HELP || !ishuman(target) || !ishuman(user))
 		return ..()
 	if(!COOLDOWN_FINISHED(src, slap_cooldown))
-		return
+		return FINISH_ATTACK
 	var/mob/living/carbon/human/H = target
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message(SPAN_DANGER("[user] accidentally slaps [user.p_themselves()] with [src]!"), \
-							SPAN_USERDANGER("You accidentally slap yourself with [src]!"))
+		user.visible_message(
+			SPAN_DANGER("[user] accidentally slaps [user.p_themselves()] with [src]!"),
+			SPAN_USERDANGER("You accidentally slap yourself with [src]!"),
+			SPAN_HEAR("You hear a metallic slap!")
+		)
 		slap(user, user)
 	else
-		user.visible_message(SPAN_DANGER("[user] slaps [H] with the flat of the blade!"), \
-							SPAN_USERDANGER("You slap [H] with the flat of the blade!"))
+		user.visible_message(
+			SPAN_DANGER("[user] slaps [H] with the flat of the blade!"),
+			SPAN_USERDANGER("You slap [H] with the flat of the blade!"),
+			SPAN_HEAR("You hear a metallic slap!")
+		)
 		slap(target, user)
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 /obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
@@ -105,7 +113,6 @@
 	attack_verb = list("stabbed", "slashed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
-	new_attack_chain = TRUE
 	/// The icon the sword has when turned off
 	var/base_icon = "secsword"
 	/// How much stamina damage the sword does in stamina mode
@@ -433,66 +440,87 @@
 	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/breach_cleaver/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
+/obj/item/melee/breach_cleaver/attack_obj(obj/attacked_obj, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
 		return ..()
-	if(!ismachinery(O) && !isstructure(O)) // This sword hates doors
+	if(!ismachinery(attacked_obj) && !isstructure(attacked_obj)) // This sword hates doors
 		return ..()
-	if(SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
-		return
+	if(SEND_SIGNAL(src, COMSIG_ATTACK_OBJ, attacked_obj, user) & COMPONENT_NO_ATTACK_OBJ)
+		return FALSE
 	if(flags & (NOBLUDGEON))
-		return
+		return FALSE
 	var/mob/living/carbon/human/H = user
 	H.changeNext_move(CLICK_CD_MELEE)
-	H.do_attack_animation(O)
-	H.visible_message(SPAN_DANGER("[H] has hit [O] with [src]!"), SPAN_DANGER("You hit [O] with [src]!"))
+	H.do_attack_animation(attacked_obj)
+	H.visible_message(
+		SPAN_DANGER("[H] has hit [attacked_obj] with [src]!"),
+		SPAN_DANGER("You hit [attacked_obj] with [src]!"),
+		SPAN_HEAR("You hear someone demolish the architecture!")
+	)
 	var/damage = force_wield
 	damage += H.physiology.melee_bonus
-	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+	attacked_obj.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+	return TRUE
 
-/obj/item/melee/breach_cleaver/attack__legacy__attackchain(mob/target, mob/living/user)
+/obj/item/melee/breach_cleaver/pre_attack(atom/target, mob/living/carbon/human/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
 		return ..()
 
-	var/mob/living/carbon/human/H = target
-	var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/targetlimb = human_target.get_organ(ran_zone(user.zone_selected))
+
+	if(user.a_intent != INTENT_HELP) // Stamina damage
+		return ..()
+
+	human_target.visible_message(
+		SPAN_DANGER("[user] slams [human_target] with the flat of the blade!"),
+		SPAN_USERDANGER("[user] slams you with the flat of the blade!"),
+		SPAN_HEAR("You hear a thud.")
+	)
+	user.do_attack_animation(human_target, ATTACK_EFFECT_DISARM)
+	playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
+	human_target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+	human_target.apply_damage(40, STAMINA, targetlimb, human_target.run_armor_check(targetlimb, MELEE))
+	add_attack_logs(user, human_target, "Slammed by a breach cleaver. (Help intent, Stamina)", ATKLOG_ALL)
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
+
+/obj/item/melee/breach_cleaver/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
+		return ..()
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/targetlimb = human_target.get_organ(ran_zone(user.zone_selected))
 
 	switch(user.a_intent)
-		if(INTENT_HELP) // Stamina damage
-			H.visible_message(SPAN_DANGER("[user] slams [H] with the flat of the blade!"), \
-							SPAN_USERDANGER("[user] slams you with the flat of the blade!"), \
-							SPAN_ITALICS("You hear a thud."))
-			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
-			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
-			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
-			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
-			add_attack_logs(user, H, "Slammed by a breach cleaver. (Help intent, Stamina)", ATKLOG_ALL)
-
 		if(INTENT_DISARM) // Slams away
-			if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
+			if(human_target.stat != CONSCIOUS || IS_HORIZONTAL(human_target))
 				return ..()
 
-			H.visible_message(SPAN_DANGER("[user] smashes [H] with the blade's tip!"), \
-							SPAN_USERDANGER("[user] smashes you with the blade's tip!"), \
-							SPAN_ITALICS("You hear crushing."))
+			human_target.visible_message(
+				SPAN_DANGER("[user] smashes [human_target] with the blade's tip!"),
+				SPAN_USERDANGER("[user] smashes you with the blade's tip!"),
+				SPAN_HEAR("You hear crushing.")
+			)
 
-			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
+			user.do_attack_animation(human_target, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
-			H.apply_damage(25, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE))
-			var/atom/throw_target = get_edge_target_turf(H, user.dir, TRUE)
-			H.throw_at(throw_target, 4, 1)
-			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
+			human_target.apply_damage(25, BRUTE, targetlimb, human_target.run_armor_check(targetlimb, MELEE))
+			var/atom/throw_target = get_edge_target_turf(human_target, user.dir, TRUE)
+			human_target.throw_at(throw_target, 4, 1)
+			add_attack_logs(user, human_target, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
 
 		if(INTENT_GRAB) // Knocks down
-			H.visible_message(SPAN_DANGER("[user] cleaves [H] with an overhead strike!"), \
-							SPAN_USERDANGER("[user] cleaves you with an overhead strike!"), \
-							SPAN_ITALICS("You hear a chopping noise."))
+			human_target.visible_message(
+				SPAN_DANGER("[user] cleaves [human_target] with an overhead strike!"),
+				SPAN_USERDANGER("[user] cleaves you with an overhead strike!"),
+				SPAN_HEAR("You hear a chopping noise.")
+			)
 
-			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			user.do_attack_animation(human_target, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
-			H.apply_damage(30, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE), TRUE)
-			H.KnockDown(4 SECONDS)
-			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver. (Grab intent, Knockdown)", ATKLOG_ALL)
+			human_target.apply_damage(30, BRUTE, targetlimb, human_target.run_armor_check(targetlimb, MELEE), TRUE)
+			human_target.KnockDown(4 SECONDS)
+			add_attack_logs(user, human_target, "Cleaved overhead with a breach cleaver. (Grab intent, Knockdown)", ATKLOG_ALL)
 
 		if(INTENT_HARM)
 			return ..()

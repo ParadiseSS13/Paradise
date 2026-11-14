@@ -17,7 +17,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	embed_chance = 75
 	embedded_fall_chance = 2
-	new_attack_chain = TRUE
 
 	/// Whether we're currently drawing a rune
 	var/drawing = FALSE

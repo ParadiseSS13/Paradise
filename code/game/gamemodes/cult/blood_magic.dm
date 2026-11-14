@@ -456,26 +456,35 @@
 /obj/item/melee/blood_magic/customised_abstract_text(mob/living/carbon/owner)
 	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in blood-red fire.")
 
-/obj/item/melee/blood_magic/attack_self__legacy__attackchain(mob/living/user)
-	attackby__legacy__attackchain(user, user, TRUE)
+/obj/item/melee/blood_magic/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/melee/blood_magic/attack__legacy__attackchain(mob/living/M, mob/living/carbon/user)
+/obj/item/melee/blood_magic/proc/check_use(mob/living/target, mob/living/carbon/user)
 	if(!iscarbon(user) || !IS_CULTIST(user))
+		to_chat(user, SPAN_WARNING("The spell fizzles in your hands!"))
 		uses = 0
 		qdel(src)
-		return
-	if(M.can_block_magic(MAGIC_RESISTANCE_HOLY))
-		to_chat(user, SPAN_DANGER("[M] absorbs your spell!"))
+		return FALSE
+	if(target.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		to_chat(user, SPAN_DANGER("[target] absorbs your spell!"))
 		uses = 0
 		qdel(src)
-		return
-	add_attack_logs(user, M, "used a cult spell ([src]) on")
-	M.store_last_attacker(user)
+		return FALSE
+	add_attack_logs(user, target, "used a cult spell ([src]) on")
+	target.store_last_attacker(user)
+	return TRUE
 
-/obj/item/melee/blood_magic/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
-	. = ..()
+/obj/item/melee/blood_magic/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return NONE
+	if(!check_use(target, user))
+		return ITEM_INTERACT_COMPLETE
 	if(invocation)
 		user.whisper(invocation)
+
+/obj/item/melee/blood_magic/proc/update_uses(mob/living/carbon/human/user)
+	uses--
 	if(health_cost && ishuman(user))
 		user.cult_self_harm(health_cost)
 	if(uses <= 0)
@@ -500,63 +509,77 @@
 		icon_state = "acolyte-stun"
 		color = null
 
-/obj/item/melee/blood_magic/stun/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
-	if(!isliving(target) || !proximity)
-		return
-	var/mob/living/L = target
+/obj/item/melee/blood_magic/stun/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isliving(target))
+		return NONE
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	var/mob/living/living_target = target
 	if(IS_CULTIST(target))
-		return
+		to_chat(user, SPAN_WARNING("You wouldn't use that on a fellow cultist!"))
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
-		return
-	user.visible_message(SPAN_WARNING("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
-							SPAN_CULTITALIC("You attempt to stun [L] with the spell!"))
+		to_chat(user, SPAN_WARNING("Foul, divine interference blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
+	user.visible_message(
+		SPAN_WARNING("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"),
+		SPAN_CULTITALIC("You attempt to stun [living_target] with the spell!"),
+		SPAN_HEAR("You hear a hollow explosion and feel a flash of heat!")
+	)
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
-		target.visible_message(SPAN_WARNING("[target]'s holy weapon absorbs the red light!"), \
-							SPAN_USERDANGER("Your holy weapon absorbs the blinding light!"))
+		target.visible_message(
+			SPAN_WARNING("[target]'s holy weapon absorbs the red light!"),
+			SPAN_USERDANGER("Your holy weapon absorbs the blinding light!"),
+			SPAN_USERDANGER("Your holy weapon absorbs the infernal heat!")
+		)
+		user.do_attack_animation(target)
+		update_uses(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(IS_HERETIC(living_target))
+		living_target.Stun(0.5 SECONDS)
+		living_target.AdjustConfused(3 SECONDS)
+		living_target.AdjustDizzy(3 SECONDS)
+
+		var/old_color = target.color
+		target.color = COLOR_HERETIC_GREEN
+		animate(target, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+		living_target.mob_light(COLOR_HERETIC_GREEN, 1.5, 2.5, 0.5 SECONDS)
+		playsound(living_target, 'sound/effects/curse.ogg', 50, TRUE)
+
+		to_chat(user, SPAN_WARNING("An eldritch force intervenes as you touch [target], absorbing most of the effects!"))
+		to_chat(target, SPAN_WARNING("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!"))
+		to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [living_target] falls to the ground!"))
+		user.do_attack_animation(target)
+		update_uses(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(IS_ACOLYTE(user))
+		living_target.apply_status_effect(STATUS_EFFECT_ACOLYTE_STUN)
 	else
-		if(IS_HERETIC(L))
-			L.Stun(0.5 SECONDS)
-			L.AdjustConfused(3 SECONDS)
-			L.AdjustDizzy(3 SECONDS)
-
-			var/old_color = target.color
-			target.color = COLOR_HERETIC_GREEN
-			animate(target, color = old_color, time = 4 SECONDS, easing = EASE_IN)
-			L.mob_light(COLOR_HERETIC_GREEN, 1.5, 2.5, 0.5 SECONDS)
-			playsound(L, 'sound/effects/curse.ogg', 50, TRUE)
-
-			to_chat(user, SPAN_WARNING("An eldritch force intervenes as you touch [target], absorbing most of the effects!"))
-			to_chat(target, SPAN_WARNING("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!"))
-			to_chat(user, SPAN_CULTITALIC("In a brilliant flash of red, [L] falls to the ground!"))
-		else
-			if(IS_ACOLYTE(user))
-				L.apply_status_effect(STATUS_EFFECT_ACOLYTE_STUN)
-			else
-				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-			L.Silence(6 SECONDS)
-			if(issilicon(target))
-				var/mob/living/silicon/S = L
-				S.emp_act(EMP_HEAVY)
-			else if(iscarbon(target))
-				var/mob/living/carbon/C = L
-				C.KnockDown(10 SECONDS)
-				C.apply_damage(60, STAMINA)
-				C.flash_eyes(1, TRUE)
-				C.Stuttering(16 SECONDS)
-				C.CultSlur(20 SECONDS)
-				C.Jitter(16 SECONDS)
-			to_chat(user, SPAN_BOLDNOTICE("Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!"))
+		living_target.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+	living_target.Silence(6 SECONDS)
+	if(issilicon(target))
+		var/mob/living/silicon/silicon_target = living_target
+		silicon_target.emp_act(EMP_HEAVY)
+	else if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = living_target
+		carbon_target.KnockDown(10 SECONDS)
+		carbon_target.apply_damage(60, STAMINA)
+		carbon_target.flash_eyes(1, TRUE)
+		carbon_target.Stuttering(16 SECONDS)
+		carbon_target.CultSlur(20 SECONDS)
+		carbon_target.Jitter(16 SECONDS)
+	to_chat(user, SPAN_BOLDNOTICE("Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!"))
 	user.do_attack_animation(target)
-	uses--
-	..()
-
+	update_uses(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/blood_magic/stun/acolyte
-
 
 //Teleportation
 /obj/item/melee/blood_magic/teleport
@@ -565,58 +588,62 @@
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
-/obj/item/melee/blood_magic/teleport/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/teleport/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
-		return
+		to_chat(user, SPAN_WARNING("Foul, divine interference blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!IS_CULTIST(target))
+		to_chat(user, SPAN_WARNING("You can only teleport adjacent cultists with this spell!"))
+		return ITEM_INTERACT_COMPLETE
+
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
 	var/atom/movable/teleportee
-	if(!IS_CULTIST(target) || !proximity)
-		to_chat(user, SPAN_WARNING("You can only teleport adjacent cultists with this spell!"))
-		return
 	if(user != target) // So that the teleport effect shows on the correct mob
 		teleportee = target
 	else
 		teleportee = user
 
-	for(var/R in GLOB.teleport_runes)
-		var/obj/effect/rune/teleport/T = R
-		if(IS_ACOLYTE(user) && T.z != teleportee.z)
+	for(var/rune in GLOB.teleport_runes)
+		var/obj/effect/rune/teleport/tele_rune = rune
+		if(IS_ACOLYTE(user) && tele_rune.z != teleportee.z)
 			continue
-		var/resultkey = T.listkey
+		var/resultkey = tele_rune.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++
 			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
 		else
 			teleportnames.Add(resultkey)
 			duplicaterunecount[resultkey] = 1
-		potential_runes[resultkey] = T
+		potential_runes[resultkey] = tele_rune
 
 	if(!length(potential_runes))
 		to_chat(user, SPAN_WARNING("There are no valid runes to teleport to!"))
 		log_game("Teleport spell failed - no other teleport runes")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!is_level_reachable(user.z))
 		to_chat(user, SPAN_CULTITALIC("You are too far away from the station to teleport!"))
 		log_game("Teleport spell failed - user in away mission")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !actual_selected_rune)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(HAS_TRAIT(user, TRAIT_FLOORED))
 		to_chat(user, SPAN_CULTITALIC("You cannot cast this spell while knocked down!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	uses--
+	update_uses(user)
 
 	var/turf/origin = get_turf(teleportee)
 	var/turf/destination = get_turf(actual_selected_rune)
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
-		return
+		return ITEM_INTERACT_COMPLETE
 	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleportee, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
@@ -625,14 +652,24 @@
 		actual_selected_rune.handle_portal("space", origin)
 
 	if(user == target)
-		target.visible_message(SPAN_WARNING("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!"), \
-		SPAN_CULTITALIC("You speak the words and find yourself somewhere else!"))
+		target.visible_message(
+			SPAN_WARNING("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!"),
+			SPAN_CULTITALIC("You speak the words and find yourself somewhere else!"),
+			SPAN_HEAR("You feel a brief rush of air!")
+		)
 	else
-		target.visible_message(SPAN_WARNING("Dust flows from [user]'s hand, and [target] disappears in a flash of red light!"), \
-		SPAN_CULTITALIC("You suddenly find yourself somewhere else!"))
-	destination.visible_message(SPAN_WARNING("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
+		target.visible_message(
+			SPAN_WARNING("Dust flows from [user]'s hand, and [target] disappears in a flash of red light!"),
+			SPAN_CULTITALIC("You suddenly find yourself somewhere else!"),
+			SPAN_HEAR("You feel a brief rush of air!")
+		)
+	destination.visible_message(
+		SPAN_WARNING("There is a boom of outrushing air as something appears above the rune!"),
+		null,
+		SPAN_HEAR("You hear a boom.")
+	)
 	teleportee.forceMove(destination)
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 //Shackles
 /obj/item/melee/blood_magic/shackles
@@ -641,38 +678,41 @@
 	invocation = "In'totum Lig'abis!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/shackles/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!iscarbon(target))
+		return NONE
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
+		to_chat(user, SPAN_WARNING("Foul, divine interference blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
+	var/mob/living/carbon/carbon_target = target
+	if(!(carbon_target.has_left_hand() || carbon_target.has_right_hand()))
+		to_chat(user, SPAN_CULTITALIC("This victim doesn't have enough arms to complete the restraint!"))
+		return ITEM_INTERACT_COMPLETE
+	CuffAttack(carbon_target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
+	if(target.handcuffed)
+		to_chat(user, SPAN_WARNING("[target] is already bound."))
 		return
-	if(iscarbon(target) && proximity)
-		var/mob/living/carbon/C = target
-		if(!(C.has_left_hand() || C.has_right_hand()))
-			user.visible_message(SPAN_CULTITALIC("This victim doesn't have enough arms to complete the restraint!"))
-			return
-		CuffAttack(C, user)
-		source.build_all_button_icons()
-		..()
-
-/obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
-	if(!C.handcuffed)
-		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, SOUND_RANGE_SET(7))
-		C.visible_message(SPAN_DANGER("[user] begins restraining [C] with dark magic!"), \
-		SPAN_USERDANGER("[user] begins shaping dark magic shackles around your wrists!"))
-		if(do_mob(user, C, 30))
-			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/cult(C)
-				C.update_handcuffed()
-				C.Silence(12 SECONDS)
-				to_chat(user, SPAN_NOTICE("You shackle [C]."))
-				add_attack_logs(user, C, "shackled")
-				uses--
-			else
-				to_chat(user, SPAN_WARNING("[C] is already bound."))
-		else
-			to_chat(user, SPAN_WARNING("You fail to shackle [C]."))
-	else
-		to_chat(user, SPAN_WARNING("[C] is already bound."))
-
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, SOUND_RANGE_SET(7))
+	target.visible_message(
+		SPAN_DANGER("[user] begins restraining [target] with dark magic!"),
+		SPAN_USERDANGER("[user] begins shaping dark magic shackles around your wrists!")
+	)
+	if(!do_mob(user, target, 30))
+		to_chat(user, SPAN_WARNING("You fail to shackle [target]."))
+		return
+	if(target.handcuffed)
+		return
+	target.handcuffed = new /obj/item/restraints/handcuffs/cult(target)
+	target.update_handcuffed()
+	target.Silence(12 SECONDS)
+	to_chat(user, SPAN_NOTICE("You shackle [target]."))
+	add_attack_logs(user, target, "shackled")
+	update_uses(user)
 
 /// For the shackling spell
 /obj/item/restraints/handcuffs/cult
@@ -704,55 +744,60 @@
 	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
-/obj/item/melee/blood_magic/construction/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/construction/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
+		to_chat(user, SPAN_WARNING("Foul, divine interference blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(channeling)
+		to_chat(user, SPAN_CULTITALIC("You are already invoking twisted construction!"))
 		return
-	if(proximity_flag)
-		if(channeling)
-			to_chat(user, SPAN_CULTITALIC("You are already invoking twisted construction!"))
-			return
-		var/turf/T = get_turf(target)
+	var/turf/T = get_turf(target)
 
-		//Metal to construct shell
-		if(istype(target, /obj/item/stack/sheet/metal))
-			var/obj/item/stack/sheet/candidate = target
-			if(candidate.use(METAL_TO_CONSTRUCT_SHELL_CONVERSION))
-				uses--
-				to_chat(user, SPAN_WARNING("A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!"))
-				new /obj/structure/constructshell(T)
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
-			else
-				to_chat(user, SPAN_WARNING("You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!"))
-				return
+	//Metal to construct shell
+	if(istype(target, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/candidate = target
+		if(!candidate.use(METAL_TO_CONSTRUCT_SHELL_CONVERSION))
+			to_chat(user, SPAN_WARNING("You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!"))
+			return ITEM_INTERACT_COMPLETE
 
-		//Plasteel to runed metal
-		else if(istype(target, /obj/item/stack/sheet/plasteel))
-			var/obj/item/stack/sheet/plasteel/candidate = target
-			var/quantity = candidate.amount
-			if(candidate.use(quantity))
-				uses--
-				new /obj/item/stack/sheet/runed_metal(T, quantity)
-				to_chat(user, SPAN_WARNING("A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!"))
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
+		update_uses(user)
+		to_chat(user, SPAN_WARNING("A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!"))
+		new /obj/structure/constructshell(T)
+		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
+		return ITEM_INTERACT_COMPLETE
 
-		//Airlock to cult airlock
-		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
-			channeling = TRUE
-			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE, SOUND_RANGE_SET(7))
-			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = target))
-				target.narsie_act(TRUE)
-				uses--
-				user.visible_message(SPAN_WARNING("Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!"))
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
-				channeling = FALSE
-			else
-				channeling = FALSE
-				return
-		else
-			to_chat(user, SPAN_WARNING("The spell will not work on [target]!"))
-			return
-		..()
+	//Plasteel to runed metal
+	if(istype(target, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/candidate = target
+		var/quantity = candidate.amount
+		if(!candidate.use(quantity))
+			to_chat(user, SPAN_WARNING("You need [quantity] plasteel to produce runed metal!"))
+			return ITEM_INTERACT_COMPLETE
+
+		update_uses(user)
+		new /obj/item/stack/sheet/runed_metal(T, quantity)
+		to_chat(user, SPAN_WARNING("A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!"))
+		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
+		return ITEM_INTERACT_COMPLETE
+
+	//Airlock to cult airlock
+	if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
+		channeling = TRUE
+		playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE, SOUND_RANGE_SET(7))
+		do_sparks(5, TRUE, target)
+		if(!do_after(user, 50, target = target))
+			channeling = FALSE
+			return ITEM_INTERACT_COMPLETE
+
+		target.narsie_act(TRUE)
+		update_uses(user)
+		user.visible_message(SPAN_WARNING("Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!"))
+		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
+		channeling = FALSE
+		return ITEM_INTERACT_COMPLETE
 
 //Armor: Gives the target a basic cultist combat loadout
 /obj/item/melee/blood_magic/armor
@@ -760,23 +805,29 @@
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/armor/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
-		return
-	if(iscarbon(target) && proximity)
-		uses--
-		var/mob/living/carbon/C = target
-		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OUTER_SUIT)
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_JUMPSUIT)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), ITEM_SLOT_SHOES)
+		to_chat(user, SPAN_WARNING("Foul, divine intervention blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!iscarbon(target))
+		return NONE
 
-		if(C == user)
-			qdel(src) //Clears the hands
-		C.put_in_hands(new /obj/item/melee/cultblade(user))
-		C.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
-		C.visible_message(SPAN_WARNING("Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [C]!"))
-		..()
+	update_uses(user)
+	var/mob/living/carbon/carbon_target = target
+	var/armour = carbon_target.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OUTER_SUIT)
+	carbon_target.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_JUMPSUIT)
+	carbon_target.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
+	carbon_target.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), ITEM_SLOT_SHOES)
+
+	if(carbon_target == user)
+		qdel(src) //Clears the hands
+	carbon_target.put_in_hands(new /obj/item/melee/cultblade(user))
+	carbon_target.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
+	carbon_target.visible_message(SPAN_WARNING("Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [carbon_target]!"))
+	return ITEM_INTERACT_COMPLETE
+
 //Used by blood rite, to recharge things like viel shifter or the cultest shielded robes
 /obj/item/melee/blood_magic/empower
 	name = "Blood Recharge"
@@ -785,38 +836,36 @@
 	color = "#9c0651"
 	has_source = FALSE //special, only availible for a blood cost.
 
-/obj/item/melee/blood_magic/empower/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/blood_magic/empower/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.holy_check())
-		return
-	if(proximity_flag)
-		// Shielded suit
-		if(istype(target, /obj/item/clothing/suit/hooded/cultrobes/cult_shield))
-			var/datum/component/shielded/shield = target.GetComponent(/datum/component/shielded)
-			if(shield.current_charges >= 3)
-				to_chat(user, SPAN_WARNING("[target] is already at full charge!"))
-				return
-			uses--
-			to_chat(user, SPAN_WARNING("You empower [target] with blood, recharging its shields!"))
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
-			shield.current_charges = 3
-			user.update_appearance(UPDATE_ICON)
-			return ..()
+		to_chat(user, SPAN_WARNING("Foul, divine intervention blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
 
-		// Veil Shifter
-		if(istype(target, /obj/item/cult_shift))
-			var/obj/item/cult_shift/S = target
-			if(S.uses >= 4)
-				to_chat(user, SPAN_WARNING("[target] is already at full charge!"))
-				return
-			uses--
-			to_chat(user, SPAN_WARNING("You empower [target] with blood, recharging its ability to shift!"))
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
-			S.uses = 4
-			S.icon_state = "shifter"
-			return ..()
+	// Shielded suit
+	if(istype(target, /obj/item/clothing/suit/hooded/cultrobes/cult_shield))
+		var/datum/component/shielded/shield = target.GetComponent(/datum/component/shielded)
+		if(shield.current_charges >= 3)
+			to_chat(user, SPAN_WARNING("[target] is already at full charge!"))
+			return ITEM_INTERACT_COMPLETE
+		update_uses(user)
+		to_chat(user, SPAN_WARNING("You empower [target] with blood, recharging its shields!"))
+		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
+		shield.current_charges = 3
+		user.update_appearance(UPDATE_ICON)
+		return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, SPAN_WARNING("The spell will not work on [target]!"))
-		return ..()
+	// Veil Shifter
+	if(istype(target, /obj/item/cult_shift))
+		var/obj/item/cult_shift/S = target
+		if(S.uses >= 4)
+			to_chat(user, SPAN_WARNING("[target] is already at full charge!"))
+			return ITEM_INTERACT_COMPLETE
+		update_uses(user)
+		to_chat(user, SPAN_WARNING("You empower [target] with blood, recharging its ability to shift!"))
+		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
+		S.uses = 4
+		S.icon_state = "shifter"
+		return ITEM_INTERACT_COMPLETE
 
 //Blood Rite: Absorb blood to heal cult members or summon weapons
 /obj/item/melee/blood_magic/manipulator
@@ -935,11 +984,12 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack__legacy__attackchain(atom/target, mob/living/carbon/human/user, proximity)
+/obj/item/melee/blood_magic/manipulator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
-		return
-	if(!proximity)
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
 	if(ishuman(target))
 		if(IS_CULTIST(target))
 			heal_cultist(user, target)
@@ -947,12 +997,12 @@
 		else
 			steal_blood(user, target)
 		source.build_all_button_icons()
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(isconstruct(target))
 		heal_construct(user, target)
 		source.build_all_button_icons()
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(target, /obj/item/blood_orb))
 		var/obj/item/blood_orb/candidate = target
@@ -962,9 +1012,10 @@
 			playsound(user, 'sound/misc/enter_blood.ogg', 50, extrarange = SOUND_RANGE_SET(7))
 			qdel(candidate)
 			source.build_all_button_icons()
-			return
+			return ITEM_INTERACT_COMPLETE
 	blood_draw(target, user)
 	source.build_all_button_icons()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
@@ -990,9 +1041,12 @@
 		to_chat(user, SPAN_CULTITALIC("Your blood rite has gained [temp] charge\s from blood sources around you!"))
 		uses += max(1, temp)
 
-/obj/item/melee/blood_magic/manipulator/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/melee/blood_magic/manipulator/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(user.holy_check())
-		return
+		to_chat(user, SPAN_WARNING("Foul, divine interference blocks you from using this!"))
+		return ITEM_INTERACT_COMPLETE
 	var/list/options = list("Blood Orb (50)" = image(icon = 'icons/obj/cult.dmi', icon_state = "summoning_orb"),
 							"Blood Recharge (75)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "blood_charge"),
 							"Blood Spear (150)" = image(icon = 'icons/mob/actions/actions_cult.dmi', icon_state = "bloodspear"),
@@ -1003,69 +1057,84 @@
 		if("Blood Orb (50)")
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, SPAN_WARNING("You need [BLOOD_ORB_COST] charges to perform this rite."))
+				source.build_all_button_icons()
+				return ITEM_INTERACT_COMPLETE
+
+			var/ammount = input("How much blood would you like to transfer? You have [uses] blood.", "How much blood?", 50) as null|num
+			if(ammount < 50) // No 1 blood orbs, 50 or more.
+				to_chat(user, SPAN_WARNING("You need to give up at least 50 blood."))
+				return ITEM_INTERACT_COMPLETE
+			if(ammount > uses) // No free blood either
+				to_chat(user, SPAN_WARNING("You do not have that much blood to give!"))
+				return ITEM_INTERACT_COMPLETE
+			uses -= ammount
+			var/turf/T = get_turf(user)
+			qdel(src)
+			var/obj/item/blood_orb/rite = new(T)
+			rite.blood = ammount
+			if(user.put_in_hands(rite))
+				to_chat(user, SPAN_CULT("A [rite.name] appears in your hand!"))
 			else
-				var/ammount = input("How much blood would you like to transfer? You have [uses] blood.", "How much blood?", 50) as null|num
-				if(ammount < 50) // No 1 blood orbs, 50 or more.
-					to_chat(user, SPAN_WARNING("You need to give up at least 50 blood."))
-					return
-				if(ammount > uses) // No free blood either
-					to_chat(user, SPAN_WARNING("You do not have that much blood to give!"))
-					return
-				uses -= ammount
-				var/turf/T = get_turf(user)
-				qdel(src)
-				var/obj/item/blood_orb/rite = new(T)
-				rite.blood = ammount
-				if(user.put_in_hands(rite))
-					to_chat(user, SPAN_CULT("A [rite.name] appears in your hand!"))
-				else
-					user.visible_message(SPAN_WARNING("A [rite.name] appears at [user]'s feet!"),
-					SPAN_CULT("A [rite.name] materializes at your feet."))
+				user.visible_message(SPAN_WARNING("A [rite.name] appears at [user]'s feet!"),
+				SPAN_CULT("A [rite.name] materializes at your feet."))
+			source.build_all_button_icons()
+			return ITEM_INTERACT_COMPLETE
 
 		if("Blood Recharge (75)")
 			if(uses < BLOOD_RECHARGE_COST)
 				to_chat(user, SPAN_CULTITALIC("You need [BLOOD_RECHARGE_COST] charges to perform this rite."))
+				source.build_all_button_icons()
+				return ITEM_INTERACT_COMPLETE
+
+			var/obj/rite = new /obj/item/melee/blood_magic/empower()
+			uses -= BLOOD_RECHARGE_COST
+			qdel(src)
+			if(user.put_in_hands(rite))
+				to_chat(user, SPAN_CULT("Your hand glows with power!"))
 			else
-				var/obj/rite = new /obj/item/melee/blood_magic/empower()
-				uses -= BLOOD_RECHARGE_COST
-				qdel(src)
-				if(user.put_in_hands(rite))
-					to_chat(user, SPAN_CULT("Your hand glows with power!"))
-				else
-					to_chat(user, SPAN_WARNING("You need a free hand for this rite!"))
-					uses += BLOOD_RECHARGE_COST // Refund the charges
-					qdel(rite)
+				to_chat(user, SPAN_WARNING("You need a free hand for this rite!"))
+				uses += BLOOD_RECHARGE_COST // Refund the charges
+				qdel(rite)
+			source.build_all_button_icons()
+			return ITEM_INTERACT_COMPLETE
 
 		if("Blood Spear (150)")
 			if(uses < BLOOD_SPEAR_COST)
 				to_chat(user, SPAN_WARNING("You need [BLOOD_SPEAR_COST] charges to perform this rite."))
+				source.build_all_button_icons()
+				return ITEM_INTERACT_COMPLETE
+
+			uses -= BLOOD_SPEAR_COST
+			var/turf/T = get_turf(user)
+			qdel(src)
+			var/datum/action/innate/cult/spear/S = new(user)
+			var/obj/item/cult_spear/rite = new(T)
+			S.Grant(user, rite)
+			rite.spear_act = S
+			if(user.put_in_hands(rite))
+				to_chat(user, SPAN_CULT("A [rite.name] appears in your hand!"))
 			else
-				uses -= BLOOD_SPEAR_COST
-				var/turf/T = get_turf(user)
-				qdel(src)
-				var/datum/action/innate/cult/spear/S = new(user)
-				var/obj/item/cult_spear/rite = new(T)
-				S.Grant(user, rite)
-				rite.spear_act = S
-				if(user.put_in_hands(rite))
-					to_chat(user, SPAN_CULT("A [rite.name] appears in your hand!"))
-				else
-					user.visible_message(SPAN_WARNING("A [rite.name] appears at [user]'s feet!"),
-					SPAN_CULT("A [rite.name] materializes at your feet."))
+				user.visible_message(SPAN_WARNING("A [rite.name] appears at [user]'s feet!"),
+				SPAN_CULT("A [rite.name] materializes at your feet."))
+			source.build_all_button_icons()
+			return ITEM_INTERACT_COMPLETE
 
 		if("Blood Bolt Barrage (300)")
 			if(uses < BLOOD_BARRAGE_COST)
 				to_chat(user, SPAN_CULTITALIC("You need [BLOOD_BARRAGE_COST] charges to perform this rite."))
+				source.build_all_button_icons()
+				return ITEM_INTERACT_COMPLETE
+
+			var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
+			uses -= BLOOD_BARRAGE_COST
+			qdel(src)
+			user.swap_hand()
+			user.drop_item()
+			if(user.put_in_hands(rite))
+				to_chat(user, SPAN_CULT("Both of your hands glow with power!"))
 			else
-				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
-				uses -= BLOOD_BARRAGE_COST
-				qdel(src)
-				user.swap_hand()
-				user.drop_item()
-				if(user.put_in_hands(rite))
-					to_chat(user, SPAN_CULT("Both of your hands glow with power!"))
-				else
-					to_chat(user, SPAN_WARNING("You need a free hand for this rite!"))
-					uses += BLOOD_BARRAGE_COST // Refund the charges
-					qdel(rite)
-	source.build_all_button_icons()
+				to_chat(user, SPAN_WARNING("You need a free hand for this rite!"))
+				uses += BLOOD_BARRAGE_COST // Refund the charges
+				qdel(rite)
+			source.build_all_button_icons()
+			return ITEM_INTERACT_COMPLETE

@@ -184,7 +184,6 @@
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	new_attack_chain = TRUE
 	var/conversion_time = 7 SECONDS
 
 /obj/item/melee/swarm_hand/pre_attack(atom/target, mob/living/user, params)

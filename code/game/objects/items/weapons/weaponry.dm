@@ -208,8 +208,6 @@
 	/// Is the bat made of metal?
 	var/is_metal = FALSE
 
-	new_attack_chain = TRUE
-
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."

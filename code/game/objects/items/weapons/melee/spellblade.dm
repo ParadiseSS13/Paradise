@@ -10,7 +10,6 @@
 	force = 25
 	armor_penetration_flat = 50
 	sharp = TRUE
-	new_attack_chain = TRUE
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
