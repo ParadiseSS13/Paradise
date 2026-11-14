@@ -115,6 +115,7 @@
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
 	alpha_rad = 50
+	origin_tech = "materials=5;engineering=4" // We start with uranium (which can be extracted) which has mat 5.
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
 	var/enrichment_cycles = 25
@@ -173,6 +174,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	craftable = FALSE
 	adjacent_requirements = list()
+	origin_tech = "materials=5;engineering=4;syndicate=3" // Advanced radioactive spider technology.
 
 /obj/item/nuclear_rod/fuel/uranium_238/spiders/do_special_effect()
 	if(prob(5))
@@ -302,6 +304,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 	)
+	origin_tech = "materials=7;engineering=7" // It takes a ton of effort to actually make this. You'll need to pry it out of an engineer's dead hands before you can analyze it.
 
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
@@ -331,12 +334,14 @@
 	alpha_rad = 250
 	beta_rad = 250
 	gamma_rad = 250
+	origin_tech = "materials=5;engineering=4;syndicate=5" // Same as the singularity beacon, powersink, bomb, and other similarly destructive grand sabotage items.
 
 // MARK: Moderator Rods
 
 /obj/item/nuclear_rod/moderator
 	name = "any moderator rod"
 	icon_state = "mod_water"
+	origin_tech = "materials=4;engineering=4"
 
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
@@ -374,6 +379,8 @@
 	heat_amount = 20
 	heat_amp_mod = 5
 	power_amp_mod = 3
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
+	origin_tech = "materials=4;engineering=4;plasmatech=4"
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -406,6 +413,7 @@
 	upgrade_required = TRUE
 	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_BLUESPACE = 1000)
+	origin_tech = "materials=7;engineering=4;bluespace=6"
 
 /obj/item/nuclear_rod/moderator/diamond_plate
 	name = "diamond reflector plates"
@@ -418,6 +426,7 @@
 	craftable = TRUE
 	upgrade_required = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
+	origin_tech = "materials=6;engineering=4"
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -439,6 +448,7 @@
 /obj/item/nuclear_rod/coolant
 	name = "any coolant rod"
 	icon_state = "coolant_water"
+	origin_tech = "materials=4;engineering=4"
 
 /obj/item/nuclear_rod/coolant/light_water
 	name = "light water circulator"
@@ -471,6 +481,7 @@
 	craftable = TRUE
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	origin_tech = "materials=4;engineering=4;plasmatech=4"
 
 /obj/item/nuclear_rod/coolant/nitrogen_circulator
 	name = "nitrogen circulator"
@@ -531,6 +542,7 @@
 	craftable = TRUE
 	upgrade_required = TRUE
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 1000)
+	origin_tech = "materials=4;engineering=4;bluespace=6"
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator/bluespace_agitator)
 
 /obj/item/nuclear_rod/coolant/iridium_conductor
