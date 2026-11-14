@@ -163,7 +163,7 @@
 
 	//Radio for screaming about overheats
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 
