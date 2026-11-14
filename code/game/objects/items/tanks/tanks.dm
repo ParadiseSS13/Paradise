@@ -145,7 +145,12 @@
 	if(istype(used, /obj/item/assembly_holder))
 		bomb_assemble(used, user)
 		return ITEM_INTERACT_COMPLETE
-	
+
+	if(istype(used, /obj/item/analyzer) && return_analyzable_air())
+		var/obj/item/analyzer/used_analyzer = used
+		atmos_scan(user, src, detailed = used_analyzer.show_detailed)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/item/tank/activate_self(mob/user)
