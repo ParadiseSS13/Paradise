@@ -296,7 +296,7 @@
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
 			component_parts.Cut()
-	qdel(src)
+	return ..()
 
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/structure/machine_frame/M = new /obj/structure/machine_frame(loc)
@@ -311,6 +311,7 @@
 /obj/machinery/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
+	return ..()
 
 /obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
 	if(I.tool_behaviour != TOOL_CROWBAR)
