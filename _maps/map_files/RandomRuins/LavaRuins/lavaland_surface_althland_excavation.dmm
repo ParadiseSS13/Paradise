@@ -12,6 +12,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/storage)
 "ad" = (
@@ -185,6 +186,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/clothing/suit/bomb_suit,
+/obj/item/clothing/head/bomb_hood,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -201,6 +205,7 @@
 /area/ruin/unpowered/althland_excavation/dorms)
 "az" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -339,21 +344,14 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"bi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
-/area/ruin/unpowered/althland_excavation/storage)
 "bj" = (
 /obj/structure/closet/crate/miningcar,
-/obj/item/stack/ore/plasma,
-/obj/item/stack/ore/plasma,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/item/stack/ore/plasma{
+	amount = 20
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/storage)
@@ -462,7 +460,6 @@
 /area/ruin/unpowered/althland_excavation/storage)
 "bC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/lava/mapping_lava,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -647,9 +644,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/miningcar,
-/obj/item/stack/ore/plasma,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/item/stack/ore/titanium{
+	amount = 10
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/storage)
@@ -824,6 +823,14 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation/storage)
+"gH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/mech_bay)
 "hn" = (
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1046,7 +1053,6 @@
 "lM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/trashcart,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1069,6 +1075,14 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation/atmos)
+"mv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/storage)
 "mx" = (
 /obj/effect/spawner/window/plasma/grilled,
 /obj/structure/cable/extra_insulated{
@@ -1216,9 +1230,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/miningcar,
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/item/gibtonite,
-/obj/item/clothing/suit/bomb_suit,
-/obj/item/clothing/head/bomb_hood,
+/obj/item/stack/ore/diamond{
+	amount = 5
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1239,7 +1253,12 @@
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/miningcar,
-/obj/item/gibtonite,
+/obj/item/gibtonite{
+	pixel_x = 2
+	},
+/obj/item/gibtonite{
+	pixel_x = -5
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1445,6 +1464,14 @@
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
+"vw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/dorms)
 "vM" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -1848,6 +1875,14 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation)
+"EY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/electrical)
 "Fe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/pump/big,
@@ -3101,7 +3136,7 @@ Jn
 sj
 en
 en
-rz
+EY
 rz
 Zm
 en
@@ -3604,7 +3639,7 @@ bR
 aU
 pZ
 Mn
-Mn
+gH
 AV
 pZ
 sj
@@ -3712,7 +3747,7 @@ nR
 yN
 oO
 yX
-uB
+vw
 lz
 WH
 sA
@@ -3754,7 +3789,7 @@ bB
 bk
 DV
 as
-bk
+mv
 bk
 bB
 bk
@@ -3814,7 +3849,7 @@ yN
 aG
 an
 Al
-bi
+bk
 ej
 Te
 bk
