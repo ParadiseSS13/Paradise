@@ -534,7 +534,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(.)
 		return
 	// If the target is a changeling, then it's an invalid target. Since changelings can not be debrained.
-	if(IS_CHANGELING(possible_target.current))
+	if(IS_CHANGELING(possible_target.current) || possible_target.special_role == SPECIAL_ROLE_CHANGELING)
 		return TARGET_INVALID_CHANGELING
 
 	// Removing someone's brain makes it pretty hard to protect them.
