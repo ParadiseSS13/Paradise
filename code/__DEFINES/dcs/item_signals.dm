@@ -31,6 +31,8 @@
 #define COMSIG_ASSEMBLY_PULSED "item_assembly_pulsed"
 ///from [/mob/living/carbon/human/proc/Move]: ()
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"
+/// from /atom/clean_blood(): (radiation_clean)
+#define COMSIG_ITEM_CLEAN "item_clean"
 
 // /obj/item/implant
 
