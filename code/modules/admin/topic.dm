@@ -983,6 +983,8 @@
 		show_note(index = target)
 
 	else if(href_list["noteedits"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/note_id = text2num(href_list["noteedits"])
 		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM notes WHERE id=:note_id", list(
 			"note_id" = note_id
@@ -1083,6 +1085,8 @@
 		usr.client.watchlist_show()
 
 	else if(href_list["watcheditlog"])
+		if(!check_rights(R_ADMIN))
+			return
 		var/target_ckey = href_list["watcheditlog"]
 		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM watch WHERE ckey=:targetkey", list(
 			"targetkey" = target_ckey

@@ -64,6 +64,10 @@
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", null, TRUE, source = spider_type)
+	// The poll has no role so it doesn't check bans, do the same check as taking over a spider
+	for(var/mob/candidate as anything in candidates)
+		if(jobban_isbanned(candidate, ROLE_SYNDICATE) || jobban_isbanned(candidate, ROLE_TSPIDER))
+			candidates -= candidate
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
