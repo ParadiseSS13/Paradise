@@ -17,6 +17,7 @@
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/captain)
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -54,6 +55,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/hos)
 
 /datum/outfit/job/hos/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -82,6 +84,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/ce)
 
 /datum/outfit/job/chief_engineer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -106,6 +109,7 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/rd)
 
 /datum/outfit/job/rd/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -131,6 +135,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/cmo)
 
 /datum/outfit/job/cmo/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -150,6 +155,7 @@
 		/obj/item/storage/box/ids = 1,
 		/obj/item/melee/classic_baton/telescopic = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/hop)
 
 	bio_chips = list()
 
@@ -170,6 +176,7 @@
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/cargo)
 
 /datum/outfit/job/qm/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

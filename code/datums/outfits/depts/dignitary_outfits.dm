@@ -13,6 +13,7 @@
 		/obj/item/melee/classic_baton/ntcane = 1
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/bar)
 
 /datum/outfit/job/nanotrasenrep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -42,6 +43,7 @@
 	backpack = /obj/item/storage/backpack/blueshield
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/blueshield)
 
 /datum/outfit/job/nct
 	name = "Nanotrasen Career Trainer"
@@ -65,6 +67,7 @@
 		/obj/item/book/manual/sop_ntinstructor,
 		/obj/item/laser_pointer/blue = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/trainer)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 

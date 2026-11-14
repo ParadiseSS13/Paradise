@@ -13,6 +13,7 @@
 		/obj/item/toy/russian_revolver = 1,
 		/obj/item/eftpos = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/bar)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -44,6 +45,7 @@
 	backpack_contents = list(
 		/obj/item/eftpos = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/chef)
 
 /datum/outfit/job/chef/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -68,6 +70,7 @@
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/botany)
 
 /datum/outfit/job/hydro/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -100,6 +103,7 @@
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/clown)
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -150,6 +154,7 @@
 
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/mime
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/mime)
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -179,6 +184,7 @@
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
 	r_pocket = /obj/item/door_remote/janikeyring
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/janitor)
 
 /datum/outfit/job/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -199,6 +205,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/librarian)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -222,6 +229,7 @@
 		/obj/item/camera/spooky = 1,
 		/obj/item/nullrod = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/chaplain)
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -288,3 +296,4 @@
 
 	uniform = /obj/item/clothing/under/color/random
 	id = /obj/item/card/id/assistant
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/assistant)
