@@ -19,7 +19,7 @@
 	player.use_item_in_hand()
 	player.put_away(flamethrower)
 
-	player.spawn_obj_in_hand(/obj/item/crowbar)
+	player.spawn_fast_tool(/obj/item/crowbar)
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You lift")
 	player.puppet.swap_hand()
@@ -42,7 +42,7 @@
 	player.click_on(shower)
 	TEST_ASSERT_LAST_CHATLOG(player, "You turn")
 
-	var/obj/item/wrench = player.spawn_obj_in_hand(/obj/item/wrench)
+	var/obj/item/wrench = player.spawn_fast_tool(/obj/item/wrench)
 	player.click_on(shower)
 	TEST_ASSERT_LAST_CHATLOG(player, "You adjust")
 
@@ -52,7 +52,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "The water temperature")
 
 	player.puppet.swap_hand()
-	var/obj/item/welder = player.spawn_obj_in_hand(/obj/item/weldingtool)
+	var/obj/item/welder = player.spawn_fast_tool(/obj/item/weldingtool)
 	player.use_item_in_hand()
 	player.click_on(shower)
 	TEST_ASSERT_LAST_CHATLOG(player, "Turn")
