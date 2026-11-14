@@ -458,6 +458,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/holopad/hear_talk(atom/movable/speaker, list/message_pieces, verb)
+	. = ..()
 	if(speaker && length(masters))//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(masters[master] && speaker != master)
