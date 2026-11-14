@@ -34229,12 +34229,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"fkz" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/engine_foyer)
 "fkH" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
@@ -40540,13 +40534,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/medmaint)
-"hpe" = (
-/obj/structure/grille,
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "hph" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -42430,6 +42417,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
+"hUO" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/space,
+/area/space)
 "hVs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -43429,6 +43422,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
@@ -45435,10 +45431,6 @@
 "iRu" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos/distribution)
-"iRO" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/metastation/engine,
-/turf/simulated/wall,
-/area/station/engineering/equipmentstorage)
 "iRP" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 8
@@ -48196,11 +48188,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
-"jMb" = (
-/obj/structure/lattice,
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/turf/space,
-/area/space/nearstation)
 "jMs" = (
 /obj/effect/turf_decal/tiles/department/security/side,
 /turf/simulated/floor/plasteel,
@@ -74244,6 +74231,7 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/metastation/engine,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "sqT" = (
@@ -74288,6 +74276,10 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/security/prison/cell_block/a)
+"srg" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/space,
+/area/space)
 "srk" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -74298,19 +74290,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
-"srn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/engine_foyer)
 "srE" = (
 /obj/effect/spawner/random/maintenance,
 /obj/structure/rack,
@@ -74396,14 +74375,6 @@
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"stD" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/space,
-/area/space/nearstation)
 "stM" = (
 /obj/structure/rack,
 /obj/item/book/manual/wiki/security_space_law{
@@ -79898,6 +79869,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
+"uiM" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/fsmaint)
 "uiN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -133891,12 +133866,12 @@ oyN
 aLl
 rZx
 fiR
-aBZ
+uiM
 mjH
 aBZ
 aGb
 kxf
-fkz
+ccH
 oVS
 baB
 dat
@@ -134152,7 +134127,7 @@ aBZ
 aEy
 aEz
 gut
-srn
+kxf
 ccH
 vRY
 aCg
@@ -134172,7 +134147,7 @@ fMn
 qpO
 tMS
 tMS
-iRO
+qpO
 qpO
 bjN
 hRS
@@ -140577,7 +140552,7 @@ mZb
 bre
 bre
 abq
-jMb
+abq
 mZb
 ivi
 iEd
@@ -140598,7 +140573,7 @@ aaa
 aaa
 aaa
 aaa
-stD
+iju
 aaa
 aaa
 aaa
@@ -140835,7 +140810,7 @@ mZb
 bre
 abq
 aaa
-hpe
+mZb
 ivi
 ivi
 ivi
@@ -140854,7 +140829,7 @@ abq
 aaa
 aaa
 aaa
-djM
+aaa
 aaa
 aaa
 aaa
@@ -141344,7 +141319,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+srg
 aaa
 abq
 aaa
@@ -141369,7 +141344,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+hUO
 aaa
 aaa
 aaa
@@ -141602,7 +141577,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+djM
 abq
 abq
 abq
@@ -141625,7 +141600,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+djM
 aaa
 aaa
 aaa
