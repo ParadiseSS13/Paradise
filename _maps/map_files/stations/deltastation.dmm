@@ -10736,7 +10736,7 @@
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/reagent_containers/drinks/tea{
+/obj/item/reagent_containers/drinks/teacup/tea{
 	pixel_y = 6
 	},
 /obj/structure/cable{
