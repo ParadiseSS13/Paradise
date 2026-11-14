@@ -286,6 +286,7 @@
 	R.add_language("Tradeband", TRUE)
 	R.add_language("Gutter", FALSE)
 	R.add_language("Cygni Standard", TRUE)
+	R.add_language("Voidfarer", TRUE)
 	R.add_language("Sinta'unathi", FALSE)
 	R.add_language("Siik'tajr", FALSE)
 	R.add_language("Canilunzt", FALSE)
@@ -409,9 +410,8 @@
 		current_syringes++
 		process_chamber()
 
-//Cannot manually remove syringes
-/obj/item/gun/syringemalf/attack_self__legacy__attackchain(mob/living/user)
-	return
+/obj/item/gun/syringemalf/handle_activate_self(mob/user)
+	return // Cannot manually remove syringes.
 
 //Load syringe into the chamber
 /obj/item/gun/syringemalf/process_chamber()
@@ -628,23 +628,24 @@
 
 /obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
-	R.add_language("Galactic Common", 1)
-	R.add_language("Sol Common", 1)
-	R.add_language("Tradeband", 1)
-	R.add_language("Gutter", 1)
-	R.add_language("Sinta'unathi", 1)
-	R.add_language("Siik'tajr", 1)
-	R.add_language("Canilunzt", 1)
-	R.add_language("Qurvolious", 1)
-	R.add_language("Vox-pidgin", 1)
-	R.add_language("Rootspeak", 1)
-	R.add_language("Trinary", 1)
-	R.add_language("Chittin", 1)
-	R.add_language("Bubblish", 1)
-	R.add_language("Clownish",1)
-	R.add_language("Cygni Standard", 1)
-	R.add_language("Tkachi", 1)
-	R.add_language("Skkula-Runespeak", 1)
+	R.add_language("Galactic Common", TRUE)
+	R.add_language("Sol Common", TRUE)
+	R.add_language("Tradeband", TRUE)
+	R.add_language("Gutter", TRUE)
+	R.add_language("Sinta'unathi", TRUE)
+	R.add_language("Siik'tajr", TRUE)
+	R.add_language("Canilunzt", TRUE)
+	R.add_language("Qurvolious", TRUE)
+	R.add_language("Vox-pidgin", TRUE)
+	R.add_language("Rootspeak", TRUE)
+	R.add_language("Trinary", TRUE)
+	R.add_language("Chittin", TRUE)
+	R.add_language("Bubblish", TRUE)
+	R.add_language("Clownish", TRUE)
+	R.add_language("Cygni Standard", TRUE)
+	R.add_language("Voidfarer", TRUE)
+	R.add_language("Tkachi", TRUE)
+	R.add_language("Skkula-Runespeak", TRUE)
 
 // Mining
 /obj/item/robot_module/miner

@@ -348,6 +348,17 @@
 		else
 			to_chat(usr, SPAN_WARNING("The unit is not operational."))
 		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
+		if(locked)
+			if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+				return ITEM_INTERACT_COMPLETE
+			locked = FALSE
+			return ITEM_INTERACT_COMPLETE
+		else
+			if(!do_after_once(user, 2.5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+				return ITEM_INTERACT_COMPLETE
+			open_machine()
+			return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		wires.Interact(user)
 		return ITEM_INTERACT_COMPLETE

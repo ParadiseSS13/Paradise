@@ -271,7 +271,13 @@
 /datum/controller/subsystem/proc/call_init(start_timeofday)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	log_startup_progress("Initializing...")
-	Initialize()
+	. = TRUE
+	// A runtime only stops Initialize() itself, so catch it here to know it didn't finish
+	try
+		Initialize()
+	catch(var/exception/e)
+		world.Error(e)
+		. = FALSE
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
@@ -332,8 +338,57 @@
 
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 //should attempt to salvage what it can from the old instance of subsystem
+/// By default, copy over the old subsystem's own vars, like its processing list.
+/// Without this, a fresh SSobj would forget everything it was processing for the rest of the round.
+/// The MC's vars on it, like state and timing, are left fresh since those are what went wrong.
 /datum/controller/subsystem/Recover()
-	return
+	var/datum/controller/subsystem/old
+	for(var/datum/controller/subsystem/candidate as anything in Master?.subsystems)
+		if(candidate.type == type && candidate != src)
+			old = candidate
+			break
+	if(!old)
+		return
+	// Vars every subsystem has, other than the ones an admin might have changed
+	var/static/list/base_vars
+	if(!base_vars)
+		base_vars = list()
+		var/datum/controller/subsystem/plain = new /datum/controller/subsystem
+		for(var/var_name in plain.vars)
+			base_vars[var_name] = TRUE
+		for(var/var_name in list("initialized", "wait", "priority", "runlevels"))
+			base_vars -= var_name
+	var/copied = 0
+	for(var/var_name in old.vars)
+		if(base_vars[var_name] || vars[var_name] == old.vars[var_name])
+			continue
+		try
+			vars[var_name] = old.vars[var_name]
+			copied++
+		catch // Const vars can't be set
+	log_world("[name]: recovered [copied] var\s from the one it replaces.")
+
+/// Stops the subsystem firing. With a duration it turns back on after that long, otherwise an admin has to set can_fire again.
+/datum/controller/subsystem/proc/take_offline(duration)
+	can_fire = FALSE
+	if(duration)
+		offline_retry(duration)
+
+/datum/controller/subsystem/proc/offline_retry(duration)
+	set waitfor = FALSE
+	// Not a timer, since SStimer could be the one that's offline
+	sleep(duration)
+	back_online(duration)
+
+/datum/controller/subsystem/proc/back_online(duration)
+	// An admin already turned it back on
+	if(can_fire)
+		return
+	can_fire = TRUE
+	next_fire = world.time + wait
+	var/msg = "The [name] subsystem is back on after [DisplayTimeText(duration)] offline. If it stops the MC again it stays off until an admin turns it on."
+	to_chat(GLOB.admins, SPAN_BOLDNOTICE(msg))
+	log_world(msg)
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
 	switch(var_name)
