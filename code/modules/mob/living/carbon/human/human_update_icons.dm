@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
-		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_full_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (dna.species.sprite_sheet_name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
@@ -322,7 +322,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(istype(head_organ) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
-		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
@@ -1310,7 +1310,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
 	if(m_styles["tail"] != "None" && (dna.species.bodyflags & HAS_TAIL_MARKINGS))
 		var/tail_marking = m_styles["tail"]
-		tail_marking_style = GLOB.marking_styles_list[tail_marking]
+		tail_marking_style = GLOB.marking_styles_full_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 
@@ -1401,7 +1401,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
 	if(m_styles["tail"] != "None" && (dna.species.bodyflags & HAS_TAIL_MARKINGS))
 		var/tail_marking = m_styles["tail"]
-		tail_marking_style = GLOB.marking_styles_list[tail_marking]
+		tail_marking_style = GLOB.marking_styles_full_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]w_s")
 		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 

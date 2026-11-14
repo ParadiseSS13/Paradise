@@ -169,17 +169,17 @@
 				H.change_gender(PLURAL, FALSE)
 
 		//Head Markings
-		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(GLOB.marking_styles_list))
-		if((head_marks > 0) && (head_marks <= length(GLOB.marking_styles_list)))
-			H.m_styles["head"] = GLOB.marking_styles_list[head_marks]
+		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(GLOB.marking_styles_full_list))
+		if((head_marks > 0) && (head_marks <= length(GLOB.marking_styles_full_list)))
+			H.m_styles["head"] = GLOB.marking_styles_full_list[head_marks]
 		//Body Markings
-		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(GLOB.marking_styles_list))
-		if((body_marks > 0) && (body_marks <= length(GLOB.marking_styles_list)))
-			H.m_styles["body"] = GLOB.marking_styles_list[body_marks]
+		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(GLOB.marking_styles_full_list))
+		if((body_marks > 0) && (body_marks <= length(GLOB.marking_styles_full_list)))
+			H.m_styles["body"] = GLOB.marking_styles_full_list[body_marks]
 		//Tail Markings
-		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(GLOB.marking_styles_list))
-		if((tail_marks > 0) && (tail_marks <= length(GLOB.marking_styles_list)))
-			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
+		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(GLOB.marking_styles_full_list))
+		if((tail_marks > 0) && (tail_marks <= length(GLOB.marking_styles_full_list)))
+			H.m_styles["tail"] = GLOB.marking_styles_full_list[tail_marks]
 
 		// Physique (examine fluff)
 		var/new_physique = dna.GetUIValueRange(DNA_UI_PHYSIQUE, length(GLOB.character_physiques))

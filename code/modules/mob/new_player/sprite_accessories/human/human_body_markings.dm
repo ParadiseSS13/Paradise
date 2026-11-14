@@ -16,7 +16,8 @@
 /datum/sprite_accessory/body_markings/tattoo/elliot
 	name = "Elliot Circuit Tattoo"
 	icon_state = "campbell"
-	species_allowed = null
+	species_allowed = list("Human")
+	fluff = TRUE
 
 /// Yep, this is repeated. To be fixed later
 /datum/sprite_accessory/body_markings/tattoo/tiger_body

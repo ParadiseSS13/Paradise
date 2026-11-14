@@ -111,7 +111,7 @@
 
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking)
-		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new /icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)

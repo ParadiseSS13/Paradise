@@ -50,6 +50,9 @@
 	if(istype(used, /obj/item/smithed_item/insert) && length(inserts) != insert_max)
 		return NONE
 
+	if(istype(used, /obj/item/fluff/k3_webbing_modkit))
+		return NONE
+
 	return pockets?.attackby__legacy__attackchain(used, user, modifiers)
 
 /obj/item/clothing/suit/storage/emp_act(severity)

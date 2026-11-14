@@ -2,7 +2,8 @@
 	//Head accessory styles
 GLOBAL_LIST_EMPTY(head_accessory_styles_list) //stores /datum/sprite_accessory/head_accessory indexed by name
 	//Marking styles
-GLOBAL_LIST_EMPTY(marking_styles_list) //stores /datum/sprite_accessory/body_markings indexed by name
+GLOBAL_LIST_EMPTY(marking_styles_public_list) //stores /datum/sprite_accessory/body_markings indexed by name
+GLOBAL_LIST_EMPTY(marking_styles_full_list)
 	//Hairstyles
 GLOBAL_LIST_EMPTY(hair_styles_public_list)			//stores /datum/sprite_accessory/hair indexed by name
 GLOBAL_LIST_EMPTY(hair_styles_male_list)
