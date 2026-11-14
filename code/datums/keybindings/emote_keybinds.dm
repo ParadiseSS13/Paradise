@@ -21,6 +21,14 @@
 	linked_emote = /datum/emote/jump
 	name = "Jump"
 
+/datum/keybinding/emote/blink
+	linked_emote = /datum/emote/living/blink
+	name = "Blink"
+
+/datum/keybinding/emote/blink_r
+	linked_emote = /datum/emote/living/blink_r
+	name = "Blink (Rapid)"
+
 /datum/keybinding/emote/blush
 	linked_emote = /datum/emote/living/blush
 	name = "Blush"
@@ -36,6 +44,18 @@
 /datum/keybinding/emote/choke
 	linked_emote = /datum/emote/living/choke
 	name = "Choke"
+
+/datum/keybinding/emote/chuckle
+	linked_emote = /datum/emote/living/chuckle
+	name = "Chuckle"
+
+/datum/keybinding/emote/cough
+	linked_emote = /datum/emote/living/cough
+	name = "Cough"
+
+/datum/keybinding/emote/cry
+	linked_emote = /datum/emote/living/cry
+	name = "Cry"
 
 /datum/keybinding/emote/sing_tune
 	linked_emote = /datum/emote/living/sing_tune
@@ -61,6 +81,10 @@
 	linked_emote = /datum/emote/living/quiver
 	name = "Quiver"
 
+/datum/keybinding/emote/fart
+	linked_emote = /datum/emote/living/fart
+	name = "Fart"
+
 /datum/keybinding/emote/frown
 	linked_emote = /datum/emote/living/frown
 	name = "Frown"
@@ -68,6 +92,10 @@
 /datum/keybinding/emote/gag
 	linked_emote = /datum/emote/living/gag
 	name = "Gag"
+
+/datum/keybinding/emote/giggle
+	linked_emote = /datum/emote/living/giggle
+	name = "Giggle"
 
 /datum/keybinding/emote/glare
 	linked_emote = /datum/emote/living/glare
@@ -84,6 +112,18 @@
 /datum/keybinding/emote/groan
 	linked_emote = /datum/emote/living/groan
 	name = "Groan"
+
+/datum/keybinding/emote/gulp
+	linked_emote = /datum/emote/living/gulp
+	name = "Gulp"
+
+/datum/keybinding/emote/gurgle
+	linked_emote = /datum/emote/living/gurgle
+	name = "Gurgle"
+
+/datum/keybinding/emote/laugh
+	linked_emote = /datum/emote/living/laugh
+	name = "Laugh"
 
 /datum/keybinding/emote/look
 	linked_emote = /datum/emote/living/look
@@ -105,13 +145,17 @@
 	linked_emote = /datum/emote/living/pout
 	name = "Pout"
 
+/datum/keybinding/emote/scowl
+	linked_emote = /datum/emote/living/scowl
+	name = "Scowl"
+
 /datum/keybinding/emote/scream
 	linked_emote = /datum/emote/living/scream
 	name = "Scream"
 
 /datum/keybinding/emote/shake
 	linked_emote = /datum/emote/living/shake
-	name = "Head Shake"
+	name = "Shake Head"
 
 /datum/keybinding/emote/shiver
 	linked_emote = /datum/emote/living/shiver
@@ -120,6 +164,10 @@
 /datum/keybinding/emote/sigh
 	linked_emote = /datum/emote/living/sigh
 	name = "Sigh"
+
+/datum/keybinding/emote/shrug
+	linked_emote = /datum/emote/living/shrug
+	name = "Shrug"
 
 /datum/keybinding/emote/happy
 	linked_emote = /datum/emote/living/sigh/happy
@@ -137,6 +185,10 @@
 	linked_emote = /datum/emote/living/smug
 	name = "Smug"
 
+/datum/keybinding/emote/sneeze
+	linked_emote = /datum/emote/living/sneeze
+	name = "Sneeze"
+
 /datum/keybinding/emote/sniff
 	linked_emote = /datum/emote/living/sniff
 	name = "Sniff"
@@ -145,9 +197,21 @@
 	linked_emote = /datum/emote/living/snore
 	name = "Snore"
 
+/datum/keybinding/emote/moan
+	linked_emote = /datum/emote/living/moan
+	name = "Moan"
+
 /datum/keybinding/emote/nightmare
 	linked_emote = /datum/emote/living/nightmare
 	name = "Nightmare"
+
+/datum/keybinding/emote/nod
+	linked_emote = /datum/emote/living/nod
+	name = "Nod"
+
+/datum/keybinding/emote/squint
+	linked_emote = /datum/emote/living/squint
+	name = "Squint"
 
 /datum/keybinding/emote/stare
 	linked_emote = /datum/emote/living/stare
@@ -185,6 +249,10 @@
 	linked_emote = /datum/emote/living/twitch_s
 	name = "Twitch"
 
+/datum/keybinding/emote/wave
+	linked_emote = /datum/emote/living/wave
+	name = "Wave"
+
 /datum/keybinding/emote/whimper
 	linked_emote = /datum/emote/living/whimper
 	name = "Whimper"
@@ -193,43 +261,27 @@
 	linked_emote = /datum/emote/living/wsmile
 	name = "Smile (Weak)"
 
+/datum/keybinding/emote/wince
+	linked_emote = /datum/emote/living/wince
+	name = "Wince"
+
+/datum/keybinding/emote/wink
+	linked_emote = /datum/emote/living/wink
+	name = "Wink"
+
+/datum/keybinding/emote/yawn
+	linked_emote = /datum/emote/living/yawn
+	name = "Yawn"
+
 /datum/keybinding/emote/carbon
 	category = KB_CATEGORY_EMOTE_CARBON
 
 /datum/keybinding/emote/carbon/can_use(client/C, mob/M)
 	return iscarbon(M) && ..()
 
-/datum/keybinding/emote/carbon/blink
-	linked_emote = /datum/emote/living/carbon/blink
-	name = "Blink"
-
-/datum/keybinding/emote/carbon/blink_r
-	linked_emote = /datum/emote/living/carbon/blink_r
-	name = "Blink (Rapid)"
-
 /datum/keybinding/emote/carbon/cross
 	linked_emote = /datum/emote/living/carbon/cross
 	name = "Cross Arms"
-
-/datum/keybinding/emote/carbon/chuckle
-	linked_emote = /datum/emote/living/carbon/chuckle
-	name = "Chuckle"
-
-/datum/keybinding/emote/carbon/cough
-	linked_emote = /datum/emote/living/carbon/cough
-	name = "Cough"
-
-/datum/keybinding/emote/carbon/moan
-	linked_emote = /datum/emote/living/carbon/moan
-	name = "Moan"
-
-/datum/keybinding/emote/carbon/giggle
-	linked_emote = /datum/emote/living/carbon/giggle
-	name = "Giggle"
-
-/datum/keybinding/emote/carbon/gurgle
-	linked_emote = /datum/emote/living/carbon/gurgle
-	name = "Gurgle"
 
 /datum/keybinding/emote/carbon/inhale
 	linked_emote = /datum/emote/living/carbon/inhale
@@ -243,25 +295,9 @@
 	linked_emote = /datum/emote/living/carbon/kiss
 	name = "Kiss" //PG13
 
-/datum/keybinding/emote/carbon/wave
-	linked_emote = /datum/emote/living/carbon/wave
-	name = "Wave"
-
-/datum/keybinding/emote/carbon/yawn
-	linked_emote = /datum/emote/living/carbon/yawn
-	name = "Yawn"
-
 /datum/keybinding/emote/carbon/exhale
 	linked_emote = /datum/emote/living/carbon/exhale
 	name = "Exhale"
-
-/datum/keybinding/emote/carbon/laugh
-	linked_emote = /datum/emote/living/carbon/laugh
-	name = "Laugh"
-
-/datum/keybinding/emote/carbon/scowl
-	linked_emote = /datum/emote/living/carbon/scowl
-	name = "Scowl"
 
 /datum/keybinding/emote/carbon/twirl
 	linked_emote = /datum/emote/living/carbon/twirl
@@ -271,13 +307,13 @@
 	linked_emote = /datum/emote/living/carbon/faint
 	name = "Faint"
 
+/datum/keybinding/emote/carbon/raise
+	linked_emote = /datum/emote/living/carbon/raise
+	name = "Raise"
+
 /datum/keybinding/emote/carbon/sign
 	linked_emote = /datum/emote/living/carbon/sign
 	name = "Sign"
-
-/datum/keybinding/emote/carbon/gulp
-	linked_emote = /datum/emote/living/carbon/gulp
-	name = "Gulp"
 
 /datum/keybinding/emote/carbon/alien
 	category = KB_CATEGORY_EMOTE_ALIEN
@@ -349,10 +385,6 @@
 	linked_emote = /datum/emote/living/carbon/human/clap
 	name = "Clap"
 
-/datum/keybinding/emote/carbon/human/cry
-	linked_emote = /datum/emote/living/carbon/human/cry
-	name = "Cry"
-
 /datum/keybinding/emote/carbon/human/dap
 	linked_emote = /datum/emote/living/carbon/human/highfive/dap
 	name = "Dap"
@@ -381,10 +413,6 @@
 	linked_emote = /datum/emote/living/carbon/human/mumble
 	name = "Mumble"
 
-/datum/keybinding/emote/carbon/human/nod
-	linked_emote = /datum/emote/living/carbon/human/nod
-	name = "Nod"
-
 /datum/keybinding/emote/carbon/human/palm
 	linked_emote = /datum/emote/living/carbon/human/palm
 	name = "Extend palm"
@@ -397,17 +425,9 @@
 	linked_emote = /datum/emote/living/carbon/human/gasp
 	name = "Gasp"
 
-/datum/keybinding/emote/carbon/human/shake
-	linked_emote = /datum/emote/living/carbon/human/shake
-	name = "Shake Head"
-
 /datum/keybinding/emote/carbon/human/pale
 	linked_emote = /datum/emote/living/carbon/human/pale
 	name = "Pale"
-
-/datum/keybinding/emote/carbon/human/raise
-	linked_emote = /datum/emote/living/carbon/human/raise
-	name = "Raise"
 
 /datum/keybinding/emote/carbon/human/salute
 	linked_emote = /datum/emote/living/carbon/human/salute
@@ -417,37 +437,13 @@
 	linked_emote = /datum/emote/living/carbon/sign/signal
 	name = "Signal"
 
-/datum/keybinding/emote/carbon/human/shrug
-	linked_emote = /datum/emote/living/carbon/human/shrug
-	name = "Shrug"
-
-/datum/keybinding/emote/carbon/human/sniff
-	linked_emote = /datum/emote/living/carbon/human/sniff
-	name = "Sniff"
-
 /datum/keybinding/emote/carbon/human/johnny
 	linked_emote = /datum/emote/living/carbon/human/johnny
 	name = "Johnny"
 
-/datum/keybinding/emote/carbon/human/sneeze
-	linked_emote = /datum/emote/living/carbon/human/sneeze
-	name = "Sneeze"
-
 /datum/keybinding/emote/carbon/human/slap
 	linked_emote = /datum/emote/living/carbon/human/slap
 	name = "Slap"
-
-/datum/keybinding/emote/carbon/human/wince
-	linked_emote = /datum/emote/living/carbon/human/wince
-	name = "Wince"
-
-/datum/keybinding/emote/carbon/human/squint
-	linked_emote = /datum/emote/living/carbon/human/squint
-	name = "Squint"
-
-/datum/keybinding/emote/carbon/human/wink
-	linked_emote = /datum/emote/living/carbon/human/wink
-	name = "Wink"
 
 /datum/keybinding/emote/carbon/human/highfive
 	linked_emote = /datum/emote/living/carbon/human/highfive
@@ -468,10 +464,6 @@
 /datum/keybinding/emote/carbon/human/crack
 	linked_emote = /datum/emote/living/carbon/human/crack
 	name = "Crack"
-
-/datum/keybinding/emote/carbon/human/fart
-	linked_emote = /datum/emote/living/carbon/human/fart
-	name = "Fart"
 
 /datum/keybinding/emote/carbon/human/wag
 	linked_emote = /datum/emote/living/carbon/human/wag
