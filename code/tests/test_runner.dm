@@ -36,7 +36,17 @@
 	log_world("Test runner: game tests.")
 	CHECK_TICK
 
-	for(var/I in subtypesof(/datum/game_test) - /datum/game_test/room_test)
+	var/list/tests = subtypesof(/datum/game_test) - /datum/game_test/room_test
+	#ifdef GAME_TEST_SHARDS
+	// CI splits the game tests over several jobs. This job takes every GAME_TEST_SHARDS'th test, starting from test number GAME_TEST_SHARD
+	var/list/shard_tests = list()
+	for(var/i in GAME_TEST_SHARD to length(tests) step GAME_TEST_SHARDS)
+		shard_tests += tests[i]
+	log_world("Test runner: running [length(shard_tests)] of [length(tests)] game tests, part [GAME_TEST_SHARD] of [GAME_TEST_SHARDS].")
+	tests = shard_tests
+	#endif
+
+	for(var/I in tests)
 		var/datum/game_test/test = new I
 		test_logs[I] = list()
 
@@ -57,6 +67,15 @@
 					var/line = fail_reason[3]
 
 					test_logs[I] += "[file]:[line]: [text]"
+					#ifdef CIBUILDING
+					// Shows the failure on that line in the PR's changed files
+					var/message = replacetext(replacetext("[text]", "%", "%25"), "\n", "%0A")
+					if(file != "OUTDATED_TEST")
+						log_world("::error file=[file],line=[line],title=[I]::[message]")
+					else
+						// No line to show it on, so it goes on the run's summary
+						log_world("::error title=[I]::[message]")
+					#endif
 				else
 					test_logs[I] += fail_reason
 
@@ -91,6 +110,11 @@
 		if(!test.succeeded)
 			failed_any_test = TRUE
 			test_logs[test.type] += test.fail_reasons
+			#ifdef CIBUILDING
+			// Map failures have no code line, so they go on the run's summary, one per test
+			var/message = replacetext(replacetext(jointext(test.fail_reasons, "\n"), "%", "%25"), "\n", "%0A")
+			log_world("::error title=[test.type]::[message]")
+			#endif
 
 	QDEL_LIST_CONTENTS(tests)
 

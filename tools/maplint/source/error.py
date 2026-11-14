@@ -23,6 +23,10 @@ class MaplintError(Exception):
         self.file_name = file_name
         self.line_number = line_number
 
+    # Lets maplint send the error back from its worker processes
+    def __reduce__(self):
+        return (self.__class__, (str(self), self.file_name, self.line_number), self.__dict__)
+
 """A parsing error that must be upgrading to a linting error by parse()."""
 class MapParseError(Exception):
     pass

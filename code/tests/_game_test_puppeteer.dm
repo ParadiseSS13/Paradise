@@ -28,7 +28,13 @@
 	origin_test.Fail("could not spawn puppeteer near [src]")
 
 /datum/test_puppeteer/proc/spawn_obj_in_hand(obj_type)
-	var/obj/new_obj = origin_test.allocate(obj_type, null)
+	var/obj/new_obj
+	if(ispath(obj_type, /obj/item/stack))
+		// Stacks merge into any stack on the turf they spawn on and get deleted, so make them in nullspace
+		new_obj = new obj_type()
+		LAZYADD(origin_test.allocated, new_obj)
+	else
+		new_obj = origin_test.allocate(obj_type, null)
 	if(puppet.put_in_hands(new_obj))
 		return new_obj
 

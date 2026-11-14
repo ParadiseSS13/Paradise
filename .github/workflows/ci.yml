@@ -8,6 +8,11 @@ on:
       - master
   merge_group:
 
+# A new push to a PR cancels the run for its old commit. Master and merge queue runs are never cancelled
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   run_linters:
     name: Run Linters
@@ -15,15 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.0
 
-      - name: Setup Cache
-        uses: actions/cache@v6.1.0
-        with:
-          path: ~/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm
-
       - name: Install Tools
         run: |
-          bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
       - uses: actions/setup-python@v7.1.0
@@ -41,14 +39,24 @@ jobs:
       - name: Run Linters
         run: |
           tools/ci/check_json.sh
-          tgui/bin/tgui --ci
           python -m pytest tools/ci/pytest
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
           python tools/ci/no_duplicate_definitions.py
+          # The TGUI checks take about 40 seconds, so they run alongside the checks below.
+          # They delete and reinstall node_modules, so they have to start after the checks above, which look through every file
+          tgui/bin/tgui --ci > "$RUNNER_TEMP/tgui.log" 2>&1 &
+          tgui_pid=$!
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.ci.check_simplemob_additions
           python -m tools.maplint.source --github
+          tgui_result=0
+          wait $tgui_pid || tgui_result=$?
+          echo "TGUI checks:"
+          cat "$RUNNER_TEMP/tgui.log"
+          # Files prettier would change are shown on the PR's changed files
+          sed -E 's/\x1b\[[0-9;]*m//g' "$RUNNER_TEMP/tgui.log" | sed -nE 's|^\[warn\] (packages/[^ ]+)$|::error file=tgui/\1::Code style issues found, run prettier --write on this file|p'
+          exit $tgui_result
 
       - name: Run DreamChecker
         shell: bash
@@ -86,13 +94,42 @@ jobs:
       # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
       - name: Compile All Maps
         run: |
-          tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
+          bash tools/ci/compile_dm.sh -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
+
+  # The other jobs already compile the game and build TGUI, so a PR only needs the Docker build if it changes the Docker setup
+  docker_changes:
+    name: Check Docker Changes
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.check.outputs.build }}
+    steps:
+      # No checkout, the file list comes from the GitHub API. Pushes to master and the merge queue always build
+      - name: Check Changed Files
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          CHANGED_FILES: ${{ github.event.pull_request.changed_files }}
+        run: |
+          build=true
+          # The API lists at most 3000 files, bigger PRs always build
+          if [ -n "$PR_NUMBER" ] && [ "$CHANGED_FILES" -le 3000 ]; then
+            # If the file list can't be read, it builds anyway
+            if files=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename'); then
+              if ! grep -qE '^(Dockerfile|\.dockerignore|_build_dependencies\.sh|rust/|tools/github-actions/|\.github/workflows/ci\.yml)' <<< "$files"; then
+                build=false
+                echo "This PR doesn't change the Docker build, so it is skipped."
+              fi
+            fi
+          fi
+          echo "build=$build" >> "$GITHUB_OUTPUT"
 
   docker_build:
     name: Build (Docker)
+    needs: docker_changes
+    if: needs.docker_changes.outputs.build == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
@@ -135,6 +172,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4.4.1
+        with:
+          # Removing the builder takes about 12 seconds, and the runner is thrown away after anyway
+          cleanup: false
       - name: Push Docker Image
         uses: docker/build-push-action@v7.4.0
         with:
@@ -150,11 +190,14 @@ jobs:
             VCS_REF=${{ steps.deps.outputs.VCS_REF }}
             BUILD_DATE=${{ steps.deps.outputs.BUILD_DATE }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Only master saves the cache. A PR's layers would only be used by that PR, and they push master's out of the cache
+          cache-to: ${{ github.event_name == 'push' && 'type=gha,mode=max' || '' }}
 
   station_mapload_tests:
     name: Station Tests
     runs-on: ubuntu-22.04
+    # Normally takes a few minutes, this stops a stuck test from holding a runner for hours
+    timeout-minutes: 20
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
@@ -168,21 +211,54 @@ jobs:
           release: ${{ matrix.byondtype }}
       - name: Compile & Run Unit Tests
         run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          bash tools/ci/compile_dm.sh -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
           mkdir -p data
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
 
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+  sql_validation:
+    name: SQL Validation
     runs-on: ubuntu-22.04
+    steps:
+      # MariaDB takes about 30 seconds to be ready, so it starts in the background first
+      - name: Start MariaDB
+        run: |
+          sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
+          docker run -d --name mariadb -p 3306:3306 -e MARIADB_ROOT_PASSWORD=root mariadb:12.3.2 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci > "$RUNNER_TEMP/mariadb.log" 2>&1 &
+
+      # Only the SQL files and CI scripts are needed, the rest of the repo takes about 10 seconds to download
+      - uses: actions/checkout@v7.0.0
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            SQL
+            tools/ci
+
+      - name: Validate DB
+        run: |
+          bash tools/ci/wait_for_mariadb.sh
+          python3 tools/ci/generate_sql_scripts.py
+          tools/ci/validate_sql.sh
+
+  unit_tests:
+    name: Unit Tests (${{ matrix.shard }}/3)
+    runs-on: ubuntu-22.04
+    # Normally takes a few minutes, this stops a stuck test from holding a runner for hours
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
         byondtype: ['STABLE']
+        # The game tests are split over these jobs. If you change this, change GAME_TEST_SHARDS in the compile step and the job name too
+        shard: [1, 2, 3]
     steps:
+      # MariaDB takes about 30 seconds to be ready, so it starts in the background first and gets ready while the game compiles
+      - name: Start MariaDB
+        run: |
+          sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
+          docker run -d --name mariadb -p 3306:3306 -e MARIADB_ROOT_PASSWORD=root mariadb:12.3.2 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci > "$RUNNER_TEMP/mariadb.log" 2>&1 &
+
       - uses: actions/checkout@v7.0.0
 
       - name: Restore BYOND from Cache
@@ -190,25 +266,20 @@ jobs:
         with:
           release: ${{ matrix.byondtype }}
 
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
-
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.11
-        with:
-          mariadb version: '12.3.2'
-          mysql root password: 'root'
-
-      - name: Setup & Validate DB
+      - name: Compile
         run: |
-          python3 tools/ci/generate_sql_scripts.py
-          tools/ci/validate_sql.sh
-
-      - name: Compile & Run Unit Tests
-        run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          bash tools/ci/compile_dm.sh -DGAME_TESTS -DGAME_TEST_SHARD=${{ matrix.shard }} -DGAME_TEST_SHARDS=3 -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+
+      # The SQL Validation job checks the update scripts, this only needs the finished schema
+      - name: Set up DB
+        run: |
+          bash tools/ci/wait_for_mariadb.sh
+          mysql -h 127.0.0.1 -u root -proot < SQL/paradise_schema.sql
+
+      - name: Run Unit Tests
+        run: |
+          source $HOME/BYOND/byond/bin/byondsetup
           mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
