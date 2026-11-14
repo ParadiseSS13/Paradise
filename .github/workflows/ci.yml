@@ -8,6 +8,11 @@ on:
       - master
   merge_group:
 
+# A new push to a PR cancels the run for its old commit. Master and merge queue runs are never cancelled
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   run_linters:
     name: Run Linters
@@ -17,7 +22,6 @@ jobs:
 
       - name: Install Tools
         run: |
-          bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
       - uses: actions/setup-python@v7.1.0
@@ -35,14 +39,22 @@ jobs:
       - name: Run Linters
         run: |
           tools/ci/check_json.sh
-          tgui/bin/tgui --ci
           python -m pytest tools/ci/pytest
           python tools/ci/define_sanity.py
           python tools/ci/restrict_file_types.py
           python tools/ci/no_duplicate_definitions.py
+          # The TGUI checks take about 40 seconds, so they run alongside the checks below.
+          # They delete and reinstall node_modules, so they have to start after the checks above, which look through every file
+          tgui/bin/tgui --ci > "$RUNNER_TEMP/tgui.log" 2>&1 &
+          tgui_pid=$!
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.ci.check_simplemob_additions
           python -m tools.maplint.source --github
+          tgui_result=0
+          wait $tgui_pid || tgui_result=$?
+          echo "TGUI checks:"
+          cat "$RUNNER_TEMP/tgui.log"
+          exit $tgui_result
 
       - name: Run DreamChecker
         shell: bash
@@ -152,6 +164,8 @@ jobs:
   station_mapload_tests:
     name: Station Tests
     runs-on: ubuntu-22.04
+    # Normally takes a few minutes, this stops a stuck test from holding a runner for hours
+    timeout-minutes: 20
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
@@ -192,6 +206,8 @@ jobs:
   unit_tests:
     name: Unit Tests (${{ matrix.shard }}/2)
     runs-on: ubuntu-22.04
+    # Normally takes a few minutes, this stops a stuck test from holding a runner for hours
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:

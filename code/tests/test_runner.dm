@@ -67,6 +67,12 @@
 					var/line = fail_reason[3]
 
 					test_logs[I] += "[file]:[line]: [text]"
+					#ifdef CIBUILDING
+					// Shows the failure on that line in the PR's changed files
+					if(file != "OUTDATED_TEST")
+						var/message = replacetext(replacetext("[text]", "%", "%25"), "\n", "%0A")
+						log_world("::error file=[file],line=[line],title=[I]::[message]")
+					#endif
 				else
 					test_logs[I] += fail_reason
 
