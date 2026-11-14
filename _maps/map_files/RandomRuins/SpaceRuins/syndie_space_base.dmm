@@ -7200,7 +7200,7 @@
 /obj/structure/table,
 /obj/machinery/alarm/syndicate/directional/south,
 /obj/item/stack/sheet/metal/fifty,
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/syndicate,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/foam_grenades,
 /turf/simulated/floor/plasteel/dark,
@@ -7482,11 +7482,11 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "VO" = (
 /obj/item/storage/belt/medical,
-/obj/item/crowbar,
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/neck/stethoscope,
 /obj/structure/table,
 /obj/effect/turf_decal/tiles/department/medical/side,
+/obj/item/crowbar/red,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "VP" = (

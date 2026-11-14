@@ -1742,7 +1742,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal,
 /obj/item/clothing/glasses/welding,
-/obj/item/weldingtool,
+/obj/item/weldingtool/hugetank/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "gW" = (
@@ -2574,7 +2574,7 @@
 /area/space/centcomm)
 "jx" = (
 /obj/structure/table,
-/obj/item/screwdriver{
+/obj/item/screwdriver/nuke{
 	pixel_y = 9
 	},
 /obj/item/assembly/voice{
@@ -3038,12 +3038,12 @@
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = 5
 	},
-/obj/item/multitool{
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/multitool/red{
 	pixel_x = -7;
 	pixel_y = -1
 	},
-/obj/item/multitool,
-/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/multitool/red,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kT" = (
@@ -3609,7 +3609,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
-/obj/item/multitool,
+/obj/item/multitool/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "mG" = (
@@ -5434,10 +5434,6 @@
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"sR" = (
-/obj/machinery/economy/vending/tool/free,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "sS" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -5618,8 +5614,8 @@
 /area/shuttle/syndicate)
 "tz" = (
 /obj/structure/table,
-/obj/item/weldingtool/largetank,
-/obj/item/multitool,
+/obj/item/weldingtool/hugetank/syndicate,
+/obj/item/multitool/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tA" = (
@@ -6000,7 +5996,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
 "uM" = (
-/obj/structure/computerframe,
+/obj/structure/computerframe{
+	dir = 1
+	},
 /obj/item/paper/synditele,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -7293,6 +7291,10 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"zI" = (
+/obj/machinery/economy/vending/synditool,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "zJ" = (
 /obj/structure/sign/service/kitchen,
 /turf/simulated/wall/indestructible/syndicate,
@@ -66788,7 +66790,7 @@ zf
 RY
 RY
 Sd
-sR
+zI
 XJ
 kD
 tX
@@ -71393,7 +71395,7 @@ XJ
 ie
 XJ
 XJ
-sR
+zI
 ks
 ky
 kM
