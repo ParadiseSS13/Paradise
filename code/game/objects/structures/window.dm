@@ -456,6 +456,7 @@
 /obj/structure/window/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	. = ..()
 	anchored = FALSE
+	recalculate_atmos_connectivity()
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/structure/window/CanAtmosPass(direction)

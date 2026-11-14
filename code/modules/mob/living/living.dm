@@ -230,7 +230,11 @@
 		var/mob/living/living_mob = AM
 		if(!living_mob.buckled)
 			current_dir = AM.dir
+	var/turf/old_turf = AM.loc
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
+		// Anchored things can be holding back air, and most don't expect to get moved.
+		if(AM.anchored)
+			AM.move_update_air(old_turf)
 		Move(get_step(loc, t), t)
 	if(current_dir)
 		AM.setDir(current_dir)

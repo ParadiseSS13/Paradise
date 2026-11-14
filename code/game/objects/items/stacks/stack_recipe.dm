@@ -178,6 +178,7 @@
 		W.ini_dir = W.dir
 		W.anchored = FALSE
 		W.state = WINDOW_OUT_OF_FRAME
+		W.recalculate_atmos_connectivity()
 	..()
 
 /*
