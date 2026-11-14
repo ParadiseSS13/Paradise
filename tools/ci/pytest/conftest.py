@@ -5,8 +5,7 @@ from pathlib import Path
 from typing import Optional, cast
 
 import pytest
-from avulto import DME
-from avulto.ast import SourceLoc
+from avulto import DME, SourceLoc
 from pytest import FixtureRequest, Function, Item
 
 GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"

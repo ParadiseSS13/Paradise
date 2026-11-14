@@ -71,7 +71,7 @@ def test_user_verb_params(dme: DME, lint: Lint):
     for pth in dme.subtypesof("/datum/user_verb"):
         walker = Walker()
         td = dme.types[pth]
-        proc = td.proc_decls("__avd_do_verb")[0]
+        proc = td.procs["__avd_do_verb"][0]
         proc.walk(walker)
 
         if walker.bad_names:

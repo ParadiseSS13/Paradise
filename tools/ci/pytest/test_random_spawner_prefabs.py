@@ -32,7 +32,7 @@ def test_random_spawner_prefabs(dme: DME, lint: Lint):
     for pth in dme.subtypesof("/obj/effect/spawner/random"):
         invalid_items = []
         td = dme.types[pth]
-        loot = td.var_decl("loot").const_val
+        loot = td.vars["loot"].const_val
         if not loot:
             continue
         if result := check_list_items(loot, invalid_items):

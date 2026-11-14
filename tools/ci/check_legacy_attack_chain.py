@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from collections import defaultdict
 from typing import Any
 
-from avulto import DME, Path as p, ProcDecl, TypeDecl
+from avulto import DME, TypePath as p, ProcDef, TypeDef
 from avulto.ast import NodeKind
 
 
@@ -17,7 +17,7 @@ NC = "\033[0m"  # No Color
 
 @dataclass(frozen=True)
 class AttackChainCall:
-    proc_decl: ProcDecl
+    proc_decl: ProcDef
     var_name: str
     var_type: p | None
     call_name: str
@@ -35,7 +35,7 @@ class AttackChainCall:
             return f"{self.source_info.file_path}:{self.source_info.line}: {RED}{self.make_error_message()}{NC}"
 
 
-def make_error_from_procdecl(proc_decl: ProcDecl, msg) -> str:
+def make_error_from_ProcDef(proc_decl: ProcDef, msg) -> str:
     if os.getenv("GITHUB_ACTIONS") == "true":
         return f"::error file={proc_decl.source_loc.file_path},line={proc_decl.source_loc.line},title=Attack Chain::{proc_decl.source_loc.file_path}:{proc_decl.source_loc.line}: {RED}{msg}{NC}"
 
@@ -51,7 +51,7 @@ def make_error_from_procdecl(proc_decl: ProcDecl, msg) -> str:
 # that variable's matching type. If the type matches, then the call site is
 # calling a legacy proc on that type.
 class AttackChainCallWalker:
-    def __init__(self, type_decl: TypeDecl, proc_decl: ProcDecl):
+    def __init__(self, type_decl: TypeDef, proc_decl: ProcDef):
         self.type_decl = type_decl
         self.proc_decl = proc_decl
         self.local_vars = dict()
@@ -67,7 +67,7 @@ class AttackChainCallWalker:
                 return arg.arg_type
 
         try:
-            vd = self.type_decl.var_decl(name, parents=True)
+            vd = self.type_decl.vars[name]
             if vd.declared_type:
                 return vd.declared_type
         except:
@@ -179,7 +179,7 @@ if __name__ == "__main__":
         ):
             try:
                 SETTING_CACHE[pth] = bool(
-                    td.var_decl("new_attack_chain", parents=True).const_val
+                    td.vars["new_attack_chain"].const_val
                 )
             except:
                 SETTING_CACHE[pth] = False
@@ -202,7 +202,7 @@ if __name__ == "__main__":
                 exit_code = 1
                 for proc_decl in sorted(LEGACY_PROCS[pth], key=lambda x: x.name):
                     ERROR_STRINGS.append(
-                        make_error_from_procdecl(
+                        make_error_from_ProcDef(
                             proc_decl,
                             f"migrated type with legacy proc {pth}/{proc_decl.name}(...)",
                         )
@@ -221,7 +221,7 @@ if __name__ == "__main__":
                 exit_code = 1
                 for proc_decl in sorted(MODERN_PROCS[pth], key=lambda x: x.name):
                     ERROR_STRINGS.append(
-                        make_error_from_procdecl(
+                        make_error_from_ProcDef(
                             proc_decl,
                             f"legacy type with migrated proc {pth}/{proc_decl.name}(...)",
                         )
