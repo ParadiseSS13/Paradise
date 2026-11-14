@@ -6,13 +6,13 @@
 /area/ruin/unpowered/althland_excavation)
 "ac" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/portable/canister/air,
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/storage)
 "ad" = (
@@ -56,7 +56,7 @@
 "ah" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -477,7 +477,7 @@
 	dir = 4
 	},
 /obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -485,7 +485,6 @@
 	},
 /area/ruin/unpowered/althland_excavation/dorms)
 "bF" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/girder/reinforced,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -1267,7 +1266,7 @@
 "qT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1655,6 +1654,9 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -2104,6 +2106,17 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
+"Kt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/white,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/storage)
 "KB" = (
 /obj/item/stack/sheet/plasteel,
 /obj/effect/mapping_helpers/no_lava,
@@ -2385,11 +2398,6 @@
 /obj/structure/cable/extra_insulated,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/storage)
-"PZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_excavation/dorms)
 "Qk" = (
 /obj/effect/map_effect/dynamic_airlock,
 /obj/effect/decal/cleanable/dirt,
@@ -2739,13 +2747,6 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation/electrical)
-"Zr" = (
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered/althland_excavation/storage)
 "Zs" = (
 /obj/item/chair{
 	dir = 1
@@ -3619,7 +3620,7 @@ ao
 ar
 ay
 nR
-PZ
+nR
 qc
 ad
 Yu
@@ -3718,7 +3719,7 @@ aI
 bK
 NJ
 of
-PZ
+nR
 nR
 Al
 mx
@@ -3752,7 +3753,7 @@ lz
 WH
 sA
 bE
-Zr
+Al
 ac
 bJ
 Gr
@@ -3783,9 +3784,9 @@ uB
 HC
 aV
 Xl
-uB
+lz
 zw
-bB
+Kt
 bk
 DV
 as
