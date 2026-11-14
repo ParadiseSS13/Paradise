@@ -246,3 +246,81 @@
 	playsound(src.loc, usesound, 20, 1)
 	add_fingerprint(user)
 	return TRUE
+
+//Hair Dye Bottle
+
+/obj/item/hair_dye_bottle
+	name = "hair dye bottle"
+	desc = "A refillable bottle used for holding hair dyes of all sorts of colors."
+	icon_state = "hairdyebottle"
+	throw_speed = 4
+	w_class = WEIGHT_CLASS_TINY
+	var/dye_color = "#FFFFFF"
+	new_attack_chain = TRUE
+
+/obj/item/hair_dye_bottle/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/hair_dye_bottle/update_overlays()
+	. = ..()
+	var/image/I = new('icons/obj/items.dmi', "hairdyebottle-overlay")
+	I.color = dye_color
+	. += I
+
+/obj/item/hair_dye_bottle/interact_with_atom(mob/living/carbon/human/target, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
+	if(!ishuman(target))
+		return ..()
+
+	var/dye_list = list()
+	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
+
+	if(head_organ && !(head_organ.dna.species.bodyflags & BALD))
+		dye_list += "hair"
+		dye_list += "alt. hair theme"
+
+	if(head_organ && !(head_organ.dna.species.bodyflags & SHAVED))
+		dye_list += "facial hair"
+		dye_list += "alt. facial hair theme"
+
+	if(target.dna.species.bodyflags & HAS_SKIN_COLOR)
+		dye_list += "body"
+
+	if(!length(dye_list))
+		to_chat(user, SPAN_WARNING("[target] doesn't have any dyeable features!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/what_to_dye = tgui_input_list(user, "Choose an area to apply the dye", "Dye Application", dye_list)
+	if(!user.Adjacent(target))
+		return ITEM_INTERACT_COMPLETE
+	if(!(what_to_dye in dye_list))
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(
+		SPAN_NOTICE("[user] starts dyeing [target]'s [what_to_dye]!"),
+		SPAN_NOTICE("You start dyeing [target]'s [what_to_dye]!")
+	)
+	add_fingerprint(user)
+	if(!do_after(user, 50, target = target))
+		to_chat(user, SPAN_NOTICE("You stop dyeing [target]'s [what_to_dye]."))
+		return ITEM_INTERACT_COMPLETE
+	switch(what_to_dye)
+		if("hair")
+			target.change_hair_color(dye_color)
+		if("alt. hair theme")
+			target.change_hair_color(dye_color, TRUE)
+		if("facial hair")
+			target.change_facial_hair_color(dye_color)
+		if("alt. facial hair theme")
+			target.change_facial_hair_color(dye_color, TRUE)
+		if("body")
+			target.change_skin_color(dye_color)
+	target.update_dna()
+	user.visible_message(
+		SPAN_NOTICE("[user] finishes dyeing [target]'s [what_to_dye]!"),
+		SPAN_NOTICE("You finish dyeing [target]'s [what_to_dye]!")
+	)
+	return ITEM_INTERACT_COMPLETE

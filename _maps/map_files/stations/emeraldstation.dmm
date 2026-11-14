@@ -66822,7 +66822,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "nws" = (
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel/white,
