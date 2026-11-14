@@ -11,6 +11,7 @@
 #define ROLE_SYNDICATE			"Syndicate"
 #define ROLE_TRAITOR			"traitor"
 #define ROLE_OPERATIVE			"operative"
+#define ROLE_MALF				"malfunctioning ai"
 #define ROLE_CHANGELING			"changeling"
 #define ROLE_WIZARD				"wizard"
 #define ROLE_REV				"revolutionary"
@@ -66,6 +67,7 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_ACOLYTE,										// Acolyte
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
+	ROLE_MALF,											// Malf AI
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
 	ROLE_REVENANT, 										// Revenant
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary

@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// SOLO ANTAGS
 	ROLE_TRAITOR = 5,
+	ROLE_MALF = 15,
 	ROLE_CHANGELING = 5,
 	ROLE_ACOLYTE = 5,
 	ROLE_WIZARD = 20,
