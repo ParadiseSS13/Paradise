@@ -598,6 +598,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_COOL "cool"
 #define TRAIT_UNCLONABLE "unclonable"
 #define TRAIT_TINY "tiny"
+#define TRAIT_NO_SPECIES_LANGUAGE "no_species_language"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
