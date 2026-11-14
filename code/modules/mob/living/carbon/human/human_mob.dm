@@ -1458,6 +1458,7 @@
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
 			var/list/stats = new/list(6)
+			stats[1] = new E.type()
 			if(keep_implants)
 				stats[5] = E.hidden
 				var/list/implants = list()
@@ -1472,7 +1473,6 @@
 			stats[2] = E.brute_dam
 			stats[3] = E.burn_dam
 			stats[4] = (E.status & ORGAN_INT_BLEEDING)
-			stats[1] = new E.type()
 			bodypart_stats += list(stats)
 
 		//Now we do the same for internal organs via the same proceedure.
