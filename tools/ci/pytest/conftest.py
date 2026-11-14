@@ -4,9 +4,9 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Optional, cast
 
+import pytest
 from avulto import DME
 from avulto.ast import SourceLoc
-import pytest
 from pytest import FixtureRequest, Function, Item
 
 GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
@@ -122,6 +122,13 @@ def dmi_files(request: FixtureRequest) -> list[Path]:
     Find all .dmi files recursively
     """
     return get_codebase_file("dmi")
+
+@pytest.fixture(scope="session")
+def dmm_files(request: FixtureRequest) -> list[Path]:
+    repo_root = get_repo_root()
+    # We want to ignore non-mapped files like the rust/src/mapmanip/test directory
+    subdir = "_maps/map_files"
+    return [file.relative_to(repo_root) for file in (repo_root / subdir).rglob(f"*.dmm")]
 
 @pytest.fixture
 def lint(request: FixtureRequest) -> Lint:

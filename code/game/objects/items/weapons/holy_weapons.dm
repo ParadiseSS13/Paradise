@@ -334,8 +334,8 @@
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!reskinned)
+		return ..()
 
 	if(possessed)
 		return ITEM_INTERACT_COMPLETE
@@ -525,8 +525,8 @@
 	var/used_blessing = FALSE
 
 /obj/item/nullrod/carp/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!reskinned)
+		return ..()
 
 	if(used_blessing)
 		return ITEM_INTERACT_COMPLETE
@@ -537,6 +537,7 @@
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
 	used_blessing = TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /// May as well make it a "claymore" and inherit the blocking
 /obj/item/nullrod/claymore/bostaff
@@ -780,7 +781,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	user.audible_message(
-		SPAN_NOTICE("[user] rings [src], and what an auspicious sound it is."),
+		SPAN_NOTICE("[src] rings, and what an auspicious sound it is."),
 		SPAN_NOTICE("You ring [src] to welcome divinity to your surroundings."),
 		SPAN_NOTICE("[user] taps [src] once and stands very still.")
 	)
@@ -953,8 +954,8 @@
 	var/ghostcall_CD = 0
 
 /obj/item/nullrod/salt/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!reskinned)
+		return ..()
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
@@ -1075,13 +1076,7 @@
 		to_chat(missionary, SPAN_WARNING("You must be wearing the missionary robes you wish to link with this staff."))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/nullrod/missionary_staff/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
-	if(!ishuman(target))
-		return ..()
-
-	if(target == user)
-		return ..()
-
+/obj/item/nullrod/missionary_staff/proc/start_convert(atom/target, mob/living/carbon/human/user)
 	if(!robes)
 		to_chat(user, SPAN_WARNING("You must link your staff to a set of missionary robes before attempting conversions."))
 		return ITEM_INTERACT_COMPLETE
@@ -1109,7 +1104,7 @@
 
 		// User must maintain line of sight to target, but the target doesn't necessary need to be able to see the user.
 		if(user in viewers(target))
-			do_convert(target, user)
+			wololo(target, user)
 		else
 			to_chat(user, SPAN_WARNING("You lost sight of the target before [target.p_they()] could be converted!"))
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
@@ -1118,7 +1113,14 @@
 		to_chat(user, SPAN_WARNING("Your concentration was broken!"))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
+/**
+  * Attempts to brainwash target to follow the missionary's orders
+  *
+  * Arguments:
+  * * target - Human traget to brainwash
+  * * missionary - Human performing the brainwashing
+  */
+/obj/item/nullrod/missionary_staff/proc/wololo(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 10 MINUTES
 
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
@@ -1155,6 +1157,24 @@
 	SEND_SOUND(target, sound('sound/misc/wololo.ogg', volume = 25))
 	missionary.say("WOLOLO!")
 	SEND_SOUND(missionary, sound('sound/misc/wololo.ogg', volume = 25))
+
+/obj/item/nullrod/missionary_staff/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target))
+		return ..()
+	if(target == user)
+		return ..()
+
+	start_convert(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/nullrod/missionary_staff/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target))
+		return ..()
+	if(target == user)
+		return ..()
+
+	start_convert(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/storage/belt/sheath/holy
 	/// Extra 'Holy' burn damage for ERT null sheaths

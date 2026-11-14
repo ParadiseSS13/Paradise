@@ -106,7 +106,7 @@
  */
 /datum/tgui_list_input/proc/wait()
 	while(!choice && !closed)
-		stoplag(1)
+		stoplag()
 
 /datum/tgui_list_input/ui_state(mob/user)
 	return state

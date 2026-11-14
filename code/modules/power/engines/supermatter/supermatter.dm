@@ -103,7 +103,7 @@
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter"
 	density = TRUE
-	layer = ABOVE_MOB_LAYER + 0.01
+	layer = ABOVE_MOB_LAYER
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -400,8 +400,10 @@
 		if(atoms_share_level(T, mob_turf))
 			SEND_SOUND(M, super_matter_charge_sound)
 
-			if(atoms_share_level(M, src))
+			if(atoms_share_level(M, src) || (istype(M.loc, /obj/item/aicard) && atoms_share_level(M.loc, src)))
 				to_chat(M, SPAN_BOLDANNOUNCEIC("You feel reality distort for a moment..."))
+			else if(istype(M.loc, /obj/item/aicard))
+				to_chat(M, SPAN_BOLDANNOUNCEIC("You sit safely in your intelliCard as reality distorts around you."))
 			else
 				to_chat(M, SPAN_BOLDANNOUNCEIC("You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe."))
 
@@ -1082,7 +1084,6 @@
 	icon_state = "darkmatter_shard"
 	anchored = FALSE
 	explosion_power = 12
-	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
 
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine

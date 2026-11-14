@@ -33,9 +33,6 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
-	if(ratingdesc)
-		// State of charge is in kJ so we multiply it by 1000 to get Joules
-		desc += SPAN_NOTICE("It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.")
 	update_icon(UPDATE_OVERLAYS)
 	if(istype(loc, /obj/machinery/cell_charger))
 		loc.update_icon(UPDATE_OVERLAYS)
@@ -96,6 +93,9 @@
 
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
+	if(ratingdesc)
+		// State of charge is in kJ so we multiply it by 1000 to get Joules
+		. += SPAN_NOTICE("It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.")
 	if(rigged)
 		. += SPAN_DANGER("This power cell seems to be faulty!")
 	else

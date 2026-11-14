@@ -118,6 +118,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
 	add_language("Cygni Standard", 1)
+	add_language("Voidfarer", 1)
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
@@ -362,6 +363,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot/AltClick(mob/user, modifiers)
 	. = ..()
+	if(!Adjacent(user))
+		return
 	unlock_with_id(user)
 
 /mob/living/basic/bot/proc/unlock_with_id(mob/living/user)

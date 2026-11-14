@@ -49,7 +49,7 @@
 	INVOKE_ASYNC(src, PROC_REF(spawn_arrivals))
 
 /datum/event/tourist_arrivals/proc/spawn_arrivals()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Tourist?", null, TRUE)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Tourist?", ROLE_TOURIST, TRUE)
 	// We'll keep spawning new tourists until we hit the max_spawn cap of tourists.
 	while(max_spawn > 0 && length(candidates))
 		var/turf/picked_loc = pick(GLOB.latejoin)

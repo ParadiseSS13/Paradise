@@ -10,7 +10,7 @@
 		/obj/item/stack/sheet/bone = 10,
 		/obj/item/stack/sheet/sinew = 2,
 	)
-	crusher_loot = list(/obj/item/crusher_trophy/tail_spike)
+	crusher_loot = /obj/item/crusher_trophy/whelp_oil
 	speed = 12
 
 	maxHealth = 300

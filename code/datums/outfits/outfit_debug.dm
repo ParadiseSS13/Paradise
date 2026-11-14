@@ -153,6 +153,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
 	w_class = WEIGHT_CLASS_SMALL
+	new_attack_chain = TRUE
 	var/datum/species/selected_species
 	var/activate_mind = FALSE
 
@@ -160,20 +161,31 @@
 	. = ..()
 	. += SPAN_NOTICE("<b>Alt-Click</b> to toggle mind-activation on spawning.")
 
-/obj/item/debug/human_spawner/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	..()
+/obj/item/debug/human_spawner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!isturf(target))
-		return
+		return ..()
+	spawn_new_human(target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/debug/human_spawner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isturf(target))
+		return ..()
+	spawn_new_human(target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/debug/human_spawner/proc/spawn_new_human(turf/target)
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
 	if(selected_species)
 		H.setup_dna(selected_species.type)
 	if(activate_mind)
 		H.mind_initialize()
 
-/obj/item/debug/human_spawner/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/debug/human_spawner/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/choice = input("Select a species", "Human Spawner", null) in GLOB.all_species
 	selected_species = GLOB.all_species[choice]
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/debug/human_spawner/AltClick(mob/user)
 	if(!Adjacent(user))

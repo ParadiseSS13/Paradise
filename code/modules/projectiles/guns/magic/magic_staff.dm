@@ -22,12 +22,21 @@
 
 /obj/item/gun/magic/staff/healing
 	name = "staff of healing"
-	desc = "An artefact that spits bolts of restoring magic which can remove ailments of all kinds and even raise the dead."
+	desc = "An artefact that spits bolts of restoring magic which can remove ailments of all kinds and even raise the dead. \
+	However, this staff will not allow you to use it on yourself."
 	icon_state = "staffofhealing"
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 
-/obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
+/obj/item/gun/magic/staff/healing/try_to_shoot_gun(atom/target, mob/living/user, proximity) // Stops people trying to commit suicide to heal themselves.
+	if(target != user)
+		return ..()
+	
+	to_chat(user, SPAN_USERDANGER("[src] resists your attempts to point it at yourself!"))
+	return
+
+/obj/item/gun/magic/staff/healing/handle_suicide(mob/user, mob/living/carbon/human/target, params) // Stops people trying to commit suicide to heal themselves.
+	to_chat(user, SPAN_USERDANGER("[src] resists your attempts to point it at yourself!"))
 	return
 
 /obj/item/gun/magic/staff/chaos

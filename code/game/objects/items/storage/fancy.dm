@@ -314,7 +314,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
-	desc = "Smoked mainly by spacers. The somewhat fishy notes are an acquired taste. \
+	desc = "Smoked mainly by voidfarers. The somewhat fishy notes are an acquired taste. \
 	Has a light, low-tar smoke specifically designed to reduce stress on scrubber systems."
 	icon_state = "carp_packet"
 	inhand_icon_state = "carp_packet"

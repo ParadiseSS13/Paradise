@@ -49,7 +49,7 @@
 	overdose_threshold = 30
 	dizzy_adj = 10 SECONDS
 	alcohol_perc = 0.7
-	drink_icon = "absinthebottle"
+	drink_icon = "absintheglass"
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "bitter"
@@ -1791,15 +1791,16 @@
 /datum/reagent/consumable/ethanol/bacchus_blessing
 	name = "Bacchus' Blessing"
 	id = "bacchus_blessing"
-	description = "Unidentifiable mixture. Unmeasurably high alcohol content."
+	description = "ERR://300A%#/: cannot resolve molecular composition. Latent bluespace energies detected."
 	color = rgb(51, 19, 3) //Sickly brown
+	process_flags = ORGANIC | SYNTHETIC // No one will escape...
 	dizzy_adj = 42 SECONDS
-	alcohol_perc = 3 //I warned you
+	alcohol_perc = 3 // I warned you.
 	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"
-	yuck_description = "scoured surfaces"
+	yuck_description = "a wall of bricks"
 
 /datum/reagent/consumable/ethanol/fernet
 	name = "Fernet"

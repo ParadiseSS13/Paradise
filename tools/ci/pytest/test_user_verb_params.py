@@ -1,7 +1,6 @@
+import pytest
 from avulto import DME
 from avulto.ast import NodeKind
-import pytest
-
 from conftest import Lint
 
 PROCS_NEED_CLIENT = (

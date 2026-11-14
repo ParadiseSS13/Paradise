@@ -130,7 +130,12 @@
 		to_chat(user, SPAN_WARNING("Your funds are already safe!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You quickly cash out your funds to a more secure banking location."))
+	user.visible_message(
+		SPAN_NOTICE("[user] swipes [user.p_their()] ID on [src] and quickly cashes out [user.p_their()] funds to a more secure banking location."),
+		SPAN_NOTICE("You quickly cash out your funds to a more secure banking location."),
+		SPAN_HEAR("You hear a card swiping and a transaction confirmation chime.")
+	)
+	playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 	accounts_to_rob -= account
 
 	if(check_if_finished())
