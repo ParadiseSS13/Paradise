@@ -1,0 +1,251 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"b" = (
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"c" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"d" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/border/department/medbay{
+	dir = 4;
+	pixel_x = -11
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"j" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/border/department/medbay{
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"l" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/item/trash/chips,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"p" = (
+/obj/structure/window/plastitanium,
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"s" = (
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/item/toy/plushie/nianplushie/moonfly,
+/obj/item/clothing/glasses/welding/superior{
+	pixel_y = 4
+	},
+/obj/item/clothing/head/hardhat/white{
+	pixel_y = 15
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"v" = (
+/obj/item/toy/spinningtoy,
+/turf/simulated/floor/fakespace,
+/area/centcom/diorama/singulo)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/power/rad_collector/pre_activated,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"x" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/border/department/medbay{
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"y" = (
+/obj/structure/window/plastitanium,
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"z" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"A" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"F" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/border/department/medbay{
+	dir = 4;
+	pixel_x = -11
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"J" = (
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/power/rad_collector/pre_activated,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"V" = (
+/obj/structure/window/plastitanium,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"Y" = (
+/obj/machinery/field/generator,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/machinery/power/rad_collector/pre_activated,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/singulo)
+
+(1,1,1) = {"
+w
+X
+X
+X
+X
+B
+q
+"}
+(2,1,1) = {"
+T
+b
+d
+s
+z
+y
+q
+"}
+(3,1,1) = {"
+T
+j
+v
+x
+a
+V
+A
+"}
+(4,1,1) = {"
+T
+J
+F
+Y
+z
+p
+q
+"}
+(5,1,1) = {"
+Z
+c
+c
+t
+l
+m
+q
+"}

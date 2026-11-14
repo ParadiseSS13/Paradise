@@ -1,0 +1,222 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"d" = (
+/obj/structure/table/wood,
+/obj/item/taperecorder,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"e" = (
+/obj/item/toy/plushie/slimeplushie,
+/obj/item/melee/baton{
+	pixel_x = 9
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/item/toy/plushie/greyplushie,
+/obj/item/restraints/handcuffs{
+	pixel_y = -5
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"n" = (
+/obj/structure/window/plastitanium,
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/item/toy/plushie/kidanplushie,
+/obj/item/clothing/head/det_hat{
+	pixel_y = 10;
+	pixel_x = 2
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"s" = (
+/obj/structure/table/wood,
+/obj/item/gavelblock,
+/obj/item/gavelhammer,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/item/kirbyplants/large/plant15,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"y" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"A" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"C" = (
+/obj/structure/window/plastitanium,
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/item/toy/plushie/voxplushie,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"D" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/carton/tomato,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"G" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"K" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"P" = (
+/obj/structure/table/wood,
+/obj/item/folder/red{
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/drinks/drinkingglass{
+	pixel_y = 8;
+	pixel_x = -7
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = -7
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"R" = (
+/obj/structure/table/wood,
+/obj/item/folder/yellow,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"S" = (
+/obj/structure/table/wood,
+/obj/item/folder/blue{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/drinks/drinkingglass{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = 6
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/chair/comfy/black,
+/obj/item/clothing/head/justice_wig{
+	pixel_y = 3
+	},
+/obj/item/toy/plushie/ipcplushie{
+	pixel_y = -8
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/item/kirbyplants/large/plant4,
+/turf/simulated/floor/wood,
+/area/centcom/diorama/court)
+
+(1,1,1) = {"
+w
+X
+X
+X
+K
+B
+q
+"}
+(2,1,1) = {"
+G
+R
+a
+a
+P
+n
+q
+"}
+(3,1,1) = {"
+T
+s
+a
+a
+a
+y
+A
+"}
+(4,1,1) = {"
+G
+d
+e
+a
+S
+C
+q
+"}
+(5,1,1) = {"
+Z
+t
+t
+t
+D
+m
+q
+"}
