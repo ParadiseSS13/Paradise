@@ -771,24 +771,24 @@
 			M.dropped()
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/kitchen/knife/combat))
+	if(istype(used, /obj/item/kitchen/knife/combat) || istype(used, /obj/item/kitchen/knife/smithed))
 		if(!knife_slot)
-			to_chat(user, SPAN_NOTICE("There is no place to put [used] in [src]!"))
+			to_chat(user, SPAN_WARNING("There is no place to put [used] in [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(hidden_blade)
-			to_chat(user, SPAN_NOTICE("There is already something in [src]!"))
+			to_chat(user, SPAN_WARNING("There is already something in [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item_to_ground(used))
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
-
 			var/stabbed_foot = pick("l_foot", "r_foot")
 			user.visible_message(
-				SPAN_NOTICE("[user] tries to place [used] into [src] but stabs their own foot!"),
-				SPAN_WARNING("You go to put [used] into [src], but miss the boot and stab your own foot!")
+				SPAN_WARNING("[user] tries to place [used] into [src] but stabs their own foot!"),
+				SPAN_USERDANGER("You go to put [used] into [src], but miss the boot and stab your own foot!")
 			)
 			user.apply_damage(used.force, BRUTE, stabbed_foot)
 			user.drop_item(used)
