@@ -1497,11 +1497,6 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation)
-"wb" = (
-/obj/structure/grille/broken,
-/obj/effect/decal/cleanable/glass/plasma,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "wd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -2106,10 +2101,12 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-4"
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "KB" = (
 /obj/item/stack/sheet/plasteel,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "KD" = (
@@ -2209,6 +2206,7 @@
 "Mt" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/plasteel,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "Mu" = (
@@ -2528,10 +2526,12 @@
 /area/ruin/unpowered/althland_excavation)
 "UN" = (
 /obj/structure/grille,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "UR" = (
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "US" = (
@@ -3602,7 +3602,7 @@ aB
 aB
 aB
 aB
-wb
+aj
 FQ
 fc
 pZ
