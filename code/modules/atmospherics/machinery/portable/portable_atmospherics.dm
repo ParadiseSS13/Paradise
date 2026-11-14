@@ -34,11 +34,11 @@
 	if(port)
 		connect(port)
 
+/// Returns TRUE if our air reacted
 /obj/machinery/atmospherics/portable/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
-		air_contents.react()
-		return
+		return air_contents.react()
 
 /obj/machinery/atmospherics/portable/Destroy()
 	SSair.atmos_machinery -= src

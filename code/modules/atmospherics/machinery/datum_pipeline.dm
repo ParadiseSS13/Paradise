@@ -6,6 +6,10 @@
 	var/list/obj/machinery/atmospherics/other_atmosmch = list()
 	/// The valves and connectors in other_atmosmch, the only machinery reconcile_air() needs to look at
 	var/list/obj/machinery/atmospherics/reconcile_machinery = list()
+	/// What reconcile_air() last shared: each air's serial and volume, in order
+	var/list/shared_layout
+	/// Their versions added up, right after
+	var/shared_versions
 
 	var/update = TRUE
 
@@ -247,11 +251,37 @@
 			if(C.connected_device)
 				GL += C.portableConnectorReturnAir()
 
+	// Same airs as last time and none changed, so nothing to share
+	var/versions = 0
+	for(var/datum/gas_mixture/G as anything in GL)
+		if(QDELETED(G))
+			versions = null
+			break
+		versions += G.version
+	var/list/layout
+	// Only worth telling the airs apart once nothing's changed
+	if(!isnull(versions) && versions == shared_versions)
+		var/static/last_serial = 0
+		layout = list()
+		for(var/datum/gas_mixture/G as anything in GL)
+			if(!G.serial)
+				G.serial = ++last_serial
+			layout += G.serial
+			layout += G.volume
+		if(layout ~= shared_layout)
+			return
+
+	var/shared = FALSE
 	if(length(members))
-		share_many_airs(GL, members[1])
+		shared = share_many_airs(GL, members[1])
 	else if(length(other_atmosmch))
-		share_many_airs(GL, other_atmosmch[1])
+		shared = share_many_airs(GL, other_atmosmch[1])
 	// If neither has anything, GL will have no volumen, so nothing to share.
+	shared_layout = layout
+	// Sharing moves every air on by one
+	if(!isnull(versions) && shared)
+		versions += length(GL)
+	shared_versions = versions
 
 /datum/pipeline/proc/add_ventcrawler(mob/living/crawler)
 	if(!(crawler in crawlers))

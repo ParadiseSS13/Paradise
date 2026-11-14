@@ -52,10 +52,10 @@
 		air_contents.set_temperature(new_temperature)
 		partner.air_contents.set_temperature(new_temperature)
 
-	if(abs(old_temperature-air_contents.temperature()) > 1)
+	if(old_temperature != air_contents.temperature())
 		parent.update = 1
 
-	if(abs(other_old_temperature-partner.air_contents.temperature()) > 1)
+	if(other_old_temperature != partner.air_contents.temperature())
 		partner.parent.update = 1
 
 
