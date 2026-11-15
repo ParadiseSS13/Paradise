@@ -64,6 +64,12 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
+// Sentience types
+#define SENTIENCE_ORGANIC 1
+#define SENTIENCE_ARTIFICIAL 2
+#define SENTIENCE_OTHER 3
+#define SENTIENCE_MINEBOT 4
+#define SENTIENCE_BOSS 5
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -267,7 +273,7 @@
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)			(istype((A), /mob/living/basic/mouse))
-#define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
+#define isbot(A)			(istype((A), /mob/living/basic/bot))
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      	(istype((A), /mob/living/basic/diona_nymph))
 #define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
@@ -290,7 +296,7 @@
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
 #define ispathbrain(A)		(ispath(A, /mob/living/brain))
 #define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
-#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathbot(A)			(ispath(A, /mob/living/basic/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 

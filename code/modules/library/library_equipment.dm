@@ -390,6 +390,18 @@
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
+/obj/item/barcodescanner/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-Click</b> to offer it to a patron for ID scanning.")
+
+/obj/item/barcodescanner/AltClick(mob/living/user)
+	if(user.incapacitated())
+		return
+	if(mode != BARCODE_MODE_CHECKOUT)
+		to_chat(user, SPAN_WARNING("[src] must be in checkout mode to offer it for ID scanning."))
+		return
+	user.apply_status_effect(STATUS_EFFECT_OFFERING_BARCODE_SCANNER)
+
 /obj/item/barcodescanner/proc/connect(obj/machinery/computer/library/library_computer)
 	if(!istype(library_computer))
 		return FALSE

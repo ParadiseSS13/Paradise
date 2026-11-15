@@ -292,3 +292,7 @@
 /datum/hud/proc/remove_vampire_hud()
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
+
+/// Proc for children to spawn their screen object in
+/datum/hud/proc/initialize_screen_objects()
+	return

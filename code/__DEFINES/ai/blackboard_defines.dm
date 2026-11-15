@@ -152,6 +152,17 @@
 /// How often can we get spooked by a target?
 #define BB_STATIONARY_COOLDOWN "BB_STATIONARY_COOLDOWN"
 
+/// Text we display when we befriend someone
+#define BB_FRIENDLY_MESSAGE "friendly_message"
+
+// stealing
+/// chance we steal something
+#define BB_STEAL_CHANCE "steal_chance"
+/// chance we develop a guilty concious and leave our stolen item behind
+#define BB_GUILTY_CONSCIOUS_CHANCE "guilty_concious_rate"
+/// the item we will steal
+#define BB_ITEM_TO_STEAL "item_to_steal"
+
 // minebot keys
 /// key that stores our toggle light ability
 #define BB_MINEBOT_LIGHT_ABILITY "BB_MINEBOT_LIGHT_ABILITY"

@@ -927,10 +927,10 @@
 
 /datum/outfit/admin/trader/grey
 	name = "Technocracy Trader"
-	uniform = /obj/item/clothing/under/costume/psyjump
-	suit = /obj/item/clothing/suit/jacket/bomber/robo
+	uniform = /obj/item/clothing/under/grey/clonesuit
+	suit = /obj/item/clothing/suit/hooded/technocracy_robes
 	belt = /obj/item/melee/classic_baton/telescopic
-	back = /obj/item/storage/backpack/robotics
+	back = /obj/item/storage/backpack
 
 /datum/outfit/admin/trader/nian
 	name = "Merchant Guild Trader"

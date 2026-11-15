@@ -112,10 +112,13 @@
 			message = "<b>[message]</b>"
 
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
-	if(speaker == src)
-		for(var/datum/multilingual_say_piece/SP in message_pieces)
-			if(SP.speaking && SP.speaking.flags & INNATE)
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		if(SP.speaking && SP.speaking.flags & INNATE)
+			if(speaker == src)
 				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
+				return
+			// Everyone nearby sees the speaker's emote, so they don't need it as speech as well.
+			if(speaker.client)
 				return
 
 	// horrid horrid horrid

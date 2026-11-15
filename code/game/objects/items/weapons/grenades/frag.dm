@@ -12,8 +12,8 @@
 
 /obj/item/grenade/frag/prime()
 	update_mob()
+	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type) // Its important that shrapnel is created first so it hits the mob before the explosion.
 	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, cause = name, breach = FALSE)
-	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
 	qdel(src)
 
 /obj/item/grenade/frag/stinger
@@ -26,8 +26,8 @@
 
 /obj/item/grenade/frag/stinger/prime()
 	update_mob()
-	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
+	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	qdel(src)
 
 /obj/item/grenade/frag/holy
@@ -88,6 +88,9 @@
 		var/atom/i_wasnt_aiming_for_the_truck = get_angle_target_turf(get_turf(src), Angle, range)
 		we_missed.throw_at(i_wasnt_aiming_for_the_truck, 16, 3)
 	return ..()
+
+/obj/projectile/bullet/shrapnel/ex_act()
+	return // So we don't end up possibly exploding our own shrapnel.
 
 /obj/projectile/bullet/shrapnel/holy
 	name = "blessed shrapnel"

@@ -75,8 +75,11 @@
 		SSassets.transport.register_asset(asset_name, file)
 
 /datum/browser/proc/add_script(name, file)
-	scripts["[ckey(name)].js"] = file
-	SSassets.transport.register_asset("[ckey(name)].js", file)
+	var/asset_name = "[ckey(name)].js"
+	scripts[asset_name] = file
+
+	if(!SSassets.cache[asset_name])
+		SSassets.transport.register_asset(asset_name, file)
 
 /datum/browser/proc/set_content(ncontent)
 	content = islist(ncontent) ? ncontent : list(ncontent)

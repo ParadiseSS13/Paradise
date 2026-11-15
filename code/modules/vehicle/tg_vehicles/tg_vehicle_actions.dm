@@ -330,7 +330,7 @@
 		return
 	last_horn = world.time
 	vehicle_entered_target.visible_message(SPAN_WARNING("[vehicle_entered_target] loudly honks!"))
-	to_chat(owner, "<span class=notice'>You press [vehicle_entered_target]'s horn.</span>")
+	to_chat(owner, SPAN_NOTICE("You press [vehicle_entered_target]'s horn."))
 	if(istype(vehicle_entered_target.inserted_key, /obj/item/bikehorn))
 		playsound(vehicle_entered_target, 'sound/items/bikehorn.ogg', 75) // The bikehorn plays a sound instead
 		return
@@ -342,7 +342,7 @@
 	button_icon_state = "car_headlights"
 
 /datum/action/vehicle/sealed/headlights/Trigger(trigger_flags)
-	to_chat(owner, "<span class=notice'>You flip the switch for the vehicle's headlights.</span>")
+	to_chat(owner, SPAN_NOTICE("You flip the switch for the vehicle's headlights."))
 	vehicle_entered_target.headlights_toggle = !vehicle_entered_target.headlights_toggle
 	if(vehicle_entered_target.headlights_toggle)
 		vehicle_entered_target.set_light(vehicle_entered_target.headlight_range, vehicle_entered_target.headlight_power)

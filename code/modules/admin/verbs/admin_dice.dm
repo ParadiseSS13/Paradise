@@ -12,7 +12,7 @@
 	var/dice = num2text(sum) + "d" + num2text(side)
 
 	if(alert("Do you want to inform the world about your game?", null,"Yes", "No") == "Yes")
-		to_chat(world, "<h2 style=\"color:#A50400\">The dice have been rolled by Gods!</h2>")
+		to_chat(world, "<h2 style=\"color:#A50400\">The dice have been rolled by the Gods!</h2>")
 
 	var/result = roll(dice)
 

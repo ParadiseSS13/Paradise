@@ -372,6 +372,10 @@ bitflags! {
         const DISPLAY = 1 << 0;
         const HOT = 1 << 1;
         const WIND = 1 << 2;
+        /// Water condensed on it this tick.
+        const WET = 1 << 3;
+        /// Water condensed on it this tick and froze.
+        const ICY = 1 << 4;
     }
 }
 

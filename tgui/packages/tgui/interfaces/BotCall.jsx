@@ -7,20 +7,13 @@ import { Window } from '../layouts';
 const BotStatus = (mode) => {
   const statusMap = [
     // magic numbers are from bots.dm under mode defines
-    { modes: [0, 20], label: 'Idle', color: 'green' },
-    { modes: [1, 2, 3], label: 'Arresting', color: 'yellow' },
-    { modes: [4, 5], label: 'Patrolling', color: 'average' },
-    { modes: [9], label: 'Moving', color: 'average' },
-    { modes: [6, 11], label: 'Responding', color: 'green' },
-    { modes: [12], label: 'Delivering Cargo', color: 'blue' },
-    { modes: [13], label: 'Returning Home', color: 'blue' },
-    {
-      modes: [7, 8, 10, 14, 15, 16, 17, 18, 19],
-      label: 'Working',
-      color: 'blue',
-    },
+    { modes: ['Idle'], label: 'Idle', color: 'green' },
+    { modes: ['Arresting'], label: 'Arresting', color: 'yellow' },
+    { modes: ['Patrolling'], label: 'Patrolling', color: 'average' },
+    { modes: ['Moving'], label: 'Moving', color: 'average' },
+    { modes: ['Responding'], label: 'Responding', color: 'green' },
   ];
-  const failsafeStatus = (mode) => ({ modes: [-1], label: 'ERROR!!CALL_CODER!!' + mode, color: 'red' });
+  const failsafeStatus = (mode) => ({ modes: [-1], label: mode, color: 'blue' });
 
   const matchedStatus = statusMap.find((mapping) => mapping.modes.includes(mode)) ?? failsafeStatus(mode);
 
@@ -34,9 +27,10 @@ export const BotCall = (props) => {
     0: 'Security',
     1: 'Medibot',
     2: 'Cleanbot',
-    3: 'Floorbot',
-    4: 'Mule',
-    5: 'Honkbot',
+    3: 'Repairbot',
+    4: 'Firebot',
+    5: 'Mule',
+    6: 'Honkbot',
   };
   const decideTab = (index) => {
     return botNames[index] ? (

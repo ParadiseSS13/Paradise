@@ -91,6 +91,7 @@
 	thief = user
 	moneybox = money_box
 	accounts_to_rob = accounts
+	SSeconomy.crab_machine = TRUE
 
 /obj/structure/checkoutmachine/examine(mob/living/user)
 	. = ..()
@@ -129,7 +130,12 @@
 		to_chat(user, SPAN_WARNING("Your funds are already safe!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_WARNING("You quickly cash out your funds to a more secure banking location."))
+	user.visible_message(
+		SPAN_NOTICE("[user] swipes [user.p_their()] ID on [src] and quickly cashes out [user.p_their()] funds to a more secure banking location."),
+		SPAN_NOTICE("You quickly cash out your funds to a more secure banking location."),
+		SPAN_HEAR("You hear a card swiping and a transaction confirmation chime.")
+	)
+	playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 	accounts_to_rob -= account
 
 	if(check_if_finished())
@@ -215,6 +221,7 @@
 
 /obj/structure/checkoutmachine/Destroy()
 	STOP_PROCESSING(SSmachines, src)
+	SSeconomy.crab_machine = FALSE
 	if(held_credits)
 		expel_cash()
 	explosion(src, 0, 0, 1, 2, flame_range = 2, cause = "CRAB-17 Shutdown")
@@ -249,6 +256,8 @@
 		Destroy()
 
 /obj/structure/checkoutmachine/process()
+	if(!SSeconomy.crab_machine)
+		SSeconomy.crab_machine = TRUE // JUST IN CASE we somehow get multiple CRAB machines running at the same time.
 	dump()
 	var/anydir = pick(GLOB.cardinal)
 	if(Process_Spacemove(anydir))

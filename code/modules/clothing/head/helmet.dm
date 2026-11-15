@@ -43,6 +43,22 @@
 				playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 		return ITEM_INTERACT_COMPLETE
 
+/obj/item/clothing/head/helmet/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!issignaler(used))
+		return ..()
+	var/obj/item/assembly/signaler/S = used
+	if(S.secured)
+		to_chat(user, SPAN_WARNING("[S] is secured!"))
+		return ITEM_INTERACT_COMPLETE
+
+	qdel(used)
+	var/obj/item/bot_assembly/secbot/A = new /obj/item/bot_assembly/secbot
+	user.put_in_hands(A)
+	to_chat(user, SPAN_NOTICE("You add [used] to the helmet."))
+	user.unequip(src, force = TRUE)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
 	desc = "A helmet with a built-in visor. It doesn't seem to do anything, but it sure looks cool!"

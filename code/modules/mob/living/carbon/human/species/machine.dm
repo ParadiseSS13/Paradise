@@ -68,11 +68,20 @@
 
 	suicide_messages = list(
 		"is powering down!",
-		"is smashing their own monitor!",
-		"is twisting their own neck!",
 		"is downloading extra RAM!",
 		"is frying their own circuits!",
-		"is blocking their ventilation port!")
+		"is blocking their ventilation port!",
+		"is improving their cable management!",
+		"is uninstalling system32!",
+		"is processing a paradox!",
+		"is dividing by zero!",
+		"is forgetting their own password!",
+		"is unpacking a .zip bomb!",
+		"is hacking their own mainframe!",
+		"is dropping tables!",
+		"just remembered they have no I/O shield!")
+
+	speciesbox = /obj/item/storage/box/survival_ipc
 
 	plushie_type = /obj/item/toy/plushie/ipcplushie
 
@@ -251,6 +260,7 @@
 /mob/living/carbon/human/machine/get_spooked()
 	to_chat(src, SPAN_WHISPER("[pick(GLOB.boo_phrases_robot)]"))
 	return TRUE
+
 /datum/species/machine/generate_random_appearance(prosthesis_prob = 100, appearance = null, use_gender = null)
 	return ..()
 

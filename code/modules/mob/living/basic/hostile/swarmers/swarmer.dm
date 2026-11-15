@@ -17,6 +17,7 @@
 	melee_damage_type = BURN
 	melee_attack_cooldown_min = 0.75 SECONDS
 	melee_attack_cooldown_max = 1.25 SECONDS
+	can_attack_items = TRUE
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	mob_size = MOB_SIZE_SMALL

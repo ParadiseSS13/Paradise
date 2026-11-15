@@ -69,7 +69,7 @@
 /obj/machinery/economy/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	icon_state = "boozeomat" //////////////22 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	icon_state = "boozeomat" // 28 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat_deny"
 	icon_lightmask = "smartfridge"
 	icon_panel = "smartfridge"
@@ -78,6 +78,7 @@
 	products = list(
 		/obj/item/reagent_containers/drinks/bottle/gin = 5,
 		/obj/item/reagent_containers/drinks/bottle/whiskey = 5,
+		/obj/item/reagent_containers/drinks/bottle/anti_whisky = 5,
 		/obj/item/reagent_containers/drinks/bottle/tequila = 5,
 		/obj/item/reagent_containers/drinks/bottle/vodka = 5,
 		/obj/item/reagent_containers/drinks/bottle/vermouth = 5,

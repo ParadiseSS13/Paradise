@@ -23,8 +23,8 @@
 	new /obj/item/food/rawcutlet(src)
 	new /obj/item/food/rawcutlet(src)
 	user.visible_message(
-		"<span class ='notice'>[user] cuts [src] with [used]!</span>",
-		"<span class ='notice'>You cut [src] with [used]!</span>"
+		SPAN_NOTICE("[user] cuts [src] with [used]!"),
+		SPAN_NOTICE("You cut [src] with [used]!")
 	)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
@@ -109,8 +109,8 @@
 		return NONE
 
 	user.visible_message(
-		"<span class ='notice'>[user] cuts the raw cutlet with [used]!</span>",
-		"<span class ='notice'>You cut the raw cutlet with [used]!</span>"
+		SPAN_NOTICE("[user] cuts the raw cutlet with [used]!"),
+		SPAN_NOTICE("You cut the raw cutlet with [used]!")
 	)
 	var/obj/item/food/raw_bacon/bacon = new(get_turf(src))
 	if(ishuman(loc))
@@ -520,10 +520,10 @@
 	var/obj/item/toy/crayon/C = used
 	var/clr = C.dye_color
 	if(!(clr in list("red", "orange", "yellow", "green", "blue", "purple", "rainbow", "mime")))
-		to_chat(usr, "<span class ='warning'>The egg refuses to take on this color!</span>")
+		to_chat(usr, SPAN_WARNING("The egg refuses to take on this color!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
+	to_chat(usr, SPAN_NOTICE("You color [src] [clr]."))
 	icon_state = "egg-[clr]"
 	return ITEM_INTERACT_COMPLETE
 

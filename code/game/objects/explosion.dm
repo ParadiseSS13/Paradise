@@ -198,9 +198,15 @@
 			else if(S.is_shielded() || S.intact)
 				affecting_level = 2
 
-			for(var/atom/AM as anything in S)
-				if(!QDELETED(AM) && AM.simulated && (AM.level >= affecting_level))
-					AM.ex_act(explosion_strength)
+			for(var/atom/A as anything in S)
+				if(QDELETED(A))
+					continue
+				if(A.simulated && (A.level >= affecting_level))
+					A.ex_act(explosion_strength)
+				// This QDELETED(A) is still here because the ex_act() above may delete A.
+				if(istype(A, /atom/movable) && !QDELETED(A))
+					var/atom/movable/AM = A
+					AM.ex_throw(explosion_strength, epicenter, light_impact_range)
 				CHECK_TICK
 
 		var/took = stop_watch(watch)

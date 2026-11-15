@@ -8,7 +8,7 @@ You need a copy (full or trial) of Bitwig Studio 3.x, and access to Amazon Polly
 
 
 ### Amazon Polly
-Plain text, Standard engine, Englush US, Joanna - Female.
+Plain text, Standard engine, English US, Joanna - Female.
 
 
 ### Bitwig studio

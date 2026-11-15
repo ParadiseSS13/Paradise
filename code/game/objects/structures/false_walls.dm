@@ -61,13 +61,18 @@
 
 /obj/structure/falsewall/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		toggle(user)
+		toggle(user, silent = TRUE)
 
 /obj/structure/falsewall/attack_hand(mob/user)
 	. = ..()
 	toggle(user)
 
-/obj/structure/falsewall/proc/toggle(mob/user)
+/obj/structure/falsewall/attack_robot(mob/living/user)
+	. = ..()
+	if(Adjacent(user) && !isdrone(user))
+		toggle(user)
+
+/obj/structure/falsewall/proc/toggle(mob/user, silent = FALSE)
 	if(opening)
 		return
 	opening = TRUE
@@ -88,6 +93,12 @@
 		density = TRUE
 		set_opacity(TRUE)
 		icon_state = "fwall_closing"
+	if(!silent)
+		user.visible_message(
+			SPAN_WARNING("[user] pushes the wall, and it begins to slide [density ? "closed" : "open"]!"),
+			SPAN_WARNING("You push the wall, and it begins to slide [density ? "closed" : "open"]!"),
+			SPAN_WARNING("You hear metallic grinding!")
+		)
 	recalculate_atmos_connectivity()
 	opening = FALSE
 	update_icon()

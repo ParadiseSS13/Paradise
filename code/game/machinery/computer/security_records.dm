@@ -300,6 +300,8 @@
 					var/choices = field_edit_choices[field]
 					if(length(choices))
 						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
+					else if(field == "notes")
+						ui_modal_textarea(src, id, question, arguments = arguments, value = arguments["value"])
 					else
 						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
 				if("comment_add")

@@ -23,6 +23,7 @@
 	ranged_burst_interval = 0.4
 	ranged_cooldown = 1.5 SECONDS
 	true_spawn = FALSE
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE, TRAIT_SPACEWALK)
 	ai_controller = /datum/ai_controller/basic_controller/bluespace_horror
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/bluespace_horror/summon_mobs = BB_HORROR_SUMMON_MOBS_ACTION,

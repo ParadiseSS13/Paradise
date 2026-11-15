@@ -30,6 +30,10 @@
 	updatehealth("apply damage")
 	return TRUE
 
+/// return the total damage of all types which update your health
+/mob/living/proc/get_total_damage()
+	return round(getBruteLoss() + getFireLoss() + getToxLoss() + getOxyLoss())
+
 /mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
 		if(BRUTE)

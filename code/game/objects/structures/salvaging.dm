@@ -261,13 +261,13 @@
 			playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, FALSE)
 			audible_message(SPAN_DANGER("You hear a buzz from the [src] and a voice,"))
 
-			new /mob/living/simple_animal/bot/cleanbot/(get_turf(src))
+			new /mob/living/basic/bot/cleanbot (get_turf(src))
 
 		if(95 to 100)
 			playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, FALSE)
 			audible_message(SPAN_DANGER("You hear a buzz from the [src] and a voice,"))
 
-			new /mob/living/simple_animal/bot/medbot/syndicate/emagged/(get_turf(src))
+			new /mob/living/basic/bot/medbot/syndicate/emagged (get_turf(src))
 
 /obj/structure/salvageable/safe_server //i am evil and horrible and i don't deserve to touch code
 	name = "broken server"

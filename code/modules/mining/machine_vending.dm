@@ -267,7 +267,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Mining Explosives Kit", "Jaunter Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Turret", "Plasma Cutter", "Mining Explosives Kit", "Jaunter Kit", "Mining Conscription Kit")
 
 	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -291,6 +291,8 @@
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/kinetic_crusher(drop_location)
+		if("Mining Turret")
+			new /obj/item/grenade/turret/mining(drop_location)
 		if("Plasma Cutter")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
 		if("Mining Explosives Kit")
@@ -398,6 +400,9 @@
 		EQUIPMENT("\"Prospector\" Turret Grenade", /obj/item/grenade/turret/mining, 1500),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
+		EQUIPMENT("Mining Charge", /obj/item/grenade/plastic/miningcharge/lesser, 150),
+		EQUIPMENT("Industrial Mining Charge", /obj/item/grenade/plastic/miningcharge, 500),
+		EQUIPMENT("Mining Charge Detonator", /obj/item/detonator, 150),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
 	)

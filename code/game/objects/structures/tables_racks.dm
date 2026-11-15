@@ -815,7 +815,7 @@
 	desc = "A cold slab of stone engraved with indecipherable symbols. Studying them causes your head to pound."
 
 /obj/structure/table/reinforced/cult/no_metal/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	visible_message("<span class = 'warning'>[src] suddenly crumbles to dust!<span/>")
+	visible_message(SPAN_WARNING("[src] suddenly crumbles to dust!"))
 	qdel(src)
 
 // MARK: Wheeled table

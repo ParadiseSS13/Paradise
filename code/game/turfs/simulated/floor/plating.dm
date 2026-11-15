@@ -184,9 +184,7 @@
 	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/floor/engine/update_icon_state()
-	if(!broken && !burnt)
-		icon_state = icon_regular_floor
-	if(icon_regular_floor != icon_states(icon))
+	if(!broken && !burnt && !icon_exists(icon, icon_regular_floor))
 		icon_state = "engine"
 
 /turf/simulated/floor/engine/break_tile()
@@ -239,15 +237,13 @@
 	icon_state = "cult"
 	icon_regular_floor = "cult"
 
+// The look comes from the cult's god, not from the floor that was here before
 /turf/simulated/floor/engine/cult/update_icon_state()
-	if(!broken && !burnt)
-		icon_state = icon_regular_floor
-	if(icon_regular_floor != icon_states(icon))
-		icon_state = "cult"
+	icon_state = GET_CULT_DATA(cult_floor_icon_state, initial(icon_state))
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	icon_state = GET_CULT_DATA(cult_floor_icon_state, initial(icon_state))
+	update_icon(UPDATE_ICON_STATE)
 
 /turf/simulated/floor/engine/cult/Entered(atom/A, atom/OL, ignoreRest)
 	. = ..()

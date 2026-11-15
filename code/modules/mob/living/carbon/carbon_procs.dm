@@ -39,9 +39,8 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			adjust_nutrition(-(hunger_drain * 0.1))
-			if(m_intent == MOVE_INTENT_RUN)
-				adjust_nutrition(-(hunger_drain * 0.1))
+			// Running burns twice as much
+			adjust_nutrition(-(hunger_drain * (m_intent == MOVE_INTENT_RUN ? 0.2 : 0.1)))
 		if(HAS_TRAIT(src, TRAIT_FAT) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
@@ -279,6 +278,9 @@
 	// If it has any of the highfive statuses, dap, handshake, etc
 	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
 	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
+		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
+		return
+	if(istype(effect, STATUS_EFFECT_OFFERING_BARCODE_SCANNER))
 		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
 		return
 	else if(effect)

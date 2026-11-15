@@ -8,8 +8,10 @@ SUBSYSTEM_DEF(assets)
 	var/datum/asset_transport/transport = new()
 
 /datum/controller/subsystem/assets/Initialize(timeofday)
-	load_assets()
 	apply_configuration()
+
+/datum/controller/subsystem/assets/LateInitialize()
+	load_assets()
 
 /datum/controller/subsystem/assets/Recover()
 	cache = SSassets.cache
@@ -31,9 +33,12 @@ SUBSYSTEM_DEF(assets)
 	if(initialize_transport)
 		transport.Initialize(cache)
 
+/// Builds every asset that isn't built yet, so the first person to open an interface mid-round doesn't hold the whole server up while its spritesheet gets made.
+/// It's a couple of seconds of work in all, so it's done in LateInitialize() once the server is done starting up.
 /datum/controller/subsystem/assets/proc/load_assets()
 	for(var/datum/asset/asset_to_load as anything in typesof(/datum/asset))
-		if(initial(asset_to_load._abstract))
+		if(asset_to_load::_abstract == asset_to_load)
 			continue
 
-		load_asset_datum(type)
+		load_asset_datum(asset_to_load)
+		CHECK_TICK

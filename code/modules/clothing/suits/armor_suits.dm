@@ -410,7 +410,7 @@
 
 /obj/item/clothing/suit/armor/reactive/examine_more(mob/user)
 	. = ..()
-	. += "Reactive armor systems are one of the uses that Nanotasen has found for the anomaly cores that can be recovered from the anomalous phenomena that occur in the area of space near Lavaland. \
+	. += "Reactive armor systems are one of the uses that Nanotrasen has found for the anomaly cores that can be recovered from the anomalous phenomena that occur in the area of space near Lavaland. \
 	The effects of these armor units can be unpredictable or undesirable in certain situations, so Nanotrasen advises only activating them when the user is in danger."
 	. += ""
 	. += "Outside of the strange effects caused by the anomaly core, the armor provides no protection against conventional attacks. \

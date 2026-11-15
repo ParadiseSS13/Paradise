@@ -181,17 +181,27 @@
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassbang.ogg', 100, 1)
-		user.visible_message(SPAN_WARNING("[user] bangs against [src]!"), \
-							SPAN_WARNING("You bang against [src]!"), \
-							"You hear a banging sound.")
+		user.visible_message(
+			SPAN_WARNING("[user] bangs against [src]!"),
+			SPAN_WARNING("You bang against [src]!"),
+			SPAN_WARNING("You hear a banging sound!")
+		)
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
-		user.visible_message("[user] knocks on [src].", \
-							"You knock on [src].", \
-							"You hear a knocking sound.")
+		user.visible_message(
+			SPAN_NOTICE("[user] knocks on [src]."),
+			SPAN_NOTICE("You knock on [src]."),
+			SPAN_HEAR("You hear a knocking sound.")
+		)
 		add_fingerprint(user)
+
+/obj/structure/window/attack_robot(mob/user)
+	if(isdrone(user) || !Adjacent(user))
+		return ..()
+
+	attack_hand(user)
 
 /obj/structure/window/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
@@ -615,9 +625,10 @@
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/machines/light_switch.dmi'
 	icon_state = "light0"
 	anchored = TRUE
+	layer = FLY_LAYER
 	desc = "A remote control switch for polarized windows."
 	/// The area where the button is located.
 	var/area/button_area
@@ -627,18 +638,6 @@
 	var/id = TINT_CONTROL_GROUP_NONE
 	/// The button toggle state. If range equals TINT_CONTROL_RANGE_AREA and id equals TINT_CONTROL_GROUP_NONE or is same with other button, it is shared between all such buttons in its area.
 	var/active = FALSE
-
-/obj/machinery/button/windowtint/Initialize(mapload, w_dir = null)
-	. = ..()
-	switch(w_dir)
-		if(NORTH)
-			pixel_y = 25
-		if(SOUTH)
-			pixel_y = -25
-		if(EAST)
-			pixel_x = 25
-		if(WEST)
-			pixel_x = -25
 
 /obj/machinery/button/windowtint/New(turf/loc, direction)
 	..()
@@ -700,6 +699,51 @@
 
 /obj/machinery/button/windowtint/update_icon_state()
 	icon_state = "light[active]"
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/button/windowtint, 32, -1, 32, -32)
+
+// Light switch sprites have varied offsets in both orientations and
+// BUTTON_HELPERS can't be used here. You could try to write a macro for it but
+// it would require like six parameters and would be confusing as hell.
+/obj/machinery/button/windowtint/offset/northwest
+	dir = NORTHWEST
+	pixel_x = 5
+	pixel_y = 32
+
+/obj/machinery/button/windowtint/offset/north
+	dir = NORTH
+	pixel_x = -5
+	pixel_y = 32
+
+/obj/machinery/button/windowtint/offset/northeast
+	dir = NORTHEAST
+	pixel_x = 32
+	pixel_y = 4
+
+/obj/machinery/button/windowtint/offset/east
+	dir = EAST
+	pixel_x = 32
+	pixel_y = -4
+
+/obj/machinery/button/windowtint/offset/southeast
+	dir = SOUTHEAST
+	pixel_x = 5
+	pixel_y = -1
+
+/obj/machinery/button/windowtint/offset/south
+	dir = SOUTH
+	pixel_x = -5
+	pixel_y = -1
+
+/obj/machinery/button/windowtint/offset/southwest
+	dir = SOUTHWEST
+	pixel_x = -32
+	pixel_y = -4
+
+/obj/machinery/button/windowtint/offset/west
+	dir = WEST
+	pixel_x = -32
+	pixel_y = 4
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"

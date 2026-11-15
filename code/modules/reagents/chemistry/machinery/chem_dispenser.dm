@@ -393,9 +393,10 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "lager", "stout")
-	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
+	dispensable_reagents = list("ale", "angostura_bitters", "beer", "cider", "cognac", "cream", "gin", "ice", "kahlua", "lager", 
+	"mead", "rum", "stout", "synthanol", "tequila", "triple_sec", "vermouth", "vodka", "white_wine", "wine", "whiskey")
+	upgrade_reagents = list("antihol", "bravebull", "iced_beer", "irishcream", "manhattan", "synthignon")
+	hacked_reagents = list("absinthe", "ethanol", "goldschlager", "nothing", "patron", "sake")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
@@ -617,8 +618,8 @@
 	name = "handheld bar tap"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
-		"vermouth", "cognac", "ale", "mead", "synthanol")
+	dispensable_reagents = list("ale", "angostura_bitters", "beer", "cider", "cognac", "cream", "gin", "ice", "kahlua", "lager", 
+	"mead", "rum", "stout", "synthanol", "tequila", "triple_sec", "vermouth", "vodka", "white_wine", "wine", "whiskey")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"

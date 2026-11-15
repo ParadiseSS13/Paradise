@@ -7,6 +7,7 @@
 	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	can_attack_items = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_EPIC
 	obj_damage = 400
 	light_range = 3
@@ -153,6 +154,9 @@
 
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
+
+/mob/living/basic/megafauna/ex_throw()
+	return // No, you cannot launch the megafauna.
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
 /mob/living/basic/megafauna/proc/enrage()

@@ -324,6 +324,7 @@
 		if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
 			return ITEM_INTERACT_COMPLETE
 		obj_integrity = max_integrity // Lets make sure we can keep these healthy if need be
+		return ITEM_INTERACT_COMPLETE
 	else
 		to_chat(user, SPAN_WARNING("[src] is not in need of repair."))
 		return ITEM_INTERACT_COMPLETE

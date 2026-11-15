@@ -357,9 +357,11 @@
 /datum/wires/proc/cut(wire)
 	if(is_cut(wire))
 		cut_wires -= wire
+		SEND_SIGNAL(src, COMSIG_MEND_WIRE(wire), wire)
 		on_cut(wire, mend = TRUE)
 	else
 		cut_wires += wire
+		SEND_SIGNAL(src, COMSIG_CUT_WIRE(wire), wire)
 		on_cut(wire, mend = FALSE)
 
 /**

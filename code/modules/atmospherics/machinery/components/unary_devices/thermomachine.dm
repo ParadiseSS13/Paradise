@@ -301,7 +301,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/upgraded/Initialize(mapload)
 	..()
-	component_parts = list()
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)

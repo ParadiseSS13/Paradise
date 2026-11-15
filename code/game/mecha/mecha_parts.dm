@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;engineering=2"
+	new_attack_chain = TRUE
 
 /obj/item/mecha_parts/core
 	name = "mech power core"
@@ -26,9 +27,10 @@
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/item/mecha_parts/chassis/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(!construct || !construct.action(W, user))
+/obj/item/mecha_parts/chassis/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!construct || !construct.action(used, user))
 		return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mecha_parts/chassis/attack_hand()
 	return
@@ -292,10 +294,12 @@
 	. = ..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
-/obj/item/mecha_parts/chassis/phazon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	. = ..()
-	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
+/obj/item/mecha_parts/chassis/phazon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/assembly/signaler/anomaly) && !istype(used, /obj/item/assembly/signaler/anomaly/bluespace))
 		to_chat(user, SPAN_WARNING("The anomaly core socket only accepts bluespace anomaly cores!"))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/mecha_parts/part/phazon_torso
 	name = "\improper Phazon torso"

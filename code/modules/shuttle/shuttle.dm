@@ -975,19 +975,14 @@
 	icon_keyboard = "tech_key"
 	req_access = list()
 	circuit = /obj/item/circuitboard/shuttle
-	var/shuttleId
-	var/possible_destinations = ""
+	var/list/shuttleIds = list()
+	// Assoc list of destination to handle. Key is shuttle, value is destination.
+	var/alist/possibleDestinations2 = alist()
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or when SSlate_mapping fires (variable)
 	var/find_destinations_in_late_mapping = FALSE
-
-/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
-	..()
-	if(istype(C))
-		possible_destinations = C.possible_destinations
-		shuttleId = C.shuttleId
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
@@ -996,33 +991,16 @@
 
 	connect()
 
+// Stub to override for specific shuttles like the white ship
 /obj/machinery/computer/shuttle/proc/connect()
-	var/obj/docking_port/mobile/M
-	if(!shuttleId)
-		// find close shuttle that is ok to mess with
-		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
-			return
-		for(var/obj/docking_port/mobile/D in SSshuttle.mobile_docking_ports)
-			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
-				M = D
-				shuttleId = M.id
-				break
-	else if(!possible_destinations && SSshuttle) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
-		M = SSshuttle.getShuttle(shuttleId)
-
-	if(M && !possible_destinations)
-		// find perfect fits
-		possible_destinations = ""
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
-			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
-				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
+	return
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
 	if(..(user))
 		return
-	if(!shuttleId)
+	if(!length(shuttleIds))
 		return
-	connect()
+	connect() // Refreshes whiteship docks on interact
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -1036,23 +1014,33 @@
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
-	var/list/data = list()
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	data["status"] = M ? M.getStatusText() : null
-	if(M)
-		data["shuttle"] = TRUE	//this should just be boolean, right?
-		var/list/docking_ports = list()
-		data["docking_ports"] = docking_ports
-		var/list/options = params2list(possible_destinations)
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
-			if(!options.Find(S.id))
-				continue
-			if(!M.check_dock(S))
-				continue
-			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
-		data["docking_ports_len"] = length(docking_ports)
-		data["admin_controlled"] = admin_controlled
-	return data
+	var/list/final_data = list()
+	final_data["shuttles"] = list()
+	for(var/shuttle_id in shuttleIds)
+		var/list/data = list()
+		data["shuttle_id"] = shuttle_id
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
+		data["status"] = M ? M.getStatusText() : null
+		data["shuttle_name"] = M ? M.name : "Unknown"
+
+		if(M)
+			data["shuttle"] = TRUE	//this should just be boolean, right?
+			var/list/docking_ports = list()
+			data["docking_ports"] = docking_ports
+			var/list/destinations = possibleDestinations2[shuttle_id]
+
+			for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
+				if(!destinations.Find(S.id))
+					continue
+				if(!M.check_dock(S))
+					continue
+				docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+			data["docking_ports_len"] = length(docking_ports)
+			data["admin_controlled"] = admin_controlled
+
+		final_data["shuttles"] += list(data)
+
+	return final_data
 
 /obj/machinery/computer/shuttle/ui_act(action, params)
 	if(..())	//we can't actually interact, so no action
@@ -1062,16 +1050,21 @@
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE
-	var/list/options = params2list(possible_destinations)
 	if(action == "move")
+		if(!(params["shuttle"] in shuttleIds))
+			message_admins("[SPAN_BOLDANNOUNCEOOC("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to move a shuttle that the console didnt support! [ADMIN_COORDJMP(src)]")
+			return
+
+		var/target_shuttle = params["shuttle"]
+		var/list/valid_options = possibleDestinations2[target_shuttle]
 		var/destination = params["move"]
-		if(!options.Find(destination))//figure out if this translation works
+		if(!valid_options.Find(destination))//figure out if this translation works
 			message_admins("[SPAN_BOLDANNOUNCEOOC("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
+		switch(SSshuttle.moveShuttle(target_shuttle, destination, TRUE, usr))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")
-				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+				usr.create_log(MISC_LOG, "used [src] to call the [target_shuttle] shuttle")
 				if(!moved)
 					moved = TRUE
 				add_fingerprint(usr)
@@ -1101,15 +1094,15 @@
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
 	circuit = /obj/item/circuitboard/ferry
-	shuttleId = "ferry"
-	possible_destinations = "ferry_home;ferry_away"
+	shuttleIds = list("ferry")
+	possibleDestinations2 = alist("ferry" = list("ferry_home", "ferry_away"))
 
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
 	circuit = /obj/item/circuitboard/ferry/request
 	var/next_request	//to prevent spamming admins
-	possible_destinations = "ferry_home"
+	possibleDestinations2 = alist("ferry" = list("ferry_home"))
 	admin_controlled = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -1119,6 +1112,11 @@
 	if(action == "request")
 		if(world.time < next_request)
 			return
+		if(!(params["shuttle"] in shuttleIds))
+			message_admins("[SPAN_BOLDANNOUNCEOOC("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to request a shuttle that the console didnt support! [ADMIN_COORDJMP(src)]")
+			return
+
+		// This falls apart if something other than a ferry is on this console - oh well
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, SPAN_NOTICE("Your request has been received by Centcom."))
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
@@ -1129,15 +1127,27 @@
 	name = "Navigation console"
 	desc = "Used to control the NEV Limulus expeditionary vessel."
 	circuit = /obj/item/circuitboard/white_ship
-	shuttleId = "whiteship"
-	possible_destinations = null // Set at runtime
+	shuttleIds = list("whiteship")
+	possibleDestinations2 = alist("whiteship" = list()) // Added at runtime
 	find_destinations_in_late_mapping = TRUE
+
+/obj/machinery/computer/shuttle/white_ship/connect()
+	var/target_id = "whiteship"
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(target_id)
+
+	if(M && !length(possibleDestinations2["whiteship"]))
+		possibleDestinations2["whiteship"] = list() // Reset this first
+
+		// Try find whiteship docks, by size and ID
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
+			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
+				possibleDestinations2["whiteship"] += S.id
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
 	req_access = list(ACCESS_CENT_GENERAL)
-	shuttleId = "admin"
-	possible_destinations = "admin_home;admin_away;admin_custom"
+	shuttleIds = list("admin")
+	possibleDestinations2 = alist("admin" = list("admin_home", "admin_away", "admin_custom"))
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
@@ -1155,8 +1165,8 @@
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
-	possible_destinations = "trader_away;trader_home"
-	shuttleId = "trader"
+	shuttleIds = list("trader")
+	possibleDestinations2 = alist("trader" = list("trader_away", "trader_home"))
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

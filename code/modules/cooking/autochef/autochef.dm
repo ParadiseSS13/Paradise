@@ -63,7 +63,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='notice'>[src]'s interface cannot be accessed with the panel open.")
+		to_chat(user, SPAN_NOTICE("[src]'s interface cannot be accessed with the panel open."))
 		return
 
 	if(stat & (NOPOWER|BROKEN))

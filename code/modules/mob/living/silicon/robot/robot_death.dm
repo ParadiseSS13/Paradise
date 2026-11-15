@@ -69,4 +69,4 @@
 
 	update_icons()
 
-	SSblackbox.ReportDeath(src)
+	INVOKE_ASYNC(SSblackbox, TYPE_PROC_REF(/datum/controller/subsystem/blackbox, ReportDeath), src)

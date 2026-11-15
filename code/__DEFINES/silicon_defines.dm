@@ -8,3 +8,9 @@
 /// These are the screen locations of a cyborg's modules 1, 2, and 3 in that order.
 #define CYBORG_HUD_LOCATIONS list("CENTER-2:16,SOUTH:5", "CENTER-1  :16,SOUTH:5", "CENTER  :16,SOUTH:5")
 
+// AI Notification Defines
+#define		NEW_BORG	1
+#define		NEW_MODULE	2
+#define		RENAME		3
+#define		AI_SHELL	4
+#define		DISCONNECT	5

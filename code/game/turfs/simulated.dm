@@ -36,6 +36,8 @@
 	var/wind_x = null
 	/// Wind's Y component
 	var/wind_y = null
+	/// How many moles of gas the tile had when MILLA reported the wind
+	var/wind_moles = 0
 	/// Wind effect
 	var/obj/effect/wind/wind_effect = null
 
