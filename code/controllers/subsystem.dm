@@ -271,13 +271,7 @@
 /datum/controller/subsystem/proc/call_init(start_timeofday)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	log_startup_progress("Initializing...")
-	. = TRUE
-	// A runtime only stops Initialize() itself, so catch it here to know it didn't finish
-	try
-		Initialize()
-	catch(var/exception/e)
-		world.Error(e)
-		. = FALSE
+	Initialize()
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")

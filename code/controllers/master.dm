@@ -253,11 +253,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		update_ss_loadingscreen(SS.ss_id, i)
 
 		// Do the do
-		// A runtime in Initialize() stops it partway, and the subsystem still fires all round half set up
-		if(!SS.call_init(REALTIMEOFDAY))
-			var/msg = "The [SS.name] subsystem failed to initialize. It may not work properly this round."
-			to_chat(GLOB.admins, SPAN_BOLDANNOUNCEOOC(msg))
-			log_world(msg)
+		SS.call_init(REALTIMEOFDAY)
 		CHECK_TICK
 
 	// Clear init text stuff
