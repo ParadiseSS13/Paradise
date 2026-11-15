@@ -176,12 +176,8 @@
 	to_chat(src, "You wiggle out of the depths of [loc]'s biomass and plop to the ground.")
 	forceMove(T)
 
-	var/hasMobs = FALSE
-	for(var/atom/A in D.contents)
-		if(ismob(A) || istype(A, /obj/item/holder))
-			hasMobs = TRUE
+	var/hasMobs = D.update_pass_emotes()
 	if(!hasMobs)
-		D.status_flags &= ~PASSEMOTES
 		D.clear_alert(NYMPH_ALERT)
 
 	clear_alert(GESTALT_ALERT)

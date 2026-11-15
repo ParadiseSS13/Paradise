@@ -62564,11 +62564,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"lGp" = (
-/obj/structure/lattice,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
-/turf/space,
-/area/space/nearstation)
 "lGw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -63910,6 +63905,11 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"mjB" = (
+/obj/structure/grille,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "mjE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
@@ -116348,7 +116348,7 @@ aab
 aab
 afX
 dmD
-afX
+mjB
 aaa
 aaa
 aaa
@@ -118403,7 +118403,7 @@ fbR
 aaa
 aaa
 aaa
-lGp
+aab
 aaa
 aaa
 aaa
