@@ -5,7 +5,7 @@
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod
 	name = "ABP-01 'Pallas'"
-	desc = "Designed for civilian purposes Pod."
+	desc = "A lightly-armored space pod designed for civilian use."
 	icon = 'icons/obj/spacepods/raptor.dmi'
 	base_icon_state = "raptor"
 	icon_state = "raptor-off"
@@ -93,7 +93,7 @@
 	if(!ishuman(M))
 		return
 	if(M.dna?.species?.greater_form)
-		to_chat(M, SPAN_WARNING("The knowledge to use this device eludes you!"))
+		to_chat(M, SPAN_WARNING("The knowledge of how to use this device eludes you!"))
 		return
 	if(dna_lock && M.dna)
 		var/mob/living/carbon/entering_carbon = M
@@ -269,7 +269,7 @@
 		if("changename")
 			var/userinput = tgui_input_text(
 				usr,
-				message = "Choose a new pod name",
+				message = "Choose a new pod name:",
 				title = "Rename Pod",
 				max_length = MAX_NAME_LEN,
 				default = name
@@ -283,7 +283,7 @@
 		if("dna_lock")
 			var/mob/living/carbon/user = usr
 			if(!istype(user) || !user.dna)
-				to_chat(user, SPAN_NOTICE("You can't create a DNA lock with no DNA!."))
+				to_chat(user, SPAN_WARNING("You can't create a DNA lock with no DNA!"))
 				return
 			dna_lock = user.dna.unique_enzymes
 			to_chat(user, SPAN_NOTICE("You feel a prick as the needle takes your DNA sample."))
@@ -303,7 +303,7 @@
 	icon = 'icons/obj/spacepods/raptor_sci.dmi'
 	base_icon_state = "raptor_sci"
 	icon_state = "raptor_sci-off"
-	desc = "Designed for space exploration Pod."
+	desc = "A space pod designed for exploring hazardous locations."
 	max_integrity = 450
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/sec
@@ -311,7 +311,7 @@
 	icon = 'icons/obj/spacepods/raptor_sec.dmi'
 	base_icon_state = "raptor_sec"
 	icon_state = "raptor_sec-off"
-	desc = "Designed for perimeter security Pod."
+	desc = "An armored pod designed for security operations in the space nearby an installation."
 	max_integrity = 600
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/sec/fueled

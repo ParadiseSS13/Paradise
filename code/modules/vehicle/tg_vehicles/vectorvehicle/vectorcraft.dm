@@ -112,24 +112,24 @@
 	#endif
 
 	var/cached_tile = tile_loc
-	tile_loc["x"] += vector["x"]/SPEED_MOD
-	tile_loc["y"] += vector["y"]/SPEED_MOD
+	tile_loc["x"] += vector["x"] / SPEED_MOD
+	tile_loc["y"] += vector["y"] / SPEED_MOD
 	//range = -16 to 16
 	var/x_move = 0
 	if(tile_loc["x"] > PX_OFFSET)
-		x_move = round((tile_loc["x"]+PX_OFFSET) / (PX_OFFSET*2), 1)
-		tile_loc["x"] = ((tile_loc["x"]+PX_OFFSET) % (PX_OFFSET*2))-PX_OFFSET
+		x_move = round((tile_loc["x"] + PX_OFFSET) / (PX_OFFSET * 2), 1)
+		tile_loc["x"] = ((tile_loc["x"] + PX_OFFSET) % (PX_OFFSET * 2)) - PX_OFFSET
 	else if(tile_loc["x"] < -PX_OFFSET)
-		x_move = round((tile_loc["x"]-PX_OFFSET) / (PX_OFFSET*2), 1)
-		tile_loc["x"] = ((tile_loc["x"]-PX_OFFSET) % -(PX_OFFSET*2))+PX_OFFSET
+		x_move = round((tile_loc["x"] - PX_OFFSET) / (PX_OFFSET * 2), 1)
+		tile_loc["x"] = ((tile_loc["x"] - PX_OFFSET) % -(PX_OFFSET * 2)) + PX_OFFSET
 
 	var/y_move = 0
 	if(tile_loc["y"] > PX_OFFSET)
-		y_move = round((tile_loc["y"]+PX_OFFSET) / (PX_OFFSET*2), 1)
-		tile_loc["y"] = ((tile_loc["y"]+PX_OFFSET) % (PX_OFFSET*2))-PX_OFFSET
+		y_move = round((tile_loc["y"] + PX_OFFSET) / (PX_OFFSET * 2), 1)
+		tile_loc["y"] = ((tile_loc["y"] + PX_OFFSET) % (PX_OFFSET * 2)) - PX_OFFSET
 	else if(tile_loc["y"] < -PX_OFFSET)
-		y_move = round((tile_loc["y"]-PX_OFFSET) / (PX_OFFSET*2), 1)
-		tile_loc["y"] = ((tile_loc["y"]-PX_OFFSET) % -(PX_OFFSET*2))+PX_OFFSET
+		y_move = round((tile_loc["y"] - PX_OFFSET) / (PX_OFFSET * 2), 1)
+		tile_loc["y"] = ((tile_loc["y"] - PX_OFFSET) % -(PX_OFFSET * 2)) + PX_OFFSET
 
 	if(!(x_move == 0 && y_move == 0))
 		var/turf/T = get_offset_target_turf(src, x_move, y_move)
@@ -178,13 +178,13 @@
 
 /// Bounce the car off a wall.
 /obj/tgvehicle/sealed/vectorcraft/proc/bounce()
-	vector["x"] = -vector["x"]/2
-	vector["y"] = -vector["y"]/2
+	vector["x"] = -vector["x"] / 2
+	vector["y"] = -vector["y"] / 2
 	acceleration /= 2
 
 /obj/tgvehicle/sealed/vectorcraft/proc/ricochet(x_move, y_move)
 	var/speed = calc_speed()
-	apply_damage(speed/10)
+	apply_damage(speed / 10)
 	bounce()
 
 /obj/tgvehicle/sealed/vectorcraft/item_interaction(mob/living/user, obj/item/O, list/modifiers)
@@ -199,7 +199,7 @@
 				SPAN_NOTICE("You hear welding."),
 			)
 
-			if(O.use_tool(src, user, 40, volume=50))
+			if(O.use_tool(src, user, 40, volume = 50))
 				to_chat(user, SPAN_NOTICE("You repair [src]."))
 				apply_damage(-max_integrity)
 		else
@@ -212,7 +212,7 @@
 /// Heals/damages the car
 /obj/tgvehicle/sealed/vectorcraft/proc/apply_damage(damage)
 	obj_integrity -= damage
-	var/healthratio = ((obj_integrity/max_integrity)/4) + 0.75
+	var/healthratio = ((obj_integrity / max_integrity) / 4) + 0.75
 	max_acceleration = initial(max_acceleration) * healthratio
 	max_deceleration = initial(max_deceleration) * healthratio
 
@@ -237,16 +237,16 @@
 			var/atom/throw_target = get_edge_target_turf(C, calc_angle())
 			C.throw_at(throw_target, 10, 14)
 		to_chat(C, SPAN_WARNING("You are hit by the [src]!"))
-		to_chat(driver, SPAN_WARNING("<You just ran into [C]lunatic!"))
-		C.adjustBruteLoss(speed/10)
+		to_chat(driver, SPAN_WARNING("You feel a slight bump as you run into [C]!"))
+		C.adjustBruteLoss(speed / 10)
 		return ..()
 
 	if(istype(M, /obj/tgvehicle/sealed/vectorcraft))
 		var/obj/tgvehicle/sealed/vectorcraft/Vc = M
-		Vc.apply_damage(speed/5)
-		Vc.vector["x"] += vector["x"]/2
-		Vc.vector["y"] += vector["y"]/2
-		apply_damage(speed/10)
+		Vc.apply_damage(speed / 5)
+		Vc.vector["x"] += vector["x"] / 2
+		Vc.vector["y"] += vector["y"] / 2
+		apply_damage(speed / 10)
 		bounce()
 		return ..()
 	if(isobj(M))
@@ -271,7 +271,7 @@
 			return SOUTH
 	if(x == 0 || y == 0)
 		return FALSE
-	var/angle = (ATAN2(x,y))
+	var/angle = ATAN2(x, y)
 
 	// I WISH I HAD RADIANSSSSSSSSSS
 	if(angle > 0)
@@ -301,7 +301,7 @@
 
 /// Updates the internal speed of the car (used for crashing).
 /obj/tgvehicle/sealed/vectorcraft/proc/calc_speed()
-	var/speed = max(sqrt((vector["x"]**2)), sqrt((vector["y"]**2)))
+	var/speed = max(sqrt((vector["x"] ** 2)), sqrt((vector["y"] ** 2)))
 	return speed
 
 /// Calculates the acceleration.
@@ -323,13 +323,13 @@
 		if(NORTH)
 			result_vector["y"] += cached_acceleration
 		if(NORTHEAST)
-			result_vector["x"] += cached_acceleration/1.4
-			result_vector["y"] += cached_acceleration/1.4
+			result_vector["x"] += cached_acceleration / 1.4
+			result_vector["y"] += cached_acceleration / 1.4
 		if(EAST)
 			result_vector["x"] += cached_acceleration
 		if(SOUTHEAST)
-			result_vector["x"] += cached_acceleration/1.4
-			result_vector["y"] -= cached_acceleration/1.4
+			result_vector["x"] += cached_acceleration / 1.4
+			result_vector["y"] -= cached_acceleration / 1.4
 		if(SOUTH)
 			result_vector["y"] -= cached_acceleration
 		if(SOUTHWEST)

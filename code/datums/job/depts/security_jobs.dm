@@ -152,4 +152,4 @@
 	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/brig_pilot
 	difficulty = MEDIUM_DIFFICULTY
-	alt_titles = list("Red Hawk Pilot", "Security Pilot", "Space Guard")
+	alt_titles = list("Security Pilot", "Space Guard", "Mounted Ranger")

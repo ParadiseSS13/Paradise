@@ -1,7 +1,7 @@
 /obj/item/circuitboard/mecha/spacepod_main
-	name = "Raptor Central Control module (Space Pod Board)"
+	name = "Pod Central Control Module"
 	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/spacepod_peri
-	name = "Raptor Peripherals Control module (Space Pod Board)"
+	name = "Pod Peripherals Control Module"
 	icon_state = "mcontroller"

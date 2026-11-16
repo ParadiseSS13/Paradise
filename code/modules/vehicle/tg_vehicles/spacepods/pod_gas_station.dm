@@ -62,7 +62,7 @@
 /obj/machinery/fuel_pump/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("<i>Alt-Click</i> to remove the pump nozzle.")
-	. += SPAN_GREEN("Has [balance] credits on [name] balance.")
+	. += SPAN_GREEN("It has [balance] credits loaded.")
 	. += SPAN_GREEN("[LITER_PRICE] credits for 1 liter of liquid plasma fuel!")
 
 /obj/machinery/fuel_pump/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
@@ -151,8 +151,8 @@
 	QDEL_NULL(current_beam)
 
 /obj/item/nozzle
-	name = "fuel hose"
-	desc = "A device help to transport fuel."
+	name = "fuel nozzle"
+	desc = "A device used to fill liquid fuel containers. Ideally, it's attached to a fuel pump."
 	icon = 'icons/obj/spacepods/gas_station.dmi'
 	icon_state = "spacegas-pistol-unhands"
 	inhand_icon_state = "atropen"
@@ -174,20 +174,20 @@
 	if(istype(target, /obj/tgvehicle/sealed/vectorcraft/spacepod))
 		var/obj/tgvehicle/sealed/vectorcraft/spacepod/pod = target
 		if(tank.balance == 0)
-			to_chat(user, SPAN_WARNING("You haven't added any credit balance to the fuel pump!"))
+			to_chat(user, SPAN_WARNING("You haven't added any credits to the fuel pump!"))
 			return ITEM_INTERACT_COMPLETE
 		if(tank.target_fuel == 0)
-			to_chat(user, SPAN_WARNING("The fuel pump is empty!"))
+			to_chat(user, SPAN_WARNING("The fuel pump's target fuel level hasn't been set!"))
 			return ITEM_INTERACT_COMPLETE
 		if(pod.pod_fueltank.reagents.has_reagent("plasma", pod.max_fuel))
-			to_chat(user, SPAN_WARNING("Your [name] is already full!"))
+			to_chat(user, SPAN_WARNING("Your [pod] is already full!"))
 			return ITEM_INTERACT_COMPLETE
 		if(do_after(user, 60, target = user))
 			tank.balance -= tank.target_fuel
 			pod.pod_fueltank.reagents.add_reagent("plasma", tank.target_fuel)
 			user.visible_message(
-				SPAN_NOTICE("[user] refills [user.p_their()] [name]."),
-				SPAN_NOTICE("You refill [src]."),
+				SPAN_NOTICE("[user] refills [user.p_their()] [pod]."),
+				SPAN_NOTICE("You refill [pod]."),
 			)
 			playsound(src, 'sound/effects/refill.ogg', 40, TRUE)
 			return ITEM_INTERACT_COMPLETE

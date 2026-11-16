@@ -1,6 +1,6 @@
 /datum/design/board/podfab
 	name = "Space Pod Fabricator Board"
-	desc = "The circuit board for an Space Pod Fabricator."
+	desc = "The circuit board for a Space Pod Fabricator."
 	id = "spacefab"
 	build_path = /obj/item/circuitboard/podfabricator
 	build_type = IMPRINTER
@@ -119,7 +119,7 @@
 
 /datum/design/plate_sec
 	name = "Space Pod Security Plate"
-	desc = "The Science Armor Plate of the Space Pod. For Vanguard!"
+	desc = "The Security Armor Plate of the Space Pod. For Vanguard!"
 	id = "spacepod_plate_sec"
 	build_path = /obj/item/spacepod_plate/sec
 	build_type = PROTOLATHE
