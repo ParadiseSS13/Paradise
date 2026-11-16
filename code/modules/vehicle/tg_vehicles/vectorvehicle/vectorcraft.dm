@@ -333,13 +333,13 @@
 		if(SOUTH)
 			result_vector["y"] -= cached_acceleration
 		if(SOUTHWEST)
-			result_vector["x"] -= cached_acceleration/1.4
-			result_vector["y"] -= cached_acceleration/1.4
+			result_vector["x"] -= cached_acceleration / 1.4
+			result_vector["y"] -= cached_acceleration / 1.4
 		if(WEST)
 			result_vector["x"] -= cached_acceleration
 		if(NORTHWEST)
-			result_vector["y"] += cached_acceleration/1.4
-			result_vector["x"] -= cached_acceleration/1.4
+			result_vector["y"] += cached_acceleration / 1.4
+			result_vector["x"] -= cached_acceleration / 1.4
 
 	if(boost_active)
 		vector["x"] = result_vector["x"]
@@ -349,10 +349,10 @@
 		vector["y"] = clamp(result_vector["y"], -max_velocity, max_velocity)
 
 	if(vector["x"] > max_velocity || vector["x"] < -max_velocity)
-		vector["x"] = vector["x"] - (vector["x"]/10)
+		vector["x"] = vector["x"] - (vector["x"] / 10)
 		vector["x"] = clamp(vector["x"], -250, 250)
 	if(vector["y"] > max_velocity || vector["y"] < -max_velocity)
-		vector["y"] = vector["y"] - (vector["y"]/10)
+		vector["y"] = vector["y"] - (vector["y"] / 10)
 		vector["y"] = clamp(vector["y"], -250, 250)
 
 	return
