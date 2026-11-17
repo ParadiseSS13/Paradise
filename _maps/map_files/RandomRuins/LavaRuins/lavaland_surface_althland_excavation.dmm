@@ -23,13 +23,10 @@
 /area/ruin/unpowered/althland_excavation)
 "ae" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
 /obj/machinery/light/small,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -441,10 +438,8 @@
 /obj/machinery/power/port_gen/pacman/super{
 	anchored = 1
 	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "0-8"
-	},
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable/extra_insulated,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -804,6 +799,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -836,7 +837,10 @@
 /area/ruin/unpowered/althland_excavation)
 "hs" = (
 /obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
+	icon_state = "1-4"
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
@@ -1092,6 +1096,20 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/storage)
+"mH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/smes/empty,
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/electrical)
 "mK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/no_lava,
@@ -1319,7 +1337,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/stack/sheet/mineral/uranium/fifty,
+/obj/item/stack/sheet/mineral/uranium/fifty{
+	pixel_x = -4
+	},
+/obj/item/wrench{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -1476,6 +1503,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation/electrical)
 "vT" = (
@@ -2055,6 +2085,12 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -2224,6 +2260,9 @@
 /area/lavaland/surface/outdoors/unexplored)
 "Mu" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/catwalk/lavaland_air,
 /area/ruin/unpowered/althland_excavation/electrical)
 "MT" = (
@@ -2250,6 +2289,14 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation)
+"Nj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/mech_bay)
 "Nl" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -2735,9 +2782,6 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "Zm" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/caution{
 	dir = 8
@@ -3074,7 +3118,7 @@ sj
 sj
 en
 en
-rz
+EY
 sY
 en
 Nv
@@ -3137,8 +3181,8 @@ Jn
 sj
 en
 en
-EY
 rz
+sY
 Zm
 en
 TN
@@ -3168,7 +3212,7 @@ Jn
 (13,1,1) = {"
 sj
 en
-gt
+mH
 gt
 Jd
 bA
@@ -3704,7 +3748,7 @@ aU
 bl
 pZ
 EG
-Mn
+Nj
 Gc
 pZ
 sj
