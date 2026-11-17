@@ -129,7 +129,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
-/area/lavaland/surface/outdoors)
+/area/ruin/unpowered/althland_processing/dorms)
 "cw" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
@@ -455,7 +455,7 @@
 /obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
-/area/lavaland/surface/outdoors)
+/area/ruin/unpowered/althland_processing/dorms)
 "nO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -884,7 +884,7 @@
 	},
 /obj/item/soap,
 /turf/simulated/floor/plasteel/freezer,
-/area/lavaland/surface/outdoors)
+/area/ruin/unpowered/althland_processing/dorms)
 "zR" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 4
@@ -1143,7 +1143,7 @@
 "Gk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
-/area/lavaland/surface/outdoors)
+/area/ruin/unpowered/althland_processing/dorms)
 "Gt" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -1462,6 +1462,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"OD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/althland_processing)
 "OJ" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -1780,7 +1785,7 @@
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
-/area/lavaland/surface/outdoors)
+/area/ruin/unpowered/althland_processing/dorms)
 "Yt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -2349,7 +2354,7 @@ bT
 ui
 iq
 ZN
-Ec
+OD
 GP
 Ip
 ui
@@ -2633,9 +2638,9 @@ pP
 um
 du
 Pn
-hI
-hI
-hI
+Pn
+Pn
+Pn
 bT
 bT
 bT
@@ -2669,7 +2674,7 @@ KL
 Pn
 nN
 cd
-hI
+Pn
 bT
 bT
 bT
@@ -2703,7 +2708,7 @@ nO
 Pn
 Gk
 zO
-hI
+Pn
 bT
 bT
 Az
@@ -2737,7 +2742,7 @@ bP
 BG
 Gk
 Yl
-hI
+Pn
 bT
 XD
 Io
