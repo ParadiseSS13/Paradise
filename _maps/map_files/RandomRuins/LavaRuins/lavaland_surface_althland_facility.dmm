@@ -54,12 +54,24 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "be" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/lavaland/surface/outdoors)
+"bF" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_processing)
 "bL" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/volcanic/lava_land_surface,
@@ -99,7 +111,15 @@
 "cc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/assist/free,
+/obj/structure/table,
+/obj/item/clothing/glasses/welding{
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 2;
+	pixel_y = -1
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "cd" = (
@@ -202,12 +222,6 @@
 /obj/item/shard/plasma,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
-"fc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/althland_processing/utilities)
 "fd" = (
 /obj/machinery/door/airlock,
 /obj/effect/decal/cleanable/dirt,
@@ -275,14 +289,6 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
-"gb" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	invisibility = 101
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/althland_processing/utilities)
 "gw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
@@ -545,6 +551,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/rack_parts,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "rv" = (
@@ -681,12 +691,6 @@
 	},
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
-"tH" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/althland_processing/utilities)
 "tS" = (
 /obj/item/stack/sheet/mineral/silver/five,
 /turf/simulated/floor/plating/lavaland_air,
@@ -732,17 +736,20 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/althland_processing/dorms)
 "uC" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "uM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "vf" = (
@@ -792,6 +799,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/dorms)
 "xf" = (
@@ -1194,7 +1202,7 @@
 "Ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gps/ruin{
-	gpstag = AlthlandMiningCompanyDistressSignal(Site W4);
+	gpstag = "Althland Mining Company Distress Signal (Site W4)";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -1202,6 +1210,9 @@
 "In" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "Io" = (
@@ -1231,7 +1242,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/lavaland_air,
-/area/lavaland/surface/outdoors)
+/area/ruin/unpowered/althland_processing/dorms)
 "IO" = (
 /obj/machinery/light,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1527,6 +1538,10 @@
 	},
 /obj/structure/table,
 /obj/item/stack/sheet/mineral/uranium/fifty,
+/obj/item/paper/instruction/pacman_generator{
+	pixel_x = -8;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "Qu" = (
@@ -1703,6 +1718,13 @@
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"WY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/althland_processing/dorms)
 "Xn" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -1775,19 +1797,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
-"YF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	invisibility = 101
-	},
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel/lavaland_air,
-/area/lavaland/surface/outdoors)
 "YK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -2186,8 +2195,8 @@ bT
 ic
 sa
 TX
-fc
 mv
+OT
 ZB
 bT
 ab
@@ -2203,7 +2212,7 @@ XO
 zZ
 se
 oj
-GP
+bF
 ui
 ui
 ui
@@ -2221,7 +2230,7 @@ eP
 ic
 sa
 rf
-gb
+OT
 eP
 bT
 bT
@@ -2255,7 +2264,7 @@ ZB
 ed
 uM
 uC
-tH
+OT
 eP
 bT
 bT
@@ -2429,7 +2438,7 @@ rd
 af
 bT
 ab
-yh
+ab
 "}
 (18,1,1) = {"
 bT
@@ -2463,7 +2472,7 @@ af
 bT
 bT
 hI
-yh
+ab
 "}
 (19,1,1) = {"
 ab
@@ -2497,7 +2506,7 @@ af
 af
 bT
 bT
-yh
+ab
 "}
 (20,1,1) = {"
 bL
@@ -2517,9 +2526,9 @@ ab
 ab
 bT
 bT
-hI
-YF
-hI
+Pn
+du
+Pn
 ab
 bT
 bT
@@ -2954,7 +2963,7 @@ YK
 Ek
 hj
 Ek
-Fa
+WY
 YK
 hj
 zR
@@ -2992,7 +3001,7 @@ Fa
 QE
 hj
 Dz
-Dz
+hj
 hj
 hj
 Pn
@@ -3064,7 +3073,7 @@ hI
 Pn
 OJ
 Pn
-hI
+Pn
 ab
 bT
 bT
@@ -3132,7 +3141,7 @@ ab
 pP
 pP
 pP
-hI
+Pn
 zd
 ab
 ab
