@@ -203,6 +203,10 @@
 "az" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/baseturf_helper/lava/mapping_lava,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -556,6 +560,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "bP" = (
@@ -603,6 +611,7 @@
 	},
 /area/ruin/unpowered/althland_excavation)
 "bU" = (
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -940,6 +949,17 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
+"jb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/storage)
 "je" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -1260,6 +1280,10 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "qp" = (
@@ -1559,6 +1583,17 @@
 	nitrogen = 0
 	},
 /area/ruin/unpowered/althland_excavation/storage)
+"wJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation/mech_bay)
 "wX" = (
 /obj/effect/map_effect/dynamic_airlock,
 /obj/effect/decal/cleanable/dirt,
@@ -1905,6 +1940,10 @@
 "EY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/baseturf_helper/lava/mapping_lava,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
@@ -3683,7 +3722,7 @@ UN
 bR
 aU
 pZ
-Mn
+wJ
 gH
 AV
 pZ
@@ -3894,7 +3933,7 @@ yN
 aG
 an
 Al
-bk
+jb
 ej
 Te
 bk
