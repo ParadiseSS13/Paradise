@@ -727,7 +727,6 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/loc_type in subtypesof(/datum/lore_location))
 		var/datum/lore_location/D = new loc_type
-		GLOB.weighted_randomevent_locations[D] = length(D.viable_random_events)
 		GLOB.weighted_mundaneevent_locations[D] = length(D.viable_mundane_events)
 
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
