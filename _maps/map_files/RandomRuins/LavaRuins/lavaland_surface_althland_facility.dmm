@@ -24,6 +24,17 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"as" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "au" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/nonfunctional,
@@ -54,8 +65,9 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/disposalpipe/broken{
-	dir = 4
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -362,12 +374,13 @@
 /area/ruin/unpowered/althland_processing/dorms)
 "ia" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/broken{
-	dir = 4
-	},
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/light/exterior/outdoors{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -556,6 +569,14 @@
 	},
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
+"rh" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "rv" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -697,11 +718,11 @@
 "ua" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/disposalpipe/broken{
-	dir = 1
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -772,6 +793,15 @@
 	dir = 5
 	},
 /turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"vy" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vM" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -1351,9 +1381,6 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/structure/disposalpipe/broken{
-	dir = 8
-	},
 /obj/item/stack/ore{
 	pixel_y = -9;
 	pixel_x = -6
@@ -1486,10 +1513,10 @@
 /area/ruin/unpowered/althland_processing/dorms)
 "Po" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/broken{
-	dir = 8
-	},
 /obj/structure/lattice/catwalk/mining,
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Px" = (
@@ -1593,6 +1620,9 @@
 	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -2292,7 +2322,7 @@ vf
 ui
 ab
 ab
-VJ
+as
 Qu
 ab
 ab
@@ -2326,7 +2356,7 @@ Ln
 ui
 ab
 cb
-VJ
+rh
 Dg
 ab
 ab
@@ -2394,7 +2424,7 @@ ui
 ui
 ab
 ab
-ap
+vy
 PW
 ab
 ab
