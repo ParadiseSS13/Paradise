@@ -110,7 +110,6 @@
 /area/lavaland/surface/outdoors)
 "cc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/clothing/glasses/welding{
 	pixel_x = -2;
@@ -120,7 +119,7 @@
 	pixel_x = 2;
 	pixel_y = -1
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "cd" = (
 /obj/structure/sink/directional/west,
@@ -137,12 +136,12 @@
 /area/ruin/unpowered/althland_processing/utilities)
 "cJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/caution/stand_clear/white,
+/turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "cM" = (
 /obj/structure/sign/atmosplaque{
@@ -304,7 +303,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "gF" = (
 /mob/living/basic/mining/hivelord/legion,
@@ -1338,10 +1337,8 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/dorms)
 "KT" = (
-/obj/effect/turf_decal/caution/stand_clear/white,
-/obj/effect/turf_decal/box/white,
-/obj/mecha/working/ripley/mining/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/mecha/working/ripley/mining/old,
 /turf/simulated/floor/mech_bay_recharge_floor/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "KZ" = (
@@ -1429,6 +1426,11 @@
 /obj/structure/salvageable/machine,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
+"NA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/ruin/unpowered/althland_processing/utilities)
 "ND" = (
 /obj/effect/turf_decal/delivery/white/partial,
 /obj/effect/decal/cleanable/glass/plasma,
@@ -1542,7 +1544,7 @@
 	pixel_x = -8;
 	pixel_y = 7
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing/utilities)
 "Qu" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -2090,7 +2092,7 @@ Dg
 ap
 ZB
 Jj
-BV
+NA
 Zi
 AE
 fs
