@@ -200,6 +200,7 @@
 	[topic.name] today. Security has been tightened, but many valuable items were stolen."
 
 /datum/event_news/corporate_attack/generate()
+	title = "Attack on [topic.name]"
 	body = "A small [pick("pirate", "Gorlex Marauder", "Syndicate")] strike force has precise-jumped into proximity with [topic.name], \
 	[pick("for a smash-and-grab operation", "in a hit and run attack", "in an overt display of hostilities")]. Much damage was done, and security has been tightened since the incident."
 
@@ -292,8 +293,8 @@
 		[pick("taking down", "killing", "eliminating", "exterminating", "incapacitating", "managing to subdue")] the vampire."
 	else
 		body += "Security forces [pick("failed to apprehend", "lost track of", "have been eluded by", "were involved in a brief skirmish with")] the vampire, who has\
-		[pick("already claimed multiple victims", "robbed multiple blood banks", "also enslaved multiple helpless thralls", "always remained one step ahead")]. They remain at large." 
-	body += "Authorities advise increased vigilance, and security has been tightened." 
+		[pick("already claimed multiple victims", "robbed multiple blood banks", "also enslaved multiple helpless thralls", "always remained one step ahead")]. They remain at large."
+	body += "Authorities advise increased vigilance, and security has been tightened."
 
 /datum/event_news/mindflayer_attack/generate()
 	title = "Mindflayer attack on [topic.name]"
@@ -308,8 +309,8 @@
 		[pick("taking down", "destroying", "eliminating", "exterminating", "incapacitating", "managing to subdue")] the mindflayer."
 	else
 		body += "Security forces [pick("failed to apprehend", "lost track of", "have been eluded by", "were involved in a brief skirmish with")] the mindflayer, who has\
-		[pick("already claimed multiple victims", "also enslaved multiple helpless cyborgs", "always remained one step ahead")]. They remain at large." 
-	body += "Authorities advise increased vigilance, and security has been tightened." 
+		[pick("already claimed multiple victims", "also enslaved multiple helpless cyborgs", "always remained one step ahead")]. They remain at large."
+	body += "Authorities advise increased vigilance, and security has been tightened."
 
 /datum/event_news/changeling_attack/generate()
 	title = "Changeling attack on [topic.name]"
@@ -325,8 +326,8 @@
 		[pick("taking down", "destroying", "eliminating", "exterminating", "crushing", "vaporizing")] the changeling."
 	else
 		body += "Security forces [pick("failed to apprehend", "lost track of", "have been eluded by", "were involved in a brief skirmish with")] the changeling, who has\
-		[pick("already claimed multiple victims", "absorbed a substantial amount of biomass", "always remained one step ahead")]. They remain at large." 
-	body += "Authorities advise increased vigilance, and security has been tightened." 
+		[pick("already claimed multiple victims", "absorbed a substantial amount of biomass", "always remained one step ahead")]. They remain at large."
+	body += "Authorities advise increased vigilance, and security has been tightened."
 
 /datum/event_news/blob_outbreak/generate()
 	title = "Blob organism outbreak on [topic.name]"
@@ -420,8 +421,8 @@
 /datum/event_news/movie_release/generate()
 	var/movie_name = "[pick("Deadly", "The Last", "Lost", "Dead", "Three", "Hungry", "Cyborg")] [pick("Starships", "Warriors", "Outcasts", "Vulpkanin", "Nian", "Cyborgs", "Tajarans", "Unathi", "Skrell")] \
 	[pick("of" , "From", "Raid", "go Hunting on", "Visit", "Ravage", "Pillage", "Destroy", "Cyborgify")] \
-	[pick("Moghes", "Earth", "Biesel", "Ahdomai", "S'randarr", "the Void", "the Edge of Space")]'."
-	title = "Now in Theaters: [movie_name]"
+	[pick("Moghes", "Earth", "Biesel", "Ahdomai", "S'randarr", "the Void", "the Edge of Space")]"
+	title = "Now in Theaters: '[movie_name]'"
 	body = "From the [pick("desk", "home town", "homeworld", "mind")] of [pick("acclaimed", "award-winning", "popular", "stellar")] \
 	[pick("playwright", "author", "director", "actor", "TV star")] [random_name(species = random_species())] comes the latest sensation: [movie_name]. \
 	Own it on webcast today, or visit the galactic premier on [topic.name]!"
