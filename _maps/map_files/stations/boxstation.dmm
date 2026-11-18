@@ -55796,6 +55796,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"iHU" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "iHY" = (
 /obj/machinery/camera{
 	c_tag = "Virology Monkey Pen"
@@ -128956,7 +128962,7 @@ bNK
 bLK
 chf
 sEn
-cep
+iHU
 uAo
 czf
 cep
