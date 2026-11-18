@@ -40,9 +40,10 @@
 		return TRUE
 
 /datum/spell/zombie_claws/can_cast(mob/user, charge_check, show_message)
-	var/mob/living/L = user
-	if(user.stat)
+	. = ..()
+	if(!. && !isnull(.))
 		return FALSE
+	var/mob/living/L = user
 	if(!L.get_active_hand() && !user.is_holding_item_of_type(/obj/item/zombie_claw/))
 		return TRUE
 
