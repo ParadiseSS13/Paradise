@@ -135,8 +135,9 @@
 
 // /datum/ruleset
 
-/// from base of /datum/ruleset/proc/can_apply()
+/// from base of `/datum/ruleset/proc/roundstart_can_apply()`
 #define COMSIG_RULESET_FAILED_SPECIES "failed_species"
+#define COMSIG_RULESET_FAILED_JOBS "failed_jobs"
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
 

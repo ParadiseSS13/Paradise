@@ -1642,7 +1642,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		// Shells get notifications already, so we don't want to duplicate the message for them.
 		if(!shell)
 			notify_ai(NEW_BORG)
-		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
+		if(AI.mind.special_role == ROLE_MALF && AI.malf_picker)
 			make_malf_robot(AI)
 		if(module)
 			module.rebuild_modules() //This way, if a borg gets linked to a malf AI that has upgrades, they get their upgrades.

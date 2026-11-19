@@ -1,7 +1,7 @@
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
-	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
+	restricted_jobs = list("Cyborg", "AI") // AIs can only be malf, cyborgs cannot be antagonists besides being linked to a malf AI.  
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Nanotrasen Career Trainer", "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
 	required_enemies = 1
 	recommended_enemies = 4
@@ -22,7 +22,7 @@
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	for(var/datum/mind/candidate in possible_traitors)
-		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING || candidate.special_role == SPECIAL_ROLE_MIND_FLAYER) // no traitor vampires, changelings, or mindflayers
+		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING || candidate.special_role == SPECIAL_ROLE_MIND_FLAYER || is_ai(candidate.current)) // No traitor vampires, changelings, mindflayers or malf AIs.
 			possible_traitors.Remove(candidate)
 
 	// stop setup if no possible traitors

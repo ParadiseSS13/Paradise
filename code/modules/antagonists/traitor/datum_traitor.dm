@@ -45,21 +45,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		component.delete_if_from_source(src)
 
 /datum/antagonist/traitor/Destroy(force, ...)
-	// Remove all associated malf AI abilities.
-	if(is_ai(owner.current))
-		var/mob/living/silicon/ai/A = owner.current
-		A.clear_zeroth_law()
-		var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
-		radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
-		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
-		A.show_laws()
-		A.remove_malf_abilities()
-		QDEL_NULL(A.malf_picker)
-		var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
-		H.remove_hud_from(usr, src)
-		for(var/mob/living/silicon/robot/borg in A.connected_robots)
-			H.remove_hud_from(borg, src)
-
 	// Leave the mindslave hud.
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som
@@ -130,10 +115,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/give_objectives()
-	if(is_ai(owner.current))
-		forge_ai_objectives()
-	else
-		forge_human_objectives()
+	forge_human_objectives()
 
 /datum/antagonist/traitor/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
 	if(isplasmaman(extractor))
@@ -189,15 +171,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		add_antag_objective(/datum/objective/escape)
 
 /**
- * Create and assign a full set of AI traitor objectives.
- */
-/datum/antagonist/traitor/proc/forge_ai_objectives()
-	add_antag_objective(/datum/objective/block)
-	add_antag_objective(/datum/objective/assassinate)
-	add_antag_objective(/datum/objective/survive)
-
-
-/**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
@@ -206,53 +179,11 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
-	if(is_ai(owner.current))
-		add_law_zero()
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-		var/mob/living/silicon/ai/A = owner.current
-		A.show_laws()
-	else
-		if(give_uplink)
-			give_uplink()
-		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	if(give_uplink)
+		give_uplink()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	return messages
-
-/**
- * Notify the traitor of their codewords and write them to `antag_memory` (notes).
- */
-/datum/antagonist/traitor/proc/give_codewords()
-	if(!owner.current)
-		return
-
-	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
-	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-	var/list/messages = list()
-	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: [SPAN_CODEPHRASES("[phrases]")]</span>")
-	messages.Add("<span class='bold body'>Code Response: [SPAN_CODERESPONSES("[responses]")]</span>")
-
-	antag_memory += "<b>Code Phrase</b>: [SPAN_RED("[phrases]")]<br>"
-	antag_memory += "<b>Code Response</b>: [SPAN_RED("[responses]")]<br>"
-
-	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
-
-	return messages
-
-/**
- * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.
- */
-/datum/antagonist/traitor/proc/add_law_zero()
-	var/mob/living/silicon/ai/killer = owner.current
-	killer.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
-	killer.set_syndie_radio()
-	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
-	killer.add_malf_picker()
-	var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
-	H.add_hud_to(killer, src)
-	for(var/mob/living/silicon/robot/borg in killer.connected_robots)
-		H.add_hud_to(borg, src)
 
 /**
  * Gives a traitor human their uplink, and uplink code.

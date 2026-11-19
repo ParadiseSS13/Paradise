@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_TSPIDER,
 	ROLE_NINJA,
 	ROLE_FLOCK,
+	ROLE_MALF
 ))
 
 // Bannable other roles
