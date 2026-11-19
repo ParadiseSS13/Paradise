@@ -117,3 +117,4 @@ the mining station
 the research station
 a beaker of strange liquid
 Captain DREAMER
+DREAMER has mastered the Golden Blast
