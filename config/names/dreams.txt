@@ -71,6 +71,7 @@ the janitor
 an atmospheric technician
 the botanist
 a shaft miner
+a cargo technician
 the psychologist
 the chemist
 the geneticist
