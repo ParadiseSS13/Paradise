@@ -170,7 +170,7 @@
 /datum/quirk/culturaldisconnect
 	name = "Culturally Disconnected"
 	desc = "For whatever reason, you do not know your species language. Grey, Plasmamen, and Slime People cannot take this."
-	cost = -2
+	cost = -1
 	trait_to_apply = TRAIT_NO_SPECIES_LANGUAGE
 	species_flags = QUIRK_SLIME_INCOMPATIBLE | QUIRK_PLASMAMAN_INCOMPATIBLE | QUIRK_GREY_INCOMPATIBLE
 	conflicting_quirks = list(/datum/quirk/foreigner) // characters should speak languages
