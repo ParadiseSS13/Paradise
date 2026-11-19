@@ -814,8 +814,7 @@
 	name = "Morphine"
 	id = "morphine"
 	description = "An analgesic opioid used for treating severe acute and chronic pain. Common side effects include diziness, drowsiness, confusion, and euphoria. \
-	In serious cases, may cause dangerous respiritory depression. \
-	It has a high risk of addiction and abuse."
+	In serious cases, may cause dangerous respiritory depression. It has a high risk of addiction and abuse."
 	reagent_state = LIQUID
 	color = "#700258"
 	overdose_threshold = 20
