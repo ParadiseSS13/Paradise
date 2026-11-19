@@ -232,35 +232,35 @@
 
 	current_heat = min(current_heat + 1, max_heat)
 
-/obj/item/gun/medbeam/damaged/attackby__legacy__attackchain(obj/item/attacking_item, mob/user, params)
+/obj/item/gun/medbeam/damaged/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 
 	if(broken == INSTALL_CELL)
-		if(istype(attacking_item, /obj/item/stock_parts/cell/medbeam))
-			var/obj/item/stock_parts/cell/medbeam/battery = attacking_item
+		if(istype(used, /obj/item/stock_parts/cell/medbeam))
+			var/obj/item/stock_parts/cell/medbeam/battery = used
 			if(battery.charge != battery.maxcharge)
 				to_chat(user, SPAN_WARNING("[src] won't function without a fully charged [battery]."))
 				return
 			to_chat(user, SPAN_NOTICE("You start replacing [src]'s battery."))
-			attempt_repair(user, attacking_item, MULTITOOL_ELECTRONICS)
-			return
+			attempt_repair(user, used, MULTITOOL_ELECTRONICS)
+			return ITEM_INTERACT_COMPLETE
 
 	if(broken == INSTALL_ELECTRONICS)
-		if(istype(attacking_item, /obj/item/stack/cable_coil))
-			to_chat(user, SPAN_NOTICE("You start replacing the fried electronics in [src]."))
-			attempt_repair(user, attacking_item, INSTALL_CELL)
-			return
+		if(istype(used, /obj/item/stack/cable_coil))
+			to_chat(user, SPAN_NOTICE("You start replacing the fried cables in [src]."))
+			attempt_repair(user, used, INSTALL_CELL)
+			return ITEM_INTERACT_COMPLETE
 
 	if(broken == INSTALL_LENS)
-		if(istype(attacking_item, /obj/item/stack/sheet/glass))
+		if(istype(used, /obj/item/stack/sheet/glass))
 			to_chat(user, SPAN_NOTICE("You start replacing the broken lens in [src]."))
-			attempt_repair(user, attacking_item, INSTALL_ELECTRONICS)
-			return
+			attempt_repair(user, used, INSTALL_ELECTRONICS)
+			return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/screwdriver)
 	if(broken == SCREWDRIVER_OPEN)
 		if(overheated)
-			to_chat(user,  SPAN_WARNING("[src] is still too hot for the screws to be safely removed from it."))
+			to_chat(user,  SPAN_WARNING("[src] is still too hot for the screws to be safely removed from it!"))
 			return
 		to_chat(user, SPAN_NOTICE("You start removing the screws from [src]'s shell."))
 		attempt_repair(user, screwdriver, REMOVE_OLD_PARTS)

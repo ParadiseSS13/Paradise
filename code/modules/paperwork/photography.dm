@@ -374,9 +374,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	// Render lighting objects to make picture look nice.
 	for(var/datum/lighting_object/light as anything in lighting_objects)
+		if(!light.applied_underlay)
+			continue
 		var/xoff = (light.affected_turf.x - center.x) * 32 + center_offset
 		var/yoff = (light.affected_turf.y - center.y) * 32 + center_offset
-		res.Blend(getFlatIcon(light.current_underlay), blendMode2iconMode(BLEND_MULTIPLY),  xoff, yoff)
+		res.Blend(getFlatIcon(light.applied_underlay), blendMode2iconMode(BLEND_MULTIPLY),  xoff, yoff)
 
 	return res
 

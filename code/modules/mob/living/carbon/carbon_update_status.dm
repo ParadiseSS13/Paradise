@@ -12,7 +12,8 @@
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
 		else if(health < HEALTH_THRESHOLD_CRIT && check_death_method())
-			KnockDown(3 SECONDS)
+			if(!ismachineperson(src) || (ismachineperson(src) && !reagents.has_reagent("emr_microbots"))) // I hate oldcrit. This needs to be here because IPCs are snowflakes.
+				KnockDown(3 SECONDS)
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()

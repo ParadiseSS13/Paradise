@@ -400,8 +400,10 @@
 		if(atoms_share_level(T, mob_turf))
 			SEND_SOUND(M, super_matter_charge_sound)
 
-			if(atoms_share_level(M, src))
+			if(atoms_share_level(M, src) || (istype(M.loc, /obj/item/aicard) && atoms_share_level(M.loc, src)))
 				to_chat(M, SPAN_BOLDANNOUNCEIC("You feel reality distort for a moment..."))
+			else if(istype(M.loc, /obj/item/aicard))
+				to_chat(M, SPAN_BOLDANNOUNCEIC("You sit safely in your intelliCard as reality distorts around you."))
 			else
 				to_chat(M, SPAN_BOLDANNOUNCEIC("You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe."))
 

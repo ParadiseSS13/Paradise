@@ -11,11 +11,11 @@
 	var/number_of_pods = 3
 
 /datum/event/cargo_pods/announce()
-	var/announcement = "Multiple jettisoned cargo pods have been detected on a collision course with the station. Estimated impact zones: "
+	var/announcement = "Multiple jettisoned cargo pods have been detected on a collision course with the station. Estimated impact zones are as follows: "
 	for(var/area/A in drop_areas)
 		announcement += "\n- [A.name]"
 	announcement += "\n\n - A.L.I.C.E."
-	GLOB.minor_announcement.Announce(announcement, "Proximity Alert")
+	GLOB.minor_announcement.Announce(announcement, "Proximity Alert", 'sound/AI/cargo_pod_impact.ogg')
 
 /datum/event/cargo_pods/setup()
 	number_of_pods = rand(1, 4)
