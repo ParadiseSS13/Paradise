@@ -82,7 +82,7 @@
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
-/obj/item/organ/internal/brain/insert(mob/living/target, special = 0)
+/obj/item/organ/internal/brain/insert(mob/living/target, special = 0, dont_remove_slot = 0, silent = FALSE)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = FALSE
@@ -216,7 +216,7 @@
 
 /obj/item/organ/internal/brain/cluwne
 
-/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, make_cluwne = 1)
+/obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, dont_remove_slot = 0, silent = FALSE, make_cluwne = 1)
 	..(target, special = special)
 	if(ishuman(target) && make_cluwne)
 		var/mob/living/carbon/human/H = target

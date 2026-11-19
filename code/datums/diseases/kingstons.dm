@@ -47,7 +47,7 @@
 					var/old_body_color = catface.skin_colour
 					if(old_species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 						old_body_color = catface.s_tone
-					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE, keep_implants = TRUE)
 					catface.skin_colour = catface.dna.species.convert_skin(old_species, old_body_color)
 					catface.regenerate_icons()
 
@@ -107,7 +107,7 @@
 				var/old_body_color = twisted.skin_colour
 				if(old_species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 					old_body_color = twisted.s_tone
-				twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+				twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE, keep_implants = TRUE)
 				if(twisted.dna.species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 					twisted.s_tone = twisted.dna.species.convert_skin(old_species, old_body_color)
 				else

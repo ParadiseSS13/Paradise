@@ -74,7 +74,7 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -121,7 +121,7 @@
 	icon_state = "slime"
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	owner.faction |= "slime"
 	owner.add_language("Bubblish")
@@ -169,7 +169,7 @@
 /obj/item/organ/internal/heart/gland/pop/trigger()
 	to_chat(owner, SPAN_NOTICE("You feel unlike yourself."))
 	var/species = pick(/datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
-	owner.set_species(species, keep_missing_bodyparts = TRUE)
+	owner.set_species(species, keep_missing_bodyparts = TRUE, keep_implants = TRUE)
 
 /obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
@@ -277,7 +277,7 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free

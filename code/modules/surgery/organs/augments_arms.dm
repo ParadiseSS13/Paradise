@@ -47,7 +47,7 @@
 	to_chat(user, SPAN_NOTICE("You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm."))
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
@@ -965,7 +965,7 @@
 	. = ..()
 	muscle_implant = new()
 
-/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	muscle_implant.teach(M, TRUE)
 

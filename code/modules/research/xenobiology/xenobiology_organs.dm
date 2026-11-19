@@ -242,7 +242,7 @@
 	hidden_origin_tech = TECH_PLASMA
 	hidden_tech_level = 5
 
-/obj/item/organ/internal/lungs/xenobiology/flame_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/lungs/xenobiology/flame_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/drake_breath/spell = new
 	spell.quality = organ_quality
@@ -312,7 +312,7 @@
 	desc = "Long, strands of durable fibers that seem to grow at astonishing speeds."
 	analyzer_price = 25
 
-/obj/item/organ/internal/kidneys/xenobiology/sinew/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/kidneys/xenobiology/sinew/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/create_sinew/sinew_spell = new
 	sinew_spell.quality = organ_quality
@@ -391,7 +391,7 @@
 	/// Component that handles the ability to eat precious metals
 	var/datum/component/special_tastes/special_tastes
 
-/obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/organ_owner, special = FALSE, dont_remove_slot = FALSE)
+/obj/item/organ/internal/kidneys/xenobiology/metallic/insert(mob/living/carbon/organ_owner, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/static/list/edible_minerals = list(
 		/obj/item/stack/sheet/mineral/silver = list(
@@ -465,7 +465,7 @@
 	. = ..()
 	icon_state = pick("colossus1", "colossus2", "colossus3", "colossus4")
 
-/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, ORGAN_TRAIT)
 	REMOVE_TRAIT(M, TRAIT_LOUD, ORGAN_TRAIT)
@@ -506,7 +506,7 @@
 	hidden_origin_tech = TECH_COMBAT
 	hidden_tech_level = 5
 
-/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/appendix/xenobiology/toxin_stinger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/organ_sting/spell = new()
 	if(organ_quality == ORGAN_DAMAGED)
@@ -582,7 +582,7 @@
 	hidden_tech_level = 5
 	var/datum/action/cooldown/mob_cooldown/gnesis_action
 
-/obj/item/organ/internal/appendix/xenobiology/flock_converter/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/appendix/xenobiology/flock_converter/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	gnesis_action = new /datum/action/cooldown/dispense_congealed_gnesis()
 	if(organ_quality == ORGAN_DAMAGED)
@@ -636,7 +636,7 @@
 	hidden_origin_tech = TECH_BIO
 	hidden_tech_level = 7
 
-/obj/item/organ/internal/heart/xenobiology/contortion/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/heart/xenobiology/contortion/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/contort/spell = new
 	if(organ_quality == ORGAN_PRISTINE)
@@ -705,7 +705,7 @@
 	hidden_origin_tech = TECH_BLUESPACE
 	hidden_tech_level = 7
 
-/obj/item/organ/internal/heart/xenobiology/bloody_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/heart/xenobiology/bloody_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/absorb_blood/spell = new
 	spell.quality = organ_quality
@@ -772,7 +772,7 @@
 	hidden_tech_level = 7
 
 // checks with those with the eat gene from adding/removing matter eater
-/obj/item/organ/internal/liver/xenobiology/hungry/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/liver/xenobiology/hungry/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_GLUTTONOUS_GLORY, ORGAN_TRAIT)
 
@@ -798,7 +798,7 @@
 	hidden_origin_tech = TECH_BIO
 	hidden_tech_level = 5
 
-/obj/item/organ/internal/appendix/xenobiology/tendril/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/appendix/xenobiology/tendril/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/tendril_grab/spell = new
 	spell.quality = organ_quality
@@ -880,7 +880,7 @@
 	. = ..()
 	icon_state = pick("hiero1", "hiero2")
 
-/obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/turf_teleport/organ_teleport/spell = new
 	spell.quality = organ_quality
@@ -999,7 +999,7 @@
 	var/original_blood_color
 	var/original_blood_type
 
-/obj/item/organ/internal/liver/xenobiology/soupy/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/liver/xenobiology/soupy/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	original_name = M.dna.species.name
 	original_exotic_blood = M.dna.species.exotic_blood
@@ -1010,7 +1010,8 @@
 	M.dna.species.exotic_blood = "tomatojuice"
 	M.dna.species.blood_color = "#e25821"
 	M.dna.blood_type = "Tomato"
-	to_chat(owner, SPAN_USERDANGER("You feel unnaturally soupy..."))
+	if(!silent)
+		to_chat(owner, SPAN_USERDANGER("You feel unnaturally soupy..."))
 
 /obj/item/organ/internal/liver/xenobiology/soupy/remove(mob/living/carbon/human/M, special = 0)
 	. = ..()
@@ -1036,7 +1037,7 @@
 	hidden_origin_tech = TECH_MATERIAL
 	hidden_tech_level = 7
 
-/obj/item/organ/internal/lungs/xenobiology/mirror/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/lungs/xenobiology/mirror/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/create_mirror/spell = new
 	spell.quality = organ_quality
@@ -1109,7 +1110,7 @@
 	/// How far are we allowed to shock someone from?
 	var/shock_range = 4
 
-/obj/item/organ/internal/appendix/xenobiology/electro_strands/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/appendix/xenobiology/electro_strands/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/aoe/flicker_lights/electro_strands/spell = new
 	M.AddSpell(spell)
@@ -1145,13 +1146,14 @@
 	hidden_origin_tech = TECH_COMBAT
 	hidden_tech_level = 7
 
-/obj/item/organ/internal/liver/xenobiology/sharp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/liver/xenobiology/sharp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	original_unarmed = owner.dna.species.unarmed_type
 	if(original_unarmed != /datum/unarmed_attack/claws)
 		var/datum/unarmed_attack/claws/claws = new
-		owner.adjustBruteLoss(20) // OUCH!!! Son of a-
-		owner.emote("scream")
+		if(!silent)
+			owner.adjustBruteLoss(20) // OUCH!!! Son of a-
+			owner.emote("scream")
 		if(organ_quality == ORGAN_PRISTINE)
 			claws.has_been_sharpened = TRUE
 		owner.dna.species.unarmed = claws
@@ -1176,7 +1178,7 @@
 	hidden_origin_tech = TECH_ENGINEERING
 	hidden_tech_level = 5
 
-/obj/item/organ/internal/appendix/xenobiology/noisemaker/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/appendix/xenobiology/noisemaker/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/action/innate/migo_noise/noisy = new()
 	noisy.Grant(M)
@@ -1220,7 +1222,7 @@
 	hidden_origin_tech = TECH_BIO
 	hidden_tech_level = 7
 
-/obj/item/organ/internal/eyes/xenobiology/receptors/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/eyes/xenobiology/receptors/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	switch(organ_quality)
 		if(ORGAN_BROKEN) // Some night vision, but flash sensitive.
 			flash_protect = FLASH_PROTECTION_SENSITIVE
@@ -1249,7 +1251,7 @@
 	icon_state = pick("hiero1", "hiero2")
 
 
-/obj/item/organ/internal/heart/xenobiology/paradox/insert(mob/living/carbon/human/M, special, dont_remove_slot)
+/obj/item/organ/internal/heart/xenobiology/paradox/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	for(var/obj/item/organ/internal/heart/xenobiology/temp_organ as anything in subtypesof(/obj/item/organ/internal/heart/xenobiology))
 		if(temp_organ::can_paradox)
 			acceptable_hearts += temp_organ
@@ -1268,27 +1270,31 @@
 	hidden_origin_tech = TECH_SYNDICATE
 	hidden_tech_level = 3
 
-/obj/item/organ/internal/heart/xenobiology/bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
+/obj/item/organ/internal/heart/xenobiology/bananium/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	if(M.mind)
 		if(M.mind.assigned_role == "Clown")
 			M.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
-			to_chat(M, SPAN_USERDANGER("You feel great!"))
+			if(!silent)
+				to_chat(M, SPAN_USERDANGER("You feel great!"))
 			return
 		else if(M.mind.assigned_role == "Mime")
 			M.AddComponent(/datum/component/squeak)
 			M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 			M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
-			to_chat(M, SPAN_USERDANGER("UH OH"))
+			if(!silent)
+				to_chat(M, SPAN_USERDANGER("UH OH"))
 		else
-			M.emote("scream")
-			M.AdjustJitter(20 SECONDS)
+			if(!silent)
+				M.emote("scream")
+				M.AdjustJitter(20 SECONDS)
 			M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 			M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
 	else
-		M.emote("scream")
-		M.AdjustJitter(20 SECONDS)
+		if(!silent)
+			M.emote("scream")
+			M.AdjustJitter(20 SECONDS)
 		M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 		M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, bananatouched_harmless)), 3 SECONDS)
@@ -1364,18 +1370,20 @@
 		"JOY! LAUGHTER! SMILES! WHEEEEEEEE!~"
 	)
 
-/obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
+/obj/item/organ/internal/heart/xenobiology/cursed_bananium/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	if(M.mind && M.mind.assigned_role == "Clown")
 		addtimer(CALLBACK(src, PROC_REF(glorious_death), M), 5 MINUTES)
-		to_chat(owner, SPAN_USERDANGER("YOU FEEL THE PURE, UNFILTERED JOY OF THE HONKMOTHER!!!"))
-		playsound(M, 'sound/magic/magic_block_holy.ogg', 60)
+		if(!silent)
+			to_chat(owner, SPAN_USERDANGER("YOU FEEL THE PURE, UNFILTERED JOY OF THE HONKMOTHER!!!"))
+			playsound(M, 'sound/magic/magic_block_holy.ogg', 60)
 		ADD_TRAIT(M, TRAIT_GOTTAGOFAST, ORGAN_TRAIT)
 		M.color = rgb(255, 251, 0)
 		M.set_light(2, 5, rgb(255, 251, 0))
 		M.AddComponent(/datum/component/squeak)
 	else
-		M.emote("scream")
-		M.SetJitter(20 SECONDS)
+		if(!silent)
+			M.emote("scream")
+			M.SetJitter(20 SECONDS)
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon/human/, makeCluwne)), 5 SECONDS)
 	return ..()
 
@@ -1422,7 +1430,7 @@
 	. = ..()
 	icon_state = pick("vetus1", "vetus2")
 
-/obj/item/organ/internal/cell/xenobiology/supercharged/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/cell/xenobiology/supercharged/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/charge_up/explode/spell = new
 	spell.quality = organ_quality
@@ -1507,9 +1515,10 @@
 	analyzer_price = 40
 	can_paradox = TRUE
 
-/obj/item/organ/internal/heart/xenobiology/megacarp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/heart/xenobiology/megacarp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	if(!M.mind)
-		M.visible_message(SPAN_WARNING("[src] doesn't look like it's going to fit right now! It...refuses?"))
+		if(!silent)
+			M.visible_message(SPAN_WARNING("[src] doesn't look like it's going to fit right now! It...refuses?"))
 		return
 	var/datum/spell/shapeshift/megacarp/spell = new(organ_quality)
 	M.mind.AddSpell(spell)
@@ -1610,7 +1619,7 @@
 	qdel(organ_resistance_boost)
 	return ..()
 
-/obj/item/organ/internal/kidneys/xenobiology/lethargic/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/kidneys/xenobiology/lethargic/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_GOTTAGOSLOW, ORGAN_TRAIT)
 	if(organ_quality == ORGAN_DAMAGED)
@@ -1683,7 +1692,7 @@
 	. = ..()
 	icon_state = pick("legion1", "legion2")
 
-/obj/item/organ/internal/ears/xenobiology/sinister/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/ears/xenobiology/sinister/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/head_attack/spell = new
 	spell.quality = organ_quality
