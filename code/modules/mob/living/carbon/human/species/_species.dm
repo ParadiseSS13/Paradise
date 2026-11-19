@@ -228,12 +228,11 @@
 		if(!body_part)
 			continue
 		// Expel cyber implants first if we're not keeping them.
-		for(var/obj/item/organ/internal/internal_organ in body_part.internal_organs)
-			if(keep_implants && transfer_contents && !(bodyparts_to_omit && (limb_name in bodyparts_to_omit)) && !IS_CHANGELING(H) && (internal_organ.status & ORGAN_ROBOT))
+		for(var/obj/item/organ/internal/cyberimp/internal_organ in body_part.internal_organs)
+			if(keep_implants && transfer_contents && !(bodyparts_to_omit && (limb_name in bodyparts_to_omit)) && !IS_CHANGELING(H))
 				implant_list += internal_organ
-			if(istype(internal_organ, /obj/item/organ/internal/cyberimp))
-				internal_organ.remove(H)
-				internal_organ.forceMove(get_turf(H))
+			internal_organ.remove(H)
+			internal_organ.forceMove(get_turf(H))
 
 		// If we don't transfer the content or make a new organ in place of the old one, drop the contents on the ground
 		if(!transfer_contents || (bodyparts_to_omit && (limb_name in bodyparts_to_omit)) || IS_CHANGELING(H))
@@ -278,11 +277,8 @@
 			external_organ.contents = transfer_list[limb_name]["contents"]
 			transfer_list -= transfer_list[limb_name]
 	if(keep_implants && transfer_contents && !IS_CHANGELING(H))
-		for(var/obj/item/organ/internal/internal_organ in implant_list)
+		for(var/obj/item/organ/internal/cyberimp/internal_organ in implant_list)
 			if(!istype(internal_organ))
-				continue
-
-			if(!(internal_organ.status & ORGAN_ROBOT))
 				continue
 
 			if(internal_organ.requires_robotic_bodypart)
@@ -313,7 +309,7 @@
 		var/obj/item/organ/internal/organ_path = has_organ[index]
 		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
 			continue
-		if(keep_implants && transfer_contents && !IS_CHANGELING(H) && !isnull(H.get_organ_slot(index)) && (H.get_organ_slot(index).status & ORGAN_ROBOT))
+		if(keep_implants && transfer_contents && !IS_CHANGELING(H) && istype(organ_path, /obj/item/organ/internal/cyberimp))
 			continue
 		// heads up for any brave future coders:
 		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
