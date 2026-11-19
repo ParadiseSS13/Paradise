@@ -1692,7 +1692,7 @@
 	. = ..()
 	icon_state = pick("legion1", "legion2")
 
-/obj/item/organ/internal/ears/xenobiology/sinister/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, dont_remove_slot = 0, silent = FALSE)
+/obj/item/organ/internal/ears/xenobiology/sinister/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	var/datum/spell/head_attack/spell = new
 	spell.quality = organ_quality
