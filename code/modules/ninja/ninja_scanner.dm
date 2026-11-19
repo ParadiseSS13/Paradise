@@ -29,9 +29,7 @@
 								SPAN_NOTICE("You begin to scan [target]!"))
 			if(!do_after_once(user, 8 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
-			ninja_obj.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.complete_objective()
+			complete_objective(ninja_obj)
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/capture))
@@ -68,9 +66,7 @@
 				c_target.handcuffed = FALSE
 				c_target.update_handcuffed()
 			cap_obj.handle_capture(target, target_loc)
-			ninja_obj.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.complete_objective()
+			complete_objective(ninja_obj)
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/interrogate_ai))
@@ -97,9 +93,7 @@
 				if(length(open_turfs))
 					do_teleport(card, pick(open_turfs))
 					break
-			ninja_obj.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.complete_objective()
+			complete_objective(ninja_obj)
 			return TRUE
 	return ..()
 
@@ -118,11 +112,9 @@
 		if(istype(ninja_obj, /datum/objective/ninja/hack_rnd) && istype(attacked_obj, /obj/machinery/computer/rnd_network_controller))
 			if(!do_after_once(user, 12 SECONDS, target = attacked_obj, allow_moving = FALSE, attempt_cancel_message = "You stop hacking [attacked_obj] before completing the download."))
 				return TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			var/obj/machinery/computer/rnd_network_controller/rnd = attacked_obj
 			rnd.research_files.known_tech = list()
-			ninja_obj.completed = TRUE
-			ninja_obj.complete_objective()
+			complete_objective(user, ninja_obj)
 			return TRUE
 		if(istype(ninja_obj, /datum/objective/ninja/hack_rnd) && istype(attacked_obj, /obj/machinery/computer/rdconsole))
 			to_chat(user, SPAN_WARNING("The client wants access to the R&D Server controller itself, not this workstation console!"))
@@ -138,9 +130,28 @@
 			if(r_chamber.linked_reactor.offline)
 				to_chat(user, SPAN_NOTICE("[r_chamber.linked_reactor] is not online."))
 				return TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.completed = TRUE
-			ninja_obj.complete_objective()
+			complete_objective(user, ninja_obj)
 			return TRUE
-
+		if(istype(ninja_obj, /datum/objective/ninja/sabotage_cloning) && istype(attacked_obj, /obj/machinery/clonepod))
+			to_chat(user, SPAN_NOTICE("You begin to hack [attacked_obj]!"))
+			if(!do_after_once(user, 6 SECONDS, target = attacked_obj, allow_moving = FALSE, attempt_cancel_message = "You stop hacking [attacked_obj] before completing the sabotage."))
+				return TRUE
+			var/obj/machinery/clonepod/pod = attacked_obj
+			pod.emag_act()
+			complete_objective(user, ninja_obj)
+			return TRUE
+		if(istype(ninja_obj, /datum/objective/ninja/sabotage_gravity) && istype(attacked_obj, /obj/machinery/gravity_generator))
+			to_chat(user, SPAN_NOTICE("You begin to hack [attacked_obj]"))
+			if(!do_after_once(user, 12 SECONDS, target = attacked_obj, allow_moving = FALSE, attempt_cancel_message = "You stop hacking [attacked_obj] before completing the sabotage."))
+				return TRUE
+			var/obj/machinery/gravity_generator/gravgen = attacked_obj
+			if(!gravgen.overload())
+				return TRUE
+			complete_objective(user, ninja_obj)
+			return TRUE
 	return ..()
+
+/obj/item/ninja_scanner/proc/complete_objective(mob/living/user, datum/objective/ninja/ninja_obj)
+	to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
+	ninja_obj.completed = TRUE
+	ninja_obj.complete_objective()

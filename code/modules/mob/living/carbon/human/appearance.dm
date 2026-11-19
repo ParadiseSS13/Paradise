@@ -249,6 +249,37 @@
 	dna.chat_color = colour
 	update_dna()
 
+/mob/living/carbon/human/get_blooper_id()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_id
+
+/mob/living/carbon/human/get_blooper_speed()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_speed
+/mob/living/carbon/human/get_blooper_pitch()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_pitch
+/mob/living/carbon/human/get_blooper_pitch_range()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_pitch_range
+
+/mob/living/carbon/human/proc/change_blooper_data(id = null, speed = null, pitch = null, pitch_range = null)
+	if(!dna)
+		return
+	if(!isnull(id) && blooper_id == dna.blooper_id)
+		dna.blooper_id = id
+	if(!isnull(speed) && blooper_speed == dna.blooper_speed)
+		dna.blooper_speed = speed
+	if(!isnull(pitch) && blooper_pitch == dna.blooper_pitch)
+		dna.blooper_pitch = pitch
+	if(!isnull(pitch_range) && blooper_pitch_range == dna.blooper_pitch_range)
+		dna.blooper_pitch_range = pitch_range
+	update_dna()
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
