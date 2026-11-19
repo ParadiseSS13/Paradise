@@ -813,14 +813,16 @@
 /datum/reagent/medicine/morphine
 	name = "Morphine"
 	id = "morphine"
-	description = "A strong but highly addictive opiate painkiller with sedative side effects."
+	description = "An analgesic opioid used for treating severe acute and chronic pain. Common side effects include diziness, drowsiness, confusion, and euphoria. \
+	In serious cases, may cause dangerous respiritory depression. \
+	It has a high risk of addiction and abuse."
 	reagent_state = LIQUID
 	color = "#700258"
 	overdose_threshold = 20
 	addiction_chance = 10
-	addiction_threshold = 15
-	metabolization_rate = 0.25 //Lasts for 120 seconds
-	shock_reduction = 50
+	addiction_threshold = 10
+	metabolization_rate = 0.25 // 30u lasts for 120 seconds.
+	shock_reduction = 300
 	harmless = FALSE
 	taste_description = "a delightful numbing"
 	allowed_overdose_process = TRUE
@@ -832,12 +834,43 @@
 		if(1 to 15)
 			if(prob(7))
 				M.emote("yawn")
+			if(prob(10))
+				to_chat(M, SPAN_NOTICE("[pick("You feel a comforting warmth come over you...", "You begin to feel more cozy...", "You begin to relax...", "Everything feels a little bit better.")]"))
 		if(16 to 35)
-			M.Drowsy(40 SECONDS)
+			M.Drowsy(20 SECONDS)
+			if(prob(20))
+				M.AdjustConfused(2 SECONDS)
+			if(prob(15))
+				to_chat(M, SPAN_NOTICE("[pick("You feel wonderful.", "Everything feels so much better.", "All your unhappy thoughts begin to melt away...", "All pain feels so far away...")]"))
 		if(36 to INFINITY)
-			M.Paralyse(30 SECONDS)
 			M.Drowsy(40 SECONDS)
+			if(prob(40))
+				M.AdjustConfused(5 SECONDS)
+			if(prob(10))
+				to_chat(M, SPAN_NOTICE("[pick("You feel absolutely incredible!", "The world feels perfect.", "You are awash in a sea of bliss.", "You've never felt so good in your life!", "Nothing will ever beat this.")]"))
 	return ..() | update_flags
+
+/datum/reagent/medicine/morphine/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(current_cycle < 5)
+		return update_flags
+
+	if(prob(20))
+		M.AdjustLoseBreath(10 SECONDS, bound_upper = 60 SECONDS) // Respiritory depression.
+	if(M.get_drunkenness())
+		M.AdjustLoseBreath(10 SECONDS, bound_upper = 60 SECONDS) // Alcohol and opioids are a bad mix.
+
+	if(prob(10) && !M.stat == UNCONSCIOUS)
+		M.AdjustStunned(4 SECONDS)
+		to_chat(M, SPAN_WARNING("You stare off into space and let the world fade away..."))
+
+	if(prob(5) && !M.stat == UNCONSCIOUS)
+		to_chat(M, SPAN_WARNING("You feel so warm and cozy... You could just nap for a while..."))
+		M.AdjustSleeping(10 SECONDS, bound_upper = 2 MINUTES)
+		if(prob(50))
+			M.AdjustLoseBreath(10 SECONDS, bound_upper = 60 SECONDS) // MORE respiritory depression.
+
+	return update_flags
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
