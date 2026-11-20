@@ -130,6 +130,7 @@
 			var/atom/throw_target = get_edge_target_turf(human_target, get_dir(src, get_step_away(human_target, src)))
 			human_target.throw_at(throw_target, 3, 1)
 			add_attack_logs(user, human_target, "Swept away with titanium push broom", ATKLOG_ALL)
+			user.changeNext_move(CLICK_CD_MELEE)
 			return ITEM_INTERACT_COMPLETE
 
 		if(INTENT_DISARM)
@@ -147,6 +148,7 @@
 			human_target.apply_damage(5, BRUTE)
 			human_target.KnockDown(4 SECONDS)
 			add_attack_logs(user, human_target, "Leg swept with titanium push broom", ATKLOG_ALL)
+			user.changeNext_move(CLICK_CD_MELEE)
 			return ITEM_INTERACT_COMPLETE
 
 		if(INTENT_GRAB)
@@ -161,6 +163,7 @@
 			human_target.AdjustConfused(4 SECONDS, 0, 4 SECONDS) // No stacking infinitely.
 			human_target.apply_damage(15, STAMINA)
 			add_attack_logs(user, human_target, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
+			user.changeNext_move(CLICK_CD_MELEE)
 			return ITEM_INTERACT_COMPLETE
 
 		if(INTENT_HARM)
