@@ -10812,6 +10812,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/structure/sign/science/robotics{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "aVm" = (
@@ -14750,10 +14753,12 @@
 /turf/simulated/floor/plating,
 /area/station/procedure/trainer_office)
 "bPV" = (
-/obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
+	},
+/obj/structure/sign/command/head{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -29625,9 +29630,6 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "rd"
 	},
-/obj/structure/sign/science/robotics{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
 "jOt" = (
@@ -34815,10 +34817,6 @@
 /obj/structure/sign/science,
 /turf/simulated/wall,
 /area/station/science/robotics/chargebay)
-"mOs" = (
-/obj/structure/sign/nanotrasen,
-/turf/simulated/wall,
-/area/station/command/office/rd)
 "mOJ" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-2"
@@ -48574,6 +48572,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"tYr" = (
+/obj/structure/sign/medical/virology{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "tYL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -56385,6 +56389,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"yiK" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/obj/structure/sign/command/head{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/hallway)
 "yjp" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
@@ -84907,7 +84920,7 @@ dNa
 mjm
 uLl
 miQ
-uLl
+tYr
 bAg
 ybA
 iyQ
@@ -95691,7 +95704,7 @@ ylI
 eju
 aXq
 hZt
-hZt
+yiK
 pOA
 gyA
 hZt
@@ -95947,7 +95960,7 @@ vmW
 vmW
 fuf
 aXr
-mOs
+uLm
 uLm
 jOl
 ckk
