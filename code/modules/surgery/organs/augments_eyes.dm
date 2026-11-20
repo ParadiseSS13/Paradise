@@ -75,7 +75,7 @@
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
 	icon_state = "eye_implant_janitor"
 	origin_tech = "materials=4;engineering=4;biotech=4"
-	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 750, MAT_GOLD = 750)
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
 	aug_message = "You scan for filth spots around you..."
 	HUD_type = DATA_HUD_JANITOR
 
