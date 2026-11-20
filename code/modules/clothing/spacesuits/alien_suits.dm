@@ -184,23 +184,20 @@
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
 	multiple_icons = FALSE
 
-/obj/item/clothing/shoes/magboots/vox/activate_self(mob/user)
-	if(!ishuman(user))
-		return ITEM_INTERACT_COMPLETE
-
-	if(magpulse)
-		set_nodrop(FALSE, loc)
-		to_chat(user, SPAN_NOTICE("You relax your deathgrip on the flooring."))
-	else
+/obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/user, no_message)
+	if(!magpulse) // Inverted because magpulse is only set to TRUE in the parent proc, which is only called at the end
 		//make sure these can only be turned on when equipped.
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
 			to_chat(user, SPAN_WARNING("You will have to put on [src] before you can do that."))
 			return ITEM_INTERACT_COMPLETE
-
 		set_nodrop(TRUE, loc) //kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, SPAN_NOTICE("You dig your claws deeply into the flooring, bracing yourself."))
 		to_chat(user, SPAN_NOTICE("It would be hard to take off [src] without relaxing your grip first."))
+	else
+		set_nodrop(FALSE, loc)
+		to_chat(user, SPAN_NOTICE("You relax your deathgrip on the flooring."))
+
 	return ..()
 
 //In case they somehow come off while enabled.
@@ -209,7 +206,7 @@
 	if(magpulse)
 		user.visible_message("[src] go limp as they are removed from [usr]'s feet.", "[src] go limp as they are removed from your feet.")
 		magpulse = FALSE
-		no_slip = FALSE
+		detach_clothing_traits(active_clothing_traits)
 		set_nodrop(FALSE, loc)
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
