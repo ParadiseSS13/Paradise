@@ -199,7 +199,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/shuttle_loan, 50, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/anomalous_particulate_event, 60, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/market_crash, 20),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 12),
 		// new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3), // Out of Rotation for now, current version does not work as an event.
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_irradiated_mouse, 20),
 	)
@@ -236,7 +236,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 5730),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/flockmind, 100, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/prince, 0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/white, 0, TRUE),

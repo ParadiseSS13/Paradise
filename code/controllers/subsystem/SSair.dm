@@ -215,6 +215,8 @@ SUBSYSTEM_DEF(air)
 	var/timer = TICK_USAGE_REAL
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
+		// A fresh fire can start after a run that was cut off, like after an MC restart
+		currentpart = SSAIR_PIPENETS
 		timer = TICK_USAGE_REAL
 
 		process_pipenets(resumed)

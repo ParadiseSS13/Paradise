@@ -310,11 +310,11 @@ GLOBAL_VAR(bomb_set)
 		return
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/nuclearbomb/screwdriver_act(mob/user, obj/item/screwdriver/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
+	if(auth || (I.thin_tip && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, SPAN_NOTICE("You unscrew the control panel of [src]."))

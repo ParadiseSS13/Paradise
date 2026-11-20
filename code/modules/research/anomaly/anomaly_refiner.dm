@@ -64,6 +64,15 @@
 		inserted_core = null
 		return
 
+/obj/machinery/anomaly_refinery/on_deconstruction()
+	..()
+	if(inserted_core)
+		inserted_core.forceMove(get_turf(src))
+		inserted_core = null
+	if(refined_core)
+		refined_core.forceMove(get_turf(src))
+		refined_core = null
+
 /obj/machinery/anomaly_refinery/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
