@@ -382,7 +382,7 @@
 	if(mask || species_outfit?.mask)
 		icon_layers[FACEMASK_LAYER] = preview_mask_icon(species, body_parts, species_outfit, monitor_head)
 	if(head || species_outfit?.head)
-		icon_layers[HEAD_LAYER] = preview_uniform_icon(species, body_parts, species_outfit, monitor_head)
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, species_outfit, monitor_head)
 	if(l_hand || species_outfit?.l_hand)
 		icon_layers[L_HAND_LAYER] = preview_l_hand_icon(species, body_parts, species_outfit)
 	if(r_hand || species_outfit?.r_hand)
