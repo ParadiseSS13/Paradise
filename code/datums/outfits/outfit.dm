@@ -40,6 +40,9 @@
 /datum/outfit/naked
 	name = "Naked"
 
+/datum/outfit/proc/get_chosen_backpack(backbag)
+	return back
+
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
 	return
@@ -316,7 +319,7 @@
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
 
-/datum/outfit/proc/preview_outfit_icon(species, body_parts, backpack_choice = 2, monitor_head = FALSE)
+/datum/outfit/proc/preview_outfit_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
 	var/icon/outfit_icon = new /icon('icons/blanks/32x32.dmi', "nothing")
 
 	var/list/icon/icon_layers = preview_layered_icon(species, body_parts, backpack_choice, monitor_head)
@@ -327,7 +330,7 @@
 
 	return outfit_icon
 
-/datum/outfit/proc/preview_layered_icon(species, body_parts, backpack_choice = 2, monitor_head = FALSE)
+/datum/outfit/proc/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
 	var/datum/outfit/species_outfit = null
 	if(species in species_outfits)
 		species_outfit = species_outfits[species]
@@ -433,7 +436,8 @@
 	qdel(worn_item)
 	return final_icon
 
-/datum/outfit/proc/preview_back_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+/datum/outfit/proc/preview_back_icon(species, list/body_parts, datum/outfit/species_outfit = null, backpack_choice = GBACKPACK)
+	back = get_chosen_backpack(backpack_choice)
 	if(!back && !species_outfit?.back)
 		return null
 	var/obj/item/clothing/worn_item

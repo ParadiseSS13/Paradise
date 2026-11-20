@@ -933,13 +933,10 @@
 	var/has_gloves = FALSE
 
 	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
-		var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
-		clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
-		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-		if(backbag == 2)
-			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
-		else if(backbag == 3 || backbag == 4)
-			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][JOB_ASSISTANT]
+		var/datum/outfit/job_outfit = new job_datum.outfit
+		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+		qdel(job_outfit)
 
 	else if(job_support_high)
 		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][job_support_high]
