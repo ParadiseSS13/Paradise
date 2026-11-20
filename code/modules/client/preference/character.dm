@@ -944,13 +944,13 @@
 	else if(job_support_high)
 		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][job_support_high]
 		var/datum/outfit/job_outfit = new job_datum.outfit
-		clothes_s = job_outfit.preview_outfit_icon(current_species.name, preview_body_parts, backbag, monitor_head)
+		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
 		qdel(job_outfit)
 
 	else if(job_medsci_high)
 		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_MEDSCI][job_medsci_high]
 		var/datum/outfit/job_outfit = new job_datum.outfit
-		clothes_s = job_outfit.preview_outfit_icon(current_species.name, preview_body_parts, backbag, monitor_head)
+		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
 		qdel(job_outfit)
 
 	else if(job_engsec_high)
@@ -977,7 +977,7 @@
 		else
 			var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_ENGSEC][job_engsec_high]
 			var/datum/outfit/job_outfit = new job_datum.outfit
-			clothes_s = job_outfit.preview_outfit_icon(current_species.name, preview_body_parts, backbag, monitor_head)
+			clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
 			qdel(job_outfit)
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
