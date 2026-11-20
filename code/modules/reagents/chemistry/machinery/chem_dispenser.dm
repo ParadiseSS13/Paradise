@@ -115,7 +115,7 @@
 	if(recharge_counter >= 4)
 		if(!is_operational())
 			return
-		var/usedpower = cell.give(recharge_amount)
+		var/usedpower = cell.give(recharge_amount, get_turf(src))
 		if(usedpower)
 			use_power(15 * recharge_amount)
 		recharge_counter = 0
@@ -210,7 +210,7 @@
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-			if(!cell.use(actual / powerefficiency))
+			if(!cell.use(actual / powerefficiency, get_turf(src)))
 				atom_say("Not enough energy to complete operation!")
 				return
 			R.add_reagent(params["reagent"], actual)
@@ -393,7 +393,7 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ale", "angostura_bitters", "beer", "cider", "cognac", "cream", "gin", "ice", "kahlua", "lager", 
+	dispensable_reagents = list("ale", "angostura_bitters", "beer", "cider", "cognac", "cream", "gin", "ice", "kahlua", "lager",
 	"mead", "rum", "stout", "synthanol", "tequila", "triple_sec", "vermouth", "vodka", "white_wine", "wine", "whiskey")
 	upgrade_reagents = list("antihol", "bravebull", "iced_beer", "irishcream", "manhattan", "synthignon")
 	hacked_reagents = list("absinthe", "ethanol", "goldschlager", "nothing", "patron", "sake")
@@ -618,7 +618,7 @@
 	name = "handheld bar tap"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
-	dispensable_reagents = list("ale", "angostura_bitters", "beer", "cider", "cognac", "cream", "gin", "ice", "kahlua", "lager", 
+	dispensable_reagents = list("ale", "angostura_bitters", "beer", "cider", "cognac", "cream", "gin", "ice", "kahlua", "lager",
 	"mead", "rum", "stout", "synthanol", "tequila", "triple_sec", "vermouth", "vodka", "white_wine", "wine", "whiskey")
 
 /obj/item/handheld_chem_dispenser/soda
