@@ -9,7 +9,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0
 	throw_speed = 0
-	new_attack_chain = TRUE
 	/// Has it been blocked by antimagic? If so, abort.
 	var/blocked_by_antimagic = FALSE
 	var/catchphrase = "High Five!"

@@ -23,14 +23,29 @@
 /obj/item/melee/touch_attack/banana/apprentice
 	is_apprentice_spell = TRUE
 
-/obj/item/melee/touch_attack/banana/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/touch_attack/banana/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 
+	if(!ismob(target))
+		return
+	if(!iscarbon(user))
+		to_chat(user, SPAN_WARNING("You can't figure out how to use this in your current form!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!ishuman(target))
+		to_chat(user, SPAN_WARNING("You don't think this will work on [target]!"))
+		return ITEM_INTERACT_COMPLETE
 	if(is_apprentice_spell && iswizard(target) && target != user)
 		to_chat(user, SPAN_DANGER("Seriously?! Honk THEM, not me!"))
-		return
-	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+		return ITEM_INTERACT_COMPLETE
+	if(target == user)
+		to_chat(user, SPAN_DANGER("Seriously?! Honk THEM, not yourself!"))
+		return ITEM_INTERACT_COMPLETE
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, SPAN_WARNING("You can't use your hands!"))
+		return ITEM_INTERACT_COMPLETE
+	if(blocked_by_antimagic)
+		to_chat(user, SPAN_WARNING("A mystical barrier prevents you from honking [target]!"))
+		return ITEM_INTERACT_COMPLETE
 
 	var/datum/effect_system/smoke_spread/s = new
 	s.set_up(5, FALSE, target)

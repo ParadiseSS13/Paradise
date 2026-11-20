@@ -206,15 +206,17 @@
 					/obj/item/queen_bee))
 	strong_against -= /mob/living/basic/bee/syndi // Syndi-bees have special anti-flyswatter tech installed
 
-/obj/item/melee/flyswatter/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
+/obj/item/melee/flyswatter/attack(mob/living/target, mob/living/carbon/human/user)
 	. = ..()
-	if(is_type_in_typecache(M, strong_against))
-		new /obj/effect/decal/cleanable/insectguts(M.drop_location())
-		user.visible_message(SPAN_WARNING("[user] splats [M] with [src]."),
-			SPAN_WARNING("You splat [M] with [src]."),
-			SPAN_WARNING("You hear a splat."))
-		if(isliving(M))
-			var/mob/living/bug = M
+	if(is_type_in_typecache(target, strong_against))
+		new /obj/effect/decal/cleanable/insectguts(target.drop_location())
+		user.visible_message(
+			SPAN_WARNING("[user] splats [target] with [src]."),
+			SPAN_WARNING("You splat [target] with [src]."),
+			SPAN_WARNING("You hear a splat.")
+		)
+		if(isliving(target))
+			var/mob/living/bug = target
 			bug.death(TRUE)
-		if(!QDELETED(M))
-			qdel(M)
+		if(!QDELETED(target))
+			qdel(target)

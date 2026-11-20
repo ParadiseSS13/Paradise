@@ -17,7 +17,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor_penetration_percentage = 35
 	attack_verb = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	new_attack_chain = TRUE
 	var/after_use_message = ""
 
 /obj/item/melee/sickly_blade/examine(mob/user)

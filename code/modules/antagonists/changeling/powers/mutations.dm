@@ -154,17 +154,16 @@
 		parent_action = null
 	return ..()
 
-/obj/item/melee/arm_blade/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
-	if(istype(target, /obj/structure/table))
-		var/obj/structure/table/T = target
-		T.deconstruct(FALSE)
-		return
+/obj/item/melee/arm_blade/attack_obj(obj/attacked_obj, mob/living/user, params)
+	if(istype(attacked_obj, /obj/structure/table))
+		var/obj/structure/table/table_target = attacked_obj
+		table_target.deconstruct(FALSE)
+		return TRUE
 
-	if(istype(target, /obj/machinery/computer))
-		var/obj/machinery/computer/C = target
-		C.attack_alien(user) //muh copypasta
+	if(istype(attacked_obj, /obj/machinery/computer))
+		var/obj/machinery/computer/computer_target = attacked_obj
+		computer_target.attack_alien(user)
+		return TRUE
 
 /obj/item/melee/arm_blade/customised_abstract_text(mob/living/carbon/owner)
 	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.")
