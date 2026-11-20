@@ -53,23 +53,40 @@
 	for(var/mob/living/M in contents)
 		. += M.examine(user)
 
+/obj/item/holder/proc/check_pass_emotes(mob/container, levels = 0)
+	if(!ismob(container) || !istype(container, /obj))
+		return
+	if(ismob(container))
+		container.update_pass_emotes()
+		return
+	if(levels > 5) // I don't THINK this will make an infinite loop but let's not take that chance.
+		return
+	check_pass_emotes(container.loc, levels + 1)
+
 /obj/item/holder/container_resist(mob/living/L)
+	if(isitem(loc))
+		to_chat(L, SPAN_NOTICE("You struggle free of [loc]."))
+		loc.visible_message(
+			SPAN_WARNING("[src] struggles free of [loc]!"),
+			null,
+			SPAN_HEAR("You hear something small wriggle its way free!")
+		)
+		var/obj/item/container = loc
+		forceMove(get_turf(src))
+		container.update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
+		check_pass_emotes(container)
+		return
+
+	if(!ismob(loc))
+		return
+
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
-	if(istype(M))
-		M.drop_item_to_ground(src)
-		to_chat(M, "[src] wriggles out of your grip!")
-		to_chat(L, "You wriggle out of [M]'s grip!")
-	else if(isitem(loc))
-		to_chat(L, "You struggle free of [loc].")
-		forceMove(get_turf(src))
+	M.drop_item_to_ground(src)
+	to_chat(M, SPAN_WARNING("[src] wriggles out of your grip!"))
+	to_chat(L, SPAN_NOTICE("You wriggle out of [M]'s grip!"))
 
-	if(istype(M))
-		for(var/atom/A in M.contents)
-			if(istype(A, /obj/item/holder))
-				return
-		M.status_flags &= ~PASSEMOTES
-
+	M.update_pass_emotes()
 	return
 
 /mob/living/proc/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)

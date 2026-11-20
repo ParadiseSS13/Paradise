@@ -61,7 +61,18 @@
 	harvested = FALSE
 
 /obj/structure/flora/ash/item_interaction(mob/living/user, obj/item/W, list/modifiers)
-	if(!harvested && needs_sharp_harvest && W.sharp)
+	if(!harvested && needs_sharp_harvest)
+		if(!W.sharp)
+			if(!istype(W, /obj/item/gun))
+				return ..()
+			var/obj/item/gun/sharp_gun = W
+			if(!sharp_gun.can_bayonet)
+				return ..()
+			if(!sharp_gun.bayonet)
+				return ..()
+			var/obj/item/kitchen/knife/bayonet = sharp_gun.bayonet
+			if(!bayonet.sharp)
+				return ..()
 		user.visible_message(SPAN_NOTICE("[user] starts to harvest from [src] with [W]."),SPAN_NOTICE("You begin to harvest from [src] with [W]."))
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)

@@ -2180,7 +2180,7 @@
 /obj/machinery/camera/emp_proof{
 	dir = 9;
 	c_tag = "Engine East";
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
@@ -2937,7 +2937,7 @@
 "BN" = (
 /obj/machinery/camera/emp_proof{
 	dir = 1;
-	network = list("SS13","Engineering");
+	network = list("SS13","Engineering","engine");
 	c_tag = "Engine South"
 	},
 /obj/machinery/light/floor,
@@ -3699,7 +3699,7 @@
 "JP" = (
 /obj/machinery/camera/emp_proof{
 	dir = 5;
-	network = list("SS13","Engineering");
+	network = list("SS13","Engineering","engine");
 	c_tag = "Engine West"
 	},
 /turf/simulated/floor/plating/airless,
