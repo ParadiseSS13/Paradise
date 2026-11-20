@@ -74,6 +74,12 @@
 
 /obj/item/reagent_containers/dropper/normal_act(atom/target, mob/living/user)
 	var/to_transfer = 0
+
+	if(is_organ(target) && reagents.total_volume)
+		to_chat(user, SPAN_NOTICE("You drip the contents of [src] onto [target]."))
+		reagents.reaction(target, REAGENT_TOUCH)
+		reagents.clear_reagents()
+
 	if(!target.reagents)
 		return
 
