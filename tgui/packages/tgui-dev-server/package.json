@@ -8,9 +8,9 @@
     "axios": "^1.20.0",
     "source-map": "^0.7.6",
     "stacktrace-parser": "^0.1.11",
-    "ws": "^8.21.2"
+    "ws": "^8.22.1"
   },
   "devDependencies": {
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.2"
   }
 }
