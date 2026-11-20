@@ -53,3 +53,5 @@
 
 /// When the lionhunter shoots so I can unscope
 #define COMSIG_LIONHUNTER_FIRE "lionhunter_fire"
+
+#define COMSIG_OBJ_HEAR_TALK "obj_hear_talk"
