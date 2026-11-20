@@ -34,6 +34,13 @@
 	/// How much pressure does there have to be in the pipe to burst the vent open?
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE
 
+	/// The room air we found already at our pressure. Until it wakes us, there's nothing to do
+	var/datum/gas_mixture/bound_to_turf/idle_air
+	/// idle_air's wakes when we found that
+	var/idle_wakes
+	/// Our external_pressure_bound when we found that
+	var/idle_bound
+
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) //connects to regular and supply pipes
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
@@ -125,6 +132,7 @@
 		return FALSE
 
 	if(welded)
+		atmos_napping = FALSE
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
 			visible_message(SPAN_DANGER("The welded cover of [src] bursts open!"))
 			for(var/mob/living/M in range(1))
@@ -133,13 +141,13 @@
 			update_icon()
 		return FALSE
 
-	if(releasing && pressure_checks == ONLY_CHECK_EXT_PRESSURE)
-		// MILLA already told us this tile's pressure, so a vent with nothing to do doesn't have to read its air.
-		// It works it out the same way return_pressure() does, so this is the same check as below.
-		var/pressure = watched_tile_value(T, MILLA_WATCHED_PRESSURE)
-		if(!isnull(pressure) && (external_pressure_bound - pressure) <= VENT_MIN_PRESSURE_DELTA)
+	if(idle_air && releasing && pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+		// Room's still full, and our setting's the same
+		var/datum/gas_mixture/bound_to_turf/room_air = T.bound_air
+		if(room_air == idle_air && room_air.wakes == idle_wakes && idle_bound == external_pressure_bound)
 			return TRUE
 
+	atmos_napping = FALSE
 	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(releasing) //internal -> external
 		var/pressure_delta = 10000
@@ -157,6 +165,14 @@
 			// This isn't exactly "blind", but using the data from last tick is good enough for a vent.
 			T.blind_release_air(removed)
 			parent.update = TRUE
+
+		idle_air = null
+		// MILLA tells us when the room drops far enough to pump
+		if(pressure_delta <= VENT_MIN_PRESSURE_DELTA && pressure_checks == ONLY_CHECK_EXT_PRESSURE && set_tile_tripwire(T, external_pressure_bound - VENT_MIN_PRESSURE_DELTA))
+			idle_air = T.bound_air
+			idle_wakes = idle_air.wakes
+			idle_bound = external_pressure_bound
+			atmos_napping = TRUE
 
 	else //external -> internal
 		var/datum/milla_safe/vent_pump_siphon/milla = new()
@@ -262,6 +278,7 @@
 	GLOB.all_vent_pumps -= src
 	if(initial_loc)
 		initial_loc.vents -= src
+	idle_air = null
 	return ..()
 
 #undef EXTERNAL_PRESSURE_BOUND
