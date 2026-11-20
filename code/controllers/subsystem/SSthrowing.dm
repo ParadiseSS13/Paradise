@@ -243,6 +243,8 @@ SUBSYSTEM_DEF(throwing)
 	if(!thrownthing)
 		return
 	thrownthing.throwing = null
+	// Something a singularity pulled in doesn't drift off, the singularity just pulls it again
+	var/drift = !initial_target_uid || !istype(locateUID(initial_target_uid), /obj/singularity)
 	if(!hit)
 		if(get_turf(target) == get_turf(thrownthing))
 			hit = TRUE
@@ -251,8 +253,9 @@ SUBSYSTEM_DEF(throwing)
 			thrownthing.throw_impact(get_turf(thrownthing), src)  // we haven't hit something yet and we still must, let's hit the ground.
 			if(QDELETED(thrownthing)) //throw_impact can delete things, such as glasses smashing
 				return //deletion should already be handled by on_thrownthing_qdel()
-			thrownthing.newtonian_move(init_dir)
-	else
+			if(drift)
+				thrownthing.newtonian_move(init_dir)
+	else if(drift)
 		thrownthing.newtonian_move(init_dir)
 
 	// Attempt to reset glide size once throw ends
