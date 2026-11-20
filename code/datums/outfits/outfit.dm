@@ -323,7 +323,7 @@
 	var/icon/outfit_icon = new /icon('icons/blanks/32x32.dmi', "nothing")
 
 	var/list/icon/icon_layers = preview_layered_icon(species, body_parts, backpack_choice, monitor_head)
-	for(var/i in 1 to TOTAL_LAYERS)
+	for(var/i = TOTAL_LAYERS, i > 1, i--)
 		if(!icon_layers[i])
 			continue
 		outfit_icon.Blend(icon_layers[i], ICON_OVERLAY)
