@@ -87,7 +87,7 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSradiation, radioactivity)//Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	radio.config(list("Special Ops" = 0))
 

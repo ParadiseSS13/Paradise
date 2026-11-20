@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
-	Radio.listening = TRUE
+	Radio.set_listening(TRUE)
 	Radio.config(list("Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "AI Private" = FALSE))
 	Radio.follow_target = src
 	. = ..()
