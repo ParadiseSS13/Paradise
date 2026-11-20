@@ -81,7 +81,7 @@
 			var/mob/living/current_crawler = crawler
 			current_crawler.update_pipe_vision(src)
 
-/obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
+/obj/machinery/atmospherics/unary/build_network()
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
@@ -89,9 +89,12 @@
 
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
-		if(istype(node, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
 		node = null
+		if(istype(reference, /obj/machinery/atmospherics/pipe))
+			// The pipe we were on is gone, so we get a pipenet of our own
+			nullifyPipenet(parent)
+			if(!QDELETED(src))
+				build_network()
 	update_icon()
 
 /obj/machinery/atmospherics/unary/nullifyPipenet(datum/pipeline/P)
