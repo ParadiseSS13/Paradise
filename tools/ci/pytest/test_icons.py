@@ -1,8 +1,7 @@
 from collections import defaultdict
 from pathlib import Path
-from typing import cast
 
-from avulto import DMI, IconState
+from avulto import DMI
 from conftest import Lint
 
 
@@ -10,8 +9,6 @@ def check_duplicate_names(dmi: DMI) -> list[str]:
     states: set[tuple[str, bool]] = set()
     failures: list[str] = []
     for state in dmi.states:
-        # TODO, remove this once avulto has complete type casting
-        state: IconState = cast(IconState, state)
         # Movement states have the same name as their non-movement counterparts
         if (state.name, state.movement) in states:
             failures.append(f"duplicate state name `{state.name}`")

@@ -19,8 +19,8 @@ if __name__ == "__main__":
     print("inspecting station maps...")
     for pth in dme.subtypesof("/datum/map"):
         td = dme.types[pth]
-        map_path = td.var_decl("map_path").const_val
-        technical_name = td.var_decl("technical_name").const_val
+        map_path = td.vars["map_path"].const_val
+        technical_name = td.vars["technical_name"].const_val
         dmm = DMM.from_file(map_path)
         width = dmm.size.x * SCALE
         height = dmm.size.y * SCALE
@@ -30,12 +30,12 @@ if __name__ == "__main__":
     print("inspecting ruins...")
     for pth in dme.subtypesof("/datum/map_template/ruin"):
         td = dme.types[pth]
-        ruin_id = td.var_decl("id").const_val
+        ruin_id = td.vars["id"].const_val
         if not ruin_id:
             continue
 
-        prefix = td.var_decl("prefix").const_val
-        suffix = td.var_decl("suffix").const_val
+        prefix = td.vars["prefix"].const_val
+        suffix = td.vars["suffix"].const_val
         map_path = Path(prefix) / suffix
         dmm = DMM.from_file(map_path)
         width = dmm.size.x * SCALE
