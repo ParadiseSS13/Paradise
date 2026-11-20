@@ -62,7 +62,7 @@
 		if(M.stat == DEAD)
 			continue
 		M.show_message(SPAN_WARNING("BANG"), 2)
-		var/mobturf = get_turf(M)
+		var/turf/mobturf = get_turf(M)
 
 		var/distance = max(1, get_dist(source_turf, mobturf))
 		var/status_duration = max(10 SECONDS / distance, 4 SECONDS)
@@ -78,7 +78,7 @@
 		var/ear_safety = M.check_ear_prot()
 		//Atmosphere affects sound
 		var/pressure_factor = 1
-		var/datum/gas_mixture/hearer_env = source_turf.get_readonly_air()
+		var/datum/gas_mixture/hearer_env = mobturf.get_readonly_air()
 		var/datum/gas_mixture/source_env = T.get_readonly_air()
 
 		if(hearer_env && source_env)

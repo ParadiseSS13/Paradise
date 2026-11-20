@@ -372,12 +372,12 @@
 			update_icon()
 
 /obj/item/toy/crayon/spraycan/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
 	if(!proximity_flag)
 		return
 	if(capped)
 		to_chat(user, SPAN_WARNING("You cannot spray [target] while the cap is still on!"))
 		return
+	. = ..()
 	if(istype(target, /obj/item/clothing/head/cardborg) || istype(target, /obj/item/clothing/suit/cardborg))	// Spraypainting your cardborg suit for more fashion options.
 		cardborg_recolor(target, user)
 		return

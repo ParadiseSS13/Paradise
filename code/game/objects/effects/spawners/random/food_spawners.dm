@@ -67,3 +67,14 @@
 		/obj/item/reagent_containers/drinks/carton/vegetable = 1,
 		/obj/item/reagent_containers/drinks/carton/watermelon = 2,
 	)
+
+/obj/effect/spawner/random/food_or_drink/cookie_tray
+	name = "cookie tray spawner"
+	loot = list(
+		/obj/item/storage/bag/tray/cookies_tray,
+		/obj/item/storage/bag/tray/cookies_tray/sugarcookie,
+		/obj/item/storage/bag/tray/cookies_tray/oatmeal,
+		/obj/item/storage/bag/tray/cookies_tray/raisin,
+		/obj/item/storage/bag/tray/cookies_tray/peanut_butter,
+		/obj/item/storage/bag/tray/cookies_tray/assorted
+	)

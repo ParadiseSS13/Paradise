@@ -584,6 +584,8 @@
 	emagged = TRUE
 
 /obj/item/grenade/turret/mining/prime()
+	// Blast damage calls prime() from inside the explosion, which shouldn't have to wait five seconds for the turret.
+	set waitfor = FALSE
 	var/turf/T = get_turf(src)
 	qdel(src)
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)

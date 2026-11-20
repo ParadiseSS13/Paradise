@@ -88,7 +88,17 @@
 /datum/ruleset/proc/can_assign_hijack_objective()
 	return FALSE
 
+/datum/ruleset/proc/configure()
+	SHOULD_CALL_PARENT(TRUE)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		banned_jobs += protected_jobs
+
+	if(!can_assign_hijack_objective())
+		banned_jobs += hijack_only_jobs
+
 /datum/ruleset/proc/roundstart_pre_setup()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	configure()
 	if(antag_amount == 0)
 		return
 	if(antag_amount < 0)
@@ -98,12 +108,6 @@
 	if(!length(possible_antags))
 		refund("No possible players for [src] ruleset.") // we allocate antag budget before we allocate players, and previous rulesets can steal our players
 		return antag_cost * antag_amount // shitty refund for now
-
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs
-
-	if(!can_assign_hijack_objective())
-		banned_jobs += hijack_only_jobs
 
 	shuffle_inplace(possible_antags)
 	for(var/datum/mind/antag as anything in possible_antags)
@@ -193,6 +197,8 @@
 	for(var/mob/living/carbon/human/player as anything in possible_antags)
 		if(antag_amount <= 0)
 			break
+		if(!is_valid_candidate(player))
+			continue
 		// This check needs to be here so that we can signal the implied ruleset. Yes, this is jank.
 		if(EXCLUSIVE_OR(player.dna.species.name in banned_species, banned_species_only))
 			SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
@@ -267,6 +273,16 @@
 		return ..()
 	return RULESET_FAILURE_SECONDARY_RULESET
 
+/datum/ruleset/changeling/is_valid_candidate(mob/living/carbon/human/player)
+	. = ..()
+	if(!.)
+		return
+
+	// Changelings can't be debrained. Don't make debrain targets into changelings.
+	for(var/datum/objective/debrain/debrain in GLOB.all_objectives)
+		if(istype(debrain) && debrain.target == player.mind && debrain.holder && !QDELETED(debrain))
+			return FALSE
+
 /datum/ruleset/acolyte
 	name = "Acolyte"
 	ruleset_weight = 8
@@ -300,11 +316,6 @@
 
 /datum/ruleset/implied/proc/on_implied(datum/antagonist/implier)
 	stack_trace("[type]/on_implied() not implemented!")
-
-/datum/ruleset/implied/roundstart_pre_setup()
-	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs
 
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"

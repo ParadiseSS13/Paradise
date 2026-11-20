@@ -960,7 +960,7 @@
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 		to_chat(user, SPAN_NOTICE("You repair the damaged temperature controller."))
 	else if(state == MECHA_OPEN_HATCH && cell)
-		cell.forceMove(loc)
+		user.put_in_hands(cell)
 		cell = null
 		state = MECHA_BATTERY_UNSCREW
 		to_chat(user, SPAN_NOTICE("You unscrew and pry out the power cell."))
@@ -1017,9 +1017,6 @@
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
-	if(!has_charge(melee_energy_drain))
-		return FALSE
-	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
 		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
 		. = ..()
