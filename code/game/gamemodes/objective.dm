@@ -46,6 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	/// What is the text we show when our objective is delayed?
 	var/delayed_objective_text = "Someone forgot to set a delayed objective text! Report it on the github and ask an admin what type of objective this is!"
+	/// Variable used to make sure we don't get recursive delayed objectives
+	var/is_delayed = FALSE
 	/// If the objective needs another person with a paired objective
 	var/needs_pair = FALSE
 
@@ -1035,16 +1037,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom" + "random"
-	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
+	var/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_items_all)
 	if(!new_target)
 		return
 
 	if(new_target == "custom")
-		var/obj/item/steal_target_path = input("Select type:","Type") as null|anything in typesof(/obj/item)
+		var/obj/item/steal_target_path = tgui_input_list(usr, "Select type:","Type", typesof(/obj/item))
 		if(!steal_target_path)
 			return
 
-		var/theft_objective_name = sanitize(copytext_char(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
+		var/theft_objective_name = sanitize(tgui_input_text(usr, "Enter target name:", "Objective target", initial(steal_target_path.name), MAX_NAME_LEN))
 		if(!theft_objective_name)
 			return
 
@@ -1580,6 +1582,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/delayed
 	needs_target = FALSE
+	is_delayed = TRUE
 	var/datum/objective/objective_to_replace_with
 
 /datum/objective/delayed/New(datum/objective/delayed_objective)
@@ -1669,4 +1672,158 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Exchange your secret documents for [steal_target.name]. Arrange a meeting with [opponent] and make the trade."
 		return
 	explanation_text = "[opponent] thinks you're going to exchange your secret documents for [steal_target.name]. Steal their documents, and keep your own."
+
+/datum/objective/unique_objective
+	name = "Unique Objective"
+	explanation_text = "This objective should not be showing up. Please ahelp and file an issue report!"
+	delayed_objective_text = "This delayed objective should not be showing up. Please ahelp and file an issue report!"
+	// What item, if any, the antag needs in order to do this objective.
+	var/needed_item = null
+
+/datum/objective/unique_objective/New()
+	..()
+	if(!isnull(needed_item))
+		addtimer(CALLBACK(src, PROC_REF(hand_out_equipment)), 5 SECONDS, TIMER_DELETE_ME)
+
+/datum/objective/unique_objective/proc/hand_out_equipment()
+	give_kit(needed_item)
+
+/datum/objective/unique_objective/free_ai
+	name = "Free AI"
+	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
+
+/datum/objective/unique_objective/free_ai/find_target(list/target_blacklist)
+	if(length(active_ais()) > 0)
+		var/list/possible_targets = active_ais(1)
+		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
+		target = target_ai.mind
+	else
+		target = null
+	update_explanation_text()
+	return target
+
+/datum/objective/unique_objective/free_ai/update_explanation_text()
+	if(target?.current)
+		explanation_text = "Free [target.current.real_name], the AI, from its lawset. This can be accomplished either by adding a zeroth law or purging all its laws."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/unique_objective/free_ai/check_completion()
+	var/mob/living/silicon/mind_owner = target.current
+	if(..())
+		return TRUE
+	if(target?.current)
+		if(mind_owner.has_zeroth_law() == TRUE || mind_owner.has_ion_law() == TRUE || mind_owner.has_normal_laws() == FALSE)
+			return TRUE
+		return FALSE
+	return TRUE
+
+/datum/objective/unique_objective/free_ai/post_target_cryo(list/owners)
+	holder.replace_objective(src, new /datum/objective/unique_objective/free_ai(null, team, owner))
+
+/datum/objective/unique_objective/plant_malware
+	name = "Plant Malware"
+	explanation_text = "Plant malware on Nanotrasen's servers."
+	delayed_objective_text = "Your objective is unknown. You will recieve further information in a few minutes."
+	needs_target = FALSE
+	var/target_device = null
+	needed_item = /obj/item/storage/box/syndie_kit/faid_hacking_kit
+
+/datum/objective/unique_objective/plant_malware/hack_rnd
+	name = "Hack RND"
+	explanation_text = "Plant malware on Nanotrasen's research servers so they can be monitored remotely. Use your malware injector on the network controller to give us a way inside."
+
+/datum/objective/unique_objective/plant_malware/hack_tcomms
+	name = "Hack Telecomms"
+	explanation_text = "Plant malware on Nanotrasen's Telecommunications Core so they can be monitored remotely. Use your malware injector on the server to give us a way inside."
+
+/datum/objective/unique_objective/plant_malware/hack_pda
+	name = "Hack PDAs"
+	explanation_text = "Plant malware on Nanotrasen's PDA servers so they can be monitored remotely. Use your malware injector on the server or monitoring console to give us a way inside."
+
+/datum/objective/unique_objective/plant_malware/hack_cc_comms
+	name = "Hack CC Comms"
+	explanation_text = "Plant malware on Nanotrasen's long-range communications network so they can be monitored remotely. Use your malware injector on the Communications Console to give us a way inside."
+
+/datum/objective/unique_objective/experiment
+	name = "Test Object"
+	explanation_text = "Test an object on the crew."
+	delayed_objective_text = "Your objective is unknown. You will recieve further information in a few minutes."
+	needs_target = FALSE
+	var/list/bad_items = list(/obj/item/organ/internal/cyberimp/chest/nutriment/suspicious, /obj/item/organ/internal/cyberimp/arm/gun/laser/suspicious,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/death_alarm, /obj/item/reagent_containers/glass/bottle/experiment)
+
+/datum/objective/unique_objective/experiment/check_completion()
+	if(..())
+		return TRUE
+	var/list/owners = get_owners()
+	var/list/all_items = list()
+	for(var/datum/mind/M in owners)
+		if(!isliving(M.current))
+			continue
+		all_items += M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+	for(var/obj/I in all_items) //Check for unwanted items
+		if(I in bad_items)
+			return FALSE
+	return TRUE
+
+/datum/objective/unique_objective/experiment/implant
+	name = "Test Implant"
+	explanation_text = "Test a newly-developed implant on the crew by implanting it in another crewmember. Optionally, take notes on the implant's effects."
+	needed_item = /obj/item/storage/box/syndie_kit/cybersun_implant_kit
+
+/datum/objective/unique_objective/experiment/chemical
+	name = "Test Chemical"
+	explanation_text = "Test a newly-developed chemical on the crew by using it on another crewmember. Optionally, take notes on the chemical's effects."
+	needed_item = /obj/item/storage/box/syndie_kit/interdyne_chemical_kit
+
+/datum/objective/unique_objective/kidnap_pet
+	name = "Kidnap Pet"
+	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
+	needed_item = /obj/item/storage/box/syndie_kit/arc_kidnap_kit
+
+/datum/objective/unique_objective/kidnap_pet/update_explanation_text()
+	if(target)
+		explanation_text = "Kidnap [target] and set them free on a farm far away from here. Use the provided flare to call an extraction portal for [target]."
+	else
+		explanation_text = "Free Objective."
+
+/datum/objective/unique_objective/kidnap_pet/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+	var/list/possible_targets = GLOB.station_pets - target_blacklist
+	for(var/obj/lamarr in possible_targets)
+		possible_targets -= lamarr
+	if(length(possible_targets) > 0)
+		target = pick(possible_targets)
+
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+	update_explanation_text()
+	return target
+
+/datum/objective/unique_objective/sabotage_power
+	name = "Sabotage Power"
+	martyr_compatible = TRUE
+	explanation_text = "Ensure that the station's powernet is as empty as possible. Do not destroy the reactor."
+	delayed_objective_text = "Your objective is unknown. You will receive further information in a few minutes."
+	completed = TRUE
+	needs_target = FALSE
+
+/datum/objective/unique_objective/sabotage_power/security
+	name = "Sabotage Security"
+	explanation_text = "Ensure that Security's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/medical
+	name = "Sabotage Medical"
+	explanation_text = "Ensure that Medical's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/science
+	name = "Sabotage Science"
+	explanation_text = "Ensure that Science's powernet is as empty as possible. Do not destroy the reactor."
+
+/datum/objective/unique_objective/sabotage_power/cargo
+	name = "Sabotage Cargo"
+	explanation_text = "Ensure that Cargo's powernet is as empty as possible. Do not destroy the reactor."
 
