@@ -234,6 +234,9 @@
 		if(istype(O, /obj/item))
 			// Items can't block atmos.
 			continue
+		if(QDELING(O))
+			// It's on its way out, so it's not blocking anything.
+			continue
 		if(!O.CanAtmosPass(NORTH))
 			milla_atmos_airtight[INDEX_NORTH] = TRUE
 		if(!O.CanAtmosPass(EAST))
