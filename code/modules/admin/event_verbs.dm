@@ -284,6 +284,28 @@ USER_VERB(show_tip, R_EVENT, "Show Custom Tip", \
 	message_admins("[key_name_admin(client)] set the Tip of the round to \"[html_encode(SSticker.selected_tip)]\".")
 	log_admin("[key_name(client)] sent \"[input]\" as the Tip of the Round.")
 
+USER_VERB(show_fact, R_EVENT, "Show Custom Fact", \
+		"Sends a fact (that you specify) to all players. After all, you already know everything.", \
+		VERB_CATEGORY_EVENT)
+	var/input = input(client, "Please specify your fact that you want to send to the players.", "Fact", "") as message|null
+	if(!input)
+		return
+
+	if(SSticker.current_state < GAME_STATE_PREGAME)
+		return
+
+	SSticker.selected_fact = input
+
+	// If we've already facted, then send it straight away.
+	if(SSticker.facted)
+		SSticker.send_fact_of_the_round()
+		message_admins("[key_name_admin(client)] sent a custom Fact of the round.")
+		log_admin("[key_name(client)] sent \"[input]\" as the Fact of the Round.")
+		return
+
+	message_admins("[key_name_admin(client)] set the Fact of the round to \"[html_encode(SSticker.selected_fact)]\".")
+	log_admin("[key_name(client)] sent \"[input]\" as the Fact of the Round.")
+
 USER_VERB(modify_goals, R_EVENT, "Modify Station Goals", "Modify station goals.", VERB_CATEGORY_EVENT)
 	client.holder.modify_goals()
 
