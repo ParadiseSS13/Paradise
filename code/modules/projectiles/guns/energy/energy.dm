@@ -13,6 +13,7 @@
 //////////////////////////////
 /obj/item/gun/energy/gun
 	name = "\improper EG-7 energy gun"
+	icon_state = "energy"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It has a mounting point for a flashlight. The fire selector has two settings: 'disable', and 'kill'."
 	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)

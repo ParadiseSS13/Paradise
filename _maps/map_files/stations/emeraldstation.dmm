@@ -1587,7 +1587,8 @@
 	dir = 1
 	},
 /obj/machinery/button/windowtint/offset/north{
-	pixel_x = -37
+	pixel_x = -37;
+	id = "CMO"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
@@ -4513,7 +4514,9 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "CE"
+	},
 /obj/machinery/light_switch/offset/southwest,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
@@ -50502,7 +50505,9 @@
 /obj/machinery/camera{
 	c_tag = "Bridge Conference Room"
 	},
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "conference"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "kdk" = (
@@ -65600,7 +65605,9 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
-/obj/machinery/button/windowtint/offset/southwest,
+/obj/machinery/button/windowtint/offset/southwest{
+	id = "genetics"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "nks" = (
@@ -86734,7 +86741,9 @@
 	dir = 4
 	},
 /obj/machinery/light_switch/offset/east,
-/obj/machinery/button/windowtint/offset/northeast,
+/obj/machinery/button/windowtint/offset/northeast{
+	id = "Courtroom"
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "rnI" = (
@@ -97731,7 +97740,9 @@
 "tvp" = (
 /obj/structure/table,
 /obj/item/storage/surgical_tray,
-/obj/machinery/button/windowtint/directional/west,
+/obj/machinery/button/windowtint/directional/west{
+	id = "RoboSurgery"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -117584,7 +117595,9 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "robo"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "xxj" = (

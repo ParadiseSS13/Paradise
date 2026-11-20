@@ -43,6 +43,7 @@
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = INFINITY, ACID = 75)
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
+	clothing_traits = list(TRAIT_RESISTHEAT)
 	var/datum/martial_art/bearserk/style
 
 /obj/item/clothing/head/bearpelt/bearserk/Initialize(mapload)
@@ -58,7 +59,6 @@
 		style.teach(H, TRUE)
 		H.faction |= "soviet"
 		H.physiology.stun_mod *= 0.80
-		ADD_TRAIT(H, TRAIT_RESISTHEAT, "bearserk")
 
 /obj/item/clothing/head/bearpelt/bearserk/dropped(mob/user, datum/reagent/R)
 	..()
@@ -69,7 +69,6 @@
 		style.remove(H)
 		H.faction -= "soviet"
 		H.physiology.stun_mod /= 0.80
-		REMOVE_TRAIT (H, TRAIT_RESISTHEAT, "bearserk")
 
 /obj/item/clothing/head/bearpelt/bearserk/examine(mob/user)
 	. = ..()

@@ -1470,6 +1470,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/ex_act(severity)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
+	// This skips /obj/machinery/door/ex_act(), so it repeats that proc's check that a 2-tile airlock is only hit once per blast.
+	if(width > 1)
+		if(!COOLDOWN_FINISHED(src, explosion_cooldown))
+			return
+		COOLDOWN_START(src, explosion_cooldown, 1 SECONDS)
 	switch(severity)
 		if(EXPLODE_DEVASTATE) //Destroy the airlock completely.
 			qdel(src)

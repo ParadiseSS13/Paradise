@@ -277,9 +277,6 @@
 	id = "qm";
 	req_access = list(41)
 	},
-/obj/machinery/button/windowtint/offset/east{
-	id = "viro_1"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "abH" = (
@@ -390,7 +387,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "qm"
+	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "acA" = (
@@ -4184,7 +4183,7 @@
 	},
 /obj/machinery/light_switch/offset/southeast,
 /obj/machinery/button/windowtint/offset/south{
-	id = "CHAP"
+	id = "law"
 	},
 /obj/item/stamp/law{
 	pixel_x = -6;
@@ -8690,7 +8689,9 @@
 /area/station/maintenance/service/starboard)
 "aLb" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "law"
+	},
 /turf/simulated/floor/plating,
 /area/station/legal/legaloffice)
 "aLc" = (
@@ -9584,14 +9585,6 @@
 "aOM" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench/medical,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 9;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -7;
-	pixel_y = 1
-	},
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
@@ -9728,7 +9721,7 @@
 	},
 /obj/machinery/light_switch/offset/southeast,
 /obj/machinery/button/windowtint/offset/south{
-	id = "CHAP"
+	id = "NTR"
 	},
 /obj/effect/turf_decal/tiles/department/command/checker,
 /obj/item/paper_bin/nanotrasen{
@@ -10519,13 +10512,13 @@
 /obj/effect/turf_decal/tiles/department/medical,
 /obj/machinery/light_switch/offset/southwest,
 /obj/machinery/holosign_switch{
-	id = "surgery2";
+	id = "surgery1";
 	pixel_x = -32;
 	dir = 8;
 	pixel_y = -15
 	},
 /obj/machinery/button/windowtint/offset/west{
-	id = "rnd"
+	id = "Surgery 1"
 	},
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = -30
@@ -10736,10 +10729,6 @@
 	dir = 5
 	},
 /obj/structure/shelf/medbay,
-/obj/item/clothing/head/helmet/space/plasmaman{
-	pixel_x = -3;
-	pixel_y = 2
-	},
 /obj/item/clothing/under/plasmaman/enviroslacks,
 /obj/item/clothing/head/helmet/space/plasmaman/white,
 /obj/item/clothing/under/plasmaman{
@@ -11562,7 +11551,7 @@
 "aZy" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/button/windowtint/offset/north{
-	id = "CE";
+	id = "gambling";
 	req_access = list(56)
 	},
 /turf/simulated/floor/wood,
@@ -13050,7 +13039,9 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "bja" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "old_bar"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
 "bje" = (
@@ -13094,10 +13085,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 9
 	},
-/obj/item/storage/box/iv_bags{
-	pixel_x = -9;
-	pixel_y = 7
-	},
+/obj/item/clothing/neck/stethoscope,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "bjj" = (
@@ -13161,6 +13149,9 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/head_of_security,
+/obj/machinery/button/windowtint/directional/east{
+	id = "HoS"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "bjI" = (
@@ -13766,7 +13757,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command{
-	dir = 4
+	dir = 4;
+	id = "HoS"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -13781,7 +13773,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "HoS"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "bsV" = (
@@ -13795,7 +13789,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "HoS"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "bsZ" = (
@@ -15204,7 +15200,9 @@
 /area/station/hallway/primary/port)
 "ceM" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "NTR"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/dignitary)
 "ceN" = (
@@ -17348,11 +17346,6 @@
 /obj/effect/turf_decal/tiles/department/medical/corner,
 /obj/structure/table/glass,
 /obj/machinery/kitchen_machine/microwave,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -19390,7 +19383,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/machinery/economy/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "elq" = (
@@ -19845,7 +19843,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "law"
+	},
 /turf/simulated/floor/plating,
 /area/station/legal/legaloffice)
 "exw" = (
@@ -20094,6 +20094,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
+"eFt" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "virology_bedroom_1"
+	},
+/turf/simulated/floor/plating,
+/area/station/medical/virology)
 "eFw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -22394,19 +22400,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
-"fQf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/item/clothing/neck/stethoscope{
-	pixel_x = -33;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/reception)
 "fQC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -22695,6 +22688,9 @@
 "gaL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/machinery/button/windowtint/directional/west{
+	id = "NCT"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/procedure/trainer_office)
@@ -23239,27 +23235,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "gpQ" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/beakers{
-	pixel_x = 7;
-	pixel_y = 11
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = -10;
-	pixel_y = 9
-	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
-/obj/item/storage/box/pillbottles{
-	layer = 4;
-	pixel_x = -7;
-	pixel_y = -5
-	},
-/obj/item/storage/box/patch_packs{
-	pixel_x = 9;
-	pixel_y = -4
-	},
+/obj/structure/closet/secure_closet/medical1,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "gpY" = (
@@ -25043,6 +25022,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "hoa" = (
@@ -25285,7 +25265,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
-	id = "virology_bedroom_2"
+	id = "virology_bedroom_1"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -27799,7 +27779,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "HoS"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "iKz" = (
@@ -28294,7 +28276,7 @@
 	},
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /obj/machinery/button/windowtint/offset/east{
-	id = "genetics"
+	id = "CMO"
 	},
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
@@ -29015,6 +28997,7 @@
 	pixel_x = 9;
 	pixel_y = -2
 	},
+/obj/item/reagent_containers/dropper/precision,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "jtO" = (
@@ -31902,13 +31885,11 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/mob/living/basic/bot/cleanbot{
-	name = "Scrubs, MD"
-	},
 /obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
 	},
+/mob/living/basic/bot/cleanbot/medbay,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "lmj" = (
@@ -34305,16 +34286,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/stack/sheet/mineral/plasma,
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = -3;
 	pixel_y = 6
 	},
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 6
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -34322,6 +34298,7 @@
 	pixel_x = 8;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/dropper/precision,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "myP" = (
@@ -34875,31 +34852,10 @@
 /turf/space,
 /area/space/nearstation)
 "mPO" = (
-/obj/structure/closet/secure_closet/medical1,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/pillbottles,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "mQt" = (
@@ -36850,7 +36806,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/button/windowtint/offset/south{
-	id = "CHAP"
+	id = "rd"
 	},
 /obj/machinery/light_switch/offset/southeast,
 /obj/item/stamp/rd{
@@ -38373,8 +38329,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "oMY" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/medical/cryo)
 "oNn" = (
@@ -40317,7 +40273,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CMO"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "pPA" = (
@@ -40799,7 +40757,9 @@
 /turf/space,
 /area/space/nearstation)
 "qeJ" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "gambling"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/gambling_den)
 "qeO" = (
@@ -41136,7 +41096,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/dorms)
 "qoj" = (
-/obj/effect/spawner/window/reinforced/polarized,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "psych"
+	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
@@ -43950,7 +43912,7 @@
 	},
 /obj/structure/closet/secure_closet/psychiatrist,
 /obj/machinery/button/windowtint/offset/northeast{
-	id = "qm";
+	id = "psych";
 	req_access = list(41)
 	},
 /turf/simulated/floor/carpet,
@@ -44049,21 +44011,25 @@
 /area/station/maintenance/service/starboard)
 "rZX" = (
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_y = 6
+	},
 /obj/machinery/alarm/directional/west,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = 6
+	},
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "saw" = (
@@ -44758,14 +44724,18 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "qm"
+	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "swK" = (
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "qm"
+	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "sxy" = (
@@ -45405,7 +45375,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "sJG" = (
-/obj/effect/spawner/window/reinforced/polarized,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "psych"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/psych)
 "sJJ" = (
@@ -47461,7 +47433,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CMO"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "tsT" = (
@@ -49651,7 +49625,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CE"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ce)
 "uHr" = (
@@ -50079,7 +50055,9 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 5
 	},
-/obj/item/toy/figure/crew/chemist,
+/obj/item/toy/figure/crew/chemist{
+	pixel_x = -8
+	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -50264,7 +50242,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonlockers)
 "uXl" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "CE"
+	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/command/office/ce)
@@ -52061,7 +52041,7 @@
 	dir = 8
 	},
 /obj/machinery/button/windowtint/directional/east{
-	id = "psychoffice"
+	id = "CE"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -52822,7 +52802,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "NTR"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/dignitary)
 "wqP" = (
@@ -55329,7 +55311,7 @@
 	dir = 6
 	},
 /obj/machinery/button/windowtint/directional/south{
-	id = "virology_bedroom_2"
+	id = "virology_bedroom_1"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
@@ -83648,7 +83630,7 @@ vQT
 afh
 hxS
 pVw
-tTe
+eFt
 mYs
 xCa
 bAg
@@ -90053,7 +90035,7 @@ etL
 bSH
 new
 mlA
-fQf
+uCf
 uCf
 hSw
 rDs

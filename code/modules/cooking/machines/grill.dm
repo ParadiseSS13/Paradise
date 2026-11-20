@@ -118,6 +118,20 @@
 
 	return ..()
 
+/obj/machinery/cooking/grill/surface_item_interaction(mob/living/user, obj/item/used, datum/cooking_surface/burner)
+	if(istype(used, /obj/item/clothing/mask/cigarette))
+		if(!burner.on)
+			to_chat(user, SPAN_NOTICE("You need to turn [src] on to light [used]!"))
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/clothing/mask/cigarette/cig = used
+		user.visible_message(
+			SPAN_NOTICE("[user] lights [used] on [src]."),
+			SPAN_NOTICE("You light [used] on [src].")
+		)
+		cig.light(user, user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
 /obj/machinery/cooking/grill/attack_hand(mob/user, params)
 	var/input = clickpos_to_surface(params2list(params))
 	if(!input)

@@ -12163,7 +12163,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/northeast,
+/obj/machinery/button/windowtint/offset/northeast{
+	id = "qm"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aWP" = (
@@ -22112,7 +22114,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "bLt" = (
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "Detective"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/security/detective)
 "bLv" = (
@@ -25044,7 +25048,9 @@
 	req_access = list(24);
 	pixel_x = -24
 	},
-/obj/machinery/button/windowtint/directional/west,
+/obj/machinery/button/windowtint/directional/west{
+	id = "CE"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bWm" = (
@@ -26397,7 +26403,8 @@
 	req_access = list(73)
 	},
 /obj/machinery/button/windowtint/offset/west{
-	pixel_y = 36
+	pixel_y = 36;
+	id = "NT"
 	},
 /obj/machinery/light_switch/offset/southwest{
 	pixel_y = 28
@@ -42570,7 +42577,9 @@
 	dir = 8
 	},
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "RD"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dpR" = (
@@ -43266,7 +43275,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "robo"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dug" = (
@@ -85217,7 +85228,9 @@
 /area/station/science/misc_lab)
 "syY" = (
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "stage"
+	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "szb" = (
@@ -88639,7 +88652,9 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/requests_console/directional/east,
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "CHAP"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "tNx" = (
@@ -95574,7 +95589,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "genetics"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
 "wqU" = (
