@@ -574,7 +574,8 @@
 	neighbor_decay_mod = 1.2
 	upgrade_required = TRUE
 	craftable = TRUE
-	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_BLUESPACE = 1000)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
+	origin_tech = "materials=4;engineering=4;plasmatech=4"
 
 /obj/item/nuclear_rod/moderator/diamond_plate
 	name = "diamond reflector plates"
