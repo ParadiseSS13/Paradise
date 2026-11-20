@@ -147,6 +147,11 @@
 
 	return ..()
 
+/obj/machinery/seed_extractor/on_deconstruction()
+	..()
+	for(var/obj/item/seeds/each_seed in contents)
+		each_seed.forceMove(get_turf(src))
+
 /obj/machinery/seed_extractor/attack_ai(mob/user)
 	ui_interact(user)
 
