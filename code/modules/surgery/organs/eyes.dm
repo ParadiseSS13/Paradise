@@ -43,7 +43,7 @@
 	if(is_robotic() || (see_in_dark > EYE_SHINE_THRESHOLD))
 		return TRUE
 
-/obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
+/obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(istype(M) && eye_color)
 		M.update_body() //Apply our eye colour to the target.
@@ -138,7 +138,7 @@
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
 
-/obj/item/organ/internal/eyes/cybernetic/meson/insert(mob/living/carbon/human/M, special = FALSE)
+/obj/item/organ/internal/eyes/cybernetic/meson/insert(mob/living/carbon/human/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	ADD_TRAIT(M, TRAIT_MESON_VISION, "meson_vision[UID()]")
 	return ..()
 
@@ -195,7 +195,7 @@
 	. = ..()
 	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
 
-/obj/item/organ/internal/eyes/cybernetic/scope/insert(mob/living/carbon/human/M, special)
+/obj/item/organ/internal/eyes/cybernetic/scope/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	flash_protect = FLASH_PROTECTION_NONE //Resets it to none, so we can just flip to inital each time it is used.
 
@@ -226,7 +226,7 @@
 	eye.on = FALSE
 	eye.update_brightness()
 
-/obj/item/organ/internal/eyes/cybernetic/flashlight/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/eyes/cybernetic/flashlight/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()

@@ -79,10 +79,11 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(owner)
-		to_chat(owner, SPAN_USERDANGER("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
+		if(!silent)
+			to_chat(owner, SPAN_USERDANGER("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
 		in_grace_period = TRUE
@@ -204,7 +205,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	var/attempted_restart = FALSE
 
-/obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(shock_heart))
 	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(shock_heart))

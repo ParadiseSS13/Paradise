@@ -11,7 +11,7 @@
 	AddElement(/datum/element/corrupted_organ)
 	AddElement(/datum/element/noticable_organ, "Their eyes have wide dilated pupils, and no iris. Something is moving in the darkness.", BODY_ZONE_PRECISE_EYES)
 
-/obj/item/organ/internal/eyes/corrupt/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/eyes/corrupt/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	if(!owner.client)
 		return

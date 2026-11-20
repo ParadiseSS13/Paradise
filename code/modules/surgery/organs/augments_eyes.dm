@@ -7,9 +7,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/aug_message = "Your vision is augmented!"
 
-/obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
-	if(aug_message && !special)
+	if(aug_message && !special && !silent)
 		to_chat(owner, SPAN_NOTICE("[aug_message]"))
 
 // HUD implants
@@ -21,7 +21,7 @@
 	var/HUD_type = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
 
-/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]

@@ -220,19 +220,22 @@
  * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
  * * transfer_contents: Whether or not to transfer the contents of the old organs to the new ones
  */
-/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, transfer_contents = TRUE) //Handles creation of mob organs.
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit, transfer_contents = TRUE, keep_implants = FALSE) //Handles creation of mob organs.
 	var/list/transfer_list = list()
+	var/list/implant_list = list()
 	for(var/limb_name in has_limbs)
 		var/obj/item/organ/external/body_part = H.bodyparts_by_name[limb_name]
 		if(!body_part)
 			continue
-		// Always expel all cyber implants
+		// Expel cyber implants first if we're not keeping them.
 		for(var/obj/item/organ/internal/cyberimp/internal_organ in body_part.internal_organs)
+			if(keep_implants && transfer_contents && !(bodyparts_to_omit && (limb_name in bodyparts_to_omit)) && !IS_CHANGELING(H))
+				implant_list += internal_organ
 			internal_organ.remove(H)
 			internal_organ.forceMove(get_turf(H))
 
 		// If we don't transfer the content or make a new organ in place of the old one, drop the contents on the ground
-		if(!transfer_contents || (bodyparts_to_omit && (limb_name in bodyparts_to_omit)))
+		if(!transfer_contents || (bodyparts_to_omit && (limb_name in bodyparts_to_omit)) || IS_CHANGELING(H))
 			// Drop cavity implant
 			if(body_part.hidden)
 				body_part.hidden.forceMove(get_turf(H))
@@ -272,8 +275,25 @@
 			var/obj/item/organ/external/external_organ = O
 			external_organ.hidden = transfer_list[limb_name]["hidden"]
 			external_organ.contents = transfer_list[limb_name]["contents"]
-
 			transfer_list -= transfer_list[limb_name]
+	if(keep_implants && transfer_contents && !IS_CHANGELING(H))
+		for(var/obj/item/organ/internal/cyberimp/internal_organ in implant_list)
+			if(!istype(internal_organ))
+				continue
+
+			if(internal_organ.requires_robotic_bodypart)
+				continue
+
+			if(internal_organ.requires_machine_person && !ismachineperson(H))
+				continue
+
+			if(internal_organ.requires_golem_person && !isgolem(H))
+				continue
+
+			if(internal_organ.damage > (internal_organ.max_damage * 0.75))
+				continue
+
+			internal_organ.insert(H, silent = TRUE)
 
 	// Anything we still didn't transfer for whatever reason we drop on the ground
 	for(var/list/remaining in transfer_list)
@@ -289,7 +309,8 @@
 		var/obj/item/organ/internal/organ_path = has_organ[index]
 		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
 			continue
-
+		if(keep_implants && transfer_contents && !IS_CHANGELING(H) && istype(organ_path, /obj/item/organ/internal/cyberimp))
+			continue
 		// heads up for any brave future coders:
 		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
 		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.

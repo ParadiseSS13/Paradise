@@ -59,7 +59,7 @@
 	if(self_augmented_skin_level)
 		. += SPAN_INFO("It seems to have level-[self_augmented_skin_level] synthetic skin applied.")
 
-/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	if(!iscarbon(M) || owner == M)
 		return
 
@@ -318,7 +318,7 @@
 	update_icon()
 	. = ..()
 
-/obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(inflamed)
 		M.AddDisease(new /datum/disease/appendicitis)
@@ -346,7 +346,7 @@
 	var/suffering_delay = 900
 	var/datum/component/squeak
 
-/obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 	M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
@@ -409,7 +409,7 @@
 
 	var/datum/component/squeak
 
-/obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 

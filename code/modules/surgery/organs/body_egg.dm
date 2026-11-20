@@ -9,7 +9,7 @@
 	..()
 	to_chat(finder, SPAN_WARNING("You found an unknown alien organism in [owner]'s [parent_organ]!"))
 
-/obj/item/organ/internal/body_egg/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/body_egg/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
 	ADD_TRAIT(owner, TRAIT_XENO_IMMUNE, "xeno immune")

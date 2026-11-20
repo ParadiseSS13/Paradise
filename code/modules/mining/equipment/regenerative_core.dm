@@ -119,11 +119,12 @@
 	applyto(user, user)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = 0,  dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(!preserved && !inert)
 		preserved(TRUE)
-		owner.visible_message(SPAN_NOTICE("[src] stabilizes as it's inserted."))
+		if(!silent)
+			owner.visible_message(SPAN_NOTICE("[src] stabilizes as it's inserted."))
 
 /obj/item/organ/internal/regenerative_core/remove(mob/living/carbon/M, special = 0)
 	if(!inert && !special)

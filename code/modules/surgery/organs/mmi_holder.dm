@@ -11,7 +11,7 @@
 	QDEL_NULL(stored_mmi)
 	return ..()
 
-/obj/item/organ/internal/brain/mmi_holder/insert(mob/living/target, special = 0)
+/obj/item/organ/internal/brain/mmi_holder/insert(mob/living/target, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	// To supersede the over-writing of the MMI's name from `insert`
 	update_from_mmi()
