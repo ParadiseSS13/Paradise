@@ -43,6 +43,11 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 
 	/// Id for monitoring.
 	var/singulo_id = 1
+	/// Turfs still to be pulled on before the next process(), a share at a time so a big one doesn't freeze the server
+	var/list/pull_queue
+	/// How many turfs of the queue to pull on each fast fire
+	var/pull_share = 0
+	var/datum/singularity_puller/puller
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
@@ -70,6 +75,8 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	vis_contents -= warp
 	QDEL_NULL(warp)  // don't want to leave it hanging
 	target = null
+	pull_queue = null
+	QDEL_NULL(puller)
 	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)
@@ -301,20 +308,64 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 
 
 /obj/singularity/proc/eat()
+	// Everything is eaten or pulled over the next two seconds. The queue is used from the end, so what's in reach goes last.
+	pull_queue = list()
+	var/list/in_reach = list()
 	for(var/turf/tile as anything in RANGE_TURFS(grav_pull, src))
-		if(!tile || !isturf(loc))
-			continue
 		if(get_dist(tile, src) > consume_range)
-			tile.singularity_pull(src, current_size)
+			pull_queue += tile
 		else
-			consume(tile)
-		for(var/thing in tile)
-			if(thing != src)
-				var/atom/movable/X = thing
-				if(get_dist(X, src) > consume_range)
-					X.singularity_pull(src, current_size)
-				else
-					consume(X)
+			in_reach += tile
+	pull_queue += in_reach
+	if(!length(pull_queue))
+		return
+	// SSfastprocess fires ten times between two of our own fires, nine shares leaves room to catch up
+	pull_share = ceil(length(pull_queue) / 9)
+	if(!puller)
+		puller = new(src)
+	START_PROCESSING(SSfastprocess, puller)
+
+/obj/singularity/proc/eat_turf(turf/tile)
+	if(!isturf(loc))
+		return
+	if(get_dist(tile, src) > consume_range)
+		tile.singularity_pull(src, current_size)
+	else
+		consume(tile)
+	for(var/thing in tile)
+		if(thing != src)
+			var/atom/movable/X = thing
+			if(QDELETED(X))
+				continue
+			if(get_dist(X, src) > consume_range)
+				X.singularity_pull(src, current_size)
+			else
+				consume(X)
+
+/// Pulls on one share of the queue. Stops early if the tick is full, what's left over is picked up next time.
+/obj/singularity/proc/pull_some()
+	var/done = 0
+	while(length(pull_queue) && done < pull_share && !TICK_CHECK)
+		var/turf/tile = pull_queue[length(pull_queue)]
+		pull_queue.len--
+		eat_turf(tile)
+		done++
+	return length(pull_queue)
+
+/datum/singularity_puller
+	var/obj/singularity/singularity
+
+/datum/singularity_puller/New(obj/singularity/S)
+	singularity = S
+
+/datum/singularity_puller/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	singularity = null
+	return ..()
+
+/datum/singularity_puller/process()
+	if(QDELETED(singularity) || !singularity.pull_some())
+		return PROCESS_KILL
 
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)

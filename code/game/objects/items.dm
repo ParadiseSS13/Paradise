@@ -714,12 +714,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
-/obj/item/singularity_pull(S, current_size)
-	..()
-	if(current_size >= STAGE_FOUR)
-		throw_at(S, 14, 3, spin = 0)
-	else
+/obj/item/singularity_pull(obj/singularity/S, current_size)
+	if(current_size < STAGE_FOUR)
+		return ..()
+	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
+	// Already flying at it, throwing it again just costs time
+	if(throwing?.initial_target_uid == S.UID())
 		return
+	throw_at(S, 14, 3, spin = 0)
 
 /obj/item/proc/should_play_hitsound(damage)
 	return damage > 0

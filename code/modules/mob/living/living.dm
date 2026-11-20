@@ -940,7 +940,9 @@
 /mob/living/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_SIX) //your puny magboots/wings/whatever will not save you against supermatter singularity
-		throw_at(S, 14, 3, src, TRUE)
+		var/obj/singularity/singulo = S
+		if(throwing?.initial_target_uid != singulo.UID())
+			throw_at(S, 14, 3, src, TRUE)
 	else if(!mob_negates_gravity())
 		step_towards(src,S)
 
