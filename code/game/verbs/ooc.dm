@@ -339,7 +339,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!usr?.client)
 		return
 
-	if(GLOB.bug_report_time[usr.ckey] && world.time < (GLOB.bug_report_time[usr.client] + BUG_REPORT_CD))
+	if(GLOB.bug_report_time[usr.ckey] && world.time < (GLOB.bug_report_time[usr.ckey] + BUG_REPORT_CD))
 		var/cd_total_time = GLOB.bug_report_time[usr.ckey] + BUG_REPORT_CD - world.time
 		var/cd_minutes = round(cd_total_time / (1 MINUTES))
 		var/cd_seconds = round((cd_total_time - cd_minutes MINUTES) / (1 SECONDS))

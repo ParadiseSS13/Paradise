@@ -146,34 +146,37 @@
 	if(!query_find_note_edit.warn_execute())
 		qdel(query_find_note_edit)
 		return
-	if(query_find_note_edit.NextRow())
-		target_ckey = query_find_note_edit.item[1]
-		var/old_note = query_find_note_edit.item[2]
-		var/adminckey = query_find_note_edit.item[3]
-		var/automated = query_find_note_edit.item[4]
-		if(automated)
-			to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
-			return
-		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
-		if(!new_note)
-			return
+	if(!query_find_note_edit.NextRow())
+		qdel(query_find_note_edit)
+		return
+	target_ckey = query_find_note_edit.item[1]
+	var/old_note = query_find_note_edit.item[2]
+	var/adminckey = query_find_note_edit.item[3]
+	var/automated = query_find_note_edit.item[4]
+	qdel(query_find_note_edit)
+	if(automated)
+		to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
+		return
+	var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
+	if(!new_note)
+		return
 
-		var/safe_text = html_encode(new_note)
+	var/safe_text = html_encode(new_note)
 
-		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[safe_text]\"<hr>"
-		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
-			"new_note" = safe_text,
-			"akey" = usr.ckey,
-			"edit_text" = edit_text,
-			"note_id" = note_id
-		))
-		if(!query_update_note.warn_execute())
-			qdel(query_update_note)
-			return
-		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[safe_text]\"")
-		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[safe_text]\"")
-		show_note(target_ckey)
+	var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[safe_text]\"<hr>"
+	var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
+		"new_note" = safe_text,
+		"akey" = usr.ckey,
+		"edit_text" = edit_text,
+		"note_id" = note_id
+	))
+	if(!query_update_note.warn_execute())
 		qdel(query_update_note)
+		return
+	log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[safe_text]\"")
+	message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[safe_text]\"")
+	show_note(target_ckey)
+	qdel(query_update_note)
 
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -285,35 +288,38 @@
 	if(!query_find_note_edit.warn_execute())
 		qdel(query_find_note_edit)
 		return
-	if(query_find_note_edit.NextRow())
-		var/target_ckey = query_find_note_edit.item[1]
-		var/text = query_find_note_edit.item[2]
-		var/adminckey = query_find_note_edit.item[3]
-		var/automated = query_find_note_edit.item[4]
-		var/public = query_find_note_edit.item[5]
-		if((!adminckey || adminckey != usr.ckey) && !check_rights(R_PERMISSIONS))
-			to_chat(usr, SPAN_NOTICE("You cannot toggle the publicity of notes created by other users."))
+	if(!query_find_note_edit.NextRow())
+		qdel(query_find_note_edit)
+		return
+	var/target_ckey = query_find_note_edit.item[1]
+	var/text = query_find_note_edit.item[2]
+	var/adminckey = query_find_note_edit.item[3]
+	var/automated = query_find_note_edit.item[4]
+	var/public = query_find_note_edit.item[5]
+	qdel(query_find_note_edit)
+	if((!adminckey || adminckey != usr.ckey) && !check_rights(R_PERMISSIONS))
+		to_chat(usr, SPAN_NOTICE("You cannot toggle the publicity of notes created by other users."))
+		return
+	if(automated)
+		to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
+		return
+
+	if(public)
+		if(alert(usr, "Are you sure you want to make this note private?", "Private Note?", "Yes", "No") != "Yes")
 			return
-		if(automated)
-			to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
+	else
+		if(alert(usr, "Are you sure you want to make this note public?", "Public Note?", "Yes", "No") != "Yes")
 			return
 
-		if(public)
-			if(alert(usr, "Are you sure you want to make this note private?", "Private Note?", "Yes", "No") != "Yes")
-				return
-		else
-			if(alert(usr, "Are you sure you want to make this note public?", "Public Note?", "Yes", "No") != "Yes")
-				return
-
-		public = !public
-		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE notes SET public=:new_public WHERE id=:note_id", list(
-			"new_public" = public,
-			"note_id" = note_id
-		))
-		if(!query_update_note.warn_execute())
-			qdel(query_update_note)
-			return
-		log_admin("[key_name(usr)] has made [target_ckey]'s note [public ? "public" : "private"], contents are \"[text]\".")
-		message_admins("[key_name_admin(usr)] has edited [target_ckey]'s note [public ? "public" : "private"], contents are \"[text]\".")
-		show_note(target_ckey)
+	public = !public
+	var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE notes SET public=:new_public WHERE id=:note_id", list(
+		"new_public" = public,
+		"note_id" = note_id
+	))
+	if(!query_update_note.warn_execute())
 		qdel(query_update_note)
+		return
+	log_admin("[key_name(usr)] has made [target_ckey]'s note [public ? "public" : "private"], contents are \"[text]\".")
+	message_admins("[key_name_admin(usr)] has edited [target_ckey]'s note [public ? "public" : "private"], contents are \"[text]\".")
+	show_note(target_ckey)
+	qdel(query_update_note)
