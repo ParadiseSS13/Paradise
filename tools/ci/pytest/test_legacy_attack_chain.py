@@ -46,7 +46,7 @@ class AttackChainCallWalker:
                 return arg.arg_type
 
         try:
-            vd = self.type_decl.var_decl(name, parents=True)
+            vd = self.type_decl.vars[name]
             if vd.declared_type:
                 return vd.declared_type
         except:
@@ -144,7 +144,7 @@ def test_legacy_attack_chain(dme: DME, lint: Lint):
         td = dme.types[pth]
         if any([pth.child_of(assisted_type, strict=True) for assisted_type in ASSISTED_TYPES]):
             try:
-                setting_cache[pth] = bool(td.var_decl("new_attack_chain", parents=True).const_val)
+                setting_cache[pth] = bool(td.vars["new_attack_chain"].const_val)
             except:
                 setting_cache[pth] = False
         for proc_name in td.proc_names(modified=True):
