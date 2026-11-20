@@ -482,7 +482,13 @@
 /obj/item/ammo_casing/caseless/foam_dart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
-	if((is_pen(used)) && modified && !FD.pen)
+	if(is_pen(used))
+		if(FD.pen)
+			to_chat(user, SPAN_WARNING("[src] already has [FD.pen] inside it!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!modified)
+			to_chat(user, SPAN_WARNING("You need to modify [src] with a screwdriver before you can insert [used]!"))
+			return ITEM_INTERACT_COMPLETE
 		if(!user.unequip(used)) // forceMove happens in add_pen
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE

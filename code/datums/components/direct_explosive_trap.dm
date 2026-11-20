@@ -21,7 +21,7 @@
 		// TODO: This is where COMSIG_ATTACK_HAND would be
 		// if we could actually rely on it to call its parent
 		COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY,
-		COMSIG_INTERACT_USER,
+		COMSIG_INTERACT_TARGET,
 		COMSIG_ATTACK_BY,
 		COMSIG_ATOM_BUMPED,
 		COMSIG_CLICK_ALT,

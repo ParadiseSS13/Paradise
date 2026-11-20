@@ -490,6 +490,14 @@ Difficulty: Medium
 	duration = 82
 	color = COLOR_DARK_ORANGE
 
+/obj/effect/temp_visual/drakewall/Initialize(mapload)
+	. = ..()
+	recalculate_atmos_connectivity()
+
+/obj/effect/temp_visual/drakewall/Destroy()
+	recalculate_atmos_connectivity()
+	return ..()
+
 /obj/effect/temp_visual/drakewall/CanAtmosPass(direction)
 	return !density
 

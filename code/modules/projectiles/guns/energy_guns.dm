@@ -1,8 +1,7 @@
 /obj/item/gun/energy
 	name = "generic energy gun"
-	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon = 'icons/obj/guns/energy.dmi'
-	icon_state = "energy"
+	icon_state = "dragnet" // Obvious crappy sprite because it's not a real gun.
 	fire_sound_text = "laser blast"
 
 	/// What type of power cell this uses
@@ -78,10 +77,12 @@
 	RegisterSignal(src, COMSIG_LENS_ATTACH, PROC_REF(attach_lens))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(detach_lens))
 
-/obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	if(istype(I, /obj/item/smithed_item/lens))
-		SEND_SIGNAL(src, COMSIG_LENS_ATTACH, I, user)
+/obj/item/gun/energy/item_interaction(mob/living/user, obj/item/used, list/modifiers)	
+	if(!istype(used, /obj/item/smithed_item/lens))
+		return ..()
+
+	SEND_SIGNAL(src, COMSIG_LENS_ATTACH, used, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/energy/proc/attach_lens(atom/source, obj/item/smithed_item/lens/new_lens, mob/user)
 	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
@@ -141,7 +142,7 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
-/obj/item/gun/energy/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/gun/energy/handle_activate_self(mob/user)
 	if(length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
