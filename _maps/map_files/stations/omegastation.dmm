@@ -25714,6 +25714,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
+"hHC" = (
+/obj/machinery/economy/vending/dye_generator,
+/turf/simulated/floor/wood,
+/area/station/public/dorms)
 "hHG" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -87977,7 +87981,7 @@ aEu
 aFw
 aHo
 sKn
-pbT
+hHC
 qqw
 aMU
 wUF

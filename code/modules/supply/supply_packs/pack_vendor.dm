@@ -33,6 +33,11 @@
 	contains = list(/obj/item/vending_refill/crittercare)
 	containername = "pet supply crate"
 
+/datum/supply_packs/vending/dye
+	name = "Dye Generator Supply Crate"
+	contains = list(/obj/item/vending_refill/dye)
+	containername = "dye generator supply crate"
+
 /datum/supply_packs/vending/bartending
 	name = "Booze-o-mat and Coffee Supply Crate"
 	contains = list(/obj/item/vending_refill/boozeomat,
