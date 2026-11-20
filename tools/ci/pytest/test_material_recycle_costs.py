@@ -1,7 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from avulto import DME, Path as p, SourceLoc
+from avulto import DME, TypePath as p, SourceLoc
 import pytest
 
 from conftest import Lint

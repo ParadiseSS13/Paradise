@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from avulto import DME, TypePath as p
-from avulto import SourceLoc
+import pytest
 
 from conftest import Lint
 

@@ -1,6 +1,6 @@
 from typing import Any
 
-from avulto import DME, Dmlist, Path as p
+from avulto import DME, Dmlist, TypePath as p
 from avulto.ast import Prefab
 from conftest import Lint
 import pytest

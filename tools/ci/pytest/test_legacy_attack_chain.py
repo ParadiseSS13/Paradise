@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from collections import defaultdict
 
-from avulto import DME, Path as p, ProcDecl, SourceLoc, TypeDecl
+from avulto import DME, TypePath as p, ProcDef, SourceLoc, TypeDef
 from avulto.ast import Node, Expression
 import pytest
 
@@ -10,7 +10,7 @@ from conftest import Lint
 
 @dataclass(frozen=True)
 class AttackChainCall:
-    proc_decl: ProcDecl
+    proc_decl: ProcDef
     var_name: str
     var_type: p | None
     call_name: str
@@ -31,7 +31,7 @@ CALLS: dict[p, set[AttackChainCall]] = defaultdict(set)
 # that variable's matching type. If the type matches, then the call site is
 # calling a legacy proc on that type.
 class AttackChainCallWalker:
-    def __init__(self, type_decl: TypeDecl, proc_decl: ProcDecl):
+    def __init__(self, type_decl: TypeDef, proc_decl: ProcDef):
         self.type_decl = type_decl
         self.proc_decl = proc_decl
         self.local_vars: dict[str, p | None] = dict()
@@ -133,8 +133,8 @@ NEW_PROCS = [
 
 @pytest.mark.lint("Legacy Attack Chain")
 def test_legacy_attack_chain(dme: DME, lint: Lint):
-    legacy_procs: dict[p, list[ProcDecl]] = defaultdict(list)
-    modern_procs: dict[p, list[ProcDecl]] = defaultdict(list)
+    legacy_procs: dict[p, list[ProcDef]] = defaultdict(list)
+    modern_procs: dict[p, list[ProcDef]] = defaultdict(list)
     setting_cache: dict[p, bool] = dict()
 
     for pth in dme.subtypesof("/"):
