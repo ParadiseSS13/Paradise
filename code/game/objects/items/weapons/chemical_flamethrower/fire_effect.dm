@@ -160,4 +160,42 @@ GLOBAL_LIST_EMPTY(flame_effects)
 /obj/effect/fire/electrical/water_act(volume, temperature, source, method)
 	return TRUE // It's an electrical fire - of course water doesn't work!
 
+/obj/effect/fire/anomaly
+
+/obj/effect/fire/anomaly/Initialize(mapload)
+	. = ..(mapload, T0C + 1000, rand(5 MINUTES, 10 MINUTES), 2)
+	set_light(4, 3, LIGHT_COLOR_LAVA)
+
+/obj/effect/fire/anomaly/process()
+	..()
+	var/datum/milla_safe/fire_consume_o2/milla = new()
+	milla.invoke_async(src, get_turf(src))
+	if(prob(10))
+		var/datum/effect_system/smoke_spread/bad/smoke = new /datum/effect_system/smoke_spread
+		smoke.set_up(1, FALSE, get_turf(src))
+		smoke.start()
+	if(prob(2)) // It can SPREAD, although slowly
+		var/turf/T = get_step(get_turf(src), pick(GLOB.alldirs))
+		if(!istype(T) || T == get_turf(src) || T.density)
+			return
+		for(var/obj/effect/fire/flame in get_turf(T))
+			if(istype(flame) || flame == src)
+				return
+		for(var/obj/machinery/door/firedoor/firelock in get_turf(T))
+			if(istype(firelock))
+				return
+		new /obj/effect/fire/anomaly(T)
+
+/datum/milla_safe/fire_consume_o2/on_run(obj/effect/fire/fire, turf/T)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	var/amount_to_change = max(env.oxygen() - 5, 0)
+	env.set_oxygen(amount_to_change)
+	env.set_carbon_dioxide(max(env.carbon_dioxide() + amount_to_change, 0))
+
+/obj/effect/fire/anomaly/water_act(volume, temperature, source, method)
+	duration -= 4 MINUTES
+	if(duration <= 0)
+		fizzle()
+	update_icon(UPDATE_ICON_STATE)
+
 #undef MAX_FIRE_EXIST_TIME
