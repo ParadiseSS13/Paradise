@@ -70,7 +70,7 @@ def main():
             for define in define_regex.finditer(file_contents):
                 number_of_defines += 1
                 define_name = define.group(2)
-                if not re.search("#undef\s" + define_name, file_contents):
+                if not re.search(r"#undef\s" + define_name, file_contents):
                     located_error_tuples.append((define_name, applicable_file))
 
     if number_of_defines == 0:

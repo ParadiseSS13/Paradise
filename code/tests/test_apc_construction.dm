@@ -37,9 +37,8 @@
 	player.click_on(apc_frame)
 	TEST_ASSERT_LAST_CHATLOG(player, "You remove [the_cell].")
 	player.put_away(the_cell)
-	var/obj/wirecutters = player.spawn_obj_in_hand(/obj/item/wirecutters)
+	var/obj/wirecutters = player.spawn_fast_tool(/obj/item/wirecutters)
 	player.click_on(apc_frame)
-	sleep(5 SECONDS) // This is not an APC define.
 	TEST_ASSERT_LAST_CHATLOG(player, "You cut the cables and dismantle the power terminal.")
 	player.put_away(wirecutters)
 	player.retrieve(crowbar)
