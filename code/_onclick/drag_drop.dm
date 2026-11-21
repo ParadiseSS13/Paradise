@@ -52,6 +52,8 @@ to inform the game this action was expected and its fine
 /client/MouseDown(datum/object, location, control, params)
 	if(QDELETED(object)) // Yep, you can click on qdeleted things before they have time to nullspace. Fun.
 		return
+	if(pile_menu_off && control == "paramapwindow.map" && params2list(params)["right"])
+		return // a right-click on a huge pile opens the tile list, it shouldn't start autofiring a held gun
 	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDOWN, object, location, control, params)
 	var/delay = mob.CanMobAutoclick(object, location, params)
 	if(delay)
