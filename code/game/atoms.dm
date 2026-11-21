@@ -1588,6 +1588,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(isnull(user))
 		return
 
+	client.check_pile_menu(src)
 	SEND_SIGNAL(user, COMSIG_ATOM_MOUSE_ENTERED, src)
 
 	// Update the screentip to reflect what we're hovering over.

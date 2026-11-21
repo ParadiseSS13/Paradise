@@ -1127,6 +1127,8 @@
 	return max(screensize[1], screensize[2])
 
 /client/Click(object, location, control, params)
+	if(pile_right_click(object, control, params))
+		return
 	. = ..()
 	// please yell at me if this is Too Much
 	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
