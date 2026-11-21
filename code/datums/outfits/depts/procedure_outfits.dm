@@ -17,6 +17,7 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/bar)
 
 /datum/outfit/job/judge/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -43,6 +44,7 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/bar)
 
 /datum/outfit/job/iaa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

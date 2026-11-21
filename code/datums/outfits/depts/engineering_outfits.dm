@@ -16,6 +16,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/engineering)
 
 /datum/outfit/job/engineer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -37,6 +38,7 @@
 	satchel = /obj/item/storage/backpack/satchel_atmos
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/engineer
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/atmospherics)
 
 /datum/outfit/job/atmos/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

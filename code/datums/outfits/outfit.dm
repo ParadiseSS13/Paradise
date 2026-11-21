@@ -34,8 +34,14 @@
 
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
+	/// if some species replace outfit parts, those sub-outfits go here.
+	var/list/species_outfits = list("Plasmaman", /datum/outfit/plasmaman)
+
 /datum/outfit/naked
 	name = "Naked"
+
+/datum/outfit/proc/get_chosen_backpack(backbag)
+	return back
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
@@ -69,31 +75,34 @@
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
 
+	var/datum/outfit/species_outfit = null
+	if(H.dna.species.name in species_outfits)
+		species_outfit = new species_outfits[H.dna.species.name]
 	//Start with uniform,suit,backpack for additional slots
-	if(uniform)
-		equip_item(H, uniform, ITEM_SLOT_JUMPSUIT)
-	if(suit)
-		equip_item(H, suit, ITEM_SLOT_OUTER_SUIT)
-	if(back)
-		equip_item(H, back, ITEM_SLOT_BACK)
-	if(belt)
-		equip_item(H, belt, ITEM_SLOT_BELT)
-	if(gloves)
-		equip_item(H, gloves, ITEM_SLOT_GLOVES)
-	if(shoes)
-		equip_item(H, shoes, ITEM_SLOT_SHOES)
-	if(head)
-		equip_item(H, head, ITEM_SLOT_HEAD)
-	if(mask)
-		equip_item(H, mask, ITEM_SLOT_MASK)
-	if(neck)
-		equip_item(H, neck, ITEM_SLOT_NECK)
-	if(l_ear)
-		equip_item(H, l_ear, ITEM_SLOT_LEFT_EAR)
-	if(r_ear)
-		equip_item(H, r_ear, ITEM_SLOT_RIGHT_EAR)
-	if(glasses)
-		equip_item(H, glasses, ITEM_SLOT_EYES)
+	if(uniform || species_outfit?.uniform)
+		equip_item(H, species_outfit?.uniform || uniform, ITEM_SLOT_JUMPSUIT)
+	if(suit || species_outfit?.suit)
+		equip_item(H, species_outfit?.suit || suit, ITEM_SLOT_OUTER_SUIT)
+	if(back || species_outfit?.back)
+		equip_item(H, species_outfit?.back || back, ITEM_SLOT_BACK)
+	if(belt || species_outfit?.belt)
+		equip_item(H, species_outfit?.belt || belt, ITEM_SLOT_BELT)
+	if(gloves || species_outfit?.gloves)
+		equip_item(H, species_outfit?.gloves || gloves, ITEM_SLOT_GLOVES)
+	if(shoes || species_outfit?.shoes)
+		equip_item(H, species_outfit?.shoes || shoes, ITEM_SLOT_SHOES)
+	if(head || species_outfit?.head)
+		equip_item(H, species_outfit?.head || head, ITEM_SLOT_HEAD)
+	if(mask || species_outfit?.mask)
+		equip_item(H, species_outfit?.mask || mask, ITEM_SLOT_MASK)
+	if(neck || species_outfit?.neck)
+		equip_item(H, species_outfit?.neck || neck, ITEM_SLOT_NECK)
+	if(l_ear || species_outfit?.l_ear)
+		equip_item(H, species_outfit?.l_ear || l_ear, ITEM_SLOT_LEFT_EAR)
+	if(r_ear || species_outfit?.r_ear)
+		equip_item(H, species_outfit?.r_ear || r_ear, ITEM_SLOT_RIGHT_EAR)
+	if(glasses || species_outfit?.glasses)
+		equip_item(H, species_outfit?.glasses || glasses, ITEM_SLOT_EYES)
 	if(id)
 		equip_item(H, id, ITEM_SLOT_ID)
 
@@ -104,43 +113,47 @@
 		var/obj/item/mod/control/C = H.back
 		C.quick_activation()
 
-	if(suit_store)
-		equip_item(H, suit_store, ITEM_SLOT_SUIT_STORE)
+	if(suit_store || species_outfit?.suit_store)
+		equip_item(H, species_outfit?.suit_store || suit_store, ITEM_SLOT_SUIT_STORE)
 
-	if(l_hand)
-		H.put_in_l_hand(new l_hand(H))
-	if(r_hand)
-		H.put_in_r_hand(new r_hand(H))
+	if(l_hand || species_outfit?.l_hand)
+		var/hand_path = species_outfit?.l_hand || l_hand
+		H.put_in_l_hand(new hand_path(H))
+	if(r_hand || species_outfit?.r_hand)
+		var/hand_path = species_outfit?.r_hand || r_hand
+		H.put_in_r_hand(new hand_path(H))
 
-	if(pda)
-		equip_item(H, pda, ITEM_SLOT_PDA)
+	if(pda || species_outfit?.pda)
+		equip_item(H, species_outfit?.pda || pda, ITEM_SLOT_PDA)
 
-	if(uniform)
+	if(uniform || species_outfit?.uniform)
 		for(var/path in accessories)
 			var/obj/item/clothing/accessory/A = new path()
 			var/obj/item/clothing/under/U = uniform
 			U.attach_accessory(A, H)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
-		if(l_pocket)
-			equip_item(H, l_pocket, ITEM_SLOT_LEFT_POCKET)
-		if(r_pocket)
-			equip_item(H, r_pocket, ITEM_SLOT_RIGHT_POCKET)
+		if(l_pocket || species_outfit?.l_pocket)
+			equip_item(H, species_outfit?.l_pocket || l_pocket, ITEM_SLOT_LEFT_POCKET)
+		if(r_pocket || species_outfit?.r_pocket)
+			equip_item(H, species_outfit?.r_pocket || r_pocket, ITEM_SLOT_RIGHT_POCKET)
 
-		if(box)
+		if(box || species_outfit?.box)
 			if(!backpack_contents)
 				backpack_contents = list()
-			backpack_contents.Insert(1, box)
-			backpack_contents[box] = 1
+			backpack_contents.Insert(1, species_outfit?.box || box)
+			backpack_contents[species_outfit?.box || box] = 1
 
-		for(var/path in backpack_contents)
-			var/number = backpack_contents[path]
+		var/list/backpack_to_populate = species_outfit?.backpack_contents || backpack_contents
+		for(var/path in backpack_to_populate)
+			var/number = backpack_to_populate[path]
 			if(!number)
 				number = 1
 			for(var/i in 1 to number)
 				H.equip_or_collect(new path(H), ITEM_SLOT_IN_BACKPACK)
 
-		for(var/path in cybernetic_implants)
+		var/list/implants_to_populate = species_outfit?.cybernetic_implants || cybernetic_implants
+		for(var/path in implants_to_populate)
 			var/obj/item/organ/internal/O = new path
 			O.insert(H)
 
@@ -152,8 +165,9 @@
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
 
-	if(bio_chips)
-		for(var/bio_chip_type in bio_chips)
+	if(bio_chips || species_outfit?.bio_chips)
+		var/list/biochips_to_populate = species_outfit?.bio_chips || bio_chips
+		for(var/bio_chip_type in biochips_to_populate)
 			var/obj/item/bio_chip/I = new bio_chip_type(H)
 			I.implant(H, null)
 
@@ -304,6 +318,432 @@
 	.["bio_chips"] = bio_chips
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
+
+/datum/outfit/proc/preview_outfit_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/icon/outfit_icon = new /icon('icons/blanks/32x32.dmi', "nothing")
+
+	var/list/icon/icon_layers = preview_layered_icon(species, body_parts, backpack_choice, monitor_head)
+	for(var/i = TOTAL_LAYERS, i > 1, i--)
+		if(!icon_layers[i])
+			continue
+		outfit_icon.Blend(icon_layers[i], ICON_OVERLAY)
+
+	return outfit_icon
+
+/datum/outfit/proc/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/datum/outfit/species_outfit = null
+	if(species in species_outfits)
+		species_outfit = species_outfits[species]
+		species_outfit = new species_outfit()
+
+	var/list/icon/icon_layers = new/list(TOTAL_LAYERS)
+	for(var/i in 1 to TOTAL_LAYERS)
+		icon_layers[i] = 'icons/blanks/32x32.dmi'
+
+	if(uniform || species_outfit?.uniform)
+		icon_layers[UNIFORM_LAYER] = preview_uniform_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(id || species_outfit?.id)
+		icon_layers[ID_LAYER] = preview_id_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(shoes || species_outfit?.shoes)
+		icon_layers[SHOES_LAYER] = preview_shoes_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(gloves || species_outfit?.gloves)
+		icon_layers[GLOVES_LAYER] = preview_gloves_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(l_ear || species_outfit?.l_ear)
+		icon_layers[LEFT_EAR_LAYER] = preview_l_ear_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
+	if(r_ear || species_outfit?.r_ear)
+		icon_layers[RIGHT_EAR_LAYER] = preview_r_ear_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
+	if(belt || species_outfit?.belt)
+		var/obj/item/storage/belt/chosen_item = belt || species_outfit?.belt
+		var/list/special_belts = list(
+			/obj/item/defibrillator/compact,
+			/obj/item/nullrod,
+			/obj/item/claymore,
+		)
+		if(is_type_in_list(chosen_item, special_belts) || (istype(chosen_item) && chosen_item.layer_over_suit))
+			icon_layers[SPECIAL_BELT_LAYER] = preview_belt_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+		else
+			icon_layers[BELT_LAYER] = preview_belt_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(suit || species_outfit?.suit)
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(neck || species_outfit?.neck)
+		var/obj/item/clothing/neck/tie/chosen_item = neck || species_outfit?.neck
+		if(istype(chosen_item) && chosen_item::under_suit)
+			icon_layers[SPECIAL_NECK_LAYER] = preview_neck_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+		else
+			icon_layers[NECK_LAYER] = preview_neck_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(suit_store || species_outfit?.suit_store)
+		icon_layers[SUIT_STORE_LAYER] = preview_suit_store_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(back || species_outfit?.back)
+		icon_layers[BACK_LAYER] = preview_back_icon(species, body_parts, species_outfit, backpack_choice) || 'icons/blanks/32x32.dmi'
+	if(glasses || species_outfit?.glasses)
+		var/obj/item/clothing/glasses/chosen_item = glasses || species_outfit?.glasses
+		if(istype(chosen_item) && chosen_item.over_mask)
+			icon_layers[OVER_MASK_LAYER] = preview_glasses_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
+		else
+			icon_layers[GLASSES_LAYER] = preview_glasses_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
+	if(mask || species_outfit?.mask)
+		icon_layers[FACEMASK_LAYER] = preview_mask_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
+	if(head || species_outfit?.head)
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
+	if(l_hand || species_outfit?.l_hand)
+		icon_layers[L_HAND_LAYER] = preview_l_hand_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	if(r_hand || species_outfit?.r_hand)
+		icon_layers[R_HAND_LAYER] = preview_r_hand_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
+	qdel(species_outfit)
+	return icon_layers
+
+/datum/outfit/proc/preview_uniform_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!uniform && !species_outfit?.uniform)
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.uniform)
+		worn_item = new species_outfit.uniform(null)
+	else
+		worn_item = new uniform(null)
+
+	var/obj/item/clothing/worn_suit // Yup, we have to check this.
+	if(species_outfit?.suit)
+		worn_suit = species_outfit.suit
+	else if(suit)
+		worn_suit = suit
+	if((worn_suit && worn_suit::flags_inv & HIDEJUMPSUIT) || HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/under/misc.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!suit && !species_outfit?.suit)
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.suit)
+		worn_item = new species_outfit.suit(null)
+	else
+		worn_item = new suit(null)
+	if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_back_icon(species, list/body_parts, datum/outfit/species_outfit = null, backpack_choice = GBACKPACK)
+	back = get_chosen_backpack(backpack_choice)
+	if(!back && !species_outfit?.back)
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.back)
+		worn_item = new species_outfit.back(null)
+	else
+		worn_item = new back(null)
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/back.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_belt_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!belt && !species_outfit?.belt)
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.belt)
+		worn_item = new species_outfit.belt(null)
+	else
+		worn_item = new belt(null)
+	if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/belt.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return
+
+/datum/outfit/proc/preview_gloves_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!gloves && !species_outfit?.gloves)
+		return null
+	if(!("r_hand" in body_parts) || !("l_hand" in body_parts))
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.gloves)
+		worn_item = new species_outfit.gloves(null)
+	else
+		worn_item = new gloves(null)
+
+	var/obj/item/clothing/worn_suit // Yup, we have to check this.
+	if(species_outfit?.suit)
+		worn_suit = species_outfit.suit
+	else if(suit)
+		worn_suit = suit
+	if((worn_suit && worn_suit::flags_inv & HIDEGLOVES) || HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/hands.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_shoes_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!shoes && !species_outfit?.shoes)
+		return null
+	if(!("l_foot" in body_parts) || !("r_foot" in body_parts))
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.shoes)
+		worn_item = new species_outfit.shoes(null)
+	else
+		worn_item = new shoes(null)
+
+	var/obj/item/clothing/worn_suit // Yup, we have to check this.
+	if(species_outfit?.suit)
+		worn_suit = species_outfit.suit
+	else if(suit)
+		worn_suit = suit
+	if((worn_suit && worn_suit::flags_inv & HIDESHOES) || HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/feet.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!head && !species_outfit?.head)
+		return null
+	if(!("head" in body_parts))
+		return null
+	var/obj/item/clothing/head/worn_item
+	if(species_outfit?.head)
+		worn_item = new species_outfit.head(null)
+	else
+		worn_item = new head(null)
+	if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = (monitor_head ? worn_item.icon_monitor : FALSE) || listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_mask_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!mask && !species_outfit?.mask)
+		return null
+	if(!("head" in body_parts))
+		return null
+	var/obj/item/clothing/mask/worn_item
+	if(species_outfit?.mask)
+		worn_item = new species_outfit.mask(null)
+	else
+		worn_item = new mask(null)
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? worn_item.icon_monitor : FALSE) || worn_item.worn_icon || 'icons/mob/clothing/mask.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_neck_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!neck && !species_outfit?.neck)
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.neck)
+		worn_item = new species_outfit.neck(null)
+	else
+		worn_item = new neck(null)
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/neck.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_suit_store_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!suit_store && !species_outfit.suit_store)
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.suit_store)
+		worn_item = new species_outfit.suit_store(null)
+	else
+		worn_item = new suit_store(null)
+	if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state || worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || 'icons/mob/clothing/belt_mirror.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_l_ear_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!l_ear && !species_outfit?.l_ear)
+		return null
+	if(!("head" in body_parts))
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.l_ear)
+		worn_item = new species_outfit.l_ear(null)
+	else
+		worn_item = new l_ear(null)
+
+	var/obj/item/clothing/worn_head // Yup, we have to check this.
+	if(species_outfit?.head)
+		worn_head = species_outfit.head
+	else if(head)
+		worn_head = head
+	var/obj/item/clothing/worn_mask // Yup, we have to check this too.
+	if(species_outfit?.mask)
+		worn_mask = species_outfit.mask
+	else if(mask)
+		worn_mask = mask
+	if((worn_head && worn_head::flags_inv & HIDEEARS) || (worn_mask && worn_mask::flags_inv & HIDEEARS) || HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/monitor_icon
+	if(istype(worn_item, /obj/item/radio/headset) || istype(worn_item))
+		monitor_icon = worn_item.icon_monitor
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_r_ear_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!r_ear && !species_outfit?.r_ear)
+		return null
+	if(!("head" in body_parts))
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.r_ear)
+		worn_item = new species_outfit.r_ear(null)
+	else
+		worn_item = new r_ear(null)
+
+	var/obj/item/clothing/worn_head // Yup, we have to check this.
+	if(species_outfit?.head)
+		worn_head = species_outfit.head
+	else if(head)
+		worn_head = head
+	var/obj/item/clothing/worn_mask // Yup, we have to check this too.
+	if(species_outfit?.mask)
+		worn_mask = species_outfit.mask
+	else if(mask)
+		worn_mask = mask
+	if((worn_head && worn_head::flags_inv & HIDEEARS) || (worn_mask && worn_mask::flags_inv & HIDEEARS) || HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		qdel(worn_item)
+		return null
+
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/monitor_icon
+	if(istype(worn_item, /obj/item/radio/headset) || istype(worn_item))
+		monitor_icon = worn_item.icon_monitor
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_glasses_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE)
+	if(!glasses && !species_outfit?.glasses)
+		return null
+	if(!("head" in body_parts))
+		return null
+	var/obj/item/clothing/glasses/worn_item
+	if(species_outfit?.glasses)
+		worn_item = new species_outfit.glasses(null)
+	else
+		worn_item = new glasses(null)
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || (monitor_head ? worn_item.icon_monitor : FALSE) ||  listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/eyes.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_id_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!id && !species_outfit?.id)
+		return null
+	var/icon/final_icon = new /icon('icons/mob/mob.dmi', "id") // Change if IDs get any other sprites, ever.
+	return final_icon
+
+/datum/outfit/proc/preview_l_hand_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!l_hand && !species_outfit?.l_hand)
+		return null
+	if(!("l_hand" in body_parts))
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.l_hand)
+		worn_item = new species_outfit.l_hand(null)
+	else
+		worn_item = new l_hand(null)
+	var/worn_icon_state = worn_item.inhand_icon_state ? worn_item.inhand_icon_state : worn_item.icon_state
+	var/icon/final_icon
+	if(species in worn_item.sprite_sheets_inhand)
+		final_icon = new /icon(worn_item.sprite_sheets_inhand[species], "[worn_icon_state]_l")
+	else
+		final_icon = new /icon(worn_item.lefthand_file, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
+/datum/outfit/proc/preview_r_hand_icon(species, list/body_parts, datum/outfit/species_outfit = null)
+	if(!r_hand && !species_outfit?.r_hand)
+		return null
+	if(!("r_hand" in body_parts))
+		return null
+	var/obj/item/clothing/worn_item
+	if(species_outfit?.r_hand)
+		worn_item = new species_outfit.r_hand(null)
+	else
+		worn_item = new r_hand(null)
+	var/worn_icon_state = worn_item.inhand_icon_state ? worn_item.inhand_icon_state : worn_item.icon_state
+	var/icon/final_icon
+	if(species in worn_item.sprite_sheets_inhand)
+		final_icon = new /icon(worn_item.sprite_sheets_inhand[species], "[worn_icon_state]_r")
+	else
+		final_icon = new /icon(worn_item.righthand_file, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 // Butler outfit
 /datum/outfit/butler

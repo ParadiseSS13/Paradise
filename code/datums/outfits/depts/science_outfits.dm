@@ -12,6 +12,7 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/science)
 
 /datum/outfit/job/scientist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -55,6 +56,7 @@
 	backpack = /obj/item/storage/backpack/robotics
 	satchel = /obj/item/storage/backpack/satchel_robo
 	dufflebag = /obj/item/storage/backpack/duffel/robotics
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/robotics)
 
 /datum/outfit/job/roboticist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -75,6 +77,7 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/genetics)
 
 /datum/outfit/job/geneticist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

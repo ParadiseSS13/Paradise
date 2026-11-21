@@ -40,6 +40,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/navyofficer)
 
 /datum/outfit/job/ntnavyofficer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -94,6 +95,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/soo)
 
 /datum/outfit/job/ntspecops/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
