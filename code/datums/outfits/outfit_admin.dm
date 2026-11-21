@@ -1490,6 +1490,11 @@
 		/obj/item/bio_chip_implanter/dust = 1
 		)
 
+	species_outfits = list(
+		"Plasmaman" = /datum/outfit/admin/observer/plasmaman,
+		"Vox" = /datum/outfit/admin/observer/vox
+	)
+
 /datum/outfit/admin/observer/plasmaman
 	name = "Observer (Plasma)"
 
@@ -1799,3 +1804,8 @@
 	var/datum/antagonist/heretic/A = H.mind.has_antag_datum(/datum/antagonist/heretic)
 	A.knowledge_points = 9999
 	A.force_unlock_ascension = TRUE
+
+/datum/outfit/admin/prescription_glasses
+	name = "Prescription Glasses"
+
+	glasses = /obj/item/clothing/glasses/regular

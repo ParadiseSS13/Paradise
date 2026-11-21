@@ -297,3 +297,17 @@
 	uniform = /obj/item/clothing/under/color/random
 	id = /obj/item/card/id/assistant
 	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/assistant)
+
+/datum/outfit/job/assistant/ai_preview
+	name = "AI Preview"
+	jobtype = null
+
+	suit = /obj/item/clothing/suit/straight_jacket
+	head = /obj/item/clothing/head/cardborg
+
+/datum/outfit/job/assistant/cyborg_preview
+	name = "Cyborg Preview"
+	jobtype = null
+
+	suit = /obj/item/clothing/suit/cardborg
+	head = /obj/item/clothing/head/cardborg

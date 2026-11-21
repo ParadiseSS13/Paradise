@@ -952,25 +952,13 @@
 
 	else if(job_engsec_high)
 		if(job_engsec_high == JOB_AI)//Gives AI and borgs assistant-wear, so they can still customize their character
-			var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
-			clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
-			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "straight_jacket"), ICON_OVERLAY)
-			clothes_s.Blend(new /icon('icons/mob/clothing/head/cardborg.dmi', "cardborg_h"), ICON_OVERLAY)
-			if(backbag == 2)
-				clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
-			else if(backbag == 3 || backbag == 4)
-				clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+			var/datum/outfit/job_outfit = new /datum/outfit/job/assistant/ai_preview
+			clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+			qdel(job_outfit)
 		else if(job_engsec_high == JOB_CYBORG)
-			var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
-			clothes_s = new(icon_cache.sprite_sheets[DYE_REGISTRY_UNDER][DYE_GREY]["Human"])
-			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/clothing/suits/cardborg.dmi', "cardborg"), ICON_OVERLAY)
-			clothes_s.Blend(new /icon('icons/mob/clothing/head/cardborg.dmi', "cardborg_h"), ICON_OVERLAY)
-			if(backbag == 2)
-				clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
-			else if(backbag == 3 || backbag == 4)
-				clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+			var/datum/outfit/job_outfit = new /datum/outfit/job/assistant/cyborg_preview
+			clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+			qdel(job_outfit)
 		else
 			var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_ENGSEC][job_engsec_high]
 			var/datum/outfit/job_outfit = new job_datum.outfit
@@ -982,12 +970,9 @@
 
 	// Observers get tourist outfit.
 	if(for_observer)
-		clothes_s = new /icon('icons/mob/clothing/under/costumes.dmi', "tourist")
-		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-		if(backbag == 2)
-			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
-		else if(backbag == 3 || backbag == 4)
-			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+		var/datum/outfit/job_outfit = /datum/outfit/admin/observer
+		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+		qdel(job_outfit)
 
 	if(underwear_s)
 		preview_icon.Blend(underwear_s, ICON_OVERLAY)
