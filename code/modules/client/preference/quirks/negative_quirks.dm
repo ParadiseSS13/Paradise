@@ -183,6 +183,6 @@
 		return
 	owner.set_default_language(quirky.languages[1]) // Set_default_language needs to be passed a direct reference to the user's language list.
 
-/datum/quirk/foreigner/remove_quirk_effects()
+/datum/quirk/culturaldisconnect/remove_quirk_effects()
 	owner.add_language(owner.dna.species.language)
 	..()
