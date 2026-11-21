@@ -59,10 +59,6 @@
 	name = "Excavation Pit"
 	icon_state = "red"
 
-/area/ruin/unpowered/althland_factory
-	name = "Minebot Factory"
-	icon_state = "red"
-
 /area/ruin/unpowered/basalt_lab
 	name = "Basalt Lab"
 	icon_state = "red"
