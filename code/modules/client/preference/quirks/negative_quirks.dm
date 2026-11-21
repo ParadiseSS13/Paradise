@@ -173,7 +173,7 @@
 	cost = -1
 	trait_to_apply = TRAIT_NO_SPECIES_LANGUAGE
 	species_flags = QUIRK_SLIME_INCOMPATIBLE | QUIRK_PLASMAMAN_INCOMPATIBLE | QUIRK_GREY_INCOMPATIBLE
-	conflicting_quirks = list(/datum/quirk/foreigner) // characters should speak languages
+	conflicting_quirks = list(/datum/quirk/foreigner) // Characters should speak languages.
 
 /datum/quirk/culturaldisconnect/apply_quirk_effects(mob/living/quirky)
 	..()
