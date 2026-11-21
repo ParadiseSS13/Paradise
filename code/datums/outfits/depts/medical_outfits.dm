@@ -41,6 +41,24 @@
 				else
 					uniform = /obj/item/clothing/under/rank/medical/scrubs/purple
 
+/datum/outfit/job/doctor/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(50))
+		icon_layers[FACEMASK_LAYER] = preview_mask_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/doctor/preview_mask_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(50))
+		return ..()
+	var/obj/item/clothing/mask/surgical/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? worn_item.icon_monitor : FALSE) || worn_item.worn_icon || 'icons/mob/clothing/mask.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/coroner
 	name = "Coroner"
 	jobtype = /datum/job/coroner
@@ -71,6 +89,24 @@
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_CORPSE_RESIST, JOB_TRAIT)
 
+/datum/outfit/job/coroner/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/coroner/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/surgery/black/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/chemist
 	name = "Chemist"
 	jobtype = /datum/job/chemist
@@ -92,6 +128,24 @@
 /datum/outfit/job/chemist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_QUICK_HEATER, JOB_TRAIT)
+
+/datum/outfit/job/chemist/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/chemist/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/suit/storage/labcoat/mad/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/virologist
 	name = "Virologist"
@@ -115,6 +169,24 @@
 /datum/outfit/job/virologist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_GERMOPHOBE, JOB_TRAIT)
+
+/datum/outfit/job/virologist/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/virologist/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/plaguedoctorhat/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/psychiatrist
 	name = "Psychiatrist"

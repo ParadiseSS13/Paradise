@@ -31,6 +31,24 @@
 	. = ..()
 	H.AddSpell(new /datum/spell/big_voice)
 
+/datum/outfit/job/captain/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/captain/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/caphat/parade/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/hos
 	name = "Head of Security"
 	jobtype = /datum/job/hos
@@ -62,6 +80,24 @@
 	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
 	add_verb(H, /mob/living/carbon/human/proc/space_law)
 
+/datum/outfit/job/hos/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/hos/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/beret/hos/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
@@ -90,6 +126,29 @@
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_ELECTRICAL_SPECIALIST, JOB_TRAIT)
 
+/datum/outfit/job/ce/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[R_HAND_LAYER] = preview_r_hand_icon(species, body_parts, null, joke_item = TRUE) || 'icons/blanks/32x32.dmi'
+	return icon_layers
+
+/datum/outfit/job/ce/preview_r_hand_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	if(!("r_hand" in body_parts))
+		return null
+	var/obj/item/areaeditor/blueprints/worn_item = new()
+	var/worn_icon_state = worn_item.inhand_icon_state ? worn_item.inhand_icon_state : worn_item.icon_state
+	var/icon/final_icon
+	if(species in worn_item.sprite_sheets_inhand)
+		final_icon = new /icon(worn_item.sprite_sheets_inhand[species], "[worn_icon_state]_r")
+	else
+		final_icon = new /icon(worn_item.righthand_file, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/rd
@@ -114,6 +173,24 @@
 /datum/outfit/job/rd/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_CRAFTY, JOB_TRAIT)
+
+/datum/outfit/job/rd/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/rd/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/collectable/petehat/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
@@ -141,6 +218,24 @@
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_MED_EXAMINE, JOB_TRAIT)
 
+/datum/outfit/job/cmo/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/cmo/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/suit/bio_suit/cmo/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/hop
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
@@ -158,6 +253,24 @@
 	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/hop)
 
 	bio_chips = list()
+
+/datum/outfit/job/hop/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/hop/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/suit/ianshirt/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -181,3 +294,21 @@
 /datum/outfit/job/qm/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_PACK_RAT, JOB_TRAIT)
+
+/datum/outfit/job/qm/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/qm/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/suit/qmcoat/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon

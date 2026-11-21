@@ -14,6 +14,24 @@
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_PACK_RAT, JOB_TRAIT)
 
+/datum/outfit/job/cargo_tech/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/cargo_tech/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/flatcap/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/smith
 	name = "Smith"
 	jobtype = /datum/job/smith
@@ -31,6 +49,24 @@
 /datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_SMITH, JOB_TRAIT)
+
+/datum/outfit/job/smith/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/smith/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/soft/smith/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"
@@ -98,6 +134,24 @@
 	backpack = null
 	allow_backbag_choice = FALSE
 
+/datum/outfit/job/mining/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/mining/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/bearpelt/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/explorer
 	name = "Explorer"
 	jobtype = /datum/job/explorer
@@ -119,3 +173,21 @@
 /datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
+
+/datum/outfit/job/explorer/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[UNIFORM_LAYER] = preview_uniform_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/explorer/preview_uniform_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/under/syndicate/tacticool/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/under/misc.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
