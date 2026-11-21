@@ -748,6 +748,7 @@
 	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
 
 	var/list/preview_body_parts = list()
+	var/icon/preview_hands = new /icon('icons/blanks/32x32.dmi', "nothing")
 	var/monitor_head = FALSE
 	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
 		if(organ_data[name] == "amputated")
@@ -763,21 +764,30 @@
 				R = GLOB.basic_robolimb
 			if(name == "chest")
 				name = "torso"
+			if(name == "r_hand" || name == "l_hand")
+				preview_hands.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // Save these for later.
+				continue
 			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
 			continue
 		preview_body_parts += name
+		if(name == "r_hand" || name == "l_hand")
+			preview_hands.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY) // Save these for later.
+			continue
 		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
 
 	// Skin color
 	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
 		preview_icon.Blend(s_colour, ICON_ADD)
+		preview_hands.Blend(s_colour, ICON_ADD)
 
 	// Skin tone
 	if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
 		if(s_tone >= 0)
 			preview_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+			preview_hands.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
 		else
-			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+			preview_icon.Blend(rgb(-s_tone, -s_tone, -s_tone), ICON_SUBTRACT)
+			preview_hands.Blend(rgb(-s_tone, -s_tone, -s_tone), ICON_SUBTRACT)
 
 	// Body accessory
 	if(current_species && (current_species.bodyflags & HAS_BODY_ACCESSORY))
@@ -846,19 +856,139 @@
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
-	var/icon/hands_icon = icon(preview_icon)
-	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask"), ICON_MULTIPLY)
-
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
 		eyes_s.Blend(e_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
+	preview_icon.Blend(face_s, ICON_OVERLAY)
+	qdel(face_s)
 
+	var/icon/underwear_s = null
+	if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
+		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
+		if(U)
+			var/u_icon = U.sprite_sheets && (current_species.sprite_sheet_name in U.sprite_sheets) ? U.sprite_sheets[current_species.sprite_sheet_name] : U.icon //Species-fit the undergarment.
+			underwear_s = new/icon(u_icon, "uw_[U.icon_state]", ICON_OVERLAY)
+			preview_icon.Blend(underwear_s, ICON_OVERLAY)
+			qdel(underwear_s)
 
-	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
+	var/icon/undershirt_s = null
+	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
+		if(U2)
+			var/u2_icon = U2.sprite_sheets && (current_species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.sprite_sheet_name] : U2.icon
+			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]", ICON_OVERLAY)
+			preview_icon.Blend(undershirt_s, ICON_OVERLAY)
+			qdel(undershirt_s)
+
+	var/icon/socks_s = null
+	if(socks && (current_species.clothing_flags & HAS_SOCKS))
+		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
+		if(U3)
+			var/u3_icon = U3.sprite_sheets && (current_species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[current_species.sprite_sheet_name] : U3.icon
+			socks_s = new/icon(u3_icon, "sk_[U3.icon_state]", ICON_OVERLAY)
+			preview_icon.Blend(socks_s, ICON_OVERLAY)
+			qdel(socks_s)
+
+	var/list/icon/clothes_layers = new/list(TOTAL_LAYERS)
+	for(var/i in 1 to TOTAL_LAYERS)
+		clothes_layers[i] = 'icons/blanks/32x32.dmi'
+
+	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
+		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][JOB_ASSISTANT]
+		var/datum/outfit/job_outfit = new job_datum.outfit
+		clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+		qdel(job_outfit)
+
+	else if(job_support_high)
+		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][job_support_high]
+		var/datum/outfit/job_outfit = new job_datum.outfit
+		clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+		qdel(job_outfit)
+
+	else if(job_medsci_high)
+		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_MEDSCI][job_medsci_high]
+		var/datum/outfit/job_outfit = new job_datum.outfit
+		clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+		qdel(job_outfit)
+
+	else if(job_engsec_high)
+		if(job_engsec_high == JOB_AI)//Gives AI and borgs assistant-wear, so they can still customize their character
+			var/datum/outfit/job_outfit = new /datum/outfit/job/assistant/ai_preview
+			clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+			qdel(job_outfit)
+		else if(job_engsec_high == JOB_CYBORG)
+			var/datum/outfit/job_outfit = new /datum/outfit/job/assistant/cyborg_preview
+			clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+			qdel(job_outfit)
+		else
+			var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_ENGSEC][job_engsec_high]
+			var/datum/outfit/job_outfit = new job_datum.outfit
+			clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+			qdel(job_outfit)
+
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		var/datum/outfit/glasses_outfit = /datum/outfit/admin/prescription_glasses
+		clothes_layers[GLASSES_LAYER] = glasses_outfit.preview_glasses_icon(current_species.sprite_sheet_name, preview_body_parts, null, monitor_head)
+
+	// Observers get tourist outfit.
+	if(for_observer)
+		var/datum/outfit/job_outfit = /datum/outfit/admin/observer
+		clothes_layers = job_outfit.preview_layered_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
+		qdel(job_outfit)
+
+	preview_icon.Blend(clothes_layers[UNIFORM_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[ID_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(preview_hands, ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[SHOES_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[GLOVES_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[LEFT_EAR_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[RIGHT_EAR_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[BELT_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[SPECIAL_NECK_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[SUIT_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[SPECIAL_BELT_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[NECK_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[SUIT_STORE_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[BACK_LAYER], ICON_OVERLAY)
+
+	// Head Accessory
+	var/datum/sprite_accessory/head_accessory/head_accessory_style
+	var/icon/head_accessory_s
+	if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY))
+		head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
+		if(head_accessory_style && head_accessory_style.species_allowed)
+			head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
+			head_accessory_s.Blend(hacc_colour, ICON_ADD)
+			if(!head_accessory_style.over_hair)
+				preview_icon.Blend(head_accessory_s, ICON_OVERLAY)
+
+	// Facial Hair
+	var/datum/sprite_accessory/facial_hair/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
+	var/icon/facial_s
+	if(facial_hair_style && facial_hair_style.species_allowed)
+		facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
+		if(current_species.name == "Slime People") // whee I am part of the problem
+			facial_s.Blend("[s_colour]A0", ICON_ADD)
+		else if(facial_hair_style.do_colouration)
+			facial_s.Blend(f_colour, ICON_ADD)
+
+		if(facial_hair_style.secondary_theme)
+			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
+			if(!facial_hair_style.no_sec_colour && facial_hair_style.do_colouration)
+				facial_secondary_s.Blend(f_sec_colour, ICON_ADD)
+			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+		if(!facial_hair_style.over_hair)
+			preview_icon.Blend(facial_s, ICON_OVERLAY)
+
+	// Top-of-head Hair
+	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[h_style]
+	var/icon/hair_s
 	if(hair_style)
-		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+		if(!hair_style.glasses_over)
+			preview_icon.Blend(clothes_layers[GLASSES_LAYER], ICON_OVERLAY)
+		hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
 			hair_s.Blend("[s_colour]A0", ICON_ADD)
 		else if(hair_style.do_colouration)
@@ -881,119 +1011,30 @@
 			if(!hair_style.no_sec_colour && hair_style.do_colouration)
 				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
+		preview_icon.Blend(hair_s, ICON_OVERLAY)
+		if(hair_style.glasses_over)
+			preview_icon.Blend(clothes_layers[GLASSES_LAYER], ICON_OVERLAY)
+	else
+		preview_icon.Blend(clothes_layers[GLASSES_LAYER], ICON_OVERLAY)
+	qdel(hair_s)
 
-		face_s.Blend(hair_s, ICON_OVERLAY)
+	// Head accessories and facial hair that render over top-of-head hair
+	if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY) && head_accessory_style && head_accessory_style.species_allowed && head_accessory_style.over_hair)
+		preview_icon.Blend(head_accessory_s, ICON_OVERLAY)
+	if(facial_hair_style && facial_hair_style.species_allowed && facial_hair_style.over_hair)
+		preview_icon.Blend(facial_s, ICON_OVERLAY)
 
-	//Head Accessory
-	if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY))
-		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed)
-			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			head_accessory_s.Blend(hacc_colour, ICON_ADD)
-			face_s.Blend(head_accessory_s, ICON_OVERLAY)
+	qdel(head_accessory_s)
+	qdel(facial_s)
 
-	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-	if(facial_hair_style && facial_hair_style.species_allowed)
-		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-		if(current_species.name == "Slime People") // whee I am part of the problem
-			facial_s.Blend("[s_colour]A0", ICON_ADD)
-		else if(facial_hair_style.do_colouration)
-			facial_s.Blend(f_colour, ICON_ADD)
+	preview_icon.Blend(clothes_layers[FACEMASK_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[OVER_MASK_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[HEAD_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[L_HAND_LAYER], ICON_OVERLAY)
+	preview_icon.Blend(clothes_layers[R_HAND_LAYER], ICON_OVERLAY)
 
-		if(facial_hair_style.secondary_theme)
-			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
-			if(!facial_hair_style.no_sec_colour && facial_hair_style.do_colouration)
-				facial_secondary_s.Blend(f_sec_colour, ICON_ADD)
-			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
-
-		face_s.Blend(facial_s, ICON_OVERLAY)
-
-	var/icon/underwear_s = null
-	if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
-		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
-		if(U)
-			var/u_icon = U.sprite_sheets && (current_species.sprite_sheet_name in U.sprite_sheets) ? U.sprite_sheets[current_species.sprite_sheet_name] : U.icon //Species-fit the undergarment.
-			underwear_s = new/icon(u_icon, "uw_[U.icon_state]", ICON_OVERLAY)
-
-	var/icon/undershirt_s = null
-	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
-		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
-		if(U2)
-			var/u2_icon = U2.sprite_sheets && (current_species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[current_species.sprite_sheet_name] : U2.icon
-			undershirt_s = new/icon(u2_icon, "us_[U2.icon_state]", ICON_OVERLAY)
-
-	var/icon/socks_s = null
-	if(socks && (current_species.clothing_flags & HAS_SOCKS))
-		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
-		if(U3)
-			var/u3_icon = U3.sprite_sheets && (current_species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[current_species.sprite_sheet_name] : U3.icon
-			socks_s = new/icon(u3_icon, "sk_[U3.icon_state]", ICON_OVERLAY)
-
-	var/icon/clothes_s = null
-	var/has_gloves = FALSE
-
-	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
-		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][JOB_ASSISTANT]
-		var/datum/outfit/job_outfit = new job_datum.outfit
-		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-		qdel(job_outfit)
-
-	else if(job_support_high)
-		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_SUPPORT][job_support_high]
-		var/datum/outfit/job_outfit = new job_datum.outfit
-		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-		qdel(job_outfit)
-
-	else if(job_medsci_high)
-		var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_MEDSCI][job_medsci_high]
-		var/datum/outfit/job_outfit = new job_datum.outfit
-		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-		qdel(job_outfit)
-
-	else if(job_engsec_high)
-		if(job_engsec_high == JOB_AI)//Gives AI and borgs assistant-wear, so they can still customize their character
-			var/datum/outfit/job_outfit = new /datum/outfit/job/assistant/ai_preview
-			clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-			qdel(job_outfit)
-		else if(job_engsec_high == JOB_CYBORG)
-			var/datum/outfit/job_outfit = new /datum/outfit/job/assistant/cyborg_preview
-			clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-			qdel(job_outfit)
-		else
-			var/datum/job/job_datum = SSjobs.define_occupations[JOBCAT_ENGSEC][job_engsec_high]
-			var/datum/outfit/job_outfit = new job_datum.outfit
-			clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-			qdel(job_outfit)
-
-	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		preview_icon.Blend(new /icon('icons/mob/clothing/eyes.dmi', "glasses"), ICON_OVERLAY)
-
-	// Observers get tourist outfit.
-	if(for_observer)
-		var/datum/outfit/job_outfit = /datum/outfit/admin/observer
-		clothes_s = job_outfit.preview_outfit_icon(current_species.sprite_sheet_name, preview_body_parts, backbag, monitor_head)
-		qdel(job_outfit)
-
-	if(underwear_s)
-		preview_icon.Blend(underwear_s, ICON_OVERLAY)
-	if(undershirt_s)
-		preview_icon.Blend(undershirt_s, ICON_OVERLAY)
-	if(socks_s)
-		preview_icon.Blend(socks_s, ICON_OVERLAY)
-	if(clothes_s)
-		preview_icon.Blend(clothes_s, ICON_OVERLAY)
-	if(!has_gloves)
-		preview_icon.Blend(hands_icon, ICON_OVERLAY)
-
-	preview_icon.Blend(face_s, ICON_OVERLAY)
 	preview_icon_front = new(preview_icon, dir = SOUTH)
 	preview_icon_side = new(preview_icon, dir = WEST)
-
-	qdel(face_s)
-	qdel(underwear_s)
-	qdel(undershirt_s)
-	qdel(socks_s)
-	qdel(clothes_s)
 
 #undef ICON_SHIFT_XY
 

@@ -337,19 +337,21 @@
 		species_outfit = new species_outfit()
 
 	var/list/icon/icon_layers = new/list(TOTAL_LAYERS)
+	for(var/i in 1 to TOTAL_LAYERS)
+		icon_layers[i] = 'icons/blanks/32x32.dmi'
 
 	if(uniform || species_outfit?.uniform)
-		icon_layers[UNIFORM_LAYER] = preview_uniform_icon(species, body_parts, species_outfit)
+		icon_layers[UNIFORM_LAYER] = preview_uniform_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(id || species_outfit?.id)
-		icon_layers[ID_LAYER] = preview_id_icon(species, body_parts, species_outfit)
+		icon_layers[ID_LAYER] = preview_id_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(shoes || species_outfit?.shoes)
-		icon_layers[SHOES_LAYER] = preview_shoes_icon(species, body_parts, species_outfit)
+		icon_layers[SHOES_LAYER] = preview_shoes_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(gloves || species_outfit?.gloves)
-		icon_layers[GLOVES_LAYER] = preview_gloves_icon(species, body_parts, species_outfit)
+		icon_layers[GLOVES_LAYER] = preview_gloves_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(l_ear || species_outfit?.l_ear)
-		icon_layers[LEFT_EAR_LAYER] = preview_l_ear_icon(species, body_parts, species_outfit, monitor_head)
+		icon_layers[LEFT_EAR_LAYER] = preview_l_ear_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
 	if(r_ear || species_outfit?.r_ear)
-		icon_layers[RIGHT_EAR_LAYER] = preview_r_ear_icon(species, body_parts, species_outfit, monitor_head)
+		icon_layers[RIGHT_EAR_LAYER] = preview_r_ear_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
 	if(belt || species_outfit?.belt)
 		var/obj/item/storage/belt/chosen_item = belt || species_outfit?.belt
 		var/list/special_belts = list(
@@ -358,35 +360,35 @@
 			/obj/item/claymore,
 		)
 		if(is_type_in_list(chosen_item, special_belts) || (istype(chosen_item) && chosen_item.layer_over_suit))
-			icon_layers[SPECIAL_BELT_LAYER] = preview_belt_icon(species, body_parts, species_outfit)
+			icon_layers[SPECIAL_BELT_LAYER] = preview_belt_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 		else
-			icon_layers[BELT_LAYER] = preview_belt_icon(species, body_parts, species_outfit)
+			icon_layers[BELT_LAYER] = preview_belt_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(suit || species_outfit?.suit)
-		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, species_outfit)
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(neck || species_outfit?.neck)
 		var/obj/item/clothing/neck/tie/chosen_item = neck || species_outfit?.neck
 		if(istype(chosen_item) && chosen_item::under_suit)
-			icon_layers[SPECIAL_NECK_LAYER] = preview_neck_icon(species, body_parts, species_outfit)
+			icon_layers[SPECIAL_NECK_LAYER] = preview_neck_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 		else
-			icon_layers[NECK_LAYER] = preview_neck_icon(species, body_parts, species_outfit)
+			icon_layers[NECK_LAYER] = preview_neck_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(suit_store || species_outfit?.suit_store)
-		icon_layers[SUIT_STORE_LAYER] = preview_suit_store_icon(species, body_parts, species_outfit)
+		icon_layers[SUIT_STORE_LAYER] = preview_suit_store_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(back || species_outfit?.back)
-		icon_layers[BACK_LAYER] = preview_back_icon(species, body_parts, species_outfit, backpack_choice)
+		icon_layers[BACK_LAYER] = preview_back_icon(species, body_parts, species_outfit, backpack_choice) || 'icons/blanks/32x32.dmi'
 	if(glasses || species_outfit?.glasses)
 		var/obj/item/clothing/glasses/chosen_item = glasses || species_outfit?.glasses
 		if(istype(chosen_item) && chosen_item.over_mask)
-			icon_layers[OVER_MASK_LAYER] = preview_glasses_icon(species, body_parts, species_outfit, monitor_head)
+			icon_layers[OVER_MASK_LAYER] = preview_glasses_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
 		else
-			icon_layers[GLASSES_LAYER] = preview_glasses_icon(species, body_parts, species_outfit, monitor_head)
+			icon_layers[GLASSES_LAYER] = preview_glasses_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
 	if(mask || species_outfit?.mask)
-		icon_layers[FACEMASK_LAYER] = preview_mask_icon(species, body_parts, species_outfit, monitor_head)
+		icon_layers[FACEMASK_LAYER] = preview_mask_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
 	if(head || species_outfit?.head)
-		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, species_outfit, monitor_head)
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, species_outfit, monitor_head) || 'icons/blanks/32x32.dmi'
 	if(l_hand || species_outfit?.l_hand)
-		icon_layers[L_HAND_LAYER] = preview_l_hand_icon(species, body_parts, species_outfit)
+		icon_layers[L_HAND_LAYER] = preview_l_hand_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	if(r_hand || species_outfit?.r_hand)
-		icon_layers[R_HAND_LAYER] = preview_r_hand_icon(species, body_parts, species_outfit)
+		icon_layers[R_HAND_LAYER] = preview_r_hand_icon(species, body_parts, species_outfit) || 'icons/blanks/32x32.dmi'
 	qdel(species_outfit)
 	return icon_layers
 
@@ -698,7 +700,8 @@
 /datum/outfit/proc/preview_id_icon(species, list/body_parts, datum/outfit/species_outfit = null)
 	if(!id && !species_outfit?.id)
 		return null
-	return new /icon('icons/mob/mob.dmi', "id") // Change if IDs get any other sprites, ever.
+	var/icon/final_icon = new /icon('icons/mob/mob.dmi', "id") // Change if IDs get any other sprites, ever.
+	return final_icon
 
 /datum/outfit/proc/preview_l_hand_icon(species, list/body_parts, datum/outfit/species_outfit = null)
 	if(!l_hand && !species_outfit?.l_hand)
