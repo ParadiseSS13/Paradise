@@ -4,10 +4,6 @@
 /// ID of the game map window, used to turn its right-click menu on and off and to check a click came from it
 #define PILE_MENU_MAP "paramapwindow.map"
 
-/client
-	/// BYOND's right-click menu is turned off on the map because the mouse is over a huge pile in reach
-	var/pile_menu_off = FALSE
-
 /// Called when the mouse goes over something: turns the right-click menu off over a huge pile in reach, back on anywhere else.
 /// Far piles keep the menu since the tile list only shows tiles in reach.
 /client/proc/check_pile_menu(atom/hovered)

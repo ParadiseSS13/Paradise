@@ -228,6 +228,9 @@
 	/// If this client has any windows scaling applied
 	var/window_scaling
 
+	/// BYOND's right-click menu is turned off on the map because the mouse is over a huge pile in reach
+	var/pile_menu_off = FALSE
+
 /datum/persistent_client
 	/// Holds admin/mentor PM history.
 	var/datum/pm_tracker/pm_tracker
