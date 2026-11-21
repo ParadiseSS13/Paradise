@@ -2723,6 +2723,10 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/loot,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/gps/ruin{
+	pixel_x = -32;
+	gpstag = "Althland Mining Company Minebot Home Base (Site M8)"
+	},
 /turf/simulated/floor/pod/light/lavaland_air{
 	oxygen = 0;
 	nitrogen = 0
