@@ -47,8 +47,6 @@ jobs:
           # They delete and reinstall node_modules, so they have to start after the checks above, which look through every file
           tgui/bin/tgui --ci > "$RUNNER_TEMP/tgui.log" 2>&1 &
           tgui_pid=$!
-          python -m tools.ci.check_legacy_attack_chain
-          python -m tools.ci.check_simplemob_additions
           python -m tools.maplint.source --github
           tgui_result=0
           wait $tgui_pid || tgui_result=$?

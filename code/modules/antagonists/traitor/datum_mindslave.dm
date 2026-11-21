@@ -10,8 +10,6 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	antag_hud_name = "mindslave" // This isn't named "hudmindslave" because `add_serve_hud()` adds "hud" to the beginning.
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
-	/// A reference to the mind who minslaved us.
-	var/datum/mind/master
 	/// Custom greeting text if you don't want to use the basic greeting. Specify this when making a new mindslave datum with `New()`.
 	var/greet_text
 	///The hudicon for the mindslaves master

@@ -22,6 +22,9 @@
 		bleed_rate = 0
 		return
 
+	if(istype(loc, /obj/machinery/cryopod)) // Do not bleed out or suffocate in cryogenic storage.
+		return
+
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_BADDNA)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
