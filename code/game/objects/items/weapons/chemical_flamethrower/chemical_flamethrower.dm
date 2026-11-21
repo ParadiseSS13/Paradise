@@ -88,11 +88,14 @@
 		to_chat(user, SPAN_NOTICE("[src] is already full!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(user.transfer_item_to(used, src))
-		canisters |= used // No dupes allowed.
-		to_chat(user, SPAN_NOTICE("You put [used] into [src]."))
-		update_canister_stats()
-		add_fingerprint(user)
+	if(!user.transfer_item_to(used, src))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	canisters |= used // No dupes allowed.
+	to_chat(user, SPAN_NOTICE("You put [used] into [src]."))
+	update_canister_stats()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/chemical_flamethrower/proc/update_canister_stats()
@@ -133,7 +136,7 @@
 		to_chat(user, SPAN_WARNING("Your meaty finger is far too large for the trigger guard!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(user.get_active_hand() != src) // Make sure our user is still holding us
+	if(user.get_active_hand() != src) // Make sure our user is still holding us.
 		return NONE
 
 	if(!length(canisters))
