@@ -358,7 +358,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		eyes_s.Blend(eyes_organ.eye_color, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
-	var/icon/clothes_layers = null
+	var/list/icon/clothes_layers = new/list(TOTAL_LAYERS)
+	for(var/i in 1 to TOTAL_LAYERS)
+		clothes_layers[i] = 'icons/blanks/32x32.dmi'
 	var/job_clothes = null
 	var/datum/job/job_datum = null
 	var/datum/outfit/job/job_outfit = null
