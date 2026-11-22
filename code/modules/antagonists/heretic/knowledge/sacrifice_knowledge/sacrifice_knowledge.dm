@@ -29,7 +29,6 @@
 	var/list/return_timers
 	/// Evil organs we can put in people
 
-
 /datum/heretic_knowledge/hunt_and_sacrifice/Destroy(force)
 	heretic_mind = null
 	LAZYCLEARLIST(target_blacklist)
