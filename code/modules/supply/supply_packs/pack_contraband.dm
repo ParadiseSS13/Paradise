@@ -117,7 +117,7 @@
 	cost = 50
 
 // MARK: Emag only
-/datum/supply_packs/emergency/specialops
+/datum/supply_packs/contraband/specialops
 	name = "Special Ops Supplies"
 	contains = list(/obj/item/storage/box/emps,
 					/obj/item/grenade/smokebomb,
