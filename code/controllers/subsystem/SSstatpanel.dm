@@ -117,6 +117,9 @@ SUBSYSTEM_DEF(statpanels)
 		overrides[target_image.loc] = TRUE
 
 	var/list/atoms_to_display = list(target_mob.listed_turf)
+	// Same as IsObscured() on each thing, but each turf's top click blocker is found once.
+	// IsObscured() walks the whole turf for every thing on it, so a pile of 4000 took 10 seconds a refresh.
+	var/list/blocker_layers = list()
 	for(var/atom/movable/turf_content as anything in target_mob.listed_turf)
 		if(turf_content.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
 			continue
@@ -124,8 +127,14 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		if(overrides[turf_content])
 			continue
-		if(turf_content.IsObscured())
-			continue
+		var/turf/drawn_on = get_turf_pixel(turf_content)
+		if(drawn_on)
+			var/top_blocker = blocker_layers[drawn_on]
+			if(isnull(top_blocker))
+				top_blocker = top_click_blocker_layer(drawn_on)
+				blocker_layers[drawn_on] = top_blocker
+			if(top_blocker > turf_content.layer)
+				continue
 		atoms_to_display += turf_content
 
 	/// Set the atoms we're meant to display
@@ -134,6 +143,13 @@ SUBSYSTEM_DEF(statpanels)
 	// don't generate icons for stuff the user will not see
 	obj_window.atoms_to_imagify &= atoms_to_display
 	refresh_client_obj_view(target, obj_window.min_index, obj_window.max_index)
+
+/// The layer of the highest dense thing on T that stops clicks on what's under it (see IsObscured()), or -INFINITY if there's none
+/datum/controller/subsystem/statpanels/proc/top_click_blocker_layer(turf/T)
+	. = -INFINITY
+	for(var/atom/movable/blocker as anything in T)
+		if(blocker.flags & PREVENT_CLICK_UNDER && blocker.density && blocker.layer > .)
+			. = blocker.layer
 
 /datum/controller/subsystem/statpanels/proc/refresh_client_obj_view(client/refresh, min_index = 0, max_index = 30)
 	var/list/turf_items = return_object_images(refresh, min_index, max_index)

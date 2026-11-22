@@ -1083,9 +1083,17 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
 
 	//Irregular objects
-	var/icon/AM_icon = icon(AM.icon, AM.icon_state)
-	var/AM_icon_height = AM_icon.Height()
-	var/AM_icon_width = AM_icon.Width()
+	var/AM_icon_height
+	var/AM_icon_width
+	// Every state in a .dmi is the same size, so a file's size is looked up once instead of making an icon every call
+	if(isfile(AM.icon))
+		var/list/dimensions = get_icon_dimensions(AM.icon)
+		AM_icon_height = dimensions["height"]
+		AM_icon_width = dimensions["width"]
+	else
+		var/icon/AM_icon = icon(AM.icon, AM.icon_state)
+		AM_icon_height = AM_icon.Height()
+		AM_icon_width = AM_icon.Width()
 	if(AM_icon_height != world.icon_size || AM_icon_width != world.icon_size)
 		pixel_x_offset += ((AM_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
 		pixel_y_offset += ((AM_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
