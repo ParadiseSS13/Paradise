@@ -369,15 +369,21 @@
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
-	for(var/turf/T in range(2, get_turf(src)))
+	// Amount of fire effects to spawn
+	var/amount_of_fire = rand(8, 15)
+	var/list/turfs_in_range = RANGE_TURFS(2, src)
+	shuffle(turfs_in_range)
+	while(amount_of_fire > 0 && length(turfs_in_range) > 0)
+		var/turf/T = pick_n_take(turfs_in_range)
 		if(!istype(T) || T.density || isspaceturf(T)) // No fires in walls
 			continue
 		new /obj/effect/fire/anomaly(T)
+		amount_of_fire -= 1
 	// Randomly spikes flames in a direction
 	if(prob(15))
 		var/spike_dir = pick(GLOB.alldirs)
 		var/turf/current_turf = get_turf(src)
-		for(var/I in 1 to 5)
+		for(var/I in 1 to 6)
 			current_turf = get_step(current_turf, spike_dir)
 			if(!istype(current_turf) || current_turf.density || isspaceturf(current_turf)) // No fires in walls
 				continue
