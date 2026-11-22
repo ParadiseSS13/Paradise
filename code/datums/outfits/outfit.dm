@@ -75,34 +75,31 @@
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
 
-	var/datum/outfit/species_outfit = null
-	if(H.dna.species.name in species_outfits)
-		species_outfit = new species_outfits[H.dna.species.name]
 	//Start with uniform,suit,backpack for additional slots
-	if(uniform || species_outfit?.uniform)
-		equip_item(H, species_outfit?.uniform || uniform, ITEM_SLOT_JUMPSUIT)
-	if(suit || species_outfit?.suit)
-		equip_item(H, species_outfit?.suit || suit, ITEM_SLOT_OUTER_SUIT)
-	if(back || species_outfit?.back)
-		equip_item(H, species_outfit?.back || back, ITEM_SLOT_BACK)
-	if(belt || species_outfit?.belt)
-		equip_item(H, species_outfit?.belt || belt, ITEM_SLOT_BELT)
-	if(gloves || species_outfit?.gloves)
-		equip_item(H, species_outfit?.gloves || gloves, ITEM_SLOT_GLOVES)
-	if(shoes || species_outfit?.shoes)
-		equip_item(H, species_outfit?.shoes || shoes, ITEM_SLOT_SHOES)
-	if(head || species_outfit?.head)
-		equip_item(H, species_outfit?.head || head, ITEM_SLOT_HEAD)
-	if(mask || species_outfit?.mask)
-		equip_item(H, species_outfit?.mask || mask, ITEM_SLOT_MASK)
-	if(neck || species_outfit?.neck)
-		equip_item(H, species_outfit?.neck || neck, ITEM_SLOT_NECK)
-	if(l_ear || species_outfit?.l_ear)
-		equip_item(H, species_outfit?.l_ear || l_ear, ITEM_SLOT_LEFT_EAR)
-	if(r_ear || species_outfit?.r_ear)
-		equip_item(H, species_outfit?.r_ear || r_ear, ITEM_SLOT_RIGHT_EAR)
-	if(glasses || species_outfit?.glasses)
-		equip_item(H, species_outfit?.glasses || glasses, ITEM_SLOT_EYES)
+	if(uniform)
+		equip_item(H, uniform, ITEM_SLOT_JUMPSUIT)
+	if(suit)
+		equip_item(H, suit, ITEM_SLOT_OUTER_SUIT)
+	if(back)
+		equip_item(H, back, ITEM_SLOT_BACK)
+	if(belt)
+		equip_item(H, belt, ITEM_SLOT_BELT)
+	if(gloves)
+		equip_item(H, gloves, ITEM_SLOT_GLOVES)
+	if(shoes)
+		equip_item(H, shoes, ITEM_SLOT_SHOES)
+	if(head)
+		equip_item(H, head, ITEM_SLOT_HEAD)
+	if(mask)
+		equip_item(H, mask, ITEM_SLOT_MASK)
+	if(neck)
+		equip_item(H, neck, ITEM_SLOT_NECK)
+	if(l_ear)
+		equip_item(H, l_ear, ITEM_SLOT_LEFT_EAR)
+	if(r_ear)
+		equip_item(H, r_ear, ITEM_SLOT_RIGHT_EAR)
+	if(glasses)
+		equip_item(H, glasses, ITEM_SLOT_EYES)
 	if(id)
 		equip_item(H, id, ITEM_SLOT_ID)
 
@@ -113,47 +110,43 @@
 		var/obj/item/mod/control/C = H.back
 		C.quick_activation()
 
-	if(suit_store || species_outfit?.suit_store)
-		equip_item(H, species_outfit?.suit_store || suit_store, ITEM_SLOT_SUIT_STORE)
+	if(suit_store)
+		equip_item(H, suit_store, ITEM_SLOT_SUIT_STORE)
 
-	if(l_hand || species_outfit?.l_hand)
-		var/hand_path = species_outfit?.l_hand || l_hand
-		H.put_in_l_hand(new hand_path(H))
-	if(r_hand || species_outfit?.r_hand)
-		var/hand_path = species_outfit?.r_hand || r_hand
-		H.put_in_r_hand(new hand_path(H))
+	if(l_hand)
+		H.put_in_l_hand(new l_hand(H))
+	if(r_hand)
+		H.put_in_r_hand(new r_hand(H))
 
-	if(pda || species_outfit?.pda)
-		equip_item(H, species_outfit?.pda || pda, ITEM_SLOT_PDA)
+	if(pda)
+		equip_item(H, pda, ITEM_SLOT_PDA)
 
-	if(uniform || species_outfit?.uniform)
+	if(uniform)
 		for(var/path in accessories)
 			var/obj/item/clothing/accessory/A = new path()
 			var/obj/item/clothing/under/U = uniform
 			U.attach_accessory(A, H)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
-		if(l_pocket || species_outfit?.l_pocket)
-			equip_item(H, species_outfit?.l_pocket || l_pocket, ITEM_SLOT_LEFT_POCKET)
-		if(r_pocket || species_outfit?.r_pocket)
-			equip_item(H, species_outfit?.r_pocket || r_pocket, ITEM_SLOT_RIGHT_POCKET)
+		if(l_pocket)
+			equip_item(H, l_pocket, ITEM_SLOT_LEFT_POCKET)
+		if(r_pocket)
+			equip_item(H, r_pocket, ITEM_SLOT_RIGHT_POCKET)
 
-		if(box || species_outfit?.box)
+		if(box)
 			if(!backpack_contents)
 				backpack_contents = list()
-			backpack_contents.Insert(1, species_outfit?.box || box)
-			backpack_contents[species_outfit?.box || box] = 1
+			backpack_contents.Insert(1, box)
+			backpack_contents[box] = 1
 
-		var/list/backpack_to_populate = species_outfit?.backpack_contents || backpack_contents
-		for(var/path in backpack_to_populate)
-			var/number = backpack_to_populate[path]
+		for(var/path in backpack_contents)
+			var/number = backpack_contents[path]
 			if(!number)
 				number = 1
 			for(var/i in 1 to number)
 				H.equip_or_collect(new path(H), ITEM_SLOT_IN_BACKPACK)
 
-		var/list/implants_to_populate = species_outfit?.cybernetic_implants || cybernetic_implants
-		for(var/path in implants_to_populate)
+		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path
 			O.insert(H)
 
@@ -165,9 +158,8 @@
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
 
-	if(bio_chips || species_outfit?.bio_chips)
-		var/list/biochips_to_populate = species_outfit?.bio_chips || bio_chips
-		for(var/bio_chip_type in biochips_to_populate)
+	if(bio_chips)
+		for(var/bio_chip_type in bio_chips)
 			var/obj/item/bio_chip/I = new bio_chip_type(H)
 			I.implant(H, null)
 
