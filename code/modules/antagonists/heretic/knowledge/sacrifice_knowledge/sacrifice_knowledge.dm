@@ -28,13 +28,7 @@
 	/// An assoc list of [uif] to [timers] - a list of all the timers of people in the shadow realm currently
 	var/list/return_timers
 	/// Evil organs we can put in people
-	var/static/list/grantable_organs = list(
-		/obj/item/organ/internal/appendix/corrupt,
-		/obj/item/organ/internal/eyes/corrupt,
-		/obj/item/organ/internal/heart/corrupt,
-		/obj/item/organ/internal/liver/corrupt,
-		/obj/item/organ/internal/lungs/corrupt,
-	)
+
 
 /datum/heretic_knowledge/hunt_and_sacrifice/Destroy(force)
 	heretic_mind = null
@@ -461,7 +455,6 @@
 	if(QDELETED(sac_target))
 		return
 
-	curse_organs(sac_target)
 
 	// The target disconnected or something, we shouldn't bother sending them along.
 	if(!sac_target.client || !sac_target.mind)
@@ -499,28 +492,6 @@
 	RegisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_target_escape)) // Cheese condition
 	RegisterSignal(sac_target, COMSIG_MOB_DEATH, PROC_REF(on_target_death)) // Loss condition
 
-/// Apply a sinister curse to some of the target's organs as an incentive to leave us alone
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/curse_organs(mob/living/carbon/human/sac_target)
-	var/usable_organs = grantable_organs.Copy()
-	if(isplasmaman(sac_target) || isvox(sac_target))
-		usable_organs -= /obj/item/organ/internal/lungs/corrupt // Their lungs are already more cursed than anything I could give them
-
-	var/total_implant = rand(2, 4)
-
-	for(var/i in 1 to total_implant)
-		if(!length(usable_organs))
-			return
-		var/organ_path = pick_n_take(usable_organs)
-		var/obj/item/organ/internal/to_give = new organ_path
-		var/obj/item/organ/internal/to_eject = sac_target.get_int_organ(to_give.parent_type)
-		if(to_eject)
-			to_eject.remove(sac_target)
-			to_eject.forceMove(get_turf(sac_target))
-		to_give.insert(sac_target)
-
-	new /obj/effect/gibspawner/generic(get_turf(sac_target))
-	sac_target.visible_message(SPAN_BOLDWARNING("Several organs force themselves out of [sac_target]!"))
-	sac_target.set_heartattack(FALSE) //Otherwise you die if you try to do an organic heart, very funny, very bad
 
 /**
  * This proc is called from [proc/after_target_sleeps] when the [sac_target] should be waking up.)
