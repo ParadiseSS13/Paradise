@@ -62,6 +62,7 @@
 #define SUPPLY_MISC 		8
 #define SUPPLY_VEND 		9
 #define SUPPLY_SHUTTLE		10
+#define SUPPLY_CONTRABAND	11
 
 #define DEFAULT_CRATE_VALUE 15
 

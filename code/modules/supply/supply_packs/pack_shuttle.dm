@@ -130,7 +130,7 @@
 	new /obj/item/lance_docking_generator(pick(L))
 	return TRUE
 
-// these, otoh, have some pretty silly features, and are hidden behind emag
+// MARK: Emag only
 /datum/supply_packs/abstract/shuttle/clockwork
 	cost = 3000
 	hidden = TRUE
@@ -146,8 +146,7 @@
 	cost = 4000
 	template = /datum/map_template/shuttle/emergency/jungle
 
-// these are hidden behind cmag
-
+// MARK: Cmag only
 /datum/supply_packs/abstract/shuttle/clown
 	speed_factor = 0.75  // this one's a little slower, enjoy your ride!
 	cmag_hidden = TRUE

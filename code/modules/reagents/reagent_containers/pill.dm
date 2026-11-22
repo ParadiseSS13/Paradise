@@ -118,21 +118,23 @@
 	icon_state = "pill8"
 	list_reagents = list("haloperidol" = 15)
 
-/obj/item/reagent_containers/pill/happy_psych
+/obj/item/reagent_containers/pill/happiness_psych
 	name = "mood stabilizer pill"
 	desc = "Used to temporarily alleviate anxiety and depression. Take only as prescribed."
 	icon_state = "pill_happy"
 	list_reagents = list("happiness" = 15, "mannitol" = 5)
 
-/obj/item/reagent_containers/pill/happy
-	name = "happy pill"
-	desc = "They have little happy faces on them and smell like marker pens."
-	icon_state = "pill_happy"
+/obj/item/reagent_containers/pill/space_drugs
+	name = "space drug pill"
+	desc = "Contains one of many novel highs commonly known as \"space drugs\". Uniquely, they can be taken by and affect both organics and synthetics alike. \
+	They smell like marker pens. Commonly contains large amounts of sugar to mask the taste of the active drug."
+	icon_state = "pill21"
 	list_reagents = list("space_drugs" = 15, "sugar" = 15)
 
 /obj/item/reagent_containers/pill/happy/happiness
-	name = "fun pill"
-	desc = "Makes you feel real good!"
+	name = "happiness pill"
+	desc = "Happiness is a street drug that fills the user with ecstatic numbness and suppresses negative emotions."
+	icon_state = "pill_happy"
 	list_reagents = list("happiness" = 15)
 
 /obj/item/reagent_containers/pill/zoom

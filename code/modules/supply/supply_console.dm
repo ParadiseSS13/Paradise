@@ -20,6 +20,10 @@
 	///the department account tethered to this supply console
 	var/datum/money_account/cargo_account
 
+/obj/machinery/computer/supplycomp/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("You can use a multitool to tweak the tranciever.")
+
 /obj/machinery/computer/supplycomp/Initialize(mapload)
 	. = ..()
 	reconnect_database()
@@ -37,6 +41,14 @@
 		return TRUE
 
 	ui_interact(user)
+
+/obj/machinery/computer/supplycomp/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+
+	to_chat(user, SPAN_NOTICE("You tweak the tranciever, [can_order_contraband ? "disallowing" : "allowing"] access to contraband items."))
+	can_order_contraband = !can_order_contraband
 
 /obj/machinery/computer/supplycomp/proc/has_ct_access(list/access)
 	return (ACCESS_CARGO in access) ? TRUE : FALSE
@@ -70,6 +82,8 @@
 			return "Vending"
 		if(SUPPLY_SHUTTLE)
 			return "Shuttles"
+		if(SUPPLY_CONTRABAND)
+			return "Contraband"
 
 /obj/machinery/computer/supplycomp/proc/build_request_data(mob/user)
 	var/list/requests = list()

@@ -99,15 +99,6 @@
 	containertype = /obj/structure/closet/crate/janitorial
 	containername = "soap crate"
 
-/datum/supply_packs/misc/sus_soap
-	name = "Suspicious Soap Crate"
-	contains = list(/obj/item/soap/syndie,
-					/obj/item/soap/syndie)
-	cost = 250
-	containertype = /obj/structure/closet/crate/janitorial
-	containername = "suspicious soap crate"
-	contraband = TRUE
-
 // MARK: Guns
 /datum/supply_packs/misc/paintball_gun
 	name = "Paintball Crate"
@@ -151,24 +142,6 @@
 					/obj/item/gun/projectile/shotgun/toy)
 	cost = 250
 	containername = "foam force crate"
-
-/datum/supply_packs/misc/foamforce/bonus
-	name = "Foam Force Pistols Crate"
-	contains = list(/obj/item/gun/projectile/automatic/toy/pistol,
-					/obj/item/gun/projectile/automatic/toy/pistol,
-					/obj/item/ammo_box/magazine/toy/pistol,
-					/obj/item/ammo_box/magazine/toy/pistol)
-	cost = 500
-	containername = "foam force pistols crate"
-	contraband = TRUE
-
-/datum/supply_packs/misc/dueling_pistols
-	name = "Dueling Pistols Crate"
-	contains = list(/obj/item/storage/box/dueling_pistols,
-					/obj/item/storage/box/dueling_pistols)
-	cost = 650
-	containername = "dueling pistols crate"
-	contraband = TRUE
 
 // MARK: Gear
 /datum/supply_packs/misc/sunglasses
@@ -487,21 +460,6 @@
 	cost = 500
 	containername = "security officer cosplay kit"
 
-/datum/supply_packs/misc/syndi_sci_cosplay
-	name = "Unethical Sciencist Cosplay Kit"
-	contains = list(
-		/obj/item/clothing/suit/storage/labcoat,
-		/obj/item/clothing/under/syndicate/tacticool,
-		/obj/item/clothing/shoes/jackboots,
-		/obj/item/clothing/mask/gas/syndicate,
-		/obj/item/storage/belt/utility/expedition/vendor,
-		/obj/item/storage/toolbox/fakesyndi,
-		/obj/item/folder/syndicate/fake_red
-	)
-	cost = 500
-	containername = "unethical sciencist cosplay kit"
-	contraband = TRUE
-
 /datum/supply_packs/misc/athletic
 	name = "Athletic Wardrobe Crate"
 	contains = list(
@@ -697,23 +655,6 @@
 	containername = "command flag crate"
 	access = ACCESS_HEADS
 
-/datum/supply_packs/misc/flag_greytide
-	name = "Assistant Flag Crate"
-	contains = list(
-		/obj/item/flag/grey
-	)
-	cost = 250
-	containername = "assistant flag crate"
-	contraband = TRUE
-
-/datum/supply_packs/misc/flag_contraband
-	name = "Unapproved flags Crate"
-	contains = list(/obj/item/flag/ussp,
-					/obj/item/flag/syndi)
-	cost = 200
-	containername = "flags crate"
-	contraband = TRUE
-
 // MARK: Misc
 /datum/supply_packs/misc/personal_crates
 	name = "Personal Crates Pack"
@@ -798,17 +739,6 @@
 					/obj/structure/musician/piano)
 	cost = 500
 	containername = "big band musical instruments collection"
-
-/datum/supply_packs/misc/randomised/contraband
-	num_contained = 5
-	contains = list(/obj/item/storage/pill_bottle/random_drug_bottle,
-					/obj/item/poster/random_contraband,
-					/obj/item/storage/fancy/cigarettes/cigpack_carcinoma,
-					/obj/item/storage/fancy/cigarettes/cigpack_midori)
-	name = "Contraband Crate"
-	cost = 250
-	containername = "crate"	//let's keep it subtle, eh?
-	contraband = TRUE
 
 /datum/supply_packs/misc/toilet
 	name = "Lavatory Crate"
