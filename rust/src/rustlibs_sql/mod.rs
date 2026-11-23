@@ -338,6 +338,9 @@ fn do_query(lq: LocalQuery) -> Result<String, Box<dyn Error>> {
                     }
                     _ => serde_json::Value::Null,
                 },
+                mysql::Value::Decimal(f) => serde_json::Value::Number(
+                    Number::from_f64(f64::from(*f)).unwrap_or_else(|| Number::(from(0)),
+                ),
                 mysql::Value::Float(f) => serde_json::Value::Number(
                     Number::from_f64(f64::from(*f)).unwrap_or_else(|| Number::from(0)),
                 ),
