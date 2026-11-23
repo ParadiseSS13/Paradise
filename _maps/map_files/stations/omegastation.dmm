@@ -15091,11 +15091,13 @@
 /area/station/medical/storage)
 "caD" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box/full{
-	pixel_x = 4;
-	pixel_y = 7
+/obj/item/storage/fancy/candle_box/eternal{
+	pixel_y = 10
 	},
-/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/eternal{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "caW" = (
@@ -53632,13 +53634,12 @@
 /obj/machinery/newscaster/directional/south,
 /obj/item/storage/fancy/crayons,
 /obj/item/folder,
-/obj/item/storage/fancy/candle_box/full{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/item/storage/fancy/candle_box/full{
-	pixel_x = -8;
+/obj/item/storage/fancy/candle_box/eternal{
 	pixel_y = 10
+	},
+/obj/item/storage/fancy/candle_box/eternal{
+	pixel_y = 5;
+	pixel_x = 5
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
