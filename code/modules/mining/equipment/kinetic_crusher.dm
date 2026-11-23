@@ -77,7 +77,6 @@
 	else
 		to_chat(user, SPAN_WARNING("There are no trophies on [src]."))
 
-attack__legacy__attackchain(mob/living/target, mob/living/carbon/user)
 /obj/item/kinetic_crusher/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
@@ -167,12 +166,12 @@ attack__legacy__attackchain(mob/living/target, mob/living/carbon/user)
 	if((user.dir & backstab_dir) && (living_target.dir & backstab_dir))
 		if(!QDELETED(damage_effect))
 			damage_effect.total_damage += detonation_damage + backstab_bonus // Cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
-		L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
+		living_target.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
 		playsound(user, 'sound/weapons/kenetic_accel.ogg', 100, 1) // Seriously who spelled it wrong.
 	else
 		if(!QDELETED(damage_effect))
 			damage_effect.total_damage += detonation_damage
-		L.apply_damage(detonation_damage, BRUTE, blocked = def_check)
+		living_target.apply_damage(detonation_damage, BRUTE, blocked = def_check)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/kinetic_crusher/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -196,7 +195,6 @@ attack__legacy__attackchain(mob/living/target, mob/living/carbon/user)
 	D.icon_state = projectile_icon_state
 	for(var/obj/item/crusher_trophy/trophy in trophies)
 		trophy.on_projectile_fire(D, user)
-	var/modifiers = params2list(clickparams)
 	D.preparePixelProjectile(target, user, modifiers)
 	D.firer = user
 	D.firer_source_atom = src
