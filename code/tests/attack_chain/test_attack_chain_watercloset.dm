@@ -61,7 +61,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You turn")
 	player.retrieve(welder)
 	player.click_on(shower)
-	TEST_ASSERT_LAST_CHATLOG(player, "You cut")
+	TEST_ASSERT_LAST_CHATLOG(player, "You finish unwelding")
 	player.put_away(welder)
 	qdel(player)
 

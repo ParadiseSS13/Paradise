@@ -97,7 +97,7 @@
 	desc = "A pair of split-toed rubber-soled shoes. Excellent for running and even better for smashing skulls."
 	icon_state = "s-ninja"
 	permeability_coefficient = 0.01
-	no_slip = TRUE
+	clothing_traits = list(TRAIT_NOSLIP, TRAIT_GOTTAGONOTSOFAST)
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
@@ -124,12 +124,10 @@
 		return
 	if(slot != ITEM_SLOT_SHOES)
 		return
-	ADD_TRAIT(user, TRAIT_GOTTAGONOTSOFAST, src)
 	freedoms_action.Grant(user)
 
 /obj/item/clothing/shoes/space_ninja/dropped(mob/user, silent)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_GOTTAGONOTSOFAST, src)
 	freedoms_action.Remove(user)
 
 /obj/item/clothing/suit/space_ninja

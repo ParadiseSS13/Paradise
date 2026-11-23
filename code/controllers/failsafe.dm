@@ -67,6 +67,17 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		// Only poke it if overrides are not in effect.
 		if(processing_interval > 0)
 			if(Master.processing && Master.iteration)
+				// The MC's Loop() has ended, so restart it now instead of waiting through the DEFCON levels
+				if(defcon > 1 && (!Master.stack_end_detector || !Master.stack_end_detector.check()))
+					to_chat(GLOB.admins, SPAN_BOLDANNOUNCEOOC("ERROR: The Master Controller code stack has exited unexpectedly, Restarting..."))
+					log_world("Failsafe: the MC's loop has exited, restarting it.")
+					var/rtn = Recreate_MC()
+					if(rtn > 0)
+						defcon = 4
+						master_iteration = 0
+						to_chat(GLOB.admins, SPAN_BOLDNOTICE("MC restarted successfully"))
+					else
+						defcon = 0
 				// Check if processing is done yet.
 				if(Master.iteration == master_iteration)
 					switch(defcon)
