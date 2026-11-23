@@ -2,7 +2,6 @@
 // It also makes it easier to keep track of contraband for development purposes.
 /datum/supply_packs/contraband
 	name = "HEADER"
-	containertype = /obj/structure/closet/crate
 	group = SUPPLY_CONTRABAND
 	containername = "crate" // Most crates get discrete shipping unless otherwise overriden.
 	contraband = TRUE
