@@ -126,7 +126,6 @@
 					/obj/item/pen/sleepy,
 					/obj/item/grenade/chem_grenade/incendiary)
 	cost = 150 // This is hard enough to get, let's make it easier to buy.
-	containertype = /obj/structure/closet/crate
 	containername = "special ops crate"
 	hidden = TRUE
 	contraband = FALSE
