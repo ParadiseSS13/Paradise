@@ -738,14 +738,7 @@
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
-	preview_icon = new /icon(icobase, "torso_[g]")
-	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
-	var/head = "head"
-	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
-		if(H.icon_state)
-			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
+	preview_icon = new /icon('icons/blanks/32x32.dmi', "nothing")
 
 	var/list/preview_body_parts = list()
 	var/icon/preview_hands = new /icon('icons/blanks/32x32.dmi', "nothing")
@@ -756,12 +749,12 @@
 		if(organ_data[name] == "cyborg")
 			preview_body_parts += name
 			var/datum/robolimb/R
-			if(R.is_monitor)
-				monitor_head = TRUE
 			if(rlimb_data[name])
 				R = GLOB.all_robolimbs[rlimb_data[name]]
 			if(!R)
 				R = GLOB.basic_robolimb
+			if(R.is_monitor)
+				monitor_head = TRUE
 			if(name == "chest")
 				name = "torso"
 			if(name == "r_hand" || name == "l_hand")
@@ -770,6 +763,17 @@
 			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
 			continue
 		preview_body_parts += name
+		if(name == "head")
+			var/head = "head"
+			if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
+				var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
+				if(H.icon_state)
+					head = H.icon_state
+			preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
+		if(name == "chest")
+			name = "torso"
+		if(name == "torso" || name == "groin")
+			preview_icon.Blend(new /icon(icobase, "[name]_[g]"), ICON_OVERLAY)
 		if(name == "r_hand" || name == "l_hand")
 			preview_hands.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY) // Save these for later.
 			continue
