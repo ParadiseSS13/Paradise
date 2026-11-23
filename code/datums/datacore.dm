@@ -249,16 +249,20 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	var/icon/temp
 	// Tail, Wings, Spines
 	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing) || istype(H.body_accessory, /datum/body_accessory/spines)))
-		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
+		var/accessory_icon_state = istype(H.body_accessory, /datum/body_accessory/spines) ? H.spines : H.body_accessory.icon_state
+		temp = new/icon(H.body_accessory.icon, accessory_icon_state)
 		preview_icon.Blend(temp, ICON_OVERLAY)
+		if(H.body_accessory.has_behind)
+			temp = new/icon(H.body_accessory.icon, "[accessory_icon_state]_BEHIND")
+			preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.tail && H.dna.species.bodyflags & HAS_TAIL)
-		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.tail]_s")
+		temp = new/icon('icons/effects/species.dmi',"[H.tail]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.wing && H.dna.species.bodyflags & HAS_WING)
-		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.wing]_s")
+		temp = new/icon('icons/effects/species.dmi', "[H.wing]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.spines && H.dna.species.bodyflags & HAS_BACK_SPINES)
-		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.spines]_s")
+		temp = new/icon('icons/effects/species.dmi', "[H.spines]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	var/icon/preview_hands = new /icon('icons/blanks/32x32.dmi', "nothing") // Saving these for later.
