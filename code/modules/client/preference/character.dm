@@ -806,7 +806,7 @@
 			var/datum/body_accessory/BA = GLOB.body_accessory_by_name[body_accessory]
 			if(BA)
 				icon = BA.icon
-				icon_state = BA.icon_state
+				icon_state = istype(BA, /datum/body_accessory/spines) ? lowertext("[BA.name][s_tone]") : BA.icon_state
 				blend_mode = BA.blend_mode || blend_mode
 				offset_x = BA.pixel_x_offset
 				offset_y = BA.pixel_y_offset

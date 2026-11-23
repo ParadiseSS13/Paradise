@@ -242,28 +242,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	return
 
 /proc/get_id_photo(mob/living/carbon/human/H, custom_job = null)
-	var/icon/preview_icon = null
+	var/icon/preview_icon = new /icon('icons/mob/human.dmi', "blank")
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 
-	var/g = "m"
-	if(H.gender == FEMALE)
-		g = "f"
-
-	var/icon/icobase = head_organ.icobase //At this point all the organs would have the same icobase, so this is just recycling.
-
-	preview_icon = new /icon(icobase, "torso_[g]")
 	var/icon/temp
-	temp = new /icon(icobase, "groin_[g]")
-	preview_icon.Blend(temp, ICON_OVERLAY)
-	var/head = "head"
-	if(head_organ.alt_head && head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
-		if(alternate_head.icon_state)
-			head = alternate_head.icon_state
-	temp = new /icon(icobase, "[head]_[g]")
-	preview_icon.Blend(temp, ICON_OVERLAY)
-
 	// Tail, Wings, Spines
 	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing) || istype(H.body_accessory, /datum/body_accessory/spines)))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
@@ -280,9 +263,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	var/icon/preview_hands = new /icon('icons/blanks/32x32.dmi', "nothing") // Saving these for later.
 	for(var/obj/item/organ/external/E in H.bodyparts)
-		if(E.name == "chest" || E.name == "groin" || E.name == "head")
-			continue
-		if(E.name == "l_hand" || E.name == "r_hand")
+		if(E.limb_name == "l_hand" || E.limb_name == "r_hand")
 			preview_hands.Blend(E.get_icon(), ICON_OVERLAY)
 			continue
 		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
@@ -350,13 +331,12 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	if(underwear_standing)
 		preview_icon.Blend(underwear_standing, ICON_OVERLAY)
 
-	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(H.dna.species.bodyflags & NO_EYES))
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.dna.species ? H.dna.species.eyes : "eyes_s")
 		if(!eyes_organ)
 			return
 		eyes_s.Blend(eyes_organ.eye_color, ICON_ADD)
-		face_s.Blend(eyes_s, ICON_OVERLAY)
+		preview_icon.Blend(eyes_s, ICON_OVERLAY)
 
 	var/list/icon/clothes_layers = new/list(TOTAL_LAYERS)
 	for(var/i in 1 to TOTAL_LAYERS)
