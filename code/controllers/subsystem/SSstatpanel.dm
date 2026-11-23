@@ -142,6 +142,9 @@ SUBSYSTEM_DEF(statpanels)
 			atoms_to_display += turf_content
 			continue
 		var/alike = "[turf_content.name]|[turf_content.icon]|[turf_content.icon_state]|[turf_content.dir]"
+		// Overlays count too, so a charged energy gun and an empty one get their own rows
+		for(var/image/overlay as anything in turf_content.overlays)
+			alike += "|[overlay.icon]|[overlay.icon_state]"
 		var/atom/movable/first = first_of_alike[alike]
 		if(first)
 			alike_counts[first]++
