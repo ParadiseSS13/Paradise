@@ -189,7 +189,7 @@
 	name = "Smoked Salmon Sushi"
 	reqs = list(
 		/obj/item/food/boiledrice = 1,
-		/obj/item/food/salmonsteak = 1,
+		/obj/item/food/smokedsalmon = 1,
 		/obj/item/stack/seaweed = 1,
 	)
 	result = list(/obj/item/food/sliced/sushi_smoked_salmon)
@@ -200,7 +200,7 @@
 	name = "Smoked Salmon Maki Roll"
 	reqs = list(
 		/obj/item/food/boiledrice = 1,
-		/obj/item/food/salmonsteak = 4,
+		/obj/item/food/smokedsalmon = 4,
 		/obj/item/stack/seaweed = 1,
 	)
 	pathtools = list(/obj/item/reagent_containers/cooking/sushimat)
