@@ -712,7 +712,6 @@
 	inhand_y_dimension = 32
 	weapon_weight = WEAPON_LIGHT
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
-	unique_reskin = FALSE
 	fire_delay = 1 SECONDS
 
 /obj/item/gun/projectile/shotgun/automatic/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
