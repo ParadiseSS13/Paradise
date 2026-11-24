@@ -99,7 +99,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	l_pocket = /obj/item/pinpointer
-
+	l_hand = /obj/item/gun/projectile/automatic/shotgun/aa13
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/box/mindshield = 1,
@@ -107,6 +107,7 @@
 		/obj/item/door_remote/omni = 1,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 2,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
+		/obj/item/ammo_box/magazine/aa13 = 1,
 		/obj/item/food/rations/liquidfood
 	)
 

@@ -549,6 +549,17 @@
 	desc = "A 16-round drum magazine for the M-12 'Bulldog' shotgun that holds 12G shotgun shells. Pre-loaded with harmless confetti shot for celebrations and pranks in equal measure."
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
 
+/obj/item/ammo_box/magazine/aa13
+	name = "automatic shotgun magazine (12G buckshot)"
+	desc = "A shotgun magazine."
+	icon_state = "aa13"
+	desc = "A 12-round drum magazine for the AA-13 automatic shotgun that holds 12G shotgun shells. Pre-loaded with buckshot."
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	origin_tech = "combat=6;"
+	caliber = "shotgun"
+	max_ammo = 12
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
+
 /obj/item/ammo_box/magazine/paintball
 	name = "paintball magazine"
 	desc = "A magazine that holds a large amount of paintballs."
