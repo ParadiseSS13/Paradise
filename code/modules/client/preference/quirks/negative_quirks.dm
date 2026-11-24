@@ -165,3 +165,10 @@
 	cost = -1
 	trait_to_apply = TRAIT_WORK_HARD_PARTY_HARDER
 	conflicting_quirks = list(/datum/quirk/temperate_partier)
+
+/datum/quirk/no_vomit
+	name = "Emetophobe"
+	desc = "You physically cannot vomit. IPCs cannot take this."
+	cost = -1
+	trait_to_apply = TRAIT_NO_VOMIT
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE

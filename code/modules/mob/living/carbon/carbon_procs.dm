@@ -97,6 +97,9 @@
 	if(stat == DEAD || (ismachineperson(src) && !locate(/obj/item/organ/internal/appendix/corrupt) in internal_organs)) // Dead people and IPCs do not vomit particulates
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_NO_VOMIT))
+		return FALSE // shocker, i know
+
 	if(should_confuse)
 		if(blood)
 			KnockDown(10 SECONDS)
