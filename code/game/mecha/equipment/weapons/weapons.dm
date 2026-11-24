@@ -118,7 +118,7 @@
 	origin_tech = "materials=4;combat=5;"
 	materials = list(MAT_METAL = 10000, MAT_GOLD = 6000)
 	energy_drain = 35 // This is per shot + 1x cost, so 560 per shot
-	projectile = /obj/projectile/beam/scatter/eshotgun
+	projectile = /obj/projectile/beam/scatter
 	projectiles_per_shot = 15
 	variance = 40
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
