@@ -127,6 +127,10 @@
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
 
+	if(HAS_TRAIT(user, TRAIT_UNCOOL))
+		to_chat(user, SPAN_NOTICE("You try to do a flip, but you're just not cool enough for that..."))
+		return FALSE
+
 	if(isobserver(user))
 		user.SpinAnimation(5, 1)
 		return TRUE
