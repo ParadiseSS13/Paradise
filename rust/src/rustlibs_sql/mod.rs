@@ -317,45 +317,7 @@ fn do_query(lq: LocalQuery) -> Result<String, Box<dyn Error>> {
             let value = row
                 .as_ref(i)
                 .ok_or("length of row was smaller than column count")?;
-            let converted = match value {
-                mysql::Value::Bytes(b) => match ctype {
-                    MYSQL_TYPE_VARCHAR | MYSQL_TYPE_STRING | MYSQL_TYPE_VAR_STRING => {
-                        serde_json::Value::String(String::from_utf8_lossy(b).into_owned())
-                    }
-                    MYSQL_TYPE_BLOB
-                    | MYSQL_TYPE_LONG_BLOB
-                    | MYSQL_TYPE_MEDIUM_BLOB
-                    | MYSQL_TYPE_TINY_BLOB => {
-                        if col.flags().contains(ColumnFlags::BINARY_FLAG) {
-                            serde_json::Value::Array(
-                                b.iter()
-                                    .map(|x| serde_json::Value::Number(Number::from(*x)))
-                                    .collect(),
-                            )
-                        } else {
-                            serde_json::Value::String(String::from_utf8_lossy(b).into_owned())
-                        }
-                    }
-                    _ => serde_json::Value::Null,
-                },
-                mysql::Value::Decimal(f) => serde_json::Value::Number(
-                    Number::from_f64(f64::from(*f)).unwrap_or_else(|| Number::(from(0)),
-                ),
-                mysql::Value::Float(f) => serde_json::Value::Number(
-                    Number::from_f64(f64::from(*f)).unwrap_or_else(|| Number::from(0)),
-                ),
-                mysql::Value::Double(f) => serde_json::Value::Number(
-                    Number::from_f64(*f).unwrap_or_else(|| Number::from(0)),
-                ),
-                mysql::Value::Int(i) => serde_json::Value::Number(Number::from(*i)),
-                mysql::Value::UInt(u) => serde_json::Value::Number(Number::from(*u)),
-                mysql::Value::Date(year, month, day, hour, minute, second, _ms) => {
-                    serde_json::Value::String(format!(
-                        "{year}-{month:02}-{day:02} {hour:02}:{minute:02}:{second:02}"
-                    ))
-                }
-                _ => serde_json::Value::Null,
-            };
+            let converted = serialize_column(col, ctype, value);
             json_row.push(converted);
         }
         rows.push(serde_json::Value::Array(json_row));
@@ -371,6 +333,54 @@ fn do_query(lq: LocalQuery) -> Result<String, Box<dyn Error>> {
         rows: Some(rows),
     })
     .unwrap())
+}
+
+fn serialize_column(
+    col: &mysql::Column,
+    ctype: mysql::consts::ColumnType,
+    value: &Value,
+) -> serde_json::Value {
+    let converted = match value {
+        mysql::Value::Bytes(b) => match ctype {
+            MYSQL_TYPE_DECIMAL
+            | MYSQL_TYPE_NEWDECIMAL
+            | MYSQL_TYPE_VARCHAR
+            | MYSQL_TYPE_STRING
+            | MYSQL_TYPE_VAR_STRING => {
+                serde_json::Value::String(String::from_utf8_lossy(b).into_owned())
+            }
+            MYSQL_TYPE_BLOB
+            | MYSQL_TYPE_LONG_BLOB
+            | MYSQL_TYPE_MEDIUM_BLOB
+            | MYSQL_TYPE_TINY_BLOB => {
+                if col.flags().contains(ColumnFlags::BINARY_FLAG) {
+                    serde_json::Value::Array(
+                        b.iter()
+                            .map(|x| serde_json::Value::Number(Number::from(*x)))
+                            .collect(),
+                    )
+                } else {
+                    serde_json::Value::String(String::from_utf8_lossy(b).into_owned())
+                }
+            }
+            _ => serde_json::Value::Null,
+        },
+        mysql::Value::Float(f) => serde_json::Value::Number(
+            Number::from_f64(f64::from(*f)).unwrap_or_else(|| Number::from(0)),
+        ),
+        mysql::Value::Double(f) => {
+            serde_json::Value::Number(Number::from_f64(*f).unwrap_or_else(|| Number::from(0)))
+        }
+        mysql::Value::Int(i) => serde_json::Value::Number(Number::from(*i)),
+        mysql::Value::UInt(u) => serde_json::Value::Number(Number::from(*u)),
+        mysql::Value::Date(year, month, day, hour, minute, second, _ms) => {
+            serde_json::Value::String(format!(
+                "{year}-{month:02}-{day:02} {hour:02}:{minute:02}:{second:02}"
+            ))
+        }
+        _ => serde_json::Value::Null,
+    };
+    converted
 }
 
 // ----------------------------------------------------------------------------
