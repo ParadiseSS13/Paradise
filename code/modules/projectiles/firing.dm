@@ -42,7 +42,7 @@
 		var/obj/item/holding = user.get_active_hand()
 		if(istype(holding, /obj/item/storage/briefcase/false_bottomed))
 			curloc = get_turf(holding)
-		if(istype(firer_source_atom, /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher))
+		if(istype(firer_source_atom, /obj/item/gun/projectile/shotgun/automatic/shell_launcher))
 			curloc = get_turf(user)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
