@@ -287,7 +287,7 @@ USER_VERB(show_tip, R_EVENT, "Show Custom Tip", \
 USER_VERB(show_fact, R_EVENT, "Show Custom Fact", \
 		"Sends a fact (that you specify) to all players. After all, you already know everything.", \
 		VERB_CATEGORY_EVENT)
-	var/input = input(client, "Please specify your fact that you want to send to the players.", "Fact", "") as message|null
+	var/input = tgui_input_text(client, "Please specify your fact that you want to send to the players.", "Fact", "")
 	if(!input)
 		return
 
