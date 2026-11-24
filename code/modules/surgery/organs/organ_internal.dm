@@ -176,13 +176,13 @@
 	// No EMP handling was done, lets just give em damage
 	switch(severity)
 		if(EMP_HEAVY)
-			receive_damage(20, 1)
+			receive_damage(10, 1)
 		if(EMP_RESIST_ORGAN)
-			receive_damage(12, 1)
+			receive_damage(6, 1)
 		if(EMP_LIGHT)
-			receive_damage(7, 1)
-		if(EMP_WEAKENED)
 			receive_damage(3, 1)
+		if(EMP_WEAKENED)
+			receive_damage(1, 1)
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)

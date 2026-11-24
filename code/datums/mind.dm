@@ -759,150 +759,373 @@
 			def_value = copytext(temp_obj_type, 18)//Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
+			while(findtext("[def_value]", "/"))
+				def_value = copytext(def_value, 2)
+			switch(def_value)
+				if("free_ai")
+					def_value = "free ai"
+				if("nuclear")
+					def_value = "nuclear operations"
+				if("kill_pet")
+					def_value = "kill pet"
+				if("escape_with_identity")
+					def_value = "identity theft"
+				if("infiltrate_sec")
+					def_value = "infiltrate security"
+				if("hack_rnd", "hack_tcomms", "hack_pda", "hack_rnd")
+					def_value = "plant malware"
+				if("implant")
+					def_value = "test implant"
+				if("chemical")
+					def_value = "test chem"
+				if("kidnap_pet")
+					def_value = "kidnap pet"
+				if("security", "medical", "science", "cargo")
+					def_value = "sabotage power"
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
-			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security", "custom")
+
+		var/list/obj_types = list("assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "kill pet",
+			"nuke", "nuclear operations", "absorb", "destroy", "maroon", "identity theft", "download", "incriminate", "infiltrate security",
+			"free ai", "plant malware", "test implant", "test chem", "kidnap pet", "sabotage power", "custom")
+
+		if(has_antag_datum(/datum/antagonist/space_ninja))
+			obj_types = list("kill", "capture", "interrogate ai", "sabotage", "plant bomb", "steal", "custom")
+
+		var/new_obj_type = tgui_input_list(usr, "Select Objective Type", "Objective Selection", obj_types, def_value)
 		if(!new_obj_type)
 			return
 
 		var/datum/objective/new_objective = null
 
-		switch(new_obj_type)
-			if("assassinate", "assassinateonce", "protect","debrain", "maroon")
-				var/list/possible_targets = list()
-				var/list/possible_targets_random = list()
-				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && ishuman(possible_target.current))
-						possible_targets += possible_target.current // Allows for admins to pick off station roles
-						if(!is_invalid_target(possible_target))
-							possible_targets_random += possible_target.current // For random picking, only valid targets
+		if(has_antag_datum(/datum/antagonist/space_ninja))
+			switch(new_obj_type)
+				if("kill", "capture")
+					var/list/possible_targets = list()
+					var/list/possible_targets_random = list()
+					for(var/datum/mind/possible_target in SSticker.minds)
+						if((possible_target != src) && ishuman(possible_target.current))
+							possible_targets += possible_target.current // Allows for admins to pick off station roles.
+							if(!is_invalid_target(possible_target))
+								possible_targets_random += possible_target.current // For random picking, only valid targets.
 
-				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
-				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective.target.current
-				possible_targets = sortAtom(possible_targets)
+					var/mob/def_target = null
+					var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
+					if(objective&&(objective.type in objective_list) && objective:target)
+						def_target = objective.target.current
+					possible_targets = sortAtom(possible_targets)
 
-				var/new_target
-				if(length(possible_targets))
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						possible_targets += "Free objective"
-						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-					else
-						if(!length(possible_targets_random))
-							to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
+					var/new_target
+					if(length(possible_targets))
+						if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+							possible_targets += "Free objective"
+							new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets, def_target)
+						else
+							if(!length(possible_targets_random))
+								to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
+								return
+							new_target = pick(possible_targets_random)
+
+						if(!new_target)
 							return
-						new_target = pick(possible_targets_random)
+					else
+						to_chat(usr, SPAN_WARNING("No possible target found. Defaulting to a Free objective."))
+						new_target = "Free objective"
 
+					var/objective_path = text2path("/datum/objective/ninja/[new_obj_type]")
+					if(new_target == "Free objective")
+						new_objective = new objective_path
+						new_objective:target = null
+						new_objective.update_explanation_text()
+					else
+						new_objective = new objective_path
+						new_objective:target = new_target:mind
+						new_objective.update_explanation_text()
+				if("interrogate ai")
+					new_objective = new /datum/objective/ninja/interrogate_ai
+				if("sabotage")
+					var/obj_target
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						obj_target = tgui_input_list(usr, "Select target:", "Objective target", list("reactor", "cloning", "research", "gravity"))
+					else
+						obj_target = pick(list("reactor", "cloning", "research", "gravity"))
+					switch(obj_target)
+						if("reactor")
+							new_objective = new /datum/objective/ninja/insert_spider_rod
+						if("cloning")
+							new_objective = new /datum/objective/ninja/sabotage_cloning
+						if("research")
+							new_objective = new /datum/objective/ninja/hack_rnd
+						if("gravity")
+							new_objective = new /datum/objective/ninja/sabotage_gravity
+				if("steal")
+					var/obj_target
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						obj_target = tgui_input_list(usr, "Select target:", "Objective target", list("supermatter", "captain's helmet", "champion belt"))
+					else
+						obj_target = list("supermatter", "captain's helmet", "champion belt")
+					switch(obj_target)
+						if("supermatter")
+							new_objective = new /datum/objective/ninja/steal_supermatter
+						if("captain's helmet")
+							new_objective = new /datum/objective/ninja/steal_captains_helmet
+						if("champion belt")
+							new_objective = new /datum/objective/ninja/steal_champ_belt
+				if("plant bomb")
+					var/bomb_type
+					if(alert(usr, "Do you want to pick the bomb type yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						bomb_type = tgui_input_list(usr, "Select bomb:", "Objective target", list("explosive", "spiders", "emp"))
+					else
+						bomb_type = list("explosive", "spiders", "emp")
+					switch(bomb_type)
+						if("explosive")
+							new_objective = new /datum/objective/ninja/bomb_department
+						if("spiders")
+							new_objective = new /datum/objective/ninja/bomb_department/spiders
+						if("emp")
+							new_objective = new /datum/objective/ninja/bomb_department/emp
+				if("custom")
+					var/expl = tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : "", MAX_MESSAGE_LEN)
+					if(!expl)
+						return
+					new_objective = new /datum/objective
+					new_objective.explanation_text = expl
+					new_objective.needs_target = FALSE
+		else
+			switch(new_obj_type)
+				if("assassinate", "assassinateonce", "protect","debrain", "maroon")
+					var/list/possible_targets = list()
+					var/list/possible_targets_random = list()
+					for(var/datum/mind/possible_target in SSticker.minds)
+						if((possible_target != src) && ishuman(possible_target.current))
+							possible_targets += possible_target.current // Allows for admins to pick off station roles.
+							if(!is_invalid_target(possible_target))
+								possible_targets_random += possible_target.current // For random picking, only valid targets.
+
+					var/mob/def_target = null
+					var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
+					if(objective&&(objective.type in objective_list) && objective:target)
+						def_target = objective.target.current
+					possible_targets = sortAtom(possible_targets)
+
+					var/new_target
+					if(length(possible_targets))
+						if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+							possible_targets += "Free objective"
+							new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets, def_target)
+						else
+							if(!length(possible_targets_random))
+								to_chat(usr, SPAN_WARNING("No random target found. Pick one manually."))
+								return
+							new_target = pick(possible_targets_random)
+
+						if(!new_target)
+							return
+					else
+						to_chat(usr, SPAN_WARNING("No possible target found. Defaulting to a Free objective."))
+						new_target = "Free objective"
+
+					var/objective_path = text2path("/datum/objective/[new_obj_type]")
+					if(new_target == "Free objective")
+						new_objective = new objective_path
+						new_objective:target = null
+						new_objective.update_explanation_text()
+					else
+						new_objective = new objective_path
+						new_objective:target = new_target:mind
+						new_objective.update_explanation_text()
+
+				if("destroy")
+					var/list/possible_targets = active_ais(1)
+					if(length(possible_targets))
+						var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
+						new_objective = new /datum/objective/destroy
+						new_objective.target = new_target.mind
+						new_objective.update_explanation_text()
+					else
+						to_chat(usr, SPAN_WARNING("No active AIs with minds"))
+
+				if("prevent")
+					new_objective = /datum/objective/block
+
+				if("hijack")
+					new_objective = /datum/objective/hijack
+
+				if("destroy", "free ai")
+					var/list/possible_targets = active_ais(1)
+					if(length(possible_targets))
+						var/mob/new_target
+						if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+							new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
+						else
+							new_target = pick(possible_targets)
+						if(new_obj_type == "destroy")
+							new_objective = new /datum/objective/destroy
+							new_objective.target = new_target.mind
+							new_objective.update_explanation_text()
+						else if(new_obj_type == "free ai")
+							new_objective = new /datum/objective/unique_objective/free_ai
+							new_objective.target = new_target.mind
+							new_objective.update_explanation_text()
+					else
+						to_chat(usr, SPAN_WARNING("No active AIs with minds"), MESSAGE_TYPE_SYSTEM)
+				if("nuke")
+					new_objective = /datum/objective/nuke
+
+				if("escape")
+					new_objective = /datum/objective/escape
+
+				if("survive")
+					new_objective = /datum/objective/survive
+
+				if("nuclear operations")
+					new_objective = /datum/objective/nuclear
+
+				if("kill pet")
+					new_objective = /datum/objective/kill_pet
+
+				if("steal")
+					if(!istype(objective, /datum/objective/steal))
+						new_objective = new /datum/objective/steal
+					else
+						new_objective = objective
+					var/datum/objective/steal/steal = new_objective
+					if(!steal.select_target())
+						return
+
+				if("absorb", "blood")
+					var/def_num
+					if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
+						def_num = objective.target_amount
+
+					var/target_number = tgui_input_number(usr, "Input target number:", "Objective", def_num)
+					if(isnull(target_number)) // Ordinarily, you wouldn't need isnull(). In this case, the value may already exist.
+						return
+
+					switch(new_obj_type)
+						if("absorb")
+							new_objective = new /datum/objective/absorb
+						if("blood")
+							new_objective = new /datum/objective/blood
+					new_objective.target_amount = target_number
+					new_objective.update_explanation_text()
+
+				if("identity theft")
+					var/list/possible_targets = list()
+					for(var/datum/mind/possible_target in SSticker.minds)
+						if((possible_target != src) && ishuman(possible_target.current))
+							possible_targets += possible_target
+					possible_targets = sortAtom(possible_targets)
+					possible_targets += "Free objective"
+					var/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					if(!new_target)
 						return
-				else
-					to_chat(usr, SPAN_WARNING("No possible target found. Defaulting to a Free objective."))
-					new_target = "Free objective"
-
-				var/objective_path = text2path("/datum/objective/[new_obj_type]")
-				if(new_target == "Free objective")
-					new_objective = new objective_path
-					new_objective:target = null
+					var/datum/mind/targ = new_target
+					if(!istype(targ))
+						CRASH("Invalid target for identity theft objective, cancelling")
+					new_objective = new /datum/objective/escape/escape_with_identity
+					new_objective.target = new_target
 					new_objective.update_explanation_text()
-				else
-					new_objective = new objective_path
-					new_objective:target = new_target:mind
+					var/datum/objective/escape/escape_with_identity/O = new_objective
+					O.target_real_name = new_objective.target.current.real_name
+
+				if("download")
+					new_objective = /datum/objective/download
+
+				if("incriminate")
+					new_objective = /datum/objective/incriminate
+
+				if("identity theft")
+					var/list/possible_targets = list()
+					for(var/datum/mind/possible_target in SSticker.minds)
+						if((possible_target != src) && ishuman(possible_target.current))
+							possible_targets += possible_target
+					possible_targets = sortAtom(possible_targets)
+					possible_targets += "Free objective"
+					var/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
+					if(!new_target)
+						return
+					var/datum/mind/targ = new_target
+					if(!istype(targ))
+						CRASH("Invalid target for identity theft objective, cancelling")
+					new_objective = new /datum/objective/escape/escape_with_identity
+					new_objective.target = new_target
 					new_objective.update_explanation_text()
+					var/datum/objective/escape/escape_with_identity/O = new_objective
+					O.target_real_name = new_objective.target.current.real_name
 
-			if("destroy")
-				var/list/possible_targets = active_ais(1)
-				if(length(possible_targets))
-					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
-					new_objective = new /datum/objective/destroy
-					new_objective.target = new_target.mind
-					new_objective.update_explanation_text()
-				else
-					to_chat(usr, "No active AIs with minds")
+				if("download")
+					new_objective = /datum/objective/download
 
-			if("prevent")
-				new_objective = /datum/objective/block // we can place paths here because they will be created as needed in the objective holder
+				if("incriminate")
+					new_objective = /datum/objective/incriminate
 
-			if("hijack")
-				new_objective = /datum/objective/hijack
+				if("infiltrate security")
+					new_objective = /datum/objective/infiltrate_sec
 
-			if("nuke")
-				new_objective = /datum/objective/nuke
+				if("plant malware")
+					var/list/possible_targets = list("RND", "Telecomms", "PDAs", "CC Comms")
+					var/new_target
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
+					else
+						new_target = pick(possible_targets)
+					switch(new_target)
+						if("RND")
+							new_objective = new /datum/objective/unique_objective/plant_malware/hack_rnd
+						if("Telecomms")
+							new_objective = new /datum/objective/unique_objective/plant_malware/hack_tcomms
+						if("PDAs")
+							new_objective = new /datum/objective/unique_objective/plant_malware/hack_pda
+						if("CC Comms")
+							new_objective = new /datum/objective/unique_objective/plant_malware/hack_cc_comms
 
-			if("escape")
-				new_objective = /datum/objective/escape
+				if("test implant")
+					new_objective = /datum/objective/unique_objective/experiment/implant
 
-			if("survive")
-				new_objective = /datum/objective/survive
+				if("test chem")
+					new_objective = /datum/objective/unique_objective/experiment/chemical
 
-			if("nuclear operations")
-				new_objective = /datum/objective/nuclear
+				if("kidnap pet")
+					var/list/possible_targets = GLOB.station_pets
+					for(var/obj/lamarr in possible_targets)
+						possible_targets -= lamarr
+					var/mob/new_target
+					if(length(possible_targets) > 0)
+						if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+							new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
+						else
+							new_target = pick(possible_targets)
 
-			if("kill pet")
-				new_objective = /datum/objective/kill_pet
+						new_objective = new /datum/objective/unique_objective/kidnap_pet
+						new_objective.target = new_target
+						new_objective.update_explanation_text()
+					else
+						to_chat(usr, SPAN_WARNING("No station pets found"), MESSAGE_TYPE_SYSTEM)
 
-			if("steal")
-				if(!istype(objective, /datum/objective/steal))
-					new_objective = new /datum/objective/steal
-				else
-					new_objective = objective
-				var/datum/objective/steal/steal = new_objective
-				if(!steal.select_target())
-					return
+				if("sabotage power")
+					var/list/possible_targets = list("Security", "Medical", "Science", "Cargo")
+					var/new_target
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
+					else
+						new_target = pick(possible_targets)
+					switch(new_target)
+						if("Security")
+							new_objective = new /datum/objective/unique_objective/sabotage_power/security
+						if("Medical")
+							new_objective = new /datum/objective/unique_objective/sabotage_power/medical
+						if("Science")
+							new_objective = new /datum/objective/unique_objective/sabotage_power/science
+						if("Cargo")
+							new_objective = new /datum/objective/unique_objective/sabotage_power/cargo
 
-			if("absorb", "blood")
-				var/def_num
-				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
-					def_num = objective.target_amount
-
-				var/target_number = input("Input target number:", "Objective", def_num) as num|null
-				if(isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
-					return
-
-				switch(new_obj_type)
-					if("absorb")
-						new_objective = new /datum/objective/absorb
-					if("blood")
-						new_objective = new /datum/objective/blood
-				new_objective.target_amount = target_number
-				new_objective.update_explanation_text()
-
-			if("identity theft")
-				var/list/possible_targets = list()
-				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && ishuman(possible_target.current))
-						possible_targets += possible_target
-				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free objective"
-				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
-				if(!new_target)
-					return
-				var/datum/mind/targ = new_target
-				if(!istype(targ))
-					CRASH("Invalid target for identity theft objective, cancelling")
-				new_objective = new /datum/objective/escape/escape_with_identity
-				new_objective.target = new_target
-				new_objective.update_explanation_text()
-				var/datum/objective/escape/escape_with_identity/O = new_objective
-				O.target_real_name = new_objective.target.current.real_name
-
-			if("download")
-				new_objective = /datum/objective/download
-
-			if("incriminate")
-				new_objective = /datum/objective/incriminate
-
-			if("infiltrate security")
-				new_objective = /datum/objective/infiltrate_sec
-
-			if("custom")
-				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1, MAX_MESSAGE_LEN))
-				if(!expl)
-					return
-				new_objective = new /datum/objective
-				new_objective.explanation_text = expl
-				new_objective.needs_target = FALSE
+				if("custom")
+					var/expl = tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : "", MAX_MESSAGE_LEN)
+					if(!expl)
+						return
+					new_objective = new /datum/objective
+					new_objective.explanation_text = expl
+					new_objective.needs_target = FALSE
 
 		if(!new_objective)
 			return

@@ -314,7 +314,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
-	desc = "Smoked mainly by spacers. The somewhat fishy notes are an acquired taste. \
+	desc = "Smoked mainly by voidfarers. The somewhat fishy notes are an acquired taste. \
 	Has a light, low-tar smoke specifically designed to reduce stress on scrubber systems."
 	icon_state = "carp_packet"
 	inhand_icon_state = "carp_packet"
@@ -352,7 +352,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_our_brand
 	name = "\improper Our Brand packet" // This brand name is an obscure reference to The Master and Margarita by Ivan Bezdomny.
-	desc = "The one, official brand of cigarette manufactured by the Vostran Iron Republic - one of the main constitient nations of the USSP. \
+	desc = "The one, official brand of cigarette manufactured by the Union of Soviet Socialist Planets. \
 	Exported across the known Orion Spur by members of the USSP's trading bloc and vendors affiliated with the Nian Merchant Guild. \
 	The flavour is acrid, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
 	icon_state = "our_brand_packet"

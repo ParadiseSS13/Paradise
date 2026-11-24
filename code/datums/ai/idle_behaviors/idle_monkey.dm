@@ -26,7 +26,7 @@
 
 /datum/idle_behavior/idle_monkey/pun_pun
 	common_emotes = list(
-		"tunesing",
+		"singtune",
 		"dance",
 		"bow",
 	)

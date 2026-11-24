@@ -1,6 +1,6 @@
 // The ammo/gun is stored in a back slot item
 /obj/item/minigunpack
-	name = "IK-134 backpack power supply"
+	name = "\improper IK-134 backpack power supply"
 	desc = "An IK-134 gatling gun's massive external power source."
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "holstered"
@@ -9,7 +9,8 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
-	/// The stored gun
+	new_attack_chain = TRUE
+	/// The stored gun.
 	var/obj/item/gun/energy/gun/minigun/gun
 	/// whether the gun is attached, FALSE is attached, TRUE is the gun is wielded.
 	var/armed = FALSE
@@ -65,13 +66,13 @@
 	if(slot == ITEM_SLOT_BACK)
 		RegisterSignal(user, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 
-/obj/item/minigunpack/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	. = ..()
+/obj/item/minigunpack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Don't need armed check, because if you have the gun assume its armed.
-	if(I == gun)
+	if(used == gun)
 		user.drop_item_to_ground(gun, force = TRUE)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/minigunpack/dropped(mob/user)
 	. = ..()
@@ -100,8 +101,8 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/gun/minigun
-	name = "IK-134 gatling gun"
-	desc = "An advanced laser cannon with an incredible rate of fire. Requires a bulky backpack power source to use."
+	name = "\improper IK-134 gatling gun"
+	desc = "An advanced rotary laser cannon with an incredible rate of fire. Requires a bulky backpack power source to use."
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "minigun_spin"
 	inhand_icon_state = "minigun"
@@ -132,9 +133,6 @@
 	ammo_pack = null
 	return ..()
 
-/obj/item/gun/energy/gun/minigun/attack_self__legacy__attackchain(mob/living/user)
-	return
-
 /obj/item/gun/energy/gun/minigun/dropped(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
 	if(ammo_pack)
@@ -146,7 +144,7 @@
 		qdel(src)
 
 /obj/item/stock_parts/cell/minigun
-	name = "gatling gun fusion core"
-	desc = "Where did these come from?"
+	name = "\improper IK-134 backpack fusion core"
+	desc = "How the fuck did you get this!?"
 	charge = 15000
 	maxcharge = 15000

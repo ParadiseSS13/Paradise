@@ -1008,7 +1008,7 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
-	materials = list(MAT_METAL = 10000)
+	materials = list(MAT_METAL = 22000, MAT_GOLD = 6000, MAT_SILVER = 8000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 

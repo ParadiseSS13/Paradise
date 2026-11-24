@@ -848,20 +848,12 @@
 	name = "straight jacket"
 	desc = "A suit that completely restrains the wearer."
 	icon_state = "straight_jacket"
+	clothing_traits = list(TRAIT_RESTRAINED)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	breakouttime = 3000
 	insert_max = 0
-
-/obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_OUTER_SUIT)
-		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
-
-/obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"

@@ -6,8 +6,6 @@
 	language = "Orluum"
 	eyes = "drask_eyes_s"
 
-	speech_sounds = list('sound/voice/drasktalk.ogg')
-	speech_chance = 20
 	male_scream_sound = 'sound/voice/drasktalk2.ogg'
 	female_scream_sound = 'sound/voice/drasktalk2.ogg'
 	male_cough_sounds = 'sound/voice/draskcough.ogg'
