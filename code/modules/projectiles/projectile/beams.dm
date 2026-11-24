@@ -81,7 +81,7 @@
 	damage = 5
 
 /obj/projectile/beam/scatter/eshotgun
-	damage = 6
+	damage = 10
 	tile_dropoff = 0.5
 	tile_dropoff_s = 0.5
 	range = 8
