@@ -6,9 +6,9 @@
 #define LOGIN_PUBLIC 2
 ///Wait time before printing another book, used to prevent spam
 #define PRINTING_COOLDOWN (5 SECONDS)
-///The name of the branch that sends the overdue radio messages
+/// The name of the branch that sends the overdue radio messages.
 #define LIBRARY_BRANCH_NAME "Nanotrasen Main Library Branch"
-///How much a patron is charged for an overdue book
+/// How much a patron is charged for an overdue book.
 #define OVERDUE_FINE_AMOUNT 25
 
 /**
@@ -49,10 +49,10 @@
 	var/checkoutperiod = 15 MINUTES
 	///Wait period for printing books
 	var/print_cooldown = 5 SECONDS
-	///How much toner the computer has left
+	/// How much toner the computer has left.
 	var/toner = 0
 	COOLDOWN_DECLARE(overdue_check)
-	///The internal radio used to state if books are overdue
+	/// The internal radio used to state if books are overdue.
 	var/obj/item/radio/radio
 
 /obj/machinery/computer/library/Initialize(mapload)
@@ -74,7 +74,7 @@
 /obj/machinery/computer/library/process()
 	if(!COOLDOWN_FINISHED(src, overdue_check))
 		return
-	// We're checking every 5 minutes for overdue books, no need to constantly check
+	// We're checking every 5 minutes for overdue books, no need to constantly check.
 	COOLDOWN_START(src, overdue_check, 5 MINUTES)
 	for(var/datum/borrowbook/book in checkouts)
 		if(world.time > book.duedate && !book.announced_overdue)
@@ -84,7 +84,7 @@
 			charge_overdue_fine(book)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 15, TRUE)
 
-/obj/machinery/computer/library/Destroy() // no need to track overdue books if the computer is destroyed
+/obj/machinery/computer/library/Destroy() // No need to track overdue books if the computer is destroyed.
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(radio)
 	QDEL_NULL(user_data)
@@ -670,7 +670,7 @@
 	return TRUE
 
 /obj/machinery/computer/library/proc/print_overdue_notice(datum/borrowbook/book)
-	var/due_time = book.duedate / 600 // convert from ticks to in-game minutes
+	var/due_time = book.duedate / 600 // Convert from ticks to in-game minutes.
 	due_time = round(due_time)
 
 	var/obj/item/paper/notice = new(loc)
@@ -684,7 +684,7 @@ While we here at the Nanotrasen Main Library Branch do enjoy our employees utili
 
 /obj/machinery/computer/library/proc/charge_overdue_fine(datum/borrowbook/book)
 	if(!book.patron_account)
-		log_debug("A non-existant library patron account was attempted to be charged")
+		log_debug("A non-existant library patron account was attempted to be charged.")
 		return
 
 	var/datum/money_account_database/main_station/account_database = GLOB.station_money_database
