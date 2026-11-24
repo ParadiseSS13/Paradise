@@ -233,7 +233,19 @@
 
 /datum/supply_packs/engineering/engine/reactor
 	name = "Nuclear Fission Reactor Crate"
-	contains = list(/obj/machinery/atmospherics/fission_reactor/mobile)
+	contains = list(
+		/obj/machinery/atmospherics/fission_reactor/mobile,
+		/obj/item/circuitboard/machine/reactor_gas_node,
+		/obj/item/circuitboard/machine/reactor_gas_node,
+		/obj/item/circuitboard/machine/reactor_chamber,
+		/obj/item/circuitboard/machine/reactor_chamber,
+		/obj/item/circuitboard/machine/reactor_chamber,
+		/obj/item/circuitboard/machine/reactor_chamber,
+		/obj/item/circuitboard/machine/reactor_chamber,
+		/obj/item/circuitboard/nuclear_centrifuge,
+		/obj/item/circuitboard/nuclear_rod_fabricator,
+		/obj/item/circuitboard/reactor_monitor,
+		)
 	cost = 750 // So cargo thinks twice before killing themselves with it.
 	containername = "nuclear fission reactor Crate"
 	containertype = /obj/structure/closet/crate/secure/radiation
