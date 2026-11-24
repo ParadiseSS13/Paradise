@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Divider, Icon, LabeledList, Section, Stack } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -144,6 +145,12 @@ export const QuirkMenu = () => {
                   'Negative Quirks (Add Points)',
                   'green',
                   'minus-circle'
+                )}
+                {renderList(
+                  data.all_quirks.filter((q) => q.cost === 0),
+                  'Neutral Quirks',
+                  'light-gray',
+                  'circle'
                 )}
                 {renderList(
                   data.all_quirks.filter((q) => q.cost > 0),
