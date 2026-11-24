@@ -309,7 +309,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IMPORTANT_SPEAKER "important_speaker"
 /// Ignores line of sight for the purposes of send_speech()
 #define TRAIT_HEAR_THROUGH_WALLS "hear_through_walls"
-
+/// Disables noise emotes like scream
+#define TRAIT_QUIET_ZONE "quiet_zone"
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster

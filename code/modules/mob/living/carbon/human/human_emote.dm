@@ -158,12 +158,14 @@
 	if(H.dna.species?.scream_verb)
 		if(H.mind?.miming)
 			return "[H.dna.species?.scream_verb] silently!"
+		else if(HAS_TRAIT(H, TRAIT_QUIET_ZONE))
+			return "makes a loud noise!"
 		else
 			return "[H.dna.species?.scream_verb]!"
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	var/mob/living/carbon/human/human = user
-	if(human.mind?.miming || !istype(human))
+	if(human.mind?.miming || !istype(human) || HAS_TRAIT(human, TRAIT_QUIET_ZONE))
 		return
 	if(HAS_TRAIT(human, TRAIT_I_WANT_BRAINS))
 		return 'sound/voice/zombie_scream.ogg'
