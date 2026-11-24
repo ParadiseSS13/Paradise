@@ -1,5 +1,7 @@
 #define EXTERNAL_PRESSURE_BOUND ONE_ATMOSPHERE
 #define INTERNAL_PRESSURE_BOUND 0
+/// A vent only moves air when the pressure is more than this many kPa off from what it wants
+#define VENT_MIN_PRESSURE_DELTA 0.5
 
 /obj/machinery/atmospherics/unary/vent_pump
 	name = "air vent"
@@ -131,6 +133,13 @@
 			update_icon()
 		return FALSE
 
+	if(releasing && pressure_checks == ONLY_CHECK_EXT_PRESSURE)
+		// MILLA already told us this tile's pressure, so a vent with nothing to do doesn't have to read its air.
+		// It works it out the same way return_pressure() does, so this is the same check as below.
+		var/pressure = watched_tile_value(T, MILLA_WATCHED_PRESSURE)
+		if(!isnull(pressure) && (external_pressure_bound - pressure) <= VENT_MIN_PRESSURE_DELTA)
+			return TRUE
+
 	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(releasing) //internal -> external
 		var/pressure_delta = 10000
@@ -140,7 +149,7 @@
 		if(pressure_checks == ONLY_CHECK_INT_PRESSURE)
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
-		if(pressure_delta > 0.5 && air_contents.temperature() > 0)
+		if(pressure_delta > VENT_MIN_PRESSURE_DELTA && air_contents.temperature() > 0)
 			// 1kPa * 1L = 1J
 			var/wanted_joules = pressure_delta * environment.volume
 			var/transfer_moles = min(max_transfer_joules, wanted_joules) / (air_contents.temperature() * R_IDEAL_GAS_EQUATION)
@@ -166,7 +175,7 @@
 	if(vent_pump.pressure_checks == ONLY_CHECK_INT_PRESSURE)
 		pressure_delta = min(pressure_delta, (vent_pump.internal_pressure_bound - vent_pump.air_contents.return_pressure()))
 
-	if(pressure_delta > 0.5 && environment.temperature() > 0)
+	if(pressure_delta > VENT_MIN_PRESSURE_DELTA && environment.temperature() > 0)
 		// 1kPa * 1L = 1J
 		var/wanted_joules = pressure_delta * environment.volume
 		var/transfer_moles = min(vent_pump.max_transfer_joules, wanted_joules) / (environment.temperature() * R_IDEAL_GAS_EQUATION)
@@ -257,3 +266,4 @@
 
 #undef EXTERNAL_PRESSURE_BOUND
 #undef INTERNAL_PRESSURE_BOUND
+#undef VENT_MIN_PRESSURE_DELTA

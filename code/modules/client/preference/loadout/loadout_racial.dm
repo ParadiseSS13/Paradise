@@ -81,6 +81,18 @@
 	path = /obj/item/clothing/gloves/handwraps
 	slot = ITEM_SLOT_GLOVES
 
+/datum/gear/racial/grey_casual
+	display_name = "Grey clonesuit"
+	description = "A breathable skin-tight uniform bearing the flag of the Technocracy. Worn by Greys when ejected from cloning pods, some find them efficient enough to never take them off."
+	path = /obj/item/clothing/under/grey/clonesuit
+	slot = ITEM_SLOT_JUMPSUIT
+
+/datum/gear/racial/grey_robes
+	display_name = "Technocracy robes"
+	description = "Black robes with an excessively large hood. Made to be worn by devotees or workers of the Technocracy, it bears the flag of the Technocracy on either side."
+	path = /obj/item/clothing/suit/hooded/technocracy_robes
+	slot = ITEM_SLOT_OUTER_SUIT
+
 /datum/gear/racial/vox_casual
 	display_name = "Vox jumpsuit"
 	description = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."

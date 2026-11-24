@@ -154,6 +154,10 @@
 	machine_name = "Castivend"
 	icon_state = "refill_custom"
 
+/obj/item/vending_refill/dye
+	machine_name = "Dye Generator"
+	icon_state = "refill_custom"
+
 //Departmental clothing vendors
 
 /obj/item/vending_refill/secdrobe

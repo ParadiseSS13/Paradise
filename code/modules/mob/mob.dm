@@ -191,12 +191,14 @@
 // self_message (optional) is what the src mob hears.
 // deaf_message (optional) is what deaf people will see.
 // hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/mob/audible_message(message, deaf_message, hearing_distance)
+/mob/audible_message(message, self_message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	var/msg = message
 	for(var/mob/M as anything in get_mobs_in_view(range, src, ai_eyes = AI_EYE_REQUIRE_HEAR))
+		var/msg = message
+		if(self_message && M == src)
+			msg = self_message
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code

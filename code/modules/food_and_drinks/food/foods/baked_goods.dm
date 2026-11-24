@@ -540,7 +540,7 @@
 //////////////////////
 
 /obj/item/food/cookie
-	name = "cookie"
+	name = "chocolate chip cookie"
 	desc = "COOKIE!!!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "COOKIE!!!"

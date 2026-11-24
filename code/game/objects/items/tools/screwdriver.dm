@@ -20,7 +20,10 @@
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	tool_behaviour = TOOL_SCREWDRIVER
-	var/random_color = TRUE //if the screwdriver uses random coloring
+	/// If the screwdriver uses random coloring.
+	var/random_color = TRUE
+	/// Can this screwdriver unscrew exclusive machinery like the nuclear bomb?
+	var/thin_tip = FALSE
 
 	new_attack_chain = TRUE
 
@@ -46,6 +49,7 @@
 	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
+	thin_tip = TRUE
 
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -77,6 +81,7 @@
 	belt_icon = "screwdriver_cargo"
 	toolspeed = 0.75
 	random_color = FALSE
+	thin_tip = TRUE
 
 /obj/item/screwdriver/cargo/suicide_act(mob/living/user)
 

@@ -646,7 +646,7 @@
 	icon_state = "captain"
 
 /obj/item/card/id/hop
-	name = "Head of Personal ID"
+	name = "Head of Personnel ID"
 	registered_name = "HoP"
 	icon_state = "HoP"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS, ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS,
@@ -737,14 +737,14 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/clown
-	name = "Pink ID"
+	name = "Clown ID"
 	registered_name = "HONK!"
 	icon_state = "clown"
 	desc = "Even looking at the card strikes you with deep fear."
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/mime
-	name = "Black and White ID"
+	name = "Mime ID"
 	registered_name = "..."
 	icon_state = "mime"
 	desc = "..."

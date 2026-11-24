@@ -16007,9 +16007,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/aft_starboard)
 "cxx" = (
@@ -17905,8 +17903,8 @@
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "cOa" = (
-/obj/structure/musician/piano,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plasteel,
 /area/station/service/theatre)
 "cOc" = (
@@ -23486,9 +23484,7 @@
 "dOd" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/aft_starboard)
 "dOe" = (
@@ -30179,7 +30175,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "genetics"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/genetics)
 "fmr" = (
@@ -35271,9 +35269,7 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
 /obj/effect/spawner/random/glowstick,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/fore_port)
 "gvY" = (
@@ -40802,7 +40798,9 @@
 	dir = 8
 	},
 /obj/machinery/alarm/directional/north,
-/obj/machinery/button/windowtint/directional/east,
+/obj/machinery/button/windowtint/directional/east{
+	id = "interrogation"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation)
 "hGq" = (
@@ -50635,7 +50633,9 @@
 	pixel_y = -24;
 	req_access = list(67)
 	},
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "bs"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jGJ" = (
@@ -72783,7 +72783,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/northwest,
+/obj/machinery/button/windowtint/offset/northwest{
+	id = "coroner"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "ovW" = (
@@ -79093,7 +79095,7 @@
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "pPQ" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "pQa" = (
@@ -88817,7 +88819,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "rZl" = (
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/white,
@@ -93003,9 +93005,7 @@
 /area/station/maintenance/gambling_den)
 "sUD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/fore_port)
 "sUH" = (
@@ -97275,7 +97275,9 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
-/obj/machinery/button/windowtint/offset/southwest,
+/obj/machinery/button/windowtint/offset/southwest{
+	id = "med1"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms1)
 "tSz" = (
@@ -101105,7 +101107,9 @@
 /obj/machinery/computer/secure_data{
 	dir = 1
 	},
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "ntr"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "uGf" = (
@@ -106255,7 +106259,9 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "med2"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms_secondary)
 "vKU" = (

@@ -4139,6 +4139,7 @@
 /obj/item/folder/red,
 /obj/item/lighter/zippo,
 /obj/machinery/newscaster/directional/east,
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/station/maintenance/electrical_shop)
 "aur" = (
@@ -12163,7 +12164,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/northeast,
+/obj/machinery/button/windowtint/offset/northeast{
+	id = "qm"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aWP" = (
@@ -22112,7 +22115,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "bLt" = (
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "Detective"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/security/detective)
 "bLv" = (
@@ -22632,6 +22637,7 @@
 /obj/item/camera_film,
 /obj/item/camera/detective,
 /obj/item/storage/box/evidence,
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "bNs" = (
@@ -25044,7 +25050,9 @@
 	req_access = list(24);
 	pixel_x = -24
 	},
-/obj/machinery/button/windowtint/directional/west,
+/obj/machinery/button/windowtint/directional/west{
+	id = "CE"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bWm" = (
@@ -26397,7 +26405,8 @@
 	req_access = list(73)
 	},
 /obj/machinery/button/windowtint/offset/west{
-	pixel_y = 36
+	pixel_y = 36;
+	id = "NT"
 	},
 /obj/machinery/light_switch/offset/southwest{
 	pixel_y = 28
@@ -26762,6 +26771,7 @@
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen/multi/fountain,
+/obj/item/clipboard,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cdK" = (
@@ -27695,6 +27705,7 @@
 	pixel_y = 3
 	},
 /obj/item/taperecorder,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -31955,10 +31966,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "cxe" = (
-/obj/structure/musician/piano,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "cxf" = (
@@ -32500,6 +32511,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/effect/turf_decal/tiles/neutral,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "cyO" = (
@@ -42573,7 +42585,9 @@
 	dir = 8
 	},
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "RD"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dpR" = (
@@ -43269,7 +43283,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
-/obj/machinery/button/windowtint/offset/north,
+/obj/machinery/button/windowtint/offset/north{
+	id = "robo"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dug" = (
@@ -52516,6 +52532,7 @@
 /obj/item/book/manual/detective,
 /obj/item/camera/detective,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "fIv" = (
@@ -54816,6 +54833,13 @@
 "gAd" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prison)
+"gAj" = (
+/obj/structure/table/wood,
+/obj/item/folder,
+/obj/item/pen,
+/obj/item/clipboard,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "gAo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -58802,10 +58826,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/transmission_laser)
 "iiM" = (
-/obj/structure/musician/piano,
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "iiO" = (
@@ -67985,7 +68009,7 @@
 /area/station/hallway/secondary/exit)
 "lSa" = (
 /obj/machinery/newscaster/directional/south,
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel/white,
@@ -68909,6 +68933,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "mli" = (
@@ -75564,8 +75589,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "oPU" = (
-/obj/structure/musician/piano,
 /obj/structure/sign/poster/official/soul/directional/north,
+/obj/effect/spawner/random/instrument/piano,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "oPW" = (
@@ -85229,7 +85254,9 @@
 /area/station/science/misc_lab)
 "syY" = (
 /obj/machinery/light_switch/offset/southwest,
-/obj/machinery/button/windowtint/offset/west,
+/obj/machinery/button/windowtint/offset/west{
+	id = "stage"
+	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "szb" = (
@@ -86770,6 +86797,7 @@
 	pixel_y = 3
 	},
 /obj/effect/spawner/random/bureaucracy,
+/obj/item/clipboard,
 /turf/simulated/floor/carpet/grimey,
 /area/station/legal/lawoffice)
 "tbc" = (
@@ -88651,7 +88679,9 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/requests_console/directional/east,
-/obj/machinery/button/windowtint/directional/south,
+/obj/machinery/button/windowtint/directional/south{
+	id = "CHAP"
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "tNx" = (
@@ -95586,7 +95616,9 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
-/obj/machinery/button/windowtint/offset/east,
+/obj/machinery/button/windowtint/offset/east{
+	id = "genetics"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
 "wqU" = (
@@ -131487,7 +131519,7 @@ cbF
 cdx
 cfq
 cgW
-cgX
+gAj
 ckj
 eNh
 cnh

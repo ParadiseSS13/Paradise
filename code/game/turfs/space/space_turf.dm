@@ -18,6 +18,8 @@
 	atmos_mode = ATMOS_MODE_SPACE
 
 	rad_insulation_alpha = RAD_NO_INSULATION
+	// Nobody can clean space, and with nothing in the way its radiation waves spread a long way for nothing.
+	flags_2 = RAD_NO_CONTAMINATE_2
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -64,9 +66,13 @@
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
 				continue
+			// Only add it once, this gets called every time a turf next to us changes
+			if(!light)
+				GLOB.starlight += src
 			set_light(2)
-			GLOB.starlight += src
 			return
+		if(light)
+			GLOB.starlight -= src
 		set_light(0)
 
 /turf/space/item_interaction(mob/living/user, obj/item/used, list/modifiers)
