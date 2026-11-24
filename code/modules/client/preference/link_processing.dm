@@ -338,7 +338,7 @@
 					if(active_character.organ_data["head"] == "cyborg")
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
-						var/list/valid_alt_heads = list()
+						var/list/valid_alt_heads = list("None")
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 							if(!(active_character.species in head.species_allowed))
