@@ -556,7 +556,7 @@
 	else
 		worn_item = new mask(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
-	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? worn_item.icon_monitor : FALSE) || worn_item.worn_icon || 'icons/mob/clothing/mask.dmi'
+	var/worn_icon = (monitor_head ? worn_item.icon_monitor : FALSE) || listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/mask.dmi'
 	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
 	if(worn_item.color)
 		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
@@ -628,7 +628,7 @@
 	var/monitor_icon
 	if(istype(worn_item, /obj/item/radio/headset) || istype(worn_item))
 		monitor_icon = worn_item.icon_monitor
-	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
+	var/worn_icon = (monitor_head ? monitor_icon : FALSE) || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/ears.dmi'
 	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
 	if(worn_item.color)
 		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
@@ -664,7 +664,7 @@
 	var/monitor_icon
 	if(istype(worn_item, /obj/item/radio/headset) || istype(worn_item))
 		monitor_icon = worn_item.icon_monitor
-	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
+	var/worn_icon = (monitor_head ? monitor_icon : FALSE) || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/ears.dmi'
 	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
 	if(worn_item.color)
 		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
@@ -682,7 +682,7 @@
 	else
 		worn_item = new glasses(null)
 	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
-	var/worn_icon = worn_item.worn_icon || (monitor_head ? worn_item.icon_monitor : FALSE) ||  listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/eyes.dmi'
+	var/worn_icon = (monitor_head ? worn_item.icon_monitor : FALSE) || listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/eyes.dmi'
 	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
 	if(worn_item.color)
 		final_icon.Blend(worn_item.color, ICON_MULTIPLY)

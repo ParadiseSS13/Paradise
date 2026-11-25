@@ -771,6 +771,8 @@
 				var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
 				if(H.icon_state)
 					head = H.icon_state
+			if(current_species.sprite_sheet_name == "Machine")
+				monitor_head = TRUE
 			preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
 			continue
 		if(name == "chest")
