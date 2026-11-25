@@ -69,9 +69,9 @@
 	icon_state = "plate"
 	new_attack_chain = TRUE
 
-/obj/item/spacepod_plate/sci
+/obj/item/spacepod_plate/explorer
 	name = "expedition armor plate"
-	desc = "Moderately-armored plating for space pods used in hazardous environments."
+	desc = "Moderately-armored plating for space pods used by expeditionary crew."
 	icon_state = "plate_sci"
 
 /obj/item/spacepod_plate/sec

@@ -1268,7 +1268,7 @@
 "aiA" = (
 /obj/effect/turf_decal/tiles/department/engineering/corner,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "aiB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2057,7 +2057,7 @@
 /area/station/aisat/service)
 "apr" = (
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "apx" = (
 /obj/item/restraints/handcuffs/pinkcuffs,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -7278,7 +7278,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "biK" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -11599,7 +11599,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "bOY" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/oil/maybe,
@@ -12546,7 +12546,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "bUJ" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin/nanotrasen,
@@ -18341,7 +18341,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "cQb" = (
 /obj/item/clothing/glasses/hud/health{
 	pixel_x = -2;
@@ -18585,7 +18585,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "cRx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -23503,7 +23503,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "dMN" = (
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -25882,7 +25882,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "eqf" = (
 /obj/machinery/door/airlock/highsecurity{
 	locked = 1;
@@ -26049,7 +26049,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start/shipwright,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "erH" = (
 /mob/living/basic/bot/cleanbot,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -26365,7 +26365,7 @@
 /area/station/hallway/spacebridge/cargocom)
 "evq" = (
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "evC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -27529,7 +27529,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "eGB" = (
 /obj/effect/turf_decal/caution/red{
 	dir = 4
@@ -29235,7 +29235,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "eZh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -29839,7 +29839,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "fhQ" = (
 /obj/structure/sign/directions/medical{
 	dir = 1;
@@ -30578,7 +30578,7 @@
 	id_tag = "pod_hangar_outer"
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "fpw" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -34484,7 +34484,7 @@
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gka" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/lobby)
@@ -35839,7 +35839,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gzW" = (
 /obj/machinery/camera{
 	c_tag = "Docking Asteroid Bay 4 Exterior";
@@ -37345,7 +37345,7 @@
 	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gSJ" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/command/fore)
@@ -37591,7 +37591,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gUU" = (
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -42586,7 +42586,7 @@
 	},
 /obj/machinery/r_n_d/protolathe/pod_fabricator,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "hWd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -42646,7 +42646,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "hWu" = (
 /obj/structure/closet/secure_closet/mime,
 /turf/simulated/floor/mineral/tranquillite,
@@ -48086,7 +48086,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "jdr" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -49375,7 +49375,7 @@
 "jqx" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "jqy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -52261,7 +52261,7 @@
 /obj/structure/table/reinforced,
 /obj/item/desk_bell,
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "jUh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -53525,7 +53525,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "kkc" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -53880,7 +53880,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "koP" = (
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
@@ -54078,7 +54078,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "kre" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "coroner"
@@ -59238,7 +59238,7 @@
 	id_tag = "pod_hangar_inner"
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "lsp" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scibreak"
@@ -59546,7 +59546,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "lvx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
@@ -62939,7 +62939,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "meY" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -64730,7 +64730,7 @@
 "mCI" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "mCK" = (
 /obj/structure/chair{
 	dir = 8
@@ -67453,7 +67453,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "nks" = (
 /obj/machinery/light{
 	dir = 1
@@ -74571,7 +74571,7 @@
 /area/station/supply/lobby)
 "oLt" = (
 /turf/simulated/wall,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "oLC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -78809,7 +78809,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pGX" = (
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -85120,7 +85120,7 @@
 	},
 /obj/structure/cable/extra_insulated,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "raI" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8;
@@ -95312,7 +95312,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "tnW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -96824,7 +96824,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "tHr" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -96853,7 +96853,7 @@
 "tHD" = (
 /obj/structure/closet/secure_closet/shipwright,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "tHE" = (
 /obj/machinery/economy/vending/wallmed/directional/north,
 /obj/structure/cable{
@@ -99752,7 +99752,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "uml" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
@@ -106605,7 +106605,7 @@
 "vGR" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark/grid,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "vGS" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/light/small{
@@ -114632,7 +114632,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "xtM" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel,
@@ -116284,7 +116284,7 @@
 /obj/machinery/r_n_d/circuit_imprinter/pod_board_etcher,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "xLj" = (
 /turf/simulated/wall,
 /area/station/service/chapel/office)

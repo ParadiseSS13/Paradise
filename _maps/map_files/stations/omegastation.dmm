@@ -4964,7 +4964,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "avI" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -14571,7 +14571,7 @@
 /area/station/security/permabrig)
 "bGh" = (
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "bGA" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 9
@@ -15965,7 +15965,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "cxa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16252,7 +16252,7 @@
 "cDx" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "cDI" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/atmospherics/refill_station/plasma,
@@ -18538,7 +18538,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "dLc" = (
 /obj/machinery/door_control{
 	id = "justice_blast";
@@ -21511,7 +21511,7 @@
 /area/station/hallway/primary/port/north)
 "fmp" = (
 /turf/simulated/wall/r_wall,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "fmA" = (
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
@@ -21547,7 +21547,7 @@
 	id_tag = "pod_hangar_outer"
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "fnY" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/extra_insulated{
@@ -22996,7 +22996,7 @@
 /area/station/security/permabrig)
 "geh" = (
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "geE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -23980,7 +23980,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gIE" = (
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall/r_wall,
@@ -24090,7 +24090,7 @@
 /obj/effect/spawner/random/engineering/design_materials/pod_materials,
 /obj/item/stack/sheet/glass/ten,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gMI" = (
 /obj/structure/closet/secure_closet/evidence,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -24351,7 +24351,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "gUI" = (
 /obj/machinery/computer/security{
 	dir = 1
@@ -28329,7 +28329,7 @@
 /obj/structure/closet/secure_closet/shipwright,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "iWp" = (
 /obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 8
@@ -29992,7 +29992,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "jSM" = (
 /obj/item/stack/sheet/plastic{
 	amount = 10
@@ -30175,7 +30175,7 @@
 "jXZ" = (
 /obj/machinery/r_n_d/protolathe/pod_fabricator,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "jYh" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
@@ -30278,7 +30278,7 @@
 "kcT" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "kdo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -33281,7 +33281,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "lPz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -35785,7 +35785,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "ngN" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -37339,7 +37339,7 @@
 	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "nUX" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 8
@@ -39474,7 +39474,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pjz" = (
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall/r_wall,
@@ -40100,7 +40100,7 @@
 	req_access = list(82)
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pyF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/freezer,
@@ -40165,7 +40165,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pzM" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -40504,7 +40504,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pHv" = (
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port"
@@ -40874,7 +40874,7 @@
 	id_tag = "pod_hangar_inner"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pSN" = (
 /obj/effect/turf_decal/tiles/department/science/corner,
 /turf/simulated/floor/plasteel,
@@ -40932,7 +40932,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "pVk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -41375,7 +41375,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qgZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -41464,7 +41464,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qkb" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
@@ -43722,7 +43722,7 @@
 	dir = 2
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "rBb" = (
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
@@ -50435,7 +50435,7 @@
 /obj/machinery/power/apc/reinforced/directional/east,
 /obj/structure/cable/extra_insulated,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "uQp" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
@@ -51774,7 +51774,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "vAc" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -54257,7 +54257,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "wLQ" = (
 /obj/structure/sign/poster/contraband/random/directional/south,
 /obj/structure/table/wood,
@@ -54273,7 +54273,7 @@
 "wMB" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "wML" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/mixing)

@@ -100,8 +100,8 @@
 
 		if(POD_PLATE_INSERT)
 			if(istype(tool, /obj/item/spacepod_plate))
-				if(istype(tool, /obj/item/spacepod_plate/sci))
-					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod/sci
+				if(istype(tool, /obj/item/spacepod_plate/explorer))
+					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod/explorer
 					to_chat(user, SPAN_NOTICE("You install the expedition plating."))
 				else if(istype(tool, /obj/item/spacepod_plate/sec))
 					pod_type = /obj/tgvehicle/sealed/vectorcraft/spacepod/sec

@@ -26,7 +26,9 @@ export const Content = () => {
             <Section
               fill
               title={name}
-              buttons={<Button icon="edit" tooltip="Rename" tooltipPosition="left" onClick={() => act('changename')} />}
+              buttons={
+                <Button icon="edit" tooltip="Rename" tooltipPosition="left" onClick={() => act('change_name')} />
+              }
             >
               <Stack fill vertical>
                 <Stack.Item>
@@ -66,7 +68,7 @@ const PowerBar = (props) => {
           ? 'Fuel Tank Missing'
           : power_level === 1e31
             ? 'Infinite'
-            : `${formatSiUnit(power_level * 1000, 0, 'L')} of ${formatSiUnit(power_max * 1000, 0, 'L')}`}
+            : `${formatSiUnit(power_level * 10, 0, 'L')} of ${formatSiUnit(power_max * 10, 0, 'L')}`}
       </ProgressBar>
     </LabeledList.Item>
   );

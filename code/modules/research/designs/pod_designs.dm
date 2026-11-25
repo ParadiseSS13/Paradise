@@ -104,11 +104,11 @@
 	construction_time = 100
 	category = list("Space Pods")
 
-/datum/design/plate_sci
+/datum/design/plate_explorer
 	name = "Space Pod Explorer Plate"
-	desc = "The Science Armor Plate of the Space Pod. For Vanguard!"
+	desc = "The Explorer Armor Plate of the Space Pod."
 	id = "spacepod_plate_sci"
-	build_path = /obj/item/spacepod_plate/sci
+	build_path = /obj/item/spacepod_plate/explorer
 	build_type = PROTOLATHE
 	req_tech = list("materials" = 2)
 	materials = list(
@@ -119,7 +119,7 @@
 
 /datum/design/plate_sec
 	name = "Space Pod Security Plate"
-	desc = "The Security Armor Plate of the Space Pod. For Vanguard!"
+	desc = "The Security Armor Plate of the Space Pod."
 	id = "spacepod_plate_sec"
 	build_path = /obj/item/spacepod_plate/sec
 	build_type = PROTOLATHE

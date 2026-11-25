@@ -75,7 +75,8 @@
 	title = "Shipwright"
 	flag = JOB_SHIPWRIGHT
 	department_flag = JOBCAT_ENGSEC
-	description = "Builds and maintains space pods."
+	description = "Shipwrights are responsible for building and maintaining space pods.\n\n\
+					Difficulties: Pod construction, space movement"
 	department_head = list("Chief Engineer")
 	job_department_flags = DEP_FLAG_ENGINEERING
 	supervisors = "the chief engineer"
@@ -94,4 +95,4 @@
 	outfit = /datum/outfit/job/shipwright
 	standard_paycheck = CREW_PAY_MEDIUM
 	difficulty = MEDIUM_DIFFICULTY
-	alt_titles = list("Pod Pilot")
+	alt_titles = list("Pod Engineer")

@@ -199,12 +199,5 @@
 
 /area/station/engineering/shipwright
 	name = "Shipwright's Workshop"
+	area_icon_text = "SHIP\nWRIGHT"
 
-/area/station/engineering/shipwright/hallway
-	name = "Shipwright's Workshop Hallway"
-	icon_state = "engine_hallway"
-
-/area/station/engineering/shipwright/hangar
-	name = "Hangar"
-	icon_state = "hangar"
-	area_icon_text = "HANGAR"

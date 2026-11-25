@@ -62,6 +62,10 @@
 	if(trail)
 		QDEL_NULL(trail)
 
+/obj/tgvehicle/sealed/vectorcraft/spacepod/update_icon_state()
+	// best signal as to if the pod is "on" or not
+	icon_state = "[base_icon_state]-[isprocessing ? "on" : "off"]"
+
 /obj/tgvehicle/sealed/vectorcraft/spacepod/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/obj/item/reagent_containers/container = used
 
@@ -134,10 +138,8 @@
 		driver = M
 	if(get_fuel() >= 1)
 		start_engine()
-		icon_state = base_icon_state + "-on"
 	else
 		stop_engine()
-		icon_state = base_icon_state + "-off"
 	return ..()
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/mob_exit(mob/living/M, silent = FALSE, randomstep = FALSE)
@@ -162,10 +164,8 @@
 		mob_exit(driver)
 	if(get_fuel() >= 1)
 		start_engine()
-		icon_state = base_icon_state + "-on"
 	else
 		stop_engine()
-		icon_state = base_icon_state + "-off"
 	dir = cached_direction
 	calc_acceleration()
 	calc_vector(cached_direction)
@@ -196,7 +196,9 @@
 	if(dead_check())
 		return
 	START_PROCESSING(SSvectorcraft, src)
-	if(!driver)
+	if(driver)
+		update_icon_state()
+	else
 		stop_engine()
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/proc/toggle_lights(forced_state = null, mob/user)
@@ -266,7 +268,7 @@
 	if(.)
 		return
 	switch(action)
-		if("changename")
+		if("change_name")
 			var/userinput = tgui_input_text(
 				usr,
 				message = "Choose a new pod name:",
@@ -298,11 +300,11 @@
 
 // MARK: Variants
 
-/obj/tgvehicle/sealed/vectorcraft/spacepod/sci
+/obj/tgvehicle/sealed/vectorcraft/spacepod/explorer
 	name = "AVP-02 'Athena'"
-	icon = 'icons/obj/spacepods/raptor_sci.dmi'
-	base_icon_state = "raptor_sci"
-	icon_state = "raptor_sci-off"
+	icon = 'icons/obj/spacepods/raptor_explorer.dmi'
+	base_icon_state = "raptor_explorer"
+	icon_state = "raptor_explorer-off"
 	desc = "A space pod designed for exploring hazardous locations."
 	max_integrity = 450
 

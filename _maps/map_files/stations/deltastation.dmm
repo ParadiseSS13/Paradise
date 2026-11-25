@@ -1535,7 +1535,7 @@
 /obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "als" = (
 /obj/machinery/camera{
 	c_tag = "Arrivals Aft Starboard";
@@ -8798,7 +8798,7 @@
 "aKo" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "aKq" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -31126,7 +31126,7 @@
 /obj/structure/disposalpipe/segment/corner,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "cus" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -44270,7 +44270,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "dAX" = (
 /obj/machinery/computer/operating{
 	dir = 4
@@ -49938,7 +49938,7 @@
 "eHU" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "eHZ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -57036,7 +57036,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "hsQ" = (
 /obj/structure/railing{
 	dir = 8
@@ -59026,7 +59026,7 @@
 /obj/effect/spawner/random/engineering/design_materials/pod_materials,
 /obj/item/stack/sheet/glass/ten,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "ila" = (
 /obj/structure/table/wood,
 /obj/machinery/door/firedoor{
@@ -59804,7 +59804,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "izj" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -60005,7 +60005,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "iDE" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -60360,7 +60360,7 @@
 "iMz" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "iMB" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -64106,7 +64106,7 @@
 "kkV" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "kkY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -64809,7 +64809,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "kzv" = (
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -65521,7 +65521,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "kPl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -67777,7 +67777,7 @@
 /obj/machinery/r_n_d/circuit_imprinter/pod_board_etcher,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "lJc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68482,7 +68482,7 @@
 "lZb" = (
 /obj/machinery/r_n_d/protolathe/pod_fabricator,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "lZr" = (
 /obj/item/soap/nanotrasen,
 /obj/item/bikehorn/rubberducky,
@@ -69527,7 +69527,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "mrY" = (
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel/dark,
@@ -71403,7 +71403,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "ncZ" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -75387,7 +75387,7 @@
 	},
 /obj/item/desk_bell,
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "oHv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -78984,7 +78984,7 @@
 	},
 /obj/item/book/manual/shipwright_basics,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qaq" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -79342,7 +79342,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qjx" = (
 /obj/structure/safe,
 /obj/item/key/janitor{
@@ -79887,7 +79887,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qwH" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -80101,7 +80101,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qAz" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -80777,7 +80777,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "qOS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83141,7 +83141,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "rDQ" = (
 /mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -86445,7 +86445,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "sOO" = (
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -88922,12 +88922,12 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "tKG" = (
 /obj/machinery/light/floor,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "tKH" = (
 /obj/structure/sink/kitchen/old/directional/east,
 /obj/item/reagent_containers/glass/bucket/wooden,
@@ -91159,7 +91159,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "uAI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -91745,7 +91745,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "uKV" = (
 /obj/machinery/light{
 	dir = 4
@@ -92741,7 +92741,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "vhh" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
@@ -97035,7 +97035,7 @@
 /area/station/maintenance/abandonedbar)
 "wHs" = (
 /turf/simulated/wall,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "wHt" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -98726,7 +98726,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "xoT" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -99857,7 +99857,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "xMm" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
@@ -100071,7 +100071,7 @@
 	},
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "xPU" = (
 /obj/machinery/disposal,
 /obj/structure/sign/poster/official/high_class_martini/directional/north,
@@ -100766,7 +100766,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/oil/maybe,
 /turf/simulated/floor/plasteel/dark/full,
-/area/station/engineering/shipwright/hangar)
+/area/station/engineering/shipwright)
 "yfO" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4

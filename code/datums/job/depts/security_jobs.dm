@@ -137,7 +137,8 @@
 	title = "Brig Pilot"
 	flag = JOB_SEC_POD_PILOT
 	department_flag = JOBCAT_ENGSEC
-	description = "Uses space pods to patrol the station sector."
+	description = "Brig Pilots are responsible for patrolling the space around the station.\n\n\
+					Difficulties: Space movement, Space Law, Standard Operating Procedure (Legal), combat, identifying antagonists"
 	department_head = list("Head of Security")
 	total_positions = 1
 	spawn_positions = 1

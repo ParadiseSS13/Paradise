@@ -18,9 +18,9 @@
 		SPAN_NOTICE("You connect [used_atom] to the [holder].")
 	)
 	if(used_atom.type in added_parts)
-		holder.overlays += used_atom.icon_state + "_right"
+		holder.add_overlay(used_atom.icon_state + "_right")
 	else
-		holder.overlays += used_atom.icon_state
+		holder.add_overlay(used_atom.icon_state)
 		added_parts += used_atom.type
 
 	qdel(used_atom)

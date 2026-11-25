@@ -57,7 +57,3 @@
 	r_pocket = /obj/item/storage/bag/construction
 	pda = /obj/item/pda/engineering
 	box = /obj/item/storage/box/engineer
-	backpack_contents = list(
-		// For testmerge purposes they get the manual right in their bag.
-		/obj/item/book/manual/shipwright_basics = 1,
-	)

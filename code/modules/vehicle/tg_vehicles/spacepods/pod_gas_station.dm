@@ -86,6 +86,11 @@
 			to_chat(user, SPAN_NOTICE("Less than 50 credits available in account."))
 
 		return ITEM_INTERACT_COMPLETE
+	if(istype(tool, /obj/item/stack/spacecash))
+		var/obj/item/stack/spacecash/cash = tool
+		balance += cash.amount
+		to_chat(user, SPAN_NOTICE("[cash] deposited."))
+		qdel(cash)
 
 	return NONE
 

@@ -339,7 +339,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pod_board_etcher
-	category = list("Research Machinery")
+	category = list("Engineering Machinery")
 
 /datum/design/cyborgrecharger
 	name = "Machine Board (Cyborg Recharger)"

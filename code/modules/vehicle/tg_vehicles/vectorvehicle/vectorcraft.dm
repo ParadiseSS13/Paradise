@@ -54,6 +54,7 @@
 	STOP_PROCESSING(SSvectorcraft, src)
 	vector = list("x" = 0, "y" = 0)
 	acceleration = initial(acceleration)
+	update_icon_state()
 
 /obj/tgvehicle/sealed/vectorcraft/proc/dead_check()
 	if(driver.stat > 0)
