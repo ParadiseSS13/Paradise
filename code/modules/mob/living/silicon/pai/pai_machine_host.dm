@@ -6,6 +6,10 @@
 #define PAI_HOLOGRAM_Y 20
 /// How big the hologram face is next to the card screen
 #define PAI_HOLOGRAM_SCALE 1.5
+/// How far speech text over the machine moves up to clear the hologram
+#define PAI_RUNECHAT_RAISE 24
+/// How see-through the face goes while its words are up, when they can't go above it
+#define PAI_HOLOGRAM_TALK_ALPHA 70
 /// How long it takes to pull the card back out
 #define PAI_MACHINE_EJECT_TIME 3 SECONDS
 /// How far the pAI's glow lights up the room
@@ -141,6 +145,8 @@
 	var/hosted_name
 	/// Was the vendor already quiet before we took over its speaker
 	var/vendor_was_quiet
+	/// The vendor's own "thanks for shopping" line, muted while we run it
+	var/vendor_reply
 	/// Is the machine powered, last we checked
 	var/powered = TRUE
 	/// What the pAI says when someone walks up
@@ -179,12 +185,15 @@
 		host.vis_contents += beam
 	old_name = host.name
 	hosted_name = "[host.name] ([pai.name])"
+	update_text_height()
 	host.name = hosted_name
-	// The pAI is the voice now, so the vendor stops shouting its ads
+	// The pAI is the voice now, so the vendor stops its ads and its thank yous
 	if(istype(host, /obj/machinery/economy/vending))
 		var/obj/machinery/economy/vending/vendor = host
 		vendor_was_quiet = vendor.shut_up
 		vendor.shut_up = TRUE
+		vendor_reply = vendor.vend_reply
+		vendor.vend_reply = null
 
 	RegisterSignal(host, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(host, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
@@ -222,9 +231,11 @@
 		host.update_icon(UPDATE_OVERLAYS)
 	if(host.name == hosted_name)
 		host.name = old_name
+	host.runechat_raise = initial(host.runechat_raise)
 	if(istype(host, /obj/machinery/economy/vending))
 		var/obj/machinery/economy/vending/vendor = host
 		vendor.shut_up = vendor_was_quiet
+		vendor.vend_reply = vendor_reply
 	host.vis_contents -= hologram
 	QDEL_NULL(hologram)
 	if(beam)
@@ -360,6 +371,22 @@
 	// And the light brightens with each word
 	update_light(1.6)
 	addtimer(CALLBACK(src, PROC_REF(update_light)), 4, TIMER_UNIQUE | TIMER_OVERRIDE)
+	// With a wall behind, the words sit on the face, so the face fades back while they're up
+	var/obj/machinery/host = parent
+	if(!host.runechat_raise)
+		animate(hologram, alpha = PAI_HOLOGRAM_TALK_ALPHA, time = 2, flags = ANIMATION_PARALLEL)
+		addtimer(CALLBACK(src, PROC_REF(end_talk_fade)), 6 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/component/pai_host/proc/end_talk_fade()
+	if(hologram && powered)
+		animate(hologram, alpha = 210, time = 5, flags = ANIMATION_PARALLEL)
+
+/// Speech goes above the face, unless there's a wall right behind. Past a wall the player
+/// can't see, and text drawn there gets lost in the dark, so then it stays at its usual height.
+/datum/component/pai_host/proc/update_text_height()
+	var/obj/machinery/host = parent
+	var/turf/above = get_step(host, NORTH)
+	host.runechat_raise = (above && !IS_OPAQUE_TURF(above)) ? PAI_RUNECHAT_RAISE : 0
 
 /// Puts the pAI on the machine's own screen, where it has one
 /datum/component/pai_host/proc/on_host_icon_update(datum/source, list/new_overlays)
@@ -423,6 +450,7 @@
 /datum/component/pai_host/proc/on_host_moved(datum/source)
 	SIGNAL_HANDLER
 	port.forceMove(get_turf(parent))
+	update_text_height()
 
 /datum/component/pai_host/proc/on_card_moved(datum/source)
 	SIGNAL_HANDLER
@@ -558,6 +586,8 @@
 #undef PAI_HOLOGRAM_Y
 #undef PAI_HOLOGRAM_SCALE
 #undef PAI_MACHINE_EJECT_TIME
+#undef PAI_RUNECHAT_RAISE
+#undef PAI_HOLOGRAM_TALK_ALPHA
 #undef PAI_LIGHT_RANGE
 #undef PAI_LIGHT_POWER
 #undef PAI_DEFAULT_MOOD
