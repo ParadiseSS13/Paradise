@@ -75,7 +75,7 @@
 /obj/effect/spawner/random/engineering/design_materials/make_item(spawn_loc, type_path_to_make)
 	var/list/result = list()
 	if(!ispath(type_path_to_make, /datum/design))
-		return
+		return ..()
 
 	var/datum/design/D = GLOB.designs_by_type[type_path_to_make]
 
@@ -105,3 +105,4 @@
 		/datum/design/space_pod_frame,
 		/datum/design/space_pod_cockpit,
 	)
+	loot_type_path = /obj/item/stack/sheet/glass/ten
