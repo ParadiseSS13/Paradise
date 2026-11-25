@@ -1,4 +1,4 @@
-#define LITER_PRICE 1
+#define LITER_PRICE 0.5
 #define NOZZLE_RANGE 4
 
 /obj/machinery/fuel_pump
