@@ -4,6 +4,7 @@
 
 /obj/machinery/autolathe
 	name = "autolathe"
+	pai_slot = TRUE
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
 	density = TRUE

@@ -99,6 +99,7 @@
 
 /obj/machinery/economy/vending
 	name = "\improper Vendomat"
+	pai_slot = TRUE
 	desc = "A generic vending machine."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "generic"

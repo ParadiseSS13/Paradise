@@ -5,6 +5,7 @@
   */
 /obj/machinery/smartfridge
 	name = "\improper SmartFridge"
+	pai_slot = TRUE
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
 	density = TRUE

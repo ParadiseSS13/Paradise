@@ -3,6 +3,7 @@
 
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
+	pai_slot = TRUE
 	desc = ABSTRACT_TYPE_DESC
 	density = TRUE
 	anchored = TRUE

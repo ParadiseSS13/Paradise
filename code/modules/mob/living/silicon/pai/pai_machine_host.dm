@@ -21,46 +21,6 @@
 /// Faces, screen covers and beams for machine screens
 #define PAI_SCREEN_ICON 'icons/obj/pai_screen_faces.dmi'
 
-// Machines a pAI can run
-/obj/machinery/economy/vending
-	pai_slot = TRUE
-
-/obj/machinery/kitchen_machine
-	pai_slot = TRUE
-
-/obj/machinery/cooker
-	pai_slot = TRUE
-
-/obj/machinery/cooking
-	pai_slot = TRUE
-
-/obj/machinery/smartfridge
-	pai_slot = TRUE
-
-/obj/machinery/biogenerator
-	pai_slot = TRUE
-
-/obj/machinery/autolathe
-	pai_slot = TRUE
-
-/obj/machinery/r_n_d/protolathe
-	pai_slot = TRUE
-
-/obj/machinery/r_n_d/circuit_imprinter
-	pai_slot = TRUE
-
-/obj/machinery/computer/arcade
-	pai_slot = TRUE
-
-/obj/machinery/economy/arcade
-	pai_slot = TRUE
-
-/obj/machinery/economy/slot_machine
-	pai_slot = TRUE
-
-/obj/machinery/disco
-	pai_slot = TRUE
-
 /// Holds the card on the machine's tile. Never seen or touched.
 /obj/effect/abstract/pai_port
 	name = "pAI port"

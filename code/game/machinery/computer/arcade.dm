@@ -1,5 +1,6 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
+	pai_slot = TRUE
 	desc = "random arcade machine."
 	icon_state = "arcade"
 	icon_keyboard = null
