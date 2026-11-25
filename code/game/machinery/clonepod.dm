@@ -103,6 +103,8 @@
 	var/datum/cloning_data/desired_data
 	/// Our patient.
 	var/mob/living/carbon/human/clone
+	/// Is this sabotaged by a ninja?
+	var/sabotaged = FALSE
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
@@ -164,6 +166,8 @@
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("[desc_flavor]")
+	if(sabotaged)
+		. += SPAN_WARNING("A flashing alert displays on the interface!")
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 // Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
@@ -234,6 +238,9 @@
 
 	//Actually grow clones (this is the fun part of the proc!)
 	if(currently_cloning)
+		if(sabotaged)
+			malfunction()
+			return
 		switch(clone_progress)
 			if(0 to 10)
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."

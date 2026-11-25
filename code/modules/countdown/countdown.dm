@@ -106,6 +106,17 @@
 		return
 	return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[round(S.get_integrity(), 1)]%</div>"
 
+/obj/effect/countdown/reactor
+	name = "reactor damage"
+	text_size = 1
+	color = "#00ff80"
+
+/obj/effect/countdown/reactor/get_value()
+	var/obj/machinery/atmospherics/fission_reactor/S = attached_to
+	if(!istype(S))
+		return
+	return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[round(S.get_integrity(), 1)]%</div>"
+
 /obj/effect/countdown/anomaly
 	name = "anomaly countdown"
 

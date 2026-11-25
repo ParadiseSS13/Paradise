@@ -70,7 +70,7 @@
 	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
-		if(O.density || O.anchored || istype(O,/obj/structure/closet))
+		if((O.density && !ismob(O)) || O.anchored || istype(O,/obj/structure/closet))
 			continue
 		if(ismob(O) && !(HAS_TRAIT(O, TRAIT_CONTORTED_BODY) || HAS_TRAIT(O, TRAIT_SKITTISH)))
 			continue

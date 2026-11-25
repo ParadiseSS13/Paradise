@@ -535,3 +535,23 @@
 	. = ..()
 	if(.)
 		H.adaptive_damage_bonus -= bonus_value
+
+/obj/item/crusher_trophy/whelp_oil
+	name = "ash whelp oil"
+	desc = "A bottle of heat resistant oil that once lined a now dead Ash Whelp's fire-producing-gland"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle3"
+	denied_type = /obj/item/crusher_trophy/whelp_oil
+
+/obj/item/crusher_trophy/whelp_oil/effect_desc()
+	return "your kinetic crusher to be fire and lava proof"
+
+/obj/item/crusher_trophy/whelp_oil/add_to(obj/item/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.resistance_flags |= LAVA_PROOF
+
+/obj/item/crusher_trophy/whelp_oil/remove_from(obj/item/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.resistance_flags &= ~LAVA_PROOF

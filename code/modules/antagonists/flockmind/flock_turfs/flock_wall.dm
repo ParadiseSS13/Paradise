@@ -3,6 +3,9 @@
 	icon = 'icons/goonstation/turf/flock.dmi'
 	icon_state = "flock-0"
 	base_icon_state = "flock"
+	sheet_type = /obj/item/stack/sheet/gnesis
+	sheet_amount = 4
+	girder_type = null
 
 	pathing_pass_method = TURF_PATHING_PASS_PROC
 
@@ -45,3 +48,7 @@
 	if(!bird.can_flockphase())
 		return ..()
 	return TRUE
+
+// We don't want to leave behind metal from the non-existant girder.
+/turf/simulated/wall/flock/devastate_wall()
+	new sheet_type(src, sheet_amount)
