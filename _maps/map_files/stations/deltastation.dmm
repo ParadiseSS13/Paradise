@@ -27319,13 +27319,13 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/legal/lawoffice)
 "cfY" = (
-/obj/machinery/computer/prisoner{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
 /obj/machinery/alarm/directional/south,
+/obj/machinery/computer/security{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/legal/lawoffice)
 "cfZ" = (
