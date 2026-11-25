@@ -53,3 +53,6 @@
 
 /// When the lionhunter shoots so I can unscope
 #define COMSIG_LIONHUNTER_FIRE "lionhunter_fire"
+
+/// When a pAI card changes the face on its screen
+#define COMSIG_PAICARD_EMOTION_CHANGED "paicard_emotion_changed"

@@ -1,0 +1,418 @@
+// pAIs can be slotted into everyday machines and run them.
+// The card sits in a hidden port on the machine's tile, so cooking and fridge code never touch it.
+// The pAI sees and talks through the machine, and its face floats above it as a hologram.
+
+/// How high the hologram floats above the machine
+#define PAI_HOLOGRAM_Y 20
+/// How big the hologram face is next to the card screen
+#define PAI_HOLOGRAM_SCALE 1.5
+/// How long it takes to pull the card back out
+#define PAI_MACHINE_EJECT_TIME 3 SECONDS
+
+// Machines a pAI can run
+/obj/machinery/economy/vending
+	pai_slot = TRUE
+
+/obj/machinery/kitchen_machine
+	pai_slot = TRUE
+
+/obj/machinery/cooker
+	pai_slot = TRUE
+
+/obj/machinery/cooking
+	pai_slot = TRUE
+
+/obj/machinery/smartfridge
+	pai_slot = TRUE
+
+/obj/machinery/biogenerator
+	pai_slot = TRUE
+
+/obj/machinery/autolathe
+	pai_slot = TRUE
+
+/obj/machinery/r_n_d/protolathe
+	pai_slot = TRUE
+
+/obj/machinery/r_n_d/circuit_imprinter
+	pai_slot = TRUE
+
+/obj/machinery/computer/arcade
+	pai_slot = TRUE
+
+/obj/machinery/economy/arcade
+	pai_slot = TRUE
+
+/obj/machinery/economy/slot_machine
+	pai_slot = TRUE
+
+/obj/machinery/disco
+	pai_slot = TRUE
+
+/// Holds the card on the machine's tile. Never seen or touched.
+/obj/effect/abstract/pai_port
+	name = "pAI port"
+	/// The machine this port belongs to
+	var/obj/machinery/host
+	/// The pAI running the machine
+	var/datum/component/pai_host/owner
+
+/obj/effect/abstract/pai_port/Destroy()
+	host = null
+	owner = null
+	return ..()
+
+/obj/effect/abstract/pai_port/HasProximity(atom/movable/AM)
+	owner?.greet(AM)
+
+/// The pAI's face, floating above the machine
+/obj/effect/pai_hologram
+	name = "pAI hologram"
+	icon = 'icons/obj/aicards.dmi'
+	icon_state = "pai-happy"
+	layer = ABOVE_ALL_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = KEEP_APART | PIXEL_SCALE
+	pixel_y = PAI_HOLOGRAM_Y
+	alpha = 0
+
+/obj/effect/pai_hologram/Initialize(mapload)
+	. = ..()
+	transform = matrix() * PAI_HOLOGRAM_SCALE
+	add_filter("glow", 1, list("type" = "drop_shadow", "x" = 0, "y" = 0, "size" = 2, "color" = "#3fc8ffaa"))
+	update_glow()
+
+/// Lets the face glow in the dark
+/obj/effect/pai_hologram/proc/update_glow(glowing = TRUE)
+	overlays.Cut()
+	if(glowing)
+		overlays += emissive_appearance(icon, icon_state)
+
+/datum/component/pai_host
+	dupe_mode = COMPONENT_DUPE_UNIQUE
+	/// The card running this machine
+	var/obj/item/paicard/card
+	/// Where the card sits
+	var/obj/effect/abstract/pai_port/port
+	/// The face above the machine
+	var/obj/effect/pai_hologram/hologram
+	/// The machine's name before the pAI moved in
+	var/old_name
+	/// The name we gave it, so we don't undo a rename someone did since
+	var/hosted_name
+	/// Was the vendor already quiet before we took over its speaker
+	var/vendor_was_quiet
+	/// Is the machine powered, last we checked
+	var/powered = TRUE
+	/// What the pAI says when someone walks up
+	var/greeting
+	/// Watches for people walking up
+	var/datum/proximity_monitor/greeter
+	/// Who we greeted and when we can greet them again
+	var/list/greeted = list()
+	COOLDOWN_DECLARE(greet_cooldown)
+	/// The pAI's buttons for this machine
+	var/list/datum/action/innate/pai_machine/actions = list()
+
+/datum/component/pai_host/Initialize(obj/item/paicard/new_card, mob/user)
+	if(!ismachinery(parent) || !istype(new_card) || !new_card.pai)
+		return COMPONENT_INCOMPATIBLE
+	var/obj/machinery/host = parent
+	var/mob/living/silicon/pai/pai = new_card.pai
+	card = new_card
+
+	port = new(get_turf(host))
+	port.host = host
+	port.owner = src
+	if(ismob(card.loc))
+		var/mob/holder = card.loc
+		holder.drop_item_to_ground(card)
+	card.forceMove(port)
+
+	hologram = new
+	host.vis_contents += hologram
+	old_name = host.name
+	hosted_name = "[host.name] ([pai.name])"
+	host.name = hosted_name
+	// The pAI is the voice now, so the vendor stops shouting its ads
+	if(istype(host, /obj/machinery/economy/vending))
+		var/obj/machinery/economy/vending/vendor = host
+		vendor_was_quiet = vendor.shut_up
+		vendor.shut_up = TRUE
+
+	RegisterSignal(host, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(host, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+	RegisterSignal(host, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_host_icon_update))
+	RegisterSignal(host, COMSIG_MOVABLE_MOVED, PROC_REF(on_host_moved))
+	RegisterSignal(card, COMSIG_MOVABLE_MOVED, PROC_REF(on_card_moved))
+	RegisterSignal(card, COMSIG_PAICARD_EMOTION_CHANGED, PROC_REF(on_emotion_changed))
+	RegisterSignal(pai, COMSIG_MOB_DEATH, PROC_REF(on_pai_death))
+	RegisterSignal(pai, COMSIG_MOB_SAY, PROC_REF(on_pai_say))
+	host.verbs += /obj/machinery/proc/remove_pai_card
+
+	for(var/action_type in subtypesof(/datum/action/innate/pai_machine))
+		var/datum/action/innate/pai_machine/action = new action_type(card)
+		action.host_component = src
+		action.Grant(pai)
+		actions += action
+	var/datum/action/innate/pai_machine/use/use_button = locate() in actions
+	use_button?.show_machine(host)
+
+	pai.reset_perspective()
+	pai.update_runechat_msg_location()
+	add_attack_logs(user, pai, "Loaded into [host]")
+	on_emotion_changed(card)
+	boot()
+
+/datum/component/pai_host/Destroy(force)
+	var/obj/machinery/host = parent
+	host.verbs -= /obj/machinery/proc/remove_pai_card
+	if(host.name == hosted_name)
+		host.name = old_name
+	if(istype(host, /obj/machinery/economy/vending))
+		var/obj/machinery/economy/vending/vendor = host
+		vendor.shut_up = vendor_was_quiet
+	host.vis_contents -= hologram
+	QDEL_NULL(hologram)
+	QDEL_NULL(greeter)
+	QDEL_LIST_CONTENTS(actions)
+
+	if(card)
+		UnregisterSignal(card, list(COMSIG_MOVABLE_MOVED, COMSIG_PAICARD_EMOTION_CHANGED))
+		var/mob/living/silicon/pai/pai = card.pai
+		if(card.loc == port)
+			card.forceMove(get_turf(port) || get_turf(host))
+		if(pai)
+			UnregisterSignal(pai, list(COMSIG_MOB_DEATH, COMSIG_MOB_SAY))
+			pai.reset_perspective()
+			pai.update_runechat_msg_location()
+		card = null
+	QDEL_NULL(port)
+	return ..()
+
+/// The sci-fi bit: the screen flickers, text races past and the face blinks on
+/datum/component/pai_host/proc/boot()
+	var/obj/machinery/host = parent
+	var/mob/living/silicon/pai/pai = card.pai
+	playsound(host, 'sound/machines/terminal_on.ogg', 40, TRUE)
+	host.visible_message(SPAN_NOTICE("[host]'s screen flickers. Lines of text race past, then a little face blinks into the air above it."))
+	to_chat(pai, "<span class='notice'><tt>&gt; handshake with [old_name]... ok<br>&gt; mapping control bus... ok<br>&gt; personality matrix loaded.</tt></span>")
+	to_chat(pai, SPAN_NOTICE("[boot_flavour()] Use <b>Use Machine</b> to work its controls, <b>Greeting</b> to welcome people and <b>Leave Machine</b> to pop back out."))
+
+	// Flicker on, like an old projector warming up
+	animate(hologram, alpha = 170, time = 1)
+	animate(alpha = 0, time = 1)
+	animate(alpha = 220, time = 2)
+	animate(alpha = 40, time = 1)
+	animate(alpha = 210, time = 3)
+	// Gentle bob while it's on
+	animate(hologram, pixel_y = PAI_HOLOGRAM_Y + 2, time = 1.5 SECONDS, loop = -1, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
+	animate(pixel_y = PAI_HOLOGRAM_Y, time = 1.5 SECONDS, easing = SINE_EASING)
+	port.set_light(2, 0.8, "#66ccff")
+	addtimer(CALLBACK(src, PROC_REF(boot_chime)), 1 SECONDS)
+	update_power()
+
+/datum/component/pai_host/proc/boot_chime()
+	if(!QDELETED(parent))
+		playsound(parent, 'sound/machines/chime.ogg', 30, TRUE)
+
+/// A line about the machine the pAI just moved into
+/datum/component/pai_host/proc/boot_flavour()
+	var/obj/machinery/host = parent
+	if(istype(host, /obj/machinery/economy/vending))
+		return "You settle in between the coils and the price list. The ad speaker is yours now."
+	if(istype(host, /obj/machinery/kitchen_machine) || istype(host, /obj/machinery/cooker) || istype(host, /obj/machinery/cooking))
+		return "Heating coils, a timer and a little bell. You feel oddly hungry."
+	if(istype(host, /obj/machinery/smartfridge))
+		return "Cold shelves hum around you. Everything here is labelled. You like that."
+	if(istype(host, /obj/machinery/autolathe) || istype(host, /obj/machinery/r_n_d) || istype(host, /obj/machinery/biogenerator))
+		return "Arms, nozzles and a hopper. You could make almost anything, given enough material."
+	if(istype(host, /obj/machinery/computer/arcade) || istype(host, /obj/machinery/economy/arcade) || istype(host, /obj/machinery/economy/slot_machine))
+		return "Blinking lights and a high score table. You already want to beat it."
+	if(istype(host, /obj/machinery/disco))
+		return "Speakers, strobes and a bass line waiting to drop."
+	return "You spread out through [old_name]'s circuits."
+
+/datum/component/pai_host/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	var/mob/living/silicon/pai/pai = card?.pai
+	if(!pai)
+		return
+	examine_list += SPAN_NOTICE("[pai] is running it. [pai.p_their(TRUE)] face floats above the screen.")
+	examine_list += SPAN_NOTICE("Right-click it to take the pAI card out.")
+
+/datum/component/pai_host/proc/on_emotion_changed(obj/item/paicard/source)
+	SIGNAL_HANDLER
+	if(!hologram)
+		return
+	hologram.icon_state = powered ? card.get_emotion_state() : "pai-off"
+	hologram.update_glow(powered)
+
+/// Little pulse when the pAI talks, so you can tell who's speaking
+/datum/component/pai_host/proc/on_pai_say(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+	if(!hologram || !powered)
+		return
+	var/matrix/big = matrix() * (PAI_HOLOGRAM_SCALE * 1.12)
+	animate(hologram, transform = big, time = 1, flags = ANIMATION_PARALLEL)
+	animate(transform = matrix() * PAI_HOLOGRAM_SCALE, time = 2)
+
+/// Machines redraw on power changes, so this is where we notice them
+/datum/component/pai_host/proc/on_host_icon_update(datum/source, list/new_overlays)
+	SIGNAL_HANDLER
+	update_power()
+
+/datum/component/pai_host/proc/update_power()
+	var/obj/machinery/host = parent
+	var/now_powered = host.is_operational()
+	if(now_powered == powered || !hologram)
+		return
+	powered = now_powered
+	on_emotion_changed(card)
+	hologram.alpha = powered ? 210 : 60
+	if(powered)
+		port.set_light(2, 0.8, "#66ccff")
+	else
+		port.set_light(0)
+	var/mob/living/silicon/pai/pai = card?.pai
+	if(pai)
+		to_chat(pai, powered ? SPAN_NOTICE("Power flows back into [host]. You blink back on.") : SPAN_WARNING("[host] loses power. You can still talk, but its controls are dead."))
+
+/datum/component/pai_host/proc/on_host_moved(datum/source)
+	SIGNAL_HANDLER
+	port.forceMove(get_turf(parent))
+
+/datum/component/pai_host/proc/on_card_moved(datum/source)
+	SIGNAL_HANDLER
+	// The card left some other way, like the pAI unfolding
+	if(card.loc != port)
+		qdel(src)
+
+/datum/component/pai_host/proc/on_pai_death(datum/source)
+	SIGNAL_HANDLER
+	eject()
+
+/datum/component/pai_host/proc/on_emp(datum/source, severity)
+	SIGNAL_HANDLER
+	var/obj/machinery/host = parent
+	var/obj/item/paicard/old_card = card
+	host.visible_message(SPAN_WARNING("[old_card] shoots out of [host] in a shower of sparks!"))
+	eject(quiet = TRUE)
+	old_card.emp_act(severity)
+
+/// Only on machines with a pAI in them, added and taken away by the pai_host component
+/obj/machinery/proc/remove_pai_card()
+	set name = "Remove pAI Card"
+	set category = null
+	set src in view(1)
+	var/datum/component/pai_host/pai_host = GetComponent(/datum/component/pai_host)
+	pai_host?.try_pull_out(usr)
+
+/datum/component/pai_host/proc/try_pull_out(mob/living/user)
+	var/obj/machinery/host = parent
+	if(!isliving(user) || user == card?.pai || user.incapacitated() || !user.Adjacent(host))
+		return
+	to_chat(user, SPAN_NOTICE("You start pulling [card] out of [host]..."))
+	if(!do_after(user, PAI_MACHINE_EJECT_TIME, target = host) || QDELETED(src) || !card)
+		return
+	user.visible_message(SPAN_NOTICE("[user] pulls [card] out of [host]."), SPAN_NOTICE("You pull [card] out of [host]."))
+	add_attack_logs(user, card.pai, "Pulled out of [host]")
+	eject(quiet = TRUE)
+
+/// Pops the card back out onto the floor
+/datum/component/pai_host/proc/eject(quiet = FALSE)
+	var/obj/machinery/host = parent
+	if(!quiet)
+		host.visible_message(SPAN_NOTICE("The face above [host] blinks out and [card] slides out of its port."))
+	playsound(host, 'sound/machines/terminal_off.ogg', 40, TRUE)
+	if(card?.pai)
+		to_chat(card.pai, SPAN_NOTICE("You fold yourself back into your card."))
+	qdel(src)
+
+/// The pAI pressing the machine's buttons, like someone standing at it
+/datum/component/pai_host/proc/use_machine(mob/living/silicon/pai/pai)
+	var/obj/machinery/host = parent
+	if(pai.stat != CONSCIOUS)
+		return
+	if(!host.is_operational())
+		to_chat(pai, SPAN_WARNING("[host] has no power. Its controls won't answer."))
+		return
+	host.attack_hand(pai)
+
+/datum/component/pai_host/proc/set_greeting(mob/living/silicon/pai/pai)
+	var/new_greeting = tgui_input_text(pai, "What do you say when someone walks up? $name becomes their name. Leave it empty to stay quiet.", "Greeting", greeting, max_length = 100)
+	if(QDELETED(src) || isnull(new_greeting))
+		return
+	greeting = new_greeting
+	if(!length(greeting))
+		greeting = null
+		QDEL_NULL(greeter)
+		to_chat(pai, SPAN_NOTICE("You won't greet anyone."))
+		return
+	if(!greeter)
+		greeter = new(port, 1)
+	to_chat(pai, SPAN_NOTICE("You'll greet people with: \"[greeting]\""))
+
+/// Someone walked up, say hi if we haven't lately
+/datum/component/pai_host/proc/greet(atom/movable/AM)
+	if(!greeting || !ishuman(AM))
+		return
+	var/mob/living/carbon/human/visitor = AM
+	if(!visitor.client || visitor.stat != CONSCIOUS)
+		return
+	var/mob/living/silicon/pai/pai = card?.pai
+	if(!pai?.client || pai.stat != CONSCIOUS || pai.silence_time || !powered)
+		return
+	if(!COOLDOWN_FINISHED(src, greet_cooldown))
+		return
+	var/visitor_id = visitor.UID()
+	if(greeted[visitor_id] > world.time)
+		return
+	greeted[visitor_id] = world.time + 3 MINUTES
+	COOLDOWN_START(src, greet_cooldown, 10 SECONDS)
+	INVOKE_ASYNC(pai, TYPE_PROC_REF(/mob, say), replacetext(greeting, "$name", visitor.name))
+
+// The pAI's buttons while it runs a machine
+/datum/action/innate/pai_machine
+	background_icon_state = "bg_tech_blue"
+	button_icon = 'icons/obj/aicards.dmi'
+	/// The machine we're in
+	var/datum/component/pai_host/host_component
+
+/datum/action/innate/pai_machine/Destroy()
+	host_component = null
+	return ..()
+
+/datum/action/innate/pai_machine/use
+	name = "Use Machine"
+	desc = "Work the controls of the machine you're running."
+
+/// Shows the machine itself on the button
+/datum/action/innate/pai_machine/use/proc/show_machine(obj/machinery/host)
+	button_icon = host.icon
+	button_icon_state = host.icon_state
+	build_all_button_icons()
+
+/datum/action/innate/pai_machine/use/Activate()
+	host_component?.use_machine(owner)
+
+/datum/action/innate/pai_machine/greeting
+	name = "Greeting"
+	desc = "Set what you say when someone walks up to your machine."
+	button_icon_state = "pai-laugh"
+
+/datum/action/innate/pai_machine/greeting/Activate()
+	host_component?.set_greeting(owner)
+
+/datum/action/innate/pai_machine/leave
+	name = "Leave Machine"
+	desc = "Fold back into your card and pop out of the machine."
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "exit_possession"
+
+/datum/action/innate/pai_machine/leave/Activate()
+	host_component?.eject()
+
+#undef PAI_HOLOGRAM_Y
+#undef PAI_HOLOGRAM_SCALE
+#undef PAI_MACHINE_EJECT_TIME

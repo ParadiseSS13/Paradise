@@ -460,8 +460,35 @@
 	set_light(0)
 	card.set_light(0)
 
+/// The machine we're running, if any
+/mob/living/silicon/pai/proc/get_host_machine()
+	var/obj/effect/abstract/pai_port/port = card?.loc
+	if(istype(port))
+		return port.host
+
+/mob/living/silicon/pai/reset_perspective(atom/A)
+	// Running a machine, we look out from it
+	if(!A || A == loc)
+		A = get_host_machine() || A
+	return ..(A)
+
+/mob/living/silicon/pai/ClickOn(atom/A, params)
+	// Clicking the machine we run works its controls
+	var/obj/machinery/host = get_host_machine()
+	if(host && A == host)
+		var/list/modifiers = params2list(params)
+		if(!modifiers["shift"] && !modifiers["ctrl"] && !modifiers["alt"] && !modifiers["middle"])
+			var/datum/component/pai_host/host_component = host.GetComponent(/datum/component/pai_host)
+			host_component?.use_machine(src)
+			return
+	return ..()
+
 /mob/living/silicon/pai/update_runechat_msg_location()
-	if(istype(loc, /obj/item/paicard))
+	// Talk bubbles go over the machine we run
+	var/obj/machinery/host = get_host_machine()
+	if(host)
+		runechat_msg_location = host.UID()
+	else if(istype(loc, /obj/item/paicard))
 		runechat_msg_location = loc.UID()
 	else
 		return ..()

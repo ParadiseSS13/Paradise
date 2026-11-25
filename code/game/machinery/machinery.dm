@@ -31,6 +31,8 @@
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/panel_open = FALSE
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
+	/// Can a pAI card be slotted in to run this machine
+	var/pai_slot = FALSE
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 	/// The `world.time` when we last short circuited.
