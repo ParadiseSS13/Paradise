@@ -1,6 +1,8 @@
 /datum/game_test/room_test/attack_chain_structures
 	testing_area_name = "test_attack_chain_structures.dmm"
+	leaf_test = FALSE
 	var/list/structure_instances_by_type = list()
+	var/datum/test_puppeteer/player
 
 /datum/game_test/room_test/attack_chain_structures/proc/teleport_to_first(datum/test_puppeteer/player, obj_type, dir=EAST)
 	if(length(structure_instances_by_type[obj_type]))
@@ -17,9 +19,15 @@
 			LAZYOR(structure_instances_by_type[structure.type], structure)
 
 /datum/game_test/room_test/attack_chain_structures/Run()
-	var/datum/test_puppeteer/player = new(src)
+	player = new(src)
 	player.puppet.name = "Player"
 	player.add_trait(TRAIT_FLASH_PROTECTION)
+
+/datum/game_test/room_test/attack_chain_structures/test_1
+	leaf_test = TRUE
+
+/datum/game_test/room_test/attack_chain_structures/test_1/Run()
+	. = ..()
 
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
 	player.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)
@@ -98,6 +106,12 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You wire the airlock assembly.")
 	player.drop_held_item()
 
+/datum/game_test/room_test/attack_chain_structures/test_2
+	leaf_test = TRUE
+
+/datum/game_test/room_test/attack_chain_structures/test_2/Run()
+	. = ..()
+
 	var/obj/girder = teleport_to_first(player, /obj/structure/girder/cult)
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
 	player.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)
@@ -141,6 +155,12 @@
 	player.click_on(table)
 	TEST_ASSERT_LAST_CHATLOG(player, "You dismantle [table]")
 	player.drop_held_item()
+
+/datum/game_test/room_test/attack_chain_structures/test_3
+	leaf_test = TRUE
+
+/datum/game_test/room_test/attack_chain_structures/test_3/Run()
+	. = ..()
 
 	var/obj/inflatable = teleport_to_first(player, /obj/structure/inflatable)
 	player.spawn_obj_in_hand(/obj/item/kitchen/knife)
@@ -243,6 +263,12 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You slice apart [hop_statue].")
 	player.drop_held_item()
 
+/datum/game_test/room_test/attack_chain_structures/test_4
+	leaf_test = TRUE
+
+/datum/game_test/room_test/attack_chain_structures/test_4/Run()
+	. = ..()
+
 	var/obj/structure/snowman/built/snowman = teleport_to_first(player, /obj/structure/snowman/built)
 	var/old_integrity = snowman.obj_integrity
 	player.spawn_fast_tool(/obj/item/weldingtool)
@@ -302,7 +328,7 @@
 
 	var/obj/cable = teleport_to_first(player, /obj/structure/cable, dir = EAST)
 	player.spawn_fast_tool(/obj/item/stack/cable_coil/ten)
-	T = get_turf(cable)
+	var/turf/T = get_turf(cable)
 	TEST_ASSERT_EQUAL(length(T.contents), 1, "couldn't find one cable on tile")
 	player.click_on(get_turf(cable))
 	TEST_ASSERT_EQUAL(length(T.contents), 2, "didn't add cable to tile")

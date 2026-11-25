@@ -37,6 +37,10 @@
 	CHECK_TICK
 
 	for(var/I in subtypesof(/datum/game_test) - /datum/game_test/room_test)
+		var/datum/game_test/test_type = I
+		if(!test_type::leaf_test)
+			continue
+
 		var/datum/game_test/test = new I
 		test_logs[I] = list()
 

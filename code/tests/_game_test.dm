@@ -61,6 +61,8 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
+	/// Whether the test is a parent class and should be skipped during runs
+	var/leaf_test = TRUE
 
 /datum/game_test/New()
 
