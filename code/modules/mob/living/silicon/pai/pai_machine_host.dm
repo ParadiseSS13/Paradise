@@ -8,6 +8,14 @@
 #define PAI_HOLOGRAM_SCALE 1.5
 /// How long it takes to pull the card back out
 #define PAI_MACHINE_EJECT_TIME 3 SECONDS
+/// How far the pAI's glow lights up the room
+#define PAI_LIGHT_RANGE 3
+/// How bright that glow is
+#define PAI_LIGHT_POWER 1
+/// The usual blue of a pAI
+#define PAI_DEFAULT_MOOD "#66ccff"
+/// Faces, screen covers and beams for machine screens
+#define PAI_SCREEN_ICON 'icons/obj/pai_screen_faces.dmi'
 
 // Machines a pAI can run
 /obj/machinery/economy/vending
@@ -79,8 +87,37 @@
 /obj/effect/pai_hologram/Initialize(mapload)
 	. = ..()
 	transform = matrix() * PAI_HOLOGRAM_SCALE
-	add_filter("glow", 1, list("type" = "drop_shadow", "x" = 0, "y" = 0, "size" = 2, "color" = "#3fc8ffaa"))
+	set_mood(PAI_DEFAULT_MOOD)
 	update_glow()
+
+/// Tints the face and its glow to the pAI's mood
+/obj/effect/pai_hologram/proc/set_mood(mood)
+	remove_filter(list("glow_inner", "glow_outer"))
+	add_filter("glow_inner", 1, list("type" = "drop_shadow", "x" = 0, "y" = 0, "size" = 1, "color" = "[mood]dd"))
+	add_filter("glow_outer", 2, list("type" = "drop_shadow", "x" = 0, "y" = 0, "size" = 4, "color" = "[mood]66"))
+	if(mood == PAI_DEFAULT_MOOD)
+		color = null
+		return
+	// Keep the face's light and dark, swap its blue for the mood
+	var/list/rgb = rgb2num(mood)
+	var/r = rgb[1] / 255 * 1.3
+	var/g = rgb[2] / 255 * 1.3
+	var/b = rgb[3] / 255 * 1.3
+	color = list(0.3 * r, 0.3 * g, 0.3 * b, 0.59 * r, 0.59 * g, 0.59 * b, 0.11 * r, 0.11 * g, 0.11 * b)
+
+/// Light from a small screen up to the hologram, for machines whose screen is too small for a face
+/obj/effect/pai_beam
+	name = "pAI projection"
+	icon = PAI_SCREEN_ICON
+	layer = ABOVE_ALL_MOB_LAYER - 0.01
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = KEEP_APART | PIXEL_SCALE
+	alpha = 0
+
+/obj/effect/pai_beam/proc/update_glow(glowing = TRUE)
+	overlays.Cut()
+	if(glowing)
+		overlays += emissive_appearance(icon, icon_state)
 
 /// Lets the face glow in the dark
 /obj/effect/pai_hologram/proc/update_glow(glowing = TRUE)
@@ -96,6 +133,8 @@
 	var/obj/effect/abstract/pai_port/port
 	/// The face above the machine
 	var/obj/effect/pai_hologram/hologram
+	/// The light from a small screen up to the face, if the machine has one
+	var/obj/effect/pai_beam/beam
 	/// The machine's name before the pAI moved in
 	var/old_name
 	/// The name we gave it, so we don't undo a rename someone did since
@@ -131,6 +170,13 @@
 
 	hologram = new
 	host.vis_contents += hologram
+	// Small screens project the face up out of them
+	var/list/screen = get_screen()
+	if(screen?[8])
+		hologram.pixel_x = screen[9]
+		beam = new
+		beam.icon_state = screen[8]
+		host.vis_contents += beam
 	old_name = host.name
 	hosted_name = "[host.name] ([pai.name])"
 	host.name = hosted_name
@@ -148,6 +194,8 @@
 	RegisterSignal(card, COMSIG_PAICARD_EMOTION_CHANGED, PROC_REF(on_emotion_changed))
 	RegisterSignal(pai, COMSIG_MOB_DEATH, PROC_REF(on_pai_death))
 	RegisterSignal(pai, COMSIG_MOB_SAY, PROC_REF(on_pai_say))
+	// Not every machine redraws when its power goes, so we check now and then
+	START_PROCESSING(SSprocessing, src)
 	host.verbs += /obj/machinery/proc/remove_pai_card
 
 	for(var/action_type in subtypesof(/datum/action/innate/pai_machine))
@@ -166,7 +214,12 @@
 
 /datum/component/pai_host/Destroy(force)
 	var/obj/machinery/host = parent
+	STOP_PROCESSING(SSprocessing, src)
 	host.verbs -= /obj/machinery/proc/remove_pai_card
+	// Take the face off the screen
+	UnregisterSignal(host, COMSIG_ATOM_UPDATE_OVERLAYS)
+	if(!QDELETED(host))
+		host.update_icon(UPDATE_OVERLAYS)
 	if(host.name == hosted_name)
 		host.name = old_name
 	if(istype(host, /obj/machinery/economy/vending))
@@ -174,6 +227,9 @@
 		vendor.shut_up = vendor_was_quiet
 	host.vis_contents -= hologram
 	QDEL_NULL(hologram)
+	if(beam)
+		host.vis_contents -= beam
+		QDEL_NULL(beam)
 	QDEL_NULL(greeter)
 	QDEL_LIST_CONTENTS(actions)
 
@@ -208,7 +264,19 @@
 	// Gentle bob while it's on
 	animate(hologram, pixel_y = PAI_HOLOGRAM_Y + 2, time = 1.5 SECONDS, loop = -1, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
 	animate(pixel_y = PAI_HOLOGRAM_Y, time = 1.5 SECONDS, easing = SINE_EASING)
-	port.set_light(2, 0.8, "#66ccff")
+	if(beam)
+		animate(beam, alpha = 255, time = 1)
+		animate(alpha = 0, time = 1)
+		animate(alpha = 200, time = 3)
+		// Projector shimmer
+		animate(beam, alpha = 180, time = 0.8 SECONDS, loop = -1, delay = 1 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
+		animate(alpha = 245, time = 0.8 SECONDS, easing = SINE_EASING)
+	// The room light stutters on with it
+	port.set_light(0)
+	addtimer(CALLBACK(src, PROC_REF(update_light), 0.6), 1)
+	addtimer(CALLBACK(src, PROC_REF(update_light), 0), 2)
+	addtimer(CALLBACK(src, PROC_REF(update_light), 1.4), 4)
+	addtimer(CALLBACK(src, PROC_REF(update_light)), 8)
 	addtimer(CALLBACK(src, PROC_REF(boot_chime)), 1 SECONDS)
 	update_power()
 
@@ -243,10 +311,43 @@
 
 /datum/component/pai_host/proc/on_emotion_changed(obj/item/paicard/source)
 	SIGNAL_HANDLER
-	if(!hologram)
+	update_hologram()
+	var/obj/machinery/host = parent
+	host.update_icon(UPDATE_OVERLAYS)
+
+/// The colour of the pAI's mood, from the face on its card
+/datum/component/pai_host/proc/get_mood()
+	// Same order as the card faces: happy, cat, very happy, plain, laugh, off, sad, angry, what
+	var/static/list/moods = list(PAI_DEFAULT_MOOD, "#ff8ad8", "#6dffd2", PAI_DEFAULT_MOOD, "#ffd84a", "#4f6fb0", "#5a78ff", "#ff4a3d", "#c7a0ff")
+	var/emotion = card?.current_emotion
+	if(!emotion || emotion < 1 || emotion > length(moods))
+		return PAI_DEFAULT_MOOD
+	return moods[emotion]
+
+/// Face, glow and room light to match the mood and the power
+/datum/component/pai_host/proc/update_hologram()
+	if(!hologram || !card)
 		return
+	var/mood = powered ? get_mood() : PAI_DEFAULT_MOOD
 	hologram.icon_state = powered ? card.get_emotion_state() : "pai-off"
+	hologram.set_mood(mood)
 	hologram.update_glow(powered)
+	hologram.alpha = powered ? 210 : 60
+	if(beam)
+		beam.color = mood
+		beam.update_glow(powered)
+		beam.invisibility = powered ? 0 : INVISIBILITY_ABSTRACT
+	update_light()
+
+/// Lights the room around the machine in the pAI's mood. Boost makes it brighter for a moment.
+/datum/component/pai_host/proc/update_light(boost = 1)
+	if(!port)
+		return
+	if(!powered || !boost)
+		port.set_light(0)
+		return
+	var/sleepy = card?.current_emotion == 6
+	port.set_light(PAI_LIGHT_RANGE, (sleepy ? 0.4 : PAI_LIGHT_POWER) * boost, get_mood())
 
 /// Little pulse when the pAI talks, so you can tell who's speaking
 /datum/component/pai_host/proc/on_pai_say(datum/source, list/speech_args)
@@ -256,10 +357,55 @@
 	var/matrix/big = matrix() * (PAI_HOLOGRAM_SCALE * 1.12)
 	animate(hologram, transform = big, time = 1, flags = ANIMATION_PARALLEL)
 	animate(transform = matrix() * PAI_HOLOGRAM_SCALE, time = 2)
+	// And the light brightens with each word
+	update_light(1.6)
+	addtimer(CALLBACK(src, PROC_REF(update_light)), 4, TIMER_UNIQUE | TIMER_OVERRIDE)
 
-/// Machines redraw on power changes, so this is where we notice them
+/// Puts the pAI on the machine's own screen, where it has one
 /datum/component/pai_host/proc/on_host_icon_update(datum/source, list/new_overlays)
 	SIGNAL_HANDLER
+	if(!powered || !card)
+		return
+	var/list/screen = get_screen()
+	if(!screen)
+		return
+	var/obj/machinery/host = parent
+	// Small screens light up like a projector lens instead
+	if(screen[8])
+		var/lens_state = "lens_[screen[8]]"
+		new_overlays += mutable_appearance(PAI_SCREEN_ICON, lens_state, host.layer + 0.01, color = get_mood())
+		new_overlays += emissive_appearance(PAI_SCREEN_ICON, lens_state)
+		return
+	if(screen[6])
+		new_overlays += mutable_appearance(PAI_SCREEN_ICON, screen[6], host.layer + 0.01)
+	var/face_state = "face_[screen[3]]_[clamp(card.current_emotion, 1, 9)]"
+	var/mutable_appearance/face = mutable_appearance(PAI_SCREEN_ICON, face_state, host.layer + 0.02, color = screen[7])
+	var/mutable_appearance/face_glow = emissive_appearance(PAI_SCREEN_ICON, face_state)
+	face.pixel_x = screen[4]
+	face.pixel_y = screen[5]
+	face_glow.pixel_x = screen[4]
+	face_glow.pixel_y = screen[5]
+	new_overlays += face
+	new_overlays += face_glow
+
+/// Where the pAI shows on this machine's screen, found by its sprite. Each entry:
+/// icon, sprite name start, face size, face x and y offset, screen cover, face colour,
+/// and for screens too small for a face: the beam, and how far across the hologram moves to sit over it.
+/datum/component/pai_host/proc/get_screen()
+	var/static/list/screens = list(
+		list('icons/obj/computer.dmi', "arcade", "large", 1, 1, "bg_arcade", "#6dff5f", null, 0),
+		list('icons/obj/biogenerator.dmi', "biogen", "large", -5, 1, "bg_biogenerator", "#8ff0ff", null, 0),
+		list('icons/obj/kitchen.dmi', "mw", "large", -5, -3, null, "#a8ecff", null, 0),
+		list('icons/obj/vending.dmi', "smartfridge", null, 0, 0, null, null, "smartfridge", 7),
+		list('icons/obj/stationobjs.dmi', "autolathe", null, 0, 0, null, null, "autolathe", -1),
+		list('icons/obj/machines/research.dmi', "protolathe", null, 0, 0, null, null, "protolathe", 7),
+	)
+	var/obj/machinery/host = parent
+	for(var/list/screen as anything in screens)
+		if(host.icon == screen[1] && findtext(host.icon_state, screen[2]))
+			return screen
+
+/datum/component/pai_host/process()
 	update_power()
 
 /datum/component/pai_host/proc/update_power()
@@ -268,12 +414,8 @@
 	if(now_powered == powered || !hologram)
 		return
 	powered = now_powered
-	on_emotion_changed(card)
-	hologram.alpha = powered ? 210 : 60
-	if(powered)
-		port.set_light(2, 0.8, "#66ccff")
-	else
-		port.set_light(0)
+	update_hologram()
+	host.update_icon(UPDATE_OVERLAYS)
 	var/mob/living/silicon/pai/pai = card?.pai
 	if(pai)
 		to_chat(pai, powered ? SPAN_NOTICE("Power flows back into [host]. You blink back on.") : SPAN_WARNING("[host] loses power. You can still talk, but its controls are dead."))
@@ -416,3 +558,7 @@
 #undef PAI_HOLOGRAM_Y
 #undef PAI_HOLOGRAM_SCALE
 #undef PAI_MACHINE_EJECT_TIME
+#undef PAI_LIGHT_RANGE
+#undef PAI_LIGHT_POWER
+#undef PAI_DEFAULT_MOOD
+#undef PAI_SCREEN_ICON
