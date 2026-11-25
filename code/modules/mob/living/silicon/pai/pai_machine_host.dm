@@ -43,16 +43,38 @@
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai-happy"
 	layer = ABOVE_ALL_MOB_LAYER
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = KEEP_APART | PIXEL_SCALE
 	pixel_y = PAI_HOLOGRAM_Y
 	alpha = 0
+	/// The pAI running the machine
+	var/datum/component/pai_host/owner
 
 /obj/effect/pai_hologram/Initialize(mapload)
 	. = ..()
 	transform = matrix() * PAI_HOLOGRAM_SCALE
 	set_mood(PAI_DEFAULT_MOOD)
 	update_glow()
+
+/obj/effect/pai_hologram/Destroy()
+	owner = null
+	return ..()
+
+/// Alt-clicking the face pulls the pAI out, any other click goes to the machine
+/obj/effect/pai_hologram/Click(location, control, params)
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, ALT_CLICK) || !owner)
+		return ..()
+	var/atom/host = owner.parent
+	return host.Click(location, control, params)
+
+/obj/effect/pai_hologram/DblClick(location, control, params)
+	if(!owner)
+		return ..()
+	var/atom/host = owner.parent
+	return host.DblClick(location, control, params)
+
+/obj/effect/pai_hologram/AltClick(mob/user, modifiers)
+	owner?.try_pull_out(user)
 
 /// Tints the face and its glow to the pAI's mood
 /obj/effect/pai_hologram/proc/set_mood(mood)
@@ -135,6 +157,7 @@
 	card.forceMove(port)
 
 	hologram = new
+	hologram.owner = src
 	host.vis_contents += hologram
 	// Small screens project the face up out of them
 	var/list/screen = get_screen()
@@ -165,7 +188,6 @@
 	RegisterSignal(pai, COMSIG_MOB_SAY, PROC_REF(on_pai_say))
 	// Not every machine redraws when its power goes, so we check now and then
 	START_PROCESSING(SSprocessing, src)
-	host.verbs += /obj/machinery/proc/remove_pai_card
 
 	for(var/action_type in subtypesof(/datum/action/innate/pai_machine))
 		var/datum/action/innate/pai_machine/action = new action_type(card)
@@ -184,7 +206,6 @@
 /datum/component/pai_host/Destroy(force)
 	var/obj/machinery/host = parent
 	STOP_PROCESSING(SSprocessing, src)
-	host.verbs -= /obj/machinery/proc/remove_pai_card
 	// Take the face off the screen
 	UnregisterSignal(host, COMSIG_ATOM_UPDATE_OVERLAYS)
 	if(!QDELETED(host))
@@ -278,7 +299,7 @@
 	if(!pai)
 		return
 	examine_list += SPAN_NOTICE("[pai] is running it. [pai.p_their(TRUE)] face floats above the screen.")
-	examine_list += SPAN_NOTICE("Right-click it to take the pAI card out.")
+	examine_list += SPAN_NOTICE("Alt-click its face to take the pAI card out.")
 
 /datum/component/pai_host/proc/on_emotion_changed(obj/item/paicard/source)
 	SIGNAL_HANDLER
@@ -429,14 +450,6 @@
 	host.visible_message(SPAN_WARNING("[old_card] shoots out of [host] in a shower of sparks!"))
 	eject(quiet = TRUE)
 	old_card.emp_act(severity)
-
-/// Only on machines with a pAI in them, added and taken away by the pai_host component
-/obj/machinery/proc/remove_pai_card()
-	set name = "Remove pAI Card"
-	set category = null
-	set src in view(1)
-	var/datum/component/pai_host/pai_host = GetComponent(/datum/component/pai_host)
-	pai_host?.try_pull_out(usr)
 
 /datum/component/pai_host/proc/try_pull_out(mob/living/user)
 	var/obj/machinery/host = parent
