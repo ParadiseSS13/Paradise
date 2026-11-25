@@ -206,6 +206,8 @@
 		else
 			to_chat(user, SPAN_NOTICE("[src] does not need repairs.</span>"))
 
+		return ITEM_INTERACT_COMPLETE
+
 /obj/tgvehicle/sealed/vectorcraft/attack_hand(mob/user)
 	remove_key(driver)
 	..()
