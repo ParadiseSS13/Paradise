@@ -51,7 +51,6 @@
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng
 	gloves = /obj/item/clothing/gloves/color/black
-	glasses = /obj/item/clothing/glasses/sunglasses
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	r_pocket = /obj/item/storage/bag/construction
