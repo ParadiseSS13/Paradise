@@ -16094,9 +16094,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/aft_starboard)
 "cxx" = (
@@ -23617,9 +23615,7 @@
 "dOd" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/aft_starboard)
 "dOe" = (
@@ -35533,9 +35529,7 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
 /obj/effect/spawner/random/glowstick,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/fore_port)
 "gvY" = (
@@ -89418,7 +89412,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "rZl" = (
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/white,
@@ -93618,9 +93612,7 @@
 /area/station/maintenance/gambling_den)
 "sUD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 0
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/fore_port)
 "sUH" = (

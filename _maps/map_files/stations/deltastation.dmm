@@ -4151,6 +4151,7 @@
 /obj/item/folder/red,
 /obj/item/lighter/zippo,
 /obj/machinery/newscaster/directional/east,
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/station/maintenance/electrical_shop)
 "aur" = (
@@ -22668,6 +22669,7 @@
 /obj/item/camera_film,
 /obj/item/camera/detective,
 /obj/item/storage/box/evidence,
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "bNs" = (
@@ -26801,6 +26803,7 @@
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen/multi/fountain,
+/obj/item/clipboard,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cdK" = (
@@ -27734,6 +27737,7 @@
 	pixel_y = 3
 	},
 /obj/item/taperecorder,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -30303,13 +30307,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/secure_storage)
 "crd" = (
-/obj/machinery/computer/fission_monitor{
-	dir = 4
-	},
 /obj/effect/turf_decal/trimline/misc/toxins/filled/line{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/computer/reactor_monitor{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -32541,6 +32545,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/effect/turf_decal/tiles/neutral,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "cyO" = (
@@ -52622,6 +52627,7 @@
 /obj/item/book/manual/detective,
 /obj/item/camera/detective,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "fIv" = (
@@ -54937,6 +54943,13 @@
 "gAd" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prison)
+"gAj" = (
+/obj/structure/table/wood,
+/obj/item/folder,
+/obj/item/pen,
+/obj/item/clipboard,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "gAo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -57175,9 +57188,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "hxb" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -68194,7 +68204,7 @@
 /area/station/hallway/secondary/exit)
 "lSa" = (
 /obj/machinery/newscaster/directional/south,
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel/white,
@@ -69137,6 +69147,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "mli" = (
@@ -87159,6 +87170,7 @@
 	pixel_y = 3
 	},
 /obj/effect/spawner/random/bureaucracy,
+/obj/item/clipboard,
 /turf/simulated/floor/carpet/grimey,
 /area/station/legal/lawoffice)
 "tbc" = (
@@ -132022,7 +132034,7 @@ cbF
 cdx
 cfq
 cgW
-cgX
+gAj
 ckj
 eNh
 cnh

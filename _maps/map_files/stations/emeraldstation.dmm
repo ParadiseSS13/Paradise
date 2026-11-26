@@ -49526,9 +49526,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "jQG" = (
-/obj/machinery/power/reactor_power{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -67161,7 +67158,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "nws" = (
-/obj/machinery/dye_generator,
+/obj/machinery/economy/vending/dye_generator,
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel/white,
@@ -87223,11 +87220,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "roN" = (
-/obj/machinery/computer/fission_monitor{
-	dir = 4
-	},
 /obj/effect/turf_decal/trimline/misc/toxins/filled/line{
 	dir = 8
+	},
+/obj/machinery/computer/reactor_monitor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine)

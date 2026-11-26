@@ -321,8 +321,7 @@
 
 /obj/item/reagent_containers/syringe/lethal
 	name = "lethal injection syringe"
-	desc = "A syringe used for lethal injections. It can hold up to 50 units."
+	desc = "An oversized syringe used for lethal injections. It can hold up to 50 units. Pre-loaded with a tri-drig mix to paralyze, remove pain, and cause death by respiratory arrest."
 	amount_per_transfer_from_this = 50
 	volume = 50
-	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
-
+	list_reagents = list("pancuronium" = 20, "morphine" = 20, "lexorin" = 10) // Pancuronium to paralyze, morphine to analgesicize, lexorin to kill.
