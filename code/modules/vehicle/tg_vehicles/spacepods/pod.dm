@@ -14,7 +14,7 @@
 	move_resist = MOVE_FORCE_STRONG
 	accel_step = 0.22
 	acceleration = 0.30
-	max_integrity = 300
+	max_integrity = 400
 	/// Pod flags, currently keyed to what's available for mechs.
 	var/pod_flags = MECH_HAS_LIGHTS
 	/// Reagent container holding plasma fuel.
@@ -306,7 +306,7 @@
 	base_icon_state = "raptor_explorer"
 	icon_state = "raptor_explorer-off"
 	desc = "A space pod designed for exploring hazardous locations."
-	max_integrity = 450
+	max_integrity = 600
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/sec
 	name = "ASP-03 'Themis'"
@@ -314,7 +314,7 @@
 	base_icon_state = "raptor_sec"
 	icon_state = "raptor_sec-off"
 	desc = "An armored pod designed for security operations in the space nearby an installation."
-	max_integrity = 600
+	max_integrity = 800
 
 /obj/tgvehicle/sealed/vectorcraft/spacepod/sec/fueled
 	starting_fuel = TRUE
