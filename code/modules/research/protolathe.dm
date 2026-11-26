@@ -121,7 +121,7 @@ Note: Must be placed west/left of and R&D console to function.
 	name = "space pod fabricator"
 	desc = "Allows for building space pod parts."
 	categories = list("Space Pods")
-	board_type = /obj/item/circuitboard/protolathe
+	board_type = /obj/item/circuitboard/podfabricator
 
 /obj/machinery/r_n_d/protolathe/pod_fabricator/RefreshParts()
 	. = ..()

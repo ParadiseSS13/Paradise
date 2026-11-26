@@ -115,5 +115,5 @@ sometimes a secondary material (often gold or diamond).
 	name = "space pod board etcher"
 	desc = "Manufactures circuit boards for the construction of space pods."
 	categories = list("Space Pod Boards")
-	board_type = /obj/item/circuitboard/circuit_imprinter
+	board_type = /obj/item/circuitboard/pod_board_etcher
 

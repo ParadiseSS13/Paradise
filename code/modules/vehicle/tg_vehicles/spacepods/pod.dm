@@ -197,7 +197,7 @@
 		return
 	START_PROCESSING(SSvectorcraft, src)
 	if(driver)
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		stop_engine()
 
