@@ -240,6 +240,8 @@
 
 /mob/living/attacked_by(obj/item/attacker, mob/living/user, def_zone)
 	send_item_attack_message(attacker, user)
+	SEND_SIGNAL(src, COMSIG_AFTER_ATTACK, user)
+	SEND_SIGNAL(src, COMSIG_AFTER_ATTACKED_BY, user)
 	if(attacker.force)
 		var/bonus_damage = 0
 		if(ishuman(user))
