@@ -5,7 +5,7 @@
 /obj/tgvehicle/sealed/vectorcraft
 	name = "all-terrain hovercraft"
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-Earth technologies that are still relevant on most planet-bound outposts."
-	animate_movement = 0
+	animate_movement = NO_STEPS
 	max_integrity = 100
 	var/vector = list("x" = 0, "y" = 0) //vector math
 	var/tile_loc = list("x" = 0, "y" = 0) //x y offset of tile
@@ -106,6 +106,9 @@
 	dead_check()
 
 // MARK: Movement
+
+/obj/tgvehicle/sealed/vectorcraft/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 /obj/tgvehicle/sealed/vectorcraft/proc/move_car()
 	#ifdef VEHICLE_DEBUG
@@ -221,6 +224,8 @@
 
 	if(obj_integrity > max_integrity)
 		obj_integrity = max_integrity
+
+	obj_integrity = floor(obj_integrity)
 
 /obj/tgvehicle/sealed/vectorcraft/obj_destruction(damage_flag)
 	mob_exit(driver)

@@ -61,9 +61,10 @@
 
 /obj/machinery/fuel_pump/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("<i>Alt-Click</i> to remove the pump nozzle.")
 	. += SPAN_GREEN("It has [balance] credits loaded.")
 	. += SPAN_GREEN("[LITER_PRICE] credits for 1 liter of liquid plasma fuel!")
+	. += SPAN_NOTICE("<i>Alt-Click</i> to remove the pump nozzle.")
+	. += SPAN_NOTICE("Swipe your ID to charge with 50 credits.")
 
 /obj/machinery/fuel_pump/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(tool == nozzle)
