@@ -147,8 +147,10 @@
 	minimal_player_age = 14
 	access = list(
 		ACCESS_BRIG_PILOT,
+		ACCESS_MAINT_TUNNELS,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
+		ACCESS_WEAPONS,
 	)
 	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/brig_pilot
