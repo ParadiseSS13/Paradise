@@ -54,5 +54,6 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	r_pocket = /obj/item/storage/bag/construction
+	id = /obj/item/card/id/shipwright
 	pda = /obj/item/pda/engineering
 	box = /obj/item/storage/box/engineer
