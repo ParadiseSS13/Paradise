@@ -114638,6 +114638,9 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/machinery/fuel_pump{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "xtM" = (

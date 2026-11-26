@@ -91182,6 +91182,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/fuel_pump{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "uAI" = (

@@ -42470,6 +42470,9 @@
 	pixel_x = -7
 	},
 /obj/item/tank/internals/oxygen,
+/obj/machinery/fuel_pump{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "hUz" = (

@@ -30230,6 +30230,9 @@
 /area/station/supply/miningdock)
 "kcT" = (
 /obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/fuel_pump{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "kdo" = (
