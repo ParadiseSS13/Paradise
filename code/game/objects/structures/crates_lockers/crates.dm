@@ -16,6 +16,11 @@
 	/// How much this crate is worth if you sell it via the cargo shuttle, needed for balance :)
 	var/crate_value = DEFAULT_CRATE_VALUE
 
+/obj/structure/closet/crate/examine(mob/user)
+	. = ..()
+	if(opened)
+		. += SPAN_NOTICE("It looks like it can be <b>welded</b> down.")
+
 /obj/structure/closet/crate/update_overlays()
 	. = ..()
 	if(manifest)
