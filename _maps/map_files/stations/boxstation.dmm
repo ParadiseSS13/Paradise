@@ -25774,6 +25774,11 @@
 /obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"bVY" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark/full,
+/area/station/engineering/shipwright)
 "bWa" = (
 /turf/simulated/wall,
 /area/station/medical/cryo)
@@ -61550,6 +61555,7 @@
 	id_tag = "pod_hangar_inner"
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "laa" = (
@@ -109368,8 +109374,8 @@ cBj
 cCq
 cDU
 wNY
-toI
-toI
+bVY
+bVY
 kZE
 klw
 aaa

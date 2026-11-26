@@ -28397,6 +28397,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/spacebridge/scidock)
+"ePi" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark/grid,
+/area/station/engineering/shipwright)
 "ePk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -59234,6 +59238,7 @@
 	dir = 4;
 	id_tag = "pod_hangar_inner"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark/grid,
 /area/station/engineering/shipwright)
 "lsp" = (
@@ -126723,8 +126728,8 @@ lRT
 lRT
 lRT
 mic
-evq
-evq
+ePi
+ePi
 lsm
 oLt
 aXn

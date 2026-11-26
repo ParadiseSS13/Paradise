@@ -80229,6 +80229,7 @@
 	id_tag = "pod_hangar_inner"
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "pVl" = (
@@ -81330,6 +81331,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
+"qgb" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark/full,
+/area/station/engineering/shipwright)
 "qge" = (
 /obj/structure/chair/barber{
 	dir = 8
@@ -133883,8 +133889,8 @@ hHD
 hHD
 xWZ
 kxw
-snf
-snf
+qgb
+qgb
 pVh
 ggu
 ggu

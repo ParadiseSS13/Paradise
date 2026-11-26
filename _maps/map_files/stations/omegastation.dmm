@@ -33384,6 +33384,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"lTq" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/engineering/shipwright)
 "lTA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -40802,6 +40806,7 @@
 	dir = 4;
 	id_tag = "pod_hangar_inner"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "pSN" = (
@@ -80123,8 +80128,8 @@ aZD
 aZD
 fmp
 fmp
-geh
-geh
+lTq
+lTq
 pSF
 fmp
 aZD

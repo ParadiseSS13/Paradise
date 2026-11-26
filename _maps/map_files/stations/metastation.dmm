@@ -50728,6 +50728,7 @@
 	id_tag = "pod_hangar_inner"
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "kwj" = (
@@ -79526,6 +79527,11 @@
 	},
 /turf/simulated/floor/greengrid,
 /area/station/science/robotics/chargebay)
+"tXX" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel/dark/full,
+/area/station/engineering/shipwright)
 "tYk" = (
 /obj/effect/turf_decal/trimline/misc/toxins/arrow_cw,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -132059,7 +132065,7 @@ rbJ
 rbJ
 rbJ
 rbJ
-rbJ
+tXX
 rnQ
 sIP
 lCR
@@ -132316,7 +132322,7 @@ rbJ
 rbJ
 rbJ
 slk
-rbJ
+tXX
 fKk
 keg
 qUu

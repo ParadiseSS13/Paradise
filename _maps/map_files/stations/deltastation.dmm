@@ -60377,6 +60377,7 @@
 /area/station/security/armory/secure)
 "iMz" = (
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "iMB" = (
@@ -71421,6 +71422,7 @@
 	id_tag = "pod_hangar_inner"
 	},
 /obj/effect/spawner/random/dirt/frequent,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "ncZ" = (
