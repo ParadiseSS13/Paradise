@@ -246,7 +246,7 @@
 			C.throw_at(throw_target, 10, 14)
 		to_chat(C, SPAN_WARNING("You are hit by the [src]!"))
 		to_chat(driver, SPAN_WARNING("You feel a slight bump as you run into [C]!"))
-		C.adjustBruteLoss(speed / 10)
+		C.adjustBruteLoss(speed / 4)
 		return ..()
 
 	if(istype(M, /obj/tgvehicle/sealed/vectorcraft))
