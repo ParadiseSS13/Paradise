@@ -50025,6 +50025,12 @@
 	dir = 4;
 	id_tag = "brig_pilot_outer"
 	},
+/obj/machinery/door_control{
+	id = "brig_pilot_outer";
+	name = "Brig Hangar Outer Door Control";
+	req_access = list(83);
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/security/brig_pilot)
 "eKu" = (
@@ -52304,6 +52310,8 @@
 /obj/machinery/door/airlock/security/glass{
 	dir = 2
 	},
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/security/brig_pilot)
 "fEk" = (

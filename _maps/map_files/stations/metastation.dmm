@@ -43292,6 +43292,15 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
+"iiP" = (
+/obj/machinery/door_control{
+	id = "brig_pilot_outer";
+	name = "Brig Hangar Outer Door Control";
+	req_access = list(83);
+	pixel_x = 31
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig_pilot)
 "iiV" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
@@ -50998,6 +51007,8 @@
 /obj/machinery/door/airlock/security/glass{
 	dir = 4
 	},
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "kBw" = (
@@ -117430,7 +117441,7 @@ aaa
 aaa
 aaa
 aaa
-syI
+iiP
 syI
 sMp
 jOz

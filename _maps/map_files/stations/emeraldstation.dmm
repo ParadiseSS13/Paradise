@@ -60937,6 +60937,12 @@
 	dir = 4;
 	id_tag = "brig_pilot_outer"
 	},
+/obj/machinery/door_control{
+	id = "brig_pilot_outer";
+	name = "Brig Hangar Outer Door Control";
+	req_access = list(83);
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "mkG" = (
@@ -106733,6 +106739,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"viD" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Labor Camp Transfer"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig_pilot)
 "viG" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -169261,7 +169279,7 @@ kuo
 kuo
 kuo
 fVZ
-lgm
+viD
 fVZ
 kuo
 aZS

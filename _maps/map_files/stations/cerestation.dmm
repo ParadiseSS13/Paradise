@@ -25180,6 +25180,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "ehU" = (
@@ -66286,6 +66288,12 @@
 "mVl" = (
 /obj/machinery/door/poddoor/multi_tile/quad{
 	id_tag = "brig_pilot_outer"
+	},
+/obj/machinery/door_control{
+	id = "brig_pilot_outer";
+	name = "Brig Hangar Outer Door Control";
+	req_access = list(83);
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/security/brig_pilot)
@@ -116394,6 +116402,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "xMQ" = (

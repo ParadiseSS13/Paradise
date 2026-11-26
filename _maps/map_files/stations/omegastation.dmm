@@ -29291,15 +29291,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
-"jwI" = (
-/obj/machinery/door_control{
-	id = "brig_pilot_outer";
-	name = "Brig Hangar Outer Door Control";
-	req_access = list(83);
-	pixel_x = 24
-	},
-/turf/space,
-/area/space)
 "jwS" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal/fifty,
@@ -39514,6 +39505,12 @@
 /obj/machinery/door/poddoor/multi_tile/triple{
 	dir = 4;
 	id_tag = "brig_pilot_outer"
+	},
+/obj/machinery/door_control{
+	id = "brig_pilot_outer";
+	name = "Brig Hangar Outer Door Control";
+	req_access = list(83);
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/station/security/brig_pilot)
@@ -56934,6 +56931,7 @@
 	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig_pilot)
 "yfq" = (
@@ -79324,7 +79322,7 @@ aZD
 aZD
 aZD
 aZD
-jwI
+aZD
 aZD
 aZD
 aZD
