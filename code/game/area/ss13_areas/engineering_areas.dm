@@ -199,5 +199,6 @@
 
 /area/station/engineering/shipwright
 	name = "Shipwright's Workshop"
+	icon_state = "shipwright"
 	area_icon_text = "SHIP\nWRIGHT"
 

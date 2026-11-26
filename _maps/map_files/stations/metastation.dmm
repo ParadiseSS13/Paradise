@@ -42479,6 +42479,7 @@
 /obj/item/book/manual/shipwright_basics{
 	pixel_x = -7
 	},
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "hUz" = (

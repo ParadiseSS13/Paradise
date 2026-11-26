@@ -37346,6 +37346,7 @@
 /obj/item/book/manual/shipwright_basics{
 	pixel_x = -7
 	},
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "gSJ" = (
