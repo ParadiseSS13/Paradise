@@ -47642,7 +47642,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera{
-	c_tag = "Brig Pilot Hangar";
+	c_tag = "Brig Hangar";
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,

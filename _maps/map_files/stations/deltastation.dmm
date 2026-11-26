@@ -52284,6 +52284,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"fDG" = (
+/obj/machinery/camera{
+	c_tag = "Brig Hangar";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark/full,
+/area/station/security/brig_pilot)
 "fDI" = (
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -72060,7 +72067,8 @@
 "npY" = (
 /obj/machinery/light_switch{
 	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -157740,7 +157748,7 @@ boI
 aZX
 aaa
 jzT
-nAm
+fDG
 nAm
 jWz
 jzT

@@ -57652,6 +57652,10 @@
 "mLI" = (
 /obj/structure/closet/secure_closet/brig_pilot,
 /obj/item/tank/internals/oxygen,
+/obj/machinery/camera{
+	c_tag = "Brig Hangar";
+	dir = 9
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "mLN" = (

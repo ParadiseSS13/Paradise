@@ -17682,6 +17682,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/security/detective)
+"dkS" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/machinery/camera{
+	c_tag = "Brig Hangar";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/brig_pilot)
 "dkV" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -80308,7 +80316,7 @@ bYN
 wgY
 fvD
 oZH
-mLJ
+dkS
 oLt
 aZD
 aae

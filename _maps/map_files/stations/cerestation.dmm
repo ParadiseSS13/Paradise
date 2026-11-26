@@ -84202,7 +84202,8 @@
 /area/station/engineering/atmos)
 "qQA" = (
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	c_tag = "Brig Hangar"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)

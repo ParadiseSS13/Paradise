@@ -71425,6 +71425,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/camera{
+	c_tag = "Brig Hangar";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig_pilot)
 "ppl" = (
