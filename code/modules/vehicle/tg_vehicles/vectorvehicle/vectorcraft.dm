@@ -166,6 +166,8 @@
 		return FALSE
 
 	loc.Entered(src)
+	var/turf/old_loc = locate(cached_tile["x"], cached_tile["y"])
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc)
 
 	return TRUE
 
