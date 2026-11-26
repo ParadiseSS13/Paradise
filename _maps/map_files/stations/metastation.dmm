@@ -58349,6 +58349,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "mYj" = (

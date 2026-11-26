@@ -83149,6 +83149,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
 	},
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "rDQ" = (

@@ -78026,6 +78026,7 @@
 /area/station/maintenance/aft)
 "pxP" = (
 /obj/structure/closet/secure_closet/shipwright,
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "pxW" = (

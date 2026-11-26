@@ -28328,6 +28328,7 @@
 "iWa" = (
 /obj/structure/closet/secure_closet/shipwright,
 /obj/machinery/firealarm/directional/north,
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "iWp" = (
