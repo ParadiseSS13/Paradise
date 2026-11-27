@@ -1,6 +1,7 @@
 /datum/event/carp_migration
 	name = "Carp Migration"
-	announceWhen	= 50
+	announceWhen = 1
+	startWhen = 20
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_MODERATE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 2)
@@ -27,9 +28,6 @@
 	SIGNAL_HANDLER // COMSIG_MOB_DEATH
 	my_carps -= source
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
-
-/datum/event/carp_migration/setup()
-	announceWhen = rand(40, 60)
 
 /datum/event/carp_migration/announce()
 	var/announcement = ""
