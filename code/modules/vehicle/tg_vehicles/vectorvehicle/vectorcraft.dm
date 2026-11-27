@@ -237,12 +237,35 @@
 
 	obj_integrity = floor(obj_integrity)
 
+	if(obj_integrity <= 0 && !QDELETED(src))
+		obj_destruction()
+
 /obj/tgvehicle/sealed/vectorcraft/obj_destruction(damage_flag)
 	mob_exit(driver)
 	var/datum/effect_system/reagents_explosion/e = new()
 	var/turf/T = get_turf(src)
 	e.set_up(1, T, 1, 3)
 	e.start()
+
+	var/list/parts = list(
+		/obj/item/spacepod_part/wing,
+		/obj/item/spacepod_part/wing,
+		/obj/item/spacepod_part/nacelle,
+		/obj/item/spacepod_part/nacelle,
+		/obj/item/spacepod_part/frame,
+		/obj/item/spacepod_part/engine,
+		/obj/item/spacepod_part/engine,
+		/obj/item/spacepod_part/cockpit,
+	)
+
+	var/parts_spilled = roll("1d4")
+	for(var/i in 1 to parts_spilled)
+		var/part_type = pick_n_take(parts)
+		var/atom/movable/part = new part_type(loc)
+		var/rand_dir = pick(GLOB.alldirs)
+		var/atom/throw_target = get_edge_target_turf(src, rand_dir)
+		part.throw_at(throw_target, rand(1, 4), 10)
+
 	visible_message("The [src] explodes from taking too much damage!")
 
 	. = ..()
