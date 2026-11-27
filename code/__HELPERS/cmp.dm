@@ -64,6 +64,10 @@
 /proc/cmp_ruin_placement_cost(datum/map_template/ruin/A, datum/map_template/ruin/B)
 	return A.get_cost() - B.get_cost()
 
+/proc/cmp_objtype_name(path_a, path_b)
+	var/obj/type_a = path_a
+	var/obj/type_b = path_b
+	return cmp_text_asc(type_a::name, type_b::name)
 
 /// Orders heretic knowledge by priority
 /proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)

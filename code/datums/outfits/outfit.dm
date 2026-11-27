@@ -128,10 +128,7 @@
 			equip_item(H, r_pocket, ITEM_SLOT_RIGHT_POCKET)
 
 		if(box)
-			if(!backpack_contents)
-				backpack_contents = list()
-			backpack_contents.Insert(1, box)
-			backpack_contents[box] = 1
+			H.equip_or_collect(new box(H), ITEM_SLOT_IN_BACKPACK)
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
