@@ -44401,6 +44401,7 @@
 /area/station/medical/storage)
 "dOr" = (
 /obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "dOs" = (
@@ -64647,6 +64648,7 @@
 	},
 /obj/effect/spawner/random/engineering/design_materials/pod_materials,
 /obj/item/stack/sheet/glass/ten,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/shipwright)
 "mqP" = (
