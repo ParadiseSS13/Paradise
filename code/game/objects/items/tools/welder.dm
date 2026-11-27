@@ -145,7 +145,8 @@
 /obj/item/weldingtool/tool_start_check(atom/target, mob/living/user, amount=0)
 	. = tool_use_check(user, amount)
 	if(. && user && !ismob(target)) // Don't flash the user if they're repairing robo limbs or repairing a borg etc. Only flash them if the target is an object
-		user.flash_eyes(light_intensity)
+		if(user.flash_eyes(light_intensity))
+			user.AdjustConfused(10 SECONDS)
 
 /obj/item/weldingtool/use(amount)
 	amount = amount * bit_efficiency_mod
@@ -205,7 +206,8 @@
 	. = ..()
 	if(!. && user)
 		if(progress_flash_divisor == 0)
-			user.flash_eyes(min(light_intensity, 1))
+			if(user.flash_eyes(min(light_intensity, 1)))
+				user.AdjustConfused(4 SECONDS, bound_upper = 10 SECONDS)
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--

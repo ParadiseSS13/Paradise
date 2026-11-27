@@ -351,7 +351,7 @@
 							active_character.alt_head = new_alt_head
 						if(active_character.m_styles["head"])
 							var/head_marking = active_character.m_styles["head"]
-							var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_list[head_marking]
+							var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 							if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(active_character.alt_head in head_marking_style.heads_allowed)))
 								active_character.m_styles["head"] = "None"
 

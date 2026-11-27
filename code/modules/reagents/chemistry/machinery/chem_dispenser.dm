@@ -115,7 +115,7 @@
 	if(recharge_counter >= 4)
 		if(!is_operational())
 			return
-		var/usedpower = cell.give(recharge_amount)
+		var/usedpower = cell.give(recharge_amount, get_turf(src))
 		if(usedpower)
 			use_power(15 * recharge_amount)
 		recharge_counter = 0
@@ -210,9 +210,9 @@
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-			if(!cell.use(actual / powerefficiency))
+			if(!cell.use(actual / powerefficiency, get_turf(src)))
 				if(actual / powerefficiency - cell.charge < 0.0125)
-					if(cell.use(cell.charge))
+					if(cell.use(cell.charge, get_turf(src)))
 						R.add_reagent(params["reagent"], actual)
 						add_fingerprint(usr)
 						return

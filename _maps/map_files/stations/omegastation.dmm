@@ -46601,7 +46601,7 @@
 /area/station/hallway/primary/port/north)
 "sXD" = (
 /obj/structure/railing/cap{
-	dir = 6
+	dir = 4
 	},
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/entry/south)
@@ -49159,7 +49159,7 @@
 /area/station/maintenance/turbine)
 "utV" = (
 /obj/structure/railing/cap{
-	dir = 8
+	dir = 9
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,

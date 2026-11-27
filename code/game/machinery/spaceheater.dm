@@ -231,7 +231,7 @@
 					removed.set_temperature(min(removed.temperature() + heater.heating_power / heat_capacity, 1000))
 				else
 					removed.set_temperature(max(removed.temperature() - heater.heating_power / heat_capacity, TCMB))
-				heater.cell.use(heater.heating_power / 20000)
+				heater.cell.use(heater.heating_power / 20000, get_turf(src))
 			env.merge(removed)
 		else
 			heater.on = FALSE
