@@ -71,9 +71,9 @@
 	return 100 * charge / maxcharge
 
 // use power from a cell
-/obj/item/stock_parts/cell/use(amount)
+/obj/item/stock_parts/cell/use(amount, turf/loc_override = null)
 	if(rigged && amount > 0)
-		explode()
+		explode(loc_override)
 		return 0
 	if(charge < amount)
 		return 0
@@ -81,9 +81,9 @@
 	return 1
 
 // recharge the cell
-/obj/item/stock_parts/cell/proc/give(amount)
+/obj/item/stock_parts/cell/proc/give(amount, turf/loc_override = null)
 	if(rigged && amount > 0)
-		explode()
+		explode(loc_override)
 		return 0
 	if(maxcharge < amount)
 		amount = maxcharge
@@ -124,8 +124,8 @@
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/stock_parts/cell/proc/explode()
-	var/turf/T = get_turf(loc)
+/obj/item/stock_parts/cell/proc/explode(turf/loc_override = null)
+	var/turf/T = loc_override || get_turf(loc)
 	if(charge == 0)
 		return
 

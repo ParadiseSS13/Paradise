@@ -36,13 +36,10 @@
 	. = ..()
 	if(node)
 		node.disconnect(src)
-		node.defer_build_network()
 		node = null
 
 /obj/machinery/atmospherics/pipe/cap/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
-		if(istype(node, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
 		node = null
 
 	update_icon()

@@ -130,33 +130,47 @@ export const NuclearRodFabricator = (props) => {
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell bold>Power Amplification:</Table.Cell>
-                              <Table.Cell>{selectedRod.power_amp_mod || 1}</Table.Cell>
+                              <Table.Cell>{selectedRod.power_amp_mod ?? 1}x</Table.Cell>
                             </Table.Row>
                             <Table.Row>
-                              <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
-                            </Table.Row>
-                            <Table.Row>
-                              <Table.Cell bold>Heat Generation:</Table.Cell>
-                              <Table.Cell>{selectedRod.heat_amount || 0} joules</Table.Cell>
+                              <Table.Cell bold style={{ paddingTop: '8px' }}>
+                                Heat Generation:
+                              </Table.Cell>
+                              <Table.Cell>{selectedRod.heat_amount ?? 0} joules</Table.Cell>
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell bold>Heat Amplification:</Table.Cell>
-                              <Table.Cell>{selectedRod.heat_amp_mod || 1}</Table.Cell>
+                              <Table.Cell>{selectedRod.heat_amp_mod ?? 1}x</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell bold style={{ paddingTop: '8px' }}>
+                                Neighbor Decay Modifier:
+                              </Table.Cell>
+                              <Table.Cell>{selectedRod.neighbor_decay_mod ?? 1}x</Table.Cell>
                             </Table.Row>
                             <Table.Row>
                               <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
                             </Table.Row>
                             <Table.Row>
-                              <Table.Cell bold>Lifespan:</Table.Cell>
+                              <Table.Cell bold>Reactor Overheat Bonus:</Table.Cell>
+                              <Table.Cell>{selectedRod.reactor_overheat_modifier || 0}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell bold>Reactor Min. Temp Modifier:</Table.Cell>
+                              <Table.Cell>{selectedRod.minimum_temp_modifier || 0}</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                              <Table.Cell bold style={{ paddingTop: '8px' }}>
+                                Lifespan:
+                              </Table.Cell>
                               <Table.Cell>{selectedRod.max_durability || 0} cycles</Table.Cell>
                             </Table.Row>
                             {selectedRod.heat_enrichment && (
                               <>
                                 <Table.Row>
-                                  <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
-                                </Table.Row>
-                                <Table.Row>
-                                  <Table.Cell bold>Heat Enrichment:</Table.Cell>
+                                  <Table.Cell bold style={{ paddingTop: '8px' }}>
+                                    Heat Enrichment:
+                                  </Table.Cell>
                                   <Table.Cell>{selectedRod.heat_enrichment}</Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
@@ -168,10 +182,9 @@ export const NuclearRodFabricator = (props) => {
                             {selectedRod.power_enrichment && (
                               <>
                                 <Table.Row>
-                                  <Table.Cell colSpan={2} style={{ paddingTop: '8px' }} />
-                                </Table.Row>
-                                <Table.Row>
-                                  <Table.Cell bold>Power Enrichment:</Table.Cell>
+                                  <Table.Cell bold style={{ paddingTop: '8px' }}>
+                                    Power Enrichment:
+                                  </Table.Cell>
                                   <Table.Cell>{selectedRod.power_enrichment}</Table.Cell>
                                 </Table.Row>
                                 <Table.Row>

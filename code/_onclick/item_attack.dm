@@ -235,10 +235,13 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		damage += H.physiology.melee_bonus
-	take_damage(damage, attacker.damtype, MELEE, 1)
+	var/attack_direction = get_dir(src, user)
+	take_damage(damage, attacker.damtype, MELEE, 1, attack_direction)
 
 /mob/living/attacked_by(obj/item/attacker, mob/living/user, def_zone)
 	send_item_attack_message(attacker, user)
+	SEND_SIGNAL(src, COMSIG_AFTER_ATTACK, user)
+	SEND_SIGNAL(src, COMSIG_AFTER_ATTACKED_BY, user)
 	if(attacker.force)
 		var/bonus_damage = 0
 		if(ishuman(user))

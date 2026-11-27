@@ -913,3 +913,10 @@
 /mob/proc/tamed(mob/living/tamer, obj/item/food)
 	return
 
+/mob/proc/update_pass_emotes()
+	for(var/atom/A in contents)
+		if(ismob(A) || istype(A, /obj/item/holder))
+			status_flags |= PASSEMOTES
+			return TRUE
+	status_flags &= ~PASSEMOTES
+	return FALSE

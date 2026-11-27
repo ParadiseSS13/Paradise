@@ -7,6 +7,10 @@
 	var/obj/machinery/atmospherics/node
 	/// The pipenet we are plugged into
 	var/datum/pipeline/parent
+	/// The tile MILLA is watching for us, see watched_tile_value()
+	var/turf/watched_turf
+	/// Where that tile's values start in SSair.watched_tiles, minus one
+	var/watched_offset
 
 /obj/machinery/atmospherics/unary/Initialize(mapload)
 	. = ..()
@@ -19,7 +23,28 @@
 		node.disconnect(src)
 		node = null
 		nullifyPipenet(parent)
+	if(!isnull(watched_offset))
+		SSair.unwatch_tile(watched_offset)
+		watched_offset = null
+	watched_turf = null
 	return ..()
+
+/// One of our tile's values from SSair.watched_tiles, like MILLA_WATCHED_PRESSURE. Null when it can't stand in for reading the tile's air.
+/obj/machinery/atmospherics/unary/proc/watched_tile_value(turf/T, index)
+	if(watched_turf != T)
+		// First time here, or we got moved (shuttles)
+		if(!isnull(watched_offset))
+			SSair.unwatch_tile(watched_offset)
+		watched_turf = T
+		watched_offset = SSair.watch_tile(T)
+		return null
+	// Something already read or changed this tile's air this tick, so a normal read would give its copy and not MILLA's.
+	if(T.bound_air && T.bound_air.lastread >= SSair.milla_tick)
+		return null
+	// Only fetched while atmos machinery is processing
+	if(isnull(SSair.watched_tiles))
+		return null
+	return SSair.watched_tiles[watched_offset + index]
 
 /obj/machinery/atmospherics/unary/atmos_init()
 	..()
@@ -56,7 +81,7 @@
 			var/mob/living/current_crawler = crawler
 			current_crawler.update_pipe_vision(src)
 
-/obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
+/obj/machinery/atmospherics/unary/build_network()
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
@@ -64,9 +89,12 @@
 
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
-		if(istype(node, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
 		node = null
+		if(istype(reference, /obj/machinery/atmospherics/pipe))
+			// The pipe we were on is gone, so we get a pipenet of our own
+			nullifyPipenet(parent)
+			if(!QDELETED(src))
+				build_network()
 	update_icon()
 
 /obj/machinery/atmospherics/unary/nullifyPipenet(datum/pipeline/P)

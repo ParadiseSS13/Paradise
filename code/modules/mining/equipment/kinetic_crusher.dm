@@ -242,6 +242,7 @@
 	desc = "A strange spike with no usage."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "tail_spike"
+	new_attack_chain = TRUE
 	var/bonus_value = 10 //if it has a bonus effect, this is how much that effect is
 	var/denied_type = /obj/item/crusher_trophy
 
@@ -252,11 +253,10 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-/obj/item/crusher_trophy/attackby__legacy__attackchain(obj/item/A, mob/living/user)
-	if(istype(A, /obj/item/kinetic_crusher))
-		add_to(A, user)
-	else
-		..()
+/obj/item/crusher_trophy/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kinetic_crusher))
+		add_to(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/crusher_trophy/proc/add_to(obj/item/kinetic_crusher/H, mob/living/user)
 	for(var/t in H.trophies)
@@ -535,3 +535,23 @@
 	. = ..()
 	if(.)
 		H.adaptive_damage_bonus -= bonus_value
+
+/obj/item/crusher_trophy/whelp_oil
+	name = "ash whelp oil"
+	desc = "A bottle of heat resistant oil that once lined a now dead Ash Whelp's fire-producing-gland"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle3"
+	denied_type = /obj/item/crusher_trophy/whelp_oil
+
+/obj/item/crusher_trophy/whelp_oil/effect_desc()
+	return "your kinetic crusher to be fire and lava proof"
+
+/obj/item/crusher_trophy/whelp_oil/add_to(obj/item/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.resistance_flags |= LAVA_PROOF
+
+/obj/item/crusher_trophy/whelp_oil/remove_from(obj/item/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.resistance_flags &= ~LAVA_PROOF

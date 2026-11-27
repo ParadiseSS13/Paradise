@@ -63,10 +63,10 @@
 	return TRUE
 
 /mob/living/carbon/human/proc/change_markings(marking_style, location = "body")
-	if(!marking_style || m_styles[location] == marking_style || !(marking_style in GLOB.marking_styles_list))
+	if(!marking_style || m_styles[location] == marking_style || !(marking_style in GLOB.marking_styles_full_list))
 		return
 
-	var/datum/sprite_accessory/body_markings/marking = GLOB.marking_styles_list[marking_style]
+	var/datum/sprite_accessory/body_markings/marking = GLOB.marking_styles_full_list[marking_style]
 	if(marking.name != "None" && marking.marking_location != location)
 		return
 
@@ -76,18 +76,18 @@
 			return
 
 		if(head_organ.alt_head && head_organ.alt_head != "None")
-			var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_list[marking_style]
+			var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_full_list[marking_style]
 			if(marking.name != "None" && (!H.heads_allowed || (!("All" in H.heads_allowed) && !(head_organ.alt_head in H.heads_allowed))))
 				return
 		else
 			if(!head_organ.alt_head || head_organ.alt_head == "None")
 				head_organ.alt_head = "None"
-				var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_list[marking_style]
+				var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_full_list[marking_style]
 				if(H.heads_allowed && !("All" in H.heads_allowed))
 					return
 
 	if(location == "tail" && marking.name != "None")
-		var/datum/sprite_accessory/body_markings/tail/tail_marking = GLOB.marking_styles_list[marking_style]
+		var/datum/sprite_accessory/body_markings/tail/tail_marking = GLOB.marking_styles_full_list[marking_style]
 		if(!body_accessory)
 			if(tail_marking.tails_allowed)
 				return
@@ -134,7 +134,7 @@
 	//Handle head markings if they're incompatible with the new alt head.
 	if(m_styles["head"])
 		var/head_marking = m_styles["head"]
-		var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_list[head_marking]
+		var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 		if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(H.alt_head in head_marking_style.heads_allowed)))
 			m_styles["head"] = "None"
 			update_markings()
@@ -247,6 +247,37 @@
 	if(colour == dna.chat_color)
 		return
 	dna.chat_color = colour
+	update_dna()
+
+/mob/living/carbon/human/get_blooper_id()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_id
+
+/mob/living/carbon/human/get_blooper_speed()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_speed
+/mob/living/carbon/human/get_blooper_pitch()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_pitch
+/mob/living/carbon/human/get_blooper_pitch_range()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.blooper_pitch_range
+
+/mob/living/carbon/human/proc/change_blooper_data(id = null, speed = null, pitch = null, pitch_range = null)
+	if(!dna)
+		return
+	if(!isnull(id) && blooper_id == dna.blooper_id)
+		dna.blooper_id = id
+	if(!isnull(speed) && blooper_speed == dna.blooper_speed)
+		dna.blooper_speed = speed
+	if(!isnull(pitch) && blooper_pitch == dna.blooper_pitch)
+		dna.blooper_pitch = pitch
+	if(!isnull(pitch_range) && blooper_pitch_range == dna.blooper_pitch_range)
+		dna.blooper_pitch_range = pitch_range
 	update_dna()
 
 /mob/living/carbon/human/proc/get_eye_color()

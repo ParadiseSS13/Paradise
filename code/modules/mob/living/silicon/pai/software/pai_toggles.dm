@@ -77,6 +77,7 @@
 		user.add_language("Orluum")
 		user.add_language("Clownish")
 		user.add_language("Cygni Standard")
+		user.add_language("Voidfarer")
 		user.add_language("Tkachi")
 		user.add_language("Skkula-Runespeak")
 	else
@@ -91,6 +92,7 @@
 		user.remove_language("Orluum")
 		user.remove_language("Clownish")
 		user.remove_language("Cygni Standard")
+		user.remove_language("Voidfarer")
 		user.remove_language("Tkachi")
 		user.remove_language("Skkula-Runespeak")
 

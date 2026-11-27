@@ -69,7 +69,7 @@
 /obj/machinery/economy/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	icon_state = "boozeomat" //////////////22 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	icon_state = "boozeomat" // 28 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat_deny"
 	icon_lightmask = "smartfridge"
 	icon_panel = "smartfridge"
@@ -78,6 +78,7 @@
 	products = list(
 		/obj/item/reagent_containers/drinks/bottle/gin = 5,
 		/obj/item/reagent_containers/drinks/bottle/whiskey = 5,
+		/obj/item/reagent_containers/drinks/bottle/anti_whisky = 5,
 		/obj/item/reagent_containers/drinks/bottle/tequila = 5,
 		/obj/item/reagent_containers/drinks/bottle/vodka = 5,
 		/obj/item/reagent_containers/drinks/bottle/vermouth = 5,
@@ -102,11 +103,12 @@
 		/obj/item/reagent_containers/drinks/cans/ginger_ale = 8,
 		/obj/item/reagent_containers/drinks/drinkingglass = 30,
 		/obj/item/reagent_containers/drinks/drinkingglass/shotglass = 30,
+		/obj/item/reagent_containers/drinks/teacup = 15,
 		/obj/item/reagent_containers/drinks/ice = 9,
 	)
 
 	contraband = list(
-		/obj/item/reagent_containers/drinks/tea = 10,
+		/obj/item/reagent_containers/drinks/teacup/tea = 10,
 		/obj/item/reagent_containers/drinks/bottle/fernet = 5,
 		/obj/item/reagent_containers/drinks/bottle/vampire_bestfriend = 5,
 	)
@@ -172,7 +174,7 @@
 	category = VENDOR_TYPE_DRINK
 	products = list(
 		/obj/item/reagent_containers/drinks/coffee = 25,
-		/obj/item/reagent_containers/drinks/tea = 25,
+		/obj/item/reagent_containers/drinks/teacup/tea = 25,
 		/obj/item/reagent_containers/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/drinks/chocolate = 10,
 		/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 10,
@@ -186,7 +188,7 @@
 
 	prices = list(
 		/obj/item/reagent_containers/drinks/coffee = 80,
-		/obj/item/reagent_containers/drinks/tea = 80,
+		/obj/item/reagent_containers/drinks/teacup/tea = 80,
 		/obj/item/reagent_containers/drinks/h_chocolate = 64,
 		/obj/item/reagent_containers/drinks/chocolate = 120,
 		/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 64,

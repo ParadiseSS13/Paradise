@@ -230,22 +230,23 @@
 	min_temp = T0C + 100
 	result_amount = 1
 
-
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/soap/homemade(location)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/soap/homemade(location)
 
 /datum/chemical_reaction/candlefication
 	name = "Candlefication"
 	id = "candlefication"
 	result = null
-	required_reagents = list("liquidgibs" = 5, "oxygen"  = 5) //
+	required_reagents = list("liquidgibs" = 5, "oxygen"  = 5)
 	min_temp = T0C + 100
 	result_amount = 1
 
 /datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/candle(location)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/candle(location)
 
 /datum/chemical_reaction/meatification
 	name = "Meatification"
@@ -256,7 +257,8 @@
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/food/meat/slab/meatproduct(location)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/food/meat/slab/meatproduct(location)
 
 /datum/chemical_reaction/lye
 	name = "lye"

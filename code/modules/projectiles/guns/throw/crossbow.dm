@@ -66,21 +66,28 @@
 		modify_projectile(to_launch, 1)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/throw/crossbow/attack_self__legacy__attackchain(mob/living/user)
-	if(tension)
-		if(to_launch)
-			user.visible_message(SPAN_NOTICE("[user] relaxes the tension on [src]'s string and removes [to_launch]."),SPAN_NOTICE("You relax the tension on [src]'s string and remove [to_launch]."))
-			to_launch.forceMove(get_turf(src))
-			var/obj/item/arrow/A = to_launch
-			to_launch = null
-			A.removed()
-			process_chamber()
-		else
-			user.visible_message(SPAN_NOTICE("[user] relaxes the tension on [src]'s string."),SPAN_NOTICE("You relax the tension on [src]'s string."))
-		tension = 0
-		update_icon(UPDATE_ICON_STATE)
-	else
+/obj/item/gun/throw/crossbow/handle_activate_self(mob/user)
+	if(!tension)
 		draw(user)
+		return
+
+	if(to_launch)
+		user.visible_message(
+			SPAN_NOTICE("[user] relaxes the tension on [src]'s string and removes [to_launch]."),
+			SPAN_NOTICE("You relax the tension on [src]'s string and remove [to_launch].")
+		)
+		to_launch.forceMove(get_turf(src))
+		var/obj/item/arrow/A = to_launch
+		to_launch = null
+		A.removed()
+		process_chamber()
+	else
+		user.visible_message(
+			SPAN_NOTICE("[user] relaxes the tension on [src]'s string."),
+			SPAN_NOTICE("You relax the tension on [src]'s string.")
+		)
+	tension = 0
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/throw/crossbow/proc/draw(mob/living/user)
 	if(user.incapacitated())
@@ -92,27 +99,34 @@
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
 	if(do_after(user, 25 * drawtension, target = user))
 		tension = drawtension
-		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
+		user.visible_message(
+			SPAN_WARNING("[user] draws back the string of [src]!"),
+			SPAN_NOTICE("[src] clunks as you draw the string to its maximum tension!"),
+			SPAN_HEAR("You hear a clunk!")
+		)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/gun/throw/crossbow/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stock_parts/cell))
+/obj/item/gun/throw/crossbow/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
 		return ..()
 
 	if(cell)
-		to_chat(user, SPAN_NOTICE("[src] already has a cell installed."))
-		return
+		to_chat(user, SPAN_WARNING("[src] already has a cell installed!"))
+		return ITEM_INTERACT_COMPLETE
 
-	user.drop_item()
-	I.forceMove(src)
-	cell = I
+	if(!user.transfer_item_to(used, src))
+		to_chat(user, SPAN_WARNING("[src] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	cell = used
 	to_chat(user, SPAN_NOTICE("You jam [cell] into [src] and wire it to the firing coil."))
 	process_chamber()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		to_chat(user, SPAN_NOTICE("[src] doesn't have a cell installed."))
+		to_chat(user, SPAN_WARNING("[src] doesn't have a cell installed."))
 		return
 
 	cell.forceMove(get_turf(src))

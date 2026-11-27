@@ -230,7 +230,11 @@
 		var/mob/living/living_mob = AM
 		if(!living_mob.buckled)
 			current_dir = AM.dir
+	var/turf/old_turf = AM.loc
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
+		// Anchored things can be holding back air, and most don't expect to get moved.
+		if(AM.anchored)
+			AM.move_update_air(old_turf)
 		Move(get_step(loc, t), t)
 	if(current_dir)
 		AM.setDir(current_dir)
@@ -704,7 +708,7 @@
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
 		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL))
+	if(pulling && (restrained() || HAS_TRAIT(src, TRAIT_CANNOT_PULL)))
 		stop_pulling()
 
 	. = ..()
@@ -1183,8 +1187,8 @@
 	// Mobs block very little Beta and Gamma radiation, but we still want the rads to affect them.
 	if(emission_type > ALPHA_RAD)
 		amount /=  (1 - RAD_MOB_INSULATION)
-	// Alpha sources outside the body don't do much
-	else if(!is_inside_mob(source))
+	// Alpha sources outside the body don't do much. Contamination on our own body isn't outside it.
+	else if(source != src && !is_inside_mob(source))
 		amount /= 100
 	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
@@ -1433,3 +1437,15 @@
 /mob/living/proc/get_strippable_items(datum/source, list/items)
 	SIGNAL_HANDLER // COMSIG_STRIPPABLE_REQUEST_ITEMS
 	return
+
+/mob/living/proc/get_blooper_id()
+	return blooper_id
+
+/mob/living/proc/get_blooper_speed()
+	return blooper_speed
+
+/mob/living/proc/get_blooper_pitch()
+	return blooper_pitch
+
+/mob/living/proc/get_blooper_pitch_range()
+	return blooper_pitch_range

@@ -275,6 +275,13 @@
 	transparent_floor = TRUE
 	rust_resistance = RUST_RESISTANCE_BASIC
 
+/turf/simulated/floor/catwalk/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/catwalk/grey
 	icon = 'icons/turf/floors/catwalk_floor_grey.dmi'
 	floor_tile = /obj/item/stack/tile/catwalk/grey

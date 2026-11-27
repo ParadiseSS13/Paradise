@@ -32,9 +32,8 @@
 			meter.transfer_fingerprints_to(PM)
 			qdel(meter)
 
-	// if we're somehow by ourself
-	if(parent && !QDELETED(parent) && length(parent.members) == 1 && parent.members[1] == src)
-		qdel(parent)
+	if(parent && !QDELETED(parent))
+		parent.remove_pipe(src)
 	parent = null
 
 	return ..()
@@ -64,7 +63,7 @@
 		return null
 	return list(parent.air) + parent.other_airs
 
-/obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
+/obj/machinery/atmospherics/pipe/build_network()
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)

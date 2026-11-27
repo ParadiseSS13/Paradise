@@ -177,6 +177,7 @@
 		icon_state += "_closed"
 
 /obj/structure/extinguisher_cabinet/proc/toggle_open(mob/user, no_user = FALSE)
+	opened = !opened
 	if(no_user)
 		src.visible_message(
 			SPAN_WARNING("[src] swings open!"),
@@ -184,12 +185,11 @@
 		)
 	else
 		user.visible_message(
-			SPAN_NOTICE("[user] opens [src]."),
-			SPAN_NOTICE("You open [src]."),
+			SPAN_NOTICE("[user] [opened ? "opens" : "closes"] [src]."),
+			SPAN_NOTICE("You [opened ? "open" : "close"] [src]."),
 			SPAN_HEAR("You hear a latch clicking.")
 		)
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-	opened = !opened
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/empty
