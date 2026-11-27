@@ -74,7 +74,7 @@
 			qdel(leaf)
 			qdel(src)
 		else
-			to_chat(usr, "<span class ='warning'>You must dry this first!</span>")
+			to_chat(usr, SPAN_WARNING("You must dry this first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

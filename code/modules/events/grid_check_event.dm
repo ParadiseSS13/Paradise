@@ -4,7 +4,7 @@
 	endWhen = 60 // In process ticks
 
 /datum/event/grid_check/announce(false_alarm)
-	GLOB.minor_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Electrical Grid Check")
+	GLOB.minor_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Electrical Grid Check", 'sound/AI/power_grid_check.ogg')
 	return
 
 /datum/event/grid_check/start()

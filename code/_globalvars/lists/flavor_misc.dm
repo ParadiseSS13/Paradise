@@ -2,7 +2,8 @@
 	//Head accessory styles
 GLOBAL_LIST_EMPTY(head_accessory_styles_list) //stores /datum/sprite_accessory/head_accessory indexed by name
 	//Marking styles
-GLOBAL_LIST_EMPTY(marking_styles_list) //stores /datum/sprite_accessory/body_markings indexed by name
+GLOBAL_LIST_EMPTY(marking_styles_public_list) //stores /datum/sprite_accessory/body_markings indexed by name
+GLOBAL_LIST_EMPTY(marking_styles_full_list)
 	//Hairstyles
 GLOBAL_LIST_EMPTY(hair_styles_public_list)			//stores /datum/sprite_accessory/hair indexed by name
 GLOBAL_LIST_EMPTY(hair_styles_male_list)
@@ -77,3 +78,11 @@ GLOBAL_LIST_INIT(pda_ringtone_choices, list("beep" = 'sound/machines/twobeep.ogg
 								"zap" = 'sound/effects/eleczap.ogg',
 								"disgusting" = 'sound/effects/blobattack.ogg',
 								"hungry" = 'sound/weapons/bite.ogg'))
+
+
+// Code for bloopers
+
+GLOBAL_LIST_EMPTY(blooper_list)
+GLOBAL_LIST_EMPTY(blooper_random_list)
+GLOBAL_LIST_EMPTY(blooper_whitelist)
+GLOBAL_VAR_INIT(blooper_allowed, TRUE) // For administrators

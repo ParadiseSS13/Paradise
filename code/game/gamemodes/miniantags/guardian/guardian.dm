@@ -283,6 +283,8 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Gaseous", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = FALSE
+	/// What type of holoparasite do we spawn if it's forced to be one type
+	var/fixed_type
 	/// What type was picked the first activation.
 	var/picked_random_type
 	var/color_list = list("Pink" = "#FFC0CB",
@@ -317,7 +319,9 @@
 	to_chat(user, "[use_message]")
 
 	var/guardian_type
-	if(random)
+	if(fixed_type)
+		guardian_type = fixed_type
+	else if(random)
 		if(!picked_random_type) // Only pick the type once. No type fishing.
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
@@ -456,6 +460,9 @@
 	return !used
 
 /obj/item/guardiancreator/tech/choose
+
+/obj/item/guardiancreator/tech/ninja
+	fixed_type = "Assassin"
 
 /obj/item/guardiancreator/biological
 	name = "scarab egg cluster"

@@ -36,6 +36,11 @@ SUBSYSTEM_DEF(tgui)
 	ntos_error = "<style type='text/css'>\n[ntos_error]\n</style>"
 	basehtml = replacetextEx(basehtml, "<!-- tgui:ntos-error -->", ntos_error)
 
+/datum/controller/subsystem/tgui/Recover()
+	// Keep the open windows. A new subsystem that forgets them leaves every open window ignoring clicks for the rest of the round
+	open_uis = SStgui.open_uis
+	open_uis_by_src = SStgui.open_uis_by_src
+
 /datum/controller/subsystem/tgui/can_vv_get(var_name)
 	if(var_name == "basehtml")
 		return FALSE // No security implication here, it just spams the fuck out of the UI
@@ -65,6 +70,9 @@ SUBSYSTEM_DEF(tgui)
 			open_uis.Remove(ui)
 		if(MC_TICK_CHECK)
 			return
+	// We got through every window, so earlier MC restarts weren't our fault. Only blames in a row should switch us off
+	if(failure_strikes?[type])
+		failure_strikes[type] = 0
 
 /**
  * public
@@ -202,6 +210,9 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/update_uis(datum/src_object, full_update = FALSE)
 	var/count = 0
+	// If this object has no UID, it's guaranteed to not have any UIs open. UIDs are created when a UI is opened.
+	if(!src_object.unique_datum_id)
+		return count
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
 	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))
@@ -227,6 +238,10 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/close_uis(datum/src_object)
 	. = 0
+	// If this object has no UID, it's guaranteed to not have any UIs open. UIDs are created when a UI is opened.
+	// Every datum calls this in Destroy(), so don't make one here.
+	if(!src_object.unique_datum_id)
+		return
 	var/key = "[src_object.UID()]"
 	// No UIs opened for this src_object
 	if(isnull(open_uis_by_src[key]) || !islist(open_uis_by_src[key]))

@@ -59,7 +59,7 @@ const ManifestTable = (group) => {
         <Table.Row header color="white">
           <Table.Cell width="50%">Name</Table.Cell>
           <Table.Cell width="35%">Rank</Table.Cell>
-          <Table.Cell width="15%">Active</Table.Cell>
+          <Table.Cell width="15%">Status</Table.Cell>
         </Table.Row>
 
         {group.map((person) => (

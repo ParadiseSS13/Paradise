@@ -848,20 +848,12 @@
 	name = "straight jacket"
 	desc = "A suit that completely restrains the wearer."
 	icon_state = "straight_jacket"
+	clothing_traits = list(TRAIT_RESTRAINED)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	breakouttime = 3000
 	insert_max = 0
-
-/obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_OUTER_SUIT)
-		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
-
-/obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -1677,3 +1669,50 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	species_restricted = list("Skkulakin")
+
+/obj/item/clothing/suit/oversuit
+	name = "oversuit"
+	desc = "A Haroldson-braded oversuit, worn over your existing clothing. It's also neatly foldable and dyeable!"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
+	)
+	icon_state = "oversuit"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_OVERSUIT
+
+/obj/item/clothing/suit/oversuit/black
+	name = "black oversuit"
+	color = "#4A4A4B" //Grey but it looks black
+
+/obj/item/clothing/suit/oversuit/red
+	name = "red oversuit"
+	color = "#D91414" //Red
+
+/obj/item/clothing/suit/oversuit/green
+	name = "green oversuit"
+	color = "#5C9E54" //Green
+
+/obj/item/clothing/suit/oversuit/darkblue
+	name = "dark blue oversuit"
+	color = "#1E85BC" //Blue
+
+/obj/item/clothing/suit/oversuit/purple
+	name = "purple oversuit"
+	color = "#9557C5" //purple
+
+/obj/item/clothing/suit/oversuit/yellow
+	name = "yellow oversuit"
+	color = "#E0C14F" //Yellow
+
+/obj/item/clothing/suit/oversuit/orange
+	name = "orange oversuit"
+	color = "#C67A4B" //orange
+
+/obj/item/clothing/suit/oversuit/cyan
+	name = "cyan oversuit"
+	color = "#54A3CE" //Cyan (Or close to it)

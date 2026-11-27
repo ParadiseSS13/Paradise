@@ -122,11 +122,14 @@
 	materials = list(MAT_METAL = 35000)
 	var/heldname = "default name"
 
-/obj/item/borg/upgrade/rename/attack_self__legacy__attackchain(mob/user)
+/obj/item/borg/upgrade/rename/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	if(!new_heldname)
-		return
+		return ITEM_INTERACT_COMPLETE
 	heldname = new_heldname
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/borg/upgrade/rename/do_install(mob/living/silicon/robot/R)
 	if(!R.allow_rename)
@@ -558,6 +561,7 @@
 	name = "B.O.R.I.S. module"
 	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
 	icon_state = "bluespacearray"
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500)
 	origin_tech = "engineering=3;magnets=4;programming=5"
 	var/alien = FALSE // This is an incredibely scuffed way to do this, but it works.
 	var/syndiemmi = FALSE

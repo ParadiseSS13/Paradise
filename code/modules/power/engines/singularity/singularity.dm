@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	light_range = 6
 	appearance_flags = LONG_GLIDE
+	new_attack_chain = TRUE
 	var/current_size = 1
 	var/allowed_size = 1
 	var/energy = 100 //How strong are we?
@@ -77,12 +78,12 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 		return ..()
 	else
 		last_failed_movement = direct
-		return 0
+		return FALSE
 
 
 /obj/singularity/attack_hand(mob/user)
 	consume(user)
-	return 1
+	return TRUE
 
 /obj/singularity/attack_alien(mob/user)
 	consume(user)
@@ -90,9 +91,9 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/attack_animal(mob/user)
 	consume(user)
 
-/obj/singularity/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/singularity/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	consume(user)
-	return 1
+	return ITEM_INTERACT_COMPLETE
 
 /obj/singularity/attack_tk(mob/user)
 	if(!iscarbon(user))

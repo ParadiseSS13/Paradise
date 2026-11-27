@@ -46,6 +46,9 @@ mysql = { git = "https://github.com/ZeWaka/rust-mysql-simple.git", tag = "v26.0.
 dashmap = { version = "6.1", features = ["rayon", "serde"] }
 uuid = { version = "1.18.1", features = ["v4"] }
 totp-rs = { version = "5.7.2", features = ["qr", "gen_secret"] }
+zeroize = "1.9"
+ed25519-dalek = "3.0"
+base64 = "0.23"
 
 [dev-dependencies]
 # diffs between two strings/texts/files, used in tests

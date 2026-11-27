@@ -11,11 +11,11 @@
 	var/number_of_pods = 3
 
 /datum/event/cargo_pods/announce()
-	var/announcement = "Multiple jettisoned cargo pods have been detected on a collision course with the station. Estimated impact zones: "
+	var/announcement = "Multiple jettisoned cargo pods have been detected on a collision course with the station. Estimated impact zones are as follows: "
 	for(var/area/A in drop_areas)
 		announcement += "\n- [A.name]"
 	announcement += "\n\n - A.L.I.C.E."
-	GLOB.minor_announcement.Announce(announcement, "Proximity Alert")
+	GLOB.minor_announcement.Announce(announcement, "Proximity Alert", 'sound/AI/cargo_pod_impact.ogg')
 
 /datum/event/cargo_pods/setup()
 	number_of_pods = rand(1, 4)
@@ -45,14 +45,12 @@
 		addtimer(CALLBACK(src, PROC_REF(drop_pod), T, pack_to_drop), rand(5 SECONDS, 8 SECONDS))
 
 /datum/event/cargo_pods/proc/drop_pod(turf/T, datum/supply_packs/pack_to_drop)
-	explosion(T, 0, 2, 4, 6, cause = "Cargo Pod Event")
+	explosion(T, 0, 2, 4, 6, cause = "Cargo Pod Event", breach = FALSE)
 	sleep(1)
+	var/obj/structure/closet/crate/cargo_pod/pod = new /obj/structure/closet/crate/cargo_pod(T)
 	for(var/I in pack_to_drop.contains)
-		var/list/possible_spawn_turfs = view(4, T)
-		shuffle(possible_spawn_turfs)
-		var/turf/spawn_turf = T
-		for(var/turf/possible_spawn_turf in possible_spawn_turfs)
-			if(!possible_spawn_turf.is_blocked_turf())
-				spawn_turf = possible_spawn_turf
-				break
-		new I(spawn_turf)
+		new I(pod)
+	if(pack_to_drop.containertype && istype(pack_to_drop.containertype, /obj/structure/closet/critter))
+		var/obj/structure/closet/critter/crittercrate = pack_to_drop.containertype
+		for(var/I in 1 to crittercrate.amount)
+			new crittercrate.content_mob(pod)

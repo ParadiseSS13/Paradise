@@ -84,6 +84,12 @@
 
 	var/height = "average height"
 
+	var/blooper_id = "mutedc4"
+	var/blooper_pitch = 1
+	var/blooper_pitch_range = 0.2
+	var/blooper_speed = 4
+	var/blooper_volume = 50
+
 	// OOC Metadata:
 	var/metadata = ""
 
@@ -225,7 +231,11 @@
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type,
 					pda_ringtone=:pda_ringtone,
-					quirks=:quirks
+					quirks=:quirks,
+					blooper_id=:blooper_id,
+					blooper_speed=:blooper_speed,
+					blooper_pitch=:blooper_pitch,
+					blooper_pitch_range=:blooper_pitch_range
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -291,7 +301,11 @@
 						"pda_ringtone" = pda_ringtone,
 						"ckey" = C.ckey,
 						"slot" = slot_number,
-						"quirks" = quirks
+						"quirks" = quirks,
+						"blooper_id" = blooper_id,
+						"blooper_speed" = blooper_speed,
+						"blooper_pitch" = blooper_pitch,
+						"blooper_pitch_range" = blooper_pitch_range,
 					))
 
 			if(!query.warn_execute())
@@ -330,7 +344,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type, pda_ringtone, quirks, blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -357,7 +371,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type, :pda_ringtone, :quirks, :blooper_id, :blooper_speed, :blooper_pitch, :blooper_pitch_range)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -422,7 +436,11 @@
 		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type,
 		"pda_ringtone" = pda_ringtone,
-		"quirks" = quirks
+		"quirks" = quirks,
+		"blooper_id" = blooper_id,
+		"blooper_speed" = blooper_speed,
+		"blooper_pitch" = blooper_pitch,
+		"blooper_pitch_range" = blooper_pitch_range,
 	))
 
 	if(!query.warn_execute())
@@ -517,8 +535,12 @@
 	cyborg_brain_type = query.item[59]
 	body_type = query.item[60]
 	pda_ringtone = query.item[61]
-
 	quirks = query.item[62]
+	blooper_id = query.item[63]
+	blooper_speed = query.item[64]
+	blooper_pitch = query.item[65]
+	blooper_pitch_range = query.item[66]
+
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -545,6 +567,18 @@
 	if(isnull(height))
 		height = initial(height)
 
+	if(isnull(blooper_id))
+		blooper_id = "mutedc4"
+
+	if(isnull(blooper_speed))
+		blooper_speed = initial(blooper_speed)
+
+	if(isnull(blooper_pitch))
+		blooper_pitch = initial(blooper_pitch)
+
+	if(isnull(blooper_pitch_range))
+		blooper_pitch_range = initial(blooper_pitch_range)
+
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
 
@@ -569,7 +603,7 @@
 	f_style			= sanitize_inlist(f_style, GLOB.facial_hair_styles_list, initial(f_style))
 
 	for(var/marking_location in m_styles)
-		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], GLOB.marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])
+		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], GLOB.marking_styles_full_list, DEFAULT_MARKING_STYLES[marking_location])
 
 	ha_style		= sanitize_inlist(ha_style, GLOB.head_accessory_styles_list, initial(ha_style))
 	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head))
@@ -608,6 +642,13 @@
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	pda_ringtone = sanitize_inlist(pda_ringtone, GLOB.pda_ringtone_choices, initial(pda_ringtone))
 	quirks = sanitize_json(quirks)
+
+	if(!(blooper_id in GLOB.blooper_list) || !species_whitelisted_for_bloopers(blooper_id, species))
+		blooper_id = initial(blooper_id)
+	var/datum/blooper/blooper_type = GLOB.blooper_list[blooper_id]
+	blooper_speed = sanitize_float(blooper_speed, initial(blooper_type.minspeed), initial(blooper_type.maxspeed), initial(blooper_speed))
+	blooper_pitch = sanitize_float(blooper_pitch, initial(blooper_type.minpitch), initial(blooper_type.maxpitch), initial(blooper_pitch))
+	blooper_pitch_range = sanitize_float(blooper_pitch_range, initial(blooper_type.minvariance), initial(blooper_type.maxvariance), initial(blooper_pitch_range))
 	if(!player_alt_titles)
 		player_alt_titles = new()
 	if(!organ_data)
@@ -765,7 +806,7 @@
 				temp.Blend(s_colour, blend_mode)
 			if(current_species.bodyflags & HAS_TAIL_MARKINGS)
 				var/tail_marking = m_styles["tail"]
-				var/datum/sprite_accessory/body_markings/BM = GLOB.marking_styles_list[tail_marking]
+				var/datum/sprite_accessory/body_markings/BM = GLOB.marking_styles_full_list[tail_marking]
 				if(BM)
 					var/icon/t_marking_s = new(BM.icon, "[BM.icon_state]_s")
 					t_marking_s.Blend(m_colours["tail"], ICON_ADD)
@@ -777,20 +818,23 @@
 				preview_icon.Blend(underlay, ICON_UNDERLAY)
 
 			ICON_SHIFT_XY(temp, offset_x, offset_y)
-			preview_icon.Blend(temp, ICON_OVERLAY)
+			if(istype(current_species, /datum/species/vox))  // Fixes vox 'front-tail' in preview
+				preview_icon.Blend(temp, ICON_UNDERLAY)
+			else
+				preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Markings
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
 		if(current_species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = m_styles["body"]
-			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_full_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
 		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = m_styles["head"]
-			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
@@ -1839,6 +1883,8 @@
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+
+	character.change_blooper_data(blooper_id, blooper_speed, blooper_pitch, blooper_pitch_range)
 
 	character.age = age
 

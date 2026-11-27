@@ -14,6 +14,7 @@
 	materials = list(MAT_METAL = 5000)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
+	new_attack_chain = TRUE
 
 	/// How many canisters fit in our flamethrower?
 	var/max_canisters = 1
@@ -56,10 +57,18 @@
 		. += mutable_appearance('icons/obj/chemical_flamethrower.dmi', "[chemical_canister.icon_state]_[iterator]")
 		iterator++
 
-/obj/item/chemical_flamethrower/attack_self__legacy__attackchain(mob/user)
+/obj/item/chemical_flamethrower/examine(mob/user)
 	. = ..()
+	for(var/obj/item/chemical_canister/canister in canisters)
+		. += canister.get_fuel_text()
+
+/obj/item/chemical_flamethrower/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(length(canisters))
+		add_fingerprint(user)
 		unequip_canisters(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/chemical_flamethrower/proc/unequip_canisters(mob/user)
 	if(!length(canisters))
@@ -71,19 +80,23 @@
 	canisters -= canister_to_remove
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/chemical_flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	. = ..()
-	if(!istype(I, /obj/item/chemical_canister))
-		to_chat(user, SPAN_NOTICE("You can't fit [I] in there!"))
-		return
+/obj/item/chemical_flamethrower/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/chemical_canister))
+		return ..()
+
 	if(length(canisters) >= max_canisters)
 		to_chat(user, SPAN_NOTICE("[src] is already full!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(user.transfer_item_to(I, src))
-		canisters += I
-		to_chat(user, SPAN_NOTICE("You put [I] into [src]."))
-		update_canister_stats()
+	if(!user.transfer_item_to(used, src))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	canisters |= used // No dupes allowed.
+	to_chat(user, SPAN_NOTICE("You put [used] into [src]."))
+	update_canister_stats()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/chemical_flamethrower/proc/update_canister_stats()
 	if(!length(canisters))
@@ -114,25 +127,30 @@
 		canister_fire_color = pick(colors)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/chemical_flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
-	. = ..()
-	if(flag || !user)
-		return
-
+/obj/item/chemical_flamethrower/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.mind?.martial_art?.no_guns)
 		to_chat(user, SPAN_WARNING("[user.mind.martial_art.no_guns_message]"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
 		to_chat(user, SPAN_WARNING("Your meaty finger is far too large for the trigger guard!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(user.get_active_hand() == src) // Make sure our user is still holding us
-		var/turf/target_turf = get_turf(target)
-		if(target_turf)
-			var/turf_list = get_line(user, target_turf)
-			add_attack_logs(user, target, "Chemical Flamethrowered at [target.x], [target.y], [target.z]")
-			INVOKE_ASYNC(src, PROC_REF(flame_turf), turf_list, user)
+	if(user.get_active_hand() != src) // Make sure our user is still holding us.
+		return NONE
+
+	if(!length(canisters))
+		to_chat(user, SPAN_WARNING("You hear a click!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf || !istype(target_turf))
+		return NONE
+
+	var/turf_list = get_line(user, target_turf)
+	add_attack_logs(user, target, "Chemical Flamethrowered at [target.x], [target.y], [target.z]")
+	INVOKE_ASYNC(src, PROC_REF(flame_turf), turf_list, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/chemical_flamethrower/proc/flame_turf(list/turflist = list(), mob/user)
 	if(!length(turflist))
@@ -248,9 +266,13 @@
 
 /obj/item/chemical_canister/examine(mob/user)
 	. = ..()
-	. += "[src] has [ammo] out of [initial(ammo)] units left!"
+	. += get_fuel_text()
+
+/obj/item/chemical_canister/proc/get_fuel_text()
+	. = list("[src] has [ammo] out of [initial(ammo)] units left!")
 	if(current_reagent_name && ammo != 0)
 		. += "[src] is currently filled with [current_reagent_name]"
+	return
 
 /obj/item/chemical_canister/on_reagent_change()
 	if(!length(reagents.reagent_list))

@@ -149,6 +149,14 @@
 //		PROCESS PROC		//
 //////////////////////////////
 
+/obj/machinery/fishtank/wall/Initialize(mapload)
+	. = ..()
+	recalculate_atmos_connectivity()
+
+/obj/machinery/fishtank/wall/Destroy()
+	recalculate_atmos_connectivity()
+	return ..()
+
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
 /obj/machinery/fishtank/wall/CanAtmosPass(direction)
 	return FALSE

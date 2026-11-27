@@ -3123,10 +3123,11 @@
 					return
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
-				var/objective = sanitize(copytext_char(input("Enter an objective"), 1, MAX_MESSAGE_LEN))
-				if(!objective)
-					return
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
+				var/custom_objective_expl
+				if(alert(usr, "Do you want to add a custom objective?", "Confirmation", "Yes", "No") == "Yes")
+					custom_objective_expl = sanitize(copytext_char(input("Enter an objective"), 1, MAX_MESSAGE_LEN))
+					if(!custom_objective_expl)
+						return
 
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == DEAD || !H.client || !H.mind)
@@ -3135,13 +3136,22 @@
 						continue
 					if(jobban_isbanned(H, ROLE_TRAITOR) || jobban_isbanned(H, ROLE_SYNDICATE))
 						continue
-					H.mind.add_antag_datum(/datum/antagonist/traitor)
+					var/datum/antagonist/traitor/T = new()
+					if(custom_objective_expl)
+						T.give_objectives = FALSE
+						var/datum/objective/custom_objective = new()
+						custom_objective.explanation_text = custom_objective_expl
+						custom_objective.needs_target = FALSE
+						T.add_antag_objective(custom_objective, custom_objective_expl)
 
+					H.mind.add_antag_datum(T)
+					
 				for(var/mob/living/silicon/A in GLOB.player_list)
 					A.mind.add_antag_datum(/datum/antagonist/traitor)
 
-				message_admins(SPAN_NOTICE("[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective]"), 1)
-				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
+				message_admins(SPAN_NOTICE("[key_name_admin(usr)] used everyone is a traitor secret.[custom_objective_expl ? " Objective is [custom_objective_expl]" : ""]"), 1)
+				log_admin("[key_name(usr)] used everyone is a traitor secret.[custom_objective_expl ? " Objective is [custom_objective_expl]" : ""]")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All[custom_objective_expl ? " ([custom_objective_expl])" : ""]")
 
 			if("togglebombcap")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")

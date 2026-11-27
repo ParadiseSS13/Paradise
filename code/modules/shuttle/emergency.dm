@@ -147,11 +147,12 @@
 	if(!..())
 		return
 	if(!AI.malf_picker)
-		return FALSE //If you put an AI that isn't malf in it I'm shooting you
-	if(interaction == AI_TRANS_TO_CARD) //No patrick you can't card the AI out of the computer.
+		return FALSE // If you put an AI that isn't malf in it I'm shooting you.
+	if(interaction == AI_TRANS_TO_CARD) // No patrick you can't card the AI out of the computer.
 		return
 	AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 	ai_enter_emergency_computer(AI)
+	card.held_ai = null
 
 /obj/machinery/computer/emergency_shuttle/proc/ai_enter_emergency_computer(mob/living/silicon/ai/AI)
 	AI.aiRestorePowerRoutine = 0
@@ -595,6 +596,11 @@
 		"The emergency shuttle is preparing for direct jump. Estimate [timeLeft(1 MINUTES)] minutes until the shuttle docks at Central Command.",
 		"Emergency Shuttle Transit Failure",
 	)
+
+/obj/docking_port/mobile/emergency/ui_data(mob/user)
+	. = ..()
+	.["hijack_status"] = hijack_status
+	.["ai_hacked"] = aihacked
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod

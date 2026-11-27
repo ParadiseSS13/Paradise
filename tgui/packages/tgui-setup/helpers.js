@@ -245,9 +245,12 @@
   // Asset loaders
   // ------------------------------------------------------
 
-  let RETRY_ATTEMPTS = 5;
+  // A file can be stuck behind other downloads for a long time on a slow connection, so we never give up on it
   let RETRY_WAIT_INITIAL = 500;
   let RETRY_WAIT_INCREMENT = 500;
+  let RETRY_WAIT_MAX = 2000;
+  // Tells the server once when a file is this late, so it shows up in the tgui log
+  let RETRY_LOG_AT = 20;
 
   let loadedAssetByUrl = {};
 
@@ -282,23 +285,20 @@
     loadedAssetByUrl[url] = options;
     // Generic retry function
     let retry = function () {
-      if (attempt >= RETRY_ATTEMPTS) {
-        let errorMessage = 'Error: Failed to load the asset ' + "'" + url + "' after several attempts.";
-        if (type === 'css') {
-          errorMessage +=
-            +'\nStylesheet was either not found, ' +
-            "or you're trying to load an empty stylesheet " +
-            'that has no CSS rules in it.';
-        }
-        throw new Error(errorMessage);
+      if (attempt === RETRY_LOG_AT) {
+        Byond.sendMessage({
+          type: 'log',
+          message: 'Still waiting for ' + url + ' after ' + attempt + ' tries',
+        });
       }
       setTimeout(
         () => {
           loadedAssetByUrl[url] = null;
-          options.attempt += 1;
+          // options.attempt starts out unset, so count from the number we had
+          options.attempt = attempt + 1;
           loadAsset(options);
         },
-        RETRY_WAIT_INITIAL + attempt * RETRY_WAIT_INCREMENT
+        Math.min(RETRY_WAIT_INITIAL + attempt * RETRY_WAIT_INCREMENT, RETRY_WAIT_MAX)
       );
     };
     // JS specific code

@@ -161,7 +161,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
-	var/icon/broken_outline = icon('icons/obj/drinks/misc_drinks.dmi', "broken")
+	var/icon/broken_outline = icon('icons/obj/drinks/bottles.dmi', "broken")
 	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -301,6 +301,13 @@
 	icon_state = "alebottle"
 	volume = 50
 	list_reagents = list("ale" = 50)
+
+/obj/item/reagent_containers/drinks/bottle/anti_whisky
+	name = "Leviathan's Ink Brew"
+	desc = "A popular Skrellian whisky brewed to a secret recipe. The brew is named after the ink of the leviathans found on the Skrellian homeworld of Qerballak, which many say is part of the recipe. \
+	This is an antiholic brew, approved by the space temperance movement for its sobering effects on the body and soul!"
+	icon_state = "anti_whisky_bottle"
+	list_reagents = list("leviathan_ink" = 100)
 
 //////////////////////////JUICES AND STUFF ///////////////////////
 

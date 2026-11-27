@@ -5,7 +5,9 @@ use crate::milla::model::*;
 use crate::milla::simulate;
 use crate::milla::statics::*;
 use crate::milla::tick;
+use byondapi::byond_string::str_id_of;
 use byondapi::global_call::call_global;
+use byondapi::global_call::call_global_id;
 use byondapi::map::byond_block;
 use byondapi::map::byond_xyz;
 use byondapi::prelude::*;
@@ -741,10 +743,95 @@ fn internal_get_tracked_pressure_tiles() -> eyre::Result<Vec<f32>> {
     Ok(tracked_pressures)
 }
 
+/// BYOND API for watching a tile. Returns the slot its summary will be in.
+#[byondapi::bind]
+fn milla_watch_tile(turf: ByondValue) -> eyre::Result<ByondValue> {
+    logging::setup_panic_handler();
+    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let slot = internal_watch_tile(x as i32 - 1, y as i32 - 1, z as usize - 1);
+    Ok(ByondValue::from(slot as f32 + 1.0))
+}
+
+/// Rust version of watching a tile.
+pub(crate) fn internal_watch_tile(x: i32, y: i32, z: usize) -> usize {
+    let mut watched_tiles = WATCHED_TILES.lock().unwrap();
+    if let Some(free) = watched_tiles.iter().position(|w| w.is_none()) {
+        watched_tiles[free] = Some((x, y, z));
+        return free;
+    }
+    watched_tiles.push(Some((x, y, z)));
+    watched_tiles.len() - 1
+}
+
+/// BYOND API for no longer watching a tile.
+#[byondapi::bind]
+fn milla_unwatch_tile(byond_slot: ByondValue) -> eyre::Result<ByondValue> {
+    logging::setup_panic_handler();
+    let slot = f32::try_from(byond_slot)? as usize;
+    let mut watched_tiles = WATCHED_TILES.lock().unwrap();
+    if slot >= 1 && slot <= watched_tiles.len() {
+        watched_tiles[slot - 1] = None;
+    }
+    Ok(ByondValue::null())
+}
+
+/// BYOND API for getting the summary of every watched tile.
+/// Each slot gets WATCHED_TILE_SIZE values: the pressure, then a bitmask of which gases are there.
+#[byondapi::bind]
+fn milla_get_watched_tiles() -> eyre::Result<ByondValue> {
+    logging::setup_panic_handler();
+    let watched = internal_get_watched_tiles()?
+        .iter()
+        .map(|v: &f32| ByondValue::from(*v))
+        .collect::<Vec<ByondValue>>();
+    Ok(watched.as_slice().try_into()?)
+}
+
+/// Rust version of getting the summary of every watched tile.
+pub(crate) fn internal_get_watched_tiles() -> eyre::Result<Vec<f32>> {
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let maybe_active = buffers.get_active().read();
+    if maybe_active.is_err() {
+        return Err(eyre!("MILLA buffers have been poisoned."));
+    }
+    let active = maybe_active.unwrap();
+    let watched_tiles = WATCHED_TILES.lock().unwrap();
+
+    let mut summaries: Vec<f32> = Vec::with_capacity(watched_tiles.len() * WATCHED_TILE_SIZE);
+    for watched in watched_tiles.iter() {
+        let mut pressure = 0.0;
+        let mut gases_present: u32 = 0;
+        if let Some((x, y, z)) = watched {
+            if let (Some(z_lock), Some(index)) = (active.0.get(*z), ZLevel::maybe_get_index(*x, *y))
+            {
+                let z_level = z_lock.read().unwrap();
+                let tile = z_level.get_tile(index);
+                // This is the pressure BYOND would work out from milla_get_tile(), not
+                // Tile::pressure(), which treats space and very cold tiles differently.
+                let mut moles = 0.0;
+                for gas in 0..GAS_COUNT {
+                    moles += tile.gases.values[gas];
+                    if tile.gases.values[gas] > WATCHED_GAS_PRESENT_MOLES {
+                        gases_present |= 1 << gas;
+                    }
+                }
+                pressure = moles * R_IDEAL_GAS_EQUATION * tile.temperature() / TILE_VOLUME;
+            }
+        }
+        summaries.push(pressure);
+        summaries.push(gases_present as f32);
+    }
+
+    Ok(summaries)
+}
+
 /// BYOND API for starting an atmos tick.
 #[byondapi::bind]
 fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
-    thread::spawn(|| -> Result<(), eyre::Error> {
+    // Looked up here, on BYOND's own thread, where it costs nothing. Looked up from the tick thread
+    // it's one more wait for BYOND's thread on top of the call itself.
+    let tick_finished = str_id_of("milla_tick_finished")?;
+    thread::spawn(move || -> Result<(), eyre::Error> {
         let now = Instant::now();
         let buffers = BUFFERS.get_or_init(Buffers::new);
         let result = tick::tick(buffers);
@@ -753,7 +840,7 @@ fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
             std::sync::atomic::Ordering::Relaxed,
         );
         if result.is_ok() {
-            call_global("milla_tick_finished", &[])?;
+            call_global_id(tick_finished, &[])?;
         } else {
             let err = format!("MILLA tick error:\n----\n{:#?}\n----", result);
             call_global("milla_tick_error", &[ByondValue::new_str(err)?])?;

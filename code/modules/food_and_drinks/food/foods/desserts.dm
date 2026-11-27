@@ -92,6 +92,7 @@
 	trash = /obj/item/reagent_containers/drinks/mug
 	filling_color = "#EFD8A7"
 	list_reagents = list("nutriment" = 6)
+	tastes = list("spongy cake" = 2, "sweetness" = 1)
 
 /obj/item/food/mugcake/Initialize(mapload, obj/item/container)
 	. = ..()
@@ -116,49 +117,55 @@
 	. += image(icon, icon_state)
 
 /obj/item/food/mugcake/vanilla
-	name = "vanilla Mugcake"
+	name = "vanilla mugcake"
 	desc = "A delicious and spongy little vanilla cake inside a coffee mug."
 	icon_state = "vanilla_mugcake"
 	filling_color = "#5E5042"
 	list_reagents = list("nutriment" = 7)
+	tastes = list("vanilla" = 1, "sweet cake" = 1)
 
 /obj/item/food/mugcake/chocolate
-	name = "chocolate Mugcake"
+	name = "chocolate mugcake"
 	desc = "A delicious and spongy little chocolate cake inside a coffee mug."
 	icon_state = "chocolate_mugcake"
 	filling_color = "#5E5042"
 	list_reagents = list("nutriment" = 7)
+	tastes = list("milk chocolate" = 2, "sweet cake" = 1)
 
 /obj/item/food/mugcake/banana
-	name = "banana Mugcake"
+	name = "banana mugcake"
 	desc = "A delicious and spongy little banana cake inside a coffee mug."
 	icon_state = "banana_mugcake"
 	filling_color = "#FFD351"
 	list_reagents = list("nutriment" = 7)
+	tastes = list("mellow banana" = 1, "sweet cake" = 1)
 
 /obj/item/food/mugcake/cherry
-	name = "cherry Mugcake"
+	name = "cherry mugcake"
 	desc = "A delicious and spongy little cherry cake inside a coffee mug."
 	icon_state = "cherry_mugcake"
 	filling_color = "#51AEFF"
 	list_reagents = list("nutriment" = 7)
+	tastes = list("cherries" = 2, "spongy cake" = 1)
 
 /obj/item/food/mugcake/bluecherry
-	name = "blue Cherry Mugcake"
+	name = "blue cherry mugcake"
 	desc = "A delicious and spongy little blue cherry cake inside a coffee mug."
 	icon_state = "bluecherry_mugcake"
 	filling_color = "#FF5459"
 	list_reagents = list("nutriment" = 7)
+	tastes = list("space cherries" = 2, "spongy cake" = 1)
 
 /obj/item/food/mugcake/lime
-	name = "lime Mugcake"
+	name = "lime mugcake"
 	desc = "A delicious and spongy little lime cake inside a coffee mug."
 	icon_state = "lime_mugcake"
 	filling_color = "#51FF53"
 	list_reagents = list("nutriment" = 7)
+	tastes = list("citrus" = 1, "sweet cake" = 1)
 
 /obj/item/food/mugcake/amanita
-	name = "amanita Mugcake"
+	name = "amanita mugcake"
 	desc = "A delicious and spongy little amanita cake inside a coffee mug."
 	icon_state = "amanita_mugcake"
 	filling_color = "#F40909"
@@ -169,5 +176,38 @@
 	desc = "A delicious and spongy little honey cake inside a coffee mug."
 	icon_state = "honey_mugcake"
 	list_reagents = list("nutriment" = 6)
+	tastes = list("sweetness" = 2)
 
 // ---------- END of imports from Hispania!
+
+/obj/item/food/mugcake/lemon_poppyseed
+	name = "lemon poppyseed mugcake"
+	desc = "A delicious and spongy little lemon-poppyseed cake inside a coffee mug."
+	icon_state = "banana_mugcake"
+	filling_color = "#FFD351"
+	list_reagents = list("nutriment" = 7, "lemonjuice" = 1)
+	tastes = list("lemons" = 2, "poppy seeds" = 1, "sweet cake" = 1)
+
+/obj/item/food/mugcake/pumpkin
+	name = "pumpkin mugcake"
+	desc = "A delicious and spongy little pumpkin cake inside a coffee mug."
+	icon_state = "pumpkin_mugcake"
+	filling_color = "#DE9444"
+	list_reagents = list("nutriment" = 7, "vitamin" = 1)
+	tastes = list("pumpkin spice" = 2, "sweet cake" = 1)
+
+/obj/item/food/mugcake/carrot
+	name = "carrot mugcake"
+	desc = "A delicious and spongy little carrot cake inside a coffee mug."
+	icon_state = "pumpkin_mugcake"
+	filling_color = "#DE9444"
+	list_reagents = list("nutriment" = 7, "vitamin" = 1)
+	tastes = list("sweetened carrots" = 2, "moist cake" = 1)
+
+/obj/item/food/mugcake/pineapple
+	name = "pineapple upside-down mug cake"
+	desc = "A spongy pineapple-cherry upside-down cake whose deliciousness defies all reason."
+	icon_state = "pineapple_mugcake"
+	filling_color = "#F7EE90"
+	list_reagents = list("nutriment" = 8, "pineapplejuice" = 1)
+	tastes = list("a tropical fruit party" = 2, "spongy cake" = 1)

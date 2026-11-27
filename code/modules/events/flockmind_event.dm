@@ -45,6 +45,9 @@
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("Outside of our innate subsystems, we can take manual control of drones (using alt-click). Doing so will be more effective than allowing their simple partitions to work autonomously.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("You live through your drones - should all your drones perish, all hope of constructing the relay is lost! Do not allow all your drones to die, lest you yourself fade!", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Capturing living mobs allows your flock to spread, using their living bodies as conduits to create new drones and bits.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Drones can create new drones by consuming matter. Likewise, they use that matter to build structures you designate! All structures require Compute, which can only be gotten by converting computer terminals.", "#3cb5a3", "#1e806e") + "</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("For more information, we have decrypted an information manifest: ([GLOB.configuration.url.wiki_url]/index.php/The_Divine_Flock)", "#3cb5a3", "#1e806e") + "</div>"
 	to_chat(flockmind, chat_box_red(messages.Join("<br>")))
 	flockmind.playsound_local(flockmind, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)

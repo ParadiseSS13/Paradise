@@ -89,6 +89,8 @@
 	return ..()
 
 /obj/item/storage/secure/MouseDrop(over_object, src_location, over_location)
+	if(!in_range(src, usr))
+		return FALSE
 	if(!try_to_open())
 		return FALSE
 	return ..()

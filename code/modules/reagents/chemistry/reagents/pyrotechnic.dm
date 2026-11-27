@@ -484,6 +484,11 @@
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
 	O.extinguish()
+	if(istype(O, /obj/effect/fire))
+		var/obj/effect/fire/fire_effect = O
+		fire_effect.duration -= 45 MINUTES
+		if(fire_effect.duration <= 0)
+			fire_effect.fizzle()
 
 /datum/reagent/firefighting_foam/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))

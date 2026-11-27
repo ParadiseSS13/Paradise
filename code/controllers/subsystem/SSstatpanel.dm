@@ -71,7 +71,9 @@ SUBSYSTEM_DEF(statpanels)
 			set_status_tab(target)
 
 		if(!target.holder || !(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB))
-			target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
+			// The panel tells us which tabs it has, so only send this when it actually has the MC tab
+			if("MC" in target.panel_tabs)
+				target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
 
 		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob) && target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB)
 			if(!("MC" in target.panel_tabs))
@@ -115,6 +117,12 @@ SUBSYSTEM_DEF(statpanels)
 		overrides[target_image.loc] = TRUE
 
 	var/list/atoms_to_display = list(target_mob.listed_turf)
+	// Things with the same name and look share one row with a count, so a pile of 500 rods is one line
+	var/list/alike_counts = list()
+	var/list/first_of_alike = list()
+	// Same as IsObscured() on each thing, but each turf's top click blocker is found once.
+	// IsObscured() walks the whole turf for every thing on it, so a pile of 4000 took 10 seconds a refresh.
+	var/list/blocker_layers = list()
 	for(var/atom/movable/turf_content as anything in target_mob.listed_turf)
 		if(turf_content.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
 			continue
@@ -122,16 +130,43 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		if(overrides[turf_content])
 			continue
-		if(turf_content.IsObscured())
+		var/turf/drawn_on = get_turf_pixel(turf_content)
+		if(drawn_on)
+			var/top_blocker = blocker_layers[drawn_on]
+			if(isnull(top_blocker))
+				top_blocker = top_click_blocker_layer(drawn_on)
+				blocker_layers[drawn_on] = top_blocker
+			if(top_blocker > turf_content.layer)
+				continue
+		if(ismob(turf_content))
+			atoms_to_display += turf_content
 			continue
+		var/alike = "[turf_content.name]|[turf_content.icon]|[turf_content.icon_state]|[turf_content.dir]"
+		// Overlays count too, so a charged energy gun and an empty one get their own rows
+		for(var/image/overlay as anything in turf_content.overlays)
+			alike += "|[overlay.icon]|[overlay.icon_state]"
+		var/atom/movable/first = first_of_alike[alike]
+		if(first)
+			alike_counts[first]++
+			continue
+		first_of_alike[alike] = turf_content
+		alike_counts[turf_content] = 1
 		atoms_to_display += turf_content
 
 	/// Set the atoms we're meant to display
 	var/datum/object_window_info/obj_window = istype(target.obj_window) ? target.obj_window : new(target)
 	obj_window.atoms_to_show = atoms_to_display
+	obj_window.alike_counts = alike_counts
 	// don't generate icons for stuff the user will not see
 	obj_window.atoms_to_imagify &= atoms_to_display
 	refresh_client_obj_view(target, obj_window.min_index, obj_window.max_index)
+
+/// The layer of the highest dense thing on T that stops clicks on what's under it (see IsObscured()), or -INFINITY if there's none
+/datum/controller/subsystem/statpanels/proc/top_click_blocker_layer(turf/T)
+	. = -INFINITY
+	for(var/atom/movable/blocker as anything in T)
+		if(blocker.flags & PREVENT_CLICK_UNDER && blocker.density && blocker.layer > .)
+			. = blocker.layer
 
 /datum/controller/subsystem/statpanels/proc/refresh_client_obj_view(client/refresh, min_index = 0, max_index = 30)
 	var/list/turf_items = return_object_images(refresh, min_index, max_index)
@@ -142,7 +177,7 @@ SUBSYSTEM_DEF(statpanels)
 #define OBJ_IMAGE_LOADING "statpanels obj loading temporary"
 
 /// Returns all our ready object tab images
-/// Returns a list in the form list(list(object_name, object_ref, loaded_image), ...)
+/// Returns a list in the form list(list(object_name, object_ref, loaded_image, asset_key, client_uid, how_many), ...)
 /datum/controller/subsystem/statpanels/proc/return_object_images(client/load_from, min_index, max_index)
 	// You might be inclined to think that this is a waste of cpu time, since we
 	// A: Double iterate over atoms in the build case, or
@@ -159,6 +194,7 @@ SUBSYSTEM_DEF(statpanels)
 		return list()
 	var/list/already_seen = obj_window.atoms_to_images
 	var/list/to_make = obj_window.atoms_to_imagify
+	var/list/alike_counts = obj_window.alike_counts
 	var/list/turf_items = list()
 	var/i = 0
 	var/client_uid = load_from.UID()
@@ -173,11 +209,12 @@ SUBSYSTEM_DEF(statpanels)
 		// First, we fill up the list of refs to display
 		// If we already have one, just use that
 		var/existing_image = already_seen[turf_item]
+		var/how_many = alike_counts[turf_item] || 1
 		// rows that are still loading are still sent, we just won't send an image, frontend will hotswap it in
 		if(existing_image == OBJ_IMAGE_LOADING)
 			var/obj_m5_uid_loading = turf_item.MD5_UID()
 			load_from.m5_uid_cache[obj_m5_uid_loading] = turf_item.unique_datum_id
-			turf_items["[i]"] = list("[turf_item.name]", obj_m5_uid_loading, no_image_url, "", client_uid)
+			turf_items["[i]"] = list("[turf_item.name]", obj_m5_uid_loading, no_image_url, "", client_uid, how_many)
 			continue
 		// We already have it. Success!
 
@@ -186,7 +223,7 @@ SUBSYSTEM_DEF(statpanels)
 		load_from.m5_uid_cache[obj_m5_uid] = turf_item.unique_datum_id
 
 		if(existing_image)
-			turf_items["[i]"] = list("[turf_item.name]", obj_m5_uid, SSassets.transport.get_asset_url(existing_image), existing_image, client_uid)
+			turf_items["[i]"] = list("[turf_item.name]", obj_m5_uid, SSassets.transport.get_asset_url(existing_image), existing_image, client_uid, how_many)
 			continue
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item
@@ -253,6 +290,8 @@ SUBSYSTEM_DEF(statpanels)
 /datum/object_window_info
 	/// list of atoms to show to our client via the object tab, at least currently
 	var/list/atoms_to_show = list()
+	/// atom -> how many alike things its row in atoms_to_show stands for. Mobs and the turf aren't in it, they're always one
+	var/list/alike_counts = list()
 	/// list of atom -> image string for objects we have had in the right click tab
 	/// this is our caching
 	var/list/atoms_to_images = list()
@@ -280,6 +319,7 @@ SUBSYSTEM_DEF(statpanels)
 		UnregisterSignal(tracked_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED, COMSIG_TURF_CHANGE))
 		tracked_turf = null
 	atoms_to_show = null
+	alike_counts = null
 	atoms_to_images = null
 	atoms_to_imagify = null
 	parent.obj_window = null
@@ -381,6 +421,7 @@ SUBSYSTEM_DEF(statpanels)
 /datum/object_window_info/proc/viewing_atom_deleted(atom/deleted)
 	SIGNAL_HANDLER
 	atoms_to_show -= deleted
+	alike_counts -= deleted
 	atoms_to_imagify -= deleted
 	atoms_to_images[deleted] = null
 
@@ -401,4 +442,5 @@ SUBSYSTEM_DEF(statpanels)
 		client.obj_window.stop_turf_tracking()
 		// Don't generate icons when the tab's closed.
 		client.obj_window.atoms_to_show.Cut()
+		client.obj_window.alike_counts.Cut()
 		client.obj_window.atoms_to_imagify.Cut()

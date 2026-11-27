@@ -284,6 +284,28 @@ USER_VERB(show_tip, R_EVENT, "Show Custom Tip", \
 	message_admins("[key_name_admin(client)] set the Tip of the round to \"[html_encode(SSticker.selected_tip)]\".")
 	log_admin("[key_name(client)] sent \"[input]\" as the Tip of the Round.")
 
+USER_VERB(show_fact, R_EVENT, "Show Custom Fact", \
+		"Sends a fact (that you specify) to all players. After all, you already know everything.", \
+		VERB_CATEGORY_EVENT)
+	var/input = tgui_input_text(client, "Please specify your fact that you want to send to the players.", "Fact", "")
+	if(!input)
+		return
+
+	if(SSticker.current_state < GAME_STATE_PREGAME)
+		return
+
+	SSticker.selected_fact = input
+
+	// If we've already facted, then send it straight away.
+	if(SSticker.facted)
+		SSticker.send_fact_of_the_round()
+		message_admins("[key_name_admin(client)] sent a custom Fact of the round.")
+		log_admin("[key_name(client)] sent \"[input]\" as the Fact of the Round.")
+		return
+
+	message_admins("[key_name_admin(client)] set the Fact of the round to \"[html_encode(SSticker.selected_fact)]\".")
+	log_admin("[key_name(client)] sent \"[input]\" as the Fact of the Round.")
+
 USER_VERB(modify_goals, R_EVENT, "Modify Station Goals", "Modify station goals.", VERB_CATEGORY_EVENT)
 	client.holder.modify_goals()
 
@@ -708,7 +730,7 @@ USER_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message"
 	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
 	H.create_log(MISC_LOG, "Headset Message: [input]", "From: [key_name_admin(src)]")
-	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
+	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span> [SPAN_SPECIALNOTICE(input)]")
 	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
 
 USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the Lavaland theme for the next round", VERB_CATEGORY_EVENT)

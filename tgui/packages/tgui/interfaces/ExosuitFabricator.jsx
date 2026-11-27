@@ -98,6 +98,7 @@ const Materials = (properties) => {
         'bananium',
         'tranquillite',
         'plastic',
+        'iridium',
       ].map((name) => (
         <MaterialCount
           mt={-2}

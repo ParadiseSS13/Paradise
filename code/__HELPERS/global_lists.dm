@@ -5,7 +5,7 @@
 
 /proc/makeDatumRefLists()
 	//markings
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.marking_styles_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.marking_styles_public_list, full_list = GLOB.marking_styles_full_list)
 	//head accessory
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
@@ -22,6 +22,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list, GLOB.socks_m, GLOB.socks_f)
 	//alt heads
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
+
+	init_blooper_sounds()
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 

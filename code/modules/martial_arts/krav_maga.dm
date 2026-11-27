@@ -92,8 +92,8 @@
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, SPAN_WARNING("The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!"))
 		return
-	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
-	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
+	to_chat(H, SPAN_USERDANGER("You know the arts of Krav Maga!"))
+	to_chat(H, SPAN_DANGER("Place your cursor over a move at the top of the screen to see what it does."))
 	neutral.Grant(H)
 	neckchop.Grant(H)
 	legsweep.Grant(H)
@@ -101,7 +101,7 @@
 
 /datum/martial_art/krav_maga/remove(mob/living/carbon/human/H)
 	..()
-	to_chat(H, "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>")
+	to_chat(H, SPAN_USERDANGER("You suddenly forget the arts of Krav Maga..."))
 	neutral.Remove(H)
 	neckchop.Remove(H)
 	legsweep.Remove(H)

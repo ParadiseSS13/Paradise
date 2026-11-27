@@ -147,9 +147,9 @@
 	to_chat(target, SPAN_CULTLARGE("[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU"))
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HUNGERS FOR YOUR SOUL</span>")
+		to_chat(target, SPAN_CULTLARGE("[uppertext(GET_CULT_DATA(entity_name, name))] HUNGERS FOR YOUR SOUL"))
 	else
-		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
+		to_chat(target, SPAN_CULTLARGE("[uppertext(GET_CULT_DATA(entity_name, name))] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL"))
 
 //Wizard narsie
 /obj/singularity/narsie/wizard

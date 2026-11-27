@@ -715,11 +715,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Zn" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "Zu" = (

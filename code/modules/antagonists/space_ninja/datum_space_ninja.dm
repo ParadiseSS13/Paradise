@@ -50,6 +50,7 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 		new_ninja.equipOutfit(/datum/outfit/space_ninja/vox)
 	else
 		new_ninja.equipOutfit(/datum/outfit/space_ninja)
+	new_ninja.mind.assigned_role = "Ninja"
 
 /datum/antagonist/space_ninja/proc/forge_objectives()
 	var/list/moderate_objectives = list(
@@ -63,10 +64,14 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 		/datum/objective/ninja/capture = 8,
 		/datum/objective/ninja/kill = 8,
 		/datum/objective/ninja/hack_rnd = 4,
+		/datum/objective/ninja/steal_captains_helmet = 4,
+		/datum/objective/ninja/steal_champ_belt = 4,
+		/datum/objective/ninja/sabotage_cloning = 4,
 		/datum/objective/ninja/bomb_department = 3,
 		/datum/objective/ninja/bomb_department/emp = 3,
 		/datum/objective/ninja/bomb_department/spiders = 3,
 		/datum/objective/ninja/steal_supermatter = 3,
+		/datum/objective/ninja/sabotage_gravity = 3,
 		/datum/objective/ninja/insert_spider_rod = 3,
 		/datum/objective/ninja/interrogate_ai = 3,
 	)
