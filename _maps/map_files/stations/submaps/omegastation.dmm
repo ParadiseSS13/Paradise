@@ -1928,7 +1928,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "CQ" = (
-/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -1944,6 +1943,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/power/apc/critical/directional/north,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "CT" = (
