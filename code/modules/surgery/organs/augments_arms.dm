@@ -555,7 +555,7 @@
 		H.visible_message(SPAN_WARNING("...Then immediately bursts into flame!"), SPAN_USERDANGER("Something inside you combusts!"))
 
 /datum/action/item_action/organ_action/toggle/telebaton
-	button_icon = 'icons/obj/items.dmi'
+	button_icon = 'icons/obj/weapons/baton.dmi'
 	button_icon_state = "baton"
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
