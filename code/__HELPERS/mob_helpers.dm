@@ -146,8 +146,8 @@
 
 /proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()
-	for(var/marking in GLOB.marking_styles_list)
-		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
+	for(var/marking in GLOB.marking_styles_public_list)
+		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_public_list[marking]
 		if(S.name == "None")
 			valid_markings += marking
 			continue
@@ -163,7 +163,7 @@
 				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
 					continue
 		if(location == "head")
-			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
+			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_public_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]

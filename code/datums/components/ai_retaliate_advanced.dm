@@ -22,9 +22,11 @@
 
 /datum/component/ai_retaliate_advanced/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_attacked))
+	RegisterSignal(parent, COMSIG_AFTER_ATTACKED_BY, PROC_REF(on_attacked))
 
 /datum/component/ai_retaliate_advanced/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ATOM_WAS_ATTACKED)
+	UnregisterSignal(parent, COMSIG_AFTER_ATTACKED_BY)
 
 /// Add an attacking atom to a blackboard list of things which attacked us
 /datum/component/ai_retaliate_advanced/proc/on_attacked(mob/victim, atom/attacker)

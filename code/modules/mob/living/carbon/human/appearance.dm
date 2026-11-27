@@ -63,10 +63,10 @@
 	return TRUE
 
 /mob/living/carbon/human/proc/change_markings(marking_style, location = "body")
-	if(!marking_style || m_styles[location] == marking_style || !(marking_style in GLOB.marking_styles_list))
+	if(!marking_style || m_styles[location] == marking_style || !(marking_style in GLOB.marking_styles_full_list))
 		return
 
-	var/datum/sprite_accessory/body_markings/marking = GLOB.marking_styles_list[marking_style]
+	var/datum/sprite_accessory/body_markings/marking = GLOB.marking_styles_full_list[marking_style]
 	if(marking.name != "None" && marking.marking_location != location)
 		return
 
@@ -76,18 +76,18 @@
 			return
 
 		if(head_organ.alt_head && head_organ.alt_head != "None")
-			var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_list[marking_style]
+			var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_full_list[marking_style]
 			if(marking.name != "None" && (!H.heads_allowed || (!("All" in H.heads_allowed) && !(head_organ.alt_head in H.heads_allowed))))
 				return
 		else
 			if(!head_organ.alt_head || head_organ.alt_head == "None")
 				head_organ.alt_head = "None"
-				var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_list[marking_style]
+				var/datum/sprite_accessory/body_markings/head/H = GLOB.marking_styles_full_list[marking_style]
 				if(H.heads_allowed && !("All" in H.heads_allowed))
 					return
 
 	if(location == "tail" && marking.name != "None")
-		var/datum/sprite_accessory/body_markings/tail/tail_marking = GLOB.marking_styles_list[marking_style]
+		var/datum/sprite_accessory/body_markings/tail/tail_marking = GLOB.marking_styles_full_list[marking_style]
 		if(!body_accessory)
 			if(tail_marking.tails_allowed)
 				return
@@ -134,7 +134,7 @@
 	//Handle head markings if they're incompatible with the new alt head.
 	if(m_styles["head"])
 		var/head_marking = m_styles["head"]
-		var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_list[head_marking]
+		var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 		if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(H.alt_head in head_marking_style.heads_allowed)))
 			m_styles["head"] = "None"
 			update_markings()
