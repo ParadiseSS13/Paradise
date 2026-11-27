@@ -41875,13 +41875,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "iqw" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
+/obj/structure/salvage_bench,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "iqx" = (

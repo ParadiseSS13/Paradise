@@ -46449,6 +46449,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "jeE" = (
@@ -68345,7 +68346,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
-/obj/machinery/photocopier,
+/obj/structure/salvage_bench,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "qpk" = (

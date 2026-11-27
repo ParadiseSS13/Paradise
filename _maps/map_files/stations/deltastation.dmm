@@ -83754,6 +83754,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
+"rRu" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/obj/structure/salvage_bench,
+/turf/simulated/floor/plasteel,
+/area/station/supply/office)
 "rRw" = (
 /obj/structure/table,
 /obj/item/storage/box/gloves{
@@ -143229,7 +143236,7 @@ aOO
 aQk
 aRQ
 hxT
-aUU
+rRu
 aWr
 ucn
 aNm
