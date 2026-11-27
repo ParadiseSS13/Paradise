@@ -155,7 +155,7 @@
 	if(!target.has_salvage)
 		to_chat(user, SPAN_WARNING("Whatever salvage [target] had is gone!"))
 		return
-	to_chat("You scan [target] and find a piece of salvage!")
+	to_chat(user, "You scan [target] and find a piece of salvage!")
 	var/crate_type = pickweight(crate_chances)
 	var/obj/item/storage/salvage_crate/salvage = new crate_type()
 	user.put_in_hands(salvage)

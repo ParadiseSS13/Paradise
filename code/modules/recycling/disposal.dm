@@ -853,7 +853,6 @@
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	base_icon_state	// initial icon state on map
-	salvage_prob = 0
 	/// The last time a sound was played from this
 	var/last_sound
 

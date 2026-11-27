@@ -1,12 +1,9 @@
 /obj/item/salvage/salvage_component
 	name = "salvage component"
-	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/salvage/salvage_tools.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	new_attack_chain = TRUE
 
 /obj/item/salvage/salvage_component/common
-	name = "salvage component"
 	desc = "Gears, springs, and other mechanisms commonly used in salvage decryptors."
 	icon_state = "salvaged_components_common"
 	materials = list(MAT_METAL = 2000, MAT_BRASS = 2000)
