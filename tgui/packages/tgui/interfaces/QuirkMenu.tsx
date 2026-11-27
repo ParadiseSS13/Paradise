@@ -4,6 +4,27 @@ import { Box, Button, Divider, Icon, LabeledList, Section, Stack } from 'tgui-co
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
+const QUIRK_CATEGORIES = [
+  {
+    cost: -1,
+    label: 'Negative Quirks (Add Points)',
+    color: 'green',
+    icon: 'minus-circle',
+  },
+  {
+    cost: 0,
+    label: 'Neutral Quirks',
+    color: 'light-gray',
+    icon: 'circle',
+  },
+  {
+    cost: 1,
+    label: 'Positive Quirks (Cost Points)',
+    color: 'bad',
+    icon: 'plus-circle',
+  },
+] as const;
+
 type Quirk = { name: string; cost: number; desc: string; path: string; conflicts: string[] };
 type Data = { selected_quirks: string[]; all_quirks: Quirk[] };
 
@@ -140,31 +161,14 @@ export const QuirkMenu = () => {
           <Stack.Item grow basis={500}>
             <Section title="Available Quirks" fill scrollable>
               <Stack vertical>
-                {renderList(
-                  data.all_quirks.filter((q) => q.cost < 0),
-                  'Negative Quirks (Add Points)',
-                  'green',
-                  'minus-circle'
+                {QUIRK_CATEGORIES.map(({ cost, label, color, icon }) =>
+                  renderList(
+                    data.all_quirks.filter((q) => Math.sign(q.cost) === cost),
+                    label,
+                    color,
+                    icon
+                  )
                 )}
-                {renderList(
-                  data.all_quirks.filter((q) => q.cost === 0),
-                  'Neutral Quirks',
-                  'light-gray',
-                  'circle'
-                )}
-                {renderList(
-                  data.all_quirks.filter((q) => q.cost > 0),
-                  'Positive Quirks (Cost Points)',
-                  'bad',
-                  'plus-circle'
-              {QUIRK_CATEGORIES.map(({ costSign, label, color, icon }) =>
-                renderList(
-                  data.all_quirks.filter((q) => Math.sign(q.cost) === costSign),
-                  label,
-                  color,
-                  icon,
-                ),
-              )}
               </Stack>
             </Section>
           </Stack.Item>
