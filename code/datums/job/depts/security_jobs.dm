@@ -142,6 +142,7 @@
 	department_head = list("Head of Security")
 	total_positions = 1
 	spawn_positions = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	selection_color = "#ffeeee"
 	supervisors = "the head of security"
 	minimal_player_age = 14

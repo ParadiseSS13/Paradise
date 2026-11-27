@@ -528,8 +528,10 @@
 	icon_state = "brig_pilot"
 	access = list(
 		ACCESS_BRIG_PILOT,
+		ACCESS_MAINT_TUNNELS,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
+		ACCESS_WEAPONS,
 	)
 
 // MARK: Medical
