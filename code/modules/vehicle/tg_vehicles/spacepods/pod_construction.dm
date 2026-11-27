@@ -29,3 +29,7 @@
 
 /datum/construction/space_pod/basic/action(atom/used_atom, mob/user as mob)
 	return check_all_steps(used_atom, user)
+
+/datum/construction/space_pod/basic/spawn_result(mob/user, result_name)
+	. = ..()
+	SSblackbox.record_feedback("amount", "spacepods_constructed", 1)
