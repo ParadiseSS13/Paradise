@@ -25212,8 +25212,10 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "medbayfoyerport"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "hso" = (
@@ -26993,7 +26995,9 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "medbayfoyerport"
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)

@@ -51,10 +51,6 @@
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
 
-/area/ruin/unpowered/althland_processing
-	name = "Processing Facility"
-	icon_state = "red"
-
 /area/ruin/unpowered/althland_factory
 	name = "Minebot Factory"
 	icon_state = "red"
