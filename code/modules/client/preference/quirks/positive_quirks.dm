@@ -112,7 +112,7 @@
 	)
 	var/list/drink_options = list(
 		/obj/item/reagent_containers/drinks/h_chocolate,
-		/obj/item/reagent_containers/drinks/tea,
+		/obj/item/reagent_containers/drinks/teacup/tea,
 		/obj/item/reagent_containers/drinks/cans/cola,
 		/obj/item/reagent_containers/drinks/cans/space_mountain_wind,
 		/obj/item/reagent_containers/drinks/cans/dr_gibb,

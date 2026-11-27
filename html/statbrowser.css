@@ -210,6 +210,11 @@ table {
 	background-color: #ececec;
 }
 
+.listedturf_count {
+	margin-left: 0.5em;
+	opacity: 0.6;
+}
+
 /**
  * MARK: Dark
  */

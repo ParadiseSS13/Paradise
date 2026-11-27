@@ -307,6 +307,15 @@ RESTRICT_TYPE(/mob/living/basic)
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
+/mob/living/basic/KnockDown(amount, ignore_canstun)
+	return
+
+/mob/living/basic/AdjustKnockDown(amount, ignore_canstun)
+	return
+
+/mob/living/basic/SetKnockDown(amount, ignore_canstun)
+	return
+
 /mob/living/basic/revive()
 	..()
 	density = initial(density)

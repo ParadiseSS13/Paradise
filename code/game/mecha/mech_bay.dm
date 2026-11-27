@@ -10,6 +10,13 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/mech_bay_recharge_floor/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /obj/machinery/mech_bay_recharge_port
 	name = "mech bay power port"
 	density = TRUE
