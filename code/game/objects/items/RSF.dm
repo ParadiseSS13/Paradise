@@ -13,6 +13,7 @@
 
 	var/list/rsf_items = list(
 							"Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+							"Teacup" = /obj/item/reagent_containers/drinks/teacup,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
@@ -25,6 +26,7 @@
 
 	var/static/list/rsf_icons = list(
 							"Drinking Glass" = image(icon = 'icons/obj/drinks/drinkingglass.dmi', icon_state = "glass_empty"),
+							"Teacup" = image(icon = 'icons/obj/drinks/misc_drinks.dmi', icon_state = "teacup"),
 							"Shot Glass" = image(icon = 'icons/obj/drinks/drinkingglass.dmi', icon_state = "shotglass"),
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
@@ -44,6 +46,7 @@
 
 	var/static/list/power_costs = list(
 							"Drinking Glass" = POWER_LOW,
+							"Teacup" = POWER_LOW,
 							"Shot Glass" = POWER_LOW,
 							"Paper" = POWER_LOW,
 							"Pen" = POWER_LOW,
@@ -128,6 +131,7 @@
 
 	rsf_items = list(
 							"Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
+							"Teacup" = /obj/item/reagent_containers/drinks/teacup,
 							"Shot Glass" = /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
