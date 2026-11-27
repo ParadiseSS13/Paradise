@@ -7,17 +7,25 @@
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-Earth technologies that are still relevant on most planet-bound outposts."
 	animate_movement = NO_STEPS
 	max_integrity = 100
-	var/vector = list("x" = 0, "y" = 0) //vector math
-	var/tile_loc = list("x" = 0, "y" = 0) //x y offset of tile
+	var/list/vector = list("x" = 0, "y" = 0) //vector math
+	/// The x,y offset of the craft on its tile.
+	var/list/tile_loc = list("x" = 0, "y" = 0)
+	/// The maximum acceleration of the craft.
 	var/max_acceleration = 5.25
-	var/accel_step = 0.3
-	var/acceleration = 0.4
+	/// The maximum deceleration of the craft.
 	var/max_deceleration = 2
+	/// The rate at which acceleration ramps up.
+	var/accel_step = 0.3
+	/// The current acceleration of the craft.
+	var/acceleration = 0.4
+	/// The maximum velocity of the craft.
 	var/max_velocity = 50
+	/// How far a mob gets thrown when hit at full speed.
+	var/max_collision_throw_range = 10
+	/// How fast a mob gets thrown when hit at full speed.
+	var/max_collision_throw_speed = 14
 	var/enginesound_delay = 0
 	var/boost_cooldown
-	var/pixel_collision_size_x = 0
-	var/pixel_collision_size_y = 0
 
 	var/mob/living/carbon/human/driver
 
@@ -28,7 +36,7 @@
 	return ..()
 
 /obj/tgvehicle/sealed/vectorcraft/mob_exit(mob/living/M, silent = FALSE, randomstep = FALSE)
-	.=..()
+	. = ..()
 	if(!driver)
 		stop_engine()
 		return
@@ -115,7 +123,7 @@
 		message_admins("Pre_ Tile_loc: [tile_loc["x"]], [tile_loc["y"]] Vector: [vector["x"]],[vector["y"]]")
 	#endif
 
-	var/cached_tile = tile_loc
+	var/cached_tile = tile_loc.Copy()
 	tile_loc["x"] += vector["x"] / SPEED_MOD
 	tile_loc["y"] += vector["y"] / SPEED_MOD
 	//range = -16 to 16
@@ -244,8 +252,12 @@
 	if(isliving(M))
 		var/mob/living/C = M
 		if(!C.anchored)
+			// Scale the speed/range of the mob collision based on the craft's speed
+			var/speed_ratio = clamp(speed / max_velocity, 0, 1)
+			var/throw_range = max(1, round(max_collision_throw_range * speed_ratio))
+			var/throw_speed = max(1, round(max_collision_throw_speed * speed_ratio))
 			var/atom/throw_target = get_edge_target_turf(C, calc_angle())
-			C.throw_at(throw_target, 10, 14)
+			C.throw_at(throw_target, throw_range, throw_speed)
 		to_chat(C, SPAN_WARNING("You are hit by the [src]!"))
 		to_chat(driver, SPAN_WARNING("You feel a slight bump as you run into [C]!"))
 		C.adjustBruteLoss(speed / 4)
@@ -315,9 +327,14 @@
 	return speed
 
 /// Calculates the acceleration.
-/obj/tgvehicle/sealed/vectorcraft/proc/calc_acceleration() //Make speed 0 - 100 regardless of gear here
+/obj/tgvehicle/sealed/vectorcraft/proc/calc_acceleration()
+	// if we're indoors, reduce max acceleration significantly
+	var/max_accel = max_acceleration
+	if(has_gravity(src, loc))
+		max_accel *= 0.25
+
 	acceleration += accel_step
-	acceleration = clamp(acceleration, initial(acceleration), max_acceleration)
+	acceleration = clamp(acceleration, initial(acceleration), max_accel)
 	if(!enginesound_delay)
 		playsound(src.loc,'sound/effects/vehicles/norm_eng.ogg', 25, 0)
 		enginesound_delay = world.time + 16
@@ -351,17 +368,23 @@
 			result_vector["y"] += cached_acceleration / 1.4
 			result_vector["x"] -= cached_acceleration / 1.4
 
+	// if we're indoors, clamp max speed significantly
+	var/max_speed = max_velocity
+	if(has_gravity(src, loc))
+		max_speed *= 0.25
+
 	if(boost_active)
 		vector["x"] = result_vector["x"]
 		vector["y"] = result_vector["y"]
 	else
+		// clamp to max velocity, then slow down to station speed in the next stanza
 		vector["x"] = clamp(result_vector["x"], -max_velocity, max_velocity)
 		vector["y"] = clamp(result_vector["y"], -max_velocity, max_velocity)
 
-	if(vector["x"] > max_velocity || vector["x"] < -max_velocity)
+	if(vector["x"] > max_speed || vector["x"] < -max_speed)
 		vector["x"] = vector["x"] - (vector["x"] / 10)
 		vector["x"] = clamp(vector["x"], -250, 250)
-	if(vector["y"] > max_velocity || vector["y"] < -max_velocity)
+	if(vector["y"] > max_speed || vector["y"] < -max_speed)
 		vector["y"] = vector["y"] - (vector["y"] / 10)
 		vector["y"] = clamp(vector["y"], -250, 250)
 
