@@ -157,7 +157,14 @@ export const QuirkMenu = () => {
                   'Positive Quirks (Cost Points)',
                   'bad',
                   'plus-circle'
-                )}
+              {QUIRK_CATEGORIES.map(({ costSign, label, color, icon }) =>
+                renderList(
+                  data.all_quirks.filter((q) => Math.sign(q.cost) === costSign),
+                  label,
+                  color,
+                  icon,
+                ),
+              )}
               </Stack>
             </Section>
           </Stack.Item>
