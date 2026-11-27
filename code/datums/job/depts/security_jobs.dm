@@ -147,7 +147,9 @@
 	supervisors = "the head of security"
 	minimal_player_age = 14
 	access = list(
+		ACCESS_BRIG,
 		ACCESS_BRIG_PILOT,
+		ACCESS_EVIDENCE,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_SEC_DOORS,
 		ACCESS_SECURITY,
