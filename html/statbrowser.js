@@ -479,6 +479,14 @@ function listedturf_render_row(row, item_index) {
 	label.textContent = object_info[0];
 	button.appendChild(label);
 
+	// Alike things share a row, this says how many
+	if (object_info[5] > 1) {
+		let count = document.createElement('span');
+		count.className = 'listedturf_count';
+		count.textContent = '×' + object_info[5];
+		button.appendChild(count);
+	}
+
 	return true;
 }
 

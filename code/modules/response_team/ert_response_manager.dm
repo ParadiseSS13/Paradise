@@ -88,6 +88,9 @@
 	role_prefs.Cut()
 	survey_timer_id = null
 
+/datum/ert_response_manager/ui_state(mob/user)
+	return GLOB.always_state
+
 /datum/ert_response_manager/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
