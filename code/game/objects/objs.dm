@@ -74,6 +74,8 @@
 			T.add_blueprints(src)
 		else
 			T.add_blueprints_preround(src)
+	if(salvage_prob && is_station_level(z))
+		GLOB.possible_salvage_objects += src
 	if(mapload && (istype(get_area(get_turf(src)), /area/station/maintenance) || istype(get_area(get_turf(src)), /area/ruin)) && prob(salvage_prob)) // Only check for salvage on mapload.
 		has_salvage = TRUE
 		GLOB.salvage_objects += src

@@ -17,6 +17,7 @@ GLOBAL_LIST_EMPTY(navigation_computers)
 GLOBAL_LIST_EMPTY(hierophant_walls)
 GLOBAL_LIST_EMPTY(pandemics)
 
+GLOBAL_LIST_EMPTY(possible_salvage_objects) // List of all objects that can respawn salvage
 GLOBAL_LIST_EMPTY(salvage_objects) // List of all objects with salvage
 
 GLOBAL_LIST_EMPTY(all_areas)
