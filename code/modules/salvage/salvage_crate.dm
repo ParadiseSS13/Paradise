@@ -66,12 +66,12 @@
 /obj/item/storage/salvage_crate/dropped(mob/user, silent)
 	. = ..()
 	if(icon_state == "[base_icon_state]_open")
-		close(user)
+		close()
 
 /obj/item/storage/salvage_crate/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	. = ..()
 	if(icon_state == "[base_icon_state]_open")
-		close(thrower)
+		close()
 
 /obj/item/storage/salvage_crate/open(mob/user)
 	if(locked)
@@ -91,7 +91,13 @@
 			bomb.forceMove(get_turf(src))
 			bomb.prime()
 
-/obj/item/storage/salvage_crate/close(mob/user)
+/obj/item/storage/salvage_crate/emp_act(severity)
+	. = ..()
+	if(icon_state == "[base_icon_state]_open")
+		close()
+	locked = !locked
+
+/obj/item/storage/salvage_crate/close()
 	. = ..()
 	if(!living_viewers()) // I know it's inverse of open but if it ain't done this way you get broken animations
 		update_appearance(UPDATE_ICON_STATE)
