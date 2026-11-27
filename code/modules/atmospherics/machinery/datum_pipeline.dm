@@ -129,13 +129,132 @@
 	air.merge(E.air)
 	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
 		A.replacePipenet(E, src)
-	other_atmosmch.Add(E.other_atmosmch)
-	reconcile_machinery.Add(E.reconcile_machinery)
-	other_airs.Add(E.other_airs)
+	// A machine with a side on each of us is on both lists, don't list it twice
+	other_atmosmch |= E.other_atmosmch
+	reconcile_machinery |= E.reconcile_machinery
+	other_airs |= E.other_airs
 	E.members.Cut()
 	E.other_atmosmch.Cut()
 	E.reconcile_machinery.Cut()
 	qdel(E)
+
+/// Takes a pipe that's going away out of this pipenet, instead of throwing the whole pipenet away and building it again.
+/// Its share of the gas goes with it. Machines joined to it get pipenets of their own when it lets go of them.
+/datum/pipeline/proc/remove_pipe(obj/machinery/atmospherics/pipe/gone)
+	members -= gone
+	gone.parent = null
+	if(air.volume > 0)
+		air.remove_ratio(gone.volume / air.volume)
+	air.volume -= gone.volume
+	update = TRUE
+	if(!length(members))
+		qdel(src)
+		return
+	var/list/joined = list()
+	for(var/obj/machinery/atmospherics/pipe/P in gone.pipeline_expansion())
+		if(P.parent == src)
+			joined |= P
+	// With one pipe or less next to it nothing can be cut off
+	if(length(joined) > 1)
+		split_off_pieces(joined)
+
+/// Walks out from each pipe the gone one was joined to, one pipe from each walk at a time.
+/// Walks that meet are on the same piece. A walk that runs out of pipes found a piece that's cut off.
+/// Stops when one walk is left going, that one is the piece we keep. So it only walks about as far as the smaller pieces.
+/datum/pipeline/proc/split_off_pieces(list/starts)
+	var/walks = length(starts)
+	/// Which walk found each pipe
+	var/list/found_by = list()
+	/// Pipes each walk still has to look past
+	var/list/to_visit = list()
+	/// Pipes each walk found
+	var/list/found = list()
+	/// The walk each walk got joined into, or itself
+	var/list/joined_into = list()
+	for(var/i in 1 to walks)
+		found_by[starts[i]] = i
+		to_visit += list(list(starts[i]))
+		found += list(list(starts[i]))
+		joined_into += i
+	var/list/cut_off = list()
+	var/going = walks
+	while(going > 1)
+		for(var/i in 1 to walks)
+			if(joined_into[i] != i)
+				continue
+			var/list/visit = to_visit[i]
+			if(!length(visit))
+				continue
+			var/list/mine = found[i]
+			var/obj/machinery/atmospherics/pipe/current = visit[length(visit)]
+			visit.len--
+			for(var/obj/machinery/atmospherics/pipe/next in current.pipeline_expansion())
+				if(next.parent != src)
+					continue
+				var/other = found_by[next]
+				if(!other)
+					found_by[next] = i
+					visit += next
+					mine += next
+					continue
+				while(joined_into[other] != other)
+					other = joined_into[other]
+				if(other == i)
+					continue
+				// Met another walk, so it's all one piece
+				joined_into[other] = i
+				visit += to_visit[other]
+				mine += found[other]
+				going--
+			if(!length(visit))
+				cut_off += list(mine)
+				going--
+			if(going <= 1)
+				break
+	for(var/list/piece in cut_off)
+		make_piece(piece)
+
+/// Gives some of our pipes a pipenet of their own, with their share of the gas and the machines on them
+/datum/pipeline/proc/make_piece(list/pipes)
+	var/datum/pipeline/piece = new()
+	var/piece_volume = 0
+	for(var/obj/machinery/atmospherics/pipe/P as anything in pipes)
+		P.parent = piece
+		piece_volume += P.volume
+		for(var/obj/machinery/atmospherics/A in P.pipeline_expansion())
+			if(!istype(A, /obj/machinery/atmospherics/pipe))
+				A.setPipenet(piece, P)
+				piece.addMachineryMember(A)
+	piece.members = pipes
+	members -= pipes
+	piece.air = new()
+	piece.air.volume = piece_volume
+	if(air.volume > 0)
+		piece.air.merge(air.remove_ratio(piece_volume / air.volume))
+	air.volume -= piece_volume
+	for(var/obj/machinery/atmospherics/A as anything in piece.other_atmosmch)
+		if(!has_machine(A))
+			other_atmosmch -= A
+			reconcile_machinery -= A
+	// A machine can have more than one air here, so list them again the way building a pipenet does
+	other_airs.Cut()
+	for(var/obj/machinery/atmospherics/A as anything in other_atmosmch)
+		other_airs |= A.returnPipenetAir(src)
+
+/// One of a machine's sides moved off this pipenet. It stays on it if another of its sides is still here.
+/datum/pipeline/proc/machine_side_left(obj/machinery/atmospherics/A, datum/gas_mixture/side_air)
+	other_airs -= side_air
+	if(has_machine(A))
+		other_airs |= A.returnPipenetAir(src)
+	else
+		other_atmosmch -= A
+		reconcile_machinery -= A
+
+/// If any side of this machine is on us
+/datum/pipeline/proc/has_machine(obj/machinery/atmospherics/A)
+	var/list/pipelines = A.get_machinery_pipelines()
+	// Unary machines give back their one pipenet, not a list
+	return islist(pipelines) ? (src in pipelines) : pipelines == src
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
 	var/datum/pipeline/P = returnPipenet(A)
