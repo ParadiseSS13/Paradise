@@ -1,105 +1,9 @@
-// MARK: Salvage Bench
-/obj/structure/salvage_bench
-	name = "decryptor assembly table"
-	desc = "A table used with a decryptor schematic to assemble a schematic."
-	icon = 'icons/obj/salvage/salvage_tools.dmi'
-	icon_state = "schematics_workbench"
-	anchored = TRUE
-	/// The schematic loaded into the assembly table
-	var/obj/item/salvage_decryptor_schematic/decryptor_schematic
-	/// The ingredients inside the table
-	var/list/stored_items = list()
-
-/obj/structure/salvage_bench/examine(mob/user)
-	. = ..()
-	if(decryptor_schematic)
-		. += SPAN_NOTICE("Currently displaying [decryptor_schematic].")
-		. += SPAN_NOTICE("[decryptor_schematic] requires the following components:")
-		var/list/checked_schematic_ingredients = list()
-		var/list/required_items = decryptor_schematic.required_items
-		for(var/obj/item/schematic_ingredient in required_items)
-			if(schematic_ingredient in checked_schematic_ingredients)
-				continue
-			var/count = count_by_type(required_items, schematic_ingredient)
-			. += SPAN_NOTICE("- [schematic_ingredient] x[count]")
-			checked_schematic_ingredients += schematic_ingredient
-	if(!length(stored_items))
-		return
-	. += ""
-	. += SPAN_NOTICE("[src] contains the following items:")
-	var/list/checked_ingredients = list()
-	for(var/obj/item/ingredient in stored_items)
-		if(ingredient in checked_ingredients)
-			continue
-		var/count = count_by_type(stored_items, ingredient)
-		. += SPAN_NOTICE("- [ingredient] x[count]")
-		checked_ingredients += ingredient
-
-/obj/structure/salvage_bench/update_overlays()
-	. = ..()
-	overlays.Cut()
-	if(decryptor_schematic)
-		. += image(icon = icon, icon_state = decryptor_schematic.icon_state + "_workbench")
-
-/obj/structure/salvage_bench/AltClick(mob/user, modifiers)
-	. = ..()
-	if(!iscarbon(user))
-		return
-	if(!Adjacent(user))
-		return
-	if(!length(stored_items))
-		to_chat(user, SPAN_NOTICE("[src] has no ingredients to remove!"))
-		return
-	var/obj/item/item_to_remove = tgui_input_list(user, "Select an item", src, stored_items)
-	user.put_in_hands(item_to_remove)
-	stored_items -= item_to_remove
-
-/obj/structure/salvage_bench/attack_hand(mob/living/user)
-	. = ..()
-	if(!Adjacent(user))
-		return
-	if(!decryptor_schematic)
-		return
-	if(length(stored_items))
-		if(tgui_alert(user, "Are you sure you want to remove the schematic? Doing so will dump the stored ingredients out of [src]!", "Confirm Schematic Removal", list("Yes", "No")) == "No")
-			return
-		for(var/obj/item/I in stored_items)
-			I.forceMove(get_turf(src))
-			stored_items -= I
-	user.put_in_hands(decryptor_schematic)
-	decryptor_schematic = null
-	update_appearance()
-
-/obj/structure/salvage_bench/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(user.a_intent != INTENT_HELP)
-		return ..()
-	if(istype(used, /obj/item/salvage_decryptor_schematic))
-		if(decryptor_schematic)
-			to_chat(user, SPAN_NOTICE("[src] already has an open schematic! Remove that first!"))
-			return
-		if(used.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
-			return ITEM_INTERACT_COMPLETE
-		decryptor_schematic = used
-		to_chat(user, SPAN_WARNING("You roll [used] out on [src]."))
-		update_appearance()
-		return
-	if(!decryptor_schematic)
-		to_chat(user, SPAN_NOTICE("There is no schematic open to provide components to!"))
-		return
-	if(!(used.type in decryptor_schematic.required_items))
-		to_chat(user, SPAN_NOTICE("This object doesn't fit in [decryptor_schematic]'s requirements!"))
-		return
-	if(used.flags & NODROP || !user.transfer_item_to(used, src))
-		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
-		return ITEM_INTERACT_COMPLETE
-	stored_items += used
-	to_chat(user, SPAN_WARNING("You add [used] to [src]'s components."))
-
-/obj/structure/salvage_bench/hammer_act(mob/living/user, obj/item/I)
-	. = ..()
-	// POLTODO: Schematic completion
-
+#define SALVAGE_TIER_1_REQUIREMENTS list(/obj/item/salvage/salvage_component/common = 2, /obj/item/stock_parts/scanning_module = 1)
+#define SALVAGE_TIER_2_REQUIREMENTS list(/obj/item/salvage/salvage_component/common = 5, /obj/item/stock_parts/scanning_module = 1)
+#define SALVAGE_TIER_3_REQUIREMENTS list(/obj/item/salvage/salvage_component/common = 4, /obj/item/salvage/salvage_component/uncommon = 1, /obj/item/stock_parts/scanning_module/adv = 1)
+#define SALVAGE_TIER_4_REQUIREMENTS list(/obj/item/salvage/salvage_component/common = 4, /obj/item/salvage/salvage_component/uncommon = 2, /obj/item/salvage/salvage_component/rare = 1, /obj/item/stock_parts/scanning_module/phasic = 1)
+#define SALVAGE_TIER_5_REQUIREMENTS list(/obj/item/salvage/salvage_component/common = 3, /obj/item/salvage/salvage_component/uncommon = 3, /obj/item/salvage/salvage_component/rare = 2, /obj/item/stock_parts/scanning_module/phasic = 2)
+#define SALVAGE_TIER_6_REQUIREMENTS list(/obj/item/salvage/salvage_component/uncommon = 5, /obj/item/salvage/salvage_component/rare = 5, /obj/item/stock_parts/scanning_module/triphasic = 2)
 
 // MARK: Salvage Schematics
 /obj/item/salvage_decryptor_schematic
@@ -111,144 +15,157 @@
 	/// What root icon do we use
 	var/icon_root = ""
 	/// What decryptor do we make
-	var/decryptor_type
+	var/obj/item/salvage_decryptor/decryptor_type
 	/// What materials do we need to assemble the decryptor
 	var/list/required_items = list()
+	/// List of additional requirements specific to a crate type
+	var/list/extra_requirements = list()
 
 /obj/item/salvage_decryptor_schematic/Initialize(mapload)
 	. = ..()
+	required_items += extra_requirements
 	icon_state = "mod_decryptor_" + icon_root + "_schematic"
 	update_icon()
 
 /obj/item/salvage_decryptor_schematic/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("This schematic requires the following components:")
-	var/list/checked_ingredients = list()
-	for(var/obj/item/ingredient in required_items)
-		if(ingredient in checked_ingredients)
-			continue
-		var/count = count_by_type(required_items, ingredient)
-		. += SPAN_NOTICE("- [ingredient] x[count]")
-		checked_ingredients += ingredient
+	if(LAZYLEN(required_items))
+		var/list/nice_list = list()
+		for(var/B in required_items)
+			var/atom/A = B
+			if(!ispath(A))
+				continue
+			nice_list += list("- [initial(A.name)] x[required_items[A]]")
+		. += SPAN_NOTICE("Required components:")
+		for(var/S in nice_list)
+			. += SPAN_NOTICE(S)
 
 /obj/item/salvage_decryptor_schematic/illegal
 	name = "dead drop decryptor schematic"
 	icon_root = "drop"
-	required_items = list()
+	required_items = SALVAGE_TIER_1_REQUIREMENTS
+	extra_requirements = list(/obj/item/stack/telecrystal = 1)
 	decryptor_type = /obj/item/salvage_decryptor/illegal
 
 /obj/item/salvage_decryptor_schematic/parts
 	name = "spare parts decryptor schematic"
 	icon_root = "parts"
-	required_items = list()
+	required_items = SALVAGE_TIER_2_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/parts
 
 /obj/item/salvage_decryptor_schematic/cooler
 	name = "cooler decryptor schematic"
 	icon_root = "cooler"
-	required_items = list()
+	required_items = SALVAGE_TIER_2_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/cooler
 
 /obj/item/salvage_decryptor_schematic/lost
 	name = "lost and found decryptor schematic"
 	icon_root = "lost"
-	required_items = list()
+	required_items = SALVAGE_TIER_2_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/lost
 
 /obj/item/salvage_decryptor_schematic/service
 	name = "service decryptor schematic"
 	icon_root = "service"
-	required_items = list()
+	required_items = SALVAGE_TIER_2_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/service
 
 /obj/item/salvage_decryptor_schematic/industrial
 	name = "industrial decryptor schematic"
 	icon_root = "industrial"
-	required_items = list()
+	required_items = SALVAGE_TIER_3_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/industrial
 
 /obj/item/salvage_decryptor_schematic/freezer
 	name = "deep freezer decryptor schematic"
 	icon_root = "freezer"
-	required_items = list()
+	required_items = SALVAGE_TIER_3_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/freezer
 
 /obj/item/salvage_decryptor_schematic/med
 	name = "dated medicine decryptor schematic"
 	icon_root = "med"
-	required_items = list()
+	required_items = SALVAGE_TIER_3_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/med
 
 /obj/item/salvage_decryptor_schematic/backlog
 	name = "undelivered backlog decryptor schematic"
 	icon_root = "backlog"
-	required_items = list()
+	required_items = SALVAGE_TIER_3_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/backlog
 
 /obj/item/salvage_decryptor_schematic/hazmat
 	name = "hazmat decryptor schematic"
 	icon_root = "hazmat"
-	required_items = list()
+	required_items = SALVAGE_TIER_4_REQUIREMENTS
+	extra_requirements = list(/obj/item/geiger_counter = 1)
 	decryptor_type = /obj/item/salvage_decryptor/hazmat
 
 /obj/item/salvage_decryptor_schematic/clown
 	name = "failed comedian decryptor schematic"
 	icon_root = "comedian"
-	required_items = list()
+	required_items = SALVAGE_TIER_3_REQUIREMENTS
+	extra_requirements = list(/obj/item/bikehorn = 1)
 	decryptor_type = /obj/item/salvage_decryptor/clown
 
 /obj/item/salvage_decryptor_schematic/unstable
 	name = "unstable samples decryptor schematic"
 	icon_root = "unstable"
-	required_items = list()
+	required_items = SALVAGE_TIER_4_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/unstable
 
 /obj/item/salvage_decryptor_schematic/contain
 	name = "long term containment decryptor schematic"
 	icon_root = "contain"
-	required_items = list()
+	required_items = SALVAGE_TIER_4_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/contain
 
 /obj/item/salvage_decryptor_schematic/live
 	name = "live samples decryptor schematic"
 	icon_root = "live"
-	required_items = list()
+	required_items = SALVAGE_TIER_4_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/live
 
 /obj/item/salvage_decryptor_schematic/exotic
 	name = "exotic decryptor schematic"
 	icon_root = "exotic"
-	required_items = list()
+	required_items = SALVAGE_TIER_4_REQUIREMENTS
 	decryptor_type = /obj/item/salvage_decryptor/exotic
 
 /obj/item/salvage_decryptor_schematic/dno
 	name = "'Do Not Open' decryptor schematic"
 	icon_root = "donot"
-	required_items = list()
+	required_items = SALVAGE_TIER_5_REQUIREMENTS
+	extra_requirements = list(/obj/item/stack/sheet/mineral/palladium = 2)
 	decryptor_type = /obj/item/salvage_decryptor/dno
 
 /obj/item/salvage_decryptor_schematic/bluespace
 	name = "bluespace decryptor schematic"
 	icon_root = "bluespace"
-	required_items = list()
+	required_items = SALVAGE_TIER_5_REQUIREMENTS
+	extra_requirements = list(/obj/item/stack/ore/bluespace_crystal = 2)
 	decryptor_type = /obj/item/salvage_decryptor/bluespace
 
 /obj/item/salvage_decryptor_schematic/ancient
 	name = "ancient decryptor schematic"
 	icon_root = "ancient"
-	required_items = list()
+	required_items = SALVAGE_TIER_5_REQUIREMENTS
+	extra_requirements = list(/obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/sinew = 1)
 	decryptor_type = /obj/item/salvage_decryptor/ancient
 
 /obj/item/salvage_decryptor_schematic/deposit
 	name = "deposit decryptor schematic"
 	icon_root = "deposit"
-	required_items = list()
+	required_items = SALVAGE_TIER_5_REQUIREMENTS
+	extra_requirements = list(/obj/item/stack/sheet/mineral/platinum = 2)
 	decryptor_type = /obj/item/salvage_decryptor/deposit
 
 /obj/item/salvage_decryptor_schematic/pandora
 	name = "'Pandora' decryptor schematic"
 	icon_root = "pandora"
-	required_items = list()
+	required_items = SALVAGE_TIER_6_REQUIREMENTS
+	extra_requirements = list(/obj/item/dice/d20 = 1)
 	decryptor_type = /obj/item/salvage_decryptor/pandora
 
 // MARK: Salvage Decryptors
@@ -265,7 +182,7 @@
 	/// How much do we improve our odds of finding the crate we want
 	var/weight_increase = 1500 // Huge bonus
 	/// What is our durability
-	var/durability = 6 // 6 uses
+	var/durability = 5 // 5 uses
 
 /obj/item/salvage_decryptor/Initialize(mapload)
 	. = ..()
@@ -378,3 +295,10 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "command_broken"
 	materials = list(MAT_PLASTIC = 250)
+
+#undef SALVAGE_TIER_1_REQUIREMENTS
+#undef SALVAGE_TIER_2_REQUIREMENTS
+#undef SALVAGE_TIER_3_REQUIREMENTS
+#undef SALVAGE_TIER_4_REQUIREMENTS
+#undef SALVAGE_TIER_5_REQUIREMENTS
+#undef SALVAGE_TIER_6_REQUIREMENTS

@@ -3535,6 +3535,7 @@
 #include "code\modules\ruins\objects_and_mobs\simon_says.dm"
 #include "code\modules\ruins\spaceruin_code\voyager.dm"
 #include "code\modules\salvage\reclaimer_workbench.dm"
+#include "code\modules\salvage\salvage_components.dm"
 #include "code\modules\salvage\salvage_crate.dm"
 #include "code\modules\salvage\salvage_loot_tables.dm"
 #include "code\modules\salvage\salvage_schematics.dm"

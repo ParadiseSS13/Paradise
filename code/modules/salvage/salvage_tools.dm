@@ -31,11 +31,12 @@
 	scan_distance = 250 // Really high value to start
 	var/off_z = TRUE
 	var/new_icon
+	var/turf/T = get_turf(src)
 	for(var/atom/A in GLOB.salvage_objects)
-		if(A.z != z)
+		if(A.z != T.z)
 			continue
 		off_z = FALSE
-		var/dist = get_dist(get_turf(A), get_turf(src))
+		var/dist = get_dist(get_turf(A), T)
 		if(scan_distance < dist)
 			continue
 		scan_distance = dist
@@ -86,7 +87,7 @@
 	/// The installed decryptor chip
 	var/obj/item/salvage_decryptor/decryptor
 	/// The odds we find any specific crate
-	var/crate_chances = list(
+	var/list/crate_chances = list(
 		/obj/item/storage/salvage_crate/salvage = 1000,
 		/obj/item/storage/salvage_crate/parts = 100,
 		/obj/item/storage/salvage_crate/cooler = 100,
@@ -105,15 +106,10 @@
 		/obj/item/storage/salvage_crate/illegal = 1,
 	)
 
-/obj/item/salvage_detector/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
-	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
-
 /obj/item/salvage_detector/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	update_odds()
+	crate_chances[/obj/item/storage/salvage_crate/illegal] += 250
 
 /obj/item/salvage_detector/attack_obj(obj/attacked_obj, mob/living/user, params)
 	if(user.a_intent != INTENT_HELP)
@@ -121,16 +117,6 @@
 	if(attacked_obj.has_salvage)
 		extract_salvage(attacked_obj, user)
 	return FALSE
-
-/obj/item/salvage_detector/add_bit(atom/source, obj/item/smithed_item/tool_bit/bit, mob/user)
-	. = ..()
-	scan_time = scan_time * bit.speed_mod
-
-/obj/item/salvage_detector/remove_bit(atom/source, mob/user)
-
-	var/obj/item/smithed_item/tool_bit/old_bit = attached_bits[1]
-	scan_time = scan_time / old_bit.speed_mod
-	. = ..()
 
 /obj/item/salvage_detector/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/salvage_decryptor) || user.a_intent != INTENT_HELP)
@@ -142,14 +128,18 @@
 		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 	decryptor = used
-	update_odds()
+	if(!crate_chances[decryptor.crate_type])
+		crate_chances[decryptor.crate_type] = decryptor.weight_increase
+	else
+		crate_chances[decryptor.crate_type] += decryptor.weight_increase
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/salvage_detector/AltClick(mob/user, modifiers)
 	. = ..()
 	if(decryptor)
-		to_chat(user, SPAN_WARNING("You pop [src] out of the decryptor slot."))
+		to_chat(user, SPAN_WARNING("You pop [decryptor] out of the decryptor slot."))
 		user.put_in_hands(decryptor)
+		crate_chances[decryptor.crate_type] -= decryptor.weight_increase
 		decryptor = null
 
 /obj/item/salvage_detector/proc/extract_salvage(obj/target, mob/living/user)
@@ -174,19 +164,12 @@
 	if(decryptor)
 		decryptor.durability -= 1
 		if(!decryptor.durability)
+			crate_chances[decryptor.crate_type] -= decryptor.weight_increase
 			decryptor = null
 			to_chat(user, SPAN_WARNING("The decrpytor chip sparks and ejects from [src], completely burnt out!"))
 			new /obj/item/broken_decryptor(get_turf(src))
 	target.has_salvage = FALSE
 	GLOB.salvage_objects -= target
-
-/obj/item/salvage_detector/proc/update_odds()
-	crate_chances = initial(crate_chances)
-	if(decryptor)
-		crate_chances += list(decryptor.crate_type = decryptor.weight_increase)
-	if(emagged)
-		crate_chances += list(/obj/item/storage/salvage_crate/illegal = 250)
-
 
 #undef SCAN_OVERLAY_COLD
 #undef SCAN_OVERLAY_WARM

@@ -4,6 +4,7 @@
 	icon = 'icons/obj/salvage/salvage_crates.dmi'
 	icon_state = "salvage"
 	base_icon_state = "salvage"
+	use_sound = 'sound/effects/toolbox.ogg'
 	/// Has this salvage crate been opened yet?
 	var/opened = FALSE
 	/// Is this salvage crate still locked
