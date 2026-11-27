@@ -16,7 +16,7 @@
 	/// Minimum amount of loot items to spawn
 	var/minimum_loot = 1
 	/// Maximum amount of loot items to spawn
-	var/maximum_loot = 4
+	var/maximum_loot = 5
 	/// Types of crate upgrade schematic it can drop
 	var/list/possible_schematics = list()
 	/// Chance for a schematic to drop
