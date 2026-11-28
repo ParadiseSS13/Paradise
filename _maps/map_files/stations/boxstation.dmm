@@ -45980,7 +45980,7 @@
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/machinery/airlock_controller/air_cycler/directional/south,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/shipwright,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "eum" = (
@@ -61067,7 +61067,7 @@
 /obj/machinery/door/firedoor{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/shipwright,
 /turf/simulated/floor/plating,
 /area/station/engineering/shipwright)
 "kNS" = (
@@ -73686,6 +73686,9 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/desk_bell,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/shipwright{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/shipwright)
 "qmw" = (

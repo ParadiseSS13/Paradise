@@ -18820,7 +18820,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/shipwright,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -24847,6 +24847,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig_hangar,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig_pilot)
 "hdZ" = (
@@ -33318,7 +33319,7 @@
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/map_effect/dynamic_airlock,
 /obj/machinery/airlock_controller/air_cycler/directional/south,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/shipwright,
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/engineering/shipwright)
 "lPz" = (
@@ -40957,13 +40958,15 @@
 /area/station/maintenance/aft)
 "pVj" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2
+	dir = 8
 	},
 /obj/structure/table/reinforced,
 /obj/item/desk_bell,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/shipwright{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/shipwright)
