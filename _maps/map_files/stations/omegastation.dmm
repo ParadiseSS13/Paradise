@@ -40962,9 +40962,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/desk_bell,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/shipwright{
 	dir = 8
 	},
