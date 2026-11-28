@@ -74,6 +74,15 @@
 		to_chat(user, SPAN_WARNING("[target] doesn't have a [parse_zone(def_zone)]!"))
 		return TRUE
 
+	if(affected.has_synthetic_skin && M == user) // [Smokey Bear voice] only YOU can remove your own epidermis
+		to_chat(user, SPAN_NOTICE("The applicator begins removing skin from your [affected.name]..."))
+		playsound(get_turf(src), 'sound/effects/spray.ogg', 50, TRUE)
+		do_after(user, 3 SECONDS, target = target)
+		playsound(get_turf(src), 'sound/effects/spray3.ogg', 50, TRUE)
+		metal_stored += metal_per_use
+		affected.remove_synthetic_skin()
+		return TRUE
+
 	// Show these identically so it can't be used to test whether a limb is synthetic or not.
 	if(!affected.is_robotic() || affected.has_synthetic_skin)
 		to_chat(user, SPAN_WARNING("The [affected.name] doesn't need skin."))
