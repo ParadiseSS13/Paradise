@@ -38,6 +38,7 @@
 				to_chat(user, SPAN_WARNING("That limb is not robotic!"))
 				return ITEM_INTERACT_COMPLETE
 
+			do_mob(user, H, 3 SECONDS, requires_upright = FALSE)
 			robotic_limb_repair(user, external_limb, H)
 		return ITEM_INTERACT_COMPLETE
 
