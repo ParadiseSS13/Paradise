@@ -114,7 +114,7 @@
 		var/ckey_txt = href_list["priv_msg"]
 		var/pm_type = href_list["type"]
 		var/list/valid_pm_types = list("PM", "Mentorhelp") // sanity check this
-		if (!(pm_type in valid_pm_types))
+		if(!(pm_type in valid_pm_types))
 			return
 
 		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
