@@ -11,6 +11,8 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft/cargo(src)
 	new /obj/item/storage/bag/mail(src)
+	new /obj/item/salvage_detector(src)
+	new /obj/item/salvage_scanner(src)
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
@@ -76,6 +78,8 @@
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/expedition(src)
 	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/salvage_detector(src)
+	new /obj/item/salvage_scanner(src)
 
 /obj/structure/closet/secure_closet/smith
 	name = "smith's locker"
@@ -112,6 +116,8 @@
 	new /obj/item/storage/bag/mail(src)
 	new /obj/item/melee/knuckleduster/nanotrasen(src)
 	new /obj/item/gun/energy/gun/mini(src)
+	new /obj/item/salvage_detector(src)
+	new /obj/item/salvage_scanner(src)
 
 /// used in mining outpost
 /obj/structure/closet/secure_closet/quartermaster/lavaland

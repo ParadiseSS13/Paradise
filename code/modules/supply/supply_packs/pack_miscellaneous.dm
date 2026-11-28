@@ -783,6 +783,19 @@
 		/obj/effect/spawner/random/plushies/explosive,
 	)
 
+/datum/supply_packs/misc/salvage_kit
+	name = "Salvage Starter Kit Crate"
+	contains = list(
+		/obj/item/salvage_detector,
+		/obj/item/salvage_detector,
+		/obj/item/salvage_scanner,
+		/obj/item/salvage_scanner
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure
+	containername = "salvage starter kit crate"
+	access = ACCESS_CARGO
+
 /datum/supply_packs/misc/bigband
 	name = "Big Band Instrument Collection"
 	contains = list(/obj/item/instrument/violin,

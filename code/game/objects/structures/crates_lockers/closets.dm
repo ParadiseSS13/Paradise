@@ -9,6 +9,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
+	salvage_prob = 10
 	var/icon_closed
 	var/icon_opened
 	/// Overwrites icon_state for the opened door sprite. Only necessary if the opened door sprite has a different name than the icon_state.
@@ -321,6 +322,11 @@
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
 		E.try_send_container(user, src)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(W, /obj/item/salvage_detector) && has_salvage)
+		var/obj/item/salvage_detector/detector = W
+		detector.extract_salvage(src, user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(opened)

@@ -75,11 +75,11 @@
 		if(0 to 19)
 			. +=  SPAN_WARNING("It's falling apart!")
 
-/obj/item/smithed_item/tool_bit/proc/damage_bit()
-	durability--
+/obj/item/smithed_item/tool_bit/proc/damage_bit(durability_used = 1)
+	durability -= durability_used
 	if(istype(attached_tool, /obj/item/rcd))
-		durability--
-	if(durability == 0)
+		durability -= durability_used
+	if(durability <= 0)
 		break_bit()
 
 /obj/item/smithed_item/tool_bit/proc/break_bit()

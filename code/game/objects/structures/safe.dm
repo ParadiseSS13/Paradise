@@ -24,6 +24,7 @@ GLOBAL_LIST_EMPTY(safes)
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	salvage_prob = 10
 	// Settings
 	/// The maximum combined w_class of stuff in the safe.
 	var/maxspace = 24
@@ -188,6 +189,10 @@ GLOBAL_LIST_EMPTY(safes)
 		ui_interact(user)
 
 /obj/structure/safe/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(istype(I, /obj/item/salvage_detector) && has_salvage)
+		var/obj/item/salvage_detector/detector = I
+		detector.extract_salvage(src, user)
+		return ITEM_INTERACT_COMPLETE
 	if(open)
 		if(I.flags && ABSTRACT)
 			return ITEM_INTERACT_COMPLETE

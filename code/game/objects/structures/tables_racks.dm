@@ -26,6 +26,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_TABLES)
 	creates_cover = TRUE
+	salvage_prob = 5
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -241,6 +242,10 @@
 		return ..()
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
+		if(istype(I, /obj/item/salvage_detector) && has_salvage)
+			var/obj/item/salvage_detector/detector = I
+			detector.extract_salvage(src, user)
+			return ITEM_INTERACT_COMPLETE
 		if(user.drop_item())
 			I.Move(loc)
 			//Center the icon where the user clicked.
@@ -908,6 +913,7 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
+	salvage_prob = 10
 	var/deconstruction_item = /obj/item/rack_parts
 	var/deconstruction_quantity = 1
 
@@ -950,6 +956,10 @@
 		return
 	if(user.a_intent == INTENT_HARM)
 		return
+	if(istype(W, /obj/item/salvage_detector) && has_salvage)
+		var/obj/item/salvage_detector/detector = W
+		detector.extract_salvage(src, user)
+		return ITEM_INTERACT_COMPLETE
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)

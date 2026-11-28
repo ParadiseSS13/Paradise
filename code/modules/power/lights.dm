@@ -638,6 +638,11 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/salvage_detector) && has_salvage && user.a_intent == INTENT_HELP)
+		var/obj/item/salvage_detector/detector = used
+		detector.extract_salvage(src, user)
+		return ITEM_INTERACT_COMPLETE
+
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
 		if(on && (used.flags & CONDUCT))
 			if(prob(12))

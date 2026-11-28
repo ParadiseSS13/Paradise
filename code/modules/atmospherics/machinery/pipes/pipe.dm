@@ -10,6 +10,7 @@
 	//Buckling
 	can_buckle = TRUE
 	buckle_requires_restraints = TRUE
+	salvage_prob = 0
 
 	flags_2 = NO_MALF_EFFECT_2
 

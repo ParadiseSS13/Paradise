@@ -1033,6 +1033,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
 		return ITEM_INTERACT_COMPLETE
+	if(has_salvage && istype(used, /obj/item/salvage_detector))
+		return ..()
 	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
 		if(locked)
 			if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))

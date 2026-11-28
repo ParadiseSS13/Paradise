@@ -22942,6 +22942,7 @@
 /area/station/hallway/primary/starboard/west)
 "bJi" = (
 /obj/machinery/alarm/directional/north,
+/obj/structure/salvage_bench,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bJk" = (

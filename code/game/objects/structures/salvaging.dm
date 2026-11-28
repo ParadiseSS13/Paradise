@@ -4,6 +4,7 @@
 	icon = 'icons/obj/salvage_structure.dmi'
 	density = TRUE
 	anchored = TRUE
+	salvage_prob = 75
 	var/salvageable_parts = list()
 	var/frame_type = /obj/structure/machine_frame
 

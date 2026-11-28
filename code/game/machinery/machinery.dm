@@ -10,6 +10,7 @@
 	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.3
 	new_attack_chain = TRUE
+	salvage_prob = 3
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
@@ -362,6 +363,11 @@
 
 /obj/machinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(exchange_parts(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/salvage_detector) && has_salvage)
+		var/obj/item/salvage_detector/detector = used
+		detector.extract_salvage(src, user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/nanopaste))

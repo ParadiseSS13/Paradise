@@ -17,6 +17,9 @@ GLOBAL_LIST_EMPTY(navigation_computers)
 GLOBAL_LIST_EMPTY(hierophant_walls)
 GLOBAL_LIST_EMPTY(pandemics)
 
+GLOBAL_LIST_EMPTY(possible_salvage_objects) // List of all objects that can respawn salvage
+GLOBAL_LIST_EMPTY(salvage_objects) // List of all objects with salvage
+
 GLOBAL_LIST_EMPTY(all_areas)
 GLOBAL_LIST_EMPTY_TYPED(all_unique_areas, /area) // List of all unique areas. AKA areas with there_can_be_many = FALSE
 GLOBAL_LIST_EMPTY(telescreens) /// List of entertainment telescreens connected to the "news" cameranet

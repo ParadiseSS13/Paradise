@@ -84,6 +84,7 @@
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A large, wheeled tank full of potable water."
+	salvage_prob = 10
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
@@ -104,6 +105,7 @@
 	icon_state = "oil"
 	reagent_id = "oil"
 	tank_volume = 3000
+	salvage_prob = 10
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
@@ -112,6 +114,7 @@
 	reagent_id = "fuel"
 	tank_volume = 4000
 	anchored = TRUE
+	salvage_prob = 10
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 

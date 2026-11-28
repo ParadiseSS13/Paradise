@@ -45,6 +45,11 @@
 	/// Is this object emagged?
 	var/emagged = FALSE
 
+	/// This object contains salvage
+	var/has_salvage = FALSE
+	/// Chance this object can have salvage
+	var/salvage_prob = 0
+
 	// Access-related fields
 
 	/// A list of accesses as defined by `code/__DEFINES/access_defines.dm`. All accesses are required when checking.
@@ -69,6 +74,11 @@
 			T.add_blueprints(src)
 		else
 			T.add_blueprints_preround(src)
+	if(salvage_prob && is_station_level(z))
+		GLOB.possible_salvage_objects += src
+	if(mapload && (istype(get_area(get_turf(src)), /area/station/maintenance) || istype(get_area(get_turf(src)), /area/ruin)) && prob(salvage_prob)) // Only check for salvage on mapload.
+		has_salvage = TRUE
+		GLOB.salvage_objects += src
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
