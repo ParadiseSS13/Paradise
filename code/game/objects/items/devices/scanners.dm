@@ -267,19 +267,19 @@ SLIME SCANNER
 		var/obj/item/I = target
 		var/list/message = list()
 		if(I.origin_tech)
-			message += "[SPAN_NOTICE("Testing potentials:")]<br>"
+			message += "[SPAN_NOTICE("Testing potentials:")]"
 			var/list/tech_levels = params2list(I.origin_tech)
 			for(var/T in tech_levels)
-				message += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [tech_levels[T]]<br>"
+				message += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [tech_levels[T]]"
 		else
-			message += "[SPAN_DANGER("No tech origins detected.")]<br>"
+			message += "[SPAN_DANGER("No tech origins detected.")]"
 
 		if(length(I.materials))
-			message += "[SPAN_NOTICE("Extractable materials:")]<br>"
+			message += "[SPAN_NOTICE("Extractable materials:")]"
 			for(var/material_id in I.materials)
-				message += "Material: [CallMaterialName(material_id)] | Quantity: [I.materials[material_id]] cm<sup>3</sup><br>" // Capitize first word, remove the "$".
+				message += "Material: [CallMaterialName(material_id)] | Quantity: [I.materials[material_id]] cm<sup>3</sup>" // Capitize first word, remove the "$".
 		else
-			message += "[SPAN_DANGER("No extractable materials detected.")]<br>"
+			message += "[SPAN_DANGER("No extractable materials detected.")]"
 		to_chat(user, chat_box_examine(message.Join("<br>")))
 		return TRUE
 
