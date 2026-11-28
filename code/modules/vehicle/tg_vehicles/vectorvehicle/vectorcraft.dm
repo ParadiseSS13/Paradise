@@ -143,21 +143,23 @@
 		y_move = round((tile_loc["y"] - PX_OFFSET) / (PX_OFFSET * 2), 1)
 		tile_loc["y"] = ((tile_loc["y"] - PX_OFFSET) % -(PX_OFFSET * 2)) + PX_OFFSET
 
-	if(!(x_move == 0 && y_move == 0))
-		var/turf/T = get_offset_target_turf(src, x_move, y_move)
-		for(var/atom/A in T.contents)
+	var/turf/new_turf
+	if(x_move || y_move)
+		new_turf = get_offset_target_turf(src, x_move, y_move)
+		for(var/atom/A in new_turf.contents)
 			Bump(A)
 			if(A.density)
 				ricochet()
 				tile_loc = cached_tile
 				return FALSE
-		if(T.density)
+		if(new_turf.density)
 			ricochet()
 			tile_loc = cached_tile
 			return FALSE
 
-	x += x_move
-	y += y_move
+	if(new_turf)
+		forceMove(new_turf)
+
 	pixel_x = round(tile_loc["x"], 1)
 	pixel_y = round(tile_loc["y"], 1)
 	if(driver && driver.client)
@@ -169,15 +171,7 @@
 		message_admins("Pix:[pixel_x],[pixel_y] TileLoc:[tile_loc["x"]], [tile_loc["y"]]. [round(tile_loc["x"])], [round(tile_loc["y"])]")
 	#endif
 
-	// no tile movement
-	if(x_move == 0 && y_move == 0)
-		return FALSE
-
-	loc.Entered(src)
-	var/turf/old_loc = locate(cached_tile["x"], cached_tile["y"])
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc)
-
-	return TRUE
+	return !!new_turf
 
 /// Check the cooldown on the boost.
 /obj/tgvehicle/sealed/vectorcraft/proc/check_boost()
