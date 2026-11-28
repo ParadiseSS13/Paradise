@@ -446,8 +446,7 @@ class ChatRenderer {
         }
         // Payload is HTML
         else if (message.html) {
-          node.innerHTML = message.html;
-          node.innerHTML = DOMPurify.sanitize(node.innerHTML, {
+          node.innerHTML = DOMPurify.sanitize(message.html, {
             // No iframes in my chat kkthxbye
             FORBID_TAGS: blacklisted_tags,
             ALLOW_UNKNOWN_PROTOCOLS: true,
