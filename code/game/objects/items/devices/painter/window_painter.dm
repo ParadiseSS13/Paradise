@@ -14,7 +14,7 @@
 	)
 
 /datum/painter/window/pick_color(mob/user)
-	var/new_paint_setting = tgui_input_color(user, "Please select a paint color.", "Window Painter Color")
+	var/new_paint_setting = tgui_input_color(user, "Please select a paint color.", "Window Painter Color", paint_setting)
 	if(!new_paint_setting)
 		return
 	paint_setting = new_paint_setting
@@ -29,6 +29,6 @@
 			W.color = paint_setting
 		W.old_color = paint_setting
 		return TRUE
-		
+
 	W.color = paint_setting
 	return TRUE
