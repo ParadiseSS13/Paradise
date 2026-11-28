@@ -213,7 +213,9 @@
 	if(has_buckled_mobs())
 		to_chat(skater, SPAN_WARNING("You can't lift this up when somebody's on it."))
 		return
-	skater.put_in_hands(new board_item_type(get_turf(skater)))
+	var/obj/item/melee/skateboard/board_item = new board_item_type(get_turf(skater))
+	transfer_fingerprints_to(board_item)
+	skater.put_in_hands(board_item)
 	qdel(src)
 
 /obj/tgvehicle/scooter/skateboard/pro
@@ -370,12 +372,17 @@
 	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
+	needs_permit = FALSE
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
 
-/obj/item/melee/skateboard/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/skateboard/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/obj/tgvehicle/scooter/skateboard/S = new board_item_type(get_turf(user))//this probably has fucky interactions with telekinesis but for the record it wasn't my fault
+	transfer_fingerprints_to(S)
 	S.buckle_mob(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/skateboard/improvised
 	name = "improvised skateboard"

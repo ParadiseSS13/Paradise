@@ -988,7 +988,6 @@
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	new_attack_chain = TRUE
 	var/double_attack = TRUE
 	var/double_attack_cd = 1.5 // seconds, so every second attack
 	sharp = TRUE

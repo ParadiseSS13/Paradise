@@ -10,7 +10,6 @@
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
-	new_attack_chain = TRUE
 	var/base_icon = "stunbaton"
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
