@@ -245,7 +245,6 @@
 
 	controller.queue_behavior(/datum/ai_behavior/find_and_set/valid_authority, BB_SALUTE_TARGET)
 
-
 /datum/ai_behavior/find_and_set/valid_authority
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	action_cooldown = BOT_COMMISSIONED_SALUTE_DELAY
@@ -256,6 +255,7 @@
 	return null
 
 /datum/ai_behavior/salute_authority
+	action_cooldown = 10 MINUTES
 
 /datum/ai_behavior/salute_authority/perform(seconds_per_tick, datum/ai_controller/controller, target_key, salute_keys)
 	. = ..()

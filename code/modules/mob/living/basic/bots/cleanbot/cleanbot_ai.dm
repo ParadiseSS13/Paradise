@@ -11,7 +11,7 @@
 			"nods in appreciation towards",
 			"mops the dirt away in the path of",
 		),
-		BB_FRIENDLY_MESSAGE = "empathetically acknowledges your hardwork and tough circumstances",
+		BB_FRIENDLY_MESSAGE = "empathetically acknowledges your hard work and tough circumstances.",
 	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/generic_resist,
@@ -170,7 +170,7 @@
 	if(bot_pawn.bot_access_flags & BOT_COVER_EMAGGED)
 		return
 	if(controller.blackboard_key_exists(BB_FRIENDLY_JANITOR))
-		controller.queue_behavior(/datum/ai_behavior/befriend_target, BB_FRIENDLY_JANITOR, BB_FRIENDLY_MESSAGE)
+		controller.queue_behavior(/datum/ai_behavior/befriend_target/cleanbot, BB_FRIENDLY_JANITOR, BB_FRIENDLY_MESSAGE)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
 	controller.queue_behavior(/datum/ai_behavior/find_and_set/friendly_janitor, BB_FRIENDLY_JANITOR, /mob/living/carbon/human, 5)
@@ -186,6 +186,9 @@
 			continue
 		return human_target
 	return null
+
+/datum/ai_behavior/befriend_target/cleanbot
+	action_cooldown = 8 MINUTES
 
 /datum/ai_planning_subtree/find_patrol_beacon/cleanbot
 
