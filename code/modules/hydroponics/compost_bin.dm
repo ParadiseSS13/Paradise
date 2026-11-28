@@ -59,7 +59,7 @@
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
 	var/plant_potassium = O.reagents.get_reagent_amount("potassium")
 	var/plant_potash = O.reagents.get_reagent_amount("ash")
-	biomass += min(max(plant_biomass * 10, 1), biomass_capacity - biomass)
+	biomass += clamp(plant_biomass * 10, 1, biomass_capacity - biomass)
 	potassium += min(potassium_capacity - potassium, plant_potassium)
 	potash += min(potash_capacity - potash, plant_potash)
 	//plant delenda est

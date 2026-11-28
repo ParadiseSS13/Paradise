@@ -44,7 +44,7 @@
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/airlock/P = object
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = stripped_input(user, "Please select an ID for the button", "Buildmode")
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
@@ -66,7 +66,7 @@
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/poddoor/P = object
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = stripped_input(user, "Please select an ID for the button", "Buildmode")
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
@@ -81,7 +81,7 @@
 					return
 				M.normaldoorcontrol = FALSE
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = stripped_input(user, "Please select an ID for the button", "Buildmode")
 				if(!M.id || M.id == "")
 					speed_execute()
 					return

@@ -337,7 +337,7 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
+				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN)
 				if(isnull(new_name))
 					return
 				prisoner_name = new_name
@@ -348,7 +348,7 @@
 				else
 					prisoner_hasrecord = FALSE
 		if("prisoner_charge")
-			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge, encode = FALSE)
+			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge)
 			if(isnull(new_charge))
 				return
 			prisoner_charge = new_charge
@@ -430,8 +430,8 @@
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
 /obj/machinery/door_timer/proc/return_time_input()
-	var/mins = input(usr, "Minutes", "Enter number of minutes", 0) as num
-	var/seconds = input(usr, "Seconds", "Enter number of seconds", 0) as num
+	var/mins = tgui_input_number(usr, "Enter number of minutes", "Minutes", 0)
+	var/seconds = tgui_input_number(usr, "Enter number of seconds", "Seconds", 0)
 	var/totaltime = (seconds + (mins * 60))
 	return totaltime
 

@@ -298,6 +298,8 @@
 			min(max(mining_power - max(NEAREST_MW(mining_power / 2), NEAREST_MW((mining_power + 30 MW) / 3)), 0), \
 			clamp(desired_mining_power - clamp((30 MW) - desired_mining_power, 0, 15 MW), 0, desired_mining_power))
 
+			// Someone PLEASE make the above min(max()) into a clamp() if you can
+
 			// Stabilizers take priority so we subtract them from the available total straight away
 			mining_power = mining_power - stabilizer_power
 		else

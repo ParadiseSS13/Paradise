@@ -320,7 +320,7 @@
 	switch(param)
 		if("reason")
 			if(!value)
-				value = input("Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", null) as null|text
+				value = stripped_input(usr, "Insert the new reason for [pckey]'s ban", "New Reason", "[reason]")
 				if(!value)
 					to_chat(usr, "Cancelled")
 					return
@@ -339,7 +339,7 @@
 			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s reason from [reason] to [value]",1)
 		if("duration")
 			if(!value)
-				value = input("Insert the new duration (in minutes) for [pckey]'s ban", "New Duration", "[duration]", null) as null|num
+				value = wrapped_number_input(usr, "Insert the new duration (in minutes) for [pckey]'s ban", "New Duration", duration)
 				if(!isnum(value) || !value)
 					to_chat(usr, "Cancelled")
 					return

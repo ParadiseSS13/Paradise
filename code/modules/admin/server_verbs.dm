@@ -61,17 +61,17 @@ USER_VERB(delay_game, R_SERVER, "Delay", "Delay the game start/end", VERB_CATEGO
 USER_VERB(end_round, R_SERVER, "End Round", \
 		"Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do.", \
 		VERB_CATEGORY_SERVER)
-	var/input = sanitize(copytext_char(input(client, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
+	var/input_text = stripped_input(client, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!", MAX_MESSAGE_LEN)
 
-	if(!input)
+	if(!input_text)
 		return
 	if(SSticker.force_ending)
 		return
-	message_admins("[key_name_admin(client)] has admin ended the round with message: '[input]'")
-	log_admin("[key_name(client)] has admin ended the round with message: '[input]'")
+	message_admins("[key_name_admin(client)] has admin ended the round with message: '[input_text]'")
+	log_admin("[key_name(client)] has admin ended the round with message: '[input_text]'")
 	SSticker.force_ending = TRUE
 	SSticker.record_biohazard_results()
-	to_chat(world, SPAN_WARNING("<big><b>[input]</b></big>"))
+	to_chat(world, SPAN_WARNING("<big><b>[input_text]</b></big>"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
 
@@ -85,7 +85,7 @@ USER_VERB(restart_server, R_SERVER, "Restart", "Restarts the world.", VERB_CATEG
 	if(world.TgsAvailable()) // TGS lets you kill the process entirely
 		options += "Terminate Process (Kill and restart DD)"
 
-	var/result = input(client, "Select reboot method", "World Reboot", options[1]) as null|anything in options
+	var/result = wrapped_selection_input(client, "Select reboot method", "World Reboot", options)
 
 	if(result && is_live_server)
 		if(alert(client, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
@@ -97,7 +97,7 @@ USER_VERB(restart_server, R_SERVER, "Restart", "Restarts the world.", VERB_CATEG
 		switch(result)
 
 			if("Regular Restart")
-				var/delay = input(client, "What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
+				var/delay = wrapped_number_input(client, "What delay should the restart have (in seconds)?", "Restart Delay", 5)
 				if(!delay)
 					return FALSE
 

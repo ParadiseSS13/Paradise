@@ -251,13 +251,13 @@
 /datum/reagents/proc/temperature_reagents(exposed_temperature, divisor = 35, change_cap = 15) //This is what you use to change the temp of a reagent holder.
 	//Do not manually change the reagent unless you know what youre doing.
 	var/difference = abs(chem_temp - exposed_temperature)
-	var/change = min(max((difference / divisor), 1), change_cap)
+	var/change = clamp((difference / divisor), 1, change_cap)
 	if(exposed_temperature > chem_temp)
 		chem_temp += change
 	else if(exposed_temperature < chem_temp)
 		chem_temp -= change
 
-	chem_temp = max(min(chem_temp, temperature_max), temperature_min) //Cap for the moment.
+	chem_temp = clamp(chem_temp, temperature_min, temperature_max) //Cap for the moment.
 	temperature_react()
 
 	handle_reactions()
@@ -656,23 +656,23 @@
 						to_chat(H, SPAN_DANGER("You are scalded by the hot chemicals!"))
 						affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
 						H.emote("scream")
-						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
+						H.adjust_bodytemperature(clamp((chem_temp - T0C) - 20, 5, 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
 					if(H.reagent_safety_check(FALSE))
 						to_chat(H, SPAN_DANGER("You are frostbitten by the freezing cold chemicals!"))
 						affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
 						H.emote("scream")
-						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
+						H.adjust_bodytemperature(-clamp(T0C - chem_temp - 20, 5, 500))
 
 		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
 				to_chat(H, SPAN_DANGER("You scald yourself trying to consume the boiling hot substance!"))
 				H.adjustFireLoss(7)
-				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
+				H.adjust_bodytemperature(clamp((chem_temp - T0C) - 20, 5, 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
 				to_chat(H, SPAN_DANGER("You frostburn yourself trying to consume the freezing cold substance!"))
 				H.adjustFireLoss(7)
-				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
+				H.adjust_bodytemperature(-clamp((T0C - chem_temp) - 20, 5, 700))
 
 	for(var/AB in reagent_list)
 		var/datum/reagent/R = AB

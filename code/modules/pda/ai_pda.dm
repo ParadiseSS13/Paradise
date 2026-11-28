@@ -16,14 +16,14 @@
 		new/datum/data/pda/app/game/minesweeper,
 		)
 
-/obj/item/pda/silicon/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
+/obj/item/pda/silicon/proc/set_name_and_job(newname, newjob, newrank)
 	owner = newname
 	ownjob = newjob
 	if(newrank)
 		ownrank = newrank
 	else
 		ownrank = ownjob
-	name = newname + " (" + ownjob + ")"
+	name = newname + " ([ownjob])"
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
 	set category = "AI IM"

@@ -235,7 +235,7 @@
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
 	fire_flash_log(holder, id)
-	fireflash(get_turf(holder.my_atom), min(max(2, round(created_volume / 10)), 8))
+	fireflash(get_turf(holder.my_atom), clamp(round(created_volume / 10), 2, 8))
 
 /datum/chemical_reaction/napalm
 	name = "Napalm"

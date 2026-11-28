@@ -93,7 +93,6 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		dat += "<p><a href='byond://?src=[cached_UID];f_dynamic=1'>(Force Dynamic Rulesets)</a><br></p>"
 	dat += "<hr><br>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
-	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
 
@@ -413,7 +412,7 @@ USER_CONTEXT_MENU(update_mob_sprite, R_ADMIN, "\[Admin\] Update Mob Sprite", mob
 
 	possible_targets = sortAtom(possible_targets)
 
-	var/mob/new_target = input(caller_mob, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	var/mob/new_target = wrapped_selection_input(caller_mob, "Select target:", "Objective target", possible_targets, default_target)
 	if(!QDELETED(new_target))
 		return new_target.mind
 

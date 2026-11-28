@@ -133,11 +133,11 @@
 	return ..()
 
 /obj/machinery/cooking/grill/attack_hand(mob/user, params)
-	var/input = clickpos_to_surface(params2list(params))
-	if(!input)
+	var/input_value = clickpos_to_surface(params2list(params))
+	if(!input_value)
 		return
 
-	var/datum/cooking_surface/surface = surfaces[input]
+	var/datum/cooking_surface/surface = surfaces[input_value]
 	if(surface && surface.container)
 		if(surface.on)
 			surface.handle_cooking(user)

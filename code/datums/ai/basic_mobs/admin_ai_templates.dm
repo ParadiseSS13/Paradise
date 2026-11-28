@@ -132,7 +132,7 @@
 	if(isnull(pick_sound))
 		return FALSE
 	if(pick_sound == "Yes")
-		projectile_sound = input("", "Select fire sound",) as null|sound
+		projectile_sound = wrapped_sound_input(user, "", "Select fire sound")
 
 	return TRUE
 

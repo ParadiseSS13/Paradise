@@ -67,7 +67,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 			return
 	T.assignStaff(C)
 
-	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc)) //use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = wrapped_selection_input(usr, "Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse", sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc))) //use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	if(message_key == null)
 		T.staffAssigned = null //if they cancel we dont need to hold this ticket anymore

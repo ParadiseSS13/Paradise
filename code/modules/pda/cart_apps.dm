@@ -25,11 +25,11 @@
 			if(params["msgnum"])
 				switch(text2num(params["msgnum"]))
 					if(1)
-						message1 = tgui_input_text(usr, "Line 1", "Enter Message Text", message1, encode = FALSE)
+						message1 = tgui_input_text(usr, "Line 1", "Enter Message Text", message1)
 						if(isnull(message1))
 							return
 					if(2)
-						message2 = tgui_input_text(usr, "Line 2", "Enter Message Text", message2, encode = FALSE)
+						message2 = tgui_input_text(usr, "Line 2", "Enter Message Text", message2)
 						if(isnull(message2))
 							return
 

@@ -180,7 +180,7 @@
 				to_chat(usr, SPAN_WARNING("Error! Please notify administration."))
 				return area_created
 	var/list/turf/turfs = res
-	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", max_length = MAX_NAME_LEN, encode = FALSE)
+	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", max_length = MAX_NAME_LEN)
 	if(!str || !length(str)) // Cancel
 		return area_created
 	var/area/A = new
@@ -212,7 +212,7 @@
 /obj/item/areaeditor/proc/edit_area()
 	var/area/our_area = get_area(src)
 	var/prevname = "[sanitize(our_area.name)]"
-	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN, encode = FALSE)
+	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN)
 	if(!str || !length(str) || str == prevname) // Cancel
 		return
 	set_area_machinery_title(our_area, str, prevname)

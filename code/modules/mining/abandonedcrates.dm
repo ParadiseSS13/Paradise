@@ -92,12 +92,12 @@
 			prompt_title = "Deca-code lock"
 			prompt_message = "Enter [code_length] digits. All digits must be unique."
 
-	var/input = tgui_input_text(user, title = prompt_title, message = prompt_message, max_length = code_length)
+	var/input_value = tgui_input_text(user, title = prompt_title, message = prompt_message, max_length = code_length)
 
 	if(game_mode == GAME_MODE_WORDS)
-		input = uppertext(input)
+		input_value = uppertext(input_value)
 
-	if(input == code)
+	if(input_value == code)
 		if(!spawned_loot)
 			spawn_loot()
 		tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
@@ -105,12 +105,12 @@
 		SStgui.close_user_uis(user, src)
 		return
 
-	if(!validate_input(input))
+	if(!validate_input(input_value))
 		to_chat(user, SPAN_NOTICE("You leave the crate alone."))
 		return
 
 	to_chat(user, SPAN_WARNING("A red light flashes."))
-	previous_attempts += list(bulls_and_cows(input))
+	previous_attempts += list(bulls_and_cows(input_value))
 	attempts--
 
 	if(attempts <= 0)

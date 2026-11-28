@@ -327,7 +327,7 @@ USER_VERB(check_ai_laws, R_ADMIN, "Check AI Laws", "Output AI laws.", VERB_CATEG
 	client.holder.output_ai_laws()
 
 USER_VERB(open_law_manager, R_ADMIN, "Manage Silicon Laws", "Open the law manager.", VERB_CATEGORY_ADMIN)
-	var/mob/living/silicon/S = input(client, "Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
+	var/mob/living/silicon/S = wrapped_selection_input(client, "Select silicon.", "Manage Silicon Laws", GLOB.silicon_mob_list)
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
@@ -343,7 +343,7 @@ USER_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", 
 	if(!length(jobs))
 		to_chat(client, "There are no fully staffed jobs.")
 		return
-	var/job = input(client, "Please select job slot to free", "Free Job Slot") as null|anything in jobs
+	var/job = wrapped_selection_input(client, "Please select job slot to free", "Free Job Slot", jobs)
 	if(job)
 		SSjobs.FreeRole(job, force = TRUE)
 		log_admin("[key_name(client)] has freed a job slot for [job].")
@@ -417,7 +417,7 @@ USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "C
 
 		targets["[B.last_name] - [B.last_timestamp]"] = rnc_uid
 
-	var/choice = input(client, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
+	var/choice = wrapped_selection_input(client, "Select a backup to restore", "RnD Backup Restore", targets)
 	if(!choice || !(choice in targets))
 		return
 
@@ -451,8 +451,8 @@ USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "C
 	A.manual_follow(target)
 
 USER_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perform a player account age check.", VERB_CATEGORY_ADMIN)
-	var/age = input(client, "Show accounts younger then ____ days", "Age check") as num|null
-	var/playtime_hours = input(client, "Show accounts with less than ____ hours", "Playtime check") as num|null
+	var/age = wrapped_number_input(client, "Show accounts younger then ____ days", "Age check")
+	var/playtime_hours = wrapped_number_input(client, "Show accounts with less than ____ hours", "Playtime check")
 	if(isnull(age))
 		age = -1
 	if(isnull(playtime_hours))
@@ -633,7 +633,7 @@ USER_CONTEXT_MENU(admin_check_contents, R_ADMIN, "\[Admin\] Check Contents", mob
 
 USER_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Change tile view range.", VERB_CATEGORY_ADMIN)
 	if(client.view == world.view)
-		client.view = input(client, "Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+		client.view = wrapped_selection_input(client, "Select view range. Note that this will break widescreen.", "View Range", world.view, list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128))
 	else
 		client.view = world.view
 

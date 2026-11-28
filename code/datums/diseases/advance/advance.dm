@@ -560,7 +560,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmissibility" = 1)
 
 	for(var/prop in base_props)
-		var/current_prop = input(user, "Enter base [prop]", "Base Stats", null)
+		var/current_prop = wrapped_number_input(user, "Enter base [prop]", "Base Stats")
 		if(current_prop)
 			admin_disease.base_properties[prop] = text2num(current_prop)
 

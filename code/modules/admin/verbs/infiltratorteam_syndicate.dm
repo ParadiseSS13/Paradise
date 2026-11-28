@@ -22,17 +22,17 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.", null,"Yes","No")=="Yes")
 		pick_manually = 1
 	var/list/teamsizeoptions = list(2,3,4,5,6)
-	var/teamsize = input(src, "How many team members, including the team leader?") as null|anything in teamsizeoptions
+	var/teamsize = wrapped_selection_input(src, "How many team members, including the team leader?", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
 		alert("Invalid team size specified. Aborting.")
 		return
-	var/input = null
-	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate infiltration team shall undertake.", "Specify Mission", ""), 1, MAX_MESSAGE_LEN))
-		if(!input)
+	var/input_value = null
+	while(!input_value)
+		input_value = stripped_input(src, "Please specify which mission the syndicate infiltration team shall undertake.", "Specify Mission", "", MAX_MESSAGE_LEN)
+		if(!input_value)
 			alert("No mission specified. Aborting.")
 			return
-	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 100-150.") as num
+	var/tctext = wrapped_number_input(src, "How much TC do you want to give each team member? Suggested: 100-150.")
 	var/tcamount = text2num(tctext)
 	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
@@ -50,7 +50,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
 		for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every SIT member selected.
-			var/candidate = input("Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
+			var/candidate = wrapped_selection_input(usr, "Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players", possible_ghosts) // auto-picks if only one candidate
 			possible_ghosts -= candidate
 			infiltrators += candidate
 	else
@@ -87,7 +87,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.update_action_buttons_icon()
 				dust_if_respawnable(theguy)
 			infiltrators -= theguy
-		to_chat(new_syndicate_infiltrator, SPAN_DANGER("You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B>"))
+		to_chat(new_syndicate_infiltrator, SPAN_DANGER("You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input_value]</B>"))
 		to_chat(new_syndicate_infiltrator, SPAN_NOTICE("You are equipped with an uplink bio-chip to help you achieve your objectives. ((activate it via button in top left of screen))"))
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
@@ -101,7 +101,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			to_chat(new_syndicate_infiltrator, SPAN_DANGER("Your team leader is: [team_leader]. They are in charge!"))
 		teamsize--
 		to_chat(new_syndicate_infiltrator, SPAN_NOTICE("You have more helpful information stored in your Notes."))
-		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
+		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input_value] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Bio-chip ((top left of screen)) <BR> - Dust Bio-chip ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink bio-chip")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]

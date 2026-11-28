@@ -263,11 +263,11 @@
 	var/numlings = 1
 	if(eggtype in eggtypes_uncapped)
 		if(canlay >= 5)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
+			numlings = tgui_input_list(src, "How many in the batch?", "Well?", list(1, 2, 3, 4, 5))
 		else if(canlay >= 3)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3)
+			numlings = tgui_input_list(src, "How many in the batch?", "Well?", list(1, 2, 3))
 		else if(canlay == 2)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2)
+			numlings = tgui_input_list(src, "How many in the batch?", "Well?", list(1, 2))
 	if(eggtype == null || numlings == null)
 		to_chat(src, SPAN_DANGER("You stop laying eggs."))
 		return

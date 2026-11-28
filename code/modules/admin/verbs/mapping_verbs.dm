@@ -164,7 +164,7 @@ USER_VERB(set_next_map, R_SERVER, "Set Next Map", "Set Next Map", VERB_CATEGORY_
 		else
 			map_datums["(DISABLED) [initial(M.fluff_name)] ([initial(M.technical_name)])"] = M
 
-	var/target_map_name = input(client, "Select target map", "Next map", null) as null|anything in map_datums
+	var/target_map_name = wrapped_selection_input(client, "Select target map", "Next map", map_datums)
 
 	if(!target_map_name)
 		return

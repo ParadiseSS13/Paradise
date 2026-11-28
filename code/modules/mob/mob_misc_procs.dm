@@ -162,7 +162,7 @@
 	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
 	if(!hours)
-		minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+		minhours = wrapped_number_input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10)
 	else
 		minhours = hours
 	if(isnull(hide_role))

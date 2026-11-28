@@ -46,7 +46,7 @@
   * * acc - either "b", "n", or "#"
   * * oct - 1-8 (or 9 for C)
   */
-/datum/song/proc/playkey_legacy(note, acc as text, oct, mob/user)
+/datum/song/proc/playkey_legacy(note, acc, oct, mob/user)
 	// handle accidental -> B<>C of E<>F
 	if(acc == "b" && (note == 3 || note == 6)) // C or F
 		if(note == 3)

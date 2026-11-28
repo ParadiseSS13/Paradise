@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		custom_sprite = TRUE
 
 
-/mob/living/silicon/robot/proc/get_default_name(prefix as text)
+/mob/living/silicon/robot/proc/get_default_name(prefix)
 	if(prefix)
 		modtype = prefix
 	if(mmi)

@@ -722,7 +722,7 @@ USER_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Varia
 		return TRUE
 
 USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variables", "Debug Global Variables", VERB_CATEGORY_DEBUG, var_search as text)
-	var_search = trim(var_search)
+	var_search = lesser_html_encode(trim(var_search))
 	if(!var_search)
 		return
 	if(!GLOB.can_vv_get(var_search))

@@ -796,14 +796,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, SPAN_WARNING("Please allow one minute to pass between announcements."))
 		return
 
-	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE, encode = FALSE)
-	if(!input)
+	var/input_value = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE)
+	if(!input_value)
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	announcer.Announce(input)
+	announcer.Announce(input_value)
 	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
@@ -813,14 +813,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE, encode = FALSE)
-	if(!input || stat)
+	var/input_value = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE)
+	if(!input_value || stat)
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	call_shuttle_proc(src, input)
+	call_shuttle_proc(src, input_value)
 
 	return
 
@@ -1458,7 +1458,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
 	if(!newmsg || newmsg == arrivalmsg)
 		return
 

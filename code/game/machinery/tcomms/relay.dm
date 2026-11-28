@@ -195,7 +195,7 @@
 
 		// Set network ID
 		if("network_id")
-			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
+			var/new_id = tgui_input_text(usr, "Please enter a new network ID", "Network ID", network_id)
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
 			to_chat(usr, SPAN_NOTICE("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
 			network_id = new_id
@@ -225,7 +225,7 @@
 					AddLink(C)
 					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_id]</b>."))
 					return
-				var/user_pass = input(usr, "Please enter core password","Password Entry")
+				var/user_pass = tgui_input_text(usr, "Please enter core password", "Password Entry")
 				// Check the password
 				if(user_pass == C.link_password)
 					AddLink(C)

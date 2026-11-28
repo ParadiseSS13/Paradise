@@ -1,0 +1,21 @@
+# Only raw input() calls listed in this file are permitted within the codebase
+# Please, do not add to this unless you ABSOLUTELY know what you are doing
+code/__HELPERS/text.dm|16
+code/__HELPERS/text.dm|62
+code/__HELPERS/text.dm|91
+code/__HELPERS/text.dm|100
+code/__HELPERS/wrapped_inputs.dm|12
+code/__HELPERS/wrapped_inputs.dm|15
+code/__HELPERS/wrapped_inputs.dm|18
+code/__HELPERS/wrapped_inputs.dm|21
+code/__HELPERS/wrapped_inputs.dm|24
+code/modules/admin/verbs/debug_verbs.dm|19
+code/modules/admin/verbs/debug_verbs.dm|21
+code/modules/admin/verbs/debug_verbs.dm|23
+code/modules/tgui/tgui_input/color_input.dm|25
+code/modules/tgui/tgui_input/keycombo_input.dm|28
+code/modules/tgui/tgui_input/list_input.dm|31
+code/modules/tgui/tgui_input/number_input.dm|33
+code/modules/tgui/tgui_input/sound_list_input.dm|19
+code/modules/tgui/tgui_input/text_input.dm|40
+code/modules/tgui/tgui_input/text_input.dm|42

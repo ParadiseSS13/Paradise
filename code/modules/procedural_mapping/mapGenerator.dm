@@ -151,7 +151,7 @@ USER_VERB(test_nature_map_generator, R_MAINTAINER, "Test Nature Map Generator", 
 	"Same turfs"=MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS, "Same atoms"=MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS, "Different turfs"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS, \
 	"Different atoms"=MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS, "All turfs"=MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS,"All atoms"=MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS)
 
-	var/moduleClusters = input(client, "Cluster Flags (Cancel to leave unchanged from defaults)","Map Gen Settings") as null|anything in clusters
+	var/moduleClusters = wrapped_selection_input(client, "Cluster Flags (Cancel to leave unchanged from defaults)", "Map Gen Settings", clusters)
 	//null for default
 
 	var/theCluster = 0

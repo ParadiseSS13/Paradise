@@ -57,7 +57,7 @@ USER_VERB(test_movable_ui, R_DEBUG, "Spawn Movable UI Object", "Spawn Movable UI
 	M.maptext = "Movable"
 	M.maptext_width = 64
 
-	var/screen_l = input(client, "Where on the screen? (Formatted as 'X,Y' e.g: '1,1' for bottom left)","Spawn Movable UI Object") as text
+	var/screen_l = stripped_input(client, "Where on the screen? (Formatted as 'X,Y' e.g: '1,1' for bottom left)","Spawn Movable UI Object")
 	if(!screen_l)
 		return
 
@@ -71,7 +71,7 @@ USER_VERB(test_snap_ui, R_DEBUG, "Spawn Snap UI Object", "Spawn Snap UI Object",
 	S.maptext = "Snap"
 	S.maptext_width = 64
 
-	var/screen_l = input(client, "Where on the screen? (Formatted as 'X,Y' e.g: '1,1' for bottom left)","Spawn Snap UI Object") as text
+	var/screen_l = stripped_input(client, "Where on the screen? (Formatted as 'X,Y' e.g: '1,1' for bottom left)","Spawn Snap UI Object")
 	if(!screen_l)
 		return
 

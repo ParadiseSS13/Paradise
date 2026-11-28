@@ -48,7 +48,7 @@
 		crew_number = play_records[EXP_TYPE_CREW]
 
 	if(!notetext)
-		notetext = input(usr,"Write your note","Add Note") as message|null
+		notetext = stripped_multiline_input(usr, "Write your note", "Add Note")
 		if(!notetext)
 			return
 		public = (alert(usr, "Would you like to make this note public?", "Public Note?", "Private", "Public") == "Public")
@@ -154,7 +154,7 @@
 		if(automated)
 			to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
 			return
-		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
+		var/new_note = stripped_multiline_input(usr, "Input new note", "New Note", "[old_note]")
 		if(!new_note)
 			return
 

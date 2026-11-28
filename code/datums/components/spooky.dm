@@ -51,7 +51,7 @@
 		change_name(H)	//time for a new name!
 
 /datum/component/spooky/proc/change_name(mob/living/carbon/human/H)
-	var/t = tgui_input_text(H, "Enter your new skeleton name", H.real_name, max_length = MAX_NAME_LEN)
+	var/t = tgui_input_text(H, "Enter your new skeleton name", "Ya name?", H.real_name, MAX_NAME_LEN)
 	if(!t)
 		t = "spooky skeleton"
 	H.real_name = t

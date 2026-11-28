@@ -205,7 +205,7 @@
 				log_debug("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
 		if("change_security_level")
 			if(authenticated_account)
-				var/new_sec_level = max(min(text2num(params["new_security_level"]), 2), 0)
+				var/new_sec_level = clamp(text2num(params["new_security_level"]), 0, 2)
 				authenticated_account.security_level = new_sec_level
 		if("attempt_auth")
 			var/tried_account_num = text2num(params["account_num"]) ? text2num(params["account_num"]) : held_card?.associated_account_number

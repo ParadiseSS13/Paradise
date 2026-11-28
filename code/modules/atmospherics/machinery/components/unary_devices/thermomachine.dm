@@ -231,7 +231,7 @@
 	data["pressure"] = air_contents.return_pressure()
 	return data
 
-/obj/machinery/atmospherics/unary/thermomachine/ui_act(action, params)
+/obj/machinery/atmospherics/unary/thermomachine/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -250,7 +250,7 @@
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
 			if(target == "input")
-				target = input("Set new target ([min_temperature] - [max_temperature] K):", name, target_temperature) as num|null
+				target = tgui_input_number(ui.user, "Set new target ([min_temperature] - [max_temperature] K):", name, target_temperature)
 				if(!isnull(target))
 					. = TRUE
 			else if(adjust)

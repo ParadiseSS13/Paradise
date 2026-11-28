@@ -238,6 +238,7 @@
 #include "code\__HELPERS\unique_ids.dm"
 #include "code\__HELPERS\unsorted.dm"
 #include "code\__HELPERS\verb_helpers.dm"
+#include "code\__HELPERS\wrapped_inputs.dm"
 #include "code\__HELPERS\paths\astar.dm"
 #include "code\__HELPERS\paths\jps.dm"
 #include "code\__HELPERS\paths\path.dm"

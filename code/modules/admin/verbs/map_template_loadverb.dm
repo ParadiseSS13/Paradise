@@ -1,7 +1,7 @@
 USER_VERB(map_template_place, R_DEBUG, "Map template - Place", "Map template - Place", VERB_CATEGORY_DEBUG)
 	var/datum/map_template/template
 
-	var/map = input(client, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in GLOB.map_templates
+	var/map = wrapped_selection_input(client, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template", GLOB.map_templates)
 	if(!map)
 		return
 	template = GLOB.map_templates[map]
@@ -28,7 +28,7 @@ USER_VERB(map_template_place, R_DEBUG, "Map template - Place", "Map template - P
 	client.images -= preview
 
 USER_VERB(map_template_upload, R_DEBUG, "Map Template - Upload", "Map Template - Upload", VERB_CATEGORY_DEBUG)
-	var/map = input(client, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file
+	var/map = wrapped_file_input(client, "Choose a Map Template to upload to template storage","Upload Map Template")
 	if(!map)
 		return
 	if(copytext("[map]",-4) != ".dmm")
@@ -46,7 +46,7 @@ USER_VERB(map_template_upload, R_DEBUG, "Map Template - Upload", "Map Template -
 		to_chat(client, "Map template '[map]' failed to load properly")
 
 USER_VERB(map_template_load_lazy, R_DEBUG, "Map template - Lazy Load", "Map template - Lazy Load", VERB_CATEGORY_DEBUG)
-	var/map = input(client, "Choose a Map Template to place on the lazy load map level.","Place Map Template") as null|anything in GLOB.map_templates
+	var/map = wrapped_selection_input(client, "Choose a Map Template to place on the lazy load map level.","Place Map Template", GLOB.map_templates)
 	if(!map)
 		return
 	var/datum/map_template/template = GLOB.map_templates[map]

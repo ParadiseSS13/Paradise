@@ -53,7 +53,7 @@ USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to pla
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input(client, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = wrapped_selection_input(client, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	SSuser_verbs.invoke_verb(client, /datum/user_verb/play_local_sound, melody)
@@ -69,11 +69,11 @@ USER_VERB(play_intercomm_sound, \
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input(client, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = wrapped_selection_input(client, "Select a sound from the server to play", "Server sound list", sounds)
 	if(!melody)	return
 
 	var/cvol = 35
-	var/inputvol = input(client, "How loud would you like this to be? (1-70)", "Volume", "35") as num | null
+	var/inputvol = wrapped_number_input(client, "How loud would you like this to be? (1-70)", "Volume", "35")
 	if(!inputvol)	return
 	if(inputvol && inputvol >= 1 && inputvol <= 70)
 		cvol = inputvol
@@ -170,7 +170,7 @@ USER_VERB(play_sound_tgchat, R_SOUNDS, "Play Global Sound", "Play a sound to be 
 				return
 			must_send_assets = TRUE
 
-		var/soundfile = input(client, "Choose an MP3 file to play", "Upload Sound") as null|file
+		var/soundfile = wrapped_sound_input(client, "Choose an MP3 file to play", "Upload Sound")
 		if(!soundfile)
 			return
 

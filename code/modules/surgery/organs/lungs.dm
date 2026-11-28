@@ -68,7 +68,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/chosen = input(user, "Select lung type", "What kind of lung settings?") as null|anything in possible
+	var/chosen = tgui_input_list(user, "Select lung type", "What kind of lung settings?", possible)
 	if(isnull(chosen) || chosen == species_state || !Adjacent(user) || !I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, SPAN_NOTICE("You configure [src] to [chosen] settings."))

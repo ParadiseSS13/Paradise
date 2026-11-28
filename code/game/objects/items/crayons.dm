@@ -89,14 +89,14 @@
 		if("random_letter")
 			temp = pick(letters)
 		if("letter")
-			temp = input("Choose the letter.", "Scribbles") in letters
+			temp = tgui_input_list(usr, "Choose the letter.", "Scribbles", letters)
 		if("random_rune")
 			temp = "rune[rand(1, 8)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
 		if("message")
 			var/regex/graffiti_chars = regex("\[^a-zA-Z0-9+\\-!?=%&,.#\\/\]", "g")
-			var/new_preset = input(usr, "Set the message. Max length [CRAYON_MESSAGE_MAX_LENGTH] characters.")
+			var/new_preset = tgui_input_text(usr, "Set the message. Max length [CRAYON_MESSAGE_MAX_LENGTH] characters.", "Message")
 			new_preset = copytext(new_preset, 1, CRAYON_MESSAGE_MAX_LENGTH)
 			preset_message = lowertext(graffiti_chars.Replace(new_preset, ""))
 			if(preset_message != "")

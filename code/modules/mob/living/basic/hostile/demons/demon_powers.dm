@@ -87,7 +87,7 @@
 	if(istype(user.loc, /obj/effect/dummy/slaughter))
 		to_chat(user, SPAN_WARNING("You need to manifest before you can use this ability!"))
 		return FALSE
-	
+
 	return ..()
 
 /datum/spell/fireball/shadow_grapple/update_spell_icon()
@@ -452,7 +452,7 @@
 	if(!istype(user))
 		return
 
-	var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
+	var/amount = tgui_input_number(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting")
 	if(amount == null || amount < 0)
 		to_chat(user, SPAN_WARNING("Invalid input. Drain speed has not been modified."))
 		return

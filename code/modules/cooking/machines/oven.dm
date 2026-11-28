@@ -46,9 +46,9 @@
 		las_rating += M.rating
 
 /obj/machinery/cooking/oven/attack_hand(mob/user as mob, params)
-	var/input = clickpos_to_surface(params2list(params))
+	var/input_value = clickpos_to_surface(params2list(params))
 
-	var/datum/cooking_surface/surface = surfaces[input]
+	var/datum/cooking_surface/surface = surfaces[input_value]
 	if(surface && surface.container)
 		user.put_in_hands(surface.container)
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)

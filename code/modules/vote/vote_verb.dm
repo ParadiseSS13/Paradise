@@ -33,21 +33,20 @@ USER_VERB(start_vote, R_ADMIN, "Start Vote", "Start a vote on the server", VERB_
 		return
 
 	// Its custom, lets ask
-	var/question = tgui_input_text(client, "What is the vote for?", "Create Vote", encode = FALSE)
+	var/question = tgui_input_text(client, "What is the vote for?", "Create Vote")
 	if(isnull(question))
 		return
 
 	var/list/choices = list()
 	for(var/i in 1 to 10)
-		var/option = tgui_input_text(client, "Please enter an option or hit cancel to finish", "Create Vote", encode = FALSE)
+		var/option = tgui_input_text(client, "Please enter an option or hit cancel to finish", "Create Vote")
 		if(isnull(option) || !client)
 			break
 		choices |= option
 
 	var/c2 = tgui_alert(client, "Show counts while vote is happening?", "Counts", list("Yes", "No"))
-	var/c3 = input(client, "Select a result calculation type", "Vote", VOTE_RESULT_TYPE_MAJORITY) as anything in list(VOTE_RESULT_TYPE_MAJORITY)
 
 	var/datum/vote/V = new /datum/vote(client.ckey, question, choices, TRUE)
 	V.show_counts = (c2 == "Yes")
-	V.vote_result_type = c3
+	V.vote_result_type = VOTE_RESULT_TYPE_MAJORITY // TODO - more types
 	SSvote.start_vote(V)

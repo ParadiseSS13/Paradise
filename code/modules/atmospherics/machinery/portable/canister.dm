@@ -347,7 +347,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			else if(pressure == "max")
 				pressure = can_max_release_pressure
 			else if(pressure == "input")
-				pressure = input("New release pressure ([can_min_release_pressure]-[can_max_release_pressure] kPa):", name, release_pressure) as num|null
+				pressure = tgui_input_number(ui.user, "New release pressure ([can_min_release_pressure]-[can_max_release_pressure] kPa):", name, release_pressure)
 				if(isnull(pressure))
 					. = FALSE
 			else if(text2num(pressure) != null)

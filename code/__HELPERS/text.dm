@@ -59,7 +59,7 @@
 
 // Used to get a properly sanitized multiline input, of max_length
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, html_decode(default)) as message|null
+	var/name = input(user, message, title, lesser_html_encode(default)) as message|null
 	if(no_trim)
 		return copytext(html_encode(name), 1, max_length)
 	else
@@ -103,7 +103,7 @@
 	C.typing = FALSE
 	if(!user || C != user.client) // User got out of the mob for some reason or the mob is gone
 		return null
-	return msg
+	return sanitize(msg)
 
 //Filters out undesirable characters from names
 /proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
@@ -281,7 +281,7 @@
 	return copytext_char(text, 1, max_length)
 
 //Returns a string with the first element of the string capitalized.
-/proc/capitalize(t as text)
+/proc/capitalize(t)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
 //Centers text by adding spaces to either side of the string.
@@ -347,6 +347,13 @@
 	for(var/i = length(text); i > 0; i--)
 		new_text += copytext(text, i, i+1)
 	return new_text
+
+/proc/lesser_html_encode(text)
+	var/t1 = html_encode(text)
+	t1 = replacetext(t1, "&amp;", "&")
+	t1 = replacetext(t1, "&#34;", "\"")
+	t1 = replacetext(t1, "&#39;", "'")
+	return t1
 
 /// Strips HTML tags (and only tags) from the input.
 /// The result may still include HTML entities, like &#39; for '

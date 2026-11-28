@@ -285,7 +285,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(staminaloss + amount, 0), 120)
+	staminaloss = clamp(staminaloss + amount, 0, 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
@@ -301,7 +301,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(amount, 0), 120)
+	staminaloss = clamp(amount, 0, 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE

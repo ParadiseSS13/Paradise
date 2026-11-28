@@ -102,26 +102,26 @@ GLOBAL_PROTECT(VVmaint_only)
 		if(extra_classes)
 			classes += extra_classes
 
-		.["class"] = input(src, "What kind of data?", "Variable Type", default_class) as null|anything in classes
+		.["class"] = wrapped_selection_input(src, "What kind of data?", "Variable Type", classes)
 		if(holder && holder.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
 			.["class"] = VV_MARKED_DATUM
 
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = input("Enter new text:", "Text", current_value) as null|text
+			.["value"] = stripped_input(usr, "Enter new text:", "Text", current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = input("Enter new text:", "Text", current_value) as null|message
+			.["value"] = stripped_multiline_input(usr, "Enter new text:", "Text", current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_NUM)
-			.["value"] = input("Enter new number:", "Num", current_value) as null|num
+			.["value"] = wrapped_number_input(usr, "Enter new number:", "Num", current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -148,7 +148,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			var/type = current_value
 			var/error = ""
 			do
-				type = input("Enter type:[error]", "Type", type) as null|text
+				type = stripped_input(usr, "Enter type:[error]", "Type", type)
 				if(!type)
 					break
 				type = text2path(type)
@@ -160,13 +160,13 @@ GLOBAL_PROTECT(VVmaint_only)
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, separated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(stripped_input(usr, "Enter a, b, c, d, e, and f, separated by a space.", "Matrix", "1 0 0 0 1 0"))
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 		if(VV_REGEX)
-			var/reg = input("Enter regex", "Regex", "") as null|text
+			var/reg = stripped_input(usr, "Enter regex - good luck with text sanitisation", "Regex", "")
 			if(!reg)
 				return
 			.["value"] = regex(reg)
@@ -181,7 +181,7 @@ GLOBAL_PROTECT(VVmaint_only)
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = wrapped_selection_input(usr, "Select reference:", "Reference", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -194,7 +194,7 @@ GLOBAL_PROTECT(VVmaint_only)
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = wrapped_selection_input(usr, "Select reference:", "Reference", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -207,7 +207,7 @@ GLOBAL_PROTECT(VVmaint_only)
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = wrapped_selection_input(usr, "Select reference:", "Reference", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -237,7 +237,7 @@ GLOBAL_PROTECT(VVmaint_only)
 					descendants += child
 
 			// Prompt for which to pick.
-			var/descendant = input("Pick an atom:", "Inside a Visible Atom", src) in descendants
+			var/descendant = wrapped_selection_input(usr, "Pick an atom:", "Inside a Visible Atom", descendants, src)
 			if(!descendant)
 				.["class"] = null
 				return
@@ -255,21 +255,21 @@ GLOBAL_PROTECT(VVmaint_only)
 
 
 		if(VV_CLIENT)
-			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in GLOB.clients
+			.["value"] = wrapped_selection_input(usr, "Select reference:", "Reference", GLOB.clients, current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_FILE)
-			.["value"] = input("Pick file:", "File") as null|file
+			.["value"] = wrapped_file_input(usr, "Pick file:", "File")
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_ICON)
-			.["value"] = input("Pick icon:", "Icon") as null|icon
+			.["value"] = wrapped_icon_input(usr, "Pick icon:", "Icon")
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -301,7 +301,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			var/type = current_value
 			var/error = ""
 			do
-				type = input("Enter type:[error]", "Type", type) as null|text
+				type = stripped_input(usr, "Enter type:[error]", "Type", type)
 				if(!type)
 					break
 				type = text2path(type)
@@ -441,7 +441,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			value = "null"
 		names["#[i] [key] = [value]"] = i
 	if(!index)
-		var/variable = input("Which var?","Var") as null|anything in names + "(ADD VAR)" + "(CLEAR NULLS)" + "(CLEAR DUPES)" + "(SHUFFLE)"
+		var/variable = wrapped_selection_input(usr, "Which var?","Var", names + "(ADD VAR)" + "(CLEAR NULLS)" + "(CLEAR DUPES)" + "(SHUFFLE)")
 
 		if(variable == null)
 			return
@@ -638,7 +638,7 @@ GLOBAL_PROTECT(VVmaint_only)
 
 		names = sortList(names)
 
-		variable = input("Which var?","Var") as null|anything in names
+		variable = wrapped_selection_input(usr, "Which var?","Var", names)
 		if(!variable)
 			return
 

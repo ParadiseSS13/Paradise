@@ -21,10 +21,10 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	message_admins(SPAN_NOTICE("[key_name_admin(usr)] has started to spawn a Syndicate Strike Team."), 1)
 
-	var/input = null
-	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
-		if(!input)
+	var/input_value = null
+	while(!input_value)
+		input_value = stripped_input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", "", MAX_MESSAGE_LEN)
+		if(!input_value)
 			if(alert("Error, no mission set. Do you want to exit the setup process?", null,"Yes","No")=="Yes")
 				return
 
@@ -79,9 +79,9 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		//So they don't forget their code or mission.
 		if(nuke_code)
 			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> [SPAN_WARNING("[nuke_code].")]")
-		new_syndicate_commando.mind.store_memory("<B>Mission:</B> [SPAN_WARNING("[input].")]")
+		new_syndicate_commando.mind.store_memory("<B>Mission:</B> [SPAN_WARNING("[input_value].")]")
 
-		to_chat(new_syndicate_commando, SPAN_NOTICE("You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: [SPAN_USERDANGER("[input]")]"))
+		to_chat(new_syndicate_commando, SPAN_NOTICE("You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: [SPAN_USERDANGER("[input_value]")]"))
 		new_syndicate_commando.faction += "syndicate"
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_commando.mind.current)

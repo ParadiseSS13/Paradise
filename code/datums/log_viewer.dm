@@ -197,23 +197,23 @@ if(!result || result.ckey != __ckey){\
 
 /datum/log_viewer/Topic(href, href_list)
 	if(href_list["start_time"])
-		var/input = input(usr, "hh:mm:ss", "Start time", "00:00:00") as text|null
-		if(!input)
+		var/input_text = clean_input("hh:mm:ss", "Start time", "00:00:00")
+		if(!input_text)
 			return
-		var/res = timeStampToNum(input)
+		var/res = timeStampToNum(input_text)
 		if(res < 0)
-			to_chat(usr, SPAN_WARNING("'[input]' is an invalid input value."))
+			to_chat(usr, SPAN_WARNING("'[input_text]' is an invalid input value."))
 			return
 		time_from = res
 		show_ui(usr)
 		return
 	if(href_list["end_time"])
-		var/input = input(usr, "hh:mm:ss", "End time", "04:00:00") as text|null
-		if(!input)
+		var/input_text = clean_input("hh:mm:ss", "End time", "04:00:00")
+		if(!input_text)
 			return
-		var/res = timeStampToNum(input)
+		var/res = timeStampToNum(input_text)
 		if(res < 0)
-			to_chat(usr, SPAN_WARNING("'[input]' is an invalid input value."))
+			to_chat(usr, SPAN_WARNING("'[input_text]' is an invalid input value."))
 			return
 		time_to = res
 

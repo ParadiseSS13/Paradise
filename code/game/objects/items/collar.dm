@@ -23,7 +23,7 @@
 			return ITEM_INTERACT_COMPLETE
 	switch(option)
 		if("Change Name")
-			var/petname = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
+			var/petname = tgui_input_text(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot")
 			if(petname && !QDELETED(src) && Adjacent(user))
 				tagname = copytext(sanitize(petname), 1, MAX_NAME_LEN)
 				name = "[initial(name)] - [tagname]"

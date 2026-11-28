@@ -170,5 +170,5 @@
 	if(isnull(entry))
 		return
 
-	var/converted_entry = encode ? html_encode(entry) : entry
+	var/converted_entry = encode ? lesser_html_encode(entry) : entry
 	src.entry = trim(converted_entry, max_length)

@@ -493,7 +493,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = new()
 	if(digital)
-		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
+		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo")
 		if(!P.fields["name"])
 			P.fields["name"] = "Photo [current_photo_num]"
 			current_photo_num++

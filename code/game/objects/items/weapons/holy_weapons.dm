@@ -355,11 +355,11 @@
 		S.name = name
 		S.ckey = theghost.ckey
 		dust_if_respawnable(theghost)
-		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
-		if(src && input)
-			name = input
-			S.real_name = input
-			S.name = input
+		var/input_value = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
+		if(src && input_value)
+			name = input_value
+			S.real_name = input_value
+			S.name = input_value
 	else
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE

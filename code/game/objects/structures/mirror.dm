@@ -154,7 +154,7 @@
 
 	switch(choice)
 		if("Name")
-			var/newname = copytext(sanitize(input(H, "Who are we again?", "Name change", H.name) as null|text),1,MAX_NAME_LEN)
+			var/newname = tgui_input_text(H, "Who are we again?", "Name change", H.name, MAX_NAME_LEN)
 
 			if(!newname)
 				return

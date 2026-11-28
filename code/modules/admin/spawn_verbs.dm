@@ -23,7 +23,7 @@ USER_VERB(create_crate, R_SPAWN, "Create Crate", \
 	if(!length(matches))
 		return
 
-	var/chosen = input(client, "Select a supply crate type", "Create Crate", matches[1]) as null|anything in matches
+	var/chosen = wrapped_selection_input(client, "Select a supply crate type", "Create Crate", matches)
 	if(!chosen)
 		return
 	var/datum/supply_packs/the_pack = new chosen()
@@ -47,13 +47,13 @@ USER_VERB(create_crate, R_SPAWN, "Create Crate", \
 USER_VERB(respawn_character, R_SPAWN, "Respawn Character", \
 		"Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into.", \
 		VERB_CATEGORY_EVENT)
-	var/input = ckey(input(client, "Please specify which key will be respawned.", "Key", ""))
-	if(!input)
+	var/input_text = ckey(stripped_input(client, "Please specify which key will be respawned.", "Key"))
+	if(!input_text)
 		return
 
 	var/mob/dead/observer/G_found
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		if(G.ckey == input)
+		if(G.ckey == input_text)
 			G_found = G
 			break
 
@@ -280,11 +280,11 @@ USER_VERB(admin_make_pai, R_SPAWN, "Make pAI", "Specify a location to spawn a pA
 	for(var/mob/C in GLOB.mob_list)
 		if(C.key)
 			available.Add(C)
-	var/mob/choice = input(client, "Choose a player to play the pAI", "Spawn pAI") in available
+	var/mob/choice = wrapped_selection_input(client, "Choose a player to play the pAI", "Spawn pAI", available)
 	if(!choice)
 		return 0
 	if(!isobserver(choice))
-		var/confirm = input(client, "[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
+		var/confirm = alert(client, "[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "Yes", "No")
 		if(confirm != "Yes")
 			return 0
 	var/obj/item/paicard/card = new(T)
@@ -337,7 +337,7 @@ USER_VERB(admin_super, R_SPAWN, "Make Superhero", "Turn the target mob into a su
 		alert(client, "Wait until the game starts")
 		return
 	if(ishuman(M))
-		var/type = input(client, "Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
+		var/type = wrapped_selection_input(client, "Pick the Superhero", "Superhero", GLOB.all_superheroes)
 		var/datum/superheroes/S = GLOB.all_superheroes[type]
 		if(S)
 			S.create(M)

@@ -150,7 +150,7 @@
 				qdel(target_decal)
 			target.clean_blood()
 			toweling_result |= TOWEL_CLEANED_TARGET
-		grime_level = min(max(grime_level + 1, target_grime_level - 1), 5)
+		grime_level = clamp(grime_level + 1, target_grime_level - 1, 5)
 	return toweling_result
 
 /obj/item/clothing/neck/towel/proc/exchange_water(atom/target, mob/living/user, list/modifiers)

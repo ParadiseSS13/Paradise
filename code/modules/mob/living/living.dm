@@ -356,7 +356,7 @@
 		return
 
 	last_words = null // In case we kept some from last time
-	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince")
 
 	if(isnull(final_words) && cancel_on_no_words)
 		to_chat(src, SPAN_NOTICE("You decide you aren't quite ready to die."))

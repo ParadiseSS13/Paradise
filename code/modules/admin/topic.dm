@@ -257,11 +257,11 @@
 			log_admin("[key_name(usr)] attempted to edit the admin permissions without sufficient rights.")
 			return
 
-		var/rank = input("Please select a rank", "Rank to edit", null, null) as null|anything in (get_db_ranks() | "*New Rank*")
+		var/rank = wrapped_selection_input(usr, "Please select a rank", "Rank to edit", (get_db_ranks() | "*New Rank*"))
 		if(!rank)
 			return
 		if(rank == "*New Rank*")
-			rank = input("Please input a new rank", "New custom rank", null, null) as null|text
+			rank = clean_input("Please input a new rank", "New custom rank")
 			if(!rank)
 				return
 			var/rank_id = create_db_rank(rank)
@@ -270,7 +270,7 @@
 				return
 
 		while(TRUE)
-			var/action = input("What do you want to do to [rank]?", "Editing rank [rank]", null, null) as null|anything in list("List Permissions", "Toggle Permission", "Delete Rank (must be unused)")
+			var/action = wrapped_selection_input(usr, "What do you want to do to [rank]?", "Editing rank [rank]", list("List Permissions", "Toggle Permission", "Delete Rank (must be unused)"))
 			if(!action)
 				return
 			if(action == "List Permissions")
@@ -280,7 +280,7 @@
 				var/list/permissionlist = list()
 				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
 					permissionlist[rights2text(i)] = i
-				var/permission = input("Select a permission to turn on/off", "Editing rank [rank]", null, null) as null|anything in permissionlist
+				var/permission = wrapped_selection_input(usr, "Select a permission to turn on/off", "Editing rank [rank]", permissionlist)
 				if(!permission)
 					continue
 				toggle_db_rank_permission(rank, permissionlist[permission])
@@ -337,11 +337,11 @@
 			var/new_rank
 			var/display_rank
 			if(GLOB.configuration.admin.use_database_admins)
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (get_db_ranks() | "*New Rank*")
+				new_rank = wrapped_selection_input(usr, "Please select a rank", "New rank", (get_db_ranks() | "*New Rank*"))
 			else if(length(GLOB.admin_ranks))
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (GLOB.admin_ranks | "*New Rank*")
+				new_rank = wrapped_selection_input(usr, "Please select a rank", "New rank", (GLOB.admin_ranks | "*New Rank*"))
 			else
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "Developer", "*New Rank*")
+				new_rank = wrapped_selection_input(usr, "Please select a rank", "New rank", list("Mentor", "Trial Admin", "Game Admin", "Developer", "*New Rank*"))
 
 			var/rights = 0
 			if(D)
@@ -350,7 +350,7 @@
 			switch(new_rank)
 				if(null,"") return
 				if("*New Rank*")
-					new_rank = input("Please input a new rank", "Admin rank for [adm_ckey]", null, null) as null|text
+					new_rank = clean_input("Please input a new rank", "Admin rank for [adm_ckey]")
 					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
@@ -361,7 +361,7 @@
 						if(!rank_id)
 							to_chat(usr, SPAN_WARNING("A rank named [new_rank] already esists."))
 							return
-						display_rank = input("Give them a custom title?", "Admin rank for [adm_ckey]", null, null) as null|text
+						display_rank = clean_input("Give them a custom title?", "Admin rank for [adm_ckey]")
 					else
 						if(length(GLOB.admin_ranks))
 							if(new_rank in GLOB.admin_ranks)
@@ -374,7 +374,7 @@
 						if(!rank_id)
 							to_chat(usr, SPAN_WARNING("Rank '[new_rank] not found."))
 							return
-						display_rank = input("Give them a custom title?", "Admin rank for [adm_ckey]", null, null) as null|text
+						display_rank = clean_input("Give them a custom title?", "Admin rank for [adm_ckey]")
 					else
 						new_rank = ckeyEx(new_rank)
 						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
@@ -405,7 +405,7 @@
 				var/list/permissionlist = list()
 				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
 					permissionlist[rights2text(i)] = i
-				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
+				var/new_permission = wrapped_selection_input(usr, "Select a permission to turn on/off", "[adm_ckey]'s Permissions", permissionlist)
 				if(!new_permission)
 					return
 				if(GLOB.configuration.admin.use_database_admins)
@@ -455,7 +455,7 @@
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
 
-		var/timer = input("Enter new shuttle duration (minutes):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft(600)) as num
+		var/timer = wrapped_number_input(usr, "Enter new shuttle duration (minutes):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft(600))
 		SSshuttle.emergency.setTimer(timer MINUTES)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] minutes")
 		GLOB.minor_announcement.Announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
@@ -859,10 +859,10 @@
 		if(length(notbannedlist)) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(alert("Temporary Ban of [M.last_known_ckey]?", null,"Yes","No", "Cancel"))
 				if("Yes")
-					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+					var/mins = wrapped_number_input(usr, "How long (in minutes)?", "Ban time", 1440)
 					if(!mins)
 						return
-					var/reason = input(usr,"Please state the reason","Reason","") as message|null
+					var/reason = clean_input("Please state the reason","Reason", "", usr)
 					if(!reason)
 						return
 
@@ -887,7 +887,7 @@
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
 				if("No")
-					var/reason = input(usr,"Please state the reason","Reason","") as message|null
+					var/reason = clean_input("Please state the reason", "Reason", "", usr)
 					if(reason)
 						var/msg
 						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
@@ -1009,11 +1009,11 @@
 
 		switch(alert("Temporary Ban of [M.last_known_ckey] / [ban_ckey_param]?", null,"Yes","No", "Cancel"))
 			if("Yes")
-				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+				var/mins = wrapped_number_input(usr, "How long (in minutes)?", "Ban time", 1440)
 				if(!mins)
 					return
 				if(mins >= 525600) mins = 525599
-				var/reason = input(usr,"Please state the reason","Reason") as message|null
+				var/reason = clean_input("Please state the reason", "Reason", "", usr)
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
@@ -1030,7 +1030,7 @@
 
 				qdel(M.client)
 			if("No")
-				var/reason = input(usr,"Please state the reason","Reason") as message|null
+				var/reason = clean_input("Please state the reason", "Reason", "", usr)
 				if(!reason)
 					return
 				to_chat(M, SPAN_WARNING("<big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big>"))
@@ -1184,7 +1184,7 @@
 		if(GLOB.master_mode != "dynamic" && !(GLOB.master_mode == "secret" && GLOB.secret_force_mode == "dynamic"))
 			return alert(usr, "The game mode has to be dynamic!", null, null, null, null)
 		if(href_list["f_dynamic2"] == "budget")
-			var/budget = input(usr, "Pick a budget for the dynamic gamemode (-1 to randomize)", "Gamemode Budget") as num|null
+			var/budget = wrapped_number_input(usr, "Pick a budget for the dynamic gamemode (-1 to randomize)", "Gamemode Budget")
 			if(isnull(budget))
 				return
 			if(budget < 0)
@@ -1257,9 +1257,9 @@
 		var/painame = "Default"
 		var/name = ""
 		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
-			name = sanitize(copytext_char(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
+			name = stripped_input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame, MAX_NAME_LEN)
 		else
-			name = sanitize(copytext_char(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame), 1, MAX_NAME_LEN))
+			name = stripped_input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame, MAX_NAME_LEN)
 
 		if(!name)
 			name = painame
@@ -1276,7 +1276,7 @@
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob"))
 			return
 
-		var/speech = input("What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins.
+		var/speech = stripped_input(usr, "What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins. - no we fucking dont -aa07
 		if(!speech)	return
 		M.say(speech)
 		speech = sanitize(speech) // Nah, we don't trust them
@@ -1588,7 +1588,7 @@
 			to_chat(usr, SPAN_WARNING("[M] is already scheduled to return from the Syndicate Jail."))
 			return
 
-		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
+		var/time_seconds = wrapped_number_input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer")
 		time_seconds = text2num(time_seconds)
 		if(time_seconds < 0)
 			return
@@ -1835,7 +1835,7 @@
 			for(var/datum/team/team_path as anything in typesof(/datum/team))
 				possible_teams[initial(team_path.name)] = team_path
 
-			var/chosen_team_name = input("Select a team type: (Creating a duplicate of a non-generic team may produce runtimes!)", "Team Type") as null|anything in possible_teams
+			var/chosen_team_name = wrapped_selection_input(usr, "Select a team type: (Creating a duplicate of a non-generic team may produce runtimes!)", "Team Type", possible_teams)
 			if(!chosen_team_name)
 				return
 
@@ -2054,7 +2054,7 @@
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
 			return
 		var/etypes = list("Borgification", "Corgification", "Death By Fire", "Total Brain Death", "Honk Tumor", "Cluwne", "Demote", "Demote with Bot", "Revoke Fax Access", "Angry Fax Machine")
-		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
+		var/eviltype = wrapped_selection_input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "", etypes)
 		if(!(eviltype in etypes))
 			return
 		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", null, owner)
@@ -2112,7 +2112,7 @@
 			btypes += "Human Protector"
 			btypes += "Sentient Pet"
 			btypes += "All Access"
-		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+		var/blessing = wrapped_selection_input(owner, "How would you like to bless [M]?", "Its good to be good...", "", btypes)
 		if(!(blessing in btypes))
 			return
 		var/logmsg = null
@@ -2150,7 +2150,7 @@
 			if("Scarab Guardian")
 				var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)
 				var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
-				var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
+				var/typechoice = wrapped_selection_input(usr, "Select Guardian Type", "Type", possible_guardians)
 				if(isnull(typechoice))
 					return
 				if(typechoice != "Random")
@@ -2163,7 +2163,7 @@
 				logmsg = "scarab guardian."
 			if("Sentient Pet")
 				var/pets = subtypesof(/mob/living/simple_animal)
-				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
+				var/petchoice = wrapped_selection_input(usr, "Select pet type", "Pets", pets)
 				if(isnull(petchoice))
 					return
 				var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
@@ -2187,7 +2187,7 @@
 						D.assignment = "Pet"
 						C.access_id = D
 					spawn(30)
-						var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text, 1, MAX_NAME_LEN))
+						var/newname = stripped_input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name, MAX_NAME_LEN)
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
@@ -2239,7 +2239,7 @@
 			ptypes += "Nugget"
 			ptypes += "Bread"
 			ptypes += "Rod"
-		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+		var/punishment = wrapped_selection_input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", ptypes)
 		if(!(punishment in ptypes))
 			return
 		var/logmsg = "UNSET LOG MESSAGE: [punishment]"
@@ -2456,7 +2456,7 @@
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
-		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
+		var/stype = wrapped_selection_input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", stypes)
 		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><br><br><br><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><br><br><br><font size='4'>NAS Trurl Communications Department Report</font></center><br><br>"
 		if(stype == "Handle it yourselves!")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<br><br><i><small>This is an automatic message.</small>"
@@ -2520,7 +2520,7 @@
 				to_chat(owner, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
 				return
 
-			var/reason = input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm") as null|message
+			var/reason = stripped_multiline_input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm")
 			if(!reason)
 				return
 			var/announce_to_crew = alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
@@ -2610,7 +2610,7 @@
 				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
-			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			destination = wrapped_selection_input(usr, "To which department?", "Choose a department", departmentoptions)
 			if(!destination)
 				qdel(P)
 				return
@@ -2620,11 +2620,11 @@
 					fax = F
 
 
-		var/input = input(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "") as message|null
-		if(!input)
+		var/input_value = clean_input("Please enter a message to send a fax via secure connection. Use extended pencode.", "Outgoing message from Centcomm")
+		if(!input_value)
 			qdel(P)
 			return
-		input = admin_pencode_to_html(input) // Encode everything from pencode to html
+		input_value = admin_pencode_to_html(input_value) // Encode everything from pencode to html
 
 		var/customname = clean_input("Pick a title for the fax.", "Fax Title", null, owner)
 		if(!customname)
@@ -2644,9 +2644,9 @@
 				stampvalue = "syndicate"
 				sendername = "UNKNOWN"
 			if("Administrator")
-				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
+				stamptype = wrapped_selection_input(src.owner, "Pick a stamp type.", "Stamp Type", list("icon","text","none"))
 				if(stamptype == "icon")
-					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown")
+					stampname = wrapped_selection_input(src.owner, "Pick a stamp icon.", "Stamp Icon", list("centcom","syndicate","granted","denied","clown"))
 					switch(stampname)
 						if("centcom")
 							stampvalue = "cent"
@@ -2676,7 +2676,7 @@
 			P.name = "[sendername]- [customname]"
 		else
 			P.name = "[customname]"
-		P.info = input
+		P.info = input_value
 		P.update_icon()
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)
@@ -2737,10 +2737,10 @@
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 				to_chat(sender, "<span class='specialnotice bold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		if(sender)
-			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
+			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input_value]")
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
 		else
-			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
+			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input_value]")
 			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
 		return
 
@@ -2814,10 +2814,6 @@
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))	return
 		return create_object(usr)
-
-	else if(href_list["quick_create_object"])
-		if(!check_rights(R_SPAWN))	return
-		return quick_create_object(usr)
 
 	else if(href_list["create_turf"])
 		if(!check_rights(R_SPAWN))	return
@@ -3125,7 +3121,7 @@
 					return
 				var/custom_objective_expl
 				if(alert(usr, "Do you want to add a custom objective?", "Confirmation", "Yes", "No") == "Yes")
-					custom_objective_expl = sanitize(copytext_char(input("Enter an objective"), 1, MAX_MESSAGE_LEN))
+					custom_objective_expl = stripped_input(usr, "Enter an objective", "Objective", "", MAX_MESSAGE_LEN)
 					if(!custom_objective_expl)
 						return
 
@@ -3145,7 +3141,7 @@
 						T.add_antag_objective(custom_objective, custom_objective_expl)
 
 					H.mind.add_antag_datum(T)
-					
+
 				for(var/mob/living/silicon/A in GLOB.player_list)
 					A.mind.add_antag_datum(/datum/antagonist/traitor)
 
@@ -3156,7 +3152,7 @@
 			if("togglebombcap")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
-				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.configuration.general.bomb_cap) as num|null
+				var/newBombCap = wrapped_number_input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.configuration.general.bomb_cap)
 				if(newBombCap < 4)
 					return
 				if(newBombCap > 128)
@@ -3511,7 +3507,7 @@
 		if(!check_rights(R_EVENT))
 			return
 		var/list/type_choices = typesof(/datum/station_goal) - typesof(/datum/station_goal/secondary)
-		var/picked = input("Choose goal type") as null|anything in type_choices
+		var/picked = wrapped_selection_input(usr, "Choose goal type", "Goal", type_choices)
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3520,7 +3516,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter NAS Trurl message contents:") as null|message
+			var/description = stripped_multiline_input(usr, "Enter NAS Trurl message contents:")
 			if(!description)
 				return
 			G.report_message = description
@@ -3548,18 +3544,18 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter A.L.I.C.E message contents:") as message|null
+			var/description = stripped_multiline_input(usr, "Enter A.L.I.C.E message contents:")
 			if(!description)
 				return
 			G.report_message = description
-			var/admin_description = input("Enter description for admins:") as message|null
+			var/admin_description = stripped_multiline_input(usr, "Enter description for admins:")
 			if(!admin_description)
 				return
 			G.admin_desc = admin_description
 			var/department_choices = list()
 			for(var/obj/machinery/requests_console/RC in GLOB.allRequestConsoles)
 				department_choices |= RC.department
-			var/department = input("Choose goal department") as null|anything in department_choices
+			var/department = wrapped_selection_input(usr, "Choose goal department", "Department", department_choices)
 			if(!department)
 				return
 			G.department = department
@@ -3611,7 +3607,7 @@
 		if(answer == "yes")
 			log_sql("[usr.key] | Reported a server hang")
 			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
-				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
+				var/response = clean_input("What were you just doing?","Query server hang report")
 				if(response)
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
@@ -3738,7 +3734,7 @@
 	for(var/type in admin_outfits)
 		var/datum/outfit/admin/O = type
 		hunter_outfits[initial(O.name)] = type
-	var/dresscode = input("Select type", "Contracted Agents") as null|anything in hunter_outfits
+	var/dresscode = wrapped_selection_input(usr, "Select type", "Contracted Agents", hunter_outfits)
 	if(isnull(dresscode))
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]

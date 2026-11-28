@@ -13,7 +13,7 @@ USER_VERB(aooc, R_ADMIN, "AOOC", "Antagonist OOC", VERB_CATEGORY_OOC, msg as tex
 	log_aooc(msg, client)
 
 USER_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world", VERB_CATEGORY_ADMIN)
-	var/message = input(client, "Global message to send:", "Admin Announce", null) as message|null
+	var/message = wrapped_selection_input(client, "Global message to send:", "Admin Announce")
 	if(message)
 		if(!check_rights_client(R_SERVER, 0, client))
 			message = adminscrub(message,500)

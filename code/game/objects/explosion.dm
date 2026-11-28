@@ -226,7 +226,7 @@ USER_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ran
 	var/heavy = 0
 	var/light = 0
 	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = input(client, "Bomb Size?") in choices
+	var/choice = wrapped_selection_input(client, "Bomb Size?", "Booming", choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -243,9 +243,9 @@ USER_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ran
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input(client, "Devastation range (Tiles):") as num
-			heavy = input(client, "Heavy impact range (Tiles):") as num
-			light = input(client, "Light impact range (Tiles):") as num
+			dev = wrapped_number_input(client, "Devastation range (Tiles):")
+			heavy = wrapped_number_input(client, "Heavy impact range (Tiles):")
+			light = wrapped_number_input(client, "Light impact range (Tiles):")
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x

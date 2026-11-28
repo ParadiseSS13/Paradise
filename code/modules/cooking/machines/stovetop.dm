@@ -50,11 +50,11 @@
 #undef ICON_SPLIT_Y
 
 /obj/machinery/cooking/stovetop/attack_hand(mob/user, params)
-	var/input = clickpos_to_surface(params2list(params))
-	if(!input)
+	var/input_value = clickpos_to_surface(params2list(params))
+	if(!input_value)
 		return
 
-	var/datum/cooking_surface/burner = surfaces[input]
+	var/datum/cooking_surface/burner = surfaces[input_value]
 	if(burner && burner.container)
 		if(burner.on)
 			SEND_SIGNAL(burner.container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, burner)

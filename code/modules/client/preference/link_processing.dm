@@ -179,7 +179,7 @@
 					var/new_age = tgui_input_number(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference", active_character.age, S.max_age, S.min_age)
 					if(!new_age)
 						return
-					active_character.age = max(min(round(text2num(new_age)), S.max_age), S.min_age)
+					active_character.age = clamp(new_age, S.min_age, S.max_age)
 				if("species")
 					var/list/new_species = list()
 					var/prev_species = active_character.species
@@ -248,7 +248,7 @@
 						active_character.autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
-					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE, encode = FALSE)
+					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", active_character.metadata, multiline = TRUE)
 					if(isnull(new_metadata))
 						return
 					active_character.metadata = new_metadata
@@ -294,7 +294,7 @@
 						active_character.h_grad_style = result
 
 				if("h_grad_offset")
-					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
+					var/result = stripped_input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference")
 					if(!result)
 						return
 					var/list/expl = splittext(result, ",")
@@ -1021,7 +1021,7 @@
 					active_character.save(user)
 
 				if("clear")
-					if(!active_character.from_db || active_character.real_name != input("This will clear the current slot permanently. Please enter the character's full name to confirm."))
+					if(!active_character.from_db || active_character.real_name != stripped_input(user, "This will clear the current slot permanently. Please enter the character's full name to confirm."))
 						return FALSE
 					active_character.clear_character_slot(user)
 					// Gimmie a freshie

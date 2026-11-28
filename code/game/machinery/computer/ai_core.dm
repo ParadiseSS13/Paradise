@@ -275,7 +275,7 @@ USER_VERB(empty_ai_core_toggle_latejoin, R_ADMIN, "Toggle AI Core Latejoin", "To
 	if(!length(cores))
 		to_chat(client, "No deactivated AI cores were found.")
 
-	var/id = input(client, "Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
+	var/id = wrapped_selection_input(client, "Which core?", "Toggle AI Core Latejoin", cores)
 	if(!id) return
 
 	var/obj/structure/ai_core/deactivated/D = cores[id]

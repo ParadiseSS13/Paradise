@@ -13,7 +13,8 @@
 
 	if(A && A.type)
 		if(typesof(A.type))
-			switch(input("Strict object type detection?") as null|anything in list("Strictly this type","This type and subtypes", "Cancel"))
+			var/choice = wrapped_selection_input(usr, "Strict object type detection?", "Strict?", list("Strictly this type","This type and subtypes", "Cancel"))
+			switch(choice)
 				if("Strictly this type")
 					method = 0
 				if("This type and subtypes")
@@ -40,7 +41,7 @@
 
 		names = sortList(names)
 
-		variable = input("Which var?", "Var") as null|anything in names
+		variable = wrapped_selection_input(usr, "Which var?", "Var", names)
 	else
 		variable = var_name
 

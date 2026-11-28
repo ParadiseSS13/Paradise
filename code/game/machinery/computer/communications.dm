@@ -165,20 +165,20 @@
 				if(message_cooldown > world.time)
 					to_chat(ui.user, SPAN_WARNING("Please allow at least one minute to pass between announcements."))
 					return
-				var/input = input(ui.user, "Please write a message to announce to the station crew.", "Priority Announcement") as null|message
-				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				var/input_msg = tgui_input_text(ui.user, "Please write a message to announce to the station crew.", "Priority Announcement", "", MAX_MESSAGE_LEN, TRUE)
+				if(!input_msg || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
-				if(length(input) < COMM_MSGLEN_MINIMUM)
-					to_chat(ui.user, SPAN_WARNING("Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum."))
+				if(length(input_msg) < COMM_MSGLEN_MINIMUM)
+					to_chat(ui.user, SPAN_WARNING("Message '[input_msg]' is too short. [COMM_MSGLEN_MINIMUM] character minimum."))
 					return
-				announcer.Announce(input)
+				announcer.Announce(input_msg)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
-			var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
-			if(!input || ..() || !is_authenticated(ui.user))
+			var/input_msg = tgui_input_text(ui.user, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.", "", MAX_MESSAGE_LEN, TRUE)
+			if(!input_msg || ..() || !is_authenticated(ui.user))
 				return
-			call_shuttle_proc(ui.user, input)
+			call_shuttle_proc(ui.user, input_msg)
 			if(SSshuttle.emergency.timer)
 				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
@@ -235,11 +235,11 @@
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = tgui_input_text(ui.user, "Line 1", stat_msg1, "Enter Message Text", encode = FALSE)
+			stat_msg1 = tgui_input_text(ui.user, "Line 1", stat_msg1, "Enter Message Text")
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = tgui_input_text(ui.user, "Line 2", stat_msg2, "Enter Message Text", encode = FALSE)
+			stat_msg2 = tgui_input_text(ui.user, "Line 2", stat_msg2, "Enter Message Text")
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -247,13 +247,13 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, SPAN_WARNING("Arrays recycling. Please stand by."))
 					return
-				var/input = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.", encode = FALSE)
-				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				var/input_value = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.")
+				if(isnull(input_value) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
-				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, SPAN_WARNING("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
+				if(length(input_value) < COMM_CCMSGLEN_MINIMUM)
+					to_chat(ui.user, SPAN_WARNING("Message '[input_value]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
 					return
-				Nuke_request(input, ui.user)
+				Nuke_request(input_value, ui.user)
 				to_chat(ui.user, SPAN_NOTICE("Request sent."))
 				log_game("[key_name(ui.user)] has requested the nuclear codes from Centcomm")
 				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruction device have been requested by [ui.user]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested", 'sound/AI/nuke_codes.ogg')
@@ -265,16 +265,16 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, SPAN_WARNING("Arrays recycling. Please stand by."))
 					return
-				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "CentComm Message", encode = FALSE)
-				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				var/input_value = tgui_input_text(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "CentComm Message")
+				if(!input_value || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
-				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, SPAN_WARNING("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
+				if(length(input_value) < COMM_CCMSGLEN_MINIMUM)
+					to_chat(ui.user, SPAN_WARNING("Message '[input_value]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
 					return
-				Centcomm_announce(input, ui.user)
-				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
+				Centcomm_announce(input_value, ui.user)
+				print_centcom_report(input_value, station_time_timestamp() + " Captain's Message")
 				to_chat(ui.user, "Message transmitted.")
-				log_game("[key_name(ui.user)] has made a Centcomm announcement: [input]")
+				log_game("[key_name(ui.user)] has made a Centcomm announcement: [input_value]")
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
@@ -284,15 +284,15 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Arrays recycling.  Please stand by.")
 					return
-				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement. Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "Send Message", encode = FALSE)
-				if(!input || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
+				var/input_value = tgui_input_text(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement. Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "Send Message")
+				if(!input_value || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
-				if(length(input) < COMM_CCMSGLEN_MINIMUM)
-					to_chat(ui.user, SPAN_WARNING("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
+				if(length(input_value) < COMM_CCMSGLEN_MINIMUM)
+					to_chat(ui.user, SPAN_WARNING("Message '[input_value]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
 					return
-				Syndicate_announce(input, ui.user)
+				Syndicate_announce(input_value, ui.user)
 				to_chat(ui.user, "Message transmitted.")
-				log_game("[key_name(ui.user)] has made a Syndicate announcement: [input]")
+				log_game("[key_name(ui.user)] has made a Syndicate announcement: [input_value]")
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 

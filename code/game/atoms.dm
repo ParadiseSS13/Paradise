@@ -1377,7 +1377,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!prompt)
 		prompt = "What would you like the label on [src] to be?"
 
-	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	var/t = clean_input(prompt, "Renaming [src]", default_value, user)
 	if(isnull(t))
 		// user pressed Cancel
 		return null

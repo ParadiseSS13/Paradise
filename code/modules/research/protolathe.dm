@@ -74,7 +74,7 @@ Note: Must be placed west/left of and R&D console to function.
 	T = 12
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T -= M.rating
-	efficiency_coeff = min(max(0, T / 10), 1)
+	efficiency_coeff = clamp(T / 10, 0, 1)
 
 /obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)

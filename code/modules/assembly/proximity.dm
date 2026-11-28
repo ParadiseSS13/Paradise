@@ -176,7 +176,7 @@
 	if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
 		timing_cd_duration += tp
-		timing_cd_duration = min(max(round(timing_cd_duration), 0), 1 MINUTES)
+		timing_cd_duration = clamp(round(timing_cd_duration), 0, 1 MINUTES)
 
 	if(href_list["close"])
 		usr << browse(null, "window=prox")

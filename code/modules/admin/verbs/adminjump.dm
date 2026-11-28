@@ -1,32 +1,32 @@
 USER_VERB(jump_to, R_ADMIN, "Jump to...", "Area, Mob, Key or Coordinate", VERB_CATEGORY_ADMIN)
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
 
-	var/chosen = input(client, null, "Jump to...") as null|anything in choices
+	var/chosen = wrapped_selection_input(client, "Jump to...", "Jump to?", choices)
 	if(!chosen)
 		return
 
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = input(client, "Area to jump to", "Jump to Area") as null|anything in return_sorted_areas()
+			jumping = wrapped_selection_input(client, "Area to jump to", "Jump to Area", return_sorted_areas())
 			if(jumping)
 				return client.jumptoarea(jumping)
 		if("Mob")
-			jumping = input(client, "Mob to jump to", "Jump to Mob") as null|anything in GLOB.mob_list
+			jumping = wrapped_selection_input(client, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
 			if(jumping)
 				return client.jumptomob(jumping)
 		if("Key")
-			jumping = input(client, "Key to jump to", "Jump to Key") as null|anything in sortKey(GLOB.clients)
+			jumping = wrapped_selection_input(client, "Key to jump to", "Jump to Key", sortKey(GLOB.clients))
 			if(jumping)
 				return client.jumptokey(jumping)
 		if("Coordinates")
-			var/x = input(client, "X Coordinate", "Jump to Coordinates") as null|num
+			var/x = wrapped_number_input(client, "X Coordinate", "Jump to Coordinates")
 			if(!x)
 				return
-			var/y = input(client, "Y Coordinate", "Jump to Coordinates") as null|num
+			var/y = wrapped_number_input(client, "Y Coordinate", "Jump to Coordinates")
 			if(!y)
 				return
-			var/z = input(client, "Z Coordinate", "Jump to Coordinates") as null|num
+			var/z = wrapped_number_input(client, "Z Coordinate", "Jump to Coordinates")
 			if(!z)
 				return
 			return client.jumptocoord(x, y, z)
@@ -134,7 +134,7 @@ USER_VERB_AND_CONTEXT_MENU(teleport_ckey, R_ADMIN, "Teleport Client", "Teleport 
 	var/list/keys = list()
 	for(var/mob/M in GLOB.player_list)
 		keys += M.client
-	var/selection = input(client, "Please, select a player!", "Admin Jumping", null) as null|anything in sortKey(keys)
+	var/selection = wrapped_selection_input(client, "Please, select a player!", "Admin Jumping", sortKey(keys))
 	if(!selection)
 		return
 	var/mob/M = selection:mob
@@ -152,7 +152,7 @@ USER_VERB_AND_CONTEXT_MENU(teleport_ckey, R_ADMIN, "Teleport Client", "Teleport 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(send_mob, R_ADMIN, "Send Mob", "Send mob to an area.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
-	var/area/A = input(client, "Pick an area.", "Pick an area") as null|anything in return_sorted_areas()
+	var/area/A = wrapped_selection_input(client, "Pick an area.", "Pick an area", return_sorted_areas())
 	if(!A)
 		return
 

@@ -83,7 +83,7 @@
 			displaylist = list()
 			for(var/key in armorlist)
 				displaylist += "[key] = [armorlist[key]]"
-			result = input(usr, "Select an armor type to modify..", "Modify armor") as null|anything in displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)"
+			result = wrapped_selection_input(usr, "Select an armor type to modify..", "Modify armor", displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)")
 
 			if(result == "(DONE)")
 				break

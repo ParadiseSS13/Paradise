@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(valid_minds))
 		to_chat(user, SPAN_WARNING("No suitable humanoid targets found!"))
 		return
-	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
+	var/name = wrapped_selection_input(user, "Choose a player to add to this team", "Add Team Member", valid_minds)
 	if(!name)
 		return
 
@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to send a message to all members of this team.
  */
 /datum/team/proc/admin_communicate(mob/user)
-	var/message = input(user, "Enter a message to send to the team:", "Team Message") as text|null
+	var/message = stripped_input(user, "Enter a message to send to the team:", "Team Message")
 	if(!message)
 		return
 
@@ -242,7 +242,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(length(available_objectives))
 		available_objectives[SEPERATOR] = "Whatever, we never read this"
 	available_objectives += GLOB.admin_objective_list
-	var/selected = input("Select an objective type:", "Objective Type") as null|anything in available_objectives
+	var/selected = wrapped_selection_input(usr, "Select an objective type:", "Objective Type", available_objectives)
 	if(!selected || selected == SEPERATOR)
 		return
 
