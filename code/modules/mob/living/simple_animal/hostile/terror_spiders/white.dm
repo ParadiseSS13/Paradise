@@ -71,7 +71,7 @@
 	if(is_station_level(T.z) && owner)
 		return list(ASSIGNMENT_MEDICAL = 1)
 
-/obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special)
+/obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(readd_infected))
 

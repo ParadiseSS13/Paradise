@@ -9,7 +9,7 @@
 	icon = 'icons/obj/species_organs/grey.dmi'
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
 
-/obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	M.add_language("Psionic Communication")
 

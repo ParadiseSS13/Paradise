@@ -46,7 +46,7 @@
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	if(M.mind)
 		M.mind.AddSpell(new /datum/spell/bloodcrawl(null))
@@ -70,7 +70,7 @@
 	insert(user)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	if(M.mind)
 		M.mind.AddSpell(new /datum/spell/fireball/shadow_grapple)
@@ -96,7 +96,7 @@
 	insert(user)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	M.AddComponent(/datum/component/cross_shock, 30, 500, 2 SECONDS)
 	ADD_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))

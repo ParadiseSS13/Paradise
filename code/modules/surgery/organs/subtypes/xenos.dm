@@ -14,7 +14,7 @@
 	is_xeno_organ = TRUE
 
 /// This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
-/obj/item/organ/internal/alien/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/alien/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	if(!hijacked)
 		for(var/powers_to_add in alien_powers)
@@ -136,7 +136,7 @@
 					virus.stage--
 					processing_ticks = 0
 
-/obj/item/organ/internal/alien/plasmavessel/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/alien/plasmavessel/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	M.update_plasma_display(M)
 
@@ -164,7 +164,7 @@
 	hidden_origin_tech = TECH_BLUESPACE
 	hidden_tech_level = 6
 
-/obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	M.faction |= "alien"
 	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")

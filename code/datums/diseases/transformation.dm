@@ -200,7 +200,7 @@
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
 				if(!isslimeperson(human))
-					human.set_species(/datum/species/slime)
+					human.set_species(/datum/species/slime, keep_implants = TRUE)
 
 /datum/disease/transformation/corgi
 	name = "The Barkening"

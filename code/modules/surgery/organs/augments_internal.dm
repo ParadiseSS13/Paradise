@@ -146,7 +146,7 @@
 	var/currently_modifying_stamina = FALSE
 	COOLDOWN_DECLARE(implant_cooldown)
 
-/obj/item/organ/internal/cyberimp/brain/anti_stam/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/brain/anti_stam/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	RegisterSignal(M, COMSIG_CARBON_ENTER_STAMINACRIT, PROC_REF(on_enter))
 	RegisterSignal(M, COMSIG_CARBON_EXIT_STAMINACRIT, PROC_REF(on_exit))
@@ -243,7 +243,7 @@
 	origin_tech = "materials=2;biotech=2"
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_BANANIUM = 200)
 
-/obj/item/organ/internal/cyberimp/brain/clown_voice/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/brain/clown_voice/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_COMIC_SANS, "augment")
 
@@ -302,7 +302,7 @@
 	origin_tech = "materials=5;programming=4;biotech=4"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
 
-/obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
 
@@ -366,7 +366,7 @@
 	In spite of this, recent Biotech shipments have come under fire from piracy, with the company quick to blame Interdyne for said attacks. Said allegations remain unverified.</i>"
 
 
-/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/brain/sensory_enhancer/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
@@ -489,7 +489,7 @@
 	. += "<i>As of modern times, the BWHS is heavily vetted under Cybersun Inc. due to its dangerous nature and rather difficult detection. \
 	However, this hasn't stopped the flow of these implants from reaching the black market, whether by inside or outside influences.</i>"
 
-/obj/item/organ/internal/cyberimp/brain/hackerman_deck/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/brain/hackerman_deck/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 	add_spell()
 	RegisterSignal(M, COMSIG_BODY_TRANSFER_TO, PROC_REF(on_body_transfer))
@@ -889,7 +889,7 @@
 	origin_tech = "bluespace=6;biotech=4"
 	materials = list(MAT_METAL = 10000, MAT_BLUESPACE = 2000)
 
-/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/chest/bluespace_anchor/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	RegisterSignal(M, COMSIG_MOVABLE_TELEPORTING, PROC_REF(on_teleport))
 	RegisterSignal(M, COMSIG_MOB_PRE_JAUNT, PROC_REF(on_jaunt))
@@ -979,7 +979,7 @@
 			if(E.body_part != UPPER_TORSO && E.body_part != LOWER_TORSO)
 				E.droplimb(TRUE) //lego disasemble sound
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
 
@@ -1001,7 +1001,7 @@
 	to_chat(owner, SPAN_WARNING("Your body seizes up!"))
 	return weaken_time
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
 	owner.physiology.stamina_mod *= 1.15 //15% more stamina damage, representing extra friction in limbs. I guess.
@@ -1017,7 +1017,7 @@
 	implant_color = "#301beeff"
 	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_EMP_RESIST, "ipc[UID()]")
 
@@ -1031,7 +1031,7 @@
 	implant_color = "#065513ff"
 	origin_tech = "materials=5;programming=5;biotech=5;engineering=5;combat=5;"
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
 	ADD_TRAIT(M, TRAIT_EMP_RESIST, "ipc_joint[UID()]")
@@ -1048,7 +1048,7 @@
 	origin_tech = "materials=4;programming=4;biotech=5;combat=4;"
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_GOLD = 3000, MAT_PLASMA = 10000)
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/insert(mob/living/carbon/M, special)
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
 	SEND_SIGNAL(M, COMSIG_FLAYER_RETRACT_IMPLANTS, TRUE)
@@ -1066,7 +1066,7 @@
 	slot = "gastrointestinal"
 	requires_machine_person = TRUE
 
-/obj/item/organ/internal/cyberimp/chest/ipc_food/insert(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/internal/cyberimp/chest/ipc_food/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0, silent = FALSE)
 	..()
 	ADD_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
 
@@ -1094,13 +1094,14 @@
 	/// Flag for tracking if we've used up the implant's initial deployment of skin
 	var/initial_surge_used = FALSE
 
-/obj/item/organ/internal/cyberimp/chest/skinmonger/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/chest/skinmonger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0, silent = FALSE)
 	. = ..()
 
 	if(!initial_surge_used)
 		apply_full_synthetic_skin(M)
-		to_chat(M, SPAN_WARNING("In an instant, a surge of skin wraps around you and binds itself to your body!"))
-		playsound(M, 'sound/surgery/organ2.ogg', 70, TRUE, frequency = 0.8)
+		if(!silent)
+			to_chat(M, SPAN_WARNING("In an instant, a surge of skin wraps around you and binds itself to your body!"))
+			playsound(M, 'sound/surgery/organ2.ogg', 70, TRUE, frequency = 0.8)
 		initial_surge_used = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/skinmonger/remove(mob/living/carbon/M, special = 0)
