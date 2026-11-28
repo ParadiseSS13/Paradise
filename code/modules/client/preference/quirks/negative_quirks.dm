@@ -165,3 +165,9 @@
 	cost = -1
 	trait_to_apply = TRAIT_WORK_HARD_PARTY_HARDER
 	conflicting_quirks = list(/datum/quirk/temperate_partier)
+
+/datum/quirk/noscreaming
+	name = "Quiet Zone"
+	desc = "You're incapable of screaming, for whatever miraculous reason."
+	cost = -1
+	trait_to_apply = TRAIT_QUIET_ZONE
