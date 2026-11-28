@@ -12,15 +12,27 @@
 		/obj/projectile,
 		/atom/movable/emissive_blocker,
 	))
-	var/list/processing_list = list(location)
-	var/list/window_priority = list()
-	var/list/collector_priority = list()
-	var/list/other_priority = list()
-	. = list()
 	var/insulation = 1
-	while(length(processing_list))
-		var/atom/thing = processing_list[1]
-		processing_list -= thing
+	// Usually a bare turf that radiation goes straight through
+	if(!length(location.contents) && isturf(location))
+		switch(emission_type)
+			if(ALPHA_RAD)
+				insulation = location.rad_insulation_alpha
+			if(BETA_RAD)
+				insulation = location.rad_insulation_beta
+			if(GAMMA_RAD)
+				insulation = location.rad_insulation_gamma
+		if(insulation >= 1 && !(location.status_traits && location.status_traits["absorb_rads"]))
+			return list()
+	var/list/processing_list = list(location)
+	// These only get made if something turns up for them
+	var/list/window_priority
+	var/list/collector_priority
+	var/list/other_priority
+	// Walk the list instead of cutting from the front, same order
+	var/position = 0
+	while(position < length(processing_list))
+		var/atom/thing = processing_list[++position]
 		if(!thing || ignored_things[thing.type])
 			continue
 		switch(emission_type)
@@ -34,19 +46,29 @@
 		// HAS_TRAIT is used manually here since the macros for HAS_TRAIT as well as the traits aren't being recognized here
 		if(insulation < 1 || (thing.status_traits ? (thing.status_traits["absorb_rads"] ? TRUE : FALSE) : FALSE))
 			if(istype(thing, /obj/structure/window))
-				window_priority += thing
+				LAZYADD(window_priority, thing)
 			else if(istype(thing, /obj/machinery/power/rad_collector))
-				collector_priority += thing
+				LAZYADD(collector_priority, thing)
 			else
-				other_priority += thing
+				LAZYADD(other_priority, thing)
 		if((thing.flags_2 & RAD_PROTECT_CONTENTS_2) || (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_PROBE) & COMPONENT_BLOCK_RADIATION))
 			continue
 		if(ishuman(thing))
 			var/mob/living/carbon/human/target_mob = thing
 			if(target_mob.get_rad_protection() >= 0.99) // I would do exactly equal to 1, but you will never hit anything between 1 and .975, and byond seems to output 0.99999
 				continue
-		processing_list += thing.contents
-	. =	window_priority + collector_priority + other_priority
+		if(length(thing.contents))
+			processing_list += thing.contents
+	// Usually only this one has anything in it
+	if(!window_priority && !collector_priority)
+		return other_priority || list()
+	. = list()
+	if(window_priority)
+		. += window_priority
+	if(collector_priority)
+		. += collector_priority
+	if(other_priority)
+		. += other_priority
 
 /proc/get_rad_contamination_adjacent(atom/location, atom/source)
 	var/static/list/ignored_things = typecacheof(list(
@@ -148,8 +170,6 @@
 /proc/radiation_pulse(atom/source, intensity, emission_type = ALPHA_RAD, log = FALSE)
 	if(!SSradiation.can_fire || intensity < RAD_BACKGROUND_RADIATION)
 		return
-	var/datum/radiation_wave/wave = new /datum/radiation_wave(source, intensity, emission_type)
-
 	var/turf/start_turf = source
 
 	// Find the turf where we are
@@ -158,18 +178,17 @@
 
 	var/list/things = get_rad_contents(start_turf, emission_type) // Radiate the waves origin frist
 	// Adjust the weights so the source tile doesn't get all the rads
-	wave.weight_sum = RAD_SOURCE_WEIGHT
-	wave.weights = list(wave.weight_sum)
+	var/weight = RAD_SOURCE_WEIGHT
 	for(var/atom/thing in things)
 		if(thing.UID() == source.UID())
 			// Don't block our own radiation
 			source.base_rad_act(source ,intensity, emission_type)
 		else
-			wave.weight_sum = wave.weight_sum * thing.base_rad_act(source ,intensity * wave.weight_sum, emission_type)
+			weight = weight * thing.base_rad_act(source ,intensity * weight, emission_type)
 	// Add the rest of the weight back
-	wave.weight_sum += (1 - RAD_SOURCE_WEIGHT)
-	// We can do this because we are on one tile so we have one weight
-	wave.weights[1] = wave.weight_sum
+	weight += (1 - RAD_SOURCE_WEIGHT)
+	// It spreads out from here a step each time SSradiation fires
+	SSradiation.start_wave(new /datum/radiation_wave(source, intensity, emission_type), start_turf, weight)
 
 	var/static/last_huge_pulse = 0
 	if(intensity > 12000 && world.time > last_huge_pulse + 200)
