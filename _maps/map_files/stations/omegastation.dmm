@@ -40533,10 +40533,10 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/shipwright,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
 /obj/machinery/power/apc/reinforced/directional/north,
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/shipwright)
 "pHv" = (
