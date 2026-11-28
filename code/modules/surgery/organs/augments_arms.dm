@@ -700,9 +700,9 @@
 	for(var/obj/I in contents)
 		return I.examine_more()
 
-// Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
+// Shell launch system, an arm mounted four-shot shotgun that comes out of your arm
 
-/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
+/obj/item/gun/projectile/shotgun/automatic/shell_launcher
 	name = "shell launch system"
 	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable of firing essentially any shotgun shell."
 	icon_state = "shell_cannon"
@@ -712,14 +712,13 @@
 	inhand_y_dimension = 32
 	weapon_weight = WEAPON_LIGHT
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
-	unique_reskin = FALSE
-	can_sawoff = FALSE
+	fire_delay = 1 SECONDS
 
-/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
+/obj/item/gun/projectile/shotgun/automatic/shell_launcher/proc/missfire(mob/living/carbon/human/H, our_organ)
 	to_chat(H, SPAN_WARNING("Your [name] misfires!"))
 	process_fire(H, H, 1, zone_override = our_organ)
 
-/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/examine_more(mob/user)
+/obj/item/gun/projectile/shotgun/automatic/shell_launcher/examine_more(mob/user)
 	. = ..()
 	. += "<i>A Shellguard Munitions classic, the Shellguard Launch System (SLS) was originally a MODsuit heavy weapons accessory, \
 	later being developed into a forearm-mounted tactical shotgun implant. Though its compact design precludes the use of large ammunition like rockets or burning plasma, \
@@ -736,7 +735,7 @@
 /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	name = "shell launch system internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	max_ammo = 1
+	max_ammo = 3
 
 /datum/action/item_action/organ_action/toggle/shell_cannon
 	button_icon = 'icons/obj/surgery.dmi'
@@ -744,8 +743,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	name = "shell launch system implant"
-	desc = "A mounted, single-shot housing for a shell launch cannon; capable of firing twelve-gauge shotgun shells."
-	contents = newlist(/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher)
+	desc = "A mounted, four-shot housing for a semi-automatic shell launch cannon; capable of firing twelve-gauge shotgun shells."
+	contents = newlist(/obj/item/gun/projectile/shotgun/automatic/shell_launcher)
 	icon_state = "shell_cannon"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/shell_cannon)
 	augment_state = "razor"
@@ -757,7 +756,7 @@
 	if(emp_proof)
 		return
 	Retract()
-	for(var/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/SL in contents)
+	for(var/obj/item/gun/projectile/shotgun/automatic/shell_launcher/SL in contents)
 		if(SL.chambered)
 			if(!SL.chambered.BB)//found a spent ammo
 				return
