@@ -119,7 +119,7 @@
 	ranged_cooldown = 1.5 SECONDS
 
 /obj/item/ammo_casing/caseless/eshotgun
-	projectile_type = /obj/projectile/beam/scatter/eshotgun
+	projectile_type = /obj/projectile/beam/scatter
 	pellets = 6
 	variance = 25
 	fire_sound = 'sound/weapons/laser.ogg'

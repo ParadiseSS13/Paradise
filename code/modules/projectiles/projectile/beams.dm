@@ -80,12 +80,6 @@
 	icon_state = "scatterlaser"
 	damage = 5
 
-/obj/projectile/beam/scatter/eshotgun
-	damage = 6
-	tile_dropoff = 0.5
-	tile_dropoff_s = 0.5
-	range = 8
-
 /obj/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"

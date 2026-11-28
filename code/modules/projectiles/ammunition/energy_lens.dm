@@ -45,8 +45,8 @@
 	select_name = "scatter"
 
 /obj/item/ammo_casing/energy/laser/eshotgun
-	projectile_type = /obj/projectile/beam/scatter/eshotgun
-	pellets = 6
+	projectile_type = /obj/projectile/beam/scatter
+	pellets = 8
 	variance = 25
 	delay = 1 SECONDS
 
