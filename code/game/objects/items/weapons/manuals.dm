@@ -1368,7 +1368,11 @@
 				<li>Add 5u vanilla to the mug.</li>
 				<li>Instead of 5u milk, use 10u chocolate milk.</li>
 				<li>Add a cherry to the microwave. The botanist won't give me blue ones.</li>
+				<li>Add a cherry AND a slice of pinapple! If you're lucky enough to have them it's like magic!</li>
 				<li>Add a lime to the microwave.</li>
+				<li>Add 5u lemon juice and some poppy seeds.</li>
+				<li>Add a pumpkin to the microwave.</li>
+				<li>Add a carrot to the microwave.</li>
 				<li>Add 5u honey to the mug.</li>
 				<li>DO NOT add the red mushrooms, it's not worth it!</li>
 				</ul>

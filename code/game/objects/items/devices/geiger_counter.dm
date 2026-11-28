@@ -170,7 +170,7 @@
 	return ..()
 
 /obj/item/geiger_counter/proc/geiger_act(atom/target, mob/living/user)
-	if(user.a_intent != INTENT_HELP || isstorage(target))
+	if(user.a_intent != INTENT_HELP || isstorage(target) || is_surface(target))
 		return FALSE
 	if(!emagged)
 		user.visible_message(SPAN_NOTICE("[user] scans [target] with [src]."), SPAN_NOTICE("You scan [target]'s radiation levels with [src]..."))

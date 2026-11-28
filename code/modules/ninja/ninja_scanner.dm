@@ -29,7 +29,7 @@
 								SPAN_NOTICE("You begin to scan [target]!"))
 			if(!do_after_once(user, 8 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
-			complete_objective(ninja_obj)
+			complete_objective(user, ninja_obj)
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/capture))
@@ -66,7 +66,7 @@
 				c_target.handcuffed = FALSE
 				c_target.update_handcuffed()
 			cap_obj.handle_capture(target, target_loc)
-			complete_objective(ninja_obj)
+			complete_objective(user, ninja_obj)
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/interrogate_ai))
@@ -93,7 +93,7 @@
 				if(length(open_turfs))
 					do_teleport(card, pick(open_turfs))
 					break
-			complete_objective(ninja_obj)
+			complete_objective(user, ninja_obj)
 			return TRUE
 	return ..()
 

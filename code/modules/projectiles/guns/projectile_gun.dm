@@ -236,7 +236,6 @@
 			return
 		user.visible_message("[user] shortens \the [src]!", SPAN_NOTICE("You shorten \the [src]."))
 		w_class = WEIGHT_CLASS_NORMAL
-		inhand_icon_state = "gun" //phil235 is it different with different skin?
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF

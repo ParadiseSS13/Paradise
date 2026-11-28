@@ -259,7 +259,7 @@
 			populate_booklist()
 		if("find_users_books")
 			user_data.clear_search() //we need to clear out other search params first
-			user_data.search_ckey = params["user_ckey"]
+			user_data.search_ckey = ui.user.ckey
 			populate_booklist()
 		if("clear_ckey_search")
 			user_data.search_ckey = null
@@ -284,8 +284,8 @@
 					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 					atom_say("Deletion Failed!")
 					return
-				if(selectedbook.ckey != params["user_ckey"])
-					message_admins("[params["user_ckey"]] attempted to delete a book that wasn't theirs, this shouldn't happen, please investigate.")
+				if(selectedbook.ckey != ui.user.ckey)
+					message_admins("[ui.user.ckey] attempted to delete a book that wasn't theirs, this shouldn't happen, please investigate.")
 					return
 				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
 					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
@@ -300,13 +300,13 @@
 			if(params["rating_value"])
 				user_data.selected_rating = clamp(text2num(params["rating_value"]), 0, 10)
 		if("rate_book")
-			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
+			if(GLOB.library_catalog.rate_book(ui.user.ckey, params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
 				atom_say("Rating Successful!")
 			populate_booklist()
 		//Report Acts
 		if("submit_report")
-			if(GLOB.library_catalog.flag_book_by_id(params["user_ckey"], params["bookid"], selected_report))
+			if(GLOB.library_catalog.flag_book_by_id(ui.user.ckey, params["bookid"], selected_report))
 				playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Report Submitted!")
 				return

@@ -104,33 +104,45 @@
 	result = /obj/item/food/mugcake/chocolate
 
 /datum/recipe/microwave/mugcake/banana
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5)
 	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/banana)
 	result = /obj/item/food/mugcake/banana
 
 /datum/recipe/microwave/mugcake/cherry
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5)
 	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/cherries)
 	result = /obj/item/food/mugcake/cherry
 
 /datum/recipe/microwave/mugcake/bluecherry
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5)
 	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/bluecherries)
 	result = /obj/item/food/mugcake/bluecherry
 
 /datum/recipe/microwave/mugcake/lime
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5)
 	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/citrus/lime)
 	result = /obj/item/food/mugcake/lime
 
 /datum/recipe/microwave/mugcake/amanita
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5)
 	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/mushroom/amanita)
 	result = /obj/item/food/mugcake/amanita
 
 //HoneyMugcake (for Luka) //
 /datum/recipe/microwave/mugcake/honey
-	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5,"honey" = 5)
+	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5, "honey" = 5)
 	result = /obj/item/food/mugcake/honey
 
 // ----------- END of recipe imports from Hispania!
+
+/datum/recipe/microwave/mugcake/lemon_poppyseed
+	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5, "lemonjuice" = 5)
+	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/seeds/poppy)
+	result = /obj/item/food/mugcake/lemon_poppyseed
+
+/datum/recipe/microwave/mugcake/pumpkin
+	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/pumpkin)
+	result = /obj/item/food/mugcake/pumpkin
+
+/datum/recipe/microwave/mugcake/carrot
+	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/carrot)
+	result = /obj/item/food/mugcake/carrot
+
+/datum/recipe/microwave/mugcake/pineapple
+	items = list(/obj/item/reagent_containers/drinks/mug, /obj/item/food/egg, /obj/item/food/grown/cherries, /obj/item/food/sliced/pineapple)
+	result = /obj/item/food/mugcake/pineapple

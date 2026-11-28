@@ -296,7 +296,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	var/icon/t_marking_s
 	if(H.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/tail_marking = H.m_styles["tail"]
-		var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
+		var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_full_list[tail_marking]
 		if(tail_marking_style && tail_marking_style.species_allowed)
 			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
@@ -357,14 +357,14 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	if((H.dna.species.bodyflags & HAS_HEAD_MARKINGS) || (H.dna.species.bodyflags & HAS_BODY_MARKINGS))
 		if(H.dna.species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = H.m_styles["body"]
-			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_full_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
 				face_s.Blend(b_marking_s, ICON_OVERLAY)
 		if(H.dna.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = H.m_styles["head"]
-			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_full_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)

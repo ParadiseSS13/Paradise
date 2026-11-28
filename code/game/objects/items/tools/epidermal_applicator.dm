@@ -83,7 +83,7 @@
 	if(ismachineperson(target) && def_zone == BODY_ZONE_HEAD && affected.model)
 		var/datum/robolimb/R = GLOB.all_robolimbs[affected.model]
 		if(R && R.is_monitor)
-			to_chat(user, SPAN_WARNING("The applicator fails to find purchase on your big cube head. Probably for the best."))
+			to_chat(user, SPAN_WARNING("The applicator fails to find purchase on the big cube head. Probably for the best."))
 			return TRUE
 
 	// Check if we have enough metal
