@@ -366,10 +366,10 @@
 		if("Change Drawing")
 			update_window(user)
 		if("Change Color")
-			var/old_color = crayon_color
-			crayon_color = tgui_input_color(user, "Please select a paint color.", "Spray Can Color", old_color)
-			if(isnull(crayon_color)) // This happens if we press cancel in the color input, or if something breaks horribly somehow.
-				crayon_color = old_color
+			var/new_crayon_color = tgui_input_color(user, "Please select a paint color.", "Spray Can Color", crayon_color)
+			if(!new_crayon_color) // This happens if we press cancel in the color input, or if something breaks horribly somehow.
+				return
+			crayon_color = new_crayon_color
 			update_icon()
 
 /obj/item/toy/crayon/spraycan/after_attack(atom/target, mob/user, proximity_flag, click_parameters)

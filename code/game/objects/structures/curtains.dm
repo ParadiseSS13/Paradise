@@ -80,10 +80,10 @@
 
 /obj/structure/curtain/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(assembled && istype(used, /obj/item/toy/crayon))
-		var/old_color = color
-		color = tgui_input_color(user,"Please choose a color.", "Curtain Color", old_color)
-		if(isnull(color))
-			color = old_color
+		var/new_color = tgui_input_color(user,"Please choose a color.", "Curtain Color", color)
+		if(!new_color)
+			return ITEM_INTERACT_COMPLETE
+		color = new_color
 		return ITEM_INTERACT_COMPLETE
 
 	if(!assembled && istype(used, /obj/item/stack/sheet/cloth)) // Are we putting the cloth onto the assembly on the wall?

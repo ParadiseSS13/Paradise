@@ -14,10 +14,10 @@
 	)
 
 /datum/painter/window/pick_color(mob/user)
-	var/old_color = paint_setting
-	paint_setting = tgui_input_color(user, "Please select a paint color.", "Window Painter Color", old_color)
-	if(isnull(paint_setting))
-		paint_setting = old_color
+	var/new_paint_setting = tgui_input_color(user, "Please select a paint color.", "Window Painter Color", paint_setting)
+	if(!new_paint_setting)
+		return
+	paint_setting = new_paint_setting
 
 /datum/painter/window/paint_atom(atom/target, mob/user)
 	if(!is_type_in_list(target, paintable_windows))
