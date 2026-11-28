@@ -199,10 +199,10 @@
 	return ..()
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+	if(!H.wear_mask || !istype(H.wear_mask, /obj/item/clothing/mask) || (!(initial(H.wear_mask.flags) & AIRTIGHT) && !(H.head && H.head.flags & AIRTIGHT)))
 		H.drop_item_to_ground(H.wear_mask)
+		H.equip_or_collect(new /obj/item/clothing/mask/breath(H), ITEM_SLOT_MASK)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), ITEM_SLOT_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref) //Diseasel, here you go

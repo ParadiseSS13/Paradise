@@ -22,11 +22,30 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/warden)
 
 /datum/outfit/job/warden/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
 	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
+/datum/outfit/job/warden/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SHOES_LAYER] = preview_shoes_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/warden/preview_shoes_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/shoes/slippers_worn/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/feet.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -47,6 +66,7 @@
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/classic_baton/telescopic = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/detective)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
@@ -72,6 +92,24 @@
 	H.dna.SetSEState(GLOB.soberblock, TRUE)
 	H.check_mutations = 1
 
+/datum/outfit/job/detective/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[FACEMASK_LAYER] = preview_mask_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/detective/preview_mask_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/mask/cigarette/cigar/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || (monitor_head ? worn_item.icon_monitor : FALSE) || worn_item.worn_icon || 'icons/mob/clothing/mask.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/officer
 	name = "Security Officer"
 	jobtype = /datum/job/officer
@@ -92,8 +130,27 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/security)
 
 /datum/outfit/job/officer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
 	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
+/datum/outfit/job/officer/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/officer/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/beret/sec/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon

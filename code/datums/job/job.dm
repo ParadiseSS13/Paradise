@@ -202,23 +202,28 @@
 
 	var/tmp/list/gear_leftovers = list()
 
+/datum/outfit/job/get_chosen_backpack(backbag)
+	if(!allow_backbag_choice)
+		return back
+
+	switch(backbag)
+		if(GBACKPACK)
+			return /obj/item/storage/backpack //Grey backpack
+		if(GSATCHEL)
+			return /obj/item/storage/backpack/satchel_norm //Grey satchel
+		if(GDUFFLEBAG)
+			return /obj/item/storage/backpack/duffel //Grey Dufflebag
+		if(LSATCHEL)
+			return /obj/item/storage/backpack/satchel //Leather Satchel
+		if(DSATCHEL)
+			return satchel //Department satchel
+		if(DDUFFLEBAG)
+			return dufflebag //Department dufflebag
+		else
+			return backpack //Department backpack
+
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(allow_backbag_choice)
-		switch(H.backbag)
-			if(GBACKPACK)
-				back = /obj/item/storage/backpack //Grey backpack
-			if(GSATCHEL)
-				back = /obj/item/storage/backpack/satchel_norm //Grey satchel
-			if(GDUFFLEBAG)
-				back = /obj/item/storage/backpack/duffel //Grey Dufflebag
-			if(LSATCHEL)
-				back = /obj/item/storage/backpack/satchel //Leather Satchel
-			if(DSATCHEL)
-				back = satchel //Department satchel
-			if(DDUFFLEBAG)
-				back = dufflebag //Department dufflebag
-			else
-				back = backpack //Department backpack
+	back = get_chosen_backpack(H.backbag)
 
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox

@@ -13,6 +13,7 @@
 		/obj/item/toy/russian_revolver = 1,
 		/obj/item/eftpos = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/bar)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -29,6 +30,24 @@
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	ADD_TRAIT(H.mind, TRAIT_SLEIGHT_OF_HAND, ROUNDSTART_TRAIT)
 
+/datum/outfit/job/bartender/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/bartender/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/collectable/tophat/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/chef
 	name = "Chef"
 	jobtype = /datum/job/chef
@@ -44,6 +63,25 @@
 	backpack_contents = list(
 		/obj/item/eftpos = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/chef)
+
+/datum/outfit/job/chef/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[BELT_LAYER] = preview_belt_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/chef/preview_belt_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/storage/belt/chef/red/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/belt.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/chef/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -68,11 +106,22 @@
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/botany)
 
 /datum/outfit/job/hydro/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_GREEN_THUMB, JOB_TRAIT)
 
+/datum/outfit/job/hydro/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/hydro/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	return new /icon('icons/mob/clothing/head.dmi', "nymph")
 
 /datum/outfit/job/clown
 	name = "Clown"
@@ -100,6 +149,7 @@
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/clown)
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -150,6 +200,7 @@
 
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/mime
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/mime)
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -179,6 +230,7 @@
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
 	r_pocket = /obj/item/door_remote/janikeyring
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/janitor)
 
 /datum/outfit/job/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -190,6 +242,24 @@
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_JANITOR, JOB_TRAIT)
 
+/datum/outfit/job/janitor/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/janitor/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/suit/bio_suit/janitor/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = worn_item.worn_icon || listgetindex(worn_item.sprite_sheets, species) || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/librarian
 	name = "Librarian"
 	jobtype = /datum/job/librarian
@@ -199,6 +269,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/librarian)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -209,6 +280,24 @@
 		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
+
+/datum/outfit/job/librarian/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[HEAD_LAYER] = preview_head_icon(species, body_parts, null, monitor_head, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/librarian/preview_head_icon(species, list/body_parts, datum/outfit/species_outfit = null, monitor_head = FALSE, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/head/hairflower/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/head.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"
@@ -222,6 +311,7 @@
 		/obj/item/camera/spooky = 1,
 		/obj/item/nullrod = 1,
 	)
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/chaplain)
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -282,9 +372,42 @@
 	if(SSticker)
 		SSticker.Bible_deity_name = B.deity_name
 
+/datum/outfit/job/chaplain/preview_layered_icon(species, body_parts, backpack_choice = GBACKPACK, monitor_head = FALSE)
+	var/list/icon/icon_layers = ..()
+	if(prob(1))
+		icon_layers[SUIT_LAYER] = preview_suit_icon(species, body_parts, null, joke_item = TRUE)
+	return icon_layers
+
+/datum/outfit/job/chaplain/preview_suit_icon(species, list/body_parts, datum/outfit/species_outfit = null, joke_item = FALSE)
+	if(!joke_item && prob(99))
+		return ..()
+	var/obj/item/clothing/suit/imperium_monk/worn_item = new()
+	var/worn_icon_state = worn_item.worn_icon_state ? worn_item.worn_icon_state : worn_item.icon_state
+	var/worn_icon = listgetindex(worn_item.sprite_sheets, species) || worn_item.worn_icon || 'icons/mob/clothing/suit.dmi'
+	var/icon/final_icon = new /icon(worn_icon, worn_icon_state)
+	if(worn_item.color)
+		final_icon.Blend(worn_item.color, ICON_MULTIPLY)
+	qdel(worn_item)
+	return final_icon
+
 /datum/outfit/job/assistant
 	name = "Assistant"
 	jobtype = /datum/job/assistant
 
 	uniform = /obj/item/clothing/under/color/random
 	id = /obj/item/card/id/assistant
+	species_outfits = list("Plasmaman" = /datum/outfit/plasmaman/assistant)
+
+/datum/outfit/job/assistant/ai_preview
+	name = "AI Preview"
+	jobtype = null
+
+	suit = /obj/item/clothing/suit/straight_jacket
+	head = /obj/item/clothing/head/cardborg
+
+/datum/outfit/job/assistant/cyborg_preview
+	name = "Cyborg Preview"
+	jobtype = null
+
+	suit = /obj/item/clothing/suit/cardborg
+	head = /obj/item/clothing/head/cardborg
