@@ -16,7 +16,10 @@
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
 	custom_name = TRUE
-	listening = FALSE
+
+/obj/item/radio/intercom/custom/Initialize(mapload, direction, building)
+	. = ..()
+	set_listening(FALSE)
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
@@ -63,7 +66,7 @@
 			setDir(direction)
 			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat = TRUE
-		on = FALSE
+		set_on(FALSE)
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
@@ -123,7 +126,7 @@
 	activate_self(user)
 
 /obj/item/radio/intercom/receive_range(freq, level)
-	if(!is_listening())
+	if(!can_receive())
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
@@ -175,7 +178,7 @@
 
 /obj/item/radio/intercom/AltClick(mob/user)
 	. = ..()
-	if(broadcasting)
+	if(get_broadcasting())
 		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) /// Allows us to track who spams all these on if they do.
 
 /obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
@@ -200,7 +203,7 @@
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
 	update_icon(UPDATE_ICON_STATE)
-	on = TRUE
+	set_on(TRUE)
 	b_stat = FALSE
 	buildstage = 3
 	to_chat(user, SPAN_NOTICE("You secure the electronics!"))
@@ -217,7 +220,7 @@
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(get_turf(src),5)
-	on = FALSE
+	set_on(FALSE)
 	b_stat = TRUE
 	buildstage = 1
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
@@ -239,13 +242,13 @@
 	if(!circuitry_installed)
 		icon_state="intercom-frame"
 	else
-		icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+		icon_state = "intercom[!is_on()?"-p":""][b_stat ? "-open":""]"
 
 /obj/item/radio/intercom/update_overlays()
 	. = ..()
 	underlays.Cut()
 
-	if(on && buildstage == 3)
+	if(is_on() && buildstage == 3)
 		underlays += emissive_appearance(icon, "intercom_lightmask")
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
@@ -268,10 +271,10 @@
 /obj/item/radio/intercom/proc/local_powernet_check(datum/source)
 	var/area/current_area = get_area(src)
 	if(!current_area)
-		on = FALSE
+		set_on(FALSE)
 		set_light(0)
 	else
-		on = current_area.powernet.has_power(PW_CHANNEL_EQUIPMENT) // set "on" to the equipment power status of our area.
+		set_on(current_area.powernet.has_power(PW_CHANNEL_EQUIPMENT)) // set "on" to the equipment power status of our area.
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 

@@ -65,7 +65,7 @@
 
 	return ..()
 
-/obj/item/radio/headset/is_listening()
+/obj/item/radio/headset/can_receive()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
@@ -394,7 +394,7 @@
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
 	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
-/obj/item/radio/headset/heads/ai_integrated/is_listening()
+/obj/item/radio/headset/heads/ai_integrated/can_receive()
 	if(disabledAi)
 		return FALSE
 	return ..()
