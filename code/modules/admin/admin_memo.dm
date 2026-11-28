@@ -89,7 +89,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 					qdel(query_memofind)
 					return
 
-				var/edit_text = "Edited by [target_ckey] on [SQLtime()] from<br>[old_memo]<br>to<br>[new_memo]<hr>"
+				var/edit_text = "Edited by [ckey] on [SQLtime()] from<br>[old_memo]<br>to<br>[new_memo]<hr>"
 
 				var/datum/db_query/update_query = SSdbcore.NewQuery(
 					"UPDATE memo SET memotext=:newmemo, last_editor=:lasteditor, edits=CONCAT(IFNULL(edits,''),:edittext) WHERE ckey=:targetckey",
@@ -108,7 +108,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 
 				if(target_ckey == ckey)
 					log_admin("[key_name(src)] has edited their memo from \"[old_memo]\" to \"[new_memo]\"")
-					message_admins("[key_name_admin(src)] has edited their memo from \"[old_memo]]\" to \"[new_memo]\"")
+					message_admins("[key_name_admin(src)] has edited their memo from \"[old_memo]\" to \"[new_memo]\"")
 				else
 					log_admin("[key_name(src)] has edited [target_ckey]'s memo from \"[old_memo]\" to \"[new_memo]\"")
 					message_admins("[key_name_admin(src)] has edited [target_ckey]'s memo from \"[old_memo]\" to \"[new_memo]\"")

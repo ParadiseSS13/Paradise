@@ -75,6 +75,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		var/datum/db_query/query_set_closed = SSdbcore.NewQuery("UPDATE bug_reports SET approver_ckey=\"\" WHERE id=:index", list("index" = row_index))
 		if(!query_set_closed.warn_execute())
 			to_chat(usr,chat_box_red("The bug report's state in row [row_index] could not be set to unopened"))
+		qdel(query_set_closed)
 	// The reports shouldn't persist unless being made or reviewed.
 	qdel(src)
 
@@ -106,6 +107,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/datum/db_query/query_update_approver = SSdbcore.NewQuery("UPDATE bug_reports SET approver_ckey=:approver WHERE id=:index", list("approver" = user.ckey, "index" = row_index))
 	if(!query_update_approver.warn_execute())
 		to_chat(user, SPAN_WARNING("Failed to set bug report approver in row [row_index] in the database"))
+	qdel(query_update_approver)
 	return TRUE
 
 // returns the body payload
@@ -187,6 +189,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		var/datum/db_query/query_update_submission = SSdbcore.NewQuery("UPDATE bug_reports SET submitted=1 WHERE id=:index", list("index" = row_index))
 		if(!query_update_submission.warn_execute())
 			message_admins("Failed to update status of bug report from [initial_key] titled [bug_report_data["title"]] to submitted at [SQLtime()]. DB request failed")
+		qdel(query_update_submission)
 		handled = TRUE
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
@@ -290,7 +293,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	return bug_reports
 
 /proc/read_bug_report(index)
-	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json, approver_ckey, submitted FROM bug_reports WHERE id=:index", list("index" = index))
+	var/datum/db_query/query_bug_reports = SSdbcore.NewQuery("SELECT id, filetime, author_ckey, contents_json, approver_ckey, CAST(submitted AS UNSIGNED) FROM bug_reports WHERE id=:index", list("index" = index))
 	if(!query_bug_reports.warn_execute())
 		log_debug("Failed to load bug report from DB")
 		qdel(query_bug_reports)

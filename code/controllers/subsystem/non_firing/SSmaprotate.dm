@@ -38,6 +38,7 @@ SUBSYSTEM_DEF(maprotate)
 	var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT WEEKDAY(NOW()) AS d")
 	if(!dbq.warn_execute())
 		log_startup_progress("Somehow, we failed to extract a numerical day from the DB. ?????????????")
+		qdel(dbq)
 		return
 
 	var/day_index = 0

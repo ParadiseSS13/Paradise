@@ -591,9 +591,9 @@
 					if(BANTYPE_JOB_TEMP)
 						bantypesearch += "'JOB_TEMPBAN' "
 					if(BANTYPE_ADMIN_PERMA)
-						bantypesearch = "'ADMIN_PERMABAN' "
+						bantypesearch += "'ADMIN_PERMABAN' "
 					if(BANTYPE_ADMIN_TEMP)
-						bantypesearch = "'ADMIN_TEMPBAN' "
+						bantypesearch += "'ADMIN_TEMPBAN' "
 					else
 						bantypesearch += "'PERMABAN' "
 
