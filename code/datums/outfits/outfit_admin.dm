@@ -1535,7 +1535,7 @@
 
 	var/obj/item/clothing/suit/hooded/oblivion/robes = H.wear_suit
 	if(istype(robes))
-		robes.ToggleHood()
+		SEND_SIGNAL(robes, COMSIG_HOOD_TOGGLE)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
@@ -1784,7 +1784,7 @@
 		R.name = "ascendant robes"
 		R.hood.name = "ascendant hood"
 		H.equip_to_slot_or_del(R, ITEM_SLOT_OUTER_SUIT)
-		R.ToggleHood()
+		SEND_SIGNAL(R, COMSIG_HOOD_TOGGLE)
 
 	if(visualsOnly)
 		return
