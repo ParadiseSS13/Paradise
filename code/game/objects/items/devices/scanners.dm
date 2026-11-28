@@ -232,43 +232,55 @@ SLIME SCANNER
 // MARK: Research Scanner
 /obj/item/research_scanner
 	name = "research scanner"
-	desc = "A hand-held scanner that can analyze the material composition and research testing potentials of any object. \
+	desc = "A hand-held scanner that can analyze the material composition and research testing potentials of any object and identify the components inside machinery. \
 	Newer versions can seamlessly fit into the frames of eyewear, but these older versions are rugged, cheap, and far easier to manufacture."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "detective_scanner" // Detective scanner is unused, sprite is cool.
 	worn_icon_state = "electronic"
 	inhand_icon_state = "electronic"
-	origin_tech = "magnets=3;programming=3;engineering=3"
+	origin_tech = "magnets=2;engineering=1"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	flags = NOBLUDGEON
-	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
+	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
 	new_attack_chain = TRUE
 
 /obj/item/research_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(isitem(target))
-		scan_object(target, user)
-	return ITEM_INTERACT_COMPLETE
+	if(scan_object(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
 
 /obj/item/research_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(scan_object(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+	return NONE
+
+/obj/item/research_scanner/proc/scan_object(atom/target, mob/living/user)
+	if(ismachinery(target))
+		var/obj/machinery/machine = target
+		if(machine.component_parts)
+			to_chat(user, machine.display_parts(user))
+		return TRUE
+
 	if(isitem(target))
-		scan_object(target, user)
-	return ITEM_INTERACT_COMPLETE
+		var/obj/item/I = target
+		var/list/message = list()
+		if(I.origin_tech)
+			message += "[SPAN_NOTICE("Testing potentials:")]<br>"
+			var/list/tech_levels = params2list(I.origin_tech)
+			for(var/T in tech_levels)
+				message += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [tech_levels[T]]<br>"
+		else
+			message += "[SPAN_DANGER("No tech origins detected.")]<br>"
 
-/obj/item/research_scanner/proc/scan_object(obj/item/target, mob/living/user)
-	var/list/message = list()
-	if(target.origin_tech)
-		message += "[SPAN_NOTICE("Testing potentials:")]<br>"
-		var/list/tech_levels = params2list(target.origin_tech)
-		for(var/T in tech_levels)
-			message += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [tech_levels[T]]<br>"
-	else
-		message += "[SPAN_DANGER("No tech origins detected.")]<br>"
+		if(length(I.materials))
+			message += "[SPAN_NOTICE("Extractable materials:")]<br>"
+			for(var/material_id in I.materials)
+				message += "Material: [CallMaterialName(material_id)] | Quantity: [I.materials[material_id]] cm<sup>3</sup><br>" // Capitize first word, remove the "$".
+		else
+			message += "[SPAN_DANGER("No extractable materials detected.")]<br>"
+		to_chat(user, chat_box_examine(message.Join("<br>")))
+		return TRUE
 
-	if(length(target.materials))
-		message += "[SPAN_NOTICE("Extractable materials:")]<br>"
-		for(var/material_id in target.materials)
-			message += "[CallMaterialName(material_id)] | Quantity: [target.materials[material_id]] cm3<br>" // Capitize first word, remove the "$".
-	else
-		message += "[SPAN_DANGER("No extractable materials detected.")]<br>"
-	to_chat(user, chat_box_examine(message.Join("<br>")))
+	return FALSE

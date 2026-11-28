@@ -275,24 +275,24 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	. = ..(user, "", "It is a [size] item.")
 
 	if(user.research_scanner) // Mob has a research scanner active.
-		var/msg = "*--------*<br>"
+		var/message = "*--------*<br>"
 
 		if(origin_tech)
-			msg += "[SPAN_NOTICE("Testing potentials:")]<br>"
+			message += "[SPAN_NOTICE("Testing potentials:")]<br>"
 			var/list/tech_levels = params2list(origin_tech)
 			for(var/T in tech_levels)
-				msg += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [tech_levels[T]]<br>"
+				message += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [tech_levels[T]]<br>"
 		else
-			msg += "[SPAN_DANGER("No tech origins detected.")]<br>"
+			message += "[SPAN_DANGER("No tech origins detected.")]<br>"
 
 		if(length(materials))
-			msg += "<span class='notice'>Extractable materials:<br>"
-			for(var/material_id in target.materials)
-				message += "[CallMaterialName(material_id)] | Quantity: [target.materials[material_id]] cm3<br>" // Capitize first word, remove the "$".
+			message += "[SPAN_NOTICE("Extractable materials:")]<br>"
+			for(var/material_id in materials)
+				message += "Material: [CallMaterialName(material_id)] | Quantity: [materials[material_id]] cm<sup>3</sup><br>" // Capitize first word, remove the "$".
 		else
-			msg += "[SPAN_DANGER("No extractable materials detected.")]<br>"
-		msg += "*--------*"
-		. += msg
+			message += "[SPAN_DANGER("No extractable materials detected.")]<br>"
+		message += "*--------*"
+		. += message
 
 	if(length(attached_bits))
 		. += SPAN_NOTICE("Has [length(attached_bits)] bits attached.")

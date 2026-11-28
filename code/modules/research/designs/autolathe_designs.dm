@@ -50,6 +50,14 @@
 	build_path = /obj/item/analyzer
 	category = list("initial","Tools")
 
+/datum/design/research_scanner
+	name = "Research Scanner"
+	id = "research_scanner"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
+	build_path = /obj/item/research_scanner
+	category = list("initial","Tools")
+
 /datum/design/tscanner
 	name = "T-ray Scanner"
 	id = "tscanner"
