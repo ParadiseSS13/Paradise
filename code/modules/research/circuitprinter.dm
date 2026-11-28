@@ -6,6 +6,7 @@ sometimes a secondary material (often gold or diamond).
 */
 /obj/machinery/r_n_d/circuit_imprinter
 	name = "Circuit Imprinter"
+	pai_slot = TRUE
 	desc = "Manufactures circuit boards for the construction of machines."
 	icon_state = "circuit_imprinter"
 	container_type = OPENCONTAINER

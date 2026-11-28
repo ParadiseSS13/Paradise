@@ -26,6 +26,35 @@
 /obj/item/paicard/Initialize(mapload)
 	. = ..()
 	overlays += "pai-off"
+	RegisterSignal(src, COMSIG_INTERACTING, PROC_REF(on_interacting))
+
+/// Slotting the card into a machine, before the machine tries to take it as an ingredient or stock
+/obj/item/paicard/proc/on_interacting(datum/source, mob/living/user, atom/target, list/modifiers)
+	SIGNAL_HANDLER
+	if(!ismachinery(target) || user.a_intent == INTENT_HARM)
+		return NONE
+	var/obj/machinery/machine = target
+	if(!machine.pai_slot)
+		return NONE
+	INVOKE_ASYNC(src, PROC_REF(load_into_machine), user, machine)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/paicard/proc/load_into_machine(mob/living/user, obj/machinery/machine)
+	if(!pai || pai.stat == DEAD)
+		to_chat(user, SPAN_WARNING("[src] has no personality to load into [machine]."))
+		return
+	if(machine.GetComponent(/datum/component/pai_host))
+		to_chat(user, SPAN_WARNING("[machine] already has a pAI running it."))
+		return
+	if(machine.stat & BROKEN)
+		to_chat(user, SPAN_WARNING("[machine] is broken."))
+		return
+	user.visible_message(SPAN_NOTICE("[user] starts slotting [src] into [machine]."), SPAN_NOTICE("You start slotting [src] into [machine]'s service port."))
+	if(!do_after(user, 2 SECONDS, target = machine))
+		return
+	if(QDELETED(machine) || !pai || pai.stat == DEAD || loc != user || machine.GetComponent(/datum/component/pai_host))
+		return
+	machine.AddComponent(/datum/component/pai_host, src, user)
 
 /obj/item/paicard/Destroy()
 	if(pai)
@@ -310,17 +339,16 @@
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		overlays.Cut()
-		switch(emotion)
-			if(1) overlays += "pai-happy"
-			if(2) overlays += "pai-cat"
-			if(3) overlays += "pai-extremely-happy"
-			if(4) overlays += "pai-face"
-			if(5) overlays += "pai-laugh"
-			if(6) overlays += "pai-off"
-			if(7) overlays += "pai-sad"
-			if(8) overlays += "pai-angry"
-			if(9) overlays += "pai-what"
 		current_emotion = emotion
+		overlays += get_emotion_state()
+		SEND_SIGNAL(src, COMSIG_PAICARD_EMOTION_CHANGED)
+
+/// The screen face for the current emotion
+/obj/item/paicard/proc/get_emotion_state()
+	var/static/list/emotion_states = list("pai-happy", "pai-cat", "pai-extremely-happy", "pai-face", "pai-laugh", "pai-off", "pai-sad", "pai-angry", "pai-what")
+	if(current_emotion < 1 || current_emotion > length(emotion_states))
+		return "pai-happy"
+	return emotion_states[current_emotion]
 
 /obj/item/paicard/proc/alertUpdate()
 	var/turf/T = get_turf(loc)

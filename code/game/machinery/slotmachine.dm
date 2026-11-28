@@ -1,5 +1,6 @@
 /obj/machinery/economy/slot_machine
 	name = "slot machine"
+	pai_slot = TRUE
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"

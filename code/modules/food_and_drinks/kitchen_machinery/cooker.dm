@@ -1,5 +1,6 @@
 /obj/machinery/cooker
 	name = "cooker"
+	pai_slot = TRUE
 	desc = "You shouldn't be seeing this!"
 	density = TRUE
 	anchored = TRUE

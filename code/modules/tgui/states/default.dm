@@ -71,6 +71,9 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 	// pAIs can only use themselves and the owner's radio.
 	if((src_object == src || src_object == radio) && stat == CONSCIOUS)
 		return UI_INTERACTIVE
+	// And the machine they're running
+	else if(src_object && src_object == get_host_machine())
+		return shared_ui_interaction(src_object)
 	else
 		return ..()
 

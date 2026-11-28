@@ -2,6 +2,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking
 	name = "Default Cooking Appliance"
+	pai_slot = TRUE
 	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cooking/machines.dmi'
 	density = TRUE

@@ -18,6 +18,8 @@
 	var/no_spin = FALSE
 	var/no_spin_thrown = FALSE
 	var/mob/pulledby = null
+	/// Pixels to lift runechat text by, for things with something floating over them like a pAI's face
+	var/runechat_raise = 0
 
 	var/atom/movable/pulling
 	/// Face towards the atom while pulling it

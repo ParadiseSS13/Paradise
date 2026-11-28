@@ -1,6 +1,7 @@
 
 /obj/machinery/economy/arcade
 	name = "Arcade Game"
+	pai_slot = TRUE
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_1_on"
