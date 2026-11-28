@@ -192,7 +192,7 @@
 		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature()) > 1)
+	if(temperature_archived != air_contents.temperature())
 		parent.update = 1
 
 

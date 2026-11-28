@@ -25,6 +25,8 @@ Pipelines + Other Objects -> Pipe network
 	var/can_be_undertile = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
+	/// We've got nothing to do until something changes, so SSair only needs to look at us every fourth cycle
+	var/atmos_napping = FALSE
 	/// The amount of pressure the machine wants to operate at.
 	var/target_pressure = 0
 
