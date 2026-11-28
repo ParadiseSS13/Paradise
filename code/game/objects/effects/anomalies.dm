@@ -369,13 +369,25 @@
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		var/datum/gas_mixture/air = new()
-		air.set_temperature(1000)
-		air.set_toxins(20)
-		air.set_oxygen(20)
-		T.blind_release_air(air)
+	// Amount of fire effects to spawn
+	var/amount_of_fire = rand(8, 15)
+	var/list/turfs_in_range = RANGE_TURFS(2, src)
+	shuffle(turfs_in_range)
+	while(amount_of_fire > 0 && length(turfs_in_range) > 0)
+		var/turf/T = pick_n_take(turfs_in_range)
+		if(!istype(T) || T.density || isspaceturf(T)) // No fires in walls
+			continue
+		new /obj/effect/fire/anomaly(T)
+		amount_of_fire -= 1
+	// Randomly spikes flames in a direction
+	if(prob(15))
+		var/spike_dir = pick(GLOB.alldirs)
+		var/turf/current_turf = get_turf(src)
+		for(var/I in 1 to 6)
+			current_turf = get_step(current_turf, spike_dir)
+			if(!istype(current_turf) || current_turf.density || isspaceturf(current_turf)) // No fires in walls
+				continue
+			new /obj/effect/fire/anomaly(current_turf)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime && !canister_spawned)
@@ -386,13 +398,11 @@
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		//Make it hot and burny for the new slime
-		var/datum/gas_mixture/air = new()
-		air.set_temperature(1000)
-		air.set_toxins(125)
-		air.set_oxygen(125)
-		T.blind_release_air(air)
+	//Make it hot and burny for the new slime with a big flame pulse
+	for(var/turf/simulated/burst_turf in range(6))
+		if(!istype(burst_turf) || burst_turf.density) // No fires in walls
+			continue
+		new /obj/effect/fire/anomaly(burst_turf)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
 	S.rabid = TRUE
