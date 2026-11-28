@@ -1,4 +1,5 @@
 mod jobs;
+mod library;
 mod logging;
 mod mapmanip;
 mod mfa;
