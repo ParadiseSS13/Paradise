@@ -534,7 +534,7 @@
 			target.attack_by(internal_crusher, chassis.occupant)
 		else
 			target.attackby__legacy__attackchain(internal_crusher, chassis.occupant)
-	internal_crusher.afterattack__legacy__attackchain(target, chassis.occupant, proximate, null)
+	internal_crusher.interact_with_atom(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR
