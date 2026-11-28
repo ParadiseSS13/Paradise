@@ -111,6 +111,9 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
+	backpack_contents = list(
+		/obj/item/research_scanner = 1,
+	)
 
 /datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
