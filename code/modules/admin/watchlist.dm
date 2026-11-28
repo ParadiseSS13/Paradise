@@ -33,7 +33,7 @@
 	if(already_watched)
 		to_chat(usr, SPAN_REDTEXT("[target_ckey] is already on the watchlist."))
 		return
-	var/reason = input(usr,"Please state the reason","Reason") as message|null
+	var/reason = stripped_multiline_input(usr, "Please state the reason", "Reason")
 	if(!reason)
 		return
 	var/adminckey = usr.ckey
@@ -89,7 +89,7 @@
 		return
 	if(query_watchreason.NextRow())
 		var/watch_reason = query_watchreason.item[1]
-		var/new_reason = input("Input the new reason", "New Reason", "[watch_reason]") as message|null
+		var/new_reason = stripped_multiline_input(usr, "Input the new reason", "New Reason", "[watch_reason]")
 		if(!new_reason || new_reason == watch_reason)
 			return
 		var/sql_ckey = usr.ckey

@@ -406,7 +406,7 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write") as message
+		var/input_element = stripped_multiline_input(usr, "Enter what you want to write:", "Write")
 		topic_href_write(id, input_element)
 	if(href_list["show_content"])
 		var/dist = get_dist(src, usr)

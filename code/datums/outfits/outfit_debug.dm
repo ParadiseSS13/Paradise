@@ -183,7 +183,7 @@
 /obj/item/debug/human_spawner/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
-	var/choice = input("Select a species", "Human Spawner", null) in GLOB.all_species
+	var/choice = wrapped_selection_input(usr, "Select a species", "Human Spawner", GLOB.all_species)
 	selected_species = GLOB.all_species[choice]
 	return ITEM_INTERACT_COMPLETE
 

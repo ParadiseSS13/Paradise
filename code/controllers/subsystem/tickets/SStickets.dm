@@ -292,7 +292,7 @@ SUBSYSTEM_DEF(tickets)
 	T.assignStaff(C)
 
 
-	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sorted_responses
+	var/message_key = wrapped_selection_input(usr, "Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse", sorted_responses)
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	if(!ticket_owner)
 		to_chat(C, SPAN_WARNING("Can't respond to the ticket of a disconnected user."))

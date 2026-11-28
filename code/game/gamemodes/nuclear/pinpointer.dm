@@ -206,10 +206,10 @@
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Please input the x coordinate to search for.", "Location?" , "") as num
+			var/locationx = tgui_input_number(user, "Please input the x coordinate to search for.", "Location?" , 0)
 			if(!locationx || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Please input the y coordinate to search for.", "Location?" , "") as num
+			var/locationy = tgui_input_number(user, "Please input the y coordinate to search for.", "Location?" , 0)
 			if(!locationy || !(user in view(1,src)))
 				return
 
@@ -269,7 +269,7 @@
 					to_chat(user, SPAN_NOTICE("You set the pinpointer to locate [targetitem]."))
 
 				if("DNA")
-					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
+					var/DNAstring = tgui_input_text(user, "Input DNA string to search for." , "Please Enter String.")
 					if(!DNAstring)
 						return
 					for(var/mob/living/carbon/C in GLOB.mob_list)

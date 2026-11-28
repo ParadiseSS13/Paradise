@@ -217,7 +217,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/desired_num_sheets = 0
 	if(amount == "custom")
-		desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+		desired_num_sheets = tgui_input_number(usr, "How many sheets would you like to eject from the machine?", "How much?", 1)
 		if(isnull(desired_num_sheets))
 			desired_num_sheets = 0
 	else
@@ -521,7 +521,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
 				if(!atoms_share_level(C, src))
 					return
-				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
 					C.consoles += UID()
@@ -701,7 +701,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						submenu_imprinter = SUBMENU_PRINTER_MAIN
 
 		if("search") //Search for designs with name matching pattern
-			var/query = params["to_search"]
+			var/query = lesser_html_encode(params["to_search"])
 			var/compare
 
 
@@ -745,7 +745,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				return
 			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
-				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()

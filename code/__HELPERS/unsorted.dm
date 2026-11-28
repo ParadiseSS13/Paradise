@@ -1350,7 +1350,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/___callbackvarset(list_or_datum, var_name, var_value)
 	if(length(list_or_datum))
-		list_or_datum[var_name] = var_value
+		// We aint allowing this one
+		if(!IsAdminAdvancedProcCall())
+			list_or_datum[var_name] = var_value
 		return
 	var/datum/D = list_or_datum
 	if(IsAdminAdvancedProcCall())
@@ -1528,7 +1530,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
 	if(!skip_filter)
 		if(!value) //nothing should be calling us with a number, so this is safe
-			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+			value = clean_input("Enter type to find (blank for all, cancel to cancel)", "Search for type")
 			if(isnull(value))
 				return
 		value = trim(value)
@@ -1542,7 +1544,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(length(matches) == 1)
 		chosen = matches[1]
 	else
-		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
+		chosen = wrapped_selection_input(usr, "Select a type", "Pick Type", matches)
 		if(!chosen)
 			return
 	chosen = matches[chosen]
@@ -1670,7 +1672,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return pre_generated_list
 
 
-/proc/filter_fancy_list(list/L, filter as text)
+/proc/filter_fancy_list(list/L, filter)
 	var/list/matches = list()
 	for(var/key in L)
 		var/value = L[key]
@@ -1787,8 +1789,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return result
 
 /proc/pixel_shift_dir(dir, amount_x = 32, amount_y = 32) //Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
-	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
-	amount_y = min(max(0, amount_x), 32)
+	amount_x = clamp(amount_x, 0, 32) //No less than 0, no greater than 32.
+	amount_y = clamp(amount_y, 0, 32)
 	var/list/shift = list("x" = 0, "y" = 0)
 	switch(dir)
 		if(NORTH)
@@ -1944,6 +1946,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   * * url - URL to GET
   */
 /proc/HTTPGet(url)
+	if(IsAdminAdvancedProcCall())
+		return // no thanks
+
 	var/datum/http_request/req = new
 	req.prepare(RUSTLIBS_HTTP_METHOD_GET, url)
 	req.begin_async()

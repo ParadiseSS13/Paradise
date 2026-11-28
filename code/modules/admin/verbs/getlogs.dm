@@ -5,7 +5,7 @@ USER_VERB(get_server_logs, R_ADMIN|R_VIEWLOGS, "Get Server Logs", "View/retrieve
 /// Allows download of past server logs saved within the data/logs/ folder by specifying a specific round ID.
 USER_VERB(get_server_logs_by_round_id, R_ADMIN|R_VIEWLOGS, "Get Round Logs", \
 		"View/retrieve logfiles for a given round.", VERB_CATEGORY_ADMIN)
-	var/round_id = input(client, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
+	var/round_id = wrapped_number_input(client, "Enter a round ID.", "Enter Round ID", GLOB.round_id)
 	if(isnull(round_id))
 		return
 

@@ -518,7 +518,7 @@
 		to_chat(usr, "You have no admins with muted sounds.")
 		return
 
-	var/choice = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in user.prefs.admin_sound_ckey_ignore
+	var/choice = wrapped_selection_input(usr, "Select an admin to unmute sounds from.", "Pick an admin", user.prefs.admin_sound_ckey_ignore)
 	if(!choice)
 		return
 
@@ -552,10 +552,10 @@
 
 /datum/preference_toggle/special_toggle/set_attack_logs/set_toggles(client/user)
 	var/static/list/attack_log_settings = list("All attack logs" = ATKLOG_ALL, "Almost all attack logs" = ATKLOG_ALMOSTALL, "Most attack logs" = ATKLOG_MOST, "Few attack logs" = ATKLOG_FEW, "No attack logs" = ATKLOG_NONE)
-	var/input = input(usr, "Please select your Attack Log settings.") as null|anything in attack_log_settings
-	if(!input)
+	var/input_value = wrapped_selection_input(usr, "Please select your Attack Log settings.", attack_log_settings)
+	if(!input_value)
 		return
-	var/attack_log_type = attack_log_settings[input]
+	var/attack_log_type = attack_log_settings[input_value]
 	switch(attack_log_type)
 		if(ATKLOG_ALL)
 			user.prefs.atklog = ATKLOG_ALL

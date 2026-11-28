@@ -84,7 +84,7 @@
 		nadeassembly.activate_self(user)
 		return ITEM_INTERACT_COMPLETE
 
-	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
+	var/newtime = tgui_input_number(usr, "Please set the timer.", "Timer", det_time)
 	if(user.is_in_active_hand(src))
 		newtime = clamp(newtime, 10, 60000)
 		det_time = newtime

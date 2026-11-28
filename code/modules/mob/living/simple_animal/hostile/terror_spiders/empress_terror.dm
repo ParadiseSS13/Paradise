@@ -48,7 +48,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/LayQueenEggs()
 	var/eggtype = tgui_input_list(src, "What kind of eggs?", "Egg laying", list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE, TS_DESC_BROWN))
-	var/numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50)
+	var/numlings = tgui_input_list(src, "How many in the batch?", "Egg batching", list(1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50))
 	if(eggtype == null || numlings == null)
 		to_chat(src, SPAN_DANGER("Cancelled."))
 		return
@@ -79,8 +79,8 @@
 			to_chat(src, SPAN_DANGER("Unrecognized egg type."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EmpressLings()
-	var/numlings = input("How many?") as null|anything in list(10, 20, 30, 40, 50)
-	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
+	var/numlings = tgui_input_list(src, "How many?", "Well?", list(10, 20, 30, 40, 50))
+	var/sbpc = tgui_input_list("%chance to be stillborn?", "Well?", list(0, 25, 50, 75, 100))
 	for(var/i=0, i<numlings, i++)
 		var/mob/living/basic/spiderling/terror_spiderling/S = new /mob/living/basic/spiderling/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, \

@@ -969,7 +969,7 @@
 	F.spread_amount = 2
 
 /datum/spell/ai_spell/ranged/emergency_sealant/on_purchase_upgrade()
-	cooldown_handler.recharge_duration = max(min(base_cooldown, base_cooldown - (spell_level * 30)), 30 SECONDS)
+	cooldown_handler.recharge_duration = clamp(base_cooldown, base_cooldown - (spell_level * 30), 30 SECONDS)
 	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 30 SECONDS), cooldown_min)
 	if(cooldown_handler.is_on_cooldown())
 		cooldown_handler.start_recharge()

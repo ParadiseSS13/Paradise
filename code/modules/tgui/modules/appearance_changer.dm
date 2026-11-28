@@ -88,7 +88,7 @@
 
 		if("hair_gradient_offset")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_offset = input("Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]") as null|text
+				var/new_offset = tgui_input_text(usr, "Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]")
 				if(!isnull(new_offset))
 					owner.change_hair_gradient(offset_raw = new_offset)
 
@@ -100,7 +100,7 @@
 
 		if("hair_gradient_alpha")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_alpha = input("Please enter gradient alpha (0-255).", "Hair Gradient", head_organ.h_grad_alpha) as null|num
+				var/new_alpha = tgui_input_number(usr, "Please enter gradient alpha (0-255).", "Hair Gradient", head_organ.h_grad_alpha)
 				if(!isnull(new_alpha))
 					owner.change_hair_gradient(alpha = new_alpha)
 

@@ -326,13 +326,13 @@
 		to_chat(user, SPAN_WARNING("[src] has already been used to transmit a message to the Syndicate."))
 		return
 	message_sent = TRUE
-	var/input = tgui_input_text(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement. Transmission does not guarantee a response. This function may only be used ONCE.", "Send Message")
-	if(!input)
+	var/input_value = tgui_input_text(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement. Transmission does not guarantee a response. This function may only be used ONCE.", "Send Message")
+	if(!input_value)
 		message_sent = FALSE
 		return
-	Syndicate_announce(input, user)
+	Syndicate_announce(input_value, user)
 	to_chat(user, "Message transmitted.")
-	log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
+	log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input_value]", user)
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)

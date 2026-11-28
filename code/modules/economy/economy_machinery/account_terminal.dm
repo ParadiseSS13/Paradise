@@ -114,13 +114,15 @@
 			var/account_num = text2num(params["account_number"])
 			if(!account_num || !detailed_account_view)
 				return
-			var/attempt_pin = input("Enter this accounts current pin code", "Account Auth") as num
+
+			// should be to allow 0-prefixed numbers but w/e
+			var/attempt_pin = tgui_input_number(ui.user, "Enter this accounts current pin code", "Account Auth")
 			if(!attempt_pin || !Adjacent(ui.user))
 				return
 			if(!account_db.try_authenticate_login(detailed_account_view, attempt_pin, FALSE, FALSE, FALSE) || detailed_account_view.account_pin != attempt_pin)
 				to_chat(ui.user, SPAN_WARNING("Authentification Failure: Incorrect Pin or insufficient access."))
 				return
-			var/new_pin = input("Enter the new pin for this account", "New Account Pin") as num
+			var/new_pin = tgui_input_number(ui.user, "Enter the new pin for this account", "New Account Pin")
 			if(!new_pin || !Adjacent(ui.user))
 				return
 			if(new_pin < 1 || new_pin >= 1000000)
@@ -134,7 +136,7 @@
 		if("create_new_account")
 			current_page = AUT_ACCNEW
 		if("finalise_create_account")
-			var/account_name = params["holder_name"]
+			var/account_name = lesser_html_encode(params["holder_name"])
 			if(!account_name)
 				return
 			var/datum/money_account/account = GLOB.station_money_database.create_account(account_name, 0, ACCOUNT_SECURITY_ID, name, supress_log = FALSE)

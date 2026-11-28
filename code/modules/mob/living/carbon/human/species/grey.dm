@@ -84,7 +84,7 @@
 	else
 		to_chat(H, SPAN_WARNING("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 		if(volume >= 10)
-			H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
+			H.adjustFireLoss(clamp((volume - 10) * 2, 4, 20))
 			H.emote("scream")
 			to_chat(H, SPAN_WARNING("The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!"))
 

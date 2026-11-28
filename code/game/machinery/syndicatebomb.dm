@@ -257,7 +257,7 @@
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
-	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
+	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", timer_set)
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message(SPAN_NOTICE("[bicon(src)] timer set for [timer_set] seconds."))

@@ -42,7 +42,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many traitors you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many traitors you want to create? Enter 0 to cancel","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] traitors with One-Click-Antag")
@@ -74,7 +74,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many changelings you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many changelings you want to create? Enter 0 to cancel.","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] changelings with One-Click-Antag")
@@ -104,7 +104,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many acolytes do you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many acolytes do you want to create? Enter 0 to cancel.","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] acolytes with One-Click-Antag")
@@ -135,7 +135,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many revolutionaries you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many revolutionaries you want to create? Enter 0 to cancel","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
@@ -188,7 +188,7 @@
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
@@ -225,7 +225,7 @@
 	return TRUE
 
 /datum/admins/proc/makeAliens()
-	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
@@ -292,7 +292,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many vampires you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many vampires you want to create? Enter 0 to cancel","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 
@@ -321,7 +321,7 @@
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
-	var/input_num = input(owner, "How many Mindflayers you want to create? Enter 0 to cancel","Amount:", 0) as num|null
+	var/input_num = wrapped_number_input(owner, "How many Mindflayers you want to create? Enter 0 to cancel","Amount:", 0)
 	if(input_num <= 0 || isnull(input_num))
 		qdel(temp)
 		return FALSE
@@ -348,7 +348,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many Heretics you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many Heretics you want to create? Enter 0 to cancel","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] Heretics with One-Click-Antag")
@@ -375,19 +375,19 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many event characters you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = wrapped_number_input(owner, "How many event characters you want to create? Enter 0 to cancel","Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return FALSE
 
 	var/datum/game_mode/traitor/temp = new()
-	var/no_mindshields = input(owner, "Avoid mindshielded characters?") in list("Yes", "No", "Cancel")
+	var/no_mindshields = alert(owner, "Avoid mindshielded characters?", "Well?", "Yes", "No", "Cancel")
 	if(no_mindshields == "Cancel")
 		qdel(temp)
 		return FALSE
 	else if(no_mindshields == "Yes")
 		temp.restricted_jobs += temp.protected_jobs
 
-	var/respect_traitor = input(owner, "Require traitor willingness?") in list("Yes", "No", "Cancel")
+	var/respect_traitor = alert(owner, "Require traitor willingness?", "Well?", "Yes", "No", "Cancel")
 	var/role = null
 	if(respect_traitor == "Cancel")
 		qdel(temp)
@@ -395,13 +395,13 @@
 	else if(respect_traitor == "Yes")
 		role = ROLE_TRAITOR
 
-	var/give_objective = input(owner, "Give them a shared custom objective?") in list("Yes", "No", "Cancel")
+	var/give_objective = alert(owner, "Give them a shared custom objective?", "Well?", "Yes", "No", "Cancel")
 	var/objective = null
 	if(give_objective == "Cancel")
 		qdel(temp)
 		return FALSE
 	else if(give_objective == "Yes")
-		objective = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null, 1, MAX_MESSAGE_LEN))
+		objective = stripped_input(owner, "Custom objective:", "Objective", "", MAX_MESSAGE_LEN)
 		if(!length(objective))
 			qdel(temp)
 			return FALSE

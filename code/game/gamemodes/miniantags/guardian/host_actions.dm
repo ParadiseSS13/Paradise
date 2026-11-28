@@ -27,20 +27,20 @@
 	button_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(left_click)
-	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
-	if(!input || !guardian)
+	var/input_value = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
+	if(!input_value || !guardian)
 		return
 
 	// Show the message to our guardian and to host.
-	to_chat(guardian, SPAN_CHANGELING("<i>[owner]:</i> [input]"))
-	to_chat(owner, SPAN_CHANGELING("<i>[owner]:</i> [input]"))
-	log_say("(HOST to [key_name(guardian)]): [input]", owner)
-	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
+	to_chat(guardian, SPAN_CHANGELING("<i>[owner]:</i> [input_value]"))
+	to_chat(owner, SPAN_CHANGELING("<i>[owner]:</i> [input_value]"))
+	log_say("(HOST to [key_name(guardian)]): [input_value]", owner)
+	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input_value]", guardian)
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, SPAN_CHANGELING("<i>Guardian Communication from <b>[owner]</b> ([ghost_follow_link(owner, ghost=M)]): [input]</i>"))
+			to_chat(M, SPAN_CHANGELING("<i>Guardian Communication from <b>[owner]</b> ([ghost_follow_link(owner, ghost=M)]): [input_value]</i>"))
 
 /**
  * # Recall guardian action
@@ -173,11 +173,11 @@
 
 /datum/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
 	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
-	var/input = tgui_input_text(guardian_user, "What do you want your battlecry to be? Max length of 6 characters.", "Change Battlecry", guardian_user.battlecry, 6)
-	if(!input)
+	var/input_value = tgui_input_text(guardian_user, "What do you want your battlecry to be? Max length of 6 characters.", "Change Battlecry", guardian_user.battlecry, 6)
+	if(!input_value)
 		revert_cast()
 		return
-	guardian_user.battlecry = input
+	guardian_user.battlecry = input_value
 
 /**
  * Takes the action button off cooldown and makes it available again.

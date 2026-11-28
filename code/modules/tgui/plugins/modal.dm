@@ -240,7 +240,7 @@ GLOBAL_LIST(ui_modals)
 
 	var/datum/ui_modal/current = LAZYACCESS(GLOB.ui_modals, source.UID())
 	if(!current)
-		return answer
+		return null
 
 	return current.preprocess_answer(answer)
 

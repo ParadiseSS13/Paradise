@@ -1,0 +1,13 @@
+[package]
+name = "dmb-inputs"
+description = "Lists every place a compiled BYOND world (.dmb) calls input()"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0"
+rust-version = "1.88"
+
+[dependencies]
+dmasm-bytecode = { git = "https://github.com/auxtools/auxtools", tag = "v4.0.0" }
+
+[profile.release]
+strip = true

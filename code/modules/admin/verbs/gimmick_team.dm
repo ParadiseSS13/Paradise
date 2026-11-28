@@ -17,13 +17,13 @@
 	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.", null,"Yes","No")=="Yes")
 		pick_manually = 1
 	var/list/teamsizeoptions = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-	var/teamsize = input(src, "How many team members?") as null|anything in teamsizeoptions
+	var/teamsize = wrapped_selection_input(src, "How many team members?", "How many", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
 		alert("Invalid team size specified. Aborting.")
 		return
 	var/themission = null
 	while(!themission)
-		themission = sanitize(copytext_char(input(src, "Please specify a briefing message for the team.", "Specify Mission", ""), 1, MAX_MESSAGE_LEN))
+		themission = stripped_input(src, "Please specify a briefing message for the team.", "Specify Mission", "", MAX_MESSAGE_LEN)
 		if(!themission)
 			alert("No mission specified. Aborting.")
 			return
@@ -32,7 +32,7 @@
 	for(var/type in admin_outfits)
 		var/datum/outfit/admin/O = type
 		outfit_list[initial(O.name)] = type
-	var/dresscode = input("Select Outfit", "Dress-a-mob") as null|anything in outfit_list
+	var/dresscode = wrapped_selection_input(usr, "Select Outfit", "Dress-a-mob", outfit_list)
 	if(isnull(dresscode))
 		return
 	var/is_syndicate = FALSE
@@ -48,7 +48,7 @@
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
 		for(var/i=teamsize,(i>0&&length(possible_ghosts)),i--) //Decrease with every member selected.
-			var/candidate = input("Pick characters to spawn. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
+			var/candidate = wrapped_selection_input(usr, "Pick characters to spawn. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players", possible_ghosts)
 			possible_ghosts -= candidate
 			players_to_spawn += candidate
 	else

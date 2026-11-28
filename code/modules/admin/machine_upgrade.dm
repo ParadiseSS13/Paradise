@@ -3,7 +3,7 @@ USER_CONTEXT_MENU(machine_upgrade, R_DEBUG, "\[Admin\] Tweak Component Ratings",
 		to_chat(client, SPAN_DANGER("This can only be used on subtypes of /obj/machinery."))
 		return
 
-	var/new_rating = input(client, "Enter new rating:","Num") as num
+	var/new_rating = wrapped_number_input(client, "Enter new rating:", "Num")
 	if(!isnull(new_rating) && M.component_parts)
 		for(var/obj/item/stock_parts/P in M.component_parts)
 			P.rating = new_rating

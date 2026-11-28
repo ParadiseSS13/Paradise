@@ -94,6 +94,7 @@
 	var/list/unreceived = list()
 
 	for(var/asset_name in asset_list)
+		asset_name = lesser_html_encode(asset_name)
 		var/datum/asset_cache_item/ACI = asset_list[asset_name]
 		if(!istype(ACI) && !(ACI = SSassets.cache[asset_name]))
 			log_debug("ERROR: can't send asset `[asset_name]`: unregistered or invalid state: `[ACI]`")
@@ -157,5 +158,13 @@
 /// Returns TRUE or FALSE
 /datum/asset_transport/proc/validate_config(log = TRUE)
 	return TRUE
+
+
+// Protection stuff
+/datum/asset_transport/vv_edit_var(var_name, var_value)
+	return FALSE
+
+/datum/asset_transport/CanProcCall(procname)
+	return FALSE
 
 #undef ASSET_CACHE_TELL_CLIENT_AMOUNT

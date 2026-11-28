@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(radio)
 	return "radio"
 
 
-/datum/controller/subsystem/radio/proc/add_object(obj/device as obj, new_frequency as num, filter = null as text|null)
+/datum/controller/subsystem/radio/proc/add_object(obj/device, new_frequency, filter = null)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 

@@ -47,6 +47,7 @@ jobs:
           python tools/ci/restrict_file_types.py
           python tools/ci/no_duplicate_definitions.py
           python -m tools.maplint.source --github
+          tools/ci/input_checker/build_and_run.sh
 
       - name: Run DreamChecker
         shell: bash

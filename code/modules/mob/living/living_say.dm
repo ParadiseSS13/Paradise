@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return name
 
 /mob/living/whisper(message as text)
-	message = trim_strip_html_tags(message)
+	message = lesser_html_encode(message)
 	if(HAS_TRAIT(src, TRAIT_NO_WHISPERING) && !cannot_speak_loudly()) //If you're whispering cause you're out of breath, no blabbermouth will help with that
 		say(message)
 		return TRUE

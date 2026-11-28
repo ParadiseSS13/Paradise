@@ -130,23 +130,27 @@ GLOBAL_LIST(ui_logins)
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
 			state.access = state.id.access
+			state.logged_in = TRUE
 		else
 			to_chat(usr, SPAN_WARNING("Access Denied"))
 			return
 	else if(login_type == LOGIN_TYPE_AI && is_ai(usr))
 		state.name = usr.name
 		state.rank = "AI"
+		state.logged_in = TRUE
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
 		state.rank = "[R.modtype] [R.braintype]"
+		state.logged_in = TRUE
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
 		state.name = "*CONFIDENTIAL*"
 		state.rank = "CentComm Secure Connection"
 		state.access = get_all_accesses() + get_all_centcom_access()
+		state.logged_in = TRUE
 
-	state.logged_in = TRUE
-	ui_login_on_login(state = state)
+	if(state.logged_in)
+		ui_login_on_login(state = state)
 
 	return TRUE
 

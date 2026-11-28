@@ -39,7 +39,7 @@ RESTRICT_TYPE(/datum/ui_module/id_card_modifier)
 
 	switch(action)
 		if("reg")
-			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", card.registered_name), TRUE)
+			var/temp_name = reject_bad_name(tgui_input_text(usr, "Who is this ID for?", "ID Card Renaming", card.registered_name), TRUE)
 			if(!temp_name)
 				to_chat(usr, SPAN_WARNING("Rejecting invalid name `[temp_name]`."))
 				return

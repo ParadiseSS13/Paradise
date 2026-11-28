@@ -104,9 +104,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/autochef_remote))
 		return ..()
 
-	var/input = clickpos_to_surface(modifiers)
-	if(input)
-		var/datum/cooking_surface/surface = surfaces[input]
+	var/input_value = clickpos_to_surface(modifiers)
+	if(input_value)
+		var/datum/cooking_surface/surface = surfaces[input_value]
 		return surface_item_interaction(user, used, surface)
 
 	return ..()
@@ -169,8 +169,8 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	if(user.stat || user.restrained() || (!in_range(src, user)) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/input = clickpos_to_surface(modifiers)
-	var/datum/cooking_surface/burner = surfaces[input]
+	var/input_value = clickpos_to_surface(modifiers)
+	var/datum/cooking_surface/burner = surfaces[input_value]
 	if(!burner)
 		return
 

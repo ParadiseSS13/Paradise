@@ -3,7 +3,7 @@
 	var/frequency
 	var/list/obj/devices = list()
 
-/datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)
+/datum/radio_frequency/proc/post_signal(obj/source, datum/signal/signal, filter = null, range = null)
 	var/turf/start_point
 	if(range)
 		start_point = get_turf(source)
@@ -35,7 +35,7 @@
 
 		device.receive_signal(signal, frequency)
 
-/datum/radio_frequency/proc/add_listener(obj/device as obj, filter as text|null)
+/datum/radio_frequency/proc/add_listener(obj/device, filter)
 	if(!filter)
 		filter = RADIO_DEFAULT
 	//log_admin("add_listener(device=[device],filter=[filter]) frequency=[frequency]")

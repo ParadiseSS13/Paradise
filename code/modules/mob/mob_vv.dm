@@ -35,7 +35,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/new_name = reject_bad_name(sanitize(copytext_char(input(usr, "What would you like to name this mob?", "Input a name", real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
+		var/new_name = reject_bad_name(stripped_input(usr, "What would you like to name this mob?", "Input a name", real_name, MAX_NAME_LEN), allow_numbers = TRUE)
 		if(!new_name || QDELETED(src))
 			return
 
@@ -139,7 +139,7 @@
 		possibleverbs -= verbs
 		possibleverbs += "Cancel" // ...And one for the bottom
 
-		var/verb = input("Select a verb!", "Verbs",null) as anything in possibleverbs
+		var/verb = wrapped_selection_input(usr, "Select a verb!", "Verbs", possibleverbs)
 		if(QDELETED(src))
 			to_chat(usr, SPAN_NOTICE("Mob doesn't exist anymore."))
 			return

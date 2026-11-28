@@ -121,10 +121,14 @@
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = tgui_input_text(usr, "Reason for ERT Call:", "Call ERT", encode = FALSE) // we strip this later in ERT_Announce
+			ert_reason = tgui_input_text(usr, "Reason for ERT Call:", "Call ERT") // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")
+			var/list/valid_events = list("Red Alert", "Grant Emergency Maintenance Access", "Revoke Emergency Maintenance Access", "Activate Station-Wide Emergency Access", "Deactivate Station-Wide Emergency Access", "Emergency Response Team")
+			if(!(params["triggerevent"] in valid_events))
+				return
+
 			event = params["triggerevent"]
 			swiping = TRUE
 

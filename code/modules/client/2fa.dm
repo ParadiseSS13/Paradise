@@ -14,7 +14,7 @@
 		B.set_content("[title_text][img_data]")
 		B.open(FALSE)
 
-		var/entered_code = input(usr, "Please enter a code from your auth app. Failure to enter the code correctly will abort 2FA setup.", "2FA Validation")
+		var/entered_code = stripped_input(usr, "Please enter a code from your auth app. Failure to enter the code correctly will abort 2FA setup.\nDO NOT INCLUDE SPACES OR A DASH - JUST 123456", "2FA Validation")
 		if(!entered_code)
 			alert(usr, "2FA Setup aborted!")
 			B.close()
@@ -74,7 +74,7 @@
 					return
 
 			// Prompt them for a code to make sure they know what they are doing
-			var/entered_code = input(usr, "Please enter a code from your auth app", "2FA Validation")
+			var/entered_code = stripped_input(usr, "Please enter a code from your auth app\nDO NOT INCLUDE SPACES OR A DASH - JUST 123456", "2FA Validation")
 			if(!entered_code)
 				alert(usr, "2FA deactivation aborted!")
 				return

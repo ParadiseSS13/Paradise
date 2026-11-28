@@ -193,7 +193,7 @@
 				return
 			var/transfer_amount = text2num(params["funds_amount"])
 			var/target_account_number = text2num(params["target_acc_number"])
-			var/transfer_purpose = params["purpose"]
+			var/transfer_purpose = lesser_html_encode(params["purpose"])
 			transfer_credits(transfer_amount, target_account_number, transfer_purpose, user)
 		if("view_screen")
 			var/list/valid_screen = list(ATM_SCREEN_DEFAULT, ATM_SCREEN_SECURITY, ATM_SCREEN_TRANSFER, ATM_SCREEN_LOGS)
@@ -205,7 +205,7 @@
 				log_debug("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
 		if("change_security_level")
 			if(authenticated_account)
-				var/new_sec_level = max(min(text2num(params["new_security_level"]), 2), 0)
+				var/new_sec_level = clamp(text2num(params["new_security_level"]), 0, 2)
 				authenticated_account.security_level = new_sec_level
 		if("attempt_auth")
 			var/tried_account_num = text2num(params["account_num"]) ? text2num(params["account_num"]) : held_card?.associated_account_number

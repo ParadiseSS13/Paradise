@@ -99,13 +99,13 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	state = HEY_IM_WORKING_HERE
-	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
-	if(!input)
+	var/written_input = tgui_input_text(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret", "Set Network", "SS13")
+	if(!written_input)
 		state = ASSEMBLY_WIRED
 		to_chat(usr, SPAN_WARNING("No input found. Please hang up and try your call again."))
 		return
 
-	var/list/tempnetwork = splittext(input, ",")
+	var/list/tempnetwork = splittext(written_input, ",")
 	if(length(tempnetwork) < 1)
 		state = ASSEMBLY_WIRED
 		to_chat(usr, SPAN_WARNING("No network found. Please hang up and try your call again."))
@@ -113,7 +113,7 @@
 
 	var/area/camera_area = get_area(src)
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
-	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
+	var/camera_name = tgui_input_text(usr, "How would you like to name the camera?", "Set Camera Name", temptag)
 	state = ASSEMBLY_BUILT
 	var/list/network_list = uniquelist(tempnetwork)
 	var/list/visible_networks = difflist(network_list, GLOB.restricted_camera_networks)
@@ -122,10 +122,10 @@
 	forceMove(C)
 	C.auto_turn()
 	C.network = network_list
-	C.c_tag = input
+	C.c_tag = camera_name
 
 	for(var/i = 5; i >= 0; i -= 1)
-		var/direct = input(user, "Direction?", "Assembling Camera", null) in list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST" )
+		var/direct = tgui_input_list(user, "Direction?", "Assembling Camera", list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST"))
 		if(direct != "LEAVE IT")
 			C.dir = text2dir(direct)
 		if(i != 0)

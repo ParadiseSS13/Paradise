@@ -727,7 +727,7 @@
 		return
 
 	if(href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in GLOB.joblist
+		var/new_role = wrapped_selection_input(usr, "Select new role", "Assigned role", GLOB.joblist, assigned_role)
 		if(!new_role)
 			return
 		assigned_role = new_role
@@ -735,7 +735,7 @@
 		message_admins("[key_name_admin(usr)] has changed [key_name_admin(current)]'s assigned role to [assigned_role]")
 
 	else if(href_list["memory_edit"])
-		var/messageinput = input("Write new memory", "Memory", memory) as null|message
+		var/messageinput = stripped_multiline_input(usr, "Write new memory", "Memory", memory)
 		if(isnull(messageinput))
 			return
 		var/new_memo = copytext(messageinput, 1,MAX_MESSAGE_LEN)
@@ -1376,7 +1376,7 @@
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
 
 			if("edit_usable_blood")
-				var/new_usable = input(usr, "Select a new value:", "Modify usable blood") as null|num
+				var/new_usable = wrapped_number_input(usr, "Select a new value:", "Modify usable blood")
 				if(isnull(new_usable) || new_usable < 0)
 					return
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -1386,7 +1386,7 @@
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s usable blood to [new_usable].")
 
 			if("edit_total_blood")
-				var/new_total = input(usr, "Select a new value:", "Modify total blood") as null|num
+				var/new_total = wrapped_number_input(usr, "Select a new value:", "Modify total blood")
 				if(isnull(new_total) || new_total < 0)
 					return
 
@@ -1408,7 +1408,7 @@
 					subclass_selection[capitalize(initial(subclass.name))] = subtype
 				subclass_selection["Let them choose (remove current subclass)"] = NONE
 
-				var/new_subclass_name = input(usr, "Choose a new subclass:", "Change Vampire Subclass") as null|anything in subclass_selection
+				var/new_subclass_name = wrapped_selection_input(usr, "Choose a new subclass:", "Change Vampire Subclass", subclass_selection)
 				if(!new_subclass_name)
 					return
 
@@ -1507,7 +1507,7 @@
 				to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>")
 				message_admins("[key_name(usr)] has flayer'd [key_name(current)].")
 			if("edit_total_swarms")
-				var/new_swarms = input(usr, "Select a new value:", "Modify swarms") as null|num
+				var/new_swarms = wrapped_number_input(usr, "Select a new value:", "Modify swarms")
 				if(isnull(new_swarms) || new_swarms < 0)
 					return
 				var/datum/antagonist/mindflayer/MF = has_antag_datum(/datum/antagonist/mindflayer)
@@ -1739,7 +1739,7 @@
 						continue
 					possible_targets[possible_target.name] = possible_target
 
-				var/choice = input(usr, "Select the contract target:", "Add Contract") as null|anything in possible_targets
+				var/choice = wrapped_selection_input(usr, "Select the contract target:", "Add Contract", possible_targets)
 				var/datum/mind/target = possible_targets[choice]
 				if(!target || !target.current || !target.key)
 					return
@@ -1756,7 +1756,7 @@
 			if("tc")
 				if(!H)
 					return
-				var/new_tc = input(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available) as num|null
+				var/new_tc = wrapped_number_input(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available)
 				new_tc = text2num(new_tc)
 				if(isnull(new_tc) || new_tc < 0)
 					return
@@ -1768,7 +1768,7 @@
 			if("rep")
 				if(!H)
 					return
-				var/new_rep = input(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep) as num|null
+				var/new_rep = wrapped_number_input(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep)
 				new_rep = text2num(new_rep)
 				if(isnull(new_rep) || new_rep < 0)
 					return
@@ -1792,7 +1792,7 @@
 						continue
 					possible_targets[possible_target.name] = possible_target
 
-				var/choice = input(usr, "Select the new contract target:", "Set Contract Target") as null|anything in possible_targets
+				var/choice = wrapped_selection_input(usr, "Select the new contract target:", "Set Contract Target", possible_targets)
 				var/datum/mind/target = possible_targets[choice]
 				if(!target || !target.current || !target.key)
 					return
@@ -1823,7 +1823,7 @@
 					var/area/A = CO.contract.candidate_zones[diff]
 					difficulty_choices["[A.name] ([CO.reward_tc[diff]] TC)"] = diff
 
-				var/choice_diff = input(usr, "Select the location to change:", "Set Contract Location") as null|anything in difficulty_choices
+				var/choice_diff = wrapped_selection_input(usr, "Select the location to change:", "Set Contract Location", difficulty_choices)
 				var/difficulty = difficulty_choices[choice_diff]
 				if(!difficulty)
 					return
@@ -1835,11 +1835,11 @@
 						continue
 					area_choices += A
 
-				var/new_area = input(usr, "Select the new location:", "Set Contract Location", CO.contract.candidate_zones[difficulty]) in area_choices
+				var/new_area = wrapped_selection_input(usr, "Select the new location:", "Set Contract Location", area_choices, CO.contract.candidate_zones[difficulty])
 				if(!new_area)
 					return
 
-				var/new_reward = input(usr, "Enter the new amount of rewarded TC:", "Set Contract Location", CO.reward_tc[difficulty]) as num|null
+				var/new_reward = wrapped_number_input(usr, "Enter the new amount of rewarded TC:", "Set Contract Location", CO.reward_tc[difficulty])
 				new_reward = text2num(new_reward)
 				if(isnull(new_reward) || new_reward < 0)
 					return
@@ -1856,27 +1856,27 @@
 				if(!istype(CO))
 					return
 
-				var/choice = input(usr, "Select an action to take:", "Other Contract Actions") in list("Edit Fluff Message", "Edit Prison Time", "Edit Credits Reward", "Delete Contract", "Cancel")
+				var/choice = wrapped_selection_input(usr, "Select an action to take:", "Other Contract Actions", list("Edit Fluff Message", "Edit Prison Time", "Edit Credits Reward", "Delete Contract", "Cancel"))
 				if(!choice)
 					return
 
 				switch(choice)
 					if("Edit Fluff Message")
-						var/new_message = input(usr, "Enter the new fluff message:", "Edit Fluff Message", CO.fluff_message) as message|null
+						var/new_message = clean_input("Enter the new fluff message:", "Edit Fluff Message", CO.fluff_message, usr)
 						if(!new_message)
 							return
 						CO.fluff_message = new_message
 						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract fluff message")
 						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract fluff message")
 					if("Edit Prison Time")
-						var/new_time = input(usr, "Enter the new prison time in seconds:", "Edit Prison Time", CO.prison_time / 10) as num|null
+						var/new_time = wrapped_number_input(usr, "Enter the new prison time in seconds:", "Edit Prison Time", CO.prison_time / 10)
 						if(!new_time || new_time < 0)
 							return
 						CO.prison_time = new_time SECONDS
 						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract prison time to [new_time] seconds")
 						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract prison time to [new_time] seconds")
 					if("Edit Credits Reward")
-						var/new_creds = input(usr, "Enter the new credits reward:", "Edit Credits Reward", CO.reward_credits) as num|null
+						var/new_creds = wrapped_number_input(usr, "Enter the new credits reward:", "Edit Credits Reward", CO.reward_credits)
 						if(!new_creds || new_creds < 0)
 							return
 						CO.reward_credits = new_creds
@@ -1911,7 +1911,7 @@
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
-				var/fail_reason = sanitize(input(usr, "Enter the fail reason:", "Fail Contract") as text|null)
+				var/fail_reason = clean_input("Enter the fail reason:", "Fail Contract", "", usr)
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
@@ -1983,7 +1983,7 @@
 					var/crystals
 					if(suplink)
 						crystals = suplink.uses
-					crystals = input("Amount of telecrystals for [key]","Syndicate uplink", crystals) as null|num
+					crystals = wrapped_number_input(usr, "Amount of telecrystals for [key]", "Syndicate uplink", crystals)
 					if(!isnull(crystals))
 						if(suplink)
 							suplink.uses = crystals

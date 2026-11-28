@@ -18,10 +18,10 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
-	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", encode = FALSE)
-	if(!input || !IsAvailable())
+	var/input_text = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood")
+	if(!input_text || !IsAvailable())
 		return
-	cultist_commune(usr, input)
+	cultist_commune(usr, input_text)
 	return
 
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)

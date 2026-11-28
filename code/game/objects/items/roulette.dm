@@ -56,17 +56,17 @@
 	var/choice = show_radial_menu(user, src, radials, radius = 38,  custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
 	switch(choice)
 		if("Blue")
-			options[1] = input("Customise the blue option:", name, options[1]) as text
+			options[1] = tgui_input_text(user, "Customise the blue option:", name, options[1])
 		if("Orange")
-			options[2] = input("Customise the orange option:", name, options[2]) as text
+			options[2] = tgui_input_text(user, "Customise the orange option:", name, options[2])
 		if("Green")
-			options[3] = input("Customise the green option:", name, options[3]) as text
+			options[3] = tgui_input_text(user, "Customise the green option:", name, options[3])
 		if("Yellow")
-			options[4] = input("Customise the yellow option:", name, options[4]) as text
+			options[4] = tgui_input_text(user, "Customise the yellow option:", name, options[4])
 		if("Red")
-			options[5] = input("Customise the red option:", name, options[5]) as text
+			options[5] = tgui_input_text(user, "Customise the red option:", name, options[5])
 		if("Purple")
-			options[6] = input("Customise the purple option:", name, options[6]) as text
+			options[6] = tgui_input_text(user, "Customise the purple option:", name, options[6])
 
 /obj/structure/roulette/proc/check_menu(mob/living/user)
 	return (istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

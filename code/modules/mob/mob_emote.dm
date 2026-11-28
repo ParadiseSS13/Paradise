@@ -49,15 +49,15 @@
  * * intentional: Whether or not the user intendeded to perform the emote.
  */
 /mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE)
-	var/input = ""
+	var/input_value = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
 	else if(!message)
-		input = tgui_input_text(src, "Choose an emote to display.", "Custom Emote")
+		input_value = tgui_input_text(src, "Choose an emote to display.", "Custom Emote")
 	else
-		input = message
+		input_value = message
 
-	emote("me", m_type, input, intentional)
+	emote("me", m_type, input_value, intentional)
 
 /**
  * Get a list of all emote keys usable by the current mob.

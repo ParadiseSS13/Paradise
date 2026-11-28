@@ -84,7 +84,7 @@
 
 /datum/milla_safe/quench/on_run(turf/T, delta, divisor)
 	var/datum/gas_mixture/air = get_turf_air(T)
-	air.set_temperature(max(min(air.temperature()-delta * divisor,air.temperature() / divisor), T20C))
+	air.set_temperature(clamp(air.temperature() / divisor, T20C, air.temperature()-delta * divisor))
 	air.react()
 	extinguish_hotspot(T)
 

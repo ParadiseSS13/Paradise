@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	return rand(GLOB.configuration.event.delay_lower_bound[severity], GLOB.configuration.event.delay_upper_bound[severity]) * delay_modifier * get_playercount_modifier()
 
 /datum/event_container/proc/SelectEvent()
-	var/datum/event_meta/EM = input("Select an event to queue up.", "Event Selection", null) as null|anything in available_events
+	var/datum/event_meta/EM = wrapped_selection_input(usr, "Select an event to queue up.", "Event Selection", available_events)
 	if(!EM)
 		return
 	if(next_event)

@@ -511,7 +511,7 @@
 			candidate_ghosts -= G
 
 	for(var/i = max_slots, (i > 0 && length(candidate_ghosts)), i--)
-		var/this_ghost = input("Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates") as null|anything in candidate_ghosts
+		var/this_ghost = wrapped_selection_input(adminclient, "Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates", candidate_ghosts)
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost
 	return selected_ghosts

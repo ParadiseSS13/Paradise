@@ -243,7 +243,7 @@ SUBSYSTEM_DEF(events)
 		EC.delayed = !EC.delayed
 		log_and_message_admins("has [EC.delayed ? "paused" : "resumed"] countdown for [GLOB.severity_to_string[EC.severity]] events.")
 	else if(href_list["interval"])
-		var/delay = input("Enter delay modifier. A value less than one means events fire more often, higher than one less often.", "Set Interval Modifier") as num|null
+		var/delay = wrapped_number_input(usr, "Enter delay modifier. A value less than one means events fire more often, higher than one less often.", "Set Interval Modifier")
 		if(delay && delay > 0)
 			var/datum/event_container/EC = locate(href_list["interval"])
 			EC.delay_modifier = delay
@@ -265,12 +265,12 @@ SUBSYSTEM_DEF(events)
 			var/datum/event_meta/EM = locate(href_list["set_name"])
 			EM.skeleton.name = name
 	else if(href_list["set_type"])
-		var/type = input("Select event type.", "Select") as null|anything in allEvents
+		var/type = wrapped_selection_input(usr, "Select event type.", "Select", allEvents)
 		if(type)
 			var/datum/event_meta/EM = locate(href_list["set_type"])
 			EM.change_event(type)
 	else if(href_list["set_weight"])
-		var/weight = input("Enter weight. A higher value means higher chance for the event of being selected.", "Set Weight") as num|null
+		var/weight = wrapped_number_input(usr, "Enter weight. A higher value means higher chance for the event of being selected.", "Set Weight")
 		if(weight && weight > 0)
 			var/datum/event_meta/EM = locate(href_list["set_weight"])
 			EM.weight = weight

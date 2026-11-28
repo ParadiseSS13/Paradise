@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(string_filename_current_key)
 	else
 		CRASH("strings list not found: strings/[filename], index=[key]")
 
-/proc/strings(filename as text, key as text)
+/proc/strings(filename, key)
 	load_strings_file(filename)
 	if((filename in GLOB.string_cache) && (key in GLOB.string_cache[filename]))
 		return GLOB.string_cache[filename][key]

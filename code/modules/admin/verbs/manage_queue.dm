@@ -1,6 +1,6 @@
 USER_VERB(manage_queue, R_SERVER, "Manage Queue Server", "Manage the queue server and its settings", VERB_CATEGORY_SERVER)
 	var/list/choices = list("Show Status", "Toggle Queue Server", "Set Threshold", "Toggle Setting Persistence")
-	var/choice = input(client, "Please, select an option", "Queue Server Manipulation") as null|anything in choices
+	var/choice = wrapped_selection_input(client, "Please, select an option", "Queue Server Manipulation", choices)
 
 	switch(choice)
 		if("Show Status")
@@ -15,7 +15,7 @@ USER_VERB(manage_queue, R_SERVER, "Manage Queue Server", "Manage the queue serve
 			log_admin("[key_name(client)] has [SSqueue.queue_enabled ? "enabled" : "disabled"] the server queue.")
 			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[client.ckey]` has now **[SSqueue.queue_enabled ? "enabled" : "disabled"]** the queue server.")
 		if("Set Threshold")
-			var/new_threshold = input(client, "Enter new threshold", "Queue Server Manipulation", SSqueue.queue_threshold) as num|null
+			var/new_threshold = wrapped_number_input(client, "Enter new threshold", "Queue Server Manipulation", SSqueue.queue_threshold)
 			if(!new_threshold)
 				return
 			SSqueue.queue_threshold = new_threshold

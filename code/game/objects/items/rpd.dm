@@ -277,7 +277,7 @@
 		if("auto_wrench_toggle")
 			auto_wrench_toggle = !auto_wrench_toggle
 		if("set_label")
-			pipe_label = params[action]
+			pipe_label = lesser_html_encode(params[action])
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)

@@ -9,7 +9,7 @@
 
 	var/msg
 	var/list/type = list("Mentorhelp", "Adminhelp")
-	var/selected_type = input("Pick a category.", "Admin Help") as null|anything in type
+	var/selected_type = wrapped_selection_input("Pick a category.", "Admin Help", type)
 	if(selected_type)
 		msg = clean_input("Please enter your message.", selected_type)
 

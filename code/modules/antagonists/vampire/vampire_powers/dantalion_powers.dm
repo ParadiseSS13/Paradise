@@ -112,18 +112,18 @@
 	return T
 
 /datum/spell/vampire/thrall_commune/cast(list/targets, mob/user)
-	var/input = tgui_input_text(user, "Enter a message to relay to the other thralls", "Thrall Commune")
-	if(!input)
+	var/input_value = tgui_input_text(user, "Enter a message to relay to the other thralls", "Thrall Commune")
+	if(!input_value)
 		revert_cast(user)
 		return
 	var/title = isvampirethrall(user) ? "Thrall" : "<b>Vampire Master</b>" // if admins give this to a non vampire/thrall it is not my problem
 	var/full_title = "[user.real_name] ([title])"
 	for(var/mob/M in targets)
-		to_chat(M, SPAN_DANTALION("[full_title]: [input]"))
+		to_chat(M, SPAN_DANTALION("[full_title]: [input_value]"))
 	for(var/mob/M in GLOB.dead_mob_list)
-		to_chat(M, SPAN_DANTALION("[full_title] ([ghost_follow_link(user, ghost=M)]): [input]"))
-	log_say("(DANTALION) [input]", user)
-	user.create_log(SAY_LOG, "(DANTALION) [input]")
+		to_chat(M, SPAN_DANTALION("[full_title] ([ghost_follow_link(user, ghost=M)]): [input_value]"))
+	log_say("(DANTALION) [input_value]", user)
+	user.create_log(SAY_LOG, "(DANTALION) [input_value]")
 
 /datum/spell/vampire/pacify
 	name = "Pacify (10)"

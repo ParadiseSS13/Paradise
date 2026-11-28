@@ -502,17 +502,17 @@ RESTRICT_TYPE(/datum/team/cult)
 		)
 
 /datum/team/cult/proc/cult_mindspeak(admin_caller)
-	var/input = stripped_input(admin_caller, "Communicate to all the cultists with the voice of [GET_CULT_DATA(entity_name, "a cult god")]", "Voice of [GET_CULT_DATA(entity_name, "Cult God")]")
-	if(!input)
+	var/input_value = stripped_input(admin_caller, "Communicate to all the cultists with the voice of [GET_CULT_DATA(entity_name, "a cult god")]", "Voice of [GET_CULT_DATA(entity_name, "Cult God")]")
+	if(!input_value)
 		return
 
-	speak_to_all_alive_cultists("[SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,")] [SPAN_CULTLARGE("\"[input]\"")]")
+	speak_to_all_alive_cultists("[SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,")] [SPAN_CULTLARGE("\"[input_value]\"")]")
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		to_chat(O, "[SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,")] [SPAN_CULTLARGE("\"[input]\"")]")
+		to_chat(O, "[SPAN_CULT("[GET_CULT_DATA(entity_name, "Your god")] murmurs,")] [SPAN_CULTLARGE("\"[input_value]\"")]")
 
 	message_admins("Admin [key_name_admin(admin_caller)] has talked with the Voice of [GET_CULT_DATA(entity_name, "Cult God")].")
-	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input]")
+	log_admin("[key_name(admin_caller)] Voice of [GET_CULT_DATA(entity_name, "Cult God")]: [input_value]")
 
 /datum/team/cult/proc/admin_reroll_sac_target(mob/user)
 	var/datum/objective/sacrifice/current_obj = current_sac_objective()
@@ -542,7 +542,7 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	switch(href_list["cult_command"])
 		if("cult_adjustsacnumber")
-			var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
+			var/amount = wrapped_number_input(usr, "Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2)
 			if(amount > 0)
 				var/old = sacrifices_required
 				sacrifices_required = amount

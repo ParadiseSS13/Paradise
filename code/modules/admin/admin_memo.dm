@@ -2,7 +2,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 	if(!SSdbcore.IsConnected())
 		to_chat(client, SPAN_DANGER("Failed to establish database connection."))
 		return
-	var/memotask = input(client, "Choose task.", "Memo") in list("Show", "Write", "Edit", "Remove")
+	var/memotask = wrapped_selection_input(client, "Choose task.", "Memo", list("Show", "Write", "Edit", "Remove"))
 	if(!memotask)
 		return
 	client.admin_memo_output(memotask)
@@ -32,7 +32,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 				return
 
 			qdel(query_memocheck)
-			var/memotext = input(src, "Write your Memo", "Memo") as message
+			var/memotext = stripped_input(src, "Write your Memo", "Memo")
 			if(!memotext)
 				return
 
@@ -69,7 +69,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 				to_chat(src, "No memos found in database.")
 				return
 
-			var/target_ckey = input(src, "Select whose memo to edit", "Select memo") as null|anything in memolist
+			var/target_ckey = wrapped_selection_input(src, "Select whose memo to edit", "Select memo", memolist)
 			if(!target_ckey)
 				return
 
@@ -84,7 +84,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 
 			if(query_memofind.NextRow())
 				var/old_memo = query_memofind.item[1]
-				var/new_memo = input("Input new memo", "New Memo", "[old_memo]", null) as message
+				var/new_memo = stripped_input(usr, "Input new memo", "New Memo", old_memo)
 				if(!new_memo)
 					qdel(query_memofind)
 					return
@@ -152,7 +152,7 @@ USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_C
 				to_chat(src, "No memos found in database.")
 				return
 
-			var/target_ckey = input(src, "Select whose memo to delete", "Select memo") as null|anything in memolist
+			var/target_ckey = wrapped_selection_input(src, "Select whose memo to delete", "Select memo", memolist)
 			if(!target_ckey)
 				return
 

@@ -113,6 +113,8 @@
 /obj/machinery/computer/message_monitor/proc/check_password()
 	if(isnull(linkedServer))
 		return FALSE
+	if(!auth)
+		return FALSE
 	return !(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
 
 /obj/machinery/computer/message_monitor/ui_interact(mob/user, datum/tgui/ui = null)
@@ -183,7 +185,7 @@
 			if(!istype(chosen_server, /obj/machinery/message_server))
 				to_chat(ui.user, SPAN_ALERT("uh oh something went wrong please Ahelp or file a bug report, decrypt action."))
 				return
-			var/chosen_password = params["password"]
+			var/chosen_password = lesser_html_encode(params["password"])
 			if(chosen_server.decryptkey == chosen_password)
 				to_chat(ui.user, SPAN_NOTICE("Decryption successful!"))
 				auth = TRUE
@@ -256,10 +258,10 @@
 			if(!check_password())
 				to_chat(ui.user, SPAN_WARNING("No server found"))
 				return
-			var/sender = params["sender"]
-			var/senderJob = params["senderJob"]
+			var/sender = lesser_html_encode(params["sender"])
+			var/senderJob = lesser_html_encode(params["senderJob"])
 			var/obj/item/pda/recipient_PDA = locateUID(params["recipient"])
-			var/message = params["message"]
+			var/message = lesser_html_encode(params["message"])
 			if(!istype(recipient_PDA, /obj/item/pda))
 				to_chat(ui.user, SPAN_WARNING("Uh oh something went wrong please Ahelp or file a bug report, admin_msg error."))
 				return

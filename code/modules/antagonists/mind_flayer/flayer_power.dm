@@ -251,12 +251,12 @@
 	if(!istype(user) || !user.mind || !flayer)
 		qdel(src)
 		return FALSE
-	if(ispath(path, /datum/spell))
+	if(ispath(path, /datum/spell/flayer))
 		var/datum/spell/flayer/to_add = new path(user)
 		return flayer.try_purchase_spell(to_add)
-
-	var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
-	return flayer.try_purchase_passive(to_add)
+	else if(ispath(path, /datum/mindflayer_passive))
+		var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
+		return flayer.try_purchase_passive(to_add)
 
 /// This is the proc that handles spell upgrades, override this to have upgrades change duration/strength etc
 /datum/spell/flayer/proc/on_apply()

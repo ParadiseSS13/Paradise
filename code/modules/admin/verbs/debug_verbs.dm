@@ -9,11 +9,11 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 			if("Yes")
 				targetselected = 1
 				if(client.holder && client.holder.marked_datum)
-					class = input(client, "Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([client.holder.marked_datum.type])")
+					class = wrapped_selection_input(client, "Proc owned by...","Owner", list("Obj","Mob","Area or Turf","Client","Marked datum ([client.holder.marked_datum.type])"))
 					if(class == "Marked datum ([client.holder.marked_datum.type])")
 						class = "Marked datum"
 				else
-					class = input(client, "Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client")
+					class = wrapped_selection_input(client, "Proc owned by...","Owner", list("Obj","Mob","Area or Turf","Client"))
 				switch(class)
 					if("Obj")
 						target = input(client, "Enter target:","Target",usr) as obj in world
@@ -25,7 +25,7 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 						var/list/keys = list()
 						for(var/client/C)
 							keys += C
-						target = input(client, "Please, select a player!", "Selection", null) as null|anything in keys
+						target = wrapped_selection_input(client, "Please, select a player!", "Selection", keys)
 					if("Marked datum")
 						target = client.holder.marked_datum
 					else
@@ -36,13 +36,6 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 
 		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null, user = client)
 		if(!procname)	return
-
-		// absolutely not
-		if(findtextEx(trim(lowertext(procname)), "rustlibs"))
-			message_admins(SPAN_USERDANGER("[key_name_admin(client)] attempted to proc call rustlibs procs. Inform the host <u>at once</u>."))
-			log_admin("[key_name(client)] attempted to proc call rustlibs procs. Inform the host at once.")
-			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call rustlibs procs. Inform the host at once.")
-			return
 
 		if(targetselected && !hascall(target,procname))
 			to_chat(client, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
@@ -128,6 +121,20 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
+	var/list/banned_calls = list("addtimer", "___callbackvarset", "immediateinvokeasync")
+	if(trim(lowertext(procname)) in banned_calls)
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Call to /proc/[procname] blocked: Advanced ProcCall detected."))
+		message_admins("[key_name(usr)] attempted to call /proc/[procname] with arguments: [english_list(arguments)]")
+		log_admin("[key_name(usr)] attempted to call /proc/[procname] with arguments: [english_list(arguments)]")
+		return
+
+	// absolutely not
+	if(findtextEx(trim(lowertext(procname)), "rustlibs"))
+		message_admins(SPAN_USERDANGER("[key_name_admin(usr)] attempted to proc call rustlibs procs. Inform the host <u>at once</u>."))
+		log_admin("[key_name(usr)] attempted to proc call rustlibs procs. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(usr)] attempted to proc call rustlibs procs. Inform the host at once.")
+		return
+
 	if(target == GLOBAL_PROC)
 		return call("/proc/[procname]")(arglist(arguments))
 	else if(target != world)
@@ -135,7 +142,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Call to world/proc/[procname] blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
-		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
+		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 
 /proc/IsAdminAdvancedProcCall()
 #ifdef TESTING
@@ -176,7 +183,7 @@ USER_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_callproc_args()
-	var/argnum = input("Number of arguments","Number:",0) as num|null
+	var/argnum = wrapped_number_input(usr, "Number of arguments", "Number:", 0)
 	if(argnum <= 0)
 		return list() // to allow for calling with 0 args
 
@@ -381,7 +388,7 @@ USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VER
 			outfits[initial(O.name)] = path
 	outfits = special_outfits + sortTim(outfits, GLOBAL_PROC_REF(cmp_text_asc))
 
-	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
+	var/dresscode = wrapped_selection_input(usr, "Select outfit", "Robust quick dress shop", outfits)
 	if(isnull(dresscode))
 		return
 
@@ -397,7 +404,7 @@ USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VER
 				job_outfits[initial(O.name)] = path
 		job_outfits = sortTim(job_outfits, GLOBAL_PROC_REF(cmp_text_asc))
 
-		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
+		dresscode = wrapped_selection_input(usr, "Select job equipment", "Robust quick dress shop", job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
@@ -406,13 +413,13 @@ USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VER
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
-		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in custom_names
+		var/selected_name = wrapped_selection_input(usr, "Select outfit", "Robust quick dress shop", custom_names)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
 
 	if(dresscode == "Recover destroyed body...")
-		dresscode = input("Select body to rebuild", "Robust quick dress shop") as null|anything in potential_minds
+		dresscode = wrapped_selection_input(usr, "Select body to rebuild", "Robust quick dress shop", potential_minds)
 
 	return dresscode
 
@@ -459,7 +466,8 @@ USER_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity 
 			SMES.input_attempt = 1
 
 USER_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know", VERB_CATEGORY_DEBUG)
-	switch(input(client, "Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
+	var/input_val = wrapped_selection_input(client, "Which List?", "Pick one", list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
+	switch(input_val)
 		if("Players")
 			to_chat(client, jointext(GLOB.player_list, ","))
 		if("Admins")
@@ -541,7 +549,7 @@ USER_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 		selectable_queues["Queue #[i] ([length(SSgarbage.queues[i])] item\s)"] = i
 
 	// Ask the user
-	var/choice = input(client, "Select a GC queue. Note that the queue lookup may lag the server.", "GC Queue") as null|anything in selectable_queues
+	var/choice = wrapped_selection_input(client, "Select a GC queue. Note that the queue lookup may lag the server.", "GC Queue", selectable_queues)
 	if(!choice)
 		return
 

@@ -71,7 +71,7 @@ USER_VERB(give_spell, R_EVENT, "Give Spell", VERB_NO_DESCRIPTION, VERB_CATEGORY_
 	var/type_length = length("/datum/spell") + 2
 	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
-	var/datum/spell/S = input(client, "Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
+	var/datum/spell/S = wrapped_selection_input(client, "Choose the spell to give to that guy", "ABRAKADABRA", spell_list)
 	if(!S)
 		return
 	S = spell_list[S]
@@ -147,12 +147,13 @@ USER_VERB(toggle_build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle Bui
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(object_talk, R_EVENT, "oSay", "Display a message to everyone who can hear the target", VERB_CATEGORY_EVENT, msg as text)
+	msg = lesser_html_encode(msg)
 	var/mob/living/mob = client.mob
 	if(mob.control_object)
 		if(!msg)
 			return
 		for(var/mob/V in hearers(mob.control_object))
-			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
+			V.show_message("<b>[mob.control_object.name]</b> says: \"[msg]\"", 2)
 		log_admin("[key_name(client)] used oSay on [mob.control_object]: [msg]")
 		message_admins("[key_name_admin(client)] used oSay on [mob.control_object]: [msg]")
 
@@ -216,8 +217,8 @@ USER_VERB(toggle_ai_role, R_EVENT, "Toggle AI", "People can't be AI", VERB_CATEG
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom event.", VERB_CATEGORY_EVENT)
-	var/input = input(client, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg) as message|null
-	if(!input || input == "")
+	var/input_value = stripped_multiline_input(client, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg)
+	if(!input_value || input_value == "")
 		GLOB.custom_event_msg = null
 		log_admin("[key_name(client)] has cleared the custom event text.")
 		message_admins("[key_name_admin(client)] has cleared the custom event text.")
@@ -226,7 +227,7 @@ USER_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom eve
 	log_admin("[key_name(client)] has changed the custom event text.")
 	message_admins("[key_name_admin(client)] has changed the custom event text.")
 
-	GLOB.custom_event_msg = input
+	GLOB.custom_event_msg = input_value
 
 	to_chat(world, "<h1 class='alert'>Custom Event</h1>")
 	to_chat(world, "<h2 class='alert'>A custom event is starting. OOC Info:</h2>")
@@ -265,46 +266,46 @@ USER_VERB(toggle_ert_calling, R_EVENT, "Toggle ERT", "Toggle the station's abili
 USER_VERB(show_tip, R_EVENT, "Show Custom Tip", \
 		"Sends a tip (that you specify) to all players. After all, you're the experienced player here.", \
 		VERB_CATEGORY_EVENT)
-	var/input = input(client, "Please specify your tip that you want to send to the players.", "Tip", "") as message|null
-	if(!input)
+	var/input_value = stripped_multiline_input(client, "Please specify your tip that you want to send to the players.", "Tip", "")
+	if(!input_value)
 		return
 
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 
-	SSticker.selected_tip = input
+	SSticker.selected_tip = input_value
 
 	// If we've already tipped, then send it straight away.
 	if(SSticker.tipped)
 		SSticker.send_tip_of_the_round()
 		message_admins("[key_name_admin(client)] sent a custom Tip of the round.")
-		log_admin("[key_name(client)] sent \"[input]\" as the Tip of the Round.")
+		log_admin("[key_name(client)] sent \"[input_value]\" as the Tip of the Round.")
 		return
 
 	message_admins("[key_name_admin(client)] set the Tip of the round to \"[html_encode(SSticker.selected_tip)]\".")
-	log_admin("[key_name(client)] sent \"[input]\" as the Tip of the Round.")
+	log_admin("[key_name(client)] sent \"[input_value]\" as the Tip of the Round.")
 
 USER_VERB(show_fact, R_EVENT, "Show Custom Fact", \
 		"Sends a fact (that you specify) to all players. After all, you already know everything.", \
 		VERB_CATEGORY_EVENT)
-	var/input = tgui_input_text(client, "Please specify your fact that you want to send to the players.", "Fact", "")
-	if(!input)
+	var/input_value = tgui_input_text(client, "Please specify your fact that you want to send to the players.", "Fact", "")
+	if(!input_value)
 		return
 
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 
-	SSticker.selected_fact = input
+	SSticker.selected_fact = input_value
 
 	// If we've already facted, then send it straight away.
 	if(SSticker.facted)
 		SSticker.send_fact_of_the_round()
 		message_admins("[key_name_admin(client)] sent a custom Fact of the round.")
-		log_admin("[key_name(client)] sent \"[input]\" as the Fact of the Round.")
+		log_admin("[key_name(client)] sent \"[input_value]\" as the Fact of the Round.")
 		return
 
 	message_admins("[key_name_admin(client)] set the Fact of the round to \"[html_encode(SSticker.selected_fact)]\".")
-	log_admin("[key_name(client)] sent \"[input]\" as the Fact of the Round.")
+	log_admin("[key_name(client)] sent \"[input_value]\" as the Fact of the Round.")
 
 USER_VERB(modify_goals, R_EVENT, "Modify Station Goals", "Modify station goals.", VERB_CATEGORY_EVENT)
 	client.holder.modify_goals()
@@ -374,22 +375,22 @@ USER_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", \
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Everyone Random") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", "Create a custom explosion.", VERB_CATEGORY_EVENT, atom/O as obj|mob|turf in view())
-	var/devastation = input(client, "Range of total devastation. -1 to none", "Input")  as num|null
+	var/devastation = wrapped_number_input(client, "Range of total devastation. -1 to none", "Input")
 	if(devastation == null)
 		return
-	var/heavy = input(client, "Range of heavy impact. -1 to none", "Input")  as num|null
+	var/heavy = wrapped_number_input(client, "Range of heavy impact. -1 to none", "Input")
 	if(heavy == null)
 		return
-	var/light = input(client, "Range of light impact. -1 to none", "Input")  as num|null
+	var/light = wrapped_number_input(client, "Range of light impact. -1 to none", "Input")
 	if(light == null)
 		return
-	var/flash = input(client, "Range of flash. -1 to none", "Input")  as num|null
+	var/flash = wrapped_number_input(client, "Range of flash. -1 to none", "Input")
 	if(flash == null)
 		return
-	var/flames = input(client, "Range of flames. -1 to none", "Input")  as num|null
+	var/flames = wrapped_number_input(client, "Range of flames. -1 to none", "Input")
 	if(flames == null)
 		return
-	var/ignore_cap = tgui_input_list(client, "Ignore bomb cap?", "Bomb cap", list("Yes", "No"))
+	var/ignore_cap = tgui_alert(client, "Ignore bomb cap?", "Bomb cap", list("Yes", "No"))
 	if(isnull(ignore_cap))
 		return
 	ignore_cap = (ignore_cap == "Yes") ? TRUE : FALSE
@@ -406,9 +407,9 @@ USER_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", "Create a custom explos
 		return
 
 USER_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", "Cause an electromagnetic pulse.", VERB_CATEGORY_EVENT, atom/O as obj|mob|turf in view())
-	var/heavy = input(client, "Range of heavy pulse.", "Input")  as num|null
+	var/heavy = wrapped_number_input(client, "Range of heavy pulse.", "Input")
 	if(heavy == null) return
-	var/light = input(client, "Range of light pulse.", "Input")  as num|null
+	var/light = wrapped_number_input(client, "Range of light pulse.", "Input")
 	if(light == null) return
 
 	if(heavy || light)
@@ -476,17 +477,17 @@ USER_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Gibself.", VERB_CATEGORY_EVENT)
 		return mobs
 
 USER_VERB(add_freeform_ai_law, R_EVENT, "Add Custom AI law", "Add custom AI law.", VERB_CATEGORY_EVENT)
-	var/input = clean_input("Please enter anything you want the AI to do. Anything. Serious.", "What?", "", user = client)
-	if(!input)
+	var/input_value = clean_input("Please enter anything you want the AI to do. Anything. Serious.", "What?", "", user = client)
+	if(!input_value)
 		return
 
-	log_admin("Admin [key_name(client)] has added a new AI law - [input]")
-	message_admins("Admin [key_name_admin(client)] has added a new AI law - [input]")
+	log_admin("Admin [key_name(client)] has added a new AI law - [input_value]")
+	message_admins("Admin [key_name_admin(client)] has added a new AI law - [input_value]")
 
 	var/show_log = alert(client, "Show ion message?", "Message", "Yes", "No")
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	new /datum/event/ion_storm(botEmagChance = 0, announceEvent = announce_ion_laws, ionMessage = input)
+	new /datum/event/ion_storm(botEmagChance = 0, announceEvent = announce_ion_laws, ionMessage = input_value)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(create_centcom_report, R_SERVER|R_EVENT, "Create Communications Report", "Send an IC announcement to the game world.", VERB_CATEGORY_EVENT)
@@ -501,21 +502,21 @@ USER_VERB(create_centcom_report, R_SERVER|R_EVENT, "Create Communications Report
 		"Enemy Communications Intercepted" = 'sound/AI/intercept.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
-	var/type = input(client, "Pick a type of report to send", "Report Type", "") as anything in MsgType
+	var/type = wrapped_selection_input(client, "Pick a type of report to send", "Report Type", MsgType)
 
 	if(type == "Custom")
 		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission", user = client)
 
-	var/subtitle = input(client, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	var/subtitle = stripped_input(client, "Pick a title for the report.", "Title", MsgType[type])
 	if(!subtitle)
 		return
-	var/message = input(client, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
+	var/message = stripped_multiline_input(client, "Please enter anything you want. Anything. Serious.", "What's the message?")
 	if(!message)
 		return
 
 	switch(alert(client, "Should this be announced to the general population?", null,"Yes","No", "Cancel"))
 		if("Yes")
-			var/beepsound = input(client, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
+			var/beepsound = wrapped_selection_input(client, "What sound should the announcement make?", "Announcement Sound", MsgSound)
 			var/should_translate = alert(client, "Should it be auto-translated for all human mobs?", "Translation", "Yes", "No")
 			if(should_translate != "Yes")
 				should_translate = null // We can just do it like this since force_translation just needs any value to not be false/null
@@ -683,7 +684,7 @@ USER_VERB(global_narrate, R_SERVER|R_EVENT, "Global Narrate", "Narrate text to t
 
 USER_CONTEXT_MENU(direct_narrate, R_SERVER|R_EVENT, "\[Admin\] Direct Narrate", mob/M)
 	if(!M)
-		M = input(client, "Direct narrate to who?", "Active Players") as null|anything in get_mob_with_client_list()
+		M = wrapped_selection_input(client, "Direct narrate to who?", "Active Players", get_mob_with_client_list())
 
 	if(!M)
 		return
@@ -717,20 +718,20 @@ USER_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message"
 		return
 
 	if(!sender)
-		sender = input("Who is the message from?", "Sender") as null|anything in list("Centcomm", "Syndicate")
+		sender = wrapped_selection_input(usr, "Who is the message from?", "Sender", list("Centcomm", "Syndicate"))
 		if(!sender)
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = clean_input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "")
-	if(!input)
+	var/input_value = clean_input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "")
+	if(!input_value)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return
 
-	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
-	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
-	H.create_log(MISC_LOG, "Headset Message: [input]", "From: [key_name_admin(src)]")
-	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span> [SPAN_SPECIALNOTICE(input)]")
+	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input_value].")
+	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input_value]\"")
+	H.create_log(MISC_LOG, "Headset Message: [input_value]", "From: [key_name_admin(src)]")
+	to_chat(H, "<span class='specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span> [SPAN_SPECIALNOTICE(input_value)]")
 	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
 
 USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the Lavaland theme for the next round", VERB_CATEGORY_EVENT)
@@ -747,14 +748,14 @@ USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the 
 USER_VERB(trigger_custom_false_alarm, R_EVENT, "Custom False Alarm", "Trigger specific false alarm.", VERB_CATEGORY_EVENT)
 	//var/list/options = list("Option 1", "Option 2")
 	var/list/event_list = GLOB.false_alarm_types
-	var/input = input(client, "Please select an announcement to imitate", "Custom False Alarm") as null|anything in event_list
-	if(!input)
+	var/input_value = wrapped_selection_input(client, "Please select an announcement to imitate", "Custom False Alarm", event_list)
+	if(!input_value)
 		return
 
-	log_admin("Admin [key_name(client)] has triggered a false alarm - [input]")
-	message_admins("Admin [key_name_admin(client)] has triggered a false alarm - [input]")
+	log_admin("Admin [key_name(client)] has triggered a false alarm - [input_value]")
+	message_admins("Admin [key_name_admin(client)] has triggered a false alarm - [input_value]")
 
-	new /datum/event/falsealarm(override_input = input)
+	new /datum/event/falsealarm(override_input = input_value)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Custom False Alarm")
 
 USER_VERB(trigger_random_false_alarm, R_EVENT, "Random False Alarm", "Trigger a random false alarm.", VERB_CATEGORY_EVENT)

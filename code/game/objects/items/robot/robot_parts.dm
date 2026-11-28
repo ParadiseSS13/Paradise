@@ -404,7 +404,7 @@
 		return
 
 	if(href_list["Name"])
-		var/new_name = reject_bad_name(input(usr, "Enter new designation. Set to blank to reset to default.", "Cyborg Debug", created_name),1)
+		var/new_name = reject_bad_name(tgui_input_text(usr, "Enter new designation. Set to blank to reset to default.", "Cyborg Debug", created_name), TRUE)
 		if(!in_range(src, usr) && loc != usr)
 			return
 		if(new_name)

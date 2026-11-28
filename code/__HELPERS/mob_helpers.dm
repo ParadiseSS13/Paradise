@@ -850,12 +850,12 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 				continue //we have a live body we are tied to
 			candidates += M.ckey
 		if(length(candidates))
-			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
+			ckey = wrapped_selection_input(user, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
 			to_chat(user, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
 	if(!istext(ckey))	return 0
 
-	var/alien_caste = input(user, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/alien_caste = wrapped_selection_input(user, "Please choose which caste to spawn.","Pick a caste", list("Queen","Hunter","Sentinel","Drone","Larva"))
 	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)

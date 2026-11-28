@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(!reject_bad_text(params["write"]))
 				return
 			recipient = params["write"] //write contains the string of the receiving department's name
-			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input")
 			if(isnull(new_message))
 				reset_message(FALSE)
 				return
@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					return TRUE
 
 		if("writeAnnouncement")
-			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE)
 			if(isnull(new_message))
 				return
 			message = new_message

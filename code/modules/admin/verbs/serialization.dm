@@ -29,14 +29,14 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 
 		qdel(dbq)
 
-		var/slot_choice = input(client, "Select a slot to update, or create a new one.", "Slot Selection") as null|anything in slots
+		var/slot_choice = wrapped_selection_input(client, "Select a slot to update, or create a new one.", "Slot Selection", slots)
 
 		if(!slot_choice)
 			return
 
 		if(slot_choice == "--NEW--")
 			// New slot, save to DB
-			var/chosen_slot_name = input(client, "Name your slot", "Slot name") as null|text
+			var/chosen_slot_name = stripped_input(client, "Name your slot", "Slot name")
 			if(!chosen_slot_name || length(chosen_slot_name) == 0)
 				return
 
@@ -76,7 +76,7 @@ USER_VERB(serialize_datum, R_ADMIN|R_DEBUG, "Serialize Marked Datum", \
 			to_chat(client, "Successfully updated <code>[slot_choice]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
 
 USER_VERB(deserialize_json, R_SPAWN, "Deserialize JSON datum", "Creates an object from a JSON string", VERB_CATEGORY_DEBUG)
-	var/json_text = input(client, "Enter the JSON code:","Text") as message|null
+	var/json_text = stripped_multiline_input(client, "Enter the JSON code - good luck with sanitisation:","Text")
 	if(json_text)
 		json_to_object(json_text, get_turf(client.mob))
 		message_admins("[key_name_admin(client)] spawned an atom from a custom JSON object.")

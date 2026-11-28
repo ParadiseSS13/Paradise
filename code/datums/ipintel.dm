@@ -300,7 +300,7 @@ GLOBAL_DATUM_INIT(ipintel_manager, /datum/ipintel_manager, new())
   * * target_ckey - The ckey to whitelist
   */
 /datum/ipintel_manager/proc/vpn_whitelist_add(target_ckey)
-	var/reason_string = input(usr, "Enter link to the URL of their whitelist request on the forum.","Reason required") as message|null
+	var/reason_string = stripped_multiline_input(usr, "Enter link to the URL of their whitelist request on the forum.", "Reason required")
 	if(!reason_string)
 		return FALSE
 	var/datum/db_query/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO vpn_whitelist (ckey,reason) VALUES (:targetckey, :reason)", list(
@@ -343,7 +343,7 @@ GLOBAL_DATUM_INIT(ipintel_manager, /datum/ipintel_manager, new())
   * Arguments:
   * * target_ckey - The ckey to add/remove
   */
-/datum/ipintel_manager/proc/vpn_whitelist_panel(target_ckey as text)
+/datum/ipintel_manager/proc/vpn_whitelist_panel(target_ckey)
 	if(!check_rights(R_ADMIN))
 		return
 	if(!target_ckey)

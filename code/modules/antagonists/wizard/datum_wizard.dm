@@ -63,7 +63,7 @@
 	var/wizard_name_first = pick(GLOB.wizard_first)
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
-	var/newname = sanitize(copytext(input(owner.current, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+	var/newname = stripped_input(owner.current, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname, MAX_NAME_LEN)
 
 	if(!newname)
 		newname = randomname

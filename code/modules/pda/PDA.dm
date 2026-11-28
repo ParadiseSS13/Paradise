@@ -429,7 +429,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20)
 	new_tone = trim(new_tone)
 
 	if(!in_range(src, user) || loc != user)

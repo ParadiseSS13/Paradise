@@ -18,7 +18,7 @@
 /datum/reagent/phlogiston/reaction_turf(turf/T, volume)
 	if(holder.chem_temp <= T0C - 50)
 		return
-	var/radius = min(max(0, volume / size_divisor), 8)
+	var/radius = clamp(volume / size_divisor, 0, 8)
 	fire_flash_log(holder, id)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
 
@@ -28,7 +28,7 @@
 	M.adjust_fire_stacks(mob_burning)
 	M.IgniteMob()
 	if(method == REAGENT_INGEST)
-		M.adjustFireLoss(min(max(10, volume * 2), 45))
+		M.adjustFireLoss(clamp(volume * 2, 10, 45))
 		to_chat(M, SPAN_WARNING("It burns!"))
 		M.emote("scream")
 
@@ -64,7 +64,7 @@
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
-		var/radius = min(max(0, volume * 0.15), 8)
+		var/radius = clamp(volume * 0.15, 0, 8)
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
@@ -142,10 +142,10 @@
 		if(holder) // Delete the fuel from the holder before we trigger the fireball
 			holder.del_reagent(id)
 
-		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
+		var/radius = clamp(volume * volume_radius_multiplier + volume_radius_modifier, min_radius, max_radius)
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
 		if(will_explode)
-			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
+			var/boomrange = clamp(round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier), min_explosion_radius, max_explosion_radius)
 			explosion(T, -1, -1, boomrange, 1, cause = "Hot Welding Fuel Reagent")
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
@@ -178,7 +178,7 @@
 		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
-		fireflash(T, min(max(0, volume / 10), 8))
+		fireflash(T, clamp(volume / 10, 0, 8))
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -212,7 +212,7 @@
 		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
-		fireflash(T, min(max(0, volume / 10), 8))
+		fireflash(T, clamp(volume / 10, 0, 8))
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -315,7 +315,7 @@
 	M.adjust_fire_stacks(10)
 	M.IgniteMob()
 	if(method == REAGENT_INGEST)
-		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
+		M.adjustFireLoss(clamp(volume * 2.5, 15, 90))
 		to_chat(M, SPAN_WARNING("It burns!"))
 		M.emote("scream")
 
