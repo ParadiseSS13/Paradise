@@ -83,10 +83,10 @@ const DebuggerContent = (props) => {
 const SORT_COLUMNS = [
   { key: 'cables', label: 'Cables', tooltip: 'Number of cable segments in this powernet' },
   { key: 'nodes', label: 'Nodes', tooltip: 'Power machines wired directly into the net (SMES, terminals, etc.)' },
-  { key: 'available_power', label: 'Available', tooltip: 'Power available to draw this cycle', power: true },
-  { key: 'power_demand', label: 'Demand', tooltip: 'Power drawn from the net this cycle', power: true },
-  { key: 'queued_production', label: 'Q. Prod', tooltip: 'Production queued for the next cycle', power: true },
-  { key: 'queued_demand', label: 'Q. Demand', tooltip: 'Demand queued for the next cycle', power: true },
+  { key: 'available_power', label: 'Available', tooltip: 'Power available to draw this cycle' },
+  { key: 'power_demand', label: 'Demand', tooltip: 'Power drawn from the net this cycle' },
+  { key: 'queued_production', label: 'Q. Prod', tooltip: 'Production queued for the next cycle' },
+  { key: 'queued_demand', label: 'Q. Demand', tooltip: 'Demand queued for the next cycle' },
 ];
 
 const SortHeaderCell = (props) => {
