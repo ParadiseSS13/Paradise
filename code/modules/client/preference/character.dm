@@ -537,9 +537,9 @@
 	pda_ringtone = query.item[61]
 	quirks = query.item[62]
 	blooper_id = query.item[63]
-	blooper_speed = query.item[64]
-	blooper_pitch = query.item[65]
-	blooper_pitch_range = query.item[66]
+	blooper_speed = text2num(query.item[64])
+	blooper_pitch = text2num(query.item[65])
+	blooper_pitch_range = text2num(query.item[66])
 
 
 	//Sanitize
