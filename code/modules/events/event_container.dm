@@ -193,6 +193,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 7),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 7),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/swarmers, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/marketing_virus, 15, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 15, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 40, TRUE, _first_run_time = 35 MINUTES),

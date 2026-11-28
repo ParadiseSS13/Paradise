@@ -23,6 +23,8 @@
 ///from base of area/Exited(): (atom/movable/M)
 #define COMSIG_AREA_EXITED "area_exited"
 
+#define COMSIG_MOVABLE_ENTERED_AREA "movable_entered_area"
+
 // /turf
 
 ///from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
