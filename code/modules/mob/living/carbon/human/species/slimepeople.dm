@@ -13,11 +13,11 @@
 	max_age = 130
 	language = "Bubblish"
 
-	blurb = "Slime People are gelatinous and translucent beings hailing from the tropical world of Xarxis 5 and surrounding Xarxis Republic. \
-	Relatively recent entrants to the galactic scene, the Xarxis Republic, and slime people by extension, were discovered in the mid-2400s by a TSF survery fleet..<br/><br/> \
-	Today, the Xarxis Republic is a member state of the Trans-Solar Federation, having become an Associate State following first contact, and later moving through several stages of integration.  \
-	While a great deal of Slime People prefer the comforts and traditions of their home system and the Federation, a number have decided to take their chances in the wider sector, in \
-	search of adventure, profit, and freedom among the stars."
+	blurb = "Slime People, also known as Xarxians, are semi-aquatic humanoids composed of translucent membranes filled with gelatinous tissues, \
+	hailing from the tropical and oceanic world of Xarxis, the capital of Xarxis Republic, which itself has been a part of the Trans-Solar Federation since the mid-2300s.<br/><br/>\
+	Despite the Republic's status as an Autonomous Region, many Xarxians are opposed to what they see as Federation's occupation. This sentiment is exacerbated by the ecological devastation \
+	caused by the Federation's construction of the Xarxis Orbital Shade Array, a megastructure that regulated Xarxis' erratic seasons, making it a safer planet, but upsetting its ecosystem. \
+	Regardless of their political views, Xarxians have a culture that fosters a penchant for wanderlust and exploration, and makes many of them into excellent spacefarers."
 
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
