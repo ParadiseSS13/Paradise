@@ -132,3 +132,30 @@
 	difficulty = MEDIUM_DIFFICULTY
 	description = "Security Officers have the responsibility of enforcing Space Law and protecting the crew.\n\n\
 					Difficulties: Space Law, Standard Operating Procedure (Legal), combat, identifying antagonists"
+
+/datum/job/brig_pilot
+	title = "Brig Pilot"
+	flag = JOB_SEC_POD_PILOT
+	department_flag = JOBCAT_ENGSEC
+	description = "Brig Pilots are responsible for patrolling the space around the station.\n\n\
+					Difficulties: Space movement, Space Law, Standard Operating Procedure (Legal), combat, identifying antagonists"
+	department_head = list("Head of Security")
+	total_positions = 1
+	spawn_positions = 1
+	job_department_flags = DEP_FLAG_SECURITY
+	selection_color = "#ffeeee"
+	supervisors = "the head of security"
+	minimal_player_age = 14
+	access = list(
+		ACCESS_BRIG,
+		ACCESS_BRIG_PILOT,
+		ACCESS_EVIDENCE,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SEC_DOORS,
+		ACCESS_SECURITY,
+		ACCESS_WEAPONS,
+	)
+	exp_map = list(EXP_TYPE_CREW = 600)
+	outfit = /datum/outfit/job/brig_pilot
+	difficulty = MEDIUM_DIFFICULTY
+	alt_titles = list("Security Pilot", "Space Guard", "Mounted Ranger")

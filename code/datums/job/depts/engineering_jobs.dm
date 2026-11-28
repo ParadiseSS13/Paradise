@@ -70,3 +70,29 @@
 	difficulty = MEDIUM_DIFFICULTY
 	description = "Atmospheric Technicians have the responsibility of maintaining the station's atmospherics system.\n\n\
 					Difficulties: Atmospherics, pipe manipulation, gas pressure, space movement"
+
+/datum/job/shipwright
+	title = "Shipwright"
+	flag = JOB_SHIPWRIGHT
+	department_flag = JOBCAT_ENGSEC
+	description = "Shipwrights are responsible for building and maintaining space pods.\n\n\
+					Difficulties: Pod construction, space movement"
+	department_head = list("Chief Engineer")
+	job_department_flags = DEP_FLAG_ENGINEERING
+	supervisors = "the chief engineer"
+	selection_color = "#fff5cc"
+	total_positions = 1
+	spawn_positions = 1
+	minimal_player_age = 7
+	access = list(
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_EVA,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SHIPWRIGHT,
+	)
+	exp_map = list(EXP_TYPE_CREW = 300)
+	outfit = /datum/outfit/job/shipwright
+	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	alt_titles = list("Pod Engineer")

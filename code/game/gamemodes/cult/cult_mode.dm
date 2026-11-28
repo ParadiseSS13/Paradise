@@ -6,7 +6,31 @@
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Research Director", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
+	restricted_jobs = list(
+		"AI",
+		"Blueshield",
+		"Brig Pilot",
+		"Captain",
+		"Chaplain",
+		"Chief Engineer",
+		"Chief Medical Officer",
+		"Cyborg",
+		"Detective",
+		"Head of Personnel",
+		"Head of Security",
+		"Internal Affairs Agent",
+		"Magistrate",
+		"Nanotrasen Career Trainer",
+		"Nanotrasen Navy Officer",
+		"Nanotrasen Representative",
+		"Quartermaster",
+		"Research Director",
+		"Security Officer",
+		"Special Operations Officer",
+		"Syndicate Officer",
+		"Trans-Solar Federation General",
+		"Warden",
+	)
 	protected_jobs = list()
 	required_players = 15
 	required_enemies = 1

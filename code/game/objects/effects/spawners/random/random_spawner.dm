@@ -110,29 +110,35 @@
 					spawn_loc.ChangeTurf(lootspawn)
 					continue
 
-				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
+				var/loot_result = make_item(spawn_loc, lootspawn)
+				if(islist(loot_result))
+					for(var/spawned_loot in loot_result)
+						arrange_spawned_loot(spawned_loot, container, loot_spawned)
+				else if(ismovable(loot_result))
+					arrange_spawned_loot(loot_result, container, loot_spawned)
 
-				// If we make something that then makes something else and gets itself
-				// qdel'd, we'll have a null result here. This doesn't necessarily mean
-				// that nothing's been spawned, so it's not necessarily a failure.
-				if(!spawned_loot)
-					continue
+/obj/effect/spawner/random/proc/arrange_spawned_loot(atom/movable/spawned_loot, atom/container, loot_spawned)
+	// If we make something that then makes something else and gets itself
+	// qdel'd, we'll have a null result here. This doesn't necessarily mean
+	// that nothing's been spawned, so it's not necessarily a failure.
+	if(!spawned_loot)
+		return
 
-				spawned_loot.setDir(dir)
+	spawned_loot.setDir(dir)
 
-				if(!spawn_loot_split && !spawn_random_offset)
-					if(pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if(pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else if(spawn_random_offset)
-					spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-					spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-				else if(spawn_loot_split && loot_spawned)
-					pixel_placer.place(spawned_loot, loot_spawned)
+	if(!spawn_loot_split && !spawn_random_offset)
+		if(pixel_x != 0)
+			spawned_loot.pixel_x = pixel_x
+		if(pixel_y != 0)
+			spawned_loot.pixel_y = pixel_y
+	else if(spawn_random_offset)
+		spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
+		spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
+	else if(spawn_loot_split && loot_spawned)
+		pixel_placer.place(spawned_loot, loot_spawned)
 
-				if(container)
-					spawned_loot.forceMove(container)
+	if(container)
+		spawned_loot.forceMove(container)
 
 /**
  *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,

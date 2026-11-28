@@ -19,9 +19,11 @@ sometimes a secondary material (often gold or diamond).
 		"Medical Machinery",
 		"Misc. Machinery",
 		"Research Machinery",
+		"Space Pod Boards",
 		"Subspace Telecomms",
 		"Teleportation Machinery"
 	)
+	var/board_type = /obj/item/circuitboard/circuit_imprinter
 
 /obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
 	. = ..()
@@ -31,7 +33,7 @@ sometimes a secondary material (often gold or diamond).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/initialize_parts()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
+	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
@@ -44,7 +46,7 @@ sometimes a secondary material (often gold or diamond).
 
 /obj/machinery/r_n_d/circuit_imprinter/loaded/upgraded/initialize_parts()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
+	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
@@ -108,3 +110,10 @@ sometimes a secondary material (often gold or diamond).
 	if(linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null
+
+/obj/machinery/r_n_d/circuit_imprinter/pod_board_etcher
+	name = "space pod board etcher"
+	desc = "Manufactures circuit boards for the construction of space pods."
+	categories = list("Space Pod Boards")
+	board_type = /obj/item/circuitboard/pod_board_etcher
+

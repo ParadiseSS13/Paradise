@@ -41,3 +41,19 @@
 /datum/outfit/job/atmos/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_FIRE_FIGHTER, JOB_TRAIT)
+
+/datum/outfit/job/shipwright
+	name = "Shipwright"
+	jobtype = /datum/job/shipwright
+
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
+	belt = /obj/item/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/radio/headset/headset_eng
+	gloves = /obj/item/clothing/gloves/color/black
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	r_pocket = /obj/item/storage/bag/construction
+	id = /obj/item/card/id/shipwright
+	pda = /obj/item/pda/engineering
+	box = /obj/item/storage/box/engineer

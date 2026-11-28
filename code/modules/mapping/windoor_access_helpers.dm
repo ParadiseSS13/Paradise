@@ -91,6 +91,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/ce
 	access = ACCESS_CE
 
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/shipwright
+	access = ACCESS_SHIPWRIGHT
+
+
 // -------------------- Medical access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical
 	icon_state = "access_windoor_med"

@@ -44,7 +44,7 @@
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent", "Smith")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
-								"Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician",
+								"Cremist", "Cluwne", "Work Safety Inspector", "Musician",
 								"Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO",
 								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
 								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs Agent")

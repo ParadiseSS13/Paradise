@@ -4,6 +4,7 @@ GLOBAL_LIST_INIT(occupation_pref_job_order, list(
 	"Chief Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
+	"Shipwright",
 
 	"Chief Medical Officer",
 	"Medical Doctor",
@@ -23,6 +24,7 @@ GLOBAL_LIST_INIT(occupation_pref_job_order, list(
 	"Warden",
 	"Detective",
 	"Security Officer",
+	"Brig Pilot",
 
 	"AI",
 	"Cyborg",

@@ -196,3 +196,9 @@
 	icon_state = "techstorage"
 	area_icon_text = "TECH\nSTORE"
 	request_console_name = "Tech Storage"
+
+/area/station/engineering/shipwright
+	name = "Shipwright's Workshop"
+	icon_state = "shipwright"
+	area_icon_text = "SHIP\nWRIGHT"
+
