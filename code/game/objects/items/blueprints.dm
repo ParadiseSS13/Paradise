@@ -100,7 +100,9 @@
 
 
 /obj/item/areaeditor/blueprints/Topic(href, href_list)
-	..()
+	if(..())
+		return
+
 	if(href_list["edit_area"])
 		if(get_area_type()!=AREA_STATION)
 			return

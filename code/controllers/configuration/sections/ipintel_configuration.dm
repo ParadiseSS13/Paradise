@@ -1,5 +1,6 @@
 /// Config holder for all things relating to IPIntel
 /datum/configuration_section/ipintel_configuration
+	protection_state = PROTECTION_READONLY
 	/// Is IPIntel enabled
 	var/enabled = FALSE
 	/// Are we in whitelist mode (Auto-kick people who are on proxies/VPNs)

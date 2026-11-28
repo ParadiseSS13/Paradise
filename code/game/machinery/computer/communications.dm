@@ -227,8 +227,11 @@
 					display_icon = null
 					post_status(STATUS_DISPLAY_MESSAGE, stat_msg1, stat_msg2)
 				if(STATUS_DISPLAY_ALERT)
-					display_icon = params["alert"]
-					post_status(STATUS_DISPLAY_ALERT, params["alert"])
+					var/target_alert = params["alert"]
+					if(!(target_alert in list("default", "redalert", "lockdown", "biohazard")))
+						return
+					display_icon = target_alert
+					post_status(STATUS_DISPLAY_ALERT, target_alert)
 				else
 					display_icon = null
 					post_status(display_type)
@@ -344,17 +347,17 @@
 				return
 			if(params["classified"] != 1) // this uses 1/0 on the js side instead of "true" or "false"
 				GLOB.major_announcement.Announce(
-					params["text"],
+					lesser_html_encode(params["text"]),
 					new_title = "Central Command Report",
-					new_subtitle = params["subtitle"],
+					new_subtitle = lesser_html_encode(params["subtitle"]),
 					new_sound = cc_announcement_sounds[params["beepsound"]]
 				)
-				print_command_report(params["text"], params["subtitle"])
+				print_command_report(lesser_html_encode(params["text"]), lesser_html_encode(params["subtitle"]))
 			else
 				GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
-				print_command_report(params["text"], "Classified: [params["subtitle"]]")
+				print_command_report(lesser_html_encode(params["text"]), "Classified: [lesser_html_encode(params["subtitle"])]")
 
-			log_and_message_admins("has created a communications report: [params["text"]]")
+			log_and_message_admins("has created a communications report: [lesser_html_encode(params["text"])]")
 			// Okay but this is just an IC way of accessing the same verb
 			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Create CC Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

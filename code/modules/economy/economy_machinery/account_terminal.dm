@@ -136,7 +136,7 @@
 		if("create_new_account")
 			current_page = AUT_ACCNEW
 		if("finalise_create_account")
-			var/account_name = params["holder_name"]
+			var/account_name = lesser_html_encode(params["holder_name"])
 			if(!account_name)
 				return
 			var/datum/money_account/account = GLOB.station_money_database.create_account(account_name, 0, ACCOUNT_SECURITY_ID, name, supress_log = FALSE)

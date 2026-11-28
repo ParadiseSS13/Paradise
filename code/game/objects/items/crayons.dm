@@ -103,7 +103,7 @@
 				log_admin("[key_name(usr)] has set the message of [src] to \"[preset_message]\".")
 				preset_message_index = 1
 		else
-			temp = href_list["type"]
+			temp = lesser_html_encode(href_list["type"])
 	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
 		return
 	drawtype = temp

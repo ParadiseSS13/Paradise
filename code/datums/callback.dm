@@ -42,6 +42,12 @@
 	var/list/arguments
 	var/usr_uid
 
+/datum/callback/vv_edit_var(var_name, var_value)
+	return FALSE
+
+/datum/callback/CanProcCall(procname)
+	return FALSE
+
 /datum/callback/New(thingtocall, proctocall, ...)
 	if(thingtocall)
 		object = thingtocall

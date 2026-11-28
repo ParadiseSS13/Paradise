@@ -1337,6 +1337,10 @@
 
 /mob/living/carbon/human/proc/export_dmi_json()
 	var/filename = clean_input("filename", "filename", "my_character")
+	// none of this please
+	filename = replacetext(filename, ".", "")
+	filename = replacetext(filename, "/", "")
+	filename = replacetext(filename, "\\", "")
 
 	if(filename == "")
 		return

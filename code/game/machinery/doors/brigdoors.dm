@@ -335,7 +335,7 @@
 	switch(action)
 		if("prisoner_name")
 			if(params["prisoner_name"])
-				prisoner_name = params["prisoner_name"]
+				prisoner_name = lesser_html_encode(params["prisoner_name"])
 			else
 				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN)
 				if(isnull(new_name))

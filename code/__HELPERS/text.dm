@@ -36,7 +36,7 @@
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(t, list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+	return lesser_html_encode(sanitize_simple(t,repl_chars))
 
 /// sanitize() with a pre-set list of characters to remove from IC speech.
 /proc/sanitize_for_ic(t)
@@ -61,11 +61,11 @@
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
 	var/name = input(user, message, title, lesser_html_encode(default)) as message|null
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(lesser_html_encode(name), 1, max_length)
 	else
 		if(isnull(name))
 			return null
-		return trim(html_encode(name), max_length)
+		return trim(lesser_html_encode(name), max_length)
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause

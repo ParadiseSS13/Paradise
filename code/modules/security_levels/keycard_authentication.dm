@@ -125,6 +125,10 @@
 		if("reset")
 			reset()
 		if("triggerevent")
+			var/list/valid_events = list("Red Alert", "Grant Emergency Maintenance Access", "Revoke Emergency Maintenance Access", "Activate Station-Wide Emergency Access", "Deactivate Station-Wide Emergency Access", "Emergency Response Team")
+			if(!(params["triggerevent"] in valid_events))
+				return
+
 			event = params["triggerevent"]
 			swiping = TRUE
 

@@ -42,6 +42,7 @@
 		var/selected = plist[c]
 		M.create_message(usr, selected)
 
+// someone TGUI this PLEASEEEEEEEEEE
 /obj/item/pda/silicon/verb/cmd_show_message_log()
 	set category = "AI IM"
 	set name = "Show Message Log"
@@ -54,9 +55,9 @@
 	var/HTML = "<html><meta charset='utf-8'><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
-			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=[UID()];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=[UID()];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", lesser_html_encode(index["message"]), "<br>")
 		else
-			HTML += addtext("<i><b>&larr; From <a href='byond://?src=[UID()];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+			HTML += addtext("<i><b>&larr; From <a href='byond://?src=[UID()];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", lesser_html_encode(index["message"]), "<br>")
 	HTML +="</body></html>"
 	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 

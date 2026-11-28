@@ -701,7 +701,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						submenu_imprinter = SUBMENU_PRINTER_MAIN
 
 		if("search") //Search for designs with name matching pattern
-			var/query = params["to_search"]
+			var/query = lesser_html_encode(params["to_search"])
 			var/compare
 
 

@@ -54,6 +54,9 @@ SUBSYSTEM_DEF(http)
   * These should be used as they do not lock the entire DD process up as they execute inside their own thread pool inside RUSTG
   */
 /datum/controller/subsystem/http/proc/create_async_request(method, url, body = "", list/headers, datum/callback/proc_callback)
+	if(IsAdminAdvancedProcCall())
+		return // no thanks
+
 	var/datum/http_request/req = new()
 	req.prepare(method, url, body, headers)
 	if(proc_callback)

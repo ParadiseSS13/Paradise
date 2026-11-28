@@ -168,7 +168,10 @@
 	return data
 
 /obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
-	if(!id_card || !user) return
+	if(!id_card || !user)
+		return
+	if(!istype(id_card, /obj/item/card/id))
+		return
 	var/output = {"<html><meta charset='utf-8'>
 						<head><style>
 						h1 {font-size:15px;margin-bottom:4px;}

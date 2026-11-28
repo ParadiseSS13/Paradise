@@ -193,7 +193,7 @@
 				return
 			var/transfer_amount = text2num(params["funds_amount"])
 			var/target_account_number = text2num(params["target_acc_number"])
-			var/transfer_purpose = params["purpose"]
+			var/transfer_purpose = lesser_html_encode(params["purpose"])
 			transfer_credits(transfer_amount, target_account_number, transfer_purpose, user)
 		if("view_screen")
 			var/list/valid_screen = list(ATM_SCREEN_DEFAULT, ATM_SCREEN_SECURITY, ATM_SCREEN_TRANSFER, ATM_SCREEN_LOGS)

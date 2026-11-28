@@ -50,7 +50,6 @@ const expandModalBodyOverride = (modal) => {
           onClick={() =>
             act('delete_book', {
               bookid: expandinfo.id,
-              user_ckey: user_ckey,
             })
           }
         />
@@ -84,7 +83,7 @@ const expandModalBodyOverride = (modal) => {
 const reportModalBodyOverride = (modal) => {
   const { act, data } = useBackend();
   const report_content = modal.args;
-  const { selected_report, report_categories, user_ckey } = data;
+  const { selected_report, report_categories } = data;
 
   return (
     <Section level={2} m="-1rem" pb="1.5rem" title="Report this book for Rule Violations">
@@ -116,7 +115,6 @@ const reportModalBodyOverride = (modal) => {
         onClick={() =>
           act('submit_report', {
             bookid: report_content.id,
-            user_ckey: user_ckey,
           })
         }
       />
@@ -158,8 +156,6 @@ const rateModalBodyOverride = (modal) => {
   const { act, data } = useBackend();
   const rate_content = modal.args;
 
-  const { user_ckey } = data;
-
   return (
     <Section level={2} m="-1rem" pb="1.5rem">
       <LabeledList>
@@ -181,7 +177,6 @@ const rateModalBodyOverride = (modal) => {
         onClick={() =>
           act('rate_book', {
             bookid: rate_content.id,
-            user_ckey: user_ckey,
           })
         }
       />
@@ -240,7 +235,7 @@ const LibraryPageContent = (props) => {
 const SearchTools = (properties) => {
   const { act, data } = useBackend();
 
-  const { searchcontent, book_categories, user_ckey } = data;
+  const { searchcontent, book_categories } = data;
 
   let categoryMap = [];
   {
@@ -349,15 +344,7 @@ const SearchTools = (properties) => {
             onClick={() => act('clear_ckey_search')}
           />
         ) : (
-          <Button
-            content="Find My Books"
-            icon="search"
-            onClick={() =>
-              act('find_users_books', {
-                user_ckey: user_ckey,
-              })
-            }
-          />
+          <Button content="Find My Books" icon="search" onClick={() => act('find_users_books')} />
         )}
       </Stack.Item>
     </Stack>
@@ -506,7 +493,7 @@ const ProgramatticBooks = (properties) => {
 
 const UploadBooks = (properties) => {
   const { act, data } = useBackend();
-  const { selectedbook, book_categories, user_ckey } = data;
+  const { selectedbook, book_categories } = data;
 
   let categoryMap = [];
   {
@@ -525,11 +512,7 @@ const UploadBooks = (properties) => {
           icon="upload"
           disabled={selectedbook.copyright}
           content="Upload Book"
-          onClick={() =>
-            act('uploadbook', {
-              user_ckey: user_ckey,
-            })
-          }
+          onClick={() => act('uploadbook')}
         />
       }
     >

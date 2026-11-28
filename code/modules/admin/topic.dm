@@ -2054,7 +2054,7 @@
 			to_chat(usr, SPAN_WARNING("This can only be used on instances of type /mob/living/carbon/human"))
 			return
 		var/etypes = list("Borgification", "Corgification", "Death By Fire", "Total Brain Death", "Honk Tumor", "Cluwne", "Demote", "Demote with Bot", "Revoke Fax Access", "Angry Fax Machine")
-		var/eviltype = wrapped_selection_input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "", etypes)
+		var/eviltype = wrapped_selection_input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", etypes)
 		if(!(eviltype in etypes))
 			return
 		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", null, owner)
@@ -2112,7 +2112,7 @@
 			btypes += "Human Protector"
 			btypes += "Sentient Pet"
 			btypes += "All Access"
-		var/blessing = wrapped_selection_input(owner, "How would you like to bless [M]?", "Its good to be good...", "", btypes)
+		var/blessing = wrapped_selection_input(owner, "How would you like to bless [M]?", "Its good to be good...", btypes)
 		if(!(blessing in btypes))
 			return
 		var/logmsg = null

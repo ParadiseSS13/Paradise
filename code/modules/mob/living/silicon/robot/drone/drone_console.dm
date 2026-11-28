@@ -98,7 +98,7 @@
 			log_game("[key_name(usr)] [toggle]d maintenance drone production from the control console.")
 
 		if("set_area")
-			drone_call_area = params["area"]
+			drone_call_area = lesser_html_encode(params["area"])
 
 		if("ping")
 			ping_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam

@@ -37,13 +37,6 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null, user = client)
 		if(!procname)	return
 
-		// absolutely not
-		if(findtextEx(trim(lowertext(procname)), "rustlibs"))
-			message_admins(SPAN_USERDANGER("[key_name_admin(client)] attempted to proc call rustlibs procs. Inform the host <u>at once</u>."))
-			log_admin("[key_name(client)] attempted to proc call rustlibs procs. Inform the host at once.")
-			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call rustlibs procs. Inform the host at once.")
-			return
-
 		if(targetselected && !hascall(target,procname))
 			to_chat(client, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
 			return
@@ -128,6 +121,20 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
+	var/list/banned_calls = list("addtimer", "___callbackvarset", "immediateinvokeasync")
+	if(trim(lowertext(procname)) in banned_calls)
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Call to /proc/[procname] blocked: Advanced ProcCall detected."))
+		message_admins("[key_name(usr)] attempted to call /proc/[procname] with arguments: [english_list(arguments)]")
+		log_admin("[key_name(usr)] attempted to call /proc/[procname] with arguments: [english_list(arguments)]")
+		return
+
+	// absolutely not
+	if(findtextEx(trim(lowertext(procname)), "rustlibs"))
+		message_admins(SPAN_USERDANGER("[key_name_admin(usr)] attempted to proc call rustlibs procs. Inform the host <u>at once</u>."))
+		log_admin("[key_name(usr)] attempted to proc call rustlibs procs. Inform the host at once.")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(usr)] attempted to proc call rustlibs procs. Inform the host at once.")
+		return
+
 	if(target == GLOBAL_PROC)
 		return call("/proc/[procname]")(arglist(arguments))
 	else if(target != world)
@@ -135,7 +142,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Call to world/proc/[procname] blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
-		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
+		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 
 /proc/IsAdminAdvancedProcCall()
 #ifdef TESTING

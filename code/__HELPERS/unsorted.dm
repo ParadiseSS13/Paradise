@@ -1946,6 +1946,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   * * url - URL to GET
   */
 /proc/HTTPGet(url)
+	if(IsAdminAdvancedProcCall())
+		return // no thanks
+
 	var/datum/http_request/req = new
 	req.prepare(RUSTLIBS_HTTP_METHOD_GET, url)
 	req.begin_async()
