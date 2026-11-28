@@ -7337,13 +7337,13 @@
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "aFx" = (
-/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/apc/critical/directional/north,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "aFy" = (
@@ -17505,10 +17505,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/critical/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "djD" = (
@@ -22834,10 +22834,10 @@
 /area/station/security/gamma_dock)
 "gdA" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/important/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "gdP" = (
@@ -42539,7 +42539,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/obj/machinery/power/apc/directional/east,
+/obj/machinery/power/apc/critical/directional/east,
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "rgD" = (
@@ -47430,7 +47430,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/directional/north,
+/obj/machinery/power/apc/critical/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "tsH" = (
