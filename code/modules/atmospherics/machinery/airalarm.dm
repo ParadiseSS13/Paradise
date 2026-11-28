@@ -1200,7 +1200,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		if(!disassembled)
 			I.obj_integrity = I.max_integrity * 0.5
 		new /obj/item/stack/cable_coil(loc, 3)
-	qdel(src)
+	return ..()
 
 /obj/machinery/alarm/AltClick(mob/user)
 	if(Adjacent(user) && allowed(user) && !wires.is_cut(WIRE_IDSCAN))

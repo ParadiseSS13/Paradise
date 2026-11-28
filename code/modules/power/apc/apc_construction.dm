@@ -7,14 +7,8 @@
 	if(!(flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			set_broken()
-		if(opened != APC_COVER_OFF)
-			opened = APC_COVER_OFF
-			cover_locked = FALSE
-			visible_message(
-				SPAN_WARNING("The cover falls off [src]!"),
-				SPAN_WARNING("You hear a small flat object falling to the floor!")
-				)
-			update_icon()
+		new /obj/item/stack/sheet/metal(loc, 2)
+	return ..()
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
