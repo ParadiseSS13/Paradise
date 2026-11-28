@@ -168,17 +168,3 @@
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 	department_restrictions = list(DEPARTMENT_SERVICE)
-
-/datum/supply_packs/emergency/specialops
-	name = "Special Ops Supplies"
-	contains = list(/obj/item/storage/box/emps,
-					/obj/item/grenade/smokebomb,
-					/obj/item/grenade/smokebomb,
-					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
-					/obj/item/grenade/chem_grenade/incendiary)
-	cost = 150 // This is hard enough to get, let's make it easier to buy.
-	containertype = /obj/structure/closet/crate
-	containername = "special ops crate"
-	hidden = TRUE
-

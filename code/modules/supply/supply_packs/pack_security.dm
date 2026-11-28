@@ -38,15 +38,6 @@
 	cost = 250
 	containername = "armor crate"
 
-/datum/supply_packs/security/armor/bonus
-	name = "Bloody Armor Crate"
-	contains = list(/obj/item/clothing/suit/armor/vest/bloody,
-					/obj/item/clothing/suit/armor/vest/bloody,
-					/obj/item/clothing/suit/armor/vest/bloody)
-	cost = 400
-	containername = "bloody armor crate"
-	contraband = TRUE
-
 /datum/supply_packs/security/armory/riothelmets
 	name = "Riot Helmets Crate"
 	contains = list(/obj/item/clothing/head/helmet/riot,

@@ -144,6 +144,17 @@
 	drink_desc = "A pale beer that's the cause of many a football-related fight." // It's called football, I will kill you.
 	taste_description = "an own goal"
 
+/datum/reagent/consumable/ethanol/prison_wine
+	name = "Prison Wine"
+	id = "prison_wine"
+	description = "Also known as \"prison hooch\" or \"Pruno\", this is an improvised fermented beverage made from whatever sugar-containing ingrediants that prison inmates have access to. \
+	The alcohol content widely ranges from anywhere between 2 and 14 percent depending on the circumstances of production."
+	color = "#de5421"
+	alcohol_perc = 0.14 // Professionally made!
+	drink_name = "Glass of Prison Wine"
+	drink_desc = "It's not fancy, in fact it's quite disgusting, but if it's all you have to get drunk, you gotta do what you gotta do."
+	taste_description = "a bile-filled wine cooler"
+
 /datum/reagent/consumable/ethanol/kahlua
 	name = "Kahlua"
 	id = "kahlua"

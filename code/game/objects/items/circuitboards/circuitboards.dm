@@ -375,6 +375,10 @@
 	origin_tech = "programming=3"
 	var/contraband_enabled = 0
 
+/obj/item/circuitboard/supplycomp/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("You can use a multitool to tweak the tranciever, [contraband_enabled ? "disallowing" : "allowing"] access to contraband items.")
+
 /obj/item/circuitboard/operating
 	board_name = "Operating Computer"
 	icon_state = "medical"
