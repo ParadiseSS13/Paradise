@@ -84,7 +84,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms
 	access = ACCESS_TCOMSAT
 
-/obj/effect/mapping_helpers/airlock/access/any/engineering/hangar
+/obj/effect/mapping_helpers/airlock/access/any/engineering/shipwright
 	access = ACCESS_SHIPWRIGHT
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce
