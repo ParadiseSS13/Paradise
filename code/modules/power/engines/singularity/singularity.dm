@@ -177,6 +177,10 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 /obj/singularity/proc/do_dissipate()
 	if(!dissipate)
 		return
+	if(current_size == STAGE_FOUR)
+		// Loses more the higher it gets, so a PA on setting 2 holds it near 1500 instead of pushing it into stage five
+		energy -= round(1 + (energy - STAGE_FOUR_THRESHOLD) / 125)
+		return
 	if(dissipate_track >= dissipate_delay)
 		src.energy -= dissipate_strength
 		dissipate_track = 0
