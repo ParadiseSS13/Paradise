@@ -8,8 +8,9 @@
 * 7. M26A2 ASSAULT RIFLE
 * 8. AK-814 ASSAULT RIFLE
 * 9. AS-14 'BULLDOG' SHOTGUN
-* 10. IK-M2 LASER CARBINE
-* 11. IK-M1 LASER RIFLE
+* 10. AA-13 AUTOMATIC SHOTGUN
+* 11. IK-M2 LASER CARBINE
+* 12. IK-M1 LASER RIFLE
 */
 
 /obj/item/gun/projectile/automatic
@@ -69,7 +70,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/gun/projectile/automatic/AltClick(mob/user)
-	if(initial(burst_size) < 2)	// I hate this so much. This exists because of guns that should not be in this typepath being in this typepath, 
+	if(initial(burst_size) < 2)	// I hate this so much. This exists because of guns that should not be in this typepath being in this typepath,
 		return					// and therefore have selection options of "semi auto" and "1 round burst"!!!
 	burst_select()
 
@@ -203,7 +204,7 @@
 	if(select == 2)
 		underbarrel.try_to_shoot_gun(target, user, proximity)
 		return
-		
+
 	..(target, user, proximity)
 
 /obj/item/gun/projectile/automatic/m90/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -354,6 +355,39 @@
 // Standard traitor uplink variant
 /obj/item/gun/projectile/automatic/shotgun/bulldog/traitor
 	mag_type = /obj/item/ammo_box/magazine/m12g/rubbershot
+
+// MARK: AA-13 AUTOMATIC SHOTGUN
+/obj/item/gun/projectile/automatic/shotgun/aa13
+	name = "\improper AA13 Automatic Shotgun"
+	desc = "A bulky fully-automatic shotgun with a 12 round magazine."
+	icon_state = "aa13"
+	inhand_icon_state = "aa13"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "aa13"
+	w_class = WEIGHT_CLASS_BULKY
+	origin_tech = "combat=6;materials=4;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/aa13
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = FALSE
+	burst_size = 1
+	actions_types = list()
+	execution_speed = 5 SECONDS
+
+/obj/item/gun/projectile/automatic/shotgun/aa13/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, 0.30 SECONDS, allow_akimbo = FALSE)
+
+/obj/item/gun/projectile/automatic/shotgun/aa13/update_icon_state()
+	if(magazine)
+		icon_state = "aa13-m"
+		inhand_icon_state = "aa13-m"
+		worn_icon_state = "aa13-m"
+	else
+		icon_state = "aa13"
+		inhand_icon_state = "aa13"
+		worn_icon_state = "aa13"
 
 // MARK: IK-M2 LASER CARBINE
 /obj/item/gun/projectile/automatic/lasercarbine
