@@ -1,7 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from avulto import DME, Path as p, SourceLoc
+from avulto import DME, TypePath as p, SourceLoc
 import pytest
 
 from conftest import Lint
@@ -21,16 +21,16 @@ def test_material_recycle_costs(dme: DME, lint: Lint):
     costs: dict[p, ItemBOM] = {}
     for design in designs:
         td = dme.types[design]
-        build_type = td.var_decl("build_type").const_val
-        build_path = td.var_decl("build_path").const_val
-        materials = td.var_decl("materials").const_val
+        build_type = td.vars["build_type"].const_val
+        build_path = td.vars["build_path"].const_val
+        materials = td.vars["materials"].const_val
         if not build_type or not build_path or not build_path.child_of("/obj/item"):
             continue
         # ammo boxes update their materials dynamically based on contained ammo contents
         if build_path.child_of("/obj/item/ammo_box"):
             continue
         result_type = dme.types[build_path]
-        result_type_materials = result_type.var_decl("materials")
+        result_type_materials = result_type.vars["materials"]
         material_content = result_type_materials.const_val
         if build_path not in costs:
             costs[build_path] = ItemBOM(source_loc=result_type_materials.source_loc)

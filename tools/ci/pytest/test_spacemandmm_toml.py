@@ -1,7 +1,7 @@
 import tomllib
 
 import pytest
-from avulto import DME, Path as p
+from avulto import DME, TypePath as p
 from conftest import Lint
 
 

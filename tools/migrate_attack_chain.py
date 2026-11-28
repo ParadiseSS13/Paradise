@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 import sys
 
-from avulto import DME, Path as p
+from avulto import DME, TypePath as p
 
 
 @dataclass(frozen=True)
@@ -32,7 +32,7 @@ def get_migration_plan(
     if checked_types is None:
         checked_types = set()
     td = dme.types[target_path]
-    new_attack_chain = td.var_decl("new_attack_chain", parents=True)
+    new_attack_chain = td.vars["new_attack_chain"]
     if new_attack_chain.const_val:
         print(
             f"Type {target_path} appears to be migrated already. Run CI tests to confirm valid migration."

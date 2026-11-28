@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from avulto import DME, Path as p
+from avulto import DME, TypePath as p
 import pytest
 
 from conftest import Lint
